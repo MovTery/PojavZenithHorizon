@@ -1,0 +1,3 @@
+files:
+  - source: /app_pojavlauncher/src/main/res/values/strings.xml
+    translation: /app_pojavlauncher/src/main/res/values-%android_code%/%original_file_name%

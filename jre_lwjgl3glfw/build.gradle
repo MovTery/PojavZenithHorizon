@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.lwjgl.glfw'
+
+configurations.default.setCanBeResolved(true)
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    archiveBaseName = "lwjgl-glfw-classes"
+    destinationDirectory.set(file("../app_pojavlauncher/src/main/assets/components/lwjgl3/"))
+    // Auto update the version with a timestamp so the project jar gets updated by Pojav
+    File versionFile = file("../app_pojavlauncher/src/main/assets/components/lwjgl3/version")
+    versionFile.write(String.valueOf(new Date().getTime()))
+    from {
+        configurations.default.collect {
+            println(it.getName())
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    exclude 'net/java/openjdk/cacio/ctc/**'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
