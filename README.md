@@ -1,5 +1,5 @@
 # PojavLauncher-非官方汉化更新
-<img src="https://github.com/HopiHopy/PojavZH/blob/v3_openjdk/PojavZH.png" align="left" width="130" height="150" alt="PojavZH logo">
+<img src="https://github.com/HopiHopy/PojavZH/blob/v3_openjdk/PojavZH.png" align="left" width="150" height="150" alt="PojavZH logo">
 
 ## 介绍
 * 你好！欢迎来到PojavLauncher非官方汉化更新的分支！
@@ -19,7 +19,7 @@
 * 当然，我也会将版本号同步为最新主线[v3_openjdk](https://github.com/PojavLauncherTeam/PojavLauncher/tree/v3_openjdk)的版本号，保证不会出现安装失败的问题（例如版本号过低、签名不一致、更新完PojavZH后无法再次回退安装官方PojavLauncher）
 
 ## 下载
-前往[Actions](https://github.com/HopiHopy/PojavChineseTranslation/actions)查看最新的中文语言更新版本(主线：v3_openjdk、独立软件：Alone，其他任何支线均可忽略！)
+前往[Actions](https://github.com/HopiHopy/PojavZH/actions)查看最新的中文语言更新版本(主线：v3_openjdk、独立软件：Alone，其他任何支线均可忽略！)
 ，进入后，点击**Pojav汉化更新**下载！
 
 前往[Release](https://github.com/HopiHopy/PojavZH/releases)查看最新且经过测试的稳定版本！
