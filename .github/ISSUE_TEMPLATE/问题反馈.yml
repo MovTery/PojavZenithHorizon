@@ -1,0 +1,59 @@
+name: 问题反馈
+description: ' 创建一份问题反馈报告以帮助我们改进PojavZH '
+title: "<这是一个简短的标题>"
+labels: [bug]
+body:
+- type: textarea
+  id: version
+  attributes:
+    label: 问题
+    description: >-
+      简单描述一下这个问题吧
+    placeholder: '例如：用了这个软件之后，我的游戏无法正常启动'
+  validations:
+    required: true
+
+- type: textarea
+  attributes:
+    label: 
+    description: |
+      请说明一下您是如何操作导致问题出现的，或者请您将latestlog.txt文件上传至此处，方便我们排查问题。
+      或者您也可以提供视频、截图来帮助我们解决您的问题。
+      
+      Tip: 您可以通过单击此区域将其突出显示，然后将文件拖入或在工具栏上的选项中选择文件来附加文件。
+  validations:
+    required: true
+
+- type: textarea
+  attributes:
+    label: 此问题仅限PojavZH吗？
+    description: 请告诉我这个问题仅局限于PojavZH吗？还是说官方PojavLauncher也有这个问题。
+    placeholder: '是 或 不是'
+  validations:
+    required: false
+
+- type: textarea
+  attributes:
+    label: 其他信息
+    description: |
+      Examples:
+        - **手机型号**: Mi 8 Pro 8/128G
+        - **CPU 架构**: aarch64
+        - **Android 版本**: 10
+        - **PojavLauncher 版本号**: 9939300
+    value: |
+        - **手机型号**: 
+        - **CPU 架构**: 
+        - **Android 版本**: 
+        - **PojavLauncher 版本号**: 
+    render: markdown
+  validations:
+    required: true
+
+- type: textarea
+  attributes:
+    label: 还有其他事情吗？
+    description: |
+      如果还有其他的事情，请在此说明。
+  validations:
+    required: false
