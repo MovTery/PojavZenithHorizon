@@ -1,7 +1,9 @@
 name: 问题反馈
-description: ' 创建一份问题反馈报告以帮助我们改进PojavZH '
-title: "<这是一个简短的标题>"
-labels: [bug]
+description: 创建一份问题反馈报告以帮助我们改进PojavZH
+title: "[问题]: <这是一个简短的标题>"
+labels: ["问题"]
+assignees:
+  - HopiHopy
 body:
 - type: textarea
   id: version
@@ -24,13 +26,15 @@ body:
   validations:
     required: true
 
-- type: textarea
-  attributes:
-    label: 此问题仅限PojavZH吗？
-    description: 请告诉我这个问题仅局限于PojavZH吗？还是说官方PojavLauncher也有这个问题。
-    placeholder: '是 或 不是'
-  validations:
-    required: false
+  - type: dropdown
+    id: 选择：
+    attributes:
+      label: 这个问题仅局限于PojavZH吗？
+      multiple: true
+      options:
+        - 是
+        - 否
+      required: true
 
 - type: textarea
   attributes:
