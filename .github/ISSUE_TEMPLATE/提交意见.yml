@@ -2,7 +2,8 @@ name: 提交意见
 description: '有什么想法吗？告诉我们吧！'
 title: "<一个简单的标题>"
 labels: [意见]
-
+assignees:
+  - HopiHopy
 body:
 - type: textarea
   id: version
