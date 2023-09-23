@@ -1,0 +1,32 @@
+name: 提交意见
+description: 'Ask for new features.'
+title: "[F-Req] <Short description>"
+labels: [意见]
+body:
+- type: textarea
+  id: version
+  attributes:
+    label: 请说明一下您的意见
+    description: |
+      请详细描述一下您的意见，用词准确，无错别字，请勿使用网络热梗。
+    placeholder: '例如：XX 文件中的第 XX 行应该被修改为 XX 最为合适。'
+  validations:
+    required: true
+
+- type: textarea
+  attributes:
+    label: 请提供更多信息
+    description: |
+      如果可以，麻烦您在这里贴上您的截图或者是视频，方便我们确认。如果都没有，那就在这里详细说明一下吧。
+      Tip: 您可以通过单击此区域将其突出显示，然后将文件拖入或在工具栏上的选项中选择文件来附加文件。
+      placeholder: '例如：这样的翻译是不合适的，我认为...'
+  validations:
+    required: false
+
+- type: textarea
+  attributes:
+    label: 还有其他事吗？
+    description: |
+      如果还有其他的事情，请在这里说明。
+  validations:
+    required: false
