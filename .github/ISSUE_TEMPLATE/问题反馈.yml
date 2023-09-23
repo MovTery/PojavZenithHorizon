@@ -15,7 +15,7 @@ body:
 
 - type: textarea
   attributes:
-    label: 
+    label: 提供更多信息
     description: |
       请说明一下您是如何操作导致问题出现的，或者请您将latestlog.txt文件上传至此处，方便我们排查问题。
       或者您也可以提供视频、截图来帮助我们解决您的问题。
