@@ -8,10 +8,6 @@
     <string name="zh_microsoft_ccount">微软账号</string>
     <string name="zh_local_account">离线账号</string>
     <string name="zh_custom_path">自定义路径</string>
-    <string name="zh_gestures">手势</string>
-    <string name="zh_buttons">控制键</string>
-    <string name="zh_categories">设置</string>
-    <string name="zh_video_settings">视频设置</string>
     <string name="zh_visibility">可见性</string>
     <string name="zh_in_game">游戏内</string>
     <string name="zh_in_menu">菜单内</string>
@@ -306,4 +302,11 @@
     <string name="notif_error_occured">错误</string>
     <string name="notif_error_occured_desc">点击查看详细信息</string>
     <string name="fabric_dl_only_stable">仅显示稳定版本</string>
+    <string name="preference_category_gestures">手势</string>
+    <string name="preference_category_buttons">控制键</string>
+    <string name="preference_category_experimental_settings">实验性的补丁</string>
+    <string name="preference_category_java_tweaks">Java 调整</string>
+    <string name="preference_category_main_categories">设置</string>
+    <string name="preference_category_miscellaneous">其他设置</string>
+    <string name="preference_category_video">视频设置</string>
 </resources>

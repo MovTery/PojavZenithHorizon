@@ -3,17 +3,10 @@
     <!-- App name part -->
     <string name="app_name">PojavLauncher (Minecraft: Java Edition for Android)</string>
     <string name="app_short_name">PojavLauncher</string>
-    <!-- Pojav ZH -->
+<!-- Pojav ZH -->
     <string name="zh_microsoft_ccount">Microsoft Account</string>
     <string name="zh_local_account">Local account</string>
     <string name="zh_custom_path">Custom path</string>
-    <string name="zh_gestures">Gestures</string>
-    <string name="zh_buttons">Buttons</string>
-    <string name="zh_experimental_fuckury">Experimental fuckury</string>
-    <string name="zh_java_tweaks">Java Tweaks</string>
-    <string name="zh_categories">Categories</string>
-    <string name="zh_miscellaneous_settings">Miscellaneous settings</string>
-    <string name="zh_video_settings">Video settings</string>
     <string name="zh_visibility">Visibility</string>
     <string name="zh_in_game">In game</string>
     <string name="zh_in_menu">In menu</string>
@@ -359,4 +352,11 @@
     <string name="notif_error_occured">An error has occurred</string>
     <string name="notif_error_occured_desc">Click to see more details</string>
     <string name="fabric_dl_only_stable">Show only stable versions</string>
+    <string name="preference_category_gestures">Gestures</string>
+    <string name="preference_category_buttons">Buttons</string>
+    <string name="preference_category_experimental_settings">Experimental fuckury</string>
+    <string name="preference_category_java_tweaks">Java Tweaks</string>
+    <string name="preference_category_main_categories">Categories</string>
+    <string name="preference_category_miscellaneous">Miscellaneous settings</string>
+    <string name="preference_category_video">Video settings</string>
 </resources>
