@@ -43,7 +43,6 @@
             android:summary="@string/mcl_setting_subtitle_use_surface_view"
             android:title="@string/mcl_setting_title_use_surface_view"
             />
-
         <androidx.preference.SwitchPreferenceCompat
             android:defaultValue="false"
             android:key="force_vsync"

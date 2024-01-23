@@ -150,6 +150,7 @@
     <string name="customctrl_passthru">滑鼠透傳</string>
     <string name="customctrl_swipeable">可滑動</string>
     <string name="customctrl_forward_lock">鎖定前進</string>
+    <string name="customctrl_absolute_tracking">絕對手指追蹤</string>
     <string name="memory_warning_msg">當前可用內存（%d）低於所分配的內存（%d），這可能會導致遊戲崩潰，如果遊戲崩潰請更改配置！</string>
     <string name="mcl_memory_allocation">內存分配</string>
     <string name="mcl_memory_allocation_subtitle">控製給 Minecraft 分配多少內存</string>
@@ -331,4 +332,7 @@
     <string name="preference_vsync_in_zink_title">允許與Zink進行垂直同步</string>
     <string name="preference_vsync_in_zink_description">允許啟動器使用內部系統API為Zink啟用垂直同步。 如果啟動器正在使用Zink，你的系統更新導致啟動器崩潰，請關閉此功能</string>
     <string name="exception_failed_to_unpack_jre17">安裝JRE 17失敗</string>
+    <string name="newdl_starting">讀取遊戲元數據中…</string>
+    <string name="newdl_downloading_metadata">下載遊戲元數據中 (%s)</string>
+    <string name="newdl_downloading_game_files">下載遊戲文件中… (%d/%d, %.2f MB)</string>
 </resources>

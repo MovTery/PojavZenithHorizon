@@ -55,7 +55,9 @@ import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 import net.kdt.pojavlaunch.multirt.Runtime;
 import net.kdt.pojavlaunch.plugins.FFmpegPlugin;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
+import net.kdt.pojavlaunch.utils.DateUtils;
 import net.kdt.pojavlaunch.utils.DownloadUtils;
+import net.kdt.pojavlaunch.utils.FileUtils;
 import net.kdt.pojavlaunch.utils.JREUtils;
 import net.kdt.pojavlaunch.utils.JSONUtils;
 import net.kdt.pojavlaunch.utils.OldVersionsUtils;
@@ -80,9 +82,12 @@ import java.io.StringWriter;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 @SuppressWarnings("IOStreamConstructor")
@@ -157,7 +162,7 @@ public final class Tools {
         DIR_HOME_LIBRARY = DIR_GAME_NEW + "/libraries";
         DIR_HOME_CRASH = DIR_GAME_NEW + "/crash-reports";
         ASSETS_PATH = DIR_GAME_NEW + "/assets";
-        OBSOLETE_RESOURCES_PATH= DIR_GAME_NEW + "/resources";
+        OBSOLETE_RESOURCES_PATH = DIR_GAME_NEW + "/resources";
         CTRLMAP_PATH = DIR_GAME_HOME + "/controlmap";
         CTRLDEF_FILE = DIR_GAME_HOME + "/controlmap/default.json";
         NATIVE_LIB_DIR = ctx.getApplicationInfo().nativeLibraryDir;
@@ -239,7 +244,7 @@ public final class Tools {
     }
     public static void disableSplash(File dir) {
         File configDir = new File(dir, "config");
-        if(configDir.exists() || configDir.mkdirs()) {
+        if(FileUtils.ensureDirectorySilently(configDir)) {
             File forgeSplashFile = new File(dir, "config/splash.properties");
             String forgeSplashContent = "enabled=true";
             try {
@@ -339,6 +344,18 @@ public final class Tools {
         }
 
         String userType = "mojang";
+        try {
+            Date creationDate = DateUtils.getOriginalReleaseDate(versionInfo);
+            // Minecraft 22w43a which adds chat reporting (and signing) was released on
+            // 26th October 2022. So, if the date is not before that (meaning it is equal or higher)
+            // change the userType to MSA to fix the missing signature
+            if(creationDate != null && !DateUtils.dateBefore(creationDate, 2022, 9, 26)) {
+                userType = "msa";
+            }
+        }catch (ParseException e) {
+            Log.e("CheckForProfileKey", "Failed to determine profile creation date, using \"mojang\"", e);
+        }
+
 
         Map<String, String> varArgMap = new ArrayMap<>();
         varArgMap.put("auth_session", profile.accessToken); // For legacy versions of MC
@@ -404,7 +421,7 @@ public final class Tools {
         return libInfos[0].replaceAll("\\.", "/") + "/" + libInfos[1] + "/" + libInfos[2] + "/" + libInfos[1] + "-" + libInfos[2] + ".jar";
     }
 
-    public static String getPatchedFile(String version) {
+    public static String getClientClasspath(String version) {
         return DIR_HOME_VERSION + "/" + version + "/" + version + ".jar";
     }
 
@@ -425,27 +442,31 @@ public final class Tools {
     }
 
     private final static boolean isClientFirst = false;
-    public static String generateLaunchClassPath(JMinecraftVersionList.Version info,String actualname) {
-        StringBuilder libStr = new StringBuilder(); //versnDir + "/" + version + "/" + version + ".jar:";
+    public static String generateLaunchClassPath(JMinecraftVersionList.Version info, String actualname) {
+        StringBuilder finalClasspath = new StringBuilder(); //versnDir + "/" + version + "/" + version + ".jar:";
 
         String[] classpath = generateLibClasspath(info);
 
         if (isClientFirst) {
-            libStr.append(getPatchedFile(actualname));
+            finalClasspath.append(getClientClasspath(actualname));
         }
-        for (String perJar : classpath) {
-            if (!new File(perJar).exists()) {
-                Log.d(APP_NAME, "Ignored non-exists file: " + perJar);
+        for (String jarFile : classpath) {
+            if (!FileUtils.exists(jarFile)) {
+                Log.d(APP_NAME, "Ignored non-exists file: " + jarFile);
                 continue;
             }
-            libStr.append((isClientFirst ? ":" : "")).append(perJar).append(!isClientFirst ? ":" : "");
+            finalClasspath.append((isClientFirst ? ":" : "")).append(jarFile).append(!isClientFirst ? ":" : "");
         }
         if (!isClientFirst) {
-            libStr.append(getPatchedFile(actualname));
+            finalClasspath.append(getClientClasspath(actualname));
         }
 
-        return libStr.toString();
+        return finalClasspath.toString();
     }
+
+
+
+
 
     public static DisplayMetrics getDisplayMetrics(Activity activity) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -517,9 +538,7 @@ public final class Tools {
 
     public static void copyAssetFile(Context ctx, String fileName, String output, String outputName, boolean overwrite) throws IOException {
         File parentFolder = new File(output);
-        if(!parentFolder.exists() && !parentFolder.mkdirs()) {
-            throw new IOException("Failed to create parent directory");
-        }
+        FileUtils.ensureDirectory(parentFolder);
         File destinationFile = new File(output, outputName);
         if(!destinationFile.exists() || overwrite){
             try(InputStream inputStream = ctx.getAssets().open(fileName)) {
@@ -658,7 +677,7 @@ public final class Tools {
         return true; // allow if none match
     }
 
-    private static void preProcessLibraries(DependentLibrary[] libraries) {
+    public static void preProcessLibraries(DependentLibrary[] libraries) {
         for (int i = 0; i < libraries.length; i++) {
             DependentLibrary libItem = libraries[i];
             String[] version = libItem.name.split(":")[2].split("\\.");
@@ -838,12 +857,13 @@ public final class Tools {
         return read(new FileInputStream(path));
     }
 
+    public static String read(File path) throws IOException {
+        return read(new FileInputStream(path));
+    }
+
     public static void write(String path, String content) throws IOException {
         File file = new File(path);
-        File parent = file.getParentFile();
-        if(parent != null && !parent.exists()) {
-            if(!parent.mkdirs()) throw new IOException("Failed to create parent directory");
-        }
+        FileUtils.ensureParentDirectory(file);
         try(FileOutputStream outStream = new FileOutputStream(file)) {
             IOUtils.write(content, outStream);
         }
@@ -961,7 +981,6 @@ public final class Tools {
                 .setView(editText)
                 .setPositiveButton(android.R.string.ok, (di, i) -> {
                     Intent intent = new Intent(activity, JavaGUILauncherActivity.class);
-                    intent.putExtra("skipDetectMod", true);
                     intent.putExtra("javaArgs", editText.getText().toString());
                     activity.startActivity(intent);
                 });
@@ -969,9 +988,9 @@ public final class Tools {
     }
 
     /** Display and return a progress dialog, instructing to wait */
-    private static ProgressDialog getWaitingDialog(Context ctx){
+    public static ProgressDialog getWaitingDialog(Context ctx, int message){
         final ProgressDialog barrier = new ProgressDialog(ctx);
-        barrier.setMessage(ctx.getString(R.string.global_waiting));
+        barrier.setMessage(ctx.getString(message));
         barrier.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         barrier.setCancelable(false);
         barrier.show();
@@ -979,30 +998,13 @@ public final class Tools {
         return barrier;
     }
 
-    /** Copy the mod file, and launch the mod installer activity */
+    /** Launch the mod installer activity. The Uri must be from our own content provider or
+     * from ACTION_OPEN_DOCUMENT
+     */
     public static void launchModInstaller(Activity activity, @NonNull Uri uri){
-        final ProgressDialog alertDialog = getWaitingDialog(activity);
-
-        alertDialog.setMessage(activity.getString(R.string.multirt_progress_caching));
-        sExecutorService.execute(() -> {
-            try {
-                final String name = getFileName(activity, uri);
-                final File modInstallerFile = new File(Tools.DIR_CACHE, name);
-                FileOutputStream fos = new FileOutputStream(modInstallerFile);
-                InputStream input = activity.getContentResolver().openInputStream(uri);
-                IOUtils.copy(input, fos);
-                input.close();
-                fos.close();
-                activity.runOnUiThread(() -> {
-                    alertDialog.dismiss();
-                    Intent intent = new Intent(activity, JavaGUILauncherActivity.class);
-                    intent.putExtra("modFile", modInstallerFile);
-                    activity.startActivity(intent);
-                });
-            }catch(IOException e) {
-                Tools.showError(activity, e);
-            }
-        });
+        Intent intent = new Intent(activity, JavaGUILauncherActivity.class);
+        intent.putExtra("modUri", uri);
+        activity.startActivity(intent);
     }
 
 
@@ -1090,6 +1092,23 @@ public final class Tools {
         int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         t.measure(widthMeasureSpec, heightMeasureSpec);
         return t.getMeasuredHeight();
+    }
+
+    /**
+     * Check if the device is one of the devices that may be affected by the hanging linker issue.
+     * The device is affected if the linker causes the process to lock up when dlopen() is called within
+     * dl_iterate_phdr().
+     * For now, the only affected firmware that I know of is Android 5.1, EMUI 3.1 on MTK-based Huawei
+     * devices.
+     * @return if the device is affected by the hanging linker issue.
+     */
+    public static boolean deviceHasHangingLinker() {
+        // Android Oreo and onwards have GSIs and most phone firmwares at that point were not modified
+        // *that* intrusively. So assume that we are not affected.
+        if(SDK_INT >= Build.VERSION_CODES.O) return false;
+        // Since the affected function in LWJGL is rarely used (and when used, it's mainly for debug prints)
+        // we can make the search scope a bit more broad and check if we are running on a Huawei device.
+        return Build.MANUFACTURER.toLowerCase(Locale.ROOT).contains("huawei");
     }
 
     public static class RenderersList {

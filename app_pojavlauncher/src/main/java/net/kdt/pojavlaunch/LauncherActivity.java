@@ -1,10 +1,6 @@
 package net.kdt.pojavlaunch;
 
-import android.content.Intent;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.Manifest;
-import android.net.Uri;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -45,6 +41,7 @@ import net.kdt.pojavlaunch.services.ProgressServiceKeeper;
 import net.kdt.pojavlaunch.tasks.AsyncMinecraftDownloader;
 import net.kdt.pojavlaunch.tasks.AsyncVersionList;
 import net.kdt.pojavlaunch.lifecycle.ContextAwareDoneListener;
+import net.kdt.pojavlaunch.tasks.MinecraftDownloader;
 import net.kdt.pojavlaunch.utils.NotificationUtils;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
@@ -136,7 +133,7 @@ public class LauncherActivity extends BaseActivity {
         }
         String normalizedVersionId = AsyncMinecraftDownloader.normalizeVersionId(prof.lastVersionId);
         JMinecraftVersionList.Version mcVersion = AsyncMinecraftDownloader.getListedVersion(normalizedVersionId);
-        new AsyncMinecraftDownloader().start(
+        new MinecraftDownloader().start(
                 this,
                 mcVersion,
                 normalizedVersionId,
