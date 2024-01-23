@@ -1,6 +1,10 @@
 package net.kdt.pojavlaunch;
 
+import android.content.Intent;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.Manifest;
+import android.net.Uri;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
