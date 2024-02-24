@@ -1,9 +1,9 @@
 {
   "profiles": {
-    "(Default)": {
-      "name": "(Default)",
+    "(默认)": {
+      "name": "(默认)",
       "lastVersionId": "1.7.10"
     }
   },
-  "selectedProfile": "(Default)"
+  "selectedProfile": "(默认)"
 }

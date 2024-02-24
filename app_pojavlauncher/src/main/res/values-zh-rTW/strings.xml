@@ -3,8 +3,9 @@
     <!-- App name part -->
     <string name="app_name">PojavLauncher(漢化更新-中文繁體)</string>
     <string name="app_short_name">PojavLauncher</string>
-    <string name="app_motd">在您的設備上啟動《Minecraft：Java版》！</string>
     <!-- Pojav ZH -->
+    <string name="zh_add_control_button">按鍵</string>
+    <string name="zh_add_control_drawer">組合鍵</string>
     <string name="zh_microsoft_ccount">微軟賬號</string>
     <string name="zh_local_account">離線賬號</string>
     <string name="zh_custom_path">自定義路徑</string>
@@ -18,6 +19,8 @@
     <string name="zh_first_start">感謝您使用《PojavLauncher》非官方完全漢化版：《Pojav ZH》！\n軟件作者：（B站）墨北Hopy。\n\n本軟件對語言部分進行了修改，其他內容盡可能與官方版本保持一致。\n如果您在使用過程中遇到了問題，請在B站私信我哦！\n（https://space.bilibili.com/2008204513）</string>
     <string name="zh_first_start_button1">訪問作者B站主頁</string>
     <string name="zh_first_start_button2">不再提示</string>
+    <string name="zh_log_output">日誌輸出:</string>
+    <string name="zh_default">默認</string>
     <!-- Login strings -->
     <string name="login_online_username_hint">電子郵箱或用戶名</string>
     <string name="login_online_login_label">登錄</string>
