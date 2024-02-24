@@ -3,7 +3,7 @@
     <!-- App name part -->
     <string name="app_name">PojavLauncher (Minecraft: Java Edition for Android)</string>
     <string name="app_short_name">PojavLauncher</string>
-<!-- Pojav ZH -->
+    <!-- Pojav ZH -->
     <string name="zh_microsoft_ccount">Microsoft Account</string>
     <string name="zh_local_account">Local account</string>
     <string name="zh_custom_path">Custom path</string>
