@@ -20,7 +20,7 @@ public class RTSpinnerAdapter implements SpinnerAdapter {
     final List<Runtime> mRuntimes;
     public RTSpinnerAdapter(@NonNull Context context, List<Runtime> runtimes) {
         mRuntimes = runtimes;
-        Runtime runtime = new Runtime(String.valueOf(R.string.zh_default), "", null, 0);
+        Runtime runtime = new Runtime(context.getString(R.string.zh_default), "", null, 0);
         mRuntimes.add(runtime);
         mContext = context;
     }

@@ -3,7 +3,6 @@ package net.kdt.pojavlaunch.customcontrols;
 import com.google.gson.JsonSyntaxException;
 
 import net.kdt.pojavlaunch.LwjglGlfwKeycode;
-import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 
 import org.json.JSONArray;
@@ -37,7 +36,7 @@ public class LayoutConverter {
                 return null;
             }
         } catch (JSONException e) {
-            throw new JsonSyntaxException(String.valueOf(R.string.zh_load_failed), e);
+            throw new JsonSyntaxException("加载失败", e);
         }
     }
 

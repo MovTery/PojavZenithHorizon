@@ -51,7 +51,6 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 				case 6: // Saving the currently shown control
 					try {
 						Uri contentUri = DocumentsContract.buildDocumentUri(getString(R.string.storageProviderAuthorities), mControlLayout.saveToDirectory(mControlLayout.mLayoutFileName));
-
 						Intent shareIntent = new Intent();
 						shareIntent.setAction(Intent.ACTION_SEND);
 						shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
