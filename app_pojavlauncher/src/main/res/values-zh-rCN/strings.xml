@@ -335,4 +335,9 @@
     <string name="newdl_starting">读取游戏元数据中…</string>
     <string name="newdl_downloading_metadata">下载游戏元数据中 (%s)</string>
     <string name="newdl_downloading_game_files">下载游戏文件中… (%d/%d, %.2f MB)</string>
+    <string name="cropper_title">选择图像区域</string>
+    <string name="cropper_lock_vertical">横轴锁定</string>
+    <string name="cropper_lock_horizontal">纵轴锁定</string>
+    <string name="cropper_reset">重置</string>
+    <string name="cropper_select_cancelled">选择已取消</string>
 </resources>
