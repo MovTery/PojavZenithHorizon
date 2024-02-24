@@ -4,6 +4,8 @@
     <string name="app_name">PojavLauncher(汉化更新)</string>
     <string name="app_short_name">PojavLauncher</string>
     <!-- Pojav ZH -->
+    <string name="zh_add_control_button">按键</string>
+    <string name="zh_add_control_drawer">组合键</string>
     <string name="zh_microsoft_ccount">微软账号</string>
     <string name="zh_local_account">离线账号</string>
     <string name="zh_custom_path">自定义路径</string>
@@ -17,6 +19,8 @@
     <string name="zh_first_start">感谢您使用《PojavLauncher》非官方完全汉化版：《Pojav ZH》！\n汉化者：（B站）墨北MovTery。\n\n汉化版对语言部分进行了修改，其他内容尽可能与官方版本保持一致。\n如果您在使用过程中遇到了问题，请在B站私信我哦！\n（https://space.bilibili.com/2008204513）</string>
     <string name="zh_first_start_button1">访问汉化者的B站主页</string>
     <string name="zh_first_start_button2">不再提示</string>
+    <string name="zh_log_output">日志输出:</string>
+    <string name="zh_default">默认</string>
     
     <!-- Action bar part -->
 
