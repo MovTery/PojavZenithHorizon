@@ -2,7 +2,6 @@ package net.kdt.pojavlaunch.profiles;
 
 import static net.kdt.pojavlaunch.Tools.getGameDirPath;
 
-import net.kdt.pojavlaunch.Logger;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
@@ -126,7 +125,7 @@ public class ProfileLanguageSelector {
         File optionFile = new File((getGameDirPath(minecraftProfile.gameDir)), "options.txt");
         ArrayList<String> options = new ArrayList<>();
         boolean foundMatch = false;
-        String language = getLanguage(minecraftProfile.lastVersionId, "zh_cn");
+        String language = getLanguage(minecraftProfile.lastVersionId, LauncherPreferences.PREF_SWITCH_TO_CHINESE_LANGUAGE);
 
         try (BufferedReader optionFileReader = new BufferedReader(new InputStreamReader(new FileInputStream(optionFile), StandardCharsets.UTF_8))) {
             String line;

@@ -50,5 +50,15 @@
         <item>bmclapi</item>
         <item>mcbbs</item>
     </string-array>
+    <string-array name="chinese_language_names">
+        <item>简体中文（中国大陆）</item>
+        <item>繁體中文（香港特別行政區）</item>
+        <item>繁體中文（台灣）</item>
+    </string-array>
+    <string-array name="chinese_language_values">
+        <item>zh_cn</item>
+        <item>zh_hk</item>
+        <item>zh_tw</item>
+    </string-array>
 
 </resources>

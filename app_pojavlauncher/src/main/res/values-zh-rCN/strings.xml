@@ -10,6 +10,7 @@
     <string name="zh_controls_in_game">游戏内</string>
     <string name="zh_controls_in_menu">菜单内</string>
     <string name="zh_controls_unsupported_layout_version">不支持的控制布局版本！</string>
+    <string name="zh_preference_chinese_language_title">中文语言切换</string>
     <string name="zh_preference_exclusive_title">汉化版特供功能</string>
     <string name="zh_preference_exclusive_description">一些实用的功能，仅为汉化版特供</string>
     <string name="zh_profile_custom_path">自定义路径</string>
