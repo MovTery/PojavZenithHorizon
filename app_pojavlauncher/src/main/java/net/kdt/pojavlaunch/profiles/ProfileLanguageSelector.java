@@ -118,7 +118,7 @@ public class ProfileLanguageSelector {
     }
 
     public static void setToChinese(MinecraftProfile minecraftProfile) throws IOException {
-        File optionFile = new File((getGameDirPath(minecraftProfile.gameDir)) + File.separator + "options.txt");
+        File optionFile = new File((getGameDirPath(minecraftProfile.gameDir)), "options.txt");
         if (!optionFile.exists()) { // 在游戏路径中创建一个options.txt文件
             optionFile.createNewFile();
 
