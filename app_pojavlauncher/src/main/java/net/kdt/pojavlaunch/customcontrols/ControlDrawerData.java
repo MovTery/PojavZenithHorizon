@@ -1,6 +1,5 @@
 package net.kdt.pojavlaunch.customcontrols;
 
-import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 
 import java.util.ArrayList;
@@ -58,7 +57,7 @@ public class ControlDrawerData {
     }
 
     public ControlDrawerData(ArrayList<ControlData> buttonProperties){
-        this(buttonProperties, new ControlData(getOrientations().toString().substring(R.string.zh_add_control_drawer), new int[] {}, Tools.currentDisplayMetrics.widthPixels/2f, Tools.currentDisplayMetrics.heightPixels/2f));
+        this(buttonProperties, new ControlData("Drawer", new int[] {}, Tools.currentDisplayMetrics.widthPixels/2f, Tools.currentDisplayMetrics.heightPixels/2f));
     }
 
     public ControlDrawerData(ArrayList<ControlData> buttonProperties, ControlData properties){

@@ -42,7 +42,7 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 		mDrawerNavigationView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.menu_customcontrol_customactivity)));
 		mDrawerNavigationView.setOnItemClickListener((parent, view, position, id) -> {
 			switch(position) {
-				case 0: mControlLayout.addControlButton(new ControlData(getString(R.string.zh_add_control_button))); break;
+				case 0: mControlLayout.addControlButton(new ControlData("New")); break;
 				case 1: mControlLayout.addDrawer(new ControlDrawerData()); break;
 				case 2: mControlLayout.addJoystickButton(new ControlJoystickData()); break;
 				case 3: mControlLayout.openLoadDialog(); break;
@@ -51,6 +51,7 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 				case 6: // Saving the currently shown control
 					try {
 						Uri contentUri = DocumentsContract.buildDocumentUri(getString(R.string.storageProviderAuthorities), mControlLayout.saveToDirectory(mControlLayout.mLayoutFileName));
+
 						Intent shareIntent = new Intent();
 						shareIntent.setAction(Intent.ACTION_SEND);
 						shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
