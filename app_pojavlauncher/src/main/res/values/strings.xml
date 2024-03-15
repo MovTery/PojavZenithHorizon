@@ -16,7 +16,7 @@
     <string name="zh_preference_exclusive_title">Exclusive Features</string>
     <string name="zh_preference_exclusive_description">Practical features exclusive to Chinese version</string>
     <string name="zh_profile_custom_path">Custom path</string>
-    <string name="zh_setting_set_to_chinese_desc">On first launch, automatically set game language to Chinese (based on the presence of options.txt)</string>
+    <string name="zh_setting_set_to_chinese_desc">On first launch, automatically set game language to Chinese</string>
     <string name="zh_setting_set_to_chinese_title">Automatically set to Chinese</string>
     <string name="zh_view_log_output">Log output:</string>
 

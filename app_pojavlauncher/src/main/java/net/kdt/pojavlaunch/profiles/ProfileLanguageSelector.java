@@ -2,12 +2,17 @@ package net.kdt.pojavlaunch.profiles;
 
 import static net.kdt.pojavlaunch.Tools.getGameDirPath;
 
+import net.kdt.pojavlaunch.Logger;
+import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -119,11 +124,30 @@ public class ProfileLanguageSelector {
 
     public static void setToChinese(MinecraftProfile minecraftProfile) throws IOException {
         File optionFile = new File((getGameDirPath(minecraftProfile.gameDir)), "options.txt");
-        if (!optionFile.exists()) { // 在游戏路径中创建一个options.txt文件
-            optionFile.createNewFile();
+        ArrayList<String> options = new ArrayList<>();
+        boolean foundMatch = false;
+        String language = getLanguage(minecraftProfile.lastVersionId, "zh_cn");
 
-            ArrayList<String> options = new ArrayList<>();
-            options.add("lang:" + getLanguage(minecraftProfile.lastVersionId, "zh_cn"));
+        try (BufferedReader optionFileReader = new BufferedReader(new InputStreamReader(new FileInputStream(optionFile), StandardCharsets.UTF_8))) {
+            String line;
+            while ((line = optionFileReader.readLine()) != null) {
+                //使用正则表达式匹配“lang: xxx”格式
+                Pattern pattern = Pattern.compile("lang:(\\S+)");
+                Matcher matcher = pattern.matcher(line);
+
+                if (matcher.find()) {
+                    foundMatch = true;
+                }
+
+                options.add(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        if (!foundMatch) {
+            options.add("lang:" + language);
             try (BufferedWriter optionFileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(optionFile), StandardCharsets.UTF_8))) {
                 for (String option : options) {
                     optionFileWriter.write(option);
