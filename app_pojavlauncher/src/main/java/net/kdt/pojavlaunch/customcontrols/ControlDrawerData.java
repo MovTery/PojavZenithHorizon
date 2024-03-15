@@ -53,11 +53,15 @@ public class ControlDrawerData {
     }
 
     public ControlDrawerData(){
-        this(new ArrayList<>());
+        this("组合键");
     }
 
-    public ControlDrawerData(ArrayList<ControlData> buttonProperties){
-        this(buttonProperties, new ControlData(new ControlString().DRAWER, new int[] {}, Tools.currentDisplayMetrics.widthPixels/2f, Tools.currentDisplayMetrics.heightPixels/2f));
+    public ControlDrawerData(String name){
+        this(new ArrayList<>(), name);
+    }
+
+    public ControlDrawerData(ArrayList<ControlData> buttonProperties, String name){
+        this(buttonProperties, new ControlData(name, new int[] {}, Tools.currentDisplayMetrics.widthPixels/2f, Tools.currentDisplayMetrics.heightPixels/2f));
     }
 
     public ControlDrawerData(ArrayList<ControlData> buttonProperties, ControlData properties){

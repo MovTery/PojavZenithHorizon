@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch.customcontrols;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.gson.JsonSyntaxException;
 
 import net.kdt.pojavlaunch.LwjglGlfwKeycode;
@@ -13,7 +15,8 @@ import org.lwjgl.glfw.CallbackBridge;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class LayoutConverter {
+public class LayoutConverter extends AppCompatActivity {
+    private static final String STRING_LOAD_FAILED = new ControlString().STRING_LOAD_FAILED;
     public static CustomControls loadAndConvertIfNecessary(String jsonPath) throws IOException, JsonSyntaxException {
 
         String jsonLayoutData = Tools.read(jsonPath);
@@ -36,7 +39,7 @@ public class LayoutConverter {
                 return null;
             }
         } catch (JSONException e) {
-            throw new JsonSyntaxException(new ControlString().STRING_LOAD_FAILED, e);
+            throw new JsonSyntaxException(STRING_LOAD_FAILED, e);
         }
     }
 

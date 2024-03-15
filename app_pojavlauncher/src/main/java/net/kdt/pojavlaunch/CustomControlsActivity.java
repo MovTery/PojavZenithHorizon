@@ -43,7 +43,7 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 		mDrawerNavigationView.setOnItemClickListener((parent, view, position, id) -> {
 			switch(position) {
 				case 0: mControlLayout.addControlButton(new ControlData(getString(R.string.zh_add_control_button))); break;
-				case 1: mControlLayout.addDrawer(new ControlDrawerData()); break;
+				case 1: mControlLayout.addDrawer(new ControlDrawerData(getString(R.string.zh_add_control_drawer))); break;
 				case 2: mControlLayout.addJoystickButton(new ControlJoystickData()); break;
 				case 3: mControlLayout.openLoadDialog(); break;
 				case 4: mControlLayout.openSaveDialog(this); break;
