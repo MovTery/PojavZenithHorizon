@@ -57,7 +57,7 @@ public class ControlDrawerData {
     }
 
     public ControlDrawerData(ArrayList<ControlData> buttonProperties){
-        this(buttonProperties, new ControlData("Drawer", new int[] {}, Tools.currentDisplayMetrics.widthPixels/2f, Tools.currentDisplayMetrics.heightPixels/2f));
+        this(buttonProperties, new ControlData(new ControlString().DRAWER, new int[] {}, Tools.currentDisplayMetrics.widthPixels/2f, Tools.currentDisplayMetrics.heightPixels/2f));
     }
 
     public ControlDrawerData(ArrayList<ControlData> buttonProperties, ControlData properties){

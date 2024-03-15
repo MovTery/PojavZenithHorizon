@@ -36,7 +36,7 @@ public class LayoutConverter {
                 return null;
             }
         } catch (JSONException e) {
-            throw new JsonSyntaxException("Failed to load", e);
+            throw new JsonSyntaxException(new ControlString().STRING_LOAD_FAILED, e);
         }
     }
 
