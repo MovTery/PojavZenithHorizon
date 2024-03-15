@@ -69,6 +69,7 @@ public class LauncherPreferences {
     public static boolean PREF_SKIP_NOTIFICATION_PERMISSION_CHECK = false;
     public static boolean PREF_VSYNC_IN_ZINK = true;
     public static boolean PREF_SET_TO_CHINESE = true;
+    public static String PREF_SWITCH_TO_CHINESE_LANGUAGE = "zh_cn";
 
 
     public static void loadPreferences(Context ctx) {
@@ -116,6 +117,7 @@ public class LauncherPreferences {
         PREF_SKIP_NOTIFICATION_PERMISSION_CHECK = DEFAULT_PREF.getBoolean(PREF_KEY_SKIP_NOTIFICATION_CHECK, false);
         PREF_VSYNC_IN_ZINK = DEFAULT_PREF.getBoolean("vsync_in_zink", true);
         PREF_SET_TO_CHINESE = DEFAULT_PREF.getBoolean("setToChinese", true);
+        PREF_SWITCH_TO_CHINESE_LANGUAGE = DEFAULT_PREF.getString("switchToChineseLanguage", "zh_cn");
 
         String argLwjglLibname = "-Dorg.lwjgl.opengl.libname=";
         for (String arg : JREUtils.parseJavaArguments(PREF_CUSTOM_JAVA_ARGS)) {
