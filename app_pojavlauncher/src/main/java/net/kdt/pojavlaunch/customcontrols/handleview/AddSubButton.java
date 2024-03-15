@@ -39,7 +39,7 @@ public class AddSubButton extends Button implements ActionButtonInterface {
         if(mCurrentlySelectedButton instanceof ControlDrawer){
             ((ControlDrawer)mCurrentlySelectedButton).getControlLayoutParent().addSubButton(
                     (ControlDrawer)mCurrentlySelectedButton,
-                    new ControlData()
+                    new ControlData(getContext().getString(R.string.zh_add_control_button))
             );
         }
     }
