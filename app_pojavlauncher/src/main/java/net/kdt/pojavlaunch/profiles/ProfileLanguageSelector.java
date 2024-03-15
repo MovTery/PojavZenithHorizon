@@ -121,7 +121,7 @@ public class ProfileLanguageSelector {
         return lang; // ? & 1.0
     }
 
-    public static void setToChinese(MinecraftProfile minecraftProfile) throws IOException {
+    public static void setToChinese(MinecraftProfile minecraftProfile) {
         File optionFile = new File((getGameDirPath(minecraftProfile.gameDir)), "options.txt");
         ArrayList<String> options = new ArrayList<>();
         boolean foundMatch = false;
