@@ -13,7 +13,7 @@
     <string name="zh_preference_exclusive_title">汉化版特供功能</string>
     <string name="zh_preference_exclusive_description">一些实用的功能，仅为汉化版特供</string>
     <string name="zh_profile_custom_path">自定义路径</string>
-    <string name="zh_setting_set_to_chinese_desc">在游戏首次启动时，自动将语言设置为中文 (以 options.txt 文件是否存在来判断是否为首次启动)</string>
+    <string name="zh_setting_set_to_chinese_desc">在游戏首次启动时，自动将语言设置为中文</string>
     <string name="zh_setting_set_to_chinese_title">自动设置为中文</string>
     <string name="zh_view_log_output">日志输出:</string>
 
