@@ -16,9 +16,9 @@
     <string name="zh_profile_custom_path">自定义路径</string>
     <string name="zh_view_log_output">日志输出:</string>
 
-    <string name="zh_first_start">感谢您使用《PojavLauncher》非官方汉化版：《Pojav ZH》！\n汉化版作者：墨北MovTery。\n\n汉化版对原有的中文语言文件进行了大量修改，修正了官方原版中不少汉化错误的内容。\n如果您在使用过程中遇到了问题，请及时反馈给我哦！</string>
-    <string name="zh_first_start_button1">联系汉化者</string>
-    <string name="zh_first_start_button2">不再提示</string>
+    <string name="zh_description">感谢您使用《PojavLauncher》非官方汉化版：《Pojav ZH》！\n汉化版作者：墨北MovTery。\n\n汉化版对原有的中文语言文件进行了大量修改，修正了官方原版中不少汉化错误的内容。\n如果您在使用过程中遇到了问题，请及时反馈给我哦！</string>
+    <string name="zh_description_button1">联系汉化者</string>
+    <string name="zh_description_button2">不再提示</string>
 
     <!-- Action bar part -->
 
