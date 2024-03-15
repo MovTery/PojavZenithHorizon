@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-22.04
     env:
       CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
+      MOVTERY_KEYSTORE_PASSWORD: ${{ secrets.MOVTERY_KEYSTORE_PASSWORD }}
 
     steps:
       - name: Checkout
@@ -86,6 +87,7 @@ jobs:
     runs-on: ubuntu-22.04
     env:
       CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
+      MOVTERY_KEYSTORE_PASSWORD: ${{ secrets.MOVTERY_KEYSTORE_PASSWORD }}
 
     steps:
       - name: Checkout
