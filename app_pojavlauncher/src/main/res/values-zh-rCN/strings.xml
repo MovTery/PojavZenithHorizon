@@ -4,24 +4,22 @@
     <string name="app_name">PojavLauncher(汉化更新)</string>
     <string name="app_short_name">PojavLauncher</string>
     <!-- Pojav ZH -->
-    <string name="zh_add_control_button">按键</string>
-    <string name="zh_add_control_drawer">组合键</string>
-    <string name="zh_microsoft_ccount">微软账号</string>
-    <string name="zh_local_account">离线账号</string>
-    <string name="zh_custom_path">自定义路径</string>
-    <string name="zh_visibility">可见性</string>
-    <string name="zh_in_game">游戏内</string>
-    <string name="zh_in_menu">菜单内</string>
-    <string name="zh_unsupported_layout_version">不支持的控制布局版本！</string>
-    <string name="zh_failed_to_save_layout">无法在以下位置保存控制布局：</string>
-    <string name="zh_load_failed">加载失败</string>
-    <string name="zh_login_start">开始登陆！</string>
-    <string name="zh_first_start">感谢您使用《PojavLauncher》非官方完全汉化版：《Pojav ZH》！\n汉化者：（B站）墨北MovTery。\n\n汉化版对语言部分进行了修改，其他内容尽可能与官方版本保持一致。\n如果您在使用过程中遇到了问题，请在B站私信我哦！\n（https://space.bilibili.com/2008204513）</string>
-    <string name="zh_first_start_button1">访问汉化者的B站主页</string>
+    <string name="zh_account_microsoft_ccount">微软账号</string>
+    <string name="zh_account_local_account">离线账号</string>
+    <string name="zh_account_login_start">开始登陆！</string>
+    <string name="zh_controls_add_control_button">按键</string>
+    <string name="zh_controls_add_control_drawer">组合键</string>
+    <string name="zh_controls_visibility">可见性</string>
+    <string name="zh_controls_in_game">游戏内</string>
+    <string name="zh_controls_in_menu">菜单内</string>
+    <string name="zh_controls_unsupported_layout_version">不支持的控制布局版本！</string>
+    <string name="zh_profile_custom_path">自定义路径</string>
+    <string name="zh_view_log_output">日志输出:</string>
+
+    <string name="zh_first_start">感谢您使用《PojavLauncher》非官方汉化版：《Pojav ZH》！\n汉化版作者：墨北MovTery。\n\n汉化版对原有的中文语言文件进行了大量修改，修正了官方原版中不少汉化错误的内容。\n如果您在使用过程中遇到了问题，请及时反馈给我哦！</string>
+    <string name="zh_first_start_button1">联系汉化者</string>
     <string name="zh_first_start_button2">不再提示</string>
-    <string name="zh_log_output">日志输出:</string>
-    <string name="zh_default">默认</string>
-    
+
     <!-- Action bar part -->
 
     <!-- Languages list part -->
@@ -64,7 +62,7 @@
     <string name="mcl_launch_download_assets">正在准备下载资源</string>
     
     <string name="mcl_options">选项</string>
-    <string name="mcl_option_customcontrol">自定义控制键位</string>
+    <string name="mcl_option_customcontrol">自定义控制布局</string>
     
     
     <string name="mcl_setting_title_use_surface_view">使用备用表面渲染</string>
@@ -75,7 +73,7 @@
     <string name="mcl_setting_subtitle_resolution_scaler">允许降低游戏画面分辨率，原生分辨率为 100%</string>
     <string name="mcl_setting_title_longpresstrigger">触发长按延迟</string>
     <string name="mcl_setting_subtitle_longpresstrigger">更改长按摧毁方块、丢弃物品的触发延迟</string>
-    <string name="mcl_setting_title_buttonscale">控制键缩放</string>
+    <string name="mcl_setting_title_buttonscale">控制布局缩放</string>
     <string name="mcl_setting_subtitle_buttonscale">如果按键太小，可以将其放大</string>
     <string name="mcl_setting_title_mousescale">鼠标缩放</string>
     <string name="mcl_setting_subtitle_mousescale">修改虚拟鼠标的大小</string>
@@ -139,9 +137,9 @@
     <string name="control_customkey">发送自定义键码</string>
     
     <!-- ImportControlActivity Strings -->
-    <string name="import_control_label">导入控制键</string>
+    <string name="import_control_label">导入控制布局</string>
     <string name="import_control_invalid_file">文件无效或已损坏</string>
-    <string name="import_control_import_button">导入控制键</string>
+    <string name="import_control_import_button">导入控制布局</string>
     <string name="import_control_verifying_file">文件正在校检中，请稍后重试…</string>
     <string name="import_control_invalid_name">名称无效或文件已存在</string>
     <string name="import_control_done">导入完成</string>
@@ -160,15 +158,15 @@
     <string name="customctrl_stroke_width">边框宽度</string>
     <string name="customctrl_stroke_color">边框颜色</string>
     
-    <string name="customctrl_button_opacity">按钮不透明度</string>
+    <string name="customctrl_button_opacity">按键不透明度</string>
     
     <string name="customctrl_addbutton">添加按键</string>
     <string name="customctrl_addbutton_drawer">添加组合键</string>
     <string name="customctrl_addbutton_joystick">添加摇杆</string>
     <string name="customctrl_addsubbutton">添加子按键</string>
     
-    <string name="customctrl_selectdefault">选择默认控制键位</string>
-    <string name="customctrl_export">导出控制键位</string>
+    <string name="customctrl_selectdefault">选择默认控制布局</string>
+    <string name="customctrl_export">导出控制布局</string>
     
     <string name="main_share_logs">共享日志文件</string>
     <string name="main_install_jar_file">执行 .jar 文件</string>
@@ -212,8 +210,8 @@
     <string name="preference_mouse_start_description">此选项打开时，虚拟鼠标会在启动时显示</string>
     <string name="preference_video_title">视频和渲染器</string>
     <string name="preference_video_description">分辨率、渲染器与性能</string>
-    <string name="preference_control_title">自定义控制键</string>
-    <string name="preference_control_description">手势、按钮与缩放</string>
+    <string name="preference_control_title">自定义控制布局</string>
+    <string name="preference_control_description">手势、按键与缩放</string>
     <string name="preference_java_title">Java 调整</string>
     <string name="preference_java_description">Java 运行环境、JVM 参数、内存量与沙盒</string>
     <string name="preference_misc_title">其他设置</string>
@@ -226,8 +224,8 @@
     <string name="preference_force_vsync_description">通过限制峰值性能来限制过热降频</string>
     <string name="preference_force_english_title">强制使用英文</string>
     <string name="preference_force_english_description">允许您按开发者的原意看到原始字符串，此操作需要重启</string>
-    <string name="preference_edit_controls_title">编辑自定义控制键位</string>
-    <string name="preference_edit_controls_summary">调整控制键位以适应您的需求</string>
+    <string name="preference_edit_controls_title">编辑自定义控制布局</string>
+    <string name="preference_edit_controls_summary">调整控制布局以适应您的需求</string>
     
     <string name="preference_category_gyro_controls">陀螺仪控制</string>
     <string name="preference_category_virtual_mouse">虚拟鼠标</string>
@@ -256,7 +254,7 @@
     <string name="lazy_service_default_title">Pojav 前台服务</string>
     <string name="mcl_setting_veroption_installed">已安装</string>
     <string name="use_global_default">（使用全局默认值）</string>
-    <string name="default_control">默认控制键位</string>
+    <string name="default_control">默认控制布局</string>
     <string name="progresslayout_tasks_in_progress">%d 项任务正在进行中</string>
     <string name="notification_terminate">终止</string>
     <string name="notification_game_runs">游戏正在运行！</string>
@@ -284,8 +282,8 @@
     <string name="preference_gyro_sample_rate_description">如果您在陀螺仪控制上遇到性能问题，请增加此值</string>
     <string name="microsoft_login_retry_later">您的操作过于频繁，请稍后再试</string>
     <string name="storage_required">PojavLauncher 需要连接外部存储，请重新连接并重启软件</string>
-    <string name="mcl_setting_title_buttonallcaps">在按钮标签中仅使用大写字母</string>
-    <string name="mcl_setting_subtitle_buttonallcaps">如果您想在控制键中使用小写字母，请禁用此功能</string>
+    <string name="mcl_setting_title_buttonallcaps">在按键标签中仅使用大写字母</string>
+    <string name="mcl_setting_subtitle_buttonallcaps">如果您想在控制布局中使用小写字母，请禁用此功能</string>
     <string name="create_profile">创建新配置</string>
     <string name="preference_shader_dump_title">启用着色器输出</string>
     <string name="preference_shader_dump_description">记录转换的着色器到日志文件</string>
@@ -372,7 +370,7 @@
     <string name="notif_download_finished">游戏已经准备好启动了</string>
     <string name="notif_download_finished_desc">点击这里启动它！</string>
     <string name="preference_category_gestures">手势</string>
-    <string name="preference_category_buttons">控制键</string>
+    <string name="preference_category_buttons">控制布局</string>
     <string name="preference_category_experimental_settings">实验性的补丁</string>
     <string name="preference_category_java_tweaks">Java 调整</string>
     <string name="preference_category_main_categories">设置</string>
@@ -390,8 +388,8 @@
     <string name="newdl_downloading_metadata">下载游戏元数据中 (%s)</string>
     <string name="newdl_downloading_game_files">下载游戏文件中… (%d/%d, %.2f MB)</string>
     <string name="cropper_title">选择图像区域</string>
-    <string name="cropper_lock_vertical">横轴锁定</string>
-    <string name="cropper_lock_horizontal">纵轴锁定</string>
+    <string name="cropper_lock_vertical">锁定纵轴</string>
+    <string name="cropper_lock_horizontal">锁定横轴</string>
     <string name="cropper_reset">重置</string>
     <string name="cropper_select_cancelled">选择已取消</string>
 </resources>

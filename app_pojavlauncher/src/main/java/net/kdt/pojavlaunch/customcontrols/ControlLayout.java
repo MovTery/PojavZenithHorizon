@@ -77,7 +77,7 @@ public class ControlLayout extends FrameLayout {
 			return;
 		}
 
-		throw new IOException(getContext().getString(R.string.zh_unsupported_layout_version));
+		throw new IOException(getContext().getString(R.string.zh_controls_unsupported_layout_version));
 	}
 
 	public void loadLayout(CustomControls controlLayout) {
