@@ -234,6 +234,16 @@ public final class Tools {
         return new File(Tools.DIR_GAME_NEW);
     }
 
+    public static File getGameDirPath(String gameDir){
+        if(gameDir != null){
+            if(gameDir.startsWith(Tools.LAUNCHERPROFILES_RTPREFIX))
+                return new File(gameDir.replace(Tools.LAUNCHERPROFILES_RTPREFIX,Tools.DIR_GAME_HOME+"/"));
+            else
+                return new File(Tools.DIR_GAME_HOME, gameDir);
+        }
+        return new File(Tools.DIR_GAME_NEW);
+    }
+
     public static void buildNotificationChannel(Context context){
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return;
         NotificationChannel channel = new NotificationChannel(
