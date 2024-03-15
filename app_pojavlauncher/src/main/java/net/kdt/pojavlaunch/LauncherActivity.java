@@ -199,25 +199,21 @@ public class LauncherActivity extends BaseActivity {
         mProgressLayout.observe(ProgressLayout.AUTHENTICATE_MICROSOFT);
         mProgressLayout.observe(ProgressLayout.DOWNLOAD_VERSION_LIST);
 
-        SharedPreferences prefs = getSharedPreferences("PojavCN", MODE_PRIVATE);
-        boolean firstStart = prefs.getBoolean("firstStart", true);
+        SharedPreferences prefs = getSharedPreferences("PojavZH", MODE_PRIVATE);
+        boolean displayDescription = prefs.getBoolean("displayDescription", true);
 
-        if (firstStart) {
+        if (displayDescription) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage(getString(R.string.zh_first_start))
-                    .setNegativeButton(getString(R.string.zh_first_start_button1), new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://space.bilibili.com/2008204513"));
-                            startActivity(browserIntent);
-                        }
+                builder.setMessage(getString(R.string.zh_description))
+                    .setNegativeButton(getString(R.string.zh_description_button1), (dialog, id) -> {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://space.bilibili.com/2008204513"));
+                        startActivity(browserIntent);
                     })
-                    .setPositiveButton(getString(R.string.zh_first_start_button2), new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.dismiss();
-                            SharedPreferences.Editor editor = prefs.edit();
-                            editor.putBoolean("firstStart", false);
-                            editor.apply();
-                        }
+                    .setPositiveButton(getString(R.string.zh_description_button2), (dialog, id) -> {
+                        dialog.dismiss();
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putBoolean("displayDescription", false);
+                        editor.apply();
                     });
             // 创建弹窗
             AlertDialog dialog = builder.create();
