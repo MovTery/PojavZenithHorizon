@@ -122,7 +122,7 @@ jobs:
 
       - name: Upload Release
         continue-on-error: true
-        if: github.repository_owner == 'Vera-Firefly' && github.ref_name == 'exp_v3'
+        if: github.repository_owner == 'HopiHopy' && github.ref_name == 'v3_openjdk'
         uses: actions/upload-artifact@v3
         with:
           name: Pojav汉化更新(Release-无Java运行环境)
