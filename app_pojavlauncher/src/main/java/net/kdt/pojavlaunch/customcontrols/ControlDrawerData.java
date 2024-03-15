@@ -53,7 +53,7 @@ public class ControlDrawerData {
     }
 
     public ControlDrawerData(){
-        this("组合键");
+        this(new ArrayList<>(), "组合键");
     }
 
     public ControlDrawerData(String name){
