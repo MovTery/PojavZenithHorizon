@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- App name part -->
-    <string name="app_name">PojavLauncher(汉化更新)</string>
-    <string name="app_short_name">PojavLauncher</string>
     <!-- Pojav ZH -->
     <string name="zh_account_microsoft_ccount">微软账号</string>
     <string name="zh_account_local_account">离线账号</string>
@@ -13,7 +10,11 @@
     <string name="zh_controls_in_game">游戏内</string>
     <string name="zh_controls_in_menu">菜单内</string>
     <string name="zh_controls_unsupported_layout_version">不支持的控制布局版本！</string>
+    <string name="zh_preference_exclusive_title">汉化版特供功能</string>
+    <string name="zh_preference_exclusive_description">一些实用的功能，仅为汉化版特供</string>
     <string name="zh_profile_custom_path">自定义路径</string>
+    <string name="zh_setting_set_to_chinese_desc">在游戏首次启动时，自动将语言设置为中文 (以 options.txt 文件是否存在来判断是否为首次启动)</string>
+    <string name="zh_setting_set_to_chinese_title">自动设置为中文</string>
     <string name="zh_view_log_output">日志输出:</string>
 
     <string name="zh_description">感谢您使用《PojavLauncher》非官方汉化版：《Pojav ZH》！\n汉化版作者：墨北MovTery。\n\n汉化版对原有的中文语言文件进行了大量修改，修正了官方原版中不少汉化错误的内容。\n如果您在使用过程中遇到了问题，请及时反馈给我哦！</string>

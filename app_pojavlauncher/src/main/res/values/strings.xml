@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App name part -->
-    <string name="app_name">PojavLauncher (Minecraft: Java Edition for Android)</string>
-    <string name="app_short_name">PojavLauncher</string>
+    <string name="app_name" translatable="false">Pojav ZH</string>
+    <string name="app_short_name" translatable="false">Pojav ZH</string>
     <!-- Pojav ZH -->
     <string name="zh_account_microsoft_ccount">Microsoft Account</string>
     <string name="zh_account_local_account">Local account</string>
@@ -13,7 +13,11 @@
     <string name="zh_controls_in_game">In game</string>
     <string name="zh_controls_in_menu">In menu</string>
     <string name="zh_controls_unsupported_layout_version">Unsupported control layout version</string>
+    <string name="zh_preference_exclusive_title">Exclusive Features</string>
+    <string name="zh_preference_exclusive_description">Practical features exclusive to Chinese version</string>
     <string name="zh_profile_custom_path">Custom path</string>
+    <string name="zh_setting_set_to_chinese_desc">On first launch, automatically set game language to Chinese (based on the presence of options.txt)</string>
+    <string name="zh_setting_set_to_chinese_title">Automatically set to Chinese</string>
     <string name="zh_view_log_output">Log output:</string>
 
     <string name="zh_description">\nSorry, PojavZH is only applicable to players who use PojavLauncher in China.\nI just modified the language file to make it easy for more Chinese players to understand.\nThe other content is the same as the version of PojavLauncherTeam.\nSo you don\u0027t need to use PojavZH at all</string>

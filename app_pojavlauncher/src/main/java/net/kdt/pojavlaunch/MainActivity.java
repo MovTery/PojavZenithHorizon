@@ -2,6 +2,7 @@ package net.kdt.pojavlaunch;
 
 import static net.kdt.pojavlaunch.Architecture.ARCH_X86;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_SUSTAINED_PERFORMANCE;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_USE_ALTERNATE_SURFACE;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_VIRTUAL_MOUSE_START;
@@ -55,6 +56,7 @@ import net.kdt.pojavlaunch.customcontrols.EditorExitable;
 import net.kdt.pojavlaunch.customcontrols.keyboard.LwjglCharSender;
 import net.kdt.pojavlaunch.customcontrols.keyboard.TouchCharInput;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
+import net.kdt.pojavlaunch.profiles.ProfileLanguageSelector;
 import net.kdt.pojavlaunch.services.GameService;
 import net.kdt.pojavlaunch.utils.JREUtils;
 import net.kdt.pojavlaunch.utils.MCOptionUtils;
@@ -349,6 +351,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         LauncherProfiles.load();
         int requiredJavaVersion = 8;
         if(version.javaVersion != null) requiredJavaVersion = version.javaVersion.majorVersion;
+        if(DEFAULT_PREF.getBoolean("setToChinese", true)) ProfileLanguageSelector.setToChinese(minecraftProfile); //首次启动设置为中文
         Tools.launchMinecraft(this, minecraftAccount, minecraftProfile, versionId, requiredJavaVersion);
         //Note that we actually stall in the above function, even if the game crashes. But let's be safe.
         Tools.runOnUiThread(()-> mServiceBinder.isActive = false);
@@ -466,7 +469,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         b.setView(v);
         b.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
             LauncherPreferences.PREF_MOUSESPEED = ((float)tmpMouseSpeed)/100f;
-            LauncherPreferences.DEFAULT_PREF.edit().putInt("mousespeed",tmpMouseSpeed).apply();
+            DEFAULT_PREF.edit().putInt("mousespeed",tmpMouseSpeed).apply();
             dialogInterface.dismiss();
             System.gc();
         });
@@ -506,7 +509,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         b.setView(v);
         b.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
             LauncherPreferences.PREF_GYRO_SENSITIVITY = ((float) tmpGyroSensitivity)/100f;
-            LauncherPreferences.DEFAULT_PREF.edit().putInt("gyroSensitivity", tmpGyroSensitivity).apply();
+            DEFAULT_PREF.edit().putInt("gyroSensitivity", tmpGyroSensitivity).apply();
             dialogInterface.dismiss();
             System.gc();
         });

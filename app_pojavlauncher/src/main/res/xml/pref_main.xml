@@ -45,6 +45,13 @@
             android:icon="@drawable/ic_setting_misc"
             />
 
+        <Preference
+            android:key="exclusive_screen_setting"
+            android:title="@string/zh_preference_exclusive_title"
+            android:summary="@string/zh_preference_exclusive_description"
+            android:fragment="net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceExclusiveFragment"
+            />
+
 
         <Preference
             android:key="experimental_screen_setting"
