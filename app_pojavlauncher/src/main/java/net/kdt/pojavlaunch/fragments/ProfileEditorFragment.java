@@ -42,6 +42,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class ProfileEditorFragment extends Fragment implements CropperUtils.CropperListener{
     public static final String TAG = "ProfileEditorFragment";
@@ -151,7 +152,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
 
         // Runtime spinner
         List<Runtime> runtimes = MultiRTUtils.getRuntimes();
-        int jvmIndex = runtimes.indexOf(new Runtime("<Default>"));
+        int jvmIndex = runtimes.indexOf(new Runtime(requireContext().getString(R.string.zh_default)));
         if (mTempProfile.javaDir != null) {
             String selectedRuntime = mTempProfile.javaDir.substring(Tools.LAUNCHERPROFILES_RTPREFIX.length());
             int nindex = runtimes.indexOf(new Runtime(selectedRuntime));
@@ -220,7 +221,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         if(mTempProfile.gameDir.isEmpty()) mTempProfile.gameDir = null;
 
         Runtime selectedRuntime = (Runtime) mDefaultRuntime.getSelectedItem();
-        mTempProfile.javaDir = (selectedRuntime.name.equals("<Default>") || selectedRuntime.versionString == null)
+        mTempProfile.javaDir = (selectedRuntime.name.equals(requireContext().getString(R.string.zh_default)) || selectedRuntime.versionString == null)
                 ? null : Tools.LAUNCHERPROFILES_RTPREFIX + selectedRuntime.name;
 
         if(mDefaultRenderer.getSelectedItemPosition() == mRenderNames.size()) mTempProfile.pojavRendererName = null;
