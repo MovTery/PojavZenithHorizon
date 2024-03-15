@@ -12,7 +12,6 @@
             android:title="@string/zh_setting_set_to_chinese_title" />
 
         <androidx.preference.ListPreference
-            android:defaultValue="zh_cn"
             android:key="switchToChineseLanguage"
             android:entries="@array/chinese_language_names"
             android:entryValues="@array/chinese_language_values"
