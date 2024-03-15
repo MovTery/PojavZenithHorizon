@@ -3,6 +3,7 @@ package net.kdt.pojavlaunch;
 import static net.kdt.pojavlaunch.Architecture.ARCH_X86;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_SET_TO_CHINESE;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_SUSTAINED_PERFORMANCE;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_USE_ALTERNATE_SURFACE;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_VIRTUAL_MOUSE_START;
@@ -351,7 +352,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         LauncherProfiles.load();
         int requiredJavaVersion = 8;
         if(version.javaVersion != null) requiredJavaVersion = version.javaVersion.majorVersion;
-        if(DEFAULT_PREF.getBoolean("setToChinese", true)) ProfileLanguageSelector.setToChinese(minecraftProfile); //首次启动设置为中文
+        if(PREF_SET_TO_CHINESE) ProfileLanguageSelector.setToChinese(minecraftProfile); //首次启动设置为中文
         Tools.launchMinecraft(this, minecraftAccount, minecraftProfile, versionId, requiredJavaVersion);
         //Note that we actually stall in the above function, even if the game crashes. But let's be safe.
         Tools.runOnUiThread(()-> mServiceBinder.isActive = false);
