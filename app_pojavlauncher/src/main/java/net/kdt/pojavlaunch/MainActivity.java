@@ -207,7 +207,9 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                     }
 
                     runCraft(finalVersion, mVersionInfo);
-                    if(LauncherPreferences.PREF_ENABLE_LOG_OUTPUT) openLogOutput(); //启动时默认打开日志输出
+                    runOnUiThread(() -> {
+                        if(LauncherPreferences.PREF_ENABLE_LOG_OUTPUT) openLogOutput();
+                    });
                 }catch (Throwable e){
                     Tools.showErrorRemote(e);
                 }
