@@ -10,12 +10,16 @@
     <string name="zh_controls_in_game">遊戲內</string>
     <string name="zh_controls_in_menu">菜單內</string>
     <string name="zh_controls_unsupported_layout_version">不支援的控制布局版本！</string>
+    <string name="zh_preference_category_language">語言</string>
+    <string name="zh_preference_category_other_features">其他功能</string>
     <string name="zh_preference_chinese_language_title">中文語言切換</string>
     <string name="zh_preference_exclusive_title">汉化版獨家功能</string>
     <string name="zh_preference_exclusive_description">一些實用的功能，僅為漢化版獨家提供</string>
     <string name="zh_profile_custom_path">自訂路徑</string>
     <string name="zh_setting_set_to_chinese_desc">在遊戲首次啟動時，自動將語言設置為中文</string>
     <string name="zh_setting_set_to_chinese_title">自動設置為中文</string>
+    <string name="zh_setting_enable_log_output_desc">在應用正式開始運行遊戲時，開啟日誌輸出界面</string>
+    <string name="zh_setting_enable_log_output_title">啟動遊戲時打開日誌輸出</string>
     <string name="zh_view_log_output">日誌輸出：</string>
 
     <string name="zh_description">感謝您使用《PojavLauncher》非官方漢化版：《Pojav ZH》！\n漢化版作者：墨北MovTery。\n\n漢化版對原有的中文語言文件進行了大量修改，修正了官方原版中不少漢化錯誤的內容。\n如果您在使用過程中遇到了問題，請及時反饋給我哦！</string>
