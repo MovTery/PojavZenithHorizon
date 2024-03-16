@@ -355,6 +355,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         Tools.launchMinecraft(this, minecraftAccount, minecraftProfile, versionId, requiredJavaVersion);
         //Note that we actually stall in the above function, even if the game crashes. But let's be safe.
         Tools.runOnUiThread(()-> mServiceBinder.isActive = false);
+
+        if(LauncherPreferences.PREF_ENABLE_LOG_OUTPUT) openLogOutput(); //启动时默认打开日志输出
     }
 
     private void printLauncherInfo(String gameVersion, String javaArguments) {
