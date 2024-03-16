@@ -4,7 +4,7 @@
 
     <net.kdt.pojavlaunch.prefs.BackButtonPreference/>
 
-    <PreferenceCategory android:title="@string/zh_preference_exclusive_title">
+    <PreferenceCategory android:title="@string/zh_preference_category_language">
         <SwitchPreference
             android:defaultValue="true"
             android:key="setToChinese"
@@ -17,6 +17,15 @@
             android:entryValues="@array/chinese_language_values"
             android:title="@string/zh_preference_chinese_language_title"
             app2:useSimpleSummaryProvider="true"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/zh_preference_category_other_features">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="enableLogOutput"
+            android:summary="@string/zh_setting_enable_log_output_desc"
+            android:title="@string/zh_setting_enable_log_output_title" />
 
     </PreferenceCategory>
 

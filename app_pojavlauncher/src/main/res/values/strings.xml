@@ -13,12 +13,16 @@
     <string name="zh_controls_in_game">In game</string>
     <string name="zh_controls_in_menu">In menu</string>
     <string name="zh_controls_unsupported_layout_version">Unsupported control layout version</string>
+    <string name="zh_preference_category_language">Language</string>
+    <string name="zh_preference_category_other_features">Other Features</string>
     <string name="zh_preference_chinese_language_title">Switch to Chinese language</string>
     <string name="zh_preference_exclusive_title">Exclusive Features</string>
     <string name="zh_preference_exclusive_description">Practical features exclusive to Chinese version</string>
     <string name="zh_profile_custom_path">Custom path</string>
     <string name="zh_setting_set_to_chinese_desc">On first launch, automatically set game language to Chinese</string>
     <string name="zh_setting_set_to_chinese_title">Automatically set to Chinese</string>
+    <string name="zh_setting_enable_log_output_desc">Enable the log output interface when the application officially starts running the game</string>
+    <string name="zh_setting_enable_log_output_title">Enable log output on game startup</string>
     <string name="zh_view_log_output">Log output:</string>
 
     <string name="zh_description">\nSorry, PojavZH is only applicable to players who use PojavLauncher in China.\nI just modified the language file to make it easy for more Chinese players to understand.\nThe other content is the same as the version of PojavLauncherTeam.\nSo you don\u0027t need to use PojavZH at all</string>
