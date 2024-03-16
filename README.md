@@ -16,25 +16,8 @@
     
   * _以及其他不重要的支线，可能只是为了测试一些内容，不久之后会被清除，请忽略它们_
 
-## 构建
-### 在Github构建
-> * 建议您直接将此代码库中的 [工作流文件](https://github.com/HopiHopy/PojavZH/blob/v3_openjdk/.github/workflows/android.yml) 复制到您自己的仓库中！  
-> * 如果您需要对工作流文件进行修改，那么您需要注意下面的内容
-> * 给予语言文件生成器执行权限：  
-> ```
-> - name: chmod +x languagelist_updater.sh
->   run: chmod +x ./scripts/languagelist_updater.sh
-> ```
-> * 然后再运行语言文件生成器：  
-> ```
-> - name: run languagelist_updater.sh
->   run: |
->     ./scripts/languagelist_updater.sh
-> ```
-> * 否则您在构建代码时可能会因权限不足而构建失败
-
 ## 下载
 - 前往 [Actions](https://github.com/HopiHopy/PojavZH/actions) 查看最新的中文语言更新版本 ( 主线：v3_openjdk，其他任何支线均可忽略！)
-，进入后，点击 **Pojav汉化更新** 下载。
+，进入后，点击 **Pojav汉化更新** 下载 (Debug 为测试构建版本，Release 为发行构建版本，内容都是一致的，只不过包名不同，能够相互独立安装)。
 
 - 前往 [Release](https://github.com/HopiHopy/PojavZH/releases) 查看最新且经过测试的稳定版本（更新并不频繁）。
