@@ -33,7 +33,7 @@ public class ModsFragment extends Fragment {
     public static final String TAG = "ModsFragment";
     public static final String BUNDLE_ROOT_PATH = "root_path";
     private ActivityResultLauncher<Object> openDocumentLauncher;
-    private Button mSaveButton, mSelectModButton;
+    private Button mSaveButton, mSelectModButton, mRefreshButton;
     private FileListView mFileListView;
     private String mRootPath;
 
@@ -152,8 +152,9 @@ public class ModsFragment extends Fragment {
             }
         });
 
-        mSaveButton.setOnClickListener(view1 -> requireActivity().onBackPressed());
-        mSelectModButton.setOnClickListener(view1 -> openDocumentLauncher.launch(".jar"));
+        mSaveButton.setOnClickListener(v -> requireActivity().onBackPressed());
+        mSelectModButton.setOnClickListener(v -> openDocumentLauncher.launch(".jar"));
+        mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -196,6 +197,7 @@ public class ModsFragment extends Fragment {
     private void bindViews(@NonNull View view) {
         mSaveButton = view.findViewById(R.id.zh_mods_save_button);
         mSelectModButton = view.findViewById(R.id.zh_select_mod_button);
+        mRefreshButton = view.findViewById(R.id.zh_mods_refresh_button);
         mFileListView = view.findViewById(R.id.zh_mods);
     }
 }
