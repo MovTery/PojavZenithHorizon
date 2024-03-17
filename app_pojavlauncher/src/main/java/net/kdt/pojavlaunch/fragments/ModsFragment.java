@@ -84,13 +84,13 @@ public class ModsFragment extends Fragment {
                     mFileListView.refreshPath();
                 };
 
-                builder.setPositiveButton(getString(R.string.global_delete), deleteListener);
+                builder.setPositiveButton(getString(R.string.global_delete), deleteListener)
+                        .setNegativeButton(getString(R.string.zh_profile_mods_cancel), null);
                 if (file.getName().endsWith(".jar")) {
                     builder.setNeutralButton(getString(R.string.zh_profile_mods_disable), disableListener);
                 } else if (file.getName().endsWith(".d")) {
                     builder.setNeutralButton(getString(R.string.zh_profile_mods_enable), enableListener);
                 }
-                builder.setNegativeButton(getString(R.string.zh_profile_mods_cancel), null);
 
                 builder.show();
             }
