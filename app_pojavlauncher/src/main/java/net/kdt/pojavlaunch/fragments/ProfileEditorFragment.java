@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch.fragments;
 
+import static net.kdt.pojavlaunch.Tools.getGameDirPath;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Build;
@@ -37,6 +39,7 @@ import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -51,7 +54,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
     private String mProfileKey;
     private MinecraftProfile mTempProfile = null;
     private String mValueToConsume = "";
-    private Button mSaveButton, mDeleteButton, mControlSelectButton, mGameDirButton, mVersionSelectButton;
+    private Button mSaveButton, mDeleteButton, mModsButton, mControlSelectButton, mGameDirButton, mVersionSelectButton;
     private Spinner mDefaultRuntime, mDefaultRenderer;
     private EditText mDefaultName, mDefaultJvmArgument;
     private TextView mDefaultPath, mDefaultVersion, mDefaultControl;
@@ -108,6 +111,15 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
             Tools.removeCurrentFragment(requireActivity());
         });
 
+        mModsButton.setOnClickListener(v -> {
+            File mods = new File(getGameDirPath(mTempProfile.gameDir), "mods");
+            Bundle bundle = new Bundle();
+            bundle.putString(ModsFragment.BUNDLE_ROOT_PATH, mods.toString());
+
+            Tools.swapFragment(requireActivity(),
+                    ModsFragment.class, ModsFragment.TAG, true, bundle);
+        });
+
         mGameDirButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle(2);
             bundle.putBoolean(FileSelectorFragment.BUNDLE_SELECT_FOLDER, true);
@@ -149,6 +161,12 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         mProfileIcon.setImageDrawable(
                 ProfileIconCache.fetchIcon(getResources(), mProfileKey, mTempProfile.icon)
         );
+
+        if (mTempProfile.gameDir != null) {
+            File mods = new File(getGameDirPath(mTempProfile.gameDir), "mods");
+            if (mods.exists() && mods.isDirectory()) mModsButton.setVisibility(View.VISIBLE);
+            else mModsButton.setVisibility(View.GONE);
+        }
 
         // Runtime spinner
         List<Runtime> runtimes = MultiRTUtils.getRuntimes();
@@ -200,6 +218,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         mDefaultName = view.findViewById(R.id.vprof_editor_profile_name);
         mDefaultJvmArgument = view.findViewById(R.id.vprof_editor_jre_args);
 
+        mModsButton = view.findViewById(R.id.zh_mods_button);
         mSaveButton = view.findViewById(R.id.vprof_editor_save_button);
         mDeleteButton = view.findViewById(R.id.vprof_editor_delete_button);
         mControlSelectButton = view.findViewById(R.id.vprof_editor_ctrl_button);
