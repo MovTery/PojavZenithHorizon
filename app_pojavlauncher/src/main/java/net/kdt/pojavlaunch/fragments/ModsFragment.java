@@ -48,6 +48,7 @@ public class ModsFragment extends Fragment {
                 new OpenDocumentWithExtension("jar"),
                 result -> {
                     if (result != null) {
+                        Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
                         //使用AsyncTask在后台线程中执行文件复制
                         new CopyFile().execute(result);
                     }
@@ -163,7 +164,6 @@ public class ModsFragment extends Fragment {
                     try (OutputStream outputStream = new FileOutputStream(outputFile)) {
                         byte[] buffer = new byte[1024];
                         int bytesRead;
-                        Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
                         while ((bytesRead = inputStream.read(buffer)) != -1) {
                             outputStream.write(buffer, 0, bytesRead);
                         }
