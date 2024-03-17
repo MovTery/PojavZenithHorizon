@@ -20,6 +20,8 @@ import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.Tools;
+import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -132,24 +134,15 @@ public class ModsFragment extends Fragment {
         });
 
         mSaveButton.setOnClickListener(view1 -> requireActivity().onBackPressed());
-        mSelectModButton.setOnClickListener(view1 -> {
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("application/jar"); // 设置MIME类型为jar
-            intent.addCategory(Intent.CATEGORY_OPENABLE);
-            startActivityForResult(intent, REQUEST_CODE_GET_FILE);
-        });
+        mSelectModButton.setOnClickListener(view1 -> registerForActivityResult(new OpenDocumentWithExtension("jar"), (data)->{
+            if(data != null) result(data);
+        }));
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_GET_FILE && resultCode == Activity.RESULT_OK && data != null) {
-            Uri fileUri = data.getData();
-            if (fileUri != null) {
-                //使用AsyncTask在后台线程中执行文件复制
-                new CopyFile().execute(fileUri);
-                mFileListView.refreshPath();
-            }
+    public void result(Uri data) {
+        if (data != null) {
+            //使用AsyncTask在后台线程中执行文件复制
+            new CopyFile().execute(data);
         }
     }
 
@@ -180,6 +173,7 @@ public class ModsFragment extends Fragment {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             Toast.makeText(requireContext(), getString(R.string.zh_profile_mods_added_mod), Toast.LENGTH_SHORT).show();
+            mFileListView.refreshPath();
         }
     }
 
