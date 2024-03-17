@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,9 +13,6 @@ import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.extra.ExtraConstants;
-import net.kdt.pojavlaunch.extra.ExtraCore;
 
 import java.io.File;
 
@@ -25,7 +21,6 @@ public class ModsFragment extends Fragment {
     public static final String BUNDLE_ROOT_PATH = "root_path";
     private Button mSaveButton;
     private FileListView mFileListView;
-    private TextView mFilePathView;
     private String mRootPath;
 
     public ModsFragment() {
@@ -40,7 +35,6 @@ public class ModsFragment extends Fragment {
         mFileListView.setShowFiles(true);
         mFileListView.setShowFolders(false);
         mFileListView.lockPathAt(new File(mRootPath));
-        mFileListView.setDialogTitleListener((title)-> mFilePathView.setText(removeLockPath(title)));
         mFileListView.refreshPath();
 
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
@@ -96,16 +90,13 @@ public class ModsFragment extends Fragment {
                 } else if (file.getName().endsWith(".d")) {
                     builder.setNeutralButton(getString(R.string.zh_profile_mods_enable), enableListener);
                 }
+                builder.setNegativeButton(getString(R.string.zh_profile_mods_cancel), null);
 
                 builder.show();
             }
         });
 
         mSaveButton.setOnClickListener(view1 -> requireActivity().onBackPressed());
-    }
-
-    private String removeLockPath(String path){
-        return path.replace(mRootPath, ".");
     }
 
     private void parseBundle(){
@@ -117,7 +108,6 @@ public class ModsFragment extends Fragment {
     private void bindViews(@NonNull View view) {
         mSaveButton = view.findViewById(R.id.zh_mods_save_button);
         mFileListView = view.findViewById(R.id.zh_mods);
-        mFilePathView = view.findViewById(R.id.zh_mods_current_path);
     }
 }
 
