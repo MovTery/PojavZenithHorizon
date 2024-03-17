@@ -89,9 +89,8 @@ public class ModsFragment extends Fragment {
                     builder.setNeutralButton(getString(R.string.zh_profile_mods_disable), disableListener);
                 } else if (file.getName().endsWith(".d")) {
                     builder.setNeutralButton(getString(R.string.zh_profile_mods_enable), enableListener);
-                } else {
-                    builder.setNeutralButton(getString(R.string.zh_profile_mods_cancel), null);
                 }
+                builder.setNegativeButton(getString(R.string.zh_profile_mods_cancel), null);
 
                 builder.show();
             }
