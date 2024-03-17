@@ -13,6 +13,7 @@
     <string name="zh_controls_in_game">In game</string>
     <string name="zh_controls_in_menu">In menu</string>
     <string name="zh_controls_unsupported_layout_version">Unsupported control layout version</string>
+    <string name="zh_file_does_not_exist">This folder (or file) doesn\'t exist</string>
     <string name="zh_preference_category_language">Language</string>
     <string name="zh_preference_category_other_features">Other Features</string>
     <string name="zh_preference_chinese_language_title">Switch to Chinese language</string>
