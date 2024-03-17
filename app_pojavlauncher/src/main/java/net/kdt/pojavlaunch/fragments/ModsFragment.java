@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -84,6 +85,27 @@ public class ModsFragment extends Fragment {
                     mFileListView.refreshPath();
                 };
 
+                DialogInterface.OnClickListener renameListener = (dialog, which) -> {
+                    AlertDialog.Builder renameBuilder = new AlertDialog.Builder(requireActivity());
+                    EditText input = new EditText(requireActivity());
+                    renameBuilder.setView(input);
+                    renameBuilder.setPositiveButton(getString(R.string.zh_profile_mods_rename), (dialog1, which1) -> {
+                        String newName = input.getText().toString();
+                        if (!newName.isEmpty()) {
+                            File newFile = new File(fileParent, newName);
+                            boolean renamed = file.renameTo(newFile);
+                            if (renamed) {
+                                Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_renamed) + file.getName() + " -> " + newName, Toast.LENGTH_SHORT).show();
+                                mFileListView.refreshPath();
+                            }
+                        } else {
+                            Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_rename_empty), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    renameBuilder.setNegativeButton(getString(R.string.zh_profile_mods_cancel), null);
+                    renameBuilder.show();
+                };
+
                 builder.setPositiveButton(getString(R.string.global_delete), deleteListener)
                         .setNegativeButton(getString(R.string.zh_profile_mods_cancel), null);
                 if (file.getName().endsWith(".jar")) {
@@ -91,6 +113,7 @@ public class ModsFragment extends Fragment {
                 } else if (file.getName().endsWith(".d")) {
                     builder.setNeutralButton(getString(R.string.zh_profile_mods_enable), enableListener);
                 }
+                builder.setNeutralButton(getString(R.string.zh_profile_mods_rename), renameListener);
 
                 builder.show();
             }

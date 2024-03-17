@@ -26,6 +26,9 @@
     <string name="zh_profile_mods_enable">啟用</string>
     <string name="zh_profile_mods_enabled">成功啟用檔案：</string>
     <string name="zh_profile_mods_cancel">取消</string>
+    <string name="zh_profile_mods_rename">重新命名</string>
+    <string name="zh_profile_mods_rename_empty">檔名不能為空！</string>
+    <string name="zh_profile_mods_renamed">檔案名稱已被修改：\n</string>
     <string name="zh_setting_set_to_chinese_desc">在遊戲首次啟動時，自動將語言設置為中文</string>
     <string name="zh_setting_set_to_chinese_title">自動設置為中文</string>
     <string name="zh_setting_enable_log_output_desc">在應用正式開始運行遊戲時，開啟日誌輸出界面</string>

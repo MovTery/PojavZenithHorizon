@@ -29,6 +29,9 @@
     <string name="zh_profile_mods_enable">Enable</string>
     <string name="zh_profile_mods_enabled">Successfully enabled file: </string>
     <string name="zh_profile_mods_cancel">Cancel</string>
+    <string name="zh_profile_mods_rename">Rename</string>
+    <string name="zh_profile_mods_rename_empty">The file name cannot be empty!</string>
+    <string name="zh_profile_mods_renamed">File name modified: </string>
     <string name="zh_setting_set_to_chinese_desc">On first launch, automatically set game language to Chinese</string>
     <string name="zh_setting_set_to_chinese_title">Automatically set to Chinese</string>
     <string name="zh_setting_enable_log_output_desc">Enable the log output interface when the application officially starts running the game</string>
