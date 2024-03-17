@@ -1,10 +1,8 @@
 package net.kdt.pojavlaunch.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -20,7 +19,6 @@ import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 
 import java.io.File;
@@ -32,13 +30,27 @@ import java.io.OutputStream;
 public class ModsFragment extends Fragment {
     public static final String TAG = "ModsFragment";
     public static final String BUNDLE_ROOT_PATH = "root_path";
-    private static final int REQUEST_CODE_GET_FILE = 114;
+    private ActivityResultLauncher<Object> openDocumentLauncher;
     private Button mSaveButton, mSelectModButton;
     private FileListView mFileListView;
     private String mRootPath;
 
     public ModsFragment() {
         super(R.layout.fragment_mods);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        openDocumentLauncher = registerForActivityResult(
+                new OpenDocumentWithExtension("jar"),
+                result -> {
+                    if (result != null) {
+                        //使用AsyncTask在后台线程中执行文件复制
+                        new CopyFile().execute(result);
+                    }
+                }
+        );
     }
 
     @Override
@@ -134,16 +146,7 @@ public class ModsFragment extends Fragment {
         });
 
         mSaveButton.setOnClickListener(view1 -> requireActivity().onBackPressed());
-        mSelectModButton.setOnClickListener(view1 -> registerForActivityResult(new OpenDocumentWithExtension("jar"), (data)->{
-            if(data != null) result(data);
-        }));
-    }
-
-    public void result(Uri data) {
-        if (data != null) {
-            //使用AsyncTask在后台线程中执行文件复制
-            new CopyFile().execute(data);
-        }
+        mSelectModButton.setOnClickListener(view1 -> openDocumentLauncher.launch(".jar"));
     }
 
     @SuppressLint("StaticFieldLeak")
