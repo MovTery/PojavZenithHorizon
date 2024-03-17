@@ -97,7 +97,7 @@ public class ModsFragment extends Fragment {
                 };
 
                 DialogInterface.OnClickListener disableListener = (dialog, which) -> {
-                    File newFile = new File(fileParent, disableString + fileName.substring(0, fileName.lastIndexOf('.')) + ".d");
+                    File newFile = new File(fileParent, disableString + fileName + ".disabled");
                     boolean disable = file.renameTo(newFile);
                     if (disable) {
                         Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_disabled) + fileName, Toast.LENGTH_SHORT).show();
@@ -144,7 +144,7 @@ public class ModsFragment extends Fragment {
                         .setNegativeButton(getString(R.string.zh_profile_mods_rename), renameListener);
                 if (file.getName().endsWith(".jar")) {
                     builder.setNeutralButton(getString(R.string.zh_profile_mods_disable), disableListener);
-                } else if (file.getName().endsWith(".d")) {
+                } else if (file.getName().endsWith(".disabled")) {
                     builder.setNeutralButton(getString(R.string.zh_profile_mods_enable), enableListener);
                 }
 
