@@ -71,6 +71,7 @@ public class ModsFragment extends Fragment {
             public void onFileSelected(File file, String path) {
                 String fileName = file.getName();
                 String fileParent = file.getParent();
+                String disableString = "(" + getString(R.string.zh_profile_mods_disable) + ")";
                 AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
                 builder.setTitle(getString(R.string.zh_profile_mods_tips));
@@ -96,7 +97,7 @@ public class ModsFragment extends Fragment {
                 };
 
                 DialogInterface.OnClickListener disableListener = (dialog, which) -> {
-                    File newFile = new File(fileParent, fileName.substring(0, fileName.lastIndexOf('.')) + ".d");
+                    File newFile = new File(fileParent, disableString + fileName.substring(0, fileName.lastIndexOf('.')) + ".d");
                     boolean disable = file.renameTo(newFile);
                     if (disable) {
                         Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_disabled) + fileName, Toast.LENGTH_SHORT).show();
@@ -105,7 +106,9 @@ public class ModsFragment extends Fragment {
                 };
 
                 DialogInterface.OnClickListener enableListener = (dialog, which) -> {
-                    File newFile = new File(fileParent, fileName.substring(0, fileName.lastIndexOf('.')) + ".jar");
+                    int index = fileName.lastIndexOf(disableString);
+                    if (index == -1) index = 0;
+                    File newFile = new File(fileParent, fileName.substring(index, fileName.lastIndexOf('.')) + ".jar");
                     boolean disable = file.renameTo(newFile);
                     if (disable) {
                         Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_enabled) + fileName, Toast.LENGTH_SHORT).show();
