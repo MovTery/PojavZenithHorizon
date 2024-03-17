@@ -111,7 +111,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
             Tools.removeCurrentFragment(requireActivity());
         });
 
-        mModsButton.setOnClickListener(view1 -> {
+        mModsButton.setOnClickListener(v -> {
             File mods = new File(getGameDirPath(mTempProfile.gameDir), "mods");
             Bundle bundle = new Bundle();
             bundle.putString(ModsFragment.BUNDLE_ROOT_PATH, mods.toString());

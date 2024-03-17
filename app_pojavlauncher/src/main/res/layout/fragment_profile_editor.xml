@@ -280,7 +280,7 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/vprof_editor_profile_icon"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.614" />
+                app:layout_constraintVertical_bias="0.5" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
