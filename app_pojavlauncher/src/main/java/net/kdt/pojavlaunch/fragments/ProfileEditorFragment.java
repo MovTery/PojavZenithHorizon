@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch.fragments;
 
+import static net.kdt.pojavlaunch.Tools.getGameDirPath;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Build;
@@ -110,7 +112,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         });
 
         mModsButton.setOnClickListener(view1 -> {
-            File mods = new File(mTempProfile.gameDir, "mods");
+            File mods = new File(getGameDirPath(mTempProfile.gameDir), "mods");
             Bundle bundle = new Bundle();
             bundle.putString(ModsFragment.BUNDLE_ROOT_PATH, mods.toString());
 
@@ -161,9 +163,9 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         );
 
         if (mTempProfile.gameDir != null) {
-            File mods = new File(mTempProfile.gameDir, "mods");
-            if (!(mods.exists() && mods.isDirectory())) mModsButton.setVisibility(View.GONE);
-            else mModsButton.setVisibility(View.VISIBLE);
+            File mods = new File(getGameDirPath(mTempProfile.gameDir), "mods");
+            if (mods.exists() && mods.isDirectory()) mModsButton.setVisibility(View.VISIBLE);
+            else mModsButton.setVisibility(View.GONE);
         }
 
         // Runtime spinner
