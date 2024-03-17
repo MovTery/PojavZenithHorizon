@@ -148,6 +148,7 @@ public class ModsFragment extends Fragment {
             if (fileUri != null) {
                 //使用AsyncTask在后台线程中执行文件复制
                 new CopyFile().execute(fileUri);
+                mFileListView.refreshPath();
             }
         }
     }
