@@ -88,6 +88,7 @@ public class ModsFragment extends Fragment {
                 DialogInterface.OnClickListener renameListener = (dialog, which) -> {
                     AlertDialog.Builder renameBuilder = new AlertDialog.Builder(requireActivity());
                     EditText input = new EditText(requireActivity());
+                    input.setText(fileName);
                     renameBuilder.setView(input);
                     renameBuilder.setPositiveButton(getString(R.string.zh_profile_mods_rename), (dialog1, which1) -> {
                         String newName = input.getText().toString();
