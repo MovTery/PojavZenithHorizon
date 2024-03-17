@@ -37,6 +37,7 @@ import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
     private String mProfileKey;
     private MinecraftProfile mTempProfile = null;
     private String mValueToConsume = "";
-    private Button mSaveButton, mDeleteButton, mControlSelectButton, mGameDirButton, mVersionSelectButton;
+    private Button mSaveButton, mDeleteButton, mModsButton, mControlSelectButton, mGameDirButton, mVersionSelectButton;
     private Spinner mDefaultRuntime, mDefaultRenderer;
     private EditText mDefaultName, mDefaultJvmArgument;
     private TextView mDefaultPath, mDefaultVersion, mDefaultControl;
@@ -89,6 +90,9 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         renderList.addAll(Arrays.asList(renderersList.rendererDisplayNames));
         renderList.add(view.getContext().getString(R.string.global_default));
         mDefaultRenderer.setAdapter(new ArrayAdapter<>(getContext(), R.layout.item_simple_list_1, renderList));
+        File mods = new File(mTempProfile.gameDir, "mods");
+        if (!(mods.exists() && mods.isDirectory())) mModsButton.setVisibility(View.GONE);
+        else mModsButton.setVisibility(View.VISIBLE);
 
         // Set up behaviors
         mSaveButton.setOnClickListener(v -> {
@@ -106,6 +110,14 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
             }
 
             Tools.removeCurrentFragment(requireActivity());
+        });
+
+        mModsButton.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            bundle.putString(ModsFragment.BUNDLE_ROOT_PATH, mods.toString());
+
+            Tools.swapFragment(requireActivity(),
+                    ModsFragment.class, ModsFragment.TAG, true, bundle);
         });
 
         mGameDirButton.setOnClickListener(v -> {
