@@ -19,6 +19,7 @@
     <string name="zh_profile_custom_path">自訂路徑</string>
     <string name="zh_profile_mods">Mod 管理</string>
     <string name="zh_profile_mods_add_mod">新增 Mod</string>
+    <string name="zh_profile_mods_add_mod_tip">請選擇一個後綴名為".jar"的檔案</string>
     <string name="zh_profile_mods_added_mod">成功添加 Mod</string>
     <string name="zh_profile_mods_tips">操作此檔案</string>
     <string name="zh_profile_mods_message">請選擇您要對此檔案進行的操作，點擊螢幕空白區域可關閉此視窗</string>
