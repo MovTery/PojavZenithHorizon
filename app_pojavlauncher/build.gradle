@@ -5,7 +5,14 @@ plugins {
 static def getDate() { return new Date().format('yyyyMMdd') }
 
 static def getDateSeconds() {
-    return 9939458
+    def isMainBranch = System.getenv('IS_MAIN_BRANCH') == 'true'
+
+    def baseDateSeconds = 9939458
+    if (isMainBranch) {
+        baseDateSeconds += Integer.parseInt(System.getenv("GITHUB_RUN_NUMBER"))
+    }
+
+    return baseDateSeconds
 }
 
 def getVersionName = {

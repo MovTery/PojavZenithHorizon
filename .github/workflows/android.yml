@@ -16,8 +16,13 @@ jobs:
       MOVTERY_KEYSTORE_PASSWORD: ${{ secrets.MOVTERY_KEYSTORE_PASSWORD }}
 
     steps:
+      - name: Set IS_MAIN_BRANCH if on v3_openjdk branch
+        if: github.ref_name == 'v3_openjdk'
+        run: echo "IS_MAIN_BRANCH=true" >> $GITHUB_ENV
+
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Get JRE 8
         uses: dawidd6/action-download-artifact@v2
         with:
