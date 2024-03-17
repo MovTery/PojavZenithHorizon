@@ -10,6 +10,7 @@
     <string name="zh_controls_in_game">游戏内</string>
     <string name="zh_controls_in_menu">菜单内</string>
     <string name="zh_controls_unsupported_layout_version">不支持的控制布局版本！</string>
+    <string name="zh_file_does_not_exist">这个文件夹(或文件)不存在</string>
     <string name="zh_preference_category_language">语言</string>
     <string name="zh_preference_category_other_features">其他功能</string>
     <string name="zh_preference_chinese_language_title">中文语言切换</string>
