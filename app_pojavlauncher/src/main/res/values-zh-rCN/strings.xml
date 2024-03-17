@@ -17,6 +17,15 @@
     <string name="zh_preference_exclusive_description">一些实用的功能，仅为汉化版特供</string>
     <string name="zh_profile_custom_path">自定义路径</string>
     <string name="zh_profile_mods">Mod 管理</string>
+    <string name="zh_profile_mods_tips">操作此文件</string>
+    <string name="zh_profile_mods_message">请选择您要对此文件执行的操作</string>
+    <string name="zh_profile_mods_delete">您确定要删除此文件吗？</string>
+    <string name="zh_profile_mods_deleted">成功删除文件：</string>
+    <string name="zh_profile_mods_disable">禁用</string>
+    <string name="zh_profile_mods_disabled">成功禁用文件：</string>
+    <string name="zh_profile_mods_enable">启用</string>
+    <string name="zh_profile_mods_enabled">成功启用文件：</string>
+    <string name="zh_profile_mods_cancel">取消</string>
     <string name="zh_setting_set_to_chinese_desc">在游戏首次启动时，自动将语言设置为中文</string>
     <string name="zh_setting_set_to_chinese_title">自动设置为中文</string>
     <string name="zh_setting_enable_log_output_desc">在应用正式开始运行游戏时，开启日志输出界面</string>
@@ -116,7 +125,7 @@
     
     <!-- MainActivity: strings -->
     <string name="mcn_exit_title">应用程序/游戏以代码 %d退出，请查看 latestlog.txt 查看更多信息</string>
-    <string name="mcn_exit_confirm">你确定要强制关闭吗?</string>
+    <string name="mcn_exit_confirm">您确定要强制关闭吗?</string>
     <string name="mcn_check_fail_vulkan_support">此设备不支持 Zink（Vulkan）渲染器！</string>
     
     <!-- MainActivity: Control buttons -->
@@ -389,7 +398,7 @@
     <string name="preference_ask_for_notification_title">允许通知</string>
     <string name="preference_ask_for_notification_description">单击可重新请求通知权限，这是 游戏/整合包 在后台正常下载所必需的</string>
     <string name="preference_vsync_in_zink_title">允许与Zink进行垂直同步</string>
-    <string name="preference_vsync_in_zink_description">允许启动器使用内部系统API为Zink启用垂直同步。如果启动器正在使用Zink，你的系统更新导致启动器崩溃，请关闭此功能</string>
+    <string name="preference_vsync_in_zink_description">允许启动器使用内部系统API为Zink启用垂直同步。如果启动器正在使用Zink，您的系统更新导致启动器崩溃，请关闭此功能</string>
     <string name="exception_failed_to_unpack_jre17">安装JRE 17失败</string>
     <string name="newdl_starting">读取游戏元数据中…</string>
     <string name="newdl_downloading_metadata">下载游戏元数据中 (%s)</string>

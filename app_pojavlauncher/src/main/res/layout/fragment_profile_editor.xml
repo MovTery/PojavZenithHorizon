@@ -269,7 +269,6 @@
                 android:id="@+id/zh_mods_button"
                 android:layout_width="116dp"
                 android:layout_height="45dp"
-                android:layout_marginEnd="16dp"
                 android:paddingHorizontal="@dimen/padding_large"
 
 
@@ -281,7 +280,7 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/vprof_editor_profile_icon"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.482" />
+                app:layout_constraintVertical_bias="0.614" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
