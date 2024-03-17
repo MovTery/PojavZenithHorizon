@@ -51,7 +51,7 @@ jobs:
           path: app_pojavlauncher/src/main/assets/components/lwjgl3
           workflow_conclusion: success
           repo: Vera-Firefly/lwjgl3-build
-          branch: main
+          branch: official
           name: lwjgl
 
       - uses: gradle/gradle-build-action@v2
@@ -108,7 +108,7 @@ jobs:
           path: app_pojavlauncher/src/main/assets/components/lwjgl3
           workflow_conclusion: success
           repo: Vera-Firefly/lwjgl3-build
-          branch: main
+          branch: official
           name: lwjgl
 
       - uses: gradle/gradle-build-action@v2
