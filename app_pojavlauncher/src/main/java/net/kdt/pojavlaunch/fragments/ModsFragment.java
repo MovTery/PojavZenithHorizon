@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch.fragments;
 
+import static net.kdt.pojavlaunch.Tools.getFileName;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -154,13 +156,14 @@ public class ModsFragment extends Fragment {
         @Override
         protected Void doInBackground(Uri... uris) {
             Uri fileUri = uris[0];
-            File file = new File(fileUri.getPath());
-            File outputFile = new File(mRootPath, file.getName());
+            String fileName = getFileName(requireContext(), fileUri);
+            File outputFile = new File(mRootPath, fileName);
             try (InputStream inputStream = requireContext().getContentResolver().openInputStream(fileUri)) {
                 if (inputStream != null) {
                     try (OutputStream outputStream = new FileOutputStream(outputFile)) {
                         byte[] buffer = new byte[1024];
                         int bytesRead;
+                        Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
                         while ((bytesRead = inputStream.read(buffer)) != -1) {
                             outputStream.write(buffer, 0, bytesRead);
                         }
