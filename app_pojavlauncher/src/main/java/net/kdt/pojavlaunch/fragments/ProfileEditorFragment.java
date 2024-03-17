@@ -166,7 +166,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
             File mods = new File(getGameDirPath(mTempProfile.gameDir), "mods");
             if (mods.exists() && mods.isDirectory()) mModsButton.setVisibility(View.VISIBLE);
             else mModsButton.setVisibility(View.GONE);
-        }
+        } else mModsButton.setVisibility(View.GONE);
 
         // Runtime spinner
         List<Runtime> runtimes = MultiRTUtils.getRuntimes();
