@@ -20,14 +20,34 @@
 
     <com.kdt.mcgui.MineButton
         android:id="@+id/zh_mods_save_button"
-        android:layout_width="377dp"
-        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/padding_medium"
+
         android:text="@string/global_save"
 
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/zh_select_mod_button"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <com.kdt.mcgui.MineButton
+        android:id="@+id/zh_select_mod_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/_16sdp"
+        android:layout_marginStart="@dimen/padding_medium"
+        android:text="@string/zh_profile_mods_add_mod"
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/zh_mods_save_button"
+        />
 
     <TextView
         android:id="@+id/zh_mods_current_path"

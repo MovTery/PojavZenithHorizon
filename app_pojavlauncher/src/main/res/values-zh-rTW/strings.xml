@@ -17,6 +17,8 @@
     <string name="zh_preference_exclusive_description">一些實用的功能，僅為漢化版獨家提供</string>
     <string name="zh_profile_custom_path">自訂路徑</string>
     <string name="zh_profile_mods">Mod 管理</string>
+    <string name="zh_profile_mods_add_mod">新增 Mod</string>
+    <string name="zh_profile_mods_added_mod">成功添加 Mod</string>
     <string name="zh_profile_mods_tips">操作此檔案</string>
     <string name="zh_profile_mods_message">請選擇您要對此檔案執行的操作</string>
     <string name="zh_profile_mods_delete">您確定要刪除此檔案嗎？</string>

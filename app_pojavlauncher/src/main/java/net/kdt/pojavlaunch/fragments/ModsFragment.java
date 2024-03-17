@@ -1,7 +1,12 @@
 package net.kdt.pojavlaunch.fragments;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
@@ -16,11 +22,16 @@ import com.kdt.pickafile.FileSelectedListener;
 import net.kdt.pojavlaunch.R;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class ModsFragment extends Fragment {
     public static final String TAG = "ModsFragment";
     public static final String BUNDLE_ROOT_PATH = "root_path";
-    private Button mSaveButton;
+    private static final int REQUEST_CODE_GET_FILE = 114;
+    private Button mSaveButton, mSelectModButton;
     private FileListView mFileListView;
     private String mRootPath;
 
@@ -89,6 +100,7 @@ public class ModsFragment extends Fragment {
                     AlertDialog.Builder renameBuilder = new AlertDialog.Builder(requireActivity());
                     EditText input = new EditText(requireActivity());
                     input.setText(fileName);
+                    renameBuilder.setTitle(getString(R.string.zh_profile_mods_rename));
                     renameBuilder.setView(input);
                     renameBuilder.setPositiveButton(getString(R.string.zh_profile_mods_rename), (dialog1, which1) -> {
                         String newName = input.getText().toString();
@@ -120,6 +132,54 @@ public class ModsFragment extends Fragment {
         });
 
         mSaveButton.setOnClickListener(view1 -> requireActivity().onBackPressed());
+        mSelectModButton.setOnClickListener(view1 -> {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("application/jar"); // 设置MIME类型为jar
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            startActivityForResult(intent, REQUEST_CODE_GET_FILE);
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_GET_FILE && resultCode == Activity.RESULT_OK && data != null) {
+            Uri fileUri = data.getData();
+            if (fileUri != null) {
+                //使用AsyncTask在后台线程中执行文件复制
+                new CopyFile().execute(fileUri);
+            }
+        }
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private class CopyFile extends AsyncTask<Uri, Void, Void> {
+        @Override
+        protected Void doInBackground(Uri... uris) {
+            Uri fileUri = uris[0];
+            File file = new File(fileUri.getPath());
+            File outputFile = new File(mRootPath, file.getName());
+            try (InputStream inputStream = requireContext().getContentResolver().openInputStream(fileUri)) {
+                if (inputStream != null) {
+                    try (OutputStream outputStream = new FileOutputStream(outputFile)) {
+                        byte[] buffer = new byte[1024];
+                        int bytesRead;
+                        while ((bytesRead = inputStream.read(buffer)) != -1) {
+                            outputStream.write(buffer, 0, bytesRead);
+                        }
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            Toast.makeText(requireContext(), getString(R.string.zh_profile_mods_added_mod), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void parseBundle(){
@@ -130,6 +190,7 @@ public class ModsFragment extends Fragment {
 
     private void bindViews(@NonNull View view) {
         mSaveButton = view.findViewById(R.id.zh_mods_save_button);
+        mSelectModButton = view.findViewById(R.id.zh_select_mod_button);
         mFileListView = view.findViewById(R.id.zh_mods);
     }
 }
