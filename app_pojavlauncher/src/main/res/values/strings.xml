@@ -22,6 +22,7 @@
     <string name="zh_profile_custom_path">Custom path</string>
     <string name="zh_profile_mods">Mods</string>
     <string name="zh_profile_mods_add_mod">Add Mod</string>
+    <string name="zh_profile_mods_add_mod_tip">Please select a file with the suffix ".jar"</string>
     <string name="zh_profile_mods_added_mod">Successfully added Mod</string>
     <string name="zh_profile_mods_tips">Operate this file</string>
     <string name="zh_profile_mods_message">Please select the operation you want to perform on this file. Click on a blank area of the screen to close this window.</string>
