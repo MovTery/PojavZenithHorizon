@@ -90,9 +90,6 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         renderList.addAll(Arrays.asList(renderersList.rendererDisplayNames));
         renderList.add(view.getContext().getString(R.string.global_default));
         mDefaultRenderer.setAdapter(new ArrayAdapter<>(getContext(), R.layout.item_simple_list_1, renderList));
-        File mods = new File(mTempProfile.gameDir, "mods");
-        if (!(mods.exists() && mods.isDirectory())) mModsButton.setVisibility(View.GONE);
-        else mModsButton.setVisibility(View.VISIBLE);
 
         // Set up behaviors
         mSaveButton.setOnClickListener(v -> {
@@ -113,6 +110,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         });
 
         mModsButton.setOnClickListener(view1 -> {
+            File mods = new File(mTempProfile.gameDir, "mods");
             Bundle bundle = new Bundle();
             bundle.putString(ModsFragment.BUNDLE_ROOT_PATH, mods.toString());
 
@@ -161,6 +159,12 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         mProfileIcon.setImageDrawable(
                 ProfileIconCache.fetchIcon(getResources(), mProfileKey, mTempProfile.icon)
         );
+
+        if (mTempProfile.gameDir != null) {
+            File mods = new File(mTempProfile.gameDir, "mods");
+            if (!(mods.exists() && mods.isDirectory())) mModsButton.setVisibility(View.GONE);
+            else mModsButton.setVisibility(View.VISIBLE);
+        }
 
         // Runtime spinner
         List<Runtime> runtimes = MultiRTUtils.getRuntimes();
@@ -212,6 +216,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         mDefaultName = view.findViewById(R.id.vprof_editor_profile_name);
         mDefaultJvmArgument = view.findViewById(R.id.vprof_editor_jre_args);
 
+        mModsButton = view.findViewById(R.id.zh_mods_button);
         mSaveButton = view.findViewById(R.id.vprof_editor_save_button);
         mDeleteButton = view.findViewById(R.id.vprof_editor_delete_button);
         mControlSelectButton = view.findViewById(R.id.vprof_editor_ctrl_button);
