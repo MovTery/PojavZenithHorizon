@@ -3,6 +3,7 @@ package net.kdt.pojavlaunch.fragments;
 import static net.kdt.pojavlaunch.Tools.getGameDirPath;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,10 +19,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import net.kdt.pojavlaunch.R;
@@ -45,7 +48,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class ProfileEditorFragment extends Fragment implements CropperUtils.CropperListener{
     public static final String TAG = "ProfileEditorFragment";
@@ -54,7 +56,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
     private String mProfileKey;
     private MinecraftProfile mTempProfile = null;
     private String mValueToConsume = "";
-    private Button mSaveButton, mDeleteButton, mModsButton, mControlSelectButton, mGameDirButton, mVersionSelectButton;
+    private Button mSaveButton, mDeleteButton, mCreateModsButton, mModsButton, mControlSelectButton, mGameDirButton, mVersionSelectButton;
     private Spinner mDefaultRuntime, mDefaultRenderer;
     private EditText mDefaultName, mDefaultJvmArgument;
     private TextView mDefaultPath, mDefaultVersion, mDefaultControl;
@@ -111,6 +113,32 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
             Tools.removeCurrentFragment(requireActivity());
         });
 
+        mCreateModsButton.setOnClickListener(v -> {
+            File mods = new File(getGameDirPath(mTempProfile.gameDir), "mods");
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+
+            DialogInterface.OnClickListener create = (dialog, which) -> {
+                if (mods.exists()) {
+                    Toast.makeText(requireContext(), getString(R.string.zh_profile_create_mods_fail), Toast.LENGTH_SHORT).show();
+                    mCreateModsButton.setVisibility(View.GONE);
+                    mModsButton.setVisibility(View.VISIBLE);
+                } else {
+                    boolean b = mods.mkdirs();
+                    if (b) {
+                        Toast.makeText(requireContext(), getString(R.string.zh_profile_create_mods_success), Toast.LENGTH_SHORT).show();
+                        mCreateModsButton.setVisibility(View.GONE);
+                        mModsButton.setVisibility(View.VISIBLE);
+                    }
+                }
+            };
+
+            builder.setTitle(getString(R.string.folder_fragment_create));
+            builder.setMessage(getString(R.string.zh_profile_create_mods_message));
+
+            builder.setPositiveButton(getString(R.string.zh_profile_create_mods), create)
+                    .setNegativeButton(getString(R.string.zh_profile_mods_cancel), null);
+        });
+
         mModsButton.setOnClickListener(v -> {
             File mods = new File(getGameDirPath(mTempProfile.gameDir), "mods");
             Bundle bundle = new Bundle();
@@ -164,9 +192,18 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
 
         if (mTempProfile.gameDir != null) {
             File mods = new File(getGameDirPath(mTempProfile.gameDir), "mods");
-            if (mods.exists() && mods.isDirectory()) mModsButton.setVisibility(View.VISIBLE);
-            else mModsButton.setVisibility(View.GONE);
-        } else mModsButton.setVisibility(View.GONE);
+            if (mods.exists() && mods.isDirectory()) {
+                mCreateModsButton.setVisibility(View.GONE);
+                mModsButton.setVisibility(View.VISIBLE);
+            }
+            else {
+                mCreateModsButton.setVisibility(View.VISIBLE);
+                mModsButton.setVisibility(View.GONE);
+            }
+        } else {
+            mCreateModsButton.setVisibility(View.VISIBLE);
+            mModsButton.setVisibility(View.GONE);
+        }
 
         // Runtime spinner
         List<Runtime> runtimes = MultiRTUtils.getRuntimes();
@@ -218,6 +255,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         mDefaultName = view.findViewById(R.id.vprof_editor_profile_name);
         mDefaultJvmArgument = view.findViewById(R.id.vprof_editor_jre_args);
 
+        mCreateModsButton = view.findViewById(R.id.zh_create_mods_button);
         mModsButton = view.findViewById(R.id.zh_mods_button);
         mSaveButton = view.findViewById(R.id.vprof_editor_save_button);
         mDeleteButton = view.findViewById(R.id.vprof_editor_delete_button);

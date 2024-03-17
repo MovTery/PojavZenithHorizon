@@ -17,6 +17,10 @@
     <string name="zh_preference_exclusive_title">汉化版特供功能</string>
     <string name="zh_preference_exclusive_description">一些实用的功能，仅为汉化版特供</string>
     <string name="zh_profile_custom_path">自定义路径</string>
+    <string name="zh_profile_create_mods">创建 Mods</string>
+    <string name="zh_profile_create_mods_message">请您确保此配置使用的游戏版本确实能够加载 Mod，如果它并不支持加载 Mod，那么创建 Mods 文件夹并添加 Mod 将不会起到任何作用！</string>
+    <string name="zh_profile_create_mods_fail">抱歉，游戏路径内存在 Mods 文件夹，无法再次创建 Mods 文件夹</string>
+    <string name="zh_profile_create_mods_success">成功创建 Mods 文件夹!</string>
     <string name="zh_profile_mods">Mod 管理</string>
     <string name="zh_profile_mods_add_mod">添加 Mod</string>
     <string name="zh_profile_mods_add_mod_tip">请选择一个后缀名为".jar"的文件</string>
