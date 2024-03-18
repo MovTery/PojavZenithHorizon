@@ -14,6 +14,10 @@
     <string name="zh_controls_in_menu">In menu</string>
     <string name="zh_controls_unsupported_layout_version">Unsupported control layout version</string>
     <string name="zh_file_does_not_exist">This folder (or file) doesn\'t exist</string>
+    <string name="zh_neoforge_dl_searching">Searching for NeoForge version number</string>
+    <string name="zh_neoforge_dl_no_installer">Sorry, but this version of NeoForge does not have an installer, which is not yet supported.</string>
+    <string name="zh_neoforge_dl_select_version">Select NeoForge version</string>
+    <string name="zh_modloader_dl_install_neoforge">Create NeoForge profile</string>
     <string name="zh_preference_category_language">Language</string>
     <string name="zh_preference_category_other_features">Other Features</string>
     <string name="zh_preference_chinese_language_title">Switch to Chinese language</string>
