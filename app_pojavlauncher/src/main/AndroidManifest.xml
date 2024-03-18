@@ -36,7 +36,8 @@
             android:name=".MissingStorageActivity"
             android:exported="false"
             android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
-            android:screenOrientation="sensorLandscape" />
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/FullScreenTheme" />
 
         <meta-data
             android:name="android.max_aspect"
@@ -48,7 +49,8 @@
             android:label="@string/app_short_name"
             android:launchMode="singleTop"
             android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
-            android:screenOrientation="sensorLandscape" >
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/FullScreenTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -59,14 +61,16 @@
             android:name=".LauncherActivity"
             android:label="@string/app_short_name"
             android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
-            android:screenOrientation="sensorLandscape" />
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/FullScreenTheme" />
         <activity
             android:name=".ImportControlActivity"
             android:exported="true"
             android:launchMode="singleInstance"
             android:windowSoftInputMode="stateVisible"
             android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
-            android:screenOrientation="sensorLandscape" >
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/FullScreenTheme" >
             <intent-filter
                 android:label="@string/import_control_label"
                 android:scheme="content"
@@ -96,12 +100,14 @@
             android:process=":gui_installer"
             android:name=".JavaGUILauncherActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
-            android:screenOrientation="sensorLandscape" />
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/FullScreenTheme" />
         <activity
             android:name=".CustomControlsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|keyboard|navigation"
             android:exported="false"
-            android:screenOrientation="sensorLandscape" >
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/FullScreenTheme" >
             <intent-filter>
                 <action android:name=".CustomControlsActivity" />
 
@@ -113,7 +119,8 @@
             android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
             android:launchMode="standard"
             android:process=":game"
-            android:screenOrientation="sensorLandscape" />
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/FullScreenTheme"/>
 
         <provider
             android:name=".scoped.FolderProvider"
