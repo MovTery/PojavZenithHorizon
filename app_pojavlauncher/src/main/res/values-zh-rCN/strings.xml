@@ -66,7 +66,7 @@
     <string name="alerttitle_installmod">选择模组安装器</string>
     
     <!-- Error messages -->
-    <string name="error_fatal">PojavLauncher 意外地崩溃了</string>
+    <string name="error_fatal">Pojav ZH 意外地崩溃了</string>
     <string name="error_no_version">没有版本！</string>
     <string name="error_show_more">显示更多信息</string>
     <string name="error_show_less">显示更少信息</string>
@@ -309,7 +309,7 @@
     <string name="preference_gyro_sample_rate_title">陀螺仪采样率</string>
     <string name="preference_gyro_sample_rate_description">如果您在陀螺仪控制上遇到性能问题，请增加此值</string>
     <string name="microsoft_login_retry_later">您的操作过于频繁，请稍后再试</string>
-    <string name="storage_required">PojavLauncher 需要连接外部存储，请重新连接并重启软件</string>
+    <string name="storage_required">Pojav ZH 需要连接外部存储，请重新连接并重启软件</string>
     <string name="mcl_setting_title_buttonallcaps">在按键标签中仅使用大写字母</string>
     <string name="mcl_setting_subtitle_buttonallcaps">如果您想在控制布局中使用小写字母，请禁用此功能</string>
     <string name="create_profile">创建新配置</string>
@@ -405,7 +405,7 @@
     <string name="preference_category_miscellaneous">其他设置</string>
     <string name="preference_category_video">视频设置</string>
     <string name="notification_permission_dialog_title">权限请求</string>
-    <string name="notification_permission_dialog_text">PojavLauncher需要发布通知的权限，以防止您离开应用程序时，停止 游戏/整合包 的下载。如果没有此权限，当您将PojavLauncher置于后台时，安卓系统可能会停止您的下载进度</string>
+    <string name="notification_permission_dialog_text">Pojav ZH 需要发布通知的权限，以防止您离开应用程序时，停止 游戏/整合包 的下载。如果没有此权限，当您将 Pojav ZH 置于后台时，安卓系统可能会停止您的下载进度</string>
     <string name="notification_permission_toast">您可以随时通过进入“系统设置”改变您的主意</string>
     <string name="preference_ask_for_notification_title">允许通知</string>
     <string name="preference_ask_for_notification_description">单击可重新请求通知权限，这是 游戏/整合包 在后台正常下载所必需的</string>
