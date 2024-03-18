@@ -1,10 +1,12 @@
 package net.kdt.pojavlaunch;
 
 import android.content.*;
+import android.content.pm.ActivityInfo;
 import android.os.*;
 import androidx.appcompat.app.*;
 import net.kdt.pojavlaunch.utils.*;
 
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_FORCE_LANDSCAPE;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_IGNORE_NOTCH;
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -17,6 +19,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (PREF_FORCE_LANDSCAPE) setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         LocaleUtils.setLocale(this);
         Tools.setFullscreen(this, setFullscreen());
         Tools.updateWindowSize(this);
