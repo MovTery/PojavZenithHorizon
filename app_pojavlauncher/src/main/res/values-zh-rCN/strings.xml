@@ -11,6 +11,10 @@
     <string name="zh_controls_in_menu">菜单内</string>
     <string name="zh_controls_unsupported_layout_version">不支持的控制布局版本！</string>
     <string name="zh_file_does_not_exist">这个文件夹(或文件)不存在</string>
+    <string name="zh_neoforge_dl_searching">正在搜索 NeoForge 版本号</string>
+    <string name="zh_neoforge_dl_no_installer">很抱歉，该版本的 NeoForge 没有安装程序，尚不支持</string>
+    <string name="zh_neoforge_dl_select_version">选择 NeoForge 版本</string>
+    <string name="zh_modloader_dl_install_neoforge">创建 NeoForge 配置</string>
     <string name="zh_preference_category_language">语言</string>
     <string name="zh_preference_category_other_features">其他功能</string>
     <string name="zh_preference_chinese_language_title">中文语言切换</string>
