@@ -1,12 +1,8 @@
 package net.kdt.pojavlaunch;
 
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_FORCE_LANDSCAPE;
-
 import android.content.Intent;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.Manifest;
-import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -165,7 +161,6 @@ public class LauncherActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (PREF_FORCE_LANDSCAPE) setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         setContentView(R.layout.activity_pojav_launcher);
         IconCacheJanitor.runJanitor();
