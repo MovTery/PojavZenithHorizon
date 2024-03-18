@@ -14,6 +14,7 @@
         android:layout_height="match_parent">
 
         <ScrollView
+            android:id="@+id/scrollView3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginEnd="240dp"
@@ -336,7 +337,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/scrollView2" />
+            app:layout_constraintStart_toEndOf="@+id/scrollView3" />
 
         <com.kdt.mcgui.MineButton
             android:id="@+id/vprof_editor_delete_button"
@@ -350,7 +351,7 @@
             app:layout_constraintBottom_toTopOf="@+id/vprof_editor_save_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/scrollView2" />
+            app:layout_constraintStart_toEndOf="@+id/scrollView3" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
