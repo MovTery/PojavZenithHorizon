@@ -143,11 +143,17 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
 
         mModsButton.setOnClickListener(v -> {
             File mods = new File(getGameDirPath(mTempProfile.gameDir), "mods");
-            Bundle bundle = new Bundle();
-            bundle.putString(ModsFragment.BUNDLE_ROOT_PATH, mods.toString());
+            if (mods.exists()) {
+                Bundle bundle = new Bundle();
+                bundle.putString(ModsFragment.BUNDLE_ROOT_PATH, mods.toString());
 
-            Tools.swapFragment(requireActivity(),
-                    ModsFragment.class, ModsFragment.TAG, true, bundle);
+                Tools.swapFragment(requireActivity(),
+                        ModsFragment.class, ModsFragment.TAG, true, bundle);
+            } else {
+                Toast.makeText(requireContext(), getString(R.string.zh_file_does_not_exist), Toast.LENGTH_SHORT).show();
+                mModsButton.setVisibility(View.GONE);
+                mCreateModsButton.setVisibility(View.VISIBLE);
+            }
         });
 
         mGameDirButton.setOnClickListener(v -> {
