@@ -1,8 +1,10 @@
 package net.kdt.pojavlaunch;
 
 import android.content.Intent;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.Manifest;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -161,7 +163,6 @@ public class LauncherActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_pojav_launcher);
         IconCacheJanitor.runJanitor();
         mRequestNotificationPermissionLauncher = registerForActivityResult(
@@ -350,5 +351,10 @@ public class LauncherActivity extends BaseActivity {
         mDeleteAccountButton = findViewById(R.id.delete_account_button);
         mAccountSpinner = findViewById(R.id.account_spinner);
         mProgressLayout = findViewById(R.id.progress_layout);
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }

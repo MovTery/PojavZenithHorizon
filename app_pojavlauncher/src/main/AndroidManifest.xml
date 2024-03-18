@@ -53,8 +53,9 @@
         </activity>
         <activity
             android:name=".LauncherActivity"
-            android:configChanges="screenSize|keyboardHidden|orientation"
-            android:label="@string/app_short_name" />
+            android:label="@string/app_short_name"
+            android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation|uiMode"
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".ImportControlActivity"
             android:configChanges="keyboard|keyboardHidden"
@@ -104,7 +105,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|keyboardHidden|orientation|navigation|uiMode"
+            android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation|uiMode"
             android:launchMode="standard"
             android:process=":game"
             android:screenOrientation="sensorLandscape" />
