@@ -1,7 +1,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent">
@@ -9,34 +8,36 @@
     <com.kdt.mcgui.mcAccountSpinner
         android:id="@+id/account_spinner"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_42sdp"
+        android:layout_height="@dimen/_30sdp"
 
         android:dropDownWidth="wrap_content"
-        android:dropDownVerticalOffset="@dimen/_42sdp"
+        android:dropDownVerticalOffset="@dimen/_30sdp"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <ImageButton
         android:id="@+id/setting_button"
-        android:layout_width="@dimen/_52sdp"
-        android:layout_height="@dimen/_42sdp"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginEnd="4dp"
         android:background="?attr/selectableItemBackground"
-        android:src="@drawable/ic_menu_settings"
         android:scaleType="fitCenter"
 
+        android:src="@drawable/ic_menu_settings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/delete_account_button"
-        android:layout_width="@dimen/_52sdp"
-        android:layout_height="@dimen/_42sdp"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginEnd="4dp"
         android:background="?attr/selectableItemBackground"
-        android:src="@drawable/ic_menu_delete_forever"
         android:scaleType="fitCenter"
 
 
+        android:src="@drawable/ic_menu_delete_forever"
         app:layout_constraintEnd_toStartOf="@id/setting_button"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,7 +48,9 @@
 
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginEnd="0dp"
         app:layout_constraintBottom_toTopOf="@+id/progress_layout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/account_spinner" />
 
 
@@ -56,7 +59,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:layout_marginEnd="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 
