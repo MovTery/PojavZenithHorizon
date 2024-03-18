@@ -27,12 +27,6 @@
             android:summary="@string/zh_setting_enable_log_output_desc"
             android:title="@string/zh_setting_enable_log_output_title" />
 
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="forceLandscape"
-            android:summary="@string/zh_setting_force_landscape_desc"
-            android:title="@string/zh_setting_force_landscape_title" />
-
     </PreferenceCategory>
 
 </PreferenceScreen>
