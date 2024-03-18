@@ -5,6 +5,7 @@ import static net.kdt.pojavlaunch.fragments.ProfileEditorFragment.DELETED_PROFIL
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.transition.Slide;
 import android.transition.Transition;
@@ -158,7 +159,8 @@ public class mcVersionSpinner extends ExtendedTextView {
             }
         });
 
-        mPopupWindow = new PopupWindow(mListView, MATCH_PARENT, getContext().getResources().getDimensionPixelOffset(R.dimen._184sdp));
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) mPopupWindow = new PopupWindow(mListView, getContext().getResources().getDimensionPixelOffset(R.dimen._240sdp), getContext().getResources().getDimensionPixelOffset(R.dimen._184sdp));
+        else mPopupWindow = new PopupWindow(mListView, MATCH_PARENT, getContext().getResources().getDimensionPixelOffset(R.dimen._184sdp));
         mPopupWindow.setElevation(5);
         mPopupWindow.setClippingEnabled(false);
 
