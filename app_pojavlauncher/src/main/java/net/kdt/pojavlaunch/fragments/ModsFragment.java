@@ -108,7 +108,7 @@ public class ModsFragment extends Fragment {
                 DialogInterface.OnClickListener enableListener = (dialog, which) -> {
                     int index = fileName.indexOf(disableString);
                     if (index == -1) index = 0;
-                    else if (index == 0) index = 4;
+                    else if (index == 0) index = disableString.length() - 1;
                     File newFile = new File(fileParent, fileName.substring(index, fileName.lastIndexOf('.')));
                     boolean disable = file.renameTo(newFile);
                     if (disable) {
