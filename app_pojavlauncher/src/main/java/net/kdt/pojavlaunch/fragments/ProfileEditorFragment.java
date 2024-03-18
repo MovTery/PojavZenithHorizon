@@ -137,6 +137,8 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
 
             builder.setPositiveButton(getString(R.string.zh_profile_create_mods), create)
                     .setNegativeButton(getString(R.string.zh_profile_mods_cancel), null);
+
+            builder.show();
         });
 
         mModsButton.setOnClickListener(v -> {
