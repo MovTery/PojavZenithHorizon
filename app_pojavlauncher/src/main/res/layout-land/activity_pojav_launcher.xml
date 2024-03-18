@@ -20,10 +20,11 @@
         android:id="@+id/setting_button"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
+        android:layout_marginEnd="4dp"
         android:background="?attr/selectableItemBackground"
-        android:src="@drawable/ic_menu_settings"
         android:scaleType="fitCenter"
 
+        android:src="@drawable/ic_menu_settings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,11 +32,12 @@
         android:id="@+id/delete_account_button"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
+        android:layout_marginEnd="4dp"
         android:background="?attr/selectableItemBackground"
-        android:src="@drawable/ic_menu_delete_forever"
         android:scaleType="fitCenter"
 
 
+        android:src="@drawable/ic_menu_delete_forever"
         app:layout_constraintEnd_toStartOf="@id/setting_button"
         app:layout_constraintTop_toTopOf="parent" />
 
