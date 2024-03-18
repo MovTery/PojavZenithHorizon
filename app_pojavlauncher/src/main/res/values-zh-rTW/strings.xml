@@ -46,6 +46,8 @@
     <string name="zh_setting_set_to_chinese_title">自動設置為中文</string>
     <string name="zh_setting_enable_log_output_desc">在應用正式開始運行遊戲時，開啟日誌輸出界面</string>
     <string name="zh_setting_enable_log_output_title">啟動遊戲時打開日誌輸出</string>
+    <string name="zh_setting_force_landscape_desc">開啟後，啟動器將鎖定橫屏布局</string>
+    <string name="zh_setting_force_landscape_title">強制橫屏布局</string>
     <string name="zh_view_log_output">日誌輸出：</string>
 
     <string name="zh_description">感謝您使用《PojavLauncher》非官方漢化版：《Pojav ZH》！\n漢化版作者：墨北MovTery。\n\n漢化版對原有的中文語言文件進行了大量修改，修正了官方原版中不少漢化錯誤的內容。\n如果您在使用過程中遇到了問題，請及時反饋給我哦！</string>
