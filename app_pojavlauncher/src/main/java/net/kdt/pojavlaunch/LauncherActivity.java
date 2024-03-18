@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch;
 
 import android.content.Intent;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.Manifest;
 import android.content.res.Configuration;
