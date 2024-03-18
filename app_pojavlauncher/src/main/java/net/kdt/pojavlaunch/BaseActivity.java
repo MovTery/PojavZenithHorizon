@@ -2,7 +2,10 @@ package net.kdt.pojavlaunch;
 
 import android.content.*;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.*;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.*;
 import net.kdt.pojavlaunch.utils.*;
 
@@ -52,5 +55,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onPostResume();
         Tools.setFullscreen(this, setFullscreen());
         Tools.ignoreNotch(PREF_IGNORE_NOTCH,this);
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }
