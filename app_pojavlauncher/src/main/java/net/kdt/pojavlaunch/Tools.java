@@ -14,6 +14,7 @@ import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -1102,6 +1103,21 @@ public final class Tools {
 
         Intent sendIntent = Intent.createChooser(shareIntent, fileName);
         context.startActivity(sendIntent);
+    }
+
+    public static void shareFileAlertDialog(Context context, File file) {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+
+        builder.setTitle(context.getString(R.string.zh_file_share));
+        builder.setMessage(context.getString(R.string.zh_file_share_message) + "\n" + file.getName());
+
+        //分享
+        DialogInterface.OnClickListener shareListener = (dialog, which) -> Tools.shareFile(context, file.getName(), file.getAbsolutePath());
+
+        builder.setPositiveButton(context.getString(R.string.zh_file_share), shareListener)
+                .setNegativeButton(context.getString(R.string.zh_cancel), null);
+
+        builder.show();
     }
 
     /** Mesure the textview height, given its current parameters */
