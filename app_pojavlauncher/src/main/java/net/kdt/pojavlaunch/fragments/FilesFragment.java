@@ -70,74 +70,68 @@ public class FilesFragment extends Fragment {
         mFileListView.setShowFiles(mShowFiles);
         mFileListView.setShowFolders(mShowFolders);
         mFileListView.lockPathAt(new File(mRootPath));
-        mFileListView.setDialogTitleListener((title) -> mFilePathView.setText(mRootPath));
+        mFileListView.setDialogTitleListener((title)->mFilePathView.setText(removeLockPath(title)));
         mFileListView.refreshPath();
 
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
-                if (file.isFile()) {
-                    String fileName = file.getName();
-                    String fileParent = file.getParent();
-                    int mcIndex = file.getPath().indexOf(".minecraft");
-                    AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+                String fileName = file.getName();
+                String fileParent = file.getParent();
+                int mcIndex = file.getPath().indexOf(".minecraft");
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
-                    builder.setTitle(getString(R.string.zh_file_tips));
-                    if (mcIndex != -1) builder.setMessage(getString(R.string.zh_file_message));
-                    else builder.setMessage(getString(R.string.zh_file_message) + File.pathSeparator + getString(R.string.zh_file_message_main));
+                builder.setTitle(getString(R.string.zh_file_tips));
+                if (mcIndex != -1) builder.setMessage(getString(R.string.zh_file_message));
+                else builder.setMessage(getString(R.string.zh_file_message) + File.pathSeparator + getString(R.string.zh_file_message_main));
 
-                    DialogInterface.OnClickListener deleteListener = (dialog, which) -> {
-                        // 显示确认删除的对话框
-                        AlertDialog.Builder deleteConfirmation = new AlertDialog.Builder(requireActivity());
+                DialogInterface.OnClickListener deleteListener = (dialog, which) -> {
+                    // 显示确认删除的对话框
+                    AlertDialog.Builder deleteConfirmation = new AlertDialog.Builder(requireActivity());
 
-                        deleteConfirmation.setTitle(getString(R.string.zh_file_tips));
-                        deleteConfirmation.setMessage(getString(R.string.zh_file_delete) + "\n" + fileName);
+                    deleteConfirmation.setTitle(getString(R.string.zh_file_tips));
+                    deleteConfirmation.setMessage(getString(R.string.zh_file_delete) + "\n" + fileName);
 
-                        deleteConfirmation.setPositiveButton(getString(R.string.global_delete), (dialog1, which1) -> {
-                            boolean deleted = file.delete();
-                            if (deleted) {
-                                Toast.makeText(requireActivity(), getString(R.string.zh_file_deleted) + fileName, Toast.LENGTH_SHORT).show();
+                    deleteConfirmation.setPositiveButton(getString(R.string.global_delete), (dialog1, which1) -> {
+                        boolean deleted = file.delete();
+                        if (deleted) {
+                            Toast.makeText(requireActivity(), getString(R.string.zh_file_deleted) + fileName, Toast.LENGTH_SHORT).show();
+                        }
+                        mFileListView.refreshPath();
+                    });
+
+                    deleteConfirmation.setNegativeButton(getString(R.string.zh_cancel), null);
+                    deleteConfirmation.show();
+                };
+
+                DialogInterface.OnClickListener renameListener = (dialog, which) -> { //重命名
+                    AlertDialog.Builder renameBuilder = new AlertDialog.Builder(requireActivity());
+                    String suffix = fileName.substring(fileName.lastIndexOf('.')); //防止修改后缀名，先将后缀名分离出去
+                    EditText input = new EditText(requireActivity());
+                    input.setText(fileName.substring(0, fileName.indexOf(suffix)));
+                    renameBuilder.setTitle(getString(R.string.zh_file_rename));
+                    renameBuilder.setView(input);
+                    renameBuilder.setPositiveButton(getString(R.string.zh_file_rename), (dialog1, which1) -> {
+                        String newName = input.getText().toString();
+                        if (!newName.isEmpty()) {
+                            File newFile = new File(fileParent, newName + suffix);
+                            boolean renamed = file.renameTo(newFile);
+                            if (renamed) {
+                                Toast.makeText(requireActivity(), getString(R.string.zh_file_renamed) + file.getName() + " -> " + newName, Toast.LENGTH_SHORT).show();
+                                mFileListView.refreshPath();
                             }
-                            mFileListView.refreshPath();
-                        });
+                        } else {
+                            Toast.makeText(requireActivity(), getString(R.string.zh_file_rename_empty), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    renameBuilder.setNegativeButton(getString(R.string.zh_cancel), null);
+                    renameBuilder.show();
+                };
 
-                        deleteConfirmation.setNegativeButton(getString(R.string.zh_cancel), null);
-                        deleteConfirmation.show();
-                    };
+                builder.setPositiveButton(getString(R.string.global_delete), deleteListener)
+                        .setNegativeButton(getString(R.string.zh_file_rename), renameListener);
 
-                    DialogInterface.OnClickListener renameListener = (dialog, which) -> { //重命名
-                        AlertDialog.Builder renameBuilder = new AlertDialog.Builder(requireActivity());
-                        EditText input = new EditText(requireActivity());
-                        input.setText(fileName);
-                        renameBuilder.setTitle(getString(R.string.zh_file_rename));
-                        renameBuilder.setView(input);
-                        renameBuilder.setPositiveButton(getString(R.string.zh_file_rename), (dialog1, which1) -> {
-                            String newName = input.getText().toString();
-                            if (!newName.isEmpty()) {
-                                File newFile = new File(fileParent, newName);
-                                boolean renamed = file.renameTo(newFile);
-                                if (renamed) {
-                                    Toast.makeText(requireActivity(), getString(R.string.zh_file_renamed) + file.getName() + " -> " + newName, Toast.LENGTH_SHORT).show();
-                                    mFileListView.refreshPath();
-                                }
-                            } else {
-                                Toast.makeText(requireActivity(), getString(R.string.zh_file_rename_empty), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        renameBuilder.setNegativeButton(getString(R.string.zh_cancel), null);
-                        renameBuilder.show();
-                    };
-
-                    builder.setPositiveButton(getString(R.string.global_delete), deleteListener)
-                            .setNegativeButton(getString(R.string.zh_file_rename), renameListener);
-
-                    builder.show();
-                } else if (file.isDirectory()) {
-                    File dir = new File(mRootPath, file.getName());
-                    mFileListView.lockPathAt(dir);
-                    mFilePathView.setText(dir.getPath());
-                    mFileListView.refreshPath();
-                }
+                builder.show();
             }
         });
 
@@ -152,7 +146,7 @@ public class FilesFragment extends Fragment {
         protected Void doInBackground(Uri... uris) {
             Uri fileUri = uris[0];
             String fileName = getFileName(requireContext(), fileUri);
-            File outputFile = new File(mRootPath, fileName);
+            File outputFile = new File(mFileListView.getFullPath().getAbsolutePath(), fileName);
             try (InputStream inputStream = requireContext().getContentResolver().openInputStream(fileUri)) {
                 if (inputStream != null) {
                     try (OutputStream outputStream = new FileOutputStream(outputFile)) {
@@ -175,6 +169,10 @@ public class FilesFragment extends Fragment {
             Toast.makeText(requireContext(), getString(R.string.zh_profile_mods_added_mod), Toast.LENGTH_SHORT).show();
             mFileListView.refreshPath();
         }
+    }
+
+    private String removeLockPath(String path){
+        return path.replace(mRootPath, ".");
     }
 
     private void parseBundle(){
