@@ -20,8 +20,8 @@
         android:id="@+id/view"
         android:layout_width="0dp"
         android:layout_height="3dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/minebutton_color"
+        android:layout_marginTop="0dp"
+        android:background="@android:color/background_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view2" />

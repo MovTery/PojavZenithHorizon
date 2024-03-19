@@ -33,7 +33,7 @@ public class ModsFragment extends Fragment {
     public static final String TAG = "ModsFragment";
     public static final String BUNDLE_ROOT_PATH = "root_path";
     private ActivityResultLauncher<Object> openDocumentLauncher;
-    private Button mSaveButton, mSelectModButton, mRefreshButton;
+    private Button mReturnButton, mSelectModButton, mRefreshButton;
     private FileListView mFileListView;
     private String mRootPath;
 
@@ -153,7 +153,7 @@ public class ModsFragment extends Fragment {
             }
         });
 
-        mSaveButton.setOnClickListener(v -> requireActivity().onBackPressed());
+        mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
         mSelectModButton.setOnClickListener(v -> {
             Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_add_mod_tip), Toast.LENGTH_SHORT).show();
             openDocumentLauncher.launch(".jar");
@@ -199,7 +199,7 @@ public class ModsFragment extends Fragment {
     }
 
     private void bindViews(@NonNull View view) {
-        mSaveButton = view.findViewById(R.id.zh_mods_save_button);
+        mReturnButton = view.findViewById(R.id.zh_mods_return_button);
         mSelectModButton = view.findViewById(R.id.zh_select_mod_button);
         mRefreshButton = view.findViewById(R.id.zh_mods_refresh_button);
         mFileListView = view.findViewById(R.id.zh_mods);
