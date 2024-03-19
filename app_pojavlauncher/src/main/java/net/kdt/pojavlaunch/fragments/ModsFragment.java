@@ -119,14 +119,15 @@ public class ModsFragment extends Fragment {
 
                 DialogInterface.OnClickListener renameListener = (dialog, which) -> {
                     AlertDialog.Builder renameBuilder = new AlertDialog.Builder(requireActivity());
+                    String suffix = fileName.substring(fileName.lastIndexOf('.')); //防止修改后缀名，先将后缀名分离出去
                     EditText input = new EditText(requireActivity());
-                    input.setText(fileName);
+                    input.setText(fileName.substring(0, fileName.indexOf(suffix)));
                     renameBuilder.setTitle(getString(R.string.zh_file_rename));
                     renameBuilder.setView(input);
                     renameBuilder.setPositiveButton(getString(R.string.zh_file_rename), (dialog1, which1) -> {
                         String newName = input.getText().toString();
                         if (!newName.isEmpty()) {
-                            File newFile = new File(fileParent, newName);
+                            File newFile = new File(fileParent, newName + suffix);
                             boolean renamed = file.renameTo(newFile);
                             if (renamed) {
                                 Toast.makeText(requireActivity(), getString(R.string.zh_file_renamed) + file.getName() + " -> " + newName, Toast.LENGTH_SHORT).show();
