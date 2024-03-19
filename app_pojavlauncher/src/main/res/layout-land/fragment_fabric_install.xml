@@ -40,9 +40,10 @@
             android:id="@+id/fabric_installer_label_game_ver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:text="@string/fabric_dl_game_version"
             app:layout_constraintBottom_toTopOf="@+id/fabric_installer_game_ver_spinner"
-            tools:layout_editor_absoluteX="10dp"
+            app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints" />
 
         <Spinner
@@ -69,8 +70,9 @@
             android:paddingHorizontal="@dimen/_8sdp"
             android:rotation="180"
             android:src="@drawable/spinner_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/fabric_installer_game_ver_spinner"
             app:layout_constraintEnd_toEndOf="@+id/fabric_installer_game_ver_spinner"
-            tools:layout_editor_absoluteY="104dp"
+            app:layout_constraintTop_toTopOf="@+id/fabric_installer_game_ver_spinner"
             tools:ignore="MissingConstraints" />
 
         <TextView
@@ -78,9 +80,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
+            android:layout_marginStart="8dp"
             android:text="@string/fabric_dl_loader_version"
-            tools:layout_editor_absoluteX="10dp"
-            tools:layout_editor_absoluteY="140dp"
+            app:layout_constraintBottom_toTopOf="@+id/fabric_installer_loader_ver_spinner"
+            app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints" />
 
         <Spinner
@@ -106,8 +109,9 @@
             android:paddingHorizontal="@dimen/_8sdp"
             android:rotation="180"
             android:src="@drawable/spinner_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/fabric_installer_loader_ver_spinner"
             app:layout_constraintEnd_toEndOf="@+id/fabric_installer_loader_ver_spinner"
-            tools:layout_editor_absoluteY="176dp"
+            app:layout_constraintTop_toTopOf="@+id/fabric_installer_loader_ver_spinner"
             tools:ignore="MissingConstraints" />
 
         <TextView
@@ -115,9 +119,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
+            android:layout_marginStart="8dp"
             android:text="@string/mcl_options"
             app:layout_constraintBottom_toTopOf="@+id/fabric_installer_only_stable_checkbox"
-            tools:layout_editor_absoluteX="10dp"
+            app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints" />
 
         <CheckBox
