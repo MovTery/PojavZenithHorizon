@@ -37,7 +37,7 @@ public class FilesFragment extends Fragment {
     public static final String BUNDLE_SHOW_FILES = "show_files";
     public static final String BUNDLE_SHOW_FOLDERS = "show_folders";
     private ActivityResultLauncher<Object> openDocumentLauncher;
-    private Button mReturnButton, mAddFileButton, mRefreshButton;
+    private Button mReturnButton, mAddFileButton, mCreateFolderButton, mRefreshButton;
     private FileListView mFileListView;
     private TextView mFilePathView;
     private String mRootPath;
@@ -138,6 +138,22 @@ public class FilesFragment extends Fragment {
 
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
         mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(null)); //不限制文件类型
+        mCreateFolderButton.setOnClickListener(v -> {
+            EditText editText = new EditText(getContext());
+            new AlertDialog.Builder(getContext())
+                    .setTitle(R.string.folder_dialog_insert_name)
+                    .setView(editText)
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .setPositiveButton(R.string.folder_dialog_create, (dialog, which) -> {
+                        File folder = new File(mFileListView.getFullPath(), editText.getText().toString());
+                        boolean success = folder.mkdir();
+                        if(success){
+                            mFileListView.listFileAt(new File(mFileListView.getFullPath(),editText.getText().toString()));
+                        }else{
+                            mFileListView.refreshPath();
+                        }
+                    }).show();
+        });
         mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());
     }
 
@@ -187,6 +203,7 @@ public class FilesFragment extends Fragment {
     private void bindViews(@NonNull View view) {
         mReturnButton = view.findViewById(R.id.zh_files_return_button);
         mAddFileButton = view.findViewById(R.id.zh_files_add_file_button);
+        mCreateFolderButton = view.findViewById(R.id.zh_files_create_folder_button);
         mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
         mFileListView = view.findViewById(R.id.zh_files);
         mFilePathView = view.findViewById(R.id.zh_files_current_path);
