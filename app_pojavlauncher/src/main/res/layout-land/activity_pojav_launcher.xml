@@ -16,9 +16,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:background="@color/minebutton_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
+
     <com.kdt.mcgui.mcAccountSpinner
         android:id="@+id/account_spinner"
-        android:layout_width="120dp"
+        android:layout_width="200dp"
         android:layout_height="@dimen/_35sdp"
 
         android:dropDownWidth="wrap_content"
