@@ -78,8 +78,8 @@ public class FilesFragment extends Fragment {
             public void onFileSelected(File file, String path) {
                 String fileName = file.getName();
                 String fileParent = file.getParent();
-                int caciocavallo = file.getPath().indexOf("file/caciocavallo");
-                int lwjgl3 = file.getPath().indexOf("file/lwjgl3");
+                int caciocavallo = file.getPath().indexOf("caciocavallo");
+                int lwjgl3 = file.getPath().indexOf("lwjgl3");
                 AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
                 builder.setTitle(getString(R.string.zh_file_tips));
