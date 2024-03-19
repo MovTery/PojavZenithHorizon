@@ -19,7 +19,7 @@
     <View
         android:id="@+id/view"
         android:layout_width="0dp"
-        android:layout_height="3dp"
+        android:layout_height="4dp"
         android:layout_marginTop="0dp"
         android:background="@android:color/background_dark"
         app:layout_constraintEnd_toEndOf="parent"
