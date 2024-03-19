@@ -59,8 +59,8 @@
     <string name="zh_setting_enable_log_output_title">启动游戏时打开日志输出</string>
     <string name="zh_view_log_output">日志输出:</string>
 
-    <string name="zh_description">感谢您使用《PojavLauncher》非官方汉化版：《Pojav ZH》！\n汉化版作者：墨北MovTery。\n\n汉化版对原有的中文语言文件进行了大量修改，修正了官方原版中不少汉化错误的内容。\n如果您在使用过程中遇到了问题，请及时反馈给我哦！</string>
-    <string name="zh_description_button1">联系汉化者</string>
+    <string name="zh_description">感谢您使用《PojavLauncher》非官方汉化版：《Pojav ZH》！\n作者：墨北MovTery。\n\nPojav ZH对原有的中文语言文件进行了大量修改，修正了官方原版中不少汉化错误的内容。同时也加入了非常多实用的功能，软件布局也经过了大幅修改，使其更合理更美观！\n如果您在使用过程中遇到了问题，请及时反馈给我哦！</string>
+    <string name="zh_description_button1">联系作者</string>
     <string name="zh_description_button2">不再提示</string>
 
     <!-- Action bar part -->

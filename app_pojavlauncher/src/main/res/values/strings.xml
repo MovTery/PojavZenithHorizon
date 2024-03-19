@@ -62,7 +62,7 @@
     <string name="zh_setting_enable_log_output_title">Enable log output on game startup</string>
     <string name="zh_view_log_output">Log output:</string>
 
-    <string name="zh_description">\nSorry, PojavZH is only applicable to players who use PojavLauncher in China.\nI just modified the language file to make it easy for more Chinese players to understand.\nThe other content is the same as the version of PojavLauncherTeam.\nSo you don\u0027t need to use PojavZH at all</string>
+    <string name="zh_description">\nApologies, PojavZH is designed for players using PojavLauncher in China. \nPojavZH extensively modifies the software layout and adds more features, but these are all added for the convenience of the majority of Chinese players. \nIf you are already proficient in using the original PojavLauncher, then you do not need to use PojavZH at all!</string>
     <string name="zh_description_button1">Contact Me</string>
     <string name="zh_description_button2">OK</string>
 
