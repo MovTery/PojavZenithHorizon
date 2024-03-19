@@ -29,28 +29,6 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/fragment_padding_medium">
 
-                <ImageView
-                    android:id="@+id/vprof_editor_profile_icon"
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_marginTop="@dimen/padding_heavy"
-                    android:paddingHorizontal="@dimen/profile_editor_image_padding"
-
-                    android:paddingVertical="@dimen/profile_editor_image_padding"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@tools:sample/avatars" />
-
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="@dimen/_14sdp"
-                    android:layout_height="@dimen/_14sdp"
-                    android:background="@drawable/background_icon_edit"
-                    android:src="@drawable/ic_edit_profile"
-                    app:layout_constraintBottom_toBottomOf="@+id/vprof_editor_profile_icon"
-                    app:layout_constraintEnd_toEndOf="@+id/vprof_editor_profile_icon" />
-
                 <TextView
                     android:id="@+id/vprof_editor_profile_name_sub"
                     android:layout_width="wrap_content"
@@ -63,15 +41,16 @@
                     android:id="@+id/vprof_editor_profile_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/padding_large"
+                    android:layout_marginTop="30dp"
                     android:background="@drawable/background_line"
-                    android:ems="10"
 
+                    android:ems="10"
                     android:hint="@string/unnamed"
                     android:inputType="textPersonName"
                     android:paddingHorizontal="@dimen/padding_heavy"
                     android:textSize="@dimen/_13ssp"
-                    app:layout_constraintTop_toBottomOf="@id/vprof_editor_profile_icon" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_editor_absoluteX="10dp" />
 
 
                 <TextView
@@ -274,56 +253,43 @@
                     app:layout_constraintEnd_toEndOf="@id/vprof_editor_profile_renderer"
                     app:layout_constraintTop_toTopOf="@id/vprof_editor_profile_renderer" />
 
-                <Button
-                    android:id="@+id/zh_create_mods_button"
-                    android:layout_width="116dp"
-                    android:layout_height="45dp"
-                    android:paddingHorizontal="@dimen/padding_large"
-
-
-                    android:paddingVertical="0px"
-
-                    android:text="@string/zh_profile_create_mods"
-                    app:layout_constraintBottom_toTopOf="@+id/vprof_editor_profile_name"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/vprof_editor_profile_icon"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.5" />
-
-                <Button
-                    android:id="@+id/zh_mods_button"
-                    android:layout_width="116dp"
-                    android:layout_height="45dp"
-                    android:paddingHorizontal="@dimen/padding_large"
-
-
-                    android:paddingVertical="0px"
-
-                    android:text="@string/zh_profile_mods"
-                    app:layout_constraintBottom_toTopOf="@+id/vprof_editor_profile_name"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/vprof_editor_profile_icon"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.5" />
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
         <View
-            android:id="@+id/_background_display_view"
+            android:id="@+id/view3"
             android:layout_width="240dp"
             android:layout_height="match_parent"
             android:layout_marginTop="-8dp"
-            android:background="@color/background_bottom_bar"
 
+            android:background="@color/background_bottom_bar"
             android:translationZ="-1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
+
+        <ImageView
+            android:id="@+id/vprof_editor_profile_icon"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginTop="12dp"
+
+            android:paddingHorizontal="@dimen/profile_editor_image_padding"
+            android:paddingVertical="@dimen/profile_editor_image_padding"
+            app:layout_constraintEnd_toEndOf="@+id/view3"
+            app:layout_constraintStart_toEndOf="@+id/scrollView3"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="@dimen/_14sdp"
+            android:layout_height="@dimen/_14sdp"
+            android:background="@drawable/background_icon_edit"
+            android:src="@drawable/ic_edit_profile"
+            app:layout_constraintBottom_toBottomOf="@+id/vprof_editor_profile_icon"
+            app:layout_constraintEnd_toEndOf="@+id/vprof_editor_profile_icon" />
 
         <com.kdt.mcgui.MineButton
             android:id="@+id/vprof_editor_save_button"
@@ -349,6 +315,34 @@
             android:layout_weight="1"
             android:text="@string/global_delete"
             app:layout_constraintBottom_toTopOf="@+id/vprof_editor_save_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/scrollView3" />
+
+        <com.kdt.mcgui.MineButton
+            android:id="@+id/zh_create_mods_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:text="@string/zh_profile_create_mods"
+            app:layout_constraintBottom_toTopOf="@+id/vprof_editor_delete_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/scrollView3" />
+
+        <com.kdt.mcgui.MineButton
+            android:id="@+id/zh_mods_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:text="@string/zh_profile_mods"
+            app:layout_constraintBottom_toTopOf="@+id/vprof_editor_delete_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/scrollView3" />

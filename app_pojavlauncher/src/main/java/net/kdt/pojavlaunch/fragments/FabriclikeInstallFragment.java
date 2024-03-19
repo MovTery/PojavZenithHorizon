@@ -63,6 +63,7 @@ public abstract class FabriclikeInstallFragment extends Fragment implements Modl
         super.onViewCreated(view, savedInstanceState);
         mStartButton = view.findViewById(R.id.fabric_installer_start_button);
         mStartButton.setOnClickListener(this::onClickStart);
+        view.findViewById(R.id.zh_fabric_installer_return_button).setOnClickListener(v -> requireActivity().onBackPressed()); //返回按钮
         mGameVersionSpinner = view.findViewById(R.id.fabric_installer_game_ver_spinner);
         mGameVersionSpinner.setOnItemSelectedListener(new GameVersionSelectedListener());
         mLoaderVersionSpinner = view.findViewById(R.id.fabric_installer_loader_ver_spinner);
