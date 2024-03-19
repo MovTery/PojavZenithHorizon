@@ -87,7 +87,7 @@
             android:paddingHorizontal="@dimen/padding_large"
 
             android:paddingVertical="0px"
-            android:text="@string/zh_profile_mods_refresh"
+            android:text="@string/zh_file_refresh"
             app:layout_constraintBottom_toTopOf="@+id/zh_mods"
             app:layout_constraintEnd_toStartOf="@+id/_background_display_view"
             app:layout_constraintTop_toTopOf="parent" />
