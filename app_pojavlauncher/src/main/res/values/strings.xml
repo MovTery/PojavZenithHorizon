@@ -32,6 +32,7 @@
     <string name="zh_file_rename_empty">The file name cannot be empty!</string>
     <string name="zh_file_refresh">Refresh</string>
     <string name="zh_file_return">Return</string>
+    <string name="zh_file_share">Share</string>
     <string name="zh_file_open">Open</string>
     <string name="zh_neoforge_dl_searching">Searching for NeoForge version number</string>
     <string name="zh_neoforge_dl_no_installer">Sorry, but this version of NeoForge does not have an installer, which is not yet supported.</string>
