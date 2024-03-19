@@ -29,7 +29,7 @@ public class FileSelectorFragment extends Fragment {
     public static final String BUNDLE_SHOW_FOLDER = "show_folder";
     public static final String BUNDLE_ROOT_PATH = "root_path";
 
-    private Button mSelectFolderButton, mCreateFolderButton;
+    private Button mSelectFolderButton, mCreateFolderButton, mRefreshButton;
     private FileListView mFileListView;
     private TextView mFilePathView;
 
@@ -80,6 +80,8 @@ public class FileSelectorFragment extends Fragment {
             Tools.removeCurrentFragment(requireActivity());
         });
 
+        mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());
+
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
@@ -105,6 +107,7 @@ public class FileSelectorFragment extends Fragment {
     private void bindViews(@NonNull View view){
         mSelectFolderButton = view.findViewById(R.id.file_selector_select_folder);
         mCreateFolderButton = view.findViewById(R.id.file_selector_create_folder);
+        mRefreshButton = view.findViewById(R.id.zh_file_selector_refresh_button);
         mFileListView = view.findViewById(R.id.file_selector);
         mFilePathView = view.findViewById(R.id.file_selector_current_path);
     }
