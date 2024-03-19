@@ -20,6 +20,7 @@
     <string name="zh_file_does_not_exist">這個資料夾（或檔案）不存在</string>
     <string name="zh_file_tips">操作此檔案</string>
     <string name="zh_file_message">請選擇您要對此檔案進行的操作，點擊螢幕空白區域可關閉此視窗</string>
+    <string name="zh_file_added">成功新增檔案</string>
     <string name="zh_file_delete">您確定要刪除此檔案嗎？</string>
     <string name="zh_file_deleted">成功刪除檔案：</string>
     <string name="zh_file_rename">重新命名</string>
