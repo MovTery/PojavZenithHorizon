@@ -17,4 +17,4 @@
 ## 下载
 - 前往 [Release](https://github.com/HopiHopy/PojavZH/releases) 查看最新且经过测试的稳定版本（更新并不频繁）。
 - (并不推荐) 前往 [Actions](https://github.com/HopiHopy/PojavZH/actions) 查看最新的中文语言更新版本 ( 主线：v3_openjdk，其他任何支线均可忽略！)
-，进入后，点击 **Pojav汉化更新** 下载 (Debug 为测试构建版本，Release 为发行构建版本，内容都是一致的，只不过包名不同，能够相互独立安装)。
+，进入后，点击 **PojavZH** 下载 (Debug 为测试构建版本，Release 为发行构建版本，内容都是一致的，只不过包名不同，能够相互独立安装)。
