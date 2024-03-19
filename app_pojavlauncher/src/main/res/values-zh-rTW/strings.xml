@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Pojav ZH -->
+    <string name="zh_account_text">請選擇一種登錄方式</string>
     <string name="zh_account_microsoft_ccount">微軟帳號</string>
     <string name="zh_account_local_account">離線帳號</string>
+    <string name="zh_account_login_local_name">用戶名</string>
     <string name="zh_account_login_start">開始登入！</string>
+    <string name="zh_activity_import_control">控制佈局名稱：</string>
+    <string name="zh_activity_java_gui_keyboard">輸入法</string>
+    <string name="zh_activity_java_gui_paste">貼上</string>
     <string name="zh_controls_add_control_button">按鍵</string>
     <string name="zh_controls_add_control_drawer">組合鍵</string>
     <string name="zh_controls_visibility">可見度</string>
@@ -57,7 +62,6 @@
     <!-- Languages list part -->
 
     <!-- Login strings -->
-    <string name="login_online_username_hint">電子郵件或用戶名</string>
     <string name="login_online_login_label">登入</string>
 
     <!-- Hint -->

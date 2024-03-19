@@ -4,9 +4,14 @@
     <string name="app_name" translatable="false">Pojav ZH</string>
     <string name="app_short_name" translatable="false">Pojav ZH</string>
     <!-- Pojav ZH -->
+    <string name="zh_account_text">Please select a login method</string>
     <string name="zh_account_microsoft_ccount">Microsoft Account</string>
     <string name="zh_account_local_account">Local account</string>
+    <string name="zh_account_login_local_name">Username</string>
     <string name="zh_account_login_start">Login started !</string>
+    <string name="zh_activity_import_control">Layout Name Control:</string>
+    <string name="zh_activity_java_gui_keyboard">Keyboard</string>
+    <string name="zh_activity_java_gui_paste">Paste</string>
     <string name="zh_controls_add_control_button">Button</string>
     <string name="zh_controls_add_control_drawer">Drawer</string>
     <string name="zh_controls_visibility">Visibility</string>
@@ -60,7 +65,6 @@
     <!-- Languages list part -->
 
     <!-- Login strings -->
-    <string name="login_online_username_hint">Email or username</string>
     <string name="login_online_login_label">Login</string>
 
     <!-- Hint -->

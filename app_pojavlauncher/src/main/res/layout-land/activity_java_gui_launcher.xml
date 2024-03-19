@@ -4,7 +4,8 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_height="match_parent"
-	android:layout_width="match_parent">
+	android:layout_width="match_parent"
+	tools:ignore="MissingDefaultResource">
 
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
@@ -19,7 +20,7 @@
 			android:ems="10"
 			android:imeOptions="flagNoFullscreen|flagNoExtractUi|flagNoPersonalizedLearning|actionDone"
 			android:inputType="textFilter|textImeMultiLine|textAutoComplete|textAutoCorrect"
-			tools:ignore="TouchTargetSizeCheck"
+			tools:ignore="MissingConstraints,TouchTargetSizeCheck"
 			/>
 
 		<net.kdt.pojavlaunch.AWTCanvasView
@@ -93,7 +94,7 @@
 			android:layout_marginTop="2dp"
 			android:background="@drawable/control_button"
 			android:onClick="toggleKeyboard"
-			android:text="Keyboard"
+			android:text="@string/zh_activity_java_gui_keyboard"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent" />
 
@@ -105,7 +106,7 @@
 			android:layout_marginTop="2dp"
 			android:background="@drawable/control_button"
 			android:onClick="performCopy"
-			android:text="Copy"
+			android:text="@string/mcl_version_clone"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/button" />
 
@@ -116,7 +117,7 @@
 			android:layout_marginTop="2dp"
 			android:background="@drawable/control_button"
 			android:onClick="performPaste"
-			android:text="Paste"
+			android:text="@string/zh_activity_java_gui_paste"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/button3" />
 
