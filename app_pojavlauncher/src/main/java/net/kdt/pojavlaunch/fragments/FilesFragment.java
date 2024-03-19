@@ -144,7 +144,7 @@ public class FilesFragment extends Fragment {
             @Override
             public void onItemLongClick(File file, String path) {
                 builder.setTitle(getString(R.string.zh_file_share));
-                builder.setMessage(getString(R.string.zh_file_share_message));
+                builder.setMessage(getString(R.string.zh_file_share_message) + "\n" + file.getName());
 
                 //分享
                 DialogInterface.OnClickListener shareListener = (dialog, which) -> Tools.shareFile(requireContext(), file.getName(), file.getAbsolutePath());
