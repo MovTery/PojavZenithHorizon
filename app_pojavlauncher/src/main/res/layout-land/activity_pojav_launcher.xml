@@ -1,14 +1,25 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+    android:background="@android:color/transparent"
+    tools:ignore="MissingDefaultResource">
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:background="@color/background_bottom_bar"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <com.kdt.mcgui.mcAccountSpinner
         android:id="@+id/account_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_30sdp"
+        android:layout_width="120dp"
+        android:layout_height="@dimen/_35sdp"
 
         android:dropDownWidth="wrap_content"
         android:dropDownVerticalOffset="@dimen/_30sdp"
@@ -19,7 +30,7 @@
     <ImageButton
         android:id="@+id/setting_button"
         android:layout_width="@dimen/_50sdp"
-        android:layout_height="@dimen/_30sdp"
+        android:layout_height="@dimen/_35sdp"
         android:layout_marginEnd="4dp"
         android:background="?attr/selectableItemBackground"
         android:scaleType="fitCenter"
@@ -31,7 +42,7 @@
     <ImageButton
         android:id="@+id/delete_account_button"
         android:layout_width="@dimen/_50sdp"
-        android:layout_height="@dimen/_30sdp"
+        android:layout_height="@dimen/_35sdp"
         android:layout_marginEnd="8dp"
         android:background="?attr/selectableItemBackground"
         android:scaleType="fitCenter"
