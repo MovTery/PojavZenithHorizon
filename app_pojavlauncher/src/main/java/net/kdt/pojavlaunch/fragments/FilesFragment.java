@@ -75,13 +75,14 @@ public class FilesFragment extends Fragment {
         mFileListView.refreshPath();
 
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+
             @Override
             public void onFileSelected(File file, String path) {
                 String fileName = file.getName();
                 String fileParent = file.getParent();
                 int caciocavallo = file.getPath().indexOf("caciocavallo");
                 int lwjgl3 = file.getPath().indexOf("lwjgl3");
-                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
                 builder.setTitle(getString(R.string.zh_file_tips));
                 if (caciocavallo == -1 && lwjgl3 == -1) builder.setMessage(getString(R.string.zh_file_message));
@@ -142,7 +143,16 @@ public class FilesFragment extends Fragment {
 
             @Override
             public void onItemLongClick(File file, String path) {
-                Tools.shareFile(requireContext(), file.getName(), file.getAbsolutePath());
+                builder.setTitle(getString(R.string.zh_file_share));
+                builder.setMessage(getString(R.string.zh_file_share_message));
+
+                //分享
+                DialogInterface.OnClickListener shareListener = (dialog, which) -> Tools.shareFile(requireContext(), file.getName(), file.getAbsolutePath());
+
+                builder.setPositiveButton(getString(R.string.zh_file_share), shareListener)
+                        .setNegativeButton(getString(R.string.zh_cancel), null);
+
+                builder.show();
             }
         });
 

@@ -68,12 +68,12 @@ public class ModsFragment extends Fragment {
         mFileListView.refreshPath();
 
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
             @Override
             public void onFileSelected(File file, String path) {
                 String fileName = file.getName();
                 String fileParent = file.getParent();
                 String disableString = "(" + getString(R.string.zh_profile_mods_disable) + ")";
-                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
                 builder.setTitle(getString(R.string.zh_file_tips));
                 builder.setMessage(getString(R.string.zh_file_message));
@@ -155,7 +155,16 @@ public class ModsFragment extends Fragment {
 
             @Override
             public void onItemLongClick(File file, String path) {
-                Tools.shareFile(requireContext(), file.getName(), file.getAbsolutePath());
+                builder.setTitle(getString(R.string.zh_file_share));
+                builder.setMessage(getString(R.string.zh_file_share_message));
+
+                //分享
+                DialogInterface.OnClickListener shareListener = (dialog, which) -> Tools.shareFile(requireContext(), file.getName(), file.getAbsolutePath());
+
+                builder.setPositiveButton(getString(R.string.zh_file_share), shareListener)
+                        .setNegativeButton(getString(R.string.zh_cancel), null);
+
+                builder.show();
             }
         });
 
