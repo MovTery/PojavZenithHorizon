@@ -83,7 +83,7 @@ public class FilesFragment extends Fragment {
                 AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
                 builder.setTitle(getString(R.string.zh_file_tips));
-                if (caciocavallo == -1 || lwjgl3 == -1) builder.setMessage(getString(R.string.zh_file_message));
+                if (caciocavallo == -1 && lwjgl3 == -1) builder.setMessage(getString(R.string.zh_file_message));
                 else builder.setMessage(getString(R.string.zh_file_message) + "\n" + getString(R.string.zh_file_message_main));
 
                 DialogInterface.OnClickListener deleteListener = (dialog, which) -> {
