@@ -89,7 +89,7 @@ public class FileListView extends LinearLayout
             // TODO: Implement this method
             File mainFile = new File(p1.getItemAtPosition(p3).toString());
             if (mainFile.isFile()) {
-                fileSelectedListener.onFileLongClick(mainFile, mainFile.getAbsolutePath());
+                fileSelectedListener.onFileSelected(mainFile, mainFile.getAbsolutePath());
                 return true;
             }
             return false;
