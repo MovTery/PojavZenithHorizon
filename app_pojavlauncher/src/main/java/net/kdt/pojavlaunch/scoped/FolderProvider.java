@@ -261,7 +261,7 @@ public class FolderProvider extends DocumentsProvider {
         return f;
     }
 
-    private static String getMimeType(File file) {
+    public static String getMimeType(File file) {
         if (file.isDirectory()) {
             return Document.MIME_TYPE_DIR;
         } else {
