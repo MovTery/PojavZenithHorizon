@@ -494,8 +494,8 @@ public final class Tools {
                 //Remove notch width when it isn't ignored.
                 if(activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
                     displayMetrics.heightPixels -= PREF_NOTCH_SIZE;
-//                else
-//                    displayMetrics.widthPixels -= PREF_NOTCH_SIZE;
+                else
+                    displayMetrics.widthPixels -= PREF_NOTCH_SIZE;
             }
         }
         currentDisplayMetrics = displayMetrics;
