@@ -139,6 +139,11 @@ public class FilesFragment extends Fragment {
 
                 builder.show();
             }
+
+            @Override
+            public void onItemLongClick(File file, String path) {
+                Tools.shareFile(requireContext(), file.getName(), file.getAbsolutePath());
+            }
         });
 
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());

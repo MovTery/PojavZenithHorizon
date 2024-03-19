@@ -553,6 +553,10 @@ public class ControlLayout extends FrameLayout {
 				}
 				dialog.dismiss();
 			}
+
+			@Override
+			public void onItemLongClick(File file, String path) {
+			}
 		});
 		dialog.setView(flv);
 		dialog.show();
@@ -577,6 +581,11 @@ public class ControlLayout extends FrameLayout {
 					Tools.showError(getContext(), e);
 				}
 				dialog.dismiss();
+			}
+
+			@Override
+			public void onItemLongClick(File file, String path) {
+
 			}
 		});
 		dialog.setView(flv);

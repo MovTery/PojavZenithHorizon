@@ -70,91 +70,92 @@ public class ModsFragment extends Fragment {
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
-                if (!mFileListView.isLongClickable()) {
-                    String fileName = file.getName();
-                    String fileParent = file.getParent();
-                    String disableString = "(" + getString(R.string.zh_profile_mods_disable) + ")";
-                    AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+                String fileName = file.getName();
+                String fileParent = file.getParent();
+                String disableString = "(" + getString(R.string.zh_profile_mods_disable) + ")";
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
-                    builder.setTitle(getString(R.string.zh_file_tips));
-                    builder.setMessage(getString(R.string.zh_file_message));
+                builder.setTitle(getString(R.string.zh_file_tips));
+                builder.setMessage(getString(R.string.zh_file_message));
 
-                    DialogInterface.OnClickListener deleteListener = (dialog, which) -> {
-                        // 显示确认删除的对话框
-                        AlertDialog.Builder deleteConfirmation = new AlertDialog.Builder(requireActivity());
+                DialogInterface.OnClickListener deleteListener = (dialog, which) -> {
+                    // 显示确认删除的对话框
+                    AlertDialog.Builder deleteConfirmation = new AlertDialog.Builder(requireActivity());
 
-                        deleteConfirmation.setTitle(getString(R.string.zh_file_tips));
-                        deleteConfirmation.setMessage(getString(R.string.zh_file_delete) + "\n" + fileName);
+                    deleteConfirmation.setTitle(getString(R.string.zh_file_tips));
+                    deleteConfirmation.setMessage(getString(R.string.zh_file_delete) + "\n" + fileName);
 
-                        deleteConfirmation.setPositiveButton(getString(R.string.global_delete), (dialog1, which1) -> {
-                            boolean deleted = file.delete();
-                            if (deleted) {
-                                Toast.makeText(requireActivity(), getString(R.string.zh_file_deleted) + fileName, Toast.LENGTH_SHORT).show();
-                            }
-                            mFileListView.refreshPath();
-                        });
-
-                        deleteConfirmation.setNegativeButton(getString(R.string.zh_cancel), null);
-                        deleteConfirmation.show();
-                    };
-
-                    DialogInterface.OnClickListener disableListener = (dialog, which) -> {
-                        File newFile = new File(fileParent, disableString + fileName + ".disabled");
-                        boolean disable = file.renameTo(newFile);
-                        if (disable) {
-                            Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_disabled) + fileName, Toast.LENGTH_SHORT).show();
+                    deleteConfirmation.setPositiveButton(getString(R.string.global_delete), (dialog1, which1) -> {
+                        boolean deleted = file.delete();
+                        if (deleted) {
+                            Toast.makeText(requireActivity(), getString(R.string.zh_file_deleted) + fileName, Toast.LENGTH_SHORT).show();
                         }
                         mFileListView.refreshPath();
-                    };
+                    });
 
-                    DialogInterface.OnClickListener enableListener = (dialog, which) -> {
-                        int index = fileName.indexOf(disableString);
-                        if (index == -1) index = 0;
-                        else if (index == 0) index = disableString.length();
-                        File newFile = new File(fileParent, fileName.substring(index, fileName.lastIndexOf('.')));
-                        boolean disable = file.renameTo(newFile);
-                        if (disable) {
-                            Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_enabled) + fileName, Toast.LENGTH_SHORT).show();
-                        }
-                        mFileListView.refreshPath();
-                    };
+                    deleteConfirmation.setNegativeButton(getString(R.string.zh_cancel), null);
+                    deleteConfirmation.show();
+                };
 
-                    DialogInterface.OnClickListener renameListener = (dialog, which) -> {
-                        AlertDialog.Builder renameBuilder = new AlertDialog.Builder(requireActivity());
-                        String suffix = fileName.substring(fileName.lastIndexOf('.')); //防止修改后缀名，先将后缀名分离出去
-                        EditText input = new EditText(requireActivity());
-                        input.setText(fileName.substring(0, fileName.indexOf(suffix)));
-                        renameBuilder.setTitle(getString(R.string.zh_file_rename));
-                        renameBuilder.setView(input);
-                        renameBuilder.setPositiveButton(getString(R.string.zh_file_rename), (dialog1, which1) -> {
-                            String newName = input.getText().toString();
-                            if (!newName.isEmpty()) {
-                                File newFile = new File(fileParent, newName + suffix);
-                                boolean renamed = file.renameTo(newFile);
-                                if (renamed) {
-                                    Toast.makeText(requireActivity(), getString(R.string.zh_file_renamed) + file.getName() + " -> " + newName + suffix, Toast.LENGTH_SHORT).show();
-                                    mFileListView.refreshPath();
-                                }
-                            } else {
-                                Toast.makeText(requireActivity(), getString(R.string.zh_file_rename_empty), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        renameBuilder.setNegativeButton(getString(R.string.zh_cancel), null);
-                        renameBuilder.show();
-                    };
-
-                    builder.setPositiveButton(getString(R.string.global_delete), deleteListener)
-                            .setNegativeButton(getString(R.string.zh_file_rename), renameListener);
-                    if (file.getName().endsWith(".jar")) {
-                        builder.setNeutralButton(getString(R.string.zh_profile_mods_disable), disableListener);
-                    } else if (file.getName().endsWith(".disabled")) {
-                        builder.setNeutralButton(getString(R.string.zh_profile_mods_enable), enableListener);
+                DialogInterface.OnClickListener disableListener = (dialog, which) -> {
+                    File newFile = new File(fileParent, disableString + fileName + ".disabled");
+                    boolean disable = file.renameTo(newFile);
+                    if (disable) {
+                        Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_disabled) + fileName, Toast.LENGTH_SHORT).show();
                     }
+                    mFileListView.refreshPath();
+                };
 
-                    builder.show();
-                } else {
-                    Tools.shareFile(requireContext(), file.getName(), file.getAbsolutePath());
+                DialogInterface.OnClickListener enableListener = (dialog, which) -> {
+                    int index = fileName.indexOf(disableString);
+                    if (index == -1) index = 0;
+                    else if (index == 0) index = disableString.length();
+                    File newFile = new File(fileParent, fileName.substring(index, fileName.lastIndexOf('.')));
+                    boolean disable = file.renameTo(newFile);
+                    if (disable) {
+                        Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_enabled) + fileName, Toast.LENGTH_SHORT).show();
+                    }
+                    mFileListView.refreshPath();
+                };
+
+                DialogInterface.OnClickListener renameListener = (dialog, which) -> {
+                    AlertDialog.Builder renameBuilder = new AlertDialog.Builder(requireActivity());
+                    String suffix = fileName.substring(fileName.lastIndexOf('.')); //防止修改后缀名，先将后缀名分离出去
+                    EditText input = new EditText(requireActivity());
+                    input.setText(fileName.substring(0, fileName.indexOf(suffix)));
+                    renameBuilder.setTitle(getString(R.string.zh_file_rename));
+                    renameBuilder.setView(input);
+                    renameBuilder.setPositiveButton(getString(R.string.zh_file_rename), (dialog1, which1) -> {
+                        String newName = input.getText().toString();
+                        if (!newName.isEmpty()) {
+                            File newFile = new File(fileParent, newName + suffix);
+                            boolean renamed = file.renameTo(newFile);
+                            if (renamed) {
+                                Toast.makeText(requireActivity(), getString(R.string.zh_file_renamed) + file.getName() + " -> " + newName + suffix, Toast.LENGTH_SHORT).show();
+                                mFileListView.refreshPath();
+                            }
+                        } else {
+                            Toast.makeText(requireActivity(), getString(R.string.zh_file_rename_empty), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    renameBuilder.setNegativeButton(getString(R.string.zh_cancel), null);
+                    renameBuilder.show();
+                };
+
+                builder.setPositiveButton(getString(R.string.global_delete), deleteListener)
+                        .setNegativeButton(getString(R.string.zh_file_rename), renameListener);
+                if (file.getName().endsWith(".jar")) {
+                    builder.setNeutralButton(getString(R.string.zh_profile_mods_disable), disableListener);
+                } else if (file.getName().endsWith(".disabled")) {
+                    builder.setNeutralButton(getString(R.string.zh_profile_mods_enable), enableListener);
                 }
+
+                builder.show();
+            }
+
+            @Override
+            public void onItemLongClick(File file, String path) {
+                Tools.shareFile(requireContext(), file.getName(), file.getAbsolutePath());
             }
         });
 

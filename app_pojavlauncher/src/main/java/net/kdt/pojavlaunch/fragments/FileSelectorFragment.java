@@ -88,6 +88,10 @@ public class FileSelectorFragment extends Fragment {
                 ExtraCore.setValue(ExtraConstants.FILE_SELECTOR, removeLockPath(path));
                 Tools.removeCurrentFragment(requireActivity());
             }
+
+            @Override
+            public void onItemLongClick(File file, String path) {
+            }
         });
     }
 
