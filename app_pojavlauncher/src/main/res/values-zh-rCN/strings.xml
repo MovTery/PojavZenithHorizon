@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Pojav ZH -->
+    <string name="zh_account_text">请选择一种登录方式</string>
     <string name="zh_account_microsoft_ccount">微软账号</string>
     <string name="zh_account_local_account">离线账号</string>
+    <string name="zh_account_login_local_name">用户名</string>
     <string name="zh_account_login_start">开始登陆！</string>
+    <string name="zh_activity_import_control">控制布局名称：</string>
+    <string name="zh_activity_java_gui_keyboard">输入法</string>
+    <string name="zh_activity_java_gui_paste">粘贴</string>
     <string name="zh_controls_add_control_button">按键</string>
     <string name="zh_controls_add_control_drawer">组合键</string>
     <string name="zh_controls_visibility">可见性</string>
@@ -57,7 +62,6 @@
     <!-- Languages list part -->
     
     <!-- Login strings -->
-    <string name="login_online_username_hint">电子邮箱或用户名</string>
     <string name="login_online_login_label">登录</string>
     
     <!-- Hint -->
