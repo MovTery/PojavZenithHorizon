@@ -41,6 +41,19 @@
             tools:ignore="MissingConstraints" />
 
         <com.kdt.mcgui.MineButton
+            android:id="@+id/zh_files_return_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/zh_file_return"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
+
+        <com.kdt.mcgui.MineButton
             android:id="@+id/zh_files_add_file_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -54,16 +67,17 @@
             app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
 
         <com.kdt.mcgui.MineButton
-            android:id="@+id/zh_files_return_button"
+            android:id="@+id/zh_files_refresh_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/zh_file_return"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/zh_file_refresh"
+            app:layout_constraintBottom_toTopOf="@+id/zh_files_add_file_button"
             app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
 
         <TextView
@@ -75,21 +89,6 @@
             android:text="."
             android:textColor="@color/primary_text"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/zh_files_refresh_button"
-            android:layout_width="119dp"
-            android:layout_height="37dp"
-            android:layout_marginEnd="4dp"
-
-
-            android:paddingHorizontal="@dimen/padding_large"
-
-            android:paddingVertical="0px"
-            android:text="@string/zh_file_refresh"
-            app:layout_constraintBottom_toTopOf="@+id/zh_files"
-            app:layout_constraintEnd_toStartOf="@+id/_background_display_view"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
