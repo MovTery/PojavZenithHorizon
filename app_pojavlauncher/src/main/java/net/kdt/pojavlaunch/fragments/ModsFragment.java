@@ -130,7 +130,7 @@ public class ModsFragment extends Fragment {
                             File newFile = new File(fileParent, newName + suffix);
                             boolean renamed = file.renameTo(newFile);
                             if (renamed) {
-                                Toast.makeText(requireActivity(), getString(R.string.zh_file_renamed) + file.getName() + " -> " + newName, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(requireActivity(), getString(R.string.zh_file_renamed) + file.getName() + " -> " + newName + suffix, Toast.LENGTH_SHORT).show();
                                 mFileListView.refreshPath();
                             }
                         } else {
