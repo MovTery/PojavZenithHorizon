@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,7 +12,7 @@
     android:id="@+id/color_picker_layout"
     android:layout_marginVertical="@dimen/padding_heavy"
     android:layout_gravity="center_vertical"
-    >
+    tools:ignore="MissingDefaultResource">
 
     <net.kdt.pojavlaunch.colorselector.SVRectangleView
         android:id="@+id/color_selector_rectangle_view"

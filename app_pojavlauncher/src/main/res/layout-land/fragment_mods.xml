@@ -1,92 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_app"
-    android:paddingHorizontal="@dimen/fragment_padding_medium">
+    android:orientation="vertical"
+    tools:ignore="MissingDefaultResource">
 
-    <com.kdt.pickafile.FileListView
-        android:id="@+id/zh_mods"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent">
 
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="248dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zh_mods_current_path" />
+        <com.kdt.pickafile.FileListView
+            android:id="@+id/zh_mods"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
 
-    <View
-        android:id="@+id/_background_display_view"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_marginTop="-8dp"
-        android:background="@color/background_bottom_bar"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="248dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/_background_display_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/zh_mods_current_path" />
 
-        android:translationZ="-1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        <View
+            android:id="@+id/_background_display_view"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="-8dp"
+            android:background="@color/background_bottom_bar"
 
-    <com.kdt.mcgui.MineButton
-        android:id="@+id/zh_select_mod_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/_16sdp"
-        android:layout_marginStart="8dp"
+            android:translationZ="-1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
-        android:layout_marginEnd="8dp"
-        android:text="@string/zh_profile_mods_add_mod"
-        app:layout_constraintBottom_toTopOf="@+id/zh_mods_save_button"
-        app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
+        <com.kdt.mcgui.MineButton
+            android:id="@+id/zh_select_mod_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/zh_profile_mods_add_mod"
+            app:layout_constraintBottom_toTopOf="@+id/zh_mods_save_button"
+            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
 
-    <com.kdt.mcgui.MineButton
-        android:id="@+id/zh_mods_save_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/_16sdp"
+        <com.kdt.mcgui.MineButton
+            android:id="@+id/zh_mods_save_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/global_save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
 
-        android:layout_marginStart="8dp"
+        <TextView
+            android:id="@+id/zh_mods_current_path"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/zh_profile_mods"
+            android:textColor="@color/primary_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        android:layout_marginEnd="8dp"
-        android:text="@string/global_save"
-
-        app:layout_constraintBottom_toBottomOf="@+id/_background_display_view"
-        app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
-
-    <TextView
-        android:id="@+id/zh_mods_current_path"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/zh_profile_mods"
-        android:textColor="@color/primary_text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/zh_mods_refresh_button"
-        android:layout_width="119dp"
-        android:layout_height="37dp"
-        android:layout_marginEnd="4dp"
-
-
-        android:paddingHorizontal="@dimen/padding_large"
-
-        android:paddingVertical="0px"
-        android:text="@string/zh_profile_mods_refresh"
-        app:layout_constraintBottom_toTopOf="@+id/zh_mods"
-        app:layout_constraintEnd_toStartOf="@+id/_background_display_view"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/zh_mods_refresh_button"
+            android:layout_width="119dp"
+            android:layout_height="37dp"
+            android:layout_marginEnd="4dp"
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:paddingHorizontal="@dimen/padding_large"
+
+            android:paddingVertical="0px"
+            android:text="@string/zh_profile_mods_refresh"
+            app:layout_constraintBottom_toTopOf="@+id/zh_mods"
+            app:layout_constraintEnd_toStartOf="@+id/_background_display_view"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
