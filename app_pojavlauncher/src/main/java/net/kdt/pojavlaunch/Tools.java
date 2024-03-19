@@ -1087,7 +1087,11 @@ public final class Tools {
 
     /** Triggers the share intent chooser, with the latestlog file attached to it */
     public static void shareLog(Context context){
-        Uri contentUri = DocumentsContract.buildDocumentUri(context.getString(R.string.storageProviderAuthorities), Tools.DIR_GAME_HOME + "/latestlog.txt");
+        shareFile(context, "latestlog.txt", Tools.DIR_GAME_HOME + "/latestlog.txt");
+    }
+
+    public static void shareFile(Context context, String fileName, String filePath) {
+        Uri contentUri = DocumentsContract.buildDocumentUri(context.getString(R.string.storageProviderAuthorities), filePath);
 
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
@@ -1096,7 +1100,7 @@ public final class Tools {
         shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         shareIntent.setType("text/plain");
 
-        Intent sendIntent = Intent.createChooser(shareIntent, "latestlog.txt");
+        Intent sendIntent = Intent.createChooser(shareIntent, fileName);
         context.startActivity(sendIntent);
     }
 

@@ -23,6 +23,7 @@ import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 
 import java.io.File;
@@ -129,8 +130,12 @@ public class FilesFragment extends Fragment {
                     renameBuilder.show();
                 };
 
+                //分享
+                DialogInterface.OnClickListener shareListener = (dialog, which) -> Tools.shareFile(requireContext(), file.getName(), file.getAbsolutePath());
+
                 builder.setPositiveButton(getString(R.string.global_delete), deleteListener)
-                        .setNegativeButton(getString(R.string.zh_file_rename), renameListener);
+                        .setNegativeButton(getString(R.string.zh_file_rename), renameListener)
+                        .setNeutralButton(getString(R.string.zh_file_share), shareListener);
 
                 builder.show();
             }
