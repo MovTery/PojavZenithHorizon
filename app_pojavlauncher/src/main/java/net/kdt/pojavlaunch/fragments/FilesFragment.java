@@ -78,12 +78,13 @@ public class FilesFragment extends Fragment {
             public void onFileSelected(File file, String path) {
                 String fileName = file.getName();
                 String fileParent = file.getParent();
-                int mcIndex = file.getPath().indexOf(".minecraft");
+                int caciocavallo = file.getPath().indexOf("file/caciocavallo");
+                int lwjgl3 = file.getPath().indexOf("file/lwjgl3");
                 AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
                 builder.setTitle(getString(R.string.zh_file_tips));
-                if (mcIndex != -1) builder.setMessage(getString(R.string.zh_file_message));
-                else builder.setMessage(getString(R.string.zh_file_message) + File.pathSeparator + getString(R.string.zh_file_message_main));
+                if (caciocavallo == -1 || lwjgl3 == -1) builder.setMessage(getString(R.string.zh_file_message));
+                else builder.setMessage(getString(R.string.zh_file_message) + "\n" + getString(R.string.zh_file_message_main));
 
                 DialogInterface.OnClickListener deleteListener = (dialog, which) -> {
                     // 显示确认删除的对话框
@@ -166,7 +167,7 @@ public class FilesFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            Toast.makeText(requireContext(), getString(R.string.zh_profile_mods_added_mod), Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show();
             mFileListView.refreshPath();
         }
     }
