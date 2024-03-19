@@ -58,11 +58,14 @@
         <ProgressBar
             android:id="@+id/crop_dialog_progressbar"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            app:layout_constraintEnd_toStartOf="@+id/crop_dialog_view"
-            tools:layout_editor_absoluteY="170dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_weight="0.8"
+            app:layout_constraintStart_toEndOf="@+id/buttonContainer"
+            app:layout_constraintTop_toBottomOf="@+id/crop_dialog_view"
             tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
