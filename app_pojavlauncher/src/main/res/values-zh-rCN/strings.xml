@@ -20,6 +20,7 @@
     <string name="zh_file_does_not_exist">这个文件夹(或文件)不存在</string>
     <string name="zh_file_tips">操作此文件</string>
     <string name="zh_file_message">请选择您要对此文件执行的操作，点击屏幕空白区域可关闭此窗口</string>
+    <string name="zh_file_message_main">(请注意，在此目录下的文件都是非常重要的，操作不当可能导致游戏无法启动！)</string>
     <string name="zh_file_delete">您确定要删除此文件吗？</string>
     <string name="zh_file_deleted">成功删除文件：</string>
     <string name="zh_file_rename">重命名</string>
