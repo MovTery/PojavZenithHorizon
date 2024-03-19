@@ -8,7 +8,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="@color/background_app">
+    android:background="@color/background_app"
+    tools:ignore="MissingDefaultResource">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -84,15 +85,15 @@
         android:layout_height="@dimen/_32sdp"
 
         android:layout_marginBottom="8dp"
+
         android:background="@android:color/transparent"
         android:drawableEnd="@drawable/spinner_arrow"
-
         app:drawableEndPadding="@dimen/_1sdp"
         app:drawableEndSize="@dimen/_12sdp"
         app:drawableStartIntegerScaling="true"
         app:drawableStartSize="@dimen/_36sdp"
         app:layout_constraintBottom_toTopOf="@+id/play_button"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/edit_profile_button"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
 
@@ -102,9 +103,10 @@
         android:layout_height="0dp"
         android:layout_marginEnd="@dimen/_8sdp"
 
+        android:layout_marginBottom="8dp"
         android:background="?android:attr/selectableItemBackground"
         android:src="@drawable/ic_edit_profile"
-        app:layout_constraintBottom_toTopOf="@+id/mc_version_spinner"
+        app:layout_constraintBottom_toTopOf="@+id/play_button"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <com.kdt.mcgui.MineButton

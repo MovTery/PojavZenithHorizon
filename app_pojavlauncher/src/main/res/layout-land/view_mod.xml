@@ -9,7 +9,7 @@
     android:paddingHorizontal="@dimen/_2sdp"
     android:paddingVertical="@dimen/_2sdp"
     android:layout_marginVertical="@dimen/padding_medium"
-    >
+    tools:ignore="MissingDefaultResource">
 
     <ImageView
         android:id="@+id/mod_thumbnail_imageview"

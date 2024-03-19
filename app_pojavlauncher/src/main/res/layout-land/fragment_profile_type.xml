@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:background="@color/background_app"
     android:orientation="horizontal"
-    android:baselineAligned="false">
+    android:baselineAligned="false"
+    tools:ignore="MissingDefaultResource">
 
     <ScrollView
         android:layout_width="0dp"

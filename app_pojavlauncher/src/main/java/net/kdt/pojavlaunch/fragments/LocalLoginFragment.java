@@ -26,7 +26,7 @@ public class LocalLoginFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        mUsernameEditText = view.findViewById(R.id.login_edit_email);
+        mUsernameEditText = view.findViewById(R.id.login_edit_name);
         view.findViewById(R.id.login_button).setOnClickListener(v -> {
             if(!checkEditText()) return;
 
