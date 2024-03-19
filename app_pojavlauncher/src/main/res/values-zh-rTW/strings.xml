@@ -41,6 +41,7 @@
     <string name="zh_profile_custom_path">自訂路徑</string>
     <string name="zh_profile_create_mods">建立 Mods</string>
     <string name="zh_profile_create_mods_message">請確認此配置使用的遊戲版本能夠載入 Mod，如果無法載入 Mod，則建立 Mods 資料夾並添加 Mod 將不起作用！</string>
+    <string name="zh_file_message_main">(請注意，在此目錄下的檔案都是非常重要的，操作不當可能導致遊戲無法啟動！)</string>
     <string name="zh_profile_create_mods_fail">抱歉，遊戲路徑內存在 Mods 資料夾，無法再次建立 Mods 資料夾</string>
     <string name="zh_profile_create_mods_success">成功建立 Mods 資料夾!</string>
     <string name="zh_profile_mods">Mod 管理</string>

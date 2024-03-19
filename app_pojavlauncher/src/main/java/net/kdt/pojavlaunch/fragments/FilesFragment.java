@@ -1,12 +1,10 @@
 package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.Tools.getFileName;
-import static net.kdt.pojavlaunch.scoped.FolderProvider.getMimeType;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -81,10 +79,12 @@ public class FilesFragment extends Fragment {
                 if (file.isFile()) {
                     String fileName = file.getName();
                     String fileParent = file.getParent();
+                    int mcIndex = file.getPath().indexOf(".minecraft");
                     AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
                     builder.setTitle(getString(R.string.zh_file_tips));
-                    builder.setMessage(getString(R.string.zh_file_message));
+                    if (mcIndex != -1) builder.setMessage(getString(R.string.zh_file_message));
+                    else builder.setMessage(getString(R.string.zh_file_message) + File.pathSeparator + getString(R.string.zh_file_message_main));
 
                     DialogInterface.OnClickListener deleteListener = (dialog, which) -> {
                         // 显示确认删除的对话框
@@ -128,29 +128,14 @@ public class FilesFragment extends Fragment {
                         renameBuilder.show();
                     };
 
-                    DialogInterface.OnClickListener openListener = (dialog, which) -> { //打开文件
-                        if (file.exists()) {
-                            Uri fileUri = Uri.fromFile(file);
-
-                            Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setDataAndType(fileUri, getMimeType(file));
-                            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(requireActivity(), getString(R.string.zh_file_does_not_exist), Toast.LENGTH_SHORT).show();
-                        }
-                    };
-
                     builder.setPositiveButton(getString(R.string.global_delete), deleteListener)
-                            .setNegativeButton(getString(R.string.zh_file_rename), renameListener)
-                            .setNeutralButton(getString(R.string.zh_file_open), openListener);
+                            .setNegativeButton(getString(R.string.zh_file_rename), renameListener);
 
                     builder.show();
                 } else if (file.isDirectory()) {
                     File dir = new File(mRootPath, file.getName());
                     mFileListView.lockPathAt(dir);
-                    mFileListView.setDialogTitleListener((title) -> mFilePathView.setText(dir.getPath()));
+                    mFilePathView.setText(dir.getPath());
                     mFileListView.refreshPath();
                 }
             }
