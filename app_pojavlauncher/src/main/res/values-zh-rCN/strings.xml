@@ -15,8 +15,13 @@
     <string name="zh_controls_in_game">游戏内</string>
     <string name="zh_controls_in_menu">菜单内</string>
     <string name="zh_controls_unsupported_layout_version">不支持的控制布局版本！</string>
+    <string name="zh_controls_create_new">创建新的控制布局</string>
+    <string name="zh_controls_create_new_title">控制布局名称：</string>
+    <string name="zh_controls_import_control">导入控制布局</string>
     <string name="zh_cancel">取消</string>
     <string name="zh_file_add_file">添加文件</string>
+    <string name="zh_file_create_file">创建</string>
+    <string name="zh_file_create_file_invalid">不可与已存在的文件同名！</string>
     <string name="zh_file_does_not_exist">这个文件夹(或文件)不存在</string>
     <string name="zh_file_tips">操作此文件</string>
     <string name="zh_file_message">请选择您要对此文件执行的操作，点击屏幕空白区域可关闭此窗口</string>
@@ -28,7 +33,6 @@
     <string name="zh_file_renamed">文件名已被修改：\n</string>
     <string name="zh_file_rename_empty">文件名不能为空！</string>
     <string name="zh_file_refresh">刷新</string>
-    <string name="zh_file_return">返回</string>
     <string name="zh_file_share">分享</string>
     <string name="zh_file_share_message">你确定要分享此文件吗？</string>
     <string name="zh_file_open">打开</string>

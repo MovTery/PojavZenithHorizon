@@ -1,13 +1,14 @@
 package net.kdt.pojavlaunch.fragments;
 
+import static net.kdt.pojavlaunch.CustomControlsActivity.BUNDLE_CONTROL_PATH;
 import static net.kdt.pojavlaunch.Tools.deleteFileListener;
 import static net.kdt.pojavlaunch.Tools.getFileName;
 import static net.kdt.pojavlaunch.Tools.renameFileListener;
-import static net.kdt.pojavlaunch.Tools.shareFile;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -25,29 +26,30 @@ import androidx.fragment.app.Fragment;
 import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
+import net.kdt.pojavlaunch.CustomControlsActivity;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 
-public class FilesFragment extends Fragment {
-    public static final String TAG = "FilesFragment";
+public class ControlButtonFragment extends Fragment {
+    public static final String TAG = "ControlButtonFragment";
     public static final String BUNDLE_ROOT_PATH = "root_path";
-    public static final String BUNDLE_SHOW_FILES = "show_files";
-    public static final String BUNDLE_SHOW_FOLDERS = "show_folders";
     private ActivityResultLauncher<Object> openDocumentLauncher;
-    private Button mReturnButton, mAddFileButton, mCreateFolderButton, mRefreshButton;
+    private Button mReturnButton, mAddControlButton, mImportControlButton, mRefreshButton;
     private FileListView mFileListView;
     private TextView mFilePathView;
     private String mRootPath;
-    private boolean mShowFiles, mShowFolders;
 
-    public FilesFragment() {
+    public ControlButtonFragment() {
         super(R.layout.fragment_files);
     }
 
@@ -71,8 +73,8 @@ public class FilesFragment extends Fragment {
         bindViews(view);
         parseBundle();
 
-        mFileListView.setShowFiles(mShowFiles);
-        mFileListView.setShowFolders(mShowFolders);
+        mFileListView.setShowFiles(true);
+        mFileListView.setShowFolders(true);
         mFileListView.lockPathAt(new File(mRootPath));
         mFileListView.setDialogTitleListener((title)->mFilePathView.setText(removeLockPath(title)));
         mFileListView.refreshPath();
@@ -81,19 +83,24 @@ public class FilesFragment extends Fragment {
             @Override
             public void onFileSelected(File file, String path) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-                int caciocavallo = file.getPath().indexOf("caciocavallo");
-                int lwjgl3 = file.getPath().indexOf("lwjgl3");
 
-                builder.setTitle(getString(R.string.zh_file_tips));
-                if (caciocavallo == -1 && lwjgl3 == -1) builder.setMessage(getString(R.string.zh_file_message));
-                else builder.setMessage(getString(R.string.zh_file_message) + "\n" + getString(R.string.zh_file_message_main));
+                builder.setTitle(getString(R.string.preference_category_buttons));
+                builder.setMessage(getString(R.string.zh_file_message));
 
-                //分享
-                DialogInterface.OnClickListener shareListener = (dialog, which) -> shareFile(requireContext(), file.getName(), file.getAbsolutePath());
+                //加载
+                DialogInterface.OnClickListener loadListener = (dialog, which) -> {
+                    Intent intent = new Intent(requireContext(), CustomControlsActivity.class);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString(BUNDLE_CONTROL_PATH, file.getAbsolutePath());
+                    intent.putExtras(bundle);
+
+                    startActivity(intent);
+                };
 
                 builder.setPositiveButton(getString(R.string.global_delete), deleteFileListener(requireActivity(), mFileListView, file))
                         .setNegativeButton(getString(R.string.zh_file_rename), renameFileListener(requireActivity(), mFileListView, file))
-                        .setNeutralButton(getString(R.string.zh_file_share), shareListener);
+                        .setNeutralButton(getString(R.string.global_load), loadListener);
 
                 builder.show();
             }
@@ -105,20 +112,32 @@ public class FilesFragment extends Fragment {
         });
 
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
-        mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(null)); //不限制文件类型
-        mCreateFolderButton.setOnClickListener(v -> {
+        mImportControlButton.setOnClickListener(v -> openDocumentLauncher.launch("json")); //限制.json文件
+        mAddControlButton.setOnClickListener(v -> {
             EditText editText = new EditText(getContext());
             new AlertDialog.Builder(getContext())
-                    .setTitle(R.string.folder_dialog_insert_name)
+                    .setTitle(R.string.zh_controls_create_new_title)
                     .setView(editText)
                     .setNegativeButton(android.R.string.cancel, null)
-                    .setPositiveButton(R.string.folder_dialog_create, (dialog, which) -> {
-                        File folder = new File(mFileListView.getFullPath(), editText.getText().toString());
-                        boolean success = folder.mkdir();
-                        if(success){
-                            mFileListView.listFileAt(new File(mFileListView.getFullPath(),editText.getText().toString()));
-                        }else{
+                    .setPositiveButton(R.string.zh_file_create_file, (dialog, which) -> {
+                        File file = new File(mFileListView.getFullPath().getAbsolutePath(), editText.getText().toString() + ".json");
+                        if (!file.exists()) {
+                            boolean success;
+                            try {
+                                success = file.createNewFile();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                            if(success){
+                                try (BufferedWriter optionFileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
+                                    optionFileWriter.write("{\"versions\":6}");
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
                             mFileListView.refreshPath();
+                        } else {
+                            Toast.makeText(requireContext(), getString(R.string.zh_file_create_file_invalid), Toast.LENGTH_SHORT).show();
                         }
                     }).show();
         });
@@ -164,17 +183,18 @@ public class FilesFragment extends Fragment {
         Bundle bundle = getArguments();
         if(bundle == null) return;
         mRootPath = bundle.getString(BUNDLE_ROOT_PATH, mRootPath);
-        mShowFiles = bundle.getBoolean(BUNDLE_SHOW_FILES, mShowFiles);
-        mShowFolders = bundle.getBoolean(BUNDLE_SHOW_FOLDERS, mShowFolders);
     }
 
     private void bindViews(@NonNull View view) {
         mReturnButton = view.findViewById(R.id.zh_files_return_button);
-        mAddFileButton = view.findViewById(R.id.zh_files_add_file_button);
-        mCreateFolderButton = view.findViewById(R.id.zh_files_create_folder_button);
+        mImportControlButton = view.findViewById(R.id.zh_files_add_file_button);
+        mAddControlButton = view.findViewById(R.id.zh_files_create_folder_button);
         mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
         mFileListView = view.findViewById(R.id.zh_files);
         mFilePathView = view.findViewById(R.id.zh_files_current_path);
+
+        mImportControlButton.setText(getString(R.string.zh_controls_import_control));
+        mAddControlButton.setText(getString(R.string.zh_controls_create_new));
     }
 }
 
