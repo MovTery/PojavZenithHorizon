@@ -1123,13 +1123,12 @@ public final class Tools {
 
     public static DialogInterface.OnClickListener deleteFileListener(Activity activity, FileListView fileListView, File file) {
         String fileName = file.getName();
-        DialogInterface.OnClickListener deleteListener = (dialog, which) -> {
+        return (dialog, which) -> {
             // 显示确认删除的对话框
-            android.app.AlertDialog.Builder deleteConfirmation = new android.app.AlertDialog.Builder(activity);
+            AlertDialog.Builder deleteConfirmation = new AlertDialog.Builder(activity);
 
             deleteConfirmation.setTitle(activity.getString(R.string.zh_file_tips));
             deleteConfirmation.setMessage(activity.getString(R.string.zh_file_delete) + "\n" + file.getName());
-
             deleteConfirmation.setPositiveButton(activity.getString(R.string.global_delete), (dialog1, which1) -> {
                 boolean deleted = file.delete();
                 if (deleted) {
@@ -1137,10 +1136,9 @@ public final class Tools {
                 }
                 fileListView.refreshPath();
             });
-
             deleteConfirmation.setNegativeButton(activity.getString(R.string.zh_cancel), null);
+            deleteConfirmation.show();
         };
-        return deleteListener;
     }
 
     public static DialogInterface.OnClickListener renameFileListener(Activity activity, FileListView fileListView, File file) {

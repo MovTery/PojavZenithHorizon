@@ -130,7 +130,7 @@ public class ControlButtonFragment extends Fragment {
                             }
                             if(success){
                                 try (BufferedWriter optionFileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
-                                    optionFileWriter.write("{\"versions\":6}");
+                                    optionFileWriter.write("{\"version\":6}");
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
