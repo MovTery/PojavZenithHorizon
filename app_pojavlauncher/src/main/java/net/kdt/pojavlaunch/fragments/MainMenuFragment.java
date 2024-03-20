@@ -1,8 +1,8 @@
 package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.Tools.shareLog;
+import static net.kdt.pojavlaunch.fragments.ControlButtonFragment.BUNDLE_ROOT_PATH;
 
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,7 +18,6 @@ import androidx.fragment.app.Fragment;
 
 import com.kdt.mcgui.mcVersionSpinner;
 
-import net.kdt.pojavlaunch.CustomControlsActivity;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
@@ -49,7 +48,13 @@ public class MainMenuFragment extends Fragment {
         mVersionSpinner = view.findViewById(R.id.mc_version_spinner);
 
         mNewsButton.setOnClickListener(v -> Tools.openURL(requireActivity(), Tools.URL_HOME));
-        mCustomControlButton.setOnClickListener(v -> startActivity(new Intent(requireContext(), CustomControlsActivity.class)));
+        mCustomControlButton.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString(BUNDLE_ROOT_PATH, Tools.CTRLMAP_PATH);
+
+            Tools.swapFragment(requireActivity(),
+                    ControlButtonFragment.class, ControlButtonFragment.TAG, true, bundle);
+        });
         mInstallJarButton.setOnClickListener(v -> runInstallerWithConfirmation(false));
         mInstallJarButton.setOnLongClickListener(v->{
             runInstallerWithConfirmation(true);

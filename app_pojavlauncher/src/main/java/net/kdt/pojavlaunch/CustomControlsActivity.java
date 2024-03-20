@@ -21,13 +21,20 @@ import java.io.IOException;
 
 
 public class CustomControlsActivity extends BaseActivity implements EditorExitable {
+	public static final String BUNDLE_CONTROL_PATH = "control_path";
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerNavigationView;
 	private ControlLayout mControlLayout;
+	private String mControlPath = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			mControlPath = bundle.getString(BUNDLE_CONTROL_PATH);
+		}
 
 		setContentView(R.layout.activity_custom_controls);
 
@@ -70,7 +77,8 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 		});
 		mControlLayout.setModifiable(true);
 		try {
-			mControlLayout.loadLayout(LauncherPreferences.PREF_DEFAULTCTRL_PATH);
+			if (mControlPath == null) mControlLayout.loadLayout(LauncherPreferences.PREF_DEFAULTCTRL_PATH);
+			else mControlLayout.loadLayout(mControlPath);
 		}catch (IOException e) {
 			Tools.showError(this, e);
 		}
