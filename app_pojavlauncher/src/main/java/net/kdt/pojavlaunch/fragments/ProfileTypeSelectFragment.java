@@ -1,7 +1,5 @@
 package net.kdt.pojavlaunch.fragments;
 
-import static net.kdt.pojavlaunch.Tools.runOnUiThread;
-
 import android.os.Bundle;
 import android.view.View;
 
@@ -21,23 +19,23 @@ public class ProfileTypeSelectFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        view.findViewById(R.id.vanilla_profile).setOnClickListener(v -> runOnUiThread(() -> runOnUiThread(() -> Tools.swapFragment(requireActivity(), ProfileEditorFragment.class,
-                ProfileEditorFragment.TAG, false, new Bundle(1)))));
+        view.findViewById(R.id.vanilla_profile).setOnClickListener(v -> Tools.swapFragment(requireActivity(), ProfileEditorFragment.class,
+                ProfileEditorFragment.TAG, false, new Bundle(1)));
 
         // NOTE: Special care needed! If you wll decide to add these to the back stack, please read
         // the comment in FabricInstallFragment.onDownloadFinished() and amend the code
         // in FabricInstallFragment.onDownloadFinished() and ModVersionListFragment.onDownloadFinished()
-        view.findViewById(R.id.optifine_profile).setOnClickListener(v -> runOnUiThread(() -> Tools.swapFragment(requireActivity(), OptiFineInstallFragment.class,
-                OptiFineInstallFragment.TAG, false, null)));
+        view.findViewById(R.id.optifine_profile).setOnClickListener(v -> Tools.swapFragment(requireActivity(), OptiFineInstallFragment.class,
+                OptiFineInstallFragment.TAG, false, null));
         view.findViewById(R.id.modded_profile_fabric).setOnClickListener((v)->
-                runOnUiThread(() -> Tools.swapFragment(requireActivity(), FabricInstallFragment.class, FabricInstallFragment.TAG, false, null)));
+                Tools.swapFragment(requireActivity(), FabricInstallFragment.class, FabricInstallFragment.TAG, false, null));
         view.findViewById(R.id.modded_profile_forge).setOnClickListener((v)->
-                runOnUiThread(() -> Tools.swapFragment(requireActivity(), ForgeInstallFragment.class, ForgeInstallFragment.TAG, false, null)));
+                Tools.swapFragment(requireActivity(), ForgeInstallFragment.class, ForgeInstallFragment.TAG, false, null));
         view.findViewById(R.id.zh_modded_profile_neoforge).setOnClickListener((v)->
-                runOnUiThread(() -> Tools.swapFragment(requireActivity(), NeoForgeInstallFragment.class, NeoForgeInstallFragment.TAG, false, null)));
+                Tools.swapFragment(requireActivity(), NeoForgeInstallFragment.class, NeoForgeInstallFragment.TAG, false, null));
         view.findViewById(R.id.modded_profile_modpack).setOnClickListener((v)->
-                runOnUiThread(() -> Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, false, null)));
+                Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, false, null));
         view.findViewById(R.id.modded_profile_quilt).setOnClickListener((v)->
-                runOnUiThread(() -> Tools.swapFragment(requireActivity(), QuiltInstallFragment.class, QuiltInstallFragment.TAG, false, null)));
+                Tools.swapFragment(requireActivity(), QuiltInstallFragment.class, QuiltInstallFragment.TAG, false, null));
     }
 }
