@@ -1,5 +1,6 @@
 package net.kdt.pojavlaunch.fragments;
 
+import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.Tools.shareLog;
 
 import android.content.Intent;
@@ -71,15 +72,15 @@ public class MainMenuFragment extends Fragment {
                 bundle.putBoolean(FilesFragment.BUNDLE_SHOW_FILES, true);
                 bundle.putBoolean(FilesFragment.BUNDLE_SHOW_FOLDERS, true);
 
-                Tools.swapFragment(requireActivity(),
-                        FilesFragment.class, FilesFragment.TAG, true, bundle);
+                runOnUiThread(() -> Tools.swapFragment(requireActivity(),
+                        FilesFragment.class, FilesFragment.TAG, true, bundle));
             } else {
                 Toast.makeText(requireContext(), getString(R.string.zh_file_does_not_exist), Toast.LENGTH_SHORT).show();
             }
         });
 
         mNewsButton.setOnLongClickListener((v)->{
-            Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, true, null);
+            runOnUiThread(() -> Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, true, null));
             return true;
         });
     }

@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch.fragments;
 
+import static net.kdt.pojavlaunch.Tools.runOnUiThread;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -33,7 +35,7 @@ public class LocalLoginFragment extends Fragment {
             ExtraCore.setValue(ExtraConstants.MOJANG_LOGIN_TODO, new String[]{
                     mUsernameEditText.getText().toString(), "" });
 
-            Tools.swapFragment(requireActivity(), MainMenuFragment.class, MainMenuFragment.TAG, false, null);
+            runOnUiThread(() -> Tools.swapFragment(requireActivity(), MainMenuFragment.class, MainMenuFragment.TAG, false, null));
         });
     }
 
