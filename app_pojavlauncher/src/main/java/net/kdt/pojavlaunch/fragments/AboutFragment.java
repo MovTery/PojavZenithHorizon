@@ -1,6 +1,9 @@
 package net.kdt.pojavlaunch.fragments;
 
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -47,11 +50,19 @@ public class AboutFragment extends Fragment {
     }
 
     private void bindViews(@NonNull View view) {
-        mReturnButton = view.findViewById(R.id.zh_files_return_button);
+        mReturnButton = view.findViewById(R.id.zh_about_return_button);
         mGithubButton = view.findViewById(R.id.zh_about_github_button);
 
         mContributors1 = view.findViewById(R.id.zh_about_contributors1);
         mContributors2 = view.findViewById(R.id.zh_about_contributors2);
+
+        SpannableString spannableString1 = new SpannableString(mContributors1.getText().toString());
+        spannableString1.setSpan(new UnderlineSpan(), 0, spannableString1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mContributors1.setText(spannableString1);
+
+        SpannableString spannableString2 = new SpannableString(mContributors2.getText().toString());
+        spannableString2.setSpan(new UnderlineSpan(), 0, spannableString2.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mContributors2.setText(spannableString2);
     }
 }
 
