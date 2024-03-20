@@ -18,7 +18,7 @@ import net.kdt.pojavlaunch.Tools;
 public class AboutFragment extends Fragment {
     public static final String TAG = "AboutFragment";
     public static final String BUNDLE_GITHUB_URI = "github_uri";
-    private Button mReturnButton, mGithubButton;
+    private Button mReturnButton, mGithubButton, mPojavLauncherButton, mLicenseButton;
     private TextView mContributors1, mContributors2;
     private String mGithubUri;
 
@@ -39,6 +39,9 @@ public class AboutFragment extends Fragment {
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
         mGithubButton.setOnClickListener(v -> Tools.openURL(requireActivity(), mGithubUri));
 
+        mPojavLauncherButton.setOnClickListener(v -> Tools.openURL(requireActivity(), "https://github.com/PojavLauncherTeam/PojavLauncher"));
+        mLicenseButton.setOnClickListener(v -> Tools.openURL(requireActivity(), "https://www.gnu.org/licenses/gpl-3.0.html"));
+
         mContributors1.setOnClickListener(v -> Tools.openURL(requireActivity(), "https://space.bilibili.com/2008204513"));
         mContributors2.setOnClickListener(v -> Tools.openURL(requireActivity(), "https://space.bilibili.com/1412062866"));
     }
@@ -52,6 +55,8 @@ public class AboutFragment extends Fragment {
     private void bindViews(@NonNull View view) {
         mReturnButton = view.findViewById(R.id.zh_about_return_button);
         mGithubButton = view.findViewById(R.id.zh_about_github_button);
+        mPojavLauncherButton = view.findViewById(R.id.zh_about_pojavlauncher_button);
+        mLicenseButton = view.findViewById(R.id.zh_about_license_button);
 
         mContributors1 = view.findViewById(R.id.zh_about_contributors1);
         mContributors2 = view.findViewById(R.id.zh_about_contributors2);
