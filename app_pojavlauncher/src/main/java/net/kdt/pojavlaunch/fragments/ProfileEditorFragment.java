@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.Tools.getGameDirPath;
-import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -94,7 +93,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         List<String> renderList = new ArrayList<>(renderersList.rendererDisplayNames.length + 1);
         renderList.addAll(Arrays.asList(renderersList.rendererDisplayNames));
         renderList.add(view.getContext().getString(R.string.global_default));
-        mDefaultRenderer.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.item_simple_list_1, renderList));
+        mDefaultRenderer.setAdapter(new ArrayAdapter<>(getContext(), R.layout.item_simple_list_1, renderList));
 
         // Set up behaviors
         mSaveButton.setOnClickListener(v -> {
@@ -148,8 +147,8 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
                 Bundle bundle = new Bundle();
                 bundle.putString(ModsFragment.BUNDLE_ROOT_PATH, mods.toString());
 
-                runOnUiThread(() -> Tools.swapFragment(requireActivity(),
-                        ModsFragment.class, ModsFragment.TAG, true, bundle));
+                Tools.swapFragment(requireActivity(),
+                        ModsFragment.class, ModsFragment.TAG, true, bundle);
             } else {
                 Toast.makeText(requireContext(), getString(R.string.zh_file_does_not_exist), Toast.LENGTH_SHORT).show();
                 mModsButton.setVisibility(View.GONE);
@@ -164,16 +163,16 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
             bundle.putBoolean(FileSelectorFragment.BUNDLE_SHOW_FILE, false);
             mValueToConsume = FileSelectorFragment.BUNDLE_SELECT_FOLDER;
 
-            runOnUiThread(() -> Tools.swapFragment(requireActivity(),
-                    FileSelectorFragment.class, FileSelectorFragment.TAG, true, bundle));
+            Tools.swapFragment(requireActivity(),
+                    FileSelectorFragment.class, FileSelectorFragment.TAG, true, bundle);
         });
 
         mControlSelectButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle(3);
             bundle.putBoolean(FileSelectorFragment.BUNDLE_SELECT_FOLDER, false);
             bundle.putString(FileSelectorFragment.BUNDLE_ROOT_PATH, Tools.CTRLMAP_PATH);
-            runOnUiThread(() -> Tools.swapFragment(requireActivity(),
-                    FileSelectorFragment.class, FileSelectorFragment.TAG, true, bundle));
+            Tools.swapFragment(requireActivity(),
+                    FileSelectorFragment.class, FileSelectorFragment.TAG, true, bundle);
         });
 
         // Setup the expendable list behavior
