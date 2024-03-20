@@ -1116,7 +1116,7 @@ public final class Tools {
         DialogInterface.OnClickListener shareListener = (dialog, which) -> Tools.shareFile(context, file.getName(), file.getAbsolutePath());
 
         builder.setPositiveButton(context.getString(R.string.zh_file_share), shareListener)
-                .setNegativeButton(context.getString(R.string.zh_cancel), null);
+                .setNegativeButton(context.getString(android.R.string.cancel), null);
 
         builder.show();
     }
@@ -1136,7 +1136,7 @@ public final class Tools {
                 }
                 fileListView.refreshPath();
             });
-            deleteConfirmation.setNegativeButton(activity.getString(R.string.zh_cancel), null);
+            deleteConfirmation.setNegativeButton(activity.getString(android.R.string.cancel), null);
             deleteConfirmation.show();
         };
     }
@@ -1164,7 +1164,7 @@ public final class Tools {
                     Toast.makeText(activity, activity.getString(R.string.zh_file_rename_empty), Toast.LENGTH_SHORT).show();
                 }
             });
-            renameBuilder.setNegativeButton(activity.getString(R.string.zh_cancel), null);
+            renameBuilder.setNegativeButton(activity.getString(android.R.string.cancel), null);
             renameBuilder.show();
         };
         return renameListener;
