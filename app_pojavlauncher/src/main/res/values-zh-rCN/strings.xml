@@ -20,6 +20,7 @@
     <string name="zh_controls_import_control">导入控制布局</string>
     <string name="zh_cancel">取消</string>
     <string name="zh_file_add_file">添加文件</string>
+    <string name="zh_file_add_file_tip">请选择一个后缀名为"%s"的文件</string>
     <string name="zh_file_create_file">创建</string>
     <string name="zh_file_create_file_invalid">不可与已存在的文件同名！</string>
     <string name="zh_file_does_not_exist">这个文件夹(或文件)不存在</string>
@@ -53,7 +54,6 @@
     <string name="zh_profile_create_mods_success">成功创建 Mods 文件夹!</string>
     <string name="zh_profile_mods">Mod 管理</string>
     <string name="zh_profile_mods_add_mod">添加 Mod</string>
-    <string name="zh_profile_mods_add_mod_tip">请选择一个后缀名为".jar"的文件</string>
     <string name="zh_profile_mods_added_mod">成功添加 Mod</string>
     <string name="zh_profile_mods_disable">禁用</string>
     <string name="zh_profile_mods_disabled">成功禁用文件：</string>

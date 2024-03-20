@@ -57,7 +57,7 @@ public class ControlButtonFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         openDocumentLauncher = registerForActivityResult(
-                new OpenDocumentWithExtension(null),
+                new OpenDocumentWithExtension("json"),
                 result -> {
                     if (result != null) {
                         Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
@@ -112,7 +112,11 @@ public class ControlButtonFragment extends Fragment {
         });
 
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
-        mImportControlButton.setOnClickListener(v -> openDocumentLauncher.launch("json")); //限制.json文件
+        mImportControlButton.setOnClickListener(v -> {
+            String suffix = ".json";
+            Toast.makeText(requireActivity(),  String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show();
+            openDocumentLauncher.launch(suffix);
+        }); //限制.json文件
         mAddControlButton.setOnClickListener(v -> {
             EditText editText = new EditText(getContext());
             new AlertDialog.Builder(getContext())
