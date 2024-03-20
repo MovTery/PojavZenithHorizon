@@ -1148,7 +1148,7 @@ public final class Tools {
             android.app.AlertDialog.Builder renameBuilder = new android.app.AlertDialog.Builder(activity);
             String suffix = fileName.substring(fileName.lastIndexOf('.')); //防止修改后缀名，先将后缀名分离出去
             EditText input = new EditText(activity);
-            input.setText(fileName.substring(0, fileName.indexOf(suffix)));
+            input.setText(fileName.substring(0, fileName.lastIndexOf(suffix)));
             renameBuilder.setTitle(activity.getString(R.string.zh_file_rename));
             renameBuilder.setView(input);
             renameBuilder.setPositiveButton(activity.getString(R.string.zh_file_rename), (dialog1, which1) -> {
