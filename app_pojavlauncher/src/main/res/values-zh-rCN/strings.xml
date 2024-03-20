@@ -18,7 +18,7 @@
     <string name="zh_controls_create_new">创建新的控制布局</string>
     <string name="zh_controls_create_new_title">控制布局名称：</string>
     <string name="zh_controls_import_control">导入控制布局</string>
-    <string name="zh_cancel">取消</string>
+    <string name="zh_return">返回</string>
     <string name="zh_file_add_file">添加文件</string>
     <string name="zh_file_add_file_tip">请选择一个后缀名为"%s"的文件</string>
     <string name="zh_file_create_file">创建</string>
