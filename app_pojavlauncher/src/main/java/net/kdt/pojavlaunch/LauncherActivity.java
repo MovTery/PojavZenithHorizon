@@ -89,7 +89,7 @@ public class LauncherActivity extends BaseActivity {
         // Allow starting the add account only from the main menu, should it be moved to fragment itself ?
         if(!(fragment instanceof MainMenuFragment)) return false;
 
-        Tools.swapFragment(this, SelectAuthFragment.class, SelectAuthFragment.TAG, true, null);
+        runOnUiThread(() -> Tools.swapFragment(this, SelectAuthFragment.class, SelectAuthFragment.TAG, true, null));
         return false;
     };
 
@@ -97,7 +97,7 @@ public class LauncherActivity extends BaseActivity {
     private final View.OnClickListener mSettingButtonListener = v -> {
         Fragment fragment = getSupportFragmentManager().findFragmentById(mFragmentView.getId());
         if(fragment instanceof MainMenuFragment){
-            Tools.swapFragment(this, LauncherPreferenceFragment.class, SETTING_FRAGMENT_TAG, true, null);
+            runOnUiThread(() -> Tools.swapFragment(this, LauncherPreferenceFragment.class, SETTING_FRAGMENT_TAG, true, null));
         } else{
             // The setting button doubles as a home button now
             while(!(getSupportFragmentManager().findFragmentById(mFragmentView.getId()) instanceof MainMenuFragment)){
