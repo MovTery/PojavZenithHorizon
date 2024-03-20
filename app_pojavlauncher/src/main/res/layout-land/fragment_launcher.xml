@@ -28,13 +28,13 @@
                 android:orientation="vertical">
 
                 <com.kdt.mcgui.LauncherMenuButton
-                    android:id="@+id/news_button"
+                    android:id="@+id/about_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:drawableStart="@drawable/ic_menu_news"
-                    android:text="@string/mcl_tab_wiki" />
+                    android:text="@string/zh_about_tab" />
 
                 <com.kdt.mcgui.LauncherMenuButton
                     android:id="@+id/custom_control_button"

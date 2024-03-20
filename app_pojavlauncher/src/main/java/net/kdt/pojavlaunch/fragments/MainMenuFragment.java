@@ -37,7 +37,7 @@ public class MainMenuFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Button mNewsButton = view.findViewById(R.id.news_button);
+        Button mAboutButton = view.findViewById(R.id.about_button);
         Button mCustomControlButton = view.findViewById(R.id.custom_control_button);
         Button mInstallJarButton = view.findViewById(R.id.install_jar_button);
         Button mShareLogsButton = view.findViewById(R.id.share_logs_button);
@@ -47,7 +47,7 @@ public class MainMenuFragment extends Fragment {
         Button mPlayButton = view.findViewById(R.id.play_button);
         mVersionSpinner = view.findViewById(R.id.mc_version_spinner);
 
-        mNewsButton.setOnClickListener(v -> Tools.openURL(requireActivity(), Tools.URL_HOME));
+        mAboutButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), AboutFragment.class, AboutFragment.TAG ,true, new Bundle()));
         mCustomControlButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString(BUNDLE_ROOT_PATH, Tools.CTRLMAP_PATH);
@@ -83,7 +83,7 @@ public class MainMenuFragment extends Fragment {
             }
         });
 
-        mNewsButton.setOnLongClickListener((v)->{
+        mAboutButton.setOnLongClickListener((v)->{
             Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, true, null);
             return true;
         });

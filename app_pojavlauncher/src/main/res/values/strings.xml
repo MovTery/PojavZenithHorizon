@@ -72,6 +72,13 @@
     <string name="zh_description_button1">Contact Me</string>
     <string name="zh_description_button2">OK</string>
 
+    <string name="zh_about_tab">About Pojav ZH</string>
+    <string name="zh_about_github" translatable="false">Github</string>
+    <string name="zh_about_dec1">Pojav ZH is a Minecraft launcher based on the modified version of PojavLauncher that allows Minecraft: Java Edition to be played on Android devices. Pojav ZH is committed to improving user experience by redesigning the application interface and adding more useful features to make it easier for more people to enjoy Minecraft.</string>
+    <string name="zh_about_dec2">Pojav ZH is carefully crafted by the individual, MovTery, who has made significant modifications to the PojavLauncher.</string>
+    <string name="zh_about_dec3">Since PojavLauncher uses the GPL 3.0 open source license, this license is "infectious," and any code that uses, modifies, or derives from GPL libraries or software must also adopt the GPL license for open source. Therefore, Pojav ZH must also follow the GPL 3.0 open source license. If you intend to spread or distribute this software, please be sure to comply with the relevant provisions of the GPL 3.0 open source license.</string>
+    <string name="zh_about_dec4">Software contributors:</string>
+    <string name="zh_about_dec5">MovTery\nVera-Firefly</string>
     <!-- Action bar part -->
 
     <!-- Languages list part -->
@@ -100,9 +107,6 @@
     <!--
     <string name="toast_3">Exit</string>
     -->
-
-    <!-- MCLauncherActivity: Tabs -->
-    <string name="mcl_tab_wiki">Wiki</string>
 
     <!-- MCLauncherActivity: Account status -->
 
