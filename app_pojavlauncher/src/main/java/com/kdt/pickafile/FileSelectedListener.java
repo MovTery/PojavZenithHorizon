@@ -6,4 +6,5 @@ public abstract class FileSelectedListener
 {
 	public abstract void onFileSelected(File file, String path);
     public abstract void onItemLongClick(File file, String path);
+    public void onFileLongClick(File file, String path) {}
 }
