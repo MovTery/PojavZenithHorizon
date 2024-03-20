@@ -47,7 +47,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@android:string/cancel"
+            android:text="@string/zh_return"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
             app:layout_constraintHorizontal_bias="0.0"
