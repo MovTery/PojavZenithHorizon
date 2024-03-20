@@ -23,6 +23,7 @@
     <string name="zh_controls_import_control">Import control layout</string>
     <string name="zh_cancel">Cancel</string>
     <string name="zh_file_add_file">Add file</string>
+    <string name="zh_file_add_file_tip">Please select a file with the suffix "%s"</string>
     <string name="zh_file_create_file">Create</string>
     <string name="zh_file_create_file_invalid">Cannot have the same name as an existing file!</string>
     <string name="zh_file_does_not_exist">This folder (or file) doesn\'t exist</string>
@@ -56,7 +57,6 @@
     <string name="zh_profile_create_mods_success">Successfully created Mods folder!</string>
     <string name="zh_profile_mods">Mods</string>
     <string name="zh_profile_mods_add_mod">Add Mod</string>
-    <string name="zh_profile_mods_add_mod_tip">Please select a file with the suffix ".jar"</string>
     <string name="zh_profile_mods_added_mod">Successfully added Mod</string>
     <string name="zh_profile_mods_disable">Disable</string>
     <string name="zh_profile_mods_disabled">Successfully disabled file: </string>

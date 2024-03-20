@@ -119,8 +119,9 @@ public class ModsFragment extends Fragment {
 
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
         mSelectModButton.setOnClickListener(v -> {
-            Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_add_mod_tip), Toast.LENGTH_SHORT).show();
-            openDocumentLauncher.launch(".jar");
+            String suffix = ".json";
+            Toast.makeText(requireActivity(), String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show();
+            openDocumentLauncher.launch(suffix);
         });
         mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());
     }
