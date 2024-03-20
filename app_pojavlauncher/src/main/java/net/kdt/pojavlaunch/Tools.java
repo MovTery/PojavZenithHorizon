@@ -48,6 +48,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.kdt.pickafile.FileListView;
 
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutorTask;
@@ -1115,10 +1116,61 @@ public final class Tools {
         DialogInterface.OnClickListener shareListener = (dialog, which) -> Tools.shareFile(context, file.getName(), file.getAbsolutePath());
 
         builder.setPositiveButton(context.getString(R.string.zh_file_share), shareListener)
-                .setNegativeButton(context.getString(R.string.zh_cancel), null);
+                .setNegativeButton(context.getString(android.R.string.cancel), null);
 
         builder.show();
     }
+
+    public static DialogInterface.OnClickListener deleteFileListener(Activity activity, FileListView fileListView, File file) {
+        String fileName = file.getName();
+        return (dialog, which) -> {
+            // 显示确认删除的对话框
+            AlertDialog.Builder deleteConfirmation = new AlertDialog.Builder(activity);
+
+            deleteConfirmation.setTitle(activity.getString(R.string.zh_file_tips));
+            deleteConfirmation.setMessage(activity.getString(R.string.zh_file_delete) + "\n" + file.getName());
+            deleteConfirmation.setPositiveButton(activity.getString(R.string.global_delete), (dialog1, which1) -> {
+                boolean deleted = file.delete();
+                if (deleted) {
+                    Toast.makeText(activity, activity.getString(R.string.zh_file_deleted) + fileName, Toast.LENGTH_SHORT).show();
+                }
+                fileListView.refreshPath();
+            });
+            deleteConfirmation.setNegativeButton(activity.getString(android.R.string.cancel), null);
+            deleteConfirmation.show();
+        };
+    }
+
+    public static DialogInterface.OnClickListener renameFileListener(Activity activity, FileListView fileListView, File file) {
+        String fileParent = file.getParent();
+        String fileName = file.getName();
+        DialogInterface.OnClickListener renameListener = (dialog, which) -> { //重命名
+            android.app.AlertDialog.Builder renameBuilder = new android.app.AlertDialog.Builder(activity);
+            String suffix = fileName.substring(fileName.lastIndexOf('.')); //防止修改后缀名，先将后缀名分离出去
+            EditText input = new EditText(activity);
+            input.setText(fileName.substring(0, fileName.indexOf(suffix)));
+            renameBuilder.setTitle(activity.getString(R.string.zh_file_rename));
+            renameBuilder.setView(input);
+            renameBuilder.setPositiveButton(activity.getString(R.string.zh_file_rename), (dialog1, which1) -> {
+                String newName = input.getText().toString();
+                if (!newName.isEmpty()) {
+                    File newFile = new File(fileParent, newName + suffix);
+                    boolean renamed = file.renameTo(newFile);
+                    if (renamed) {
+                        Toast.makeText(activity, activity.getString(R.string.zh_file_renamed) + file.getName() + " -> " + newName + suffix, Toast.LENGTH_SHORT).show();
+                        fileListView.refreshPath();
+                    }
+                } else {
+                    Toast.makeText(activity, activity.getString(R.string.zh_file_rename_empty), Toast.LENGTH_SHORT).show();
+                }
+            });
+            renameBuilder.setNegativeButton(activity.getString(android.R.string.cancel), null);
+            renameBuilder.show();
+        };
+        return renameListener;
+    }
+
+
 
     /** Mesure the textview height, given its current parameters */
     public static int mesureTextviewHeight(TextView t) {

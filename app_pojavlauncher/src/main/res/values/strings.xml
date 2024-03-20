@@ -18,8 +18,14 @@
     <string name="zh_controls_in_game">In game</string>
     <string name="zh_controls_in_menu">In menu</string>
     <string name="zh_controls_unsupported_layout_version">Unsupported control layout version</string>
-    <string name="zh_cancel">Cancel</string>
+    <string name="zh_controls_create_new">Create new control layout</string>
+    <string name="zh_controls_create_new_title">Control layout name:</string>
+    <string name="zh_controls_import_control">Import control layout</string>
+    <string name="zh_return">Return</string>
     <string name="zh_file_add_file">Add file</string>
+    <string name="zh_file_add_file_tip">Please select a file with the suffix "%s"</string>
+    <string name="zh_file_create_file">Create</string>
+    <string name="zh_file_create_file_invalid">Cannot have the same name as an existing file!</string>
     <string name="zh_file_does_not_exist">This folder (or file) doesn\'t exist</string>
     <string name="zh_file_tips">Operate this file</string>
     <string name="zh_file_message">Please select the operation you want to perform on this file. Click on a blank area of the screen to close this window.</string>
@@ -31,7 +37,6 @@
     <string name="zh_file_renamed">File name modified: </string>
     <string name="zh_file_rename_empty">The file name cannot be empty!</string>
     <string name="zh_file_refresh">Refresh</string>
-    <string name="zh_file_return">Return</string>
     <string name="zh_file_share">Share</string>
     <string name="zh_file_share_message">Are you sure you want to share this file?</string>
     <string name="zh_file_open">Open</string>
@@ -52,7 +57,6 @@
     <string name="zh_profile_create_mods_success">Successfully created Mods folder!</string>
     <string name="zh_profile_mods">Mods</string>
     <string name="zh_profile_mods_add_mod">Add Mod</string>
-    <string name="zh_profile_mods_add_mod_tip">Please select a file with the suffix ".jar"</string>
     <string name="zh_profile_mods_added_mod">Successfully added Mod</string>
     <string name="zh_profile_mods_disable">Disable</string>
     <string name="zh_profile_mods_disabled">Successfully disabled file: </string>

@@ -201,7 +201,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/zh_file_return"
+            android:text="@android:string/cancel"
             app:layout_constraintBottom_toTopOf="@+id/fabric_installer_start_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
