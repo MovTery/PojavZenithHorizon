@@ -130,11 +130,6 @@ android {
             resValue 'string', 'storageProviderAuthorities', 'net.kdt.pojavlaunch.scoped.gamefolder.zh.debug'
             resValue 'string', 'shareProviderAuthority', 'net.kdt.pojavlaunch.scoped.controlfolder.zh.debug'
         }
-        proguard {
-            initWith debug
-            minifyEnabled true
-            shrinkResources true
-        }
         release {
             // Don't set to true or java.awt will be a.a or something similar.
             minifyEnabled false
