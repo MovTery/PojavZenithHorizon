@@ -11,8 +11,10 @@
         android:id="@+id/top_log_view"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:clickable="true"
         android:background="#555555"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:focusable="true" />
 
     <TextView
         android:id="@+id/log_title"
