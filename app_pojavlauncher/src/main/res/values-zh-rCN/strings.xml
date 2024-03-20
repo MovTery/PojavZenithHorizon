@@ -74,7 +74,7 @@
     <string name="zh_about_dec2">Pojav ZH 由 墨北MovTery 个人精心制作，在 PojavLauncher 的基础上进行了深入的魔改工作。</string>
     <string name="zh_about_dec3">由于 PojavLauncher 使用的是 GPL 3.0 开源协议，这一协议具有‘传染性’，任何使用、修改或衍生自 GPL 类库或软件的代码也必须采用 GPL 协议进行开源。因此，Pojav ZH 也只能遵循 GPL 3.0 开源协议。如果您打算传播或分发本软件，请务必遵守 GPL 3.0 开源协议的相关规定。</string>
     <string name="zh_about_dec4">软件贡献者：</string>
-    <string name="zh_about_dec5">墨北MovTery\nVera-Firefly</string>
+    <string name="zh_about_contributors1">墨北MovTery</string>
 
     <!-- Action bar part -->
 

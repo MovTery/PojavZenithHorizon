@@ -78,7 +78,8 @@
     <string name="zh_about_dec2">Pojav ZH is carefully crafted by the individual, MovTery, who has made significant modifications to the PojavLauncher.</string>
     <string name="zh_about_dec3">Since PojavLauncher uses the GPL 3.0 open source license, this license is "infectious," and any code that uses, modifies, or derives from GPL libraries or software must also adopt the GPL license for open source. Therefore, Pojav ZH must also follow the GPL 3.0 open source license. If you intend to spread or distribute this software, please be sure to comply with the relevant provisions of the GPL 3.0 open source license.</string>
     <string name="zh_about_dec4">Software contributors:</string>
-    <string name="zh_about_dec5">MovTery\nVera-Firefly</string>
+    <string name="zh_about_contributors1">MovTery</string>
+    <string name="zh_about_contributors2" translatable="false">Vera-Firefly</string>
     <!-- Action bar part -->
 
     <!-- Languages list part -->
