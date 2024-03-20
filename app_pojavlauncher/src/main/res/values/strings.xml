@@ -68,10 +68,6 @@
     <string name="zh_setting_enable_log_output_title">Enable log output on game startup</string>
     <string name="zh_view_log_output">Log output:</string>
 
-    <string name="zh_description">\nApologies, PojavZH is designed for players using PojavLauncher in China. \nPojavZH extensively modifies the software layout and adds more features, but these are all added for the convenience of the majority of Chinese players. \nIf you are already proficient in using the original PojavLauncher, then you do not need to use PojavZH at all!</string>
-    <string name="zh_description_button1">Contact Me</string>
-    <string name="zh_description_button2">OK</string>
-
     <string name="zh_about_tab">About Pojav ZH</string>
     <string name="zh_about_github" translatable="false">Github</string>
     <string name="zh_about_dec1">Pojav ZH is a Minecraft launcher based on the modified version of PojavLauncher that allows Minecraft: Java Edition to be played on Android devices. Pojav ZH is committed to improving user experience by redesigning the application interface and adding more useful features to make it easier for more people to enjoy Minecraft.</string>

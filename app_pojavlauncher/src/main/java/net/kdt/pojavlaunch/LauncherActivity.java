@@ -1,10 +1,7 @@
 package net.kdt.pojavlaunch;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.Manifest;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -198,28 +195,6 @@ public class LauncherActivity extends BaseActivity {
         mProgressLayout.observe(ProgressLayout.INSTALL_MODPACK);
         mProgressLayout.observe(ProgressLayout.AUTHENTICATE_MICROSOFT);
         mProgressLayout.observe(ProgressLayout.DOWNLOAD_VERSION_LIST);
-
-        SharedPreferences prefs = getSharedPreferences("PojavZH", MODE_PRIVATE);
-        boolean displayDescription = prefs.getBoolean("displayDescription", true);
-
-        if (displayDescription) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage(getString(R.string.zh_description))
-                    .setNegativeButton(getString(R.string.zh_description_button1), (dialog, id) -> {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://space.bilibili.com/2008204513"));
-                        startActivity(browserIntent);
-                    })
-                    .setPositiveButton(getString(R.string.zh_description_button2), (dialog, id) -> {
-                        dialog.dismiss();
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putBoolean("displayDescription", false);
-                        editor.apply();
-                    });
-            // 创建弹窗
-            AlertDialog dialog = builder.create();
-            // 显示弹窗
-            dialog.show();
-        }
     }
 
     @Override
