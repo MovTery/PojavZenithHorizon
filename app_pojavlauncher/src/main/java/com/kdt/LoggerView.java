@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -24,10 +23,8 @@ import net.kdt.pojavlaunch.R;
 public class LoggerView extends ConstraintLayout {
     private Logger.eventLogListener mLogListener;
     private ToggleButton mToggleButton;
-    private CheckBox mCancelInteractionButton;
     private ScrollView mScrollView;
     private TextView mLogTextView;
-    private View mTopLogView;
 
 
     public LoggerView(@NonNull Context context) {
@@ -72,15 +69,6 @@ public class LoggerView extends ConstraintLayout {
                     }
                 });
         mToggleButton.setChecked(false);
-
-        mTopLogView = findViewById(R.id.top_log_view);
-
-        mCancelInteractionButton = findViewById(R.id.zh_log_cancel_interaction);
-        mCancelInteractionButton.setOnClickListener(v -> {
-            mLogTextView.setClickable(!mCancelInteractionButton.isClickable());
-            mScrollView.setClickable(!mCancelInteractionButton.isClickable());
-            mTopLogView.setClickable(!mCancelInteractionButton.isClickable());
-        });
 
         // Remove the loggerView from the user View
         ImageButton cancelButton = findViewById(R.id.log_view_cancel);
