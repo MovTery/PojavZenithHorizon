@@ -307,7 +307,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
             List<String> javaArgList = new ArrayList<>();
 
             // Enable Caciocavallo
-            Tools.getCacioJavaArgs(javaArgList,runtime.javaVersion == 8);
+            Tools.getCacioJavaArgs(javaArgList, runtime.javaVersion == 8, runtime.javaVersion == 11);
             
             if (javaArgs != null) {
                 javaArgList.addAll(Arrays.asList(javaArgs.split(" ")));
