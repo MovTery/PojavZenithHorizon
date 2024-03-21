@@ -102,16 +102,18 @@ public class FileListView extends LinearLayout
 
                 DialogInterface.OnClickListener deleteDirListener = ((dialog, which) -> {
                     Toast.makeText(getContext(), getContext().getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
+                    listFileAt(mainFile.getParentFile());
 
                     boolean deleted = deleteDir(mainFile);
                     String toast;
                     if (deleted) toast = getContext().getString(R.string.zh_file_delete_dir_success) + "\n" + fileName; //是否删除成功？
                     else toast = getContext().getString(R.string.zh_file_delete_dir_fail);
                     Toast.makeText(getContext(), toast, Toast.LENGTH_SHORT).show();
+                    refreshPath();
                 });
 
                 builder.setPositiveButton(getContext().getString(android.R.string.cancel), null)
-                        .setNegativeButton(getContext().getString(R.string.zh_file_delete), deleteDirListener);
+                        .setNegativeButton(getContext().getString(R.string.global_delete), deleteDirListener);
 
                 builder.show();
             }
