@@ -26,10 +26,10 @@
     <string name="zh_file_create_file_invalid">不能與已存在的文件同名！</string>
     <string name="zh_file_does_not_exist">這個資料夾（或檔案）不存在</string>
     <string name="zh_file_tips">操作此檔案</string>
-    <string name="zh_file_message">請選擇您要對此檔案進行的操作，點擊螢幕空白區域可關閉此視窗</string>
+    <string name="zh_file_message">請選擇你要對此檔案進行的操作，點擊螢幕空白區域可關閉此視窗</string>
     <string name="zh_file_added">成功新增檔案</string>
-    <string name="zh_file_delete">您確定要刪除此檔案嗎？</string>
-    <string name="zh_file_delete_dir">您確定要刪除此資料夾嗎？</string>
+    <string name="zh_file_delete">你確定要刪除此檔案嗎？</string>
+    <string name="zh_file_delete_dir">你確定要刪除此資料夾嗎？</string>
     <string name="zh_file_delete_dir_message">刪除資料夾時，將會一併刪除此資料夾內所有檔案，如果這個資料夾內有重要的檔案，請取消此操作！</string>
     <string name="zh_file_delete_dir_success">成功刪除此資料夾：</string>
     <string name="zh_file_delete_dir_fail">刪除過程中發生了一些問題，請確保這個資料夾真的可以被刪除</string>
@@ -49,8 +49,8 @@
     <string name="zh_preference_category_language">語言</string>
     <string name="zh_preference_category_other_features">其他功能</string>
     <string name="zh_preference_chinese_language_title">中文語言切換</string>
-    <string name="zh_preference_exclusive_title">汉化版獨家功能</string>
-    <string name="zh_preference_exclusive_description">一些實用的功能，僅為漢化版獨家提供</string>
+    <string name="zh_preference_exclusive_title">Pojav ZH 獨家功能</string>
+    <string name="zh_preference_exclusive_description">一些實用的功能，僅為 Pojav ZH 獨家提供</string>
     <string name="zh_profile_custom_path">自訂路徑</string>
     <string name="zh_profile_create_mods">建立 Mods</string>
     <string name="zh_profile_create_mods_message">請確認此實例使用的遊戲版本能夠載入 Mod，如果無法載入 Mod，則建立 Mods 資料夾並添加 Mod 將不起作用！</string>
@@ -69,11 +69,12 @@
     <string name="zh_setting_enable_log_output_desc">在應用正式開始運行遊戲時，開啟日誌輸出界面</string>
     <string name="zh_setting_enable_log_output_title">啟動遊戲時打開日誌輸出</string>
     <string name="zh_view_log_output">日誌輸出：</string>
+    <string name="zh_view_log_output_cancel_interaction">取消互動</string>
 
     <string name="zh_about_tab">About Pojav ZH</string>
     <string name="zh_about_dec1">Pojav ZH 是一款基於 PojavLauncher 魔改的 Minecraft 啟動器，它能夠在 Android 設備上運行 Minecraft：Java Edition。\nPojav ZH 致力於優化使用者體驗，重新設計了應用界面，新增了更多實用的功能，旨在最大程度地降低遊玩門檻，讓更多人能夠輕鬆體驗 Minecraft 的樂趣。</string>
     <string name="zh_about_dec2">Pojav ZH 由墨北MovTery個人精心製作，在 PojavLauncher 的基礎上進行了深入的魔改工作。</string>
-    <string name="zh_about_dec3">由於 PojavLauncher 使用的是 GPL 3.0 開源協議，這一協議具有‘傳染性’，任何使用、修改或衍生自 GPL 類庫或軟件的代碼也必須採用 GPL 協議進行開源。因此，Pojav ZH 也只能遵循 GPL 3.0 開源協議。如果您打算傳播或分發本軟件，請務必遵守 GPL 3.0 開源協議的相關規定。</string>
+    <string name="zh_about_dec3">由於 PojavLauncher 使用的是 GPL 3.0 開源協議，這一協議具有‘傳染性’，任何使用、修改或衍生自 GPL 類庫或軟件的代碼也必須採用 GPL 協議進行開源。因此，Pojav ZH 也只能遵循 GPL 3.0 開源協議。如果你打算傳播或分發本軟件，請務必遵守 GPL 3.0 開源協議的相關規定。</string>
     <string name="zh_about_dec4">軟體貢獻者：</string>
     <string name="zh_about_contributors1">墨北MovTery</string>
 
@@ -131,7 +132,7 @@
     <string name="mcl_setting_title_use_surface_view">使用替代表面渲染</string>
     <string name="mcl_setting_subtitle_use_surface_view">可能有助於提升受 GPU 機能限制的性能</string>
     <string name="mcl_setting_title_ignore_notch">全螢幕模式</string>
-    <string name="mcl_setting_subtitle_ignore_notch">忽略刘海屏並將螢幕內容擴展至全螢幕，讓您更完整地沉浸感</string>
+    <string name="mcl_setting_subtitle_ignore_notch">忽略刘海屏並將螢幕內容擴展至全螢幕，讓你更完整地沉浸感</string>
     <string name="mcl_setting_title_resolution_scaler">解析度縮放</string>
     <string name="mcl_setting_subtitle_resolution_scaler">允許降低遊戲畫面解析度，原生解析度為 100%</string>
     <string name="mcl_setting_title_longpresstrigger">觸發長按延遲</string>
@@ -262,9 +263,9 @@
     <string name="multirt_progress_caching">正在快取…</string>
     <string name="multirt_config_setdefault">設為預設</string>
     <string name="multirt_config_setdefault_already">預設</string>
-    <string name="multirt_config_removeerror_last">您必須至少安裝一個 Java 運行環境</string>
+    <string name="multirt_config_removeerror_last">你必須至少安裝一個 Java 運行環境</string>
     <string name="multirt_nocompartiblert">找不到合適的 Java 運行環境，此版本需要 Java %d 或更高版本</string>
-    <string name="multirt_nojava8rt">無法找到 Java 8，要使用此選項，您必須安裝 Java 8</string>
+    <string name="multirt_nojava8rt">無法找到 Java 8，要使用此選項，你必須安裝 Java 8</string>
     <string name="multirt_delete_runtime">刪除運行環境</string>
     <string name="pvc_gameDirectory">遊戲目錄</string>
     <string name="pvc_jvmArgs">JVM 參數</string>
@@ -286,9 +287,9 @@
     <string name="preference_force_vsync_title">強制啟用垂直同步</string>
     <string name="preference_force_vsync_description">透過限制峰值性能來降低過熱降頻的風險</string>
     <string name="preference_force_english_title">強制使用英文</string>
-    <string name="preference_force_english_description">讓您顯示原始字串，需重啟應用程式</string>
+    <string name="preference_force_english_description">讓你顯示原始字串，需重啟應用程式</string>
     <string name="preference_edit_controls_title">編輯自訂控制版面</string>
-    <string name="preference_edit_controls_summary">調整控制版面以符合您的需求</string>
+    <string name="preference_edit_controls_summary">調整控制版面以符合你的需求</string>
 
     <string name="preference_category_gyro_controls">陀螺儀控制</string>
     <string name="preference_category_virtual_mouse">虛擬滑鼠</string>
@@ -331,28 +332,28 @@
     <string name="no_saved_accounts">沒有已儲存的帳號</string>
     <string name="mc_download_failed">下載 Minecraft 失敗！這可能是由於網路連接不良、檔案放置錯誤等原因</string>
     <string name="xerr_unknown">未知的 Xbox Live API 錯誤 %d</string>
-    <string name="xerr_no_account">您似乎沒有 Xbox Live 帳戶，請在 https://minecraft.net/ 上登錄一次，然後重試</string>
-    <string name="xerr_adult_verification">需要成年人驗證您的帳戶</string>
-    <string name="xerr_child">您的帳戶是兒童帳戶，需要添加到家庭中才能登錄</string>
-    <string name="minecraft_not_owned">這個帳戶似乎沒有 Minecraft 設定檔，如果您有 Xbox Game Pass，請登錄 https://minecraft.net/ 並進行設置</string>
-    <string name="xerr_not_available">Xbox Live 在您所在的國家/地區不可用</string>
+    <string name="xerr_no_account">你似乎沒有 Xbox Live 帳戶，請在 https://minecraft.net/ 上登錄一次，然後重試</string>
+    <string name="xerr_adult_verification">需要成年人驗證你的帳戶</string>
+    <string name="xerr_child">你的帳戶是兒童帳戶，需要添加到家庭中才能登錄</string>
+    <string name="minecraft_not_owned">這個帳戶似乎沒有 Minecraft 設定檔，如果你有 Xbox Game Pass，請登錄 https://minecraft.net/ 並進行設置</string>
+    <string name="xerr_not_available">Xbox Live 在你所在的國家/地區不可用</string>
     <string name="preference_enable_gyro_title">啟用陀螺儀控制</string>
-    <string name="preference_enable_gyro_description">啟用此功能將允許您通過轉動手機來在遊戲中轉動視角</string>
+    <string name="preference_enable_gyro_description">啟用此功能將允許你通過轉動手機來在遊戲中轉動視角</string>
     <string name="preference_gyro_sensitivity_title">陀螺儀控制靈敏度</string>
     <string name="preference_gyro_sensitivity_description">調整陀螺儀控制的靈敏度</string>
     <string name="toast_turn_on_gyro">需要先啟用陀螺儀控制才能使用！</string>
     <string name="preference_gyro_sample_rate_title">陀螺儀取樣率</string>
-    <string name="preference_gyro_sample_rate_description">如果您在陀螺儀控制上遇到性能問題，請增加此值</string>
-    <string name="microsoft_login_retry_later">您的操作過於頻繁，請稍後再試</string>
+    <string name="preference_gyro_sample_rate_description">如果你在陀螺儀控制上遇到性能問題，請增加此值</string>
+    <string name="microsoft_login_retry_later">你的操作過於頻繁，請稍後再試</string>
     <string name="storage_required">Pojav ZH 需要連接外部儲存，請重新連接並重啟軟體</string>
     <string name="mcl_setting_title_buttonallcaps">在按鍵標籤中僅使用大寫字母</string>
-    <string name="mcl_setting_subtitle_buttonallcaps">如果您想在控制布局中使用小寫字母，請禁用此功能</string>
+    <string name="mcl_setting_subtitle_buttonallcaps">如果你想在控制布局中使用小寫字母，請禁用此功能</string>
     <string name="create_profile">創建新實例</string>
     <string name="preference_shader_dump_title">啟用著色器輸出</string>
     <string name="preference_shader_dump_description">記錄轉換的著色器到日誌檔案</string>
     <string name="percent_format">%d%%</string>
     <string name="customctrl_editor_exit_title">是否離開？</string>
-    <string name="customctrl_editor_exit_msg">您是否確認退出？</string>
+    <string name="customctrl_editor_exit_msg">你是否確認退出？</string>
     <string name="customctrl_editor_exit">退出編輯器</string>
     <string name="global_save_and_exit">儲存並退出</string>
     <string name="global_yes">是</string>
@@ -361,7 +362,7 @@
     <string name="preference_controller_map_wiped">手柄配置已被重置</string>
     <string name="preference_category_controller_settings">手柄設置</string>
     <string name="preference_wipe_controller_title">重置手柄映射</string>
-    <string name="preference_wipe_controller_description">允許您重新映射手柄按鍵</string>
+    <string name="preference_wipe_controller_description">允許你重新映射手柄按鍵</string>
     <string name="preference_deadzone_scale_title">搖桿死區縮放</string>
     <string name="preference_deadzone_scale_description">若搖桿偏移，請調高此選項</string>
 
@@ -420,9 +421,9 @@
     <string name="fabric_dl_only_stable">僅顯示穩定版本</string>請將以下內容翻譯成繁體中文：
     <string name="dl_tampered_manifest_title">文件校驗警告</string>
     <string name="dl_tampered_manifest"><![CDATA[鏡像源上的遊戲版本列表與Mojang官方版本列表並不一致，這意味著它可能被篡改了<br/>
-            <b>這樣做並不安全。如果您繼續，您的個人信息可能面臨風險！</b><br/>
-            如果您仍想繼續使用鏡像源，點擊「關閉遊戲版本列表檢查」再次開始下載<br/>
-            如果您想使用官方下載源，點擊「轉換至官方下載源」再次開始下載<br/>]]>
+            <b>這樣做並不安全。如果你繼續，你的個人信息可能面臨風險！</b><br/>
+            如果你仍想繼續使用鏡像源，點擊「關閉遊戲版本列表檢查」再次開始下載<br/>
+            如果你想使用官方下載源，點擊「轉換至官方下載源」再次開始下載<br/>]]>
     </string>
     <string name="dl_turn_off_manifest_checks">關閉遊戲版本列表檢查</string>
     <string name="dl_switch_to_official_site">轉換至官方下載源</string>
@@ -440,8 +441,8 @@
     <string name="preference_category_miscellaneous">其他設置</string>
     <string name="preference_category_video">視頻設置</string>
     <string name="notification_permission_dialog_title">權限請求</string>
-    <string name="notification_permission_dialog_text">Pojav ZH 需要發布通知的權限，以防止您離開應用程序時，停止 遊戲/整合包 的下載。如果沒有此權限，當您將 Pojav ZH 置於後臺時，安卓系統可能會停止您的下載進度</string>
-    <string name="notification_permission_toast">您可以隨時通過進入「系統設置」改變您的決心</string>
+    <string name="notification_permission_dialog_text">Pojav ZH 需要發布通知的權限，以防止你離開應用程序時，停止 遊戲/整合包 的下載。如果沒有此權限，當你將 Pojav ZH 置於後臺時，安卓系統可能會停止你的下載進度</string>
+    <string name="notification_permission_toast">你可以隨時通過進入「系統設置」改變你的決心</string>
     <string name="preference_ask_for_notification_title">允許通知</string>
     <string name="preference_ask_for_notification_description">點擊可重新請求通知權限，這是 遊戲/整合包 在後臺正常下載所必需的</string>
     <string name="preference_vsync_in_zink_title">允許與Zink進行垂直同步</string>
