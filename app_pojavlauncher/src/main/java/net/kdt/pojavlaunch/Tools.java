@@ -113,6 +113,7 @@ public final class Tools {
     public static String DIR_ACCOUNT_NEW;
     public static String DIR_GAME_HOME = Environment.getExternalStorageDirectory().getAbsolutePath() + "/games/PojavLauncher";
     public static String DIR_GAME_NEW;
+    public static String DIR_GAME_DEFAULT;
 
     // New since 3.0.0
     public static String DIRNAME_HOME_JRE = "lib";
@@ -160,6 +161,7 @@ public final class Tools {
         MULTIRT_HOME = DIR_DATA+"/runtimes";
         DIR_GAME_HOME = getPojavStorageRoot(ctx).getAbsolutePath();
         DIR_GAME_NEW = DIR_GAME_HOME + "/.minecraft";
+        DIR_GAME_DEFAULT = DIR_GAME_HOME + "/.minecraft/instance/default";
         DIR_HOME_VERSION = DIR_GAME_NEW + "/versions";
         DIR_HOME_LIBRARY = DIR_GAME_NEW + "/libraries";
         DIR_HOME_CRASH = DIR_GAME_NEW + "/crash-reports";
@@ -233,7 +235,7 @@ public final class Tools {
             else
                 return new File(Tools.DIR_GAME_HOME,minecraftProfile.gameDir);
         }
-        return new File(Tools.DIR_GAME_NEW);
+        return new File(Tools.DIR_GAME_DEFAULT);
     }
 
     public static File getGameDirPath(String gameDir){
@@ -243,7 +245,7 @@ public final class Tools {
             else
                 return new File(Tools.DIR_GAME_HOME, gameDir);
         }
-        return new File(Tools.DIR_GAME_NEW);
+        return new File(Tools.DIR_GAME_DEFAULT);
     }
 
     public static void buildNotificationChannel(Context context){
