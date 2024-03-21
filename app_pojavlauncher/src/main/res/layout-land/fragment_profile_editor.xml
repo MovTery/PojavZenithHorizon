@@ -291,6 +291,18 @@
             app:layout_constraintBottom_toBottomOf="@+id/vprof_editor_profile_icon"
             app:layout_constraintEnd_toEndOf="@+id/vprof_editor_profile_icon" />
 
+        <ImageButton
+            android:id="@+id/zh_instance_help_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_help" />
+
         <com.kdt.mcgui.MineButton
             android:id="@+id/vprof_editor_save_button"
             android:layout_width="0dp"

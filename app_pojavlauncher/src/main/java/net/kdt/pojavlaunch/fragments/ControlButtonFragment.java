@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,7 @@ public class ControlButtonFragment extends Fragment {
     public static final String BUNDLE_ROOT_PATH = "root_path";
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private Button mReturnButton, mAddControlButton, mImportControlButton, mRefreshButton;
+    private ImageButton mHelpButton;
     private FileListView mFileListView;
     private TextView mFilePathView;
     private String mRootPath;
@@ -100,7 +102,7 @@ public class ControlButtonFragment extends Fragment {
 
                 builder.setPositiveButton(getString(R.string.global_delete), deleteFileListener(requireActivity(), mFileListView, file))
                         .setNegativeButton(getString(R.string.zh_file_rename), renameFileListener(requireActivity(), mFileListView, file))
-                        .setNeutralButton(getString(R.string.global_load), loadListener);
+                        .setNeutralButton(getString(R.string.zh_controls_load), loadListener);
 
                 builder.show();
             }
@@ -146,6 +148,13 @@ public class ControlButtonFragment extends Fragment {
                     }).show();
         });
         mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());
+        mHelpButton.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+
+            builder.setTitle(getString(R.string.zh_help_control_button_tile));
+            builder.setMessage(getString(R.string.zh_help_control_button_message));
+            builder.setPositiveButton(getString(R.string.zh_help_ok), null);
+        });
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -194,6 +203,7 @@ public class ControlButtonFragment extends Fragment {
         mImportControlButton = view.findViewById(R.id.zh_files_add_file_button);
         mAddControlButton = view.findViewById(R.id.zh_files_create_folder_button);
         mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
+        mHelpButton = view.findViewById(R.id.zh_files_help_button);
         mFileListView = view.findViewById(R.id.zh_files);
         mFilePathView = view.findViewById(R.id.zh_files_current_path);
 

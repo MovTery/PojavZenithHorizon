@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class FilesFragment extends Fragment {
     public static final String BUNDLE_SHOW_FOLDERS = "show_folders";
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private Button mReturnButton, mAddFileButton, mCreateFolderButton, mRefreshButton;
+    private ImageButton mHelpButton;
     private FileListView mFileListView;
     private TextView mFilePathView;
     private String mRootPath;
@@ -123,6 +125,13 @@ public class FilesFragment extends Fragment {
                     }).show();
         });
         mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());
+        mHelpButton.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+
+            builder.setTitle(getString(R.string.zh_help_files_tile));
+            builder.setMessage(getString(R.string.zh_help_files_message));
+            builder.setPositiveButton(getString(R.string.zh_help_ok), null);
+        });
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -173,6 +182,7 @@ public class FilesFragment extends Fragment {
         mAddFileButton = view.findViewById(R.id.zh_files_add_file_button);
         mCreateFolderButton = view.findViewById(R.id.zh_files_create_folder_button);
         mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
+        mHelpButton = view.findViewById(R.id.zh_files_help_button);
         mFileListView = view.findViewById(R.id.zh_files);
         mFilePathView = view.findViewById(R.id.zh_files_current_path);
     }
