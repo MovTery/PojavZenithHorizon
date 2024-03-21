@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -36,6 +37,7 @@ public class ModsFragment extends Fragment {
     public static final String BUNDLE_ROOT_PATH = "root_path";
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private Button mReturnButton, mSelectModButton, mRefreshButton;
+    private ImageButton mHelpButton;
     private FileListView mFileListView;
     private String mRootPath;
 
@@ -124,6 +126,13 @@ public class ModsFragment extends Fragment {
             openDocumentLauncher.launch(suffix);
         });
         mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());
+        mHelpButton.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+
+            builder.setTitle(getString(R.string.zh_help_mod_tilte));
+            builder.setMessage(getString(R.string.zh_help_mod_message));
+            builder.setPositiveButton(getString(R.string.zh_help_ok), null);
+        });
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -167,6 +176,7 @@ public class ModsFragment extends Fragment {
         mReturnButton = view.findViewById(R.id.zh_mods_return_button);
         mSelectModButton = view.findViewById(R.id.zh_select_mod_button);
         mRefreshButton = view.findViewById(R.id.zh_mods_refresh_button);
+        mHelpButton = view.findViewById(R.id.zh_mods_help_button);
         mFileListView = view.findViewById(R.id.zh_mods);
     }
 }

@@ -18,6 +18,7 @@
     <string name="zh_controls_create_new">创建新的控制布局</string>
     <string name="zh_controls_create_new_title">控制布局名称：</string>
     <string name="zh_controls_import_control">导入控制布局</string>
+    <string name="zh_controls_load">加载并编辑</string>
     <string name="zh_return">返回</string>
     <string name="zh_file_add_file">添加文件</string>
     <string name="zh_file_add_file_tip">请选择一个后缀名为"%s"的文件</string>
@@ -44,7 +45,7 @@
     <string name="zh_neoforge_dl_searching">正在搜索 NeoForge 版本号</string>
     <string name="zh_neoforge_dl_no_installer">很抱歉，该版本的 NeoForge 没有安装程序，尚不支持</string>
     <string name="zh_neoforge_dl_select_version">选择 NeoForge 版本</string>
-    <string name="zh_modloader_dl_install_neoforge">创建 NeoForge 配置</string>
+    <string name="zh_modloader_dl_install_neoforge">创建 NeoForge 实例</string>
     <string name="zh_main_open_dir">打开主目录</string>
     <string name="zh_preference_category_language">语言</string>
     <string name="zh_preference_category_other_features">其他功能</string>
@@ -53,7 +54,7 @@
     <string name="zh_preference_exclusive_description">一些实用的功能，仅为汉化版特供</string>
     <string name="zh_profile_custom_path">自定义路径</string>
     <string name="zh_profile_create_mods">创建 Mods</string>
-    <string name="zh_profile_create_mods_message">请您确保此配置使用的游戏版本确实能够加载 Mod，如果它并不支持加载 Mod，那么创建 Mods 文件夹并添加 Mod 将不会起到任何作用！</string>
+    <string name="zh_profile_create_mods_message">请您确保此实例使用的游戏版本确实能够加载 Mod，如果它并不支持加载 Mod，那么创建 Mods 文件夹并添加 Mod 将不会起到任何作用！</string>
     <string name="zh_profile_create_mods_fail">抱歉，游戏路径内存在 Mods 文件夹，无法再次创建 Mods 文件夹</string>
     <string name="zh_profile_create_mods_success">成功创建 Mods 文件夹!</string>
     <string name="zh_profile_mods">Mod 管理</string>
@@ -75,6 +76,16 @@
     <string name="zh_about_dec3">由于 PojavLauncher 使用的是 GPL 3.0 开源协议，这一协议具有‘传染性’，任何使用、修改或衍生自 GPL 类库或软件的代码也必须采用 GPL 协议进行开源。因此，Pojav ZH 也只能遵循 GPL 3.0 开源协议。如果您打算传播或分发本软件，请务必遵守 GPL 3.0 开源协议的相关规定。</string>
     <string name="zh_about_dec4">软件贡献者：</string>
     <string name="zh_about_contributors1">墨北MovTery</string>
+
+    <string name="zh_help_control_button_tile">什么是控制布局？</string>
+    <string name="zh_help_control_button_message">控制布局能够在游戏中起到非常重要的作用，它会在屏幕上显示按键，用户能够通过这些按键与游戏进行交互，模拟了 Minecraft: Java Edition 中使用键盘操控游戏的这一过程。\n在控制布局管理界面内，你可以管理当前所有的控制布局，你也可以加载并修改或是自行创建一套新的控制布局，你还可以导入或分享控制布局</string>
+    <string name="zh_help_instance_title">什么是游戏实例？</string>
+    <string name="zh_help_instance_message">游戏实例就像一张清单，包含了游戏的各种信息，它能够告诉启动器你想要游玩的游戏版本、控制布局、启动游戏使用什么渲染器等信息，这样启动器就能按照你的需求，为你启动相应的游戏。\n游戏实例相互独立，但你可以在多个游戏实例内选择相同的东西，比如多个实例都选择同一套控制布局等。\n在主菜单内启动游戏时，你必须选择一个游戏实例，且你需要保证你的游戏实例所选择的各种东西都是正常可用的，否则可能会出现意想不到的问题</string>
+    <string name="zh_help_files_tile">Pojav ZH 主目录</string>
+    <string name="zh_help_files_message">主目录指的是 Pojav ZH 存放游戏数据的主要目录，这个界面就类似于一个简单的文件管理器，你可以自由管理主要目录内的所有文件。\n但是请你谨慎对待这里的文件，操作不当可能造成启动器异常或者无法启动游戏！</string>
+    <string name="zh_help_mod_tilte">什么是 Mod？</string>
+    <string name="zh_help_mod_message">可以将其理解为游戏的第三方插件，它能够修改游戏或者是为游戏加入更多有意思的内容。\nMinecraft: Java Edition 通常不可以加载 Mod，但是玩家社区为 Minecraft 开发了第三方加载器，使得其能够加载 Mod，而这些第三方加载器都是一个个独立的游戏版本，你并不需要在原版和第三方加载器之间做取舍。\nMod 管理界面可以管理当前游戏实例的自定义路径内的“mods”文件夹里的全部 Mod，你也可以自行导入 Mod，而 Mod 则需要你自己在资源网站上下载。</string>
+    <string name="zh_help_ok">知道了</string>
 
     <!-- Action bar part -->
 
@@ -336,7 +347,7 @@
     <string name="storage_required">Pojav ZH 需要连接外部存储，请重新连接并重启软件</string>
     <string name="mcl_setting_title_buttonallcaps">在按键标签中仅使用大写字母</string>
     <string name="mcl_setting_subtitle_buttonallcaps">如果您想在控制布局中使用小写字母，请禁用此功能</string>
-    <string name="create_profile">创建新配置</string>
+    <string name="create_profile">创建新实例</string>
     <string name="preference_shader_dump_title">启用着色器输出</string>
     <string name="preference_shader_dump_description">记录转换的着色器到日志文件</string>
     <string name="percent_format">%d%%</string>
@@ -368,17 +379,17 @@
     <string name="fabric_dl_game_version">Minecraft 版本</string>
     <string name="fabric_dl_install">安装</string>
     <string name="fabric_dl_cant_read_meta">读取 %s 加载器元数据失败，请稍后再试</string>
-    <string name="modloader_dl_install_fabric">创建 Fabric 配置</string>
-    <string name="modloader_dl_install_quilt">创建 Quilt 配置</string>
-    <string name="modloader_dl_install_forge">创建 Forge 配置</string>
-    <string name="create_profile_vanilla">创建原版配置</string>
+    <string name="modloader_dl_install_fabric">创建 Fabric 实例</string>
+    <string name="modloader_dl_install_quilt">创建 Quilt 实例</string>
+    <string name="modloader_dl_install_forge">创建 Forge 实例</string>
+    <string name="create_profile_vanilla">创建原版实例</string>
     <string name="create_profile_vanilla_like_versions">类原版版本</string>
     <string name="create_profile_modded_versions">已修改版本</string>
     <string name="fabric_dl_loader_title">选择版本</string>
     <string name="of_dl_select_version">选择 OptiFine 版本</string>
     <string name="of_dl_failed_to_scrape">无法收集 OptiFine 安装数据</string>
     <string name="of_dl_progress">正在下载 %s</string>
-    <string name="create_profile_optifine">创建 OptiFine 配置</string>
+    <string name="create_profile_optifine">创建 OptiFine 实例</string>
     
     
     <string name="hint_search_modpack">搜索整合包</string>
@@ -402,7 +413,7 @@
     <string name="modpack_install_notification_data_not_available">模组加载器信息下载失败</string>
     <string name="modpack_install_modloader_download_failed">模组加载器文件下载失败</string>
     <string name="modpack_install_download_failed">整合包文件下载失败</string>
-    <string name="modpack_install_button">创建整合包配置</string>
+    <string name="modpack_install_button">创建整合包实例</string>
     
     <string name="notif_error_occured">发生了一个错误</string>
     <string name="notif_error_occured_desc">点击查看详细信息</string>
