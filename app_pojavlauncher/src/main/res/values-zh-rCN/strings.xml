@@ -78,9 +78,9 @@
     <string name="zh_about_contributors1">墨北MovTery</string>
 
     <string name="zh_help_control_button_tile">什么是控制布局？</string>
-    <string name="zh_help_control_button_message">控制布局能够在游戏中起到非常重要的作用，它会在屏幕上显示按键，用户能够通过这些按键与游戏进行交互，模拟了 Minecraft: Java Edition 中使用键盘操控游戏的这一过程。\n在控制布局管理界面内，你可以管理当前所有的控制布局，你也可以加载并修改或是自行创建一套新的控制布局，你还可以导入或分享控制布局</string>
+    <string name="zh_help_control_button_message">控制布局能够在游戏中起到非常重要的作用，它会在屏幕上显示按键，用户能够通过这些按键与游戏进行交互，模拟了 Minecraft: Java Edition 中使用键盘操控游戏的这一过程。\n在控制布局管理界面内，你可以管理当前所有的控制布局，你也可以加载并修改或是自行创建一套新的控制布局，你还可以导入或分享控制布局。</string>
     <string name="zh_help_instance_title">什么是游戏实例？</string>
-    <string name="zh_help_instance_message">游戏实例就像一张清单，包含了游戏的各种信息，它能够告诉启动器你想要游玩的游戏版本、控制布局、启动游戏使用什么渲染器等信息，这样启动器就能按照你的需求，为你启动相应的游戏。\n游戏实例相互独立，但你可以在多个游戏实例内选择相同的东西，比如多个实例都选择同一套控制布局等。\n在主菜单内启动游戏时，你必须选择一个游戏实例，且你需要保证你的游戏实例所选择的各种东西都是正常可用的，否则可能会出现意想不到的问题</string>
+    <string name="zh_help_instance_message">游戏实例就像一张清单，包含了游戏的各种信息，它能够告诉启动器你想要游玩的游戏版本、控制布局、启动游戏使用什么渲染器等信息，这样启动器就能按照你的需求，为你启动相应的游戏。\n游戏实例相互独立，但你可以在多个游戏实例内选择相同的东西，比如多个实例都选择同一套控制布局等。\n在主菜单内启动游戏时，你必须选择一个游戏实例，且你需要保证你的游戏实例所选择的各种东西都是正常可用的，否则可能会出现意想不到的问题。</string>
     <string name="zh_help_files_tile">Pojav ZH 主目录</string>
     <string name="zh_help_files_message">主目录指的是 Pojav ZH 存放游戏数据的主要目录，这个界面就类似于一个简单的文件管理器，你可以自由管理主要目录内的所有文件。\n但是请你谨慎对待这里的文件，操作不当可能造成启动器异常或者无法启动游戏！</string>
     <string name="zh_help_mod_tilte">什么是 Mod？</string>

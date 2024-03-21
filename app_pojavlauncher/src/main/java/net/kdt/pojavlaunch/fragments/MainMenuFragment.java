@@ -86,11 +86,6 @@ public class MainMenuFragment extends Fragment {
                 Toast.makeText(requireContext(), getString(R.string.zh_file_does_not_exist), Toast.LENGTH_SHORT).show();
             }
         });
-
-        mAboutButton.setOnLongClickListener((v)->{
-            Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, true, null);
-            return true;
-        });
     }
 
     @Override
