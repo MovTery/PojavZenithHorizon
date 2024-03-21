@@ -21,10 +21,10 @@ jobs:
         run: echo "IS_MAIN_BRANCH=true" >> $GITHUB_ENV
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Get JRE 8
-        uses: dawidd6/action-download-artifact@v2
+        uses: dawidd6/action-download-artifact@v3
         with:
           workflow: build.yml
           path: app_pojavlauncher/src/main/assets/components/jre
@@ -34,7 +34,7 @@ jobs:
           name: jre8-pojav
 
       - name: Get JRE17
-        uses: dawidd6/action-download-artifact@v2
+        uses: dawidd6/action-download-artifact@v3
         with:
           workflow: build.yml
           path: app_pojavlauncher/src/main/assets/components/jre-new
@@ -45,7 +45,7 @@ jobs:
           name: jre17-pojav
 
       - name: Get LWJGL3
-        uses: dawidd6/action-download-artifact@v2
+        uses: dawidd6/action-download-artifact@v3
         with:
           workflow: main.yml
           path: app_pojavlauncher/src/main/assets/components/lwjgl3
@@ -54,12 +54,12 @@ jobs:
           branch: official
           name: lwjgl
 
-      - uses: gradle/gradle-build-action@v2
+      - uses: gradle/gradle-build-action@v3
         with:
           gradle-version: 7.6.1
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
@@ -77,13 +77,13 @@ jobs:
       - name: Upload Release
         continue-on-error: true
         if: github.repository_owner == 'HopiHopy' && github.ref_name == 'v3_openjdk'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: PojavZH(Release)
           path: app_pojavlauncher/build/outputs/apk/release/*
 
       - name: Upload Debug
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: PojavZH(Debug)
           path: app_pojavlauncher/build/outputs/apk/debug/*
@@ -100,9 +100,9 @@ jobs:
         run: echo "IS_MAIN_BRANCH=true" >> $GITHUB_ENV
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Get LWJGL3
-        uses: dawidd6/action-download-artifact@v2
+        uses: dawidd6/action-download-artifact@v3
         with:
           workflow: main.yml
           path: app_pojavlauncher/src/main/assets/components/lwjgl3
@@ -111,36 +111,22 @@ jobs:
           branch: official
           name: lwjgl
 
-      - uses: gradle/gradle-build-action@v2
+      - uses: gradle/gradle-build-action@v3
         with:
           gradle-version: 7.6.1
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
-
-      - name: Build Release-noruntime.apk
-        if: github.repository_owner == 'HopiHopy' && github.ref_name == 'v3_openjdk'
-        run: |
-          gradle :app_pojavlauncher:assemblerelease
-
       - name: Build Debug-noruntime.apk
         run: |
           # Build the launcher
           gradle :app_pojavlauncher:assembleDebug
 
-      - name: Upload Release
-        continue-on-error: true
-        if: github.repository_owner == 'HopiHopy' && github.ref_name == 'v3_openjdk'
-        uses: actions/upload-artifact@v3
-        with:
-          name: PojavZH(Release-无Java运行环境)
-          path: app_pojavlauncher/build/outputs/apk/release/*
-
       - name: Upload Debug
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: PojavZH(Debug-无Java运行环境)
           path: app_pojavlauncher/build/outputs/apk/debug/*
