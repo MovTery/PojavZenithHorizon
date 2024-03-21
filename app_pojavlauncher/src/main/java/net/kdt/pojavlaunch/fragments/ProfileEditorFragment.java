@@ -187,11 +187,13 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         mProfileIcon.setOnClickListener(v -> CropperUtils.startCropper(mCropperLauncher));
 
         mHelpButton.setOnClickListener(v -> {
-            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(requireActivity());
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
             builder.setTitle(getString(R.string.zh_help_instance_title));
             builder.setMessage(getString(R.string.zh_help_instance_message));
             builder.setPositiveButton(getString(R.string.zh_help_ok), null);
+
+            builder.show();
         });
 
 

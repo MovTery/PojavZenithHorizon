@@ -154,6 +154,8 @@ public class ControlButtonFragment extends Fragment {
             builder.setTitle(getString(R.string.zh_help_control_button_tile));
             builder.setMessage(getString(R.string.zh_help_control_button_message));
             builder.setPositiveButton(getString(R.string.zh_help_ok), null);
+
+            builder.show();
         });
     }
 
