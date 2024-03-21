@@ -37,7 +37,7 @@ public class FileSelectorFragment extends Fragment {
     private boolean mShowFiles = true;
     private boolean mShowFolders = true;
     private String mRootPath = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
-            ? Tools.DIR_GAME_NEW
+            ? Tools.DIR_GAME_DEFAULT
             : Environment.getExternalStorageDirectory().getAbsolutePath();
 
 
