@@ -1,5 +1,8 @@
 package com.kdt.pickafile;
 
+import static net.kdt.pojavlaunch.Tools.deleteDir;
+import static net.kdt.pojavlaunch.Tools.shareFile;
+
 import androidx.appcompat.app.*;
 import android.content.*;
 import android.util.*;
@@ -91,6 +94,26 @@ public class FileListView extends LinearLayout
             if (mainFile.isFile()) {
                 fileSelectedListener.onItemLongClick(mainFile, mainFile.getAbsolutePath());
                 return true;
+            } else if (mainFile.isDirectory()) {
+                String fileName = mainFile.getName();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle(getContext().getString(R.string.zh_file_delete_dir));
+                builder.setMessage(getContext().getString(R.string.zh_file_delete_dir_message));
+
+                DialogInterface.OnClickListener deleteDirListener = ((dialog, which) -> {
+                    Toast.makeText(getContext(), getContext().getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
+
+                    boolean deleted = deleteDir(mainFile);
+                    String toast;
+                    if (deleted) toast = getContext().getString(R.string.zh_file_delete_dir_success) + "\n" + fileName; //是否删除成功？
+                    else toast = getContext().getString(R.string.zh_file_delete_dir_fail);
+                    Toast.makeText(getContext(), toast, Toast.LENGTH_SHORT).show();
+                });
+
+                builder.setPositiveButton(getContext().getString(android.R.string.cancel), null)
+                        .setNegativeButton(getContext().getString(R.string.zh_file_delete), deleteDirListener);
+
+                builder.show();
             }
             return false;
         });

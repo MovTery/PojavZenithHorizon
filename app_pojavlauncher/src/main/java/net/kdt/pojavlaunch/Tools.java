@@ -1141,6 +1141,24 @@ public final class Tools {
         };
     }
 
+    public static boolean deleteDir(File dir) { //删除一个非空文件夹
+        if (dir == null || !dir.exists()) return false;
+
+        if (dir.isFile()) {
+            return dir.delete();
+        }
+
+        File[] files = dir.listFiles();
+        if (files == null) return false; //没有权限则无法删除
+
+        for (File file : files) {
+            if (file.isFile()) file.delete();
+            else deleteDir(file);
+        }
+
+        return dir.delete();
+    }
+
     public static DialogInterface.OnClickListener renameFileListener(Activity activity, FileListView fileListView, File file) {
         String fileParent = file.getParent();
         String fileName = file.getName();

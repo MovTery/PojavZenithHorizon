@@ -29,6 +29,10 @@
     <string name="zh_file_message_main">(请注意，在此目录下的文件都是非常重要的，操作不当可能导致游戏无法启动！)</string>
     <string name="zh_file_added">成功添加文件</string>
     <string name="zh_file_delete">您确定要删除此文件吗？</string>
+    <string name="zh_file_delete_dir">您确定要删除此文件夹吗？</string>
+    <string name="zh_file_delete_dir_message">删除文件夹时，会将此文件夹内部全部文件一并删除，如果这个文件夹内含有重要的文件，那么请取消此操作！</string>
+    <string name="zh_file_delete_dir_success">成功删除此文件夹：</string>
+    <string name="zh_file_delete_dir_fail">删除过程中出现了一些问题，请确保这个文件夹真的可以被删除</string>
     <string name="zh_file_deleted">成功删除文件：</string>
     <string name="zh_file_rename">重命名</string>
     <string name="zh_file_renamed">文件名已被修改：\n</string>
