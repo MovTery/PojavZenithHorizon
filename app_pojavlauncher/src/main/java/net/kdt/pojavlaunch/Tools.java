@@ -963,6 +963,7 @@ public final class Tools {
         //TODO handle custom animations
         FragmentTransaction transaction = fragmentActivity.getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
+                .setCustomAnimations(R.anim.cut_into, R.anim.cut_out)
                 .replace(R.id.container_fragment, fragmentClass, bundle, fragmentTag);
         if(addCurrentToBackstack) transaction.addToBackStack(null);
 
