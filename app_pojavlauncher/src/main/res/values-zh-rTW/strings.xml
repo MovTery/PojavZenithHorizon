@@ -69,7 +69,6 @@
     <string name="zh_setting_enable_log_output_desc">在應用正式開始運行遊戲時，開啟日誌輸出界面</string>
     <string name="zh_setting_enable_log_output_title">啟動遊戲時打開日誌輸出</string>
     <string name="zh_view_log_output">日誌輸出：</string>
-    <string name="zh_view_log_output_cancel_interaction">取消互動</string>
 
     <string name="zh_about_tab">About Pojav ZH</string>
     <string name="zh_about_dec1">Pojav ZH 是一款基於 PojavLauncher 魔改的 Minecraft 啟動器，它能夠在 Android 設備上運行 Minecraft：Java Edition。\nPojav ZH 致力於優化使用者體驗，重新設計了應用界面，新增了更多實用的功能，旨在最大程度地降低遊玩門檻，讓更多人能夠輕鬆體驗 Minecraft 的樂趣。</string>
