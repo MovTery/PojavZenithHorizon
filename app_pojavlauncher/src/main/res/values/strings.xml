@@ -53,7 +53,7 @@
     <string name="zh_preference_category_other_features">Other Features</string>
     <string name="zh_preference_chinese_language_title">Switch to Chinese language</string>
     <string name="zh_preference_exclusive_title">Exclusive Features</string>
-    <string name="zh_preference_exclusive_description">Practical features exclusive to Chinese version</string>
+    <string name="zh_preference_exclusive_description">Practical features exclusive to Pojav ZH</string>
     <string name="zh_profile_custom_path">Custom path</string>
     <string name="zh_profile_create_mods">Create Mods</string>
     <string name="zh_profile_create_mods_message">Please ensure the game version supports Mod loading. Unsupported versions won\'t benefit from creating Mods folders or adding Mods!</string>
@@ -71,6 +71,7 @@
     <string name="zh_setting_enable_log_output_desc">Enable the log output interface when the application officially starts running the game</string>
     <string name="zh_setting_enable_log_output_title">Enable log output on game startup</string>
     <string name="zh_view_log_output">Log output:</string>
+    <string name="zh_view_log_output_cancel_interaction">Cancel Interaction</string>
 
     <string name="zh_about_tab">About Pojav ZH</string>
     <string name="zh_about_github" translatable="false">Github</string>

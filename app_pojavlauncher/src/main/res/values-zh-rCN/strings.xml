@@ -26,11 +26,11 @@
     <string name="zh_file_create_file_invalid">不可与已存在的文件同名！</string>
     <string name="zh_file_does_not_exist">这个文件夹(或文件)不存在</string>
     <string name="zh_file_tips">操作此文件</string>
-    <string name="zh_file_message">请选择您要对此文件执行的操作，点击屏幕空白区域可关闭此窗口</string>
+    <string name="zh_file_message">请选择你要对此文件执行的操作，点击屏幕空白区域可关闭此窗口</string>
     <string name="zh_file_message_main">(请注意，在此目录下的文件都是非常重要的，操作不当可能导致游戏无法启动！)</string>
     <string name="zh_file_added">成功添加文件</string>
-    <string name="zh_file_delete">您确定要删除此文件吗？</string>
-    <string name="zh_file_delete_dir">您确定要删除此文件夹吗？</string>
+    <string name="zh_file_delete">你确定要删除此文件吗？</string>
+    <string name="zh_file_delete_dir">你确定要删除此文件夹吗？</string>
     <string name="zh_file_delete_dir_message">删除文件夹时，会将此文件夹内部全部文件一并删除，如果这个文件夹内含有重要的文件，那么请取消此操作！</string>
     <string name="zh_file_delete_dir_success">成功删除此文件夹：</string>
     <string name="zh_file_delete_dir_fail">删除过程中出现了一些问题，请确保这个文件夹真的可以被删除</string>
@@ -50,11 +50,11 @@
     <string name="zh_preference_category_language">语言</string>
     <string name="zh_preference_category_other_features">其他功能</string>
     <string name="zh_preference_chinese_language_title">中文语言切换</string>
-    <string name="zh_preference_exclusive_title">汉化版特供功能</string>
-    <string name="zh_preference_exclusive_description">一些实用的功能，仅为汉化版特供</string>
+    <string name="zh_preference_exclusive_title">Pojav ZH 特供功能</string>
+    <string name="zh_preference_exclusive_description">一些实用的功能，仅为 Pojav ZH 特供</string>
     <string name="zh_profile_custom_path">自定义路径</string>
     <string name="zh_profile_create_mods">创建 Mods</string>
-    <string name="zh_profile_create_mods_message">请您确保此实例使用的游戏版本确实能够加载 Mod，如果它并不支持加载 Mod，那么创建 Mods 文件夹并添加 Mod 将不会起到任何作用！</string>
+    <string name="zh_profile_create_mods_message">请你确保此实例使用的游戏版本确实能够加载 Mod，如果它并不支持加载 Mod，那么创建 Mods 文件夹并添加 Mod 将不会起到任何作用！</string>
     <string name="zh_profile_create_mods_fail">抱歉，游戏路径内存在 Mods 文件夹，无法再次创建 Mods 文件夹</string>
     <string name="zh_profile_create_mods_success">成功创建 Mods 文件夹!</string>
     <string name="zh_profile_mods">Mod 管理</string>
@@ -69,11 +69,12 @@
     <string name="zh_setting_enable_log_output_desc">在应用正式开始运行游戏时，开启日志输出界面</string>
     <string name="zh_setting_enable_log_output_title">启动游戏时打开日志输出</string>
     <string name="zh_view_log_output">日志输出:</string>
+    <string name="zh_view_log_output_cancel_interaction">取消交互</string>
 
     <string name="zh_about_tab">关于 Pojav ZH</string>
     <string name="zh_about_dec1">Pojav ZH 是一款基于 PojavLauncher 魔改的 Minecraft 启动器，它能够在 Android 设备上运行 Minecraft: Java Edition。\nPojav ZH 致力于优化用户体验，重新设计了应用界面，新增了更多实用的功能，旨在最大程度地降低游玩门槛，让更多人能够轻松体验 Minecraft 的乐趣。</string>
     <string name="zh_about_dec2">Pojav ZH 由 墨北MovTery 个人精心制作，在 PojavLauncher 的基础上进行了深入的魔改工作。</string>
-    <string name="zh_about_dec3">由于 PojavLauncher 使用的是 GPL 3.0 开源协议，这一协议具有‘传染性’，任何使用、修改或衍生自 GPL 类库或软件的代码也必须采用 GPL 协议进行开源。因此，Pojav ZH 也只能遵循 GPL 3.0 开源协议。如果您打算传播或分发本软件，请务必遵守 GPL 3.0 开源协议的相关规定。</string>
+    <string name="zh_about_dec3">由于 PojavLauncher 使用的是 GPL 3.0 开源协议，这一协议具有‘传染性’，任何使用、修改或衍生自 GPL 类库或软件的代码也必须采用 GPL 协议进行开源。因此，Pojav ZH 也只能遵循 GPL 3.0 开源协议。如果你打算传播或分发本软件，请务必遵守 GPL 3.0 开源协议的相关规定。</string>
     <string name="zh_about_dec4">软件贡献者：</string>
     <string name="zh_about_contributors1">墨北MovTery</string>
 
@@ -131,7 +132,7 @@
     <string name="mcl_setting_title_use_surface_view">使用备用表面渲染</string>
     <string name="mcl_setting_subtitle_use_surface_view">可能有助于提升受 GPU 机能限制的性能</string>
     <string name="mcl_setting_title_ignore_notch">全屏模式</string>
-    <string name="mcl_setting_subtitle_ignore_notch">忽略刘海屏并将屏幕内容扩展至全屏\n给您以更完整的沉浸感</string>
+    <string name="mcl_setting_subtitle_ignore_notch">忽略刘海屏并将屏幕内容扩展至全屏\n给你以更完整的沉浸感</string>
     <string name="mcl_setting_title_resolution_scaler">分辨率缩放</string>
     <string name="mcl_setting_subtitle_resolution_scaler">允许降低游戏画面分辨率，原生分辨率为 100%</string>
     <string name="mcl_setting_title_longpresstrigger">触发长按延迟</string>
@@ -172,7 +173,7 @@
     
     <!-- MainActivity: strings -->
     <string name="mcn_exit_title">应用程序/游戏以代码 %d退出，请查看 latestlog.txt 查看更多信息</string>
-    <string name="mcn_exit_confirm">您确定要强制关闭吗?</string>
+    <string name="mcn_exit_confirm">你确定要强制关闭吗?</string>
     <string name="mcn_check_fail_vulkan_support">此设备不支持 Zink（Vulkan）渲染器！</string>
     
     <!-- MainActivity: Control buttons -->
@@ -262,9 +263,9 @@
     <string name="multirt_progress_caching">正在缓存……</string>
     <string name="multirt_config_setdefault">设为默认</string>
     <string name="multirt_config_setdefault_already">默认</string>
-    <string name="multirt_config_removeerror_last">您必须至少安装一个 Java 运行环境</string>
+    <string name="multirt_config_removeerror_last">你必须至少安装一个 Java 运行环境</string>
     <string name="multirt_nocompartiblert">找不到合适的 Java 运行环境，此版本需要 Java %d 或更高版本</string>
-    <string name="multirt_nojava8rt">无法找到 Java 8，要使用此选项，您必须安装 Java 8</string>
+    <string name="multirt_nojava8rt">无法找到 Java 8，要使用此选项，你必须安装 Java 8</string>
     <string name="multirt_delete_runtime">删除运行环境</string>
     <string name="pvc_gameDirectory">游戏目录</string>
     <string name="pvc_jvmArgs">JVM 参数</string>
@@ -286,9 +287,9 @@
     <string name="preference_force_vsync_title">强制启用垂直同步</string>
     <string name="preference_force_vsync_description">通过限制峰值性能来限制过热降频</string>
     <string name="preference_force_english_title">强制使用英文</string>
-    <string name="preference_force_english_description">允许您按开发者的原意看到原始字符串，此操作需要重启</string>
+    <string name="preference_force_english_description">允许你按开发者的原意看到原始字符串，此操作需要重启</string>
     <string name="preference_edit_controls_title">编辑自定义控制布局</string>
-    <string name="preference_edit_controls_summary">调整控制布局以适应您的需求</string>
+    <string name="preference_edit_controls_summary">调整控制布局以适应你的需求</string>
     
     <string name="preference_category_gyro_controls">陀螺仪控制</string>
     <string name="preference_category_virtual_mouse">虚拟鼠标</string>
@@ -331,28 +332,28 @@
     <string name="no_saved_accounts">没有已保存的账户</string>
     <string name="mc_download_failed">下载 Minecraft 失败！这可能是由于网络连接不良、文件放置错误等</string>
     <string name="xerr_unknown">未知的 Xbox Live API 错误 %d</string>
-    <string name="xerr_no_account">您似乎没有 Xbox Live 账户，请在 https://minecraft.net/上登录一次，然后重试</string>
-    <string name="xerr_adult_verification">需要成年人验证您的账户</string>
-    <string name="xerr_child">您的账户是儿童账户，需要添加到家庭中才能登录</string>
-    <string name="minecraft_not_owned">这个账户似乎没有 Minecraft 配置文件，如果您有 Xbox Game Pass，请登录 https://minecraft.net/ 并进行设置</string>
-    <string name="xerr_not_available">Xbox Live 在您所在的国家/地区不可用</string>
+    <string name="xerr_no_account">你似乎没有 Xbox Live 账户，请在 https://minecraft.net/上登录一次，然后重试</string>
+    <string name="xerr_adult_verification">需要成年人验证你的账户</string>
+    <string name="xerr_child">你的账户是儿童账户，需要添加到家庭中才能登录</string>
+    <string name="minecraft_not_owned">这个账户似乎没有 Minecraft 配置文件，如果你有 Xbox Game Pass，请登录 https://minecraft.net/ 并进行设置</string>
+    <string name="xerr_not_available">Xbox Live 在你所在的国家/地区不可用</string>
     <string name="preference_enable_gyro_title">启用陀螺仪控制</string>
-    <string name="preference_enable_gyro_description">启用此功能将允许您通过转动手机来在游戏中转动视角</string>
+    <string name="preference_enable_gyro_description">启用此功能将允许你通过转动手机来在游戏中转动视角</string>
     <string name="preference_gyro_sensitivity_title">陀螺仪控制灵敏度</string>
     <string name="preference_gyro_sensitivity_description">调整陀螺仪控制的灵敏度</string>
     <string name="toast_turn_on_gyro">需要先启用陀螺仪控制才能使用！</string>
     <string name="preference_gyro_sample_rate_title">陀螺仪采样率</string>
-    <string name="preference_gyro_sample_rate_description">如果您在陀螺仪控制上遇到性能问题，请增加此值</string>
-    <string name="microsoft_login_retry_later">您的操作过于频繁，请稍后再试</string>
+    <string name="preference_gyro_sample_rate_description">如果你在陀螺仪控制上遇到性能问题，请增加此值</string>
+    <string name="microsoft_login_retry_later">你的操作过于频繁，请稍后再试</string>
     <string name="storage_required">Pojav ZH 需要连接外部存储，请重新连接并重启软件</string>
     <string name="mcl_setting_title_buttonallcaps">在按键标签中仅使用大写字母</string>
-    <string name="mcl_setting_subtitle_buttonallcaps">如果您想在控制布局中使用小写字母，请禁用此功能</string>
+    <string name="mcl_setting_subtitle_buttonallcaps">如果你想在控制布局中使用小写字母，请禁用此功能</string>
     <string name="create_profile">创建新实例</string>
     <string name="preference_shader_dump_title">启用着色器输出</string>
     <string name="preference_shader_dump_description">记录转换的着色器到日志文件</string>
     <string name="percent_format">%d%%</string>
     <string name="customctrl_editor_exit_title">是否离开？</string>
-    <string name="customctrl_editor_exit_msg">您是否确认退出？</string>
+    <string name="customctrl_editor_exit_msg">你是否确认退出？</string>
     <string name="customctrl_editor_exit">退出编辑器</string>
     <string name="global_save_and_exit">保存并退出</string>
     <string name="global_yes">是</string>
@@ -361,7 +362,7 @@
     <string name="preference_controller_map_wiped">手柄配置已被重置</string>
     <string name="preference_category_controller_settings">手柄设置</string>
     <string name="preference_wipe_controller_title">重置手柄映射</string>
-    <string name="preference_wipe_controller_description">允许您重新映射手柄按键</string>
+    <string name="preference_wipe_controller_description">允许你重新映射手柄按键</string>
     <string name="preference_deadzone_scale_title">摇杆死区缩放</string>
     <string name="preference_deadzone_scale_description">若摇杆偏移，请调高此选项</string>
     
@@ -420,9 +421,9 @@
     <string name="fabric_dl_only_stable">仅显示稳定版本</string>
     <string name="dl_tampered_manifest_title">文件校验警告</string>
     <string name="dl_tampered_manifest"><![CDATA[镜像源上的游戏版本列表与Mojang官方版本列表并不一致，这意味着它可能被篡改了<br/>
-        <b>这样做并不安全。如果您继续，您的个人信息可能面临风险！</b><br/>
-        如果您仍想继续使用镜像源, 点击 \"关闭游戏版本列表检查\" 再次开始下载<br/>
-        如果您想使用官方下载源, 点击 \"切换到官方下载源\" 再次开始下载<br/>]]>
+        <b>这样做并不安全。如果你继续，你的个人信息可能面临风险！</b><br/>
+        如果你仍想继续使用镜像源, 点击 \"关闭游戏版本列表检查\" 再次开始下载<br/>
+        如果你想使用官方下载源, 点击 \"切换到官方下载源\" 再次开始下载<br/>]]>
     </string>
     <string name="dl_turn_off_manifest_checks">关闭游戏版本列表检查</string>
     <string name="dl_switch_to_official_site">切换到官方下载源</string>
@@ -440,12 +441,12 @@
     <string name="preference_category_miscellaneous">其他设置</string>
     <string name="preference_category_video">视频设置</string>
     <string name="notification_permission_dialog_title">权限请求</string>
-    <string name="notification_permission_dialog_text">Pojav ZH 需要发布通知的权限，以防止您离开应用程序时，停止 游戏/整合包 的下载。如果没有此权限，当您将 Pojav ZH 置于后台时，安卓系统可能会停止您的下载进度</string>
-    <string name="notification_permission_toast">您可以随时通过进入“系统设置”改变您的主意</string>
+    <string name="notification_permission_dialog_text">Pojav ZH 需要发布通知的权限，以防止你离开应用程序时，停止 游戏/整合包 的下载。如果没有此权限，当你将 Pojav ZH 置于后台时，安卓系统可能会停止你的下载进度</string>
+    <string name="notification_permission_toast">你可以随时通过进入“系统设置”改变你的主意</string>
     <string name="preference_ask_for_notification_title">允许通知</string>
     <string name="preference_ask_for_notification_description">单击可重新请求通知权限，这是 游戏/整合包 在后台正常下载所必需的</string>
     <string name="preference_vsync_in_zink_title">允许与Zink进行垂直同步</string>
-    <string name="preference_vsync_in_zink_description">允许启动器使用内部系统API为Zink启用垂直同步。如果启动器正在使用Zink，您的系统更新导致启动器崩溃，请关闭此功能</string>
+    <string name="preference_vsync_in_zink_description">允许启动器使用内部系统API为Zink启用垂直同步。如果启动器正在使用Zink，你的系统更新导致启动器崩溃，请关闭此功能</string>
     <string name="exception_failed_to_unpack_jre17">安装JRE 17失败</string>
     <string name="newdl_starting">读取游戏元数据中…</string>
     <string name="newdl_downloading_metadata">下载游戏元数据中 (%s)</string>
