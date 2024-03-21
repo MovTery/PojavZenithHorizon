@@ -204,7 +204,7 @@ public final class Tools {
 
         List<String> javaArgList = new ArrayList<>();
 
-        getCacioJavaArgs(javaArgList, runtime.javaVersion == 8);
+        getCacioJavaArgs(javaArgList, runtime.javaVersion == 8, runtime.javaVersion == 11);
 
         if (versionInfo.logging != null) {
             String configFile = Tools.DIR_DATA + "/security/" + versionInfo.logging.client.file.id.replace("client", "log4j-rce-patch");
@@ -277,7 +277,7 @@ public final class Tools {
         }
     }
 
-    public static void getCacioJavaArgs(List<String> javaArgList, boolean isJava8) {
+    public static void getCacioJavaArgs(List<String> javaArgList, boolean isJava8, boolean isJava11) {
         // Caciocavallo config AWT-enabled version
         javaArgList.add("-Djava.awt.headless=false");
         javaArgList.add("-Dcacio.managed.screensize=" + AWTCanvasView.AWT_CANVAS_WIDTH + "x" + AWTCanvasView.AWT_CANVAS_HEIGHT);
@@ -314,7 +314,7 @@ public final class Tools {
 
         StringBuilder cacioClasspath = new StringBuilder();
         cacioClasspath.append("-Xbootclasspath/").append(isJava8 ? "p" : "a");
-        File cacioDir = new File(DIR_GAME_HOME + "/caciocavallo" + (isJava8 ? "" : "17"));
+        File cacioDir = new File(DIR_GAME_HOME + "/caciocavallo" + (isJava8 ? "" : isJava11 ? "11" : "17"));
         File[] cacioFiles = cacioDir.listFiles();
         if (cacioFiles != null) {
             for (File file : cacioFiles) {
