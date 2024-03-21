@@ -131,6 +131,8 @@ public class FilesFragment extends Fragment {
             builder.setTitle(getString(R.string.zh_help_files_tile));
             builder.setMessage(getString(R.string.zh_help_files_message));
             builder.setPositiveButton(getString(R.string.zh_help_ok), null);
+
+            builder.show();
         });
     }
 

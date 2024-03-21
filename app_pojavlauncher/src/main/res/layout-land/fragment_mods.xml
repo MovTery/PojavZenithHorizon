@@ -42,8 +42,8 @@
 
         <ImageButton
             android:id="@+id/zh_mods_help_button"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="12dp"
             android:background="@android:color/transparent"

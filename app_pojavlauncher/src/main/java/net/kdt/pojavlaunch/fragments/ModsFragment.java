@@ -132,6 +132,8 @@ public class ModsFragment extends Fragment {
             builder.setTitle(getString(R.string.zh_help_mod_tilte));
             builder.setMessage(getString(R.string.zh_help_mod_message));
             builder.setPositiveButton(getString(R.string.zh_help_ok), null);
+
+            builder.show();
         });
     }
 
