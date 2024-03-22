@@ -13,7 +13,10 @@ public class SettingsActivity extends BaseActivity {
         setContentView(R.layout.activity_settings);
         bindViews();
 
-        mReturnButton.setOnClickListener(v -> startActivity(new Intent(this, LauncherActivity.class)));
+        mReturnButton.setOnClickListener(v -> {
+            startActivity(new Intent(this, LauncherActivity.class));
+            overridePendingTransition(R.anim.cut_into, R.anim.cut_out);
+        });
     }
 
     private void bindViews(){
