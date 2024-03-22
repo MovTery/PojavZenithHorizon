@@ -33,6 +33,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -970,6 +972,14 @@ public final class Tools {
         transaction.commit();
     }
 
+    public static void animationRate(Context context, long value) {
+        Animation cutInto = AnimationUtils.loadAnimation(context, R.anim.cut_into);
+        Animation cutOut = AnimationUtils.loadAnimation(context, R.anim.cut_out);
+
+        cutInto.setDuration(value);
+        cutOut.setDuration(value);
+    }
+
     /** Remove the current fragment */
     public static void removeCurrentFragment(FragmentActivity fragmentActivity){
         fragmentActivity.getSupportFragmentManager().popBackStackImmediate();
@@ -1165,7 +1175,7 @@ public final class Tools {
     public static DialogInterface.OnClickListener renameFileListener(Activity activity, FileListView fileListView, File file) {
         String fileParent = file.getParent();
         String fileName = file.getName();
-        DialogInterface.OnClickListener renameListener = (dialog, which) -> { //重命名
+        return (dialog, which) -> { //重命名
             android.app.AlertDialog.Builder renameBuilder = new android.app.AlertDialog.Builder(activity);
             String suffix = fileName.substring(fileName.lastIndexOf('.')); //防止修改后缀名，先将后缀名分离出去
             EditText input = new EditText(activity);
@@ -1188,7 +1198,6 @@ public final class Tools {
             renameBuilder.setNegativeButton(activity.getString(android.R.string.cancel), null);
             renameBuilder.show();
         };
-        return renameListener;
     }
 
 

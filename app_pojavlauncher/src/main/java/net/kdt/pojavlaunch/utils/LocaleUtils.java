@@ -1,19 +1,16 @@
 package net.kdt.pojavlaunch.utils;
 
-
+import static net.kdt.pojavlaunch.Tools.animationRate;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.content.*;
 import android.content.res.*;
 import android.os.Build;
 import android.os.LocaleList;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
 import androidx.preference.*;
 import java.util.*;
 
-import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.prefs.*;
 
 public class LocaleUtils extends ContextWrapper {
@@ -48,11 +45,7 @@ public class LocaleUtils extends ContextWrapper {
         }
 
         if (animationRate != 300L) {
-            Animation cutInto = AnimationUtils.loadAnimation(context, net.kdt.pojavlaunch.R.anim.cut_into);
-            Animation cutOut = AnimationUtils.loadAnimation(context, R.anim.cut_out);
-
-            cutInto.setDuration(animationRate);
-            cutOut.setDuration(animationRate);
+            animationRate(context, animationRate);
         }
 
         return new LocaleUtils(context);
