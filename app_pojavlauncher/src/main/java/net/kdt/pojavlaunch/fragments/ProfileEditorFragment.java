@@ -101,7 +101,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         mSaveButton.setOnClickListener(v -> {
             ProfileIconCache.dropIcon(mProfileKey);
             save();
-            Tools.removeCurrentFragment(requireActivity());
+            Tools.swapFragment(requireActivity(), requireParentFragment().getClass(), requireParentFragment().getTag(), true, new Bundle());
         });
 
         mDeleteButton.setOnClickListener(v -> {
@@ -112,7 +112,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
                 ExtraCore.setValue(ExtraConstants.REFRESH_VERSION_SPINNER, DELETED_PROFILE);
             }
 
-            Tools.removeCurrentFragment(requireActivity());
+            Tools.swapFragment(requireActivity(), requireParentFragment().getClass(), requireParentFragment().getTag(), true, new Bundle());
         });
 
         mCreateModsButton.setOnClickListener(v -> {

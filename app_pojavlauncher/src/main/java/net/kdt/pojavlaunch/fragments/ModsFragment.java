@@ -119,7 +119,7 @@ public class ModsFragment extends Fragment {
             }
         });
 
-        mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
+        mReturnButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), requireParentFragment().getClass(), requireParentFragment().getTag(), true, new Bundle()));
         mSelectModButton.setOnClickListener(v -> {
             String suffix = ".json";
             Toast.makeText(requireActivity(), String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show();
