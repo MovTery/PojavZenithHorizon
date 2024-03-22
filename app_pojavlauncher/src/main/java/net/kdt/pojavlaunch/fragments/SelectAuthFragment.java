@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch.fragments;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -20,10 +21,18 @@ public class SelectAuthFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        view.setOnKeyListener((v, code, event) -> {
+            if (code == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+                Tools.swapFragment(requireActivity(), MainMenuFragment.class, MainMenuFragment.TAG);
+                return true;
+            }
+            return false;
+        });
+
         Button mMicrosoftButton = view.findViewById(R.id.button_microsoft_authentication);
         Button mLocalButton = view.findViewById(R.id.button_local_authentication);
 
-        mMicrosoftButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), MicrosoftLoginFragment.class, MicrosoftLoginFragment.TAG, false, null));
-        mLocalButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), LocalLoginFragment.class, LocalLoginFragment.TAG, false, null));
+        mMicrosoftButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), MicrosoftLoginFragment.class, MicrosoftLoginFragment.TAG));
+        mLocalButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), LocalLoginFragment.class, LocalLoginFragment.TAG));
     }
 }
