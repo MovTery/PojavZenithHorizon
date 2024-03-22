@@ -43,7 +43,7 @@
                     android:layout_marginTop="8dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:drawableStart="@drawable/ic_menu_custom_controls"
-                    android:text="@string/mcl_option_customcontrol" />
+                    android:text="@string/zh_custom_control_title" />
 
                 <com.kdt.mcgui.LauncherMenuButton
                     android:id="@+id/install_jar_button"
