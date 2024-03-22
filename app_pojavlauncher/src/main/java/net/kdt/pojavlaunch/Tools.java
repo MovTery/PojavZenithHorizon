@@ -972,9 +972,9 @@ public final class Tools {
         transaction.commit();
     }
 
-    public static void animationRate(Context context, long value) {
-        Animation cutInto = AnimationUtils.loadAnimation(context, R.anim.cut_into);
-        Animation cutOut = AnimationUtils.loadAnimation(context, R.anim.cut_out);
+    public static void animationRate(View view, long value) {
+        Animation cutInto = AnimationUtils.loadAnimation(view.getContext(), R.anim.cut_into);
+        Animation cutOut = AnimationUtils.loadAnimation(view.getContext(), R.anim.cut_out);
 
         cutInto.setDuration(value);
         cutOut.setDuration(value);
