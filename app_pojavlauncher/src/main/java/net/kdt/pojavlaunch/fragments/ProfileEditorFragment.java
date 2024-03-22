@@ -159,7 +159,6 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         });
 
         mGameDirButton.setOnClickListener(v -> {
-            save();
             File dir = new File(Tools.DIR_GAME_DEFAULT);
             if (!dir.exists()) dir.mkdirs();
             Bundle bundle = new Bundle(2);
@@ -173,7 +172,6 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         });
 
         mControlSelectButton.setOnClickListener(v -> {
-            save();
             Bundle bundle = new Bundle(3);
             bundle.putBoolean(FileSelectorFragment.BUNDLE_SELECT_FOLDER, false);
             bundle.putString(FileSelectorFragment.BUNDLE_ROOT_PATH, Tools.CTRLMAP_PATH);

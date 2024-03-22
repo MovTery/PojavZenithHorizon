@@ -110,7 +110,7 @@ public class ControlButtonFragment extends Fragment {
             }
         });
 
-        mReturnButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), MainMenuFragment.class, MainMenuFragment.TAG));
+        mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
         mImportControlButton.setOnClickListener(v -> {
             String suffix = ".json";
             Toast.makeText(requireActivity(),  String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show();

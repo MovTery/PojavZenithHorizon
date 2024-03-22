@@ -41,8 +41,8 @@ public class MainMenuFragment extends Fragment {
         Button mPlayButton = view.findViewById(R.id.play_button);
         mVersionSpinner = view.findViewById(R.id.mc_version_spinner);
 
-        mAboutButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), AboutFragment.class, AboutFragment.TAG));
-        mCustomControlButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ControlButtonFragment.class, ControlButtonFragment.TAG));
+        mAboutButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), AboutFragment.class, AboutFragment.TAG, true, null));
+        mCustomControlButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ControlButtonFragment.class, ControlButtonFragment.TAG, true, null));
         mInstallJarButton.setOnClickListener(v -> runInstallerWithConfirmation(false));
         mInstallJarButton.setOnLongClickListener(v->{
             runInstallerWithConfirmation(true);
@@ -54,7 +54,7 @@ public class MainMenuFragment extends Fragment {
 
         mShareLogsButton.setOnClickListener((v) -> shareLog(requireContext()));
 
-        mOpenDirButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), FilesFragment.class, FilesFragment.TAG));
+        mOpenDirButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), FilesFragment.class, FilesFragment.TAG, true, null));
     }
 
     @Override
