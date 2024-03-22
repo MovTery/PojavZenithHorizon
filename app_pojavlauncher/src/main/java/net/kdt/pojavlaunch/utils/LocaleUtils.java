@@ -1,6 +1,5 @@
 package net.kdt.pojavlaunch.utils;
 
-import static net.kdt.pojavlaunch.Tools.animationRate;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.content.*;
@@ -20,7 +19,6 @@ public class LocaleUtils extends ContextWrapper {
     }
 
     public static ContextWrapper setLocale(Context context) {
-        long animationRate = DEFAULT_PREF.getLong("animationRate", 300L);
         if (DEFAULT_PREF == null) {
             DEFAULT_PREF = PreferenceManager.getDefaultSharedPreferences(context);
             LauncherPreferences.loadPreferences(context);
@@ -42,10 +40,6 @@ public class LocaleUtils extends ContextWrapper {
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1){
                 context = context.createConfigurationContext(configuration);
             }
-        }
-
-        if (animationRate != 300L) {
-            animationRate(context, animationRate);
         }
 
         return new LocaleUtils(context);
