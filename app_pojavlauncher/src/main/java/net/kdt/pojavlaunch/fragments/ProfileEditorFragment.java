@@ -101,7 +101,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         mSaveButton.setOnClickListener(v -> {
             ProfileIconCache.dropIcon(mProfileKey);
             save();
-            Tools.swapFragment(requireActivity(), MainMenuFragment.class, MainMenuFragment.TAG, true, null);
+            Tools.removeCurrentFragment(requireActivity());
         });
 
         mDeleteButton.setOnClickListener(v -> {
@@ -112,7 +112,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
                 ExtraCore.setValue(ExtraConstants.REFRESH_VERSION_SPINNER, DELETED_PROFILE);
             }
 
-            Tools.swapFragment(requireActivity(), MainMenuFragment.class, MainMenuFragment.TAG, true, null);
+            Tools.removeCurrentFragment(requireActivity());
         });
 
         mCreateModsButton.setOnClickListener(v -> {
@@ -146,7 +146,6 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         mModsButton.setOnClickListener(v -> {
             File mods = new File(getGameDirPath(mTempProfile.gameDir), "mods");
             if (mods.exists()) {
-                save();
                 Bundle bundle = new Bundle();
                 bundle.putString(ModsFragment.BUNDLE_ROOT_PATH, mods.toString());
 
