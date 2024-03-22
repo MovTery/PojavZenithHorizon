@@ -97,9 +97,7 @@ public class LauncherActivity extends BaseActivity {
             Tools.swapFragment(this, LauncherPreferenceFragment.class, SETTING_FRAGMENT_TAG, true, null);
         } else{
             // The setting button doubles as a home button now
-            while(!(getSupportFragmentManager().findFragmentById(mFragmentView.getId()) instanceof MainMenuFragment)){
-                getSupportFragmentManager().popBackStackImmediate();
-            }
+            Tools.swapFragment(this, MainMenuFragment.class, MainMenuFragment.TAG);
         }
     };
 
