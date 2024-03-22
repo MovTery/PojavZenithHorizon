@@ -17,10 +17,8 @@ import net.kdt.pojavlaunch.Tools;
 
 public class AboutFragment extends Fragment {
     public static final String TAG = "AboutFragment";
-    public static final String BUNDLE_GITHUB_URI = "github_uri";
     private Button mReturnButton, mGithubButton, mPojavLauncherButton, mLicenseButton;
     private TextView mContributors1, mContributors2;
-    private String mGithubUri;
 
     public AboutFragment() {
         super(R.layout.fragment_about);
@@ -33,23 +31,16 @@ public class AboutFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        parseBundle();
         bindViews(view);
 
         mReturnButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), MainMenuFragment.class, MainMenuFragment.TAG, true, new Bundle()));
-        mGithubButton.setOnClickListener(v -> Tools.openURL(requireActivity(), mGithubUri));
+        mGithubButton.setOnClickListener(v -> Tools.openURL(requireActivity(), Tools.URL_HOME));
 
         mPojavLauncherButton.setOnClickListener(v -> Tools.openURL(requireActivity(), "https://github.com/PojavLauncherTeam/PojavLauncher"));
         mLicenseButton.setOnClickListener(v -> Tools.openURL(requireActivity(), "https://www.gnu.org/licenses/gpl-3.0.html"));
 
         mContributors1.setOnClickListener(v -> Tools.openURL(requireActivity(), "https://space.bilibili.com/2008204513"));
         mContributors2.setOnClickListener(v -> Tools.openURL(requireActivity(), "https://space.bilibili.com/1412062866"));
-    }
-
-    private void parseBundle(){
-        Bundle bundle = getArguments();
-        if(bundle == null) return;
-        mGithubUri = bundle.getString(BUNDLE_GITHUB_URI, mGithubUri);
     }
 
     private void bindViews(@NonNull View view) {

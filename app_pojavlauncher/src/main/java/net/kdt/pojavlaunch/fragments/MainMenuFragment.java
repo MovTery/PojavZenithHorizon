@@ -47,11 +47,7 @@ public class MainMenuFragment extends Fragment {
         Button mPlayButton = view.findViewById(R.id.play_button);
         mVersionSpinner = view.findViewById(R.id.mc_version_spinner);
 
-        mAboutButton.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putString(AboutFragment.BUNDLE_GITHUB_URI, Tools.URL_HOME);
-            Tools.swapFragment(requireActivity(), AboutFragment.class, AboutFragment.TAG ,true, bundle);
-        });
+        mAboutButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), AboutFragment.class, AboutFragment.TAG ,true, null));
         mCustomControlButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString(BUNDLE_ROOT_PATH, Tools.CTRLMAP_PATH);
