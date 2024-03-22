@@ -9,8 +9,7 @@
         android:key="zhPreferenceEditControls"
         android:title="@string/zh_custom_control_title"
         android:summary="@string/zh_custom_control_desc"
-        android:icon="@drawable/ic_menu_custom_controls">
-    </Preference>
+        android:icon="@drawable/ic_menu_custom_controls" />
 
     <PreferenceCategory
         android:title="@string/preference_category_gestures">

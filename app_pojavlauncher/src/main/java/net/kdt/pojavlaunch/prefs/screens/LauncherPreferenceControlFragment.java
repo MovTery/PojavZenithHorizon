@@ -5,10 +5,7 @@ import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.view.View;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 
@@ -34,6 +31,14 @@ public class LauncherPreferenceControlFragment extends LauncherPreferenceFragmen
 
         //Triggers a write for some reason which resets the value
         addPreferencesFromResource(R.xml.pref_control);
+
+        Preference editControls = findPreference("zhPreferenceEditControls");
+        if (editControls != null) {
+            editControls.setOnPreferenceClickListener(preference -> {
+                Tools.swapFragment(requireActivity(), ControlButtonFragment.class, ControlButtonFragment.TAG, true, null);
+                return true;
+            });
+        }
 
         CustomSeekBarPreference seek2 = requirePreference("timeLongPressTrigger",
                 CustomSeekBarPreference.class);
@@ -86,17 +91,6 @@ public class LauncherPreferenceControlFragment extends LauncherPreferenceFragmen
         gyroSampleRateSeek.setValue(gyroSampleRate);
         gyroSampleRateSeek.setSuffix(" ms");
         computeVisibility();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Preference editControls = findPreference("zhPreferenceEditControls");
-        if (editControls != null) {
-            editControls.setOnPreferenceClickListener(preference -> {
-                Tools.swapFragment(requireActivity(), ControlButtonFragment.class, ControlButtonFragment.TAG, true, null);
-                return true;
-            });
-        }
     }
 
     @Override
