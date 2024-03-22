@@ -957,30 +957,17 @@ public final class Tools {
     }
 
     /** Swap the main fragment with another */
-    public static void swapFragmentBase(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
-                                    @Nullable String fragmentTag, boolean addCurrentToBackstack, @Nullable Bundle bundle, boolean customAnimations) {
+    public static void swapFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
+                                    @Nullable String fragmentTag, boolean addCurrentToBackstack, @Nullable Bundle bundle) {
+        // When people tab out, it might happen
+        //TODO handle custom animations
         FragmentTransaction transaction = fragmentActivity.getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
+                .setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out)
                 .replace(R.id.container_fragment, fragmentClass, bundle, fragmentTag);
-        if(customAnimations) transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out);
         if(addCurrentToBackstack) transaction.addToBackStack(null);
 
         transaction.commit();
-    }
-
-    public static void swapFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
-                                    @Nullable String fragmentTag, boolean addCurrentToBackstack, @Nullable Bundle bundle) {
-        swapFragmentBase(fragmentActivity, fragmentClass, fragmentTag, addCurrentToBackstack, bundle, false);
-    }
-
-    public static void swapFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
-                                    @Nullable String fragmentTag, boolean addCurrentToBackstack) {
-        swapFragmentBase(fragmentActivity, fragmentClass, fragmentTag, addCurrentToBackstack, null, true);
-    }
-
-    public static void swapFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
-                                    @Nullable String fragmentTag) {
-        swapFragmentBase(fragmentActivity, fragmentClass, fragmentTag, false, null, true);
     }
 
     /** Remove the current fragment */

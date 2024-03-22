@@ -99,7 +99,7 @@ public class FilesFragment extends Fragment {
             }
         });
 
-        mReturnButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), MainMenuFragment.class, MainMenuFragment.TAG));
+        mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
         mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(null)); //不限制文件类型
         mCreateFolderButton.setOnClickListener(v -> {
             EditText editText = new EditText(getContext());
