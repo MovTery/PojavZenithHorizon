@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingDefaultResource">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/video_settings"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="@+id/view"
+                app:layout_constraintStart_toStartOf="@+id/view"
+                app:layout_constraintTop_toTopOf="@+id/view"
+                app:srcCompat="@drawable/ic_setting_video" />
+
+            <ImageButton
+                android:id="@+id/controls_settings"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"
+                app:layout_constraintEnd_toEndOf="@+id/video_settings"
+                app:layout_constraintStart_toStartOf="@+id/video_settings"
+                app:layout_constraintTop_toBottomOf="@+id/video_settings"
+                app:srcCompat="@drawable/ic_menu_custom_controls" />
+
+            <ImageButton
+                android:id="@+id/java_settings"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"
+                app:layout_constraintEnd_toEndOf="@+id/controls_settings"
+                app:layout_constraintStart_toStartOf="@+id/controls_settings"
+                app:layout_constraintTop_toBottomOf="@+id/controls_settings"
+                app:srcCompat="@drawable/ic_setting_java_runtime" />
+
+            <ImageButton
+                android:id="@+id/misc_settings"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="@+id/java_settings"
+                app:layout_constraintStart_toStartOf="@+id/java_settings"
+                app:layout_constraintTop_toBottomOf="@+id/java_settings"
+                app:srcCompat="@drawable/ic_setting_misc" />
+
+            <ImageButton
+                android:id="@+id/pojav_zh_settings"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="@+id/misc_settings"
+                app:layout_constraintStart_toStartOf="@+id/misc_settings"
+                app:layout_constraintTop_toBottomOf="@+id/misc_settings"
+                app:srcCompat="@drawable/notif_icon" />
+
+            <ImageButton
+                android:id="@+id/experimental_settings"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/view"
+                app:layout_constraintEnd_toEndOf="@+id/pojav_zh_settings"
+                app:layout_constraintStart_toStartOf="@+id/pojav_zh_settings"
+                app:layout_constraintTop_toBottomOf="@+id/pojav_zh_settings"
+                app:srcCompat="@drawable/ic_setting_ram" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
