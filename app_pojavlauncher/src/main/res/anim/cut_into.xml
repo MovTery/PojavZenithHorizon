@@ -2,14 +2,14 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android">
     <translate
         android:fromXDelta="0"
-        android:fromYDelta="80%"
+        android:fromYDelta="90%"
         android:toXDelta="0"
         android:toYDelta="0"
         android:duration="400" />
 
     <scale
-        android:fromXScale="95%"
-        android:fromYScale="95%"
+        android:fromXScale="98%"
+        android:fromYScale="98%"
         android:toXScale="100%"
         android:toYScale="100%"
         android:pivotY="50%"

@@ -4,14 +4,14 @@
         android:fromXDelta="0"
         android:fromYDelta="0"
         android:toXDelta="0"
-        android:toYDelta="80%"
+        android:toYDelta="90%"
         android:duration="400" />
 
     <scale
         android:fromXScale="100%"
         android:fromYScale="100%"
-        android:toXScale="95%"
-        android:toYScale="95%"
+        android:toXScale="98%"
+        android:toYScale="98%"
         android:pivotY="50%"
         android:pivotX="50%"
         android:duration="400" />
