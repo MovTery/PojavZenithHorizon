@@ -90,7 +90,7 @@ public class LauncherPreferenceControlFragment extends LauncherPreferenceFragmen
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Preference editControls = findPreference("zh_preference_edit_controls");
+        Preference editControls = findPreference("zhPreferenceEditControls");
         if (editControls != null) {
             editControls.setOnPreferenceClickListener(preference -> {
                 Tools.swapFragment(requireActivity(), ControlButtonFragment.class, ControlButtonFragment.TAG, true, null);
