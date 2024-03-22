@@ -23,7 +23,7 @@ public class LocaleUtils extends ContextWrapper {
     }
 
     public static ContextWrapper setLocale(Context context) {
-        int animationRate = DEFAULT_PREF.getInt("animationRate", 300);
+        long animationRate = DEFAULT_PREF.getLong("animationRate", 300L);
         if (DEFAULT_PREF == null) {
             DEFAULT_PREF = PreferenceManager.getDefaultSharedPreferences(context);
             LauncherPreferences.loadPreferences(context);
@@ -47,7 +47,7 @@ public class LocaleUtils extends ContextWrapper {
             }
         }
 
-        if (animationRate != 300) {
+        if (animationRate != 300L) {
             Animation cutInto = AnimationUtils.loadAnimation(context, net.kdt.pojavlaunch.R.anim.cut_into);
             Animation cutOut = AnimationUtils.loadAnimation(context, R.anim.cut_out);
 

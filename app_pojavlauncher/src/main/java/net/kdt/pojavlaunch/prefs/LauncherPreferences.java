@@ -73,7 +73,7 @@ public class LauncherPreferences {
     public static boolean PREF_SET_TO_CHINESE = true;
     public static String PREF_SWITCH_TO_CHINESE_LANGUAGE = getDefaultLanguage();
     public static boolean PREF_ENABLE_LOG_OUTPUT = false;
-    public static int PREF_ANIMATION_RATE = 300;
+    public static long PREF_ANIMATION_RATE = 300;
 
 
     public static void loadPreferences(Context ctx) {
@@ -123,7 +123,7 @@ public class LauncherPreferences {
         PREF_SET_TO_CHINESE = DEFAULT_PREF.getBoolean("setToChinese", true);
         PREF_SWITCH_TO_CHINESE_LANGUAGE = DEFAULT_PREF.getString("switchToChineseLanguage", getDefaultLanguage());
         PREF_ENABLE_LOG_OUTPUT = DEFAULT_PREF.getBoolean("enableLogOutput", false);
-        PREF_ANIMATION_RATE = DEFAULT_PREF.getInt("animationRate", 300);
+        PREF_ANIMATION_RATE = DEFAULT_PREF.getLong("animationRate", 300L);
 
         String argLwjglLibname = "-Dorg.lwjgl.opengl.libname=";
         for (String arg : JREUtils.parseJavaArguments(PREF_CUSTOM_JAVA_ARGS)) {
