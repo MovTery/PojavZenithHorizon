@@ -1,10 +1,9 @@
 package net.kdt.pojavlaunch.prefs.screens;
 
+import static net.kdt.pojavlaunch.Tools.animationRate;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION_RATE;
 
 import android.os.Bundle;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.prefs.CustomSeekBarPreference;
@@ -24,11 +23,7 @@ public class LauncherPreferenceExclusiveFragment extends LauncherPreferenceFragm
         seek.setSuffix(" ms");
 
         seek.setOnPreferenceChangeListener((preference, newValue) -> {
-            Animation cutInto = AnimationUtils.loadAnimation(requireContext(), R.anim.cut_into);
-            Animation cutOut = AnimationUtils.loadAnimation(requireContext(), R.anim.cut_out);
-
-            cutInto.setDuration((Long) newValue);
-            cutOut.setDuration((Long) newValue);
+            animationRate(requireContext(), (Long) newValue);
             return true;
         });
     }
