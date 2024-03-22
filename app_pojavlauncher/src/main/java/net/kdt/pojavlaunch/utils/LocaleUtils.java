@@ -10,6 +10,7 @@ import android.os.LocaleList;
 import androidx.preference.*;
 import java.util.*;
 
+import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.prefs.*;
 
 public class LocaleUtils extends ContextWrapper {
@@ -40,6 +41,11 @@ public class LocaleUtils extends ContextWrapper {
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1){
                 context = context.createConfigurationContext(configuration);
             }
+        }
+
+        int animationRate = DEFAULT_PREF.getInt("animationRate", 300);
+        if (animationRate != 300) {
+            Tools.animationRate(context, animationRate);
         }
 
         return new LocaleUtils(context);
