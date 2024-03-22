@@ -978,6 +978,17 @@ public final class Tools {
         transaction.commit();
     }
 
+    public static void swapFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
+                                    @Nullable String fragmentTag, boolean addCurrentToBackstack) {
+        FragmentTransaction transaction = fragmentActivity.getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .setCustomAnimations(R.anim.cut_into, R.anim.cut_out) // 切换动画
+                .replace(R.id.container_fragment, fragmentClass, null, fragmentTag);
+        if(addCurrentToBackstack) transaction.addToBackStack(null);
+
+        transaction.commit();
+    }
+
     /** Remove the current fragment */
     public static void removeCurrentFragment(FragmentActivity fragmentActivity){
         fragmentActivity.getSupportFragmentManager().popBackStackImmediate();
