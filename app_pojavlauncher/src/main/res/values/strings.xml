@@ -21,6 +21,8 @@
     <string name="zh_controls_create_new">Create new control layout</string>
     <string name="zh_controls_create_new_title">Control layout name:</string>
     <string name="zh_controls_import_control">Import control layout</string>
+    <string name="zh_custom_control_title">Control Layout Management</string>
+    <string name="zh_custom_control_desc">Manage all control layout files, where you can delete, create, rename, import control layouts, etc.</string>
     <string name="zh_return">Return</string>
     <string name="zh_file_add_file">Add file</string>
     <string name="zh_file_add_file_tip">Please select a file with the suffix "%s"</string>
@@ -294,8 +296,6 @@
     <string name="preference_force_vsync_description">Limit thermal throttling by limiting peak performance.</string>
     <string name="preference_force_english_title">Force language to English</string>
     <string name="preference_force_english_description">Allows you to see original strings, as intended by developers. Requires a restart.</string>
-    <string name="preference_edit_controls_title">Edit custom controls</string>
-    <string name="preference_edit_controls_summary">Tweak the control scheme to fit your needs.</string>
 
     <string name="preference_category_gyro_controls">Gyroscope controls</string>
     <string name="preference_category_virtual_mouse">Virtual mouse</string>

@@ -5,10 +5,16 @@ import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.Tools;
+import net.kdt.pojavlaunch.fragments.ControlButtonFragment;
 import net.kdt.pojavlaunch.prefs.CustomSeekBarPreference;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
@@ -80,6 +86,17 @@ public class LauncherPreferenceControlFragment extends LauncherPreferenceFragmen
         gyroSampleRateSeek.setValue(gyroSampleRate);
         gyroSampleRateSeek.setSuffix(" ms");
         computeVisibility();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Preference editControls = findPreference("zh_preference_edit_controls");
+        if (editControls != null) {
+            editControls.setOnPreferenceClickListener(preference -> {
+                Tools.swapFragment(requireActivity(), ControlButtonFragment.class, ControlButtonFragment.TAG, true, null);
+                return true;
+            });
+        }
     }
 
     @Override
