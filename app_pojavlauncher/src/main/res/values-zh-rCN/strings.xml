@@ -68,6 +68,8 @@
     <string name="zh_setting_set_to_chinese_title">自动设置为中文</string>
     <string name="zh_setting_enable_log_output_desc">在应用正式开始运行游戏时，开启日志输出界面</string>
     <string name="zh_setting_enable_log_output_title">启动游戏时打开日志输出</string>
+    <string name="zh_setting_animation_rate_desc">设置切换界面时播放的动画的速率</string>
+    <string name="zh_setting_animation_rate_title">动画速率</string>
     <string name="zh_view_log_output">日志输出:</string>
 
     <string name="zh_about_tab">关于 Pojav ZH</string>
