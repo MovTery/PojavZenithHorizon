@@ -6,7 +6,7 @@
 
 
     <Preference
-        android:id="@+id/zh_preference_edit_controls"
+        android:key="zh_preference_edit_controls"
         android:title="@string/zh_custom_control_title"
         android:summary="@string/zh_custom_control_desc"
         app2:icon="@drawable/ic_menu_custom_controls" />
