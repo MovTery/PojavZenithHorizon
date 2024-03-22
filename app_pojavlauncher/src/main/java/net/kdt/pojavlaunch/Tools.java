@@ -960,12 +960,20 @@ public final class Tools {
     public static void swapFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
                                     @Nullable String fragmentTag, boolean addCurrentToBackstack, @Nullable Bundle bundle) {
         // When people tab out, it might happen
-        //TODO handle custom animations
         FragmentTransaction transaction = fragmentActivity.getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .setCustomAnimations(R.anim.cut_into, R.anim.cut_out)
                 .replace(R.id.container_fragment, fragmentClass, bundle, fragmentTag);
         if(addCurrentToBackstack) transaction.addToBackStack(null);
+
+        transaction.commit();
+    }
+
+    public static void swapFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
+                                    @Nullable String fragmentTag) {
+        FragmentTransaction transaction = fragmentActivity.getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .setCustomAnimations(R.anim.cut_into, R.anim.cut_out) // 切换动画
+                .replace(R.id.container_fragment, fragmentClass, null, fragmentTag);
 
         transaction.commit();
     }

@@ -1,10 +1,7 @@
 package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.Tools.shareLog;
-import static net.kdt.pojavlaunch.fragments.ControlButtonFragment.BUNDLE_ROOT_PATH;
 
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.kdt.mcgui.mcVersionSpinner;
@@ -23,8 +19,6 @@ import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
-
-import java.io.File;
 
 public class MainMenuFragment extends Fragment {
     public static final String TAG = "MainMenuFragment";
@@ -47,14 +41,8 @@ public class MainMenuFragment extends Fragment {
         Button mPlayButton = view.findViewById(R.id.play_button);
         mVersionSpinner = view.findViewById(R.id.mc_version_spinner);
 
-        mAboutButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), AboutFragment.class, AboutFragment.TAG ,true, null));
-        mCustomControlButton.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putString(BUNDLE_ROOT_PATH, Tools.CTRLMAP_PATH);
-
-            Tools.swapFragment(requireActivity(),
-                    ControlButtonFragment.class, ControlButtonFragment.TAG, true, bundle);
-        });
+        mAboutButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), AboutFragment.class, AboutFragment.TAG));
+        mCustomControlButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ControlButtonFragment.class, ControlButtonFragment.TAG));
         mInstallJarButton.setOnClickListener(v -> runInstallerWithConfirmation(false));
         mInstallJarButton.setOnLongClickListener(v->{
             runInstallerWithConfirmation(true);
@@ -66,22 +54,7 @@ public class MainMenuFragment extends Fragment {
 
         mShareLogsButton.setOnClickListener((v) -> shareLog(requireContext()));
 
-        mOpenDirButton.setOnClickListener(v -> {
-            boolean storagePermAllowed = (Build.VERSION.SDK_INT < 23 || Build.VERSION.SDK_INT >= 29 ||
-                    ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) && Tools.checkStorageRoot(requireContext());
-            File dir = new File(storagePermAllowed ? Tools.DIR_GAME_HOME : Tools.DIR_DATA);
-            if (dir.exists()) {
-                Bundle bundle = new Bundle();
-                bundle.putString(FilesFragment.BUNDLE_ROOT_PATH, dir.toString());
-                bundle.putBoolean(FilesFragment.BUNDLE_SHOW_FILES, true);
-                bundle.putBoolean(FilesFragment.BUNDLE_SHOW_FOLDERS, true);
-
-                Tools.swapFragment(requireActivity(),
-                        FilesFragment.class, FilesFragment.TAG, true, bundle);
-            } else {
-                Toast.makeText(requireContext(), getString(R.string.zh_file_does_not_exist), Toast.LENGTH_SHORT).show();
-            }
-        });
+        mOpenDirButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), FilesFragment.class, FilesFragment.TAG));
     }
 
     @Override
