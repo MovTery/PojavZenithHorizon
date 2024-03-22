@@ -1,6 +1,5 @@
 package net.kdt.pojavlaunch;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 
@@ -14,7 +13,7 @@ public class SettingsActivity extends BaseActivity {
         bindViews();
 
         mReturnButton.setOnClickListener(v -> {
-            startActivity(new Intent(this, LauncherActivity.class));
+            finish();
             overridePendingTransition(R.anim.cut_into, R.anim.cut_out);
         });
     }
