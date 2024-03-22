@@ -958,10 +958,11 @@ public final class Tools {
 
     /** Swap the main fragment with another */
     public static void swapFragmentBase(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
-                                    @Nullable String fragmentTag, boolean addCurrentToBackstack, @Nullable Bundle bundle) {
+                                    @Nullable String fragmentTag, boolean addCurrentToBackstack, @Nullable Bundle bundle, boolean customAnimations) {
         FragmentTransaction transaction = fragmentActivity.getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
                 .replace(R.id.container_fragment, fragmentClass, bundle, fragmentTag);
+        if(customAnimations) transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out);
         if(addCurrentToBackstack) transaction.addToBackStack(null);
 
         transaction.commit();
@@ -969,17 +970,17 @@ public final class Tools {
 
     public static void swapFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
                                     @Nullable String fragmentTag, boolean addCurrentToBackstack, @Nullable Bundle bundle) {
-        swapFragmentBase(fragmentActivity, fragmentClass, fragmentTag, addCurrentToBackstack, bundle);
+        swapFragmentBase(fragmentActivity, fragmentClass, fragmentTag, addCurrentToBackstack, bundle, false);
     }
 
     public static void swapFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
                                     @Nullable String fragmentTag, boolean addCurrentToBackstack) {
-        swapFragmentBase(fragmentActivity, fragmentClass, fragmentTag, addCurrentToBackstack, null);
+        swapFragmentBase(fragmentActivity, fragmentClass, fragmentTag, addCurrentToBackstack, null, true);
     }
 
     public static void swapFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
                                     @Nullable String fragmentTag) {
-        swapFragmentBase(fragmentActivity, fragmentClass, fragmentTag, false, null);
+        swapFragmentBase(fragmentActivity, fragmentClass, fragmentTag, false, null, true);
     }
 
     /** Remove the current fragment */
