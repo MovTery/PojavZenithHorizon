@@ -43,13 +43,11 @@ import java.nio.charset.StandardCharsets;
 
 public class ControlButtonFragment extends Fragment {
     public static final String TAG = "ControlButtonFragment";
-    public static final String BUNDLE_ROOT_PATH = "root_path";
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private Button mReturnButton, mAddControlButton, mImportControlButton, mRefreshButton;
     private ImageButton mHelpButton;
     private FileListView mFileListView;
     private TextView mFilePathView;
-    private String mRootPath;
 
     public ControlButtonFragment() {
         super(R.layout.fragment_files);
@@ -73,11 +71,10 @@ public class ControlButtonFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         bindViews(view);
-        parseBundle();
 
         mFileListView.setShowFiles(true);
         mFileListView.setShowFolders(true);
-        mFileListView.lockPathAt(new File(mRootPath));
+        mFileListView.lockPathAt(new File(Tools.CTRLMAP_PATH));
         mFileListView.setDialogTitleListener((title)->mFilePathView.setText(removeLockPath(title)));
         mFileListView.refreshPath();
 
@@ -113,7 +110,7 @@ public class ControlButtonFragment extends Fragment {
             }
         });
 
-        mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
+        mReturnButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), MainMenuFragment.class, MainMenuFragment.TAG));
         mImportControlButton.setOnClickListener(v -> {
             String suffix = ".json";
             Toast.makeText(requireActivity(),  String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show();
@@ -191,13 +188,7 @@ public class ControlButtonFragment extends Fragment {
     }
 
     private String removeLockPath(String path){
-        return path.replace(mRootPath, ".");
-    }
-
-    private void parseBundle(){
-        Bundle bundle = getArguments();
-        if(bundle == null) return;
-        mRootPath = bundle.getString(BUNDLE_ROOT_PATH, mRootPath);
+        return path.replace(Tools.CTRLMAP_PATH, ".");
     }
 
     private void bindViews(@NonNull View view) {

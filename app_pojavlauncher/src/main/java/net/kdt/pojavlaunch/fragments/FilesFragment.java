@@ -1,5 +1,6 @@
 package net.kdt.pojavlaunch.fragments;
 
+import static net.kdt.pojavlaunch.Tools.DIR_GAME_HOME;
 import static net.kdt.pojavlaunch.Tools.deleteFileListener;
 import static net.kdt.pojavlaunch.Tools.getFileName;
 import static net.kdt.pojavlaunch.Tools.renameFileListener;
@@ -38,16 +39,11 @@ import java.io.OutputStream;
 
 public class FilesFragment extends Fragment {
     public static final String TAG = "FilesFragment";
-    public static final String BUNDLE_ROOT_PATH = "root_path";
-    public static final String BUNDLE_SHOW_FILES = "show_files";
-    public static final String BUNDLE_SHOW_FOLDERS = "show_folders";
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private Button mReturnButton, mAddFileButton, mCreateFolderButton, mRefreshButton;
     private ImageButton mHelpButton;
     private FileListView mFileListView;
     private TextView mFilePathView;
-    private String mRootPath;
-    private boolean mShowFiles, mShowFolders;
 
     public FilesFragment() {
         super(R.layout.fragment_files);
@@ -71,11 +67,8 @@ public class FilesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         bindViews(view);
-        parseBundle();
 
-        mFileListView.setShowFiles(mShowFiles);
-        mFileListView.setShowFolders(mShowFolders);
-        mFileListView.lockPathAt(new File(mRootPath));
+        mFileListView.lockPathAt(new File(DIR_GAME_HOME));
         mFileListView.setDialogTitleListener((title)->mFilePathView.setText(removeLockPath(title)));
         mFileListView.refreshPath();
 
@@ -106,7 +99,7 @@ public class FilesFragment extends Fragment {
             }
         });
 
-        mReturnButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), MainMenuFragment.class, MainMenuFragment.TAG, true, null));
+        mReturnButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), MainMenuFragment.class, MainMenuFragment.TAG));
         mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(null)); //不限制文件类型
         mCreateFolderButton.setOnClickListener(v -> {
             EditText editText = new EditText(getContext());
@@ -168,15 +161,7 @@ public class FilesFragment extends Fragment {
     }
 
     private String removeLockPath(String path){
-        return path.replace(mRootPath, ".");
-    }
-
-    private void parseBundle(){
-        Bundle bundle = getArguments();
-        if(bundle == null) return;
-        mRootPath = bundle.getString(BUNDLE_ROOT_PATH, mRootPath);
-        mShowFiles = bundle.getBoolean(BUNDLE_SHOW_FILES, mShowFiles);
-        mShowFolders = bundle.getBoolean(BUNDLE_SHOW_FOLDERS, mShowFolders);
+        return path.replace(DIR_GAME_HOME, ".");
     }
 
     private void bindViews(@NonNull View view) {
