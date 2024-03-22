@@ -3,6 +3,7 @@ package net.kdt.pojavlaunch;
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.P;
 import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_IGNORE_NOTCH;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_NOTCH_SIZE;
 
@@ -33,8 +34,6 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -963,21 +962,14 @@ public final class Tools {
                                     @Nullable String fragmentTag, boolean addCurrentToBackstack, @Nullable Bundle bundle) {
         // When people tab out, it might happen
         //TODO handle custom animations
-        FragmentTransaction transaction = fragmentActivity.getSupportFragmentManager().beginTransaction()
-                .setReorderingAllowed(true)
-                .setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out)
-                .replace(R.id.container_fragment, fragmentClass, bundle, fragmentTag);
+        FragmentTransaction transaction = fragmentActivity.getSupportFragmentManager().beginTransaction();
+
+        transaction.setReorderingAllowed(true);
+        if(PREF_ANIMATION) transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
+        transaction.replace(R.id.container_fragment, fragmentClass, bundle, fragmentTag);
         if(addCurrentToBackstack) transaction.addToBackStack(null);
 
         transaction.commit();
-    }
-
-    public static void animationRate(View view, long value) {
-        Animation cutInto = AnimationUtils.loadAnimation(view.getContext(), R.anim.cut_into);
-        Animation cutOut = AnimationUtils.loadAnimation(view.getContext(), R.anim.cut_out);
-
-        cutInto.setDuration(value);
-        cutOut.setDuration(value);
     }
 
     /** Remove the current fragment */
