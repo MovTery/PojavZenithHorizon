@@ -957,9 +957,8 @@ public final class Tools {
     }
 
     /** Swap the main fragment with another */
-    public static void swapFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
+    public static void swapFragmentBase(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
                                     @Nullable String fragmentTag, boolean addCurrentToBackstack, @Nullable Bundle bundle) {
-        // When people tab out, it might happen
         FragmentTransaction transaction = fragmentActivity.getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
                 .replace(R.id.container_fragment, fragmentClass, bundle, fragmentTag);
@@ -969,24 +968,18 @@ public final class Tools {
     }
 
     public static void swapFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
-                                    @Nullable String fragmentTag) {
-        FragmentTransaction transaction = fragmentActivity.getSupportFragmentManager().beginTransaction()
-                .setReorderingAllowed(true)
-                .setCustomAnimations(R.anim.cut_into, R.anim.cut_out) // 切换动画
-                .replace(R.id.container_fragment, fragmentClass, null, fragmentTag);
-
-        transaction.commit();
+                                    @Nullable String fragmentTag, boolean addCurrentToBackstack, @Nullable Bundle bundle) {
+        swapFragmentBase(fragmentActivity, fragmentClass, fragmentTag, addCurrentToBackstack, bundle);
     }
 
     public static void swapFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
                                     @Nullable String fragmentTag, boolean addCurrentToBackstack) {
-        FragmentTransaction transaction = fragmentActivity.getSupportFragmentManager().beginTransaction()
-                .setReorderingAllowed(true)
-                .setCustomAnimations(R.anim.cut_into, R.anim.cut_out) // 切换动画
-                .replace(R.id.container_fragment, fragmentClass, null, fragmentTag);
-        if(addCurrentToBackstack) transaction.addToBackStack(null);
+        swapFragmentBase(fragmentActivity, fragmentClass, fragmentTag, addCurrentToBackstack, null);
+    }
 
-        transaction.commit();
+    public static void swapFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
+                                    @Nullable String fragmentTag) {
+        swapFragmentBase(fragmentActivity, fragmentClass, fragmentTag, false, null);
     }
 
     /** Remove the current fragment */
