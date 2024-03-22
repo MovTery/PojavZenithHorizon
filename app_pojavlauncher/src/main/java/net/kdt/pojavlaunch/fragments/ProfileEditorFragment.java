@@ -101,7 +101,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         mSaveButton.setOnClickListener(v -> {
             ProfileIconCache.dropIcon(mProfileKey);
             save();
-            Tools.swapFragment(requireActivity(), requireParentFragment().getClass(), requireParentFragment().getTag(), true, new Bundle());
+            Tools.swapFragment(requireActivity(), MainMenuFragment.class, MainMenuFragment.TAG, true, null);
         });
 
         mDeleteButton.setOnClickListener(v -> {
@@ -112,7 +112,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
                 ExtraCore.setValue(ExtraConstants.REFRESH_VERSION_SPINNER, DELETED_PROFILE);
             }
 
-            Tools.swapFragment(requireActivity(), requireParentFragment().getClass(), requireParentFragment().getTag(), true, new Bundle());
+            Tools.swapFragment(requireActivity(), MainMenuFragment.class, MainMenuFragment.TAG, true, null);
         });
 
         mCreateModsButton.setOnClickListener(v -> {
@@ -146,6 +146,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         mModsButton.setOnClickListener(v -> {
             File mods = new File(getGameDirPath(mTempProfile.gameDir), "mods");
             if (mods.exists()) {
+                save();
                 Bundle bundle = new Bundle();
                 bundle.putString(ModsFragment.BUNDLE_ROOT_PATH, mods.toString());
 
@@ -159,6 +160,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         });
 
         mGameDirButton.setOnClickListener(v -> {
+            save();
             File dir = new File(Tools.DIR_GAME_DEFAULT);
             if (!dir.exists()) dir.mkdirs();
             Bundle bundle = new Bundle(2);
@@ -172,6 +174,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         });
 
         mControlSelectButton.setOnClickListener(v -> {
+            save();
             Bundle bundle = new Bundle(3);
             bundle.putBoolean(FileSelectorFragment.BUNDLE_SELECT_FOLDER, false);
             bundle.putString(FileSelectorFragment.BUNDLE_ROOT_PATH, Tools.CTRLMAP_PATH);

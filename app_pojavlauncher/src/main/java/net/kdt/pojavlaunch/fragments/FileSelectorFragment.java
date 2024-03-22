@@ -77,7 +77,7 @@ public class FileSelectorFragment extends Fragment {
 
         mSelectFolderButton.setOnClickListener(v -> {
             ExtraCore.setValue(ExtraConstants.FILE_SELECTOR, removeLockPath(mFileListView.getFullPath().getAbsolutePath()));
-            Tools.removeCurrentFragment(requireActivity());
+            Tools.swapFragment(requireActivity(), ProfileEditorFragment.class, ProfileEditorFragment.TAG, true, null);
         });
 
         mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());
