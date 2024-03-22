@@ -19,6 +19,8 @@
     <string name="zh_controls_create_new_title">控制佈局名稱：</string>
     <string name="zh_controls_import_control">導入控制佈局</string>
     <string name="zh_controls_load">載入並編輯</string>
+    <string name="zh_custom_control_title">管理控制佈局</string>
+    <string name="zh_custom_control_desc">管理所有的控制佈局檔案，您可以在此處刪除、建立、重命名、匯入控制佈局等</string>
     <string name="zh_return">返回</string>
     <string name="zh_file_add_file">新增檔案</string>
     <string name="zh_file_add_file_tip">請選擇一個後綴名為"%s"的檔案</string>
@@ -289,8 +291,6 @@
     <string name="preference_force_vsync_description">透過限制峰值性能來降低過熱降頻的風險</string>
     <string name="preference_force_english_title">強制使用英文</string>
     <string name="preference_force_english_description">讓你顯示原始字串，需重啟應用程式</string>
-    <string name="preference_edit_controls_title">編輯自訂控制版面</string>
-    <string name="preference_edit_controls_summary">調整控制版面以符合你的需求</string>
 
     <string name="preference_category_gyro_controls">陀螺儀控制</string>
     <string name="preference_category_virtual_mouse">虛擬滑鼠</string>
