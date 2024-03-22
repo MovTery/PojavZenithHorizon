@@ -70,7 +70,7 @@
     <string name="zh_setting_set_to_chinese_title">Automatically set to Chinese</string>
     <string name="zh_setting_enable_log_output_desc">Enable the log output interface when the application officially starts running the game</string>
     <string name="zh_setting_enable_log_output_title">Enable log output on game startup</string>
-    <string name="zh_setting_animation_rate_desc">Set the speed of the animation played when switching between screens.</string>
+    <string name="zh_setting_animation_rate_desc">Set the speed of the animation played when switching between screens. Restart to take effect.</string>
     <string name="zh_setting_animation_rate_title">Animation Speed</string>
     <string name="zh_view_log_output">Log output:</string>
 
