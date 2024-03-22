@@ -86,7 +86,7 @@ public class LauncherActivity extends BaseActivity {
         // Allow starting the add account only from the main menu, should it be moved to fragment itself ?
         if(!(fragment instanceof MainMenuFragment)) return false;
 
-        Tools.swapFragment(this, SelectAuthFragment.class, SelectAuthFragment.TAG, true, null);
+        Tools.swapFragment(this, SelectAuthFragment.class, SelectAuthFragment.TAG);
         return false;
     };
 
