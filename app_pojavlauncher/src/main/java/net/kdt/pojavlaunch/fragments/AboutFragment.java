@@ -33,7 +33,7 @@ public class AboutFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         bindViews(view);
 
-        mReturnButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), MainMenuFragment.class, MainMenuFragment.TAG, true, new Bundle()));
+        mReturnButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), MainMenuFragment.class, MainMenuFragment.TAG, false, null));
         mGithubButton.setOnClickListener(v -> Tools.openURL(requireActivity(), Tools.URL_HOME));
 
         mPojavLauncherButton.setOnClickListener(v -> Tools.openURL(requireActivity(), "https://github.com/PojavLauncherTeam/PojavLauncher"));
