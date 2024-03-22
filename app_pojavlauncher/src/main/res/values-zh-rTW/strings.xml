@@ -68,8 +68,8 @@
     <string name="zh_setting_set_to_chinese_title">自動設置為中文</string>
     <string name="zh_setting_enable_log_output_desc">在應用正式開始運行遊戲時，開啟日誌輸出界面</string>
     <string name="zh_setting_enable_log_output_title">啟動遊戲時打開日誌輸出</string>
-    <string name="zh_setting_animation_rate_desc">設定切換界面時播放的動畫速率，重啟後生效</string>
-    <string name="zh_setting_animation_rate_title">動畫速率</string>
+    <string name="zh_setting_animation_desc">設置啟動器切換界面時是否播放動畫</string>
+    <string name="zh_setting_animation_title">啟用動畫</string>
     <string name="zh_view_log_output">日誌輸出：</string>
 
     <string name="zh_about_tab">About Pojav ZH</string>

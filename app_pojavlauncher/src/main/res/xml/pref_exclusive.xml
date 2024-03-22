@@ -27,13 +27,11 @@
             android:summary="@string/zh_setting_enable_log_output_desc"
             android:title="@string/zh_setting_enable_log_output_title" />
 
-        <net.kdt.pojavlaunch.prefs.CustomSeekBarPreference
-            android:key="animationRate"
-            android:summary="@string/zh_setting_animation_rate_desc"
-            android:title="@string/zh_setting_animation_rate_title"
-            app2:showSeekBarValue="true"
-            app2:selectable="false"
-            app2:seekBarIncrement="5" />
+        <SwitchPreference
+            android:key="animation"
+            android:title="@string/zh_setting_animation_title"
+            android:summary="@string/zh_setting_animation_desc"
+            android:defaultValue="true" />
 
     </PreferenceCategory>
 
