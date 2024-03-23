@@ -1,0 +1,159 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    tools:ignore="MissingDefaultResource">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:background="@color/background_bottom_bar"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <View
+        android:id="@+id/black_line"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="0dp"
+        android:background="@android:color/background_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <ImageButton
+        android:id="@+id/settings_return_button"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginStart="2dp"
+        android:background="?attr/selectableItemBackground"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_arrow_back_white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view_settings"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/background_bottom_bar"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/scrollSettings"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/scrollSettings" />
+
+    <View
+        android:id="@+id/view_settings_black_line"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@color/background_overlay"
+        app:layout_constraintBottom_toBottomOf="@+id/zh_settings_fragment"
+        app:layout_constraintStart_toEndOf="@+id/view_settings"
+        app:layout_constraintTop_toBottomOf="@+id/black_line" />
+
+    <ScrollView
+        android:id="@+id/scrollSettings"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/black_line">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/video_settings"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:background="?attr/selectableItemBackground"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_setting_video" />
+
+            <ImageButton
+                android:id="@+id/controls_settings"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:background="?attr/selectableItemBackground"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="@+id/video_settings"
+                app:layout_constraintStart_toStartOf="@+id/video_settings"
+                app:layout_constraintTop_toBottomOf="@+id/video_settings"
+                app:srcCompat="@drawable/ic_menu_custom_controls" />
+
+            <ImageButton
+                android:id="@+id/java_settings"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:background="?attr/selectableItemBackground"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="@+id/controls_settings"
+                app:layout_constraintStart_toStartOf="@+id/controls_settings"
+                app:layout_constraintTop_toBottomOf="@+id/controls_settings"
+                app:srcCompat="@drawable/ic_setting_java_runtime" />
+
+            <ImageButton
+                android:id="@+id/misc_settings"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:background="?attr/selectableItemBackground"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="@+id/java_settings"
+                app:layout_constraintStart_toStartOf="@+id/java_settings"
+                app:layout_constraintTop_toBottomOf="@+id/java_settings"
+                app:srcCompat="@drawable/ic_setting_misc" />
+
+            <ImageButton
+                android:id="@+id/pojav_zh_settings"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:background="?attr/selectableItemBackground"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="@+id/misc_settings"
+                app:layout_constraintStart_toStartOf="@+id/misc_settings"
+                app:layout_constraintTop_toBottomOf="@+id/misc_settings"
+                app:srcCompat="@drawable/notif_icon" />
+
+            <ImageButton
+                android:id="@+id/experimental_settings"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="?attr/selectableItemBackground"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/pojav_zh_settings"
+                app:layout_constraintStart_toStartOf="@+id/pojav_zh_settings"
+                app:layout_constraintTop_toBottomOf="@+id/pojav_zh_settings"
+                app:srcCompat="@drawable/ic_setting_ram" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/zh_settings_fragment"
+        android:name="net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceVideoFragment"
+
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/view_settings_black_line"
+        app:layout_constraintTop_toBottomOf="@+id/black_line" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
