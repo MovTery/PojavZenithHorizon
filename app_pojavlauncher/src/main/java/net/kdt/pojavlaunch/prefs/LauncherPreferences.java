@@ -173,18 +173,20 @@ public class LauncherPreferences {
         if (Build.VERSION.SDK_INT < P) return;
 
         try {
-            Rect notchRect;
             if(SDK_INT >= Build.VERSION_CODES.S){
-                notchRect = activity.getWindowManager().getCurrentWindowMetrics().getWindowInsets().getDisplayCutout().getBoundingRects().get(0);
-            } else {
-                notchRect = activity.getWindow().getDecorView().getRootWindowInsets().getDisplayCutout().getBoundingRects().get(0);
-                // Math min is to handle all rotations
+                Rect notchRect = activity.getWindowManager().getCurrentWindowMetrics().getWindowInsets().getDisplayCutout().getBoundingRects().get(0);
+                LauncherPreferences.PREF_NOTCH_SIZE = Math.min(notchRect.width(), notchRect.height());
+                Tools.updateWindowSize(activity);
+                return;
             }
+            Rect notchRect = activity.getWindow().getDecorView().getRootWindowInsets().getDisplayCutout().getBoundingRects().get(0);
+            // Math min is to handle all rotations
             LauncherPreferences.PREF_NOTCH_SIZE = Math.min(notchRect.width(), notchRect.height());
-        } catch (Exception e) {
+        }catch (Exception e){
             Log.i("NOTCH DETECTION", "No notch detected, or the device if in split screen mode");
             LauncherPreferences.PREF_NOTCH_SIZE = -1;
         }
+        Tools.updateWindowSize(activity);
     }
 
     public static String getDefaultLanguage() {
