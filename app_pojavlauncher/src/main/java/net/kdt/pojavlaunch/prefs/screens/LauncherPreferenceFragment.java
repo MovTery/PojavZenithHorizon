@@ -21,10 +21,11 @@ import net.kdt.pojavlaunch.prefs.LauncherPreferences;
  * overriding only onCreatePreferences
  */
 public class LauncherPreferenceFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
+    public static final String TAG = "LauncherPreferenceFragment";
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        view.setBackgroundColor(Color.parseColor("#232323"));
+        view.setBackgroundColor(Color.parseColor("#181818"));
         super.onViewCreated(view, savedInstanceState);
     }
 

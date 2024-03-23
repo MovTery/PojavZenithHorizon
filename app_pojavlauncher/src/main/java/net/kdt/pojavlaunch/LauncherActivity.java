@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -35,7 +36,6 @@ import net.kdt.pojavlaunch.fragments.SelectAuthFragment;
 import net.kdt.pojavlaunch.modloaders.modpacks.ModloaderInstallTracker;
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.IconCacheJanitor;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
-import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceFragment;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
 import net.kdt.pojavlaunch.services.ProgressServiceKeeper;
@@ -50,8 +50,6 @@ import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 import java.lang.ref.WeakReference;
 
 public class LauncherActivity extends BaseActivity {
-    public static final String SETTING_FRAGMENT_TAG = "SETTINGS_FRAGMENT";
-
     public final ActivityResultLauncher<Object> modInstallerLauncher =
             registerForActivityResult(new OpenDocumentWithExtension("jar"), (data)->{
                 if(data != null) Tools.launchModInstaller(this, data);
@@ -94,7 +92,7 @@ public class LauncherActivity extends BaseActivity {
     private final View.OnClickListener mSettingButtonListener = v -> {
         Fragment fragment = getSupportFragmentManager().findFragmentById(mFragmentView.getId());
         if(fragment instanceof MainMenuFragment){
-            Tools.swapFragment(this, LauncherPreferenceFragment.class, SETTING_FRAGMENT_TAG, true, null);
+            startActivity(new Intent(this, SettingsActivity.class));
         } else{
             // The setting button doubles as a home button now
             while(!(getSupportFragmentManager().findFragmentById(mFragmentView.getId()) instanceof MainMenuFragment)){
