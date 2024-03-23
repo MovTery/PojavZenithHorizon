@@ -16,6 +16,7 @@ import net.kdt.pojavlaunch.prefs.CustomSeekBarPreference;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 public class LauncherPreferenceControlFragment extends LauncherPreferenceFragment {
+    public static final String TAG = "LauncherPreferenceControlFragment";
     private boolean mGyroAvailable = false;
     @Override
     public void onCreatePreferences(Bundle b, String str) {

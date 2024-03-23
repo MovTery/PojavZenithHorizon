@@ -19,6 +19,7 @@ import net.kdt.pojavlaunch.prefs.LauncherPreferences;
  * Fragment for any settings video related
  */
 public class LauncherPreferenceVideoFragment extends LauncherPreferenceFragment {
+    public static final String TAG = "LauncherPreferenceVideoFragment";
     @Override
     public void onCreatePreferences(Bundle b, String str) {
         addPreferencesFromResource(R.xml.pref_video);
