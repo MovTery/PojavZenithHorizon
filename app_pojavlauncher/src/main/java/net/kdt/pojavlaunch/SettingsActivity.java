@@ -72,8 +72,6 @@ public class SettingsActivity extends BaseActivity {
         mMiscButton = findViewById(R.id.misc_settings);
         mPojavZHButton = findViewById(R.id.pojav_zh_settings);
         mExperimentalButton = findViewById(R.id.experimental_settings);
-
-        mVideoButton.setClickable(false);
     }
 
     private void swapFragment(Class<? extends Fragment> fragmentClass, String fragmentTag) {
