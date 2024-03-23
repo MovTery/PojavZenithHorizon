@@ -243,7 +243,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
     @Override
     public void onAttachedToWindow() {
-        LauncherPreferences.computeNotchSize(this);
+//        LauncherPreferences.computeNotchSize(this);
         loadControls();
     }
 

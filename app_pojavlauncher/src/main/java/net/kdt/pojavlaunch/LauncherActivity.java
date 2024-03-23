@@ -247,10 +247,10 @@ public class LauncherActivity extends BaseActivity {
         super.onBackPressed();
     }
 
-    @Override
+    /*@Override
     public void onAttachedToWindow() {
         LauncherPreferences.computeNotchSize(this);
-    }
+    }*/
 
     @SuppressWarnings("SameParameterValue")
     private Fragment getVisibleFragment(String tag){
