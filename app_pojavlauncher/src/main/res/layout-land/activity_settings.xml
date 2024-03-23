@@ -52,10 +52,10 @@
         android:id="@+id/view_settings_black_line"
         android:layout_width="1dp"
         android:layout_height="0dp"
-        android:background="@android:color/background_dark"
+        android:background="@color/background_overlay"
         app:layout_constraintBottom_toBottomOf="@+id/zh_settings_fragment"
         app:layout_constraintStart_toEndOf="@+id/view_settings"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        app:layout_constraintTop_toBottomOf="@+id/black_line" />
 
     <ScrollView
         android:id="@+id/scrollSettings"

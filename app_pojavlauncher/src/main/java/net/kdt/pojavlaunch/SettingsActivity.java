@@ -36,10 +36,7 @@ public class SettingsActivity extends BaseActivity {
         setContentView(R.layout.activity_settings);
         bindViews();
 
-        mReturnButton.setOnClickListener(v -> {
-            finish();
-            if(PREF_ANIMATION) overridePendingTransition(R.anim.activity_cut_into, R.anim.activity_cut_out);
-        });
+        mReturnButton.setOnClickListener(v -> finish());
 
         mVideoButton.setOnClickListener(v -> {
             mSettingsOptionsLocked(v);
