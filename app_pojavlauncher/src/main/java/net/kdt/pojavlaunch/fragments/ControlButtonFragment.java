@@ -74,7 +74,7 @@ public class ControlButtonFragment extends Fragment {
 
         mFileListView.setShowFiles(true);
         mFileListView.setShowFolders(true);
-        mFileListView.lockPathAt(new File(Tools.CTRLMAP_PATH));
+        mFileListView.lockPathAt(controlPath());
         mFileListView.setDialogTitleListener((title)->mFilePathView.setText(removeLockPath(title)));
         mFileListView.refreshPath();
 
@@ -154,6 +154,12 @@ public class ControlButtonFragment extends Fragment {
 
             builder.show();
         });
+    }
+
+    private File controlPath() {
+        File ctrlPath = new File(Tools.CTRLMAP_PATH);
+        if (!ctrlPath.exists()) ctrlPath.mkdirs();
+        return ctrlPath;
     }
 
     @SuppressLint("StaticFieldLeak")
