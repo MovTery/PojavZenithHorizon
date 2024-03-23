@@ -121,7 +121,7 @@ public class ModsFragment extends Fragment {
 
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
         mSelectModButton.setOnClickListener(v -> {
-            String suffix = ".json";
+            String suffix = ".jar";
             Toast.makeText(requireActivity(), String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show();
             openDocumentLauncher.launch(suffix);
         });
