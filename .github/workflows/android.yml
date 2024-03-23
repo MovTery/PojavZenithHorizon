@@ -1,16 +1,12 @@
 name: Android CI
 on:
-  pull_request:
-    branches-ignore:
-      - ''
   push:
-    branches-ignore:
-      - ''
+  pull_request:
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     env:
       CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
       MOVTERY_KEYSTORE_PASSWORD: ${{ secrets.MOVTERY_KEYSTORE_PASSWORD }}
@@ -89,7 +85,7 @@ jobs:
           path: app_pojavlauncher/build/outputs/apk/debug/*
 
   buildnoruntime:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     env:
       CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
       MOVTERY_KEYSTORE_PASSWORD: ${{ secrets.MOVTERY_KEYSTORE_PASSWORD }}
