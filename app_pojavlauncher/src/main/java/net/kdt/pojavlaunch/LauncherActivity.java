@@ -93,7 +93,7 @@ public class LauncherActivity extends BaseActivity {
         Fragment fragment = getSupportFragmentManager().findFragmentById(mFragmentView.getId());
         if(fragment instanceof MainMenuFragment){
             startActivity(new Intent(this, SettingsActivity.class));
-            overridePendingTransition(R.anim.cut_into, R.anim.cut_out);
+            overridePendingTransition(R.anim.activity_cut_into, R.anim.activity_cut_out);
         } else{
             // The setting button doubles as a home button now
             while(!(getSupportFragmentManager().findFragmentById(mFragmentView.getId()) instanceof MainMenuFragment)){
