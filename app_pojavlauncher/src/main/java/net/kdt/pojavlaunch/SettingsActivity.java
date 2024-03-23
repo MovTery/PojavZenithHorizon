@@ -10,12 +10,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import net.kdt.pojavlaunch.fragments.ControlButtonFragment;
-import net.kdt.pojavlaunch.fragments.settings.ExperimentalSettingsFragment;
-import net.kdt.pojavlaunch.fragments.settings.JavaSettingsFragment;
-import net.kdt.pojavlaunch.fragments.settings.MiscSettingsFragment;
-import net.kdt.pojavlaunch.fragments.settings.PojavZHSettingsFragment;
-import net.kdt.pojavlaunch.fragments.settings.VideoSettingsFragment;
+import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceControlFragment;
+import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceExclusiveFragment;
+import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceExperimentalFragment;
+import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceJavaFragment;
+import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceMiscellaneousFragment;
+import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceVideoFragment;
 
 public class SettingsActivity extends BaseActivity {
     private ImageButton mVideoButton, mControlsButton, mJavaButton, mMiscButton, mPojavZHButton, mExperimentalButton;
@@ -32,12 +32,12 @@ public class SettingsActivity extends BaseActivity {
             overridePendingTransition(R.anim.activity_cut_into, R.anim.activity_cut_out);
         });
 
-        mVideoButton.setOnClickListener(v -> swapFragment(VideoSettingsFragment.class, VideoSettingsFragment.TAG));
-        mControlsButton.setOnClickListener(v -> swapFragment(ControlButtonFragment.class, ControlButtonFragment.TAG));
-        mJavaButton.setOnClickListener(v -> swapFragment(JavaSettingsFragment.class, JavaSettingsFragment.TAG));
-        mMiscButton.setOnClickListener(v -> swapFragment(MiscSettingsFragment.class, MiscSettingsFragment.TAG));
-        mPojavZHButton.setOnClickListener(v -> swapFragment(PojavZHSettingsFragment.class, PojavZHSettingsFragment.TAG));
-        mExperimentalButton.setOnClickListener(v -> swapFragment(ExperimentalSettingsFragment.class, ExperimentalSettingsFragment.TAG));
+        mVideoButton.setOnClickListener(v -> swapFragment(LauncherPreferenceVideoFragment.class, LauncherPreferenceVideoFragment.TAG));
+        mControlsButton.setOnClickListener(v -> swapFragment(LauncherPreferenceControlFragment.class, LauncherPreferenceControlFragment.TAG));
+        mJavaButton.setOnClickListener(v -> swapFragment(LauncherPreferenceJavaFragment.class, LauncherPreferenceJavaFragment.TAG));
+        mMiscButton.setOnClickListener(v -> swapFragment(LauncherPreferenceMiscellaneousFragment.class, LauncherPreferenceMiscellaneousFragment.TAG));
+        mPojavZHButton.setOnClickListener(v -> swapFragment(LauncherPreferenceExclusiveFragment.class, LauncherPreferenceExclusiveFragment.TAG));
+        mExperimentalButton.setOnClickListener(v -> swapFragment(LauncherPreferenceExperimentalFragment.class, LauncherPreferenceExperimentalFragment.TAG));
     }
 
     private void bindViews(){

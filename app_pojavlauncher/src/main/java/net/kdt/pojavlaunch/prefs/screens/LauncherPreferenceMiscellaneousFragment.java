@@ -8,6 +8,7 @@ import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 
 public class LauncherPreferenceMiscellaneousFragment extends LauncherPreferenceFragment {
+    public static final String TAG = "LauncherPreferenceMiscellaneousFragment";
     @Override
     public void onCreatePreferences(Bundle b, String str) {
         addPreferencesFromResource(R.xml.pref_misc);
