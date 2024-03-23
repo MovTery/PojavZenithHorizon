@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch;
 
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -93,7 +95,7 @@ public class LauncherActivity extends BaseActivity {
         Fragment fragment = getSupportFragmentManager().findFragmentById(mFragmentView.getId());
         if(fragment instanceof MainMenuFragment){
             startActivity(new Intent(this, SettingsActivity.class));
-            overridePendingTransition(R.anim.activity_cut_into, R.anim.activity_cut_out);
+            if(PREF_ANIMATION) overridePendingTransition(R.anim.activity_cut_into, R.anim.activity_cut_out);
         } else{
             // The setting button doubles as a home button now
             while(!(getSupportFragmentManager().findFragmentById(mFragmentView.getId()) instanceof MainMenuFragment)){

@@ -38,7 +38,7 @@ public class SettingsActivity extends BaseActivity {
 
         mReturnButton.setOnClickListener(v -> {
             finish();
-            overridePendingTransition(R.anim.activity_cut_into, R.anim.activity_cut_out);
+            if(PREF_ANIMATION) overridePendingTransition(R.anim.activity_cut_into, R.anim.activity_cut_out);
         });
 
         mVideoButton.setOnClickListener(v -> {
