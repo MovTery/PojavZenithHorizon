@@ -6,12 +6,9 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 
-import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.fragments.ControlButtonFragment;
 import net.kdt.pojavlaunch.prefs.CustomSeekBarPreference;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
@@ -32,14 +29,6 @@ public class LauncherPreferenceControlFragment extends LauncherPreferenceFragmen
 
         //Triggers a write for some reason which resets the value
         addPreferencesFromResource(R.xml.pref_control);
-
-        Preference editControls = findPreference("zhPreferenceEditControls");
-        if (editControls != null) {
-            editControls.setOnPreferenceClickListener(preference -> {
-                Tools.swapSettingsFragment(requireActivity(), ControlButtonFragment.class, ControlButtonFragment.TAG, true, null);
-                return true;
-            });
-        }
 
         CustomSeekBarPreference seek2 = requirePreference("timeLongPressTrigger",
                 CustomSeekBarPreference.class);
