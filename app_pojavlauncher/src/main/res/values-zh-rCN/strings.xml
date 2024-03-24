@@ -108,7 +108,7 @@
     <string name="zh_help_instance_message">游戏实例就像一张清单，包含了游戏的各种信息，它能够告诉启动器你想要游玩的游戏版本、控制布局、启动游戏使用什么渲染器等信息，这样启动器就能按照你的需求，为你启动相应的游戏。\n游戏实例相互独立，但你可以在多个游戏实例内选择相同的东西，比如多个实例都选择同一套控制布局等。\n在主菜单内启动游戏时，你必须选择一个游戏实例，且你需要保证你的游戏实例所选择的各种东西都是正常可用的，否则可能会出现意想不到的问题。</string>
     <string name="zh_help_files_tile">Pojav ZH 主目录</string>
     <string name="zh_help_files_message">主目录指的是 Pojav ZH 存放游戏数据的主要目录，这个界面就类似于一个简单的文件管理器，你可以自由管理主要目录内的所有文件。\n但是请你谨慎对待这里的文件，操作不当可能造成启动器异常或者无法启动游戏！</string>
-    <string name="zh_help_mod_tilte">什么是 Mod？</string>
+    <string name="zh_help_mod_title">什么是 Mod？</string>
     <string name="zh_help_mod_message">可以将其理解为游戏的第三方插件，它能够修改游戏或者是为游戏加入更多有意思的内容。\nMinecraft: Java Edition 通常不可以加载 Mod，但是玩家社区为 Minecraft 开发了第三方加载器，使得其能够加载 Mod，而这些第三方加载器都是一个个独立的游戏版本，你并不需要在原版和第三方加载器之间做取舍。\nMod 管理界面可以管理当前游戏实例的自定义路径内的“mods”文件夹里的全部 Mod，你也可以自行导入 Mod，而 Mod 则需要你自己在资源网站上下载。</string>
     <string name="zh_help_other_login_title">什么是外置登录？</string>
     <string name="zh_help_other_login_message">外置登录的选项通常是为了方便玩家使用第三方的登录服务，而不是通过 Minecraft 官方的登录方式。\n它可以更灵活地管理你的账户，并享受更多由第三方提供的特色功能和服务。\n外置登录通常与皮肤站相结合，你可以在这些皮肤站注册账号，管理自己的皮肤，并通过外置登录的方式在 Minecraft 中使用这些皮肤。\n你需要先添加一个身份验证服务器，也就是添加一个你想使用的皮肤站，具体添加方法请自行查阅皮肤站的相关使用说明。\n添加完成之后，你才能登录你在这个皮肤站内注册的账户！</string>
