@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_app"
+    android:paddingHorizontal="@dimen/fragment_padding_medium"
+    tools:ignore="MissingDefaultResource">
+
+    <View
+        android:id="@+id/login_menu"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_250sdp"
+        android:background="@drawable/background_card"
+        android:translationZ="-1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="13dp" />
+
+    <TextView
+        android:id="@+id/a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/zh_other_login_authentication_server"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintTop_toTopOf="@+id/login_menu"
+        app:layout_constraintStart_toStartOf="@+id/login_edit_email" />
+
+    <Spinner
+        android:id="@+id/server_spinner"
+        android:background="@color/background_app"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/_10sdp"
+        app:layout_constraintEnd_toStartOf="@+id/register"
+        app:layout_constraintStart_toStartOf="@+id/login_edit_email"
+        app:layout_constraintTop_toBottomOf="@id/a" />
+
+    <TextView
+        android:id="@+id/register"
+        android:text="@string/zh_other_login_register"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:textColor="@color/minebutton_color"
+        app:layout_constraintRight_toLeftOf="@id/add_server"
+        app:layout_constraintTop_toBottomOf="@id/a"
+        app:layout_constraintBottom_toTopOf="@id/b"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ImageButton
+        android:id="@+id/add_server"
+        android:layout_marginHorizontal="@dimen/_25sdp"
+        app:layout_constraintRight_toRightOf="@id/login_menu"
+        app:layout_constraintTop_toBottomOf="@id/a"
+        app:layout_constraintBottom_toTopOf="@id/b"
+        android:background="@drawable/ic_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/b"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/zh_other_login_email"
+        app:layout_constraintTop_toBottomOf="@id/server_spinner"
+        app:layout_constraintStart_toStartOf="@+id/login_edit_email" />
+
+
+    <com.kdt.mcgui.MineEditText
+        android:id="@+id/login_edit_email"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_37sdp"
+        android:layout_marginHorizontal="@dimen/_25sdp"
+        android:imeOptions="flagNoExtractUi"
+        android:inputType="textEmailAddress"
+        android:textSize="@dimen/_16ssp"
+        app:layout_constraintEnd_toEndOf="@+id/login_menu"
+        app:layout_constraintStart_toStartOf="@+id/login_menu"
+        app:layout_constraintTop_toBottomOf="@id/b"
+        app:layout_constraintVertical_bias="0.251" />
+
+    <TextView
+        android:id="@+id/c"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/zh_other_login_password"
+        app:layout_constraintTop_toBottomOf="@+id/login_edit_email"
+        app:layout_constraintStart_toStartOf="@+id/login_edit_email" />
+
+    <com.kdt.mcgui.MineEditText
+        android:id="@+id/login_edit_password"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_37sdp"
+        android:layout_marginHorizontal="@dimen/_25sdp"
+        android:imeOptions="flagNoExtractUi"
+        android:inputType="textEmailAddress"
+        android:textSize="@dimen/_16ssp"
+        app:layout_constraintEnd_toEndOf="@+id/login_menu"
+        app:layout_constraintStart_toStartOf="@+id/login_menu"
+        app:layout_constraintTop_toBottomOf="@id/c"
+        app:layout_constraintVertical_bias="0.251" />
+
+    <com.kdt.mcgui.MineButton
+        android:id="@+id/login_button"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_42sdp"
+        android:layout_marginHorizontal="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:text="@string/zh_other_login"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/login_menu"
+        app:layout_constraintTop_toBottomOf="@+id/login_edit_password"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
