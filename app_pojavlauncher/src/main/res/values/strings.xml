@@ -76,6 +76,13 @@
     <string name="zh_setting_animation_title">Enable Animation</string>
     <string name="zh_view_log_output">Log output:</string>
 
+    <string name="zh_other_login_api">External Login</string>
+    <string name="zh_other_login_authentication_server">Authentication Server</string>
+    <string name="zh_other_login_register">Register</string>
+    <string name="zh_other_login_email">Email or Username</string>
+    <string name="zh_other_login_password">Password</string>
+    <string name="zh_other_login">Login</string>
+
     <string name="zh_about_tab">About Pojav ZH</string>
     <string name="zh_about_github" translatable="false">Github</string>
     <string name="zh_about_dec1">Pojav ZH is a Minecraft launcher based on the modified version of PojavLauncher that allows Minecraft: Java Edition to be played on Android devices. Pojav ZH is committed to improving user experience by redesigning the application interface and adding more useful features to make it easier for more people to enjoy Minecraft.</string>

@@ -68,6 +68,20 @@ public class AsyncAssetManager {
 
                 Tools.copyAssetFile(ctx, "launcher_profiles.json", Tools.DIR_GAME_NEW, false);
                 Tools.copyAssetFile(ctx,"resolv.conf",Tools.DIR_DATA, false);
+
+                File path = new File(Tools.DIR_GAME_HOME + "/login/version");
+                Tools.copyAssetFile(ctx,"login/version",path.getParent(),false);
+                InputStream in = ctx.getAssets().open("login/version");
+                byte[] b = new byte[in.available()];
+                in.read(b);
+                int newVersion = Integer.parseInt(new String(b));
+                in.close();
+                path.getParentFile().mkdirs();
+                int oldVersion = Integer.parseInt(Tools.read(Tools.DIR_GAME_HOME + "/login/version"));
+                boolean overwrite=newVersion>oldVersion;
+                Tools.copyAssetFile(ctx,"login/version",path.getParent(),overwrite);
+                Tools.copyAssetFile(ctx,"login/nide8auth.jar",path.getParent(),overwrite);
+                Tools.copyAssetFile(ctx,"login/authlib-injector.jar",path.getParent(),overwrite);
             } catch (IOException e) {
                 Log.e("AsyncAssetManager", "Failed to unpack critical components !");
             }

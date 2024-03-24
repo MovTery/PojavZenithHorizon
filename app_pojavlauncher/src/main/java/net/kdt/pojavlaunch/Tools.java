@@ -92,6 +92,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 @SuppressWarnings("IOStreamConstructor")
 public final class Tools {
@@ -204,6 +205,15 @@ public final class Tools {
         String launchClassPath = generateLaunchClassPath(versionInfo, versionId);
 
         List<String> javaArgList = new ArrayList<>();
+
+        if (!Objects.isNull(minecraftAccount.baseUrl)&&!minecraftAccount.baseUrl.equals("0")){
+            if(minecraftAccount.baseUrl.contains("auth.mc-user.com")){
+                javaArgList.add("-javaagent:"+DIR_GAME_HOME+"/login/nide8auth.jar="+minecraftAccount.baseUrl.replace("https://auth.mc-user.com:233/",""));
+                javaArgList.add("-Dnide8auth.client=true");
+            } else {
+                javaArgList.add("-javaagent:"+DIR_GAME_HOME+"/login/authlib-injector.jar="+minecraftAccount.baseUrl);
+            }
+        }
 
         getCacioJavaArgs(javaArgList, runtime.javaVersion == 8, runtime.javaVersion == 11);
 
