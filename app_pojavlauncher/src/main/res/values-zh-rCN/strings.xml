@@ -72,6 +72,9 @@
     <string name="zh_setting_enable_log_output_title">启动游戏时打开日志输出</string>
     <string name="zh_setting_animation_desc">设置启动器切换界面时是否播放动画</string>
     <string name="zh_setting_animation_title">启用动画</string>
+    <string name="zh_tip">提示</string>
+    <string name="zh_confirm">确认</string>
+    <string name="zh_warning">警告</string>
     <string name="zh_view_log_output">日志输出:</string>
 
     <string name="zh_other_login_api">外置登录</string>
@@ -79,6 +82,17 @@
     <string name="zh_other_login_register">注册</string>
     <string name="zh_other_login_email">邮箱或用户名</string>
     <string name="zh_other_login_password">密码</string>
+    <string name="zh_other_login_add_server">请选择身份验证服务器类型</string>
+    <string name="zh_other_login_external_login">外置登录</string>
+    <string name="zh_other_login_uniform_pass">统一通行证</string>
+    <string name="zh_other_login_yggdrasil_api">请输入 Yggdrasil API 认证服务器地址</string>
+    <string name="zh_other_login_32_bit_server">请输入32位服务器ID</string>
+    <string name="zh_other_login_select_role">请选择角色</string>
+    <string name="zh_other_login_error">登录时出现错误：\n</string>
+    <string name="zh_other_login_no_server">无认证服务器</string>
+    <string name="zh_other_login_baseurl_not_set">未设置基础URL</string>
+    <string name="zh_other_login_client">客户端</string>
+    <string name="zh_other_login_error_code">错误代码：</string>
     <string name="zh_other_login">登录</string>
 
     <string name="zh_about_tab">关于 Pojav ZH</string>

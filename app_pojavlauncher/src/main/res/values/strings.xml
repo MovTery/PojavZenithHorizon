@@ -74,6 +74,9 @@
     <string name="zh_setting_enable_log_output_title">Enable log output on game startup</string>
     <string name="zh_setting_animation_desc">Set whether to play animation when switching launcher interface</string>
     <string name="zh_setting_animation_title">Enable Animation</string>
+    <string name="zh_tip">Tip</string>
+    <string name="zh_confirm">Confirm</string>
+    <string name="zh_warning">Warning</string>
     <string name="zh_view_log_output">Log output:</string>
 
     <string name="zh_other_login_api">External Login</string>
@@ -81,6 +84,17 @@
     <string name="zh_other_login_register">Register</string>
     <string name="zh_other_login_email">Email or Username</string>
     <string name="zh_other_login_password">Password</string>
+    <string name="zh_other_login_add_server">Please select the authentication server type</string>
+    <string name="zh_other_login_external_login">External Login</string>
+    <string name="zh_other_login_uniform_pass">Uniform Pass</string>
+    <string name="zh_other_login_yggdrasil_api">Please enter the Yggdrasil API authentication server address</string>
+    <string name="zh_other_login_32_bit_server">Please enter a 32-bit server ID</string>
+    <string name="zh_other_login_select_role">Please select a role</string>
+    <string name="zh_other_login_error">An error occurred while logging in：\n</string>
+    <string name="zh_other_login_no_server">No authentication server</string>
+    <string name="zh_other_login_baseurl_not_set">BaseUrl is not set</string>
+    <string name="zh_other_login_client">Client</string>
+    <string name="zh_other_login_error_code">error code：</string>
     <string name="zh_other_login">Login</string>
 
     <string name="zh_about_tab">About Pojav ZH</string>
