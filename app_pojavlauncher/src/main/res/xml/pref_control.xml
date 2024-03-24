@@ -2,16 +2,8 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app2="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory android:title="@string/preference_control_title">
-        <Preference
-            android:key="zhPreferenceEditControls"
-            android:title="@string/zh_custom_control_title"
-            android:summary="@string/zh_custom_control_desc"
-            android:icon="@drawable/ic_menu_custom_controls" />
-    </PreferenceCategory>
-
     <PreferenceCategory
-        android:title="@string/preference_category_gestures">
+        android:title="@string/preference_control_title">
 
         <androidx.preference.SwitchPreferenceCompat
             android:defaultValue="false"
