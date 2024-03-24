@@ -22,22 +22,22 @@ jobs:
       - name: Get JRE 8
         uses: dawidd6/action-download-artifact@v3
         with:
-          workflow: build.yml
+          workflow: buildjre8.yml
           path: app_pojavlauncher/src/main/assets/components/jre
           workflow_conclusion: success
-          repo: Vera-Firefly/android-openjdk-build
-          branch: buildjre8
+          repo: Vera-Firefly/android-openjdk-autobuild
+          branch: main
           name: jre8-pojav
 
       - name: Get JRE17
         uses: dawidd6/action-download-artifact@v3
         with:
-          workflow: build.yml
+          workflow: buildjre17.yml
           path: app_pojavlauncher/src/main/assets/components/jre-new
           workflow_conclusion: success
 
-          repo: Vera-Firefly/android-openjdk-build
-          branch: buildjre17
+          repo: Vera-Firefly/android-openjdk-autobuild
+          branch: main
           name: jre17-pojav
 
       - name: Get LWJGL3
