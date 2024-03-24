@@ -1,15 +1,10 @@
 package net.kdt.pojavlaunch;
 
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentTransaction;
 
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceControlFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceExclusiveFragment;
@@ -75,17 +70,6 @@ public class SettingsActivity extends BaseActivity {
     }
 
     private void swapFragment(Class<? extends Fragment> fragmentClass, String fragmentTag) {
-        swapFragment(this, fragmentClass, fragmentTag, false, null);
-    }
-    public void swapFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
-                                    @Nullable String fragmentTag, boolean addCurrentToBackstack, @Nullable Bundle bundle) {
-        FragmentTransaction transaction = fragmentActivity.getSupportFragmentManager().beginTransaction();
-
-        transaction.setReorderingAllowed(true);
-        if(PREF_ANIMATION) transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
-        transaction.replace(R.id.zh_settings_fragment, fragmentClass, bundle, fragmentTag);
-        if(addCurrentToBackstack) transaction.addToBackStack(null);
-
-        transaction.commit();
+        Tools.swapSettingsFragment(this, fragmentClass, fragmentTag, false, null);
     }
 }

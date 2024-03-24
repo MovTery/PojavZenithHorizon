@@ -36,7 +36,7 @@ public class LauncherPreferenceControlFragment extends LauncherPreferenceFragmen
         Preference editControls = findPreference("zhPreferenceEditControls");
         if (editControls != null) {
             editControls.setOnPreferenceClickListener(preference -> {
-                Tools.swapFragment(requireActivity(), ControlButtonFragment.class, ControlButtonFragment.TAG, true, null);
+                Tools.swapSettingsFragment(requireActivity(), ControlButtonFragment.class, ControlButtonFragment.TAG, true, null);
                 return true;
             });
         }
