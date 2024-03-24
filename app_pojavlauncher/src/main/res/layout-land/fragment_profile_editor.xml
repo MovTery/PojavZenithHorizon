@@ -211,7 +211,7 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_8sdp"
+                    android:layout_height="@dimen/_18sdp"
                     android:paddingHorizontal="@dimen/_8sdp"
                     android:rotation="180"
                     android:src="@drawable/spinner_arrow"
@@ -244,7 +244,7 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_8sdp"
+                    android:layout_height="@dimen/_18sdp"
                     android:paddingHorizontal="@dimen/_8sdp"
                     android:rotation="180"
                     android:src="@drawable/spinner_arrow"
