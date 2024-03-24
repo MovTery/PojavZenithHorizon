@@ -129,7 +129,7 @@ public class ModsFragment extends Fragment {
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
-            builder.setTitle(getString(R.string.zh_help_mod_tilte));
+            builder.setTitle(getString(R.string.zh_help_mod_title));
             builder.setMessage(getString(R.string.zh_help_mod_message));
             builder.setPositiveButton(getString(R.string.zh_help_ok), null);
 

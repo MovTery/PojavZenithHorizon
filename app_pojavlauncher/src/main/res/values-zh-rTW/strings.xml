@@ -72,11 +72,32 @@
     <string name="zh_setting_enable_log_output_title">啟動遊戲時打開日誌輸出</string>
     <string name="zh_setting_animation_desc">設置啟動器切換界面時是否播放動畫</string>
     <string name="zh_setting_animation_title">啟用動畫</string>
+    <string name="zh_tip">提示</string>
+    <string name="zh_confirm">確認</string>
+    <string name="zh_warning">警告</string>
     <string name="zh_view_log_output">日誌輸出：</string>
 
-    <string name="zh_about_tab">About Pojav ZH</string>
+    <string name="zh_other_login_api">外部登錄</string>
+    <string name="zh_other_login_authentication_server">身份驗證服務器</string>
+    <string name="zh_other_login_register">註冊</string>
+    <string name="zh_other_login_email">電子郵件或用戶名</string>
+    <string name="zh_other_login_password">密碼</string>
+    <string name="zh_other_login_add_server">請選擇身份驗證服務器類型</string>
+    <string name="zh_other_login_external_login">外部登錄</string>
+    <string name="zh_other_login_uniform_pass">統一通行證</string>
+    <string name="zh_other_login_yggdrasil_api">請輸入 Yggdrasil API 認證服務器地址</string>
+    <string name="zh_other_login_32_bit_server">請輸入32位服務器ID</string>
+    <string name="zh_other_login_select_role">請選擇角色</string>
+    <string name="zh_other_login_error">登錄時出現錯誤：\n</string>
+    <string name="zh_other_login_no_server">無認證服務器</string>
+    <string name="zh_other_login_baseurl_not_set">未設置基礎URL</string>
+    <string name="zh_other_login_client">客戶端</string>
+    <string name="zh_other_login_error_code">錯誤代碼：</string>
+    <string name="zh_other_login">登錄</string>
+
+    <string name="zh_about_tab">關於 Pojav ZH</string>
     <string name="zh_about_dec1">Pojav ZH 是一款基於 PojavLauncher 魔改的 Minecraft 啟動器，它能夠在 Android 設備上運行 Minecraft：Java Edition。\nPojav ZH 致力於優化使用者體驗，重新設計了應用界面，新增了更多實用的功能，旨在最大程度地降低遊玩門檻，讓更多人能夠輕鬆體驗 Minecraft 的樂趣。</string>
-    <string name="zh_about_dec2">Pojav ZH 由墨北MovTery個人精心製作，在 PojavLauncher 的基礎上進行了深入的魔改工作。</string>
+    <string name="zh_about_dec2">Pojav ZH 由墨北MovTery 個人精心製作，在 PojavLauncher 的基礎上進行了深入的魔改工作。</string>
     <string name="zh_about_dec3">由於 PojavLauncher 使用的是 GPL 3.0 開源協議，這一協議具有‘傳染性’，任何使用、修改或衍生自 GPL 類庫或軟件的代碼也必須採用 GPL 協議進行開源。因此，Pojav ZH 也只能遵循 GPL 3.0 開源協議。如果你打算傳播或分發本軟件，請務必遵守 GPL 3.0 開源協議的相關規定。</string>
     <string name="zh_about_dec4">軟體貢獻者：</string>
     <string name="zh_about_contributors1">墨北MovTery</string>
@@ -87,8 +108,10 @@
     <string name="zh_help_instance_message">遊戲實例就像一份清單，包含了遊戲的各種信息，它可以告訴啟動器你想要玩的遊戲版本、控制佈局、啟動遊戲使用什麼渲染器等等，然後啟動器就能按照你的需求，為你啟動相應的遊戲。\n遊戲實例是相互獨立的，但你可以在多個遊戲實例中選擇相同的東西，比如多個實例都選擇同一套控制佈局等等。\n在主菜單中啟動遊戲時，你必須選擇一個遊戲實例，並確保你的遊戲實例所選擇的各種東西都是正常可用的，否則可能會出現意想不到的問題。</string>
     <string name="zh_help_files_tile">Pojav ZH主目錄</string>
     <string name="zh_help_files_message">主目錄是指Pojav ZH存放遊戲資料的主要目錄，它類似於一個簡單的檔案管理器，你可以自由管理主要目錄中的所有檔案。\n但請小心這裡的檔案，操作不當可能會導致啟動器異常或無法啟動遊戲！</string>
-    <string name="zh_help_mod_tilte">什麼是Mod？</string>
+    <string name="zh_help_mod_title">什麼是Mod？</string>
     <string name="zh_help_mod_message">可以把它理解為遊戲的第三方插件，它可以修改遊戲或為遊戲加入更多有趣的內容。\nMinecraft: Java Edition通常無法載入Mod，但玩家社區為Minecraft開發了第三方載入器，使其能夠載入Mod，而這些第三方載入器都是一個獨立的遊戲版本，你並不需要在原版和第三方載入器之間做取捨。\nMod管理界面可以管理當前遊戲實例的自定義路徑內的“mods”資料夾裡的全部Mod，你也可以自行導入Mod，不過Mod需要你自己在資源網站上下載。</string>
+    <string name="zh_help_other_login_title">什麼是外部驗證登入？</string>
+    <string name="zh_help_other_login_message">外部驗證登入選項通常是為了方便玩家使用第三方的登入服務，而不是通過 Minecraft 官方的登入方式。\n它可以更靈活地管理你的帳戶，並享受更多由第三方提供的特色功能和服務。\n外部驗證登入通常與皮膚站相結合，你可以在這些皮膚站註冊帳戶，管理自己的皮膚，並通過外部驗證的方式在 Minecraft 中使用這些皮膚。\n你需要先添加一個身份驗證伺服器，也就是添加一個你想使用的皮膚站，具體添加方法請自行查閱皮膚站的相關使用說明。\n添加完成之後，你才能登入你在這個皮膚站內註冊的帳戶！</string>
     <string name="zh_help_ok">知道了</string>
 
     <!-- Action bar part -->
