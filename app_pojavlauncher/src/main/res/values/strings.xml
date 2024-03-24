@@ -74,7 +74,28 @@
     <string name="zh_setting_enable_log_output_title">Enable log output on game startup</string>
     <string name="zh_setting_animation_desc">Set whether to play animation when switching launcher interface</string>
     <string name="zh_setting_animation_title">Enable Animation</string>
+    <string name="zh_tip">Tip</string>
+    <string name="zh_confirm">Confirm</string>
+    <string name="zh_warning">Warning</string>
     <string name="zh_view_log_output">Log output:</string>
+
+    <string name="zh_other_login_api">External Login</string>
+    <string name="zh_other_login_authentication_server">Authentication Server</string>
+    <string name="zh_other_login_register">Register</string>
+    <string name="zh_other_login_email">Email or Username</string>
+    <string name="zh_other_login_password">Password</string>
+    <string name="zh_other_login_add_server">Please select the authentication server type</string>
+    <string name="zh_other_login_external_login">External Login</string>
+    <string name="zh_other_login_uniform_pass">Uniform Pass</string>
+    <string name="zh_other_login_yggdrasil_api">Please enter the Yggdrasil API authentication server address</string>
+    <string name="zh_other_login_32_bit_server">Please enter a 32-bit server ID</string>
+    <string name="zh_other_login_select_role">Please select a role</string>
+    <string name="zh_other_login_error">An error occurred while logging in：\n</string>
+    <string name="zh_other_login_no_server">No authentication server</string>
+    <string name="zh_other_login_baseurl_not_set">BaseUrl is not set</string>
+    <string name="zh_other_login_client">Client</string>
+    <string name="zh_other_login_error_code">error code：</string>
+    <string name="zh_other_login">Login</string>
 
     <string name="zh_about_tab">About Pojav ZH</string>
     <string name="zh_about_github" translatable="false">Github</string>
@@ -92,8 +113,10 @@
     <string name="zh_help_instance_message">Game Instance is like a list that includes various information about the game. It tells the launcher which game version, control layout, and rendering engine you want to use to start the game. Therefore, the launcher can start the corresponding game according to your needs. Game instances are independent of each other, but you can choose the same things in multiple instances, such as the same set of control layouts. When starting a game from the main menu, you need to choose a game instance, and you need to make sure that all the things selected in your game instance are normal and available, or you may encounter unexpected problems.</string>
     <string name="zh_help_files_tile">Pojav ZH Main Directory</string>
     <string name="zh_help_files_message">The main directory refers to the main directory where Pojav ZH stores game data. This interface is like a simple file manager, allowing you to manage all files in the main directory freely. However, please be cautious about the files here. Improper operations may cause the launcher to malfunction or the game to fail to start!</string>
-    <string name="zh_help_mod_tilte">What is Mod?</string>
+    <string name="zh_help_mod_title">What is Mod?</string>
     <string name="zh_help_mod_message">It can be understood as a third-party plugin for the game, which can modify the game or add more interesting content to the game. Minecraft: Java Edition usually cannot load Mods, but the player community has developed third-party loaders for Minecraft, which can load Mods, and these third-party loaders are independent game versions. You do not need to choose between the original version and the third-party loader. The Mod management interface can manage all Mods in the "mods" folder in the custom path of the current game instance, or you can import Mods yourself, which requires you to download them from the resource website.</string>
+    <string name="zh_help_other_login_title">What is external login?</string>
+    <string name="zh_help_other_login_message">External login options are usually provided for players to use third-party login services, rather than Minecraft\'s official login method. It allows for more flexible account management and access to unique features and services provided by the third-party service. \nExternal login is often used in conjunction with skin sites, where you can register an account to manage your skins and use them in Minecraft through external login. \nTo use external login, you need to first add an authentication server. This means adding a skin site of your choice; please refer to the site\'s instructions for specific steps. \nAfter adding the site, you can then log in with the account you registered on that site!</string>
     <string name="zh_help_ok">Got it</string>
 
     <!-- Action bar part -->
