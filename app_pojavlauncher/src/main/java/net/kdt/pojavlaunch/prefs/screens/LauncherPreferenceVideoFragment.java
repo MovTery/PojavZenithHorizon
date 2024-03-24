@@ -24,12 +24,16 @@ public class LauncherPreferenceVideoFragment extends LauncherPreferenceFragment 
     public void onCreatePreferences(Bundle b, String str) {
         addPreferencesFromResource(R.xml.pref_video);
 
+        int scaleFactor = LauncherPreferences.PREF_SCALE_FACTOR;
+
         //Disable notch checking behavior on android 8.1 and below.
         requirePreference("ignoreNotch").setVisible(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && PREF_NOTCH_SIZE > 0);
 
         CustomSeekBarPreference seek5 = requirePreference("resolutionRatio",
                 CustomSeekBarPreference.class);
         seek5.setMin(25);
+        seek5.setMax(200);
+        seek5.setValue(scaleFactor);
         seek5.setSuffix(" %");
 
         // #724 bug fix
