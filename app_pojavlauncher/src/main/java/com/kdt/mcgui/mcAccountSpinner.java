@@ -286,7 +286,7 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
             OtherLoginApi.getINSTANCE().setBaseUrl(minecraftAccount.baseUrl);
             PojavApplication.sExecutorService.execute(()->{
                 try {
-                    OtherLoginApi.getINSTANCE().login(minecraftAccount.account, minecraftAccount.password, new OtherLoginApi.Listener() {
+                    OtherLoginApi.getINSTANCE().login(getContext(), minecraftAccount.account, minecraftAccount.password, new OtherLoginApi.Listener() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
                             minecraftAccount.expiresAt=System.currentTimeMillis()+30*60*1000;

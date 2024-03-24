@@ -101,15 +101,15 @@ public class OtherLoginFragment extends Fragment {
         });
         addServer.setOnClickListener(v -> {
             AlertDialog dialog = new AlertDialog.Builder(requireContext())
-                    .setTitle("Please select the authentication server type")
-                    .setItems(new String[]{"External Login", "Uniform Pass"}, (d, i) -> {
+                    .setTitle(getString(R.string.zh_other_login_add_server))
+                    .setItems(new String[]{getString(R.string.zh_other_login_external_login), getString(R.string.zh_other_login_uniform_pass)}, (d, i) -> {
                         EditText editText = new EditText(requireContext());
                         editText.setMaxLines(1);
                         editText.setInputType(InputType.TYPE_CLASS_TEXT);
                         AlertDialog dialog1 = new AlertDialog.Builder(requireContext())
-                                .setTitle("Tip")
+                                .setTitle(getString(R.string.zh_tip))
                                 .setView(editText)
-                                .setPositiveButton("Confirm", (dialogInterface, i1) -> {
+                                .setPositiveButton(getString(R.string.zh_confirm), (dialogInterface, i1) -> {
                                     progressDialog.show();
                                     PojavApplication.sExecutorService.execute(() -> {
                                         String data = OtherLoginApi.getINSTANCE().getServeInfo(i==0?editText.getText().toString():"https://auth.mc-user.com:233/" + editText.getText().toString());
@@ -131,7 +131,6 @@ public class OtherLoginFragment extends Fragment {
                                                     }
                                                     if (Objects.isNull(servers)) {
                                                         servers = new Servers();
-                                                        servers.setInfo("Made by");
                                                         servers.setServer(new ArrayList<>());
                                                     }
                                                     servers.getServer().add(server);
@@ -147,16 +146,16 @@ public class OtherLoginFragment extends Fragment {
                                     });
 
                                 })
-                                .setNegativeButton("Cancel", null)
+                                .setNegativeButton(getString(android.R.string.cancel), null)
                                 .create();
                         if (i == 0) {
-                            editText.setHint("Please enter the Yggdrasil API authentication server address");
+                            editText.setHint(getString(R.string.zh_other_login_yggdrasil_api));
                         } else {
-                            editText.setHint("Please enter a 32-bit server ID");
+                            editText.setHint(getString(R.string.zh_other_login_32_bit_server));
                         }
                         dialog1.show();
                     })
-                    .setNegativeButton("Cancel", null)
+                    .setNegativeButton(getString(android.R.string.cancel), null)
                     .create();
             dialog.show();
         });
@@ -177,7 +176,7 @@ public class OtherLoginFragment extends Fragment {
                 if (!user.isEmpty() && !pass.isEmpty()){
                     try {
                         OtherLoginApi.getINSTANCE().setBaseUrl(currentBaseUrl);
-                        OtherLoginApi.getINSTANCE().login(user, pass, new OtherLoginApi.Listener() {
+                        OtherLoginApi.getINSTANCE().login(getContext(), user, pass, new OtherLoginApi.Listener() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
                                 requireActivity().runOnUiThread(()->{
@@ -200,7 +199,7 @@ public class OtherLoginFragment extends Fragment {
                                         }
                                         String[] items=list.toArray(new String[0]);
                                         AlertDialog dialog=new AlertDialog.Builder(requireContext())
-                                                .setTitle("Please select a role")
+                                                .setTitle("")
                                                 .setItems(items,(d,i)->{
                                                     for(AuthResult.AvailableProfiles profiles:authResult.getAvailableProfiles()){
                                                         if(profiles.getName().equals(items[i])){
@@ -211,7 +210,7 @@ public class OtherLoginFragment extends Fragment {
                                                     ExtraCore.setValue(ExtraConstants.OTHER_LOGIN_TODO, account);
                                                     Tools.swapFragment(requireActivity(), MainMenuFragment.class, MainMenuFragment.TAG, false, null);
                                                 })
-                                                .setNegativeButton("Cancel",null)
+                                                .setNegativeButton(getString(android.R.string.cancel),null)
                                                 .create();
                                         dialog.show();
                                     }
@@ -223,9 +222,9 @@ public class OtherLoginFragment extends Fragment {
                                 requireActivity().runOnUiThread(()->{
                                     progressDialog.dismiss();
                                     AlertDialog dialog=new AlertDialog.Builder(requireContext())
-                                            .setTitle("Warning")
-                                            .setTitle("An error occurred while logging in：\n"+error)
-                                            .setPositiveButton("Confirm",null)
+                                            .setTitle(getString(R.string.zh_warning))
+                                            .setTitle(getString(R.string.zh_other_login_error) + error)
+                                            .setPositiveButton(getString(R.string.zh_confirm),null)
                                             .create();
                                     dialog.show();
                                 });
@@ -258,7 +257,7 @@ public class OtherLoginFragment extends Fragment {
             }
         }
         if (Objects.isNull(servers)) {
-            serverList.add("No authentication server");
+            serverList.add(getString(R.string.zh_other_login_no_server));
         }
         if (Objects.isNull(serverSpinnerAdapter)) {
             serverSpinnerAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item, serverList);

@@ -72,13 +72,27 @@
     <string name="zh_setting_enable_log_output_title">啟動遊戲時打開日誌輸出</string>
     <string name="zh_setting_animation_desc">設置啟動器切換界面時是否播放動畫</string>
     <string name="zh_setting_animation_title">啟用動畫</string>
+    <string name="zh_tip">提示</string>
+    <string name="zh_confirm">確認</string>
+    <string name="zh_warning">警告</string>
     <string name="zh_view_log_output">日誌輸出：</string>
 
     <string name="zh_other_login_api">外部登錄</string>
-    <string name="zh_other_login_authentication_server">身份驗證伺服器</string>
+    <string name="zh_other_login_authentication_server">身份驗證服務器</string>
     <string name="zh_other_login_register">註冊</string>
     <string name="zh_other_login_email">電子郵件或用戶名</string>
     <string name="zh_other_login_password">密碼</string>
+    <string name="zh_other_login_add_server">請選擇身份驗證服務器類型</string>
+    <string name="zh_other_login_external_login">外部登錄</string>
+    <string name="zh_other_login_uniform_pass">統一通行證</string>
+    <string name="zh_other_login_yggdrasil_api">請輸入 Yggdrasil API 認證服務器地址</string>
+    <string name="zh_other_login_32_bit_server">請輸入32位服務器ID</string>
+    <string name="zh_other_login_select_role">請選擇角色</string>
+    <string name="zh_other_login_error">登錄時出現錯誤：\n</string>
+    <string name="zh_other_login_no_server">無認證服務器</string>
+    <string name="zh_other_login_baseurl_not_set">未設置基礎URL</string>
+    <string name="zh_other_login_client">客戶端</string>
+    <string name="zh_other_login_error_code">錯誤代碼：</string>
     <string name="zh_other_login">登錄</string>
 
     <string name="zh_about_tab">關於 Pojav ZH</string>

@@ -1,8 +1,12 @@
 package net.kdt.pojavlaunch.login;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
+
+import net.kdt.pojavlaunch.R;
+
 import okhttp3.*;
 
 import java.io.IOException;
@@ -28,16 +32,16 @@ public class OtherLoginApi {
         System.out.println(this.baseUrl);
     }
 
-    public void login(String userName,String password,Listener listener) throws IOException {
+    public void login(Context context, String userName, String password, Listener listener) throws IOException {
         if (Objects.isNull(baseUrl)){
-            listener.onFailed("BaseUrl is not set");
+            listener.onFailed(context.getString(R.string.zh_other_login_baseurl_not_set));
             return;
         }
         AuthRequest authRequest=new AuthRequest();
         authRequest.setUsername(userName);
         authRequest.setPassword(password);
         AuthRequest.Agent agent=new AuthRequest.Agent();
-        agent.setName("Client");
+        agent.setName(context.getString(R.string.zh_other_login_client));
         agent.setVersion(1.0);
         authRequest.setAgent(agent);
         authRequest.setRequestUser(true);
@@ -56,7 +60,7 @@ public class OtherLoginApi {
             AuthResult result=new Gson().fromJson(res,AuthResult.class);
             listener.onSuccess(result);
         } else {
-            listener.onFailed("error code："+response.code()+"\n"+res);
+            listener.onFailed(context.getString(R.string.zh_other_login_error_code) + response.code() + "\n" + res);
         }
     }
 
@@ -74,7 +78,7 @@ public class OtherLoginApi {
                 return res;
             }
         }catch (Exception e){
-            Log.e("test",""+e.toString());
+            Log.e("test", e.toString());
         }
         return null;
     }
