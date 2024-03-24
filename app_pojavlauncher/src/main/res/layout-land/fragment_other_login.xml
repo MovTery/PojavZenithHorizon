@@ -24,6 +24,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageButton
+        android:id="@+id/zh_other_login_help_button"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="?attr/selectableItemBackground"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="@+id/login_menu"
+        app:layout_constraintTop_toTopOf="@+id/login_menu"
+        app:srcCompat="@drawable/ic_help" />
+
     <TextView
         android:id="@+id/a"
         android:layout_width="wrap_content"
@@ -59,10 +71,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_25sdp"
-        android:background="@drawable/ic_add"
+        android:background="?attr/selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="@+id/register"
-        app:layout_constraintRight_toRightOf="@id/login_menu"
-        app:layout_constraintTop_toTopOf="@+id/register" />
+        app:layout_constraintEnd_toEndOf="@+id/login_menu"
+        app:layout_constraintTop_toTopOf="@+id/register"
+        app:srcCompat="@drawable/ic_add" />
 
     <TextView
         android:id="@+id/b"

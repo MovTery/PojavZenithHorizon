@@ -43,19 +43,19 @@ import java.util.Objects;
 
 public class OtherLoginFragment extends Fragment {
     public static final String TAG = "OtherLoginFragment";
-    private ProgressDialog progressDialog;
-    private Spinner serverSpinner;
-    private MineEditText userEditText;
-    private MineEditText passEditText;
-    private MineButton loginButton;
-    private TextView register;
-    private ImageButton addServer;
-    private File serversFile;
-    private Servers servers;
-    private List<String> serverList;
-    public String currentBaseUrl;
-    private String currentRegisterUrl;
-    private ArrayAdapter<String> serverSpinnerAdapter;
+    private ProgressDialog mProgressDialog;
+    private Spinner mServerSpinner;
+    private MineEditText mUserEditText;
+    private MineEditText mPassEditText;
+    private MineButton mLoginButton;
+    private TextView mRegister;
+    private ImageButton mAddServer, mHelpButton;
+    private File mServersFile;
+    private Servers mServers;
+    private List<String> mServerList;
+    public String mCurrentBaseUrl;
+    private String mCurrentRegisterUrl;
+    private ArrayAdapter<String> mServerSpinnerAdapter;
 
 
     public OtherLoginFragment() {
@@ -65,30 +65,35 @@ public class OtherLoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        bindViews(view);
 
-        serversFile = new File(Tools.DIR_GAME_HOME, "servers.json");
-        progressDialog = new ProgressDialog(requireContext());
-        progressDialog.setCancelable(false);
-        progressDialog.setCanceledOnTouchOutside(false);
-
-        serverSpinner = view.findViewById(R.id.server_spinner);
-        userEditText = view.findViewById(R.id.login_edit_email);
-        passEditText = view.findViewById(R.id.login_edit_password);
-        loginButton = view.findViewById(R.id.login_button);
-        register = view.findViewById(R.id.register);
-        addServer = view.findViewById(R.id.add_server);
+        mServersFile = new File(Tools.DIR_GAME_HOME, "servers.json");
+        mProgressDialog = new ProgressDialog(requireContext());
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCanceledOnTouchOutside(false);
 
         refreshServer();
-        serverSpinner.setAdapter(serverSpinnerAdapter);
-        serverSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+        mHelpButton.setOnClickListener(v -> {
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(requireActivity());
+
+            builder.setTitle(getString(R.string.zh_help_other_login_title));
+            builder.setMessage(getString(R.string.zh_help_other_login_message));
+            builder.setPositiveButton(getString(R.string.zh_help_ok), null);
+
+            builder.show();
+        });
+
+        mServerSpinner.setAdapter(mServerSpinnerAdapter);
+        mServerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (!Objects.isNull(servers)) {
-                    for (Servers.Server server : servers.getServer()) {
-                        if (server.getServerName().equals(serverList.get(i))) {
-                            currentBaseUrl = server.getBaseUrl();
-                            currentRegisterUrl = server.getRegister();
-                            Log.e("test", "currentRegisterUrl:" + currentRegisterUrl);
+                if (!Objects.isNull(mServers)) {
+                    for (Servers.Server server : mServers.getServer()) {
+                        if (server.getServerName().equals(mServerList.get(i))) {
+                            mCurrentBaseUrl = server.getBaseUrl();
+                            mCurrentRegisterUrl = server.getRegister();
+                            Log.e("test", "currentRegisterUrl:" + mCurrentRegisterUrl);
                         }
                     }
                 }
@@ -99,7 +104,8 @@ public class OtherLoginFragment extends Fragment {
 
             }
         });
-        addServer.setOnClickListener(v -> {
+
+        mAddServer.setOnClickListener(v -> {
             AlertDialog dialog = new AlertDialog.Builder(requireContext())
                     .setTitle(getString(R.string.zh_other_login_add_server))
                     .setItems(new String[]{getString(R.string.zh_other_login_external_login), getString(R.string.zh_other_login_uniform_pass)}, (d, i) -> {
@@ -110,11 +116,11 @@ public class OtherLoginFragment extends Fragment {
                                 .setTitle(getString(R.string.zh_tip))
                                 .setView(editText)
                                 .setPositiveButton(getString(R.string.zh_confirm), (dialogInterface, i1) -> {
-                                    progressDialog.show();
+                                    mProgressDialog.show();
                                     PojavApplication.sExecutorService.execute(() -> {
                                         String data = OtherLoginApi.getINSTANCE().getServeInfo(i==0?editText.getText().toString():"https://auth.mc-user.com:233/" + editText.getText().toString());
                                         requireActivity().runOnUiThread(() -> {
-                                            progressDialog.dismiss();
+                                            mProgressDialog.dismiss();
                                             if (!Objects.isNull(data)) {
                                                 try {
                                                     Servers.Server server = new Servers.Server();
@@ -129,15 +135,15 @@ public class OtherLoginFragment extends Fragment {
                                                         server.setBaseUrl("https://auth.mc-user.com:233/" + editText.getText().toString());
                                                         server.setRegister("https://login.mc-user.com:233/" + editText.getText().toString() + "/loginreg");
                                                     }
-                                                    if (Objects.isNull(servers)) {
-                                                        servers = new Servers();
-                                                        servers.setServer(new ArrayList<>());
+                                                    if (Objects.isNull(mServers)) {
+                                                        mServers = new Servers();
+                                                        mServers.setServer(new ArrayList<>());
                                                     }
-                                                    servers.getServer().add(server);
-                                                    Tools.write(serversFile.getAbsolutePath(), Tools.GLOBAL_GSON.toJson(servers, Servers.class));
+                                                    mServers.getServer().add(server);
+                                                    Tools.write(mServersFile.getAbsolutePath(), Tools.GLOBAL_GSON.toJson(mServers, Servers.class));
                                                     refreshServer();
-                                                    currentBaseUrl = server.getBaseUrl();
-                                                    currentRegisterUrl = server.getRegister();
+                                                    mCurrentBaseUrl = server.getBaseUrl();
+                                                    mCurrentRegisterUrl = server.getRegister();
                                                 } catch (Exception e) {
                                                     Log.e("test", e.toString());
                                                 }
@@ -159,33 +165,35 @@ public class OtherLoginFragment extends Fragment {
                     .create();
             dialog.show();
         });
-        register.setOnClickListener(v -> {
-            if (!Objects.isNull(currentRegisterUrl)) {
+
+        mRegister.setOnClickListener(v -> {
+            if (!Objects.isNull(mCurrentRegisterUrl)) {
                 Intent intent = new Intent();
                 intent.setAction("android.intent.action.VIEW");
-                Uri url = Uri.parse(currentRegisterUrl);
+                Uri url = Uri.parse(mCurrentRegisterUrl);
                 intent.setData(url);
                 startActivity(intent);
             }
         });
-        loginButton.setOnClickListener(v->{
-            progressDialog.show();
+
+        mLoginButton.setOnClickListener(v->{
+            mProgressDialog.show();
             PojavApplication.sExecutorService.execute(()->{
-                String user=userEditText.getText().toString();
-                String pass=passEditText.getText().toString();
+                String user= mUserEditText.getText().toString();
+                String pass= mPassEditText.getText().toString();
                 if (!user.isEmpty() && !pass.isEmpty()){
                     try {
-                        OtherLoginApi.getINSTANCE().setBaseUrl(currentBaseUrl);
+                        OtherLoginApi.getINSTANCE().setBaseUrl(mCurrentBaseUrl);
                         OtherLoginApi.getINSTANCE().login(getContext(), user, pass, new OtherLoginApi.Listener() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
                                 requireActivity().runOnUiThread(()->{
-                                    progressDialog.dismiss();
+                                    mProgressDialog.dismiss();
                                     MinecraftAccount account=new MinecraftAccount();
                                     account.accessToken=authResult.getAccessToken();
-                                    account.baseUrl= currentBaseUrl;
-                                    account.account=userEditText.getText().toString();
-                                    account.password=passEditText.getText().toString();
+                                    account.baseUrl= mCurrentBaseUrl;
+                                    account.account= mUserEditText.getText().toString();
+                                    account.password= mPassEditText.getText().toString();
                                     account.expiresAt=System.currentTimeMillis()+30*60*1000;
                                     if (!Objects.isNull(authResult.getSelectedProfile())){
                                         account.username=authResult.getSelectedProfile().getName();
@@ -220,7 +228,7 @@ public class OtherLoginFragment extends Fragment {
                             @Override
                             public void onFailed(String error) {
                                 requireActivity().runOnUiThread(()->{
-                                    progressDialog.dismiss();
+                                    mProgressDialog.dismiss();
                                     AlertDialog dialog=new AlertDialog.Builder(requireContext())
                                             .setTitle(getString(R.string.zh_warning))
                                             .setTitle(getString(R.string.zh_other_login_error) + error)
@@ -231,7 +239,7 @@ public class OtherLoginFragment extends Fragment {
                             }
                         });
                     } catch (IOException e) {
-                        requireActivity().runOnUiThread(()->progressDialog.dismiss());
+                        requireActivity().runOnUiThread(()-> mProgressDialog.dismiss());
                         Log.e("login",e.toString());
                     }
                 }
@@ -239,30 +247,40 @@ public class OtherLoginFragment extends Fragment {
         });
     }
 
+    private void bindViews(@NonNull View view) {
+        mHelpButton = view.findViewById(R.id.zh_other_login_help_button);
+        mServerSpinner = view.findViewById(R.id.server_spinner);
+        mUserEditText = view.findViewById(R.id.login_edit_email);
+        mPassEditText = view.findViewById(R.id.login_edit_password);
+        mLoginButton = view.findViewById(R.id.login_button);
+        mRegister = view.findViewById(R.id.register);
+        mAddServer = view.findViewById(R.id.add_server);
+    }
+
     public void refreshServer() {
-        if (Objects.isNull(serverList)) {
-            serverList = new ArrayList<>();
+        if (Objects.isNull(mServerList)) {
+            mServerList = new ArrayList<>();
         } else {
-            serverList.clear();
+            mServerList.clear();
         }
-        if (serversFile.exists()) {
+        if (mServersFile.exists()) {
             try {
-                servers = new Gson().fromJson(Tools.read(serversFile.getAbsolutePath()), Servers.class);
-                currentBaseUrl=servers.getServer().get(0).getBaseUrl();
-                for (Servers.Server server : servers.getServer()) {
-                    serverList.add(server.getServerName());
+                mServers = new Gson().fromJson(Tools.read(mServersFile.getAbsolutePath()), Servers.class);
+                mCurrentBaseUrl = mServers.getServer().get(0).getBaseUrl();
+                for (Servers.Server server : mServers.getServer()) {
+                    mServerList.add(server.getServerName());
                 }
             } catch (IOException ignored) {
 
             }
         }
-        if (Objects.isNull(servers)) {
-            serverList.add(getString(R.string.zh_other_login_no_server));
+        if (Objects.isNull(mServers)) {
+            mServerList.add(getString(R.string.zh_other_login_no_server));
         }
-        if (Objects.isNull(serverSpinnerAdapter)) {
-            serverSpinnerAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item, serverList);
+        if (Objects.isNull(mServerSpinnerAdapter)) {
+            mServerSpinnerAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item, mServerList);
         } else {
-            serverSpinnerAdapter.notifyDataSetChanged();
+            mServerSpinnerAdapter.notifyDataSetChanged();
         }
 
     }
