@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="?android:attr/selectableItemBackground"
-                    android:drawableStart="@drawable/ic_menu_news"
+                    android:drawableStart="@drawable/ic_about"
                     android:text="@string/zh_about_tab" />
 
                 <com.kdt.mcgui.LauncherMenuButton
@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="?android:attr/selectableItemBackground"
-                    android:drawableStart="@drawable/ic_menu_install_jar"
+                    android:drawableStart="@drawable/ic_java"
                     android:text="@string/main_install_jar_file" />
 
                 <com.kdt.mcgui.LauncherMenuButton

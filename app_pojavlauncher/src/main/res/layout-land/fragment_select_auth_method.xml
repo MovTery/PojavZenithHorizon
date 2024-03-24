@@ -46,22 +46,9 @@
         android:layout_marginTop="28dp"
         android:text="@string/zh_account_microsoft_ccount"
         android:textSize="@dimen/_12ssp"
-        app:layout_constraintEnd_toStartOf="@+id/button_local_authentication"
-        app:layout_constraintHorizontal_weight="0.3"
-        app:layout_constraintStart_toStartOf="@id/login_menu"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <com.kdt.mcgui.MineButton
-        android:id="@+id/button_local_authentication"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_12sdp"
-        android:layout_marginTop="28dp"
-        android:text="@string/zh_account_local_account"
-        android:textSize="@dimen/_12ssp"
         app:layout_constraintEnd_toStartOf="@+id/button_other_authentication"
         app:layout_constraintHorizontal_weight="0.3"
-        app:layout_constraintStart_toEndOf="@+id/button_microsoft_authentication"
+        app:layout_constraintStart_toStartOf="@id/login_menu"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <com.kdt.mcgui.MineButton
@@ -72,9 +59,22 @@
         android:layout_marginTop="28dp"
         android:text="@string/zh_other_login_api"
         android:textSize="@dimen/_12ssp"
+        app:layout_constraintEnd_toStartOf="@+id/button_local_authentication"
+        app:layout_constraintHorizontal_weight="0.3"
+        app:layout_constraintStart_toEndOf="@+id/button_microsoft_authentication"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <com.kdt.mcgui.MineButton
+        android:id="@+id/button_local_authentication"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginTop="28dp"
+        android:text="@string/zh_account_local_account"
+        android:textSize="@dimen/_12ssp"
         app:layout_constraintEnd_toEndOf="@+id/login_menu"
         app:layout_constraintHorizontal_weight="0.3"
-        app:layout_constraintStart_toEndOf="@+id/button_local_authentication"
+        app:layout_constraintStart_toEndOf="@+id/button_other_authentication"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

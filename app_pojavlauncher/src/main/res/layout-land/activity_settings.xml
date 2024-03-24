@@ -28,10 +28,8 @@
 
     <ImageButton
         android:id="@+id/settings_return_button"
-        android:layout_width="@dimen/_50sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="2dp"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_35sdp"
         android:background="?attr/selectableItemBackground"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_arrow_back_white"
@@ -131,7 +129,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/misc_settings"
                 app:layout_constraintStart_toStartOf="@+id/misc_settings"
                 app:layout_constraintTop_toBottomOf="@+id/misc_settings"
-                app:srcCompat="@drawable/notif_icon" />
+                app:srcCompat="@drawable/ic_setting_exclusive" />
 
             <ImageButton
                 android:id="@+id/experimental_settings"
@@ -145,7 +143,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/pojav_zh_settings"
                 app:layout_constraintStart_toStartOf="@+id/pojav_zh_settings"
                 app:layout_constraintTop_toBottomOf="@+id/pojav_zh_settings"
-                app:srcCompat="@drawable/ic_setting_ram" />
+                app:srcCompat="@drawable/ic_setting_experimental" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
