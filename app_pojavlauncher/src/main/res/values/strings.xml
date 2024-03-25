@@ -50,6 +50,11 @@
     <string name="zh_neoforge_dl_no_installer">Sorry, but this version of NeoForge does not have an installer, which is not yet supported.</string>
     <string name="zh_neoforge_dl_select_version">Select NeoForge version</string>
     <string name="zh_modloader_dl_install_neoforge">Create NeoForge profile</string>
+    <string name="zh_select_modpack_search">Search for modpacks</string>
+    <string name="zh_select_modpack_local">Local modpack</string>
+    <string name="zh_select_modpack_local_tip">Please select a modpack file that can be imported by the launcher!</string>
+    <string name="zh_select_modpack_local_success">Modpack installed successfully!</string>
+    <string name="zh_select_modpack_local_fail">Installation failed, please make sure this is a modpack that the launcher supports!</string>
     <string name="zh_main_open_dir">Open main directory</string>
     <string name="zh_preference_category_language">Language</string>
     <string name="zh_preference_category_other_features">Other Features</string>
