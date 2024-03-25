@@ -32,7 +32,7 @@ public class FabriclikeDownloadTask implements Runnable, Tools.DownloaderFeedbac
 
     @Override
     public void run() {
-        ProgressKeeper.submitProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.fabric_dl_progress);
+        ProgressKeeper.submitProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.fabric_dl_progress, mUtils.getName());
         try {
             if(runCatching()) mModloaderDownloadListener.onDownloadFinished(null);
             else mModloaderDownloadListener.onDataNotAvailable();
