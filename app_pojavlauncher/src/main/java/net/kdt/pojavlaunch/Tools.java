@@ -1164,7 +1164,7 @@ public final class Tools {
             deleteConfirmation.setTitle(activity.getString(R.string.zh_file_tips));
             deleteConfirmation.setMessage(activity.getString(R.string.zh_file_delete) + "\n" + file.getName());
             deleteConfirmation.setPositiveButton(activity.getString(R.string.global_delete), (dialog1, which1) -> {
-                boolean deleted = file.delete();
+                boolean deleted = deleteFile(file);
                 if (deleted) {
                     Toast.makeText(activity, activity.getString(R.string.zh_file_deleted) + fileName, Toast.LENGTH_SHORT).show();
                 }
@@ -1173,6 +1173,10 @@ public final class Tools {
             deleteConfirmation.setNegativeButton(activity.getString(android.R.string.cancel), null);
             deleteConfirmation.show();
         };
+    }
+
+    public static boolean deleteFile(File file) {
+        return file.delete();
     }
 
     public static boolean deleteDir(File dir) { //删除一个非空文件夹
@@ -1320,11 +1324,8 @@ public final class Tools {
                     ModLoader modLoader = curseforgeModPack(context, zipFile, packName);
 
                     createProfiles(packName, curseManifest.name, modLoader.getVersionId());
-                    zipFile.delete();
                     return modLoader;
                 }
-                zipFile.delete();
-                return null;
             } else if (suffix.equals(".mrpack")) { //modrinth
                 ModrinthIndex modrinthIndex = Tools.GLOBAL_GSON.fromJson(
                         Tools.read(ZipUtils.getEntryStream(modpackZipFile, "modrinth.index.json")),
@@ -1334,12 +1335,22 @@ public final class Tools {
 
                 createProfiles(packName, modrinthIndex.name, modLoader.getVersionId());
 
-                zipFile.delete();
                 return modLoader;
-            } else { //不受支持的整合包类型
-                zipFile.delete();
-                return null;
             }
+            return null;
+        }
+    }
+
+    public static boolean determineModpack(File modpack) throws Exception {
+        String zipName = modpack.getName();
+        String suffix = zipName.substring(zipName.lastIndexOf('.'));
+        try (ZipFile modpackZipFile = new ZipFile(modpack)) {
+            if (suffix.equals(".zip")) {
+                CurseManifest curseManifest = Tools.GLOBAL_GSON.fromJson(
+                        Tools.read(ZipUtils.getEntryStream(modpackZipFile, "manifest.json")),
+                        CurseManifest.class);
+                return verifyManifest(curseManifest);
+            } else return suffix.equals(".mrpack");
         }
     }
 

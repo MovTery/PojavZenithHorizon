@@ -97,24 +97,24 @@ public class LauncherActivity extends BaseActivity {
             return false;
         }
 
-        File dirGameModpack = Tools.DIR_GAME_MODPACK;
-        String suffix = dirGameModpack.getName().substring(dirGameModpack.getName().lastIndexOf('.'));
+        File dirGameModpackFile = Tools.DIR_GAME_MODPACK;
 
-        if (suffix.equals(".zip") || suffix.equals(".mrpack")) {
+        if (Tools.determineModpack(dirGameModpackFile)) {
             ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.global_waiting);
             PojavApplication.sExecutorService.execute(() -> {
                 try {
                     ModLoader loaderInfo = Tools.installModPack(this, Tools.DIR_GAME_MODPACK);
                     if (loaderInfo == null) return;
                     loaderInfo.getDownloadTask(new NotificationDownloadListener(this, loaderInfo)).run();
-                    Tools.DIR_GAME_MODPACK = null;
                 }catch (Exception e) {
                     Tools.DIR_GAME_MODPACK = null;
                     Tools.showErrorRemote(this, R.string.modpack_install_download_failed, e);
                 }
             });
-        }
+        } else runOnUiThread(() -> Toast.makeText(this, getString(R.string.modpack_install_download_failed), Toast.LENGTH_SHORT).show());
 
+        Tools.deleteFile(dirGameModpackFile); //最后删除文件（虽然文件通常来说并不会很大）
+        Tools.DIR_GAME_MODPACK = null;
         return false;
     };
 
