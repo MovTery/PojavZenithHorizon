@@ -1307,39 +1307,41 @@ public final class Tools {
     }
 
     public static ModLoader installModPack(Context context, File zipFile) throws Exception {
-        try (ZipFile modpackZipFile = new ZipFile(zipFile)) {
-            String zipName = zipFile.getName();
-            String packName = zipName.substring(0, zipName.lastIndexOf('.'));
-            if (zipName.endsWith(".zip")) {
-                CurseManifest curseManifest = Tools.GLOBAL_GSON.fromJson(
-                        Tools.read(ZipUtils.getEntryStream(modpackZipFile, "manifest.json")),
-                        CurseManifest.class);
+        String zipName = zipFile.getName();
+        String packName = zipName.substring(0, zipName.lastIndexOf('.'));
+        String suffix = zipName.substring(zipName.lastIndexOf('.'));
+        if (suffix.equals(".zip") || suffix.equals(".mrpack")) {
+            try (ZipFile modpackZipFile = new ZipFile(zipFile)) {
+                if (suffix.equals(".zip")) {
+                    CurseManifest curseManifest = Tools.GLOBAL_GSON.fromJson(
+                            Tools.read(ZipUtils.getEntryStream(modpackZipFile, "manifest.json")),
+                            CurseManifest.class);
 
-                if(verifyManifest(curseManifest)) { // 判断是否为curseforge整合包的办法
-                    ModLoader modLoader = curseforgeModPack(context, zipFile, packName);
+                    if(verifyManifest(curseManifest)) { // 判断是否为curseforge整合包的办法
+                        ModLoader modLoader = curseforgeModPack(context, zipFile, packName);
 
-                    createProfiles(packName, curseManifest.name, modLoader.getVersionId());
+                        createProfiles(packName, curseManifest.name, modLoader.getVersionId());
+                        zipFile.delete();
+                        return modLoader;
+                    }
+                    zipFile.delete();
+                    return null;
+                } else {
+                    ModrinthIndex modrinthIndex = Tools.GLOBAL_GSON.fromJson(
+                            Tools.read(ZipUtils.getEntryStream(modpackZipFile, "modrinth.index.json")),
+                            ModrinthIndex.class); // 用于获取创建实例所需的数据
+
+                    ModLoader modLoader = modrinthModPack(zipFile, packName);
+
+                    createProfiles(packName, modrinthIndex.name, modLoader.getVersionId());
+
                     zipFile.delete();
                     return modLoader;
                 }
-                zipFile.delete();
-                return null;
-            } else if (zipName.endsWith(".mrpack")) {
-                ModrinthIndex modrinthIndex = Tools.GLOBAL_GSON.fromJson(
-                        Tools.read(ZipUtils.getEntryStream(modpackZipFile, "modrinth.index.json")),
-                        ModrinthIndex.class); // 用于获取创建实例所需的数据
-
-                ModLoader modLoader = modrinthModPack(zipFile, packName);
-
-                createProfiles(packName, modrinthIndex.name, modLoader.getVersionId());
-
-                zipFile.delete();
-                return modLoader;
-            } else { // 不受支持的文件类型
-                zipFile.delete();
-                return null;
             }
-        }
+        }// 不受支持的文件类型
+        zipFile.delete();
+        return null;
     }
 
     private static ModLoader curseforgeModPack(Context context, File zipFile, String packName) throws Exception {
