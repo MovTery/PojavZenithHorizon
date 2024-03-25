@@ -117,10 +117,11 @@ public class LauncherActivity extends BaseActivity {
                     Tools.showErrorRemote(this, R.string.modpack_install_download_failed, e);
                 }
             });
-        } else runOnUiThread(() -> Toast.makeText(this, getString(R.string.zh_select_modpack_local_not_supported), Toast.LENGTH_SHORT).show());
+        } else runOnUiThread(() -> {
+            Toast.makeText(this, getString(R.string.zh_select_modpack_local_not_supported), Toast.LENGTH_SHORT).show();
+            Tools.DIR_GAME_MODPACK = null;
+        });
 
-        Tools.deleteFile(dirGameModpackFile); //最后删除文件（虽然文件通常来说并不会很大）
-        Tools.DIR_GAME_MODPACK = null;
         return false;
     };
 

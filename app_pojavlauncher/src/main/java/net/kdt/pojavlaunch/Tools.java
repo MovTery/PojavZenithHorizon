@@ -1337,6 +1337,8 @@ public final class Tools {
 
                 return modLoader;
             }
+            Tools.deleteFile(zipFile); // 删除文件（虽然文件通常来说并不会很大）
+            Tools.DIR_GAME_MODPACK = null;
             return null;
         }
     }
