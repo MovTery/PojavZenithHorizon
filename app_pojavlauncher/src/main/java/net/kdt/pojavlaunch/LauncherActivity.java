@@ -97,7 +97,7 @@ public class LauncherActivity extends BaseActivity {
             return false;
         }
 
-        File dirGameModpackFile = Tools.DIR_GAME_MODPACK;
+        File dirGameModpackFile = new File(Tools.DIR_GAME_MODPACK);
         boolean support;
         try {
             support = Tools.determineModpack(dirGameModpackFile);
@@ -109,7 +109,7 @@ public class LauncherActivity extends BaseActivity {
             ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.global_waiting);
             PojavApplication.sExecutorService.execute(() -> {
                 try {
-                    ModLoader loaderInfo = Tools.installModPack(this, Tools.DIR_GAME_MODPACK);
+                    ModLoader loaderInfo = Tools.installModPack(this, dirGameModpackFile);
                     if (loaderInfo == null) return;
                     loaderInfo.getDownloadTask(new NotificationDownloadListener(this, loaderInfo)).run();
                 }catch (Exception e) {
