@@ -50,8 +50,6 @@
     <string name="zh_select_modpack_search">搜索整合包</string>
     <string name="zh_select_modpack_local">本地整合包</string>
     <string name="zh_select_modpack_local_tip">請選擇一個啟動器支持導入的整合包文件！</string>
-    <string name="zh_select_modpack_local_success">整合包安裝成功！</string>
-    <string name="zh_select_modpack_local_fail">安裝失敗，請確保這是一個啟動器支持安裝的整合包！</string>
     <string name="zh_main_open_dir">打開主目錄</string>
     <string name="zh_preference_category_language">語言</string>
     <string name="zh_preference_category_other_features">其他功能</string>
