@@ -43,7 +43,7 @@ public final class ExtraCore {
      * @param key The key
      * @param value The value
      */
-    public static void setValue(String key, Object value){
+    public static void setValue(String key, Object value) throws Exception {
         if(value == null || key == null) return; // null values create an NPE on insertion
 
         getInstance().mValueMap.put(key, value);
