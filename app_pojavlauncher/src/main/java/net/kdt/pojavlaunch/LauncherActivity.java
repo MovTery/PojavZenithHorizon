@@ -99,10 +99,14 @@ public class LauncherActivity extends BaseActivity {
         ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.global_waiting);
         PojavApplication.sExecutorService.execute(() -> {
             try {
-                Tools.installModPack(this, Tools.DIR_GAME_MODPACK);
+                ModLoader loaderInfo = Tools.installModPack(this, Tools.DIR_GAME_MODPACK);
+                if (loaderInfo == null) return;
+                loaderInfo.getDownloadTask(new NotificationDownloadListener(this, loaderInfo)).run();
+                Toast.makeText(this, getString(R.string.zh_select_modpack_local_success), Toast.LENGTH_SHORT).show();
                 Tools.DIR_GAME_MODPACK = null;
             }catch (Exception e) {
                 Tools.DIR_GAME_MODPACK = null;
+                Toast.makeText(this, getString(R.string.zh_select_modpack_local_fail), Toast.LENGTH_SHORT).show();
                 Tools.showErrorRemote(this, R.string.modpack_install_download_failed, e);
             }
         });
