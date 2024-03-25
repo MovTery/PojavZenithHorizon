@@ -34,6 +34,8 @@ import net.kdt.pojavlaunch.fragments.MainMenuFragment;
 import net.kdt.pojavlaunch.fragments.MicrosoftLoginFragment;
 import net.kdt.pojavlaunch.fragments.SelectAuthFragment;
 import net.kdt.pojavlaunch.modloaders.modpacks.ModloaderInstallTracker;
+import net.kdt.pojavlaunch.modloaders.modpacks.api.ModLoader;
+import net.kdt.pojavlaunch.modloaders.modpacks.api.NotificationDownloadListener;
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.IconCacheJanitor;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
@@ -47,6 +49,7 @@ import net.kdt.pojavlaunch.utils.NotificationUtils;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 
 public class LauncherActivity extends BaseActivity {
@@ -85,6 +88,40 @@ public class LauncherActivity extends BaseActivity {
         if(!(fragment instanceof MainMenuFragment)) return false;
 
         Tools.swapFragment(this, SelectAuthFragment.class, SelectAuthFragment.TAG, true, null);
+        return false;
+    };
+
+    private final ExtraListener<Boolean> mInstallLocalModpack = (key, value) -> {
+        if(mProgressLayout.hasProcesses()){
+            Toast.makeText(this, R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        File dirGameModpackFile = new File(Tools.DIR_GAME_MODPACK);
+        boolean support;
+        try {
+            support = Tools.determineModpack(dirGameModpackFile);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        if (support) {
+            ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.global_waiting);
+            PojavApplication.sExecutorService.execute(() -> {
+                try {
+                    ModLoader loaderInfo = Tools.installModPack(this, dirGameModpackFile);
+                    if (loaderInfo == null) return;
+                    loaderInfo.getDownloadTask(new NotificationDownloadListener(this, loaderInfo)).run();
+                }catch (Exception e) {
+                    Tools.DIR_GAME_MODPACK = null;
+                    Tools.showErrorRemote(this, R.string.modpack_install_download_failed, e);
+                }
+            });
+        } else runOnUiThread(() -> {
+            Toast.makeText(this, getString(R.string.zh_select_modpack_local_not_supported), Toast.LENGTH_SHORT).show();
+            Tools.DIR_GAME_MODPACK = null;
+        });
+
         return false;
     };
 
@@ -184,6 +221,8 @@ public class LauncherActivity extends BaseActivity {
 
         ExtraCore.addExtraListener(ExtraConstants.LAUNCH_GAME, mLaunchGameListener);
 
+        ExtraCore.addExtraListener(ExtraConstants.INSTALL_LOCAL_MODPACK, mInstallLocalModpack);
+
         new AsyncVersionList().getVersionList(versions -> ExtraCore.setValue(ExtraConstants.RELEASE_TABLE, versions), false);
 
         mInstallTracker = new ModloaderInstallTracker(this);
@@ -229,6 +268,7 @@ public class LauncherActivity extends BaseActivity {
         ExtraCore.removeExtraListenerFromValue(ExtraConstants.BACK_PREFERENCE, mBackPreferenceListener);
         ExtraCore.removeExtraListenerFromValue(ExtraConstants.SELECT_AUTH_METHOD, mSelectAuthMethod);
         ExtraCore.removeExtraListenerFromValue(ExtraConstants.LAUNCH_GAME, mLaunchGameListener);
+        ExtraCore.removeExtraListenerFromValue(ExtraConstants.INSTALL_LOCAL_MODPACK, mInstallLocalModpack);
 
         getSupportFragmentManager().unregisterFragmentLifecycleCallbacks(mFragmentCallbackListener);
     }
