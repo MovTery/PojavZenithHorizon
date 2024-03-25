@@ -1356,10 +1356,14 @@ public final class Tools {
         String suffix = zipName.substring(zipName.lastIndexOf('.'));
         try (ZipFile modpackZipFile = new ZipFile(modpack)) {
             if (suffix.equals(".zip")) {
-                CurseManifest curseManifest = Tools.GLOBAL_GSON.fromJson(
-                        Tools.read(ZipUtils.getEntryStream(modpackZipFile, "manifest.json")),
-                        CurseManifest.class);
-                return verifyManifest(curseManifest);
+                ZipEntry entry = modpackZipFile.getEntry("manifest.json");
+                if (entry != null) {
+                    CurseManifest curseManifest = Tools.GLOBAL_GSON.fromJson(
+                            Tools.read(modpackZipFile.getInputStream(entry)),
+                            CurseManifest.class);
+                    return verifyManifest(curseManifest);
+                }
+                return false;
             } else return suffix.equals(".mrpack");
         }
     }
