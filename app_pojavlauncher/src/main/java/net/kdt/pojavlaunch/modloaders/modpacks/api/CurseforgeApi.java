@@ -158,7 +158,7 @@ public class CurseforgeApi implements ModpackApi{
         return index + data.size();
     }
 
-    private ModLoader installCurseforgeZip(File zipFile, File instanceDestination) throws IOException {
+    public ModLoader installCurseforgeZip(File zipFile, File instanceDestination) throws IOException {
         try (ZipFile modpackZipFile = new ZipFile(zipFile)){
             CurseManifest curseManifest = Tools.GLOBAL_GSON.fromJson(
                     Tools.read(ZipUtils.getEntryStream(modpackZipFile, "manifest.json")),
@@ -263,12 +263,7 @@ public class CurseforgeApi implements ModpackApi{
     }
 
     private boolean verifyManifest(CurseManifest manifest) {
-        if(!"minecraftModpack".equals(manifest.manifestType)) return false;
-        if(manifest.manifestVersion != 1) return false;
-        if(manifest.minecraft == null) return false;
-        if(manifest.minecraft.version == null) return false;
-        if(manifest.minecraft.modLoaders == null) return false;
-        return manifest.minecraft.modLoaders.length >= 1;
+        return Tools.verifyManifest(manifest);
     }
 
     static class CurseforgeSearchResult extends SearchResult {
