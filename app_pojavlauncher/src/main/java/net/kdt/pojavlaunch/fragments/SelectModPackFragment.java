@@ -30,6 +30,11 @@ public class SelectModPackFragment extends Fragment {
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private File modPackFile;
 
+    public SelectModPackFragment(){
+        super(R.layout.fragment_select_modpack);
+    }
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
