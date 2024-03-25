@@ -1333,19 +1333,16 @@ public final class Tools {
                     }
                 }
             } else if (suffix.equals(".mrpack")) { //modrinth
-                ZipEntry entry = modpackZipFile.getEntry("manifest.json");
-                if (entry != null) {
-                    ModrinthIndex modrinthIndex = Tools.GLOBAL_GSON.fromJson(
-                            Tools.read(modpackZipFile.getInputStream(entry)),
-                            ModrinthIndex.class); // 用于获取创建实例所需的数据
+                ModrinthIndex modrinthIndex = Tools.GLOBAL_GSON.fromJson(
+                        Tools.read(ZipUtils.getEntryStream(modpackZipFile, "modrinth.index.json")),
+                        ModrinthIndex.class); // 用于获取创建实例所需的数据
 
-                    ModLoader modLoader = modrinthModPack(zipFile, packName);
+                ModLoader modLoader = modrinthModPack(zipFile, packName);
 
-                    createProfiles(packName, modrinthIndex.name, modLoader.getVersionId());
+                createProfiles(packName, modrinthIndex.name, modLoader.getVersionId());
 
-                    Tools.DIR_GAME_MODPACK = null;
-                    return modLoader;
-                }
+                Tools.DIR_GAME_MODPACK = null;
+                return modLoader;
             }
             runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_select_modpack_local_not_supported), Toast.LENGTH_SHORT).show());
             Tools.deleteFile(zipFile); // 删除文件（虽然文件通常来说并不会很大）
@@ -1367,7 +1364,16 @@ public final class Tools {
                     return verifyManifest(curseManifest);
                 }
                 return false;
-            } else return suffix.equals(".mrpack");
+            } else if(suffix.equals(".mrpack")) {
+                ZipEntry entry = modpackZipFile.getEntry("modrinth.index.json");
+                if (entry != null) {
+                    ModrinthIndex modrinthIndex = Tools.GLOBAL_GSON.fromJson(
+                            Tools.read(modpackZipFile.getInputStream(entry)),
+                            ModrinthIndex.class);
+                    return verifyModrinthIndex(modrinthIndex);
+                }
+            }
+            return false;
         }
     }
 
@@ -1398,5 +1404,11 @@ public final class Tools {
         if(manifest.minecraft.version == null) return false;
         if(manifest.minecraft.modLoaders == null) return false;
         return manifest.minecraft.modLoaders.length >= 1;
+    }
+
+    public static boolean verifyModrinthIndex(ModrinthIndex modrinthIndex) { //检测是否为modrinth整合包(通过modrinth.index.json内的数据进行判断)
+        if(!"minecraft".equals(modrinthIndex.game)) return false;
+        if(modrinthIndex.formatVersion != 1) return false;
+        return modrinthIndex.dependencies != null;
     }
 }
