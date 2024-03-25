@@ -34,7 +34,7 @@ public class ProfileTypeSelectFragment extends Fragment {
         view.findViewById(R.id.zh_modded_profile_neoforge).setOnClickListener((v)->
                 Tools.swapFragment(requireActivity(), NeoForgeInstallFragment.class, NeoForgeInstallFragment.TAG, false, null));
         view.findViewById(R.id.modded_profile_modpack).setOnClickListener((v)->
-                Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, false, null));
+                Tools.swapFragment(requireActivity(), SelectModPackFragment.class, SelectModPackFragment.TAG, false, null));
         view.findViewById(R.id.modded_profile_quilt).setOnClickListener((v)->
                 Tools.swapFragment(requireActivity(), QuiltInstallFragment.class, QuiltInstallFragment.TAG, false, null));
     }

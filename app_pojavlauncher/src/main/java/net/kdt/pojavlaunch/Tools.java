@@ -49,11 +49,17 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.kdt.mcgui.ProgressLayout;
 import com.kdt.pickafile.FileListView;
 
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutorTask;
 import net.kdt.pojavlaunch.lifecycle.LifecycleAwareAlertDialog;
+import net.kdt.pojavlaunch.modloaders.modpacks.api.CurseforgeApi;
+import net.kdt.pojavlaunch.modloaders.modpacks.api.ModLoader;
+import net.kdt.pojavlaunch.modloaders.modpacks.api.ModrinthApi;
+import net.kdt.pojavlaunch.modloaders.modpacks.models.CurseManifest;
+import net.kdt.pojavlaunch.modloaders.modpacks.models.ModrinthIndex;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 import net.kdt.pojavlaunch.multirt.Runtime;
 import net.kdt.pojavlaunch.plugins.FFmpegPlugin;
@@ -64,6 +70,7 @@ import net.kdt.pojavlaunch.utils.FileUtils;
 import net.kdt.pojavlaunch.utils.JREUtils;
 import net.kdt.pojavlaunch.utils.JSONUtils;
 import net.kdt.pojavlaunch.utils.OldVersionsUtils;
+import net.kdt.pojavlaunch.utils.ZipUtils;
 import net.kdt.pojavlaunch.value.DependentLibrary;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
 import net.kdt.pojavlaunch.value.MinecraftLibraryArtifact;
@@ -93,6 +100,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.zip.ZipFile;
 
 @SuppressWarnings("IOStreamConstructor")
 public final class Tools {
@@ -1296,5 +1304,73 @@ public final class Tools {
     public static void releaseRenderersCache() {
         sCompatibleRenderers = null;
         System.gc();
+    }
+
+    public static void installModPack(Context context, File zipFile) throws Exception {
+        try (ZipFile modpackZipFile = new ZipFile(zipFile)) {
+            String zipName = zipFile.getName();
+            String packName = zipName.substring(0, zipName.lastIndexOf('.'));
+            if (zipName.endsWith(".zip")) {
+                CurseManifest curseManifest = Tools.GLOBAL_GSON.fromJson(
+                        Tools.read(ZipUtils.getEntryStream(modpackZipFile, "manifest.json")),
+                        CurseManifest.class);
+
+                if(verifyManifest(curseManifest)) { // 判断是否为curseforge整合包的办法
+                    ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0);
+                    ModLoader modLoader = curseforgeModPack(context, zipFile, packName);
+                    ProgressLayout.clearProgress(ProgressLayout.INSTALL_MODPACK);
+
+                    createProfiles(packName, curseManifest.name, modLoader.getVersionId());
+                    Toast.makeText(context, context.getString(R.string.zh_select_modpack_local_success), Toast.LENGTH_SHORT).show();
+                }
+                zipFile.delete();
+                return;
+            } else if (zipName.endsWith(".mrpack")) {
+                ModrinthIndex modrinthIndex = Tools.GLOBAL_GSON.fromJson(
+                        Tools.read(ZipUtils.getEntryStream(modpackZipFile, "modrinth.index.json")),
+                        ModrinthIndex.class); // 用于获取创建实例所需的数据
+
+                ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0);
+                ModLoader modLoader = modrinthModPack(zipFile, packName);
+                ProgressLayout.clearProgress(ProgressLayout.INSTALL_MODPACK);
+
+                createProfiles(packName, modrinthIndex.name, modLoader.getVersionId());
+                Toast.makeText(context, context.getString(R.string.zh_select_modpack_local_success), Toast.LENGTH_SHORT).show();
+
+                zipFile.delete();
+                return;
+            }
+        }
+        Toast.makeText(context, context.getString(R.string.zh_select_modpack_local_fail), Toast.LENGTH_SHORT).show();
+        zipFile.delete();
+    }
+
+    private static ModLoader curseforgeModPack(Context context, File zipFile, String packName) throws Exception {
+        CurseforgeApi curseforgeApi = new CurseforgeApi(context.getString(R.string.curseforge_api_key));
+        return curseforgeApi.installCurseforgeZip(zipFile, new File(Tools.DIR_GAME_HOME, "custom_instances/" + packName));
+    }
+
+    private static ModLoader modrinthModPack(File zipFile, String packName) throws Exception {
+        ModrinthApi modrinthApi = new ModrinthApi();
+        return modrinthApi.installMrpack(zipFile, new File(Tools.DIR_GAME_HOME, "custom_instances/" + packName));
+    }
+
+    private static void createProfiles(String modpackName, String profileName, String versionId) {
+        MinecraftProfile profile = new MinecraftProfile();
+        profile.gameDir = "./custom_instances/" + modpackName;
+        profile.name = profileName;
+        profile.lastVersionId = versionId;
+
+        LauncherProfiles.mainProfileJson.profiles.put(modpackName, profile);
+        LauncherProfiles.write();
+    }
+
+    public static boolean verifyManifest(CurseManifest manifest) { //检测是否为curseforge整合包(通过manifest.json内的数据进行判断)
+        if(!"minecraftModpack".equals(manifest.manifestType)) return false;
+        if(manifest.manifestVersion != 1) return false;
+        if(manifest.minecraft == null) return false;
+        if(manifest.minecraft.version == null) return false;
+        if(manifest.minecraft.modLoaders == null) return false;
+        return manifest.minecraft.modLoaders.length >= 1;
     }
 }
