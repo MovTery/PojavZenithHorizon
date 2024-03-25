@@ -17,6 +17,8 @@ import androidx.fragment.app.Fragment;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
+import net.kdt.pojavlaunch.extra.ExtraConstants;
+import net.kdt.pojavlaunch.extra.ExtraCore;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -86,11 +88,8 @@ public class SelectModPackFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            try {
-                Tools.installModPack(requireContext(), modPackFile);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            Tools.DIR_GAME_MODPACK = modPackFile;
+            ExtraCore.setValue(ExtraConstants.INSTALL_LOCAL_MODPACK, true);
         }
     }
 }
