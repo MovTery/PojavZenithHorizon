@@ -1306,7 +1306,7 @@ public final class Tools {
         System.gc();
     }
 
-    public static ModLoader installModPack(Context context, File zipFile) throws Exception {
+    public static void installModPack(Context context, File zipFile) throws Exception {
         try (ZipFile modpackZipFile = new ZipFile(zipFile)) {
             String zipName = zipFile.getName();
             String packName = zipName.substring(0, zipName.lastIndexOf('.'));
@@ -1320,11 +1320,9 @@ public final class Tools {
 
                     createProfiles(packName, curseManifest.name, modLoader.getVersionId());
                     Toast.makeText(context, context.getString(R.string.zh_select_modpack_local_success), Toast.LENGTH_SHORT).show();
-                    zipFile.delete();
-                    return modLoader;
                 }
                 zipFile.delete();
-                return null;
+                return;
             } else if (zipName.endsWith(".mrpack")) {
                 ModrinthIndex modrinthIndex = Tools.GLOBAL_GSON.fromJson(
                         Tools.read(ZipUtils.getEntryStream(modpackZipFile, "modrinth.index.json")),
@@ -1336,12 +1334,11 @@ public final class Tools {
                 Toast.makeText(context, context.getString(R.string.zh_select_modpack_local_success), Toast.LENGTH_SHORT).show();
 
                 zipFile.delete();
-                return modLoader;
+                return;
             }
         }
         Toast.makeText(context, context.getString(R.string.zh_select_modpack_local_fail), Toast.LENGTH_SHORT).show();
         zipFile.delete();
-        return null;
     }
 
     private static ModLoader curseforgeModPack(Context context, File zipFile, String packName) throws Exception {
