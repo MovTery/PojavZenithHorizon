@@ -34,6 +34,8 @@ import net.kdt.pojavlaunch.fragments.MainMenuFragment;
 import net.kdt.pojavlaunch.fragments.MicrosoftLoginFragment;
 import net.kdt.pojavlaunch.fragments.SelectAuthFragment;
 import net.kdt.pojavlaunch.modloaders.modpacks.ModloaderInstallTracker;
+import net.kdt.pojavlaunch.modloaders.modpacks.api.ModLoader;
+import net.kdt.pojavlaunch.modloaders.modpacks.api.NotificationDownloadListener;
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.IconCacheJanitor;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
@@ -94,11 +96,19 @@ public class LauncherActivity extends BaseActivity {
             return false;
         }
 
-        try {
-            Tools.installModPack(this, Tools.DIR_GAME_MODPACK);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.global_waiting);
+        PojavApplication.sExecutorService.execute(() -> {
+            try {
+                ModLoader loaderInfo = Tools.installModPack(this, Tools.DIR_GAME_MODPACK);
+                if (loaderInfo == null) return;
+                loaderInfo.getDownloadTask(new NotificationDownloadListener(this, loaderInfo)).run();
+                Tools.DIR_GAME_MODPACK = null;
+            }catch (Exception e) {
+                Tools.DIR_GAME_MODPACK = null;
+                Tools.showErrorRemote(this, R.string.modpack_install_download_failed, e);
+            }
+        });
+
         return false;
     };
 

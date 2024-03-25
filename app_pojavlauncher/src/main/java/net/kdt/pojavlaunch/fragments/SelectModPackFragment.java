@@ -57,8 +57,12 @@ public class SelectModPackFragment extends Fragment {
 
         view.findViewById(R.id.zh_modpack_button_search_modpack).setOnClickListener(v -> Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, false, null));
         view.findViewById(R.id.zh_modpack_button_local_modpack).setOnClickListener(v -> {
-            Toast.makeText(requireActivity(), getString(R.string.zh_select_modpack_local_tip), Toast.LENGTH_SHORT).show();
-            openDocumentLauncher.launch(null);
+            if (Tools.DIR_GAME_MODPACK != null) {
+                Toast.makeText(requireActivity(), getString(R.string.zh_select_modpack_local_tip), Toast.LENGTH_SHORT).show();
+                openDocumentLauncher.launch(null);
+            } else {
+                Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
