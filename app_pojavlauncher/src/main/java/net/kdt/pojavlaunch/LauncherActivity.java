@@ -49,6 +49,7 @@ import net.kdt.pojavlaunch.utils.NotificationUtils;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 
 public class LauncherActivity extends BaseActivity {
@@ -96,18 +97,23 @@ public class LauncherActivity extends BaseActivity {
             return false;
         }
 
-        ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.global_waiting);
-        PojavApplication.sExecutorService.execute(() -> {
-            try {
-                ModLoader loaderInfo = Tools.installModPack(this, Tools.DIR_GAME_MODPACK);
-                if (loaderInfo == null) return;
-                loaderInfo.getDownloadTask(new NotificationDownloadListener(this, loaderInfo)).run();
-                Tools.DIR_GAME_MODPACK = null;
-            }catch (Exception e) {
-                Tools.DIR_GAME_MODPACK = null;
-                Tools.showErrorRemote(this, R.string.modpack_install_download_failed, e);
-            }
-        });
+        File dirGameModpack = Tools.DIR_GAME_MODPACK;
+        String suffix = dirGameModpack.getName().substring(dirGameModpack.getName().lastIndexOf('.'));
+
+        if (suffix.equals(".zip") || suffix.equals(".mrpack")) {
+            ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.global_waiting);
+            PojavApplication.sExecutorService.execute(() -> {
+                try {
+                    ModLoader loaderInfo = Tools.installModPack(this, Tools.DIR_GAME_MODPACK);
+                    if (loaderInfo == null) return;
+                    loaderInfo.getDownloadTask(new NotificationDownloadListener(this, loaderInfo)).run();
+                    Tools.DIR_GAME_MODPACK = null;
+                }catch (Exception e) {
+                    Tools.DIR_GAME_MODPACK = null;
+                    Tools.showErrorRemote(this, R.string.modpack_install_download_failed, e);
+                }
+            });
+        }
 
         return false;
     };
