@@ -21,5 +21,6 @@ public class ExtraConstants {
     public static final String LAUNCH_GAME = "launch_game";
 
     public static final String OTHER_LOGIN_TODO = "other_login_todo";
+    public static final String INSTALL_LOCAL_MODPACK = "install_local_modpack";
 
 }
