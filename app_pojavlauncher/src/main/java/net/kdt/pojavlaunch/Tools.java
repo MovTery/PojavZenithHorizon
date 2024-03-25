@@ -1324,6 +1324,8 @@ public final class Tools {
                     ModLoader modLoader = curseforgeModPack(context, zipFile, packName);
 
                     createProfiles(packName, curseManifest.name, modLoader.getVersionId());
+
+                    Tools.DIR_GAME_MODPACK = null;
                     return modLoader;
                 }
             } else if (suffix.equals(".mrpack")) { //modrinth
@@ -1335,6 +1337,7 @@ public final class Tools {
 
                 createProfiles(packName, modrinthIndex.name, modLoader.getVersionId());
 
+                Tools.DIR_GAME_MODPACK = null;
                 return modLoader;
             }
             Tools.deleteFile(zipFile); // 删除文件（虽然文件通常来说并不会很大）
