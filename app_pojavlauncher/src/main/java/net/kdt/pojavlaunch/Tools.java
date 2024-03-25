@@ -1335,10 +1335,11 @@ public final class Tools {
 
                 zipFile.delete();
                 return modLoader;
+            } else { // 不受支持的文件类型
+                zipFile.delete();
+                return null;
             }
         }
-        zipFile.delete();
-        return null;
     }
 
     private static ModLoader curseforgeModPack(Context context, File zipFile, String packName) throws Exception {
