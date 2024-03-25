@@ -47,9 +47,6 @@
     <string name="zh_neoforge_dl_no_installer">很抱歉，該版本的 NeoForge 沒有安裝程式，尚不支援</string>
     <string name="zh_neoforge_dl_select_version">選擇 NeoForge 版本</string>
     <string name="zh_modloader_dl_install_neoforge">建立 NeoForge 實例</string>
-    <string name="zh_select_modpack_search">搜索整合包</string>
-    <string name="zh_select_modpack_local">本地整合包</string>
-    <string name="zh_select_modpack_local_tip">請選擇一個啟動器支持導入的整合包文件！</string>
     <string name="zh_main_open_dir">打開主目錄</string>
     <string name="zh_preference_category_language">語言</string>
     <string name="zh_preference_category_other_features">其他功能</string>
@@ -69,6 +66,10 @@
     <string name="zh_profile_mods_disabled">成功禁用檔案：</string>
     <string name="zh_profile_mods_enable">啟用</string>
     <string name="zh_profile_mods_enabled">成功啟用檔案：</string>
+    <string name="zh_select_modpack_search">搜索整合包</string>
+    <string name="zh_select_modpack_local">本地整合包</string>
+    <string name="zh_select_modpack_local_tip">請選擇一個啟動器支持導入的整合包文件！</string>
+    <string name="zh_select_modpack_local_not_supported">此檔案不受啟動器支援！</string>
     <string name="zh_setting_set_to_chinese_desc">在遊戲首次啟動時，自動將語言設置為中文</string>
     <string name="zh_setting_set_to_chinese_title">自動設置為中文</string>
     <string name="zh_setting_enable_log_output_desc">在應用正式開始運行遊戲時，開啟日誌輸出界面</string>
