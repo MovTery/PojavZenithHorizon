@@ -57,11 +57,6 @@ public class SelectModPackFragment extends Fragment {
         view.findViewById(R.id.zh_modpack_button_local_modpack).setOnClickListener(v -> {
             Toast.makeText(requireActivity(), getString(R.string.zh_select_modpack_local_tip), Toast.LENGTH_SHORT).show();
             openDocumentLauncher.launch(null);
-            try {
-                Tools.installModPack(requireContext(), modPackFile);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
         });
     }
 
@@ -86,6 +81,16 @@ public class SelectModPackFragment extends Fragment {
                 e.printStackTrace();
             }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            try {
+                Tools.installModPack(requireContext(), modPackFile);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
