@@ -99,6 +99,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 @SuppressWarnings("IOStreamConstructor")
@@ -1316,17 +1317,20 @@ public final class Tools {
             String packName = zipName.substring(0, zipName.lastIndexOf('.'));
             String suffix = zipName.substring(zipName.lastIndexOf('.'));
             if (suffix.equals(".zip")) {
-                CurseManifest curseManifest = Tools.GLOBAL_GSON.fromJson(
-                        Tools.read(ZipUtils.getEntryStream(modpackZipFile, "manifest.json")),
-                        CurseManifest.class);
+                ZipEntry entry = modpackZipFile.getEntry("manifest.json");
+                if (entry != null) {
+                    CurseManifest curseManifest = Tools.GLOBAL_GSON.fromJson(
+                            Tools.read(modpackZipFile.getInputStream(entry)),
+                            CurseManifest.class);
 
-                if(verifyManifest(curseManifest)) { // 判断是否为curseforge整合包的办法
-                    ModLoader modLoader = curseforgeModPack(context, zipFile, packName);
+                    if(verifyManifest(curseManifest)) { // 判断是否为curseforge整合包的办法
+                        ModLoader modLoader = curseforgeModPack(context, zipFile, packName);
 
-                    createProfiles(packName, curseManifest.name, modLoader.getVersionId());
+                        createProfiles(packName, curseManifest.name, modLoader.getVersionId());
 
-                    Tools.DIR_GAME_MODPACK = null;
-                    return modLoader;
+                        Tools.DIR_GAME_MODPACK = null;
+                        return modLoader;
+                    }
                 }
             } else if (suffix.equals(".mrpack")) { //modrinth
                 ModrinthIndex modrinthIndex = Tools.GLOBAL_GSON.fromJson(
@@ -1340,6 +1344,7 @@ public final class Tools {
                 Tools.DIR_GAME_MODPACK = null;
                 return modLoader;
             }
+            runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_select_modpack_local_not_supported), Toast.LENGTH_SHORT).show());
             Tools.deleteFile(zipFile); // 删除文件（虽然文件通常来说并不会很大）
             Tools.DIR_GAME_MODPACK = null;
             return null;
