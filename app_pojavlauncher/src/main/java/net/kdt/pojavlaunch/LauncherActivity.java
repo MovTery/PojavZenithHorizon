@@ -1,16 +1,11 @@
 package net.kdt.pojavlaunch;
 
-import static net.kdt.pojavlaunch.Tools.getFileName;
-
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -52,11 +47,6 @@ import net.kdt.pojavlaunch.utils.NotificationUtils;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 
 public class LauncherActivity extends BaseActivity {
@@ -72,8 +62,6 @@ public class LauncherActivity extends BaseActivity {
     private ProgressServiceKeeper mProgressServiceKeeper;
     private ModloaderInstallTracker mInstallTracker;
     private NotificationManager mNotificationManager;
-    private ActivityResultLauncher<Object> openDocumentLauncher;
-    private File modPackFile;
 
     /* Allows to switch from one button "type" to another */
     private final FragmentManager.FragmentLifecycleCallbacks mFragmentCallbackListener = new FragmentManager.FragmentLifecycleCallbacks() {
@@ -97,23 +85,6 @@ public class LauncherActivity extends BaseActivity {
         if(!(fragment instanceof MainMenuFragment)) return false;
 
         Tools.swapFragment(this, SelectAuthFragment.class, SelectAuthFragment.TAG, true, null);
-        return false;
-    };
-
-    private final ExtraListener<Boolean> mInstallLocalModpack = (key, value) -> {
-        if(mProgressLayout.hasProcesses()){
-            Toast.makeText(this, R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
-            return false;
-        }
-
-        Toast.makeText(this, getString(R.string.zh_select_modpack_local_tip), Toast.LENGTH_SHORT).show();
-        openDocumentLauncher.launch(null);
-
-        try {
-            Tools.installModPack(this, modPackFile);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
         return false;
     };
 
@@ -213,8 +184,6 @@ public class LauncherActivity extends BaseActivity {
 
         ExtraCore.addExtraListener(ExtraConstants.LAUNCH_GAME, mLaunchGameListener);
 
-        ExtraCore.addExtraListener(ExtraConstants.INSTALL_LOCAL_MODPACK, mInstallLocalModpack);
-
         new AsyncVersionList().getVersionList(versions -> ExtraCore.setValue(ExtraConstants.RELEASE_TABLE, versions), false);
 
         mInstallTracker = new ModloaderInstallTracker(this);
@@ -224,17 +193,6 @@ public class LauncherActivity extends BaseActivity {
         mProgressLayout.observe(ProgressLayout.INSTALL_MODPACK);
         mProgressLayout.observe(ProgressLayout.AUTHENTICATE_MICROSOFT);
         mProgressLayout.observe(ProgressLayout.DOWNLOAD_VERSION_LIST);
-
-        openDocumentLauncher = registerForActivityResult(
-                new OpenDocumentWithExtension(null),
-                result -> {
-                    if (result != null) {
-                        Toast.makeText(this, getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
-                        //使用AsyncTask在后台线程中执行文件复制
-                        new CopyModPackFile().execute(result);
-                    }
-                }
-        );
     }
 
     @Override
@@ -271,7 +229,6 @@ public class LauncherActivity extends BaseActivity {
         ExtraCore.removeExtraListenerFromValue(ExtraConstants.BACK_PREFERENCE, mBackPreferenceListener);
         ExtraCore.removeExtraListenerFromValue(ExtraConstants.SELECT_AUTH_METHOD, mSelectAuthMethod);
         ExtraCore.removeExtraListenerFromValue(ExtraConstants.LAUNCH_GAME, mLaunchGameListener);
-        ExtraCore.removeExtraListenerFromValue(ExtraConstants.INSTALL_LOCAL_MODPACK, mInstallLocalModpack);
 
         getSupportFragmentManager().unregisterFragmentLifecycleCallbacks(mFragmentCallbackListener);
     }
@@ -371,29 +328,5 @@ public class LauncherActivity extends BaseActivity {
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    private class CopyModPackFile extends AsyncTask<Uri, Void, Void> {
-        @Override
-        protected Void doInBackground(Uri... uris) {
-            Uri fileUri = uris[0];
-            String fileName = getFileName(getApplicationContext(), fileUri);
-            modPackFile = new File(Tools.DIR_CACHE, fileName);
-            try (InputStream inputStream = getApplicationContext().getContentResolver().openInputStream(fileUri)) {
-                if (inputStream != null) {
-                    try (OutputStream outputStream = new FileOutputStream(modPackFile)) {
-                        byte[] buffer = new byte[1024];
-                        int bytesRead;
-                        while ((bytesRead = inputStream.read(buffer)) != -1) {
-                            outputStream.write(buffer, 0, bytesRead);
-                        }
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
     }
 }
