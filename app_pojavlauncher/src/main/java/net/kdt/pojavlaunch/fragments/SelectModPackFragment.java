@@ -93,11 +93,7 @@ public class SelectModPackFragment extends Fragment {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             Tools.DIR_GAME_MODPACK = modPackFile;
-            try {
-                ExtraCore.setValue(ExtraConstants.INSTALL_LOCAL_MODPACK, true);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            ExtraCore.setValue(ExtraConstants.INSTALL_LOCAL_MODPACK, true);
         }
     }
 }

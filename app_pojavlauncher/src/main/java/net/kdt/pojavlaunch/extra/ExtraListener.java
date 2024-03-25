@@ -15,6 +15,6 @@ public interface ExtraListener<T> {
      * @return Whether you consume the Listener (stop listening)
      */
     @SuppressWarnings("SameReturnValue")
-    boolean onValueSet(String key, @NonNull T value) throws Exception;
+    boolean onValueSet(String key, @NonNull T value);
 
 }
