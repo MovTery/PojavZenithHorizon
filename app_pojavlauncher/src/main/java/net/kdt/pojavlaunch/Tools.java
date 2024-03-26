@@ -1313,59 +1313,55 @@ public final class Tools {
         System.gc();
     }
 
-    public static ModLoader installModPack(Context context, File zipFile) throws Exception {
+    public static ModLoader installModPack(Context context, int type, File zipFile) throws Exception {
         try (ZipFile modpackZipFile = new ZipFile(zipFile)) {
             String zipName = zipFile.getName();
             String packName = zipName.substring(0, zipName.lastIndexOf('.'));
-            String suffix = zipName.substring(zipName.lastIndexOf('.'));
-            if (suffix.equals(".zip")) {
-                ZipEntry mcbbsEntry = modpackZipFile.getEntry("mcbbs.packmeta");
-                ZipEntry curseforgeEntry = modpackZipFile.getEntry("manifest.json");
-                if (mcbbsEntry == null && curseforgeEntry != null) {
+            ModLoader modLoader;
+            switch (type) {
+                case 1: //curseforge
+                    ZipEntry curseforgeEntry = modpackZipFile.getEntry("manifest.json");
                     CurseManifest curseManifest = Tools.GLOBAL_GSON.fromJson(
                             Tools.read(modpackZipFile.getInputStream(curseforgeEntry)),
                             CurseManifest.class);
 
-                    if(verifyManifest(curseManifest)) { // 判断是否为curseforge整合包的办法
-                        ModLoader modLoader = curseforgeModPack(context, zipFile, packName);
+                    modLoader = curseforgeModPack(context, zipFile, packName);
+                    createProfiles(packName, curseManifest.name, modLoader.getVersionId());
 
-                        createProfiles(packName, curseManifest.name, modLoader.getVersionId());
+                    Tools.DIR_GAME_MODPACK = null;
+                    return modLoader;
+                case 2: //mcbbs
+                    ZipEntry mcbbsEntry = modpackZipFile.getEntry("mcbbs.packmeta");
 
-                        Tools.DIR_GAME_MODPACK = null;
-                        return modLoader;
-                    }
-                } else if (mcbbsEntry != null) {
                     MCBBSPackMeta mcbbsPackMeta = Tools.GLOBAL_GSON.fromJson(
                             Tools.read(modpackZipFile.getInputStream(mcbbsEntry)),
                             MCBBSPackMeta.class);
 
-                    ModLoader modLoader = mcbbsModPack(zipFile, packName);
-
+                    modLoader = mcbbsModPack(zipFile, packName);
                     createProfiles(packName, mcbbsPackMeta.name, modLoader.getVersionId());
 
                     Tools.DIR_GAME_MODPACK = null;
                     return modLoader;
-                }
-            } else if (suffix.equals(".mrpack")) { //modrinth
-                ModrinthIndex modrinthIndex = Tools.GLOBAL_GSON.fromJson(
-                        Tools.read(ZipUtils.getEntryStream(modpackZipFile, "modrinth.index.json")),
-                        ModrinthIndex.class); // 用于获取创建实例所需的数据
+                case 3: // modrinth
+                    ModrinthIndex modrinthIndex = Tools.GLOBAL_GSON.fromJson(
+                            Tools.read(ZipUtils.getEntryStream(modpackZipFile, "modrinth.index.json")),
+                            ModrinthIndex.class); // 用于获取创建实例所需的数据
 
-                ModLoader modLoader = modrinthModPack(zipFile, packName);
+                    modLoader = modrinthModPack(zipFile, packName);
+                    createProfiles(packName, modrinthIndex.name, modLoader.getVersionId());
 
-                createProfiles(packName, modrinthIndex.name, modLoader.getVersionId());
-
-                Tools.DIR_GAME_MODPACK = null;
-                return modLoader;
+                    Tools.DIR_GAME_MODPACK = null;
+                    return modLoader;
+                default:
+                    runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_select_modpack_local_not_supported), Toast.LENGTH_SHORT).show());
+                    Tools.deleteFile(zipFile); // 删除文件（虽然文件通常来说并不会很大）
+                    Tools.DIR_GAME_MODPACK = null;
+                    return null;
             }
-            runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_select_modpack_local_not_supported), Toast.LENGTH_SHORT).show());
-            Tools.deleteFile(zipFile); // 删除文件（虽然文件通常来说并不会很大）
-            Tools.DIR_GAME_MODPACK = null;
-            return null;
         }
     }
 
-    public static boolean determineModpack(File modpack) throws Exception {
+    public static int determineModpack(File modpack) throws Exception {
         String zipName = modpack.getName();
         String suffix = zipName.substring(zipName.lastIndexOf('.'));
         try (ZipFile modpackZipFile = new ZipFile(modpack)) {
@@ -1376,24 +1372,23 @@ public final class Tools {
                     CurseManifest curseManifest = Tools.GLOBAL_GSON.fromJson(
                             Tools.read(modpackZipFile.getInputStream(curseforgeEntry)),
                             CurseManifest.class);
-                    return verifyManifest(curseManifest);
+                    if (verifyManifest(curseManifest)) return 1; //curseforge
                 } else if (mcbbsEntry != null) {
                     MCBBSPackMeta mcbbsPackMeta = Tools.GLOBAL_GSON.fromJson(
                             Tools.read(modpackZipFile.getInputStream(mcbbsEntry)),
                             MCBBSPackMeta.class);
-                    return verifyMCBBSPackMeta(mcbbsPackMeta);
+                    if (verifyMCBBSPackMeta(mcbbsPackMeta)) return 2; // mcbbs
                 }
-                return false;
             } else if(suffix.equals(".mrpack")) {
                 ZipEntry entry = modpackZipFile.getEntry("modrinth.index.json");
                 if (entry != null) {
                     ModrinthIndex modrinthIndex = Tools.GLOBAL_GSON.fromJson(
                             Tools.read(modpackZipFile.getInputStream(entry)),
                             ModrinthIndex.class);
-                    return verifyModrinthIndex(modrinthIndex);
+                    if (verifyModrinthIndex(modrinthIndex)) return 3; //modrinth
                 }
             }
-            return false;
+            return 0;
         }
     }
 
