@@ -74,8 +74,8 @@ public class LauncherActivity extends BaseActivity {
             mSettingsButton.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), bl
                     ? R.drawable.ic_menu_settings : R.drawable.ic_menu_home));
 
-            if (bl) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            if (bl && fragmentManager.getBackStackEntryCount() > 1) {
                 fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 Tools.swapFragment(f.getActivity(), MainMenuFragment.class, MainMenuFragment.TAG, false, null);
             }
