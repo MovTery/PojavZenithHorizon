@@ -27,7 +27,7 @@ public class MCBBSApi {
     public MCBBSApi() {
     }
 
-    public ModLoader installCurseforgeZip(File zipFile, File instanceDestination) throws IOException {
+    public ModLoader installMCBBSZip(File zipFile, File instanceDestination) throws IOException {
         try (ZipFile modpackZipFile = new ZipFile(zipFile)){
             MCBBSPackMeta mcbbsPackMeta = Tools.GLOBAL_GSON.fromJson(
                     Tools.read(ZipUtils.getEntryStream(modpackZipFile, "mcbbs.packmeta")),
@@ -36,6 +36,7 @@ public class MCBBSApi {
                 return null;
             }
             ProgressLayout.setProgress(ProgressLayout.DOWNLOAD_MINECRAFT, 0, R.string.newdl_starting);
+            runOnUiThread(() -> ProgressLayout.setProgress(ProgressLayout.DOWNLOAD_MINECRAFT, 0, R.string.zh_select_modpack_local_installing_files, 0));
 
             String overridesDir = "overrides";
             Enumeration<? extends ZipEntry> zipEntries = modpackZipFile.entries();
@@ -60,9 +61,8 @@ public class MCBBSApi {
 
                 int fileCount = fileCounters.getAndIncrement();
                 int progress = (int) ((entrySize * 100L) / totalFileSize); // 计算进度
-                double finalEntrySize = entrySize;
                 runOnUiThread(() -> ProgressLayout.setProgress(ProgressLayout.DOWNLOAD_MINECRAFT, progress,
-                        R.string.zh_select_modpack_local_installing_files, fileCount, finalEntrySize));
+                        R.string.zh_select_modpack_local_installing_files, fileCount));
             }
 
             runOnUiThread(() -> ProgressLayout.clearProgress(ProgressLayout.DOWNLOAD_MINECRAFT));

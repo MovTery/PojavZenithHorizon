@@ -1409,7 +1409,7 @@ public final class Tools {
 
     private static ModLoader mcbbsModPack(File zipFile, String packName) throws Exception {
         MCBBSApi mcbbsApi = new MCBBSApi();
-        return mcbbsApi.installCurseforgeZip(zipFile, new File(Tools.DIR_GAME_HOME, "custom_instances/" + packName));
+        return mcbbsApi.installMCBBSZip(zipFile, new File(Tools.DIR_GAME_HOME, "custom_instances/" + packName));
     }
 
     private static void createProfiles(String modpackName, String profileName, String versionId) {
