@@ -55,9 +55,11 @@ import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutorTask;
 import net.kdt.pojavlaunch.lifecycle.LifecycleAwareAlertDialog;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.CurseforgeApi;
+import net.kdt.pojavlaunch.modloaders.modpacks.api.MCBBSApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModLoader;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModrinthApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.CurseManifest;
+import net.kdt.pojavlaunch.modloaders.modpacks.models.MCBBSPackMeta;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModrinthIndex;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 import net.kdt.pojavlaunch.multirt.Runtime;
@@ -1317,10 +1319,11 @@ public final class Tools {
             String packName = zipName.substring(0, zipName.lastIndexOf('.'));
             String suffix = zipName.substring(zipName.lastIndexOf('.'));
             if (suffix.equals(".zip")) {
-                ZipEntry entry = modpackZipFile.getEntry("manifest.json");
-                if (entry != null) {
+                ZipEntry mcbbsEntry = modpackZipFile.getEntry("mcbbs.packmeta");
+                ZipEntry curseforgeEntry = modpackZipFile.getEntry("manifest.json");
+                if (mcbbsEntry == null && curseforgeEntry != null) {
                     CurseManifest curseManifest = Tools.GLOBAL_GSON.fromJson(
-                            Tools.read(modpackZipFile.getInputStream(entry)),
+                            Tools.read(modpackZipFile.getInputStream(curseforgeEntry)),
                             CurseManifest.class);
 
                     if(verifyManifest(curseManifest)) { // 判断是否为curseforge整合包的办法
@@ -1331,6 +1334,17 @@ public final class Tools {
                         Tools.DIR_GAME_MODPACK = null;
                         return modLoader;
                     }
+                } else if (mcbbsEntry != null) {
+                    MCBBSPackMeta mcbbsPackMeta = Tools.GLOBAL_GSON.fromJson(
+                            Tools.read(modpackZipFile.getInputStream(mcbbsEntry)),
+                            MCBBSPackMeta.class);
+
+                    ModLoader modLoader = mcbbsModPack(zipFile, packName);
+
+                    createProfiles(packName, mcbbsPackMeta.name, modLoader.getVersionId());
+
+                    Tools.DIR_GAME_MODPACK = null;
+                    return modLoader;
                 }
             } else if (suffix.equals(".mrpack")) { //modrinth
                 ModrinthIndex modrinthIndex = Tools.GLOBAL_GSON.fromJson(
@@ -1356,12 +1370,18 @@ public final class Tools {
         String suffix = zipName.substring(zipName.lastIndexOf('.'));
         try (ZipFile modpackZipFile = new ZipFile(modpack)) {
             if (suffix.equals(".zip")) {
-                ZipEntry entry = modpackZipFile.getEntry("manifest.json");
-                if (entry != null) {
+                ZipEntry mcbbsEntry = modpackZipFile.getEntry("mcbbs.packmeta");
+                ZipEntry curseforgeEntry = modpackZipFile.getEntry("manifest.json");
+                if (mcbbsEntry == null && curseforgeEntry != null) {
                     CurseManifest curseManifest = Tools.GLOBAL_GSON.fromJson(
-                            Tools.read(modpackZipFile.getInputStream(entry)),
+                            Tools.read(modpackZipFile.getInputStream(curseforgeEntry)),
                             CurseManifest.class);
                     return verifyManifest(curseManifest);
+                } else if (mcbbsEntry != null) {
+                    MCBBSPackMeta mcbbsPackMeta = Tools.GLOBAL_GSON.fromJson(
+                            Tools.read(modpackZipFile.getInputStream(mcbbsEntry)),
+                            MCBBSPackMeta.class);
+                    return verifyMCBBSPackMeta(mcbbsPackMeta);
                 }
                 return false;
             } else if(suffix.equals(".mrpack")) {
@@ -1387,6 +1407,11 @@ public final class Tools {
         return modrinthApi.installMrpack(zipFile, new File(Tools.DIR_GAME_HOME, "custom_instances/" + packName));
     }
 
+    private static ModLoader mcbbsModPack(File zipFile, String packName) throws Exception {
+        MCBBSApi mcbbsApi = new MCBBSApi();
+        return mcbbsApi.installCurseforgeZip(zipFile, new File(Tools.DIR_GAME_HOME, "custom_instances/" + packName));
+    }
+
     private static void createProfiles(String modpackName, String profileName, String versionId) {
         MinecraftProfile profile = new MinecraftProfile();
         profile.gameDir = "./custom_instances/" + modpackName;
@@ -1410,5 +1435,13 @@ public final class Tools {
         if(!"minecraft".equals(modrinthIndex.game)) return false;
         if(modrinthIndex.formatVersion != 1) return false;
         return modrinthIndex.dependencies != null;
+    }
+
+    public static boolean verifyMCBBSPackMeta(MCBBSPackMeta mcbbsPackMeta) { //检测是否为MCBBS整合包(通过mcbbs.packmeta内的数据进行判断)
+        if(!"minecraftModpack".equals(mcbbsPackMeta.manifestType)) return false;
+        if(mcbbsPackMeta.manifestVersion != 2) return false;
+        if(mcbbsPackMeta.addons == null) return false;
+        if(mcbbsPackMeta.addons[0].id == null) return false;
+        return (mcbbsPackMeta.addons[0].version != null);
     }
 }
