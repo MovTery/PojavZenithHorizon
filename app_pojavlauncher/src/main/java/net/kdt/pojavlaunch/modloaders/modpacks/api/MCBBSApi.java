@@ -35,7 +35,7 @@ public class MCBBSApi {
                 return null;
             }
             ProgressLayout.setProgress(ProgressLayout.DOWNLOAD_MINECRAFT, 0, R.string.newdl_starting);
-            int zipSize = modpackZipFile.size();
+            double zipSize = modpackZipFile.size();
 
             String overridesDir = "overrides";
             Enumeration<? extends ZipEntry> zipEntries = modpackZipFile.entries();
@@ -46,7 +46,7 @@ public class MCBBSApi {
                 ZipEntry zipEntry = zipEntries.nextElement();
                 String entryName = zipEntry.getName();
                 if(!entryName.startsWith(overridesDir) || zipEntry.isDirectory()) continue;
-                int entrySize = (int) zipEntry.getSize();
+                double entrySize = zipEntry.getSize();
 
                 File zipDestination = new File(instanceDestination, entryName.substring(dirNameLen));
                 FileUtils.ensureParentDirectory(zipDestination);
