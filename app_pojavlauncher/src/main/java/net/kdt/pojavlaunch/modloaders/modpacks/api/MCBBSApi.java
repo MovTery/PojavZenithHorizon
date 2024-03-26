@@ -40,17 +40,10 @@ public class MCBBSApi {
             String overridesDir = "overrides";
             Enumeration<? extends ZipEntry> zipEntries = modpackZipFile.entries();
 
-            int totalNumberFiles = 0;
-            while (zipEntries.hasMoreElements()) {
-                ZipEntry entry = zipEntries.nextElement();
-                if (!entry.isDirectory()) {
-                    totalNumberFiles++;
-                }
-            }
-            final int files = totalNumberFiles; //总文件数量 files
-
             double entrySize = 0.0d; //文件大小计数
             AtomicInteger fileCounters = new AtomicInteger(); //文件数量计数
+            final double totalFileSize = zipFile.length(); //文件总大小
+
             int dirNameLen = overridesDir.length();
             while(zipEntries.hasMoreElements()) {
                 ZipEntry zipEntry = zipEntries.nextElement();
@@ -66,7 +59,7 @@ public class MCBBSApi {
                 }
 
                 int fileCount = fileCounters.getAndIncrement();
-                int progress = (int) ((fileCount * 100L) / files);
+                int progress = (int) ((entrySize * 100L) / totalFileSize); // 计算进度
                 double finalEntrySize = entrySize;
                 runOnUiThread(() -> ProgressLayout.setProgress(ProgressLayout.DOWNLOAD_MINECRAFT, progress,
                         R.string.zh_select_modpack_local_installing_files, fileCount, finalEntrySize));
