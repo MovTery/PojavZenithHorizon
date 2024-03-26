@@ -70,7 +70,7 @@
     <string name="zh_select_modpack_local">本地整合包</string>
     <string name="zh_select_modpack_local_tip">请选择一个启动器支持导入的整合包文件！</string>
     <string name="zh_select_modpack_local_not_supported">此文件不受启动器支持！</string>
-    <string name="zh_select_modpack_local_installing_files">安装游戏文件中… (%d, %.2f MB)</string>
+    <string name="zh_select_modpack_local_installing_files">安装游戏文件中… (%d)</string>
     <string name="zh_setting_set_to_chinese_desc">在游戏首次启动时，自动将语言设置为中文</string>
     <string name="zh_setting_set_to_chinese_title">自动设置为中文</string>
     <string name="zh_setting_enable_log_output_desc">在应用正式开始运行游戏时，开启日志输出界面</string>
