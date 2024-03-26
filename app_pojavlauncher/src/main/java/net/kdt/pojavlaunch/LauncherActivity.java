@@ -74,15 +74,10 @@ public class LauncherActivity extends BaseActivity {
             mSettingsButton.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), bl
                     ? R.drawable.ic_menu_settings : R.drawable.ic_menu_home));
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            if (bl && fragmentManager.getBackStackEntryCount() > 0) { // 移除除了MainMenuFragment的所有Fragment（解决动画闪烁问题）
-                for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
-                    Fragment fragment = fragmentManager.findFragmentByTag(fragmentManager.getBackStackEntryAt(i).getName());
-                    if (!(fragment instanceof MainMenuFragment)) {
-                        fragmentManager.popBackStack();
-                        i--;
-                    }
-                }
+            if (bl) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                Tools.swapFragment(f.getActivity(), MainMenuFragment.class, MainMenuFragment.TAG, false, null);
             }
         }
     };
