@@ -55,7 +55,13 @@ public class SelectModPackFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.zh_modpack_button_search_modpack).setOnClickListener(v -> Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, false, null));
+        view.findViewById(R.id.zh_modpack_button_search_modpack).setOnClickListener(v -> {
+            if (Tools.DIR_GAME_MODPACK == null) {
+                Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, false, null);
+            } else {
+                Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
+            }
+        });
         view.findViewById(R.id.zh_modpack_button_local_modpack).setOnClickListener(v -> {
             if (Tools.DIR_GAME_MODPACK == null) {
                 Toast.makeText(requireActivity(), getString(R.string.zh_select_modpack_local_tip), Toast.LENGTH_SHORT).show();
@@ -94,6 +100,7 @@ public class SelectModPackFragment extends Fragment {
             super.onPostExecute(result);
             Tools.DIR_GAME_MODPACK = modPackFile.getAbsolutePath();
             ExtraCore.setValue(ExtraConstants.INSTALL_LOCAL_MODPACK, true);
+            requireActivity().onBackPressed();
         }
     }
 }

@@ -70,8 +70,20 @@ public class LauncherActivity extends BaseActivity {
     private final FragmentManager.FragmentLifecycleCallbacks mFragmentCallbackListener = new FragmentManager.FragmentLifecycleCallbacks() {
         @Override
         public void onFragmentResumed(@NonNull FragmentManager fm, @NonNull Fragment f) {
-            mSettingsButton.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), f instanceof MainMenuFragment
+            boolean bl = (f instanceof MainMenuFragment);
+            mSettingsButton.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), bl
                     ? R.drawable.ic_menu_settings : R.drawable.ic_menu_home));
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            if (bl && fragmentManager.getBackStackEntryCount() > 0) { // 移除除了MainMenuFragment的所有Fragment（解决动画闪烁问题）
+                for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
+                    Fragment fragment = fragmentManager.findFragmentByTag(fragmentManager.getBackStackEntryAt(i).getName());
+                    if (!(fragment instanceof MainMenuFragment)) {
+                        fragmentManager.popBackStack();
+                        i--;
+                    }
+                }
+            }
         }
     };
 
