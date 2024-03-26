@@ -72,6 +72,7 @@
     <string name="zh_select_modpack_local">Local modpack</string>
     <string name="zh_select_modpack_local_tip">Please select a modpack file that can be imported by the launcher!</string>
     <string name="zh_select_modpack_local_not_supported">This file is not supported by the launcher!</string>
+    <string name="zh_select_modpack_local_installing_files">Installing game files… (%.2f MB / %.2f MB)</string>
     <string name="zh_setting_set_to_chinese_desc">On first launch, automatically set game language to Chinese</string>
     <string name="zh_setting_set_to_chinese_title">Automatically set to Chinese</string>
     <string name="zh_setting_enable_log_output_desc">Enable the log output interface when the application officially starts running the game</string>
@@ -295,7 +296,7 @@
     <string name="multirt_config_add">Add new</string>
     <string name="multirt_title">Runtime Manager</string>
     <string name="multirt_subtitle">Manage installed Java Runtimes.</string>
-    <string name="multirt_progress_caching">Caching...</string>
+    <string name="multirt_progress_caching">Caching…</string>
     <string name="multirt_config_setdefault">Set default</string>
     <string name="multirt_config_setdefault_already">Default</string>
     <string name="multirt_config_removeerror_last">You must have at least one Java Runtime installed.</string>
