@@ -436,7 +436,7 @@
 
     <string name="modpack_download_downloading_metadata">正在下載整合包元數據（%.2fMB / %.2fMB）</string>
     <string name="modpack_download_downloading_mods">正在下載模組（%.2fMB / %.2fMB）</string>
-    <string name="modpack_download_downloading_mods_fc">正在下載模組（檔案%d中的%d）</string>
+    <string name="modpack_download_downloading_mods_fc">正在下載模組（已下載檔案：%d，總檔案數：%d）</string>
     <string name="modpack_download_applying_overrides">正在應用覆蓋（%d/%d）</string>
     <string name="modpack_install_notification_title">Pojav 整合包安裝器</string>
     <string name="modpack_install_notification_success">點擊此處完成整合包安裝</string>

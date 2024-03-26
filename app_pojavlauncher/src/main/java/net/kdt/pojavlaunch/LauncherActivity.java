@@ -98,29 +98,28 @@ public class LauncherActivity extends BaseActivity {
         }
 
         File dirGameModpackFile = new File(Tools.DIR_GAME_MODPACK);
-        boolean support;
+        int type;
         try {
-            support = Tools.determineModpack(dirGameModpackFile);
+            type = Tools.determineModpack(dirGameModpackFile);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        if (support) {
+        if (type != 0) {
             ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.global_waiting);
             PojavApplication.sExecutorService.execute(() -> {
                 try {
-                    ModLoader loaderInfo = Tools.installModPack(this, dirGameModpackFile);
+                    ModLoader loaderInfo = Tools.installModPack(this, type, dirGameModpackFile);
                     if (loaderInfo == null) return;
                     loaderInfo.getDownloadTask(new NotificationDownloadListener(this, loaderInfo)).run();
                 }catch (Exception e) {
                     Tools.DIR_GAME_MODPACK = null;
                     Tools.showErrorRemote(this, R.string.modpack_install_download_failed, e);
                 }
+                ProgressLayout.clearProgress(ProgressLayout.INSTALL_MODPACK);
             });
-        } else runOnUiThread(() -> {
-            Toast.makeText(this, getString(R.string.zh_select_modpack_local_not_supported), Toast.LENGTH_SHORT).show();
-            Tools.DIR_GAME_MODPACK = null;
-        });
+        } else runOnUiThread(() -> Toast.makeText(this, getString(R.string.zh_select_modpack_local_not_supported), Toast.LENGTH_SHORT).show());
+        Tools.DIR_GAME_MODPACK = null;
 
         return false;
     };
