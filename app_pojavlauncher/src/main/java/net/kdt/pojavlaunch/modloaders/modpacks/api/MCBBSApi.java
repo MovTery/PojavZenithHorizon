@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Enumeration;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -35,18 +36,27 @@ public class MCBBSApi {
                 return null;
             }
             ProgressLayout.setProgress(ProgressLayout.DOWNLOAD_MINECRAFT, 0, R.string.newdl_starting);
-            double zipSize = modpackZipFile.size();
 
             String overridesDir = "overrides";
             Enumeration<? extends ZipEntry> zipEntries = modpackZipFile.entries();
 
-            int dirNameLen = overridesDir.length();
+            int totalNumberFiles = 0;
+            while (zipEntries.hasMoreElements()) {
+                ZipEntry entry = zipEntries.nextElement();
+                if (!entry.isDirectory()) {
+                    totalNumberFiles++;
+                }
+            }
+            final int files = totalNumberFiles; //总文件数量 files
 
+            double entrySize = 0.0d; //文件大小计数
+            AtomicInteger fileCounters = new AtomicInteger(); //文件数量计数
+            int dirNameLen = overridesDir.length();
             while(zipEntries.hasMoreElements()) {
                 ZipEntry zipEntry = zipEntries.nextElement();
                 String entryName = zipEntry.getName();
                 if(!entryName.startsWith(overridesDir) || zipEntry.isDirectory()) continue;
-                double entrySize = zipEntry.getSize();
+                entrySize += zipEntry.getSize();
 
                 File zipDestination = new File(instanceDestination, entryName.substring(dirNameLen));
                 FileUtils.ensureParentDirectory(zipDestination);
@@ -55,10 +65,11 @@ public class MCBBSApi {
                     IOUtils.copy(inputStream, outputStream);
                 }
 
-                int progress = (int) ((entrySize * 100L) / zipSize);
+                int fileCount = fileCounters.getAndIncrement();
+                int progress = (int) ((fileCount * 100L) / files);
+                double finalEntrySize = entrySize;
                 runOnUiThread(() -> ProgressLayout.setProgress(ProgressLayout.DOWNLOAD_MINECRAFT, progress,
-                        R.string.zh_select_modpack_local_installing_files, entrySize,
-                        zipSize));
+                        R.string.zh_select_modpack_local_installing_files, fileCount, finalEntrySize));
             }
 
             runOnUiThread(() -> ProgressLayout.clearProgress(ProgressLayout.DOWNLOAD_MINECRAFT));
