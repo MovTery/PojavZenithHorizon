@@ -61,6 +61,7 @@ public class MCBBSApi {
                         zipSize));
             }
 
+            runOnUiThread(() -> ProgressLayout.clearProgress(ProgressLayout.DOWNLOAD_MINECRAFT));
             return createInfo(mcbbsPackMeta.addons);
         }
     }
