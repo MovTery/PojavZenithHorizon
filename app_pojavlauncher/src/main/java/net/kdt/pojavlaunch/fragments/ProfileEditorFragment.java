@@ -1,6 +1,6 @@
 package net.kdt.pojavlaunch.fragments;
 
-import static net.kdt.pojavlaunch.Tools.getGameDirPath;
+import static net.kdt.pojavlaunch.PojavZHTools.getGameDirPath;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -28,6 +28,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
@@ -95,7 +96,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         List<String> renderList = new ArrayList<>(renderersList.rendererDisplayNames.length + 1);
         renderList.addAll(Arrays.asList(renderersList.rendererDisplayNames));
         renderList.add(view.getContext().getString(R.string.global_default));
-        mDefaultRenderer.setAdapter(new ArrayAdapter<>(getContext(), R.layout.item_simple_list_1, renderList));
+        mDefaultRenderer.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.item_simple_list_1, renderList));
 
         // Set up behaviors
         mSaveButton.setOnClickListener(v -> {
@@ -159,7 +160,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         });
 
         mGameDirButton.setOnClickListener(v -> {
-            File dir = new File(Tools.DIR_GAME_DEFAULT);
+            File dir = new File(PojavZHTools.DIR_GAME_DEFAULT);
             if (!dir.exists()) dir.mkdirs();
             Bundle bundle = new Bundle(2);
             bundle.putBoolean(FileSelectorFragment.BUNDLE_SELECT_FOLDER, true);

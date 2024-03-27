@@ -1,6 +1,6 @@
 package net.kdt.pojavlaunch.profiles;
 
-import static net.kdt.pojavlaunch.Tools.getGameDirPath;
+import static net.kdt.pojavlaunch.PojavZHTools.getGameDirPath;
 
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;

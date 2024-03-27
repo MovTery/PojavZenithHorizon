@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
+import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
@@ -37,7 +38,7 @@ public class FileSelectorFragment extends Fragment {
     private boolean mShowFiles = true;
     private boolean mShowFolders = true;
     private String mRootPath = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
-            ? Tools.DIR_GAME_DEFAULT
+            ? PojavZHTools.DIR_GAME_DEFAULT
             : Environment.getExternalStorageDirectory().getAbsolutePath();
 
 

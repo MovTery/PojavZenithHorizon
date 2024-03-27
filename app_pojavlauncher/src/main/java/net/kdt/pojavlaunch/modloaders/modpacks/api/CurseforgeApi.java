@@ -10,6 +10,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.kdt.mcgui.ProgressLayout;
 
+import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.Constants;
@@ -263,7 +264,7 @@ public class CurseforgeApi implements ModpackApi{
     }
 
     private boolean verifyManifest(CurseManifest manifest) {
-        return Tools.verifyManifest(manifest);
+        return PojavZHTools.verifyManifest(manifest);
     }
 
     static class CurseforgeSearchResult extends SearchResult {

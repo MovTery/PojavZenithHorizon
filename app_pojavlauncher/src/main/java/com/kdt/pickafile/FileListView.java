@@ -1,7 +1,6 @@
 package com.kdt.pickafile;
 
-import static net.kdt.pojavlaunch.Tools.deleteDir;
-import static net.kdt.pojavlaunch.Tools.shareFile;
+import static net.kdt.pojavlaunch.PojavZHTools.deleteDir;
 
 import androidx.appcompat.app.*;
 import android.content.*;

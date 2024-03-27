@@ -98,10 +98,10 @@ public class LauncherActivity extends BaseActivity {
             return false;
         }
 
-        File dirGameModpackFile = new File(Tools.DIR_GAME_MODPACK);
+        File dirGameModpackFile = new File(PojavZHTools.DIR_GAME_MODPACK);
         int type;
         try {
-            type = Tools.determineModpack(dirGameModpackFile);
+            type = PojavZHTools.determineModpack(dirGameModpackFile);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -110,7 +110,7 @@ public class LauncherActivity extends BaseActivity {
             ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.global_waiting);
             PojavApplication.sExecutorService.execute(() -> {
                 try {
-                    ModLoader loaderInfo = Tools.installModPack(this, type, dirGameModpackFile);
+                    ModLoader loaderInfo = PojavZHTools.installModPack(this, type, dirGameModpackFile);
                     if (loaderInfo == null) return;
                     loaderInfo.getDownloadTask(new NotificationDownloadListener(this, loaderInfo)).run();
                 }catch (Exception e) {
@@ -120,8 +120,8 @@ public class LauncherActivity extends BaseActivity {
                 }
             });
         } else {
-            Tools.DIR_GAME_MODPACK = null;
-            Tools.deleteFile(dirGameModpackFile);
+            PojavZHTools.DIR_GAME_MODPACK = null;
+            PojavZHTools.deleteFile(dirGameModpackFile);
             new AlertDialog.Builder(this).setMessage(R.string.zh_select_modpack_local_not_supported) //弹窗提醒
                     .setPositiveButton(android.R.string.cancel, null)
                     .show();

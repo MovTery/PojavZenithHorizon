@@ -1,9 +1,9 @@
 package net.kdt.pojavlaunch.fragments;
 
-import static net.kdt.pojavlaunch.Tools.calculateBufferSize;
-import static net.kdt.pojavlaunch.Tools.deleteFileListener;
+import static net.kdt.pojavlaunch.PojavZHTools.calculateBufferSize;
+import static net.kdt.pojavlaunch.PojavZHTools.deleteFileListener;
+import static net.kdt.pojavlaunch.PojavZHTools.renameFileListener;
 import static net.kdt.pojavlaunch.Tools.getFileName;
-import static net.kdt.pojavlaunch.Tools.renameFileListener;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -20,11 +20,12 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
+import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 
 import java.io.File;
@@ -117,7 +118,7 @@ public class ModsFragment extends Fragment {
 
             @Override
             public void onItemLongClick(File file, String path) {
-                Tools.shareFileAlertDialog(requireContext(), file);
+                PojavZHTools.shareFileAlertDialog(requireContext(), file);
             }
         });
 
