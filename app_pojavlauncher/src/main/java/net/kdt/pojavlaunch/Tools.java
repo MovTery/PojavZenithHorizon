@@ -1313,6 +1313,24 @@ public final class Tools {
         System.gc();
     }
 
+    public static int calculateBufferSize(long fileSize) {
+        int kb = 1024;
+        int mb = kb * kb;
+        if (fileSize <= kb) { // <=1KB 2KB
+            return kb * 2;
+        } else if (fileSize <= mb) { // <=1MB  1MB
+            return mb;
+        } else if (fileSize <= 10 * mb) { // <=10MB  5MB
+            return 5 * mb;
+        } else if (fileSize <= 50 * mb) { // <=50MB 10MB
+            return 10 * mb;
+        } else if (fileSize <= 100 * mb) { // <=100MB 20MB
+            return 20 * mb;
+        } else { // >100MB 30MB
+            return 30 * mb;
+        }
+    }
+
     public static ModLoader installModPack(Context context, int type, File zipFile) throws Exception {
         try (ZipFile modpackZipFile = new ZipFile(zipFile)) {
             String zipName = zipFile.getName();
@@ -1351,11 +1369,11 @@ public final class Tools {
                     return modLoader;
                 default:
                     runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_select_modpack_local_not_supported), Toast.LENGTH_SHORT).show());
-                    Tools.deleteFile(zipFile); // 删除文件（虽然文件通常来说并不会很大）
                     return null;
             }
         } finally {
             Tools.DIR_GAME_MODPACK = null;
+            Tools.deleteFile(zipFile); // 删除文件（虽然文件通常来说并不会很大）
         }
     }
 

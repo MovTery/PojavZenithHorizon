@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.Tools.DIR_GAME_HOME;
+import static net.kdt.pojavlaunch.Tools.calculateBufferSize;
 import static net.kdt.pojavlaunch.Tools.deleteFileListener;
 import static net.kdt.pojavlaunch.Tools.getFileName;
 import static net.kdt.pojavlaunch.Tools.renameFileListener;
@@ -36,6 +37,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Objects;
 
 public class FilesFragment extends Fragment {
     public static final String TAG = "FilesFragment";
@@ -135,11 +137,12 @@ public class FilesFragment extends Fragment {
         protected Void doInBackground(Uri... uris) {
             Uri fileUri = uris[0];
             String fileName = getFileName(requireContext(), fileUri);
+            File inputFile = new File(Objects.requireNonNull(fileUri.getPath()));
             File outputFile = new File(mFileListView.getFullPath().getAbsolutePath(), fileName);
             try (InputStream inputStream = requireContext().getContentResolver().openInputStream(fileUri)) {
                 if (inputStream != null) {
                     try (OutputStream outputStream = new FileOutputStream(outputFile)) {
-                        byte[] buffer = new byte[1024];
+                        byte[] buffer = new byte[calculateBufferSize(inputFile.length())];
                         int bytesRead;
                         while ((bytesRead = inputStream.read(buffer)) != -1) {
                             outputStream.write(buffer, 0, bytesRead);
