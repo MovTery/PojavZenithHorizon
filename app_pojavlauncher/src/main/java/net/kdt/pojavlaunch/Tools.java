@@ -1328,7 +1328,6 @@ public final class Tools {
                     modLoader = curseforgeModPack(context, zipFile, packName);
                     createProfiles(packName, curseManifest.name, modLoader.getVersionId());
 
-                    Tools.DIR_GAME_MODPACK = null;
                     return modLoader;
                 case 2: //mcbbs
                     ZipEntry mcbbsEntry = modpackZipFile.getEntry("mcbbs.packmeta");
@@ -1340,7 +1339,6 @@ public final class Tools {
                     modLoader = mcbbsModPack(zipFile, packName);
                     createProfiles(packName, mcbbsPackMeta.name, modLoader.getVersionId());
 
-                    Tools.DIR_GAME_MODPACK = null;
                     return modLoader;
                 case 3: // modrinth
                     ModrinthIndex modrinthIndex = Tools.GLOBAL_GSON.fromJson(
@@ -1350,14 +1348,14 @@ public final class Tools {
                     modLoader = modrinthModPack(zipFile, packName);
                     createProfiles(packName, modrinthIndex.name, modLoader.getVersionId());
 
-                    Tools.DIR_GAME_MODPACK = null;
                     return modLoader;
                 default:
                     runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_select_modpack_local_not_supported), Toast.LENGTH_SHORT).show());
                     Tools.deleteFile(zipFile); // 删除文件（虽然文件通常来说并不会很大）
-                    Tools.DIR_GAME_MODPACK = null;
                     return null;
             }
+        } finally {
+            Tools.DIR_GAME_MODPACK = null;
         }
     }
 

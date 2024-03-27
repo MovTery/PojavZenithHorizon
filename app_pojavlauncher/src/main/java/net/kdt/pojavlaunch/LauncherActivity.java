@@ -73,12 +73,6 @@ public class LauncherActivity extends BaseActivity {
             boolean bl = (f instanceof MainMenuFragment);
             mSettingsButton.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), bl
                     ? R.drawable.ic_menu_settings : R.drawable.ic_menu_home));
-
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            if (bl && fragmentManager.getBackStackEntryCount() > 1) {
-                fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                Tools.swapFragment(f.getActivity(), MainMenuFragment.class, MainMenuFragment.TAG, false, null);
-            }
         }
     };
 
@@ -120,13 +114,15 @@ public class LauncherActivity extends BaseActivity {
                     if (loaderInfo == null) return;
                     loaderInfo.getDownloadTask(new NotificationDownloadListener(this, loaderInfo)).run();
                 }catch (Exception e) {
-                    Tools.DIR_GAME_MODPACK = null;
                     Tools.showErrorRemote(this, R.string.modpack_install_download_failed, e);
+                }finally {
+                    ProgressLayout.clearProgress(ProgressLayout.INSTALL_MODPACK);
                 }
-                ProgressLayout.clearProgress(ProgressLayout.INSTALL_MODPACK);
             });
-        } else runOnUiThread(() -> Toast.makeText(this, getString(R.string.zh_select_modpack_local_not_supported), Toast.LENGTH_SHORT).show());
-        Tools.DIR_GAME_MODPACK = null;
+        } else {
+            Tools.DIR_GAME_MODPACK = null;
+            runOnUiThread(() -> Toast.makeText(this, getString(R.string.zh_select_modpack_local_not_supported), Toast.LENGTH_SHORT).show());
+        }
 
         return false;
     };
