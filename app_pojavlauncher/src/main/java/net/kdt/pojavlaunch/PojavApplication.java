@@ -57,8 +57,7 @@ public class PojavApplication extends Application {
 		
 		try {
 			super.onCreate();
-			Tools.APP_NAME = getResources().getString(R.string.app_short_name);
-			
+
 			Tools.DIR_DATA = getDir("files", MODE_PRIVATE).getParent();
 			Tools.DIR_CACHE = getCacheDir();
 			Tools.DIR_ACCOUNT_NEW = Tools.DIR_DATA + "/accounts";
