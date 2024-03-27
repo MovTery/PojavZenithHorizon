@@ -121,7 +121,10 @@ public class LauncherActivity extends BaseActivity {
             });
         } else {
             Tools.DIR_GAME_MODPACK = null;
-            runOnUiThread(() -> Toast.makeText(this, getString(R.string.zh_select_modpack_local_not_supported), Toast.LENGTH_SHORT).show());
+            Tools.deleteFile(dirGameModpackFile);
+            new AlertDialog.Builder(this).setMessage(R.string.zh_select_modpack_local_not_supported) //弹窗提醒
+                    .setPositiveButton(android.R.string.cancel, null)
+                    .show();
         }
 
         return false;
