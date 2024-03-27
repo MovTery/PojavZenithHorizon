@@ -25,6 +25,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageButton
+        android:id="@+id/zh_modpack_help_button"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="15dp"
+        android:background="?attr/selectableItemBackground"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="@+id/zh_modpack_button_local_modpack"
+        app:layout_constraintTop_toTopOf="@+id/modpack_menu"
+        app:srcCompat="@drawable/ic_help" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"

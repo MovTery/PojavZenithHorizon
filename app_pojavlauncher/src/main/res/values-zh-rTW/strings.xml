@@ -117,6 +117,8 @@
     <string name="zh_help_mod_message">可以把它理解為遊戲的第三方插件，它可以修改遊戲或為遊戲加入更多有趣的內容。\nMinecraft: Java Edition通常無法載入Mod，但玩家社區為Minecraft開發了第三方載入器，使其能夠載入Mod，而這些第三方載入器都是一個獨立的遊戲版本，你並不需要在原版和第三方載入器之間做取捨。\nMod管理界面可以管理當前遊戲實例的自定義路徑內的“mods”資料夾裡的全部Mod，你也可以自行導入Mod，不過Mod需要你自己在資源網站上下載。</string>
     <string name="zh_help_other_login_title">什麼是外部驗證登入？</string>
     <string name="zh_help_other_login_message">外部驗證登入選項通常是為了方便玩家使用第三方的登入服務，而不是通過 Minecraft 官方的登入方式。\n它可以更靈活地管理你的帳戶，並享受更多由第三方提供的特色功能和服務。\n外部驗證登入通常與皮膚站相結合，你可以在這些皮膚站註冊帳戶，管理自己的皮膚，並通過外部驗證的方式在 Minecraft 中使用這些皮膚。\n你需要先添加一個身份驗證伺服器，也就是添加一個你想使用的皮膚站，具體添加方法請自行查閱皮膚站的相關使用說明。\n添加完成之後，你才能登入你在這個皮膚站內註冊的帳戶！</string>
+    <string name="zh_help_modpack_title">什麼是整合包？</string>
+    <string name="zh_help_modpack_message">Mod 整合包是一個包含多個 Mod 的客戶端文件包，它將各種 Mod 集成在一起，使玩家能夠輕鬆嘗試多種新的玩法和內容。\n通過安裝 Mod 整合包，玩家可以一次性獲得大量新的遊戲內容，無需單獨尋找和安裝每個 Mod，從而節省時間和精力。\n請注意，多數 Mod 整合包的作者主要是為 PC 玩家量身打造的，他們幾乎不會考慮到會有 Pojav 玩家會嘗試使用這些整合包。鑒於整合包中往往包含大量的 Mod，難免會出現不兼容或性能不足的問題。\n因此，請務必根據自身設備性能和需求，謹慎選擇並量力而行，以免出現不必要的困擾！</string>
     <string name="zh_help_ok">知道了</string>
 
     <!-- Action bar part -->
