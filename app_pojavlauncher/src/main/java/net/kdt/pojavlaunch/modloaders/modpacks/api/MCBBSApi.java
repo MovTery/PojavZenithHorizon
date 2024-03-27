@@ -1,7 +1,7 @@
 package net.kdt.pojavlaunch.modloaders.modpacks.api;
 
+import static net.kdt.pojavlaunch.PojavZHTools.verifyMCBBSPackMeta;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
-import static net.kdt.pojavlaunch.Tools.verifyMCBBSPackMeta;
 
 import com.kdt.mcgui.ProgressLayout;
 

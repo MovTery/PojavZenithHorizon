@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.kdt.mcgui.ProgressLayout;
 
+import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 
@@ -63,7 +64,7 @@ public class AsyncAssetManager {
         ProgressLayout.setProgress(ProgressLayout.EXTRACT_SINGLE_FILES, 0);
         sExecutorService.execute(() -> {
             try {
-                Tools.copyAssetFile(ctx, "options.txt", Tools.DIR_GAME_DEFAULT, false);
+                Tools.copyAssetFile(ctx, "options.txt", PojavZHTools.DIR_GAME_DEFAULT, false);
                 Tools.copyAssetFile(ctx, "default.json", Tools.CTRLMAP_PATH, false);
 
                 Tools.copyAssetFile(ctx, "launcher_profiles.json", Tools.DIR_GAME_NEW, false);
