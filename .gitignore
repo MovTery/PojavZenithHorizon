@@ -1,9 +1,9 @@
 /.gradle
 /build
 /*/build
-app_pojavlauncher/src/main/assets/components/jre
+app_pojav_zh/src/main/assets/components/jre
 local.properties
 .idea/
-app_pojavlauncher/.cxx/
+app_pojav_zh/.cxx/
 .vs/
 /curseforge_key.txt
