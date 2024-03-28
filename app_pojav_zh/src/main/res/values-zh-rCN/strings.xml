@@ -48,7 +48,8 @@
     <string name="zh_neoforge_dl_no_installer">很抱歉，该版本的 NeoForge 没有安装程序，尚不支持</string>
     <string name="zh_neoforge_dl_select_version">选择 NeoForge 版本</string>
     <string name="zh_modloader_dl_install_neoforge">创建 NeoForge 实例</string>
-    <string name="zh_main_open_dir">打开主目录</string>
+    <string name="zh_main_open_main_dir">打开主目录</string>
+    <string name="zh_main_open_instance_dir">打开实例目录</string>
     <string name="zh_preference_category_language">语言</string>
     <string name="zh_preference_category_other_features">其他功能</string>
     <string name="zh_preference_chinese_language_title">中文语言切换</string>
