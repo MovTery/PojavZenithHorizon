@@ -41,11 +41,13 @@ import java.util.Objects;
 
 public class FilesFragment extends Fragment {
     public static final String TAG = "FilesFragment";
+    public static final String BUNDLE_PATH = "bundle_path";
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private Button mReturnButton, mAddFileButton, mCreateFolderButton, mRefreshButton;
     private ImageButton mHelpButton;
     private FileListView mFileListView;
     private TextView mFilePathView;
+    private String mPath;
 
     public FilesFragment() {
         super(R.layout.fragment_files);
@@ -69,8 +71,9 @@ public class FilesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         bindViews(view);
+        parseBundle();
 
-        mFileListView.lockPathAt(new File(DIR_GAME_HOME));
+        mFileListView.lockPathAt(new File(mPath));
         mFileListView.setDialogTitleListener((title)->mFilePathView.setText(removeLockPath(title)));
         mFileListView.refreshPath();
 
@@ -164,7 +167,7 @@ public class FilesFragment extends Fragment {
     }
 
     private String removeLockPath(String path){
-        return path.replace(DIR_GAME_HOME, ".");
+        return path.replace(mPath, ".");
     }
 
     private void bindViews(@NonNull View view) {
@@ -175,6 +178,12 @@ public class FilesFragment extends Fragment {
         mHelpButton = view.findViewById(R.id.zh_files_help_button);
         mFileListView = view.findViewById(R.id.zh_files);
         mFilePathView = view.findViewById(R.id.zh_files_current_path);
+    }
+
+    private void parseBundle(){
+        Bundle bundle = getArguments();
+        if(bundle == null) return;
+        mPath = bundle.getString(BUNDLE_PATH, DIR_GAME_HOME);
     }
 }
 

@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.Tools.shareLog;
+import static net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles.getCurrentProfile;
 
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.kdt.mcgui.mcVersionSpinner;
 
+import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
@@ -35,7 +37,8 @@ public class MainMenuFragment extends Fragment {
         Button mCustomControlButton = view.findViewById(R.id.custom_control_button);
         Button mInstallJarButton = view.findViewById(R.id.install_jar_button);
         Button mShareLogsButton = view.findViewById(R.id.share_logs_button);
-        Button mOpenDirButton = view.findViewById(R.id.zh_open_dir_button);
+        Button mOpenMainDirButton = view.findViewById(R.id.zh_open_main_dir_button);
+        Button mOpenInstanceDirButton = view.findViewById(R.id.zh_open_instance_dir_button);
 
         ImageButton mEditProfileButton = view.findViewById(R.id.edit_profile_button);
         Button mPlayButton = view.findViewById(R.id.play_button);
@@ -54,7 +57,18 @@ public class MainMenuFragment extends Fragment {
 
         mShareLogsButton.setOnClickListener((v) -> shareLog(requireContext()));
 
-        mOpenDirButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), FilesFragment.class, FilesFragment.TAG, true, null));
+        mOpenMainDirButton.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString(FilesFragment.BUNDLE_PATH, Tools.DIR_GAME_HOME);
+            Tools.swapFragment(requireActivity(), FilesFragment.class, FilesFragment.TAG, true, bundle);
+        });
+
+        mOpenInstanceDirButton.setOnClickListener(v -> {
+            String path = PojavZHTools.getGameDirPath(getCurrentProfile().gameDir).getAbsolutePath();
+            Bundle bundle = new Bundle();
+            bundle.putString(FilesFragment.BUNDLE_PATH, path);
+            Tools.swapFragment(requireActivity(), FilesFragment.class, FilesFragment.TAG, true, bundle);
+        });
     }
 
     @Override

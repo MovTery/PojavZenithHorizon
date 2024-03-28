@@ -81,7 +81,7 @@
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/zh_open_dir_button"
+        android:id="@+id/zh_open_main_dir_button"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginStart="16dp"
@@ -90,10 +90,26 @@
         android:layout_marginEnd="16dp"
         android:paddingHorizontal="@dimen/padding_large"
         android:paddingVertical="0px"
-        android:text="@string/zh_main_open_dir"
+        android:text="@string/zh_main_open_main_dir"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/constraintLayout"
         app:layout_constraintTop_toTopOf="@+id/_background_display_view" />
+
+    <Button
+        android:id="@+id/zh_open_instance_dir_button"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:paddingHorizontal="@dimen/padding_large"
+        android:paddingVertical="0px"
+        android:text="@string/zh_main_open_instance_dir"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+        app:layout_constraintTop_toBottomOf="@+id/zh_open_main_dir_button" />
 
     <com.kdt.mcgui.mcVersionSpinner
         android:id="@+id/mc_version_spinner"
