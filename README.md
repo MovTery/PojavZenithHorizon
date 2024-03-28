@@ -1,4 +1,4 @@
-# PojavLauncher-非官方汉化更新
+# Pojav ZH
 [![Android CI](https://github.com/HopiHopy/PojavZH/actions/workflows/android.yml/badge.svg)](https://github.com/HopiHopy/PojavZH/actions/workflows/android.yml)
 ## 说明
 <img src="https://github.com/HopiHopy/PojavZH/blob/v3_openjdk/PojavZH.png" align="right" width="264" height="264" alt="PojavZH logo">
