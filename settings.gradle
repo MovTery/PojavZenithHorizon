@@ -16,7 +16,7 @@ dependencyResolutionManagement {
 
 rootProject.name='PojavZH'
 include ':jre_lwjgl3glfw'
-include ':app_pojavlauncher'
+include ':app_pojav_zh'
 
 include ':arc_dns_injector'
 include ':forge_installer'

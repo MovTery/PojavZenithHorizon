@@ -23,7 +23,7 @@ jobs:
         uses: dawidd6/action-download-artifact@v3
         with:
           workflow: buildjre8.yml
-          path: app_pojavlauncher/src/main/assets/components/jre
+          path: app_pojav_zh/src/main/assets/components/jre
           workflow_conclusion: success
           repo: Vera-Firefly/android-openjdk-autobuild
           branch: main
@@ -33,7 +33,7 @@ jobs:
         uses: dawidd6/action-download-artifact@v3
         with:
           workflow: buildjre17.yml
-          path: app_pojavlauncher/src/main/assets/components/jre-new
+          path: app_pojav_zh/src/main/assets/components/jre-new
           workflow_conclusion: success
 
           repo: Vera-Firefly/android-openjdk-autobuild
@@ -44,7 +44,7 @@ jobs:
         uses: dawidd6/action-download-artifact@v3
         with:
           workflow: main.yml
-          path: app_pojavlauncher/src/main/assets/components/lwjgl3
+          path: app_pojav_zh/src/main/assets/components/lwjgl3
           workflow_conclusion: success
           repo: Vera-Firefly/lwjgl3-build
           branch: official
@@ -63,12 +63,12 @@ jobs:
       - name: Build Release.apk
         if: github.repository_owner == 'HopiHopy' && github.ref_name == 'v3_openjdk'
         run: |
-          gradle :app_pojavlauncher:assemblerelease
+          gradle :app_pojav_zh:assemblerelease
 
       - name: Build Debug.apk
         run: |
           # Build the launcher
-          gradle :app_pojavlauncher:assembleDebug
+          gradle :app_pojav_zh:assembleDebug
 
       - name: Upload Release
         continue-on-error: true
@@ -76,13 +76,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: PojavZH(Release)
-          path: app_pojavlauncher/build/outputs/apk/release/*
+          path: app_pojav_zh/build/outputs/apk/release/*
 
       - name: Upload Debug
         uses: actions/upload-artifact@v4
         with:
           name: PojavZH(Debug)
-          path: app_pojavlauncher/build/outputs/apk/debug/*
+          path: app_pojav_zh/build/outputs/apk/debug/*
 
   buildnoruntime:
     runs-on: ubuntu-latest
@@ -101,7 +101,7 @@ jobs:
         uses: dawidd6/action-download-artifact@v3
         with:
           workflow: main.yml
-          path: app_pojavlauncher/src/main/assets/components/lwjgl3
+          path: app_pojav_zh/src/main/assets/components/lwjgl3
           workflow_conclusion: success
           repo: Vera-Firefly/lwjgl3-build
           branch: official
@@ -119,10 +119,10 @@ jobs:
       - name: Build Debug-noruntime.apk
         run: |
           # Build the launcher
-          gradle :app_pojavlauncher:assembleDebug
+          gradle :app_pojav_zh:assembleDebug
 
       - name: Upload Debug
         uses: actions/upload-artifact@v4
         with:
           name: PojavZH(Debug-无Java运行环境)
-          path: app_pojavlauncher/build/outputs/apk/debug/*
+          path: app_pojav_zh/build/outputs/apk/debug/*
