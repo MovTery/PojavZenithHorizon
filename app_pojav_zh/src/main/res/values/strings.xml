@@ -87,6 +87,7 @@
     <string name="zh_update_checking">Checking for updates...</string>
     <string name="zh_update_without">Already up to date</string>
     <string name="zh_update_fail">Network exception, unable to get updates temporarily!</string>
+    <string name="zh_update_yes">A new version has been detected. Would you like to download and update?</string>
     <string name="zh_update_success">The latest installation package has been downloaded. Would you like to install it now?</string>
     <string name="zh_warning">Warning</string>
     <string name="zh_view_log_output">Log output:</string>

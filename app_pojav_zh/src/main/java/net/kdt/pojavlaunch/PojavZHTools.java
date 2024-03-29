@@ -204,26 +204,40 @@ public class PojavZHTools {
                         int githubVersion = Integer.parseInt(tagName);
 
                         if (versionCode < githubVersion) {
-                            ProgressLayout.setProgress(ProgressLayout.DOWNLOAD_MINECRAFT, 0);
-
                             File file = new File(Tools.DIR_GAME_HOME, "PojavZH.apk");
-                            downloadFileWithOkHttp(context, "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk", file.getAbsolutePath());
 
-                            DialogInterface.OnClickListener install = (dialogInterface, i) -> { //安装
-                                Uri packageUri = Uri.fromFile(file);
-                                Intent intent = new Intent(Intent.ACTION_VIEW);
-                                intent.setDataAndType(packageUri, "application/vnd.android.package-archive");
-                                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                context.startActivity(intent);
-                            };
+                            runOnUiThread(() -> {
+                                DialogInterface.OnClickListener install = (dialogInterface, i) -> { //安装
+                                    Uri packageUri = Uri.fromFile(file);
+                                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                                    intent.setDataAndType(packageUri, "application/vnd.android.package-archive");
+                                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    context.startActivity(intent);
+                                };
 
-                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                            builder.setTitle(context.getString(R.string.zh_tip))
-                                    .setMessage(context.getString(R.string.zh_update_success))
-                                    .setCancelable(false)
-                                    .setPositiveButton(context.getString(R.string.global_yes), install)
-                                    .setNegativeButton(context.getString(android.R.string.cancel), null)
-                                    .show();
+                                DialogInterface.OnClickListener download = (dialogInterface, i) -> {
+                                    ProgressLayout.setProgress(ProgressLayout.DOWNLOAD_MINECRAFT, 0);
+                                    downloadFileWithOkHttp(context, "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk", file.getAbsolutePath());
+
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                    builder.setTitle(context.getString(R.string.zh_tip))
+                                            .setMessage(context.getString(R.string.zh_update_success))
+                                            .setCancelable(false)
+                                            .setPositiveButton(context.getString(R.string.global_yes), install)
+                                            .setNegativeButton(context.getString(android.R.string.cancel), null)
+                                            .show();
+                                };
+
+                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                builder.setTitle(context.getString(R.string.zh_tip))
+                                        .setMessage(context.getString(R.string.zh_update_yes))
+                                        .setCancelable(false)
+                                        .setPositiveButton(context.getString(R.string.global_yes), download)
+                                        .setNegativeButton(context.getString(android.R.string.cancel), null)
+                                        .show();
+                            });
+
+
                         } else runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_without), Toast.LENGTH_SHORT).show());
                     } catch (JSONException ignored) {}
                 }
