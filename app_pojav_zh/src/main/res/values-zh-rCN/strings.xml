@@ -85,6 +85,7 @@
     <string name="zh_update_checking">正在检查更新…</string>
     <string name="zh_update_without">当前已是最新版本</string>
     <string name="zh_update_fail">网络异常，暂时无法获取更新！</string>
+    <string name="zh_update_yes">检测到新版本，是否下载并更新？</string>
     <string name="zh_update_success">最新的安装包已经下载完成，是否安装？</string>
     <string name="zh_warning">警告</string>
     <string name="zh_view_log_output">日志输出:</string>
