@@ -1,10 +1,12 @@
 //
-// Created by maks on 21.09.2022.
+// Modifiled by Vera-Firefly on 29.03.2024.
 //
 #include <stdio.h>
 #include <stdlib.h>
 #include <dlfcn.h>
+#include "environ/environ.h"
 #include "osmesa_loader.h"
+#include "renderer_config.h"
 
 GLboolean (*OSMesaMakeCurrent_p) (OSMesaContext ctx, void *buffer, GLenum type,
                                          GLsizei width, GLsizei height);
@@ -20,14 +22,15 @@ void (*glReadPixels_p) (GLint x, GLint y, GLsizei width, GLsizei height, GLenum 
 
 void dlsym_OSMesa() {
     char* main_path = NULL;
-    char* alt_path = NULL;
-    if(asprintf(&main_path, "%s/libOSMesa.so", getenv("POJAV_NATIVEDIR")) == -1 ||
-            asprintf(&alt_path, "%s/libOSMesa.so.8", getenv("POJAV_NATIVEDIR")) == -1) {
-        abort();
+    char* mesa_library = getenv("MESA_LIBRARY");
+    if(pojav_environ->config_renderer == RENDERER_VK_ZINK) {
+        if(asprintf(&main_path, "%s/%s", getenv("POJAV_NATIVEDIR"), mesa_library) == -1) {
+            abort();
+        }
+        free(main_path);
     }
     void* dl_handle = NULL;
-    dl_handle = dlopen(alt_path, RTLD_GLOBAL);
-    if(dl_handle == NULL) dl_handle = dlopen(main_path, RTLD_GLOBAL);
+    dl_handle = dlopen(main_path, RTLD_GLOBAL);
     if(dl_handle == NULL) abort();
     OSMesaMakeCurrent_p = dlsym(dl_handle, "OSMesaMakeCurrent");
     OSMesaGetCurrentContext_p = dlsym(dl_handle,"OSMesaGetCurrentContext");
