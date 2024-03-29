@@ -192,7 +192,7 @@ int pojavInitOpenGL() {
 
     // NOTE: Override for now.
     const char *renderer = getenv("POJAV_RENDERER");
-    if (strncmp("opengles2", renderer, 8) == 0) {
+    if (strncmp("opengles", renderer, 8) == 0) {
         pojav_environ->config_renderer = RENDERER_GL4ES;
         set_gl_bridge_tbl();
     } else if (strcmp(renderer, "vulkan_zink") == 0) {
