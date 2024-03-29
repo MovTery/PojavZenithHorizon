@@ -953,30 +953,33 @@ public final class Tools {
     }
 
     private static void swapFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
-                                     @Nullable String fragmentTag, boolean addCurrentToBackstack, @Nullable Bundle bundle, int id) {
+                                     @Nullable String fragmentTag, @Nullable Bundle bundle, int id) {
         // When people tab out, it might happen
         //TODO handle custom animations
         FragmentTransaction transaction = fragmentActivity.getSupportFragmentManager().beginTransaction();
 
-        transaction.setReorderingAllowed(true);
         if(PREF_ANIMATION) transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
-        transaction.replace(id, fragmentClass, bundle, fragmentTag);
-        if(addCurrentToBackstack) transaction.addToBackStack(null);
-
-        transaction.commit();
+        transaction.setReorderingAllowed(true)
+                .addToBackStack(fragmentClass.getName())
+                .replace(R.id.container_fragment, fragmentClass, bundle, fragmentTag)
+                .commit();
     }
 
     /** Swap the main fragment with another */
     public static void swapFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
-                                    @Nullable String fragmentTag, boolean addCurrentToBackstack, @Nullable Bundle bundle) {
-        swapFragment(fragmentActivity, fragmentClass, fragmentTag, addCurrentToBackstack, bundle, R.id.container_fragment);
+                                    @Nullable String fragmentTag, @Nullable Bundle bundle) {
+        swapFragment(fragmentActivity, fragmentClass, fragmentTag, bundle, R.id.container_fragment);
     }
 
     public static void swapSettingsFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
-                             @Nullable String fragmentTag, boolean addCurrentToBackstack, @Nullable Bundle bundle) {
-        swapFragment(fragmentActivity, fragmentClass, fragmentTag, addCurrentToBackstack, bundle, R.id.zh_settings_fragment);
+                             @Nullable String fragmentTag, @Nullable Bundle bundle) {
+        swapFragment(fragmentActivity, fragmentClass, fragmentTag, bundle, R.id.zh_settings_fragment);
     }
 
+    public static void backToMainMenu(FragmentActivity fragmentActivity) {
+        fragmentActivity.getSupportFragmentManager()
+                .popBackStack("ROOT", 0);
+    }
 
     /** Remove the current fragment */
     public static void removeCurrentFragment(FragmentActivity fragmentActivity){

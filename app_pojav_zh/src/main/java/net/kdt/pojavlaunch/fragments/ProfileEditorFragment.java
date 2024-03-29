@@ -102,7 +102,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         mSaveButton.setOnClickListener(v -> {
             ProfileIconCache.dropIcon(mProfileKey);
             save();
-            Tools.removeCurrentFragment(requireActivity());
+            Tools.backToMainMenu(requireActivity());
         });
 
         mDeleteButton.setOnClickListener(v -> {
@@ -151,7 +151,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
                 bundle.putString(ModsFragment.BUNDLE_ROOT_PATH, mods.toString());
 
                 Tools.swapFragment(requireActivity(),
-                        ModsFragment.class, ModsFragment.TAG, true, bundle);
+                        ModsFragment.class, ModsFragment.TAG, bundle);
             } else {
                 Toast.makeText(requireContext(), getString(R.string.zh_file_does_not_exist), Toast.LENGTH_SHORT).show();
                 mModsButton.setVisibility(View.GONE);
@@ -169,7 +169,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
             mValueToConsume = FileSelectorFragment.BUNDLE_SELECT_FOLDER;
 
             Tools.swapFragment(requireActivity(),
-                    FileSelectorFragment.class, FileSelectorFragment.TAG, true, bundle);
+                    FileSelectorFragment.class, FileSelectorFragment.TAG, bundle);
         });
 
         mControlSelectButton.setOnClickListener(v -> {
@@ -179,7 +179,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
             mValueToConsume = "select_file";
 
             Tools.swapFragment(requireActivity(),
-                    FileSelectorFragment.class, FileSelectorFragment.TAG, true, bundle);
+                    FileSelectorFragment.class, FileSelectorFragment.TAG, bundle);
         });
 
         // Setup the expendable list behavior

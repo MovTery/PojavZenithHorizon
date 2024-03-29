@@ -402,7 +402,6 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         flv.setFileSelectedListener(new FileSelectedListener(){
             @Override
             public void onFileSelected(File file, String path) {
-                minecraftProfile.controlFile = path.replace(Tools.CTRLMAP_PATH, ".");
                 loadControls();
                 dialog.dismiss();
             }

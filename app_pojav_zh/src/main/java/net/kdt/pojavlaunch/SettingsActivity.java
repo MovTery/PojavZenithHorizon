@@ -70,6 +70,6 @@ public class SettingsActivity extends BaseActivity {
     }
 
     private void swapFragment(Class<? extends Fragment> fragmentClass, String fragmentTag) {
-        Tools.swapSettingsFragment(this, fragmentClass, fragmentTag, false, null);
+        Tools.swapSettingsFragment(this, fragmentClass, fragmentTag, null);
     }
 }

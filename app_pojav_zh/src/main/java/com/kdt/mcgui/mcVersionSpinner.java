@@ -86,7 +86,7 @@ public class mcVersionSpinner extends ExtendedTextView {
         if(currentSelection instanceof ProfileAdapterExtra) {
             performExtraAction((ProfileAdapterExtra) currentSelection);
         }else{
-            Tools.swapFragment(fragmentActivity, ProfileEditorFragment.class, ProfileEditorFragment.TAG, true, null);
+            Tools.swapFragment(fragmentActivity, ProfileEditorFragment.class, ProfileEditorFragment.TAG, null);
         }
     }
 
@@ -137,8 +137,7 @@ public class mcVersionSpinner extends ExtendedTextView {
     private void performExtraAction(ProfileAdapterExtra extra) {
         //Replace with switch-case if you want to add more extra actions
         if (extra.id == VERSION_SPINNER_PROFILE_CREATE) {
-            Tools.swapFragment((FragmentActivity) getContext(), ProfileTypeSelectFragment.class,
-                    ProfileTypeSelectFragment.TAG, true, null);
+            Tools.swapFragment((FragmentActivity) getContext(), ProfileTypeSelectFragment.class, ProfileTypeSelectFragment.TAG, null);
         }
     }
 
