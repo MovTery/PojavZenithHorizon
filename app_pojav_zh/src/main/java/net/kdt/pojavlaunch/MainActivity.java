@@ -45,6 +45,8 @@ import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.kdt.LoggerView;
+import com.kdt.pickafile.FileListView;
+import com.kdt.pickafile.FileSelectedListener;
 
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.customcontrols.ControlButtonMenuListener;
@@ -190,7 +192,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                     case 2: dialogSendCustomKey(); break;
                     case 3: adjustMouseSpeedLive(); break;
                     case 4: adjustGyroSensitivityLive(); break;
-                    case 5: openCustomControls(); break;
+                    case 5: replacementCustomControls(); break;
+                    case 6: openCustomControls(); break;
                 }
                 drawerLayout.closeDrawers();
             };
@@ -384,6 +387,30 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle(R.string.control_customkey);
         dialog.setItems(EfficientAndroidLWJGLKeycode.generateKeyName(), (dInterface, position) -> EfficientAndroidLWJGLKeycode.execKeyIndex(position));
+        dialog.show();
+    }
+
+    private void replacementCustomControls() {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(MainActivity.this);
+        builder.setTitle(R.string.zh_replacement_customcontrol);
+        builder.setPositiveButton(android.R.string.cancel, null);
+
+        final androidx.appcompat.app.AlertDialog dialog = builder.create();
+        FileListView flv = new FileListView(dialog, "json");
+        if (Build.VERSION.SDK_INT < 29) flv.listFileAt(new File(Tools.CTRLMAP_PATH));
+        else flv.lockPathAt(new File(Tools.CTRLMAP_PATH));
+        flv.setFileSelectedListener(new FileSelectedListener(){
+            @Override
+            public void onFileSelected(File file, String path) {
+                minecraftProfile.controlFile = path.replace(Tools.CTRLMAP_PATH, ".");
+                loadControls();
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onItemLongClick(File file, String path) {}
+        });
+        dialog.setView(flv);
         dialog.show();
     }
 
