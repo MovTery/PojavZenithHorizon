@@ -3,6 +3,7 @@ package net.kdt.pojavlaunch;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.DocumentsContract;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -212,10 +214,7 @@ public class PojavZHTools {
                             File file = new File(context.getExternalFilesDir(null), "PojavZH.apk");
 
                             runOnUiThread(() -> {
-                                DialogInterface.OnClickListener download = (dialogInterface, i) -> {
-                                    ProgressLayout.setProgress(ProgressLayout.DOWNLOAD_MINECRAFT, 0);
-                                    downloadFileWithOkHttp(context, "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk", file.getAbsolutePath(), (int) fileSize);
-                                };
+                                DialogInterface.OnClickListener download = (dialogInterface, i) -> downloadFileWithOkHttp(context, "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk", file.getAbsolutePath(), (int) fileSize);
 
                                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                                 builder.setTitle(context.getString(R.string.zh_tip))
@@ -252,6 +251,11 @@ public class PojavZHTools {
                     throw new IOException("Unexpected code " + response);
                 } else {
                     File outputFile = new File(destinationFilePath);
+                    Dialog dialog = new Dialog(context);
+                    dialog.setContentView(R.layout.dialog_download_upload);
+                    dialog.setCancelable(false);
+                    dialog.show();
+                    TextView textView = dialog.findViewById(R.id.download_upload_textView);
                     try (InputStream inputStream = response.body().byteStream();
                          OutputStream outputStream = new FileOutputStream(outputFile);
                          ) {
@@ -260,11 +264,9 @@ public class PojavZHTools {
                         while ((bytesRead = inputStream.read(buffer)) != -1) {
                             outputStream.write(buffer, 0, bytesRead);
                             int downloaded = bytesRead * buffer.length;
-                            int progress = (int) ((downloaded * 100L) / fileSize);
-                            runOnUiThread(() -> ProgressLayout.setProgress(ProgressLayout.DOWNLOAD_MINECRAFT, progress,
-                                    R.string.zh_update_downloading, downloaded, fileSize));
+                            textView.setText(String.format(context.getString(R.string.zh_update_downloading), downloaded, fileSize));
                         }
-                        runOnUiThread(() -> ProgressLayout.clearProgress(ProgressLayout.DOWNLOAD_MINECRAFT));
+                        dialog.cancel();
 
                         runOnUiThread(() -> {
                             DialogInterface.OnClickListener install = (dialogInterface, i) -> { //安装
