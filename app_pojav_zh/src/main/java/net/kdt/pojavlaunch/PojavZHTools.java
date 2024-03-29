@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.FileProvider;
 
 import com.kdt.mcgui.ProgressLayout;
 import com.kdt.pickafile.FileListView;
@@ -29,6 +30,7 @@ import net.kdt.pojavlaunch.utils.ZipUtils;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -200,32 +202,19 @@ public class PojavZHTools {
                     String responseBody = response.body().string(); //解析响应体
                     try {
                         JSONObject jsonObject = new JSONObject(responseBody);
+                        JSONArray assetsJson = jsonObject.getJSONArray("assets");
                         String tagName = jsonObject.getString("tag_name");
+                        JSONObject firstAsset = assetsJson.getJSONObject(0);
+                        long fileSize = firstAsset.getLong("size");
                         int githubVersion = Integer.parseInt(tagName);
 
                         if (versionCode < githubVersion) {
                             File file = new File(Tools.DIR_GAME_HOME, "PojavZH.apk");
 
                             runOnUiThread(() -> {
-                                DialogInterface.OnClickListener install = (dialogInterface, i) -> { //安装
-                                    Uri packageUri = Uri.fromFile(file);
-                                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                                    intent.setDataAndType(packageUri, "application/vnd.android.package-archive");
-                                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                    context.startActivity(intent);
-                                };
-
                                 DialogInterface.OnClickListener download = (dialogInterface, i) -> {
                                     ProgressLayout.setProgress(ProgressLayout.DOWNLOAD_MINECRAFT, 0);
-                                    downloadFileWithOkHttp(context, "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk", file.getAbsolutePath());
-
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                                    builder.setTitle(context.getString(R.string.zh_tip))
-                                            .setMessage(context.getString(R.string.zh_update_success))
-                                            .setCancelable(false)
-                                            .setPositiveButton(context.getString(R.string.global_yes), install)
-                                            .setNegativeButton(context.getString(android.R.string.cancel), null)
-                                            .show();
+                                    downloadFileWithOkHttp(context, "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk", file.getAbsolutePath(), (int) fileSize);
                                 };
 
                                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -245,7 +234,7 @@ public class PojavZHTools {
         }));
     }
 
-    public static void downloadFileWithOkHttp(Context context, String fileUrl, String destinationFilePath) {
+    public static void downloadFileWithOkHttp(Context context, String fileUrl, String destinationFilePath, int fileSize) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(fileUrl)
@@ -262,14 +251,38 @@ public class PojavZHTools {
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response);
                 } else {
+                    File outputFile = new File(destinationFilePath);
                     try (InputStream inputStream = response.body().byteStream();
-                         OutputStream outputStream = new FileOutputStream(new File(destinationFilePath));
+                         OutputStream outputStream = new FileOutputStream(outputFile);
                          ) {
-                        byte[] buffer = new byte[1024];
+                        byte[] buffer = new byte[1024 * 1024];
                         int bytesRead;
                         while ((bytesRead = inputStream.read(buffer)) != -1) {
                             outputStream.write(buffer, 0, bytesRead);
+                            int downloaded = bytesRead * buffer.length;
+                            int progress = (int) ((downloaded * 100L) / fileSize);
+                            runOnUiThread(() -> ProgressLayout.setProgress(ProgressLayout.DOWNLOAD_MINECRAFT, progress,
+                                    R.string.zh_update_downloading, downloaded, fileSize));
                         }
+                        runOnUiThread(() -> ProgressLayout.clearProgress(ProgressLayout.DOWNLOAD_MINECRAFT));
+
+                        runOnUiThread(() -> {
+                            DialogInterface.OnClickListener install = (dialogInterface, i) -> { //安装
+                                Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", outputFile);
+                                Intent intent = new Intent(Intent.ACTION_VIEW);
+                                intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+                                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                context.startActivity(intent);
+                            };
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setTitle(context.getString(R.string.zh_tip))
+                                    .setMessage(context.getString(R.string.zh_update_success))
+                                    .setCancelable(false)
+                                    .setPositiveButton(context.getString(R.string.global_yes), install)
+                                    .setNegativeButton(context.getString(android.R.string.cancel), null)
+                                    .show();
+                        });
                     }
                 }
             }

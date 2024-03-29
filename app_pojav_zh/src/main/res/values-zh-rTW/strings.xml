@@ -87,6 +87,7 @@
     <string name="zh_update_fail">網路異常，暫時無法取得更新！</string>
     <string name="zh_update_yes">偵測到新版本，是否下載並更新？</string>
     <string name="zh_update_success">最新的安裝包已經下載完成，是否安裝？</string>
+    <string name="zh_update_downloading">正在下載安裝包… (%d / %d)</string>
     <string name="zh_warning">警告</string>
     <string name="zh_view_log_output">日誌輸出：</string>
 
