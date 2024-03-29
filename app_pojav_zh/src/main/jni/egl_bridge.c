@@ -11,6 +11,7 @@
 
 #include <EGL/egl.h>
 #include <GL/osmesa.h>
+#include "ctxbridges/egl_loader.h"
 #include "ctxbridges/osmesa_loader.h"
 #include "driver_helper/nsbypass.h"
 
@@ -27,6 +28,7 @@
 #include "utils.h"
 #include "ctxbridges/bridge_tbl.h"
 #include "ctxbridges/osm_bridge.h"
+#include "ctxbridges/renderer_config.h"
 
 #define GLFW_CLIENT_API 0x22001
 /* Consider GLFW_NO_API as Vulkan API */
@@ -51,13 +53,6 @@ struct PotatoBridge {
 };
 EGLConfig config;
 struct PotatoBridge potatoBridge;
-
-#include "ctxbridges/egl_loader.h"
-#include "ctxbridges/osmesa_loader.h"
-
-#define RENDERER_GL4ES 1
-#define RENDERER_VK_ZINK 2
-#define RENDERER_VULKAN 4
 
 EXTERNAL_API void pojavTerminate() {
     printf("EGLBridge: Terminating\n");
