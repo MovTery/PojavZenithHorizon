@@ -961,7 +961,7 @@ public final class Tools {
         if(PREF_ANIMATION) transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
         transaction.setReorderingAllowed(true)
                 .addToBackStack(fragmentClass.getName())
-                .replace(R.id.container_fragment, fragmentClass, bundle, fragmentTag)
+                .replace(id, fragmentClass, bundle, fragmentTag)
                 .commit();
     }
 
