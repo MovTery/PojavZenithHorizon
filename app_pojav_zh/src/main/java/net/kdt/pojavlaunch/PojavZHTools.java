@@ -2,6 +2,7 @@ package net.kdt.pojavlaunch;
 
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -18,7 +19,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.FileProvider;
 
-import com.kdt.mcgui.ProgressLayout;
 import com.kdt.pickafile.FileListView;
 
 import net.kdt.pojavlaunch.modloaders.modpacks.api.CurseforgeApi;
@@ -214,7 +214,7 @@ public class PojavZHTools {
                             File file = new File(context.getExternalFilesDir(null), "PojavZH.apk");
 
                             runOnUiThread(() -> {
-                                DialogInterface.OnClickListener download = (dialogInterface, i) -> downloadFileWithOkHttp(context, "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk", file.getAbsolutePath(), (int) fileSize);
+                                DialogInterface.OnClickListener download = (dialogInterface, i) -> downloadFileWithOkHttp(context, "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk", file.getAbsolutePath(), formatFileSize(fileSize));
 
                                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                                 builder.setTitle(context.getString(R.string.zh_tip))
@@ -233,7 +233,7 @@ public class PojavZHTools {
         }));
     }
 
-    public static void downloadFileWithOkHttp(Context context, String fileUrl, String destinationFilePath, int fileSize) {
+    public static void downloadFileWithOkHttp(Context context, String fileUrl, String destinationFilePath, String fileSize) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(fileUrl)
@@ -250,23 +250,27 @@ public class PojavZHTools {
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response);
                 } else {
-                    File outputFile = new File(destinationFilePath);
                     Dialog dialog = new Dialog(context);
                     dialog.setContentView(R.layout.dialog_download_upload);
                     dialog.setCancelable(false);
-                    dialog.show();
-                    TextView textView = dialog.findViewById(R.id.download_upload_textView);
+                    File outputFile = new File(destinationFilePath);
                     try (InputStream inputStream = response.body().byteStream();
                          OutputStream outputStream = new FileOutputStream(outputFile);
                          ) {
                         byte[] buffer = new byte[1024 * 1024];
                         int bytesRead;
+                        int downloadedBytes = 0;
+                        runOnUiThread(dialog::show);
                         while ((bytesRead = inputStream.read(buffer)) != -1) {
                             outputStream.write(buffer, 0, bytesRead);
-                            int downloaded = bytesRead * buffer.length;
-                            textView.setText(String.format(context.getString(R.string.zh_update_downloading), downloaded, fileSize));
+                            downloadedBytes += bytesRead;
+                            int finalDownloadedBytes = downloadedBytes;
+                            runOnUiThread(() -> {
+                                TextView textView = dialog.findViewById(R.id.download_upload_textView);
+                                textView.setText(String.format(context.getString(R.string.zh_update_downloading), formatFileSize(finalDownloadedBytes), fileSize));
+                            });
                         }
-                        dialog.cancel();
+                        runOnUiThread(dialog::dismiss);
 
                         runOnUiThread(() -> {
                             DialogInterface.OnClickListener install = (dialogInterface, i) -> { //安装
@@ -289,6 +293,13 @@ public class PojavZHTools {
                 }
             }
         });
+    }
+
+    @SuppressLint("DefaultLocale")
+    public static String formatFileSize(long bytes) {
+        if (bytes <= 0) return "0 MB";
+        final double value = bytes / (1024.0 * 1024);
+        return String.format("%.2f MB", value);
     }
 
     public static int getVersionCode(Context context) {
