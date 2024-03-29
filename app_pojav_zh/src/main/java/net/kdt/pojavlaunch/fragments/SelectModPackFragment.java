@@ -61,7 +61,7 @@ public class SelectModPackFragment extends Fragment {
 
         view.findViewById(R.id.zh_modpack_button_search_modpack).setOnClickListener(v -> {
             if (PojavZHTools.DIR_GAME_MODPACK == null) {
-                Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, false, null);
+                Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, null);
             } else {
                 Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
             }

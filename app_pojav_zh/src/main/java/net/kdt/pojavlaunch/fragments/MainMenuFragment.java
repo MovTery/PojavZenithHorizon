@@ -44,8 +44,8 @@ public class MainMenuFragment extends Fragment {
         Button mPlayButton = view.findViewById(R.id.play_button);
         mVersionSpinner = view.findViewById(R.id.mc_version_spinner);
 
-        mAboutButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), AboutFragment.class, AboutFragment.TAG, true, null));
-        mCustomControlButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ControlButtonFragment.class, ControlButtonFragment.TAG, true, null));
+        mAboutButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), AboutFragment.class, AboutFragment.TAG, null));
+        mCustomControlButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ControlButtonFragment.class, ControlButtonFragment.TAG, null));
         mInstallJarButton.setOnClickListener(v -> runInstallerWithConfirmation(false));
         mInstallJarButton.setOnLongClickListener(v->{
             runInstallerWithConfirmation(true);
@@ -60,14 +60,14 @@ public class MainMenuFragment extends Fragment {
         mOpenMainDirButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString(FilesFragment.BUNDLE_PATH, Tools.DIR_GAME_HOME);
-            Tools.swapFragment(requireActivity(), FilesFragment.class, FilesFragment.TAG, true, bundle);
+            Tools.swapFragment(requireActivity(), FilesFragment.class, FilesFragment.TAG, bundle);
         });
 
         mOpenInstanceDirButton.setOnClickListener(v -> {
             String path = PojavZHTools.getGameDirPath(getCurrentProfile().gameDir).getAbsolutePath();
             Bundle bundle = new Bundle();
             bundle.putString(FilesFragment.BUNDLE_PATH, path);
-            Tools.swapFragment(requireActivity(), FilesFragment.class, FilesFragment.TAG, true, bundle);
+            Tools.swapFragment(requireActivity(), FilesFragment.class, FilesFragment.TAG, bundle);
         });
     }
 

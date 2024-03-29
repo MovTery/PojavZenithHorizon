@@ -88,7 +88,7 @@ public class LauncherActivity extends BaseActivity {
         // Allow starting the add account only from the main menu, should it be moved to fragment itself ?
         if(!(fragment instanceof MainMenuFragment)) return false;
 
-        Tools.swapFragment(this, SelectAuthFragment.class, SelectAuthFragment.TAG, true, null);
+        Tools.swapFragment(this, SelectAuthFragment.class, SelectAuthFragment.TAG, null);
         return false;
     };
 
@@ -137,9 +137,7 @@ public class LauncherActivity extends BaseActivity {
             startActivity(new Intent(this, SettingsActivity.class));
         } else{
             // The setting button doubles as a home button now
-            while(!(getSupportFragmentManager().findFragmentById(mFragmentView.getId()) instanceof MainMenuFragment)){
-                getSupportFragmentManager().popBackStackImmediate();
-            }
+            Tools.backToMainMenu(this);
         }
     };
 
@@ -200,6 +198,11 @@ public class LauncherActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pojav_launcher);
+        this.getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .addToBackStack("ROOT")
+                .replace(R.id.container_fragment, MainMenuFragment.class, null, "ROOT").commit();
+
         IconCacheJanitor.runJanitor();
         mRequestNotificationPermissionLauncher = registerForActivityResult(
                 new ActivityResultContracts.RequestPermission(),
