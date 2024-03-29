@@ -200,7 +200,7 @@ int pojavInitOpenGL() {
         load_vulkan();
         setenv("GALLIUM_DRIVER","zink",1);
         set_osm_bridge_tbl();
-    } else if(strcmp(ldrivermodle, "vulkan_freedreno") == 0) {
+    } else if(strcmp(renderer, "vulkan_freedreno") == 0) {
         pojav_environ->config_renderer = RENDERER_VK_ZINK;
         setenv("GALLIUM_DRIVER", "freedreno", 1);
         setenv("MESA_LOADER_DRIVER_OVERRIDE", "kgsl", 1);
