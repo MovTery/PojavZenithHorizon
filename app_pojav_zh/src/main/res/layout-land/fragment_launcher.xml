@@ -62,6 +62,15 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:drawableStart="@android:drawable/ic_menu_share"
                     android:text="@string/main_share_logs" />
+
+                <com.kdt.mcgui.LauncherMenuButton
+                    android:id="@+id/update_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:drawableStart="@drawable/ic_update"
+                    android:text="@string/zh_update" />
             </LinearLayout>
         </ScrollView>
 
