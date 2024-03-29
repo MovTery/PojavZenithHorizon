@@ -35,7 +35,7 @@ public class ProfileLanguageSelector {
         return builder.toString();
     }
 
-    public static int getVersion(String versionId) {
+    public static int getVersion(String versionId) throws NumberFormatException {
         int firstDotIndex = versionId.indexOf('.');
         int secondDotIndex = versionId.indexOf('.', firstDotIndex + 1);
         int version;
@@ -89,13 +89,17 @@ public class ProfileLanguageSelector {
             if (versionId.contains(optifineSuffix) || versionId.contains(forgeSuffix)) { // OptiFine & Forge
                 int lastIndex = versionId.indexOf('-');
                 if (lastIndex != -1) {
-                    version = getVersion(versionId.substring(0, lastIndex));
+                    try {
+                        version = getVersion(versionId.substring(0, lastIndex));
+                    }catch (NumberFormatException ignored) {}
                 }
             } else if (versionId.contains(fabricSuffix) || versionId.contains(quiltSuffix)) { // Fabric & Quilt
                 int lastIndex = versionId.lastIndexOf('-');
 
                 if (lastIndex != -1) {
-                    version = getVersion(versionId.substring(lastIndex + 1));
+                    try {
+                        version = getVersion(versionId.substring(lastIndex + 1));
+                    } catch (NumberFormatException ignored) {}
                 }
             } else if (matcher.matches()) { // 快照版本 "24w09a" "16w20a"
                 int result1 = Integer.parseInt(getDigitsBeforeFirstLetter(versionId));
@@ -110,7 +114,9 @@ public class ProfileLanguageSelector {
                 return lang;
             }
         } else if(containsDot(versionId)) {
-            version = getVersion(versionId);
+            try {
+                version = getVersion(versionId);
+            } catch (NumberFormatException ignored) {}
         }
 
         // 1.10 -
