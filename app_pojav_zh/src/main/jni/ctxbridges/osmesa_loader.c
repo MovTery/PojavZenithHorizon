@@ -1,5 +1,5 @@
 //
-// Created by maks on 21.09.2022.
+// Modifiled by Vera-Firefly on 29.03.2024.
 //
 #include <stdio.h>
 #include <stdlib.h>
