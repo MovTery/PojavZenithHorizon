@@ -11,8 +11,6 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -55,7 +53,6 @@ import okhttp3.Response;
 public class PojavZHTools {
     public static String DIR_GAME_MODPACK = null;
     public static String DIR_GAME_DEFAULT;
-    public static File DIR_DOWNLOAD_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
     private PojavZHTools() {
     }
 
@@ -214,7 +211,7 @@ public class PojavZHTools {
                         int githubVersion = Integer.parseInt(tagName);
 
                         if (versionCode < githubVersion) {
-                            File file = new File(DIR_DOWNLOAD_PATH, "PojavZH.apk");
+                            File file = new File(context.getFilesDir(), "PojavZH.apk");
 
                             runOnUiThread(() -> {
                                 DialogInterface.OnClickListener download = (dialogInterface, i) -> {
@@ -289,18 +286,10 @@ public class PojavZHTools {
                         runOnUiThread(() -> {
                             DialogInterface.OnClickListener install = (dialogInterface, i) -> {
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
-
-                                Uri apkUri;
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    // Android 7.0
-                                    apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", outputFile);
-                                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                } else {
-                                    apkUri = Uri.fromFile(outputFile);
-                                }
-
+                                Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", outputFile);
                                 intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                 context.startActivity(intent);
                             };
 
