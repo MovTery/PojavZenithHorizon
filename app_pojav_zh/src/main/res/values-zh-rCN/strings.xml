@@ -87,7 +87,7 @@
     <string name="zh_update_without">当前已是最新版本</string>
     <string name="zh_update_fail">网络异常，暂时无法获取更新！</string>
     <string name="zh_update_yes">检测到新版本，是否下载并更新？</string>
-    <string name="zh_update_success">最新的安装包已经下载完成，是否安装？</string>
+    <string name="zh_update_success">最新的安装包已经下载完成，是否安装？\n点击“是”将跳转到安装包所在的目录</string>
     <string name="zh_update_downloading">正在下载安装包… (%s / %s)</string>
     <string name="zh_update_downloading_tip">正在获取中，更新源：Github Releases</string>
     <string name="zh_warning">警告</string>

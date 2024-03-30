@@ -11,13 +11,13 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.FileProvider;
 
 import com.kdt.pickafile.FileListView;
 
@@ -41,6 +41,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -53,6 +57,7 @@ import okhttp3.Response;
 public class PojavZHTools {
     public static String DIR_GAME_MODPACK = null;
     public static String DIR_GAME_DEFAULT;
+    public static File DIR_DOWNLOAD_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
     private PojavZHTools() {
     }
 
@@ -211,7 +216,7 @@ public class PojavZHTools {
                         int githubVersion = Integer.parseInt(tagName);
 
                         if (versionCode < githubVersion) {
-                            File file = new File(context.getCacheDir(), "PojavZH.apk");
+                            File file = new File(DIR_DOWNLOAD_PATH, "PojavZH.apk");
 
                             runOnUiThread(() -> {
                                 DialogInterface.OnClickListener download = (dialogInterface, i) -> {
@@ -269,27 +274,38 @@ public class PojavZHTools {
                         int downloadedBytes = 0;
 
                         runOnUiThread(dialog[0]::show);
+                        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+                        ScheduledFuture<?> updateFuture = null;
 
                         while ((bytesRead = inputStream.read(buffer)) != -1) {
                             outputStream.write(buffer, 0, bytesRead);
                             downloadedBytes += bytesRead;
                             int finalDownloadedBytes = downloadedBytes;
 
-                            runOnUiThread(() -> {
+                            if (updateFuture != null && !updateFuture.isDone()) {
+                                updateFuture.cancel(false);
+                            }
+
+                            updateFuture = scheduler.schedule(() -> runOnUiThread(() -> {
                                 String formattedDownloaded = formatFileSize(finalDownloadedBytes);
                                 TextView textView = dialog[0].findViewById(R.id.download_upload_textView);
                                 textView.setText(String.format(context.getString(R.string.zh_update_downloading), formattedDownloaded, fileSize));
-                            });
+                            }), 1, TimeUnit.SECONDS);
                         }
+                        if (updateFuture != null && !updateFuture.isDone()) {
+                            updateFuture.cancel(false);
+                        }
+
                         runOnUiThread(dialog[0]::dismiss);
 
                         runOnUiThread(() -> {
                             DialogInterface.OnClickListener install = (dialogInterface, i) -> { //安装
+                                Uri downloadUri = Uri.fromFile(DIR_DOWNLOAD_PATH);
+
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                                Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", outputFile);
+                                intent.setData(downloadUri);
                                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+
                                 context.startActivity(intent);
                             };
 
