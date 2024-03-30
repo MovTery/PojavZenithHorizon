@@ -11,13 +11,13 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.FileProvider;
 
 import com.kdt.pickafile.FileListView;
 
@@ -53,7 +53,6 @@ import okhttp3.Response;
 public class PojavZHTools {
     public static String DIR_GAME_MODPACK = null;
     public static String DIR_GAME_DEFAULT;
-    public static File DIR_DOWNLOAD_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
     private PojavZHTools() {
     }
 
@@ -212,7 +211,7 @@ public class PojavZHTools {
                         int githubVersion = Integer.parseInt(tagName);
 
                         if (versionCode < githubVersion) {
-                            File file = new File(DIR_DOWNLOAD_PATH, "PojavZH.apk");
+                            File file = new File(context.getExternalFilesDir(null), "PojavZH.apk");
 
                             runOnUiThread(() -> {
                                 DialogInterface.OnClickListener download = (dialogInterface, i) -> {
@@ -285,18 +284,18 @@ public class PojavZHTools {
                         runOnUiThread(dialog[0]::dismiss);
 
                         runOnUiThread(() -> {
-                            @SuppressLint("IntentReset")
                             DialogInterface.OnClickListener install = (dialogInterface, i) -> {
-                                Uri uri = Uri.fromFile(DIR_DOWNLOAD_PATH);
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                                intent.setData(uri);
-                                intent.setType("vnd.android.document/directory"); //设置类型为目录
+                                Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", outputFile);
+                                intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                 context.startActivity(intent);
                             };
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(context);
                             builder.setTitle(context.getString(R.string.zh_tip))
-                                    .setMessage(context.getString(R.string.zh_update_success))
+                                    .setMessage(context.getString(R.string.zh_update_success) + outputFile.getAbsolutePath())
                                     .setCancelable(false)
                                     .setPositiveButton(context.getString(R.string.global_yes), install)
                                     .setNegativeButton(context.getString(android.R.string.cancel), null)
