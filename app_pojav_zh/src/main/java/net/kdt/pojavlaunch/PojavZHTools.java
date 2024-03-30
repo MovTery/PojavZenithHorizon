@@ -211,10 +211,13 @@ public class PojavZHTools {
                         int githubVersion = Integer.parseInt(tagName);
 
                         if (versionCode < githubVersion) {
-                            File file = new File(context.getExternalFilesDir(null), "PojavZH.apk");
+                            File file = new File(context.getFilesDir(), "PojavZH.apk");
 
                             runOnUiThread(() -> {
-                                DialogInterface.OnClickListener download = (dialogInterface, i) -> downloadFileWithOkHttp(context, "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk", file.getAbsolutePath(), formatFileSize(fileSize));
+                                DialogInterface.OnClickListener download = (dialogInterface, i) -> {
+                                    Toast.makeText(context, context.getString(R.string.zh_update_downloading_tip), Toast.LENGTH_SHORT).show();
+                                    downloadFileWithOkHttp(context, "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk", file.getAbsolutePath(), formatFileSize(fileSize));
+                                };
 
                                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                                 builder.setTitle(context.getString(R.string.zh_tip))
@@ -282,7 +285,6 @@ public class PojavZHTools {
 
                         runOnUiThread(() -> {
                             DialogInterface.OnClickListener install = (dialogInterface, i) -> { //安装
-                                Toast.makeText(context, context.getString(R.string.zh_update_downloading_tip), Toast.LENGTH_SHORT).show();
                                 Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", outputFile);
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
                                 intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
