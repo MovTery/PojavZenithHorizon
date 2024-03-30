@@ -1,6 +1,5 @@
 package net.kdt.pojavlaunch.fragments;
 
-import static net.kdt.pojavlaunch.PojavZHTools.updateLauncher;
 import static net.kdt.pojavlaunch.Tools.shareLog;
 import static net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles.getCurrentProfile;
 
@@ -38,7 +37,6 @@ public class MainMenuFragment extends Fragment {
         Button mCustomControlButton = view.findViewById(R.id.custom_control_button);
         Button mInstallJarButton = view.findViewById(R.id.install_jar_button);
         Button mShareLogsButton = view.findViewById(R.id.share_logs_button);
-        Button mUpdateButton = view.findViewById(R.id.update_button);
         Button mOpenMainDirButton = view.findViewById(R.id.zh_open_main_dir_button);
         Button mOpenInstanceDirButton = view.findViewById(R.id.zh_open_instance_dir_button);
 
@@ -58,8 +56,6 @@ public class MainMenuFragment extends Fragment {
         mPlayButton.setOnClickListener(v -> ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true));
 
         mShareLogsButton.setOnClickListener(v -> shareLog(requireContext()));
-
-        mUpdateButton.setOnClickListener(v -> updateLauncher(requireContext()));
 
         mOpenMainDirButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle();

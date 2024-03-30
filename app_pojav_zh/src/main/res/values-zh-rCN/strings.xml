@@ -82,6 +82,7 @@
     <string name="zh_tip">提示</string>
     <string name="zh_confirm">确认</string>
     <string name="zh_update">检查更新</string>
+    <string name="zh_update_summary">获取并更新到最新的版本</string>
     <string name="zh_update_checking">正在检查更新…</string>
     <string name="zh_update_without">当前已是最新版本</string>
     <string name="zh_update_fail">网络异常，暂时无法获取更新！</string>

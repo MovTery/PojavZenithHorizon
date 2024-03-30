@@ -211,7 +211,7 @@ public class PojavZHTools {
                         int githubVersion = Integer.parseInt(tagName);
 
                         if (versionCode < githubVersion) {
-                            File file = new File(context.getFilesDir(), "PojavZH.apk");
+                            File file = new File(context.getCacheDir(), "PojavZH.apk");
 
                             runOnUiThread(() -> {
                                 DialogInterface.OnClickListener download = (dialogInterface, i) -> {
@@ -285,10 +285,11 @@ public class PojavZHTools {
 
                         runOnUiThread(() -> {
                             DialogInterface.OnClickListener install = (dialogInterface, i) -> { //安装
-                                Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", outputFile);
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                                intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+                                Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", outputFile);
                                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
                                 context.startActivity(intent);
                             };
 
