@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.DocumentsContract;
+import android.provider.Settings;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -216,8 +217,14 @@ public class PojavZHTools {
 
                             runOnUiThread(() -> {
                                 DialogInterface.OnClickListener download = (dialogInterface, i) -> {
-                                    Toast.makeText(context, context.getString(R.string.zh_update_downloading_tip), Toast.LENGTH_SHORT).show();
-                                    downloadFileWithOkHttp(context, "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk", file.getAbsolutePath(), formatFileSize(fileSize));
+                                    if (!isUnknownSourcesEnabled(context)) {
+                                        Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
+                                        intent.setData(Uri.parse("package:" + context.getPackageName()));
+                                        context.startActivity(intent);
+                                    } else {
+                                        Toast.makeText(context, context.getString(R.string.zh_update_downloading_tip), Toast.LENGTH_SHORT).show();
+                                        downloadFileWithOkHttp(context, "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk", file.getAbsolutePath(), formatFileSize(fileSize));
+                                    }
                                 };
 
                                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -287,10 +294,10 @@ public class PojavZHTools {
                         runOnUiThread(() -> {
                             @SuppressLint("IntentReset")
                             DialogInterface.OnClickListener install = (dialogInterface, i) -> {
-                                Uri uri = Uri.fromFile(DIR_DOWNLOAD_PATH);
+                                Uri apkUri = Uri.fromFile(outputFile);
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                                intent.setData(uri);
-                                intent.setType("vnd.android.document/directory"); //设置类型为目录
+                                intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 context.startActivity(intent);
                             };
 
@@ -313,6 +320,12 @@ public class PojavZHTools {
         if (bytes <= 0) return "0 MB";
         final double value = bytes / (1024.0 * 1024);
         return String.format("%.2f MB", value);
+    }
+
+    private static boolean isUnknownSourcesEnabled(Context context) {
+        boolean unknownSources = Settings.Secure.getInt(context.getContentResolver(),
+                Settings.Secure.INSTALL_NON_MARKET_APPS, 0) == 1;
+        return unknownSources;
     }
 
     public static int getVersionCode(Context context) {
