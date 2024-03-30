@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.widget.EditText;
@@ -288,10 +289,18 @@ public class PojavZHTools {
                         runOnUiThread(() -> {
                             DialogInterface.OnClickListener install = (dialogInterface, i) -> {
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                                Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", outputFile);
-                                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                                Uri apkUri;
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                    // Android 7.0
+                                    apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", outputFile);
+                                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                } else {
+                                    apkUri = Uri.fromFile(outputFile);
+                                }
+
                                 intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 context.startActivity(intent);
                             };
 
