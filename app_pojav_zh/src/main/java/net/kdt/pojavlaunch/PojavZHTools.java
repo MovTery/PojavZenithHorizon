@@ -211,7 +211,7 @@ public class PojavZHTools {
                         int githubVersion = Integer.parseInt(tagName);
 
                         if (versionCode < githubVersion) {
-                            File file = new File(context.getFilesDir(), "PojavZH.apk");
+                            File file = new File(context.getExternalFilesDir(null), "PojavZH.apk");
 
                             runOnUiThread(() -> {
                                 DialogInterface.OnClickListener download = (dialogInterface, i) -> {
