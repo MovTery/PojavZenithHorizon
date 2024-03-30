@@ -1,12 +1,20 @@
 package net.kdt.pojavlaunch;
 
+import static net.kdt.pojavlaunch.Tools.runOnUiThread;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -24,13 +32,28 @@ import net.kdt.pojavlaunch.utils.ZipUtils;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class PojavZHTools {
     public static String DIR_GAME_MODPACK = null;
     public static String DIR_GAME_DEFAULT;
+    public static File DIR_DOWNLOAD_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
     private PojavZHTools() {
     }
 
@@ -161,6 +184,147 @@ public class PojavZHTools {
         return dir.delete();
     }
 
+    public static void updateLauncher(Context context) {
+        int versionCode = getVersionCode(context);
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("https://api.github.com/repos/HopiHopy/PojavZH/releases/latest")
+                .build();
+
+        PojavApplication.sExecutorService.execute(() -> client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_fail), Toast.LENGTH_SHORT).show());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response);
+                } else {
+                    String responseBody = response.body().string(); //解析响应体
+                    try {
+                        JSONObject jsonObject = new JSONObject(responseBody);
+                        JSONArray assetsJson = jsonObject.getJSONArray("assets");
+                        String tagName = jsonObject.getString("tag_name");
+                        JSONObject firstAsset = assetsJson.getJSONObject(0);
+                        long fileSize = firstAsset.getLong("size");
+                        int githubVersion = Integer.parseInt(tagName);
+
+                        if (versionCode < githubVersion) {
+                            File file = new File(DIR_DOWNLOAD_PATH, "PojavZH.apk");
+
+                            runOnUiThread(() -> {
+                                DialogInterface.OnClickListener download = (dialogInterface, i) -> {
+                                    Toast.makeText(context, context.getString(R.string.zh_update_downloading_tip), Toast.LENGTH_SHORT).show();
+                                    downloadFileWithOkHttp(context, "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk", file.getAbsolutePath(), formatFileSize(fileSize));
+                                };
+
+                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                builder.setTitle(context.getString(R.string.zh_tip))
+                                        .setMessage(context.getString(R.string.zh_update_yes))
+                                        .setCancelable(false)
+                                        .setPositiveButton(context.getString(R.string.global_yes), download)
+                                        .setNegativeButton(context.getString(android.R.string.cancel), null)
+                                        .show();
+                            });
+
+
+                        } else runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_without), Toast.LENGTH_SHORT).show());
+                    } catch (JSONException ignored) {}
+                }
+            }
+        }));
+    }
+
+    public static void downloadFileWithOkHttp(Context context, String fileUrl, String destinationFilePath, String fileSize) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(fileUrl)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_fail), Toast.LENGTH_SHORT).show());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response);
+                } else {
+                    final Dialog[] dialog = new Dialog[1];
+                    runOnUiThread(() -> {
+                        dialog[0] = new Dialog(context);
+                        dialog[0].setContentView(R.layout.dialog_download_upload);
+                        dialog[0].setCancelable(false);
+                    });
+
+                    File outputFile = new File(destinationFilePath);
+                    try (InputStream inputStream = response.body().byteStream();
+                         OutputStream outputStream = new FileOutputStream(outputFile);
+                         ) {
+                        byte[] buffer = new byte[1024 * 1024];
+                        int bytesRead;
+                        int downloadedBytes = 0;
+
+                        runOnUiThread(dialog[0]::show);
+
+                        while ((bytesRead = inputStream.read(buffer)) != -1) {
+                            outputStream.write(buffer, 0, bytesRead);
+                            downloadedBytes += bytesRead;
+                            int finalDownloadedBytes = downloadedBytes;
+
+                            runOnUiThread(() -> {
+                                String formattedDownloaded = formatFileSize(finalDownloadedBytes);
+                                TextView textView = dialog[0].findViewById(R.id.download_upload_textView);
+                                textView.setText(String.format(context.getString(R.string.zh_update_downloading), formattedDownloaded, fileSize));
+                            });
+                        }
+                        runOnUiThread(dialog[0]::dismiss);
+
+                        runOnUiThread(() -> {
+                            @SuppressLint("IntentReset")
+                            DialogInterface.OnClickListener install = (dialogInterface, i) -> {
+                                Uri uri = Uri.fromFile(DIR_DOWNLOAD_PATH);
+                                Intent intent = new Intent(Intent.ACTION_VIEW);
+                                intent.setData(uri);
+                                intent.setType("vnd.android.document/directory"); //设置类型为目录
+                                context.startActivity(intent);
+                            };
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setTitle(context.getString(R.string.zh_tip))
+                                    .setMessage(context.getString(R.string.zh_update_success))
+                                    .setCancelable(false)
+                                    .setPositiveButton(context.getString(R.string.global_yes), install)
+                                    .setNegativeButton(context.getString(android.R.string.cancel), null)
+                                    .show();
+                        });
+                    }
+                }
+            }
+        });
+    }
+
+    @SuppressLint("DefaultLocale")
+    public static String formatFileSize(long bytes) {
+        if (bytes <= 0) return "0 MB";
+        final double value = bytes / (1024.0 * 1024);
+        return String.format("%.2f MB", value);
+    }
+
+    public static int getVersionCode(Context context) {
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static ModLoader installModPack(Context context, int type, File zipFile) throws Exception {
         try (ZipFile modpackZipFile = new ZipFile(zipFile)) {
             String zipName = zipFile.getName();
@@ -198,7 +362,7 @@ public class PojavZHTools {
 
                     return modLoader;
                 default:
-                    Tools.runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_select_modpack_local_not_supported), Toast.LENGTH_SHORT).show());
+                    runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_select_modpack_local_not_supported), Toast.LENGTH_SHORT).show());
                     return null;
             }
         } finally {

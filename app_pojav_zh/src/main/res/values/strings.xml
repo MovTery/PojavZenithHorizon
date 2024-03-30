@@ -83,6 +83,14 @@
     <string name="zh_setting_animation_title">Enable Animation</string>
     <string name="zh_tip">Tip</string>
     <string name="zh_confirm">Confirm</string>
+    <string name="zh_update">Check for updates</string>
+    <string name="zh_update_summary">Get and update to the latest version</string>
+    <string name="zh_update_checking">Checking for updates…</string>
+    <string name="zh_update_without">Already up to date</string>
+    <string name="zh_update_fail">Network exception, unable to get updates temporarily!</string>
+    <string name="zh_update_yes">A new version has been detected. Would you like to download and update?</string>
+    <string name="zh_update_success">The latest installation package has been successfully downloaded. Do you want to install it?\nClicking "Yes" will take you to the directory where the installation package is located.</string>    <string name="zh_update_downloading">Downloading… (%s / %s)</string>
+    <string name="zh_update_downloading_tip">Downloading, updating source: Github Releases</string>
     <string name="zh_warning">Warning</string>
     <string name="zh_view_log_output">Log output:</string>
 
