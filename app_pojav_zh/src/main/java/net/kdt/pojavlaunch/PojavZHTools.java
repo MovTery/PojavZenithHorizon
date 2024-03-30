@@ -250,10 +250,12 @@ public class PojavZHTools {
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response);
                 } else {
-                    Dialog dialog = new Dialog(context);
-                    dialog.setContentView(R.layout.dialog_download_upload);
-                    dialog.setCancelable(false);
-                    TextView textView = dialog.findViewById(R.id.download_upload_textView);
+                    final Dialog[] dialog = new Dialog[1];
+                    runOnUiThread(() -> {
+                        dialog[0] = new Dialog(context);
+                        dialog[0].setContentView(R.layout.dialog_download_upload);
+                        dialog[0].setCancelable(false);
+                    });
 
                     File outputFile = new File(destinationFilePath);
                     try (InputStream inputStream = response.body().byteStream();
@@ -263,7 +265,7 @@ public class PojavZHTools {
                         int bytesRead;
                         int downloadedBytes = 0;
 
-                        runOnUiThread(dialog::show);
+                        runOnUiThread(dialog[0]::show);
 
                         while ((bytesRead = inputStream.read(buffer)) != -1) {
                             outputStream.write(buffer, 0, bytesRead);
@@ -272,10 +274,11 @@ public class PojavZHTools {
 
                             runOnUiThread(() -> {
                                 String formattedDownloaded = formatFileSize(finalDownloadedBytes);
+                                TextView textView = dialog[0].findViewById(R.id.download_upload_textView);
                                 textView.setText(String.format(context.getString(R.string.zh_update_downloading), formattedDownloaded, fileSize));
                             });
                         }
-                        runOnUiThread(dialog::dismiss);
+                        runOnUiThread(dialog[0]::dismiss);
 
                         runOnUiThread(() -> {
                             DialogInterface.OnClickListener install = (dialogInterface, i) -> { //安装
