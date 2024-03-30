@@ -55,7 +55,7 @@ public class MainMenuFragment extends Fragment {
 
         mPlayButton.setOnClickListener(v -> ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true));
 
-        mShareLogsButton.setOnClickListener((v) -> shareLog(requireContext()));
+        mShareLogsButton.setOnClickListener(v -> shareLog(requireContext()));
 
         mOpenMainDirButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
