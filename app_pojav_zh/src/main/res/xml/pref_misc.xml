@@ -48,4 +48,11 @@
         android:key="notification_permission_request"
         />
 
+    <Preference
+        android:title="@string/zh_update"
+        android:summary="@string/zh_update_summary"
+        android:key="zh_check_update"
+        android:icon="@drawable/ic_update"
+        />
+
 </PreferenceScreen>

@@ -84,6 +84,7 @@
     <string name="zh_tip">Tip</string>
     <string name="zh_confirm">Confirm</string>
     <string name="zh_update">Check for updates</string>
+    <string name="zh_update_summary">Get and update to the latest version</string>
     <string name="zh_update_checking">Checking for updates…</string>
     <string name="zh_update_without">Already up to date</string>
     <string name="zh_update_fail">Network exception, unable to get updates temporarily!</string>
