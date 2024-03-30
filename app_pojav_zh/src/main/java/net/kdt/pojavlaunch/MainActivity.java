@@ -142,6 +142,9 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         ContextExecutor.setActivity(this);
         //Now, attach to the service. The game will only start when this happens, to make sure that we know the right state.
         bindService(gameServiceIntent, this, 0);
+
+        File updateFile = new File(this.getFilesDir(), "PojavZH.apk");
+        if (updateFile.exists()) PojavZHTools.deleteFile(updateFile);
     }
 
     protected void initLayout(int resId) {
