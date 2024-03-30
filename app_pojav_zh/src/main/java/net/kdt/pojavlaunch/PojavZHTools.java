@@ -253,6 +253,8 @@ public class PojavZHTools {
                     Dialog dialog = new Dialog(context);
                     dialog.setContentView(R.layout.dialog_download_upload);
                     dialog.setCancelable(false);
+                    TextView textView = dialog.findViewById(R.id.download_upload_textView);
+
                     File outputFile = new File(destinationFilePath);
                     try (InputStream inputStream = response.body().byteStream();
                          OutputStream outputStream = new FileOutputStream(outputFile);
@@ -260,20 +262,24 @@ public class PojavZHTools {
                         byte[] buffer = new byte[1024 * 1024];
                         int bytesRead;
                         int downloadedBytes = 0;
+
                         runOnUiThread(dialog::show);
+
                         while ((bytesRead = inputStream.read(buffer)) != -1) {
                             outputStream.write(buffer, 0, bytesRead);
                             downloadedBytes += bytesRead;
                             int finalDownloadedBytes = downloadedBytes;
+
                             runOnUiThread(() -> {
-                                TextView textView = dialog.findViewById(R.id.download_upload_textView);
-                                textView.setText(String.format(context.getString(R.string.zh_update_downloading), formatFileSize(finalDownloadedBytes), fileSize));
+                                String formattedDownloaded = formatFileSize(finalDownloadedBytes);
+                                textView.setText(String.format(context.getString(R.string.zh_update_downloading), formattedDownloaded, fileSize));
                             });
                         }
                         runOnUiThread(dialog::dismiss);
 
                         runOnUiThread(() -> {
                             DialogInterface.OnClickListener install = (dialogInterface, i) -> { //安装
+                                Toast.makeText(context, context.getString(R.string.zh_update_downloading_tip), Toast.LENGTH_SHORT).show();
                                 Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", outputFile);
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
                                 intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
