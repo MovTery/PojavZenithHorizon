@@ -13,12 +13,12 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.DocumentsContract;
-import android.provider.Settings;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.FileProvider;
 
 import com.kdt.pickafile.FileListView;
 
@@ -217,14 +217,8 @@ public class PojavZHTools {
 
                             runOnUiThread(() -> {
                                 DialogInterface.OnClickListener download = (dialogInterface, i) -> {
-                                    if (!isUnknownSourcesEnabled(context)) {
-                                        Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
-                                        intent.setData(Uri.parse("package:" + context.getPackageName()));
-                                        context.startActivity(intent);
-                                    } else {
-                                        Toast.makeText(context, context.getString(R.string.zh_update_downloading_tip), Toast.LENGTH_SHORT).show();
-                                        downloadFileWithOkHttp(context, "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk", file.getAbsolutePath(), formatFileSize(fileSize));
-                                    }
+                                    Toast.makeText(context, context.getString(R.string.zh_update_downloading_tip), Toast.LENGTH_SHORT).show();
+                                    downloadFileWithOkHttp(context, "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk", file.getAbsolutePath(), formatFileSize(fileSize));
                                 };
 
                                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -292,18 +286,18 @@ public class PojavZHTools {
                         runOnUiThread(dialog[0]::dismiss);
 
                         runOnUiThread(() -> {
-                            @SuppressLint("IntentReset")
                             DialogInterface.OnClickListener install = (dialogInterface, i) -> {
-                                Uri apkUri = Uri.fromFile(outputFile);
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
+                                Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", outputFile);
+                                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 context.startActivity(intent);
                             };
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(context);
                             builder.setTitle(context.getString(R.string.zh_tip))
-                                    .setMessage(context.getString(R.string.zh_update_success))
+                                    .setMessage(context.getString(R.string.zh_update_success) + outputFile.getAbsolutePath())
                                     .setCancelable(false)
                                     .setPositiveButton(context.getString(R.string.global_yes), install)
                                     .setNegativeButton(context.getString(android.R.string.cancel), null)
@@ -320,12 +314,6 @@ public class PojavZHTools {
         if (bytes <= 0) return "0 MB";
         final double value = bytes / (1024.0 * 1024);
         return String.format("%.2f MB", value);
-    }
-
-    private static boolean isUnknownSourcesEnabled(Context context) {
-        boolean unknownSources = Settings.Secure.getInt(context.getContentResolver(),
-                Settings.Secure.INSTALL_NON_MARKET_APPS, 0) == 1;
-        return unknownSources;
     }
 
     public static int getVersionCode(Context context) {
