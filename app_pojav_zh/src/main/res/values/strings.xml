@@ -90,6 +90,7 @@
     <string name="zh_update_yes">A new version has been detected. Would you like to download and update?</string>
     <string name="zh_update_success">The latest installation package has been downloaded. Would you like to install it now?</string>
     <string name="zh_update_downloading">Downloading… (%s / %s)</string>
+    <string name="zh_update_downloading_tip">Downloading, updating source: Github Releases</string>
     <string name="zh_warning">Warning</string>
     <string name="zh_view_log_output">Log output:</string>
 
