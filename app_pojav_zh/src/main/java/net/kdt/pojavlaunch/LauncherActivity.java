@@ -241,7 +241,7 @@ public class LauncherActivity extends BaseActivity {
         mProgressLayout.observe(ProgressLayout.AUTHENTICATE_MICROSOFT);
         mProgressLayout.observe(ProgressLayout.DOWNLOAD_VERSION_LIST);
 
-        File updateFile = new File(getFilesDir(), "PojavZH.apk");
+        File updateFile = new File(getExternalFilesDir(null), "PojavZH.apk");
         if (updateFile.exists()) PojavZHTools.deleteFile(updateFile);
     }
 
