@@ -29,7 +29,7 @@ def getVersionName = {
             ignoreExitValue true
             standardOutput = TAG
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace()
         }
     }
 
@@ -40,8 +40,7 @@ def getVersionName = {
                 commandLine 'git', 'describe', '--always', '--tags'
                 ignoreExitValue true
                 standardOutput = TAG_PART_COMMIT
-            } catch (Exception e) {
-            }
+            } catch (Exception ignored) {}
         }
     }
 
@@ -58,22 +57,22 @@ def getVersionName = {
             ignoreExitValue true
             standardOutput = BRANCH
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace()
         }
     }
 
-    return TAG_STRING.trim().replace("-g", "-") + "-" + BRANCH.toString().trim()
+    return TAG_STRING.trim().replace("-g", "-")
 }
 
 def getCFApiKey = {
-    String key = System.getenv("CURSEFORGE_API_KEY");
-    if(key != null) return key;
-    File curseforgeKeyFile = new File("./curseforge_key.txt");
+    String key = System.getenv("CURSEFORGE_API_KEY")
+    if(key != null) return key
+    File curseforgeKeyFile = new File("./curseforge_key.txt")
     if(curseforgeKeyFile.canRead() && curseforgeKeyFile.isFile()) {
-        return curseforgeKeyFile.text;
+        return curseforgeKeyFile.text
     }
-    logger.warn('BUILD: You have no CurseForge key, the curseforge api will get disabled !');
-    return "DUMMY";
+    logger.warn('BUILD: You have no CurseForge key, the curseforge api will get disabled !')
+    return "DUMMY"
 }
 
 configurations {
