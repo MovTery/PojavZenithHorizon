@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch;
 
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -11,13 +12,18 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.kdt.pickafile.FileListView;
 
@@ -72,6 +78,16 @@ public class PojavZHTools {
         } else { // >100MB 30MB
             return 30 * mb;
         }
+    }
+
+    public static void swapSettingsFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
+                                            @Nullable String fragmentTag, @Nullable Bundle bundle) {
+        FragmentTransaction transaction = fragmentActivity.getSupportFragmentManager().beginTransaction();
+
+        if(PREF_ANIMATION) transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
+        transaction.setReorderingAllowed(true)
+                .replace(R.id.zh_settings_fragment, fragmentClass, bundle, fragmentTag)
+                .commit();
     }
 
     public static File getGameDirPath(String gameDir) {
