@@ -1,0 +1,53 @@
+name: BUG 反馈
+description: ' 创建一个 BUG 反馈，帮助我们改进 PojavZH '
+title: "[BUG] 简短的描述"
+labels: [bug]
+body:
+  - type: textarea
+    id: version
+    attributes:
+      label: 问题描述
+      description: >-
+        清晰，详细地描述出你所遇到的问题
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: 日志/截图或视频
+      description: |
+        你需要在这里上传最近一次遇到此问题的日志/截图或者视频
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: 复现步骤
+      description: 复现问题的步骤，请尽量详细一些
+      placeholder: |
+        1. 打开启动器
+        ... *(复现问题的一些操作)*
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: 预期行为
+      description: 请对预期发生的情况的简明描述
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: 其他信息
+      description: |
+        提供更多信息，帮助我们复现并修复问题
+      value: |
+        - 设备型号：
+        - CPU 架构：
+        - Android 版本：
+        - PojavZH 版本：
+      render: markdown
+    validations:
+      required: true
