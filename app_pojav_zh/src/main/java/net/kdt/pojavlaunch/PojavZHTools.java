@@ -229,7 +229,10 @@ public class PojavZHTools {
                             });
 
 
-                        } else runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_without), Toast.LENGTH_SHORT).show());
+                        } else {
+                            String versionName = getVersionName(context);
+                            runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_without) + " " + versionName, Toast.LENGTH_SHORT).show());
+                        }
                     } catch (JSONException ignored) {}
                 }
             }
@@ -319,6 +322,16 @@ public class PojavZHTools {
         try {
             PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
             return packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String getVersionName(Context context) {
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             throw new RuntimeException(e);
         }
