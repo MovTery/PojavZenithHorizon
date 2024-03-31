@@ -47,6 +47,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.time.LocalDate;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -476,5 +477,15 @@ public class PojavZHTools {
         if (mcbbsPackMeta.addons == null) return false;
         if (mcbbsPackMeta.addons[0].id == null) return false;
         return (mcbbsPackMeta.addons[0].version != null);
+    }
+
+    public static boolean isAprilFoolsDay(){
+        // 获取当前日期
+        LocalDate currentDate;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            currentDate = LocalDate.now();
+            return currentDate.getMonthValue() == 4 && currentDate.getDayOfMonth() == 1;
+        }
+        return false;
     }
 }

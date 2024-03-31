@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -61,6 +62,7 @@ public class LauncherActivity extends BaseActivity {
     private mcAccountSpinner mAccountSpinner;
     private FragmentContainerView mFragmentView;
     private ImageButton mSettingsButton, mDeleteAccountButton;
+    private ImageView mHair;
     private ProgressLayout mProgressLayout;
     private ProgressServiceKeeper mProgressServiceKeeper;
     private ModloaderInstallTracker mInstallTracker;
@@ -244,6 +246,9 @@ public class LauncherActivity extends BaseActivity {
         mProgressLayout.observe(ProgressLayout.AUTHENTICATE_MICROSOFT);
         mProgressLayout.observe(ProgressLayout.DOWNLOAD_VERSION_LIST);
 
+        if (PojavZHTools.isAprilFoolsDay()) mHair.setVisibility(View.VISIBLE);
+        else mHair.setVisibility(View.GONE);
+
         File updateFile = new File(getExternalFilesDir(null), "PojavZH.apk");
         if (updateFile.exists()) PojavZHTools.deleteFile(updateFile);
     }
@@ -382,6 +387,8 @@ public class LauncherActivity extends BaseActivity {
         mDeleteAccountButton = findViewById(R.id.delete_account_button);
         mAccountSpinner = findViewById(R.id.account_spinner);
         mProgressLayout = findViewById(R.id.progress_layout);
+
+        mHair = findViewById(R.id.zh_hair);
     }
 
     @Override

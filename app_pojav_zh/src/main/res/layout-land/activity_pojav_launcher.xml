@@ -83,7 +83,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-
+    <ImageView
+        android:id="@+id/zh_hair"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        app:layout_constraintEnd_toEndOf="@+id/container_fragment"
+        app:layout_constraintStart_toStartOf="@+id/container_fragment"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/hair" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
