@@ -3,8 +3,8 @@ package net.kdt.pojavlaunch;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceControlFragment;
@@ -78,10 +78,10 @@ public class SettingsActivity extends BaseActivity {
 
         int[] buttonLocation = new int[2];
         button.getLocationOnScreen(buttonLocation);
-        int buttonTop = buttonLocation[1] - ((RelativeLayout.LayoutParams) button.getLayoutParams()).topMargin;
-        int buttonLeft = buttonLocation[0] - ((RelativeLayout.LayoutParams) button.getLayoutParams()).leftMargin;
+        int buttonTop = buttonLocation[1] - ((ConstraintLayout.LayoutParams) button.getLayoutParams()).topMargin;
+        int buttonLeft = buttonLocation[0] - ((ConstraintLayout.LayoutParams) button.getLayoutParams()).leftMargin;
 
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mIndicator.getLayoutParams();
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) mIndicator.getLayoutParams();
         params.topMargin = buttonTop;
         params.leftMargin = buttonLeft + (button.getWidth() - mIndicator.getWidth()) / 2;
         mIndicator.setLayoutParams(params);
