@@ -952,8 +952,8 @@ public final class Tools {
         return fileName;
     }
 
-    private static void swapFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
-                                     @Nullable String fragmentTag, @Nullable Bundle bundle, int id) {
+    public static void swapFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
+                                     @Nullable String fragmentTag, @Nullable Bundle bundle) {
         // When people tab out, it might happen
         //TODO handle custom animations
         FragmentTransaction transaction = fragmentActivity.getSupportFragmentManager().beginTransaction();
@@ -961,19 +961,8 @@ public final class Tools {
         if(PREF_ANIMATION) transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
         transaction.setReorderingAllowed(true)
                 .addToBackStack(fragmentClass.getName())
-                .replace(id, fragmentClass, bundle, fragmentTag)
+                .replace(R.id.container_fragment, fragmentClass, bundle, fragmentTag)
                 .commit();
-    }
-
-    /** Swap the main fragment with another */
-    public static void swapFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
-                                    @Nullable String fragmentTag, @Nullable Bundle bundle) {
-        swapFragment(fragmentActivity, fragmentClass, fragmentTag, bundle, R.id.container_fragment);
-    }
-
-    public static void swapSettingsFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
-                             @Nullable String fragmentTag, @Nullable Bundle bundle) {
-        swapFragment(fragmentActivity, fragmentClass, fragmentTag, bundle, R.id.zh_settings_fragment);
     }
 
     public static void backToMainMenu(FragmentActivity fragmentActivity) {
