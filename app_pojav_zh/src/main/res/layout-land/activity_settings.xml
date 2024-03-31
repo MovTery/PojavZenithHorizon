@@ -69,15 +69,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <View
-                android:id="@+id/settings_indicator"
-                android:layout_width="30dp"
-                android:layout_height="4dp"
-                android:background="@color/background_overlay"
-                app:layout_constraintEnd_toEndOf="@+id/video_settings"
-                app:layout_constraintStart_toStartOf="@+id/video_settings"
-                tools:ignore="MissingConstraints" />
-
             <ImageButton
                 android:id="@+id/video_settings"
                 android:layout_width="40dp"
