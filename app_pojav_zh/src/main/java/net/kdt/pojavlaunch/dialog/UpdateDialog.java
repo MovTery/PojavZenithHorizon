@@ -51,7 +51,11 @@ public class UpdateDialog extends Dialog {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
 
-                String css = "body { background-color: transparent; color: #ffffff; }";
+                String css = "body { background-color: #4D4D4D; color: #ffffff; }" +
+                        "a, a:link, a:visited, a:hover, a:active {" +
+                        "  color: #ffffff;" +
+                        "  text-decoration: none;" +
+                        "}";
 
                 //JavaScript代码，用于将CSS样式添加到WebView中
                 String js = "var parent = document.getElementsByTagName('head').item(0);" +
