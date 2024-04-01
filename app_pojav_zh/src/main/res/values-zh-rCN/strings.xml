@@ -21,6 +21,10 @@
     <string name="zh_controls_load">加载并编辑</string>
     <string name="zh_custom_control_title">管理控制布局</string>
     <string name="zh_custom_control_desc">管理所有的控制布局文件，你可以在这里删除、创建、重命名、导入控制布局等</string>
+    <string name="zh_custom_mouse_add">添加虚拟鼠标</string>
+    <string name="zh_custom_mouse_added">成功设置虚拟鼠标：</string>
+    <string name="zh_custom_mouse_title">自定义虚拟鼠标</string>
+    <string name="zh_custom_mouse_desc">打开虚拟鼠标管理界面，你能够自行添加你喜欢的虚拟鼠标贴图，并使用它们</string>
     <string name="zh_return">返回</string>
     <string name="zh_file_add_file">添加文件</string>
     <string name="zh_file_add_file_tip">请选择一个后缀名为"%s"的文件</string>
@@ -189,9 +193,9 @@
     <string name="mcl_setting_subtitle_javaargs">注意，非专业人士修改此值可能导致游戏崩溃</string>
     <string name="mcl_setting_category_renderer">渲染器</string>
     <string name="mcl_setting_renderer_gles2_4">Holy GL4ES - (全版本可用，速度较快)</string>
-    <string name="mcl_setting_renderer_vulkan_zink">Zink (Vulkan) - (全版本可用、速度中等)</string>
-    <string name="mcl_setting_renderer_freedreno">Freedreno (Adreno) - (全版本可用,速度中等)</string>
-    <string name="mcl_setting_renderer_angle">ANGLE (Vulkan) - (1.17+、速度中等)</string>
+    <string name="mcl_setting_renderer_vulkan_zink">Zink (Vulkan) - (全版本可用，速度中等)</string>
+    <string name="mcl_setting_renderer_freedreno">Freedreno (Adreno) - (全版本可用，速度中等)</string>
+    <string name="mcl_setting_renderer_angle">ANGLE (Vulkan) - (1.17+，速度中等)</string>
     <string name="mcl_setting_veroption_release">正式版</string>
     <string name="mcl_setting_veroption_snapshot">快照版</string>
     <string name="mcl_setting_veroption_oldalpha">远古 alpha 版</string>

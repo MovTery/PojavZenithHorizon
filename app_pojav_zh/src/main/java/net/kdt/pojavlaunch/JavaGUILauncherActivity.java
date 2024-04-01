@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch;
 
+import static net.kdt.pojavlaunch.PojavZHTools.customMouse;
+
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ClipboardManager;
@@ -85,6 +87,8 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
         findViewById(R.id.installmod_window_movedown).setOnTouchListener(this);
         findViewById(R.id.installmod_window_moveleft).setOnTouchListener(this);
         findViewById(R.id.installmod_window_moveright).setOnTouchListener(this);
+
+        customMouse(mMousePointerImageView, this);
 
         mMousePointerImageView.post(() -> {
             ViewGroup.LayoutParams params = mMousePointerImageView.getLayoutParams();

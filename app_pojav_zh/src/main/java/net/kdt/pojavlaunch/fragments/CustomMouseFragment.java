@@ -1,22 +1,25 @@
 package net.kdt.pojavlaunch.fragments;
 
+import static net.kdt.pojavlaunch.PojavZHTools.DIR_CUSTOM_MOUSE;
 import static net.kdt.pojavlaunch.PojavZHTools.calculateBufferSize;
 import static net.kdt.pojavlaunch.PojavZHTools.deleteFileListener;
 import static net.kdt.pojavlaunch.PojavZHTools.renameFileListener;
 import static net.kdt.pojavlaunch.PojavZHTools.shareFile;
-import static net.kdt.pojavlaunch.Tools.DIR_GAME_HOME;
 import static net.kdt.pojavlaunch.Tools.getFileName;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +31,6 @@ import androidx.fragment.app.Fragment;
 import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
-import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 
@@ -39,17 +41,15 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Objects;
 
-public class FilesFragment extends Fragment {
-    public static final String TAG = "FilesFragment";
-    public static final String BUNDLE_PATH = "bundle_path";
+public class CustomMouseFragment extends Fragment {
+    public static final String TAG = "CustomMouseFragment";
     private ActivityResultLauncher<Object> openDocumentLauncher;
-    private Button mReturnButton, mAddFileButton, mCreateFolderButton, mRefreshButton;
+    private Button mReturnButton, mAddFileButton, mRefreshButton;
     private ImageButton mHelpButton;
+    private ImageView mMouseView;
     private FileListView mFileListView;
-    private TextView mFilePathView;
-    private String mPath;
 
-    public FilesFragment() {
+    public CustomMouseFragment() {
         super(R.layout.fragment_files);
     }
 
@@ -61,7 +61,6 @@ public class FilesFragment extends Fragment {
                 result -> {
                     if (result != null) {
                         Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
-                        //使用AsyncTask在后台线程中执行文件复制
                         new CopyFile().execute(result);
                     }
                 }
@@ -69,26 +68,29 @@ public class FilesFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         bindViews(view);
-        parseBundle();
-
-        mFileListView.lockPathAt(new File(mPath));
-        mFileListView.setDialogTitleListener((title)->mFilePathView.setText(removeLockPath(title)));
+        mFileListView.lockPathAt(mousePath());
         mFileListView.refreshPath();
 
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
+                refreshIcon(path);
+
+                DEFAULT_PREF.edit().putString("custom_mouse", file.getName()).apply();
+                Toast.makeText(requireContext(), getString(R.string.zh_custom_mouse_added) + file.getName(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onItemLongClick(File file, String path) {
+                refreshIcon(path);
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-                int caciocavallo = file.getPath().indexOf("caciocavallo");
-                int lwjgl3 = file.getPath().indexOf("lwjgl3");
 
                 builder.setTitle(getString(R.string.zh_file_tips));
-                if (caciocavallo == -1 && lwjgl3 == -1) builder.setMessage(getString(R.string.zh_file_message));
-                else builder.setMessage(getString(R.string.zh_file_message) + "\n" + getString(R.string.zh_file_message_main));
+                builder.setMessage(getString(R.string.zh_file_message));
 
-                //分享
                 DialogInterface.OnClickListener shareListener = (dialog, which) -> shareFile(requireContext(), file.getName(), file.getAbsolutePath());
 
                 builder.setPositiveButton(getString(R.string.global_delete), deleteFileListener(requireActivity(), mFileListView, file))
@@ -97,31 +99,11 @@ public class FilesFragment extends Fragment {
 
                 builder.show();
             }
-
-            @Override
-            public void onItemLongClick(File file, String path) {
-                PojavZHTools.shareFileAlertDialog(requireContext(), file);
-            }
         });
 
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
-        mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(null)); //不限制文件类型
-        mCreateFolderButton.setOnClickListener(v -> {
-            EditText editText = new EditText(getContext());
-            new AlertDialog.Builder(getContext())
-                    .setTitle(R.string.folder_dialog_insert_name)
-                    .setView(editText)
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .setPositiveButton(R.string.folder_dialog_create, (dialog, which) -> {
-                        File folder = new File(mFileListView.getFullPath(), editText.getText().toString());
-                        boolean success = folder.mkdir();
-                        if(success){
-                            mFileListView.listFileAt(new File(mFileListView.getFullPath(),editText.getText().toString()));
-                        }else{
-                            mFileListView.refreshPath();
-                        }
-                    }).show();
-        });
+        mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(null));
+
         mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
@@ -132,6 +114,31 @@ public class FilesFragment extends Fragment {
 
             builder.show();
         });
+    }
+
+    private File mousePath() {
+        File path = new File(DIR_CUSTOM_MOUSE);
+        if (!path.exists()) path.mkdirs();
+        return path;
+    }
+
+    private void refreshIcon(String path) {
+        Bitmap mouse = BitmapFactory.decodeFile(path);
+        mMouseView.setImageBitmap(mouse);
+    }
+
+    private void bindViews(@NonNull View view) {
+        mReturnButton = view.findViewById(R.id.zh_files_return_button);
+        mAddFileButton = view.findViewById(R.id.zh_files_add_file_button);
+        mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
+        mHelpButton = view.findViewById(R.id.zh_files_help_button);
+        mFileListView = view.findViewById(R.id.zh_files);
+        TextView mFilePathView = view.findViewById(R.id.zh_files_current_path);
+        mMouseView = view.findViewById(R.id.zh_files_icon);
+
+        view.findViewById(R.id.zh_files_create_folder_button).setVisibility(View.GONE);
+        mFilePathView.setText(" ");
+        mAddFileButton.setText(getString(R.string.zh_custom_mouse_add));
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -165,27 +172,4 @@ public class FilesFragment extends Fragment {
             mFileListView.refreshPath();
         }
     }
-
-    private String removeLockPath(String path){
-        return path.replace(mPath, ".");
-    }
-
-    private void bindViews(@NonNull View view) {
-        mReturnButton = view.findViewById(R.id.zh_files_return_button);
-        mAddFileButton = view.findViewById(R.id.zh_files_add_file_button);
-        mCreateFolderButton = view.findViewById(R.id.zh_files_create_folder_button);
-        mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
-        mHelpButton = view.findViewById(R.id.zh_files_help_button);
-        mFileListView = view.findViewById(R.id.zh_files);
-        mFilePathView = view.findViewById(R.id.zh_files_current_path);
-
-        view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
-    }
-
-    private void parseBundle(){
-        Bundle bundle = getArguments();
-        if(bundle == null) return;
-        mPath = bundle.getString(BUNDLE_PATH, DIR_GAME_HOME);
-    }
 }
-

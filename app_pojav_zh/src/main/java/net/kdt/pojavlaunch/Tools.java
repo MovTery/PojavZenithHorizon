@@ -160,7 +160,6 @@ public final class Tools {
         MULTIRT_HOME = DIR_DATA+"/runtimes";
         DIR_GAME_HOME = getPojavStorageRoot(ctx).getAbsolutePath();
         DIR_GAME_NEW = DIR_GAME_HOME + "/.minecraft";
-        PojavZHTools.DIR_GAME_DEFAULT = DIR_GAME_HOME + "/.minecraft/instance/default";
         DIR_HOME_VERSION = DIR_GAME_NEW + "/versions";
         DIR_HOME_LIBRARY = DIR_GAME_NEW + "/libraries";
         DIR_HOME_CRASH = DIR_GAME_NEW + "/crash-reports";

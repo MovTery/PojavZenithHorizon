@@ -1,6 +1,8 @@
 package net.kdt.pojavlaunch;
 
+import static net.kdt.pojavlaunch.Tools.DIR_GAME_HOME;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
 import android.annotation.SuppressLint;
@@ -11,16 +13,20 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.FileProvider;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -60,7 +66,14 @@ import okhttp3.Response;
 public class PojavZHTools {
     public static String DIR_GAME_MODPACK = null;
     public static String DIR_GAME_DEFAULT;
+    public static String DIR_CUSTOM_MOUSE;
+    public static File FILE_CUSTOM_MOUSE;
     private PojavZHTools() {
+    }
+
+    public static void initContextConstants() {
+        PojavZHTools.DIR_GAME_DEFAULT = DIR_GAME_HOME + "/.minecraft/instance/default";
+        PojavZHTools.DIR_CUSTOM_MOUSE = DIR_GAME_HOME + "/mouse";
     }
 
     public static int calculateBufferSize(long fileSize) {
@@ -81,11 +94,24 @@ public class PojavZHTools {
         }
     }
 
+    public static void customMouse(ImageView mouse, Context context) {
+        FILE_CUSTOM_MOUSE = new File(DIR_CUSTOM_MOUSE, DEFAULT_PREF.getString("custom_mouse", "default_mouse.png"));
+
+        // 鼠标：自定义鼠标图片
+        if (FILE_CUSTOM_MOUSE.exists()) {
+            Bitmap mouseBitmap = BitmapFactory.decodeFile(FILE_CUSTOM_MOUSE.getAbsolutePath());
+            mouse.setImageBitmap(mouseBitmap);
+        } else {
+            mouse.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_mouse_pointer, context.getTheme()));
+        }
+    }
+
     public static void swapSettingsFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
-                                            @Nullable String fragmentTag, @Nullable Bundle bundle) {
+                                            @Nullable String fragmentTag, @Nullable Bundle bundle, boolean addToBackStack) {
         FragmentTransaction transaction = fragmentActivity.getSupportFragmentManager().beginTransaction();
 
         if(PREF_ANIMATION) transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
+        if(addToBackStack) transaction.addToBackStack(fragmentClass.getName());
         transaction.setReorderingAllowed(true)
                 .replace(R.id.zh_settings_fragment, fragmentClass, bundle, fragmentTag)
                 .commit();
@@ -94,9 +120,9 @@ public class PojavZHTools {
     public static File getGameDirPath(String gameDir) {
         if (gameDir != null) {
             if (gameDir.startsWith(Tools.LAUNCHERPROFILES_RTPREFIX))
-                return new File(gameDir.replace(Tools.LAUNCHERPROFILES_RTPREFIX, Tools.DIR_GAME_HOME + "/"));
+                return new File(gameDir.replace(Tools.LAUNCHERPROFILES_RTPREFIX, DIR_GAME_HOME + "/"));
             else
-                return new File(Tools.DIR_GAME_HOME, gameDir);
+                return new File(DIR_GAME_HOME, gameDir);
         }
         return new File(DIR_GAME_DEFAULT);
     }
@@ -433,17 +459,17 @@ public class PojavZHTools {
 
     private static ModLoader curseforgeModPack(Context context, File zipFile, String packName) throws Exception {
         CurseforgeApi curseforgeApi = new CurseforgeApi(context.getString(R.string.curseforge_api_key));
-        return curseforgeApi.installCurseforgeZip(zipFile, new File(Tools.DIR_GAME_HOME, "custom_instances/" + packName));
+        return curseforgeApi.installCurseforgeZip(zipFile, new File(DIR_GAME_HOME, "custom_instances/" + packName));
     }
 
     private static ModLoader modrinthModPack(File zipFile, String packName) throws Exception {
         ModrinthApi modrinthApi = new ModrinthApi();
-        return modrinthApi.installMrpack(zipFile, new File(Tools.DIR_GAME_HOME, "custom_instances/" + packName));
+        return modrinthApi.installMrpack(zipFile, new File(DIR_GAME_HOME, "custom_instances/" + packName));
     }
 
     private static ModLoader mcbbsModPack(File zipFile, String packName) throws Exception {
         MCBBSApi mcbbsApi = new MCBBSApi();
-        return mcbbsApi.installMCBBSZip(zipFile, new File(Tools.DIR_GAME_HOME, "custom_instances/" + packName));
+        return mcbbsApi.installMCBBSZip(zipFile, new File(DIR_GAME_HOME, "custom_instances/" + packName));
     }
 
     private static void createProfiles(String modpackName, String profileName, String versionId) {

@@ -209,6 +209,8 @@ public class ControlButtonFragment extends Fragment {
 
         mImportControlButton.setText(getString(R.string.zh_controls_import_control));
         mAddControlButton.setText(getString(R.string.zh_controls_create_new));
+
+        view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
     }
 }
 

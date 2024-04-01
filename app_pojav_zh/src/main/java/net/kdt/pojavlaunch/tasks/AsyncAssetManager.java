@@ -67,6 +67,8 @@ public class AsyncAssetManager {
                 Tools.copyAssetFile(ctx, "options.txt", PojavZHTools.DIR_GAME_DEFAULT, false);
                 Tools.copyAssetFile(ctx, "default.json", Tools.CTRLMAP_PATH, false);
 
+                Tools.copyAssetFile(ctx, "default_mouse.png", PojavZHTools.DIR_CUSTOM_MOUSE, false);
+
                 Tools.copyAssetFile(ctx, "launcher_profiles.json", Tools.DIR_GAME_NEW, false);
                 Tools.copyAssetFile(ctx,"resolv.conf",Tools.DIR_DATA, false);
 
