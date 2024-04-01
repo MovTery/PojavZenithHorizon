@@ -1,7 +1,5 @@
 package net.kdt.pojavlaunch.prefs.screens;
 
-import static net.kdt.pojavlaunch.PojavZHTools.updateLauncher;
-
 import android.os.Bundle;
 
 import androidx.preference.Preference;
