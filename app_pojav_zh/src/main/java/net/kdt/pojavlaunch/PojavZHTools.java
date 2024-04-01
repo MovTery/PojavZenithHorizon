@@ -21,6 +21,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
+import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -124,6 +125,13 @@ public class PojavZHTools {
         bitmap.recycle();
 
         return new BitmapDrawable(context.getResources(), scaledBitmap);
+    }
+
+    public static boolean isImage(File file) {
+        String fileExtension = MimeTypeMap.getFileExtensionFromUrl(file.getName());
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        String mimeType = mime.getMimeTypeFromExtension(fileExtension);
+        return mimeType != null && mimeType.startsWith("image/");
     }
 
     public static void swapSettingsFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
