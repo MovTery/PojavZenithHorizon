@@ -150,7 +150,7 @@ public class CustomMouseFragment extends Fragment {
         mMouseView = view.findViewById(R.id.zh_files_icon);
 
         view.findViewById(R.id.zh_files_create_folder_button).setVisibility(View.GONE);
-        mFilePathView.setText(" ");
+        mFilePathView.setText(getString(R.string.zh_custom_mouse_title));
         mAddFileButton.setText(getString(R.string.zh_custom_mouse_add));
     }
 
