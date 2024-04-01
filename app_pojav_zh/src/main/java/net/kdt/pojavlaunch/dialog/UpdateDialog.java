@@ -8,6 +8,7 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import android.app.Dialog;
 import android.content.Context;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -40,6 +41,28 @@ public class UpdateDialog extends Dialog {
 
         String descriptionHtml = markdownToHtml(this.description);
         mDescription.loadDataWithBaseURL(null, descriptionHtml, "text/html", "UTF-8", null);
+
+        mDescription.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+
+                String css = "body { background-color: transparent; color: #ffffff; }";
+
+                //JavaScript代码，用于将CSS样式添加到WebView中
+                String js = "var parent = document.getElementsByTagName('head').item(0);" +
+                        "var style = document.createElement('style');" +
+                        "style.type = 'text/css';" +
+                        "if (style.styleSheet){" +
+                        "  style.styleSheet.cssText = '" + css + "';" +
+                        "} else {" +
+                        "  style.appendChild(document.createTextNode('" + css + "'));" +
+                        "}" +
+                        "parent.appendChild(style);";
+
+                mDescription.evaluateJavascript(js, null);
+            }
+        });
 
         Button mUpdateButton = findViewById(R.id.zh_update_update_button);
         Button mCancelButton = findViewById(R.id.zh_update_cancel_button);
