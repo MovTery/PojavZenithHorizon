@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
@@ -35,7 +36,6 @@ import com.kdt.pickafile.FileSelectedListener;
 
 import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -46,7 +46,7 @@ import java.util.Objects;
 
 public class CustomMouseFragment extends Fragment {
     public static final String TAG = "CustomMouseFragment";
-    private ActivityResultLauncher<Object> openDocumentLauncher;
+    private ActivityResultLauncher<String[]> openDocumentLauncher;
     private Button mReturnButton, mAddFileButton, mRefreshButton;
     private ImageButton mHelpButton;
     private ImageView mMouseView;
@@ -60,7 +60,7 @@ public class CustomMouseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         openDocumentLauncher = registerForActivityResult(
-                new OpenDocumentWithExtension("image/*"),
+                new ActivityResultContracts.OpenDocument(),
                 result -> {
                     if (result != null) {
                         Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
@@ -109,7 +109,7 @@ public class CustomMouseFragment extends Fragment {
         });
 
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
-        mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(null));
+        mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
 
         mRefreshButton.setOnClickListener(v -> mFileListView.listFileAt(mousePath(), true));
         mHelpButton.setOnClickListener(v -> {
