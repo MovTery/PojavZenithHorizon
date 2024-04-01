@@ -264,6 +264,14 @@ public class PojavZHTools {
     }
 
     public static void updateChecker(Context context) {
+        updateCheckerMainProgram(context, true);
+    }
+
+    public static void updateChecker(Context context, boolean ignore) {
+        updateCheckerMainProgram(context, ignore);
+    }
+
+    public static void updateCheckerMainProgram(Context context, boolean ignore) {
         int versionCode = getVersionCode(context);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -287,7 +295,7 @@ public class PojavZHTools {
                         JSONObject jsonObject = new JSONObject(responseBody);
                         String versionName = jsonObject.getString("name");
 
-                        if (versionName.equals(DEFAULT_PREF.getString("ignoreUpdate", null))) return; //忽略此版本
+                        if (ignore && versionName.equals(DEFAULT_PREF.getString("ignoreUpdate", null))) return; //忽略此版本
 
                         String tagName = jsonObject.getString("tag_name");
                         int githubVersion = Integer.parseInt(tagName);
