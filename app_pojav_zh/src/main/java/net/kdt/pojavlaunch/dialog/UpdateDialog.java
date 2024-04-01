@@ -5,6 +5,7 @@ import static net.kdt.pojavlaunch.PojavZHTools.markdownToHtml;
 import static net.kdt.pojavlaunch.PojavZHTools.updateLauncher;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.webkit.WebView;
@@ -31,6 +32,7 @@ public class UpdateDialog extends Dialog {
         this.setContentView(R.layout.dialog_update);
         init();
     }
+    @SuppressLint("SetJavaScriptEnabled")
     private void init() {
         TextView mVersionName = findViewById(R.id.zh_update_version_name);
         TextView mCreatedTime = findViewById(R.id.zh_update_time);
@@ -66,6 +68,7 @@ public class UpdateDialog extends Dialog {
             }
         });
 
+        mDescription.getSettings().setJavaScriptEnabled(true);
         mDescription.loadDataWithBaseURL(null, descriptionHtml, "text/html", "UTF-8", null);
 
         Button mUpdateButton = findViewById(R.id.zh_update_update_button);
