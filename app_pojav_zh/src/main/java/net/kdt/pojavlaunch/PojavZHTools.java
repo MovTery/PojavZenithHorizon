@@ -36,7 +36,12 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.kdt.pickafile.FileListView;
+import com.vladsch.flexmark.html.HtmlRenderer;
+import com.vladsch.flexmark.parser.Parser;
+import com.vladsch.flexmark.util.ast.Document;
+import com.vladsch.flexmark.util.data.MutableDataSet;
 
+import net.kdt.pojavlaunch.dialog.UpdateDialog;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.CurseforgeApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.MCBBSApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModLoader;
@@ -72,6 +77,8 @@ public class PojavZHTools {
     public static String DIR_GAME_DEFAULT;
     public static String DIR_CUSTOM_MOUSE;
     public static File FILE_CUSTOM_MOUSE;
+    public static String URL_GITHUB_RELEASE = "https://api.github.com/repos/HopiHopy/PojavZH/releases/latest";
+
     private PojavZHTools() {
     }
 
@@ -256,11 +263,48 @@ public class PojavZHTools {
         return dir.delete();
     }
 
-    public static void updateLauncher(Context context) {
+    public static void updateChecker(Context context) {
         int versionCode = getVersionCode(context);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("https://api.github.com/repos/HopiHopy/PojavZH/releases/latest")
+                .url(URL_GITHUB_RELEASE)
+                .build();
+
+        PojavApplication.sExecutorService.execute(() -> client.newCall(request).enqueue(new Callback() {
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_fail), Toast.LENGTH_SHORT).show());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response);
+                } else {
+                    String responseBody = response.body().string(); //解析响应体
+                    try {
+                        JSONObject jsonObject = new JSONObject(responseBody);
+                        String tagName = jsonObject.getString("tag_name");
+                        int githubVersion = Integer.parseInt(tagName);
+
+                        if (versionCode < githubVersion) {
+                            UpdateDialog.UpdateInformation updateInformation = new UpdateDialog.UpdateInformation();
+                            updateInformation.information(jsonObject.getString("name"), jsonObject.getString("created_at"), jsonObject.getString("body"));
+                            UpdateDialog updateDialog = new UpdateDialog(context, updateInformation);
+
+                            updateDialog.show();
+                        }
+                    } catch (JSONException ignored) {}
+                }
+            }
+        }));
+    }
+
+    public static void updateLauncher(Context context) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(URL_GITHUB_RELEASE)
                 .build();
 
         PojavApplication.sExecutorService.execute(() -> client.newCall(request).enqueue(new Callback() {
@@ -281,31 +325,10 @@ public class PojavZHTools {
                         String tagName = jsonObject.getString("tag_name");
                         JSONObject firstAsset = assetsJson.getJSONObject(0);
                         long fileSize = firstAsset.getLong("size");
-                        int githubVersion = Integer.parseInt(tagName);
+                        File file = new File(context.getExternalFilesDir(null), "PojavZH.apk");
 
-                        if (versionCode < githubVersion) {
-                            File file = new File(context.getExternalFilesDir(null), "PojavZH.apk");
-
-                            runOnUiThread(() -> {
-                                DialogInterface.OnClickListener download = (dialogInterface, i) -> {
-                                    Toast.makeText(context, context.getString(R.string.zh_update_downloading_tip), Toast.LENGTH_SHORT).show();
-                                    downloadFileWithOkHttp(context, "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk", file.getAbsolutePath(), formatFileSize(fileSize));
-                                };
-
-                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                                builder.setTitle(context.getString(R.string.zh_tip))
-                                        .setMessage(context.getString(R.string.zh_update_yes))
-                                        .setCancelable(false)
-                                        .setPositiveButton(context.getString(R.string.global_yes), download)
-                                        .setNegativeButton(context.getString(android.R.string.cancel), null)
-                                        .show();
-                            });
-
-
-                        } else {
-                            String versionName = getVersionName(context);
-                            runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_without) + " " + versionName, Toast.LENGTH_SHORT).show());
-                        }
+                        Toast.makeText(context, context.getString(R.string.zh_update_downloading_tip), Toast.LENGTH_SHORT).show();
+                        downloadFileWithOkHttp(context, "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk", file.getAbsolutePath(), formatFileSize(fileSize));
                     } catch (JSONException ignored) {}
                 }
             }
@@ -542,5 +565,13 @@ public class PojavZHTools {
             return currentDate.getMonthValue() == month && currentDate.getDayOfMonth() == day;
         }
         return false;
+    }
+
+    public static String markdownToHtml(String markdown) {
+        MutableDataSet options = new MutableDataSet();
+        Parser parser = Parser.builder(options).build();
+        HtmlRenderer renderer = HtmlRenderer.builder(options).build();
+        Document document = parser.parse(markdown);
+        return renderer.render(document);
     }
 }

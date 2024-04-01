@@ -86,6 +86,11 @@
     <string name="zh_tip">提示</string>
     <string name="zh_confirm">確認</string>
     <string name="zh_update">檢查更新</string>
+    <string name="zh_update_dialog_title">檢測到新版本</string>
+    <string name="zh_update_dialog_version">版本：</string>
+    <string name="zh_update_dialog_time">日期：</string>
+    <string name="zh_update_dialog_description">更新描述：</string>
+    <string name="zh_update_dialog_yes">更新</string>
     <string name="zh_update_summary">取得並更新至最新版本</string>
     <string name="zh_update_checking">正在檢查更新…</string>
     <string name="zh_update_without">目前已經是最新版本</string>

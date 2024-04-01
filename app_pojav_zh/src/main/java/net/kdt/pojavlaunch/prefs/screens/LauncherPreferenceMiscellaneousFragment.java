@@ -1,6 +1,6 @@
 package net.kdt.pojavlaunch.prefs.screens;
 
-import static net.kdt.pojavlaunch.PojavZHTools.updateLauncher;
+import static net.kdt.pojavlaunch.PojavZHTools.updateChecker;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -25,7 +25,7 @@ public class LauncherPreferenceMiscellaneousFragment extends LauncherPreferenceF
 
         Preference updatePreference = requirePreference("zh_check_update");
         updatePreference.setOnPreferenceClickListener(preference -> {
-            updateLauncher(requireContext());
+            updateChecker(requireContext());
             return true;
         });
     }
