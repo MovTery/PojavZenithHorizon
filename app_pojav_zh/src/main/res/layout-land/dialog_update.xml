@@ -7,7 +7,7 @@
     android:id="@+id/parent"
     android:minWidth="450dp"
     android:minHeight="150dp"
-    android:padding="10dp"
+    android:padding="8dp"
     android:orientation="vertical"
     tools:ignore="MissingDefaultResource">
 
