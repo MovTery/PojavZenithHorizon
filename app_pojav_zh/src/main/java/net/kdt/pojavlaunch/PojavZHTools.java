@@ -189,7 +189,7 @@ public class PojavZHTools {
                 if (deleted) {
                     Toast.makeText(activity, activity.getString(R.string.zh_file_deleted) + fileName, Toast.LENGTH_SHORT).show();
                 }
-                fileListView.refreshPath();
+                fileListView.listFileAt(fileListView.getFullPath());
             });
             deleteConfirmation.setNegativeButton(activity.getString(android.R.string.cancel), null);
             deleteConfirmation.show();
@@ -213,7 +213,7 @@ public class PojavZHTools {
                     boolean renamed = file.renameTo(newFile);
                     if (renamed) {
                         Toast.makeText(activity, activity.getString(R.string.zh_file_renamed) + file.getName() + " -> " + newName + suffix, Toast.LENGTH_SHORT).show();
-                        fileListView.refreshPath();
+                        fileListView.listFileAt(fileListView.getFullPath());
                     }
                 } else {
                     Toast.makeText(activity, activity.getString(R.string.zh_file_rename_empty), Toast.LENGTH_SHORT).show();
