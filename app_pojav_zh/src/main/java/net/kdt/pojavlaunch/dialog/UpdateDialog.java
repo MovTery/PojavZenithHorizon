@@ -51,10 +51,11 @@ public class UpdateDialog extends Dialog {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
 
-                String css = "body { background-color: #4D4D4D; color: #ffffff; }" +
+                String css = "body { background-color: #333333; color: #ffffff; }" +
                         "a, a:link, a:visited, a:hover, a:active {" +
                         "  color: #ffffff;" +
                         "  text-decoration: none;" +
+                        "  pointer-events: none;" + //禁止链接的交互性
                         "}";
 
                 //JavaScript代码，用于将CSS样式添加到WebView中
@@ -62,9 +63,9 @@ public class UpdateDialog extends Dialog {
                         "var style = document.createElement('style');" +
                         "style.type = 'text/css';" +
                         "if (style.styleSheet){" +
-                        "  style.styleSheet.cssText = '" + css + "';" +
+                        "  style.styleSheet.cssText = '" + css.replace("'", "\\'") + "';" +
                         "} else {" +
-                        "  style.appendChild(document.createTextNode('" + css + "'));" +
+                        "  style.appendChild(document.createTextNode('" + css.replace("'", "\\'") + "'));" +
                         "}" +
                         "parent.appendChild(style);";
 
