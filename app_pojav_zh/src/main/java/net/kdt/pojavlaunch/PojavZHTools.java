@@ -115,7 +115,7 @@ public class PojavZHTools {
             return ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_mouse_pointer, context.getTheme());
         }
 
-        float scale = Math.min(((float) 24 / bitmap.getWidth()), ((float) 24 / bitmap.getHeight())); //保持高宽比，缩放
+        float scale = Math.min(((float) 48 / bitmap.getWidth()), ((float) 48 / bitmap.getHeight())); //保持高宽比，缩放
 
         Matrix matrix = new Matrix();
         matrix.postScale(scale, scale);

@@ -25,6 +25,7 @@
     <string name="zh_custom_control_desc">Manage all control layout files, where you can delete, create, rename, import control layouts, etc.</string>
     <string name="zh_custom_mouse_add">Add virtual mouse</string>
     <string name="zh_custom_mouse_added">Successfully set virtual mouse:</string>
+    <string name="zh_custom_mouse_fail">This file cannot be used as the texture of virtual mouse. \nPlease select an image in the format of ".png"!</string>
     <string name="zh_custom_mouse_title">Customize virtual mouse</string>
     <string name="zh_custom_mouse_desc">By opening the virtual mouse management interface, you can add your preferred virtual mouse images and use them.</string>
     <string name="zh_return">Return</string>
@@ -139,6 +140,8 @@
     <string name="zh_help_other_login_message">External login options are usually provided for players to use third-party login services, rather than Minecraft\'s official login method. It allows for more flexible account management and access to unique features and services provided by the third-party service. \nExternal login is often used in conjunction with skin sites, where you can register an account to manage your skins and use them in Minecraft through external login. \nTo use external login, you need to first add an authentication server. This means adding a skin site of your choice; please refer to the site\'s instructions for specific steps. \nAfter adding the site, you can then log in with the account you registered on that site!</string>
     <string name="zh_help_modpack_title">What is a Mod Pack?</string>
     <string name="zh_help_modpack_message">A Mod Pack is a client file package containing multiple mods that are integrated together, allowing players to easily experience new gameplay and content. By installing a Mod Pack, players can acquire a large amount of new game content in one go, without having to individually search for and install each mod, saving time and energy.\nPlease note that the majority of Mod Pack authors are primarily catering to PC players and they usually do not take into consideration Pojav players who may attempt to use their Mod Packs. Considering that Mod Packs often contain a large number of mods, it is inevitable that issues may arise, such as incompatibilities or performance problems.\nTherefore, it is essential to carefully choose and consider your own device performance and needs, and to be cautious when selecting a Mod Pack to avoid unnecessary difficulties!</string>
+    <string name="zh_help_mouse_title">How to use Virtual Mouse Manager?</string>
+    <string name="zh_help_mouse_message">In the Virtual Mouse Manager interface, you can view and add virtual mice, click on a virtual mouse to select, rename or delete it, and long press to share a virtual mouse. Virtual mice are essentially png format images. You can draw your own or find suitable virtual mice according to your preference, and then import them into the launcher and select them as virtual mice in the game. Here, you can only select png format files and no other formats are supported!</string>
     <string name="zh_help_ok">Got it</string>
 
     <!-- Action bar part -->
