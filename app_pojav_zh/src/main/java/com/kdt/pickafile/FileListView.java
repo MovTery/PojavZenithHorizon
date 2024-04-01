@@ -140,8 +140,8 @@ public class FileListView extends LinearLayout
 
                     File[] listFile = path.listFiles();
                     FileListAdapter fileAdapter;
-                    if (displayThumbnails) fileAdapter = new FileListAdapter(context);
-                    else fileAdapter = new MouseFileListAdapter(context);
+                    if (displayThumbnails) fileAdapter = new MouseFileListAdapter(context);
+                    else fileAdapter = new FileListAdapter(context);
                     if(!path.equals(lockPath)){
                         fileAdapter.add(new File(path, ".."));
                     }

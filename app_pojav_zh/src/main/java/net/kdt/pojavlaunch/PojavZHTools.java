@@ -15,6 +15,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -110,9 +111,19 @@ public class PojavZHTools {
 
     public static Drawable getIcon(String pngFilePath, Context context) {
         Bitmap bitmap = BitmapFactory.decodeFile(pngFilePath);
-        bitmap.setHeight(24);
-        bitmap.setWidth(24);
-        return new BitmapDrawable(context.getResources(), bitmap);
+        if (bitmap == null) {
+            return ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_mouse_pointer, context.getTheme());
+        }
+
+        float scale = Math.min(((float) 24 / bitmap.getWidth()), ((float) 24 / bitmap.getHeight())); //保持高宽比，缩放
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scale, scale);
+        Bitmap scaledBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+
+        bitmap.recycle();
+
+        return new BitmapDrawable(context.getResources(), scaledBitmap);
     }
 
     public static void swapSettingsFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
