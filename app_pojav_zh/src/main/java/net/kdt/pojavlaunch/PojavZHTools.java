@@ -15,6 +15,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
@@ -104,6 +106,11 @@ public class PojavZHTools {
         } else {
             mouse.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_mouse_pointer, context.getTheme()));
         }
+    }
+
+    public static Drawable getIcon(String pngFilePath, Context context) {
+        Bitmap bitmap = BitmapFactory.decodeFile(pngFilePath);
+        return new BitmapDrawable(context.getResources(), bitmap);
     }
 
     public static void swapSettingsFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
