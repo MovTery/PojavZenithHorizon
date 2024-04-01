@@ -63,6 +63,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.time.LocalDate;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -392,17 +395,23 @@ public class PojavZHTools {
 
                         runOnUiThread(dialog[0]::show);
 
+                        final long[] downloadedSize = new long[1];
+
+                        //限制刷新速度
+                        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+                        Runnable printTask = () -> runOnUiThread(() -> {
+                            String formattedDownloaded = formatFileSize(downloadedSize[0]);
+                            TextView textView = dialog[0].findViewById(R.id.download_upload_textView);
+                            textView.setText(String.format(context.getString(R.string.zh_update_downloading), formattedDownloaded, fileSize));
+                        });
+                        scheduler.scheduleAtFixedRate(printTask, 0, 200, TimeUnit.MILLISECONDS);
+
                         while ((bytesRead = inputStream.read(buffer)) != -1) {
                             outputStream.write(buffer, 0, bytesRead);
                             downloadedBytes += bytesRead;
-                            int finalDownloadedBytes = downloadedBytes;
-
-                            runOnUiThread(() -> {
-                                String formattedDownloaded = formatFileSize(finalDownloadedBytes);
-                                TextView textView = dialog[0].findViewById(R.id.download_upload_textView);
-                                textView.setText(String.format(context.getString(R.string.zh_update_downloading), formattedDownloaded, fileSize));
-                            });
+                            downloadedSize[0] = downloadedBytes;
                         }
+                        scheduler.shutdown();
                         runOnUiThread(dialog[0]::dismiss);
 
                         runOnUiThread(() -> {
