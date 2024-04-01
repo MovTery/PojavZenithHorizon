@@ -193,7 +193,7 @@ public class PojavZHTools {
         if (files == null) return false; //没有权限则无法删除
 
         for (File file : files) {
-            if (file.isFile()) file.delete();
+            if (file.isFile()) deleteFile(file);
             else deleteDir(file);
         }
 
@@ -479,12 +479,11 @@ public class PojavZHTools {
         return (mcbbsPackMeta.addons[0].version != null);
     }
 
-    public static boolean isAprilFoolsDay(){
-        // 获取当前日期
+    public static boolean checkDate(int month, int day) {
         LocalDate currentDate;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             currentDate = LocalDate.now();
-            return currentDate.getMonthValue() == 4 && currentDate.getDayOfMonth() == 1;
+            return currentDate.getMonthValue() == month && currentDate.getDayOfMonth() == day;
         }
         return false;
     }
