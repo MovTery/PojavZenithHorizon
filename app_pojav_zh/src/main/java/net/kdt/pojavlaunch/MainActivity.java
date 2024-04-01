@@ -402,7 +402,9 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         flv.setFileSelectedListener(new FileSelectedListener(){
             @Override
             public void onFileSelected(File file, String path) {
-                loadControls();
+                try {
+                    mControlLayout.loadLayout(path);
+                } catch (IOException ignored) {}
                 dialog.dismiss();
             }
 
