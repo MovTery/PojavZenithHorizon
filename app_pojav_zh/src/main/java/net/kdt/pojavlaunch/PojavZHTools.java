@@ -289,11 +289,15 @@ public class PojavZHTools {
                         int githubVersion = Integer.parseInt(tagName);
 
                         if (versionCode < githubVersion) {
-                            UpdateDialog.UpdateInformation updateInformation = new UpdateDialog.UpdateInformation();
-                            updateInformation.information(jsonObject.getString("name"), jsonObject.getString("created_at"), jsonObject.getString("body"));
-                            UpdateDialog updateDialog = new UpdateDialog(context, updateInformation);
+                            runOnUiThread(() -> {
+                                UpdateDialog.UpdateInformation updateInformation = new UpdateDialog.UpdateInformation();
+                                try {
+                                    updateInformation.information(jsonObject.getString("name"), jsonObject.getString("created_at"), jsonObject.getString("body"));
+                                } catch (JSONException ignored) {}
+                                UpdateDialog updateDialog = new UpdateDialog(context, updateInformation);
 
-                            updateDialog.show();
+                                updateDialog.show();
+                            });
                         }
                     } catch (JSONException ignored) {}
                 }
