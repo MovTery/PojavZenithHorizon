@@ -72,8 +72,7 @@ public class CustomMouseFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         bindViews(view);
-        mFileListView.lockPathAt(mousePath());
-        mFileListView.refreshPath();
+        mFileListView.listFileAt(mousePath(), true);
         mFileListView.setShowFiles(true);
         mFileListView.setShowFolders(false);
 
@@ -108,7 +107,7 @@ public class CustomMouseFragment extends Fragment {
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
         mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(null));
 
-        mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());
+        mRefreshButton.setOnClickListener(v -> mFileListView.listFileAt(mousePath(), true));
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
@@ -177,7 +176,7 @@ public class CustomMouseFragment extends Fragment {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show();
-            mFileListView.refreshPath();
+            mFileListView.listFileAt(mousePath(), true);
         }
     }
 }
