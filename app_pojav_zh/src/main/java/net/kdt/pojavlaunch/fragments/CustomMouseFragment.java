@@ -3,6 +3,7 @@ package net.kdt.pojavlaunch.fragments;
 import static net.kdt.pojavlaunch.PojavZHTools.DIR_CUSTOM_MOUSE;
 import static net.kdt.pojavlaunch.PojavZHTools.calculateBufferSize;
 import static net.kdt.pojavlaunch.PojavZHTools.deleteFileListener;
+import static net.kdt.pojavlaunch.PojavZHTools.isImage;
 import static net.kdt.pojavlaunch.PojavZHTools.renameFileListener;
 import static net.kdt.pojavlaunch.Tools.getFileName;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
@@ -59,7 +60,7 @@ public class CustomMouseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         openDocumentLauncher = registerForActivityResult(
-                new OpenDocumentWithExtension(".png"),
+                new OpenDocumentWithExtension("image/*"),
                 result -> {
                     if (result != null) {
                         Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
@@ -96,7 +97,7 @@ public class CustomMouseFragment extends Fragment {
                 builder.setPositiveButton(getString(R.string.global_delete), deleteFileListener(requireActivity(), mFileListView, file, true))
                         .setNegativeButton(getString(R.string.zh_file_rename), renameFileListener(requireActivity(), mFileListView, file, true));
 
-                if (fileName.endsWith(".png")) builder.setNeutralButton(getString(R.string.global_select), chooseListener);
+                if (isImage(file)) builder.setNeutralButton(getString(R.string.global_select), chooseListener);
 
                 builder.show();
             }
@@ -108,10 +109,7 @@ public class CustomMouseFragment extends Fragment {
         });
 
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
-        mAddFileButton.setOnClickListener(v -> {
-            Toast.makeText(requireContext(), String.format(getString(R.string.zh_file_add_file_tip), ".png"), Toast.LENGTH_SHORT).show();
-            openDocumentLauncher.launch(".png");
-        });
+        mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(null));
 
         mRefreshButton.setOnClickListener(v -> mFileListView.listFileAt(mousePath(), true));
         mHelpButton.setOnClickListener(v -> {

@@ -17,6 +17,7 @@
 package com.ipaulpro.afilechooser;
 
 import static net.kdt.pojavlaunch.PojavZHTools.getIcon;
+import static net.kdt.pojavlaunch.PojavZHTools.isImage;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -53,7 +54,7 @@ public class MouseFileListAdapter extends FileListAdapter {
         // Set the TextView as the file name
         view.setText(file.getName());
 
-        if (file.getName().endsWith(".png")) {
+        if (isImage(file)) {
             try {
                 Drawable icon = getIcon(file.getAbsolutePath(), view.getContext());
                 view.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
