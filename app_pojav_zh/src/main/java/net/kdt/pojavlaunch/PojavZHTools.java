@@ -36,10 +36,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.kdt.pickafile.FileListView;
-import com.vladsch.flexmark.html.HtmlRenderer;
-import com.vladsch.flexmark.parser.Parser;
-import com.vladsch.flexmark.util.ast.Document;
-import com.vladsch.flexmark.util.data.MutableDataSet;
 
 import net.kdt.pojavlaunch.dialog.UpdateDialog;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.CurseforgeApi;
@@ -56,6 +52,7 @@ import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.pegdown.PegDownProcessor;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -312,6 +309,11 @@ public class PojavZHTools {
                                 UpdateDialog updateDialog = new UpdateDialog(context, updateInformation);
 
                                 updateDialog.show();
+                            });
+                        } else if (!ignore) {
+                            runOnUiThread(() -> {
+                                String nowVersionName = getVersionName(context);
+                                runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_without) + " " + nowVersionName, Toast.LENGTH_SHORT).show());
                             });
                         }
                     } catch (JSONException ignored) {}
@@ -600,10 +602,7 @@ public class PojavZHTools {
     }
 
     public static String markdownToHtml(String markdown) {
-        MutableDataSet options = new MutableDataSet();
-        Parser parser = Parser.builder(options).build();
-        HtmlRenderer renderer = HtmlRenderer.builder(options).build();
-        Document document = parser.parse(markdown);
-        return renderer.render(document);
+        PegDownProcessor pegDownProcessor = new PegDownProcessor();
+        return pegDownProcessor.markdownToHtml(markdown);
     }
 }
