@@ -39,12 +39,13 @@ import com.movtery.ui.fragment.ProfilePathManagerFragment;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
+import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
 
 import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainMenuFragment extends Fragment {
+public class MainMenuFragment extends Fragment implements TaskCountListener {
     public static final String TAG = "MainMenuFragment";
     private CheckNewNotice.NoticeInfo noticeInfo;
     private mcVersionSpinner mVersionSpinner;
@@ -52,6 +53,7 @@ public class MainMenuFragment extends Fragment {
     private ImageButton mNoticeSummonButton;
     private Button mNoticeCloseButton;
     private Timer mCheckNoticeTimer;
+    private boolean mTasksRunning;
 
     public MainMenuFragment() {
         super(R.layout.fragment_launcher);
@@ -60,6 +62,7 @@ public class MainMenuFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         bindValues(view);
+        ProgressKeeper.addTaskCountListener(this);
 
         Button mAboutButton = view.findViewById(R.id.about_button);
         Button mCustomControlButton = view.findViewById(R.id.custom_control_button);
@@ -79,7 +82,13 @@ public class MainMenuFragment extends Fragment {
             runInstallerWithConfirmation(true);
             return true;
         });
-        mPathManagerButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ProfilePathManagerFragment.class, ProfilePathManagerFragment.TAG, null));
+        mPathManagerButton.setOnClickListener(v -> {
+            if (!mTasksRunning) {
+                Tools.swapFragment(requireActivity(), ProfilePathManagerFragment.class, ProfilePathManagerFragment.TAG, null);
+            } else {
+                runOnUiThread(() -> Toast.makeText(requireContext(), R.string.zh_profiles_path_task_in_progress, Toast.LENGTH_SHORT).show());
+            }
+        });
         mManagerProfileButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ProfileManagerFragment.class, ProfileManagerFragment.TAG, null));
 
         mPlayButton.setOnClickListener(v -> ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true));
@@ -243,5 +252,10 @@ public class MainMenuFragment extends Fragment {
             noticeDateView.setText(noticeInfo.getRawDate());
             noticeSubstanceWebView.setText(noticeInfo.getSubstance());
         });
+    }
+
+    @Override
+    public void onUpdateTaskCount(int taskCount) {
+        mTasksRunning = taskCount != 0;
     }
 }

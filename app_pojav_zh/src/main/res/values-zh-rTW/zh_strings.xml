@@ -30,6 +30,7 @@
     <string name="zh_profiles_path_create_new_title">為此路徑命名</string>
     <string name="zh_profiles_path_delete_title">刪除此路徑</string>
     <string name="zh_profiles_path_delete_message">啟動器將刪除此路徑，但不會刪除對應路徑內儲存的檔案，刪除之後仍然可以重新新增此路徑</string>
+    <string name="zh_profiles_path_task_in_progress">任務執行中，暫時無法使用路徑管理功能</string>
 
     <string name="zh_account_text">請選擇一種登錄方式</string>
     <string name="zh_account_microsoft_account">微軟帳號</string>

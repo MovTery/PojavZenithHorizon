@@ -30,6 +30,7 @@
     <string name="zh_profiles_path_create_new_title">为此路径命名</string>
     <string name="zh_profiles_path_delete_title">删除此路径</string>
     <string name="zh_profiles_path_delete_message">启动器将删除此路径，但不会删除对应路径内保存的文件，删除之后仍然可以重新添加此路径</string>
+    <string name="zh_profiles_path_task_in_progress">任务执行中，暂时无法使用路径管理功能</string>
 
     <string name="zh_account_text">请选择一种登录方式</string>
     <string name="zh_account_microsoft_account">微软账号</string>

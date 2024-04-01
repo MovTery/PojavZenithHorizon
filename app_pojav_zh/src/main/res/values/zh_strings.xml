@@ -30,6 +30,7 @@
     <string name="zh_profiles_path_create_new_title">Name This Path</string>
     <string name="zh_profiles_path_delete_title">Delete This Path</string>
     <string name="zh_profiles_path_delete_message">The launcher will delete this path, but it will not delete the files saved in the corresponding path. You can re-add this path after deletion.</string>
+    <string name="zh_profiles_path_task_in_progress">Task in progress, path management features are temporarily unavailable</string>
 
     <string name="zh_account_text">Please select a login method</string>
     <string name="zh_account_microsoft_account">Microsoft Account</string>
