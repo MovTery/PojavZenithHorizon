@@ -296,7 +296,7 @@ public class PojavZHTools {
                             runOnUiThread(() -> {
                                 UpdateDialog.UpdateInformation updateInformation = new UpdateDialog.UpdateInformation();
                                 try {
-                                    updateInformation.information(versionName, jsonObject.getString("created_at"), jsonObject.getString("body"));
+                                    updateInformation.information(versionName, formattingTime(jsonObject.getString("created_at")), jsonObject.getString("body"));
                                 } catch (JSONException ignored) {}
                                 UpdateDialog updateDialog = new UpdateDialog(context, updateInformation);
 
@@ -307,6 +307,13 @@ public class PojavZHTools {
                 }
             }
         }));
+    }
+
+    public static String formattingTime(String time) {
+        int T = time.indexOf('T');
+        int Z = time.indexOf('Z');
+        if (T == -1 || Z == -1) return time;
+        return time.substring(0, T) + " " + time.substring(T + 1, Z);
     }
 
     public static void updateLauncher(Context context) {
