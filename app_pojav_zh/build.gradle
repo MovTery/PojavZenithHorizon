@@ -206,4 +206,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+
+    implementation 'com.vladsch.flexmark:flexmark-all:0.62.2'
 }
