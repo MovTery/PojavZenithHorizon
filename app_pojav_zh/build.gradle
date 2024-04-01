@@ -165,6 +165,8 @@ android {
             useLegacyPackaging = true
         }
         pickFirst '**/libbytehook.so'
+
+        exclude 'META-INF/LICENSE-LGPL-3.txt'
     }
 
     buildFeatures {
