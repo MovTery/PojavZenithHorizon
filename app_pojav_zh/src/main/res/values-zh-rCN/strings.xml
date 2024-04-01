@@ -23,7 +23,6 @@
     <string name="zh_custom_control_desc">管理所有的控制布局文件，你可以在这里删除、创建、重命名、导入控制布局等</string>
     <string name="zh_custom_mouse_add">添加虚拟鼠标</string>
     <string name="zh_custom_mouse_added">成功设置虚拟鼠标：</string>
-    <string name="zh_custom_mouse_fail">此文件不能作为虚拟鼠标的贴图，请选择格式为".png"的图片！</string>
     <string name="zh_custom_mouse_title">自定义虚拟鼠标</string>
     <string name="zh_custom_mouse_desc">打开虚拟鼠标管理界面，你能够自行添加你喜欢的虚拟鼠标贴图，并使用它们</string>
     <string name="zh_return">返回</string>

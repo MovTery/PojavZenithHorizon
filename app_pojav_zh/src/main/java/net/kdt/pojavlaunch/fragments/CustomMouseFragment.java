@@ -59,14 +59,11 @@ public class CustomMouseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         openDocumentLauncher = registerForActivityResult(
-                new OpenDocumentWithExtension(null),
+                new OpenDocumentWithExtension(".png"),
                 result -> {
-                    String fileName = getFileName(requireContext(), result);
-                    if (result != null && fileName.endsWith(".png")) {
+                    if (result != null) {
                         Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
                         new CopyFile().execute(result);
-                    } else {
-                        Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
                     }
                 }
         );
@@ -113,7 +110,7 @@ public class CustomMouseFragment extends Fragment {
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
         mAddFileButton.setOnClickListener(v -> {
             Toast.makeText(requireContext(), String.format(getString(R.string.zh_file_add_file_tip), ".png"), Toast.LENGTH_SHORT).show();
-            openDocumentLauncher.launch(null);
+            openDocumentLauncher.launch(".png");
         });
 
         mRefreshButton.setOnClickListener(v -> mFileListView.listFileAt(mousePath(), true));
