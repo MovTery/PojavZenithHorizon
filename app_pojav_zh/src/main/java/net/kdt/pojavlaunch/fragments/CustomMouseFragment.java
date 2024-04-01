@@ -4,12 +4,12 @@ import static net.kdt.pojavlaunch.PojavZHTools.DIR_CUSTOM_MOUSE;
 import static net.kdt.pojavlaunch.PojavZHTools.calculateBufferSize;
 import static net.kdt.pojavlaunch.PojavZHTools.deleteFileListener;
 import static net.kdt.pojavlaunch.PojavZHTools.renameFileListener;
-import static net.kdt.pojavlaunch.PojavZHTools.shareFile;
 import static net.kdt.pojavlaunch.Tools.getFileName;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -26,11 +26,13 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
+import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 
@@ -72,32 +74,34 @@ public class CustomMouseFragment extends Fragment {
         bindViews(view);
         mFileListView.lockPathAt(mousePath());
         mFileListView.refreshPath();
+        mFileListView.setShowFiles(true);
+        mFileListView.setShowFolders(false);
 
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
-                refreshIcon(path);
-
-                DEFAULT_PREF.edit().putString("custom_mouse", file.getName()).apply();
-                Toast.makeText(requireContext(), getString(R.string.zh_custom_mouse_added) + file.getName(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onItemLongClick(File file, String path) {
-                refreshIcon(path);
+                refreshIcon(path, requireContext());
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
                 builder.setTitle(getString(R.string.zh_file_tips));
                 builder.setMessage(getString(R.string.zh_file_message));
 
-                DialogInterface.OnClickListener shareListener = (dialog, which) -> shareFile(requireContext(), file.getName(), file.getAbsolutePath());
+                DialogInterface.OnClickListener chooseListener = (dialog, which) -> {
+                    DEFAULT_PREF.edit().putString("custom_mouse", file.getName()).apply();
+                    Toast.makeText(requireContext(), getString(R.string.zh_custom_mouse_added) + file.getName(), Toast.LENGTH_SHORT).show();
+                };
 
                 builder.setPositiveButton(getString(R.string.global_delete), deleteFileListener(requireActivity(), mFileListView, file))
                         .setNegativeButton(getString(R.string.zh_file_rename), renameFileListener(requireActivity(), mFileListView, file))
-                        .setNeutralButton(getString(R.string.zh_file_share), shareListener);
+                        .setNeutralButton(getString(R.string.global_select), chooseListener);
 
                 builder.show();
+            }
+
+            @Override
+            public void onItemLongClick(File file, String path) {
+                PojavZHTools.shareFileAlertDialog(requireContext(), file);
             }
         });
 
@@ -122,9 +126,13 @@ public class CustomMouseFragment extends Fragment {
         return path;
     }
 
-    private void refreshIcon(String path) {
+    private void refreshIcon(String path, Context context) {
         Bitmap mouse = BitmapFactory.decodeFile(path);
-        mMouseView.setImageBitmap(mouse);
+        try {
+            mMouseView.setImageBitmap(mouse);
+        } catch (Exception e) {
+            mMouseView.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_file, context.getTheme()));
+        }
     }
 
     private void bindViews(@NonNull View view) {

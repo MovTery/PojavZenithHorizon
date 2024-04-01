@@ -132,14 +132,16 @@ public class FileListView extends LinearLayout
         this.dialogTitleListener = listener;
     }
 
-    public void listFileAt(final File path) {
+    public void listFileAt(final File path, boolean displayThumbnails) {
         try{
             if(path.exists()){
                 if(path.isDirectory()){
                     fullPath = path;
 
                     File[] listFile = path.listFiles();
-                    FileListAdapter fileAdapter = new FileListAdapter(context);
+                    FileListAdapter fileAdapter;
+                    if (displayThumbnails) fileAdapter = new FileListAdapter(context);
+                    else fileAdapter = new MouseFileListAdapter(context);
                     if(!path.equals(lockPath)){
                         fileAdapter.add(new File(path, ".."));
                     }
@@ -180,6 +182,10 @@ public class FileListView extends LinearLayout
         } catch (Exception e){
             Tools.showError(context, e);
         }
+    }
+
+    public void listFileAt(final File path) {
+        listFileAt(path, false);
     }
 
     public File getFullPath(){
