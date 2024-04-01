@@ -105,8 +105,8 @@ public class ModsFragment extends Fragment {
                     mFileListView.refreshPath();
                 };
 
-                builder.setPositiveButton(getString(R.string.global_delete), deleteFileListener(requireActivity(), mFileListView, file))
-                        .setNegativeButton(getString(R.string.zh_file_rename), renameFileListener(requireActivity(), mFileListView, file));
+                builder.setPositiveButton(getString(R.string.global_delete), deleteFileListener(requireActivity(), mFileListView, file, false))
+                        .setNegativeButton(getString(R.string.zh_file_rename), renameFileListener(requireActivity(), mFileListView, file, false));
                 if (file.getName().endsWith(".jar")) {
                     builder.setNeutralButton(getString(R.string.zh_profile_mods_disable), disableListener);
                 } else if (file.getName().endsWith(".disabled")) {

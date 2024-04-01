@@ -91,8 +91,8 @@ public class FilesFragment extends Fragment {
                 //分享
                 DialogInterface.OnClickListener shareListener = (dialog, which) -> shareFile(requireContext(), file.getName(), file.getAbsolutePath());
 
-                builder.setPositiveButton(getString(R.string.global_delete), deleteFileListener(requireActivity(), mFileListView, file))
-                        .setNegativeButton(getString(R.string.zh_file_rename), renameFileListener(requireActivity(), mFileListView, file))
+                builder.setPositiveButton(getString(R.string.global_delete), deleteFileListener(requireActivity(), mFileListView, file, false))
+                        .setNegativeButton(getString(R.string.zh_file_rename), renameFileListener(requireActivity(), mFileListView, file, false))
                         .setNeutralButton(getString(R.string.zh_file_share), shareListener);
 
                 builder.show();

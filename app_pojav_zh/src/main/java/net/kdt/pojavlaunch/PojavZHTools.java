@@ -176,7 +176,7 @@ public class PojavZHTools {
         builder.show();
     }
 
-    public static DialogInterface.OnClickListener deleteFileListener(Activity activity, FileListView fileListView, File file) {
+    public static DialogInterface.OnClickListener deleteFileListener(Activity activity, FileListView fileListView, File file, boolean displayThumbnails) {
         String fileName = file.getName();
         return (dialog, which) -> {
             // 显示确认删除的对话框
@@ -189,14 +189,15 @@ public class PojavZHTools {
                 if (deleted) {
                     Toast.makeText(activity, activity.getString(R.string.zh_file_deleted) + fileName, Toast.LENGTH_SHORT).show();
                 }
-                fileListView.listFileAt(fileListView.getFullPath());
+                if (!displayThumbnails) fileListView.refreshPath();
+                else fileListView.listFileAt(fileListView.getFullPath(), true);
             });
             deleteConfirmation.setNegativeButton(activity.getString(android.R.string.cancel), null);
             deleteConfirmation.show();
         };
     }
 
-    public static DialogInterface.OnClickListener renameFileListener(Activity activity, FileListView fileListView, File file) {
+    public static DialogInterface.OnClickListener renameFileListener(Activity activity, FileListView fileListView, File file, boolean displayThumbnails) {
         String fileParent = file.getParent();
         String fileName = file.getName();
         return (dialog, which) -> { //重命名
@@ -213,7 +214,8 @@ public class PojavZHTools {
                     boolean renamed = file.renameTo(newFile);
                     if (renamed) {
                         Toast.makeText(activity, activity.getString(R.string.zh_file_renamed) + file.getName() + " -> " + newName + suffix, Toast.LENGTH_SHORT).show();
-                        fileListView.listFileAt(fileListView.getFullPath());
+                        if (!displayThumbnails) fileListView.refreshPath();
+                        else fileListView.listFileAt(fileListView.getFullPath(), true);
                     }
                 } else {
                     Toast.makeText(activity, activity.getString(R.string.zh_file_rename_empty), Toast.LENGTH_SHORT).show();
