@@ -36,7 +36,12 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.kdt.pickafile.FileListView;
+import com.vladsch.flexmark.html.HtmlRenderer;
+import com.vladsch.flexmark.parser.Parser;
+import com.vladsch.flexmark.util.ast.Document;
+import com.vladsch.flexmark.util.data.MutableDataSet;
 
+import net.kdt.pojavlaunch.dialog.UpdateDialog;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.CurseforgeApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.MCBBSApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModLoader;
@@ -58,6 +63,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.time.LocalDate;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -72,6 +80,8 @@ public class PojavZHTools {
     public static String DIR_GAME_DEFAULT;
     public static String DIR_CUSTOM_MOUSE;
     public static File FILE_CUSTOM_MOUSE;
+    public static String URL_GITHUB_RELEASE = "https://api.github.com/repos/HopiHopy/PojavZH/releases/latest";
+
     private PojavZHTools() {
     }
 
@@ -256,11 +266,71 @@ public class PojavZHTools {
         return dir.delete();
     }
 
-    public static void updateLauncher(Context context) {
+    public static void updateChecker(Context context) {
+        updateCheckerMainProgram(context, true);
+    }
+
+    public static void updateChecker(Context context, boolean ignore) {
+        updateCheckerMainProgram(context, ignore);
+    }
+
+    public static void updateCheckerMainProgram(Context context, boolean ignore) {
         int versionCode = getVersionCode(context);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("https://api.github.com/repos/HopiHopy/PojavZH/releases/latest")
+                .url(URL_GITHUB_RELEASE)
+                .build();
+
+        PojavApplication.sExecutorService.execute(() -> client.newCall(request).enqueue(new Callback() {
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_fail), Toast.LENGTH_SHORT).show());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response);
+                } else {
+                    String responseBody = response.body().string(); //解析响应体
+                    try {
+                        JSONObject jsonObject = new JSONObject(responseBody);
+                        String versionName = jsonObject.getString("name");
+
+                        if (ignore && versionName.equals(DEFAULT_PREF.getString("ignoreUpdate", null))) return; //忽略此版本
+
+                        String tagName = jsonObject.getString("tag_name");
+                        int githubVersion = Integer.parseInt(tagName);
+
+                        if (versionCode < githubVersion) {
+                            runOnUiThread(() -> {
+                                UpdateDialog.UpdateInformation updateInformation = new UpdateDialog.UpdateInformation();
+                                try {
+                                    updateInformation.information(versionName, formattingTime(jsonObject.getString("created_at")), jsonObject.getString("body"));
+                                } catch (JSONException ignored) {}
+                                UpdateDialog updateDialog = new UpdateDialog(context, updateInformation);
+
+                                updateDialog.show();
+                            });
+                        }
+                    } catch (JSONException ignored) {}
+                }
+            }
+        }));
+    }
+
+    public static String formattingTime(String time) {
+        int T = time.indexOf('T');
+        int Z = time.indexOf('Z');
+        if (T == -1 || Z == -1) return time;
+        return time.substring(0, T) + " " + time.substring(T + 1, Z);
+    }
+
+    public static void updateLauncher(Context context) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(URL_GITHUB_RELEASE)
                 .build();
 
         PojavApplication.sExecutorService.execute(() -> client.newCall(request).enqueue(new Callback() {
@@ -281,31 +351,10 @@ public class PojavZHTools {
                         String tagName = jsonObject.getString("tag_name");
                         JSONObject firstAsset = assetsJson.getJSONObject(0);
                         long fileSize = firstAsset.getLong("size");
-                        int githubVersion = Integer.parseInt(tagName);
+                        File file = new File(context.getExternalFilesDir(null), "PojavZH.apk");
 
-                        if (versionCode < githubVersion) {
-                            File file = new File(context.getExternalFilesDir(null), "PojavZH.apk");
-
-                            runOnUiThread(() -> {
-                                DialogInterface.OnClickListener download = (dialogInterface, i) -> {
-                                    Toast.makeText(context, context.getString(R.string.zh_update_downloading_tip), Toast.LENGTH_SHORT).show();
-                                    downloadFileWithOkHttp(context, "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk", file.getAbsolutePath(), formatFileSize(fileSize));
-                                };
-
-                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                                builder.setTitle(context.getString(R.string.zh_tip))
-                                        .setMessage(context.getString(R.string.zh_update_yes))
-                                        .setCancelable(false)
-                                        .setPositiveButton(context.getString(R.string.global_yes), download)
-                                        .setNegativeButton(context.getString(android.R.string.cancel), null)
-                                        .show();
-                            });
-
-
-                        } else {
-                            String versionName = getVersionName(context);
-                            runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_without) + " " + versionName, Toast.LENGTH_SHORT).show());
-                        }
+                        runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_downloading_tip), Toast.LENGTH_SHORT).show());
+                        downloadFileWithOkHttp(context, "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk", file.getAbsolutePath(), formatFileSize(fileSize));
                     } catch (JSONException ignored) {}
                 }
             }
@@ -346,17 +395,23 @@ public class PojavZHTools {
 
                         runOnUiThread(dialog[0]::show);
 
+                        final long[] downloadedSize = new long[1];
+
+                        //限制刷新速度
+                        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+                        Runnable printTask = () -> runOnUiThread(() -> {
+                            String formattedDownloaded = formatFileSize(downloadedSize[0]);
+                            TextView textView = dialog[0].findViewById(R.id.download_upload_textView);
+                            textView.setText(String.format(context.getString(R.string.zh_update_downloading), formattedDownloaded, fileSize));
+                        });
+                        scheduler.scheduleAtFixedRate(printTask, 0, 200, TimeUnit.MILLISECONDS);
+
                         while ((bytesRead = inputStream.read(buffer)) != -1) {
                             outputStream.write(buffer, 0, bytesRead);
                             downloadedBytes += bytesRead;
-                            int finalDownloadedBytes = downloadedBytes;
-
-                            runOnUiThread(() -> {
-                                String formattedDownloaded = formatFileSize(finalDownloadedBytes);
-                                TextView textView = dialog[0].findViewById(R.id.download_upload_textView);
-                                textView.setText(String.format(context.getString(R.string.zh_update_downloading), formattedDownloaded, fileSize));
-                            });
+                            downloadedSize[0] = downloadedBytes;
                         }
+                        scheduler.shutdown();
                         runOnUiThread(dialog[0]::dismiss);
 
                         runOnUiThread(() -> {
@@ -542,5 +597,13 @@ public class PojavZHTools {
             return currentDate.getMonthValue() == month && currentDate.getDayOfMonth() == day;
         }
         return false;
+    }
+
+    public static String markdownToHtml(String markdown) {
+        MutableDataSet options = new MutableDataSet();
+        Parser parser = Parser.builder(options).build();
+        HtmlRenderer renderer = HtmlRenderer.builder(options).build();
+        Document document = parser.parse(markdown);
+        return renderer.render(document);
     }
 }

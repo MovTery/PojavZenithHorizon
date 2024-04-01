@@ -252,6 +252,8 @@ public class LauncherActivity extends BaseActivity {
 
         File updateFile = new File(getExternalFilesDir(null), "PojavZH.apk");
         if (updateFile.exists()) PojavZHTools.deleteFile(updateFile);
+
+        PojavZHTools.updateChecker(this);
     }
 
     @Override

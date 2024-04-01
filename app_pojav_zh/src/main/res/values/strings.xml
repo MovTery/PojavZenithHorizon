@@ -88,6 +88,12 @@
     <string name="zh_tip">Tip</string>
     <string name="zh_confirm">Confirm</string>
     <string name="zh_update">Check for updates</string>
+    <string name="zh_update_dialog_title">New Version Detected</string>
+    <string name="zh_update_dialog_version">Version:</string>
+    <string name="zh_update_dialog_time">Date:</string>
+    <string name="zh_update_dialog_description">Update Description:</string>
+    <string name="zh_update_dialog_yes">Update</string>
+    <string name="zh_update_dialog_ignore">Ignore this update</string>
     <string name="zh_update_summary">Get and update to the latest version</string>
     <string name="zh_update_checking">Checking for updates…</string>
     <string name="zh_update_without">Already up to date</string>
