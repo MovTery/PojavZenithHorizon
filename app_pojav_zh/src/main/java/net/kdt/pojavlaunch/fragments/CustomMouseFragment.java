@@ -61,9 +61,12 @@ public class CustomMouseFragment extends Fragment {
         openDocumentLauncher = registerForActivityResult(
                 new OpenDocumentWithExtension(null),
                 result -> {
-                    if (result != null) {
+                    String fileName = getFileName(requireContext(), result);
+                    if (result != null && fileName.endsWith(".png")) {
                         Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
                         new CopyFile().execute(result);
+                    } else {
+                        Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
                     }
                 }
         );
@@ -72,6 +75,7 @@ public class CustomMouseFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         bindViews(view);
+        mFileListView.lockPathAt(mousePath());
         mFileListView.listFileAt(mousePath(), true);
         mFileListView.setShowFiles(true);
         mFileListView.setShowFolders(false);
@@ -80,6 +84,7 @@ public class CustomMouseFragment extends Fragment {
             @Override
             public void onFileSelected(File file, String path) {
                 refreshIcon(path, requireContext());
+                String fileName = file.getName();
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
@@ -87,13 +92,14 @@ public class CustomMouseFragment extends Fragment {
                 builder.setMessage(getString(R.string.zh_file_message));
 
                 DialogInterface.OnClickListener chooseListener = (dialog, which) -> {
-                    DEFAULT_PREF.edit().putString("custom_mouse", file.getName()).apply();
-                    Toast.makeText(requireContext(), getString(R.string.zh_custom_mouse_added) + file.getName(), Toast.LENGTH_SHORT).show();
+                    DEFAULT_PREF.edit().putString("custom_mouse", fileName).apply();
+                    Toast.makeText(requireContext(), getString(R.string.zh_custom_mouse_added) + fileName, Toast.LENGTH_SHORT).show();
                 };
 
                 builder.setPositiveButton(getString(R.string.global_delete), deleteFileListener(requireActivity(), mFileListView, file))
-                        .setNegativeButton(getString(R.string.zh_file_rename), renameFileListener(requireActivity(), mFileListView, file))
-                        .setNeutralButton(getString(R.string.global_select), chooseListener);
+                        .setNegativeButton(getString(R.string.zh_file_rename), renameFileListener(requireActivity(), mFileListView, file));
+
+                if (fileName.endsWith(".png")) builder.setNeutralButton(getString(R.string.global_select), chooseListener);
 
                 builder.show();
             }
@@ -105,14 +111,17 @@ public class CustomMouseFragment extends Fragment {
         });
 
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
-        mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(null));
+        mAddFileButton.setOnClickListener(v -> {
+            Toast.makeText(requireContext(), String.format(getString(R.string.zh_file_add_file_tip), ".png"), Toast.LENGTH_SHORT).show();
+            openDocumentLauncher.launch(null);
+        });
 
         mRefreshButton.setOnClickListener(v -> mFileListView.listFileAt(mousePath(), true));
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
-            builder.setTitle(getString(R.string.zh_help_files_tile));
-            builder.setMessage(getString(R.string.zh_help_files_message));
+            builder.setTitle(getString(R.string.zh_help_mouse_title));
+            builder.setMessage(getString(R.string.zh_help_mouse_message));
             builder.setPositiveButton(getString(R.string.zh_help_ok), null);
 
             builder.show();
