@@ -1,10 +1,14 @@
 package net.kdt.pojavlaunch;
 
 import static net.kdt.pojavlaunch.MinecraftGLSurface.FINGER_SCROLL_THRESHOLD;
+import static net.kdt.pojavlaunch.PojavZHTools.FILE_CUSTOM_MOUSE;
+import static net.kdt.pojavlaunch.PojavZHTools.customMouse;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
@@ -157,8 +161,7 @@ public class Touchpad extends FrameLayout implements GrabListener{
     }
 
     private void init(){
-        // Setup mouse pointer
-        mMousePointerImageView.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_mouse_pointer, getContext().getTheme()));
+        customMouse(mMousePointerImageView, getContext());
         mMousePointerImageView.post(() -> {
             ViewGroup.LayoutParams params = mMousePointerImageView.getLayoutParams();
             params.width = (int) (36 / 100f * LauncherPreferences.PREF_MOUSESCALE);

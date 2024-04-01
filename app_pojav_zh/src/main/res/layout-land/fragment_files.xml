@@ -117,6 +117,16 @@
             android:textColor="@color/primary_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/zh_files_icon"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="45dp"
+            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
+            app:layout_constraintStart_toStartOf="@+id/_background_display_view"
+            app:layout_constraintTop_toTopOf="@+id/_background_display_view"
+            tools:srcCompat="@tools:sample/avatars" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

@@ -76,6 +76,6 @@ public class SettingsActivity extends BaseActivity {
     }
 
     private void swapFragment(Class<? extends Fragment> fragmentClass, String fragmentTag) {
-        PojavZHTools.swapSettingsFragment(this, fragmentClass, fragmentTag, null);
+        PojavZHTools.swapSettingsFragment(this, fragmentClass, fragmentTag, null, false);
     }
 }

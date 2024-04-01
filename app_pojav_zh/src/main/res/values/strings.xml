@@ -23,6 +23,10 @@
     <string name="zh_controls_import_control">Import control layout</string>
     <string name="zh_custom_control_title">Control Layout Management</string>
     <string name="zh_custom_control_desc">Manage all control layout files, where you can delete, create, rename, import control layouts, etc.</string>
+    <string name="zh_custom_mouse_add">Add virtual mouse</string>
+    <string name="zh_custom_mouse_added">Successfully set virtual mouse:</string>
+    <string name="zh_custom_mouse_title">Customize virtual mouse</string>
+    <string name="zh_custom_mouse_desc">By opening the virtual mouse management interface, you can add your preferred virtual mouse images and use them.</string>
     <string name="zh_return">Return</string>
     <string name="zh_file_add_file">Add file</string>
     <string name="zh_file_add_file_tip">Please select a file with the suffix "%s"</string>
