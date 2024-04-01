@@ -56,10 +56,6 @@ public class MouseFileListAdapter extends FileListAdapter {
         if (file.getName().endsWith(".png")) {
             try {
                 Drawable icon = getIcon(file.getAbsolutePath(), view.getContext());
-                float density = view.getContext().getResources().getDisplayMetrics().density;
-                int sizeInPx = Math.round(24 * density); //24dp
-
-                icon.setBounds(0, 0, sizeInPx, sizeInPx);
                 view.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
             } catch (Exception e) {
                 view.setCompoundDrawablesWithIntrinsicBounds(ICON_FILE, 0, 0, 0);

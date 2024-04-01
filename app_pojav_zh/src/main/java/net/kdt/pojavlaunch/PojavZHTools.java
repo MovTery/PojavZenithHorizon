@@ -110,6 +110,8 @@ public class PojavZHTools {
 
     public static Drawable getIcon(String pngFilePath, Context context) {
         Bitmap bitmap = BitmapFactory.decodeFile(pngFilePath);
+        bitmap.setHeight(24);
+        bitmap.setWidth(24);
         return new BitmapDrawable(context.getResources(), bitmap);
     }
 
