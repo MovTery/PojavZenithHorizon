@@ -43,7 +43,6 @@ public class UpdateDialog extends Dialog {
         mCreatedTime.setText(time);
 
         String descriptionHtml = markdownToHtml(this.description);
-        mDescription.loadDataWithBaseURL(null, descriptionHtml, "text/html", "UTF-8", null);
 
         mDescription.setWebViewClient(new WebViewClient() {
             @Override
@@ -66,6 +65,8 @@ public class UpdateDialog extends Dialog {
                 mDescription.evaluateJavascript(js, null);
             }
         });
+
+        mDescription.loadDataWithBaseURL(null, descriptionHtml, "text/html", "UTF-8", null);
 
         Button mUpdateButton = findViewById(R.id.zh_update_update_button);
         Button mCancelButton = findViewById(R.id.zh_update_cancel_button);
