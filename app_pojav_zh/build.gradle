@@ -206,4 +206,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+
+    implementation 'org.commonmark:commonmark:0.19.0'
 }

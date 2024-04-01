@@ -49,10 +49,12 @@ import net.kdt.pojavlaunch.utils.ZipUtils;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.pegdown.PegDownProcessor;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -602,7 +604,9 @@ public class PojavZHTools {
     }
 
     public static String markdownToHtml(String markdown) {
-        PegDownProcessor pegDownProcessor = new PegDownProcessor();
-        return pegDownProcessor.markdownToHtml(markdown);
+        Parser parser = Parser.builder().build();
+        Node document = parser.parse(markdown);
+        HtmlRenderer renderer = HtmlRenderer.builder().build();
+        return renderer.render(document);
     }
 }
