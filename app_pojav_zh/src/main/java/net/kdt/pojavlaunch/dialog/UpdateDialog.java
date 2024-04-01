@@ -36,8 +36,11 @@ public class UpdateDialog extends Dialog {
         TextView mCreatedTime = findViewById(R.id.zh_update_time);
         WebView mDescription = findViewById(R.id.zh_update_description);
 
-        mVersionName.setText(this.versionName);
-        mCreatedTime.setText(this.createdTime);
+        String version = getContext().getString(R.string.zh_update_dialog_version) + this.versionName;
+        String time = getContext().getString(R.string.zh_update_dialog_time) + this.createdTime;
+
+        mVersionName.setText(version);
+        mCreatedTime.setText(time);
 
         String descriptionHtml = markdownToHtml(this.description);
         mDescription.loadDataWithBaseURL(null, descriptionHtml, "text/html", "UTF-8", null);
