@@ -285,6 +285,10 @@ public class PojavZHTools {
                     String responseBody = response.body().string(); //解析响应体
                     try {
                         JSONObject jsonObject = new JSONObject(responseBody);
+                        String versionName = jsonObject.getString("name");
+
+                        if (versionName.equals(DEFAULT_PREF.getString("ignoreUpdate", null))) return; //忽略此版本
+
                         String tagName = jsonObject.getString("tag_name");
                         int githubVersion = Integer.parseInt(tagName);
 
@@ -292,7 +296,7 @@ public class PojavZHTools {
                             runOnUiThread(() -> {
                                 UpdateDialog.UpdateInformation updateInformation = new UpdateDialog.UpdateInformation();
                                 try {
-                                    updateInformation.information(jsonObject.getString("name"), jsonObject.getString("created_at"), jsonObject.getString("body"));
+                                    updateInformation.information(versionName, jsonObject.getString("created_at"), jsonObject.getString("body"));
                                 } catch (JSONException ignored) {}
                                 UpdateDialog updateDialog = new UpdateDialog(context, updateInformation);
 
@@ -331,7 +335,7 @@ public class PojavZHTools {
                         long fileSize = firstAsset.getLong("size");
                         File file = new File(context.getExternalFilesDir(null), "PojavZH.apk");
 
-                        Toast.makeText(context, context.getString(R.string.zh_update_downloading_tip), Toast.LENGTH_SHORT).show();
+                        runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_downloading_tip), Toast.LENGTH_SHORT).show());
                         downloadFileWithOkHttp(context, "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk", file.getAbsolutePath(), formatFileSize(fileSize));
                     } catch (JSONException ignored) {}
                 }

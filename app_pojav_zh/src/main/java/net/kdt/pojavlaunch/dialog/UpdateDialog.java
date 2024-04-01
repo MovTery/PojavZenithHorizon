@@ -3,6 +3,7 @@ package net.kdt.pojavlaunch.dialog;
 
 import static net.kdt.pojavlaunch.PojavZHTools.markdownToHtml;
 import static net.kdt.pojavlaunch.PojavZHTools.updateLauncher;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -26,7 +27,7 @@ public class UpdateDialog extends Dialog {
         this.description = updateInformation.description;
 
         this.setCancelable(false);
-        setContentView(R.layout.dialog_update);
+        this.setContentView(R.layout.dialog_update);
         init();
     }
     private void init() {
@@ -42,12 +43,17 @@ public class UpdateDialog extends Dialog {
 
         Button mUpdateButton = findViewById(R.id.zh_update_update_button);
         Button mCancelButton = findViewById(R.id.zh_update_cancel_button);
+        Button mIgnoreButton = findViewById(R.id.zh_update_ignore_button);
 
         mUpdateButton.setOnClickListener(view -> {
             this.dismiss();
             updateLauncher(getContext());
         });
         mCancelButton.setOnClickListener(view -> this.dismiss());
+        mIgnoreButton.setOnClickListener(view -> {
+            DEFAULT_PREF.edit().putString("ignoreUpdate", this.versionName).apply();
+            this.dismiss();
+        });
     }
 
     public static class UpdateInformation {
