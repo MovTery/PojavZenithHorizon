@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch.fragments;
 
-import static net.kdt.pojavlaunch.PojavZHTools.calculateBufferSize;
-import static net.kdt.pojavlaunch.Tools.getFileName;
+import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -24,11 +23,6 @@ import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Objects;
 
 public class SelectModPackFragment extends Fragment {
     public static final String TAG = "SelectModPackFragment";
@@ -89,23 +83,7 @@ public class SelectModPackFragment extends Fragment {
     private class CopyFile extends AsyncTask<Uri, Void, Void> {
         @Override
         protected Void doInBackground(Uri... uris) {
-            Uri fileUri = uris[0];
-            String fileName = getFileName(requireContext(), fileUri);
-            File inputFile = new File(Objects.requireNonNull(fileUri.getPath()));
-            modPackFile = new File(Tools.DIR_CACHE, fileName);
-            try (InputStream inputStream = requireContext().getContentResolver().openInputStream(fileUri)) {
-                if (inputStream != null) {
-                    try (OutputStream outputStream = new FileOutputStream(modPackFile)) {
-                        byte[] buffer = new byte[calculateBufferSize(inputFile.length())];
-                        int bytesRead;
-                        while ((bytesRead = inputStream.read(buffer)) != -1) {
-                            outputStream.write(buffer, 0, bytesRead);
-                        }
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            modPackFile = copyFileInBackground(requireContext(), uris, Tools.DIR_CACHE.getAbsolutePath());
             return null;
         }
 
