@@ -73,11 +73,19 @@
             app2:selectable="false"
             app2:seekBarIncrement="5"
             app2:showSeekBarValue="true" />
+
         <SwitchPreference
             android:key="mouse_start"
             android:title="@string/preference_mouse_start_title"
             android:summary="@string/preference_mouse_start_description"
             />
+
+        <Preference
+            android:title="@string/zh_custom_mouse_title"
+            android:summary="@string/zh_custom_mouse_desc"
+            android:key="zh_custom_mouse"
+            />
+
     </PreferenceCategory>
 
     <PreferenceCategory

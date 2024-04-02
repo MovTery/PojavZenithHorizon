@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch.lifecycle;
 
 import static net.kdt.pojavlaunch.MainActivity.INTENT_MINECRAFT_VERSION;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_QUILT_LAUNCHER;
 
 import android.app.Activity;
 import android.content.Context;
@@ -46,8 +47,10 @@ public class ContextAwareDoneListener implements AsyncMinecraftDownloader.DoneLi
         try {
             Intent gameStartIntent = createGameStartIntent(activity);
             activity.startActivity(gameStartIntent);
-            activity.finish();
-            android.os.Process.killProcess(android.os.Process.myPid()); //You should kill yourself, NOW!
+            if (PREF_QUILT_LAUNCHER) {
+                activity.finish();
+                android.os.Process.killProcess(android.os.Process.myPid()); //You should kill yourself, NOW!
+            }
         } catch (Throwable e) {
             Tools.showError(activity.getBaseContext(), e);
         }
