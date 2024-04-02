@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch;
 
 import static net.kdt.pojavlaunch.Tools.DIR_GAME_HOME;
+import static net.kdt.pojavlaunch.Tools.getFileName;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
@@ -62,6 +63,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -87,6 +89,28 @@ public class PojavZHTools {
     public static void initContextConstants() {
         PojavZHTools.DIR_GAME_DEFAULT = DIR_GAME_HOME + "/.minecraft/instance/default";
         PojavZHTools.DIR_CUSTOM_MOUSE = DIR_GAME_HOME + "/mouse";
+    }
+
+    public static File copyFileInBackground(Context context, Uri[] uris, String rootPath) {
+        Uri fileUri = uris[0];
+        String fileName = getFileName(context, fileUri);
+        File inputFile = new File(Objects.requireNonNull(fileUri.getPath()));
+        File outputFile = new File(rootPath, fileName);
+        try (InputStream inputStream = context.getContentResolver().openInputStream(fileUri)) {
+            if (inputStream != null) {
+                try (OutputStream outputStream = new FileOutputStream(outputFile)) {
+                    byte[] buffer = new byte[calculateBufferSize(inputFile.length())];
+                    int bytesRead;
+                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return outputFile;
     }
 
     public static int calculateBufferSize(long fileSize) {
