@@ -31,11 +31,11 @@
             android:summary="@string/zh_setting_animation_desc"
             android:defaultValue="true" />
 
-        <Preference
-            android:title="@string/zh_custom_mouse_title"
-            android:summary="@string/zh_custom_mouse_desc"
-            android:key="zh_custom_mouse"
-            />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="quitLauncher"
+            android:title="@string/zh_setting_quit_launcher_title"
+            android:summary="@string/zh_setting_quit_launcher_desc" />
 
     </PreferenceCategory>
 

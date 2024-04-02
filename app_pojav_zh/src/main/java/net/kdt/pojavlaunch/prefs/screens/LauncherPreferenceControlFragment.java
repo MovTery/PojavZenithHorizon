@@ -6,9 +6,12 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 
+import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 
+import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.fragments.CustomMouseFragment;
 import net.kdt.pojavlaunch.prefs.CustomSeekBarPreference;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
@@ -53,6 +56,12 @@ public class LauncherPreferenceControlFragment extends LauncherPreferenceFragmen
         seek6.setRange(25, 300);
         seek6.setValue((int)(mouseSpeed *100f));
         seek6.setSuffix(" %");
+
+        Preference customMousePreference = requirePreference("zh_custom_mouse");
+        customMousePreference.setOnPreferenceClickListener(preference -> {
+            PojavZHTools.swapSettingsFragment(requireActivity(), CustomMouseFragment.class, CustomMouseFragment.TAG, null, true);
+            return true;
+        });
 
         CustomSeekBarPreference deadzoneSeek = requirePreference("gamepad_deadzone_scale",
                 CustomSeekBarPreference.class);
