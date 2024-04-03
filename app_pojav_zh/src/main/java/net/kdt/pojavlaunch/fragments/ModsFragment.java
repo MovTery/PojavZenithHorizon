@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -37,9 +38,10 @@ public class ModsFragment extends Fragment {
     private ImageButton mHelpButton;
     private FileListView mFileListView;
     private String mRootPath;
+    private TextView mFilePathView;
 
     public ModsFragment() {
-        super(R.layout.fragment_mods);
+        super(R.layout.fragment_files);
     }
 
     @Override
@@ -61,6 +63,8 @@ public class ModsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         bindViews(view);
         parseBundle();
+
+        mFilePathView.setText(getString(R.string.zh_profile_mods));
 
         mFileListView.setShowFiles(true);
         mFileListView.setShowFolders(false);
@@ -157,11 +161,15 @@ public class ModsFragment extends Fragment {
     }
 
     private void bindViews(@NonNull View view) {
-        mReturnButton = view.findViewById(R.id.zh_mods_return_button);
-        mSelectModButton = view.findViewById(R.id.zh_select_mod_button);
-        mRefreshButton = view.findViewById(R.id.zh_mods_refresh_button);
-        mHelpButton = view.findViewById(R.id.zh_mods_help_button);
-        mFileListView = view.findViewById(R.id.zh_mods);
+        mReturnButton = view.findViewById(R.id.zh_files_return_button);
+        mSelectModButton = view.findViewById(R.id.zh_files_add_file_button);
+        mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
+        mHelpButton = view.findViewById(R.id.zh_files_help_button);
+        mFileListView = view.findViewById(R.id.zh_files);
+        mFilePathView = view.findViewById(R.id.zh_files_current_path);
+
+        view.findViewById(R.id.zh_files_create_folder_button).setVisibility(View.GONE);
+        view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
     }
 }
 
