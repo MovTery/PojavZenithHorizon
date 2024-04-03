@@ -27,8 +27,8 @@
 
     <ImageButton
         android:id="@+id/zh_modpack_help_button"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
         android:layout_marginTop="15dp"
         android:background="?attr/selectableItemBackground"
         android:scaleType="fitXY"

@@ -26,8 +26,8 @@
 
     <ImageButton
         android:id="@+id/zh_other_login_help_button"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:background="?attr/selectableItemBackground"
