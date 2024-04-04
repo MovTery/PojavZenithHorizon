@@ -61,13 +61,13 @@ public class ModsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         bindViews(view);
         parseBundle();
-
-        mFilePathView.setText(getString(R.string.zh_profile_mods));
-
         mFileListView.setShowFiles(true);
         mFileListView.setShowFolders(false);
         mFileListView.lockPathAt(new File(mRootPath));
         mFileListView.refreshPath();
+
+        mFilePathView.setText(getString(R.string.zh_profile_mods));
+        mAddModButton.setText(getString(R.string.zh_profile_mods_add_mod));
 
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
             @Override
@@ -167,7 +167,6 @@ public class ModsFragment extends Fragment {
         mFileListView = view.findViewById(R.id.zh_files);
         mFilePathView = view.findViewById(R.id.zh_files_current_path);
 
-        mAddModButton.setText(getString(R.string.zh_profile_mods_add_mod));
         view.findViewById(R.id.zh_files_create_folder_button).setVisibility(View.GONE);
         view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
     }
