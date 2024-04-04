@@ -78,14 +78,16 @@ public class ControlButtonFragment extends Fragment {
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
-                FilesDialog filesDialog = new FilesDialog(requireContext());
+                FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
+                filesButton.setButtonVisibility(true, true, true, true, true);
+                filesButton.messageText = getString(R.string.zh_file_message);
+                filesButton.moreButtonText = getString(R.string.zh_controls_load);
 
-                filesDialog.setMessageText(getString(R.string.zh_file_message));
-
-                filesDialog.setDeleteButton(requireActivity(), mFileListView, file);
-                filesDialog.setRenameButton(requireActivity(), mFileListView, file);
-
-                filesDialog.setMoreButton(getString(R.string.zh_controls_load), v -> {
+                FilesDialog.ButtonClick buttonClick = new FilesDialog.ButtonClick();
+                buttonClick.setShareButton(requireContext(), file);
+                buttonClick.setRenameButton(requireActivity(), mFileListView, file);
+                buttonClick.setDeleteButton(requireActivity(), mFileListView, file);
+                buttonClick.setMoreButton(v -> {
                     Intent intent = new Intent(requireContext(), CustomControlsActivity.class);
 
                     Bundle bundle = new Bundle();
@@ -95,6 +97,7 @@ public class ControlButtonFragment extends Fragment {
                     startActivity(intent);
                 }); //加载
 
+                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, buttonClick);
                 filesDialog.show();
             }
 
