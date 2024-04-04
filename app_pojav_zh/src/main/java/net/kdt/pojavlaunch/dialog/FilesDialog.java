@@ -26,22 +26,22 @@ public class FilesDialog extends Dialog {
 
     public FilesDialog(@NonNull Context context, FilesButton filesButton, ButtonClick buttonClick) {
         super(context);
-        this.mCancel = filesButton.cancelButton;
-        this.mShare = filesButton.shareButton;
-        this.mRename = filesButton.renameButton;
-        this.mDelete = filesButton.deleteButton;
-        this.mMore = filesButton.moreButton;
+        this.mCancel = filesButton.cancel;
+        this.mShare = filesButton.share;
+        this.mRename = filesButton.rename;
+        this.mDelete = filesButton.delete;
+        this.mMore = filesButton.more;
 
-        this.mShareClick = buttonClick.shareClick;
-        this.mRenameClick = buttonClick.renameClick;
-        this.mDeleteClick = buttonClick.deleteClick;
-        this.mMoreClick = buttonClick.moreClick;
+        this.mShareClick = buttonClick.share;
+        this.mRenameClick = buttonClick.rename;
+        this.mDeleteClick = buttonClick.delete;
+        this.mMoreClick = buttonClick.more;
 
         this.mMessageText = filesButton.messageText;
         this.mMoreText = filesButton.moreButtonText;
 
         this.setCancelable(false);
-        this.setContentView(R.layout.dialog_update);
+        this.setContentView(R.layout.dialog_files);
         init();
     }
 
@@ -70,30 +70,30 @@ public class FilesDialog extends Dialog {
     }
 
     public static class FilesButton {
-        public boolean cancelButton, shareButton, renameButton, deleteButton, moreButton;
+        public boolean cancel, share, rename, delete, more;
         public String messageText, moreButtonText;
         public void setButtonVisibility(boolean cancelButton, boolean shareButton, boolean renameButton, boolean deleteButton, boolean moreButton) {
-            this.cancelButton = cancelButton;
-            this.shareButton = shareButton;
-            this.renameButton = renameButton;
-            this.deleteButton = deleteButton;
-            this.moreButton = moreButton;
+            this.cancel = cancelButton;
+            this.share = shareButton;
+            this.rename = renameButton;
+            this.delete = deleteButton;
+            this.more = moreButton;
         }
     }
 
     public static class ButtonClick {
-        public View.OnClickListener shareClick, renameClick, deleteClick, moreClick;
+        public View.OnClickListener share, rename, delete, more;
         public void setShareButton(Context context, File file) {
-            this.shareClick = view -> shareFile(context, file.getName(), file.getAbsolutePath());
+            this.share = view -> shareFile(context, file.getName(), file.getAbsolutePath());
         }
         public void setRenameButton(Activity activity, FileListView mFileListView, File file) {
-            this.renameClick = view -> renameFileListener(activity, mFileListView, file, false);
+            this.rename = view -> renameFileListener(activity, mFileListView, file, false);
         }
         public void setDeleteButton(Activity activity, FileListView mFileListView, File file) {
-            this.deleteClick = view -> deleteFileListener(activity, mFileListView, file, false);
+            this.delete = view -> deleteFileListener(activity, mFileListView, file, false);
         }
         public void setMoreButton(View.OnClickListener click) {
-            this.moreClick = click;
+            this.more = click;
         }
     }
 }
