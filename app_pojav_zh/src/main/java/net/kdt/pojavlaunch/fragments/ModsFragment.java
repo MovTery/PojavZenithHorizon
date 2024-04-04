@@ -76,44 +76,40 @@ public class ModsFragment extends Fragment {
                 String fileParent = file.getParent();
                 String disableString = "(" + getString(R.string.zh_profile_mods_disable) + ")";
 
-                FilesDialog filesDialog = null;
-
                 FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-                filesButton.setButtonVisibility(true, true, true, true, true);
+                filesButton.setButtonVisibility(true, true, true, true);
                 filesButton.messageText = getString(R.string.zh_file_message);
                 if (fileName.endsWith(".jar")) filesButton.moreButtonText = getString(R.string.zh_profile_mods_disable);
                 else if (fileName.endsWith(".disabled")) filesButton.moreButtonText = getString(R.string.zh_profile_mods_enable);
 
-                FilesDialog.ButtonClick buttonClick = new FilesDialog.ButtonClick();
-                buttonClick.setShareButton(requireContext(), file, filesDialog);
-                buttonClick.setRenameButton(requireActivity(), mFileListView, file, filesDialog);
-                buttonClick.setDeleteButton(requireActivity(), mFileListView, file, filesDialog);
+                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, mFileListView, file);
+                //检测后缀名，以设置正确的按钮
+                if (fileName.endsWith(".jar")) {
+                    filesDialog.setMoreButtonClick(v -> {
+                        File newFile = new File(fileParent, disableString + fileName + ".disabled");
+                        boolean disable = file.renameTo(newFile);
+                        if (disable) {
+                            Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_disabled) + fileName, Toast.LENGTH_SHORT).show();
+                        }
+                        mFileListView.refreshPath();
+                        filesDialog.dismiss();
+                    });
+                }
+                else if (fileName.endsWith(".disabled")) {
+                    filesDialog.setMoreButtonClick(v -> {
+                        int index = fileName.indexOf(disableString);
+                        if (index == -1) index = 0;
+                        else if (index == 0) index = disableString.length();
+                        File newFile = new File(fileParent, fileName.substring(index, fileName.lastIndexOf('.')));
+                        boolean disable = file.renameTo(newFile);
+                        if (disable) {
+                            Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_enabled) + fileName, Toast.LENGTH_SHORT).show();
+                        }
+                        mFileListView.refreshPath();
+                        filesDialog.dismiss();
+                    });
+                }
 
-                View.OnClickListener disableListener = v -> {
-                    File newFile = new File(fileParent, disableString + fileName + ".disabled");
-                    boolean disable = file.renameTo(newFile);
-                    if (disable) {
-                        Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_disabled) + fileName, Toast.LENGTH_SHORT).show();
-                    }
-                    mFileListView.refreshPath();
-                };
-
-                View.OnClickListener enableListener = v -> {
-                    int index = fileName.indexOf(disableString);
-                    if (index == -1) index = 0;
-                    else if (index == 0) index = disableString.length();
-                    File newFile = new File(fileParent, fileName.substring(index, fileName.lastIndexOf('.')));
-                    boolean disable = file.renameTo(newFile);
-                    if (disable) {
-                        Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_enabled) + fileName, Toast.LENGTH_SHORT).show();
-                    }
-                    mFileListView.refreshPath();
-                };
-
-                if (fileName.endsWith(".jar")) buttonClick.setMoreButton(disableListener);
-                else if (fileName.endsWith(".disabled")) buttonClick.setMoreButton(enableListener);
-
-                filesDialog = new FilesDialog(requireContext(), filesButton, buttonClick);
                 filesDialog.show();
             }
 

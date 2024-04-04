@@ -76,23 +76,17 @@ public class CustomMouseFragment extends Fragment {
                 refreshIcon(path, requireContext());
                 String fileName = file.getName();
 
-                FilesDialog filesDialog = null;
-
                 FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-                filesButton.setButtonVisibility(true, true, true, true, isImage(file));
+                filesButton.setButtonVisibility(true, true, true, isImage(file));
                 filesButton.messageText = getString(R.string.zh_file_message);
                 filesButton.moreButtonText = getString(R.string.global_select);
 
-                FilesDialog.ButtonClick buttonClick = new FilesDialog.ButtonClick();
-                buttonClick.setShareButton(requireActivity(), file, filesDialog);
-                buttonClick.setRenameButton(requireActivity(), mFileListView, file, filesDialog);
-                buttonClick.setDeleteButton(requireActivity(), mFileListView, file, filesDialog);
-                buttonClick.setMoreButton(v -> {
+                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, mFileListView, file);
+                filesDialog.setMoreButtonClick(v -> {
                     DEFAULT_PREF.edit().putString("custom_mouse", fileName).apply();
                     Toast.makeText(requireContext(), getString(R.string.zh_custom_mouse_added) + fileName, Toast.LENGTH_SHORT).show();
+                    filesDialog.dismiss();
                 });
-
-                filesDialog = new FilesDialog(requireContext(), filesButton, buttonClick);
                 filesDialog.show();
             }
 

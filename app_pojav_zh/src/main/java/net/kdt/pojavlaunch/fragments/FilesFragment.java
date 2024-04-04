@@ -71,10 +71,8 @@ public class FilesFragment extends Fragment {
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
-                FilesDialog filesDialog = null;
-
                 FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-                filesButton.setButtonVisibility(true, true, true, true, false);
+                filesButton.setButtonVisibility(true, true, true, false);
                 int caciocavallo = file.getPath().indexOf("caciocavallo");
                 int lwjgl3 = file.getPath().indexOf("lwjgl3");
 
@@ -82,13 +80,7 @@ public class FilesFragment extends Fragment {
                 else filesButton.messageText = getString(R.string.zh_file_message) + "\n" + getString(R.string.zh_file_message_main);
                 filesButton.moreButtonText = null;
 
-                FilesDialog.ButtonClick buttonClick = new FilesDialog.ButtonClick();
-                buttonClick.setShareButton(requireContext(), file, filesDialog);
-                buttonClick.setRenameButton(requireActivity(), mFileListView, file, filesDialog);
-                buttonClick.setDeleteButton(requireActivity(), mFileListView, file, filesDialog);
-                buttonClick.setMoreButton(null);
-
-                filesDialog = new FilesDialog(requireContext(), filesButton, buttonClick);
+                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, mFileListView, file);
                 filesDialog.show();
             }
 
