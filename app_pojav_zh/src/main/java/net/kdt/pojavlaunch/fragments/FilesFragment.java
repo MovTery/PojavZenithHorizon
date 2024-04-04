@@ -71,20 +71,22 @@ public class FilesFragment extends Fragment {
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
-                FilesDialog filesDialog = new FilesDialog(requireContext());
+                FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
+                filesButton.setButtonVisibility(true, true, true, true, false);
                 int caciocavallo = file.getPath().indexOf("caciocavallo");
                 int lwjgl3 = file.getPath().indexOf("lwjgl3");
 
-                if (caciocavallo == -1 && lwjgl3 == -1)
-                    filesDialog.setMessageText(getString(R.string.zh_file_message));
-                else
-                    filesDialog.setMessageText(getString(R.string.zh_file_message) + "\n" + getString(R.string.zh_file_message_main));
+                if (caciocavallo == -1 && lwjgl3 == -1) filesButton.messageText = getString(R.string.zh_file_message);
+                else filesButton.messageText = getString(R.string.zh_file_message) + "\n" + getString(R.string.zh_file_message_main);
+                filesButton.moreButtonText = null;
 
-                filesDialog.setCancelButton();
-                filesDialog.setShareButton(requireContext(), file);
-                filesDialog.setRenameButton(requireActivity(), mFileListView, file);
-                filesDialog.setDeleteButton(requireActivity(), mFileListView, file);
+                FilesDialog.ButtonClick buttonClick = new FilesDialog.ButtonClick();
+                buttonClick.setShareButton(requireContext(), file);
+                buttonClick.setRenameButton(requireActivity(), mFileListView, file);
+                buttonClick.setDeleteButton(requireActivity(), mFileListView, file);
+                buttonClick.setMoreButton(null);
 
+                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, buttonClick);
                 filesDialog.show();
             }
 

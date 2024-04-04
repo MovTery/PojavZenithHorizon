@@ -7,7 +7,6 @@ import static net.kdt.pojavlaunch.PojavZHTools.shareFile;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,19 +20,25 @@ import net.kdt.pojavlaunch.R;
 import java.io.File;
 
 public class FilesDialog extends Dialog {
-    private TextView mMessage;
-    private Button mCancelButton, mMoreButton, mShareButton, mRenameButton, mDeleteButton;
-    private View.OnClickListener mMoreClick, mShareClick, mRenameClick, mDeleteClick;
-    private boolean mCancel, mMore, mShare, mRename, mDelete;
-    private String mMessageText, mMoreText;
+    private final View.OnClickListener mMoreClick, mShareClick, mRenameClick, mDeleteClick;
+    private final boolean mCancel, mMore, mShare, mRename, mDelete;
+    private final String mMessageText, mMoreText;
 
-    public FilesDialog(@NonNull Context context) {
+    public FilesDialog(@NonNull Context context, FilesButton filesButton, ButtonClick buttonClick) {
         super(context);
-        this.mCancel = false;
-        this.mShare = false;
-        this.mRename = false;
-        this.mDelete = false;
-        this.mMore = false;
+        this.mCancel = filesButton.cancelButton;
+        this.mShare = filesButton.shareButton;
+        this.mRename = filesButton.renameButton;
+        this.mDelete = filesButton.deleteButton;
+        this.mMore = filesButton.moreButton;
+
+        this.mShareClick = buttonClick.shareClick;
+        this.mRenameClick = buttonClick.renameClick;
+        this.mDeleteClick = buttonClick.deleteClick;
+        this.mMoreClick = buttonClick.moreClick;
+
+        this.mMessageText = filesButton.messageText;
+        this.mMoreText = filesButton.moreButtonText;
 
         this.setCancelable(false);
         this.setContentView(R.layout.dialog_update);
@@ -41,59 +46,54 @@ public class FilesDialog extends Dialog {
     }
 
     private void init() {
-        this.mMessage = findViewById(R.id.zh_files_message);
-        this.mCancelButton = findViewById(R.id.zh_files_cancel);
-        this.mShareButton = findViewById(R.id.zh_files_share);
-        this.mRenameButton = findViewById(R.id.zh_files_rename);
-        this.mDeleteButton = findViewById(R.id.zh_files_delete);
-        this.mMoreButton = findViewById(R.id.zh_files_more);
+        TextView mMessage = findViewById(R.id.zh_files_message);
+        Button mCancelButton = findViewById(R.id.zh_files_cancel);
+        Button mShareButton = findViewById(R.id.zh_files_share);
+        Button mRenameButton = findViewById(R.id.zh_files_rename);
+        Button mDeleteButton = findViewById(R.id.zh_files_delete);
+        Button mMoreButton = findViewById(R.id.zh_files_more);
+
+        mCancelButton.setVisibility(mCancel ? View.VISIBLE : View.GONE);
+        mShareButton.setVisibility(mShare ? View.VISIBLE : View.GONE);
+        mRenameButton.setVisibility(mRename ? View.VISIBLE : View.GONE);
+        mDeleteButton.setVisibility(mDelete ? View.VISIBLE : View.GONE);
+        mMoreButton.setVisibility(mMore ? View.VISIBLE : View.GONE);
+
+        if (this.mMessageText != null) mMessage.setText(this.mMessageText);
+        mCancelButton.setOnClickListener(view -> FilesDialog.this.dismiss());
+        mShareButton.setOnClickListener(this.mShareClick);
+        mRenameButton.setOnClickListener(this.mRenameClick);
+        mDeleteButton.setOnClickListener(this.mDeleteClick);
+
+        if (this.mMoreText != null) mMoreButton.setText(this.mMoreText);
+        mMoreButton.setOnClickListener(this.mMoreClick);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        this.mCancelButton.setVisibility(mCancel ? View.VISIBLE : View.GONE);
-        this.mShareButton.setVisibility(mShare ? View.VISIBLE : View.GONE);
-        this.mRenameButton.setVisibility(mRename ? View.VISIBLE : View.GONE);
-        this.mDeleteButton.setVisibility(mDelete ? View.VISIBLE : View.GONE);
-        this.mMoreButton.setVisibility(mMore ? View.VISIBLE : View.GONE);
-
-        if (this.mMessageText != null) this.mMessage.setText(this.mMessageText);
-        this.mCancelButton.setOnClickListener(view -> FilesDialog.this.dismiss());
-        this.mShareButton.setOnClickListener(this.mShareClick);
-        this.mRenameButton.setOnClickListener(this.mRenameClick);
-        this.mDeleteButton.setOnClickListener(this.mDeleteClick);
-
-        if (this.mMoreText != null) this.mMoreButton.setText(this.mMoreText);
-        this.mMoreButton.setOnClickListener(this.mMoreClick);
+    public static class FilesButton {
+        public boolean cancelButton, shareButton, renameButton, deleteButton, moreButton;
+        public String messageText, moreButtonText;
+        public void setButtonVisibility(boolean cancelButton, boolean shareButton, boolean renameButton, boolean deleteButton, boolean moreButton) {
+            this.cancelButton = cancelButton;
+            this.shareButton = shareButton;
+            this.renameButton = renameButton;
+            this.deleteButton = deleteButton;
+            this.moreButton = moreButton;
+        }
     }
 
-    public void setMessageText(String message) {
-        this.mMessageText = message;
-    }
-
-    public void setCancelButton() {
-        this.mCancel = true;
-    }
-
-    public void setShareButton(Context context, File file) {
-        this.mShare = true;
-        this.mShareClick = view -> shareFile(context, file.getName(), file.getAbsolutePath());
-    }
-
-    public void setRenameButton(Activity activity, FileListView mFileListView, File file) {
-        this.mRename = true;
-        this.mRenameClick = view -> renameFileListener(activity, mFileListView, file, false);
-    }
-
-    public void setDeleteButton(Activity activity, FileListView mFileListView, File file) {
-        this.mDelete = true;
-        this.mDeleteClick = view -> deleteFileListener(activity, mFileListView, file, false);
-    }
-
-    public void setMoreButton(String name, View.OnClickListener click) {
-        this.mMore = true;
-        this.mMoreText = name;
-        this.mMoreClick = click;
+    public static class ButtonClick {
+        public View.OnClickListener shareClick, renameClick, deleteClick, moreClick;
+        public void setShareButton(Context context, File file) {
+            this.shareClick = view -> shareFile(context, file.getName(), file.getAbsolutePath());
+        }
+        public void setRenameButton(Activity activity, FileListView mFileListView, File file) {
+            this.renameClick = view -> renameFileListener(activity, mFileListView, file, false);
+        }
+        public void setDeleteButton(Activity activity, FileListView mFileListView, File file) {
+            this.deleteClick = view -> deleteFileListener(activity, mFileListView, file, false);
+        }
+        public void setMoreButton(View.OnClickListener click) {
+            this.moreClick = click;
+        }
     }
 }
