@@ -83,14 +83,23 @@ public class FilesDialog extends Dialog {
 
     public static class ButtonClick {
         public View.OnClickListener share, rename, delete, more;
-        public void setShareButton(Context context, File file) {
-            this.share = view -> shareFile(context, file.getName(), file.getAbsolutePath());
+        public void setShareButton(Context context, File file, FilesDialog dialog) {
+            this.share = view -> {
+                shareFile(context, file.getName(), file.getAbsolutePath());
+                dialog.dismiss();
+            };
         }
-        public void setRenameButton(Activity activity, FileListView mFileListView, File file) {
-            this.rename = view -> renameFileListener(activity, mFileListView, file, false);
+        public void setRenameButton(Activity activity, FileListView mFileListView, File file, FilesDialog dialog) {
+            this.rename = view -> {
+                renameFileListener(activity, mFileListView, file, false);
+                dialog.dismiss();
+            };
         }
-        public void setDeleteButton(Activity activity, FileListView mFileListView, File file) {
-            this.delete = view -> deleteFileListener(activity, mFileListView, file, false);
+        public void setDeleteButton(Activity activity, FileListView mFileListView, File file, FilesDialog dialog) {
+            this.delete = view -> {
+                deleteFileListener(activity, mFileListView, file, false);
+                dialog.dismiss();
+            };
         }
         public void setMoreButton(View.OnClickListener click) {
             this.more = click;

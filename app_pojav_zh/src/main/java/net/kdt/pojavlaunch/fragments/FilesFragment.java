@@ -71,6 +71,8 @@ public class FilesFragment extends Fragment {
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
+                FilesDialog filesDialog = null;
+
                 FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
                 filesButton.setButtonVisibility(true, true, true, true, false);
                 int caciocavallo = file.getPath().indexOf("caciocavallo");
@@ -81,12 +83,12 @@ public class FilesFragment extends Fragment {
                 filesButton.moreButtonText = null;
 
                 FilesDialog.ButtonClick buttonClick = new FilesDialog.ButtonClick();
-                buttonClick.setShareButton(requireContext(), file);
-                buttonClick.setRenameButton(requireActivity(), mFileListView, file);
-                buttonClick.setDeleteButton(requireActivity(), mFileListView, file);
+                buttonClick.setShareButton(requireContext(), file, filesDialog);
+                buttonClick.setRenameButton(requireActivity(), mFileListView, file, filesDialog);
+                buttonClick.setDeleteButton(requireActivity(), mFileListView, file, filesDialog);
                 buttonClick.setMoreButton(null);
 
-                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, buttonClick);
+                filesDialog = new FilesDialog(requireContext(), filesButton, buttonClick);
                 filesDialog.show();
             }
 
