@@ -1,8 +1,6 @@
 package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
-import static net.kdt.pojavlaunch.PojavZHTools.deleteFileListener;
-import static net.kdt.pojavlaunch.PojavZHTools.renameFileListener;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -27,6 +25,7 @@ import com.kdt.pickafile.FileSelectedListener;
 import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
+import net.kdt.pojavlaunch.dialog.FilesDialog;
 
 import java.io.File;
 
@@ -74,13 +73,12 @@ public class ModsFragment extends Fragment {
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+                FilesDialog filesDialog = new FilesDialog(requireContext());
                 String fileName = file.getName();
                 String fileParent = file.getParent();
                 String disableString = "(" + getString(R.string.zh_profile_mods_disable) + ")";
 
-                builder.setTitle(getString(R.string.zh_file_tips));
-                builder.setMessage(getString(R.string.zh_file_message));
+                filesDialog.setMessageText(getString(R.string.zh_file_message));
 
                 DialogInterface.OnClickListener disableListener = (dialog, which) -> {
                     File newFile = new File(fileParent, disableString + fileName + ".disabled");
@@ -103,15 +101,15 @@ public class ModsFragment extends Fragment {
                     mFileListView.refreshPath();
                 };
 
-                builder.setPositiveButton(getString(R.string.global_delete), deleteFileListener(requireActivity(), mFileListView, file, false))
-                        .setNegativeButton(getString(R.string.zh_file_rename), renameFileListener(requireActivity(), mFileListView, file, false));
+                filesDialog.setDeleteButton(requireActivity(), mFileListView, file);
+                filesDialog.setRenameButton(requireActivity(), mFileListView, file);
                 if (file.getName().endsWith(".jar")) {
-                    builder.setNeutralButton(getString(R.string.zh_profile_mods_disable), disableListener);
+                    filesDialog.setMoreButton(getString(R.string.zh_profile_mods_disable), disableListener);
                 } else if (file.getName().endsWith(".disabled")) {
-                    builder.setNeutralButton(getString(R.string.zh_profile_mods_enable), enableListener);
+                    filesDialog.setMoreButton(getString(R.string.zh_profile_mods_enable), enableListener);
                 }
 
-                builder.show();
+                filesDialog.show();
             }
 
             @Override

@@ -2,9 +2,7 @@ package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.PojavZHTools.DIR_CUSTOM_MOUSE;
 import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
-import static net.kdt.pojavlaunch.PojavZHTools.deleteFileListener;
 import static net.kdt.pojavlaunch.PojavZHTools.isImage;
-import static net.kdt.pojavlaunch.PojavZHTools.renameFileListener;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.annotation.SuppressLint;
@@ -35,6 +33,7 @@ import com.kdt.pickafile.FileSelectedListener;
 
 import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.dialog.FilesDialog;
 
 import java.io.File;
 
@@ -78,22 +77,21 @@ public class CustomMouseFragment extends Fragment {
                 refreshIcon(path, requireContext());
                 String fileName = file.getName();
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-
-                builder.setTitle(getString(R.string.zh_file_tips));
-                builder.setMessage(getString(R.string.zh_file_message));
+                FilesDialog filesDialog = new FilesDialog(requireContext());
+                filesDialog.setMessageText(getString(R.string.zh_file_message));
 
                 DialogInterface.OnClickListener chooseListener = (dialog, which) -> {
                     DEFAULT_PREF.edit().putString("custom_mouse", fileName).apply();
                     Toast.makeText(requireContext(), getString(R.string.zh_custom_mouse_added) + fileName, Toast.LENGTH_SHORT).show();
                 };
 
-                builder.setPositiveButton(getString(R.string.global_delete), deleteFileListener(requireActivity(), mFileListView, file, true))
-                        .setNegativeButton(getString(R.string.zh_file_rename), renameFileListener(requireActivity(), mFileListView, file, true));
+                filesDialog.setDeleteButton(requireActivity(), mFileListView, file);
+                filesDialog.setRenameButton(requireActivity(), mFileListView, file);
 
-                if (isImage(file)) builder.setNeutralButton(getString(R.string.global_select), chooseListener);
+                if (isImage(file))
+                    filesDialog.setMoreButton(getString(R.string.global_select), chooseListener);
 
-                builder.show();
+                filesDialog.show();
             }
 
             @Override
