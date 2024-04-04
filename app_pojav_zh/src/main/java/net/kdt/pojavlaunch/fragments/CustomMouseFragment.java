@@ -8,7 +8,6 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -80,16 +79,14 @@ public class CustomMouseFragment extends Fragment {
                 FilesDialog filesDialog = new FilesDialog(requireContext());
                 filesDialog.setMessageText(getString(R.string.zh_file_message));
 
-                DialogInterface.OnClickListener chooseListener = (dialog, which) -> {
-                    DEFAULT_PREF.edit().putString("custom_mouse", fileName).apply();
-                    Toast.makeText(requireContext(), getString(R.string.zh_custom_mouse_added) + fileName, Toast.LENGTH_SHORT).show();
-                };
-
                 filesDialog.setDeleteButton(requireActivity(), mFileListView, file);
                 filesDialog.setRenameButton(requireActivity(), mFileListView, file);
 
                 if (isImage(file))
-                    filesDialog.setMoreButton(getString(R.string.global_select), chooseListener);
+                    filesDialog.setMoreButton(getString(R.string.global_select), v -> {
+                        DEFAULT_PREF.edit().putString("custom_mouse", fileName).apply();
+                        Toast.makeText(requireContext(), getString(R.string.zh_custom_mouse_added) + fileName, Toast.LENGTH_SHORT).show();
+                    });
 
                 filesDialog.show();
             }

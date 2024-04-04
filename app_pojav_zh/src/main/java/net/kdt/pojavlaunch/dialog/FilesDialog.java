@@ -91,9 +91,9 @@ public class FilesDialog extends Dialog {
         this.mDeleteClick = view -> deleteFileListener(activity, mFileListView, file, false);
     }
 
-    public void setMoreButton(String name, OnClickListener click) {
+    public void setMoreButton(String name, View.OnClickListener click) {
         this.mMore = true;
         this.mMoreText = name;
-        this.mMoreClick = (View.OnClickListener) click;
+        this.mMoreClick = click;
     }
 }
