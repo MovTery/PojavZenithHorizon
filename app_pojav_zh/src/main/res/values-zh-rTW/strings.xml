@@ -91,6 +91,7 @@
     <string name="zh_update_dialog_title">檢測到新版本</string>
     <string name="zh_update_dialog_version">版本：</string>
     <string name="zh_update_dialog_time">日期：</string>
+    <string name="zh_update_dialog_file_size">安裝包大小：</string>
     <string name="zh_update_dialog_description">更新描述：</string>
     <string name="zh_update_dialog_yes">更新</string>
     <string name="zh_update_dialog_ignore">忽略這次更新</string>

@@ -20,12 +20,14 @@ import net.kdt.pojavlaunch.R;
 public class UpdateDialog extends Dialog {
     private final String versionName;
     private final String createdTime;
+    private final String fileSize;
     private final String description;
 
     public UpdateDialog(@NonNull Context context, UpdateInformation updateInformation) {
         super(context);
         this.versionName = updateInformation.versionName;
         this.createdTime = updateInformation.createdTime;
+        this.fileSize = updateInformation.fileSize;
         this.description = updateInformation.description;
 
         this.setCancelable(false);
@@ -36,13 +38,16 @@ public class UpdateDialog extends Dialog {
     private void init() {
         TextView mVersionName = findViewById(R.id.zh_update_version_name);
         TextView mCreatedTime = findViewById(R.id.zh_update_time);
+        TextView mFileSize = findViewById(R.id.zh_update_file_size);
         WebView mDescription = findViewById(R.id.zh_update_description);
 
         String version = getContext().getString(R.string.zh_update_dialog_version) + this.versionName;
         String time = getContext().getString(R.string.zh_update_dialog_time) + this.createdTime;
+        String size = getContext().getString(R.string.zh_update_dialog_file_size) + this.fileSize;
 
         mVersionName.setText(version);
         mCreatedTime.setText(time);
+        mFileSize.setText(size);
 
         String descriptionHtml = markdownToHtml(this.description);
 
@@ -94,10 +99,12 @@ public class UpdateDialog extends Dialog {
     public static class UpdateInformation {
         public String versionName;
         public String createdTime;
+        public String fileSize;
         public String description;
-        public void information(@NonNull String versionName, @NonNull String createdTime, @NonNull String description) {
+        public void information(@NonNull String versionName, @NonNull String createdTime, @NonNull String fileSize, @NonNull String description) {
             this.versionName = versionName;
             this.createdTime = createdTime;
+            this.fileSize = fileSize;
             this.description = description;
         }
     }

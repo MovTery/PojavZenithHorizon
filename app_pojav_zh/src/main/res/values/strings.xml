@@ -93,6 +93,7 @@
     <string name="zh_update_dialog_title">New Version Detected</string>
     <string name="zh_update_dialog_version">Version:</string>
     <string name="zh_update_dialog_time">Date:</string>
+    <string name="zh_update_dialog_file_size">File size:</string>
     <string name="zh_update_dialog_description">Update Description:</string>
     <string name="zh_update_dialog_yes">Update</string>
     <string name="zh_update_dialog_ignore">Ignore this update</string>
