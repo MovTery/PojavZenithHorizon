@@ -76,6 +76,8 @@ public class ModsFragment extends Fragment {
                 String fileParent = file.getParent();
                 String disableString = "(" + getString(R.string.zh_profile_mods_disable) + ")";
 
+                FilesDialog filesDialog = null;
+
                 FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
                 filesButton.setButtonVisibility(true, true, true, true, true);
                 filesButton.messageText = getString(R.string.zh_file_message);
@@ -83,9 +85,9 @@ public class ModsFragment extends Fragment {
                 else if (fileName.endsWith(".disabled")) filesButton.moreButtonText = getString(R.string.zh_profile_mods_enable);
 
                 FilesDialog.ButtonClick buttonClick = new FilesDialog.ButtonClick();
-                buttonClick.setShareButton(requireContext(), file);
-                buttonClick.setRenameButton(requireActivity(), mFileListView, file);
-                buttonClick.setDeleteButton(requireActivity(), mFileListView, file);
+                buttonClick.setShareButton(requireContext(), file, filesDialog);
+                buttonClick.setRenameButton(requireActivity(), mFileListView, file, filesDialog);
+                buttonClick.setDeleteButton(requireActivity(), mFileListView, file, filesDialog);
 
                 View.OnClickListener disableListener = v -> {
                     File newFile = new File(fileParent, disableString + fileName + ".disabled");
@@ -111,7 +113,7 @@ public class ModsFragment extends Fragment {
                 if (fileName.endsWith(".jar")) buttonClick.setMoreButton(disableListener);
                 else if (fileName.endsWith(".disabled")) buttonClick.setMoreButton(enableListener);
 
-                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, buttonClick);
+                filesDialog = new FilesDialog(requireContext(), filesButton, buttonClick);
                 filesDialog.show();
             }
 

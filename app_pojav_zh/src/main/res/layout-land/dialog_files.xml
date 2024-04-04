@@ -35,10 +35,13 @@
             android:orientation="vertical">
 
             <TextView
+                android:layout_margin="10dp"
                 android:id="@+id/zh_files_message"
                 android:singleLine="true"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_15sdp"
+                android:gravity="center_horizontal" />
 
         </LinearLayout>
 
@@ -48,40 +51,45 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="end" >
+        android:gravity="center_horizontal" >
 
         <Button
             android:id="@+id/zh_files_cancel"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@android:string/cancel" />
 
         <Button
             android:layout_marginStart="10dp"
             android:id="@+id/zh_files_more"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@android:string/cancel" />
 
         <Button
             android:layout_marginStart="10dp"
             android:id="@+id/zh_files_share"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/zh_file_share" />
 
         <Button
             android:layout_marginStart="10dp"
             android:id="@+id/zh_files_rename"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/zh_file_rename" />
 
         <Button
             android:layout_marginStart="10dp"
             android:id="@+id/zh_files_delete"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/global_delete" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
