@@ -6,6 +6,7 @@ import static net.kdt.pojavlaunch.PojavZHTools.shareFile;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import java.io.File;
 
 public class FilesDialog extends Dialog {
     private View.OnClickListener mMoreClick;
+    private Button mMoreButton;
     private final boolean mCancel, mMore, mShare, mRename, mDelete;
     private final String mMessageText, mMoreText;
     private final FileListView mFileListView;
@@ -50,7 +52,7 @@ public class FilesDialog extends Dialog {
         Button mShareButton = findViewById(R.id.zh_files_share);
         Button mRenameButton = findViewById(R.id.zh_files_rename);
         Button mDeleteButton = findViewById(R.id.zh_files_delete);
-        Button mMoreButton = findViewById(R.id.zh_files_more);
+        mMoreButton = findViewById(R.id.zh_files_more);
 
         mCancelButton.setVisibility(mCancel ? View.VISIBLE : View.GONE);
         mShareButton.setVisibility(mShare ? View.VISIBLE : View.GONE);
@@ -74,6 +76,11 @@ public class FilesDialog extends Dialog {
         });
 
         if (this.mMoreText != null) mMoreButton.setText(this.mMoreText);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         if (this.mMore || this.mMoreClick != null) mMoreButton.setOnClickListener(this.mMoreClick);
     }
 
