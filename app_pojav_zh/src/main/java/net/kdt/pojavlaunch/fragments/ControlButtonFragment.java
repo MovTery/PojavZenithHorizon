@@ -2,8 +2,6 @@ package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.CustomControlsActivity.BUNDLE_CONTROL_PATH;
 import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
-import static net.kdt.pojavlaunch.PojavZHTools.deleteFileListener;
-import static net.kdt.pojavlaunch.PojavZHTools.renameFileListener;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -32,6 +30,7 @@ import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
+import net.kdt.pojavlaunch.dialog.FilesDialog;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -80,10 +79,9 @@ public class ControlButtonFragment extends Fragment {
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+                FilesDialog filesDialog = new FilesDialog(requireContext());
 
-                builder.setTitle(getString(R.string.preference_category_buttons));
-                builder.setMessage(getString(R.string.zh_file_message));
+                filesDialog.setMessageText(getString(R.string.zh_file_message));
 
                 //加载
                 DialogInterface.OnClickListener loadListener = (dialog, which) -> {
@@ -96,11 +94,12 @@ public class ControlButtonFragment extends Fragment {
                     startActivity(intent);
                 };
 
-                builder.setPositiveButton(getString(R.string.global_delete), deleteFileListener(requireActivity(), mFileListView, file, false))
-                        .setNegativeButton(getString(R.string.zh_file_rename), renameFileListener(requireActivity(), mFileListView, file, false))
-                        .setNeutralButton(getString(R.string.zh_controls_load), loadListener);
+                filesDialog.setDeleteButton(requireActivity(), mFileListView, file);
+                filesDialog.setRenameButton(requireActivity(), mFileListView, file);
 
-                builder.show();
+                filesDialog.setMoreButton(getString(R.string.zh_controls_load), loadListener);
+
+                filesDialog.show();
             }
 
             @Override

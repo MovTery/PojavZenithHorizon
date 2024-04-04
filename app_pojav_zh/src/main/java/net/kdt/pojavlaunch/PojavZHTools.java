@@ -242,54 +242,50 @@ public class PojavZHTools {
         builder.show();
     }
 
-    public static DialogInterface.OnClickListener deleteFileListener(Activity activity, FileListView fileListView, File file, boolean displayThumbnails) {
+    public static void deleteFileListener(Activity activity, FileListView fileListView, File file, boolean displayThumbnails) {
         String fileName = file.getName();
-        return (dialog, which) -> {
-            // 显示确认删除的对话框
-            AlertDialog.Builder deleteConfirmation = new AlertDialog.Builder(activity);
+        // 显示确认删除的对话框
+        AlertDialog.Builder deleteConfirmation = new AlertDialog.Builder(activity);
 
-            deleteConfirmation.setTitle(activity.getString(R.string.zh_file_tips));
-            deleteConfirmation.setMessage(activity.getString(R.string.zh_file_delete) + "\n" + file.getName());
-            deleteConfirmation.setPositiveButton(activity.getString(R.string.global_delete), (dialog1, which1) -> {
-                boolean deleted = deleteFile(file);
-                if (deleted) {
-                    Toast.makeText(activity, activity.getString(R.string.zh_file_deleted) + fileName, Toast.LENGTH_SHORT).show();
-                }
-                if (!displayThumbnails) fileListView.refreshPath();
-                else fileListView.listFileAt(fileListView.getFullPath(), true);
-            });
-            deleteConfirmation.setNegativeButton(activity.getString(android.R.string.cancel), null);
-            deleteConfirmation.show();
-        };
+        deleteConfirmation.setTitle(activity.getString(R.string.zh_file_tips));
+        deleteConfirmation.setMessage(activity.getString(R.string.zh_file_delete) + "\n" + file.getName());
+        deleteConfirmation.setPositiveButton(activity.getString(R.string.global_delete), (dialog1, which1) -> {
+            boolean deleted = deleteFile(file);
+            if (deleted) {
+                Toast.makeText(activity, activity.getString(R.string.zh_file_deleted) + fileName, Toast.LENGTH_SHORT).show();
+            }
+            if (!displayThumbnails) fileListView.refreshPath();
+            else fileListView.listFileAt(fileListView.getFullPath(), true);
+        });
+        deleteConfirmation.setNegativeButton(activity.getString(android.R.string.cancel), null);
+        deleteConfirmation.show();
     }
 
-    public static DialogInterface.OnClickListener renameFileListener(Activity activity, FileListView fileListView, File file, boolean displayThumbnails) {
+    public static void renameFileListener(Activity activity, FileListView fileListView, File file, boolean displayThumbnails) {
         String fileParent = file.getParent();
         String fileName = file.getName();
-        return (dialog, which) -> { //重命名
-            android.app.AlertDialog.Builder renameBuilder = new android.app.AlertDialog.Builder(activity);
-            String suffix = fileName.substring(fileName.lastIndexOf('.')); //防止修改后缀名，先将后缀名分离出去
-            EditText input = new EditText(activity);
-            input.setText(fileName.substring(0, fileName.lastIndexOf(suffix)));
-            renameBuilder.setTitle(activity.getString(R.string.zh_file_rename));
-            renameBuilder.setView(input);
-            renameBuilder.setPositiveButton(activity.getString(R.string.zh_file_rename), (dialog1, which1) -> {
-                String newName = input.getText().toString();
-                if (!newName.isEmpty()) {
-                    File newFile = new File(fileParent, newName + suffix);
-                    boolean renamed = file.renameTo(newFile);
-                    if (renamed) {
-                        Toast.makeText(activity, activity.getString(R.string.zh_file_renamed) + file.getName() + " -> " + newName + suffix, Toast.LENGTH_SHORT).show();
-                        if (!displayThumbnails) fileListView.refreshPath();
-                        else fileListView.listFileAt(fileListView.getFullPath(), true);
-                    }
-                } else {
-                    Toast.makeText(activity, activity.getString(R.string.zh_file_rename_empty), Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder renameBuilder = new AlertDialog.Builder(activity);
+        String suffix = fileName.substring(fileName.lastIndexOf('.')); //防止修改后缀名，先将后缀名分离出去
+        EditText input = new EditText(activity);
+        input.setText(fileName.substring(0, fileName.lastIndexOf(suffix)));
+        renameBuilder.setTitle(activity.getString(R.string.zh_file_rename));
+        renameBuilder.setView(input);
+        renameBuilder.setPositiveButton(activity.getString(R.string.zh_file_rename), (dialog1, which1) -> {
+            String newName = input.getText().toString();
+            if (!newName.isEmpty()) {
+                File newFile = new File(fileParent, newName + suffix);
+                boolean renamed = file.renameTo(newFile);
+                if (renamed) {
+                    Toast.makeText(activity, activity.getString(R.string.zh_file_renamed) + file.getName() + " -> " + newName + suffix, Toast.LENGTH_SHORT).show();
+                    if (!displayThumbnails) fileListView.refreshPath();
+                    else fileListView.listFileAt(fileListView.getFullPath(), true);
                 }
-            });
-            renameBuilder.setNegativeButton(activity.getString(android.R.string.cancel), null);
-            renameBuilder.show();
-        };
+            } else {
+                Toast.makeText(activity, activity.getString(R.string.zh_file_rename_empty), Toast.LENGTH_SHORT).show();
+            }
+        });
+        renameBuilder.setNegativeButton(activity.getString(android.R.string.cancel), null);
+        renameBuilder.show();
     }
 
     public static boolean deleteFile(File file) {

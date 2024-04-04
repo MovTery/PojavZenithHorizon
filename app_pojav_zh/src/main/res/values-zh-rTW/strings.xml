@@ -32,7 +32,8 @@
     <string name="zh_file_create_file_invalid">不能與已存在的文件同名！</string>
     <string name="zh_file_does_not_exist">這個資料夾（或檔案）不存在</string>
     <string name="zh_file_tips">操作此檔案</string>
-    <string name="zh_file_message">請選擇你要對此檔案進行的操作，點擊螢幕空白區域可關閉此視窗</string>
+    <string name="zh_file_message">請選擇你要對此檔案進行的操作</string>
+    <string name="zh_file_message_main">(請注意，在此目錄下的檔案都是非常重要的，操作不當可能導致遊戲無法啟動！)</string>
     <string name="zh_file_added">成功新增檔案</string>
     <string name="zh_file_delete">你確定要刪除此檔案嗎？</string>
     <string name="zh_file_delete_dir">你確定要刪除此資料夾嗎？</string>
@@ -61,7 +62,6 @@
     <string name="zh_profile_custom_path">自訂路徑</string>
     <string name="zh_profile_create_mods">建立 Mods</string>
     <string name="zh_profile_create_mods_message">請確認此實例使用的遊戲版本能夠載入 Mod，如果無法載入 Mod，則建立 Mods 資料夾並添加 Mod 將不起作用！</string>
-    <string name="zh_file_message_main">(請注意，在此目錄下的檔案都是非常重要的，操作不當可能導致遊戲無法啟動！)</string>
     <string name="zh_profile_create_mods_fail">抱歉，遊戲路徑內存在 Mods 資料夾，無法再次建立 Mods 資料夾</string>
     <string name="zh_profile_create_mods_success">成功建立 Mods 資料夾!</string>
     <string name="zh_profile_mods">Mod 管理</string>

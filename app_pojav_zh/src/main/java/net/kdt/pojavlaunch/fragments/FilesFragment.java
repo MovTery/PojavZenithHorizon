@@ -1,14 +1,10 @@
 package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
-import static net.kdt.pojavlaunch.PojavZHTools.deleteFileListener;
-import static net.kdt.pojavlaunch.PojavZHTools.renameFileListener;
-import static net.kdt.pojavlaunch.PojavZHTools.shareFile;
 import static net.kdt.pojavlaunch.Tools.DIR_GAME_HOME;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,6 +26,7 @@ import com.kdt.pickafile.FileSelectedListener;
 import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
+import net.kdt.pojavlaunch.dialog.FilesDialog;
 
 import java.io.File;
 
@@ -74,22 +71,21 @@ public class FilesFragment extends Fragment {
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+                FilesDialog filesDialog = new FilesDialog(requireContext());
                 int caciocavallo = file.getPath().indexOf("caciocavallo");
                 int lwjgl3 = file.getPath().indexOf("lwjgl3");
 
-                builder.setTitle(getString(R.string.zh_file_tips));
-                if (caciocavallo == -1 && lwjgl3 == -1) builder.setMessage(getString(R.string.zh_file_message));
-                else builder.setMessage(getString(R.string.zh_file_message) + "\n" + getString(R.string.zh_file_message_main));
+                if (caciocavallo == -1 && lwjgl3 == -1)
+                    filesDialog.setMessageText(getString(R.string.zh_file_message));
+                else
+                    filesDialog.setMessageText(getString(R.string.zh_file_message) + "\n" + getString(R.string.zh_file_message_main));
 
-                //分享
-                DialogInterface.OnClickListener shareListener = (dialog, which) -> shareFile(requireContext(), file.getName(), file.getAbsolutePath());
+                filesDialog.setCancelButton();
+                filesDialog.setShareButton(requireContext(), file);
+                filesDialog.setRenameButton(requireActivity(), mFileListView, file);
+                filesDialog.setDeleteButton(requireActivity(), mFileListView, file);
 
-                builder.setPositiveButton(getString(R.string.global_delete), deleteFileListener(requireActivity(), mFileListView, file, false))
-                        .setNegativeButton(getString(R.string.zh_file_rename), renameFileListener(requireActivity(), mFileListView, file, false))
-                        .setNeutralButton(getString(R.string.zh_file_share), shareListener);
-
-                builder.show();
+                filesDialog.show();
             }
 
             @Override
