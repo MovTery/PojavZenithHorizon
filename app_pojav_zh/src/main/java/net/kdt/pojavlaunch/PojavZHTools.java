@@ -344,13 +344,16 @@ public class PojavZHTools {
                         if (ignore && versionName.equals(DEFAULT_PREF.getString("ignoreUpdate", null))) return; //忽略此版本
 
                         String tagName = jsonObject.getString("tag_name");
+                        JSONArray assetsJson = jsonObject.getJSONArray("assets");
+                        JSONObject firstAsset = assetsJson.getJSONObject(0);
+                        long fileSize = firstAsset.getLong("size");
                         int githubVersion = Integer.parseInt(tagName);
 
                         if (versionCode < githubVersion) {
                             runOnUiThread(() -> {
                                 UpdateDialog.UpdateInformation updateInformation = new UpdateDialog.UpdateInformation();
                                 try {
-                                    updateInformation.information(versionName, formattingTime(jsonObject.getString("created_at")), jsonObject.getString("body"));
+                                    updateInformation.information(versionName, formattingTime(jsonObject.getString("created_at")), formatFileSize(fileSize), jsonObject.getString("body"));
                                 } catch (JSONException ignored) {}
                                 UpdateDialog updateDialog = new UpdateDialog(context, updateInformation);
 
