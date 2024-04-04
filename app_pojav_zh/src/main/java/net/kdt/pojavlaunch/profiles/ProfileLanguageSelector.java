@@ -91,7 +91,9 @@ public class ProfileLanguageSelector {
                 if (lastIndex != -1) {
                     try {
                         version = getVersion(versionId.substring(0, lastIndex));
-                    }catch (NumberFormatException ignored) {}
+                    }catch (NumberFormatException e) {
+                        return lang;
+                    }
                 }
             } else if (versionId.contains(fabricSuffix) || versionId.contains(quiltSuffix)) { // Fabric & Quilt
                 int lastIndex = versionId.lastIndexOf('-');
@@ -99,24 +101,32 @@ public class ProfileLanguageSelector {
                 if (lastIndex != -1) {
                     try {
                         version = getVersion(versionId.substring(lastIndex + 1));
-                    } catch (NumberFormatException ignored) {}
+                    } catch (NumberFormatException e) {
+                        return lang;
+                    }
                 }
             } else if (matcher.matches()) { // 快照版本 "24w09a" "16w20a"
-                int result1 = Integer.parseInt(getDigitsBeforeFirstLetter(versionId));
-                int result2 = Integer.parseInt(getDigitsBetweenFirstAndSecondLetter(versionId));
+                try {
+                    int result1 = Integer.parseInt(getDigitsBeforeFirstLetter(versionId));
+                    int result2 = Integer.parseInt(getDigitsBetweenFirstAndSecondLetter(versionId));
 
-                if(result1 < 16) {
-                    return getOlderLanguage(lang);
-                } else if (result1 == 16 & result2 <= 32) {
-                    return getOlderLanguage(lang);
+                    if(result1 < 16) {
+                        return getOlderLanguage(lang);
+                    } else if (result1 == 16 & result2 <= 32) {
+                        return getOlderLanguage(lang);
+                    }
+
+                    return lang;
+                } catch (NumberFormatException e) {
+                    return lang;
                 }
-
-                return lang;
             }
         } else if(containsDot(versionId)) {
             try {
                 version = getVersion(versionId);
-            } catch (NumberFormatException ignored) {}
+            } catch (NumberFormatException e) {
+                return lang;
+            }
         }
 
         // 1.10 -
