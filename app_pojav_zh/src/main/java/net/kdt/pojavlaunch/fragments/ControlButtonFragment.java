@@ -5,7 +5,6 @@ import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -83,8 +82,10 @@ public class ControlButtonFragment extends Fragment {
 
                 filesDialog.setMessageText(getString(R.string.zh_file_message));
 
-                //加载
-                DialogInterface.OnClickListener loadListener = (dialog, which) -> {
+                filesDialog.setDeleteButton(requireActivity(), mFileListView, file);
+                filesDialog.setRenameButton(requireActivity(), mFileListView, file);
+
+                filesDialog.setMoreButton(getString(R.string.zh_controls_load), v -> {
                     Intent intent = new Intent(requireContext(), CustomControlsActivity.class);
 
                     Bundle bundle = new Bundle();
@@ -92,12 +93,7 @@ public class ControlButtonFragment extends Fragment {
                     intent.putExtras(bundle);
 
                     startActivity(intent);
-                };
-
-                filesDialog.setDeleteButton(requireActivity(), mFileListView, file);
-                filesDialog.setRenameButton(requireActivity(), mFileListView, file);
-
-                filesDialog.setMoreButton(getString(R.string.zh_controls_load), loadListener);
+                }); //加载
 
                 filesDialog.show();
             }

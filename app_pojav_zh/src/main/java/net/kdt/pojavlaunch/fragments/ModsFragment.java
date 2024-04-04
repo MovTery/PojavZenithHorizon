@@ -4,7 +4,6 @@ import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -80,7 +79,7 @@ public class ModsFragment extends Fragment {
 
                 filesDialog.setMessageText(getString(R.string.zh_file_message));
 
-                DialogInterface.OnClickListener disableListener = (dialog, which) -> {
+                View.OnClickListener disableListener = v -> {
                     File newFile = new File(fileParent, disableString + fileName + ".disabled");
                     boolean disable = file.renameTo(newFile);
                     if (disable) {
@@ -89,7 +88,7 @@ public class ModsFragment extends Fragment {
                     mFileListView.refreshPath();
                 };
 
-                DialogInterface.OnClickListener enableListener = (dialog, which) -> {
+                View.OnClickListener enableListener = v -> {
                     int index = fileName.indexOf(disableString);
                     if (index == -1) index = 0;
                     else if (index == 0) index = disableString.length();
