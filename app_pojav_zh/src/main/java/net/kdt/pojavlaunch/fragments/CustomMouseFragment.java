@@ -70,6 +70,8 @@ public class CustomMouseFragment extends Fragment {
         mFileListView.setShowFiles(true);
         mFileListView.setShowFolders(false);
 
+        mAddFileButton.setText(getString(R.string.zh_custom_mouse_add));
+
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
@@ -137,7 +139,6 @@ public class CustomMouseFragment extends Fragment {
 
         view.findViewById(R.id.zh_files_create_folder_button).setVisibility(View.GONE);
         mFilePathView.setText(getString(R.string.zh_custom_mouse_title));
-        mAddFileButton.setText(getString(R.string.zh_custom_mouse_add));
     }
 
     @SuppressLint("StaticFieldLeak")
