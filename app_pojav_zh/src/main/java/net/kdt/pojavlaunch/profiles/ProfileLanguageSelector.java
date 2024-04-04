@@ -1,7 +1,14 @@
 package net.kdt.pojavlaunch.profiles;
 
+import static net.kdt.pojavlaunch.PojavZHTools.containsDot;
+import static net.kdt.pojavlaunch.PojavZHTools.extractNumbers;
 import static net.kdt.pojavlaunch.PojavZHTools.getGameDirPath;
+import static net.kdt.pojavlaunch.Tools.DIR_HOME_VERSION;
+import static net.kdt.pojavlaunch.Tools.read;
 
+import net.kdt.pojavlaunch.JMinecraftVersionList;
+import net.kdt.pojavlaunch.Logger;
+import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
@@ -22,7 +29,7 @@ public class ProfileLanguageSelector {
     private ProfileLanguageSelector() {
     }
 
-    public static String getOlderLanguage(String lang) {
+    private static String getOlderLanguage(String lang) {
         StringBuilder builder = new StringBuilder(lang);
         int underscoreIndex = lang.indexOf('_');
 
@@ -35,7 +42,7 @@ public class ProfileLanguageSelector {
         return builder.toString();
     }
 
-    public static int getVersion(String versionId) throws NumberFormatException {
+    private static int getVersion(String versionId) throws NumberFormatException {
         int firstDotIndex = versionId.indexOf('.');
         int secondDotIndex = versionId.indexOf('.', firstDotIndex + 1);
         int version;
@@ -47,94 +54,52 @@ public class ProfileLanguageSelector {
         return version;
     }
 
-    public static String getDigitsBeforeFirstLetter(String input) {
-        // 正则表达式匹配数字字符
-        Pattern pattern = Pattern.compile("^\\d*");
-        Matcher matcher = pattern.matcher(input);
+    private static String getLanguage(String versionName, String lang) {
+        if (versionName == null || lang == null) return null;
 
-        return matcher.find() ? matcher.group() : "";
-    }
-
-    public static String getDigitsBetweenFirstAndSecondLetter(String input) {
-        Pattern pattern = Pattern.compile("([a-zA-Z])(\\d*)([a-zA-Z])");
-        Matcher matcher = pattern.matcher(input);
-
-        if (matcher.find()) {
-            return matcher.group(2);
+        JMinecraftVersionList.Version version;
+        try {
+            version = Tools.GLOBAL_GSON.fromJson(read(DIR_HOME_VERSION + "/" + versionName + "/" + versionName + ".json"), JMinecraftVersionList.Version.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return "";
-    }
 
-    public static boolean containsLetter(String input) {
-        return input.matches(".*[a-zA-Z].*");
-    }
-    public static boolean containsDot(String input) {
-        int dotIndex = input.indexOf('.');
-        return dotIndex != -1;
-    }
+        String versionId = version.id;
 
-    public static String getLanguage(String versionId, String lang) {
-        int version = 12;
-
-        String optifineSuffix = "OptiFine"; // "1.20.4-OptiFine_HD_U_I7_pre3"
-        String forgeSuffix = "forge"; // "1.20.2-forge-48.1.0"
-        String fabricSuffix = "fabric-loader"; // "fabric-loader-0.15.7-1.20.4"
-        String quiltSuffix = "quilt-loader"; // "quilt-loader-0.23.1-1.20.4"
         String regex = "^\\d+[a-zA-Z]\\d+[a-zA-Z]$";
-
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(versionId);
 
-        if (containsLetter(versionId)) {
-            if (versionId.contains(optifineSuffix) || versionId.contains(forgeSuffix)) { // OptiFine & Forge
-                int lastIndex = versionId.indexOf('-');
-                if (lastIndex != -1) {
-                    try {
-                        version = getVersion(versionId.substring(0, lastIndex));
-                    }catch (NumberFormatException e) {
-                        return lang;
-                    }
-                }
-            } else if (versionId.contains(fabricSuffix) || versionId.contains(quiltSuffix)) { // Fabric & Quilt
-                int lastIndex = versionId.lastIndexOf('-');
-
-                if (lastIndex != -1) {
-                    try {
-                        version = getVersion(versionId.substring(lastIndex + 1));
-                    } catch (NumberFormatException e) {
-                        return lang;
-                    }
-                }
-            } else if (matcher.matches()) { // 快照版本 "24w09a" "16w20a"
-                try {
-                    int result1 = Integer.parseInt(getDigitsBeforeFirstLetter(versionId));
-                    int result2 = Integer.parseInt(getDigitsBetweenFirstAndSecondLetter(versionId));
-
-                    if(result1 < 16) {
-                        return getOlderLanguage(lang);
-                    } else if (result1 == 16 & result2 <= 32) {
-                        return getOlderLanguage(lang);
-                    }
-
-                    return lang;
-                } catch (NumberFormatException e) {
-                    return lang;
-                }
-            }
-        } else if(containsDot(versionId)) {
+        if(containsDot(versionId)) {
             try {
-                version = getVersion(versionId);
+                int ver = getVersion(versionId);
+
+                // 1.10 -
+                if (ver < 11) {
+                    return getOlderLanguage(lang);
+                }
+
+                return lang; // ? & 1.0
+            } catch (NumberFormatException e) {
+                return lang;
+            }
+        } else if (matcher.matches()) { // 快照版本 "24w09a" "16w20a"
+            try {
+                int[] result = extractNumbers(versionId, 2);
+
+                if(result[0] < 16) {
+                    return getOlderLanguage(lang);
+                } else if (result[0] == 16 & result[1] <= 32) {
+                    return getOlderLanguage(lang);
+                }
+
+                return lang;
             } catch (NumberFormatException e) {
                 return lang;
             }
         }
 
-        // 1.10 -
-        if (version < 11) {
-            return getOlderLanguage(lang);
-        }
-
-        return lang; // ? & 1.0
+        return lang;
     }
 
     public static void setToChinese(MinecraftProfile minecraftProfile) {
@@ -157,7 +122,7 @@ public class ProfileLanguageSelector {
                 options.add(line);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.appendToLog(e.toString());
             return;
         }
 
@@ -169,7 +134,7 @@ public class ProfileLanguageSelector {
                     optionFileWriter.newLine();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                Logger.appendToLog(e.toString());
             }
         }
     }
