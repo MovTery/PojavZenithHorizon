@@ -10,6 +10,8 @@
 * 我将尽可能复刻官方 PojavLauncher 主线 [v3_openjdk](https://github.com/PojavLauncherTeam/PojavLauncher/tree/v3_openjdk) 的最新更新内容。 
 * Pojav ZH 的软件包名从官方的 <kbd>net.kdt.pojavlaunch</kbd> 改为了 <kbd>net.kdt.pojavlaunch.zh</kbd> ，这样一来，就可以实现与官方 PojavLauncher 共存了。
 
+* **未经作者允许，请勿将应用上传至任何平台。**
+
 
 ## 下载
 - 前往 [Release](https://github.com/HopiHopy/PojavZH/releases) 查看最新且经过测试的稳定版本（更新并不频繁）。
