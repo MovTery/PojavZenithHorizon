@@ -32,7 +32,7 @@ public class ModsFragment extends Fragment {
     public static final String TAG = "ModsFragment";
     public static final String BUNDLE_ROOT_PATH = "root_path";
     private ActivityResultLauncher<Object> openDocumentLauncher;
-    private Button mReturnButton, mSelectModButton, mRefreshButton;
+    private Button mReturnButton, mAddModButton, mRefreshButton;
     private ImageButton mHelpButton;
     private FileListView mFileListView;
     private String mRootPath;
@@ -120,7 +120,7 @@ public class ModsFragment extends Fragment {
         });
 
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
-        mSelectModButton.setOnClickListener(v -> {
+        mAddModButton.setOnClickListener(v -> {
             String suffix = ".jar";
             Toast.makeText(requireActivity(), String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show();
             openDocumentLauncher.launch(suffix);
@@ -161,12 +161,13 @@ public class ModsFragment extends Fragment {
 
     private void bindViews(@NonNull View view) {
         mReturnButton = view.findViewById(R.id.zh_files_return_button);
-        mSelectModButton = view.findViewById(R.id.zh_files_add_file_button);
+        mAddModButton = view.findViewById(R.id.zh_files_add_file_button);
         mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
         mHelpButton = view.findViewById(R.id.zh_files_help_button);
         mFileListView = view.findViewById(R.id.zh_files);
         mFilePathView = view.findViewById(R.id.zh_files_current_path);
 
+        mAddModButton.setText(getString(R.string.zh_profile_mods_add_mod));
         view.findViewById(R.id.zh_files_create_folder_button).setVisibility(View.GONE);
         view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
     }
