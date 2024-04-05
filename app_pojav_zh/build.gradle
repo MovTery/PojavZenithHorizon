@@ -15,55 +15,6 @@ static def getDateSeconds() {
     return baseDateSeconds
 }
 
-def getVersionName = {
-    // Get the last version tag, as well as the short head of the last commit
-    ByteArrayOutputStream TAG = new ByteArrayOutputStream()
-    ByteArrayOutputStream BRANCH = new ByteArrayOutputStream()
-    // Used by the fallback for github actions
-    ByteArrayOutputStream TAG_PART_COMMIT = new ByteArrayOutputStream()
-    String TAG_STRING
-
-    exec {
-        try {
-            commandLine 'git', 'describe', '--tags'
-            ignoreExitValue true
-            standardOutput = TAG
-        } catch (Exception e) {
-            e.printStackTrace()
-        }
-    }
-
-    if (TAG.toString() == "") {
-        exec {
-            // Fallback for action builds
-            try {
-                commandLine 'git', 'describe', '--always', '--tags'
-                ignoreExitValue true
-                standardOutput = TAG_PART_COMMIT
-            } catch (Exception ignored) {}
-        }
-    }
-
-
-    if(TAG.toString() != ""){
-        TAG_STRING = TAG.toString()
-    }else {
-        TAG_STRING =  "${getDate()}" + "-" + "${getDateSeconds()}"
-    }
-
-    exec {
-        try {
-            commandLine 'git', 'branch', '--show-current'
-            ignoreExitValue true
-            standardOutput = BRANCH
-        } catch (Exception e) {
-            e.printStackTrace()
-        }
-    }
-
-    return TAG_STRING.trim().replace("-g", "-")
-}
-
 def getCFApiKey = {
     String key = System.getenv("CURSEFORGE_API_KEY")
     if(key != null) return key
@@ -112,7 +63,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 33
         versionCode getDateSeconds()
-        versionName getVersionName()
+        versionName "1.0.0"
         multiDexEnabled true //important
         resValue 'string', 'curseforge_api_key', getCFApiKey()
     }
