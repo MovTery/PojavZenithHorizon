@@ -114,10 +114,11 @@
     <com.kdt.mcgui.mcVersionSpinner
         android:id="@+id/mc_version_spinner"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_32sdp"
+        android:layout_height="@dimen/_38sdp"
+
+        android:layout_marginStart="4dp"
 
         android:layout_marginBottom="8dp"
-
         android:background="@android:color/transparent"
         android:drawableEnd="@drawable/spinner_arrow"
         app:drawableEndPadding="@dimen/_1sdp"
@@ -131,15 +132,16 @@
 
     <ImageButton
         android:id="@+id/edit_profile_button"
-        android:layout_width="@dimen/_32sdp"
+        android:layout_width="@dimen/_38sdp"
         android:layout_height="0dp"
-        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginEnd="4dp"
 
         android:layout_marginBottom="8dp"
         android:background="?android:attr/selectableItemBackground"
         android:src="@drawable/ic_edit_profile"
         app:layout_constraintBottom_toTopOf="@+id/play_button"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mc_version_spinner" />
 
     <com.kdt.mcgui.MineButton
         android:id="@+id/play_button"
