@@ -32,6 +32,7 @@ public class ExitActivity extends AppCompatActivity {
         File crashReportFile = getLatestFile(new File(PojavZHTools.getGameDirPath(getCurrentProfile().gameDir), "crash-reports"));
 
         ExitDialog exitDialog = new ExitDialog(this, code, crashReportFile, new File(Tools.DIR_GAME_HOME, "latestlog.txt"));
+        exitDialog.setOnDismissListener(dialog -> ExitActivity.this.finish());
         exitDialog.show();
     }
 

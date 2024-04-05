@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch.dialog;
 
+import static net.kdt.pojavlaunch.Tools.shareLog;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
@@ -43,8 +45,8 @@ public class ExitDialog extends Dialog {
             PojavZHTools.shareFile(getContext(), ExitDialog.this.crashReport.getName(), ExitDialog.this.crashReport.getAbsolutePath());
             ExitDialog.this.dismiss();
         });
-        if (this.logFile != null) mShareCrashReport.setOnClickListener(view -> {
-            PojavZHTools.shareFile(getContext(), ExitDialog.this.logFile.getName(), ExitDialog.this.logFile.getAbsolutePath());
+        if (this.logFile != null) mShareLog.setOnClickListener(view -> {
+            shareLog(context);
             ExitDialog.this.dismiss();
         });
     }
