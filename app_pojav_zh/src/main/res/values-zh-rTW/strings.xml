@@ -396,10 +396,10 @@
     <string name="no_saved_accounts">沒有已儲存的帳號</string>
     <string name="mc_download_failed">下載 Minecraft 失敗！這可能是由於網路連接不良、檔案放置錯誤等原因</string>
     <string name="xerr_unknown">未知的 Xbox Live API 錯誤 %d</string>
-    <string name="xerr_no_account">你似乎沒有 Xbox Live 帳戶，請在 https://minecraft.net/ 上登錄一次，然後重試</string>
+    <string name="xerr_no_account">你似乎沒有 Xbox Live 帳戶，請在 https://minecraft.net/ 上登入一次，然後重試（長時間未登入官網可能會使啟動器無法獲取 Minecraft 配置文件，重新登入能夠解決此問題）</string>
     <string name="xerr_adult_verification">需要成年人驗證你的帳戶</string>
     <string name="xerr_child">你的帳戶是兒童帳戶，需要添加到家庭中才能登錄</string>
-    <string name="minecraft_not_owned">這個帳戶似乎沒有 Minecraft 設定檔，如果你有 Xbox Game Pass，請登錄 https://minecraft.net/ 並進行設置</string>
+    <string name="minecraft_not_owned">未找到 Minecraft 配置文件，請前往 https://minecraft.net/ 上登入你的帳號（長時間未登入官網可能會使啟動器無法獲取 Minecraft 配置文件，重新登入能夠解決此問題）</string>
     <string name="xerr_not_available">Xbox Live 在你所在的國家/地區不可用</string>
     <string name="preference_enable_gyro_title">啟用陀螺儀控制</string>
     <string name="preference_enable_gyro_description">啟用此功能將允許你通過轉動手機來在遊戲中轉動視角</string>
