@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Pojav ZH -->
+    <string name="zh_return">返回</string>
+    <string name="zh_share">分享</string>
+    <string name="zh_refresh">重新整理</string>
+    <string name="zh_create">創建</string>
+    <string name="zh_rename">重新命名</string>
+    <string name="zh_tip">提示</string>
+    <string name="zh_confirm">確認</string>
+    <string name="zh_warning">警告</string>
+
     <string name="zh_account_text">請選擇一種登錄方式</string>
     <string name="zh_account_microsoft_ccount">微軟帳號</string>
     <string name="zh_account_local_account">離線帳號</string>
     <string name="zh_account_login_local_name">用戶名</string>
     <string name="zh_account_login_start">開始登入！</string>
+
     <string name="zh_activity_import_control">控制佈局名稱：</string>
     <string name="zh_activity_java_gui_keyboard">輸入法</string>
     <string name="zh_activity_java_gui_paste">貼上</string>
+
     <string name="zh_controls_add_control_button">按鍵</string>
     <string name="zh_controls_add_control_drawer">組合鍵</string>
     <string name="zh_controls_visibility">可見度</string>
@@ -25,10 +36,9 @@
     <string name="zh_custom_mouse_added">成功設置虛擬滑鼠：</string>
     <string name="zh_custom_mouse_title">自定義虛擬滑鼠</string>
     <string name="zh_custom_mouse_desc">打開虛擬滑鼠管理界面，您可以自行添加您喜歡的虛擬滑鼠貼圖，並使用它們</string>
-    <string name="zh_return">返回</string>
+
     <string name="zh_file_add_file">新增檔案</string>
     <string name="zh_file_add_file_tip">請選擇一個後綴名為"%s"的檔案</string>
-    <string name="zh_file_create_file">創建</string>
     <string name="zh_file_create_file_invalid">不能與已存在的文件同名！</string>
     <string name="zh_file_does_not_exist">這個資料夾（或檔案）不存在</string>
     <string name="zh_file_tips">操作此檔案</string>
@@ -41,24 +51,21 @@
     <string name="zh_file_delete_dir_success">成功刪除此資料夾：</string>
     <string name="zh_file_delete_dir_fail">刪除過程中發生了一些問題，請確保這個資料夾真的可以被刪除</string>
     <string name="zh_file_deleted">成功刪除檔案：</string>
-    <string name="zh_file_rename">重新命名</string>
     <string name="zh_file_renamed">檔案名稱已被修改：\n</string>
     <string name="zh_file_rename_empty">檔名不能為空！</string>
-    <string name="zh_file_refresh">重新整理</string>
-    <string name="zh_file_share">分享</string>
     <string name="zh_file_share_message">你確定要分享此檔案嗎？</string>
-    <string name="zh_file_open">打開</string>
+
     <string name="zh_neoforge_dl_searching">正在搜尋 NeoForge 版本號</string>
     <string name="zh_neoforge_dl_no_installer">很抱歉，該版本的 NeoForge 沒有安裝程式，尚不支援</string>
     <string name="zh_neoforge_dl_select_version">選擇 NeoForge 版本</string>
     <string name="zh_modloader_dl_install_neoforge">建立 NeoForge 實例</string>
+
     <string name="zh_main_open_main_dir">打開主目錄</string>
     <string name="zh_main_open_instance_dir">開啟實例目錄</string>
     <string name="zh_preference_category_language">語言</string>
     <string name="zh_preference_category_other_features">其他功能</string>
     <string name="zh_preference_chinese_language_title">中文語言切換</string>
-    <string name="zh_preference_exclusive_title">Pojav ZH 獨家功能</string>
-    <string name="zh_preference_exclusive_description">一些實用的功能，僅為 Pojav ZH 獨家提供</string>
+
     <string name="zh_profile_custom_path">自訂路徑</string>
     <string name="zh_profile_create_mods">建立 Mods</string>
     <string name="zh_profile_create_mods_message">請確認此實例使用的遊戲版本能夠載入 Mod，如果無法載入 Mod，則建立 Mods 資料夾並添加 Mod 將不起作用！</string>
@@ -85,14 +92,12 @@
     <string name="zh_setting_animation_title">啟用動畫</string>
     <string name="zh_setting_quit_launcher_desc">在應用正式開始運行遊戲時，是否退出啟動器</string>
     <string name="zh_setting_quit_launcher_title">退出啟動器</string>
-    <string name="zh_tip">提示</string>
-    <string name="zh_confirm">確認</string>
+
     <string name="zh_update">檢查更新</string>
     <string name="zh_update_dialog_title">檢測到新版本</string>
     <string name="zh_update_dialog_version">版本：</string>
     <string name="zh_update_dialog_time">日期：</string>
     <string name="zh_update_dialog_file_size">安裝包大小：</string>
-    <string name="zh_update_dialog_description">更新描述：</string>
     <string name="zh_update_dialog_yes">更新</string>
     <string name="zh_update_dialog_ignore">忽略這次更新</string>
     <string name="zh_update_summary">取得並更新至最新版本</string>
@@ -103,7 +108,6 @@
     <string name="zh_update_success">最新的安裝包已經下載完成，是否安裝？\n安裝包位置：</string>
     <string name="zh_update_downloading">正在下載安裝包… (%s / %s)</string>
     <string name="zh_update_downloading_tip">正在下載中，更新來源：Github Releases</string>
-    <string name="zh_warning">警告</string>
     <string name="zh_view_log_output">日誌輸出：</string>
 
     <string name="zh_other_login_api">外部登錄</string>
