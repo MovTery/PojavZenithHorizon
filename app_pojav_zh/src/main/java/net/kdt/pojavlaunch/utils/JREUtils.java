@@ -2,6 +2,7 @@ package net.kdt.pojavlaunch.utils;
 
 import static net.kdt.pojavlaunch.Architecture.ARCH_X86;
 import static net.kdt.pojavlaunch.Architecture.is64BitsDevice;
+import static net.kdt.pojavlaunch.PojavZHTools.getLatestFile;
 import static net.kdt.pojavlaunch.Tools.LOCAL_RENDERER;
 import static net.kdt.pojavlaunch.Tools.NATIVE_LIB_DIR;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
@@ -23,6 +24,7 @@ import com.oracle.dalvik.*;
 import java.io.*;
 import java.util.*;
 import net.kdt.pojavlaunch.*;
+import net.kdt.pojavlaunch.dialog.ExitDialog;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.lifecycle.LifecycleAwareAlertDialog;
@@ -313,9 +315,14 @@ public class JREUtils {
         final int exitCode = VMLauncher.launchJVM(userArgs.toArray(new String[0]));
         Logger.appendToLog("Java Exit code: " + exitCode);
         if (exitCode != 0) {
-            LifecycleAwareAlertDialog.DialogCreator dialogCreator = (dialog, builder)->
-                    builder.setMessage(activity.getString(R.string.mcn_exit_title, exitCode))
-                    .setPositiveButton(R.string.main_share_logs, (dialogInterface, which)-> shareLog(activity));
+            File crashReportFile = getLatestFile(new File(gameDirectory, "crash-reports"));
+            LifecycleAwareAlertDialog.DialogCreator dialogCreator = (dialog, builder) -> {
+                builder.setMessage(activity.getString(R.string.mcn_exit_title, exitCode))
+                        .setPositiveButton(R.string.main_share_logs, (dialogInterface, which)-> shareLog(activity));
+                if (crashReportFile != null && crashReportFile.exists()) {
+                    builder.setNegativeButton(R.string.zh_main_share_crash_report, (dialogInterface, which) -> PojavZHTools.shareFile(activity, crashReportFile.getName(), crashReportFile.getAbsolutePath()));
+                }
+            };
 
             LifecycleAwareAlertDialog.haltOnDialog(activity.getLifecycle(), activity, dialogCreator);
         }

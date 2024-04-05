@@ -19,6 +19,7 @@ import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.webkit.MimeTypeMap;
@@ -62,6 +63,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -210,6 +214,26 @@ public class PojavZHTools {
                 return new File(DIR_GAME_HOME, gameDir);
         }
         return new File(DIR_GAME_DEFAULT);
+    }
+
+    public static File getLatestFile(File folder) {
+        if (!folder.isDirectory()) {
+            throw new IllegalArgumentException("The provided path is not a directory.");
+        }
+
+        File[] files = folder.listFiles((dir, name) -> !name.startsWith(".")); //排除隐藏文件
+        if (files == null || files.length == 0) {
+            return null;
+        }
+
+        List<File> fileList = Arrays.asList(files);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            fileList.sort(Comparator.comparingLong(File::lastModified).reversed());
+        } else {
+            return null;
+        }
+
+        return fileList.get(0);
     }
 
     public static void shareFile(Context context, String fileName, String filePath) {
