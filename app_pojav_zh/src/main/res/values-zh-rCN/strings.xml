@@ -298,7 +298,7 @@
     <string name="customctrl_selectdefault">选择默认控制布局</string>
     <string name="customctrl_export">导出控制布局</string>
     
-    <string name="main_share_logs">共享日志文件</string>
+    <string name="main_share_logs">分享日志文件</string>
     <string name="main_install_jar_file">执行 .jar 文件</string>
     <string name="main_play">启动游戏</string>
     <string name="autoram_info_msg">内存已设为 %d MB</string>
