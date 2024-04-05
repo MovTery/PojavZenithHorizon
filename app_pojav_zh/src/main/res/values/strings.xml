@@ -13,6 +13,7 @@
     <string name="zh_tip">Tip</string>
     <string name="zh_confirm">Confirm</string>
     <string name="zh_warning">Warning</string>
+    <string name="zh_wrong_tip">Something went wrong</string>
 
     <string name="zh_account_text">Please select a login method</string>
     <string name="zh_account_microsoft_ccount">Microsoft Account</string>
@@ -66,6 +67,7 @@
 
     <string name="zh_main_open_main_dir">Open main directory</string>
     <string name="zh_main_open_instance_dir">Open Instance Directory</string>
+    <string name="zh_main_share_crash_report">Share Crash Report</string>
     <string name="zh_preference_category_language">Language</string>
     <string name="zh_preference_category_other_features">Other Features</string>
     <string name="zh_preference_chinese_language_title">Switch to Chinese language</string>
@@ -242,7 +244,7 @@
     <string name="global_default">Default</string>
 
     <!-- MainActivity: strings -->
-    <string name="mcn_exit_title">Application/Game exited with code %d, check latestlog.txt for more details.</string>
+    <string name="mcn_exit_title">Application/Game exited with code %d, please check the log file or crash report for specific error reasons. If you are unable to solve this problem by yourself, please send the log file or crash report to someone who is capable of helping you to resolve the issue!</string>
     <string name="mcn_exit_confirm">Are you sure want to force close?</string>
     <string name="mcn_check_fail_vulkan_support">Zink (Vulkan) renderer is not supported on this device!</string>
 

@@ -1,17 +1,20 @@
 package net.kdt.pojavlaunch;
 
-import static net.kdt.pojavlaunch.Tools.shareLog;
+import static net.kdt.pojavlaunch.PojavZHTools.getLatestFile;
+import static net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles.getCurrentProfile;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Keep;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import net.kdt.pojavlaunch.dialog.ExitDialog;
+
+import java.io.File;
 
 @Keep
 public class ExitActivity extends AppCompatActivity {
@@ -26,11 +29,10 @@ public class ExitActivity extends AppCompatActivity {
             code = extras.getInt("code",-1);
         }
 
-        new AlertDialog.Builder(this)
-                .setMessage(getString(R.string.mcn_exit_title,code))
-                .setPositiveButton(R.string.main_share_logs, (dialog, which) -> shareLog(this))
-                .setOnDismissListener(dialog -> ExitActivity.this.finish())
-                .show();
+        File crashReportFile = getLatestFile(new File(PojavZHTools.getGameDirPath(getCurrentProfile().gameDir), "crash-reports"));
+
+        ExitDialog exitDialog = new ExitDialog(this, code, crashReportFile, new File(Tools.DIR_GAME_HOME, "latestlog.txt"));
+        exitDialog.show();
     }
 
     public static void showExitMessage(Context ctx, int code) {

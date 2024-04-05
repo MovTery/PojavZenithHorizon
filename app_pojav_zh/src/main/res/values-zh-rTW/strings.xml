@@ -9,6 +9,7 @@
     <string name="zh_tip">提示</string>
     <string name="zh_confirm">確認</string>
     <string name="zh_warning">警告</string>
+    <string name="zh_wrong_tip">出現了一些問題</string>
 
     <string name="zh_account_text">請選擇一種登錄方式</string>
     <string name="zh_account_microsoft_ccount">微軟帳號</string>
@@ -62,6 +63,7 @@
 
     <string name="zh_main_open_main_dir">打開主目錄</string>
     <string name="zh_main_open_instance_dir">開啟實例目錄</string>
+    <string name="zh_main_share_crash_report">分享崩潰報告</string>
     <string name="zh_preference_category_language">語言</string>
     <string name="zh_preference_category_other_features">其他功能</string>
     <string name="zh_preference_chinese_language_title">中文語言切換</string>
@@ -236,7 +238,7 @@
     <string name="global_default">預設</string>
 
     <!-- MainActivity: strings -->
-    <string name="mcn_exit_title">應用程式/遊戲以代碼 %d 退出，請查看 latestlog.txt 查看更多資訊</string>
+    <string name="mcn_exit_title">應用程式/遊戲以代碼 %d 退出，具體錯誤原因請查看日誌文件或崩潰報告。如果你無法親自解決此問題，請將日誌文件或崩潰報告發送給有能力解決的人幫助你解決問題！</string>
     <string name="mcn_exit_confirm">你確定要強制關閉嗎？</string>
     <string name="mcn_check_fail_vulkan_support">此裝置不支援 Zink（Vulkan）渲染器！</string>
 
