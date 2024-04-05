@@ -85,7 +85,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/zh_file_refresh"
+            android:text="@string/zh_refresh"
             app:layout_constraintBottom_toTopOf="@+id/file_selector_create_folder"
             app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
             app:layout_constraintHorizontal_bias="0.5"

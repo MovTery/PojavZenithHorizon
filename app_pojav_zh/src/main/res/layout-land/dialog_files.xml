@@ -73,7 +73,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/zh_file_share" />
+            android:text="@string/zh_share" />
 
         <Button
             android:layout_marginStart="10dp"
@@ -81,7 +81,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/zh_file_rename" />
+            android:text="@string/zh_rename" />
 
         <Button
             android:layout_marginStart="10dp"

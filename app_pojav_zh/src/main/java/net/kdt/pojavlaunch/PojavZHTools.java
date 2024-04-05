@@ -229,13 +229,13 @@ public class PojavZHTools {
     public static void shareFileAlertDialog(Context context, File file) {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
 
-        builder.setTitle(context.getString(R.string.zh_file_share));
+        builder.setTitle(context.getString(R.string.zh_share));
         builder.setMessage(context.getString(R.string.zh_file_share_message) + "\n" + file.getName());
 
         //分享
         DialogInterface.OnClickListener shareListener = (dialog, which) -> shareFile(context, file.getName(), file.getAbsolutePath());
 
-        builder.setPositiveButton(context.getString(R.string.zh_file_share), shareListener)
+        builder.setPositiveButton(context.getString(R.string.zh_share), shareListener)
                 .setNegativeButton(context.getString(android.R.string.cancel), null);
 
         builder.show();
@@ -267,9 +267,9 @@ public class PojavZHTools {
         String suffix = fileName.substring(fileName.lastIndexOf('.')); //防止修改后缀名，先将后缀名分离出去
         EditText input = new EditText(context);
         input.setText(fileName.substring(0, fileName.lastIndexOf(suffix)));
-        renameBuilder.setTitle(context.getString(R.string.zh_file_rename));
+        renameBuilder.setTitle(context.getString(R.string.zh_rename));
         renameBuilder.setView(input);
-        renameBuilder.setPositiveButton(context.getString(R.string.zh_file_rename), (dialog1, which1) -> {
+        renameBuilder.setPositiveButton(context.getString(R.string.zh_rename), (dialog1, which1) -> {
             String newName = input.getText().toString();
             if (!newName.isEmpty()) {
                 File newFile = new File(fileParent, newName + suffix);

@@ -115,7 +115,7 @@ public class ControlButtonFragment extends Fragment {
                     .setTitle(R.string.zh_controls_create_new_title)
                     .setView(editText)
                     .setNegativeButton(android.R.string.cancel, null)
-                    .setPositiveButton(R.string.zh_file_create_file, (dialog, which) -> {
+                    .setPositiveButton(R.string.zh_create, (dialog, which) -> {
                         File file = new File(mFileListView.getFullPath().getAbsolutePath(), editText.getText().toString() + ".json");
                         if (!file.exists()) {
                             boolean success;

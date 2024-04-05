@@ -3,15 +3,27 @@
     <!-- App name part -->
     <string name="app_name" translatable="false">Pojav ZH</string>
     <string name="app_short_name" translatable="false">Pojav ZH</string>
+
     <!-- Pojav ZH -->
+    <string name="zh_return">Return</string>
+    <string name="zh_share">Share</string>
+    <string name="zh_refresh">Refresh</string>
+    <string name="zh_create">Create</string>
+    <string name="zh_rename">Rename</string>
+    <string name="zh_tip">Tip</string>
+    <string name="zh_confirm">Confirm</string>
+    <string name="zh_warning">Warning</string>
+
     <string name="zh_account_text">Please select a login method</string>
     <string name="zh_account_microsoft_ccount">Microsoft Account</string>
     <string name="zh_account_local_account">Local account</string>
     <string name="zh_account_login_local_name">Username</string>
     <string name="zh_account_login_start">Login started !</string>
+
     <string name="zh_activity_import_control">Layout Name Control:</string>
     <string name="zh_activity_java_gui_keyboard">Keyboard</string>
     <string name="zh_activity_java_gui_paste">Paste</string>
+
     <string name="zh_controls_add_control_button">Button</string>
     <string name="zh_controls_add_control_drawer">Drawer</string>
     <string name="zh_controls_visibility">Visibility</string>
@@ -21,16 +33,16 @@
     <string name="zh_controls_create_new">Create new control layout</string>
     <string name="zh_controls_create_new_title">Control layout name:</string>
     <string name="zh_controls_import_control">Import control layout</string>
+    <string name="zh_controls_load">Load and Edit</string>
     <string name="zh_custom_control_title">Control Layout Management</string>
     <string name="zh_custom_control_desc">Manage all control layout files, where you can delete, create, rename, import control layouts, etc.</string>
     <string name="zh_custom_mouse_add">Add virtual mouse</string>
     <string name="zh_custom_mouse_added">Successfully set virtual mouse:</string>
     <string name="zh_custom_mouse_title">Customize virtual mouse</string>
     <string name="zh_custom_mouse_desc">By opening the virtual mouse management interface, you can add your preferred virtual mouse images and use them.</string>
-    <string name="zh_return">Return</string>
+
     <string name="zh_file_add_file">Add file</string>
     <string name="zh_file_add_file_tip">Please select a file with the suffix "%s"</string>
-    <string name="zh_file_create_file">Create</string>
     <string name="zh_file_create_file_invalid">Cannot have the same name as an existing file!</string>
     <string name="zh_file_does_not_exist">This folder (or file) doesn\'t exist</string>
     <string name="zh_file_tips">Operate this file</string>
@@ -43,24 +55,21 @@
     <string name="zh_file_delete_dir_success">The folder has been successfully deleted: </string>
     <string name="zh_file_delete_dir_fail">There was an issue during the deletion process. Please make sure that this folder can be deleted.</string>
     <string name="zh_file_deleted">Successfully deleted the file: </string>
-    <string name="zh_file_rename">Rename</string>
     <string name="zh_file_renamed">File name modified: </string>
     <string name="zh_file_rename_empty">The file name cannot be empty!</string>
-    <string name="zh_file_refresh">Refresh</string>
-    <string name="zh_file_share">Share</string>
     <string name="zh_file_share_message">Are you sure you want to share this file?</string>
-    <string name="zh_file_open">Open</string>
+
     <string name="zh_neoforge_dl_searching">Searching for NeoForge version number</string>
     <string name="zh_neoforge_dl_no_installer">Sorry, but this version of NeoForge does not have an installer, which is not yet supported.</string>
     <string name="zh_neoforge_dl_select_version">Select NeoForge version</string>
     <string name="zh_modloader_dl_install_neoforge">Create NeoForge profile</string>
+
     <string name="zh_main_open_main_dir">Open main directory</string>
     <string name="zh_main_open_instance_dir">Open Instance Directory</string>
     <string name="zh_preference_category_language">Language</string>
     <string name="zh_preference_category_other_features">Other Features</string>
     <string name="zh_preference_chinese_language_title">Switch to Chinese language</string>
-    <string name="zh_preference_exclusive_title">Exclusive Features</string>
-    <string name="zh_preference_exclusive_description">Practical features exclusive to Pojav ZH</string>
+
     <string name="zh_profile_custom_path">Custom path</string>
     <string name="zh_profile_create_mods">Create Mods</string>
     <string name="zh_profile_create_mods_message">Please ensure the game version supports Mod loading. Unsupported versions won\'t benefit from creating Mods folders or adding Mods!</string>
@@ -87,14 +96,12 @@
     <string name="zh_setting_animation_title">Enable Animation</string>
     <string name="zh_setting_quit_launcher_desc">Should the launcher exit when the game officially begins running?</string>
     <string name="zh_setting_quit_launcher_title">Exit Launcher</string>
-    <string name="zh_tip">Tip</string>
-    <string name="zh_confirm">Confirm</string>
+
     <string name="zh_update">Check for updates</string>
     <string name="zh_update_dialog_title">New Version Detected</string>
     <string name="zh_update_dialog_version">Version:</string>
     <string name="zh_update_dialog_time">Date:</string>
     <string name="zh_update_dialog_file_size">File size:</string>
-    <string name="zh_update_dialog_description">Update Description:</string>
     <string name="zh_update_dialog_yes">Update</string>
     <string name="zh_update_dialog_ignore">Ignore this update</string>
     <string name="zh_update_summary">Get and update to the latest version</string>
@@ -105,7 +112,6 @@
     <string name="zh_update_success">The latest installation package has been downloaded. Do you want to install it?\nPackage location: </string>
     <string name="zh_update_downloading">Downloading… (%s / %s)</string>
     <string name="zh_update_downloading_tip">Downloading, updating source: Github Releases</string>
-    <string name="zh_warning">Warning</string>
     <string name="zh_view_log_output">Log output:</string>
 
     <string name="zh_other_login_api">External Login</string>
@@ -135,7 +141,6 @@
     <string name="zh_about_contributors1">MovTery</string>
     <string name="zh_about_contributors2" translatable="false">Vera-Firefly</string>
 
-    <string name="zh_controls_load">Load and Edit</string>
     <string name="zh_help_control_button_tile">What is Control Layout?</string>
     <string name="zh_help_control_button_message">Control Layout plays a vital role in the game by displaying buttons on the screen, which allows users to interact with the game. This simulates the process of using a keyboard to control the game in Minecraft: Java Edition. In the Control Layout Management interface, you can manage all the current control layouts, load and modify or create a new set of control layouts, import, or share control layouts.</string>
     <string name="zh_help_instance_title">What is Game Instance?</string>
