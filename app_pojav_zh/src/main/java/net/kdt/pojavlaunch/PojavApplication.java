@@ -2,6 +2,8 @@ package net.kdt.pojavlaunch;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
+import static net.kdt.pojavlaunch.PojavZHTools.getVersionName;
+
 import android.app.*;
 import android.content.*;
 import android.content.pm.*;
@@ -43,7 +45,7 @@ public class PojavApplication extends Application {
 				crashStream.append(" - Device: ").append(Build.PRODUCT).append(" ").append(Build.MODEL).append("\n");
 				crashStream.append(" - Android version: ").append(Build.VERSION.RELEASE).append("\n");
 				crashStream.append(" - Crash stack trace:\n");
-				crashStream.append(" - Launcher version: " + BuildConfig.VERSION_NAME + "\n");
+				crashStream.append(" - Launcher version: " + getVersionName(this) + "\n");
 				crashStream.append(Log.getStackTraceString(th));
 				crashStream.close();
 			} catch (Throwable throwable) {
