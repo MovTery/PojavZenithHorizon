@@ -432,7 +432,7 @@ public class PojavZHTools {
                     final Dialog[] dialog = new Dialog[1];
                     runOnUiThread(() -> {
                         dialog[0] = new Dialog(context);
-                        dialog[0].setContentView(R.layout.dialog_download_upload);
+                        dialog[0].setContentView(R.layout.dialog_download);
                         dialog[0].setCancelable(false);
                     });
 
