@@ -24,7 +24,6 @@ import com.oracle.dalvik.*;
 import java.io.*;
 import java.util.*;
 import net.kdt.pojavlaunch.*;
-import net.kdt.pojavlaunch.dialog.ExitDialog;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.lifecycle.LifecycleAwareAlertDialog;
