@@ -41,6 +41,7 @@ public class ExitDialog extends Dialog {
         mShareLog.setVisibility((this.logFile != null && this.logFile.exists()) ? View.VISIBLE : View.GONE);
         mCancel.setVisibility(View.VISIBLE);
 
+        mCancel.setOnClickListener(view -> ExitDialog.this.dismiss());
         if (this.crashReport != null) mShareCrashReport.setOnClickListener(view -> {
             PojavZHTools.shareFile(getContext(), ExitDialog.this.crashReport.getName(), ExitDialog.this.crashReport.getAbsolutePath());
             ExitDialog.this.dismiss();
