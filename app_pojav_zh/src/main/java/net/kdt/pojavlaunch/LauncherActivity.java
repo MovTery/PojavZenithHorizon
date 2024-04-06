@@ -75,6 +75,8 @@ public class LauncherActivity extends BaseActivity {
             boolean bl = (f instanceof MainMenuFragment);
             mSettingsButton.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), bl
                     ? R.drawable.ic_menu_settings : R.drawable.ic_menu_home));
+
+            mDeleteAccountButton.setVisibility(mAccountSpinner.getSelectedAccount() == null ? View.GONE : View.VISIBLE);
         }
     };
 
