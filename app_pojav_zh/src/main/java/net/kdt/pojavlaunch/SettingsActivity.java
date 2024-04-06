@@ -1,5 +1,6 @@
 package net.kdt.pojavlaunch;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -54,6 +55,7 @@ public class SettingsActivity extends BaseActivity {
 
     private void initialize() {
         mVideoButton.setClickable(false);
+        mVideoButton.setAlpha(0.6f);
     }
 
     private void onButtonClick(View view) {
@@ -63,6 +65,27 @@ public class SettingsActivity extends BaseActivity {
         mMiscButton.setClickable(view != mMiscButton);
         mPojavZHButton.setClickable(view != mPojavZHButton);
         mExperimentalButton.setClickable(view != mExperimentalButton);
+
+        setAlpha(mVideoButton, mVideoButton.isClickable());
+        setAlpha(mControlsButton, mControlsButton.isClickable());
+        setAlpha(mJavaButton, mJavaButton.isClickable());
+        setAlpha(mMiscButton, mMiscButton.isClickable());
+        setAlpha(mPojavZHButton, mPojavZHButton.isClickable());
+        setAlpha(mExperimentalButton, mExperimentalButton.isClickable());
+    }
+
+    private void setAlpha(View button, boolean clickable) {
+        if (clickable && button.getAlpha() != 1f) {
+            button.setAlpha(0.6f);
+            button.animate()
+                    .alpha(1f)
+                    .setDuration(300);
+        } else if (!clickable && button.getAlpha() != 0.6f) {
+            button.setAlpha(1f);
+            button.animate()
+                    .alpha(0.6f)
+                    .setDuration(300);
+        }
     }
 
     private void bindViews(){
