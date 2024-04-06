@@ -48,7 +48,7 @@ public class LocalLoginFragment extends Fragment {
 
         String text = mUsernameEditText.getText().toString();
 
-        Pattern pattern = Pattern.compile("[^a-zA-Z0-9_]");
+        Pattern pattern = Pattern.compile("\\W");
         Matcher matcher = pattern.matcher(text);
 
         if (text.isEmpty()) {
