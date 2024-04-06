@@ -43,7 +43,7 @@
         android:layout_height="@dimen/_35sdp"
         android:layout_marginEnd="4dp"
         android:background="?attr/selectableItemBackground"
-        android:scaleType="centerInside"
+        android:scaleType="fitCenter"
         android:src="@drawable/ic_menu_settings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -53,8 +53,8 @@
         android:layout_width="@dimen/_50sdp"
         android:layout_height="@dimen/_35sdp"
         android:background="?attr/selectableItemBackground"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_menu_delete_forever"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_menu_delete_account"
         app:layout_constraintEnd_toEndOf="@+id/account_spinner"
         app:layout_constraintTop_toTopOf="parent" />
 
