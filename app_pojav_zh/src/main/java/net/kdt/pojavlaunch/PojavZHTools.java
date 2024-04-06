@@ -565,7 +565,7 @@ public class PojavZHTools {
             button.animate()
                     .alpha(1f) //淡入到完全不透明
                     .setDuration(300);
-        } else if (button.getVisibility() != View.GONE) {
+        } else if (!shouldShow && button.getVisibility() != View.GONE) {
             button.animate()
                     .alpha(0f) //淡出到完全透明
                     .setDuration(300)
