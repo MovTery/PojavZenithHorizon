@@ -67,7 +67,6 @@ public class AsyncAssetManager {
         ProgressLayout.setProgress(ProgressLayout.EXTRACT_SINGLE_FILES, 0);
         sExecutorService.execute(() -> {
             try {
-                Tools.copyAssetFile(ctx, "options.txt", PojavZHTools.DIR_GAME_DEFAULT, false);
                 Tools.copyAssetFile(ctx, "default.json", Tools.CTRLMAP_PATH, false);
 
                 Tools.copyAssetFile(ctx, "default_mouse.png", PojavZHTools.DIR_CUSTOM_MOUSE, false);
