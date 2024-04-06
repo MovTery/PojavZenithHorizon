@@ -79,8 +79,7 @@ public class LauncherActivity extends BaseActivity {
                     ? R.drawable.ic_menu_settings : R.drawable.ic_menu_home));
 
             boolean shouldShow = mAccountSpinner.getSelectedAccount() != null;
-            int visibility = shouldShow ? View.VISIBLE : View.GONE;
-            setButtonVisibilityAnim(mDeleteAccountButton, visibility, shouldShow);
+            setButtonVisibilityAnim(mDeleteAccountButton, shouldShow);
         }
     };
 
@@ -157,8 +156,7 @@ public class LauncherActivity extends BaseActivity {
                 mAccountSpinner.removeCurrentAccount();
 
                 boolean shouldShow = mAccountSpinner.getSelectedAccount() != null;
-                int visibility = shouldShow ? View.VISIBLE : View.GONE;
-                setButtonVisibilityAnim(mDeleteAccountButton, visibility, shouldShow);
+                setButtonVisibilityAnim(mDeleteAccountButton, shouldShow);
             })
             .show();
 
