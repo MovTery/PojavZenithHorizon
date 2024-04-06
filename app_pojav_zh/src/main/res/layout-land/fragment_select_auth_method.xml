@@ -44,7 +44,7 @@
         android:layout_marginHorizontal="@dimen/_12sdp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="28dp"
-        android:text="@string/zh_account_microsoft_ccount"
+        android:text="@string/zh_account_microsoft_account"
         android:textSize="@dimen/_12ssp"
         app:layout_constraintEnd_toStartOf="@+id/button_other_authentication"
         app:layout_constraintHorizontal_weight="0.3"
