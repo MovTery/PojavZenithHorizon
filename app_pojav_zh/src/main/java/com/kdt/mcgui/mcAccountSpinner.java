@@ -163,7 +163,7 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
         // Set visual properties
         setBackgroundColor(getResources().getColor(R.color.background_status_bar));
         mLoginBarPaint.setColor(getResources().getColor(R.color.minebutton_color));
-        mLoginBarPaint.setStrokeWidth(getResources().getDimensionPixelOffset(R.dimen._2sdp));
+        mLoginBarPaint.setStrokeWidth(getResources().getDimensionPixelOffset(R.dimen._1sdp));
 
         // Set behavior
         reloadAccounts(true, 0);
