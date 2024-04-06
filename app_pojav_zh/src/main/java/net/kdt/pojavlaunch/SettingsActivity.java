@@ -74,16 +74,16 @@ public class SettingsActivity extends BaseActivity {
     }
 
     private void setAlpha(View button, boolean clickable) {
-        if (clickable && button.getAlpha() != 1f) {
-            button.setAlpha(0.6f);
+        if (clickable && button.getAlpha() <= 1f) {
+            button.setAlpha(0.4f);
             button.animate()
                     .alpha(1f)
-                    .setDuration(300);
-        } else if (!clickable && button.getAlpha() != 0.6f) {
+                    .setDuration(250);
+        } else if (!clickable && button.getAlpha() >= 0.4f) {
             button.setAlpha(1f);
             button.animate()
-                    .alpha(0.6f)
-                    .setDuration(300);
+                    .alpha(0.4f)
+                    .setDuration(250);
         }
     }
 
