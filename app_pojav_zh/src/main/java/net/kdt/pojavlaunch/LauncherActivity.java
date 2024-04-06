@@ -54,6 +54,8 @@ import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class LauncherActivity extends BaseActivity {
     public final ActivityResultLauncher<Object> modInstallerLauncher =
@@ -69,6 +71,7 @@ public class LauncherActivity extends BaseActivity {
     private ProgressServiceKeeper mProgressServiceKeeper;
     private ModloaderInstallTracker mInstallTracker;
     private NotificationManager mNotificationManager;
+    private Timer mAccountDeleteButtonVisibility;
 
     /* Allows to switch from one button "type" to another */
     private final FragmentManager.FragmentLifecycleCallbacks mFragmentCallbackListener = new FragmentManager.FragmentLifecycleCallbacks() {
@@ -77,9 +80,6 @@ public class LauncherActivity extends BaseActivity {
             boolean bl = (f instanceof MainMenuFragment);
             mSettingsButton.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), bl
                     ? R.drawable.ic_menu_settings : R.drawable.ic_menu_home));
-
-            boolean shouldShow = mAccountSpinner.getSelectedAccount() != null;
-            setButtonVisibilityAnim(mDeleteAccountButton, shouldShow);
         }
     };
 
@@ -152,12 +152,7 @@ public class LauncherActivity extends BaseActivity {
     private final View.OnClickListener mAccountDeleteButtonListener = v -> new AlertDialog.Builder(this)
             .setMessage(R.string.warning_remove_account)
             .setPositiveButton(android.R.string.cancel, null)
-            .setNeutralButton(R.string.global_delete, (dialog, which) -> {
-                mAccountSpinner.removeCurrentAccount();
-
-                boolean shouldShow = mAccountSpinner.getSelectedAccount() != null;
-                setButtonVisibilityAnim(mDeleteAccountButton, shouldShow);
-            })
+            .setNeutralButton(R.string.global_delete, (dialog, which) -> mAccountSpinner.removeCurrentAccount())
             .show();
 
     private final ExtraListener<Boolean> mLaunchGameListener = (key, value) -> {
@@ -256,6 +251,17 @@ public class LauncherActivity extends BaseActivity {
         mProgressLayout.observe(ProgressLayout.AUTHENTICATE_MICROSOFT);
         mProgressLayout.observe(ProgressLayout.DOWNLOAD_VERSION_LIST);
 
+        mAccountDeleteButtonVisibility = new Timer();
+        mAccountDeleteButtonVisibility.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(() -> {
+                    boolean shouldShow = mAccountSpinner.getSelectedAccount() != null;
+                    setButtonVisibilityAnim(mDeleteAccountButton, shouldShow);
+                });
+            }
+        }, 0, 1000);
+
         // 愚人节彩蛋
         if (PojavZHTools.checkDate(4, 1)) mHair.setVisibility(View.VISIBLE);
         else mHair.setVisibility(View.GONE);
@@ -303,6 +309,10 @@ public class LauncherActivity extends BaseActivity {
         ExtraCore.removeExtraListenerFromValue(ExtraConstants.INSTALL_LOCAL_MODPACK, mInstallLocalModpack);
 
         getSupportFragmentManager().unregisterFragmentLifecycleCallbacks(mFragmentCallbackListener);
+
+        if (mAccountDeleteButtonVisibility != null) {
+            mAccountDeleteButtonVisibility.cancel();
+        }
     }
 
     /** Custom implementation to feel more natural when a backstack isn't present */
