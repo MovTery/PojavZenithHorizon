@@ -54,7 +54,7 @@ public class SettingsActivity extends BaseActivity {
 
     private void initialize() {
         mVideoButton.setClickable(false);
-        mVideoButton.setAlpha(0.6f);
+        mVideoButton.setAlpha(0.4f);
     }
 
     private void onButtonClick(View view) {
@@ -75,12 +75,10 @@ public class SettingsActivity extends BaseActivity {
 
     private void setAlpha(View button, boolean clickable) {
         if (clickable && button.getAlpha() < 1f) {
-            button.setAlpha(0.4f);
             button.animate()
                     .alpha(1f)
                     .setDuration(250);
         } else if (!clickable && button.getAlpha() > 0.4f) {
-            button.setAlpha(1f);
             button.animate()
                     .alpha(0.4f)
                     .setDuration(250);
