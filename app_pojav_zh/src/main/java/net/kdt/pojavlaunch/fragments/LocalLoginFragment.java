@@ -17,8 +17,6 @@ import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 
 import java.io.File;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class LocalLoginFragment extends Fragment {
     public static final String TAG = "LOCAL_LOGIN_FRAGMENT";
@@ -48,9 +46,6 @@ public class LocalLoginFragment extends Fragment {
 
         String text = mUsernameEditText.getText().toString();
 
-        Pattern pattern = Pattern.compile("\\W");
-        Matcher matcher = pattern.matcher(text);
-
         if (text.isEmpty()) {
             runOnUiThread(() -> Toast.makeText(getContext(), getString(R.string.zh_account_local_account_empty), Toast.LENGTH_SHORT).show());
             return false;
@@ -60,7 +55,7 @@ public class LocalLoginFragment extends Fragment {
         } else if (text.length() > 16) {
             runOnUiThread(() -> Toast.makeText(getContext(), getString(R.string.zh_account_local_account_greater), Toast.LENGTH_SHORT).show());
             return false;
-        } else if (matcher.find()) {
+        } else if (!text.matches("\\w+")) {
             runOnUiThread(() -> Toast.makeText(getContext(), getString(R.string.zh_account_local_account_illegal), Toast.LENGTH_SHORT).show());
             return false;
         }
