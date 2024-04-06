@@ -260,7 +260,7 @@ public class LauncherActivity extends BaseActivity {
                     setButtonVisibilityAnim(mDeleteAccountButton, shouldShow);
                 });
             }
-        }, 0, 1000);
+        }, 0, 1000); //每一秒钟检测一次是否需要隐藏或者显示 移除账号按钮
 
         // 愚人节彩蛋
         if (PojavZHTools.checkDate(4, 1)) mHair.setVisibility(View.VISIBLE);

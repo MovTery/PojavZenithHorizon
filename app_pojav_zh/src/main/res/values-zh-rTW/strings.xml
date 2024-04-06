@@ -12,8 +12,12 @@
     <string name="zh_wrong_tip">出現了一些問題</string>
 
     <string name="zh_account_text">請選擇一種登錄方式</string>
-    <string name="zh_account_microsoft_ccount">微軟帳號</string>
+    <string name="zh_account_microsoft_account">微軟帳號</string>
     <string name="zh_account_local_account">離線帳號</string>
+    <string name="zh_account_local_account_empty">用戶名不能為空！</string>
+    <string name="zh_account_local_account_less">用戶名過短！</string>
+    <string name="zh_account_local_account_greater">用戶名過長！</string>
+    <string name="zh_account_local_account_illegal">用戶名包含非法字符！僅支持英文字母（大小寫均可）、數字以及下劃線作為用戶名</string>
     <string name="zh_account_login_local_name">用戶名</string>
     <string name="zh_account_login_start">開始登入！</string>
 

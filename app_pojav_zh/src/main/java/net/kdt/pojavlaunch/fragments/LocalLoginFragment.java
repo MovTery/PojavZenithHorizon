@@ -1,8 +1,11 @@
 package net.kdt.pojavlaunch.fragments;
 
+import static net.kdt.pojavlaunch.Tools.runOnUiThread;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +17,8 @@ import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 
 import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LocalLoginFragment extends Fragment {
     public static final String TAG = "LOCAL_LOGIN_FRAGMENT";
@@ -43,11 +48,23 @@ public class LocalLoginFragment extends Fragment {
 
         String text = mUsernameEditText.getText().toString();
 
-        return !(text.isEmpty()
-                || text.length() < 3
-                || text.length() > 16
-                || !text.matches("\\w+")
-                || new File(Tools.DIR_ACCOUNT_NEW + "/" + text + ".json").exists()
-        );
+        Pattern pattern = Pattern.compile("[^a-zA-Z0-9_]");
+        Matcher matcher = pattern.matcher(text);
+
+        if (text.isEmpty()) {
+            runOnUiThread(() -> Toast.makeText(getContext(), getString(R.string.zh_account_local_account_empty), Toast.LENGTH_SHORT).show());
+            return false;
+        } else if (text.length() < 3) {
+            runOnUiThread(() -> Toast.makeText(getContext(), getString(R.string.zh_account_local_account_less), Toast.LENGTH_SHORT).show());
+            return false;
+        } else if (text.length() > 16) {
+            runOnUiThread(() -> Toast.makeText(getContext(), getString(R.string.zh_account_local_account_greater), Toast.LENGTH_SHORT).show());
+            return false;
+        } else if (matcher.find()) {
+            runOnUiThread(() -> Toast.makeText(getContext(), getString(R.string.zh_account_local_account_illegal), Toast.LENGTH_SHORT).show());
+            return false;
+        }
+
+        return !(new File(Tools.DIR_ACCOUNT_NEW + "/" + text + ".json").exists());
     }
 }
