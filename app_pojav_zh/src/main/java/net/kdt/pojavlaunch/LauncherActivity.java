@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch;
 
+import static net.kdt.pojavlaunch.PojavZHTools.setButtonVisibilityAnim;
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -76,7 +78,9 @@ public class LauncherActivity extends BaseActivity {
             mSettingsButton.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), bl
                     ? R.drawable.ic_menu_settings : R.drawable.ic_menu_home));
 
-            mDeleteAccountButton.setVisibility(mAccountSpinner.getSelectedAccount() == null ? View.GONE : View.VISIBLE);
+            boolean shouldShow = mAccountSpinner.getSelectedAccount() != null;
+            int visibility = shouldShow ? View.VISIBLE : View.GONE;
+            setButtonVisibilityAnim(mDeleteAccountButton, visibility, shouldShow);
         }
     };
 
@@ -151,7 +155,10 @@ public class LauncherActivity extends BaseActivity {
             .setPositiveButton(android.R.string.cancel, null)
             .setNeutralButton(R.string.global_delete, (dialog, which) -> {
                 mAccountSpinner.removeCurrentAccount();
-                mDeleteAccountButton.setVisibility(mAccountSpinner.getSelectedAccount() == null ? View.GONE : View.VISIBLE);
+
+                boolean shouldShow = mAccountSpinner.getSelectedAccount() != null;
+                int visibility = shouldShow ? View.VISIBLE : View.GONE;
+                setButtonVisibilityAnim(mDeleteAccountButton, visibility, shouldShow);
             })
             .show();
 

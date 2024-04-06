@@ -22,6 +22,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
+import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -554,6 +555,24 @@ public class PojavZHTools {
             return simpleDateFormat.format(date);
         } catch (PackageManager.NameNotFoundException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public static void setButtonVisibilityAnim(View button, int visibility, boolean shouldShow) {
+        if (button.getVisibility() != visibility) {
+            if (!shouldShow) {
+                button.setAlpha(1f);
+                button.setVisibility(View.GONE);
+                button.animate()
+                        .alpha(0f) //淡出到完全透明
+                        .setDuration(500)
+                        .withEndAction(() -> button.setVisibility(View.GONE));
+            } else {
+                button.setVisibility(View.VISIBLE);
+                button.animate()
+                        .alpha(1f) //淡入到完全不透明
+                        .setDuration(500);
+            }
         }
     }
 
