@@ -1,5 +1,9 @@
 package net.kdt.pojavlaunch.fragments;
 
+import static net.kdt.pojavlaunch.PojavZHTools.getLastUpdateTime;
+import static net.kdt.pojavlaunch.PojavZHTools.getVersionCode;
+import static net.kdt.pojavlaunch.PojavZHTools.getVersionName;
+
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -51,6 +55,9 @@ public class AboutFragment extends Fragment {
 
         mContributors1 = view.findViewById(R.id.zh_about_contributors1);
         mContributors2 = view.findViewById(R.id.zh_about_contributors2);
+        TextView mVersionName = view.findViewById(R.id.zh_about_version_name);
+        TextView mVersionCode = view.findViewById(R.id.zh_about_version_code);
+        TextView mLastUpdateTime = view.findViewById(R.id.zh_about_last_update_time);
 
         SpannableString spannableString1 = new SpannableString(mContributors1.getText().toString());
         spannableString1.setSpan(new UnderlineSpan(), 0, spannableString1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -59,6 +66,14 @@ public class AboutFragment extends Fragment {
         SpannableString spannableString2 = new SpannableString(mContributors2.getText().toString());
         spannableString2.setSpan(new UnderlineSpan(), 0, spannableString2.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         mContributors2.setText(spannableString2);
+
+        //软件信息
+        String versionName = getString(R.string.zh_about_version_name) + getVersionName(requireContext());
+        mVersionName.setText(versionName);
+        String versionCode = getString(R.string.zh_about_version_code) + getVersionCode(requireContext());
+        mVersionCode.setText(versionCode);
+        String lastUpdateTime = getString(R.string.zh_about_last_update_time) + getLastUpdateTime(requireContext());
+        mLastUpdateTime.setText(lastUpdateTime);
     }
 }
 

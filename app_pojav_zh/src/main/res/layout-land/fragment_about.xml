@@ -14,6 +14,7 @@
         android:layout_height="match_parent">
 
         <ScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="240dp"
@@ -170,6 +171,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
             tools:ignore="MissingConstraints" />
 
         <com.kdt.mcgui.MineButton
@@ -197,6 +199,39 @@
             app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
+
+        <TextView
+            android:id="@+id/zh_about_version_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
+            app:layout_constraintStart_toEndOf="@+id/scrollView2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/zh_about_version_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
+            app:layout_constraintStart_toEndOf="@+id/scrollView2"
+            app:layout_constraintTop_toBottomOf="@+id/zh_about_version_name" />
+
+        <TextView
+            android:id="@+id/zh_about_last_update_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
+            app:layout_constraintStart_toEndOf="@+id/scrollView2"
+            app:layout_constraintTop_toBottomOf="@+id/zh_about_version_code" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
