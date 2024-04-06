@@ -558,21 +558,18 @@ public class PojavZHTools {
         }
     }
 
-    public static void setButtonVisibilityAnim(View button, int visibility, boolean shouldShow) {
-        if (button.getVisibility() != visibility) {
-            if (!shouldShow) {
-                button.setAlpha(1f);
-                button.setVisibility(View.GONE);
-                button.animate()
-                        .alpha(0f) //淡出到完全透明
-                        .setDuration(500)
-                        .withEndAction(() -> button.setVisibility(View.GONE));
-            } else {
-                button.setVisibility(View.VISIBLE);
-                button.animate()
-                        .alpha(1f) //淡入到完全不透明
-                        .setDuration(500);
-            }
+    public static void setButtonVisibilityAnim(View button, boolean shouldShow) {
+        if (shouldShow) {
+            button.setAlpha(0f);
+            button.setVisibility(View.VISIBLE);
+            button.animate()
+                    .alpha(1f) //淡入到完全不透明
+                    .setDuration(500);
+        } else {
+            button.animate()
+                    .alpha(0f) //淡出到完全透明
+                    .setDuration(500)
+                    .withEndAction(() -> button.setVisibility(View.GONE));
         }
     }
 
