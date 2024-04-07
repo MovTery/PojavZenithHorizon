@@ -58,8 +58,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -105,20 +103,15 @@ public class PojavZHTools {
     public static File copyFileInBackground(Context context, Uri[] uris, String rootPath) {
         Uri fileUri = uris[0];
         String fileName = getFileName(context, fileUri);
-        File inputFile = new File(Objects.requireNonNull(fileUri.getPath()));
         File outputFile = new File(rootPath, fileName);
-        try (
-                InputStream inputStream = context.getContentResolver().openInputStream(fileUri);
-                InputStream bis = new BufferedInputStream(inputStream)
-        ) {
-            try (
-                    OutputStream outputStream = new FileOutputStream(inputFile);
-                    OutputStream bos = new BufferedOutputStream(outputStream)
-            ) {
-                byte[] buffer = new byte[1024 * 8]; // 8kb
-                int bytesRead;
-                while ((bytesRead = bis.read(buffer)) != -1) {
-                    bos.write(buffer, 0, bytesRead);
+        try (InputStream inputStream = context.getContentResolver().openInputStream(fileUri)) {
+            if (inputStream != null) {
+                try (OutputStream outputStream = new FileOutputStream(outputFile)) {
+                    byte[] buffer = new byte[1024 * 8]; //8kb
+                    int bytesRead;
+                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
                 }
             }
         } catch (Exception ignored) {}
