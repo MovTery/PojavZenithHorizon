@@ -19,6 +19,7 @@ import net.kdt.pojavlaunch.R;
 
 public class UpdateDialog extends Dialog {
     private final String versionName;
+    private final String tagName;
     private final String createdTime;
     private final String fileSize;
     private final String description;
@@ -26,6 +27,7 @@ public class UpdateDialog extends Dialog {
     public UpdateDialog(@NonNull Context context, UpdateInformation updateInformation) {
         super(context);
         this.versionName = updateInformation.versionName;
+        this.tagName = updateInformation.tagName;
         this.createdTime = updateInformation.createdTime;
         this.fileSize = updateInformation.fileSize;
         this.description = updateInformation.description;
@@ -87,7 +89,7 @@ public class UpdateDialog extends Dialog {
 
         mUpdateButton.setOnClickListener(view -> {
             this.dismiss();
-            updateLauncher(getContext());
+            updateLauncher(getContext(), tagName, fileSize);
         });
         mCancelButton.setOnClickListener(view -> this.dismiss());
         mIgnoreButton.setOnClickListener(view -> {
@@ -98,11 +100,13 @@ public class UpdateDialog extends Dialog {
 
     public static class UpdateInformation {
         public String versionName;
+        public String tagName;
         public String createdTime;
         public String fileSize;
         public String description;
-        public void information(@NonNull String versionName, @NonNull String createdTime, @NonNull String fileSize, @NonNull String description) {
+        public void information(@NonNull String versionName, @NonNull String tagName, @NonNull String createdTime, @NonNull String fileSize, @NonNull String description) {
             this.versionName = versionName;
+            this.tagName = tagName;
             this.createdTime = createdTime;
             this.fileSize = fileSize;
             this.description = description;
