@@ -360,7 +360,7 @@ public class PojavZHTools {
                             runOnUiThread(() -> {
                                 UpdateDialog.UpdateInformation updateInformation = new UpdateDialog.UpdateInformation();
                                 try {
-                                    updateInformation.information(versionName, formattingTime(jsonObject.getString("created_at")), formatFileSize(fileSize), jsonObject.getString("body"));
+                                    updateInformation.information(versionName, tagName, formattingTime(jsonObject.getString("created_at")), formatFileSize(fileSize), jsonObject.getString("body"));
                                 } catch (JSONException ignored) {}
                                 UpdateDialog updateDialog = new UpdateDialog(context, updateInformation);
 
@@ -385,38 +385,13 @@ public class PojavZHTools {
         return time.substring(0, T) + " " + time.substring(T + 1, Z);
     }
 
-    public static void updateLauncher(Context context) {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(URL_GITHUB_RELEASE)
-                .build();
+    public static void updateLauncher(Context context, String tagName, String fileSize) {
+        PojavApplication.sExecutorService.execute(() -> {
+            File file = new File(context.getExternalFilesDir(null), "PojavZH.apk");
 
-        PojavApplication.sExecutorService.execute(() -> client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_fail), Toast.LENGTH_SHORT).show());
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
-                } else {
-                    String responseBody = response.body().string(); //解析响应体
-                    try {
-                        JSONObject jsonObject = new JSONObject(responseBody);
-                        JSONArray assetsJson = jsonObject.getJSONArray("assets");
-                        String tagName = jsonObject.getString("tag_name");
-                        JSONObject firstAsset = assetsJson.getJSONObject(0);
-                        long fileSize = firstAsset.getLong("size");
-                        File file = new File(context.getExternalFilesDir(null), "PojavZH.apk");
-
-                        runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_downloading_tip), Toast.LENGTH_SHORT).show());
-                        downloadFileWithOkHttp(context, "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk", file.getAbsolutePath(), formatFileSize(fileSize));
-                    } catch (JSONException ignored) {}
-                }
-            }
-        }));
+            runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_downloading_tip), Toast.LENGTH_SHORT).show());
+            downloadFileWithOkHttp(context, "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk", file.getAbsolutePath(), fileSize);
+        });
     }
 
     public static void downloadFileWithOkHttp(Context context, String fileUrl, String destinationFilePath, String fileSize) {
