@@ -117,7 +117,8 @@ public class CustomMouseFragment extends Fragment {
         });
 
         //默认显示当前选中的鼠标
-        refreshIcon(FILE_CUSTOM_MOUSE.getAbsolutePath(), requireContext());
+        refreshIcon(DIR_CUSTOM_MOUSE + "\\" +
+                DEFAULT_PREF.getString("custom_mouse", "default_mouse.png"), requireContext());
     }
 
     private File mousePath() {
