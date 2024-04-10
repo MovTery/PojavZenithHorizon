@@ -1,6 +1,5 @@
 package net.kdt.pojavlaunch;
 
-import static net.kdt.pojavlaunch.Architecture.ARCH_X86;
 import static net.kdt.pojavlaunch.PojavZHTools.getVersionName;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
@@ -20,7 +19,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -49,7 +47,6 @@ import com.kdt.LoggerView;
 import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
-import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.customcontrols.ControlButtonMenuListener;
 import net.kdt.pojavlaunch.customcontrols.ControlData;
 import net.kdt.pojavlaunch.customcontrols.ControlDrawerData;
@@ -59,6 +56,8 @@ import net.kdt.pojavlaunch.customcontrols.CustomControls;
 import net.kdt.pojavlaunch.customcontrols.EditorExitable;
 import net.kdt.pojavlaunch.customcontrols.keyboard.LwjglCharSender;
 import net.kdt.pojavlaunch.customcontrols.keyboard.TouchCharInput;
+import net.kdt.pojavlaunch.customcontrols.mouse.Touchpad;
+import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.profiles.ProfileLanguageSelector;
 import net.kdt.pojavlaunch.services.GameService;
@@ -374,16 +373,6 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         Logger.appendToLog("Info: Custom Java arguments: \"" + javaArguments + "\"");
     }
 
-    private void checkVulkanZinkIsSupported() {
-        if (Tools.DEVICE_ARCHITECTURE == ARCH_X86
-                || Build.VERSION.SDK_INT < 25
-                || !getPackageManager().hasSystemFeature(PackageManager.FEATURE_VULKAN_HARDWARE_LEVEL)
-                || !getPackageManager().hasSystemFeature(PackageManager.FEATURE_VULKAN_HARDWARE_VERSION)) {
-            Logger.appendToLog("Error: Vulkan Zink renderer is not supported!");
-            throw new RuntimeException(getString(R.string. mcn_check_fail_vulkan_support));
-        }
-    }
-
     private void dialogSendCustomKey() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle(R.string.control_customkey);
@@ -666,7 +655,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     public void onServiceConnected(ComponentName name, IBinder service) {
         GameService.LocalBinder localBinder = (GameService.LocalBinder) service;
         mServiceBinder = localBinder;
-        minecraftGLView.start(localBinder.isActive);
+        minecraftGLView.start(localBinder.isActive, touchpad);
         localBinder.isActive = true;
     }
 
