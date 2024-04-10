@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.PojavZHTools.DIR_CUSTOM_MOUSE;
+import static net.kdt.pojavlaunch.PojavZHTools.FILE_CUSTOM_MOUSE;
 import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
 import static net.kdt.pojavlaunch.PojavZHTools.isImage;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
@@ -30,7 +31,6 @@ import androidx.fragment.app.Fragment;
 import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
-import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.dialog.FilesDialog;
 
@@ -115,6 +115,9 @@ public class CustomMouseFragment extends Fragment {
 
             builder.show();
         });
+
+        //默认显示当前选中的鼠标
+        refreshIcon(FILE_CUSTOM_MOUSE.getAbsolutePath(), requireContext());
     }
 
     private File mousePath() {
