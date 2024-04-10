@@ -73,8 +73,7 @@
     <string name="zh_main_open_instance_dir">開啟實例目錄</string>
     <string name="zh_main_share_crash_report">分享崩潰報告</string>
     <string name="zh_preference_category_language">語言</string>
-    <string name="zh_preference_category_other_features">其他功能</string>
-    <string name="zh_preference_chinese_language_title">中文語言切換</string>
+    <string name="zh_preference_category_launcher">啟動器</string>
 
     <string name="zh_profile_custom_path">自訂路徑</string>
     <string name="zh_profile_create_mods">建立 Mods</string>
@@ -96,12 +95,15 @@
     <string name="zh_select_modpack_local_installing_files">安裝遊戲檔案中… (%d)</string>
     <string name="zh_setting_set_to_chinese_desc">在遊戲首次啟動時，自動將語言設置為中文</string>
     <string name="zh_setting_set_to_chinese_title">自動設置為中文</string>
+    <string name="zh_setting_chinese_language_title">中文語言切換</string>
     <string name="zh_setting_enable_log_output_desc">在應用正式開始運行遊戲時，開啟日誌輸出界面</string>
     <string name="zh_setting_enable_log_output_title">啟動遊戲時打開日誌輸出</string>
     <string name="zh_setting_animation_desc">設置啟動器切換界面時是否播放動畫</string>
     <string name="zh_setting_animation_title">啟用動畫</string>
     <string name="zh_setting_quit_launcher_desc">在應用正式開始運行遊戲時，是否退出啟動器</string>
     <string name="zh_setting_quit_launcher_title">退出啟動器</string>
+    <string name="zh_setting_advanced_features_desc">開啟後，啟動器將開放部分高級功能</string>
+    <string name="zh_setting_advanced_features_title">高級功能</string>
 
     <string name="zh_update">檢查更新</string>
     <string name="zh_update_dialog_title">檢測到新版本</string>

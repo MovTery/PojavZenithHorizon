@@ -75,6 +75,7 @@ public class LauncherPreferences {
     public static boolean PREF_ENABLE_LOG_OUTPUT = false;
     public static boolean PREF_ANIMATION = true;
     public static boolean PREF_QUILT_LAUNCHER = true;
+    public static boolean PREF_ADVANCED_FEATURES = false;
 
 
     public static void loadPreferences(Context ctx) {
@@ -127,6 +128,7 @@ public class LauncherPreferences {
         PREF_ENABLE_LOG_OUTPUT = DEFAULT_PREF.getBoolean("enableLogOutput", false);
         PREF_ANIMATION = DEFAULT_PREF.getBoolean("animation", true);
         PREF_QUILT_LAUNCHER = DEFAULT_PREF.getBoolean("quitLauncher", true);
+        PREF_ADVANCED_FEATURES = DEFAULT_PREF.getBoolean("advancedFeatures", false);
 
         String argLwjglLibname = "-Dorg.lwjgl.opengl.libname=";
         for (String arg : JREUtils.parseJavaArguments(PREF_CUSTOM_JAVA_ARGS)) {

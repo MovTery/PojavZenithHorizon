@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.PojavZHTools.DIR_CUSTOM_MOUSE;
-import static net.kdt.pojavlaunch.PojavZHTools.FILE_CUSTOM_MOUSE;
 import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
 import static net.kdt.pojavlaunch.PojavZHTools.isImage;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
@@ -65,6 +64,7 @@ public class CustomMouseFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         bindViews(view);
+        initialize();
         mFileListView.lockPathAt(mousePath());
         mFileListView.listFileAt(mousePath(), true);
         mFileListView.setShowFiles(true);
@@ -115,7 +115,9 @@ public class CustomMouseFragment extends Fragment {
 
             builder.show();
         });
+    }
 
+    private void initialize() {
         //默认显示当前选中的鼠标
         refreshIcon(DIR_CUSTOM_MOUSE + "\\" +
                 DEFAULT_PREF.getString("custom_mouse", "default_mouse.png"), requireContext());

@@ -13,12 +13,12 @@
             android:key="switchToChineseLanguage"
             android:entries="@array/chinese_language_names"
             android:entryValues="@array/chinese_language_values"
-            android:title="@string/zh_preference_chinese_language_title"
+            android:title="@string/zh_setting_chinese_language_title"
             app2:useSimpleSummaryProvider="true"/>
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/zh_preference_category_other_features">
+    <PreferenceCategory android:title="@string/zh_preference_category_launcher">
         <SwitchPreference
             android:defaultValue="false"
             android:key="enableLogOutput"
@@ -26,16 +26,22 @@
             android:title="@string/zh_setting_enable_log_output_title" />
 
         <SwitchPreference
-            android:key="animation"
-            android:title="@string/zh_setting_animation_title"
-            android:summary="@string/zh_setting_animation_desc"
-            android:defaultValue="true" />
-
-        <SwitchPreference
             android:defaultValue="true"
             android:key="quitLauncher"
             android:title="@string/zh_setting_quit_launcher_title"
             android:summary="@string/zh_setting_quit_launcher_desc" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="advancedFeatures"
+            android:title="@string/zh_setting_advanced_features_title"
+            android:summary="@string/zh_setting_advanced_features_desc" />
+
+        <SwitchPreference
+            android:key="animation"
+            android:title="@string/zh_setting_animation_title"
+            android:summary="@string/zh_setting_animation_desc"
+            android:defaultValue="true" />
 
     </PreferenceCategory>
 
