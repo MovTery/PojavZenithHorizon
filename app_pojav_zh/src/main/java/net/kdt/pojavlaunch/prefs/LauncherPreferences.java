@@ -45,7 +45,7 @@ public class LauncherPreferences {
     public static int PREF_RAM_ALLOCATION;
     public static String PREF_DEFAULT_RUNTIME;
     public static boolean PREF_SUSTAINED_PERFORMANCE = false;
-    public static boolean PREF_VIRTUAL_MOUSE_START = false;
+    public static boolean PREF_VIRTUAL_MOUSE_START = true;
     public static boolean PREF_ARC_CAPES = false;
     public static boolean PREF_USE_ALTERNATE_SURFACE = true;
     public static boolean PREF_JAVA_SANDBOX = true;
@@ -101,7 +101,7 @@ public class LauncherPreferences {
         PREF_RAM_ALLOCATION = DEFAULT_PREF.getInt("allocation", findBestRAMAllocation(ctx));
         PREF_CUSTOM_JAVA_ARGS = DEFAULT_PREF.getString("javaArgs", "");
         PREF_SUSTAINED_PERFORMANCE = DEFAULT_PREF.getBoolean("sustainedPerformance", false);
-        PREF_VIRTUAL_MOUSE_START = DEFAULT_PREF.getBoolean("mouse_start", false);
+        PREF_VIRTUAL_MOUSE_START = DEFAULT_PREF.getBoolean("mouse_start", true);
         PREF_ARC_CAPES = DEFAULT_PREF.getBoolean("arc_capes",false);
         PREF_USE_ALTERNATE_SURFACE = DEFAULT_PREF.getBoolean("alternate_surface", false);
         PREF_JAVA_SANDBOX = DEFAULT_PREF.getBoolean("java_sandbox", true);

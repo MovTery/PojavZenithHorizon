@@ -76,6 +76,7 @@
 
         <SwitchPreference
             android:key="mouse_start"
+            android:defaultValue="true"
             android:title="@string/preference_mouse_start_title"
             android:summary="@string/preference_mouse_start_description"
             />
