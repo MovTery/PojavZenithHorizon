@@ -77,10 +77,16 @@ public class CustomMouseFragment extends Fragment {
             public void onFileSelected(File file, String path) {
                 refreshIcon(path, requireContext());
                 String fileName = file.getName();
+                boolean isDefaultMouse = fileName.equals("default_mouse.png");
 
                 FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-                filesButton.setButtonVisibility(true, true, true, isImage(file));
-                filesButton.messageText = getString(R.string.zh_file_message);
+                filesButton.setButtonVisibility(!isDefaultMouse, !isDefaultMouse, !isDefaultMouse, isImage(file)); //默认虚拟鼠标不支持分享、重命名、删除操作
+
+                //如果选中的虚拟鼠标是默认的虚拟鼠标，那么将加上额外的提醒
+                String message = getString(R.string.zh_file_message);
+                if (isDefaultMouse) message += "\n" + getString(R.string.zh_custom_mouse_message_default);
+
+                filesButton.messageText = message;
                 filesButton.moreButtonText = getString(R.string.global_select);
 
                 FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, mFileListView, file);
@@ -93,9 +99,7 @@ public class CustomMouseFragment extends Fragment {
             }
 
             @Override
-            public void onItemLongClick(File file, String path) {
-                PojavZHTools.shareFileAlertDialog(requireContext(), file);
-            }
+            public void onItemLongClick(File file, String path) {}
         });
 
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());

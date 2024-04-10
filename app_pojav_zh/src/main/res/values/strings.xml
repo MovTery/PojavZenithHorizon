@@ -45,6 +45,7 @@
     <string name="zh_custom_mouse_added">Successfully set virtual mouse:</string>
     <string name="zh_custom_mouse_title">Customize virtual mouse</string>
     <string name="zh_custom_mouse_desc">By opening the virtual mouse management interface, you can add your preferred virtual mouse images and use them.</string>
+    <string name="zh_custom_mouse_message_default">The currently selected virtual mouse is the default virtual mouse, and does not support sharing, renaming, or deleting operations.</string>
 
     <string name="zh_file_add_file">Add file</string>
     <string name="zh_file_add_file_tip">Please select a file with the suffix "%s"</string>
