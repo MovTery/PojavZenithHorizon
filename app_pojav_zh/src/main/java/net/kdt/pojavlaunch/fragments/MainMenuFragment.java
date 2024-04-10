@@ -22,6 +22,8 @@ import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 
+import java.io.File;
+
 public class MainMenuFragment extends Fragment {
     public static final String TAG = "MainMenuFragment";
 
@@ -65,6 +67,9 @@ public class MainMenuFragment extends Fragment {
 
         mOpenInstanceDirButton.setOnClickListener(v -> {
             String path = PojavZHTools.getGameDirPath(getCurrentProfile().gameDir).getAbsolutePath();
+            File file = new File(path);
+            if (!file.exists()) file.mkdirs(); //必须保证此路径存在
+
             Bundle bundle = new Bundle();
             bundle.putString(FilesFragment.BUNDLE_PATH, path);
             Tools.swapFragment(requireActivity(), FilesFragment.class, FilesFragment.TAG, bundle);
