@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch.dialog;
 
+import static net.kdt.pojavlaunch.Tools.runOnUiThread;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
@@ -39,6 +41,7 @@ public class CopyDialog extends Dialog {
         Button mCancelButton = findViewById(R.id.zh_operation_cancel);
         Button mCopyButton = findViewById(R.id.zh_operation_share);
 
+        findViewById(R.id.zh_operation_more).setVisibility(View.GONE);
         findViewById(R.id.zh_operation_rename).setVisibility(View.GONE);
         findViewById(R.id.zh_operation_delete).setVisibility(View.GONE);
 
@@ -65,8 +68,8 @@ public class CopyDialog extends Dialog {
                 if (!newFileName.isEmpty()) {
                     //新线程复制文件
                     PojavApplication.sExecutorService.execute(() -> {
-                        PojavZHTools.copyFile(mFile, mFile.getParent(), newFileName);
-                        mFileListView.refreshPath();
+                        PojavZHTools.copyFile(mFile, mFile.getParent(), newFileName + suffix);
+                        runOnUiThread(mFileListView::refreshPath);
                     });
                 } else {
                     Toast.makeText(context, context.getString(R.string.zh_file_rename_empty), Toast.LENGTH_SHORT).show();
