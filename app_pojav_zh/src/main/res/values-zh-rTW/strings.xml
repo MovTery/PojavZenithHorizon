@@ -41,6 +41,7 @@
     <string name="zh_custom_mouse_added">成功設置虛擬滑鼠：</string>
     <string name="zh_custom_mouse_title">自定義虛擬滑鼠</string>
     <string name="zh_custom_mouse_desc">打開虛擬滑鼠管理界面，您可以自行添加您喜歡的虛擬滑鼠貼圖，並使用它們</string>
+    <string name="zh_custom_mouse_message_default">當前選中的虛擬滑鼠為預設的虛擬滑鼠，不支持進行分享、重命名、刪除操作</string>
 
     <string name="zh_file_add_file">新增檔案</string>
     <string name="zh_file_add_file_tip">請選擇一個後綴名為"%s"的檔案</string>
