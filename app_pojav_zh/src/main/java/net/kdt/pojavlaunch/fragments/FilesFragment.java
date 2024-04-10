@@ -26,6 +26,7 @@ import com.kdt.pickafile.FileSelectedListener;
 import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
+import net.kdt.pojavlaunch.dialog.CopyDialog;
 import net.kdt.pojavlaunch.dialog.FilesDialog;
 
 import java.io.File;
@@ -86,7 +87,8 @@ public class FilesFragment extends Fragment {
 
             @Override
             public void onItemLongClick(File file, String path) {
-                PojavZHTools.shareFileAlertDialog(requireContext(), file);
+                CopyDialog dialog = new CopyDialog(requireContext(), mFileListView, file);
+                dialog.show();
             }
         });
 

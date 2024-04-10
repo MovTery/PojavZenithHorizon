@@ -25,10 +25,10 @@ import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
 import net.kdt.pojavlaunch.CustomControlsActivity;
-import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
+import net.kdt.pojavlaunch.dialog.CopyDialog;
 import net.kdt.pojavlaunch.dialog.FilesDialog;
 
 import java.io.BufferedWriter;
@@ -99,7 +99,8 @@ public class ControlButtonFragment extends Fragment {
 
             @Override
             public void onItemLongClick(File file, String path) {
-                PojavZHTools.shareFileAlertDialog(requireContext(), file);
+                CopyDialog dialog = new CopyDialog(requireContext(), mFileListView, file);
+                dialog.show();
             }
         });
 

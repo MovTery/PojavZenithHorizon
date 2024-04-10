@@ -42,17 +42,17 @@ public class FilesDialog extends Dialog {
         this.mMoreText = filesButton.moreButtonText;
 
         this.setCancelable(false);
-        this.setContentView(R.layout.dialog_files);
+        this.setContentView(R.layout.dialog_operation);
         init();
     }
 
     private void init() {
-        TextView mMessage = findViewById(R.id.zh_files_message);
-        Button mCancelButton = findViewById(R.id.zh_files_cancel);
-        Button mShareButton = findViewById(R.id.zh_files_share);
-        Button mRenameButton = findViewById(R.id.zh_files_rename);
-        Button mDeleteButton = findViewById(R.id.zh_files_delete);
-        mMoreButton = findViewById(R.id.zh_files_more);
+        TextView mMessage = findViewById(R.id.zh_operation_message);
+        Button mCancelButton = findViewById(R.id.zh_operation_cancel);
+        Button mShareButton = findViewById(R.id.zh_operation_share);
+        Button mRenameButton = findViewById(R.id.zh_operation_rename);
+        Button mDeleteButton = findViewById(R.id.zh_operation_delete);
+        mMoreButton = findViewById(R.id.zh_operation_more);
 
         mCancelButton.setVisibility(mCancel ? View.VISIBLE : View.GONE);
         mShareButton.setVisibility(mShare ? View.VISIBLE : View.GONE);
