@@ -114,9 +114,7 @@ public class ModsFragment extends Fragment {
             }
 
             @Override
-            public void onItemLongClick(File file, String path) {
-                PojavZHTools.shareFileAlertDialog(requireContext(), file);
-            }
+            public void onItemLongClick(File file, String path) {}
         });
 
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());

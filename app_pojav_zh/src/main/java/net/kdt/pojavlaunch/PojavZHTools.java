@@ -59,6 +59,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -70,7 +71,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -117,6 +117,19 @@ public class PojavZHTools {
         } catch (Exception ignored) {}
 
         return outputFile;
+    }
+
+    public static void copyFile(File file, String rootPath, String fileName) {
+        File outputFile = new File(rootPath, fileName);
+        try (
+                InputStream inputStream = new FileInputStream(file);
+                OutputStream outputStream = new FileOutputStream(outputFile)) {
+            byte[] buffer = new byte[1024 * 8]; //8kb
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+        } catch (Exception ignored) {}
     }
 
     public static boolean containsDot(String input) {
