@@ -3,15 +3,13 @@ package net.kdt.pojavlaunch.fragments;
 import static net.kdt.pojavlaunch.PojavZHTools.DIR_CUSTOM_MOUSE;
 import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
 import static net.kdt.pojavlaunch.PojavZHTools.isImage;
+import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +28,8 @@ import androidx.fragment.app.Fragment;
 import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
+import net.kdt.pojavlaunch.PojavApplication;
+import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.dialog.FilesDialog;
 
@@ -55,7 +55,15 @@ public class CustomMouseFragment extends Fragment {
                 result -> {
                     if (result != null) {
                         Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
-                        new CopyFile().execute(result);
+
+                        PojavApplication.sExecutorService.execute(() -> {
+                            copyFileInBackground(requireContext(), result, mFileListView.getFullPath().getAbsolutePath());
+
+                            runOnUiThread(() -> {
+                                Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show();
+                                mFileListView.listFileAt(mousePath(), true);
+                            });
+                        });
                     }
                 }
         );
@@ -119,8 +127,7 @@ public class CustomMouseFragment extends Fragment {
 
     private void initialize() {
         //默认显示当前选中的鼠标
-        refreshIcon(DIR_CUSTOM_MOUSE + "\\" +
-                DEFAULT_PREF.getString("custom_mouse", "default_mouse.png"), requireContext());
+        PojavZHTools.customMouse(mMouseView, requireContext());
     }
 
     private File mousePath() {
@@ -149,21 +156,5 @@ public class CustomMouseFragment extends Fragment {
 
         view.findViewById(R.id.zh_files_create_folder_button).setVisibility(View.GONE);
         mFilePathView.setText(getString(R.string.zh_custom_mouse_title));
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    private class CopyFile extends AsyncTask<Uri, Void, Void> {
-        @Override
-        protected Void doInBackground(Uri... uris) {
-            copyFileInBackground(requireContext(), uris, mFileListView.getFullPath().getAbsolutePath());
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show();
-            mFileListView.listFileAt(mousePath(), true);
-        }
     }
 }

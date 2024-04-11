@@ -2,7 +2,6 @@
 <resources>
     <!-- Pojav ZH -->
     <string name="zh_return">返回</string>
-    <string name="zh_share">分享</string>
     <string name="zh_refresh">重新整理</string>
     <string name="zh_create">創建</string>
     <string name="zh_rename">重新命名</string>
@@ -52,6 +51,7 @@
     <string name="zh_file_does_not_exist">這個資料夾（或檔案）不存在</string>
     <string name="zh_file_tips">操作此檔案</string>
     <string name="zh_file_message">請選擇你要對此檔案進行的操作</string>
+    <string name="zh_file_message_copy">(長按此檔案可複製並建立一個新的檔案)</string>
     <string name="zh_file_message_main">(請注意，在此目錄下的檔案都是非常重要的，操作不當可能導致遊戲無法啟動！)</string>
     <string name="zh_file_added">成功新增檔案</string>
     <string name="zh_file_delete">你確定要刪除此檔案嗎？</string>
@@ -62,7 +62,6 @@
     <string name="zh_file_deleted">成功刪除檔案：</string>
     <string name="zh_file_renamed">檔案名稱已被修改：\n</string>
     <string name="zh_file_rename_empty">檔名不能為空！</string>
-    <string name="zh_file_share_message">你確定要分享此檔案嗎？</string>
 
     <string name="zh_neoforge_dl_searching">正在搜尋 NeoForge 版本號</string>
     <string name="zh_neoforge_dl_no_installer">很抱歉，該版本的 NeoForge 沒有安裝程式，尚不支援</string>
@@ -102,7 +101,7 @@
     <string name="zh_setting_animation_title">啟用動畫</string>
     <string name="zh_setting_quit_launcher_desc">在應用正式開始運行遊戲時，是否退出啟動器</string>
     <string name="zh_setting_quit_launcher_title">退出啟動器</string>
-    <string name="zh_setting_advanced_features_desc">開啟後，啟動器將開放部分高級功能</string>
+    <string name="zh_setting_advanced_features_desc">開啟後，啟動器將開放部分高級功能 (可能需要重新啟動才能生效)</string>
     <string name="zh_setting_advanced_features_title">高級功能</string>
 
     <string name="zh_update">檢查更新</string>
