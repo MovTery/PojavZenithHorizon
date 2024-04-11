@@ -94,7 +94,7 @@ public class AsyncAssetManager {
                 unpackComponent(ctx, "arc_dns_injector", true);
                 unpackComponent(ctx, "forge_installer", true);
 
-                unpackComponent(ctx, "components/login", false);
+                unpackComponent(ctx, "login", false);
             } catch (IOException e) {
                 Log.e("AsyncAssetManager", "Failed o unpack components !",e );
             }
