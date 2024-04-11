@@ -6,6 +6,7 @@
 
     <!-- Pojav ZH -->
     <string name="zh_return">Return</string>
+    <string name="zh_share">Share</string>
     <string name="zh_refresh">Refresh</string>
     <string name="zh_create">Create</string>
     <string name="zh_rename">Rename</string>
