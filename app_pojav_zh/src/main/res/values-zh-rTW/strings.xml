@@ -15,6 +15,7 @@
     <string name="zh_account_microsoft_account">微軟帳號</string>
     <string name="zh_account_local_account">離線帳號</string>
     <string name="zh_account_local_account_empty">用戶名不能為空！</string>
+    <string name="zh_account_local_account_exists">用戶名與現有帳戶衝突，請重新填寫一個新的名稱！</string>
     <string name="zh_account_local_account_less">用戶名過短！</string>
     <string name="zh_account_local_account_greater">用戶名過長！</string>
     <string name="zh_account_local_account_illegal">用戶名包含非法字符！僅支持英文字母（大小寫均可）、數字以及下劃線作為用戶名</string>

@@ -138,7 +138,6 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
             MinecraftAccount account = new MinecraftAccount();
             account.username = value[0];
             try {
-                account.updateLocalSkinFace(account.username);
                 account.save();
             }catch (IOException e){
                 Log.e("McAccountSpinner", "Failed to save the account : " + e);
