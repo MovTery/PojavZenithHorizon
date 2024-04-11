@@ -34,7 +34,20 @@ public class MinecraftAccount {
     void updateSkinFace(String uuid) {
         try {
             File skinFile = getSkinFaceFile(username);
-            Tools.downloadFile("https://crafthead.net/avatar/" + uuid + "/100", skinFile.getAbsolutePath());
+            Tools.downloadFile("https://crafthead.net/helm/" + uuid + "/100", skinFile.getAbsolutePath());
+
+            Log.i("SkinLoader", "Update skin face success");
+        } catch (IOException e) {
+            // Skin refresh limit, no internet connection, etc...
+            // Simply ignore updating skin face
+            Log.w("SkinLoader", "Could not update skin face", e);
+        }
+    }
+
+    public void updateLocalSkinFace(String name) {
+        try {
+            File skinFile = getSkinFaceFile(name);
+            Tools.downloadFile("https://crafthead.net/helm/8667ba71b85a4004af54457a9734eed7/100", skinFile.getAbsolutePath());
 
             Log.i("SkinLoader", "Update skin face success");
         } catch (IOException e) {
