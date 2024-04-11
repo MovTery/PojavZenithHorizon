@@ -35,7 +35,7 @@ public class JRE17Util {
             MultiRTUtils.installRuntimeNamedBinpack(
                     assetManager.open("components/jre-new/universal.tar.xz"),
                     assetManager.open("components/jre-new/bin-" + archAsString(Tools.DEVICE_ARCHITECTURE) + ".tar.xz"),
-                    "Internal-17", rt_version);
+                    "JRE-17", rt_version);
             MultiRTUtils.postPrepare("Internal-17");
             return true;
         }catch (IOException e) {
