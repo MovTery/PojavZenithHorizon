@@ -34,7 +34,7 @@ public class MinecraftAccount {
     void updateSkinFace(String uuid) {
         try {
             File skinFile = getSkinFaceFile(username);
-            Tools.downloadFile("https://mc-heads.net/head/" + uuid + "/100", skinFile.getAbsolutePath());
+            Tools.downloadFile("https://crafthead.net/avatar/" + uuid + "/100", skinFile.getAbsolutePath());
 
             Log.i("SkinLoader", "Update skin face success");
         } catch (IOException e) {
