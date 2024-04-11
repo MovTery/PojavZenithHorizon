@@ -52,7 +52,7 @@ public class AsyncAssetManager {
                 MultiRTUtils.installRuntimeNamedBinpack(
                         am.open("components/jre/universal.tar.xz"),
                         am.open("components/jre/bin-" + archAsString(Tools.DEVICE_ARCHITECTURE) + ".tar.xz"),
-                        "Internal", finalRt_version);
+                        "JER-8", finalRt_version);
                 MultiRTUtils.postPrepare("Internal");
             }catch (IOException e) {
                 Log.e("JREAuto", "Internal JRE unpack failed", e);
