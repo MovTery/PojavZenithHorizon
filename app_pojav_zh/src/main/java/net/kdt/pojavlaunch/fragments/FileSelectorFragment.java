@@ -91,8 +91,7 @@ public class FileSelectorFragment extends Fragment {
             }
 
             @Override
-            public void onItemLongClick(File file, String path) {
-            }
+            public void onItemLongClick(File file, String path) {}
         });
     }
 

@@ -1,11 +1,9 @@
 package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
+import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +19,7 @@ import androidx.fragment.app.Fragment;
 import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
-import net.kdt.pojavlaunch.PojavZHTools;
+import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import net.kdt.pojavlaunch.dialog.FilesDialog;
@@ -50,8 +48,15 @@ public class ModsFragment extends Fragment {
                 result -> {
                     if (result != null) {
                         Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
-                        //使用AsyncTask在后台线程中执行文件复制
-                        new CopyFile().execute(result);
+
+                        PojavApplication.sExecutorService.execute(() -> {
+                            copyFileInBackground(requireContext(), result, mRootPath);
+
+                            runOnUiThread(() -> {
+                                Toast.makeText(requireContext(), getString(R.string.zh_profile_mods_added_mod), Toast.LENGTH_SHORT).show();
+                                mFileListView.refreshPath();
+                            });
+                        });
                     }
                 }
         );
@@ -133,22 +138,6 @@ public class ModsFragment extends Fragment {
 
             builder.show();
         });
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    private class CopyFile extends AsyncTask<Uri, Void, Void> {
-        @Override
-        protected Void doInBackground(Uri... uris) {
-            copyFileInBackground(requireContext(), uris, mRootPath);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            Toast.makeText(requireContext(), getString(R.string.zh_profile_mods_added_mod), Toast.LENGTH_SHORT).show();
-            mFileListView.refreshPath();
-        }
     }
 
     private void parseBundle(){

@@ -100,8 +100,7 @@ public class PojavZHTools {
         PojavZHTools.DIR_CUSTOM_MOUSE = DIR_GAME_HOME + "/mouse";
     }
 
-    public static File copyFileInBackground(Context context, Uri[] uris, String rootPath) {
-        Uri fileUri = uris[0];
+    public static File copyFileInBackground(Context context, Uri fileUri, String rootPath) {
         String fileName = getFileName(context, fileUri);
         File outputFile = new File(rootPath, fileName);
         try (InputStream inputStream = context.getContentResolver().openInputStream(fileUri)) {
@@ -244,21 +243,6 @@ public class PojavZHTools {
 
         Intent sendIntent = Intent.createChooser(shareIntent, fileName);
         context.startActivity(sendIntent);
-    }
-
-    public static void shareFileAlertDialog(Context context, File file) {
-        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
-
-        builder.setTitle(context.getString(R.string.zh_share));
-        builder.setMessage(context.getString(R.string.zh_file_share_message) + "\n" + file.getName());
-
-        //分享
-        DialogInterface.OnClickListener shareListener = (dialog, which) -> shareFile(context, file.getName(), file.getAbsolutePath());
-
-        builder.setPositiveButton(context.getString(R.string.zh_share), shareListener)
-                .setNegativeButton(context.getString(android.R.string.cancel), null);
-
-        builder.show();
     }
 
     public static void deleteFileListener(Context context, FileListView fileListView, File file, boolean displayThumbnails) {

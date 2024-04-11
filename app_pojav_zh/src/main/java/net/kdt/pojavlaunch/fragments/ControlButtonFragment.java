@@ -2,12 +2,10 @@ package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.CustomControlsActivity.BUNDLE_CONTROL_PATH;
 import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
+import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +23,7 @@ import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
 import net.kdt.pojavlaunch.CustomControlsActivity;
+import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
@@ -58,8 +57,15 @@ public class ControlButtonFragment extends Fragment {
                 result -> {
                     if (result != null) {
                         Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
-                        //使用AsyncTask在后台线程中执行文件复制
-                        new CopyFile().execute(result);
+
+                        PojavApplication.sExecutorService.execute(() -> {
+                            copyFileInBackground(requireContext(), result, mFileListView.getFullPath().getAbsolutePath());
+
+                            runOnUiThread(() -> {
+                                Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show();
+                                mFileListView.refreshPath();
+                            });
+                        });
                     }
                 }
         );
@@ -80,7 +86,8 @@ public class ControlButtonFragment extends Fragment {
             public void onFileSelected(File file, String path) {
                 FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
                 filesButton.setButtonVisibility(true, true, true, true);
-                filesButton.messageText = getString(R.string.zh_file_message);
+
+                filesButton.messageText = getString(R.string.zh_file_message) + "\n" + getString(R.string.zh_file_message_copy);
                 filesButton.moreButtonText = getString(R.string.zh_controls_load);
 
                 FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, mFileListView, file);
@@ -129,7 +136,7 @@ public class ControlButtonFragment extends Fragment {
                                 try (BufferedWriter optionFileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
                                     optionFileWriter.write("{\"version\":6}");
                                 } catch (IOException e) {
-                                    e.printStackTrace();
+                                    Tools.showError(requireContext(), e);
                                 }
                             }
                             mFileListView.refreshPath();
@@ -154,22 +161,6 @@ public class ControlButtonFragment extends Fragment {
         File ctrlPath = new File(Tools.CTRLMAP_PATH);
         if (!ctrlPath.exists()) ctrlPath.mkdirs();
         return ctrlPath;
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    private class CopyFile extends AsyncTask<Uri, Void, Void> {
-        @Override
-        protected Void doInBackground(Uri... uris) {
-            copyFileInBackground(requireContext(), uris, mFileListView.getFullPath().getAbsolutePath());
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show();
-            mFileListView.refreshPath();
-        }
     }
 
     private String removeLockPath(String path){
