@@ -166,6 +166,18 @@ public class PojavZHTools {
         }
     }
 
+    public static Drawable customMouse(Context context) {
+        FILE_CUSTOM_MOUSE = new File(DIR_CUSTOM_MOUSE, DEFAULT_PREF.getString("custom_mouse", "default_mouse.png"));
+
+        // 鼠标：自定义鼠标图片
+        if (FILE_CUSTOM_MOUSE.exists()) {
+            Bitmap mouseBitmap = BitmapFactory.decodeFile(FILE_CUSTOM_MOUSE.getAbsolutePath());
+            return new BitmapDrawable(mouseBitmap);
+        } else {
+            return ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_mouse_pointer, context.getTheme());
+        }
+    }
+
     public static Drawable getIcon(String pngFilePath, Context context) {
         Bitmap bitmap = BitmapFactory.decodeFile(pngFilePath);
         if (bitmap == null) {
@@ -417,7 +429,7 @@ public class PojavZHTools {
 
                     File outputFile = new File(destinationFilePath);
                     try (InputStream inputStream = response.body().byteStream();
-                         OutputStream outputStream = new FileOutputStream(outputFile);
+                         OutputStream outputStream = new FileOutputStream(outputFile)
                          ) {
                         byte[] buffer = new byte[1024 * 1024];
                         int bytesRead;
