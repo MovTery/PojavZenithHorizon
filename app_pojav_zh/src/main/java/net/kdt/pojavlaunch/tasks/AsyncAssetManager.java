@@ -53,7 +53,7 @@ public class AsyncAssetManager {
                         am.open("components/jre/universal.tar.xz"),
                         am.open("components/jre/bin-" + archAsString(Tools.DEVICE_ARCHITECTURE) + ".tar.xz"),
                         "JER-8", finalRt_version);
-                MultiRTUtils.postPrepare("Internal");
+                MultiRTUtils.postPrepare("JRE-8");
             }catch (IOException e) {
                 Log.e("JREAuto", "Internal JRE unpack failed", e);
             }
