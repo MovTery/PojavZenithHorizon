@@ -65,6 +65,8 @@ public class LocalLoginFragment extends Fragment {
             return false;
         }
 
-        return !(new File(Tools.DIR_ACCOUNT_NEW + "/" + text + ".json").exists());
+        boolean exists = new File(Tools.DIR_ACCOUNT_NEW + "/" + text + ".json").exists();
+        if (exists) runOnUiThread(() -> Toast.makeText(getContext(), getString(R.string.zh_account_local_account_exists), Toast.LENGTH_SHORT).show());
+        return !(exists);
     }
 }

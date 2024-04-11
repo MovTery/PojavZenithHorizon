@@ -19,9 +19,10 @@
     <string name="zh_account_microsoft_account">Microsoft Account</string>
     <string name="zh_account_local_account">Local account</string>
     <string name="zh_account_local_account_empty">Username cannot be empty!</string>
+    <string name="zh_account_local_account_exists">Username conflicts with an existing account, please choose a new name!</string>
     <string name="zh_account_local_account_less">Username is too short!</string>
     <string name="zh_account_local_account_greater">Username is too long!</string>
-    <string name="zh_account_local_account_illegal">Username contains illegal characters! Only English letters (both uppercase and lowercase), numbers, and underscores are allowed as usernames.</string>
+    <string name="zh_account_local_account_illegal">Username contains illegal characters! Only English letters (both uppercase and lowercase), numbers, and underscores are allowed in the username.</string>
     <string name="zh_account_login_local_name">Username</string>
     <string name="zh_account_login_start">Login started !</string>
 
