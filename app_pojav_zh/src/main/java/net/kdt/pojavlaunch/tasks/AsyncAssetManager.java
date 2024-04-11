@@ -73,12 +73,6 @@ public class AsyncAssetManager {
 
                 Tools.copyAssetFile(ctx, "launcher_profiles.json", Tools.DIR_GAME_NEW, false);
                 Tools.copyAssetFile(ctx,"resolv.conf",Tools.DIR_DATA, false);
-
-                //无论如何都应该解压外置登录所需文件
-                String loginPath = Tools.DIR_GAME_HOME + "/login";
-                Tools.copyAssetFile(ctx,"login/version", loginPath, false);
-                Tools.copyAssetFile(ctx,"login/nide8auth.jar", loginPath, false);
-                Tools.copyAssetFile(ctx,"login/authlib-injector.jar", loginPath, false);
             } catch (IOException e) {
                 Log.e("AsyncAssetManager", "Failed to unpack critical components !");
             }
@@ -99,6 +93,8 @@ public class AsyncAssetManager {
                 unpackComponent(ctx, "security", true);
                 unpackComponent(ctx, "arc_dns_injector", true);
                 unpackComponent(ctx, "forge_installer", true);
+
+                unpackComponent(ctx, "components/login", false);
             } catch (IOException e) {
                 Log.e("AsyncAssetManager", "Failed o unpack components !",e );
             }
