@@ -213,7 +213,7 @@ public class PojavZHTools {
 
     public static File getLatestFile(File folder) {
         if (!folder.isDirectory()) {
-            throw new IllegalArgumentException("The provided path is not a directory.");
+            return null;
         }
 
         File[] files = folder.listFiles((dir, name) -> !name.startsWith(".")); //排除隐藏文件
