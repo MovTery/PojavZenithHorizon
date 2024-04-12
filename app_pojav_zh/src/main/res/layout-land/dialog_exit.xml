@@ -12,6 +12,7 @@
     tools:ignore="MissingDefaultResource">
 
     <TextView
+        android:id="@+id/zh_exit_title"
         android:singleLine="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

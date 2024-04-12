@@ -73,6 +73,7 @@
     <string name="zh_main_open_main_dir">打开主目录</string>
     <string name="zh_main_open_instance_dir">打开实例目录</string>
     <string name="zh_main_share_crash_report">分享崩溃报告</string>
+    <string name="zh_main_share_log_tip">你确定要分享启动器的运行日志吗？\n日志文件位置：</string>
     <string name="zh_preference_category_language">语言</string>
     <string name="zh_preference_category_launcher">启动器</string>
 
@@ -138,7 +139,6 @@
     <string name="zh_other_login_baseurl_not_set">未设置基础URL</string>
     <string name="zh_other_login_client">客户端</string>
     <string name="zh_other_login_error_code">错误代码：</string>
-    <string name="zh_other_login">登录</string>
 
     <string name="zh_about_tab">关于 Pojav ZH</string>
     <string name="zh_about_dec1">Pojav ZH 是一款基于 PojavLauncher 魔改的 Minecraft 启动器，它能够在 Android 设备上运行 Minecraft: Java Edition。\nPojav ZH 致力于优化用户体验，重新设计了应用界面，新增了更多实用的功能，旨在最大程度地降低游玩门槛，让更多人能够轻松体验 Minecraft 的乐趣。</string>

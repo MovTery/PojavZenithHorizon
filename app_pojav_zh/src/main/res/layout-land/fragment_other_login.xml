@@ -127,7 +127,7 @@
         android:layout_height="@dimen/_42sdp"
         android:layout_marginHorizontal="@dimen/_25sdp"
         android:layout_marginTop="5dp"
-        android:text="@string/zh_other_login"
+        android:text="@string/login_online_login_label"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="@+id/login_menu"
         app:layout_constraintStart_toStartOf="@+id/login_menu"
