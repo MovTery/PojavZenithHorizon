@@ -3,6 +3,7 @@ package net.kdt.pojavlaunch;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -13,8 +14,13 @@ import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceJavaFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceMiscellaneousFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceVideoFragment;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SettingsActivity extends BaseActivity {
     private ImageButton mReturnButton, mVideoButton, mControlsButton, mJavaButton, mMiscButton, mPojavZHButton, mExperimentalButton;
+    private TextView mTitleView;
+    private final Map<View, String> mTitle = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,13 @@ public class SettingsActivity extends BaseActivity {
     private void initialize() {
         mVideoButton.setClickable(false);
         mVideoButton.setAlpha(0.4f);
+
+        mTitle.put(mVideoButton, getString(R.string.preference_category_video));
+        mTitle.put(mControlsButton, getString(R.string.preference_category_buttons));
+        mTitle.put(mJavaButton, getString(R.string.preference_category_java_tweaks));
+        mTitle.put(mMiscButton, getString(R.string.preference_category_miscellaneous));
+        mTitle.put(mPojavZHButton, getString(R.string.zh_preference_category_launcher));
+        mTitle.put(mExperimentalButton, getString(R.string.preference_category_experimental_settings));
     }
 
     private void onButtonClick(View view) {
@@ -71,6 +84,9 @@ public class SettingsActivity extends BaseActivity {
         setAlpha(mMiscButton, mMiscButton.isClickable());
         setAlpha(mPojavZHButton, mPojavZHButton.isClickable());
         setAlpha(mExperimentalButton, mExperimentalButton.isClickable());
+
+        //每次切换页面都会更新标题
+        mTitleView.setText(mTitle.get(view) != null ? mTitle.get(view) : getString(R.string.preference_category_video));
     }
 
     private void setAlpha(View button, boolean clickable) {
@@ -93,6 +109,8 @@ public class SettingsActivity extends BaseActivity {
         mMiscButton = findViewById(R.id.misc_settings);
         mPojavZHButton = findViewById(R.id.pojav_zh_settings);
         mExperimentalButton = findViewById(R.id.experimental_settings);
+
+        mTitleView = findViewById(R.id.zh_settings_title);
     }
 
     private void swapFragment(Class<? extends Fragment> fragmentClass, String fragmentTag) {
