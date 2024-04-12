@@ -14,7 +14,7 @@ import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 import java.io.IOException;
 
 public class JRE17Util {
-    public static final String NEW_JRE_NAME = "JRE-17";
+    public static final String NEW_JRE_NAME = "Internal-17";
     public static boolean checkInternalNewJre(AssetManager assetManager) {
         String launcher_jre17_version;
         String installed_jre17_version = MultiRTUtils.__internal__readBinpackVersion(NEW_JRE_NAME);
@@ -35,8 +35,8 @@ public class JRE17Util {
             MultiRTUtils.installRuntimeNamedBinpack(
                     assetManager.open("components/jre-new/universal.tar.xz"),
                     assetManager.open("components/jre-new/bin-" + archAsString(Tools.DEVICE_ARCHITECTURE) + ".tar.xz"),
-                    "JRE-17", rt_version);
-            MultiRTUtils.postPrepare("JRE-17");
+                    "Internal-17", rt_version);
+            MultiRTUtils.postPrepare("Internal-17");
             return true;
         }catch (IOException e) {
             Log.e("JRE17Auto", "Internal JRE unpack failed", e);
