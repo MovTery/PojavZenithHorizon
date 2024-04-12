@@ -125,7 +125,6 @@
     <string name="zh_update_success">The latest installation package has been downloaded. Do you want to install it?\nPackage location: </string>
     <string name="zh_update_downloading">Downloading… (%s / %s)</string>
     <string name="zh_update_downloading_tip">Downloading, updating source: Github Releases</string>
-    <string name="zh_view_log_output">Log output:</string>
 
     <string name="zh_other_login_api">External Login</string>
     <string name="zh_other_login_authentication_server">Authentication Server</string>
@@ -540,4 +539,9 @@
     <string name="cropper_lock_horizontal">H. lock</string>
     <string name="cropper_reset">Reset</string>
     <string name="cropper_select_cancelled">Selection cancelled</string>
+    <string name="log_view_button_scroll_off">Autoscroll: OFF</string>
+    <string name="log_view_button_scroll_on">Autoscroll: ON</string>
+    <string name="log_view_button_output_off">Output: OFF</string>
+    <string name="log_view_button_output_on">Output: ON</string>
+    <string name="log_view_label_log_output">Log output:</string>
 </resources>

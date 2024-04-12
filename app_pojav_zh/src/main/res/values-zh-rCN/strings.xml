@@ -121,7 +121,6 @@
     <string name="zh_update_success">最新的安装包已经下载完成，是否安装？\n安装包位置：</string>
     <string name="zh_update_downloading">正在下载安装包… (%s / %s)</string>
     <string name="zh_update_downloading_tip">正在获取中，更新源：Github Releases</string>
-    <string name="zh_view_log_output">日志输出:</string>
 
     <string name="zh_other_login_api">外置登录</string>
     <string name="zh_other_login_authentication_server">身份验证服务器</string>
@@ -534,4 +533,9 @@
     <string name="cropper_lock_horizontal">锁定横轴</string>
     <string name="cropper_reset">重置</string>
     <string name="cropper_select_cancelled">选择已取消</string>
+    <string name="log_view_button_scroll_off">自动滚动: 关闭</string>
+    <string name="log_view_button_scroll_on">自动滚动: 开启</string>
+    <string name="log_view_button_output_off">输出: 关闭</string>
+    <string name="log_view_button_output_on">输出: 开启</string>
+    <string name="log_view_label_log_output">日志输出:</string>
 </resources>
