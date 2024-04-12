@@ -71,6 +71,9 @@ public class AsyncAssetManager {
 
                 Tools.copyAssetFile(ctx, "default_mouse.png", PojavZHTools.DIR_CUSTOM_MOUSE, false);
 
+                Tools.copyAssetFile(ctx, "authlib-injector.jar", PojavZHTools.DIR_LOGIN, true);
+                Tools.copyAssetFile(ctx, "nide8auth.jar", PojavZHTools.DIR_LOGIN, true);
+
                 Tools.copyAssetFile(ctx, "launcher_profiles.json", Tools.DIR_GAME_NEW, false);
                 Tools.copyAssetFile(ctx,"resolv.conf",Tools.DIR_DATA, false);
             } catch (IOException e) {
@@ -93,8 +96,6 @@ public class AsyncAssetManager {
                 unpackComponent(ctx, "security", true);
                 unpackComponent(ctx, "arc_dns_injector", true);
                 unpackComponent(ctx, "forge_installer", true);
-
-                unpackComponent(ctx, "login", false);
             } catch (IOException e) {
                 Log.e("AsyncAssetManager", "Failed o unpack components !",e );
             }

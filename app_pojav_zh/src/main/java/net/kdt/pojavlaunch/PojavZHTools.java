@@ -89,6 +89,7 @@ public class PojavZHTools {
     public static String DIR_GAME_MODPACK = null;
     public static String DIR_GAME_DEFAULT;
     public static String DIR_CUSTOM_MOUSE;
+    public static String DIR_LOGIN;
     public static File FILE_CUSTOM_MOUSE;
     public static String URL_GITHUB_RELEASE = "https://api.github.com/repos/HopiHopy/PojavZH/releases/latest";
 
@@ -98,6 +99,7 @@ public class PojavZHTools {
     public static void initContextConstants() {
         PojavZHTools.DIR_GAME_DEFAULT = DIR_GAME_HOME + "/.minecraft/instance/default";
         PojavZHTools.DIR_CUSTOM_MOUSE = DIR_GAME_HOME + "/mouse";
+        PojavZHTools.DIR_LOGIN = DIR_GAME_HOME + "/login";
     }
 
     public static File copyFileInBackground(Context context, Uri fileUri, String rootPath) {
