@@ -1083,7 +1083,7 @@ public final class Tools {
         if(pickedRuntime.javaVersion == 0 || pickedRuntime.javaVersion < targetJavaVersion) {
             String preferredRuntime = MultiRTUtils.getNearestJreName(targetJavaVersion);
             if(preferredRuntime == null) {
-                Toast.makeText(activity, activity.getString(R.string.zh_game_autopick_runtime_failed), Toast.LENGTH_LONG).show();
+                activity.runOnUiThread(() -> Toast.makeText(activity, activity.getString(R.string.zh_game_autopick_runtime_failed), Toast.LENGTH_LONG).show());
                 return runtime; //返回选择的runtime
             }
             if(profileRuntime != null) minecraftProfile.javaDir = Tools.LAUNCHERPROFILES_RTPREFIX+preferredRuntime;
