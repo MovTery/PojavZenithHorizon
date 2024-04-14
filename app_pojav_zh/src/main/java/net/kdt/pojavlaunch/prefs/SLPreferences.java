@@ -36,8 +36,43 @@ public class SLPreferences {
         // 更新SharedPreferences
         SharedPreferences.Editor editor = DEFAULT_PREF.edit();
         for (String pref : properties.stringPropertyNames()) {
-            editor.putString(pref, properties.getProperty(pref));
+            //检测实际类型，避免类型转换异常
+            if (checkBoolean(properties.getProperty(pref))) {
+                editor.putBoolean(pref, Boolean.parseBoolean(properties.getProperty(pref)));
+            } else if (checkInt(properties.getProperty(pref))) {
+                editor.putInt(pref, Integer.parseInt(properties.getProperty(pref)));
+            } else if (checkFloat(properties.getProperty(pref))) {
+                editor.putFloat(pref, Float.parseFloat(properties.getProperty(pref)));
+            } else {
+                editor.putString(pref, properties.getProperty(pref));
+            }
         }
         editor.apply();
+    }
+
+    private static boolean checkBoolean(String value) {
+        try {
+            return Boolean.parseBoolean(value);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private static boolean checkInt(String value) {
+        try {
+            Integer.parseInt(value);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private static boolean checkFloat(String value) {
+        try {
+            Float.parseFloat(value);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
