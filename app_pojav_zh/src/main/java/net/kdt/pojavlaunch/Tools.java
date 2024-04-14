@@ -184,7 +184,7 @@ public final class Tools {
                 // to start after the activity is shown again
             }
         }
-        Runtime runtime = MultiRTUtils.forceReread(Tools.pickRuntime(minecraftProfile, versionJavaRequirement));
+        Runtime runtime = MultiRTUtils.forceReread(Tools.pickRuntime(activity, minecraftProfile, versionJavaRequirement));
         JMinecraftVersionList.Version versionInfo = Tools.getVersionInfo(versionId);
         LauncherProfiles.load();
         File gamedir = Tools.getGameDirPath(minecraftProfile);
@@ -1076,13 +1076,16 @@ public final class Tools {
         MAIN_HANDLER.post(runnable);
     }
 
-    public static @NonNull String pickRuntime(MinecraftProfile minecraftProfile, int targetJavaVersion) {
+    public static @NonNull String pickRuntime(Activity activity, MinecraftProfile minecraftProfile, int targetJavaVersion) {
         String runtime = getSelectedRuntime(minecraftProfile);
         String profileRuntime = getRuntimeName(minecraftProfile.javaDir);
         Runtime pickedRuntime = MultiRTUtils.read(runtime);
-        if(runtime == null || pickedRuntime.javaVersion == 0 || pickedRuntime.javaVersion < targetJavaVersion) {
+        if(pickedRuntime.javaVersion == 0 || pickedRuntime.javaVersion < targetJavaVersion) {
             String preferredRuntime = MultiRTUtils.getNearestJreName(targetJavaVersion);
-            if(preferredRuntime == null) throw new RuntimeException("Failed to autopick runtime!");
+            if(preferredRuntime == null) {
+                Toast.makeText(activity, activity.getString(R.string.zh_game_autopick_runtime_failed), Toast.LENGTH_LONG).show();
+                return runtime; //返回选择的runtime
+            }
             if(profileRuntime != null) minecraftProfile.javaDir = Tools.LAUNCHERPROFILES_RTPREFIX+preferredRuntime;
             runtime = preferredRuntime;
         }
