@@ -106,6 +106,7 @@
     <string name="zh_neoforge_dl_select_version">選擇 NeoForge 版本</string>
     <string name="zh_modloader_dl_install_neoforge">建立 NeoForge 實例</string>
 
+    <string name="zh_main_prefs">偏好設置管理</string>
     <string name="zh_main_open_main_dir">打開主目錄</string>
     <string name="zh_main_open_instance_dir">開啟實例目錄</string>
     <string name="zh_main_share_crash_report">分享崩潰報告</string>
@@ -113,6 +114,12 @@
     <string name="zh_game_autopick_runtime_failed">未找到合適的運行環境，已設置為當前實例選擇的運行環境</string>
     <string name="zh_preference_category_language">語言</string>
     <string name="zh_preference_category_launcher">啟動器</string>
+
+    <string name="zh_prefs_create_new">儲存新的偏好設置</string>
+    <string name="zh_prefs_create_new_title">為即將儲存的偏好設置命名：</string>
+    <string name="zh_prefs_import_prefs">匯入偏好設置</string>
+    <string name="zh_prefs_message">這是一個Pojav ZH的偏好設置文件，保存了軟體的所有偏好設置，方便用戶快速設定啟動器的偏好設置</string>
+    <string name="zh_prefs_loaded">成功設定偏好設置！（部分偏好設置可能需要重新啟動Pojav ZH才能生效）</string>
 
     <string name="zh_profile_custom_path">自訂路徑</string>
     <string name="zh_profile_create_mods">建立 Mods</string>
