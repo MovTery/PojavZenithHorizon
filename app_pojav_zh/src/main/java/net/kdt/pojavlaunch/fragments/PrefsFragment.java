@@ -124,7 +124,7 @@ public class PrefsFragment extends Fragment {
                                 throw new RuntimeException(e);
                             }
                         } else {
-                            Toast.makeText(requireContext(), getString(R.string.zh_file_create_file_invalid), Toast.LENGTH_SHORT).show();
+                            runOnUiThread(() -> Toast.makeText(requireContext(), getString(R.string.zh_file_create_file_invalid), Toast.LENGTH_SHORT).show());
                         }
                     })).show();
         });
