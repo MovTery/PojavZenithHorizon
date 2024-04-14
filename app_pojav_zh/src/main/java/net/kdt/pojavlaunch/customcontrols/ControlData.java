@@ -70,7 +70,7 @@ public class ControlData {
     private float height;        //Dp instead of Px now
 
     public ControlData() {
-        this("按键");
+        this(getString(R.string.zh_controls_add_control_button));
     }
 
     public ControlData(String name) {

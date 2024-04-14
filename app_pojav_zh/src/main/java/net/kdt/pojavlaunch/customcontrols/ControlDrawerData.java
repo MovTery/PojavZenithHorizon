@@ -1,9 +1,11 @@
 package net.kdt.pojavlaunch.customcontrols;
 
+import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 
 import java.util.ArrayList;
 
+import static net.kdt.pojavlaunch.ResourceManager.getString;
 import static net.kdt.pojavlaunch.customcontrols.ControlDrawerData.Orientation.DOWN;
 import static net.kdt.pojavlaunch.customcontrols.ControlDrawerData.Orientation.LEFT;
 import static net.kdt.pojavlaunch.customcontrols.ControlDrawerData.Orientation.RIGHT;
@@ -53,15 +55,11 @@ public class ControlDrawerData {
     }
 
     public ControlDrawerData(){
-        this(new ArrayList<>(), "组合键");
+        this(new ArrayList<>());
     }
 
-    public ControlDrawerData(String name){
-        this(new ArrayList<>(), name);
-    }
-
-    public ControlDrawerData(ArrayList<ControlData> buttonProperties, String name){
-        this(buttonProperties, new ControlData(name, new int[] {}, Tools.currentDisplayMetrics.widthPixels/2f, Tools.currentDisplayMetrics.heightPixels/2f));
+    public ControlDrawerData(ArrayList<ControlData> buttonProperties){
+        this(buttonProperties, new ControlData(getString(R.string.zh_controls_add_control_drawer), new int[] {}, Tools.currentDisplayMetrics.widthPixels/2f, Tools.currentDisplayMetrics.heightPixels/2f));
     }
 
     public ControlDrawerData(ArrayList<ControlData> buttonProperties, ControlData properties){
