@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
-import static net.kdt.pojavlaunch.Tools.DIR_GAME_HOME;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.app.AlertDialog;
@@ -22,24 +21,23 @@ import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
 import net.kdt.pojavlaunch.PojavApplication;
+import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
-import net.kdt.pojavlaunch.dialog.CopyDialog;
 import net.kdt.pojavlaunch.dialog.FilesDialog;
+import net.kdt.pojavlaunch.prefs.SLPreferences;
 
 import java.io.File;
 
-public class FilesFragment extends Fragment {
-    public static final String TAG = "FilesFragment";
-    public static final String BUNDLE_PATH = "bundle_path";
+public class PrefsFragment extends Fragment {
+    public static final String TAG = "PrefsFragment";
     private ActivityResultLauncher<Object> openDocumentLauncher;
-    private Button mReturnButton, mAddFileButton, mCreateFolderButton, mRefreshButton;
+    private Button mReturnButton, mCreateNewButton, mImportPrefsButton, mRefreshButton;
     private ImageButton mHelpButton;
     private FileListView mFileListView;
     private TextView mFilePathView;
-    private String mPath;
 
-    public FilesFragment() {
+    public PrefsFragment() {
         super(R.layout.fragment_files);
     }
 
@@ -47,10 +45,11 @@ public class FilesFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         openDocumentLauncher = registerForActivityResult(
-                new OpenDocumentWithExtension(null),
+                new OpenDocumentWithExtension("prefs"),
                 result -> {
                     if (result != null) {
                         Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
+
                         PojavApplication.sExecutorService.execute(() -> {
                             copyFileInBackground(requireContext(), result, mFileListView.getFullPath().getAbsolutePath());
 
@@ -67,88 +66,103 @@ public class FilesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         bindViews(view);
-        parseBundle();
 
-        mFileListView.lockPathAt(new File(mPath));
-        mFileListView.setDialogTitleListener((title)->mFilePathView.setText(removeLockPath(title)));
+        mFileListView.setShowFiles(true);
+        mFileListView.setShowFolders(false);
+        mFileListView.lockPathAt(prefsPath());
+        mFileListView.setDialogTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
         mFileListView.refreshPath();
 
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
                 FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-                filesButton.setButtonVisibility(true, true, true, false);
-                int caciocavallo = file.getPath().indexOf("caciocavallo");
-                int lwjgl3 = file.getPath().indexOf("lwjgl3");
+                filesButton.setButtonVisibility(true, true, true, true);
 
-                String message = getString(R.string.zh_file_message);
-                if (!(caciocavallo == -1 && lwjgl3 == -1)) message += "\n" + getString(R.string.zh_file_message_main);
-                message += "\n" + getString(R.string.zh_file_message_copy);
-
-                filesButton.messageText = message;
-                filesButton.moreButtonText = null;
+                filesButton.messageText = getString(R.string.zh_prefs_message);
+                filesButton.moreButtonText = getString(R.string.global_load);
 
                 FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, mFileListView, file);
+                filesDialog.setMoreButtonClick(v -> PojavApplication.sExecutorService.execute(() -> {
+                    try {
+                        SLPreferences.load(file);
+                        runOnUiThread(() -> Toast.makeText(requireContext(), getString(R.string.zh_prefs_loaded), Toast.LENGTH_LONG).show());
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                    filesDialog.dismiss();
+                })); //在新的线程中加载
                 filesDialog.show();
             }
 
             @Override
-            public void onItemLongClick(File file, String path) {
-                CopyDialog dialog = new CopyDialog(requireContext(), mFileListView, file);
-                dialog.show();
-            }
+            public void onItemLongClick(File file, String path) {}
         });
 
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
-        mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(null)); //不限制文件类型
-        mCreateFolderButton.setOnClickListener(v -> {
+        mImportPrefsButton.setOnClickListener(v -> {
+            String suffix = ".prefs";
+            Toast.makeText(requireActivity(),  String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show();
+            openDocumentLauncher.launch(suffix);
+        });
+
+        mCreateNewButton.setOnClickListener(v -> {
             EditText editText = new EditText(getContext());
             new AlertDialog.Builder(getContext())
-                    .setTitle(R.string.folder_dialog_insert_name)
+                    .setTitle(R.string.zh_prefs_create_new_title)
                     .setView(editText)
                     .setNegativeButton(android.R.string.cancel, null)
-                    .setPositiveButton(R.string.folder_dialog_create, (dialog, which) -> {
-                        File folder = new File(mFileListView.getFullPath(), editText.getText().toString());
-                        boolean success = folder.mkdir();
-                        if(success){
-                            mFileListView.listFileAt(new File(mFileListView.getFullPath(),editText.getText().toString()));
-                        }else{
-                            mFileListView.refreshPath();
+                    .setPositiveButton(R.string.zh_create, (dialog, which) -> PojavApplication.sExecutorService.execute(() -> {
+                        File prefsFile = new File(PojavZHTools.DIR_PREFS, "/" + editText.getText().toString() + ".prefs");
+                        if (!prefsFile.exists()) {
+                            //在新的线程中创建
+                            try {
+                                SLPreferences.save(prefsFile);
+
+                                runOnUiThread(() -> mFileListView.refreshPath());
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        } else {
+                            runOnUiThread(() -> Toast.makeText(requireContext(), getString(R.string.zh_file_create_file_invalid), Toast.LENGTH_SHORT).show());
                         }
-                    }).show();
+                    })).show();
         });
         mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
-            builder.setTitle(getString(R.string.zh_help_files_title));
-            builder.setMessage(getString(R.string.zh_help_files_message));
+            builder.setTitle(getString(R.string.zh_help_prefs_title));
+            builder.setMessage(getString(R.string.zh_help_prefs_message));
             builder.setPositiveButton(getString(R.string.zh_help_ok), null);
 
             builder.show();
         });
     }
 
+    private File prefsPath() {
+        File ctrlPath = new File(PojavZHTools.DIR_PREFS);
+        if (!ctrlPath.exists()) ctrlPath.mkdirs();
+        return ctrlPath;
+    }
+
     private String removeLockPath(String path){
-        return path.replace(mPath, ".");
+        return path.replace(PojavZHTools.DIR_PREFS, ".");
     }
 
     private void bindViews(@NonNull View view) {
         mReturnButton = view.findViewById(R.id.zh_files_return_button);
-        mAddFileButton = view.findViewById(R.id.zh_files_add_file_button);
-        mCreateFolderButton = view.findViewById(R.id.zh_files_create_folder_button);
+        mImportPrefsButton = view.findViewById(R.id.zh_files_add_file_button);
+        mCreateNewButton = view.findViewById(R.id.zh_files_create_folder_button);
         mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
         mHelpButton = view.findViewById(R.id.zh_files_help_button);
         mFileListView = view.findViewById(R.id.zh_files);
         mFilePathView = view.findViewById(R.id.zh_files_current_path);
 
-        view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
-    }
+        mImportPrefsButton.setText(getString(R.string.zh_prefs_import_prefs));
+        mCreateNewButton.setText(getString(R.string.zh_prefs_create_new));
 
-    private void parseBundle(){
-        Bundle bundle = getArguments();
-        if(bundle == null) return;
-        mPath = bundle.getString(BUNDLE_PATH, DIR_GAME_HOME);
+        view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
     }
 }
 
