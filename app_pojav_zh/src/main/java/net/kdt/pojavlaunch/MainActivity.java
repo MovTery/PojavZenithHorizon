@@ -395,6 +395,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             public void onFileSelected(File file, String path) {
                 try {
                     mControlLayout.loadLayout(path);
+                    //刷新：是否隐藏菜单按钮
+                    mDrawerPullButton.setVisibility(mControlLayout.hasMenuButton() ? View.GONE : View.VISIBLE);
                 } catch (IOException ignored) {}
                 dialog.dismiss();
             }
