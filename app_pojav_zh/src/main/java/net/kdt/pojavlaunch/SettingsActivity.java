@@ -7,12 +7,16 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.kdt.mcgui.ProgressLayout;
+
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceControlFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceExclusiveFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceExperimentalFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceJavaFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceMiscellaneousFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceVideoFragment;
+import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
+import net.kdt.pojavlaunch.services.ProgressServiceKeeper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +24,8 @@ import java.util.Map;
 public class SettingsActivity extends BaseActivity {
     private ImageButton mReturnButton, mVideoButton, mControlsButton, mJavaButton, mMiscButton, mPojavZHButton, mExperimentalButton;
     private TextView mTitleView;
+    private ProgressLayout mProgressLayout;
+    private ProgressServiceKeeper mProgressServiceKeeper;
     private final Map<View, String> mTitle = new HashMap<>();
 
     @Override
@@ -55,7 +61,19 @@ public class SettingsActivity extends BaseActivity {
             swapFragment(LauncherPreferenceExperimentalFragment.class, LauncherPreferenceExperimentalFragment.TAG);
         });
 
+        ProgressKeeper.addTaskCountListener((mProgressServiceKeeper = new ProgressServiceKeeper(this)));
+        ProgressKeeper.addTaskCountListener(mProgressLayout);
+        mProgressLayout.observe(ProgressLayout.UNPACK_RUNTIME);
+
         initialize();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mProgressLayout.cleanUpObservers();
+        ProgressKeeper.removeTaskCountListener(mProgressLayout);
+        ProgressKeeper.removeTaskCountListener(mProgressServiceKeeper);
     }
 
     private void initialize() {
@@ -111,6 +129,7 @@ public class SettingsActivity extends BaseActivity {
         mExperimentalButton = findViewById(R.id.experimental_settings);
 
         mTitleView = findViewById(R.id.zh_settings_title);
+        mProgressLayout = findViewById(R.id.zh_settings_progress_layout);
     }
 
     private void swapFragment(Class<? extends Fragment> fragmentClass, String fragmentTag) {

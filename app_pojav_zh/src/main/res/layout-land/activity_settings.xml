@@ -61,6 +61,7 @@
         android:id="@+id/scrollSettings"
         android:layout_width="@dimen/_60sdp"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/zh_settings_progress_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/black_line">
@@ -159,6 +160,7 @@
 
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/zh_settings_progress_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/view_settings_black_line"
@@ -174,5 +176,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/settings_return_button"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.kdt.mcgui.ProgressLayout
+        android:id="@+id/zh_settings_progress_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginEnd="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
