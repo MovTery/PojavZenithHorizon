@@ -114,6 +114,7 @@
     <string name="zh_main_open_instance_dir">Open Instance Directory</string>
     <string name="zh_main_share_crash_report">Share Crash Report</string>
     <string name="zh_main_share_log_tip">Are you sure you want to share the launcher\'s running log?\nLog file location:</string>
+    <string name="zh_game_autopick_runtime_failed">Failed to find a suitable runtime environment, set to the runtime environment selected by the current instance</string>
     <string name="zh_preference_category_language">Language</string>
     <string name="zh_preference_category_launcher">Launcher</string>
 
