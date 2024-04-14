@@ -353,28 +353,26 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             Tools.releaseRenderersCache();
         }
         MinecraftAccount minecraftAccount = PojavProfile.getCurrentProfileContent(this, null);
-        int requiredJavaVersion = 8;
-        if(version.javaVersion != null) requiredJavaVersion = version.javaVersion.majorVersion;
-
         Logger.appendToLog("--------- beginning with launcher debug");
-        printLauncherInfo(versionId, Tools.isValidString(minecraftProfile.javaArgs) ? minecraftProfile.javaArgs : LauncherPreferences.PREF_CUSTOM_JAVA_ARGS, requiredJavaVersion);
+        printLauncherInfo(versionId, Tools.isValidString(minecraftProfile.javaArgs) ? minecraftProfile.javaArgs : LauncherPreferences.PREF_CUSTOM_JAVA_ARGS, minecraftProfile.javaDir);
         JREUtils.redirectAndPrintJRELog();
         LauncherProfiles.load();
-
+        int requiredJavaVersion = 8;
+        if(version.javaVersion != null) requiredJavaVersion = version.javaVersion.majorVersion;
         if(LauncherPreferences.PREF_SET_TO_CHINESE) ProfileLanguageSelector.setToChinese(minecraftProfile); //首次启动设置为中文
         Tools.launchMinecraft(this, minecraftAccount, minecraftProfile, versionId, requiredJavaVersion);
         //Note that we actually stall in the above function, even if the game crashes. But let's be safe.
         Tools.runOnUiThread(()-> mServiceBinder.isActive = false);
     }
 
-    private void printLauncherInfo(String gameVersion, String javaArguments, int javaVersionMajor) {
+    private void printLauncherInfo(String gameVersion, String javaArguments, String javaRuntime) {
         Logger.appendToLog("Info: Launcher version: " + getVersionName(this) + " (" + getVersionCode(this) + ")");
         Logger.appendToLog("Info: Architecture: " + Architecture.archAsString(Tools.DEVICE_ARCHITECTURE));
         Logger.appendToLog("Info: Device model: " + Build.MANUFACTURER + " " +Build.MODEL);
         Logger.appendToLog("Info: API version: " + Build.VERSION.SDK_INT);
         Logger.appendToLog("Info: Selected Minecraft version: " + gameVersion);
         Logger.appendToLog("Info: Custom Java arguments: \"" + javaArguments + "\"");
-        Logger.appendToLog("Info: Java Version: " + javaVersionMajor);
+        Logger.appendToLog("Info: Java Runtime: " + javaRuntime.substring(Tools.LAUNCHERPROFILES_RTPREFIX.length()));
     }
 
     private void dialogSendCustomKey() {
