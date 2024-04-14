@@ -121,7 +121,7 @@ public class FilesFragment extends Fragment {
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
-            builder.setTitle(getString(R.string.zh_help_files_tile));
+            builder.setTitle(getString(R.string.zh_help_files_title));
             builder.setMessage(getString(R.string.zh_help_files_message));
             builder.setPositiveButton(getString(R.string.zh_help_ok), null);
 

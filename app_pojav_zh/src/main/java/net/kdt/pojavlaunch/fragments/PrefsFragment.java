@@ -127,8 +127,8 @@ public class PrefsFragment extends Fragment {
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
-            builder.setTitle(getString(R.string.zh_help_control_button_tile));
-            builder.setMessage(getString(R.string.zh_help_control_button_message));
+            builder.setTitle(getString(R.string.zh_help_prefs_title));
+            builder.setMessage(getString(R.string.zh_help_prefs_message));
             builder.setPositiveButton(getString(R.string.zh_help_ok), null);
 
             builder.show();
