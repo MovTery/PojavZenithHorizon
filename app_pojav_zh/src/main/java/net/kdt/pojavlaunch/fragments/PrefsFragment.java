@@ -117,7 +117,7 @@ public class PrefsFragment extends Fragment {
                         try {
                             SLPreferences.save(editText.getText().toString());
 
-                            mFileListView.refreshPath();
+                            runOnUiThread(() -> mFileListView.refreshPath());
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
