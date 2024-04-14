@@ -23,56 +23,42 @@ public class SLPreferences {
 
         Properties properties = new Properties();
         for (String pref : getPrefs()) {
-            properties.setProperty(pref, String.valueOf(DEFAULT_PREF.getAll().get(pref)));
+            Object o = DEFAULT_PREF.getAll().get(pref);
+            properties.setProperty(checkType(o) + pref, String.valueOf(o));
         }
 
         properties.store(new FileWriter(prefsFile), "PojavZH Prefs");
+    }
+
+    private static String checkType(Object value) {
+        if (value instanceof String) return "Str_";
+        if (value instanceof Integer) return "Int_";
+        if (value instanceof Long) return "Long_";
+        if (value instanceof Float) return "Float_";
+        if (value instanceof Boolean) return "Bool_";
+        return "null_";
     }
 
     public static synchronized void load(File prefsFile) throws Exception {
         Properties properties = new Properties();
         properties.load(new FileReader(prefsFile));
 
-        // 更新SharedPreferences
+        //更新SharedPreferences
         SharedPreferences.Editor editor = DEFAULT_PREF.edit();
         for (String pref : properties.stringPropertyNames()) {
-            //检测实际类型，避免类型转换异常
-            if (checkBoolean(properties.getProperty(pref))) {
-                editor.putBoolean(pref, Boolean.parseBoolean(properties.getProperty(pref)));
-            } else if (checkInt(properties.getProperty(pref))) {
-                editor.putInt(pref, Integer.parseInt(properties.getProperty(pref)));
-            } else if (checkFloat(properties.getProperty(pref))) {
-                editor.putFloat(pref, Float.parseFloat(properties.getProperty(pref)));
-            } else {
-                editor.putString(pref, properties.getProperty(pref));
+            String value = properties.getProperty(pref);
+            if (value.startsWith("Str_")) {
+                editor.putString(pref, value);
+            } else if (value.startsWith("Int_")) {
+                editor.putInt(pref, Integer.parseInt(value));
+            } else if (value.startsWith("Long_")) {
+                editor.putLong(pref, Long.parseLong(value));
+            } else if (value.startsWith("Float_")) {
+                editor.putFloat(pref, Float.parseFloat(value));
+            } else if (value.startsWith("Bool_")) {
+                editor.putBoolean(pref, Boolean.parseBoolean(value));
             }
         }
         editor.apply();
-    }
-
-    private static boolean checkBoolean(String value) {
-        try {
-            return Boolean.parseBoolean(value);
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    private static boolean checkInt(String value) {
-        try {
-            Integer.parseInt(value);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    private static boolean checkFloat(String value) {
-        try {
-            Float.parseFloat(value);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
     }
 }
