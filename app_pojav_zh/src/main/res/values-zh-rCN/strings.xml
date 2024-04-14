@@ -106,6 +106,7 @@
     <string name="zh_neoforge_dl_select_version">选择 NeoForge 版本</string>
     <string name="zh_modloader_dl_install_neoforge">创建 NeoForge 实例</string>
 
+    <string name="zh_main_prefs">偏好设置管理</string>
     <string name="zh_main_open_main_dir">打开主目录</string>
     <string name="zh_main_open_instance_dir">打开实例目录</string>
     <string name="zh_main_share_crash_report">分享崩溃报告</string>
@@ -113,6 +114,12 @@
     <string name="zh_game_autopick_runtime_failed">未找到合适的运行环境，已设置为当前实例选择的运行环境</string>
     <string name="zh_preference_category_language">语言</string>
     <string name="zh_preference_category_launcher">启动器</string>
+
+    <string name="zh_prefs_create_new">保存新的偏好设置</string>
+    <string name="zh_prefs_create_new_title">为即将保存的偏好设置命名：</string>
+    <string name="zh_prefs_import_prefs">导入偏好设置</string>
+    <string name="zh_prefs_message">这是一份 Pojav ZH 的偏好设置文件，它保存了软件的所有偏好设置，方便用户快速设置启动器的偏好设置</string>
+    <string name="zh_prefs_loaded">成功设置偏好设置！（部分偏好设置可能需要重启 Pojav ZH 才能生效）</string>
 
     <string name="zh_profile_custom_path">自定义路径</string>
     <string name="zh_profile_create_mods">创建 Mods</string>
@@ -187,11 +194,11 @@
     <string name="zh_about_version_code">Pojav ZH 版本码：</string>
     <string name="zh_about_last_update_time">上一次更新时间：</string>
 
-    <string name="zh_help_control_button_tile">什么是控制布局？</string>
+    <string name="zh_help_control_button_title">什么是控制布局？</string>
     <string name="zh_help_control_button_message">控制布局能够在游戏中起到非常重要的作用，它会在屏幕上显示按键，用户能够通过这些按键与游戏进行交互，模拟了 Minecraft: Java Edition 中使用键盘操控游戏的这一过程。\n在控制布局管理界面内，你可以管理当前所有的控制布局，你也可以加载并修改或是自行创建一套新的控制布局，你还可以导入或分享控制布局。</string>
     <string name="zh_help_instance_title">什么是游戏实例？</string>
     <string name="zh_help_instance_message">游戏实例就像一张清单，包含了游戏的各种信息，它能够告诉启动器你想要游玩的游戏版本、控制布局、启动游戏使用什么渲染器等信息，这样启动器就能按照你的需求，为你启动相应的游戏。\n游戏实例相互独立，但你可以在多个游戏实例内选择相同的东西，比如多个实例都选择同一套控制布局等。\n在主菜单内启动游戏时，你必须选择一个游戏实例，且你需要保证你的游戏实例所选择的各种东西都是正常可用的，否则可能会出现意想不到的问题。</string>
-    <string name="zh_help_files_tile">Pojav ZH 主目录</string>
+    <string name="zh_help_files_title">Pojav ZH 主目录</string>
     <string name="zh_help_files_message">主目录指的是 Pojav ZH 存放游戏数据的主要目录，这个界面就类似于一个简单的文件管理器，你可以自由管理主要目录内的所有文件。\n但是请你谨慎对待这里的文件，操作不当可能造成启动器异常或者无法启动游戏！</string>
     <string name="zh_help_mod_title">什么是 Mod？</string>
     <string name="zh_help_mod_message">可以将其理解为游戏的第三方插件，它能够修改游戏或者是为游戏加入更多有意思的内容。\nMinecraft: Java Edition 通常不可以加载 Mod，但是玩家社区为 Minecraft 开发了第三方加载器，使得其能够加载 Mod，而这些第三方加载器都是一个个独立的游戏版本，你并不需要在原版和第三方加载器之间做取舍。\nMod 管理界面可以管理当前游戏实例的自定义路径内的“mods”文件夹里的全部 Mod，你也可以自行导入 Mod，而 Mod 则需要你自己在资源网站上下载。</string>
@@ -201,6 +208,8 @@
     <string name="zh_help_modpack_message">Mod 整合包是一个包含多个 Mod 的客户端文件包，它将各种 Mod 集成在一起，使玩家能够轻松尝试多种新的玩法和内容。\n通过安装 Mod 整合包，玩家可以一次性获得大量新的游戏内容，无需单独寻找和安装每个 Mod，从而节省时间和精力。\n请注意，多数 Mod 整合包的作者主要是为 PC 玩家量身打造的，他们几乎不会考虑到会有 Pojav 玩家会尝试使用这些整合包。鉴于整合包中往往包含大量的 Mod，难免会出现不兼容或性能不足的问题。\n因此，请务必根据自身设备性能和需求，谨慎选择并量力而行，以免出现不必要的困扰！</string>
     <string name="zh_help_mouse_title">如何使用虚拟鼠标管理器？</string>
     <string name="zh_help_mouse_message">在虚拟鼠标管理器界面内，你可以查看、添加虚拟鼠标，点击虚拟鼠标可以选择、重命名、删除虚拟鼠标，长按可以分享虚拟鼠标。\n虚拟鼠标本质上是一种贴图，你可以根据你自己的喜好，自己绘制或者是寻找合适的虚拟鼠标，然后你可以将它们导入进启动器内，选择它作为游戏内的虚拟鼠标。\n在这里，你只能选择图片文件，其他任何文件均不支持！</string>
+    <string name="zh_help_prefs_title">什么是偏好设置？</string>
+    <string name="zh_help_prefs_message">偏好设置指的是启动器的所有设置项，你可以根据你的需求设置启动器，让启动器按照你的需求展现出不同的效果。\n偏好设置管理能够保存或者加载偏好设置，快速设置你的启动器，你也可以将你的启动器偏好设置分享给你的好友，帮助好友更快速的设置启动器。</string>
     <string name="zh_help_ok">知道了</string>
 
     <!-- Action bar part -->

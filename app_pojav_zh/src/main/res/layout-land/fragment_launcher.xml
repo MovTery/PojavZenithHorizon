@@ -46,6 +46,15 @@
                     android:text="@string/zh_custom_control_title" />
 
                 <com.kdt.mcgui.LauncherMenuButton
+                    android:id="@+id/zh_prefs_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:drawableStart="@drawable/ic_main_prefs"
+                    android:text="@string/zh_main_prefs" />
+
+                <com.kdt.mcgui.LauncherMenuButton
                     android:id="@+id/install_jar_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
