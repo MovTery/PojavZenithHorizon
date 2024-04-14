@@ -90,6 +90,7 @@ public class PrefsFragment extends Fragment {
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
+                    filesDialog.dismiss();
                 })); //在新的线程中加载
                 filesDialog.show();
             }
@@ -115,6 +116,8 @@ public class PrefsFragment extends Fragment {
                         //在新的线程中创建
                         try {
                             SLPreferences.save(editText.getText().toString());
+
+                            mFileListView.refreshPath();
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }

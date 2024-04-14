@@ -2,6 +2,8 @@ package net.kdt.pojavlaunch.prefs;
 
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
+import android.content.SharedPreferences;
+
 import net.kdt.pojavlaunch.PojavZHTools;
 
 import java.io.File;
@@ -15,7 +17,7 @@ public class SLPreferences {
         return DEFAULT_PREF.getAll().keySet();
     }
 
-    public static void save(String name) throws Exception {
+    public static synchronized void save(String name) throws Exception {
         //创建一个新的属性文件用于存储所有的偏好设置
         File prefsFile = new File(PojavZHTools.DIR_PREFS, "/" + name + ".prefs");
 
@@ -27,13 +29,15 @@ public class SLPreferences {
         properties.store(new FileWriter(prefsFile), "PojavZH Prefs");
     }
 
-    public static void load(File prefsFile) throws Exception {
+    public static synchronized void load(File prefsFile) throws Exception {
         Properties properties = new Properties();
         properties.load(new FileReader(prefsFile));
 
-        //从属性文件中加载所有
+        // 更新SharedPreferences
+        SharedPreferences.Editor editor = DEFAULT_PREF.edit();
         for (String pref : properties.stringPropertyNames()) {
-            DEFAULT_PREF.edit().putString(pref, properties.getProperty(pref)).apply();
+            editor.putString(pref, properties.getProperty(pref));
         }
+        editor.apply();
     }
 }
