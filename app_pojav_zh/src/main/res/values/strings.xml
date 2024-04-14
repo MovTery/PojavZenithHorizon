@@ -122,7 +122,7 @@
     <string name="zh_prefs_create_new">Save New Preferences</string>
     <string name="zh_prefs_create_new_title">Name the upcoming saved preferences:</string>
     <string name="zh_prefs_import_prefs">Import Preferences</string>
-    <string name="zh_prefs_message">This is a Pojav ZH preferences file, which saves all the software\'s preferences, making it easy for users to quickly set the launcher's preferences</string>
+    <string name="zh_prefs_message">This is a Pojav ZH preferences file, which saves all the software\'s preferences, making it easy for users to quickly set the launcher\'s preferences</string>
     <string name="zh_prefs_loaded">Preferences set successfully! (Some preferences may need to restart Pojav ZH to take effect)</string>
 
     <string name="zh_profile_custom_path">Custom path</string>
