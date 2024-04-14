@@ -110,6 +110,7 @@
     <string name="zh_neoforge_dl_select_version">Select NeoForge version</string>
     <string name="zh_modloader_dl_install_neoforge">Create NeoForge profile</string>
 
+    <string name="zh_main_prefs">Preferences Management</string>
     <string name="zh_main_open_main_dir">Open main directory</string>
     <string name="zh_main_open_instance_dir">Open Instance Directory</string>
     <string name="zh_main_share_crash_report">Share Crash Report</string>
@@ -117,6 +118,12 @@
     <string name="zh_game_autopick_runtime_failed">Failed to find a suitable runtime environment, set to the runtime environment selected by the current instance</string>
     <string name="zh_preference_category_language">Language</string>
     <string name="zh_preference_category_launcher">Launcher</string>
+
+    <string name="zh_prefs_create_new">Save New Preferences</string>
+    <string name="zh_prefs_create_new_title">Name the upcoming saved preferences:</string>
+    <string name="zh_prefs_import_prefs">Import Preferences</string>
+    <string name="zh_prefs_message">This is a Pojav ZH preferences file, which saves all the software\'s preferences, making it easy for users to quickly set the launcher's preferences</string>
+    <string name="zh_prefs_loaded">Preferences set successfully! (Some preferences may need to restart Pojav ZH to take effect)</string>
 
     <string name="zh_profile_custom_path">Custom path</string>
     <string name="zh_profile_create_mods">Create Mods</string>

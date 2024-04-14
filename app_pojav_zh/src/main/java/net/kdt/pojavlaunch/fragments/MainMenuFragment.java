@@ -38,6 +38,7 @@ public class MainMenuFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Button mAboutButton = view.findViewById(R.id.about_button);
         Button mCustomControlButton = view.findViewById(R.id.custom_control_button);
+        Button mPrefsButton = view.findViewById(R.id.zh_prefs_button);
         Button mInstallJarButton = view.findViewById(R.id.install_jar_button);
         Button mShareLogsButton = view.findViewById(R.id.share_logs_button);
         Button mOpenMainDirButton = view.findViewById(R.id.zh_open_main_dir_button);
@@ -49,6 +50,7 @@ public class MainMenuFragment extends Fragment {
 
         mAboutButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), AboutFragment.class, AboutFragment.TAG, null));
         mCustomControlButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ControlButtonFragment.class, ControlButtonFragment.TAG, null));
+        mPrefsButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), PrefsFragment.class, PrefsFragment.TAG, null));
         mInstallJarButton.setOnClickListener(v -> runInstallerWithConfirmation(false));
         mInstallJarButton.setOnLongClickListener(v->{
             runInstallerWithConfirmation(true);
@@ -79,6 +81,7 @@ public class MainMenuFragment extends Fragment {
             Tools.swapFragment(requireActivity(), FilesFragment.class, FilesFragment.TAG, bundle);
         });
 
+        mPrefsButton.setVisibility(PREF_ADVANCED_FEATURES ? View.VISIBLE : View.GONE);
         mOpenMainDirButton.setVisibility(PREF_ADVANCED_FEATURES ? View.VISIBLE : View.GONE);
         mOpenInstanceDirButton.setVisibility(PREF_ADVANCED_FEATURES ? View.VISIBLE : View.GONE);
     }
