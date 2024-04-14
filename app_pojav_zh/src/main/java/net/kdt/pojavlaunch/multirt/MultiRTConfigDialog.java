@@ -38,6 +38,7 @@ public class MultiRTConfigDialog {
                 .setTitle(R.string.multirt_config_title)
                 .setView(mDialogView)
                 .setPositiveButton(R.string.multirt_config_add, (dialog, which) -> installJvmLauncher.launch(null))
+                .setNegativeButton(android.R.string.cancel, null)
                 .setNeutralButton(R.string.multirt_delete_runtime, null)
                 .create();
 
