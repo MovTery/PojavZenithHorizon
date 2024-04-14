@@ -45,18 +45,18 @@ public class SLPreferences {
 
         //更新SharedPreferences
         SharedPreferences.Editor editor = DEFAULT_PREF.edit();
-        for (String pref : properties.stringPropertyNames()) {
-            String value = properties.getProperty(pref);
-            if (value.startsWith("Str_")) {
-                editor.putString(pref, value);
-            } else if (value.startsWith("Int_")) {
-                editor.putInt(pref, Integer.parseInt(value));
-            } else if (value.startsWith("Long_")) {
-                editor.putLong(pref, Long.parseLong(value));
-            } else if (value.startsWith("Float_")) {
-                editor.putFloat(pref, Float.parseFloat(value));
-            } else if (value.startsWith("Bool_")) {
-                editor.putBoolean(pref, Boolean.parseBoolean(value));
+        for (String propertyName : properties.stringPropertyNames()) {
+            String value = properties.getProperty(propertyName);
+            if (propertyName.startsWith("Str_")) {
+                editor.putString(propertyName.substring("Str_".length()), value);
+            } else if (propertyName.startsWith("Int_")) {
+                editor.putInt(propertyName.substring("Int_".length()), Integer.parseInt(value));
+            } else if (propertyName.startsWith("Long_")) {
+                editor.putLong(propertyName.substring("Long_".length()), Long.parseLong(value));
+            } else if (propertyName.startsWith("Float_")) {
+                editor.putFloat(propertyName.substring("Float_".length()), Float.parseFloat(value));
+            } else if (propertyName.startsWith("Bool_")) {
+                editor.putBoolean(propertyName.substring("Bool_".length()), Boolean.parseBoolean(value));
             }
         }
         editor.apply();
