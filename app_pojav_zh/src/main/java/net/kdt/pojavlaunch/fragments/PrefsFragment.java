@@ -113,13 +113,18 @@ public class PrefsFragment extends Fragment {
                     .setView(editText)
                     .setNegativeButton(android.R.string.cancel, null)
                     .setPositiveButton(R.string.zh_create, (dialog, which) -> PojavApplication.sExecutorService.execute(() -> {
-                        //在新的线程中创建
-                        try {
-                            SLPreferences.save(editText.getText().toString());
+                        File prefsFile = new File(PojavZHTools.DIR_PREFS, "/" + editText.getText().toString() + ".prefs");
+                        if (!prefsFile.exists()) {
+                            //在新的线程中创建
+                            try {
+                                SLPreferences.save(prefsFile);
 
-                            runOnUiThread(() -> mFileListView.refreshPath());
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
+                                runOnUiThread(() -> mFileListView.refreshPath());
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        } else {
+                            Toast.makeText(requireContext(), getString(R.string.zh_file_create_file_invalid), Toast.LENGTH_SHORT).show();
                         }
                     })).show();
         });
