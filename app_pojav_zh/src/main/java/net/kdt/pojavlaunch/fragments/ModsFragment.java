@@ -133,7 +133,10 @@ public class ModsFragment extends Fragment {
             Toast.makeText(requireActivity(), String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show();
             openDocumentLauncher.launch(suffix);
         });
-        mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());
+        mRefreshButton.setOnClickListener(v -> {
+            mFileListView.refreshPath();
+            refreshFileCount();
+        });
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
