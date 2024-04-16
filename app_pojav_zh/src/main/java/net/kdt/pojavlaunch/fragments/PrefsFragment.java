@@ -84,7 +84,7 @@ public class PrefsFragment extends Fragment {
                 filesButton.messageText = getString(R.string.zh_prefs_message);
                 filesButton.moreButtonText = getString(R.string.global_load);
 
-                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, mFileListView, file);
+                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, mFileListView, file, mTitleView, getString(R.string.zh_main_prefs));
                 filesDialog.setMoreButtonClick(v -> PojavApplication.sExecutorService.execute(() -> {
                     try {
                         SLPreferences.load(file);
