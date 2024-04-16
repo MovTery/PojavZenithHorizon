@@ -83,7 +83,7 @@ public class ModsFragment extends Fragment {
                 String disableString = "(" + getString(R.string.zh_profile_mods_disable) + ")";
 
                 FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-                filesButton.setButtonVisibility(true, true, true, true);
+                filesButton.setButtonVisibility(true, true, true, (fileName.endsWith(".jar") || fileName.endsWith(".disabled")));
                 filesButton.messageText = getString(R.string.zh_file_message);
                 if (fileName.endsWith(".jar")) filesButton.moreButtonText = getString(R.string.zh_profile_mods_disable);
                 else if (fileName.endsWith(".disabled")) filesButton.moreButtonText = getString(R.string.zh_profile_mods_enable);
@@ -101,13 +101,15 @@ public class ModsFragment extends Fragment {
                         refreshFileCount();
                         filesDialog.dismiss();
                     });
-                }
-                else if (fileName.endsWith(".disabled")) {
+                } else if (fileName.endsWith(".disabled")) {
                     filesDialog.setMoreButtonClick(v -> {
                         int index = fileName.indexOf(disableString);
                         if (index == -1) index = 0;
                         else if (index == 0) index = disableString.length();
-                        File newFile = new File(fileParent, fileName.substring(index, fileName.lastIndexOf('.')));
+                        String newFileName = fileName.substring(index, fileName.lastIndexOf('.'));
+                        if (!fileName.endsWith(".jar")) newFileName += ".jar"; //如果没有.jar结尾，那么默认加上.jar后缀
+
+                        File newFile = new File(fileParent, newFileName);
                         boolean disable = file.renameTo(newFile);
                         if (disable) {
                             Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_enabled) + fileName, Toast.LENGTH_SHORT).show();
