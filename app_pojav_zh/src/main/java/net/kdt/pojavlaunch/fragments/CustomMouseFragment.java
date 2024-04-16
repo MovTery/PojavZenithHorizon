@@ -42,6 +42,7 @@ public class CustomMouseFragment extends Fragment {
     private ImageButton mHelpButton;
     private ImageView mMouseView;
     private FileListView mFileListView;
+    private TextView mTitleView;
 
     public CustomMouseFragment() {
         super(R.layout.fragment_files);
@@ -62,6 +63,7 @@ public class CustomMouseFragment extends Fragment {
                             runOnUiThread(() -> {
                                 Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show();
                                 mFileListView.listFileAt(mousePath(), true);
+                                refreshFileCount();
                             });
                         });
                     }
@@ -78,6 +80,7 @@ public class CustomMouseFragment extends Fragment {
         mFileListView.setShowFiles(true);
         mFileListView.setShowFolders(false);
 
+        refreshFileCount();
         mAddFileButton.setText(getString(R.string.zh_custom_mouse_add));
 
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
@@ -113,7 +116,10 @@ public class CustomMouseFragment extends Fragment {
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
         mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
 
-        mRefreshButton.setOnClickListener(v -> mFileListView.listFileAt(mousePath(), true));
+        mRefreshButton.setOnClickListener(v -> {
+            mFileListView.listFileAt(mousePath(), true);
+            refreshFileCount();
+        });
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
@@ -145,16 +151,24 @@ public class CustomMouseFragment extends Fragment {
         }
     }
 
+    private void refreshFileCount() {
+        String text = getString(R.string.zh_custom_mouse_title) + " ( " + getString(R.string.zh_file_total) + getFileCount() + " )";
+        mTitleView.setText(text);
+    }
+
+    private int getFileCount() {
+        return mFileListView.getMainLv().getAdapter().getCount();
+    }
+
     private void bindViews(@NonNull View view) {
         mReturnButton = view.findViewById(R.id.zh_files_return_button);
         mAddFileButton = view.findViewById(R.id.zh_files_add_file_button);
         mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
         mHelpButton = view.findViewById(R.id.zh_files_help_button);
         mFileListView = view.findViewById(R.id.zh_files);
-        TextView mFilePathView = view.findViewById(R.id.zh_files_current_path);
+        mTitleView = view.findViewById(R.id.zh_files_current_path);
         mMouseView = view.findViewById(R.id.zh_files_icon);
 
         view.findViewById(R.id.zh_files_create_folder_button).setVisibility(View.GONE);
-        mFilePathView.setText(getString(R.string.zh_custom_mouse_title));
     }
 }

@@ -34,7 +34,7 @@ public class ModsFragment extends Fragment {
     private ImageButton mHelpButton;
     private FileListView mFileListView;
     private String mRootPath;
-    private TextView mFilePathView;
+    private TextView mTitleView;
 
     public ModsFragment() {
         super(R.layout.fragment_files);
@@ -55,6 +55,7 @@ public class ModsFragment extends Fragment {
                             runOnUiThread(() -> {
                                 Toast.makeText(requireContext(), getString(R.string.zh_profile_mods_added_mod), Toast.LENGTH_SHORT).show();
                                 mFileListView.refreshPath();
+                                refreshFileCount();
                             });
                         });
                     }
@@ -71,7 +72,7 @@ public class ModsFragment extends Fragment {
         mFileListView.lockPathAt(new File(mRootPath));
         mFileListView.refreshPath();
 
-        mFilePathView.setText(getString(R.string.zh_profile_mods));
+        refreshFileCount();
         mAddModButton.setText(getString(R.string.zh_profile_mods_add_mod));
 
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
@@ -97,6 +98,7 @@ public class ModsFragment extends Fragment {
                             Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_disabled) + fileName, Toast.LENGTH_SHORT).show();
                         }
                         mFileListView.refreshPath();
+                        refreshFileCount();
                         filesDialog.dismiss();
                     });
                 }
@@ -111,6 +113,7 @@ public class ModsFragment extends Fragment {
                             Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_enabled) + fileName, Toast.LENGTH_SHORT).show();
                         }
                         mFileListView.refreshPath();
+                        refreshFileCount();
                         filesDialog.dismiss();
                     });
                 }
@@ -140,6 +143,15 @@ public class ModsFragment extends Fragment {
         });
     }
 
+    private void refreshFileCount() {
+        String text = getString(R.string.zh_profile_mods) + " ( " + getString(R.string.zh_file_total) + getFileCount() + " )";
+        mTitleView.setText(text);
+    }
+
+    private int getFileCount() {
+        return mFileListView.getMainLv().getAdapter().getCount();
+    }
+
     private void parseBundle(){
         Bundle bundle = getArguments();
         if(bundle == null) return;
@@ -152,7 +164,7 @@ public class ModsFragment extends Fragment {
         mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
         mHelpButton = view.findViewById(R.id.zh_files_help_button);
         mFileListView = view.findViewById(R.id.zh_files);
-        mFilePathView = view.findViewById(R.id.zh_files_current_path);
+        mTitleView = view.findViewById(R.id.zh_files_current_path);
 
         view.findViewById(R.id.zh_files_create_folder_button).setVisibility(View.GONE);
         view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
