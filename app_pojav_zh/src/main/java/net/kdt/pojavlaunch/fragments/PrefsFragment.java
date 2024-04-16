@@ -35,7 +35,7 @@ public class PrefsFragment extends Fragment {
     private Button mReturnButton, mCreateNewButton, mImportPrefsButton, mRefreshButton;
     private ImageButton mHelpButton;
     private FileListView mFileListView;
-    private TextView mFilePathView;
+    private TextView mTitleView;
 
     public PrefsFragment() {
         super(R.layout.fragment_files);
@@ -56,6 +56,7 @@ public class PrefsFragment extends Fragment {
                             runOnUiThread(() -> {
                                 Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show();
                                 mFileListView.refreshPath();
+                                refreshFileCount();
                             });
                         });
                     }
@@ -70,8 +71,9 @@ public class PrefsFragment extends Fragment {
         mFileListView.setShowFiles(true);
         mFileListView.setShowFolders(false);
         mFileListView.lockPathAt(prefsPath());
-        mFileListView.setDialogTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
         mFileListView.refreshPath();
+
+        refreshFileCount();
 
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
             @Override
@@ -119,7 +121,10 @@ public class PrefsFragment extends Fragment {
                             try {
                                 SLPreferences.save(prefsFile);
 
-                                runOnUiThread(() -> mFileListView.refreshPath());
+                                runOnUiThread(() -> {
+                                    mFileListView.refreshPath();
+                                    refreshFileCount();
+                                });
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
@@ -128,7 +133,10 @@ public class PrefsFragment extends Fragment {
                         }
                     })).show();
         });
-        mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());
+        mRefreshButton.setOnClickListener(v -> {
+            mFileListView.refreshPath();
+            refreshFileCount();
+        });
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
@@ -146,8 +154,13 @@ public class PrefsFragment extends Fragment {
         return ctrlPath;
     }
 
-    private String removeLockPath(String path){
-        return path.replace(PojavZHTools.DIR_PREFS, ".");
+    private void refreshFileCount() {
+        String text = getString(R.string.zh_main_prefs) + " ( " + getString(R.string.zh_file_total) + getFileCount() + " )";
+        mTitleView.setText(text);
+    }
+
+    private int getFileCount() {
+        return mFileListView.getMainLv().getAdapter().getCount();
     }
 
     private void bindViews(@NonNull View view) {
@@ -157,7 +170,7 @@ public class PrefsFragment extends Fragment {
         mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
         mHelpButton = view.findViewById(R.id.zh_files_help_button);
         mFileListView = view.findViewById(R.id.zh_files);
-        mFilePathView = view.findViewById(R.id.zh_files_current_path);
+        mTitleView = view.findViewById(R.id.zh_files_current_path);
 
         mImportPrefsButton.setText(getString(R.string.zh_prefs_import_prefs));
         mCreateNewButton.setText(getString(R.string.zh_prefs_create_new));

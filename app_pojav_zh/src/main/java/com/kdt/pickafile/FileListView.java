@@ -67,6 +67,10 @@ public class FileListView extends LinearLayout
         if(dialog != null) dialogTitleListener = dialog::setTitle;
     }
 
+    public ListView getMainLv() {
+        return mainLv;
+    }
+
     public void init(final Context context) {
         //Main setup:
         this.context = context;

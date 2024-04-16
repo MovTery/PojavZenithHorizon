@@ -87,6 +87,7 @@
     <string name="zh_file_copy_dialog_message">你確定要以此文件複製並創建一個新的文件嗎？</string>
     <string name="zh_file_copy_dialog_new_name_title">為複製的新文件取名</string>
     <string name="zh_file_does_not_exist">這個資料夾（或檔案）不存在</string>
+    <string name="zh_file_total">總檔案數：</string>
     <string name="zh_file_tips">操作此檔案</string>
     <string name="zh_file_message">請選擇你要對此檔案進行的操作</string>
     <string name="zh_file_message_copy">(長按此檔案可複製並建立一個新的檔案)</string>
