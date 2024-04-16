@@ -99,7 +99,7 @@ public class CustomMouseFragment extends Fragment {
                 filesButton.messageText = message;
                 filesButton.moreButtonText = getString(R.string.global_select);
 
-                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, mFileListView, file);
+                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, mFileListView, file, mTitleView, getString(R.string.zh_custom_mouse_title));
                 filesDialog.setMoreButtonClick(v -> {
                     DEFAULT_PREF.edit().putString("custom_mouse", fileName).apply();
                     refreshIcon(path, requireContext());

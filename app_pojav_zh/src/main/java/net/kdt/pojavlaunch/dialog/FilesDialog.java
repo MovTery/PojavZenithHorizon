@@ -23,9 +23,10 @@ public class FilesDialog extends Dialog {
     private View.OnClickListener mMoreClick;
     private Button mMoreButton;
     private final boolean mCancel, mMore, mShare, mRename, mDelete;
-    private final String mMessageText, mMoreText;
+    private final String mMessageText, mMoreText, mTitle;
     private final FileListView mFileListView;
     private final File mFile;
+    private final TextView mTitleView;
 
     public FilesDialog(@NonNull Context context, FilesButton filesButton, FileListView fileListView, File file) {
         super(context);
@@ -41,11 +42,35 @@ public class FilesDialog extends Dialog {
         this.mMessageText = filesButton.messageText;
         this.mMoreText = filesButton.moreButtonText;
 
+        this.mTitleView = null;
+        this.mTitle = null;
+
         this.setCancelable(false);
         this.setContentView(R.layout.dialog_operation);
         init();
     }
 
+    public FilesDialog(@NonNull Context context, FilesButton filesButton, FileListView fileListView, File file, TextView titleView, String title) {
+        super(context);
+        this.mFileListView = fileListView;
+        this.mFile = file;
+
+        this.mCancel = true;
+        this.mShare = filesButton.share;
+        this.mRename = filesButton.rename;
+        this.mDelete = filesButton.delete;
+        this.mMore = filesButton.more;
+
+        this.mMessageText = filesButton.messageText;
+        this.mMoreText = filesButton.moreButtonText;
+
+        this.mTitleView = titleView;
+        this.mTitle = title;
+
+        this.setCancelable(false);
+        this.setContentView(R.layout.dialog_operation);
+        init();
+    }
     private void init() {
         TextView mMessage = findViewById(R.id.zh_operation_message);
         Button mCancelButton = findViewById(R.id.zh_operation_cancel);
@@ -72,6 +97,7 @@ public class FilesDialog extends Dialog {
         });
         mDeleteButton.setOnClickListener(view -> {
             deleteFileListener(getContext(), mFileListView, mFile, false);
+            if (mTitleView != null) refreshFileCount(this.mTitle);
             FilesDialog.this.dismiss();
         });
 
@@ -86,6 +112,15 @@ public class FilesDialog extends Dialog {
 
     public void setMoreButtonClick(View.OnClickListener click) {
         this.mMoreClick = click;
+    }
+
+    private void refreshFileCount(String title) {
+        String text = title + " ( " + getContext().getString(R.string.zh_file_total) + getFileCount() + " )";
+        mTitleView.setText(text);
+    }
+
+    private int getFileCount() {
+        return mFileListView.getMainLv().getAdapter().getCount();
     }
 
     public static class FilesButton {
