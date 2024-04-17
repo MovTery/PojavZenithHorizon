@@ -97,7 +97,6 @@
     <string name="zh_file_delete_dir">你確定要刪除此資料夾嗎？</string>
     <string name="zh_file_delete_dir_message">刪除資料夾時，將會一併刪除此資料夾內所有檔案，如果這個資料夾內有重要的檔案，請取消此操作！</string>
     <string name="zh_file_delete_dir_success">成功刪除此資料夾：</string>
-    <string name="zh_file_delete_dir_fail">刪除過程中發生了一些問題，請確保這個資料夾真的可以被刪除</string>
     <string name="zh_file_deleted">成功刪除檔案：</string>
     <string name="zh_file_renamed">檔案名稱已被修改：\n</string>
     <string name="zh_file_rename_empty">檔名不能為空！</string>

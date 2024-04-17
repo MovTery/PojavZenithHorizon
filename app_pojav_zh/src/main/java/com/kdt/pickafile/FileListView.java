@@ -1,7 +1,5 @@
 package com.kdt.pickafile;
 
-import static net.kdt.pojavlaunch.PojavZHTools.deleteDir;
-
 import androidx.appcompat.app.*;
 import android.content.*;
 import android.util.*;
@@ -12,6 +10,8 @@ import java.io.*;
 import java.util.*;
 import net.kdt.pojavlaunch.*;
 import android.os.*;
+
+import org.apache.commons.io.FileUtils;
 
 public class FileListView extends LinearLayout
 {
@@ -107,11 +107,12 @@ public class FileListView extends LinearLayout
                     Toast.makeText(getContext(), getContext().getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
                     listFileAt(mainFile.getParentFile());
 
-                    boolean deleted = deleteDir(mainFile);
-                    String toast;
-                    if (deleted) toast = getContext().getString(R.string.zh_file_delete_dir_success) + "\n" + fileName; //是否删除成功？
-                    else toast = getContext().getString(R.string.zh_file_delete_dir_fail);
-                    Toast.makeText(getContext(), toast, Toast.LENGTH_SHORT).show();
+                    try {
+                        FileUtils.deleteDirectory(mainFile);
+                        Toast.makeText(getContext(), getContext().getString(R.string.zh_file_delete_dir_success) + "\n" + fileName, Toast.LENGTH_LONG).show();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     refreshPath();
                 });
 

@@ -51,6 +51,7 @@ import net.kdt.pojavlaunch.utils.ZipUtils;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
+import org.apache.commons.io.FileUtils;
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
@@ -59,7 +60,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -71,6 +71,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -106,33 +107,15 @@ public class PojavZHTools {
 
     public static File copyFileInBackground(Context context, Uri fileUri, String rootPath) {
         String fileName = getFileName(context, fileUri);
+        File inputFile = new File(Objects.requireNonNull(fileUri.getPath()));
         File outputFile = new File(rootPath, fileName);
-        try (InputStream inputStream = context.getContentResolver().openInputStream(fileUri)) {
-            if (inputStream != null) {
-                try (OutputStream outputStream = new FileOutputStream(outputFile)) {
-                    byte[] buffer = new byte[1024 * 8]; //8kb
-                    int bytesRead;
-                    while ((bytesRead = inputStream.read(buffer)) != -1) {
-                        outputStream.write(buffer, 0, bytesRead);
-                    }
-                }
-            }
-        } catch (Exception ignored) {}
+        try {
+            FileUtils.copyFile(inputFile, outputFile);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         return outputFile;
-    }
-
-    public static void copyFile(File file, String rootPath, String fileName) {
-        File outputFile = new File(rootPath, fileName);
-        try (
-                InputStream inputStream = new FileInputStream(file);
-                OutputStream outputStream = new FileOutputStream(outputFile)) {
-            byte[] buffer = new byte[1024 * 8]; //8kb
-            int bytesRead;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
-            }
-        } catch (Exception ignored) {}
     }
 
     public static boolean containsDot(String input) {
@@ -269,7 +252,7 @@ public class PojavZHTools {
         deleteConfirmation.setTitle(context.getString(R.string.zh_file_tips));
         deleteConfirmation.setMessage(context.getString(R.string.zh_file_delete) + "\n" + file.getName());
         deleteConfirmation.setPositiveButton(context.getString(R.string.global_delete), (dialog1, which1) -> {
-            boolean deleted = deleteFile(file);
+            boolean deleted = FileUtils.deleteQuietly(file);
             if (deleted) {
                 Toast.makeText(context, context.getString(R.string.zh_file_deleted) + fileName, Toast.LENGTH_SHORT).show();
             }
@@ -307,28 +290,6 @@ public class PojavZHTools {
         renameBuilder.show();
     }
 
-    public static boolean deleteFile(File file) {
-        return file.delete();
-    }
-
-    public static boolean deleteDir(File dir) { //删除一个非空文件夹
-        if (dir == null || !dir.exists()) return false;
-
-        if (dir.isFile()) {
-            return dir.delete();
-        }
-
-        File[] files = dir.listFiles();
-        if (files == null) return false; //没有权限则无法删除
-
-        for (File file : files) {
-            if (file.isFile()) deleteFile(file);
-            else deleteDir(file);
-        }
-
-        return dir.delete();
-    }
-
     public static void updateChecker(Context context) {
         updateCheckerMainProgram(context, true);
     }
@@ -356,6 +317,7 @@ public class PojavZHTools {
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response);
                 } else {
+                    Objects.requireNonNull(response.body());
                     String responseBody = response.body().string(); //解析响应体
                     try {
                         JSONObject jsonObject = new JSONObject(responseBody);
@@ -432,6 +394,7 @@ public class PojavZHTools {
                     });
 
                     File outputFile = new File(destinationFilePath);
+                    Objects.requireNonNull(response.body());
                     try (InputStream inputStream = response.body().byteStream();
                          OutputStream outputStream = new FileOutputStream(outputFile)
                          ) {
@@ -582,7 +545,7 @@ public class PojavZHTools {
             }
         } finally {
             DIR_GAME_MODPACK = null;
-            deleteFile(zipFile); // 删除文件（虽然文件通常来说并不会很大）
+            FileUtils.deleteQuietly(zipFile); // 删除文件（虽然文件通常来说并不会很大）
         }
     }
 
