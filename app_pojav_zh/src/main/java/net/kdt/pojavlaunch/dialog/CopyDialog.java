@@ -16,10 +16,12 @@ import androidx.appcompat.app.AlertDialog;
 import com.kdt.pickafile.FileListView;
 
 import net.kdt.pojavlaunch.PojavApplication;
-import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
+import java.io.IOException;
 
 public class CopyDialog extends Dialog {
     private final FileListView mFileListView;
@@ -68,7 +70,11 @@ public class CopyDialog extends Dialog {
                 if (!newFileName.isEmpty()) {
                     //新线程复制文件
                     PojavApplication.sExecutorService.execute(() -> {
-                        PojavZHTools.copyFile(mFile, mFile.getParent(), newFileName + suffix);
+                        try {
+                            FileUtils.copyFile(mFile, new File(mFile.getParent(), newFileName + suffix));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                         runOnUiThread(mFileListView::refreshPath);
                     });
                 } else {

@@ -52,6 +52,8 @@ import net.kdt.pojavlaunch.utils.NotificationUtils;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.Timer;
@@ -128,7 +130,7 @@ public class LauncherActivity extends BaseActivity {
             });
         } else {
             PojavZHTools.DIR_GAME_MODPACK = null;
-            PojavZHTools.deleteFile(dirGameModpackFile);
+            FileUtils.deleteQuietly(dirGameModpackFile);
             new AlertDialog.Builder(this).setMessage(R.string.zh_select_modpack_local_not_supported) //弹窗提醒
                     .setPositiveButton(android.R.string.cancel, null)
                     .show();
@@ -267,7 +269,7 @@ public class LauncherActivity extends BaseActivity {
         else mHair.setVisibility(View.GONE);
 
         File updateFile = new File(getExternalFilesDir(null), "PojavZH.apk");
-        if (updateFile.exists()) PojavZHTools.deleteFile(updateFile);
+        if (updateFile.exists()) FileUtils.deleteQuietly(updateFile);
 
         PojavZHTools.updateChecker(this);
     }
