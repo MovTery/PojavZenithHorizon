@@ -64,6 +64,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -107,10 +109,20 @@ public class PojavZHTools {
 
     public static File copyFileInBackground(Context context, Uri fileUri, String rootPath) {
         String fileName = getFileName(context, fileUri);
-        File inputFile = new File(Objects.requireNonNull(fileUri.getPath()));
         File outputFile = new File(rootPath, fileName);
-        try {
-            FileUtils.copyFile(inputFile, outputFile);
+        try (InputStream inputStream = context.getContentResolver().openInputStream(fileUri)) {
+            Objects.requireNonNull(inputStream);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Files.copy(inputStream, outputFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            } else {
+                try (OutputStream outputStream = new FileOutputStream(outputFile)) {
+                    byte[] buffer = new byte[1024 * 8]; //8kb
+                    int bytesRead;
+                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+                }
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
