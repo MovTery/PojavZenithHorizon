@@ -257,6 +257,7 @@ public class PojavZHTools {
     }
 
     public static void refreshFileCount(Context context, FileListView fileListView, TextView titleView, String title) {
+        if (fileListView == null || titleView == null || title == null) return;
         String text = title + " ( " + context.getString(R.string.zh_file_total) + getFileCount(fileListView) + " )";
         titleView.setText(text);
     }
@@ -275,7 +276,7 @@ public class PojavZHTools {
         deleteConfirmation.setPositiveButton(context.getString(R.string.global_delete), (dialog1, which1) -> {
             boolean deleted = FileUtils.deleteQuietly(file);
             if (deleted) {
-                if (titleView != null) refreshFileCount(context, fileListView, titleView, title);
+                refreshFileCount(context, fileListView, titleView, title);
                 Toast.makeText(context, context.getString(R.string.zh_file_deleted) + fileName, Toast.LENGTH_SHORT).show();
             }
             if (!displayThumbnails) fileListView.refreshPath();
