@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
+import static net.kdt.pojavlaunch.PojavZHTools.refreshFileCount;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.app.AlertDialog;
@@ -55,7 +56,7 @@ public class ModsFragment extends Fragment {
                             runOnUiThread(() -> {
                                 Toast.makeText(requireContext(), getString(R.string.zh_profile_mods_added_mod), Toast.LENGTH_SHORT).show();
                                 mFileListView.refreshPath();
-                                refreshFileCount();
+                                refreshFileCount(requireContext(), mFileListView, mTitleView, getString(R.string.zh_profile_mods));
                             });
                         });
                     }
@@ -72,7 +73,7 @@ public class ModsFragment extends Fragment {
         mFileListView.lockPathAt(new File(mRootPath));
         mFileListView.refreshPath();
 
-        refreshFileCount();
+        refreshFileCount(requireContext(), mFileListView, mTitleView, getString(R.string.zh_profile_mods));
         mAddModButton.setText(getString(R.string.zh_profile_mods_add_mod));
 
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
@@ -98,7 +99,7 @@ public class ModsFragment extends Fragment {
                             Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_disabled) + fileName, Toast.LENGTH_SHORT).show();
                         }
                         mFileListView.refreshPath();
-                        refreshFileCount();
+                        refreshFileCount(requireContext(), mFileListView, mTitleView, getString(R.string.zh_profile_mods));
                         filesDialog.dismiss();
                     });
                 } else if (fileName.endsWith(".disabled")) {
@@ -115,7 +116,7 @@ public class ModsFragment extends Fragment {
                             Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_enabled) + fileName, Toast.LENGTH_SHORT).show();
                         }
                         mFileListView.refreshPath();
-                        refreshFileCount();
+                        refreshFileCount(requireContext(), mFileListView, mTitleView, getString(R.string.zh_profile_mods));
                         filesDialog.dismiss();
                     });
                 }
@@ -135,7 +136,7 @@ public class ModsFragment extends Fragment {
         });
         mRefreshButton.setOnClickListener(v -> {
             mFileListView.refreshPath();
-            refreshFileCount();
+            refreshFileCount(requireContext(), mFileListView, mTitleView, getString(R.string.zh_profile_mods));
         });
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
@@ -146,15 +147,6 @@ public class ModsFragment extends Fragment {
 
             builder.show();
         });
-    }
-
-    private void refreshFileCount() {
-        String text = getString(R.string.zh_profile_mods) + " ( " + getString(R.string.zh_file_total) + getFileCount() + " )";
-        mTitleView.setText(text);
-    }
-
-    private int getFileCount() {
-        return mFileListView.getMainLv().getAdapter().getCount();
     }
 
     private void parseBundle(){

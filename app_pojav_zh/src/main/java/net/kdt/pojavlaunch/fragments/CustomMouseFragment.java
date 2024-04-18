@@ -3,6 +3,7 @@ package net.kdt.pojavlaunch.fragments;
 import static net.kdt.pojavlaunch.PojavZHTools.DIR_CUSTOM_MOUSE;
 import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
 import static net.kdt.pojavlaunch.PojavZHTools.isImage;
+import static net.kdt.pojavlaunch.PojavZHTools.refreshFileCount;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
@@ -63,7 +64,7 @@ public class CustomMouseFragment extends Fragment {
                             runOnUiThread(() -> {
                                 Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show();
                                 mFileListView.listFileAt(mousePath(), true);
-                                refreshFileCount();
+                                refreshFileCount(requireContext(), mFileListView, mTitleView, getString(R.string.zh_custom_mouse_title));
                             });
                         });
                     }
@@ -80,7 +81,7 @@ public class CustomMouseFragment extends Fragment {
         mFileListView.setShowFiles(true);
         mFileListView.setShowFolders(false);
 
-        refreshFileCount();
+        refreshFileCount(requireContext(), mFileListView, mTitleView, getString(R.string.zh_custom_mouse_title));
         mAddFileButton.setText(getString(R.string.zh_custom_mouse_add));
 
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
@@ -118,7 +119,7 @@ public class CustomMouseFragment extends Fragment {
 
         mRefreshButton.setOnClickListener(v -> {
             mFileListView.listFileAt(mousePath(), true);
-            refreshFileCount();
+            refreshFileCount(requireContext(), mFileListView, mTitleView, getString(R.string.zh_custom_mouse_title));
         });
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
@@ -149,15 +150,6 @@ public class CustomMouseFragment extends Fragment {
         } catch (Exception e) {
             mMouseView.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_file, context.getTheme()));
         }
-    }
-
-    private void refreshFileCount() {
-        String text = getString(R.string.zh_custom_mouse_title) + " ( " + getString(R.string.zh_file_total) + getFileCount() + " )";
-        mTitleView.setText(text);
-    }
-
-    private int getFileCount() {
-        return mFileListView.getMainLv().getAdapter().getCount();
     }
 
     private void bindViews(@NonNull View view) {

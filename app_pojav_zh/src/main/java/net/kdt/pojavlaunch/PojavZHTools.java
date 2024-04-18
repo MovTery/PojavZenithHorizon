@@ -256,7 +256,16 @@ public class PojavZHTools {
         context.startActivity(sendIntent);
     }
 
-    public static void deleteFileListener(Context context, FileListView fileListView, File file, boolean displayThumbnails) {
+    public static void refreshFileCount(Context context, FileListView fileListView, TextView titleView, String title) {
+        String text = title + " ( " + context.getString(R.string.zh_file_total) + getFileCount(fileListView) + " )";
+        titleView.setText(text);
+    }
+
+    public static int getFileCount(FileListView fileListView) {
+        return fileListView.getMainLv().getAdapter().getCount();
+    }
+
+    public static void deleteFileListener(Context context, FileListView fileListView, File file, boolean displayThumbnails, TextView titleView, String title) {
         String fileName = file.getName();
         // 显示确认删除的对话框
         AlertDialog.Builder deleteConfirmation = new AlertDialog.Builder(context);
@@ -266,6 +275,7 @@ public class PojavZHTools {
         deleteConfirmation.setPositiveButton(context.getString(R.string.global_delete), (dialog1, which1) -> {
             boolean deleted = FileUtils.deleteQuietly(file);
             if (deleted) {
+                if (titleView != null) refreshFileCount(context, fileListView, titleView, title);
                 Toast.makeText(context, context.getString(R.string.zh_file_deleted) + fileName, Toast.LENGTH_SHORT).show();
             }
             if (!displayThumbnails) fileListView.refreshPath();
