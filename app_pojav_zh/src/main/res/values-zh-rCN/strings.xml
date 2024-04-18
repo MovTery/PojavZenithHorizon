@@ -112,6 +112,7 @@
     <string name="zh_main_share_crash_report">分享崩溃报告</string>
     <string name="zh_main_share_log_tip">你确定要分享启动器的运行日志吗？\n日志文件位置：</string>
     <string name="zh_game_autopick_runtime_failed">未找到合适的运行环境，已设置为当前实例选择的运行环境</string>
+    <string name="zh_game_tip">游戏正在运行中，可以通过菜单开启日志输出，查看游戏运行状况</string>
     <string name="zh_preference_category_language">语言</string>
     <string name="zh_preference_category_launcher">启动器</string>
 

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
 	android:layout_alignParentRight="true"
 	android:id="@+id/main_drawer_options"
 	android:background="@drawable/no_focus_shown"
-	android:keepScreenOn="true">
+	android:keepScreenOn="true"
+	tools:ignore="MissingDefaultResource">
 
 	<FrameLayout
 		android:id="@+id/content_frame"
@@ -19,6 +19,15 @@
 			android:id="@+id/main_control_layout"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent">
+
+			<TextView
+				android:id="@+id/zh_game_tip"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/zh_game_tip"
+				android:textStyle="bold"
+				android:textSize="@dimen/_20sdp"
+				android:layout_gravity="center"/>
 
 			<net.kdt.pojavlaunch.MinecraftGLSurface
 				android:id="@+id/main_game_render_view"
