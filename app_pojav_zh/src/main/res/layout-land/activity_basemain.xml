@@ -26,7 +26,7 @@
 				android:layout_height="wrap_content"
 				android:text="@string/zh_game_tip"
 				android:textStyle="bold"
-				android:textSize="@dimen/_20sdp"
+				android:textSize="@dimen/_12sdp"
 				android:layout_gravity="center"/>
 
 			<net.kdt.pojavlaunch.MinecraftGLSurface
