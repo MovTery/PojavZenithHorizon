@@ -96,8 +96,7 @@ public class FilesDialog extends Dialog {
             FilesDialog.this.dismiss();
         });
         mDeleteButton.setOnClickListener(view -> {
-            deleteFileListener(getContext(), mFileListView, mFile, false);
-            if (mTitleView != null) refreshFileCount(this.mTitle);
+            deleteFileListener(getContext(), mFileListView, mFile, false, this.mTitleView, this.mTitle);
             FilesDialog.this.dismiss();
         });
 
@@ -112,15 +111,6 @@ public class FilesDialog extends Dialog {
 
     public void setMoreButtonClick(View.OnClickListener click) {
         this.mMoreClick = click;
-    }
-
-    private void refreshFileCount(String title) {
-        String text = title + " ( " + getContext().getString(R.string.zh_file_total) + getFileCount() + " )";
-        mTitleView.setText(text);
-    }
-
-    private int getFileCount() {
-        return mFileListView.getMainLv().getAdapter().getCount();
     }
 
     public static class FilesButton {

@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
+import static net.kdt.pojavlaunch.PojavZHTools.refreshFileCount;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.app.AlertDialog;
@@ -56,7 +57,7 @@ public class PrefsFragment extends Fragment {
                             runOnUiThread(() -> {
                                 Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show();
                                 mFileListView.refreshPath();
-                                refreshFileCount();
+                                refreshFileCount(requireContext(), mFileListView, mTitleView, getString(R.string.zh_main_prefs));
                             });
                         });
                     }
@@ -73,7 +74,7 @@ public class PrefsFragment extends Fragment {
         mFileListView.lockPathAt(prefsPath());
         mFileListView.refreshPath();
 
-        refreshFileCount();
+        refreshFileCount(requireContext(), mFileListView, mTitleView, getString(R.string.zh_main_prefs));
 
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
             @Override
@@ -123,7 +124,7 @@ public class PrefsFragment extends Fragment {
 
                                 runOnUiThread(() -> {
                                     mFileListView.refreshPath();
-                                    refreshFileCount();
+                                    refreshFileCount(requireContext(), mFileListView, mTitleView, getString(R.string.zh_main_prefs));
                                 });
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
@@ -135,7 +136,7 @@ public class PrefsFragment extends Fragment {
         });
         mRefreshButton.setOnClickListener(v -> {
             mFileListView.refreshPath();
-            refreshFileCount();
+            refreshFileCount(requireContext(), mFileListView, mTitleView, getString(R.string.zh_main_prefs));
         });
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
@@ -152,15 +153,6 @@ public class PrefsFragment extends Fragment {
         File ctrlPath = new File(PojavZHTools.DIR_PREFS);
         if (!ctrlPath.exists()) ctrlPath.mkdirs();
         return ctrlPath;
-    }
-
-    private void refreshFileCount() {
-        String text = getString(R.string.zh_main_prefs) + " ( " + getString(R.string.zh_file_total) + getFileCount() + " )";
-        mTitleView.setText(text);
-    }
-
-    private int getFileCount() {
-        return mFileListView.getMainLv().getAdapter().getCount();
     }
 
     private void bindViews(@NonNull View view) {
