@@ -86,6 +86,7 @@ public class ControlButtonFragment extends Fragment {
             public void onFileSelected(File file, String path) {
                 FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
                 filesButton.setButtonVisibility(true, true, true, true);
+                filesButton.displayThumbnails = false;
 
                 filesButton.messageText = getString(R.string.zh_file_message) + "\n" + getString(R.string.zh_file_message_copy);
                 filesButton.moreButtonText = getString(R.string.zh_controls_load);

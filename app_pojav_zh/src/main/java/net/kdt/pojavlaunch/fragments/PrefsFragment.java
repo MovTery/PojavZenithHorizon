@@ -81,6 +81,7 @@ public class PrefsFragment extends Fragment {
             public void onFileSelected(File file, String path) {
                 FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
                 filesButton.setButtonVisibility(true, true, true, true);
+                filesButton.displayThumbnails = false;
 
                 filesButton.messageText = getString(R.string.zh_prefs_message);
                 filesButton.moreButtonText = getString(R.string.global_load);
