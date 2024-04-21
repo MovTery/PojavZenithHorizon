@@ -513,17 +513,18 @@ public class PojavZHTools {
 
     public static void setVisibilityAnim(View view, boolean shouldShow) {
         if (shouldShow && view.getVisibility() != View.VISIBLE) {
-            view.setAlpha(0f);
-            view.setVisibility(View.VISIBLE);
-            view.animate()
-                    .alpha(1f) //淡入到完全不透明
-                    .setDuration(300);
+            fadeAnim(view, 0f, 1f, 300, () -> view.setVisibility(View.VISIBLE));
         } else if (!shouldShow && view.getVisibility() != View.GONE) {
-            view.animate()
-                    .alpha(0f) //淡出到完全透明
-                    .setDuration(300)
-                    .withEndAction(() -> view.setVisibility(View.GONE));
+            fadeAnim(view, view.getAlpha(), 0f, 300, () -> view.setVisibility(View.GONE));
         }
+    }
+
+    public static void fadeAnim(View view, float begin, float end, int duration, Runnable endAction) {
+        view.setAlpha(begin);
+        view.animate()
+                .alpha(end)
+                .setDuration(duration)
+                .withEndAction(endAction);
     }
 
     public static ModLoader installModPack(Context context, int type, File zipFile) throws Exception {
