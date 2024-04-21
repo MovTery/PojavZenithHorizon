@@ -86,6 +86,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     private DrawerLayout drawerLayout;
     private ListView navDrawer;
     private View mDrawerPullButton;
+    private TextView mGameTipView;
     private GyroControl mGyroControl = null;
     public static ControlLayout mControlLayout;
 
@@ -215,6 +216,13 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                     }
 
                     runCraft(finalVersion, mVersionInfo);
+
+                    // 淡入游戏内提示
+                    runOnUiThread(() -> {
+                        String tipString = mGameTipView.getText() + "\n" + getString(R.string.zh_game_tip_version) + minecraftProfile.lastVersionId;
+                        mGameTipView.setText(tipString);
+                        PojavZHTools.setVisibilityAnim(mGameTipView, true);
+                    });
                 }catch (Throwable e){
                     Tools.showErrorRemote(e);
                 }
@@ -262,6 +270,9 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         mControlLayout = findViewById(R.id.main_control_layout);
         touchCharInput = findViewById(R.id.mainTouchCharInput);
         mDrawerPullButton = findViewById(R.id.drawer_button);
+        mGameTipView = findViewById(R.id.zh_game_tip);
+
+        mGameTipView.setVisibility(View.GONE);
     }
 
     @Override

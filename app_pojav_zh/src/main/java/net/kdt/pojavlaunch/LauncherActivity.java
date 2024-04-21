@@ -1,6 +1,6 @@
 package net.kdt.pojavlaunch;
 
-import static net.kdt.pojavlaunch.PojavZHTools.setButtonVisibilityAnim;
+import static net.kdt.pojavlaunch.PojavZHTools.setVisibilityAnim;
 
 import android.Manifest;
 import android.content.Intent;
@@ -259,7 +259,7 @@ public class LauncherActivity extends BaseActivity {
             public void run() {
                 runOnUiThread(() -> {
                     boolean shouldShow = mAccountSpinner.getSelectedAccount() != null;
-                    setButtonVisibilityAnim(mDeleteAccountButton, shouldShow);
+                    setVisibilityAnim(mDeleteAccountButton, shouldShow);
                 });
             }
         }, 0, 1000); //每一秒钟检测一次是否需要隐藏或者显示 移除账号按钮
