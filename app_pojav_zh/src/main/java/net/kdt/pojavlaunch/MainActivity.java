@@ -218,7 +218,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                     // 淡入游戏内提示
                     String tipString = mGameTipView.getText() + "\n" + getString(R.string.zh_game_tip_version) + minecraftProfile.lastVersionId;
                     mGameTipView.setText(tipString);
-                    PojavZHTools.fadeAnim(mGameTipView, 0f, 1f, 300, () -> mGameTipView.setVisibility(View.VISIBLE));
+                    mGameTipView.setVisibility(View.VISIBLE);
+                    PojavZHTools.fadeAnim(mGameTipView, 0f, 1f, 300, null);
 
                     runCraft(finalVersion, mVersionInfo);
                 }catch (Throwable e){
