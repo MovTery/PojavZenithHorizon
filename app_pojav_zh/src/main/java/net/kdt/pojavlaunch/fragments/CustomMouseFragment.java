@@ -92,6 +92,7 @@ public class CustomMouseFragment extends Fragment {
 
                 FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
                 filesButton.setButtonVisibility(!isDefaultMouse, !isDefaultMouse, !isDefaultMouse, isImage(file)); //默认虚拟鼠标不支持分享、重命名、删除操作
+                filesButton.displayThumbnails = true;
 
                 //如果选中的虚拟鼠标是默认的虚拟鼠标，那么将加上额外的提醒
                 String message = getString(R.string.zh_file_message);

@@ -85,6 +85,7 @@ public class ModsFragment extends Fragment {
 
                 FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
                 filesButton.setButtonVisibility(true, true, true, (fileName.endsWith(".jar") || fileName.endsWith(".disabled")));
+                filesButton.displayThumbnails = false;
                 filesButton.messageText = getString(R.string.zh_file_message);
                 if (fileName.endsWith(".jar")) filesButton.moreButtonText = getString(R.string.zh_profile_mods_disable);
                 else if (fileName.endsWith(".disabled")) filesButton.moreButtonText = getString(R.string.zh_profile_mods_enable);

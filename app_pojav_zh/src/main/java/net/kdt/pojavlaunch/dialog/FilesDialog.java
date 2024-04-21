@@ -22,7 +22,7 @@ import java.io.File;
 public class FilesDialog extends Dialog {
     private View.OnClickListener mMoreClick;
     private Button mMoreButton;
-    private final boolean mCancel, mMore, mShare, mRename, mDelete;
+    private final boolean mCancel, mMore, mShare, mRename, mDelete, mDisplayThumbnails;
     private final String mMessageText, mMoreText, mTitle;
     private final FileListView mFileListView;
     private final File mFile;
@@ -38,6 +38,8 @@ public class FilesDialog extends Dialog {
         this.mRename = filesButton.rename;
         this.mDelete = filesButton.delete;
         this.mMore = filesButton.more;
+
+        this.mDisplayThumbnails = filesButton.displayThumbnails;
 
         this.mMessageText = filesButton.messageText;
         this.mMoreText = filesButton.moreButtonText;
@@ -60,6 +62,8 @@ public class FilesDialog extends Dialog {
         this.mRename = filesButton.rename;
         this.mDelete = filesButton.delete;
         this.mMore = filesButton.more;
+
+        this.mDisplayThumbnails = filesButton.displayThumbnails;
 
         this.mMessageText = filesButton.messageText;
         this.mMoreText = filesButton.moreButtonText;
@@ -92,11 +96,11 @@ public class FilesDialog extends Dialog {
             FilesDialog.this.dismiss();
         });
         mRenameButton.setOnClickListener(view -> {
-            renameFileListener(getContext(), mFileListView, mFile, false);
+            renameFileListener(getContext(), mFileListView, mFile, this.mDisplayThumbnails);
             FilesDialog.this.dismiss();
         });
         mDeleteButton.setOnClickListener(view -> {
-            deleteFileListener(getContext(), mFileListView, mFile, false, this.mTitleView, this.mTitle);
+            deleteFileListener(getContext(), mFileListView, mFile, this.mDisplayThumbnails, this.mTitleView, this.mTitle);
             FilesDialog.this.dismiss();
         });
 
@@ -114,7 +118,7 @@ public class FilesDialog extends Dialog {
     }
 
     public static class FilesButton {
-        public boolean cancel, share, rename, delete, more;
+        public boolean cancel, share, rename, delete, more, displayThumbnails;
         public String messageText, moreButtonText;
         public void setButtonVisibility(boolean shareButton, boolean renameButton, boolean deleteButton, boolean moreButton) {
             this.share = shareButton;

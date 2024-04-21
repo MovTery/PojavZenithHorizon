@@ -78,6 +78,8 @@ public class FilesFragment extends Fragment {
             public void onFileSelected(File file, String path) {
                 FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
                 filesButton.setButtonVisibility(true, true, true, false);
+                filesButton.displayThumbnails = false;
+
                 int caciocavallo = file.getPath().indexOf("caciocavallo");
                 int lwjgl3 = file.getPath().indexOf("lwjgl3");
 
