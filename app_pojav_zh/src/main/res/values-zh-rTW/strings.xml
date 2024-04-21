@@ -113,6 +113,7 @@
     <string name="zh_main_share_log_tip">你確定要分享啟動器的運行日誌嗎？\n日誌文件位置：</string>
     <string name="zh_game_autopick_runtime_failed">未找到合適的運行環境，已設置為當前實例選擇的運行環境</string>
     <string name="zh_game_tip">遊戲正在運行中，可以透過選單開啟日誌輸出，查看遊戲運行狀況</string>
+    <string name="zh_game_tip_version">當前啟動的遊戲版本：</string>
     <string name="zh_preference_category_language">語言</string>
     <string name="zh_preference_category_launcher">啟動器</string>
 
