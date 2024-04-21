@@ -527,7 +527,7 @@ public class PojavZHTools {
         view.animate()
                 .alpha(end)
                 .setDuration(duration)
-                .withEndAction(endAction);
+                .withEndAction(endAction == null ? () -> {} : endAction);
     }
 
     public static ModLoader installModPack(Context context, int type, File zipFile) throws Exception {
