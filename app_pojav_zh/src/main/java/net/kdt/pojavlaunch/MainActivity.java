@@ -221,7 +221,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                     runOnUiThread(() -> {
                         String tipString = mGameTipView.getText() + "\n" + getString(R.string.zh_game_tip_version) + minecraftProfile.lastVersionId;
                         mGameTipView.setText(tipString);
-                        PojavZHTools.setVisibilityAnim(mGameTipView, true);
+                        PojavZHTools.fadeAnim(mGameTipView, 0f, 1f, 300, () -> mGameTipView.setVisibility(View.VISIBLE));
                     });
                 }catch (Throwable e){
                     Tools.showErrorRemote(e);
