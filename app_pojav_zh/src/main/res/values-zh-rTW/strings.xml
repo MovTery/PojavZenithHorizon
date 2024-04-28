@@ -40,7 +40,7 @@
     <string name="zh_custom_control_desc">管理所有的控制佈局檔案，您可以在此處刪除、建立、重命名、匯入控制佈局等</string>
     <string name="zh_custom_mouse_add">添加虛擬滑鼠</string>
     <string name="zh_custom_mouse_added">成功設定虛擬滑鼠：</string>
-    <string name="zh_custom_mouse_title">自訂虛擬滑鼠</string>
+    <string name="zh_custom_mouse_title">自訂義虛擬滑鼠</string>
     <string name="zh_custom_mouse_desc">打開虛擬滑鼠管理界面，您可以自行添加您喜歡的虛擬滑鼠貼圖，並使用它們</string>
     <string name="zh_custom_mouse_message_default">當前選中的虛擬滑鼠為預設的虛擬滑鼠，不支持進行分享、重命名、刪除操作</string>
 
