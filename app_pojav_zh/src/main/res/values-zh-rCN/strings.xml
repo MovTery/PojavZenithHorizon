@@ -195,6 +195,12 @@
     <string name="zh_about_version_name">Pojav ZH 版本号：</string>
     <string name="zh_about_version_code">Pojav ZH 版本码：</string>
     <string name="zh_about_last_update_time">上一次更新时间：</string>
+    <string name="zh_about_version_status">版本状态：</string>
+    <string name="zh_about_version_status_main_branch">主要分支</string>
+    <string name="zh_about_version_status_other_branch">其他分支</string>
+    <string name="zh_about_version_status_debug">测试版</string>
+    <string name="zh_about_version_status_release">正式版</string>
+    <string name="zh_about_version_status_unknown">未知</string>
 
     <string name="zh_help_control_button_title">什么是控制布局？</string>
     <string name="zh_help_control_button_message">控制布局能够在游戏中起到非常重要的作用，它会在屏幕上显示按键，用户能够通过这些按键与游戏进行交互，模拟了 Minecraft: Java Edition 中使用键盘操控游戏的这一过程。\n在控制布局管理界面内，你可以管理当前所有的控制布局，你也可以加载并修改或是自行创建一套新的控制布局，你还可以导入或分享控制布局。</string>

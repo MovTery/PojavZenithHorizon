@@ -26,6 +26,12 @@ def getCFApiKey = {
     return "DUMMY"
 }
 
+def getBranchName = {
+    def isMainBranch = System.getenv('IS_MAIN_BRANCH') == 'true'
+    if(isMainBranch) return 'main'
+    return 'other'
+}
+
 configurations {
     instrumentedClasspath {
         canBeConsumed = false
@@ -66,6 +72,8 @@ android {
         versionName "1.0.7"
         multiDexEnabled true //important
         resValue 'string', 'curseforge_api_key', getCFApiKey()
+        resValue 'string', 'curseforge_api_key', getCFApiKey()
+        resValue 'string', 'zh_branch_info', getBranchName()
     }
 
     buildTypes {
@@ -78,6 +86,7 @@ android {
             resValue 'string', 'application_package', 'net.kdt.pojavlaunch.zh.debug'
             resValue 'string', 'storageProviderAuthorities', 'net.kdt.pojavlaunch.scoped.gamefolder.zh.debug'
             resValue 'string', 'shareProviderAuthority', 'net.kdt.pojavlaunch.scoped.controlfolder.zh.debug'
+            resValue 'string', 'zh_version_status', 'debug'
         }
         release {
             // Don't set to true or java.awt will be a.a or something similar.
@@ -88,6 +97,7 @@ android {
             // debuggable = true
             resValue 'string', 'storageProviderAuthorities', 'net.kdt.pojavlaunch.scoped.gamefolder.zh'
             resValue 'string', 'application_package', 'net.kdt.pojavlaunch.zh'
+            resValue 'string', 'zh_version_status', 'release'
             signingConfig signingConfigs.releaseBuild
         }
     }
