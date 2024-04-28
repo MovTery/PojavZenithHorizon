@@ -514,6 +514,21 @@ public class PojavZHTools {
         }
     }
 
+    //获取版本状态信息
+    public static String getVersionStatus(Context context) {
+        String branch = Objects.equals(context.getString(R.string.zh_branch_info), "main") ?
+                context.getString(R.string.zh_about_version_status_main_branch) :
+                context.getString(R.string.zh_about_version_status_other_branch);
+
+        String status = Objects.equals(context.getString(R.string.zh_version_status), "debug") ?
+                context.getString(R.string.zh_about_version_status_debug) :
+                Objects.equals(context.getString(R.string.zh_version_status), "release") ?
+                        context.getString(R.string.zh_about_version_status_release) :
+                        context.getString(R.string.zh_about_version_status_unknown);
+
+        return "[" + branch + "] " + status;
+    }
+
     public static void setVisibilityAnim(View view, boolean shouldShow) {
         if (shouldShow && view.getVisibility() != View.VISIBLE) {
             fadeAnim(view, 0f, 1f, 300, () -> view.setVisibility(View.VISIBLE));

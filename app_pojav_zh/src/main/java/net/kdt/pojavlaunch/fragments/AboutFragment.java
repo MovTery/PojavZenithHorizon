@@ -3,6 +3,7 @@ package net.kdt.pojavlaunch.fragments;
 import static net.kdt.pojavlaunch.PojavZHTools.getLastUpdateTime;
 import static net.kdt.pojavlaunch.PojavZHTools.getVersionCode;
 import static net.kdt.pojavlaunch.PojavZHTools.getVersionName;
+import static net.kdt.pojavlaunch.PojavZHTools.getVersionStatus;
 
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -58,6 +59,7 @@ public class AboutFragment extends Fragment {
         TextView mVersionName = view.findViewById(R.id.zh_about_version_name);
         TextView mVersionCode = view.findViewById(R.id.zh_about_version_code);
         TextView mLastUpdateTime = view.findViewById(R.id.zh_about_last_update_time);
+        TextView mVersionStatus = view.findViewById(R.id.zh_about_version_status);
 
         SpannableString spannableString1 = new SpannableString(mContributors1.getText().toString());
         spannableString1.setSpan(new UnderlineSpan(), 0, spannableString1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -74,6 +76,8 @@ public class AboutFragment extends Fragment {
         mVersionCode.setText(versionCode);
         String lastUpdateTime = getString(R.string.zh_about_last_update_time) + getLastUpdateTime(requireContext());
         mLastUpdateTime.setText(lastUpdateTime);
+        String versionStatus = getString(R.string.zh_about_version_status) + getVersionStatus(requireContext());
+        mVersionStatus.setText(versionStatus);
     }
 }
 
