@@ -31,7 +31,7 @@
     <string name="zh_controls_visibility">可見度</string>
     <string name="zh_controls_in_game">遊戲內</string>
     <string name="zh_controls_in_menu">菜單內</string>
-    <string name="zh_controls_unsupported_layout_version">不支援的控制布局版本！</string>
+    <string name="zh_controls_unsupported_layout_version">不支援的控制佈局版本！</string>
     <string name="zh_controls_create_new">創建新的控制佈局</string>
     <string name="zh_controls_create_new_title">控制佈局名稱：</string>
     <string name="zh_controls_import_control">導入控制佈局</string>
@@ -39,8 +39,8 @@
     <string name="zh_custom_control_title">管理控制佈局</string>
     <string name="zh_custom_control_desc">管理所有的控制佈局檔案，您可以在此處刪除、建立、重命名、匯入控制佈局等</string>
     <string name="zh_custom_mouse_add">添加虛擬滑鼠</string>
-    <string name="zh_custom_mouse_added">成功設置虛擬滑鼠：</string>
-    <string name="zh_custom_mouse_title">自定義虛擬滑鼠</string>
+    <string name="zh_custom_mouse_added">成功設定虛擬滑鼠：</string>
+    <string name="zh_custom_mouse_title">自訂虛擬滑鼠</string>
     <string name="zh_custom_mouse_desc">打開虛擬滑鼠管理界面，您可以自行添加您喜歡的虛擬滑鼠貼圖，並使用它們</string>
     <string name="zh_custom_mouse_message_default">當前選中的虛擬滑鼠為預設的虛擬滑鼠，不支持進行分享、重命名、刪除操作</string>
 
@@ -106,27 +106,27 @@
     <string name="zh_neoforge_dl_select_version">選擇 NeoForge 版本</string>
     <string name="zh_modloader_dl_install_neoforge">建立 NeoForge 實例</string>
 
-    <string name="zh_main_prefs">偏好設置管理</string>
+    <string name="zh_main_prefs">偏好設定管理</string>
     <string name="zh_main_open_main_dir">打開主目錄</string>
     <string name="zh_main_open_instance_dir">開啟實例目錄</string>
     <string name="zh_main_share_crash_report">分享崩潰報告</string>
-    <string name="zh_main_share_log_tip">你確定要分享啟動器的運行日誌嗎？\n日誌文件位置：</string>
-    <string name="zh_game_autopick_runtime_failed">未找到合適的運行環境，已設置為當前實例選擇的運行環境</string>
-    <string name="zh_game_tip">遊戲正在運行中，可以透過選單開啟日誌輸出，查看遊戲運行狀況</string>
+    <string name="zh_main_share_log_tip">你確定要分享啟動器的執行日誌嗎？\n日誌文件位置：</string>
+    <string name="zh_game_autopick_runtime_failed">未找到合適的執行環境，已設定為當前實例選擇的執行環境</string>
+    <string name="zh_game_tip">遊戲正在執行中，可以透過選單開啟日誌輸出，查看遊戲執行狀況</string>
     <string name="zh_game_tip_version">當前啟動的遊戲版本：</string>
     <string name="zh_preference_category_language">語言</string>
     <string name="zh_preference_category_launcher">啟動器</string>
 
-    <string name="zh_prefs_create_new">儲存新的偏好設置</string>
-    <string name="zh_prefs_create_new_title">為即將儲存的偏好設置命名：</string>
-    <string name="zh_prefs_import_prefs">匯入偏好設置</string>
-    <string name="zh_prefs_message">這是一個Pojav ZH的偏好設置文件，保存了軟體的所有偏好設置，方便用戶快速設定啟動器的偏好設置</string>
-    <string name="zh_prefs_loaded">成功設定偏好設置！（部分偏好設置可能需要重新啟動Pojav ZH才能生效）</string>
+    <string name="zh_prefs_create_new">儲存新的偏好設定</string>
+    <string name="zh_prefs_create_new_title">為即將儲存的偏好設定命名：</string>
+    <string name="zh_prefs_import_prefs">匯入偏好設定</string>
+    <string name="zh_prefs_message">這是一個Pojav ZH的偏好設定文件，保存了軟體的所有偏好設定，方便用戶快速設定啟動器的偏好設定</string>
+    <string name="zh_prefs_loaded">成功設定偏好設定！（部分偏好設定可能需要重新啟動Pojav ZH才能生效）</string>
 
     <string name="zh_profile_custom_path">自訂路徑</string>
     <string name="zh_profile_create_mods">建立 Mods</string>
     <string name="zh_profile_create_mods_message">請確認此實例使用的遊戲版本能夠載入 Mod，如果無法載入 Mod，則建立 Mods 資料夾並添加 Mod 將不起作用！</string>
-    <string name="zh_profile_create_mods_fail">抱歉，遊戲路徑內存在 Mods 資料夾，無法再次建立 Mods 資料夾</string>
+    <string name="zh_profile_create_mods_fail">抱歉，遊戲路徑記憶體在 Mods 資料夾，無法再次建立 Mods 資料夾</string>
     <string name="zh_profile_create_mods_success">成功建立 Mods 資料夾!</string>
     <string name="zh_profile_mods">Mod 管理</string>
     <string name="zh_profile_mods_add_mod">新增 Mod</string>
@@ -141,14 +141,14 @@
     <string name="zh_select_modpack_local_tip">請選擇一個啟動器支持導入的整合包文件！</string>
     <string name="zh_select_modpack_local_not_supported">此檔案不受啟動器支援！</string>
     <string name="zh_select_modpack_local_installing_files">安裝遊戲檔案中… (%d)</string>
-    <string name="zh_setting_set_to_chinese_desc">在遊戲首次啟動時，自動將語言設置為中文</string>
-    <string name="zh_setting_set_to_chinese_title">自動設置為中文</string>
+    <string name="zh_setting_set_to_chinese_desc">在遊戲首次啟動時，自動將語言設定為中文</string>
+    <string name="zh_setting_set_to_chinese_title">自動設定為中文</string>
     <string name="zh_setting_chinese_language_title">中文語言切換</string>
-    <string name="zh_setting_enable_log_output_desc">在應用正式開始運行遊戲時，開啟日誌輸出界面</string>
+    <string name="zh_setting_enable_log_output_desc">在應用正式開始執行遊戲時，開啟日誌輸出介面</string>
     <string name="zh_setting_enable_log_output_title">啟動遊戲時打開日誌輸出</string>
-    <string name="zh_setting_animation_desc">設置啟動器切換界面時是否播放動畫</string>
+    <string name="zh_setting_animation_desc">設定啟動器切換介面時是否播放動畫</string>
     <string name="zh_setting_animation_title">啟用動畫</string>
-    <string name="zh_setting_quit_launcher_desc">在應用正式開始運行遊戲時，是否退出啟動器</string>
+    <string name="zh_setting_quit_launcher_desc">在應用正式開始執行遊戲時，是否退出啟動器</string>
     <string name="zh_setting_quit_launcher_title">退出啟動器</string>
     <string name="zh_setting_advanced_features_desc">開啟後，啟動器將開放部分高級功能 (可能需要重新啟動才能生效)</string>
     <string name="zh_setting_advanced_features_title">高級功能</string>
@@ -182,14 +182,14 @@
     <string name="zh_other_login_select_role">請選擇角色</string>
     <string name="zh_other_login_error">登錄時出現錯誤：\n</string>
     <string name="zh_other_login_no_server">無認證服務器</string>
-    <string name="zh_other_login_baseurl_not_set">未設置基礎URL</string>
+    <string name="zh_other_login_baseurl_not_set">未設定基礎URL</string>
     <string name="zh_other_login_client">客戶端</string>
     <string name="zh_other_login_error_code">錯誤代碼：</string>
 
     <string name="zh_about_tab">關於 Pojav ZH</string>
-    <string name="zh_about_dec1">Pojav ZH 是一款基於 PojavLauncher 魔改的 Minecraft 啟動器，它能夠在 Android 設備上運行 Minecraft：Java Edition。\nPojav ZH 致力於優化使用者體驗，重新設計了應用界面，新增了更多實用的功能，旨在最大程度地降低遊玩門檻，讓更多人能夠輕鬆體驗 Minecraft 的樂趣。</string>
+    <string name="zh_about_dec1">Pojav ZH 是一款基於 PojavLauncher 魔改的 Minecraft 啟動器，它能夠在 Android 設備上執行 Minecraft：Java Edition。\nPojav ZH 致力於優化使用者體驗，重新設計了應用介面，新增了更多實用的功能，旨在最大程度地降低遊玩門檻，讓更多人能夠輕鬆體驗 Minecraft 的樂趣。</string>
     <string name="zh_about_dec2">Pojav ZH 由墨北MovTery 個人精心製作，在 PojavLauncher 的基礎上進行了深入的魔改工作。</string>
-    <string name="zh_about_dec3">由於 PojavLauncher 使用的是 GPL 3.0 開源協議，這一協議具有‘傳染性’，任何使用、修改或衍生自 GPL 類庫或軟件的代碼也必須採用 GPL 協議進行開源。因此，Pojav ZH 也只能遵循 GPL 3.0 開源協議。如果你打算傳播或分發本軟件，請務必遵守 GPL 3.0 開源協議的相關規定。</string>
+    <string name="zh_about_dec3">由於 PojavLauncher 使用的是 GPL 3.0 開源協議，這一協議具有 “傳染性”，任何使用、修改或衍生自 GPL 類庫或軟件的代碼也必須採用 GPL 協議進行開源。因此，Pojav ZH 也只能遵循 GPL 3.0 開源協議。如果你打算傳播或分發本軟件，請務必遵守 GPL 3.0 開源協議的相關規定。</string>
     <string name="zh_about_dec4">軟體貢獻者：</string>
     <string name="zh_about_contributors1">墨北MovTery</string>
     <string name="zh_about_version_name">Pojav ZH 版本號：</string>
@@ -197,21 +197,21 @@
     <string name="zh_about_last_update_time">上次更新時間：</string>
 
     <string name="zh_help_control_button_title">什麼是控制佈局？</string>
-    <string name="zh_help_control_button_message">控制佈局在遊戲中扮演極為重要的角色，它可以顯示出按鈕，玩家可以透過這些按鈕與遊戲進行互動，就像在Minecraft: Java Edition中使用鍵盤控制遊戲一樣。\n在控制佈局管理界面中，你可以管理當前所有控制佈局，也可以載入、修改或自行創建一套新的控制佈局，此外還可以導入或分享控制佈局。</string>
+    <string name="zh_help_control_button_message">控制佈局在遊戲中扮演極為重要的角色，它可以顯示出按鈕，玩家可以透過這些按鈕與遊戲進行互動，就像在Minecraft: Java Edition中使用鍵盤控制遊戲一樣。\n在控制佈局管理介面中，你可以管理當前所有控制佈局，也可以載入、修改或自行創建一套新的控制佈局，此外還可以導入或分享控制佈局。</string>
     <string name="zh_help_instance_title">什麼是遊戲實例？</string>
     <string name="zh_help_instance_message">遊戲實例就像一份清單，包含了遊戲的各種信息，它可以告訴啟動器你想要玩的遊戲版本、控制佈局、啟動遊戲使用什麼渲染器等等，然後啟動器就能按照你的需求，為你啟動相應的遊戲。\n遊戲實例是相互獨立的，但你可以在多個遊戲實例中選擇相同的東西，比如多個實例都選擇同一套控制佈局等等。\n在主菜單中啟動遊戲時，你必須選擇一個遊戲實例，並確保你的遊戲實例所選擇的各種東西都是正常可用的，否則可能會出現意想不到的問題。</string>
     <string name="zh_help_files_title">Pojav ZH主目錄</string>
     <string name="zh_help_files_message">主目錄是指Pojav ZH存放遊戲資料的主要目錄，它類似於一個簡單的檔案管理器，你可以自由管理主要目錄中的所有檔案。\n但請小心這裡的檔案，操作不當可能會導致啟動器異常或無法啟動遊戲！</string>
     <string name="zh_help_mod_title">什麼是Mod？</string>
-    <string name="zh_help_mod_message">可以把它理解為遊戲的第三方插件，它可以修改遊戲或為遊戲加入更多有趣的內容。\nMinecraft: Java Edition通常無法載入Mod，但玩家社區為Minecraft開發了第三方載入器，使其能夠載入Mod，而這些第三方載入器都是一個獨立的遊戲版本，你並不需要在原版和第三方載入器之間做取捨。\nMod管理界面可以管理當前遊戲實例的自定義路徑內的“mods”資料夾裡的全部Mod，你也可以自行導入Mod，不過Mod需要你自己在資源網站上下載。</string>
+    <string name="zh_help_mod_message">可以把它理解為遊戲的第三方插件，它可以修改遊戲或為遊戲加入更多有趣的內容。\nMinecraft: Java Edition通常無法載入Mod，但玩家社區為Minecraft開發了第三方載入器，使其能夠載入Mod，而這些第三方載入器都是一個獨立的遊戲版本，你並不需要在原版和第三方載入器之間做取捨。\nMod管理介面可以管理當前遊戲實例的自訂路徑內的“mods”資料夾裡的全部Mod，你也可以自行導入Mod，不過Mod需要你自己在資源網站上下載。</string>
     <string name="zh_help_other_login_title">什麼是外部驗證登入？</string>
     <string name="zh_help_other_login_message">外部驗證登入選項通常是為了方便玩家使用第三方的登入服務，而不是通過 Minecraft 官方的登入方式。\n它可以更靈活地管理你的帳戶，並享受更多由第三方提供的特色功能和服務。\n外部驗證登入通常與皮膚站相結合，你可以在這些皮膚站註冊帳戶，管理自己的皮膚，並通過外部驗證的方式在 Minecraft 中使用這些皮膚。\n你需要先添加一個身份驗證伺服器，也就是添加一個你想使用的皮膚站，具體添加方法請自行查閱皮膚站的相關使用說明。\n添加完成之後，你才能登入你在這個皮膚站內註冊的帳戶！</string>
     <string name="zh_help_modpack_title">什麼是整合包？</string>
     <string name="zh_help_modpack_message">Mod 整合包是一個包含多個 Mod 的客戶端文件包，它將各種 Mod 集成在一起，使玩家能夠輕鬆嘗試多種新的玩法和內容。\n通過安裝 Mod 整合包，玩家可以一次性獲得大量新的遊戲內容，無需單獨尋找和安裝每個 Mod，從而節省時間和精力。\n請注意，多數 Mod 整合包的作者主要是為 PC 玩家量身打造的，他們幾乎不會考慮到會有 Pojav 玩家會嘗試使用這些整合包。鑒於整合包中往往包含大量的 Mod，難免會出現不兼容或性能不足的問題。\n因此，請務必根據自身設備性能和需求，謹慎選擇並量力而行，以免出現不必要的困擾！</string>
     <string name="zh_help_mouse_title">如何使用虛擬滑鼠管理器？</string>
     <string name="zh_help_mouse_message">在虛擬滑鼠管理器介面中，您可以查看、新增虛擬滑鼠，點擊虛擬滑鼠可選擇、重新命名、刪除虛擬滑鼠。\n虛擬滑鼠本質上是一種貼圖，您可以根據自己的喜好，自行繪製或尋找合適的虛擬滑鼠，然後將其導入啟動器內，選擇它作為遊戲內的虛擬滑鼠。\n在這裡，您只能選擇圖片檔案，其他任何檔案均不支援！</string>
-    <string name="zh_help_prefs_title">偏好設置是什麼？</string>
-    <string name="zh_help_prefs_message">偏好設置指的是啟動器的所有設定項，您可以根據您的需求設置啟動器，讓啟動器按照您的需求展現出不同的效果。\n偏好設置管理能夠保存或者加載偏好設置，快速設置您的啟動器，您也可以將您的啟動器偏好設置分享給您的好友，幫助好友更快速地設置啟動器。</string>
+    <string name="zh_help_prefs_title">偏好設定是什麼？</string>
+    <string name="zh_help_prefs_message">偏好設定指的是啟動器的所有設定項，您可以根據您的需求設定啟動器，讓啟動器按照您的需求展現出不同的效果。\n偏好設定管理能夠保存或者加載偏好設定，快速設定您的啟動器，您也可以將您的啟動器偏好設定分享給您的好友，幫助好友更快速地設定啟動器。</string>
     <string name="zh_help_ok">知道了</string>
 
     <!-- Action bar part -->
@@ -328,9 +328,9 @@
     <string name="control_customkey">發送自訂鍵碼</string>
 
     <!-- ImportControlActivity Strings -->
-    <string name="import_control_label">匯入控制布局</string>
+    <string name="import_control_label">匯入控制佈局</string>
     <string name="import_control_invalid_file">檔案無效或已損壞</string>
-    <string name="import_control_import_button">匯入控制布局</string>
+    <string name="import_control_import_button">匯入控制佈局</string>
     <string name="import_control_verifying_file">檔案正在校驗中，請稍後重試…</string>
     <string name="import_control_invalid_name">名稱無效或檔案已存在</string>
     <string name="import_control_done">匯入完成</string>
@@ -356,17 +356,17 @@
     <string name="customctrl_addbutton_joystick">添加搖桿</string>
     <string name="customctrl_addsubbutton">添加子按鍵</string>
 
-    <string name="customctrl_selectdefault">選擇預設控制布局</string>
-    <string name="customctrl_export">匯出控制布局</string>
+    <string name="customctrl_selectdefault">選擇預設控制佈局</string>
+    <string name="customctrl_export">匯出控制佈局</string>
 
     <string name="main_share_logs">分享日誌檔案</string>
     <string name="main_install_jar_file">執行 .jar 檔案</string>
     <string name="main_play">啟動遊戲</string>
     <string name="autoram_info_msg">記憶體已設為 %d MB</string>
     <string name="mcl_setting_check_libraries">在下載後檢查依賴庫</string>
-    <string name="mcl_setting_check_libraries_subtitle">此選項強制啟動器在哈希值可用時檢查運行庫，防止下載錯誤</string>
+    <string name="mcl_setting_check_libraries_subtitle">此選項強制啟動器在哈希值可用時檢查執行庫，防止下載錯誤</string>
     <string name="dl_library_sha_fail">依賴 %s 已損壞，此依賴將重新下載</string>
-    <string name="dl_library_sha_unknown">無法檢查運行庫 %s，希望它正常</string>
+    <string name="dl_library_sha_unknown">無法檢查執行庫 %s，希望它正常</string>
     <string name="dl_library_sha_pass">依賴庫 %s 正常</string>
     <string name="mcl_disable_gestures">禁用手勢</string>
     <string name="mcl_disable_gestures_subtitle">禁用手勢，例如長按破壞方塊和點擊放置方塊</string>
@@ -378,22 +378,22 @@
     <string name="customctrl_swipeable">可滑動</string>
     <string name="customctrl_forward_lock">鎖定前進</string>
     <string name="customctrl_absolute_tracking">絕對手指追踪</string>
-    <string name="memory_warning_msg">當前可用內存（%d）低於所分配的內存（%d），這可能會導致遊戲崩潰，如果遊戲崩潰請更改配置！</string>
-    <string name="mcl_memory_allocation">內存分配</string>
-    <string name="mcl_memory_allocation_subtitle">控制給 Minecraft 分配多少內存</string>
-    <string name="multirt_runtime_corrupt">Java 運行環境損壞</string>
+    <string name="memory_warning_msg">當前可用記憶體（%d）低於所分配的記憶體（%d），這可能會導致遊戲崩潰，如果遊戲崩潰請更改配置！</string>
+    <string name="mcl_memory_allocation">記憶體分配</string>
+    <string name="mcl_memory_allocation_subtitle">控制給 Minecraft 分配多少記憶體</string>
+    <string name="multirt_runtime_corrupt">Java 執行環境損壞</string>
     <string name="multirt_runtime_incompatiblearch">不相容的架構：%s</string>
-    <string name="multirt_config_title">Java 運行環境</string>
+    <string name="multirt_config_title">Java 執行環境</string>
     <string name="multirt_config_add">新增</string>
-    <string name="multirt_title">運行環境管理器</string>
-    <string name="multirt_subtitle">管理已安裝的 Java 運行環境</string>
+    <string name="multirt_title">執行環境管理器</string>
+    <string name="multirt_subtitle">管理已安裝的 Java 執行環境</string>
     <string name="multirt_progress_caching">正在快取…</string>
     <string name="multirt_config_setdefault">設為預設</string>
     <string name="multirt_config_setdefault_already">預設</string>
-    <string name="multirt_config_removeerror_last">你必須至少安裝一個 Java 運行環境</string>
-    <string name="multirt_nocompartiblert">找不到合適的 Java 運行環境，此版本需要 Java %d 或更高版本</string>
+    <string name="multirt_config_removeerror_last">你必須至少安裝一個 Java 執行環境</string>
+    <string name="multirt_nocompartiblert">找不到合適的 Java 執行環境，此版本需要 Java %d 或更高版本</string>
     <string name="multirt_nojava8rt">無法找到 Java 8，要使用此選項，你必須安裝 Java 8</string>
-    <string name="multirt_delete_runtime">刪除運行環境</string>
+    <string name="multirt_delete_runtime">刪除執行環境</string>
     <string name="pvc_gameDirectory">遊戲目錄</string>
     <string name="pvc_jvmArgs">JVM 參數</string>
 
@@ -401,12 +401,12 @@
     <string name="preference_mouse_start_description">此選項開啟時，虛擬滑鼠會在啟動時顯示</string>
     <string name="preference_video_title">視頻和渲染器</string>
     <string name="preference_video_description">分辨率、渲染器與性能</string>
-    <string name="preference_control_title">自定義控制佈局</string>
+    <string name="preference_control_title">自訂控制佈局</string>
     <string name="preference_control_description">手勢、按鍵與縮放</string>
     <string name="preference_java_title">Java 調整</string>
-    <string name="preference_java_description">Java 運行環境、JVM 參數、內存量與沙盒</string>
-    <string name="preference_misc_title">其他設置</string>
-    <string name="preference_misc_description">版本列表和依賴庫檢查</string>
+    <string name="preference_java_description">Java 執行環境、JVM 參數、記憶體量與沙盒</string>
+    <string name="preference_misc_title">其他設定</string>
+    <string name="preference_misc_description">版本清單和依賴庫檢查</string>
     <string name="preference_experimental_title">實驗性的補丁</string>
     <string name="preference_experimental_description">此處內容不受支持，需謹慎使用！</string>
     <string name="preference_sustained_performance_title">啟用持續性能模式</string>
@@ -472,7 +472,7 @@
     <string name="microsoft_login_retry_later">你的操作過於頻繁，請稍後再試</string>
     <string name="storage_required">Pojav ZH 需要連接外部儲存，請重新連接並重啟軟體</string>
     <string name="mcl_setting_title_buttonallcaps">在按鍵標籤中僅使用大寫字母</string>
-    <string name="mcl_setting_subtitle_buttonallcaps">如果你想在控制布局中使用小寫字母，請禁用此功能</string>
+    <string name="mcl_setting_subtitle_buttonallcaps">如果你想在控制佈局中使用小寫字母，請禁用此功能</string>
     <string name="create_profile">創建新實例</string>
     <string name="preference_shader_dump_title">啟用著色器輸出</string>
     <string name="preference_shader_dump_description">記錄轉換的著色器到日誌檔案</string>
@@ -484,21 +484,21 @@
     <string name="global_yes">是</string>
     <string name="global_no">否</string>
 
-    <string name="preference_controller_map_wiped">手柄配置已被重置</string>
-    <string name="preference_category_controller_settings">手柄設置</string>
-    <string name="preference_wipe_controller_title">重置手柄映射</string>
-    <string name="preference_wipe_controller_description">允許你重新映射手柄按鍵</string>
+    <string name="preference_controller_map_wiped">控制器配置已被重置</string>
+    <string name="preference_category_controller_settings">控制器設定</string>
+    <string name="preference_wipe_controller_title">重置控制器映射</string>
+    <string name="preference_wipe_controller_description">允許你重新映射控制器按鍵</string>
     <string name="preference_deadzone_scale_title">搖桿死區縮放</string>
     <string name="preference_deadzone_scale_description">若搖桿偏移，請調高此選項</string>
 
 
-    <string name="preference_force_big_core_title">強制渲染器在大核上運行</string>
-    <string name="preference_force_big_core_desc">強制 Minecraft 渲染線程在最高頻率的核心運行</string>
+    <string name="preference_force_big_core_title">強制渲染器在大核上執行</string>
+    <string name="preference_force_big_core_desc">強制 Minecraft 渲染線程在最高頻率的核心執行</string>
     <string name="version_select_hint">選擇版本</string>
     <string name="forge_dl_progress">正在下載 %s 的安裝程式</string>
     <string name="forge_dl_searching">正在搜尋 Forge 版本號</string>
     <string name="modloader_dl_failed_to_load_list">載入版本清單失敗！</string>
-    <string name="forge_dl_no_installer">抱歉，此版本的 Forge 沒有安裝程序，尚不支持</string>
+    <string name="forge_dl_no_installer">抱歉，此版本的 Forge 沒有安裝程式，尚不支持</string>
     <string name="forge_dl_select_version">選擇 Forge 版本</string>
     <string name="fabric_dl_progress">正在下載%s載入器元數據</string>
     <string name="fabric_dl_loader_version">%s載入器版本</string>
@@ -545,29 +545,29 @@
     <string name="notif_error_occured_desc">點擊查看詳細資訊</string>
     <string name="fabric_dl_only_stable">僅顯示穩定版本</string>請將以下內容翻譯成繁體中文：
     <string name="dl_tampered_manifest_title">文件校驗警告</string>
-    <string name="dl_tampered_manifest"><![CDATA[鏡像源上的遊戲版本列表與Mojang官方版本列表並不一致，這意味著它可能被篡改了<br/>
+    <string name="dl_tampered_manifest"><![CDATA[鏡像源上的遊戲版本清單與Mojang官方版本清單並不一致，這意味著它可能被篡改了<br/>
             <b>這樣做並不安全。如果你繼續，你的個人信息可能面臨風險！</b><br/>
-            如果你仍想繼續使用鏡像源，點擊「關閉遊戲版本列表檢查」再次開始下載<br/>
+            如果你仍想繼續使用鏡像源，點擊「關閉遊戲版本清單檢查」再次開始下載<br/>
             如果你想使用官方下載源，點擊「轉換至官方下載源」再次開始下載<br/>]]>
     </string>
-    <string name="dl_turn_off_manifest_checks">關閉遊戲版本列表檢查</string>
+    <string name="dl_turn_off_manifest_checks">關閉遊戲版本清單檢查</string>
     <string name="dl_switch_to_official_site">轉換至官方下載源</string>
     <string name="preference_download_source_title">遊戲下載源</string>
     <string name="preference_download_source_description">選擇鏡像下載源，而不是使用官方下載源</string>
-    <string name="preference_verify_manifest_title">遊戲版本列表檢查</string>
-    <string name="preference_verify_manifest_description">啟用後，啟動器將檢查遊戲版本列表以及庫</string>
+    <string name="preference_verify_manifest_title">遊戲版本清單檢查</string>
+    <string name="preference_verify_manifest_description">啟用後，啟動器將檢查遊戲版本清單以及庫</string>
     <string name="notif_download_finished">遊戲已經準備好啟動了</string>
     <string name="notif_download_finished_desc">點擊這裡啟動它！</string>
     <string name="preference_category_gestures">手勢</string>
     <string name="preference_category_buttons">控制佈局</string>
     <string name="preference_category_experimental_settings">實驗性的補丁</string>
     <string name="preference_category_java_tweaks">Java 調整</string>
-    <string name="preference_category_main_categories">設置</string>
-    <string name="preference_category_miscellaneous">其他設置</string>
-    <string name="preference_category_video">視頻設置</string>
+    <string name="preference_category_main_categories">設定</string>
+    <string name="preference_category_miscellaneous">其他設定</string>
+    <string name="preference_category_video">視頻設定</string>
     <string name="notification_permission_dialog_title">權限請求</string>
-    <string name="notification_permission_dialog_text">Pojav ZH 需要發布通知的權限，以防止你離開應用程序時，停止 遊戲/整合包 的下載。如果沒有此權限，當你將 Pojav ZH 置於後臺時，安卓系統可能會停止你的下載進度</string>
-    <string name="notification_permission_toast">你可以隨時通過進入「系統設置」改變你的決心</string>
+    <string name="notification_permission_dialog_text">Pojav ZH 需要發布通知的權限，以防止你離開應用程式時，停止 遊戲/整合包 的下載。如果沒有此權限，當你將 Pojav ZH 置於後臺時，安卓系統可能會停止你的下載進度</string>
+    <string name="notification_permission_toast">你可以隨時通過進入「系統設定」改變你的決心</string>
     <string name="preference_ask_for_notification_title">允許通知</string>
     <string name="preference_ask_for_notification_description">點擊可重新請求通知權限，這是 遊戲/整合包 在後臺正常下載所必需的</string>
     <string name="preference_vsync_in_zink_title">允許與Zink進行垂直同步</string>
