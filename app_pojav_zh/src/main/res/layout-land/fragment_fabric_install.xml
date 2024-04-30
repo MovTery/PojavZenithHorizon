@@ -145,30 +145,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fabric_installer_loader_ver_spinner" />
 
-        <TextView
-            android:id="@+id/fabric_installer_retry_tip"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="@string/modloader_dl_failed_to_load_list"
-            android:textColor="#FFFF0000"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/fabric_installer_retry_button"
-            app:layout_constraintEnd_toStartOf="@+id/fabric_installer_retry_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/fabric_installer_retry_button" />
-
-        <Button
-            android:id="@+id/fabric_installer_retry_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="@string/global_retry"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fabric_installer_only_stable_checkbox" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -216,6 +192,34 @@
             android:text="@android:string/cancel"
             app:layout_constraintBottom_toTopOf="@+id/fabric_installer_start_button"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
+
+        <TextView
+            android:id="@+id/fabric_installer_retry_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center_vertical"
+            android:text="@string/modloader_dl_failed_to_load_list"
+            android:textColor="#FFFF0000"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/fabric_installer_retry_button"
+            app:layout_constraintEnd_toEndOf="@+id/fabric_installer_retry_button"
+            app:layout_constraintStart_toStartOf="@+id/fabric_installer_retry_button" />
+
+        <Button
+            android:id="@+id/fabric_installer_retry_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/global_retry"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/zh_fabric_installer_return_button"
+            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
             app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
 
         <ProgressBar
