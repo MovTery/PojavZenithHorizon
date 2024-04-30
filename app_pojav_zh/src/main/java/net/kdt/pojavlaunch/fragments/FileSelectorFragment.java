@@ -43,7 +43,7 @@ public class FileSelectorFragment extends Fragment {
 
 
     public FileSelectorFragment(){
-        super(R.layout.fragment_file_selector);
+        super(R.layout.fragment_files);
     }
 
     @Override
@@ -109,10 +109,14 @@ public class FileSelectorFragment extends Fragment {
     }
 
     private void bindViews(@NonNull View view){
-        mSelectFolderButton = view.findViewById(R.id.file_selector_select_folder);
-        mCreateFolderButton = view.findViewById(R.id.file_selector_create_folder);
-        mRefreshButton = view.findViewById(R.id.zh_file_selector_refresh_button);
-        mFileListView = view.findViewById(R.id.file_selector);
-        mFilePathView = view.findViewById(R.id.file_selector_current_path);
+        mSelectFolderButton = view.findViewById(R.id.zh_files_return_button);
+        mCreateFolderButton = view.findViewById(R.id.zh_files_add_file_button);
+        mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
+        mFileListView = view.findViewById(R.id.zh_files);
+        mFilePathView = view.findViewById(R.id.zh_files_current_path);
+
+        view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
+        view.findViewById(R.id.zh_files_create_folder_button).setVisibility(View.GONE);
+        view.findViewById(R.id.zh_files_help_button).setVisibility(View.GONE);
     }
 }

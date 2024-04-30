@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,8 +10,14 @@
     tools:ignore="MissingDefaultResource">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/constraintLayout2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_weight="7">
 
         <TextView
             android:id="@+id/title_textview"
@@ -21,7 +27,7 @@
 
             android:layout_marginTop="15dp"
             android:text="@string/fabric_dl_loader_title"
-            app:layout_constraintEnd_toStartOf="@+id/_background_display_view"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,8 +37,8 @@
             android:layout_width="match_parent"
             android:layout_marginStart="4dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="244dp"
-            app:layout_constraintEnd_toStartOf="@+id/_background_display_view"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title_textview" />
 
@@ -53,13 +59,13 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="25dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/background_line"
 
+            android:background="@drawable/background_line"
             android:minHeight="48dp"
             android:paddingVertical="0dp"
             android:paddingStart="7dp"
             android:paddingEnd="7dp"
-            app:layout_constraintEnd_toStartOf="@+id/_background_display_view"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
@@ -98,7 +104,7 @@
             android:paddingVertical="0dp"
             android:paddingStart="7dp"
             android:paddingEnd="7dp"
-            app:layout_constraintEnd_toStartOf="@+id/_background_display_view"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fabric_installer_game_ver_spinner" />
 
@@ -131,48 +137,54 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="25dp"
-            android:layout_marginEnd="248dp"
+            android:layout_marginEnd="8dp"
             android:checked="true"
             android:minHeight="@dimen/_30sdp"
             android:text="@string/fabric_dl_only_stable"
-            app:layout_constraintEnd_toStartOf="@+id/_background_display_view"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fabric_installer_loader_ver_spinner" />
 
-
-        <LinearLayout
-            android:id="@+id/fabric_installer_retry_layout"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/fabric_installer_retry_tip"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="@dimen/fragment_padding_medium"
-            android:paddingBottom="@dimen/fragment_padding_medium"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/fabric_installer_start_button"
-            tools:layout_editor_absoluteX="13dp">
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/modloader_dl_failed_to_load_list"
+            android:textColor="#FFFF0000"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/fabric_installer_retry_button"
+            app:layout_constraintEnd_toStartOf="@+id/fabric_installer_retry_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/fabric_installer_retry_button" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@string/modloader_dl_failed_to_load_list"
-                android:textColor="#FFFF0000"
-                android:textStyle="bold" />
+        <Button
+            android:id="@+id/fabric_installer_retry_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/global_retry"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fabric_installer_only_stable_checkbox" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <Button
-                android:id="@+id/fabric_installer_retry_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/global_retry" />
-        </LinearLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_weight="3">
 
         <View
             android:id="@+id/_background_display_view"
-            android:layout_width="240dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="-8dp"
             android:background="@color/background_bottom_bar"
 
             android:translationZ="-1dp"
@@ -219,4 +231,4 @@
             app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

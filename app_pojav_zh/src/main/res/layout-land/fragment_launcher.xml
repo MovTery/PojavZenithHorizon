@@ -13,14 +13,21 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginEnd="240dp"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/constraintLayout2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_weight="7">
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -76,97 +83,115 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <View
-        android:id="@+id/_background_display_view"
-        android:layout_width="240dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginTop="-8dp"
-        android:background="@color/background_bottom_bar"
-
-        android:translationZ="-1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintHorizontal_weight="3">
 
-    <Button
-        android:id="@+id/zh_open_main_dir_button"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="16dp"
+        <View
+            android:id="@+id/_background_display_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="-8dp"
+            android:background="@color/background_bottom_bar"
 
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:paddingHorizontal="@dimen/padding_large"
-        android:paddingVertical="0px"
-        android:text="@string/zh_main_open_main_dir"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/constraintLayout"
-        app:layout_constraintTop_toTopOf="@+id/_background_display_view" />
+            android:translationZ="-1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
-    <Button
-        android:id="@+id/zh_open_instance_dir_button"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="16dp"
+        <Button
+            android:id="@+id/zh_open_main_dir_button"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="16dp"
 
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:paddingHorizontal="@dimen/padding_large"
-        android:paddingVertical="0px"
-        android:text="@string/zh_main_open_instance_dir"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/constraintLayout"
-        app:layout_constraintTop_toBottomOf="@+id/zh_open_main_dir_button" />
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:paddingHorizontal="@dimen/padding_large"
+            android:paddingVertical="0px"
+            android:text="@string/zh_main_open_main_dir"
+            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+            app:layout_constraintStart_toStartOf="@+id/_background_display_view"
+            app:layout_constraintTop_toTopOf="@+id/_background_display_view"
+            tools:ignore="NotSibling" />
 
-    <com.kdt.mcgui.mcVersionSpinner
-        android:id="@+id/mc_version_spinner"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_38sdp"
+        <Button
+            android:id="@+id/zh_open_instance_dir_button"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="16dp"
 
-        android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:paddingHorizontal="@dimen/padding_large"
+            android:paddingVertical="0px"
+            android:text="@string/zh_main_open_instance_dir"
+            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+            app:layout_constraintStart_toStartOf="@+id/_background_display_view"
+            app:layout_constraintTop_toBottomOf="@+id/zh_open_main_dir_button"
+            tools:ignore="NotSibling" />
 
-        android:layout_marginBottom="8dp"
-        android:background="?attr/selectableItemBackground"
-        android:drawableEnd="@drawable/spinner_arrow"
-        app:drawableEndPadding="@dimen/_1sdp"
-        app:drawableEndSize="@dimen/_12sdp"
-        app:drawableStartIntegerScaling="true"
-        app:drawableStartSize="@dimen/_36sdp"
-        app:layout_constraintBottom_toTopOf="@+id/play_button"
-        app:layout_constraintEnd_toStartOf="@+id/edit_profile_button"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
+        <com.kdt.mcgui.mcVersionSpinner
+            android:id="@+id/mc_version_spinner"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_38sdp"
 
-    <ImageButton
-        android:id="@+id/edit_profile_button"
-        android:layout_width="@dimen/_38sdp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="4dp"
+            android:layout_marginStart="4dp"
 
-        android:layout_marginBottom="8dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:src="@drawable/ic_edit_profile"
-        app:layout_constraintBottom_toTopOf="@+id/play_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mc_version_spinner" />
+            android:layout_marginBottom="8dp"
+            android:background="?attr/selectableItemBackground"
+            android:drawableEnd="@drawable/spinner_arrow"
+            app:drawableEndPadding="@dimen/_1sdp"
+            app:drawableEndSize="@dimen/_12sdp"
+            app:drawableStartIntegerScaling="true"
+            app:drawableStartSize="@dimen/_36sdp"
+            app:layout_constraintBottom_toTopOf="@+id/play_button"
+            app:layout_constraintEnd_toStartOf="@+id/edit_profile_button"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/_background_display_view"
+            app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
 
-    <com.kdt.mcgui.MineButton
-        android:id="@+id/play_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        <ImageButton
+            android:id="@+id/edit_profile_button"
+            android:layout_width="@dimen/_38sdp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="4dp"
+
+            android:layout_marginBottom="8dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_edit_profile"
+            app:layout_constraintBottom_toTopOf="@+id/play_button"
+            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
+            app:layout_constraintTop_toTopOf="@+id/mc_version_spinner" />
+
+        <com.kdt.mcgui.MineButton
+            android:id="@+id/play_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
 
 
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/main_play"
-        android:textAllCaps="true"
-        app:layout_constraintBottom_toBottomOf="@+id/_background_display_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/_background_display_view"
-        tools:ignore="MissingConstraints" />
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/main_play"
+            android:textAllCaps="true"
+            app:layout_constraintBottom_toBottomOf="@+id/_background_display_view"
+            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
+            app:layout_constraintStart_toStartOf="@+id/_background_display_view"
+            tools:ignore="MissingConstraints" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

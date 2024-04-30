@@ -45,8 +45,8 @@ public abstract class FabriclikeInstallFragment extends Fragment implements Modl
     private Future<?> mLoaderVersionFuture;
     private String mSelectedLoaderVersion;
     private ProgressBar mProgressBar;
-    private Button mStartButton;
-    private View mRetryView;
+    private Button mStartButton, mRetryButton;
+    private TextView mRetryText;
     private CheckBox mOnlyStableCheckbox;
     protected FabriclikeInstallFragment(FabriclikeUtils mFabriclikeUtils) {
         super(R.layout.fragment_fabric_install);
@@ -69,7 +69,8 @@ public abstract class FabriclikeInstallFragment extends Fragment implements Modl
         mLoaderVersionSpinner = view.findViewById(R.id.fabric_installer_loader_ver_spinner);
         mLoaderVersionSpinner.setOnItemSelectedListener(new LoaderVersionSelectedListener());
         mProgressBar = view.findViewById(R.id.fabric_installer_progress_bar);
-        mRetryView = view.findViewById(R.id.fabric_installer_retry_layout);
+        mRetryText = view.findViewById(R.id.fabric_installer_retry_tip);
+        mRetryButton = view.findViewById(R.id.fabric_installer_retry_button);
         mOnlyStableCheckbox = view.findViewById(R.id.fabric_installer_only_stable_checkbox);
         mOnlyStableCheckbox.setOnCheckedChangeListener(this);
         view.findViewById(R.id.fabric_installer_retry_button).setOnClickListener(this::onClickRetry);
@@ -109,7 +110,8 @@ public abstract class FabriclikeInstallFragment extends Fragment implements Modl
 
     private void onClickRetry(View v) {
         mStartButton.setEnabled(false);
-        mRetryView.setVisibility(View.GONE);
+        mRetryText.setVisibility(View.GONE);
+        mRetryButton.setVisibility(View.GONE);
         mLoaderVersionSpinner.setAdapter(null);
         if(mGameVersionArray == null) {
             mGameVersionSpinner.setAdapter(null);
@@ -188,7 +190,8 @@ public abstract class FabriclikeInstallFragment extends Fragment implements Modl
             if(myFuture.isCancelled()) return;
             stopLoading();
             if(e != null) Tools.showError(requireContext(), e);
-            mRetryView.setVisibility(View.VISIBLE);
+            mRetryText.setVisibility(View.VISIBLE);
+            mRetryButton.setVisibility(View.VISIBLE);
         });
     }
 
