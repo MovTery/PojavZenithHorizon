@@ -24,7 +24,7 @@
         android:layout_height="0dp"
         android:gravity="center"
         android:textSize="@dimen/_12ssp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/primary_text"
         android:paddingEnd="@dimen/_40sdp"
 
         tools:text="5 tasks in progress"

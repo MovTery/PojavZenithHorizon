@@ -27,6 +27,7 @@
 
             android:layout_marginTop="15dp"
             android:text="@string/fabric_dl_loader_title"
+            android:textColor="@color/primary_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

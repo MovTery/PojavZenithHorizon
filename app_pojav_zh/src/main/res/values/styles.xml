@@ -8,6 +8,10 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:statusBarColor">@color/background_status_bar</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:textViewStyle">@style/TextViewStyle</item>
+        <item name="android:buttonStyle">@style/ButtonViewStyle</item>
+        <item name="android:buttonStyleToggle">@style/ButtonViewStyle</item>
+        <item name="android:checkboxStyle">@style/CheckBoxViewStyle</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
 
         <item name="android:textSize">@dimen/_12ssp</item>
@@ -18,7 +22,19 @@
     <style name="ThickDivider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/_1sdp</item>
-        <item name="android:background">?android:attr/listDivider</item>
+        <item name="android:background">@color/background_lines</item>
+    </style>
+
+    <style name="TextViewStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/primary_text</item>
+    </style>
+
+    <style name="ButtonViewStyle" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/primary_text</item>
+    </style>
+
+    <style name="CheckBoxViewStyle" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/primary_text</item>
     </style>
 
 </resources>
