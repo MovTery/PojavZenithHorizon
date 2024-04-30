@@ -365,17 +365,13 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             Tools.releaseRenderersCache();
         }
         MinecraftAccount minecraftAccount = PojavProfile.getCurrentProfileContent(this, null);
-
-        int requiredJavaVersion = 8;
-        if(version.javaVersion != null) requiredJavaVersion = version.javaVersion.majorVersion;
-
         Logger.appendToLog("--------- beginning with launcher debug");
-        printLauncherInfo(versionId, Tools.isValidString(minecraftProfile.javaArgs) ? minecraftProfile.javaArgs : LauncherPreferences.PREF_CUSTOM_JAVA_ARGS, Tools.pickRuntime(this, minecraftProfile, requiredJavaVersion));
+        printLauncherInfo(versionId, Tools.isValidString(minecraftProfile.javaArgs) ? minecraftProfile.javaArgs : LauncherPreferences.PREF_CUSTOM_JAVA_ARGS, minecraftProfile.javaDir == null ? "Default" : minecraftProfile.javaDir);
         JREUtils.redirectAndPrintJRELog();
         LauncherProfiles.load();
-
+        int requiredJavaVersion = 8;
+        if(version.javaVersion != null) requiredJavaVersion = version.javaVersion.majorVersion;
         if(LauncherPreferences.PREF_SET_TO_CHINESE) ProfileLanguageSelector.setToChinese(minecraftProfile); //首次启动设置为中文
-
         Tools.launchMinecraft(this, minecraftAccount, minecraftProfile, versionId, requiredJavaVersion);
         //Note that we actually stall in the above function, even if the game crashes. But let's be safe.
         Tools.runOnUiThread(()-> mServiceBinder.isActive = false);
