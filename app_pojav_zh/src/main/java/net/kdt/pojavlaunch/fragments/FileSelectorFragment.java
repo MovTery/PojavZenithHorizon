@@ -118,5 +118,8 @@ public class FileSelectorFragment extends Fragment {
         view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
         view.findViewById(R.id.zh_files_create_folder_button).setVisibility(View.GONE);
         view.findViewById(R.id.zh_files_help_button).setVisibility(View.GONE);
+
+        mSelectFolderButton.setText(getString(R.string.folder_fragment_select));
+        mCreateFolderButton.setText(getString(R.string.folder_fragment_create));
     }
 }

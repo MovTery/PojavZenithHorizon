@@ -160,9 +160,8 @@ public class mcVersionSpinner extends ExtendedTextView {
         });
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            DisplayMetrics displayMetrics = new DisplayMetrics();
-            int width = (int) (displayMetrics.widthPixels * 0.3f + 50);
-            mPopupWindow = new PopupWindow(mListView, width, getContext().getResources().getDimensionPixelOffset(R.dimen._200sdp));
+            DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+            mPopupWindow = new PopupWindow(mListView, (displayMetrics.widthPixels / 5) * 2, (displayMetrics.heightPixels / 5) * 3);
         }
         else mPopupWindow = new PopupWindow(mListView, MATCH_PARENT, getContext().getResources().getDimensionPixelOffset(R.dimen._184sdp));
         mPopupWindow.setElevation(5);
