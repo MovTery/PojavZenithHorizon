@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,14 +10,19 @@
     tools:ignore="MissingDefaultResource">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/constraintLayout2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_weight="7">
 
         <ScrollView
             android:id="@+id/scrollView3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginEnd="240dp"
             android:layout_weight="1"
             android:fadeScrollbars="true"
             android:scrollbarThumbVertical="@color/minebutton_color"
@@ -175,7 +180,8 @@
 
                     app:layout_constraintEnd_toStartOf="@id/vprof_editor_path_button"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/vprof_editor_jre_args" />
+                    app:layout_constraintTop_toBottomOf="@+id/vprof_editor_jre_args"
+                    tools:ignore="HardcodedText" />
 
                 <Button
                     android:id="@+id/vprof_editor_path_button"
@@ -255,12 +261,22 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_weight="3">
 
         <View
             android:id="@+id/view3"
-            android:layout_width="240dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="-8dp"
 
             android:background="@color/background_bottom_bar"
             android:translationZ="-1dp"
@@ -273,12 +289,13 @@
             android:id="@+id/vprof_editor_profile_icon"
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_50sdp"
-            android:layout_marginTop="12dp"
 
+            android:layout_marginTop="12dp"
             android:paddingHorizontal="@dimen/profile_editor_image_padding"
             android:paddingVertical="@dimen/profile_editor_image_padding"
             app:layout_constraintEnd_toEndOf="@+id/view3"
-            app:layout_constraintStart_toEndOf="@+id/scrollView3"
+            app:layout_constraintStart_toEndOf="@+id/view3"
+            app:layout_constraintStart_toStartOf="@+id/view3"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/avatars" />
 
@@ -313,9 +330,9 @@
             android:layout_weight="1"
             android:text="@string/global_save"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/view3"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/scrollView3" />
+            app:layout_constraintStart_toStartOf="@+id/view3" />
 
         <com.kdt.mcgui.MineButton
             android:id="@+id/vprof_editor_delete_button"
@@ -327,9 +344,9 @@
             android:layout_weight="1"
             android:text="@string/global_delete"
             app:layout_constraintBottom_toTopOf="@+id/vprof_editor_save_button"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/view3"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/scrollView3" />
+            app:layout_constraintStart_toStartOf="@+id/view3" />
 
         <com.kdt.mcgui.MineButton
             android:id="@+id/zh_create_mods_button"
@@ -341,9 +358,9 @@
             android:layout_weight="1"
             android:text="@string/zh_profile_create_mods"
             app:layout_constraintBottom_toTopOf="@+id/vprof_editor_delete_button"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/view3"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/scrollView3" />
+            app:layout_constraintStart_toStartOf="@+id/view3" />
 
         <com.kdt.mcgui.MineButton
             android:id="@+id/zh_mods_button"
@@ -355,9 +372,9 @@
             android:layout_weight="1"
             android:text="@string/zh_profile_mods"
             app:layout_constraintBottom_toTopOf="@+id/vprof_editor_delete_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/scrollView3" />
+            app:layout_constraintEnd_toEndOf="@+id/view3"
+            app:layout_constraintHorizontal_bias="0.836"
+            app:layout_constraintStart_toStartOf="@+id/view3" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

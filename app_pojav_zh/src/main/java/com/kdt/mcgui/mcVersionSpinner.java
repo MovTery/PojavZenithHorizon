@@ -10,6 +10,7 @@ import android.os.Build;
 import android.transition.Slide;
 import android.transition.Transition;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -158,7 +159,11 @@ public class mcVersionSpinner extends ExtendedTextView {
             }
         });
 
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) mPopupWindow = new PopupWindow(mListView, getContext().getResources().getDimensionPixelOffset(R.dimen._290sdp), getContext().getResources().getDimensionPixelOffset(R.dimen._200sdp));
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            int width = (int) (displayMetrics.widthPixels * 0.3f + 50);
+            mPopupWindow = new PopupWindow(mListView, width, getContext().getResources().getDimensionPixelOffset(R.dimen._200sdp));
+        }
         else mPopupWindow = new PopupWindow(mListView, MATCH_PARENT, getContext().getResources().getDimensionPixelOffset(R.dimen._184sdp));
         mPopupWindow.setElevation(5);
         mPopupWindow.setClippingEnabled(false);
