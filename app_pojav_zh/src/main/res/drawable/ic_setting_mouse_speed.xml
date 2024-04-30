@@ -1,4 +1,5 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:width="48dp"
     android:height="48dp"
     android:viewportWidth="48"
@@ -10,7 +11,8 @@
       android:fillColor="@color/icon_color_fill"
       android:strokeColor="@color/icon_color"
       android:fillType="evenOdd"
-      android:strokeLineCap="round"/>
+      android:strokeLineCap="round"
+      tools:ignore="VectorRaster" />
   <path
       android:pathData="M12.517,4.3l31,0"
       android:strokeLineJoin="round"
@@ -18,7 +20,8 @@
       android:fillColor="#00000000"
       android:strokeColor="@color/icon_color"
       android:fillType="evenOdd"
-      android:strokeLineCap="round"/>
+      android:strokeLineCap="round"
+      tools:ignore="VectorRaster" />
   <path
       android:pathData="M20.975,14l22.5,0"
       android:strokeLineJoin="round"
@@ -26,7 +29,8 @@
       android:fillColor="#00000000"
       android:strokeColor="@color/icon_color"
       android:fillType="evenOdd"
-      android:strokeLineCap="round"/>
+      android:strokeLineCap="round"
+      tools:ignore="VectorRaster" />
   <path
       android:pathData="M29.533,23.5l14,0"
       android:strokeLineJoin="round"
@@ -34,7 +38,8 @@
       android:fillColor="#00000000"
       android:strokeColor="@color/icon_color"
       android:fillType="evenOdd"
-      android:strokeLineCap="round"/>
+      android:strokeLineCap="round"
+      tools:ignore="VectorRaster" />
   <path
       android:pathData="M36.025,33.3l7.5,0"
       android:strokeLineJoin="round"
@@ -42,7 +47,8 @@
       android:fillColor="#00000000"
       android:strokeColor="@color/icon_color"
       android:fillType="evenOdd"
-      android:strokeLineCap="round"/>
+      android:strokeLineCap="round"
+      tools:ignore="VectorRaster" />
   <path
       android:pathData="M29.531,43l13.995,0"
       android:strokeLineJoin="round"
@@ -50,5 +56,6 @@
       android:fillColor="#00000000"
       android:strokeColor="@color/icon_color"
       android:fillType="evenOdd"
-      android:strokeLineCap="round"/>
+      android:strokeLineCap="round"
+      tools:ignore="VectorRaster" />
 </vector>

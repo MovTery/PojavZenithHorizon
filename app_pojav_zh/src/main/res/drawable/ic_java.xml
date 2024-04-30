@@ -1,4 +1,5 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:width="18.35dp"
     android:height="23.72dp"
     android:viewportWidth="18.35"
@@ -8,5 +9,6 @@
       android:strokeWidth=".25"
       android:fillColor="@color/icon_color"
       android:strokeColor="@color/icon_color"
-      android:strokeLineCap="round"/>
+      android:strokeLineCap="round"
+      tools:ignore="VectorPath" />
 </vector>
