@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:clickable="true"
-        android:background="#555555"
+        android:background="@color/background_app"
         app:layout_constraintTop_toTopOf="parent"
         android:focusable="true" />
 
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="25dp"
         android:text="@string/log_view_label_log_output"
-        android:textColor="#FFF"
+        android:textColor="@color/primary_text"
         android:textAppearance="?android:attr/textAppearanceMedium"
         app:layout_constraintBottom_toBottomOf="@+id/top_log_view"
         app:layout_constraintStart_toStartOf="@+id/top_log_view"

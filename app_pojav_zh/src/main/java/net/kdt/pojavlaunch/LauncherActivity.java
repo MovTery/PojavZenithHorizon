@@ -210,19 +210,6 @@ public class LauncherActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pojav_launcher);
 
-        //设置主题
-        if (!PREF_LAUNCHER_THEME.equals("system")) {
-            if (PREF_LAUNCHER_THEME.equals("light") &&
-                    AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_NO) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                recreate();
-            } else if (PREF_LAUNCHER_THEME.equals("dark") &&
-                    AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_YES) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                recreate();
-            }
-        }
-
         // Manually add the first fragment to the backstack to get easily back to it
         // There must be a better way to handle the root though...
         this.getSupportFragmentManager().beginTransaction()
@@ -286,7 +273,23 @@ public class LauncherActivity extends BaseActivity {
         File updateFile = new File(getExternalFilesDir(null), "PojavZH.apk");
         if (updateFile.exists()) FileUtils.deleteQuietly(updateFile);
 
-        PojavZHTools.updateChecker(this);
+        try {
+            //设置主题
+            if (!PREF_LAUNCHER_THEME.equals("system")) {
+                if (PREF_LAUNCHER_THEME.equals("light") &&
+                        AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_NO) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    recreate();
+                } else if (PREF_LAUNCHER_THEME.equals("dark") &&
+                        AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_YES) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    recreate();
+                }
+            }
+        } finally {
+            //之后再弹出更新提示框
+            PojavZHTools.updateChecker(this);
+        }
     }
 
     @Override
