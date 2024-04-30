@@ -366,7 +366,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         }
         MinecraftAccount minecraftAccount = PojavProfile.getCurrentProfileContent(this, null);
         Logger.appendToLog("--------- beginning with launcher debug");
-        printLauncherInfo(versionId, Tools.isValidString(minecraftProfile.javaArgs) ? minecraftProfile.javaArgs : LauncherPreferences.PREF_CUSTOM_JAVA_ARGS, minecraftProfile.javaDir == null ? "Default" : minecraftProfile.javaDir);
+        printLauncherInfo(versionId, Tools.isValidString(minecraftProfile.javaArgs) ? minecraftProfile.javaArgs : LauncherPreferences.PREF_CUSTOM_JAVA_ARGS, minecraftProfile.javaDir == null ? LauncherPreferences.PREF_DEFAULT_RUNTIME : minecraftProfile.javaDir);
         JREUtils.redirectAndPrintJRELog();
         LauncherProfiles.load();
         int requiredJavaVersion = 8;
