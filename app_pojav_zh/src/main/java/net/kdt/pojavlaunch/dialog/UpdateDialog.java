@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import net.kdt.pojavlaunch.R;
 
@@ -58,7 +59,12 @@ public class UpdateDialog extends Dialog {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
 
-                String css = "body { background-color: #333333; color: #ffffff; }" +
+                String[] color = new String[2];
+                boolean darkMode = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
+                color[0] = darkMode ? "#333333" : "#CFCFCF";
+                color[1] = darkMode ? "#ffffff" : "#0E0E0E";
+
+                String css = "body { background-color: " + color[0] + "; color: " + color[1] +"; }" +
                         "a, a:link, a:visited, a:hover, a:active {" +
                         "  color: #ffffff;" +
                         "  text-decoration: none;" +
