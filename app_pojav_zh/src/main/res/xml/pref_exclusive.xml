@@ -24,7 +24,8 @@
             android:defaultValue="system"
             android:entries="@array/launcher_theme_names"
             android:entryValues="@array/launcher_theme_values"
-            android:title="@string/zh_setting_launcher_theme" />
+            android:title="@string/zh_setting_launcher_theme"
+            app2:useSimpleSummaryProvider="true"/>
 
         <SwitchPreference
             android:defaultValue="false"
