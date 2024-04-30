@@ -1,4 +1,5 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:width="48dp"
     android:height="48dp"
     android:viewportWidth="48"
@@ -8,7 +9,8 @@
       android:strokeLineJoin="round"
       android:fillColor="@color/icon_color"
       android:fillType="evenOdd"
-      android:strokeLineCap="round"/>
+      android:strokeLineCap="round"
+      tools:ignore="VectorRaster" />
   <path
       android:pathData="M21,41h14l2.1,-12.4L28,24h-2.8V13c0,-0.6 -0.1,-1 -0.5,-1.4a2,2 0,0 0,-1.4 -0.6,2 2,0 0,0 -1.5,0.6 2,2 0,0 0,-0.6 1.4v20l-7.6,-1.7 -1.2,1.2 8.5,8.5Z"
       android:strokeLineJoin="round"
@@ -20,13 +22,15 @@
       android:strokeLineJoin="round"
       android:fillColor="@color/icon_color"
       android:fillType="evenOdd"
-      android:strokeLineCap="round"/>
+      android:strokeLineCap="round"
+      tools:ignore="VectorRaster" />
   <path
       android:pathData="M18.3,19.2c-1,-0.8 -1.8,-1.7 -2.3,-2.8a8.1,8.1 0,0 1,-0.8 -3.5c0,-2.2 0.8,-4 2.4,-5.6A7.8,7.8 0,0 1,23.2 5a8,8 0,0 1,5.7 2.3,7.5 7.5,0 0,1 2.4,5.6 8.1,8.1 0,0 1,-3 6.3V13c0,-1.4 -0.5,-2.6 -1.5,-3.6S24.6,8 23.2,8c-1.3,0 -2.5,0.5 -3.5,1.4 -1,1 -1.4,2.2 -1.4,3.6v6.2Z"
       android:strokeLineJoin="round"
       android:fillColor="@color/icon_color_fill"
       android:fillType="evenOdd"
-      android:strokeLineCap="round"/>
+      android:strokeLineCap="round"
+      tools:ignore="VectorRaster" />
   <path
       android:pathData="M11.765,11.591C10.601,10.427 8.642,10.447 7.51,11.579S6.359,14.67 7.522,15.833l27.732,27.732c1.164,1.164 3.123,1.143 4.255,0.012s1.152,-3.091 -0.012,-4.255L11.765,11.591Z"
       android:strokeLineJoin="round"
@@ -34,5 +38,6 @@
       android:fillColor="#f20d0d"
       android:strokeColor="@color/icon_color"
       android:fillType="evenOdd"
-      android:strokeLineCap="round"/>
+      android:strokeLineCap="round"
+      tools:ignore="VectorRaster" />
 </vector>
