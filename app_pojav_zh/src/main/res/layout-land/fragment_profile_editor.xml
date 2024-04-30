@@ -54,6 +54,7 @@
                     android:inputType="textPersonName"
                     android:paddingHorizontal="@dimen/padding_heavy"
                     android:textSize="@dimen/_13ssp"
+                    android:textColor="@color/primary_text"
                     android:textColorHint="@color/primary_text"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_editor_absoluteX="10dp" />
@@ -155,6 +156,7 @@
                     android:inputType="text"
                     android:paddingHorizontal="@dimen/padding_heavy"
                     android:textSize="@dimen/_13ssp"
+                    android:textColor="@color/primary_text"
                     android:textColorHint="@color/primary_text"
 
                     app:layout_constraintTop_toBottomOf="@+id/vprof_editor_ctrl_spinner" />

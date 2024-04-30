@@ -35,6 +35,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/background_line"
             android:textSize="@dimen/_13ssp"
+            android:textColor="@color/primary_text"
             android:textColorHint="@color/primary_text"
             android:translationZ="2dp"
 
