@@ -11,6 +11,7 @@
     <TextView
         android:id="@+id/title_textview"
         style="@style/TextAppearance.AppCompat.Title"
+        android:textColor="@color/primary_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"

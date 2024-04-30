@@ -35,6 +35,7 @@
         android:layout_height="wrap_content"
         android:text="@string/zh_activity_import_control"
         android:textSize="@dimen/_16sdp"
+        android:textColor="@color/primary_text"
 
         app:layout_constraintBottom_toTopOf="@+id/editText_import_control_file_name"
         app:layout_constraintStart_toStartOf="@+id/editText_import_control_file_name" />
