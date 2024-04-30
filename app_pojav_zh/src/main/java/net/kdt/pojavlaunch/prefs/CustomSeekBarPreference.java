@@ -3,7 +3,6 @@ package net.kdt.pojavlaunch.prefs;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.SeekBar;
@@ -58,7 +57,7 @@ public class CustomSeekBarPreference extends SeekBarPreference {
     public void onBindViewHolder(@NonNull PreferenceViewHolder view) {
         super.onBindViewHolder(view);
         TextView titleTextView = (TextView) view.findViewById(android.R.id.title);
-        titleTextView.setTextColor(Color.WHITE);
+        titleTextView.setTextColor(getContext().getResources().getColor(R.color.primary_text));
 
         mTextView = (TextView) view.findViewById(R.id.seekbar_value);
         mTextView.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
