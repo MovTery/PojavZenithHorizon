@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="@dimen/_52sdp"
     android:layout_width="match_parent"
-    android:background="@color/background_app"
     android:textSize="@dimen/_16ssp"
     android:gravity="center_vertical"
     android:drawablePadding="@dimen/_6sdp"
