@@ -9,14 +9,14 @@
       android:strokeLineJoin="round"
       android:strokeWidth="3.016"
       android:fillColor="#597da6"
-      android:strokeColor="@color/icon_color"
+      android:strokeColor="#151515"
       android:fillType="evenOdd"
       android:strokeLineCap="round"
       tools:ignore="VectorRaster" />
   <path
       android:pathData="M50,7c-10,0 -5,10 -15,10S30,7 20,7h30Z"
       android:strokeLineJoin="round"
-      android:fillColor="@color/icon_color"
+      android:fillColor="#151515"
       android:fillType="evenOdd"
       android:strokeLineCap="round"
       tools:ignore="VectorRaster" />

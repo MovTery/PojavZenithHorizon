@@ -8,8 +8,8 @@
       android:pathData="M4.5,40.7V4.3l25.2,29H18.5l4.7,9.3 -3.8,0.9 -4.6,-9.3 -10.3,6.5Z"
       android:strokeLineJoin="round"
       android:strokeWidth="3"
-      android:fillColor="@color/icon_color_fill"
-      android:strokeColor="@color/icon_color"
+      android:fillColor="#232323"
+      android:strokeColor="#151515"
       android:fillType="evenOdd"
       android:strokeLineCap="round"
       tools:ignore="VectorRaster" />
@@ -18,7 +18,7 @@
       android:strokeLineJoin="round"
       android:strokeWidth="3.05"
       android:fillColor="#00000000"
-      android:strokeColor="@color/icon_color"
+      android:strokeColor="#151515"
       android:fillType="evenOdd"
       android:strokeLineCap="round"
       tools:ignore="VectorRaster" />
@@ -27,7 +27,7 @@
       android:strokeLineJoin="round"
       android:strokeWidth="2.944"
       android:fillColor="#00000000"
-      android:strokeColor="@color/icon_color"
+      android:strokeColor="#151515"
       android:fillType="evenOdd"
       android:strokeLineCap="round"
       tools:ignore="VectorRaster" />
@@ -36,7 +36,7 @@
       android:strokeLineJoin="round"
       android:strokeWidth="2.596"
       android:fillColor="#00000000"
-      android:strokeColor="@color/icon_color"
+      android:strokeColor="#151515"
       android:fillType="evenOdd"
       android:strokeLineCap="round"
       tools:ignore="VectorRaster" />
@@ -45,7 +45,7 @@
       android:strokeLineJoin="round"
       android:strokeWidth="2.05"
       android:fillColor="#00000000"
-      android:strokeColor="@color/icon_color"
+      android:strokeColor="#151515"
       android:fillType="evenOdd"
       android:strokeLineCap="round"
       tools:ignore="VectorRaster" />
@@ -54,7 +54,7 @@
       android:strokeLineJoin="round"
       android:strokeWidth="2.8"
       android:fillColor="#00000000"
-      android:strokeColor="@color/icon_color"
+      android:strokeColor="#151515"
       android:fillType="evenOdd"
       android:strokeLineCap="round"
       tools:ignore="VectorRaster" />
