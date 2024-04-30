@@ -50,6 +50,7 @@
         android:imeOptions="flagForceAscii"
 
         android:textSize="@dimen/_16ssp"
+        android:textColorHint="@color/primary_text"
         app:layout_constraintBottom_toBottomOf="@+id/_background_display_view"
         app:layout_constraintEnd_toStartOf="@+id/mineButton_import_control"
         app:layout_constraintStart_toStartOf="@+id/_background_display_view"

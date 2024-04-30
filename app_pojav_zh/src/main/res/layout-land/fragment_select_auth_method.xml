@@ -27,12 +27,12 @@
 
     <TextView
         android:id="@+id/textView"
+        style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="@string/zh_account_text"
-        android:textSize="@dimen/_25sdp"
-        android:textStyle="bold"
+        android:textColor="@color/primary_text"
         app:layout_constraintEnd_toEndOf="@+id/login_menu"
         app:layout_constraintStart_toStartOf="@+id/login_menu"
         app:layout_constraintTop_toTopOf="@+id/login_menu" />
