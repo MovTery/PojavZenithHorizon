@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch;
 
 import static net.kdt.pojavlaunch.PojavZHTools.setVisibilityAnim;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_LAUNCHER_THEME;
 
 import android.Manifest;
 import android.content.Intent;
@@ -20,7 +19,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -273,23 +271,7 @@ public class LauncherActivity extends BaseActivity {
         File updateFile = new File(getExternalFilesDir(null), "PojavZH.apk");
         if (updateFile.exists()) FileUtils.deleteQuietly(updateFile);
 
-        try {
-            //设置主题
-            if (!PREF_LAUNCHER_THEME.equals("system")) {
-                if (PREF_LAUNCHER_THEME.equals("light") &&
-                        AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_NO) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    recreate();
-                } else if (PREF_LAUNCHER_THEME.equals("dark") &&
-                        AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_YES) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    recreate();
-                }
-            }
-        } finally {
-            //之后再弹出更新提示框
-            PojavZHTools.updateChecker(this);
-        }
+        PojavZHTools.updateChecker(this);
     }
 
     @Override

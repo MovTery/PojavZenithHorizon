@@ -6,8 +6,6 @@ import android.text.*;
 import android.util.*;
 import android.view.*;
 
-import androidx.appcompat.app.AppCompatDelegate;
-
 import java.util.*;
 import net.kdt.pojavlaunch.utils.*;
 
@@ -68,16 +66,9 @@ public class AWTCanvasView extends TextureView implements TextureView.SurfaceTex
         Surface surface = new Surface(getSurfaceTexture());
         Bitmap rgbArrayBitmap = Bitmap.createBitmap(AWT_CANVAS_WIDTH, AWT_CANVAS_HEIGHT, Bitmap.Config.ARGB_8888);
         Paint paint = new Paint();
-        int color;
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            color = 0;
-        } else {
-            color = 228;
-        }
         try {
             while (!mIsDestroyed && surface.isValid()) {
                 canvas = surface.lockCanvas(null);
-                canvas.drawRGB(color, color, color);
                 int[] rgbArray = JREUtils.renderAWTScreenFrame(/* canvas, mWidth, mHeight */);
                 boolean mDrawing = rgbArray != null;
                 if (rgbArray != null) {

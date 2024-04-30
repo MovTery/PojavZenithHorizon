@@ -64,9 +64,9 @@ public class UpdateDialog extends Dialog {
                 color[0] = darkMode ? "#333333" : "#CFCFCF";
                 color[1] = darkMode ? "#ffffff" : "#0E0E0E";
 
-                String css = "body { background-color: " + color[0] + "; color: " + color[1] +"; }" +
+                String css = "body { background-color: " + color[0] + "; color: " + color[1] + "; }" +
                         "a, a:link, a:visited, a:hover, a:active {" +
-                        "  color: #ffffff;" +
+                        "  color: " + color[1] + ";" +
                         "  text-decoration: none;" +
                         "  pointer-events: none;" + //禁止链接的交互性
                         "}";
