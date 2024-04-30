@@ -384,7 +384,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         Logger.appendToLog("Info: API version: " + Build.VERSION.SDK_INT);
         Logger.appendToLog("Info: Selected Minecraft version: " + gameVersion);
         Logger.appendToLog("Info: Custom Java arguments: \"" + javaArguments + "\"");
-        Logger.appendToLog("Info: Java Runtime: " + javaRuntime.substring(Tools.LAUNCHERPROFILES_RTPREFIX.length()));
+        Logger.appendToLog("Info: Java Runtime: " + (javaRuntime.startsWith("pojav://") ? javaRuntime.substring(Tools.LAUNCHERPROFILES_RTPREFIX.length()) : javaRuntime));
     }
 
     private void dialogSendCustomKey() {
