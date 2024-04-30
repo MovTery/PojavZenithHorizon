@@ -8,8 +8,8 @@
       android:pathData="M23.3,33.8V5.5L42.9,28h-8.7l3.6,7.3 -2.9,0.7 -3.6,-7.3 -8,5.1Z"
       android:strokeLineJoin="round"
       android:strokeWidth="3"
-      android:fillColor="#232323"
-      android:strokeColor="#151515"
+      android:fillColor="#FFF"
+      android:strokeColor="#808080"
       android:fillType="evenOdd"
       android:strokeLineCap="round"
       tools:ignore="VectorRaster" />
@@ -18,7 +18,7 @@
       android:strokeLineJoin="round"
       android:strokeWidth="3"
       android:fillColor="#00000000"
-      android:strokeColor="#151515"
+      android:strokeColor="#808080"
       android:fillType="evenOdd"
       android:strokeLineCap="round"
       tools:ignore="VectorRaster" />
@@ -26,8 +26,8 @@
       android:pathData="M7,39.8v-16l11,12.7h-4.9l2,4 -1.6,0.5 -2,-4L7,39.7Z"
       android:strokeLineJoin="round"
       android:strokeWidth="3"
-      android:fillColor="#232323"
-      android:strokeColor="#151515"
+      android:fillColor="#FFF"
+      android:strokeColor="#808080"
       android:fillType="evenOdd"
       android:strokeLineCap="round"
       tools:ignore="VectorRaster" />
@@ -36,7 +36,7 @@
       android:strokeLineJoin="round"
       android:strokeWidth="3"
       android:fillColor="#00000000"
-      android:strokeColor="#151515"
+      android:strokeColor="#808080"
       android:fillType="evenOdd"
       android:strokeLineCap="round"
       tools:ignore="VectorRaster" />
@@ -45,7 +45,7 @@
       android:strokeLineJoin="round"
       android:strokeWidth="2.97"
       android:fillColor="#00000000"
-      android:strokeColor="#151515"
+      android:strokeColor="#808080"
       android:fillType="evenOdd"
       android:strokeLineCap="round"
       tools:ignore="VectorRaster" />
