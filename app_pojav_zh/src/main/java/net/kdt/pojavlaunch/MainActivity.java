@@ -215,9 +215,9 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                         runOnUiThread(this::openLogOutput);
                     }
 
-                    // 淡入游戏内提示
-                    String tipString = mGameTipView.getText() + "\n" + getString(R.string.zh_game_tip_version) + minecraftProfile.lastVersionId;
                     runOnUiThread(() -> {
+                        // 淡入游戏内提示
+                        String tipString = mGameTipView.getText() + "\n" + getString(R.string.zh_game_tip_version) + minecraftProfile.lastVersionId;
                         mGameTipView.setText(tipString);
                         mGameTipView.setVisibility(View.VISIBLE);
                         PojavZHTools.fadeAnim(mGameTipView, 0f, 1f, 300, null);
@@ -366,7 +366,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         }
         MinecraftAccount minecraftAccount = PojavProfile.getCurrentProfileContent(this, null);
         Logger.appendToLog("--------- beginning with launcher debug");
-        printLauncherInfo(versionId, Tools.isValidString(minecraftProfile.javaArgs) ? minecraftProfile.javaArgs : LauncherPreferences.PREF_CUSTOM_JAVA_ARGS, minecraftProfile.javaDir);
+        printLauncherInfo(versionId, Tools.isValidString(minecraftProfile.javaArgs) ? minecraftProfile.javaArgs : LauncherPreferences.PREF_CUSTOM_JAVA_ARGS, minecraftProfile.javaDir == null ? "Default" : minecraftProfile.javaDir);
         JREUtils.redirectAndPrintJRELog();
         LauncherProfiles.load();
         int requiredJavaVersion = 8;
