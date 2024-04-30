@@ -212,10 +212,15 @@ public class LauncherActivity extends BaseActivity {
 
         //设置主题
         if (!PREF_LAUNCHER_THEME.equals("system")) {
-            AppCompatDelegate.setDefaultNightMode(PREF_LAUNCHER_THEME.equals("light") ?
-                    AppCompatDelegate.MODE_NIGHT_NO :
-                    AppCompatDelegate.MODE_NIGHT_YES);
-            recreate();
+            if (PREF_LAUNCHER_THEME.equals("light") &&
+                    AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_NO) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                recreate();
+            } else if (PREF_LAUNCHER_THEME.equals("dark") &&
+                    AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_YES) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                recreate();
+            }
         }
 
         // Manually add the first fragment to the backstack to get easily back to it
