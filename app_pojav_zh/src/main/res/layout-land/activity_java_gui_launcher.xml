@@ -10,7 +10,7 @@
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:background="#000000">
+		android:background="@color/background_app">
 
 		<net.kdt.pojavlaunch.customcontrols.keyboard.TouchCharInput
 			android:id="@+id/awt_touch_char"
