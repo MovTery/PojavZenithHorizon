@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch;
 
 import static net.kdt.pojavlaunch.PojavZHTools.setVisibilityAnim;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_LAUNCHER_THEME;
 
 import android.Manifest;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -207,6 +209,14 @@ public class LauncherActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pojav_launcher);
+
+        //设置主题
+        if (!PREF_LAUNCHER_THEME.equals("system")) {
+            AppCompatDelegate.setDefaultNightMode(PREF_LAUNCHER_THEME.equals("light") ?
+                    AppCompatDelegate.MODE_NIGHT_NO :
+                    AppCompatDelegate.MODE_NIGHT_YES);
+            recreate();
+        }
 
         // Manually add the first fragment to the backstack to get easily back to it
         // There must be a better way to handle the root though...

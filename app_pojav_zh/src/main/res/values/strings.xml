@@ -148,6 +148,10 @@
     <string name="zh_setting_set_to_chinese_desc">On first launch, automatically set game language to Chinese</string>
     <string name="zh_setting_set_to_chinese_title">Automatically set to Chinese</string>
     <string name="zh_setting_chinese_language_title">Switch to Chinese language</string>
+    <string name="zh_setting_launcher_theme">Launcher Theme</string>
+    <string name="zh_setting_launcher_theme_system">Follow System Changes</string>
+    <string name="zh_setting_launcher_theme_light">Light Mode</string>
+    <string name="zh_setting_launcher_theme_dark">Dark Mode</string>
     <string name="zh_setting_enable_log_output_desc">Enable the log output interface when the application officially starts running the game</string>
     <string name="zh_setting_enable_log_output_title">Enable log output on game startup</string>
     <string name="zh_setting_animation_desc">Set whether to play animation when switching launcher interface</string>
@@ -156,6 +160,7 @@
     <string name="zh_setting_quit_launcher_title">Exit Launcher</string>
     <string name="zh_setting_advanced_features_desc">When enabled, the launcher will unlock some advanced features (may require a restart to take effect)</string>
     <string name="zh_setting_advanced_features_title">Advanced Features</string>
+    <string name="zh_setting_reboot_tip">This setting has been changed, but requires the app to be restarted to take effect!</string>
 
     <string name="zh_update">Check for updates</string>
     <string name="zh_update_dialog_title">New Version Detected</string>

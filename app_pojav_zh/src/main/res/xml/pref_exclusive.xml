@@ -19,6 +19,13 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/zh_preference_category_launcher">
+        <androidx.preference.ListPreference
+            android:key="launcherTheme"
+            android:defaultValue="system"
+            android:entries="@array/launcher_theme_names"
+            android:entryValues="@array/launcher_theme_values"
+            android:title="@string/zh_setting_launcher_theme" />
+
         <SwitchPreference
             android:defaultValue="false"
             android:key="enableLogOutput"
