@@ -95,6 +95,7 @@
         android:imeOptions="flagNoExtractUi"
         android:inputType="textEmailAddress"
         android:textSize="@dimen/_16ssp"
+        android:textColorHint="@color/primary_text"
         app:layout_constraintEnd_toEndOf="@+id/login_menu"
         app:layout_constraintStart_toStartOf="@+id/login_menu"
         app:layout_constraintTop_toBottomOf="@id/b" />
@@ -116,6 +117,7 @@
         android:imeOptions="flagNoExtractUi"
         android:inputType="textEmailAddress"
         android:textSize="@dimen/_16ssp"
+        android:textColorHint="@color/primary_text"
         app:layout_constraintEnd_toEndOf="@+id/login_menu"
         app:layout_constraintStart_toStartOf="@+id/login_menu"
         app:layout_constraintTop_toBottomOf="@id/c"

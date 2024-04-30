@@ -82,6 +82,7 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
 
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerview.setAdapter(mModItemAdapter);
+        mRecyclerview.setBackgroundColor(getResources().getColor(R.color.background_app));
 
         mRecyclerview.addOnScrollListener(mOverlayPositionListener);
 

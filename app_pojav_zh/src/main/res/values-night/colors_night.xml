@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="minebutton_color">#57CC33</color>
     <color name="background_app">#181818</color>
     <color name="background_overlay">#464646</color>
     <color name="background_status_bar">#242424</color>

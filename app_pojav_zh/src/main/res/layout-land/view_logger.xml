@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="25dp"
         android:text="@string/log_view_label_log_output"
+        android:textColor="#FFF"
         android:textAppearance="?android:attr/textAppearanceMedium"
         app:layout_constraintBottom_toBottomOf="@+id/top_log_view"
         app:layout_constraintStart_toStartOf="@+id/top_log_view"

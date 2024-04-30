@@ -44,7 +44,7 @@
         android:inputType="textEmailAddress"
 
         android:textSize="@dimen/_16ssp"
-        android:textColor="@color/primary_text"
+        android:textColorHint="@color/primary_text"
         app:layout_constraintBottom_toBottomOf="@+id/login_menu"
         app:layout_constraintEnd_toStartOf="@+id/login_button"
         app:layout_constraintStart_toStartOf="@+id/login_menu"
