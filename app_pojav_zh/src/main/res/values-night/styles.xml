@@ -18,7 +18,7 @@
     <style name="ThickDivider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/_1sdp</item>
-        <item name="android:background">@color/background_lines</item>
+        <item name="android:background">@color/background_line</item>
     </style>
 
 </resources>
