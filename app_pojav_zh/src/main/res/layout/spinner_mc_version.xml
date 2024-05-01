@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:scrollbars="vertical"
     android:fadeScrollbars="false"
-    android:scrollbarThumbVertical="@color/minebutton_color"
+    android:scrollbarThumbVertical="@color/background_bottom_bar"
     android:paddingVertical="@dimen/_14sdp"
     android:scrollbarSize="@dimen/padding_medium"
     android:background="@color/menu_overlay"

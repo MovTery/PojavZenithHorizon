@@ -126,7 +126,7 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
 
     /* Triggered when we need to do microsoft login */
     private final ExtraListener<Uri> mMicrosoftLoginListener = (key, value) -> {
-        mLoginBarPaint.setColor(getResources().getColor(R.color.minebutton_color));
+        mLoginBarPaint.setColor(getResources().getColor(R.color.background_bottom_bar));
         new MicrosoftBackgroundLogin(false, value.getQueryParameter("code")).performLogin(
                 mProgressListener, mDoneListener, mErrorListener);
         return false;
@@ -162,7 +162,7 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
     private void init(){
         // Set visual properties
         setBackgroundColor(getResources().getColor(R.color.background_bottom_bar));
-        mLoginBarPaint.setColor(getResources().getColor(R.color.minebutton_color));
+        mLoginBarPaint.setColor(getResources().getColor(R.color.background_bottom_bar));
         mLoginBarPaint.setStrokeWidth(getResources().getDimensionPixelOffset(R.dimen._1sdp));
 
         // Set behavior
@@ -311,7 +311,7 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
             return;
         }
 
-        mLoginBarPaint.setColor(getResources().getColor(R.color.minebutton_color));
+        mLoginBarPaint.setColor(getResources().getColor(R.color.background_bottom_bar));
         if(minecraftAccount.isMicrosoft){
             if(System.currentTimeMillis() > minecraftAccount.expiresAt){
                 // Perform login only if needed
