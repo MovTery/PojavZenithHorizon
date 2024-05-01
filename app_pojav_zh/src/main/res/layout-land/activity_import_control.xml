@@ -39,7 +39,7 @@
         app:layout_constraintBottom_toTopOf="@+id/editText_import_control_file_name"
         app:layout_constraintStart_toStartOf="@+id/editText_import_control_file_name" />
 
-    <com.kdt.mcgui.MineEditText
+    <EditText
         android:id="@+id/editText_import_control_file_name"
         android:layout_width="0dp"
         android:layout_height="@dimen/_37sdp"
@@ -49,10 +49,13 @@
         android:imeOptions="flagForceAscii"
 
         android:textSize="@dimen/_16ssp"
+        android:textColorHint="@color/primary_text"
         app:layout_constraintBottom_toBottomOf="@+id/_background_display_view"
         app:layout_constraintEnd_toStartOf="@+id/mineButton_import_control"
         app:layout_constraintStart_toStartOf="@+id/_background_display_view"
-        app:layout_constraintTop_toTopOf="@+id/_background_display_view" />
+        app:layout_constraintTop_toTopOf="@+id/_background_display_view"
+        android:autofillHints="name"
+        android:inputType="text" />
 
     <com.kdt.mcgui.MineButton
         android:id="@+id/mineButton_import_control"

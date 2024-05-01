@@ -41,7 +41,8 @@
                     android:layout_marginTop="8dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:drawableStart="@drawable/ic_about"
-                    android:text="@string/zh_about_tab" />
+                    android:text="@string/zh_about_tab"
+                    android:textColor="@color/primary_text"/>
 
                 <com.kdt.mcgui.LauncherMenuButton
                     android:id="@+id/custom_control_button"
@@ -50,7 +51,8 @@
                     android:layout_marginTop="8dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:drawableStart="@drawable/ic_menu_custom_controls"
-                    android:text="@string/zh_custom_control_title" />
+                    android:text="@string/zh_custom_control_title"
+                    android:textColor="@color/primary_text"/>
 
                 <com.kdt.mcgui.LauncherMenuButton
                     android:id="@+id/zh_prefs_button"
@@ -59,7 +61,8 @@
                     android:layout_marginTop="8dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:drawableStart="@drawable/ic_main_prefs"
-                    android:text="@string/zh_main_prefs" />
+                    android:text="@string/zh_main_prefs"
+                    android:textColor="@color/primary_text"/>
 
                 <com.kdt.mcgui.LauncherMenuButton
                     android:id="@+id/install_jar_button"
@@ -68,7 +71,8 @@
                     android:layout_marginTop="8dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:drawableStart="@drawable/ic_java"
-                    android:text="@string/main_install_jar_file" />
+                    android:text="@string/main_install_jar_file"
+                    android:textColor="@color/primary_text"/>
 
                 <com.kdt.mcgui.LauncherMenuButton
                     android:id="@+id/share_logs_button"
@@ -77,7 +81,8 @@
                     android:layout_marginTop="8dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:drawableStart="@android:drawable/ic_menu_share"
-                    android:text="@string/main_share_logs" />
+                    android:text="@string/main_share_logs"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
         </ScrollView>
 

@@ -72,6 +72,7 @@ public class LauncherPreferences {
     public static boolean PREF_VSYNC_IN_ZINK = true;
     public static boolean PREF_SET_TO_CHINESE = true;
     public static String PREF_SWITCH_TO_CHINESE_LANGUAGE = getDefaultLanguage();
+    public static String PREF_LAUNCHER_THEME = "system";
     public static boolean PREF_ENABLE_LOG_OUTPUT = false;
     public static boolean PREF_ANIMATION = true;
     public static boolean PREF_QUILT_LAUNCHER = true;
@@ -125,6 +126,7 @@ public class LauncherPreferences {
         PREF_VSYNC_IN_ZINK = DEFAULT_PREF.getBoolean("vsync_in_zink", true);
         PREF_SET_TO_CHINESE = DEFAULT_PREF.getBoolean("setToChinese", true);
         PREF_SWITCH_TO_CHINESE_LANGUAGE = DEFAULT_PREF.getString("switchToChineseLanguage", getDefaultLanguage());
+        PREF_LAUNCHER_THEME = DEFAULT_PREF.getString("launcherTheme", "system");
         PREF_ENABLE_LOG_OUTPUT = DEFAULT_PREF.getBoolean("enableLogOutput", false);
         PREF_ANIMATION = DEFAULT_PREF.getBoolean("animation", true);
         PREF_QUILT_LAUNCHER = DEFAULT_PREF.getBoolean("quitLauncher", true);

@@ -14,9 +14,7 @@
         android:layout_width="@dimen/_150sdp"
         android:layout_height="wrap_content"
 
-
         android:layout_marginStart="15dp"
-
 
         android:textSize="@dimen/_12ssp"
 
@@ -25,7 +23,8 @@
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.28"
-        tools:text="Java 8" />
+        tools:text="Java 8"
+        android:textColor="@color/primary_text"/>
 
     <TextView
         android:id="@+id/multirt_view_java_version_full"
