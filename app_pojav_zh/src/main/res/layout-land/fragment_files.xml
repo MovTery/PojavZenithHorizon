@@ -51,8 +51,8 @@
         android:id="@+id/shadowView"
         android:layout_width="10dp"
         android:layout_height="match_parent"
-        android:layout_marginStart="-4dp"
-        android:background="@drawable/shadow_gradient"
+        android:layout_marginStart="-3dp"
+        android:background="@drawable/shadow_gradient_right"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/constraintLayout"
         app:layout_constraintTop_toTopOf="parent" />
