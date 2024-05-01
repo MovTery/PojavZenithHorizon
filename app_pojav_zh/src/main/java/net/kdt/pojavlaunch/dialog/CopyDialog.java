@@ -1,11 +1,11 @@
 package net.kdt.pojavlaunch.dialog;
 
-import static net.kdt.pojavlaunch.PojavZHTools.getEditTextParams;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -64,10 +64,11 @@ public class CopyDialog extends Dialog {
 
             //复制自定义名称
             AlertDialog.Builder copyBuilder = new AlertDialog.Builder(context);
-            EditText input = new EditText(context);
+            LayoutInflater layoutInflater = LayoutInflater.from(context);
+            View editTextView = layoutInflater.inflate(R.layout.item_edit_text, null);
+            EditText input = editTextView.findViewById(R.id.zh_edit_text);
             input.setText(newName);
-            input.setBackground(context.getResources().getDrawable(R.drawable.background_line));
-            input.setLayoutParams(getEditTextParams(context, 8));
+
             copyBuilder.setTitle(context.getString(R.string.zh_file_copy_dialog_new_name_title));
             copyBuilder.setView(input);
             copyBuilder.setPositiveButton(context.getString(R.string.zh_confirm), (dialog, which) -> {

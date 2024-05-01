@@ -3,7 +3,6 @@ package net.kdt.pojavlaunch;
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.P;
 import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
-import static net.kdt.pojavlaunch.PojavZHTools.getEditTextParams;
 import static net.kdt.pojavlaunch.PojavZHTools.shareFile;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_IGNORE_NOTCH;
@@ -33,6 +32,7 @@ import android.provider.OpenableColumns;
 import android.util.ArrayMap;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -989,11 +989,11 @@ public final class Tools {
         }
 
         // install mods with custom arguments
-        final EditText editText = new EditText(activity);
+        LayoutInflater layoutInflater = LayoutInflater.from(activity);
+        View editTextView = layoutInflater.inflate(R.layout.item_edit_text, null);
+        final EditText editText = editTextView.findViewById(R.id.zh_edit_text);
         editText.setSingleLine();
         editText.setHint("-jar/-cp /path/to/file.jar ...");
-        editText.setBackground(activity.getResources().getDrawable(R.drawable.background_line));
-        editText.setLayoutParams(getEditTextParams(activity, 8));
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity)
                 .setTitle(R.string.alerttitle_installmod)

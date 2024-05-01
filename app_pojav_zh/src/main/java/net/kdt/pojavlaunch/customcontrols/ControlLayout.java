@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch.customcontrols;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
-import static net.kdt.pojavlaunch.PojavZHTools.getEditTextParams;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
 
 import static org.lwjgl.glfw.CallbackBridge.isGrabbing;
@@ -11,6 +10,7 @@ import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -514,11 +514,11 @@ public class ControlLayout extends FrameLayout {
 	@SuppressLint("UseCompatLoadingForDrawables")
 	public void openSaveDialog(EditorExitable editorExitable) {
 		final Context context = getContext();
-		final EditText edit = new EditText(context);
+		LayoutInflater layoutInflater = LayoutInflater.from(context);
+		View editTextView = layoutInflater.inflate(R.layout.item_edit_text, null);
+		final EditText edit = editTextView.findViewById(R.id.zh_edit_text);
 		edit.setSingleLine();
 		edit.setText(mLayoutFileName);
-		edit.setBackground(getResources().getDrawable(R.drawable.background_line));
-		edit.setLayoutParams(getEditTextParams(context, 8));
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		builder.setTitle(R.string.global_save);
