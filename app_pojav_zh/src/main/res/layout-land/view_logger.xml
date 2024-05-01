@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:clickable="true"
-        android:background="#555555"
+        android:background="@color/background_bottom_bar"
         app:layout_constraintTop_toTopOf="parent"
         android:focusable="true" />
 
@@ -73,7 +73,8 @@
             android:id="@+id/content_log_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textIsSelectable="true"/>
+            android:textIsSelectable="true"
+            android:textColor="@android:color/white"/>
 
     </com.kdt.DefocusableScrollView>
 

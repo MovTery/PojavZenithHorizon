@@ -3,12 +3,15 @@ package net.kdt.pojavlaunch;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 import static net.kdt.pojavlaunch.PojavZHTools.getVersionName;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_LAUNCHER_THEME;
 
 import android.app.*;
 import android.content.*;
 import android.content.pm.*;
 import android.content.res.*;
 import android.os.*;
+
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.*;
 
 import android.util.*;
@@ -78,6 +81,18 @@ public class PojavApplication extends Application {
 			ferrorIntent.putExtra("throwable", throwable);
 			ferrorIntent.setFlags(FLAG_ACTIVITY_NEW_TASK);
 			startActivity(ferrorIntent);
+		}
+
+		//设置主题
+		if (!PREF_LAUNCHER_THEME.equals("system")) {
+			switch (PREF_LAUNCHER_THEME) {
+				case "light" :
+					AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+					break;
+				case "dark" :
+					AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+					break;
+			}
 		}
 	}
 

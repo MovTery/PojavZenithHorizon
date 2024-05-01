@@ -33,7 +33,7 @@
         app:layout_constraintBottom_toTopOf="@+id/login_edit_name"
         app:layout_constraintStart_toStartOf="@+id/login_edit_name" />
 
-    <com.kdt.mcgui.MineEditText
+    <EditText
         android:id="@+id/login_edit_name"
         android:layout_width="0dp"
         android:layout_height="@dimen/_37sdp"
@@ -41,13 +41,15 @@
         android:layout_marginHorizontal="@dimen/_25sdp"
 
         android:imeOptions="flagNoExtractUi"
-        android:inputType="textEmailAddress"
 
         android:textSize="@dimen/_16ssp"
         app:layout_constraintBottom_toBottomOf="@+id/login_menu"
         app:layout_constraintEnd_toStartOf="@+id/login_button"
         app:layout_constraintStart_toStartOf="@+id/login_menu"
-        app:layout_constraintTop_toTopOf="@+id/login_menu" />
+        app:layout_constraintTop_toTopOf="@+id/login_menu"
+        android:autofillHints="username"
+        android:inputType="text"
+        tools:ignore="LabelFor" />
 
     <com.kdt.mcgui.MineButton
         android:id="@+id/login_button"
@@ -57,7 +59,7 @@
         android:onClick="loginMC"
         android:text="@string/login_online_login_label"
 
-        android:textColor="@android:color/white"
+        android:textColor="@color/primary_text"
         app:layout_constraintBottom_toBottomOf="@+id/login_menu"
         app:layout_constraintEnd_toEndOf="@+id/login_menu"
         app:layout_constraintTop_toTopOf="@+id/login_menu" />

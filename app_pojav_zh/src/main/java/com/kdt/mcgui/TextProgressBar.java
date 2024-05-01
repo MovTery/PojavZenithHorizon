@@ -1,12 +1,9 @@
 package com.kdt.mcgui;
 
 import android.content.Context;
-import android.graphics.BlendMode;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ProgressBar;
 
@@ -46,6 +43,7 @@ public class TextProgressBar extends ProgressBar {
     protected synchronized void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         mTextPaint.setTextSize((float) ((getHeight()- getPaddingBottom() - getPaddingTop()) * 0.55));
+        mTextPaint.setColor(getResources().getColor(R.color.primary_text));
         int xPos = (int) Math.max(Math.min((getProgress() * getWidth() / getMax()) + mTextPadding, getWidth() - mTextPaint.measureText(mText) - mTextPadding) , mTextPadding);
         int yPos = (int) ((getHeight() / 2) - ((mTextPaint.descent() + mTextPaint.ascent()) / 2)) ;
 
