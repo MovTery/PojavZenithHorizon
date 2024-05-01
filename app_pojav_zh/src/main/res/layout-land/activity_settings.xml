@@ -160,7 +160,7 @@
         android:layout_height="wrap_content"
         android:text="@string/preference_category_video"
         android:textStyle="bold"
-        android:textColor="#EBF4F3"
+        android:textColor="@color/menu_bar_text"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/settings_return_button"
