@@ -14,6 +14,8 @@
         android:id="@+id/zh_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:background="@drawable/background_edit_box"
         android:inputType="text" />
 </LinearLayout>
