@@ -54,8 +54,6 @@
                     android:inputType="textPersonName"
                     android:paddingHorizontal="@dimen/padding_heavy"
                     android:textSize="@dimen/_13ssp"
-                    android:textColor="@color/primary_text"
-                    android:textColorHint="@color/primary_text"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_editor_absoluteX="10dp" />
 
@@ -78,7 +76,6 @@
                     android:hint="@string/version_select_hint"
                     android:paddingHorizontal="@dimen/padding_heavy"
                     android:textSize="@dimen/_13ssp"
-                    android:textColorHint="@color/primary_text"
 
                     app:layout_constraintEnd_toStartOf="@+id/vprof_editor_version_button"
                     app:layout_constraintStart_toStartOf="parent"
@@ -118,7 +115,6 @@
                     android:hint="@string/use_global_default"
                     android:paddingHorizontal="@dimen/padding_heavy"
                     android:textSize="@dimen/_13ssp"
-                    android:textColorHint="@color/primary_text"
 
                     app:layout_constraintEnd_toStartOf="@id/vprof_editor_ctrl_button"
                     app:layout_constraintStart_toStartOf="parent"
@@ -156,8 +152,6 @@
                     android:inputType="text"
                     android:paddingHorizontal="@dimen/padding_heavy"
                     android:textSize="@dimen/_13ssp"
-                    android:textColor="@color/primary_text"
-                    android:textColorHint="@color/primary_text"
 
                     app:layout_constraintTop_toBottomOf="@+id/vprof_editor_ctrl_spinner" />
 
@@ -183,7 +177,6 @@
                     android:hint=".minecraft/instance/default"
                     android:paddingHorizontal="@dimen/padding_heavy"
                     android:textSize="@dimen/_13ssp"
-                    android:textColorHint="@color/primary_text"
 
                     app:layout_constraintEnd_toStartOf="@id/vprof_editor_path_button"
                     app:layout_constraintStart_toStartOf="parent"
