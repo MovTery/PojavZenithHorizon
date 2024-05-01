@@ -13,7 +13,7 @@ import com.kdt.mcgui.ProgressLayout;
 import net.kdt.pojavlaunch.JAssetInfo;
 import net.kdt.pojavlaunch.JAssets;
 import net.kdt.pojavlaunch.JMinecraftVersionList;
-import net.kdt.pojavlaunch.JRE17Util;
+import net.kdt.pojavlaunch.JRE21Util;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.mirrors.DownloadMirror;
@@ -203,7 +203,7 @@ public class MinecraftDownloader {
             throw new IOException("Unable to read Version JSON for version " + versionName);
         }
 
-        if(activity != null && !JRE17Util.installNewJreIfNeeded(activity, verInfo)){
+        if(activity != null && !JRE21Util.installJre21IfNeeded(activity, verInfo)){
             return false;
         }
 
