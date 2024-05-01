@@ -12,6 +12,8 @@
     <color name="menu_bar">#EBF4F3</color>
     <color name="menu_overlay">#EBF4F3</color>
 
+    <color name="edit_box_fill">#E1EDEC</color>
+
     <color name="icon_color">#151515</color>
     <color name="icon_color_fill">#232323</color>
 

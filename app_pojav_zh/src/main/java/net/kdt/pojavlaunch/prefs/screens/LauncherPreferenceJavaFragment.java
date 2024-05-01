@@ -3,8 +3,8 @@ package net.kdt.pojavlaunch.prefs.screens;
 import static net.kdt.pojavlaunch.Architecture.is32BitsDevice;
 import static net.kdt.pojavlaunch.Tools.getTotalDeviceMemory;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.preference.EditTextPreference;
@@ -24,6 +24,7 @@ public class LauncherPreferenceJavaFragment extends LauncherPreferenceFragment {
                 if(data != null) Tools.installRuntimeFromUri(getContext(), data);
             });
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void onCreatePreferences(Bundle b, String str) {
         int ramAllocation = LauncherPreferences.PREF_RAM_ALLOCATION;
@@ -46,7 +47,7 @@ public class LauncherPreferenceJavaFragment extends LauncherPreferenceFragment {
 
         EditTextPreference editJVMArgs = findPreference("javaArgs");
         if (editJVMArgs != null) {
-            editJVMArgs.setOnBindEditTextListener(TextView::setSingleLine);
+            editJVMArgs.setOnBindEditTextListener(editText -> editText.setBackground(requireActivity().getResources().getDrawable(R.drawable.background_edit_box)));
         }
 
         requirePreference("install_jre").setOnPreferenceClickListener(preference->{

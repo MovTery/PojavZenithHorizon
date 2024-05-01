@@ -5,14 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
+    android:paddingTop="16dp"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
     tools:ignore="MissingDefaultResource">
 
     <EditText
         android:id="@+id/zh_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_line"
+        android:background="@drawable/background_edit_box"
         android:inputType="text" />
 </LinearLayout>
