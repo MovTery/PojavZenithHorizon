@@ -4,11 +4,14 @@
     <color name="control_button_pressed_color">#4D000000</color>
 
     <color name="minebutton_color">#57CC33</color>
-    <color name="background_app">#E4E4E4</color>
+    <color name="background_app">#B1D0D3</color>
     <color name="background_overlay">#CFCFCF</color>
     <color name="background_status_bar">#EDEDED</color>
-    <color name="background_bottom_bar">#F1F1F1</color>
+    <color name="background_bottom_bar">#2D9C98</color>
     <color name="background_lines">#ACACAC</color>
+
+    <color name="menu_bar">#2D9C98</color>
+    <color name="menu_overlay">#EBF4F3</color>
 
     <color name="icon_color">#151515</color>
     <color name="icon_color_fill">#232323</color>

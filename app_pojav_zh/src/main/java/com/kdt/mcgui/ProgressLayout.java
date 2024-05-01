@@ -12,22 +12,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.collection.ArrayMap;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.progresskeeper.ProgressListener;
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
-import net.kdt.pojavlaunch.services.ProgressService;
 
 import java.util.ArrayList;
 
 
 /** Class staring at specific values and automatically show something if the progress is present
  * Since progress is posted in a specific way, The packing/unpacking is handheld by the class
- *
  * This class relies on ExtraCore for its behavior.
  */
 public class ProgressLayout extends ConstraintLayout implements View.OnClickListener, TaskCountListener{
@@ -83,7 +79,7 @@ public class ProgressLayout extends ConstraintLayout implements View.OnClickList
         mLinearLayout = findViewById(R.id.progress_linear_layout);
         mTaskNumberDisplayer = findViewById(R.id.progress_textview);
         mFlipArrow = findViewById(R.id.progress_flip_arrow);
-        setBackgroundColor(getResources().getColor(R.color.background_bottom_bar));
+        setBackgroundColor(getResources().getColor(R.color.background_app));
         setOnClickListener(this);
     }
 
@@ -157,9 +153,7 @@ public class ProgressLayout extends ConstraintLayout implements View.OnClickList
 
         @Override
         public void onProgressEnded() {
-            post(()-> {
-                mLinearLayout.removeView(textView);
-            });
+            post(()-> mLinearLayout.removeView(textView));
         }
     }
 }

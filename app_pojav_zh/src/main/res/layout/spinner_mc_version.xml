@@ -1,6 +1,4 @@
-<ListView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/list_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,5 +7,5 @@
     android:scrollbarThumbVertical="@color/minebutton_color"
     android:paddingVertical="@dimen/_14sdp"
     android:scrollbarSize="@dimen/padding_medium"
-    android:background="@color/background_bottom_bar"
+    android:background="@color/menu_overlay"
     android:divider="@null" />

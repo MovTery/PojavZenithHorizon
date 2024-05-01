@@ -182,7 +182,7 @@
             android:id="@+id/_background_display_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background_bottom_bar"
+            android:background="@color/menu_overlay"
 
             android:translationZ="-1dp"
             app:layout_constraintBottom_toBottomOf="parent"
