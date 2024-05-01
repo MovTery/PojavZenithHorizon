@@ -148,9 +148,8 @@
 
     <View
         android:id="@+id/shadowView1"
-        android:layout_width="10dp"
+        android:layout_width="4dp"
         android:layout_height="0dp"
-        android:layout_marginStart="-7dp"
         android:background="@drawable/shadow_gradient_left"
         app:layout_constraintStart_toEndOf="@+id/scrollSettings"
         app:layout_constraintTop_toTopOf="@+id/scrollSettings" />

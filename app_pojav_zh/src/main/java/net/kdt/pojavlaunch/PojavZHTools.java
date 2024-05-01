@@ -22,11 +22,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -297,10 +297,12 @@ public class PojavZHTools {
         String fileName = file.getName();
         AlertDialog.Builder renameBuilder = new AlertDialog.Builder(context);
         String suffix = fileName.substring(fileName.lastIndexOf('.')); //防止修改后缀名，先将后缀名分离出去
-        EditText input = new EditText(context);
+
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        View editTextView = layoutInflater.inflate(R.layout.item_edit_text, null);
+        EditText input = editTextView.findViewById(R.id.zh_edit_text);
         input.setText(fileName.substring(0, fileName.lastIndexOf(suffix)));
-        input.setBackground(context.getResources().getDrawable(R.drawable.background_line));
-        input.setLayoutParams(getEditTextParams(context, 8));
+
         renameBuilder.setTitle(context.getString(R.string.zh_rename));
         renameBuilder.setView(input);
         renameBuilder.setPositiveButton(context.getString(R.string.zh_rename), (dialog1, which1) -> {
@@ -319,18 +321,6 @@ public class PojavZHTools {
         });
         renameBuilder.setNegativeButton(context.getString(android.R.string.cancel), null);
         renameBuilder.show();
-    }
-
-    public static LinearLayout.LayoutParams getEditTextParams(Context context, int retraction) {
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-
-        int marginInPx = (int) (retraction * context.getResources().getDisplayMetrics().density);
-        params.setMargins(marginInPx, 0, marginInPx, 0);
-
-        return params;
     }
 
     public static void updateChecker(Context context) {

@@ -1,13 +1,13 @@
 package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
-import static net.kdt.pojavlaunch.PojavZHTools.getEditTextParams;
 import static net.kdt.pojavlaunch.Tools.DIR_GAME_HOME;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -108,9 +108,10 @@ public class FilesFragment extends Fragment {
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
         mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(null)); //不限制文件类型
         mCreateFolderButton.setOnClickListener(v -> {
-            EditText editText = new EditText(getContext());
-            editText.setBackground(getResources().getDrawable(R.drawable.background_line));
-            editText.setLayoutParams(getEditTextParams(requireContext(), 8));
+            LayoutInflater layoutInflater = LayoutInflater.from(requireContext());
+            View editTextView = layoutInflater.inflate(R.layout.item_edit_text, null);
+            EditText editText = editTextView.findViewById(R.id.zh_edit_text);
+
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.folder_dialog_insert_name)
                     .setView(editText)

@@ -1,13 +1,13 @@
 package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
-import static net.kdt.pojavlaunch.PojavZHTools.getEditTextParams;
 import static net.kdt.pojavlaunch.PojavZHTools.refreshFileCount;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -115,9 +115,10 @@ public class PrefsFragment extends Fragment {
         });
 
         mCreateNewButton.setOnClickListener(v -> {
-            EditText editText = new EditText(getContext());
-            editText.setBackground(getResources().getDrawable(R.drawable.background_line));
-            editText.setLayoutParams(getEditTextParams(requireContext(), 8));
+            LayoutInflater layoutInflater = LayoutInflater.from(requireContext());
+            View editTextView = layoutInflater.inflate(R.layout.item_edit_text, null);
+            EditText editText = editTextView.findViewById(R.id.zh_edit_text);
+
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.zh_prefs_create_new_title)
                     .setView(editText)
