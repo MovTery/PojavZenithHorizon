@@ -2,7 +2,7 @@ package net.kdt.pojavlaunch.tasks;
 
 
 import static net.kdt.pojavlaunch.Architecture.archAsString;
-import static net.kdt.pojavlaunch.JRE17Util.checkInternalNewJre;
+import static net.kdt.pojavlaunch.JRE21Util.checkInternalJre21;
 import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
 
 import android.content.Context;
