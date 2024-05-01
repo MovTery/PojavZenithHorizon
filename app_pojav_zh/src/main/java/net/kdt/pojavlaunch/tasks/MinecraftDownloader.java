@@ -2,7 +2,6 @@ package net.kdt.pojavlaunch.tasks;
 
 import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
 
-import android.app.Activity;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -49,17 +48,16 @@ public class MinecraftDownloader {
 
     /**
      * Start the game version download process on the global executor service.
-     * @param activity Activity, used for automatic installation of JRE 17 if needed
      * @param version The JMinecraftVersionList.Version from the version list, if available
      * @param realVersion The version ID (necessary)
      * @param listener The download status listener
      */
-    public void start(@Nullable Activity activity, @Nullable JMinecraftVersionList.Version version,
+    public void start(@Nullable JMinecraftVersionList.Version version,
                       @NonNull String realVersion, // this was there for a reason
                       @NonNull AsyncMinecraftDownloader.DoneListener listener) {
         sExecutorService.execute(() -> {
             try {
-                downloadGame(activity, version, realVersion);
+                downloadGame(version, realVersion);
                 listener.onDownloadDone();
             }catch (Exception e) {
                 listener.onDownloadFailed(e);
@@ -70,12 +68,11 @@ public class MinecraftDownloader {
 
     /**
      * Download the game version.
-     * @param activity Activity, used for automatic installation of JRE 17 if needed
      * @param verInfo The JMinecraftVersionList.Version from the version list, if available
      * @param versionName The version ID (necessary)
      * @throws Exception when an exception occurs in the function body or in any of the downloading threads.
      */
-    private void downloadGame(Activity activity, JMinecraftVersionList.Version verInfo, String versionName) throws Exception {
+    private void downloadGame(JMinecraftVersionList.Version verInfo, String versionName) throws Exception {
         // Put up a dummy progress line, for the activity to start the service and do all the other necessary
         // work to keep the launcher alive. We will replace this line when we will start downloading stuff.
         ProgressLayout.setProgress(ProgressLayout.DOWNLOAD_MINECRAFT, 0, R.string.newdl_starting);
@@ -86,9 +83,7 @@ public class MinecraftDownloader {
         mDownloadSizeCounter = new AtomicLong(0);
         mDownloaderThreadException = new AtomicReference<>(null);
 
-        if(!downloadAndProcessMetadata(activity, verInfo, versionName)) {
-            throw new RuntimeException(activity.getString(R.string.exception_failed_to_unpack_jre17));
-        }
+        downloadAndProcessMetadata(verInfo, versionName);
 
         ArrayBlockingQueue<Runnable> taskQueue =
                 new ArrayBlockingQueue<>(mScheduledDownloadTasks.size(), false);
@@ -186,13 +181,11 @@ public class MinecraftDownloader {
     /**
      * Download (if necessary) and process a version's metadata, scheduling all downloads that this
      * version needs.
-     * @param activity Activity, used for automatic installation of JRE 17 if needed
      * @param verInfo The JMinecraftVersionList.Version from the version list, if available
      * @param versionName The version ID (necessary)
-     * @return false if JRE17 installation failed, true otherwise
      * @throws IOException if the download of any of the metadata files fails
      */
-    private boolean downloadAndProcessMetadata(Activity activity, JMinecraftVersionList.Version verInfo, String versionName) throws IOException, MirrorTamperedException {
+    private void downloadAndProcessMetadata(JMinecraftVersionList.Version verInfo, String versionName) throws IOException, MirrorTamperedException {
         File versionJsonFile;
         if(verInfo != null) versionJsonFile = downloadGameJson(verInfo);
         else versionJsonFile = createGameJsonPath(versionName);
@@ -200,10 +193,6 @@ public class MinecraftDownloader {
             verInfo = Tools.GLOBAL_GSON.fromJson(Tools.read(versionJsonFile), JMinecraftVersionList.Version.class);
         } else {
             throw new IOException("Unable to read Version JSON for version " + versionName);
-        }
-
-        if(activity != null){
-            return false;
         }
 
         JAssets assets = downloadAssetsIndex(verInfo);
@@ -220,9 +209,8 @@ public class MinecraftDownloader {
         if(Tools.isValidString(verInfo.inheritsFrom)) {
             JMinecraftVersionList.Version inheritedVersion = AsyncMinecraftDownloader.getListedVersion(verInfo.inheritsFrom);
             // Infinite inheritance !?! :noway:
-            return downloadAndProcessMetadata(activity, inheritedVersion, verInfo.inheritsFrom);
+            downloadAndProcessMetadata(inheritedVersion, verInfo.inheritsFrom);
         }
-        return true;
     }
 
     private void growDownloadList(int addedElementCount) {

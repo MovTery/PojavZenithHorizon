@@ -89,7 +89,7 @@ public class OptiFineDownloadTask implements Runnable, Tools.DownloaderFeedback,
         if(minecraftJsonVersion == null) return false;
         try {
             synchronized (mMinecraftDownloadLock) {
-                new MinecraftDownloader().start(null, minecraftJsonVersion, minecraftVersion, this);
+                new MinecraftDownloader().start(minecraftJsonVersion, minecraftVersion, this);
                 mMinecraftDownloadLock.wait();
             }
         }catch (InterruptedException e) {
