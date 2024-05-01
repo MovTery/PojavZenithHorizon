@@ -1,6 +1,7 @@
 package com.kdt.mcgui;
 
 import android.content.*;
+import android.graphics.Color;
 import android.util.*;
 
 import androidx.core.content.res.ResourcesCompat;
@@ -22,5 +23,6 @@ public class MineButton extends androidx.appcompat.widget.AppCompatButton {
 		setTypeface(ResourcesCompat.getFont(getContext(), R.font.noto_sans_bold));
 		setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.mine_button_background, null));
 		setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen._13ssp));
+		setTextColor(Color.WHITE);
 	}
 }
