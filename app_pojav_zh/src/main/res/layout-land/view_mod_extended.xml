@@ -32,7 +32,7 @@
             android:layout_weight="8"
             android:layout_marginVertical="@dimen/padding_moderate"/>
 
-        <com.kdt.mcgui.MineButton
+        <Button
             android:id="@+id/mod_extended_select_version_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

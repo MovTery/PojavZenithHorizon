@@ -57,7 +57,7 @@
         android:autofillHints="name"
         android:inputType="text" />
 
-    <com.kdt.mcgui.MineButton
+    <Button
         android:id="@+id/mineButton_import_control"
         android:layout_width="0dp"
         android:layout_height="@dimen/_42sdp"
@@ -65,7 +65,6 @@
         android:onClick="startImport"
         android:text="@string/import_control_import_button"
 
-        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="@+id/_background_display_view"
         app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
         app:layout_constraintTop_toTopOf="@+id/_background_display_view" />

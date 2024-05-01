@@ -191,7 +191,7 @@
             app:layout_constraintVertical_bias="1.0"
             tools:ignore="MissingConstraints" />
 
-        <com.kdt.mcgui.MineButton
+        <Button
             android:id="@+id/zh_about_return_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -204,7 +204,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
 
-        <com.kdt.mcgui.MineButton
+        <Button
             android:id="@+id/zh_about_github_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

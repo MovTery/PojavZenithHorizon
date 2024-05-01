@@ -180,7 +180,7 @@
             app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
             app:layout_constraintTop_toTopOf="@+id/mc_version_spinner" />
 
-        <com.kdt.mcgui.MineButton
+        <Button
             android:id="@+id/play_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
