@@ -203,7 +203,7 @@ public class MinecraftDownloader {
             throw new IOException("Unable to read Version JSON for version " + versionName);
         }
 
-        if(activity != null && !JRE17Util.installNewJreIfNeeded(activity, verInfo)){
+        if(activity != null && !JRE21Util.installJre21IfNeeded(activity, verInfo)){
             return false;
         }
 
