@@ -64,12 +64,12 @@ public class FileSelectorFragment extends Fragment {
         mFileListView.refreshPath();
 
         mCreateFolderButton.setOnClickListener(v -> {
-            LayoutInflater layoutInflater = LayoutInflater.from(requireContext());
-            EditText editText = (EditText) layoutInflater.inflate(R.layout.item_edit_text, null);
+            View itemView = LayoutInflater.from(requireContext()).inflate(R.layout.item_edit_text, null);
+            EditText editText = itemView.findViewById(R.id.zh_edit_text);
 
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.folder_dialog_insert_name)
-                    .setView(editText)
+                    .setView(itemView)
                     .setNegativeButton(android.R.string.cancel, null)
                     .setPositiveButton(R.string.folder_dialog_create, (dialog, which) -> {
                         File folder = new File(mFileListView.getFullPath(), editText.getText().toString());

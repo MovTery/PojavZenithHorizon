@@ -122,12 +122,12 @@ public class ControlButtonFragment extends Fragment {
             openDocumentLauncher.launch(suffix);
         }); //限制.json文件
         mAddControlButton.setOnClickListener(v -> {
-            LayoutInflater layoutInflater = LayoutInflater.from(requireContext());
-            EditText editText = (EditText) layoutInflater.inflate(R.layout.item_edit_text, null);
+            View itemView = LayoutInflater.from(requireContext()).inflate(R.layout.item_edit_text, null);
+            EditText editText = itemView.findViewById(R.id.zh_edit_text);
 
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.zh_controls_create_new_title)
-                    .setView(editText)
+                    .setView(itemView)
                     .setNegativeButton(android.R.string.cancel, null)
                     .setPositiveButton(R.string.zh_create, (dialog, which) -> {
                         File file = new File(mFileListView.getFullPath().getAbsolutePath(), editText.getText().toString() + ".json");

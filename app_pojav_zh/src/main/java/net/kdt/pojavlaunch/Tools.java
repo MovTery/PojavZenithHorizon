@@ -989,15 +989,15 @@ public final class Tools {
         }
 
         // install mods with custom arguments
-        LayoutInflater layoutInflater = LayoutInflater.from(activity);
-        final EditText editText = (EditText) layoutInflater.inflate(R.layout.item_edit_text, null);
+        View itemView = LayoutInflater.from(activity).inflate(R.layout.item_edit_text, null);
+        final EditText editText = itemView.findViewById(R.id.zh_edit_text);
         editText.setSingleLine();
         editText.setHint("-jar/-cp /path/to/file.jar ...");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity)
                 .setTitle(R.string.alerttitle_installmod)
                 .setNegativeButton(android.R.string.cancel, null)
-                .setView(editText)
+                .setView(itemView)
                 .setPositiveButton(android.R.string.ok, (di, i) -> {
                     Intent intent = new Intent(activity, JavaGUILauncherActivity.class);
                     intent.putExtra("javaArgs", editText.getText().toString());
