@@ -9,6 +9,8 @@
     <color name="menu_bar">#555555</color>
     <color name="menu_overlay">#232323</color>
 
+    <color name="edit_box_fill">#4C4C4C</color>
+
     <color name="icon_color">#FFFFFF</color>
     <color name="icon_color_fill">#808080</color>
 
