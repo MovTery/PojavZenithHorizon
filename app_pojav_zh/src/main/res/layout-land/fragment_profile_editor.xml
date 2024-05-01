@@ -320,7 +320,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_help" />
 
-        <com.kdt.mcgui.MineButton
+        <Button
             android:id="@+id/vprof_editor_save_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -334,7 +334,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/view3" />
 
-        <com.kdt.mcgui.MineButton
+        <Button
             android:id="@+id/vprof_editor_delete_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -348,7 +348,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/view3" />
 
-        <com.kdt.mcgui.MineButton
+        <Button
             android:id="@+id/zh_create_mods_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -362,7 +362,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/view3" />
 
-        <com.kdt.mcgui.MineButton
+        <Button
             android:id="@+id/zh_mods_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

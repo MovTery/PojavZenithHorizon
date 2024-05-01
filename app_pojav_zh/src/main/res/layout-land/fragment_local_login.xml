@@ -51,7 +51,7 @@
         android:inputType="text"
         tools:ignore="LabelFor" />
 
-    <com.kdt.mcgui.MineButton
+    <Button
         android:id="@+id/login_button"
         android:layout_width="0dp"
         android:layout_height="@dimen/_42sdp"
@@ -59,7 +59,6 @@
         android:onClick="loginMC"
         android:text="@string/login_online_login_label"
 
-        android:textColor="@color/primary_text"
         app:layout_constraintBottom_toBottomOf="@+id/login_menu"
         app:layout_constraintEnd_toEndOf="@+id/login_menu"
         app:layout_constraintTop_toTopOf="@+id/login_menu" />

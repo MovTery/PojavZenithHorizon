@@ -81,7 +81,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_help" />
 
-        <com.kdt.mcgui.MineButton
+        <Button
             android:id="@+id/zh_files_return_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
 
-        <com.kdt.mcgui.MineButton
+        <Button
             android:id="@+id/zh_files_add_file_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
 
-        <com.kdt.mcgui.MineButton
+        <Button
             android:id="@+id/zh_files_create_folder_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
 
-        <com.kdt.mcgui.MineButton
+        <Button
             android:id="@+id/zh_files_refresh_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

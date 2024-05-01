@@ -170,7 +170,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
-        <com.kdt.mcgui.MineButton
+        <Button
             android:id="@+id/fabric_installer_start_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -183,7 +183,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
 
-        <com.kdt.mcgui.MineButton
+        <Button
             android:id="@+id/zh_fabric_installer_return_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

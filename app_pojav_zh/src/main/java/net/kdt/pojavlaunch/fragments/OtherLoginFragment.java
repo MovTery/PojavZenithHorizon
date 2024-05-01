@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -20,7 +21,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.google.gson.Gson;
-import com.kdt.mcgui.MineButton;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
@@ -46,7 +46,7 @@ public class OtherLoginFragment extends Fragment {
     private Spinner mServerSpinner;
     private EditText mUserEditText;
     private EditText mPassEditText;
-    private MineButton mLoginButton;
+    private Button mLoginButton;
     private TextView mRegister;
     private ImageButton mAddServer, mHelpButton;
     private File mServersFile;
@@ -251,7 +251,7 @@ public class OtherLoginFragment extends Fragment {
         mServerSpinner = view.findViewById(R.id.server_spinner);
         mUserEditText = view.findViewById(R.id.login_edit_email);
         mPassEditText = view.findViewById(R.id.login_edit_password);
-        mLoginButton = view.findViewById(R.id.login_button);
+        mLoginButton = view.findViewById(R.id.other_login_button);
         mRegister = view.findViewById(R.id.register);
         mAddServer = view.findViewById(R.id.add_server);
     }

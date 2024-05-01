@@ -48,7 +48,7 @@
         app:layout_constraintTop_toTopOf="@+id/search_mod_selected_mc_version_textview" />
 
     <!-- Apply -->
-    <com.kdt.mcgui.MineButton
+    <Button
         android:id="@+id/search_mod_apply_filters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

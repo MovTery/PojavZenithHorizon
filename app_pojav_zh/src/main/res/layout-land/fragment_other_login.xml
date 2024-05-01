@@ -125,14 +125,13 @@
         android:autofillHints="password"
         tools:ignore="LabelFor" />
 
-    <com.kdt.mcgui.MineButton
-        android:id="@+id/login_button"
+    <Button
+        android:id="@+id/other_login_button"
         android:layout_width="0dp"
         android:layout_height="@dimen/_42sdp"
         android:layout_marginHorizontal="@dimen/_25sdp"
         android:layout_marginTop="5dp"
         android:text="@string/login_online_login_label"
-        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="@+id/login_menu"
         app:layout_constraintStart_toStartOf="@+id/login_menu"
         app:layout_constraintTop_toBottomOf="@+id/login_edit_password" />
