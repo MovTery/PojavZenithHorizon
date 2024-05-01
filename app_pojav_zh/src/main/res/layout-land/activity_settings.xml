@@ -16,55 +16,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/black_line"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="0dp"
-        android:background="@color/background_lines"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
-
     <ImageButton
         android:id="@+id/settings_return_button"
         android:layout_width="0dp"
         android:layout_height="@dimen/_35sdp"
         android:background="?attr/selectableItemBackground"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_arrow_back_white"
-        app:layout_constraintEnd_toEndOf="@+id/view_settings"
-        app:layout_constraintStart_toStartOf="@+id/view_settings"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/view_settings"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/menu_overlay"
-
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/ic_setting_back"
         app:layout_constraintEnd_toEndOf="@+id/scrollSettings"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/scrollSettings" />
-
-    <View
-        android:id="@+id/view_settings_black_line"
-        android:layout_width="1dp"
-        android:layout_height="0dp"
-        android:background="@color/background_overlay"
-        app:layout_constraintBottom_toBottomOf="@+id/zh_settings_fragment"
-        app:layout_constraintStart_toEndOf="@+id/view_settings"
-        app:layout_constraintTop_toBottomOf="@+id/black_line" />
+        app:layout_constraintStart_toStartOf="@+id/scrollSettings"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:id="@+id/scrollSettings"
         android:layout_width="@dimen/_60sdp"
         android:layout_height="0dp"
+        android:background="@color/menu_overlay"
         app:layout_constraintBottom_toTopOf="@+id/zh_settings_progress_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/black_line">
+        app:layout_constraintTop_toBottomOf="@+id/view">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -163,8 +134,8 @@
         app:layout_constraintBottom_toTopOf="@+id/zh_settings_progress_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/view_settings_black_line"
-        app:layout_constraintTop_toBottomOf="@+id/black_line" />
+        app:layout_constraintStart_toEndOf="@+id/scrollSettings"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <TextView
         android:id="@+id/zh_settings_title"

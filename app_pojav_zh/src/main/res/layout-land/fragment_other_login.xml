@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="25dp"
         android:text="@string/zh_other_login_register"
-        android:textColor="@color/minebutton_color"
+        android:textColor="@color/background_bottom_bar"
         app:layout_constraintBottom_toBottomOf="@+id/server_spinner"
         app:layout_constraintRight_toLeftOf="@id/add_server"
         app:layout_constraintTop_toTopOf="@+id/server_spinner" />
