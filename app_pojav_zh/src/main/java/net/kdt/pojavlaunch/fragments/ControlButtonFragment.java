@@ -2,6 +2,7 @@ package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.CustomControlsActivity.BUNDLE_CONTROL_PATH;
 import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
+import static net.kdt.pojavlaunch.PojavZHTools.getEditTextParams;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.annotation.SuppressLint;
@@ -123,6 +124,7 @@ public class ControlButtonFragment extends Fragment {
         mAddControlButton.setOnClickListener(v -> {
             EditText editText = new EditText(getContext());
             editText.setBackground(getResources().getDrawable(R.drawable.background_line));
+            editText.setLayoutParams(getEditTextParams(requireContext(), 8));
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.zh_controls_create_new_title)
                     .setView(editText)

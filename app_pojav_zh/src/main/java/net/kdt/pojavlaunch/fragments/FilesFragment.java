@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
+import static net.kdt.pojavlaunch.PojavZHTools.getEditTextParams;
 import static net.kdt.pojavlaunch.Tools.DIR_GAME_HOME;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
@@ -109,6 +110,7 @@ public class FilesFragment extends Fragment {
         mCreateFolderButton.setOnClickListener(v -> {
             EditText editText = new EditText(getContext());
             editText.setBackground(getResources().getDrawable(R.drawable.background_line));
+            editText.setLayoutParams(getEditTextParams(requireContext(), 8));
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.folder_dialog_insert_name)
                     .setView(editText)

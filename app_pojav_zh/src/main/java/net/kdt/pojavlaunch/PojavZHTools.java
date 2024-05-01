@@ -26,6 +26,7 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -299,6 +300,7 @@ public class PojavZHTools {
         EditText input = new EditText(context);
         input.setText(fileName.substring(0, fileName.lastIndexOf(suffix)));
         input.setBackground(context.getResources().getDrawable(R.drawable.background_line));
+        input.setLayoutParams(getEditTextParams(context, 8));
         renameBuilder.setTitle(context.getString(R.string.zh_rename));
         renameBuilder.setView(input);
         renameBuilder.setPositiveButton(context.getString(R.string.zh_rename), (dialog1, which1) -> {
@@ -317,6 +319,18 @@ public class PojavZHTools {
         });
         renameBuilder.setNegativeButton(context.getString(android.R.string.cancel), null);
         renameBuilder.show();
+    }
+
+    public static LinearLayout.LayoutParams getEditTextParams(Context context, int retraction) {
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+
+        int marginInPx = (int) (retraction * context.getResources().getDisplayMetrics().density);
+        params.setMargins(marginInPx, 0, marginInPx, 0);
+
+        return params;
     }
 
     public static void updateChecker(Context context) {

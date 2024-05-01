@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch.fragments;
 
+import static net.kdt.pojavlaunch.PojavZHTools.getEditTextParams;
+
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -114,6 +116,7 @@ public class OtherLoginFragment extends Fragment {
                         editText.setMaxLines(1);
                         editText.setInputType(InputType.TYPE_CLASS_TEXT);
                         editText.setBackground(getResources().getDrawable(R.drawable.background_line));
+                        editText.setLayoutParams(getEditTextParams(requireContext(), 8));
                         AlertDialog dialog1 = new AlertDialog.Builder(requireContext())
                                 .setTitle(getString(R.string.zh_tip))
                                 .setView(editText)
