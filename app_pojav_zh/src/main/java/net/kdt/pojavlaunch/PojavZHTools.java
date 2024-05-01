@@ -137,7 +137,7 @@ public class PojavZHTools {
 
     /**
      * 在一段字符串中提取数字
-     * */
+     */
     public static int[] extractNumbers(String str, int quantity) {
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(str);
@@ -201,12 +201,13 @@ public class PojavZHTools {
         return mimeType != null && mimeType.startsWith("image/");
     }
 
-    public static void swapSettingsFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
+    public static void swapSettingsFragment(FragmentActivity fragmentActivity, Class<? extends Fragment> fragmentClass,
                                             @Nullable String fragmentTag, @Nullable Bundle bundle, boolean addToBackStack) {
         FragmentTransaction transaction = fragmentActivity.getSupportFragmentManager().beginTransaction();
 
-        if(PREF_ANIMATION) transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
-        if(addToBackStack) transaction.addToBackStack(fragmentClass.getName());
+        if (PREF_ANIMATION)
+            transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
+        if (addToBackStack) transaction.addToBackStack(fragmentClass.getName());
         transaction.setReorderingAllowed(true)
                 .replace(R.id.zh_settings_fragment, fragmentClass, bundle, fragmentTag)
                 .commit();
@@ -289,6 +290,7 @@ public class PojavZHTools {
         deleteConfirmation.show();
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     public static void renameFileListener(Context context, FileListView fileListView, File file, boolean displayThumbnails) {
         String fileParent = file.getParent();
         String fileName = file.getName();
@@ -296,6 +298,7 @@ public class PojavZHTools {
         String suffix = fileName.substring(fileName.lastIndexOf('.')); //防止修改后缀名，先将后缀名分离出去
         EditText input = new EditText(context);
         input.setText(fileName.substring(0, fileName.lastIndexOf(suffix)));
+        input.setBackground(context.getResources().getDrawable(R.drawable.background_line));
         renameBuilder.setTitle(context.getString(R.string.zh_rename));
         renameBuilder.setView(input);
         renameBuilder.setPositiveButton(context.getString(R.string.zh_rename), (dialog1, which1) -> {
@@ -349,7 +352,8 @@ public class PojavZHTools {
                         JSONObject jsonObject = new JSONObject(responseBody);
                         String versionName = jsonObject.getString("name");
 
-                        if (ignore && versionName.equals(DEFAULT_PREF.getString("ignoreUpdate", null))) return; //忽略此版本
+                        if (ignore && versionName.equals(DEFAULT_PREF.getString("ignoreUpdate", null)))
+                            return; //忽略此版本
 
                         String tagName = jsonObject.getString("tag_name");
                         JSONArray assetsJson = jsonObject.getJSONArray("assets");
@@ -362,7 +366,8 @@ public class PojavZHTools {
                                 UpdateDialog.UpdateInformation updateInformation = new UpdateDialog.UpdateInformation();
                                 try {
                                     updateInformation.information(versionName, tagName, formattingTime(jsonObject.getString("created_at")), formatFileSize(fileSize), jsonObject.getString("body"));
-                                } catch (JSONException ignored) {}
+                                } catch (JSONException ignored) {
+                                }
                                 UpdateDialog updateDialog = new UpdateDialog(context, updateInformation);
 
                                 updateDialog.show();
@@ -373,7 +378,8 @@ public class PojavZHTools {
                                 runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_without) + " " + nowVersionName, Toast.LENGTH_SHORT).show());
                             });
                         }
-                    } catch (JSONException ignored) {}
+                    } catch (JSONException ignored) {
+                    }
                 }
             }
         }));
@@ -423,7 +429,7 @@ public class PojavZHTools {
                     Objects.requireNonNull(response.body());
                     try (InputStream inputStream = response.body().byteStream();
                          OutputStream outputStream = new FileOutputStream(outputFile)
-                         ) {
+                    ) {
                         byte[] buffer = new byte[1024 * 1024];
                         int bytesRead;
                         int downloadedBytes = 0;
@@ -542,7 +548,8 @@ public class PojavZHTools {
         view.animate()
                 .alpha(end)
                 .setDuration(duration)
-                .withEndAction(endAction == null ? () -> {} : endAction);
+                .withEndAction(endAction == null ? () -> {
+                } : endAction);
     }
 
     public static ModLoader installModPack(Context context, int type, File zipFile) throws Exception {

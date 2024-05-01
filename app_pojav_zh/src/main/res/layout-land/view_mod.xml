@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
     android:background="@drawable/background_line"
     android:paddingHorizontal="@dimen/_2sdp"
     android:paddingVertical="@dimen/_2sdp"

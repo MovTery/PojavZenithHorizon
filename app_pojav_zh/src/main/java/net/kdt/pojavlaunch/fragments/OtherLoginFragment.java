@@ -1,5 +1,6 @@
 package net.kdt.pojavlaunch.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -42,6 +43,7 @@ import java.util.Objects;
 
 public class OtherLoginFragment extends Fragment {
     public static final String TAG = "OtherLoginFragment";
+    public String mCurrentBaseUrl;
     private ProgressDialog mProgressDialog;
     private Spinner mServerSpinner;
     private EditText mUserEditText;
@@ -52,7 +54,6 @@ public class OtherLoginFragment extends Fragment {
     private File mServersFile;
     private Servers mServers;
     private List<String> mServerList;
-    public String mCurrentBaseUrl;
     private String mCurrentRegisterUrl;
     private ArrayAdapter<String> mServerSpinnerAdapter;
 
@@ -105,19 +106,21 @@ public class OtherLoginFragment extends Fragment {
         });
 
         mAddServer.setOnClickListener(v -> {
+            @SuppressLint("UseCompatLoadingForDrawables")
             AlertDialog dialog = new AlertDialog.Builder(requireContext())
                     .setTitle(getString(R.string.zh_other_login_add_server))
                     .setItems(new String[]{getString(R.string.zh_other_login_external_login), getString(R.string.zh_other_login_uniform_pass)}, (d, i) -> {
                         EditText editText = new EditText(requireContext());
                         editText.setMaxLines(1);
                         editText.setInputType(InputType.TYPE_CLASS_TEXT);
+                        editText.setBackground(getResources().getDrawable(R.drawable.background_line));
                         AlertDialog dialog1 = new AlertDialog.Builder(requireContext())
                                 .setTitle(getString(R.string.zh_tip))
                                 .setView(editText)
                                 .setPositiveButton(getString(R.string.zh_confirm), (dialogInterface, i1) -> {
                                     mProgressDialog.show();
                                     PojavApplication.sExecutorService.execute(() -> {
-                                        String data = OtherLoginApi.getINSTANCE().getServeInfo(i==0?editText.getText().toString():"https://auth.mc-user.com:233/" + editText.getText().toString());
+                                        String data = OtherLoginApi.getINSTANCE().getServeInfo(i == 0 ? editText.getText().toString() : "https://auth.mc-user.com:233/" + editText.getText().toString());
                                         requireActivity().runOnUiThread(() -> {
                                             mProgressDialog.dismiss();
                                             if (!Objects.isNull(data)) {
@@ -175,49 +178,49 @@ public class OtherLoginFragment extends Fragment {
             }
         });
 
-        mLoginButton.setOnClickListener(v->{
+        mLoginButton.setOnClickListener(v -> {
             mProgressDialog.show();
-            PojavApplication.sExecutorService.execute(()->{
-                String user= mUserEditText.getText().toString();
-                String pass= mPassEditText.getText().toString();
-                if (!user.isEmpty() && !pass.isEmpty()){
+            PojavApplication.sExecutorService.execute(() -> {
+                String user = mUserEditText.getText().toString();
+                String pass = mPassEditText.getText().toString();
+                if (!user.isEmpty() && !pass.isEmpty()) {
                     try {
                         OtherLoginApi.getINSTANCE().setBaseUrl(mCurrentBaseUrl);
                         OtherLoginApi.getINSTANCE().login(getContext(), user, pass, new OtherLoginApi.Listener() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
-                                requireActivity().runOnUiThread(()->{
+                                requireActivity().runOnUiThread(() -> {
                                     mProgressDialog.dismiss();
-                                    MinecraftAccount account=new MinecraftAccount();
-                                    account.accessToken=authResult.getAccessToken();
-                                    account.baseUrl= mCurrentBaseUrl;
-                                    account.account= mUserEditText.getText().toString();
-                                    account.password= mPassEditText.getText().toString();
-                                    account.expiresAt=System.currentTimeMillis()+30*60*1000;
-                                    if (!Objects.isNull(authResult.getSelectedProfile())){
-                                        account.username=authResult.getSelectedProfile().getName();
-                                        account.profileId=authResult.getSelectedProfile().getId();
+                                    MinecraftAccount account = new MinecraftAccount();
+                                    account.accessToken = authResult.getAccessToken();
+                                    account.baseUrl = mCurrentBaseUrl;
+                                    account.account = mUserEditText.getText().toString();
+                                    account.password = mPassEditText.getText().toString();
+                                    account.expiresAt = System.currentTimeMillis() + 30 * 60 * 1000;
+                                    if (!Objects.isNull(authResult.getSelectedProfile())) {
+                                        account.username = authResult.getSelectedProfile().getName();
+                                        account.profileId = authResult.getSelectedProfile().getId();
                                         ExtraCore.setValue(ExtraConstants.OTHER_LOGIN_TODO, account);
                                         Tools.swapFragment(requireActivity(), MainMenuFragment.class, MainMenuFragment.TAG, null);
                                     } else {
-                                        List<String> list=new ArrayList<>();
-                                        for(AuthResult.AvailableProfiles profiles:authResult.getAvailableProfiles()){
+                                        List<String> list = new ArrayList<>();
+                                        for (AuthResult.AvailableProfiles profiles : authResult.getAvailableProfiles()) {
                                             list.add(profiles.getName());
                                         }
-                                        String[] items=list.toArray(new String[0]);
-                                        AlertDialog dialog=new AlertDialog.Builder(requireContext())
+                                        String[] items = list.toArray(new String[0]);
+                                        AlertDialog dialog = new AlertDialog.Builder(requireContext())
                                                 .setTitle("")
-                                                .setItems(items,(d,i)->{
-                                                    for(AuthResult.AvailableProfiles profiles:authResult.getAvailableProfiles()){
-                                                        if(profiles.getName().equals(items[i])){
-                                                            account.profileId=profiles.getId();
-                                                            account.username=profiles.getName();
+                                                .setItems(items, (d, i) -> {
+                                                    for (AuthResult.AvailableProfiles profiles : authResult.getAvailableProfiles()) {
+                                                        if (profiles.getName().equals(items[i])) {
+                                                            account.profileId = profiles.getId();
+                                                            account.username = profiles.getName();
                                                         }
                                                     }
                                                     ExtraCore.setValue(ExtraConstants.OTHER_LOGIN_TODO, account);
                                                     Tools.swapFragment(requireActivity(), MainMenuFragment.class, MainMenuFragment.TAG, null);
                                                 })
-                                                .setNegativeButton(getString(android.R.string.cancel),null)
+                                                .setNegativeButton(getString(android.R.string.cancel), null)
                                                 .create();
                                         dialog.show();
                                     }
@@ -226,20 +229,20 @@ public class OtherLoginFragment extends Fragment {
 
                             @Override
                             public void onFailed(String error) {
-                                requireActivity().runOnUiThread(()->{
+                                requireActivity().runOnUiThread(() -> {
                                     mProgressDialog.dismiss();
-                                    AlertDialog dialog=new AlertDialog.Builder(requireContext())
+                                    AlertDialog dialog = new AlertDialog.Builder(requireContext())
                                             .setTitle(getString(R.string.zh_warning))
                                             .setTitle(getString(R.string.zh_other_login_error) + error)
-                                            .setPositiveButton(getString(R.string.zh_confirm),null)
+                                            .setPositiveButton(getString(R.string.zh_confirm), null)
                                             .create();
                                     dialog.show();
                                 });
                             }
                         });
                     } catch (IOException e) {
-                        requireActivity().runOnUiThread(()-> mProgressDialog.dismiss());
-                        Log.e("login",e.toString());
+                        requireActivity().runOnUiThread(() -> mProgressDialog.dismiss());
+                        Log.e("login", e.toString());
                     }
                 }
             });

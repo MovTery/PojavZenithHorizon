@@ -4,6 +4,7 @@ import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
 import static net.kdt.pojavlaunch.Tools.DIR_GAME_HOME;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -64,13 +65,14 @@ public class FilesFragment extends Fragment {
         );
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         bindViews(view);
         parseBundle();
 
         mFileListView.lockPathAt(new File(mPath));
-        mFileListView.setDialogTitleListener((title)->mFilePathView.setText(removeLockPath(title)));
+        mFileListView.setDialogTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
         mFileListView.refreshPath();
 
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
@@ -84,7 +86,8 @@ public class FilesFragment extends Fragment {
                 int lwjgl3 = file.getPath().indexOf("lwjgl3");
 
                 String message = getString(R.string.zh_file_message);
-                if (!(caciocavallo == -1 && lwjgl3 == -1)) message += "\n" + getString(R.string.zh_file_message_main);
+                if (!(caciocavallo == -1 && lwjgl3 == -1))
+                    message += "\n" + getString(R.string.zh_file_message_main);
                 message += "\n" + getString(R.string.zh_file_message_copy);
 
                 filesButton.messageText = message;
@@ -105,6 +108,7 @@ public class FilesFragment extends Fragment {
         mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(null)); //不限制文件类型
         mCreateFolderButton.setOnClickListener(v -> {
             EditText editText = new EditText(getContext());
+            editText.setBackground(getResources().getDrawable(R.drawable.background_line));
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.folder_dialog_insert_name)
                     .setView(editText)
@@ -112,9 +116,9 @@ public class FilesFragment extends Fragment {
                     .setPositiveButton(R.string.folder_dialog_create, (dialog, which) -> {
                         File folder = new File(mFileListView.getFullPath(), editText.getText().toString());
                         boolean success = folder.mkdir();
-                        if(success){
-                            mFileListView.listFileAt(new File(mFileListView.getFullPath(),editText.getText().toString()));
-                        }else{
+                        if (success) {
+                            mFileListView.listFileAt(new File(mFileListView.getFullPath(), editText.getText().toString()));
+                        } else {
                             mFileListView.refreshPath();
                         }
                     }).show();
@@ -131,7 +135,7 @@ public class FilesFragment extends Fragment {
         });
     }
 
-    private String removeLockPath(String path){
+    private String removeLockPath(String path) {
         return path.replace(mPath, ".");
     }
 
@@ -147,9 +151,9 @@ public class FilesFragment extends Fragment {
         view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
     }
 
-    private void parseBundle(){
+    private void parseBundle() {
         Bundle bundle = getArguments();
-        if(bundle == null) return;
+        if (bundle == null) return;
         mPath = bundle.getString(BUNDLE_PATH, DIR_GAME_HOME);
     }
 }

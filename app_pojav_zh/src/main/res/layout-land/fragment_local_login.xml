@@ -43,6 +43,7 @@
         android:imeOptions="flagNoExtractUi"
 
         android:textSize="@dimen/_16ssp"
+        android:background="@drawable/background_line"
         app:layout_constraintBottom_toBottomOf="@+id/login_menu"
         app:layout_constraintEnd_toStartOf="@+id/login_button"
         app:layout_constraintStart_toStartOf="@+id/login_menu"

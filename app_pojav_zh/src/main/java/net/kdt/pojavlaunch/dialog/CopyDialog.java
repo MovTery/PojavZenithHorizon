@@ -2,6 +2,7 @@ package net.kdt.pojavlaunch.dialog;
 
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
@@ -37,6 +38,7 @@ public class CopyDialog extends Dialog {
         init(context);
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void init(Context context) {
         TextView mTitle = findViewById(R.id.zh_operation_title);
         TextView mMessage = findViewById(R.id.zh_operation_message);
@@ -63,6 +65,7 @@ public class CopyDialog extends Dialog {
             AlertDialog.Builder copyBuilder = new AlertDialog.Builder(context);
             EditText input = new EditText(context);
             input.setText(newName);
+            input.setBackground(context.getResources().getDrawable(R.drawable.background_line));
             copyBuilder.setTitle(context.getString(R.string.zh_file_copy_dialog_new_name_title));
             copyBuilder.setView(input);
             copyBuilder.setPositiveButton(context.getString(R.string.zh_confirm), (dialog, which) -> {
