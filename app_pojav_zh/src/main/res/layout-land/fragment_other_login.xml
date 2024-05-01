@@ -87,7 +87,7 @@
         app:layout_constraintTop_toBottomOf="@id/server_spinner" />
 
 
-    <com.kdt.mcgui.MineEditText
+    <EditText
         android:id="@+id/login_edit_email"
         android:layout_width="0dp"
         android:layout_height="@dimen/_37sdp"
@@ -99,7 +99,9 @@
         android:textColorHint="@color/primary_text"
         app:layout_constraintEnd_toEndOf="@+id/login_menu"
         app:layout_constraintStart_toStartOf="@+id/login_menu"
-        app:layout_constraintTop_toBottomOf="@id/b" />
+        app:layout_constraintTop_toBottomOf="@id/b"
+        android:autofillHints="emailAddress"
+        tools:ignore="LabelFor" />
 
     <TextView
         android:id="@+id/c"
@@ -110,20 +112,22 @@
         app:layout_constraintStart_toStartOf="@+id/login_edit_password"
         app:layout_constraintTop_toBottomOf="@+id/login_edit_email" />
 
-    <com.kdt.mcgui.MineEditText
+    <EditText
         android:id="@+id/login_edit_password"
         android:layout_width="0dp"
         android:layout_height="@dimen/_37sdp"
         android:layout_marginHorizontal="@dimen/_25sdp"
         android:imeOptions="flagNoExtractUi"
-        android:inputType="textEmailAddress"
+        android:inputType="textVisiblePassword"
         android:textSize="@dimen/_16ssp"
         android:textColor="@color/primary_text"
         android:textColorHint="@color/primary_text"
         app:layout_constraintEnd_toEndOf="@+id/login_menu"
         app:layout_constraintStart_toStartOf="@+id/login_menu"
         app:layout_constraintTop_toBottomOf="@id/c"
-        app:layout_constraintVertical_bias="0.251" />
+        app:layout_constraintVertical_bias="0.251"
+        android:autofillHints="password"
+        tools:ignore="LabelFor" />
 
     <com.kdt.mcgui.MineButton
         android:id="@+id/login_button"

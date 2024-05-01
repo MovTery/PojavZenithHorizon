@@ -21,7 +21,6 @@ import androidx.fragment.app.Fragment;
 
 import com.google.gson.Gson;
 import com.kdt.mcgui.MineButton;
-import com.kdt.mcgui.MineEditText;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
@@ -45,8 +44,8 @@ public class OtherLoginFragment extends Fragment {
     public static final String TAG = "OtherLoginFragment";
     private ProgressDialog mProgressDialog;
     private Spinner mServerSpinner;
-    private MineEditText mUserEditText;
-    private MineEditText mPassEditText;
+    private EditText mUserEditText;
+    private EditText mPassEditText;
     private MineButton mLoginButton;
     private TextView mRegister;
     private ImageButton mAddServer, mHelpButton;
