@@ -4,6 +4,7 @@ import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
 import static net.kdt.pojavlaunch.PojavZHTools.refreshFileCount;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -65,6 +66,7 @@ public class PrefsFragment extends Fragment {
         );
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         bindViews(view);
@@ -100,18 +102,20 @@ public class PrefsFragment extends Fragment {
             }
 
             @Override
-            public void onItemLongClick(File file, String path) {}
+            public void onItemLongClick(File file, String path) {
+            }
         });
 
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
         mImportPrefsButton.setOnClickListener(v -> {
             String suffix = ".prefs";
-            Toast.makeText(requireActivity(),  String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireActivity(), String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show();
             openDocumentLauncher.launch(suffix);
         });
 
         mCreateNewButton.setOnClickListener(v -> {
             EditText editText = new EditText(getContext());
+            editText.setBackground(getResources().getDrawable(R.drawable.background_line));
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.zh_prefs_create_new_title)
                     .setView(editText)

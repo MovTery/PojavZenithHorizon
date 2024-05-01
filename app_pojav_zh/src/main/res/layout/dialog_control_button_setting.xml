@@ -34,6 +34,7 @@
             android:id="@+id/editName_editText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/background_line"
             android:gravity="center"
             android:hint="Button Name"
             android:imeOptions="flagNoExtractUi"
@@ -41,7 +42,8 @@
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editName_textView" />
+            app:layout_constraintTop_toBottomOf="@+id/editName_textView"
+            tools:ignore="HardcodedText" />
 
         <!--  SIZE SECTION -->
         <TextView
@@ -58,8 +60,9 @@
 
         <EditText
             android:id="@+id/editSize_editTextX"
-            android:layout_width="@dimen/_134sdp"
+            android:layout_width="@dimen/_128sdp"
             android:layout_height="wrap_content"
+            android:background="@drawable/background_line"
             android:gravity="center"
             android:imeOptions="flagNoExtractUi"
             android:inputType="numberDecimal"
@@ -69,15 +72,15 @@
 
         <EditText
             android:id="@+id/editSize_editTextY"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/_128sdp"
             android:layout_height="0dp"
+            android:background="@drawable/background_line"
             android:gravity="center"
             android:imeOptions="flagNoExtractUi"
             android:inputType="numberDecimal"
 
             app:layout_constraintBottom_toBottomOf="@+id/editSize_editTextX"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/editSize_editTextX"
             app:layout_constraintTop_toTopOf="@+id/editSize_editTextX" />
 
         <TextView

@@ -4,6 +4,7 @@ import static net.kdt.pojavlaunch.CustomControlsActivity.BUNDLE_CONTROL_PATH;
 import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -71,6 +72,7 @@ public class ControlButtonFragment extends Fragment {
         );
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         bindViews(view);
@@ -78,7 +80,7 @@ public class ControlButtonFragment extends Fragment {
         mFileListView.setShowFiles(true);
         mFileListView.setShowFolders(true);
         mFileListView.lockPathAt(controlPath());
-        mFileListView.setDialogTitleListener((title)->mFilePathView.setText(removeLockPath(title)));
+        mFileListView.setDialogTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
         mFileListView.refreshPath();
 
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
@@ -115,11 +117,12 @@ public class ControlButtonFragment extends Fragment {
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
         mImportControlButton.setOnClickListener(v -> {
             String suffix = ".json";
-            Toast.makeText(requireActivity(),  String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireActivity(), String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show();
             openDocumentLauncher.launch(suffix);
         }); //限制.json文件
         mAddControlButton.setOnClickListener(v -> {
             EditText editText = new EditText(getContext());
+            editText.setBackground(getResources().getDrawable(R.drawable.background_line));
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.zh_controls_create_new_title)
                     .setView(editText)
@@ -133,7 +136,7 @@ public class ControlButtonFragment extends Fragment {
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
-                            if(success){
+                            if (success) {
                                 try (BufferedWriter optionFileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
                                     optionFileWriter.write("{\"version\":6}");
                                 } catch (IOException e) {
@@ -164,7 +167,7 @@ public class ControlButtonFragment extends Fragment {
         return ctrlPath;
     }
 
-    private String removeLockPath(String path){
+    private String removeLockPath(String path) {
         return path.replace(Tools.CTRLMAP_PATH, ".");
     }
 
