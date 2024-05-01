@@ -396,6 +396,7 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
             }
             ExtendedTextView textview = (ExtendedTextView) convertView;
             textview.setText(super.getItem(position));
+            textview.setTextColor(getContext().getResources().getColor(R.color.menu_bar_text));
 
             // Handle the "Add account section"
             if(position == 0) textview.setCompoundDrawables(ResourcesCompat.getDrawable(parent.getResources(), R.drawable.ic_add, null), null, null, null);
