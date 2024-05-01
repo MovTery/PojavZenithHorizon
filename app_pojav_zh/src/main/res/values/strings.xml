@@ -110,7 +110,6 @@
     <string name="zh_neoforge_dl_select_version">Select NeoForge version</string>
     <string name="zh_modloader_dl_install_neoforge">Create NeoForge profile</string>
 
-    <string name="zh_main_prefs">Preferences Management</string>
     <string name="zh_main_open_main_dir">Open main directory</string>
     <string name="zh_main_open_instance_dir">Open Instance Directory</string>
     <string name="zh_main_share_crash_report">Share Crash Report</string>
@@ -120,12 +119,6 @@
     <string name="zh_game_tip_version">Current game version being launched: </string>
     <string name="zh_preference_category_language">Language</string>
     <string name="zh_preference_category_launcher">Launcher</string>
-
-    <string name="zh_prefs_create_new">Save New Preferences</string>
-    <string name="zh_prefs_create_new_title">Name the upcoming saved preferences:</string>
-    <string name="zh_prefs_import_prefs">Import Preferences</string>
-    <string name="zh_prefs_message">This is a Pojav ZH preferences file, which saves all the software\'s preferences, making it easy for users to quickly set the launcher\'s preferences</string>
-    <string name="zh_prefs_loaded">Preferences set successfully! (Some preferences may need to restart Pojav ZH to take effect)</string>
 
     <string name="zh_profile_custom_path">Custom path</string>
     <string name="zh_profile_create_mods">Create Mods</string>
@@ -227,8 +220,6 @@
     <string name="zh_help_modpack_message">A Mod Pack is a client file package containing multiple mods that are integrated together, allowing players to easily experience new gameplay and content. By installing a Mod Pack, players can acquire a large amount of new game content in one go, without having to individually search for and install each mod, saving time and energy.\nPlease note that the majority of Mod Pack authors are primarily catering to PC players and they usually do not take into consideration Pojav players who may attempt to use their Mod Packs. Considering that Mod Packs often contain a large number of mods, it is inevitable that issues may arise, such as incompatibilities or performance problems.\nTherefore, it is essential to carefully choose and consider your own device performance and needs, and to be cautious when selecting a Mod Pack to avoid unnecessary difficulties!</string>
     <string name="zh_help_mouse_title">How to use Virtual Mouse Manager?</string>
     <string name="zh_help_mouse_message">In the virtual mouse manager interface, you can view and add virtual mice. Clicking on a virtual mouse allows you to select, rename, or delete it. \nVirtual mice are essentially textures. You can draw your own or find suitable virtual mice, then import them into the launcher and select them as the virtual mouse in the game. \nHere, you can only select image files. Any other files are not supported!</string>
-    <string name="zh_help_prefs_title">What are preferences?</string>
-    <string name="zh_help_prefs_message">Preferences refer to all the settings of the launcher. You can customize the launcher according to your needs to display different effects. Preferences management allows you to save or load preferences, quickly set up your launcher. You can also share your launcher preferences with your friends to help them set up their launcher more quickly.</string>
     <string name="zh_help_ok">Got it</string>
 
     <!-- Action bar part -->

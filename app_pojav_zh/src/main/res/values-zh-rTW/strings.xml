@@ -106,7 +106,6 @@
     <string name="zh_neoforge_dl_select_version">選擇 NeoForge 版本</string>
     <string name="zh_modloader_dl_install_neoforge">建立 NeoForge 實例</string>
 
-    <string name="zh_main_prefs">偏好設定管理</string>
     <string name="zh_main_open_main_dir">打開主目錄</string>
     <string name="zh_main_open_instance_dir">開啟實例目錄</string>
     <string name="zh_main_share_crash_report">分享崩潰報告</string>
@@ -116,12 +115,6 @@
     <string name="zh_game_tip_version">當前啟動的遊戲版本：</string>
     <string name="zh_preference_category_language">語言</string>
     <string name="zh_preference_category_launcher">啟動器</string>
-
-    <string name="zh_prefs_create_new">儲存新的偏好設定</string>
-    <string name="zh_prefs_create_new_title">為即將儲存的偏好設定命名：</string>
-    <string name="zh_prefs_import_prefs">匯入偏好設定</string>
-    <string name="zh_prefs_message">這是一個Pojav ZH的偏好設定文件，保存了軟體的所有偏好設定，方便用戶快速設定啟動器的偏好設定</string>
-    <string name="zh_prefs_loaded">成功設定偏好設定！（部分偏好設定可能需要重新啟動Pojav ZH才能生效）</string>
 
     <string name="zh_profile_custom_path">自訂路徑</string>
     <string name="zh_profile_create_mods">建立 Mods</string>
@@ -221,8 +214,6 @@
     <string name="zh_help_modpack_message">Mod 整合包是一個包含多個 Mod 的客戶端文件包，它將各種 Mod 集成在一起，使玩家能夠輕鬆嘗試多種新的玩法和內容。\n通過安裝 Mod 整合包，玩家可以一次性獲得大量新的遊戲內容，無需單獨尋找和安裝每個 Mod，從而節省時間和精力。\n請注意，多數 Mod 整合包的作者主要是為 PC 玩家量身打造的，他們幾乎不會考慮到會有 Pojav 玩家會嘗試使用這些整合包。鑒於整合包中往往包含大量的 Mod，難免會出現不兼容或性能不足的問題。\n因此，請務必根據自身設備性能和需求，謹慎選擇並量力而行，以免出現不必要的困擾！</string>
     <string name="zh_help_mouse_title">如何使用虛擬滑鼠管理器？</string>
     <string name="zh_help_mouse_message">在虛擬滑鼠管理器介面中，您可以查看、新增虛擬滑鼠，點擊虛擬滑鼠可選擇、重新命名、刪除虛擬滑鼠。\n虛擬滑鼠本質上是一種貼圖，您可以根據自己的喜好，自行繪製或尋找合適的虛擬滑鼠，然後將其導入啟動器內，選擇它作為遊戲內的虛擬滑鼠。\n在這裡，您只能選擇圖片檔案，其他任何檔案均不支援！</string>
-    <string name="zh_help_prefs_title">偏好設定是什麼？</string>
-    <string name="zh_help_prefs_message">偏好設定指的是啟動器的所有設定項，您可以根據您的需求設定啟動器，讓啟動器按照您的需求展現出不同的效果。\n偏好設定管理能夠保存或者加載偏好設定，快速設定您的啟動器，您也可以將您的啟動器偏好設定分享給您的好友，幫助好友更快速地設定啟動器。</string>
     <string name="zh_help_ok">知道了</string>
 
     <!-- Action bar part -->
