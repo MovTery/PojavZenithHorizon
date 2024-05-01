@@ -6,6 +6,9 @@
     <color name="background_bottom_bar">#232323</color>
     <color name="background_lines">#000000</color>
 
+    <color name="menu_bar">#181818</color>
+    <color name="menu_overlay">#232323</color>
+
     <color name="icon_color">#FFFFFF</color>
     <color name="icon_color_fill">#808080</color>
 
