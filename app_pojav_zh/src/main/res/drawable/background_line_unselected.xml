@@ -5,7 +5,7 @@
         <shape
             android:shape="rectangle" >
 
-            <corners android:radius="@dimen/_5sdp" />
+            <corners android:radius="@dimen/_3sdp" />
 
             <padding
                 android:bottom="@dimen/padding_input_bottom"
@@ -14,7 +14,7 @@
             <solid android:color="@color/menu_overlay" />
 
             <stroke
-                android:width="@dimen/_2sdp"
+                android:width="@dimen/_1sdp"
                 android:color="#909090"/>
         </shape>
     </item>
