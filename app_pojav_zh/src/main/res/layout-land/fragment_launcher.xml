@@ -59,18 +59,6 @@
                     android:textColor="@color/primary_text"/>
 
                 <com.kdt.mcgui.LauncherMenuButton
-                    android:id="@+id/zh_prefs_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/background_line"
-                    android:drawableStart="@drawable/ic_main_prefs"
-                    android:text="@string/zh_main_prefs"
-                    android:textColor="@color/primary_text"/>
-
-                <com.kdt.mcgui.LauncherMenuButton
                     android:id="@+id/install_jar_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
