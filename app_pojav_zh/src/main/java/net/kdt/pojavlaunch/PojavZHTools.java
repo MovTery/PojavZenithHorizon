@@ -299,8 +299,7 @@ public class PojavZHTools {
         String suffix = fileName.substring(fileName.lastIndexOf('.')); //防止修改后缀名，先将后缀名分离出去
 
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View editTextView = layoutInflater.inflate(R.layout.item_edit_text, null);
-        EditText input = editTextView.findViewById(R.id.zh_edit_text);
+        EditText input = (EditText) layoutInflater.inflate(R.layout.item_edit_text, null);
         input.setText(fileName.substring(0, fileName.lastIndexOf(suffix)));
 
         renameBuilder.setTitle(context.getString(R.string.zh_rename));

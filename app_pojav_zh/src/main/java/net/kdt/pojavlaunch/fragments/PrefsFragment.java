@@ -116,8 +116,7 @@ public class PrefsFragment extends Fragment {
 
         mCreateNewButton.setOnClickListener(v -> {
             LayoutInflater layoutInflater = LayoutInflater.from(requireContext());
-            View editTextView = layoutInflater.inflate(R.layout.item_edit_text, null);
-            EditText editText = editTextView.findViewById(R.id.zh_edit_text);
+            EditText editText = (EditText) layoutInflater.inflate(R.layout.item_edit_text, null);
 
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.zh_prefs_create_new_title)

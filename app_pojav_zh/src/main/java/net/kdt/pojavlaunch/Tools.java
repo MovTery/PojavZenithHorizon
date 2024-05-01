@@ -990,8 +990,7 @@ public final class Tools {
 
         // install mods with custom arguments
         LayoutInflater layoutInflater = LayoutInflater.from(activity);
-        View editTextView = layoutInflater.inflate(R.layout.item_edit_text, null);
-        final EditText editText = editTextView.findViewById(R.id.zh_edit_text);
+        final EditText editText = (EditText) layoutInflater.inflate(R.layout.item_edit_text, null);
         editText.setSingleLine();
         editText.setHint("-jar/-cp /path/to/file.jar ...");
 
