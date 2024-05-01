@@ -182,7 +182,6 @@ public class LauncherActivity extends BaseActivity {
         String normalizedVersionId = AsyncMinecraftDownloader.normalizeVersionId(prof.lastVersionId);
         JMinecraftVersionList.Version mcVersion = AsyncMinecraftDownloader.getListedVersion(normalizedVersionId);
         new MinecraftDownloader().start(
-                this,
                 mcVersion,
                 normalizedVersionId,
                 new ContextAwareDoneListener(this, normalizedVersionId)
