@@ -123,8 +123,7 @@ public class ControlButtonFragment extends Fragment {
         }); //限制.json文件
         mAddControlButton.setOnClickListener(v -> {
             LayoutInflater layoutInflater = LayoutInflater.from(requireContext());
-            View editTextView = layoutInflater.inflate(R.layout.item_edit_text, null);
-            EditText editText = editTextView.findViewById(R.id.zh_edit_text);
+            EditText editText = (EditText) layoutInflater.inflate(R.layout.item_edit_text, null);
 
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.zh_controls_create_new_title)

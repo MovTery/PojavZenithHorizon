@@ -515,8 +515,7 @@ public class ControlLayout extends FrameLayout {
 	public void openSaveDialog(EditorExitable editorExitable) {
 		final Context context = getContext();
 		LayoutInflater layoutInflater = LayoutInflater.from(context);
-		View editTextView = layoutInflater.inflate(R.layout.item_edit_text, null);
-		final EditText edit = editTextView.findViewById(R.id.zh_edit_text);
+		final EditText edit = (EditText) layoutInflater.inflate(R.layout.item_edit_text, null);
 		edit.setSingleLine();
 		edit.setText(mLayoutFileName);
 

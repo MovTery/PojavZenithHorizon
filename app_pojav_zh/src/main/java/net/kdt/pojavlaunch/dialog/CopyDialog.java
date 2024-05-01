@@ -65,8 +65,7 @@ public class CopyDialog extends Dialog {
             //复制自定义名称
             AlertDialog.Builder copyBuilder = new AlertDialog.Builder(context);
             LayoutInflater layoutInflater = LayoutInflater.from(context);
-            View editTextView = layoutInflater.inflate(R.layout.item_edit_text, null);
-            EditText input = editTextView.findViewById(R.id.zh_edit_text);
+            EditText input = (EditText) layoutInflater.inflate(R.layout.item_edit_text, null);
             input.setText(newName);
 
             copyBuilder.setTitle(context.getString(R.string.zh_file_copy_dialog_new_name_title));

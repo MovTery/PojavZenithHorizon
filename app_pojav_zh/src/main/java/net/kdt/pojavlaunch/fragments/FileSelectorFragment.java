@@ -65,8 +65,7 @@ public class FileSelectorFragment extends Fragment {
 
         mCreateFolderButton.setOnClickListener(v -> {
             LayoutInflater layoutInflater = LayoutInflater.from(requireContext());
-            View editTextView = layoutInflater.inflate(R.layout.item_edit_text, null);
-            EditText editText = editTextView.findViewById(R.id.zh_edit_text);
+            EditText editText = (EditText) layoutInflater.inflate(R.layout.item_edit_text, null);
 
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.folder_dialog_insert_name)
