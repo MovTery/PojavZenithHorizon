@@ -12,7 +12,7 @@ public class JRE21Util {
     public static final String JRE_21_NAME = "Internal-21";
     public static void checkInternalJre21(AssetManager assetManager) {
         String launcher_jre21_version;
-        String installed_jre21_version = MultiRTUtils.__internal__readBinpackVersion("JRE_21_NAME");
+        String installed_jre21_version = MultiRTUtils.__internal__readBinpackVersion(JRE_21_NAME);
         try {
             launcher_jre21_version = Tools.read(assetManager.open("components/jre-21/version"));
         } catch (IOException exc) {
