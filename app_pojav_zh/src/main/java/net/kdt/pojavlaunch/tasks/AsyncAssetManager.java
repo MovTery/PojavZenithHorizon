@@ -2,7 +2,6 @@ package net.kdt.pojavlaunch.tasks;
 
 
 import static net.kdt.pojavlaunch.Architecture.archAsString;
-import static net.kdt.pojavlaunch.JRE21Util.checkInternalJre21;
 import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
 
 import android.content.Context;
@@ -57,8 +56,6 @@ public class AsyncAssetManager {
             }catch (IOException e) {
                 Log.e("JRE8Auto", "Internal 8 JRE unpack failed", e);
             }
-
-            checkInternalJre21(am);
         });
     }
 
