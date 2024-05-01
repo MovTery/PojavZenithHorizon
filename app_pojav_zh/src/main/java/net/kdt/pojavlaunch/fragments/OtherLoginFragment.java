@@ -112,13 +112,13 @@ public class OtherLoginFragment extends Fragment {
                     .setTitle(getString(R.string.zh_other_login_add_server))
                     .setItems(new String[]{getString(R.string.zh_other_login_external_login), getString(R.string.zh_other_login_uniform_pass)}, (d, i) -> {
 
-                        LayoutInflater layoutInflater = LayoutInflater.from(requireContext());
-                        EditText editText = (EditText) layoutInflater.inflate(R.layout.item_edit_text, null);
+                        View itemView = LayoutInflater.from(requireContext()).inflate(R.layout.item_edit_text, null);
+                        EditText editText = itemView.findViewById(R.id.zh_edit_text);
                         editText.setMaxLines(1);
                         editText.setInputType(InputType.TYPE_CLASS_TEXT);
                         AlertDialog dialog1 = new AlertDialog.Builder(requireContext())
                                 .setTitle(getString(R.string.zh_tip))
-                                .setView(editText)
+                                .setView(itemView)
                                 .setPositiveButton(getString(R.string.zh_confirm), (dialogInterface, i1) -> {
                                     mProgressDialog.show();
                                     PojavApplication.sExecutorService.execute(() -> {

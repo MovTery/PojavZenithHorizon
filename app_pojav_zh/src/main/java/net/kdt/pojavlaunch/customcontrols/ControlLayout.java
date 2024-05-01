@@ -514,14 +514,14 @@ public class ControlLayout extends FrameLayout {
 	@SuppressLint("UseCompatLoadingForDrawables")
 	public void openSaveDialog(EditorExitable editorExitable) {
 		final Context context = getContext();
-		LayoutInflater layoutInflater = LayoutInflater.from(context);
-		final EditText edit = (EditText) layoutInflater.inflate(R.layout.item_edit_text, null);
+		View itemView = LayoutInflater.from(context).inflate(R.layout.item_edit_text, null);
+		EditText edit = itemView.findViewById(R.id.zh_edit_text);
 		edit.setSingleLine();
 		edit.setText(mLayoutFileName);
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		builder.setTitle(R.string.global_save);
-		builder.setView(edit);
+		builder.setView(itemView);
 		builder.setPositiveButton(android.R.string.ok, null);
 		builder.setNegativeButton(android.R.string.cancel, null);
 		if(editorExitable != null) builder.setNeutralButton(R.string.global_save_and_exit, null);

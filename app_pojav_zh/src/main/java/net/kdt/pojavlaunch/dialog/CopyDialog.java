@@ -64,12 +64,12 @@ public class CopyDialog extends Dialog {
 
             //复制自定义名称
             AlertDialog.Builder copyBuilder = new AlertDialog.Builder(context);
-            LayoutInflater layoutInflater = LayoutInflater.from(context);
-            EditText input = (EditText) layoutInflater.inflate(R.layout.item_edit_text, null);
+            View itemView = LayoutInflater.from(context).inflate(R.layout.item_edit_text, null);
+            EditText input = itemView.findViewById(R.id.zh_edit_text);
             input.setText(newName);
 
             copyBuilder.setTitle(context.getString(R.string.zh_file_copy_dialog_new_name_title));
-            copyBuilder.setView(input);
+            copyBuilder.setView(itemView);
             copyBuilder.setPositiveButton(context.getString(R.string.zh_confirm), (dialog, which) -> {
                 String newFileName = input.getText().toString();
                 if (!newFileName.isEmpty()) {

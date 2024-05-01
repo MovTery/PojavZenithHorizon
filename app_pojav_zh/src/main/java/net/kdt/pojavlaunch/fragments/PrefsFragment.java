@@ -115,12 +115,12 @@ public class PrefsFragment extends Fragment {
         });
 
         mCreateNewButton.setOnClickListener(v -> {
-            LayoutInflater layoutInflater = LayoutInflater.from(requireContext());
-            EditText editText = (EditText) layoutInflater.inflate(R.layout.item_edit_text, null);
+            View itemView = LayoutInflater.from(requireContext()).inflate(R.layout.item_edit_text, null);
+            EditText editText = itemView.findViewById(R.id.zh_edit_text);
 
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.zh_prefs_create_new_title)
-                    .setView(editText)
+                    .setView(itemView)
                     .setNegativeButton(android.R.string.cancel, null)
                     .setPositiveButton(R.string.zh_create, (dialog, which) -> PojavApplication.sExecutorService.execute(() -> {
                         File prefsFile = new File(PojavZHTools.DIR_PREFS, "/" + editText.getText().toString() + ".prefs");
