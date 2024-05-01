@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch.fragments;
 
+import static net.kdt.pojavlaunch.PojavZHTools.getEditTextParams;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Build;
@@ -65,6 +67,7 @@ public class FileSelectorFragment extends Fragment {
         mCreateFolderButton.setOnClickListener(v -> {
             final EditText editText = new EditText(getContext());
             editText.setBackground(getResources().getDrawable(R.drawable.background_line));
+            editText.setLayoutParams(getEditTextParams(requireContext(), 8));
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.folder_dialog_insert_name)
                     .setView(editText)

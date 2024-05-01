@@ -27,15 +27,6 @@
         app:layout_constraintStart_toStartOf="@+id/scrollSettings"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/shadowView1"
-        android:layout_width="10dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="-7dp"
-        android:background="@drawable/shadow_gradient_left"
-        app:layout_constraintStart_toEndOf="@+id/scrollSettings"
-        app:layout_constraintTop_toTopOf="@+id/scrollSettings" />
-
     <ScrollView
         android:id="@+id/scrollSettings"
         android:layout_width="@dimen/_60sdp"
@@ -134,15 +125,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <View
-        android:id="@+id/shadowView2"
-        android:layout_width="0dp"
-        android:layout_height="4dp"
-        android:background="@drawable/shadow_gradient_down"
-        app:layout_constraintEnd_toEndOf="@+id/view"
-        app:layout_constraintStart_toStartOf="@+id/view"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
-
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/zh_settings_fragment"
         android:name="net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceVideoFragment"
@@ -154,6 +136,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/scrollSettings"
         app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <View
+        android:id="@+id/shadowView2"
+        android:layout_width="0dp"
+        android:layout_height="4dp"
+        android:background="@drawable/shadow_gradient_down"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <View
+        android:id="@+id/shadowView1"
+        android:layout_width="10dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="-7dp"
+        android:background="@drawable/shadow_gradient_left"
+        app:layout_constraintStart_toEndOf="@+id/scrollSettings"
+        app:layout_constraintTop_toTopOf="@+id/scrollSettings" />
 
     <TextView
         android:id="@+id/zh_settings_title"

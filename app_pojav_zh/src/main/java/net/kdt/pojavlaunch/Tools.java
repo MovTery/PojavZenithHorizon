@@ -3,6 +3,7 @@ package net.kdt.pojavlaunch;
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.P;
 import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
+import static net.kdt.pojavlaunch.PojavZHTools.getEditTextParams;
 import static net.kdt.pojavlaunch.PojavZHTools.shareFile;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_IGNORE_NOTCH;
@@ -992,6 +993,7 @@ public final class Tools {
         editText.setSingleLine();
         editText.setHint("-jar/-cp /path/to/file.jar ...");
         editText.setBackground(activity.getResources().getDrawable(R.drawable.background_line));
+        editText.setLayoutParams(getEditTextParams(activity, 8));
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity)
                 .setTitle(R.string.alerttitle_installmod)
