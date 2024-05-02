@@ -7,7 +7,7 @@
 
             <corners android:radius="@dimen/_3sdp" />
 
-            <solid android:color="@color/menu_overlay" />
+            <solid android:color="@color/background_line_selected" />
 
             <stroke
                 android:width="@dimen/_1sdp"

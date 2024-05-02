@@ -7,7 +7,7 @@
 
             <corners android:radius="@dimen/_3sdp" />
 
-            <solid android:color="@color/edit_box_fill" />
+            <solid android:color="@color/edit_box_fill_selected" />
 
             <stroke
                 android:width="@dimen/_1sdp"
