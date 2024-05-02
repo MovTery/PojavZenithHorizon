@@ -7,7 +7,7 @@
 
     <item android:id="@android:id/progress">
         <clip>
-             <color android:color='@color/background_bottom_bar'/>
+             <color android:color='@color/menu_progress'/>
         </clip>
     </item>
 
