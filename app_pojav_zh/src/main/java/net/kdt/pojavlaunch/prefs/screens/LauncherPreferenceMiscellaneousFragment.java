@@ -22,12 +22,6 @@ public class LauncherPreferenceMiscellaneousFragment extends LauncherPreferenceF
         }
 
         setupNotificationRequestPreference();
-
-        Preference updatePreference = requirePreference("zh_check_update");
-        updatePreference.setOnPreferenceClickListener(preference -> {
-            updateChecker(requireContext(), false);
-            return true;
-        });
     }
 
     private void setupNotificationRequestPreference() {
