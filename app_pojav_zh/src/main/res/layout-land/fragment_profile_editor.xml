@@ -362,20 +362,6 @@
             app:layout_constraintStart_toStartOf="@+id/view3" />
 
         <Button
-            android:id="@+id/zh_create_mods_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_weight="1"
-            android:text="@string/zh_profile_create_mods"
-            app:layout_constraintBottom_toTopOf="@+id/vprof_editor_delete_button"
-            app:layout_constraintEnd_toEndOf="@+id/view3"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/view3" />
-
-        <Button
             android:id="@+id/zh_mods_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
