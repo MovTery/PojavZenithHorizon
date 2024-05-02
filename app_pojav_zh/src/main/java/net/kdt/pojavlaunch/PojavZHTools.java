@@ -267,7 +267,7 @@ public class PojavZHTools {
         return fileListView.getMainLv().getAdapter().getCount();
     }
 
-    public static void deleteFileListener(Context context, FileListView fileListView, File file, boolean displayThumbnails, TextView titleView, String title) {
+    public static AlertDialog.Builder deleteFileListener(Context context, FileListView fileListView, File file, boolean displayThumbnails, TextView titleView, String title) {
         String fileName = file.getName();
         // 显示确认删除的对话框
         AlertDialog.Builder deleteConfirmation = new AlertDialog.Builder(context);
@@ -277,14 +277,14 @@ public class PojavZHTools {
         deleteConfirmation.setPositiveButton(context.getString(R.string.global_delete), (dialog1, which1) -> {
             boolean deleted = FileUtils.deleteQuietly(file);
             if (deleted) {
-                refreshFileCount(context, fileListView, titleView, title);
                 Toast.makeText(context, context.getString(R.string.zh_file_deleted) + fileName, Toast.LENGTH_SHORT).show();
             }
             if (!displayThumbnails) fileListView.refreshPath();
             else fileListView.listFileAt(fileListView.getFullPath(), true);
         });
         deleteConfirmation.setNegativeButton(context.getString(android.R.string.cancel), null);
-        deleteConfirmation.show();
+
+        return deleteConfirmation;
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
