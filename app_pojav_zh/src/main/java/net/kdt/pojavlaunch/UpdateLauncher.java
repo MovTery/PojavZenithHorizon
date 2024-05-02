@@ -40,8 +40,6 @@ public class UpdateLauncher {
     private final File apkFile;
     private final String tagName, fileSize;
     private String destinationFilePath;
-    private OkHttpClient client;
-    private Request request;
     private Call call;
 
     public UpdateLauncher(Context context, String tagName, String fileSize) {
@@ -55,14 +53,14 @@ public class UpdateLauncher {
     private void init() {
         String fileUrl = "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk";
         this.destinationFilePath = this.apkFile.getAbsolutePath();
-        this.client = new OkHttpClient();
-        this.request = new Request.Builder()
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
                 .url(fileUrl)
                 .build();
+        this.call = client.newCall(request); //获取请求对象
     }
 
     public void start() {
-        this.call = this.client.newCall(this.request); //获取请求对象
         this.call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -71,14 +69,6 @@ public class UpdateLauncher {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                runOnUiThread(() -> {
-                    //下载弹窗初始化
-                    UpdateLauncher.this.downloadDialog = new DownloadDialog(UpdateLauncher.this.context);
-                    UpdateLauncher.this.downloadTipTextView = UpdateLauncher.this.downloadDialog.getTextView();
-
-                    UpdateLauncher.this.downloadDialog.getCancelButton().setOnClickListener(view -> UpdateLauncher.this.stop());
-                });
-
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response);
                 } else {
@@ -91,7 +81,13 @@ public class UpdateLauncher {
                         int bytesRead;
                         int downloadedBytes = 0;
 
-                        runOnUiThread(UpdateLauncher.this.downloadDialog::show);
+                        runOnUiThread(() -> {
+                            UpdateLauncher.this.downloadDialog = new DownloadDialog(UpdateLauncher.this.context);
+                            UpdateLauncher.this.downloadTipTextView = UpdateLauncher.this.downloadDialog.getTextView();
+
+                            UpdateLauncher.this.downloadDialog.getCancelButton().setOnClickListener(view -> UpdateLauncher.this.stop());
+                            UpdateLauncher.this.downloadDialog.show();
+                        });
 
                         final long[] downloadedSize = new long[1];
 
