@@ -90,7 +90,7 @@ public class ModsFragment extends Fragment {
                 else if (fileName.endsWith(".disabled"))
                     filesButton.moreButtonText = getString(R.string.zh_profile_mods_enable);
 
-                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, mFileListView, file, mTitleView, getString(R.string.zh_profile_mods));
+                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, mFileListView, file);
                 //检测后缀名，以设置正确的按钮
                 if (fileName.endsWith(".jar")) {
                     filesDialog.setMoreButtonClick(v -> {

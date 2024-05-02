@@ -95,6 +95,13 @@ public class PojavApplication extends Application {
 					break;
 			}
 		}
+
+		//删除更新安装包（如果存在）
+		File updateFile = new File(getExternalFilesDir(null), "PojavZH.apk");
+		if (updateFile.exists()) org.apache.commons.io.FileUtils.deleteQuietly(updateFile);
+
+		//检查更新
+		PojavZHTools.updateChecker(this);
 	}
 
 	@Override
