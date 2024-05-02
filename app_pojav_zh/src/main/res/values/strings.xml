@@ -185,6 +185,7 @@
     <string name="zh_other_login_baseurl_not_set">BaseUrl is not set</string>
     <string name="zh_other_login_client">Client</string>
     <string name="zh_other_login_error_code">error code：</string>
+    <string name="zh_other_login_not_empty">The server, account, or password cannot be empty, please check the content you entered!</string>
 
     <string name="zh_about_tab">About Pojav ZH</string>
     <string name="zh_about_github" translatable="false">Github</string>

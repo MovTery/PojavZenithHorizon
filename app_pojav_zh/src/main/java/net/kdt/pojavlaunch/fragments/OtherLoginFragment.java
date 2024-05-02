@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,8 +48,7 @@ public class OtherLoginFragment extends Fragment {
     public String mCurrentBaseUrl;
     private ProgressDialog mProgressDialog;
     private Spinner mServerSpinner;
-    private EditText mUserEditText;
-    private EditText mPassEditText;
+    private EditText mUserEditText, mPassEditText;
     private Button mLoginButton;
     private TextView mRegister;
     private ImageButton mAddServer, mHelpButton;
@@ -74,6 +74,7 @@ public class OtherLoginFragment extends Fragment {
         mProgressDialog.setCanceledOnTouchOutside(false);
 
         refreshServer();
+        showRegisterButton(); //刷新注册按钮
 
         mHelpButton.setOnClickListener(v -> {
             android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(requireActivity());
@@ -110,60 +111,22 @@ public class OtherLoginFragment extends Fragment {
             @SuppressLint("UseCompatLoadingForDrawables")
             AlertDialog dialog = new AlertDialog.Builder(requireContext())
                     .setTitle(getString(R.string.zh_other_login_add_server))
-                    .setItems(new String[]{getString(R.string.zh_other_login_external_login), getString(R.string.zh_other_login_uniform_pass)}, (d, i) -> {
-
+                    .setItems(new String[]{getString(R.string.zh_other_login_external_login), getString(R.string.zh_other_login_uniform_pass)}, (dialogInterface, type) -> {
                         View itemView = LayoutInflater.from(requireContext()).inflate(R.layout.item_edit_text, null);
                         EditText editText = itemView.findViewById(R.id.zh_edit_text);
                         editText.setMaxLines(1);
                         editText.setInputType(InputType.TYPE_CLASS_TEXT);
-                        AlertDialog dialog1 = new AlertDialog.Builder(requireContext())
-                                .setTitle(getString(R.string.zh_tip))
-                                .setView(itemView)
-                                .setPositiveButton(getString(R.string.zh_confirm), (dialogInterface, i1) -> {
-                                    mProgressDialog.show();
-                                    PojavApplication.sExecutorService.execute(() -> {
-                                        String data = OtherLoginApi.getINSTANCE().getServeInfo(i == 0 ? editText.getText().toString() : "https://auth.mc-user.com:233/" + editText.getText().toString());
-                                        requireActivity().runOnUiThread(() -> {
-                                            mProgressDialog.dismiss();
-                                            if (!Objects.isNull(data)) {
-                                                try {
-                                                    Servers.Server server = new Servers.Server();
-                                                    JSONObject jsonObject = new JSONObject(data);
-                                                    JSONObject meta = jsonObject.optJSONObject("meta");
-                                                    server.setServerName(meta.optString("serverName"));
-                                                    server.setBaseUrl(editText.getText().toString());
-                                                    if (i == 0) {
-                                                        JSONObject links = meta.optJSONObject("links");
-                                                        server.setRegister(links.optString("register"));
-                                                    } else {
-                                                        server.setBaseUrl("https://auth.mc-user.com:233/" + editText.getText().toString());
-                                                        server.setRegister("https://login.mc-user.com:233/" + editText.getText().toString() + "/loginreg");
-                                                    }
-                                                    if (Objects.isNull(mServers)) {
-                                                        mServers = new Servers();
-                                                        mServers.setServer(new ArrayList<>());
-                                                    }
-                                                    mServers.getServer().add(server);
-                                                    Tools.write(mServersFile.getAbsolutePath(), Tools.GLOBAL_GSON.toJson(mServers, Servers.class));
-                                                    refreshServer();
-                                                    mCurrentBaseUrl = server.getBaseUrl();
-                                                    mCurrentRegisterUrl = server.getRegister();
-                                                } catch (Exception e) {
-                                                    Log.e("test", e.toString());
-                                                }
-                                            }
-                                        });
-                                    });
 
-                                })
-                                .setNegativeButton(getString(android.R.string.cancel), null)
-                                .create();
-                        if (i == 0) {
-                            editText.setHint(getString(R.string.zh_other_login_yggdrasil_api));
-                        } else {
-                            editText.setHint(getString(R.string.zh_other_login_32_bit_server));
-                        }
-                        dialog1.show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+
+                        builder.setTitle(type == 0 ?
+                                getString(R.string.zh_other_login_yggdrasil_api) :
+                                getString(R.string.zh_other_login_32_bit_server));
+                        builder.setView(itemView);
+
+                        builder.setPositiveButton(getString(R.string.zh_confirm), (dialogInterface1, i2) -> addServer(editText, type));
+                        builder.setNegativeButton(getString(android.R.string.cancel), null);
+                        builder.create();
                     })
                     .setNegativeButton(getString(android.R.string.cancel), null)
                     .create();
@@ -246,6 +209,8 @@ public class OtherLoginFragment extends Fragment {
                     requireActivity().runOnUiThread(() -> mProgressDialog.dismiss());
                     Log.e("login", e.toString());
                 }
+            } else {
+                requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), getString(R.string.zh_other_login_not_empty), Toast.LENGTH_SHORT).show());
             }
         }));
     }
@@ -260,7 +225,46 @@ public class OtherLoginFragment extends Fragment {
         mAddServer = view.findViewById(R.id.add_server);
     }
 
-    public void refreshServer() {
+    private void addServer(EditText editText, int type) {
+        mProgressDialog.show();
+        PojavApplication.sExecutorService.execute(() -> {
+            String data = OtherLoginApi.getINSTANCE().getServeInfo(type == 0 ? editText.getText().toString() : "https://auth.mc-user.com:233/" + editText.getText().toString());
+            requireActivity().runOnUiThread(() -> {
+                mProgressDialog.dismiss();
+                if (!Objects.isNull(data)) {
+                    try {
+                        Servers.Server server = new Servers.Server();
+                        JSONObject jsonObject = new JSONObject(data);
+                        JSONObject meta = jsonObject.optJSONObject("meta");
+                        server.setServerName(meta.optString("serverName"));
+                        server.setBaseUrl(editText.getText().toString());
+                        if (type == 0) {
+                            JSONObject links = meta.optJSONObject("links");
+                            server.setRegister(links.optString("register"));
+                        } else {
+                            server.setBaseUrl("https://auth.mc-user.com:233/" + editText.getText().toString());
+                            server.setRegister("https://login.mc-user.com:233/" + editText.getText().toString() + "/loginreg");
+                        }
+                        if (Objects.isNull(mServers)) {
+                            mServers = new Servers();
+                            mServers.setServer(new ArrayList<>());
+                        }
+                        mServers.getServer().add(server);
+                        Tools.write(mServersFile.getAbsolutePath(), Tools.GLOBAL_GSON.toJson(mServers, Servers.class));
+                        refreshServer();
+                        mCurrentBaseUrl = server.getBaseUrl();
+                        mCurrentRegisterUrl = server.getRegister();
+
+                        showRegisterButton();
+                    } catch (Exception e) {
+                        Log.e("Other Login", e.toString());
+                    }
+                }
+            });
+        });
+    }
+
+    private void refreshServer() {
         if (Objects.isNull(mServerList)) {
             mServerList = new ArrayList<>();
         } else {
@@ -285,6 +289,9 @@ public class OtherLoginFragment extends Fragment {
         } else {
             mServerSpinnerAdapter.notifyDataSetChanged();
         }
+    }
 
+    private void showRegisterButton() {
+        mRegister.setVisibility((mServerList == null || mServerList.size() <= 1) ? View.GONE : View.VISIBLE);
     }
 }

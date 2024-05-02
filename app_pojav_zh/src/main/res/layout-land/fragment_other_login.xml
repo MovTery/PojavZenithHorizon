@@ -49,9 +49,11 @@
             android:layout_marginTop="48dp"
             android:layout_marginEnd="24dp"
             android:background="@drawable/background_line"
+            android:paddingVertical="0px"
             app:layout_constraintEnd_toStartOf="@+id/register"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:paddingVertical="@dimen/_12sdp" />
 
         <TextView
             android:id="@+id/register"
@@ -91,6 +93,8 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="12dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:autofillHints="emailAddress"
             android:background="@drawable/background_line"
             android:imeOptions="flagNoExtractUi"
@@ -117,6 +121,8 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:autofillHints="password"
             android:background="@drawable/background_line"
             android:imeOptions="flagNoExtractUi"

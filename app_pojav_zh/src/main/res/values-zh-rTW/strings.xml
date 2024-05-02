@@ -181,6 +181,7 @@
     <string name="zh_other_login_baseurl_not_set">未設定基礎URL</string>
     <string name="zh_other_login_client">客戶端</string>
     <string name="zh_other_login_error_code">錯誤代碼：</string>
+    <string name="zh_other_login_not_empty">伺服器、帳號或密碼不能為空，請檢查你輸入的內容！</string>
 
     <string name="zh_about_tab">關於 Pojav ZH</string>
     <string name="zh_about_dec1">Pojav ZH 是一款基於 PojavLauncher 魔改的 Minecraft 啟動器，它能夠在 Android 設備上執行 Minecraft：Java Edition。\nPojav ZH 致力於優化使用者體驗，重新設計了應用介面，新增了更多實用的功能，旨在最大程度地降低遊玩門檻，讓更多人能夠輕鬆體驗 Minecraft 的樂趣。</string>
