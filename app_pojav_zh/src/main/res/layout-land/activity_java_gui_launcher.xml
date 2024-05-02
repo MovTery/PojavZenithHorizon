@@ -10,7 +10,7 @@
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:background="@android:color/darker_gray">
+		android:background="#000000">
 
 		<net.kdt.pojavlaunch.customcontrols.keyboard.TouchCharInput
 			android:id="@+id/awt_touch_char"
@@ -31,8 +31,7 @@
 			app:layout_constraintBottom_toBottomOf="@+id/main_touchpad"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			android:background="@android:color/darker_gray"/>
+			app:layout_constraintTop_toTopOf="parent" />
 
 		<LinearLayout
 			android:id="@+id/main_touchpad"

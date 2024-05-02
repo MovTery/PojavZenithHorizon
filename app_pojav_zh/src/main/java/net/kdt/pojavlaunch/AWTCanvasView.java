@@ -28,7 +28,7 @@ public class AWTCanvasView extends TextureView implements TextureView.SurfaceTex
         super(ctx, attrs);
         
         mFpsPaint = new TextPaint();
-        mFpsPaint.setColor(getResources().getColor(R.color.primary_text));
+        mFpsPaint.setColor(Color.WHITE);
         mFpsPaint.setTextSize(20);
 
 
@@ -69,6 +69,7 @@ public class AWTCanvasView extends TextureView implements TextureView.SurfaceTex
         try {
             while (!mIsDestroyed && surface.isValid()) {
                 canvas = surface.lockCanvas(null);
+                canvas.drawRGB(0, 0, 0);
                 int[] rgbArray = JREUtils.renderAWTScreenFrame(/* canvas, mWidth, mHeight */);
                 boolean mDrawing = rgbArray != null;
                 if (rgbArray != null) {
