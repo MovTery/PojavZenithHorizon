@@ -126,7 +126,7 @@ public class OtherLoginFragment extends Fragment {
 
                         builder.setPositiveButton(getString(R.string.zh_confirm), (dialogInterface1, i2) -> addServer(editText, type));
                         builder.setNegativeButton(getString(android.R.string.cancel), null);
-                        builder.create();
+                        builder.show();
                     })
                     .setNegativeButton(getString(android.R.string.cancel), null)
                     .create();
@@ -257,7 +257,7 @@ public class OtherLoginFragment extends Fragment {
 
                         showRegisterButton();
                     } catch (Exception e) {
-                        Log.e("Other Login", e.toString());
+                        Log.e("add server", e.toString());
                     }
                 }
             });
