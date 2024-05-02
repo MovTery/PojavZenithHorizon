@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
-import static net.kdt.pojavlaunch.PojavZHTools.refreshFileCount;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.app.AlertDialog;
@@ -56,7 +55,6 @@ public class ModsFragment extends Fragment {
                             runOnUiThread(() -> {
                                 Toast.makeText(requireContext(), getString(R.string.zh_profile_mods_added_mod), Toast.LENGTH_SHORT).show();
                                 mFileListView.refreshPath();
-                                refreshFileCount(requireContext(), mFileListView, mTitleView, getString(R.string.zh_profile_mods));
                             });
                         });
                     }
@@ -73,7 +71,7 @@ public class ModsFragment extends Fragment {
         mFileListView.lockPathAt(new File(mRootPath));
         mFileListView.refreshPath();
 
-        refreshFileCount(requireContext(), mFileListView, mTitleView, getString(R.string.zh_profile_mods));
+        mTitleView.setText(getString(R.string.zh_profile_mods));
         mAddModButton.setText(getString(R.string.zh_profile_mods_add_mod));
 
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
@@ -87,8 +85,10 @@ public class ModsFragment extends Fragment {
                 filesButton.setButtonVisibility(true, true, true, (fileName.endsWith(".jar") || fileName.endsWith(".disabled")));
                 filesButton.displayThumbnails = false;
                 filesButton.messageText = getString(R.string.zh_file_message);
-                if (fileName.endsWith(".jar")) filesButton.moreButtonText = getString(R.string.zh_profile_mods_disable);
-                else if (fileName.endsWith(".disabled")) filesButton.moreButtonText = getString(R.string.zh_profile_mods_enable);
+                if (fileName.endsWith(".jar"))
+                    filesButton.moreButtonText = getString(R.string.zh_profile_mods_disable);
+                else if (fileName.endsWith(".disabled"))
+                    filesButton.moreButtonText = getString(R.string.zh_profile_mods_enable);
 
                 FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, mFileListView, file, mTitleView, getString(R.string.zh_profile_mods));
                 //检测后缀名，以设置正确的按钮
@@ -100,7 +100,6 @@ public class ModsFragment extends Fragment {
                             Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_disabled) + fileName, Toast.LENGTH_SHORT).show();
                         }
                         mFileListView.refreshPath();
-                        refreshFileCount(requireContext(), mFileListView, mTitleView, getString(R.string.zh_profile_mods));
                         filesDialog.dismiss();
                     });
                 } else if (fileName.endsWith(".disabled")) {
@@ -109,7 +108,8 @@ public class ModsFragment extends Fragment {
                         if (index == -1) index = 0;
                         else if (index == 0) index = disableString.length();
                         String newFileName = fileName.substring(index, fileName.lastIndexOf('.'));
-                        if (!fileName.endsWith(".jar")) newFileName += ".jar"; //如果没有.jar结尾，那么默认加上.jar后缀
+                        if (!fileName.endsWith(".jar"))
+                            newFileName += ".jar"; //如果没有.jar结尾，那么默认加上.jar后缀
 
                         File newFile = new File(fileParent, newFileName);
                         boolean disable = file.renameTo(newFile);
@@ -117,7 +117,6 @@ public class ModsFragment extends Fragment {
                             Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_enabled) + fileName, Toast.LENGTH_SHORT).show();
                         }
                         mFileListView.refreshPath();
-                        refreshFileCount(requireContext(), mFileListView, mTitleView, getString(R.string.zh_profile_mods));
                         filesDialog.dismiss();
                     });
                 }
@@ -126,7 +125,8 @@ public class ModsFragment extends Fragment {
             }
 
             @Override
-            public void onItemLongClick(File file, String path) {}
+            public void onItemLongClick(File file, String path) {
+            }
         });
 
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
@@ -135,10 +135,7 @@ public class ModsFragment extends Fragment {
             Toast.makeText(requireActivity(), String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show();
             openDocumentLauncher.launch(suffix);
         });
-        mRefreshButton.setOnClickListener(v -> {
-            mFileListView.refreshPath();
-            refreshFileCount(requireContext(), mFileListView, mTitleView, getString(R.string.zh_profile_mods));
-        });
+        mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
@@ -150,9 +147,9 @@ public class ModsFragment extends Fragment {
         });
     }
 
-    private void parseBundle(){
+    private void parseBundle() {
         Bundle bundle = getArguments();
-        if(bundle == null) return;
+        if (bundle == null) return;
         mRootPath = bundle.getString(BUNDLE_ROOT_PATH, mRootPath);
     }
 

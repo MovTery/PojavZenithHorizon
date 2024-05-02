@@ -3,7 +3,6 @@ package net.kdt.pojavlaunch.fragments;
 import static net.kdt.pojavlaunch.PojavZHTools.DIR_CUSTOM_MOUSE;
 import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
 import static net.kdt.pojavlaunch.PojavZHTools.isImage;
-import static net.kdt.pojavlaunch.PojavZHTools.refreshFileCount;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
@@ -64,7 +63,6 @@ public class CustomMouseFragment extends Fragment {
                             runOnUiThread(() -> {
                                 Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show();
                                 mFileListView.listFileAt(mousePath(), true);
-                                refreshFileCount(requireContext(), mFileListView, mTitleView, getString(R.string.zh_custom_mouse_title));
                             });
                         });
                     }
@@ -81,7 +79,7 @@ public class CustomMouseFragment extends Fragment {
         mFileListView.setShowFiles(true);
         mFileListView.setShowFolders(false);
 
-        refreshFileCount(requireContext(), mFileListView, mTitleView, getString(R.string.zh_custom_mouse_title));
+        mTitleView.setText(getString(R.string.zh_custom_mouse_title));
         mAddFileButton.setText(getString(R.string.zh_custom_mouse_add));
 
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
@@ -96,7 +94,8 @@ public class CustomMouseFragment extends Fragment {
 
                 //如果选中的虚拟鼠标是默认的虚拟鼠标，那么将加上额外的提醒
                 String message = getString(R.string.zh_file_message);
-                if (isDefaultMouse) message += "\n" + getString(R.string.zh_custom_mouse_message_default);
+                if (isDefaultMouse)
+                    message += "\n" + getString(R.string.zh_custom_mouse_message_default);
 
                 filesButton.messageText = message;
                 filesButton.moreButtonText = getString(R.string.global_select);
@@ -112,7 +111,8 @@ public class CustomMouseFragment extends Fragment {
             }
 
             @Override
-            public void onItemLongClick(File file, String path) {}
+            public void onItemLongClick(File file, String path) {
+            }
         });
 
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
@@ -120,7 +120,6 @@ public class CustomMouseFragment extends Fragment {
 
         mRefreshButton.setOnClickListener(v -> {
             mFileListView.listFileAt(mousePath(), true);
-            refreshFileCount(requireContext(), mFileListView, mTitleView, getString(R.string.zh_custom_mouse_title));
         });
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());

@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch.dialog;
 
 import static net.kdt.pojavlaunch.PojavZHTools.deleteFileListener;
-import static net.kdt.pojavlaunch.PojavZHTools.refreshFileCount;
 import static net.kdt.pojavlaunch.PojavZHTools.renameFileListener;
 import static net.kdt.pojavlaunch.PojavZHTools.shareFile;
 
@@ -9,12 +8,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 
 import com.kdt.pickafile.FileListView;
 
@@ -23,13 +20,13 @@ import net.kdt.pojavlaunch.R;
 import java.io.File;
 
 public class FilesDialog extends Dialog {
-    private View.OnClickListener mMoreClick;
-    private Button mMoreButton;
     private final boolean mCancel, mMore, mShare, mRename, mDelete, mDisplayThumbnails;
     private final String mMessageText, mMoreText, mTitle;
     private final FileListView mFileListView;
     private final File mFile;
     private final TextView mTitleView;
+    private View.OnClickListener mMoreClick;
+    private Button mMoreButton;
 
     public FilesDialog(@NonNull Context context, FilesButton filesButton, FileListView fileListView, File file) {
         super(context);
@@ -78,6 +75,7 @@ public class FilesDialog extends Dialog {
         this.setContentView(R.layout.dialog_operation);
         init();
     }
+
     private void init() {
         TextView mMessage = findViewById(R.id.zh_operation_message);
         Button mCancelButton = findViewById(R.id.zh_operation_cancel);
@@ -103,18 +101,7 @@ public class FilesDialog extends Dialog {
             FilesDialog.this.dismiss();
         });
         mDeleteButton.setOnClickListener(view -> {
-            AlertDialog.Builder deleteConfirmation = deleteFileListener(getContext(), mFileListView, mFile, this.mDisplayThumbnails, this.mTitleView, this.mTitle);
-            deleteConfirmation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    refreshFileCount(getContext(), FilesDialog.this.mFileListView, FilesDialog.this.mTitleView, FilesDialog.this.mTitle);
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-                }
-            });
-            deleteConfirmation.show();
+            deleteFileListener(getContext(), mFileListView, mFile, this.mDisplayThumbnails, this.mTitleView, this.mTitle);
             FilesDialog.this.dismiss();
         });
 
@@ -134,6 +121,7 @@ public class FilesDialog extends Dialog {
     public static class FilesButton {
         public boolean cancel, share, rename, delete, more, displayThumbnails;
         public String messageText, moreButtonText;
+
         public void setButtonVisibility(boolean shareButton, boolean renameButton, boolean deleteButton, boolean moreButton) {
             this.share = shareButton;
             this.rename = renameButton;
