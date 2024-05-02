@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch.dialog;
 
 import static net.kdt.pojavlaunch.PojavZHTools.deleteFileListener;
+import static net.kdt.pojavlaunch.PojavZHTools.refreshFileCount;
 import static net.kdt.pojavlaunch.PojavZHTools.renameFileListener;
 import static net.kdt.pojavlaunch.PojavZHTools.shareFile;
 
@@ -8,10 +9,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 
 import com.kdt.pickafile.FileListView;
 
@@ -100,7 +103,18 @@ public class FilesDialog extends Dialog {
             FilesDialog.this.dismiss();
         });
         mDeleteButton.setOnClickListener(view -> {
-            deleteFileListener(getContext(), mFileListView, mFile, this.mDisplayThumbnails, this.mTitleView, this.mTitle);
+            AlertDialog.Builder deleteConfirmation = deleteFileListener(getContext(), mFileListView, mFile, this.mDisplayThumbnails, this.mTitleView, this.mTitle);
+            deleteConfirmation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    refreshFileCount(getContext(), FilesDialog.this.mFileListView, FilesDialog.this.mTitleView, FilesDialog.this.mTitle);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                }
+            });
+            deleteConfirmation.show();
             FilesDialog.this.dismiss();
         });
 
