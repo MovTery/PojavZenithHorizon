@@ -5,12 +5,14 @@
     <color name="background_status_bar">#242424</color>
     <color name="background_bottom_bar">#232323</color>
     <color name="background_line">#232323</color>
+    <color name="background_line_selected">#373737</color>
 
     <color name="menu_bar">#555555</color>
     <color name="menu_overlay">#232323</color>
     <color name="menu_progress">#888888</color>
 
     <color name="edit_box_fill">#4C4C4C</color>
+    <color name="edit_box_fill_selected">#636363</color>
 
     <color name="icon_color">#FFFFFF</color>
     <color name="icon_color_fill">#808080</color>
