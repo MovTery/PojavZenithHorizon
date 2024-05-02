@@ -2,7 +2,6 @@ package net.kdt.pojavlaunch.dialog;
 
 
 import static net.kdt.pojavlaunch.PojavZHTools.markdownToHtml;
-import static net.kdt.pojavlaunch.PojavZHTools.updateLauncher;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.annotation.SuppressLint;
@@ -17,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.UpdateLauncher;
 
 public class UpdateDialog extends Dialog {
     private final String versionName;
@@ -95,7 +95,8 @@ public class UpdateDialog extends Dialog {
 
         mUpdateButton.setOnClickListener(view -> {
             this.dismiss();
-            updateLauncher(getContext(), tagName, fileSize);
+            UpdateLauncher updateLauncher = new UpdateLauncher(getContext(), tagName, fileSize);
+            updateLauncher.start();
         });
         mCancelButton.setOnClickListener(view -> this.dismiss());
         mIgnoreButton.setOnClickListener(view -> {

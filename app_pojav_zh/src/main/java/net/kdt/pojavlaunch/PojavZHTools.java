@@ -7,9 +7,7 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -27,12 +25,10 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.FileProvider;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -57,7 +53,6 @@ import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -75,9 +70,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
@@ -256,7 +248,7 @@ public class PojavZHTools {
         context.startActivity(sendIntent);
     }
 
-    public static void deleteFileListener(Context context, FileListView fileListView, File file, boolean displayThumbnails, TextView titleView, String title) {
+    public static void deleteFileListener(Context context, FileListView fileListView, File file, boolean displayThumbnails) {
         String fileName = file.getName();
         // 显示确认删除的对话框
         AlertDialog.Builder deleteConfirmation = new AlertDialog.Builder(context);
@@ -314,156 +306,79 @@ public class PojavZHTools {
         updateCheckerMainProgram(context, ignore);
     }
 
-    public static void updateCheckerMainProgram(Context context, boolean ignore) {
-        int versionCode = getVersionCode(context);
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(URL_GITHUB_RELEASE)
-                .build();
+    public static synchronized void updateCheckerMainProgram(Context context, boolean ignore) {
+        PojavApplication.sExecutorService.execute(() -> {
+            int versionCode = getVersionCode(context);
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder()
+                    .url(URL_GITHUB_RELEASE)
+                    .build();
 
-        PojavApplication.sExecutorService.execute(() -> client.newCall(request).enqueue(new Callback() {
+            client.newCall(request).enqueue(new Callback() {
 
-            @Override
-            public void onFailure(Call call, IOException e) {
-                runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_fail), Toast.LENGTH_SHORT).show());
-            }
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_fail), Toast.LENGTH_SHORT).show());
+                }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
-                } else {
-                    Objects.requireNonNull(response.body());
-                    String responseBody = response.body().string(); //解析响应体
-                    try {
-                        JSONObject jsonObject = new JSONObject(responseBody);
-                        String versionName = jsonObject.getString("name");
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    if (!response.isSuccessful()) {
+                        throw new IOException("Unexpected code " + response);
+                    } else {
+                        Objects.requireNonNull(response.body());
+                        String responseBody = response.body().string(); //解析响应体
+                        try {
+                            JSONObject jsonObject = new JSONObject(responseBody);
+                            String versionName = jsonObject.getString("name");
 
-                        if (ignore && versionName.equals(DEFAULT_PREF.getString("ignoreUpdate", null)))
-                            return; //忽略此版本
+                            if (ignore && versionName.equals(DEFAULT_PREF.getString("ignoreUpdate", null)))
+                                return; //忽略此版本
 
-                        String tagName = jsonObject.getString("tag_name");
-                        JSONArray assetsJson = jsonObject.getJSONArray("assets");
-                        JSONObject firstAsset = assetsJson.getJSONObject(0);
-                        long fileSize = firstAsset.getLong("size");
-                        int githubVersion = Integer.parseInt(tagName);
+                            String tagName = jsonObject.getString("tag_name");
+                            JSONArray assetsJson = jsonObject.getJSONArray("assets");
+                            JSONObject firstAsset = assetsJson.getJSONObject(0);
+                            long fileSize = firstAsset.getLong("size");
+                            int githubVersion = 0;
+                            try {
+                                githubVersion = Integer.parseInt(tagName);
+                            } catch (Exception ignored) {
+                            }
 
-                        if (versionCode < githubVersion) {
-                            runOnUiThread(() -> {
-                                UpdateDialog.UpdateInformation updateInformation = new UpdateDialog.UpdateInformation();
-                                try {
-                                    updateInformation.information(versionName, tagName, formattingTime(jsonObject.getString("created_at")), formatFileSize(fileSize), jsonObject.getString("body"));
-                                } catch (JSONException ignored) {
-                                }
-                                UpdateDialog updateDialog = new UpdateDialog(context, updateInformation);
+                            if (versionCode < githubVersion) {
+                                runOnUiThread(() -> {
+                                    UpdateDialog.UpdateInformation updateInformation = new UpdateDialog.UpdateInformation();
+                                    try {
+                                        updateInformation.information(versionName,
+                                                tagName,
+                                                formattingTime(jsonObject.getString("created_at")),
+                                                formatFileSize(fileSize),
+                                                jsonObject.getString("body"));
+                                    } catch (Exception ignored) {
+                                    }
+                                    UpdateDialog updateDialog = new UpdateDialog(context, updateInformation);
 
-                                updateDialog.show();
-                            });
-                        } else if (!ignore) {
-                            runOnUiThread(() -> {
-                                String nowVersionName = getVersionName(context);
-                                runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_without) + " " + nowVersionName, Toast.LENGTH_SHORT).show());
-                            });
+                                    updateDialog.show();
+                                });
+                            } else if (!ignore) {
+                                runOnUiThread(() -> {
+                                    String nowVersionName = getVersionName(context);
+                                    runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_without) + " " + nowVersionName, Toast.LENGTH_SHORT).show());
+                                });
+                            }
+                        } catch (Exception ignored) {
                         }
-                    } catch (JSONException ignored) {
                     }
                 }
-            }
-        }));
+            });
+        });
     }
 
-    public static String formattingTime(String time) {
+        public static String formattingTime(String time) {
         int T = time.indexOf('T');
         int Z = time.indexOf('Z');
         if (T == -1 || Z == -1) return time;
         return time.substring(0, T) + " " + time.substring(T + 1, Z);
-    }
-
-    public static void updateLauncher(Context context, String tagName, String fileSize) {
-        PojavApplication.sExecutorService.execute(() -> {
-            File file = new File(context.getExternalFilesDir(null), "PojavZH.apk");
-
-            runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_downloading_tip), Toast.LENGTH_SHORT).show());
-            downloadFileWithOkHttp(context, "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk", file.getAbsolutePath(), fileSize);
-        });
-    }
-
-    public static void downloadFileWithOkHttp(Context context, String fileUrl, String destinationFilePath, String fileSize) {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(fileUrl)
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_fail), Toast.LENGTH_SHORT).show());
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
-                } else {
-                    final Dialog[] dialog = new Dialog[1];
-                    runOnUiThread(() -> {
-                        dialog[0] = new Dialog(context);
-                        dialog[0].setContentView(R.layout.dialog_download);
-                        dialog[0].setCancelable(false);
-                    });
-
-                    File outputFile = new File(destinationFilePath);
-                    Objects.requireNonNull(response.body());
-                    try (InputStream inputStream = response.body().byteStream();
-                         OutputStream outputStream = new FileOutputStream(outputFile)
-                    ) {
-                        byte[] buffer = new byte[1024 * 1024];
-                        int bytesRead;
-                        int downloadedBytes = 0;
-
-                        runOnUiThread(dialog[0]::show);
-
-                        final long[] downloadedSize = new long[1];
-
-                        //限制刷新速度
-                        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-                        Runnable printTask = () -> runOnUiThread(() -> {
-                            String formattedDownloaded = formatFileSize(downloadedSize[0]);
-                            TextView textView = dialog[0].findViewById(R.id.download_upload_textView);
-                            textView.setText(String.format(context.getString(R.string.zh_update_downloading), formattedDownloaded, fileSize));
-                        });
-                        scheduler.scheduleAtFixedRate(printTask, 0, 200, TimeUnit.MILLISECONDS);
-
-                        while ((bytesRead = inputStream.read(buffer)) != -1) {
-                            outputStream.write(buffer, 0, bytesRead);
-                            downloadedBytes += bytesRead;
-                            downloadedSize[0] = downloadedBytes;
-                        }
-                        scheduler.shutdown();
-                        runOnUiThread(dialog[0]::dismiss);
-
-                        runOnUiThread(() -> {
-                            DialogInterface.OnClickListener install = (dialogInterface, i) -> {
-                                Intent intent = new Intent(Intent.ACTION_VIEW);
-                                Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", outputFile);
-                                intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                context.startActivity(intent);
-                            };
-
-                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                            builder.setTitle(context.getString(R.string.zh_tip))
-                                    .setMessage(context.getString(R.string.zh_update_success) + outputFile.getAbsolutePath())
-                                    .setCancelable(false)
-                                    .setPositiveButton(context.getString(R.string.global_yes), install)
-                                    .setNegativeButton(context.getString(android.R.string.cancel), null)
-                                    .show();
-                        });
-                    }
-                }
-            }
-        });
     }
 
     @SuppressLint("DefaultLocale")

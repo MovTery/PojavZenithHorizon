@@ -270,11 +270,6 @@ public class LauncherActivity extends BaseActivity {
         // 愚人节彩蛋
         if (PojavZHTools.checkDate(4, 1)) mHair.setVisibility(View.VISIBLE);
         else mHair.setVisibility(View.GONE);
-
-        File updateFile = new File(getExternalFilesDir(null), "PojavZH.apk");
-        if (updateFile.exists()) FileUtils.deleteQuietly(updateFile);
-
-        PojavZHTools.updateChecker(this);
     }
 
     @Override

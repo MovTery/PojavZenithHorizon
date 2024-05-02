@@ -21,10 +21,9 @@ import java.io.File;
 
 public class FilesDialog extends Dialog {
     private final boolean mCancel, mMore, mShare, mRename, mDelete, mDisplayThumbnails;
-    private final String mMessageText, mMoreText, mTitle;
+    private final String mMessageText, mMoreText;
     private final FileListView mFileListView;
     private final File mFile;
-    private final TextView mTitleView;
     private View.OnClickListener mMoreClick;
     private Button mMoreButton;
 
@@ -43,33 +42,6 @@ public class FilesDialog extends Dialog {
 
         this.mMessageText = filesButton.messageText;
         this.mMoreText = filesButton.moreButtonText;
-
-        this.mTitleView = null;
-        this.mTitle = null;
-
-        this.setCancelable(false);
-        this.setContentView(R.layout.dialog_operation);
-        init();
-    }
-
-    public FilesDialog(@NonNull Context context, FilesButton filesButton, FileListView fileListView, File file, TextView titleView, String title) {
-        super(context);
-        this.mFileListView = fileListView;
-        this.mFile = file;
-
-        this.mCancel = true;
-        this.mShare = filesButton.share;
-        this.mRename = filesButton.rename;
-        this.mDelete = filesButton.delete;
-        this.mMore = filesButton.more;
-
-        this.mDisplayThumbnails = filesButton.displayThumbnails;
-
-        this.mMessageText = filesButton.messageText;
-        this.mMoreText = filesButton.moreButtonText;
-
-        this.mTitleView = titleView;
-        this.mTitle = title;
 
         this.setCancelable(false);
         this.setContentView(R.layout.dialog_operation);
@@ -101,7 +73,7 @@ public class FilesDialog extends Dialog {
             FilesDialog.this.dismiss();
         });
         mDeleteButton.setOnClickListener(view -> {
-            deleteFileListener(getContext(), mFileListView, mFile, this.mDisplayThumbnails, this.mTitleView, this.mTitle);
+            deleteFileListener(getContext(), mFileListView, mFile, this.mDisplayThumbnails);
             FilesDialog.this.dismiss();
         });
 

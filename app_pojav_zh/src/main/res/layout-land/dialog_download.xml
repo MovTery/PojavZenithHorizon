@@ -1,22 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="16dp"
+    android:id="@+id/parent"
+    android:padding="8dp"
+    android:orientation="vertical"
     tools:ignore="MissingDefaultResource">
 
     <ProgressBar
+        android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp" />
+        android:layout_marginEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/zh_download_upload_textView"
+        app:layout_constraintEnd_toStartOf="@+id/zh_download_upload_textView"
+        app:layout_constraintTop_toTopOf="@+id/zh_download_upload_textView" />
 
     <TextView
-        android:id="@+id/download_upload_textView"
+        android:id="@+id/zh_download_upload_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="24dp"
         android:text="@string/zh_update_downloading"
-        android:layout_marginStart="8dp"/>
-</LinearLayout>
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/zh_download_cancel_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="32dp"
+        android:layout_weight="1"
+        android:text="@android:string/cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/zh_download_upload_textView" />
+</androidx.constraintlayout.widget.ConstraintLayout>

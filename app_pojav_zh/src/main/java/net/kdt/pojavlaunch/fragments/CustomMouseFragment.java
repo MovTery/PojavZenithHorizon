@@ -100,7 +100,7 @@ public class CustomMouseFragment extends Fragment {
                 filesButton.messageText = message;
                 filesButton.moreButtonText = getString(R.string.global_select);
 
-                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, mFileListView, file, mTitleView, getString(R.string.zh_custom_mouse_title));
+                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, mFileListView, file);
                 filesDialog.setMoreButtonClick(v -> {
                     DEFAULT_PREF.edit().putString("custom_mouse", fileName).apply();
                     refreshIcon(path, requireContext());
@@ -118,9 +118,7 @@ public class CustomMouseFragment extends Fragment {
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
         mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
 
-        mRefreshButton.setOnClickListener(v -> {
-            mFileListView.listFileAt(mousePath(), true);
-        });
+        mRefreshButton.setOnClickListener(v -> mFileListView.listFileAt(mousePath(), true));
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
