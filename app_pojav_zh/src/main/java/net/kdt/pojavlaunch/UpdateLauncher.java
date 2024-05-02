@@ -85,7 +85,10 @@ public class UpdateLauncher {
                             UpdateLauncher.this.downloadDialog = new DownloadDialog(UpdateLauncher.this.context);
                             UpdateLauncher.this.downloadTipTextView = UpdateLauncher.this.downloadDialog.getTextView();
 
-                            UpdateLauncher.this.downloadDialog.getCancelButton().setOnClickListener(view -> UpdateLauncher.this.stop());
+                            UpdateLauncher.this.downloadDialog.getCancelButton().setOnClickListener(view -> {
+                                UpdateLauncher.this.stop();
+                                UpdateLauncher.this.downloadDialog.dismiss();
+                            });
                             UpdateLauncher.this.downloadDialog.show();
                         });
 
