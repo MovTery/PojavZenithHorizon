@@ -69,7 +69,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 33
         versionCode getDateSeconds()
-        versionName "1.0.7.1"
+        versionName "1.0.8"
         multiDexEnabled true //important
         resValue 'string', 'curseforge_api_key', getCFApiKey()
         resValue 'string', 'curseforge_api_key', getCFApiKey()
