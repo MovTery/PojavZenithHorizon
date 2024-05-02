@@ -68,16 +68,20 @@ public class AWTCanvasView extends TextureView implements TextureView.SurfaceTex
         Surface surface = new Surface(getSurfaceTexture());
         Bitmap rgbArrayBitmap = Bitmap.createBitmap(AWT_CANVAS_WIDTH, AWT_CANVAS_HEIGHT, Bitmap.Config.ARGB_8888);
         Paint paint = new Paint();
-        int color;
+        int[] color = new int[3];
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            color = 0;
+            color[0] = 24;
+            color[1] = 24;
+            color[2] = 24;
         } else {
-            color = 228;
+            color[0] = 189;
+            color[1] = 217;
+            color[2] = 221;
         }
         try {
             while (!mIsDestroyed && surface.isValid()) {
                 canvas = surface.lockCanvas(null);
-                canvas.drawRGB(color, color, color);
+                canvas.drawRGB(color[0], color[1], color[2]);
                 int[] rgbArray = JREUtils.renderAWTScreenFrame(/* canvas, mWidth, mHeight */);
                 boolean mDrawing = rgbArray != null;
                 if (rgbArray != null) {
