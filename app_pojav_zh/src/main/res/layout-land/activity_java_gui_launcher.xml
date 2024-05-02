@@ -9,8 +9,7 @@
 
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:background="@color/background_app">
+		android:layout_height="match_parent">
 
 		<net.kdt.pojavlaunch.customcontrols.keyboard.TouchCharInput
 			android:id="@+id/awt_touch_char"
@@ -39,7 +38,8 @@
 			android:layout_height="match_parent"
 			android:orientation="vertical"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent">
+			app:layout_constraintTop_toTopOf="parent"
+			android:background="@color/control_button_color">
 
 			<ImageView
 				android:id="@+id/main_mouse_pointer"
