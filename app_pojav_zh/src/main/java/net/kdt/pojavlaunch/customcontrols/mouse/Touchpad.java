@@ -12,9 +12,9 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
+import androidx.core.content.res.ResourcesCompat;
 import net.kdt.pojavlaunch.GrabListener;
-import net.kdt.pojavlaunch.PojavZHTools;
+import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import org.lwjgl.glfw.CallbackBridge;
@@ -40,13 +40,13 @@ public class Touchpad extends View implements GrabListener, AbstractTouchpad {
     }
 
     /** Enable the touchpad */
-    public void enable(){
+    private void _enable(){
         setVisibility(VISIBLE);
         placeMouseAt(currentDisplayMetrics.widthPixels / 2f, currentDisplayMetrics.heightPixels / 2f);
     }
 
     /** Disable the touchpad and hides the mouse */
-    public void disable(){
+    private void _disable(){
         setVisibility(GONE);
     }
 
@@ -54,8 +54,8 @@ public class Touchpad extends View implements GrabListener, AbstractTouchpad {
     public boolean switchState(){
         mDisplayState = !mDisplayState;
         if(!CallbackBridge.isGrabbing()) {
-            if(mDisplayState) enable();
-            else disable();
+            if(mDisplayState) _enable();
+            else _disable();
         }
         return mDisplayState;
     }
@@ -86,7 +86,7 @@ public class Touchpad extends View implements GrabListener, AbstractTouchpad {
 
     private void init(){
         // Setup mouse pointer
-        mMousePointerDrawable = PojavZHTools.customMouse(getContext());
+        mMousePointerDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_mouse_pointer, getContext().getTheme());
         // For some reason it's annotated as Nullable even though it doesn't seem to actually
         // ever return null
         assert mMousePointerDrawable != null;
@@ -111,10 +111,10 @@ public class Touchpad extends View implements GrabListener, AbstractTouchpad {
     }
     private void updateGrabState(boolean isGrabbing) {
         if(!isGrabbing) {
-            if(mDisplayState && getVisibility() != VISIBLE) enable();
-            if(!mDisplayState && getVisibility() == VISIBLE) disable();
+            if(mDisplayState && getVisibility() != VISIBLE) _enable();
+            if(!mDisplayState && getVisibility() == VISIBLE) _disable();
         }else{
-            if(getVisibility() != View.GONE) disable();
+            if(getVisibility() != View.GONE) _disable();
         }
     }
 
@@ -124,9 +124,23 @@ public class Touchpad extends View implements GrabListener, AbstractTouchpad {
     }
 
     @Override
-    public void applyMotionVector(float[] vector) {
-        mMouseX = Math.max(0, Math.min(currentDisplayMetrics.widthPixels, mMouseX + vector[0] * LauncherPreferences.PREF_MOUSESPEED));
-        mMouseY = Math.max(0, Math.min(currentDisplayMetrics.heightPixels, mMouseY + vector[1] * LauncherPreferences.PREF_MOUSESPEED));
+    public void applyMotionVector(float x, float y) {
+        mMouseX = Math.max(0, Math.min(currentDisplayMetrics.widthPixels, mMouseX + x * LauncherPreferences.PREF_MOUSESPEED));
+        mMouseY = Math.max(0, Math.min(currentDisplayMetrics.heightPixels, mMouseY + y * LauncherPreferences.PREF_MOUSESPEED));
         updateMousePosition();
+    }
+    @Override
+    public void enable(boolean supposed) {
+        if(mDisplayState) return;
+        mDisplayState = true;
+        if(supposed && CallbackBridge.isGrabbing()) return;
+        _enable();
+    }
+
+    @Override
+    public void disable() {
+        if(!mDisplayState) return;
+        mDisplayState = false;
+        _disable();
     }
 }
