@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch.prefs.screens;
 
+import static net.kdt.pojavlaunch.PojavZHTools.updateChecker;
+
 import android.app.AlertDialog;
 import android.os.Bundle;
 
@@ -30,5 +32,11 @@ public class LauncherPreferenceExclusiveFragment extends LauncherPreferenceFragm
                 return true;
             });
         }
+
+        Preference updatePreference = requirePreference("zh_check_update");
+        updatePreference.setOnPreferenceClickListener(preference -> {
+            updateChecker(requireContext(), false);
+            return true;
+        });
     }
 }
