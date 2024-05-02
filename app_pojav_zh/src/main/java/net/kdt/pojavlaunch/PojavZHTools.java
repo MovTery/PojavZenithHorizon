@@ -257,9 +257,7 @@ public class PojavZHTools {
     }
 
     public static void refreshFileCount(Context context, FileListView fileListView, TextView titleView, String title) {
-        Objects.requireNonNull(fileListView);
-        Objects.requireNonNull(titleView);
-        Objects.requireNonNull(title);
+        if (fileListView == null || titleView == null || title == null) return;
 
         String text = title + " ( " + context.getString(R.string.zh_file_total) + getFileCount(fileListView) + " )";
         titleView.setText(text);
