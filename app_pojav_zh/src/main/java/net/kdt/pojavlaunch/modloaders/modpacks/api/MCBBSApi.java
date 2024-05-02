@@ -35,8 +35,7 @@ public class MCBBSApi {
             if(!verifyMCBBSPackMeta(mcbbsPackMeta)) {
                 return null;
             }
-            ProgressLayout.setProgress(ProgressLayout.DOWNLOAD_MINECRAFT, 0, R.string.newdl_starting);
-            runOnUiThread(() -> ProgressLayout.setProgress(ProgressLayout.DOWNLOAD_MINECRAFT, 0, R.string.zh_select_modpack_local_installing_files, 0));
+            runOnUiThread(() -> ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.zh_select_modpack_local_installing_files, 0));
 
             String overridesDir = "overrides";
             Enumeration<? extends ZipEntry> zipEntries = modpackZipFile.entries();
@@ -61,11 +60,11 @@ public class MCBBSApi {
 
                 int fileCount = fileCounters.getAndIncrement();
                 int progress = (int) ((entrySize * 100L) / totalFileSize); // 计算进度
-                runOnUiThread(() -> ProgressLayout.setProgress(ProgressLayout.DOWNLOAD_MINECRAFT, progress,
+                runOnUiThread(() -> ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, progress,
                         R.string.zh_select_modpack_local_installing_files, fileCount));
             }
 
-            runOnUiThread(() -> ProgressLayout.clearProgress(ProgressLayout.DOWNLOAD_MINECRAFT));
+            runOnUiThread(() -> ProgressLayout.clearProgress(ProgressLayout.INSTALL_MODPACK));
             return createInfo(mcbbsPackMeta.addons);
         }
     }
