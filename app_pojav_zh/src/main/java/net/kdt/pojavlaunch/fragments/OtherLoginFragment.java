@@ -184,7 +184,7 @@ public class OtherLoginFragment extends Fragment {
             String user = mUserEditText.getText().toString();
             String pass = mPassEditText.getText().toString();
             String baseUrl = mCurrentBaseUrl;
-            if (!user.isEmpty() && !pass.isEmpty() && !baseUrl.isEmpty()) {
+            if (!user.isEmpty() && !pass.isEmpty() && !(baseUrl == null || baseUrl.isEmpty())) {
                 mProgressDialog.show();
                 try {
                     OtherLoginApi.getINSTANCE().setBaseUrl(mCurrentBaseUrl);
