@@ -148,7 +148,7 @@ public class OtherLoginFragment extends Fragment {
             String pass = mPassEditText.getText().toString();
             String baseUrl = mCurrentBaseUrl;
             if (!user.isEmpty() && !pass.isEmpty() && !(baseUrl == null || baseUrl.isEmpty())) {
-                mProgressDialog.show();
+                requireActivity().runOnUiThread(() -> mProgressDialog.show());
                 try {
                     OtherLoginApi.getINSTANCE().setBaseUrl(mCurrentBaseUrl);
                     OtherLoginApi.getINSTANCE().login(getContext(), user, pass, new OtherLoginApi.Listener() {
@@ -226,7 +226,7 @@ public class OtherLoginFragment extends Fragment {
     }
 
     private void addServer(EditText editText, int type) {
-        mProgressDialog.show();
+        requireActivity().runOnUiThread(() -> mProgressDialog.show());
         PojavApplication.sExecutorService.execute(() -> {
             String data = OtherLoginApi.getINSTANCE().getServeInfo(type == 0 ? editText.getText().toString() : "https://auth.mc-user.com:233/" + editText.getText().toString());
             requireActivity().runOnUiThread(() -> {
