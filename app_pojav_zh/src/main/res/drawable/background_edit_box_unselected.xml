@@ -15,7 +15,7 @@
 
             <stroke
                 android:width="@dimen/_1sdp"
-                android:color="@color/background_line"/>
+                android:color="@color/edit_box_line"/>
         </shape>
     </item>
     <item android:drawable="?attr/selectableItemBackground"/>
