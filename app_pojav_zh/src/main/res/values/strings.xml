@@ -122,7 +122,6 @@
     <string name="zh_profile_custom_path">Custom path</string>
     <string name="zh_profile_create_mods">Create Mods</string>
     <string name="zh_profile_create_mods_message">Please ensure the game version supports Mod loading. Unsupported versions won\'t benefit from creating Mods folders or adding Mods!</string>
-    <string name="zh_profile_create_mods_fail">Sorry, Mods folder already exists in game path. Cannot create again.</string>
     <string name="zh_profile_create_mods_success">Successfully created Mods folder!</string>
     <string name="zh_profile_mods">Mods</string>
     <string name="zh_profile_mods_add_mod">Add Mod</string>

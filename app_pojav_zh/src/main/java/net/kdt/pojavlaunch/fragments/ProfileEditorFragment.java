@@ -1,9 +1,6 @@
 package net.kdt.pojavlaunch.fragments;
 
-import static net.kdt.pojavlaunch.PojavZHTools.getGameDirPath;
-
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -58,7 +55,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
     private String mProfileKey;
     private MinecraftProfile mTempProfile = null;
     private String mValueToConsume = "";
-    private Button mSaveButton, mDeleteButton, mCreateModsButton, mModsButton, mControlSelectButton, mGameDirButton, mVersionSelectButton;
+    private Button mSaveButton, mDeleteButton, mModsButton, mControlSelectButton, mGameDirButton, mVersionSelectButton;
     private ImageButton mHelpButton;
     private Spinner mDefaultRuntime, mDefaultRenderer;
     private EditText mDefaultName, mDefaultJvmArgument;
@@ -116,36 +113,10 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
             Tools.removeCurrentFragment(requireActivity());
         });
 
-        mCreateModsButton.setOnClickListener(v -> {
-            File mods = new File(getGameDirPath(mTempProfile.gameDir), "mods");
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-
-            DialogInterface.OnClickListener create = (dialog, which) -> {
-                if (mods.exists()) {
-                    Toast.makeText(requireContext(), getString(R.string.zh_profile_create_mods_fail), Toast.LENGTH_SHORT).show();
-                    mCreateModsButton.setVisibility(View.GONE);
-                    mModsButton.setVisibility(View.VISIBLE);
-                } else {
-                    boolean b = mods.mkdirs();
-                    if (b) {
-                        Toast.makeText(requireContext(), getString(R.string.zh_profile_create_mods_success), Toast.LENGTH_SHORT).show();
-                        mCreateModsButton.setVisibility(View.GONE);
-                        mModsButton.setVisibility(View.VISIBLE);
-                    }
-                }
-            };
-
-            builder.setTitle(getString(R.string.folder_fragment_create));
-            builder.setMessage(getString(R.string.zh_profile_create_mods_message));
-
-            builder.setPositiveButton(getString(R.string.zh_profile_create_mods), create)
-                    .setNegativeButton(getString(android.R.string.cancel), null);
-
-            builder.show();
-        });
-
         mModsButton.setOnClickListener(v -> {
-            File mods = new File(getGameDirPath(mTempProfile.gameDir), "mods");
+            File mods = mTempProfile.gameDir == null ?
+                    new File(PojavZHTools.DIR_GAME_DEFAULT, "mods") :
+                    new File(PojavZHTools.getGameDirPath(mTempProfile.gameDir), "mods");
             if (mods.exists()) {
                 Bundle bundle = new Bundle();
                 bundle.putString(ModsFragment.BUNDLE_ROOT_PATH, mods.toString());
@@ -153,9 +124,18 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
                 Tools.swapFragment(requireActivity(),
                         ModsFragment.class, ModsFragment.TAG, bundle);
             } else {
-                Toast.makeText(requireContext(), getString(R.string.zh_file_does_not_exist), Toast.LENGTH_SHORT).show();
-                mModsButton.setVisibility(View.GONE);
-                mCreateModsButton.setVisibility(View.VISIBLE);
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+                builder.setTitle(getString(R.string.folder_fragment_create));
+                builder.setMessage(getString(R.string.zh_profile_create_mods_message));
+                builder.setPositiveButton(getString(R.string.zh_profile_create_mods), (d, i) -> {
+                    boolean b = mods.mkdirs();
+                    if (b) {
+                        Toast.makeText(requireContext(), getString(R.string.zh_profile_create_mods_success), Toast.LENGTH_SHORT).show();
+                        mModsButton.setText(mods.exists() ? getString(R.string.zh_profile_mods) : getString(R.string.zh_profile_create_mods));
+                    }
+                });
+                builder.setNegativeButton(getString(android.R.string.cancel), null);
+                builder.show();
             }
         });
 
@@ -201,8 +181,6 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
             builder.show();
         });
 
-
-
         loadValues(LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, ""), view.getContext());
     }
 
@@ -215,20 +193,11 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
                 ProfileIconCache.fetchIcon(getResources(), mProfileKey, mTempProfile.icon)
         );
 
-        if (mTempProfile.gameDir != null) {
-            File mods = new File(getGameDirPath(mTempProfile.gameDir), "mods");
-            if (mods.exists() && mods.isDirectory()) {
-                mCreateModsButton.setVisibility(View.GONE);
-                mModsButton.setVisibility(View.VISIBLE);
-            }
-            else {
-                mCreateModsButton.setVisibility(View.VISIBLE);
-                mModsButton.setVisibility(View.GONE);
-            }
-        } else {
-            mCreateModsButton.setVisibility(View.VISIBLE);
-            mModsButton.setVisibility(View.GONE);
-        }
+        File mods = mTempProfile.gameDir == null ?
+                new File(PojavZHTools.DIR_GAME_DEFAULT, "mods") :
+                new File(PojavZHTools.getGameDirPath(mTempProfile.gameDir), "mods");
+        boolean modsFolder = mods.exists();
+        mModsButton.setText(modsFolder ? getString(R.string.zh_profile_mods) : getString(R.string.zh_profile_create_mods));
 
         // Runtime spinner
         List<Runtime> runtimes = MultiRTUtils.getRuntimes();
@@ -280,7 +249,6 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         mDefaultName = view.findViewById(R.id.vprof_editor_profile_name);
         mDefaultJvmArgument = view.findViewById(R.id.vprof_editor_jre_args);
 
-        mCreateModsButton = view.findViewById(R.id.zh_create_mods_button);
         mModsButton = view.findViewById(R.id.zh_mods_button);
         mSaveButton = view.findViewById(R.id.vprof_editor_save_button);
         mDeleteButton = view.findViewById(R.id.vprof_editor_delete_button);

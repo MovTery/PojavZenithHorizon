@@ -118,7 +118,6 @@
     <string name="zh_profile_custom_path">自訂路徑</string>
     <string name="zh_profile_create_mods">建立 Mods</string>
     <string name="zh_profile_create_mods_message">請確認此實例使用的遊戲版本能夠載入 Mod，如果無法載入 Mod，則建立 Mods 資料夾並添加 Mod 將不起作用！</string>
-    <string name="zh_profile_create_mods_fail">抱歉，遊戲路徑記憶體在 Mods 資料夾，無法再次建立 Mods 資料夾</string>
     <string name="zh_profile_create_mods_success">成功建立 Mods 資料夾!</string>
     <string name="zh_profile_mods">Mod 管理</string>
     <string name="zh_profile_mods_add_mod">新增 Mod</string>
