@@ -2,6 +2,7 @@ package net.kdt.pojavlaunch.dialog;
 
 
 import static net.kdt.pojavlaunch.PojavZHTools.markdownToHtml;
+import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.annotation.SuppressLint;
@@ -11,6 +12,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -95,6 +97,7 @@ public class UpdateDialog extends Dialog {
 
         mUpdateButton.setOnClickListener(view -> {
             this.dismiss();
+            runOnUiThread(() -> Toast.makeText(getContext(), getContext().getString(R.string.zh_update_downloading_tip), Toast.LENGTH_SHORT).show());
             UpdateLauncher updateLauncher = new UpdateLauncher(getContext(), tagName, fileSize);
             updateLauncher.start();
         });
