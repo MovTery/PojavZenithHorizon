@@ -256,18 +256,7 @@ public class PojavZHTools {
         context.startActivity(sendIntent);
     }
 
-    public static void refreshFileCount(Context context, FileListView fileListView, TextView titleView, String title) {
-        if (fileListView == null || titleView == null || title == null) return;
-
-        String text = title + " ( " + context.getString(R.string.zh_file_total) + getFileCount(fileListView) + " )";
-        titleView.setText(text);
-    }
-
-    public static int getFileCount(FileListView fileListView) {
-        return fileListView.getMainLv().getAdapter().getCount();
-    }
-
-    public static AlertDialog.Builder deleteFileListener(Context context, FileListView fileListView, File file, boolean displayThumbnails, TextView titleView, String title) {
+    public static void deleteFileListener(Context context, FileListView fileListView, File file, boolean displayThumbnails, TextView titleView, String title) {
         String fileName = file.getName();
         // 显示确认删除的对话框
         AlertDialog.Builder deleteConfirmation = new AlertDialog.Builder(context);
@@ -283,8 +272,7 @@ public class PojavZHTools {
             else fileListView.listFileAt(fileListView.getFullPath(), true);
         });
         deleteConfirmation.setNegativeButton(context.getString(android.R.string.cancel), null);
-
-        return deleteConfirmation;
+        deleteConfirmation.show();
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")

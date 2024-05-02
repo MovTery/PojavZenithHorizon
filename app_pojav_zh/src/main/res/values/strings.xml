@@ -91,7 +91,6 @@
     <string name="zh_file_copy_dialog_message">Are you sure you want to copy this file and create a new one?</string>
     <string name="zh_file_copy_dialog_new_name_title">Name the copied new file</string>
     <string name="zh_file_does_not_exist">This folder (or file) doesn\'t exist</string>
-    <string name="zh_file_total">Total number of files:</string>
     <string name="zh_file_tips">Operate this file</string>
     <string name="zh_file_message">Please select the operation you want to perform on this file.</string>
     <string name="zh_file_message_copy">(Long press this file to copy and create a new file)</string>
