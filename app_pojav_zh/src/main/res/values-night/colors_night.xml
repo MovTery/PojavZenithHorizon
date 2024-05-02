@@ -8,7 +8,7 @@
 
     <color name="menu_bar">#555555</color>
     <color name="menu_overlay">#232323</color>
-    <color name="menu_progress">#424242</color>
+    <color name="menu_progress">#888888</color>
 
     <color name="edit_box_fill">#4C4C4C</color>
 
