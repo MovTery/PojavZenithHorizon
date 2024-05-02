@@ -69,7 +69,6 @@ public class AWTCanvasView extends TextureView implements TextureView.SurfaceTex
         try {
             while (!mIsDestroyed && surface.isValid()) {
                 canvas = surface.lockCanvas(null);
-                canvas.drawRGB(196, 196, 196);
                 int[] rgbArray = JREUtils.renderAWTScreenFrame(/* canvas, mWidth, mHeight */);
                 boolean mDrawing = rgbArray != null;
                 if (rgbArray != null) {
