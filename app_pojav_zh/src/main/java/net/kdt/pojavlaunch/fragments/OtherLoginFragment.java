@@ -292,6 +292,10 @@ public class OtherLoginFragment extends Fragment {
     }
 
     private void showRegisterButton() {
-        mRegister.setVisibility((mServerList == null || mServerList.size() <= 1) ? View.GONE : View.VISIBLE);
+        //当服务器列表为空、服务器列表没有可用服务器时，注册按钮将被隐藏
+        mRegister.setVisibility((mServerList == null ||
+                (mServerList.size() == 1 &&
+                        mServerList.get(0).equals(getString(R.string.zh_other_login_no_server))))
+                ? View.GONE : View.VISIBLE);
     }
 }
