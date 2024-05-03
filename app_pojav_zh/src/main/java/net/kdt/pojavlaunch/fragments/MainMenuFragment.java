@@ -91,7 +91,7 @@ public class MainMenuFragment extends Fragment {
     }
 
     private void initNotice(View view) {
-        Button mNoticeSummonButton = view.findViewById(R.id.zh_menu_notice_summon_button);
+        ImageButton mNoticeSummonButton = view.findViewById(R.id.zh_menu_notice_summon_button);
         Button mNoticeRefreshButton = view.findViewById(R.id.zh_menu_notice_refresh_button);
         Button mNoticeCloseButton = view.findViewById(R.id.zh_menu_notice_close_button);
 
