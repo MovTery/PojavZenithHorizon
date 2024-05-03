@@ -163,7 +163,7 @@ public class ModsFragment extends Fragment {
 
         view.findViewById(R.id.zh_files_create_folder_button).setVisibility(View.GONE);
         view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
-        mFileListView.setFileIcon(FileIcon.FILE);
+        mFileListView.setFileIcon(FileIcon.MOD);
     }
 }
 
