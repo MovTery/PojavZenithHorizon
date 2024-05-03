@@ -41,10 +41,11 @@ public class FileListAdapter extends BaseAdapter {
     private final static int ICON_FOLDER = R.drawable.ic_folder;
     private final static int ICON_FILE = R.drawable.ic_file;
     private final static int ICON_CONTROL = R.drawable.ic_menu_custom_controls;
+    private final static int ICON_JAR = R.drawable.ic_java;
 
     private final LayoutInflater mInflater;
 
-    private List<File> mData = new ArrayList<File>();
+    private List<File> mData = new ArrayList<>();
     private final FileIcon iconType; //图标类型
 
     public FileListAdapter(Context context, FileIcon iconType) {
@@ -118,26 +119,34 @@ public class FileListAdapter extends BaseAdapter {
         view.setText(file.getName());
 
         // 根据图标类别来设置图标
+        int icon = file.isDirectory() ? ICON_FOLDER : ICON_FILE;
         switch (this.iconType) {
-            case MOUSE:
-                if (isImage(file)) { //判断是不是一张图片
-                    try {
-                        Drawable icon = getIcon(file.getAbsolutePath(), view.getContext());
-                        view.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
-                    } catch (Exception e) {
-                        view.setCompoundDrawablesWithIntrinsicBounds(ICON_FILE, 0, 0, 0);
-                    }
-                } else {
-                    view.setCompoundDrawablesWithIntrinsicBounds(file.isDirectory() ? ICON_FOLDER : ICON_FILE, 0, 0, 0);
+            case MOD:
+                if (file.getName().endsWith(".jar")) {
+                    icon = ICON_JAR;
                 }
+                view.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
                 break;
             case CONTROL:
                 if (file.getName().endsWith(".json")) {
-                    view.setCompoundDrawablesWithIntrinsicBounds(ICON_CONTROL, 0, 0, 0);
+                    icon = ICON_CONTROL;
+                }
+                view.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
+                break;
+            case MOUSE:
+                if (isImage(file)) { //判断是不是一张图片
+                    try {
+                        Drawable mouse = getIcon(file.getAbsolutePath(), view.getContext());
+                        view.setCompoundDrawablesWithIntrinsicBounds(mouse, null, null, null);
+                    } catch (Exception e) {
+                        view.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
+                    }
+                } else {
+                    view.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
                 }
                 break;
             default:
-                view.setCompoundDrawablesWithIntrinsicBounds(file.isDirectory() ? ICON_FOLDER : ICON_FILE, 0, 0, 0);
+                view.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
         }
 
         view.setCompoundDrawablePadding(20);
