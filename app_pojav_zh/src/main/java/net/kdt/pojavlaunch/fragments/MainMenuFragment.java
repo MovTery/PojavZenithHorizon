@@ -145,6 +145,9 @@ public class MainMenuFragment extends Fragment {
     }
 
     private static class FragmentViewModel extends ViewModel {
+        public FragmentViewModel() {
+        }
+
         private final MutableLiveData<CheckNewNotice.NoticeInfo> noticeInfoLiveData = new MutableLiveData<>();
 
         public void loadNoticeInfo() {
