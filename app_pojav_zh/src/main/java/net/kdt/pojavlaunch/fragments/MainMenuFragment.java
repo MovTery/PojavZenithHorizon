@@ -17,11 +17,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.kdt.mcgui.mcVersionSpinner;
 
 import net.kdt.pojavlaunch.CheckNewNotice;
-import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -44,6 +47,11 @@ public class MainMenuFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        FragmentViewModel viewModel = new ViewModelProvider(this).get(FragmentViewModel.class);
+
+        viewModel.getNoticeInfoLiveData().observe(getViewLifecycleOwner(), noticeInfo -> checkNewNotice(view, noticeInfo));
+        viewModel.loadNoticeInfo();
+
         Button mAboutButton = view.findViewById(R.id.about_button);
         Button mCustomControlButton = view.findViewById(R.id.custom_control_button);
         Button mInstallJarButton = view.findViewById(R.id.install_jar_button);
@@ -90,8 +98,6 @@ public class MainMenuFragment extends Fragment {
 
         mOpenMainDirButton.setVisibility(PREF_ADVANCED_FEATURES ? View.VISIBLE : View.GONE);
         mOpenInstanceDirButton.setVisibility(PREF_ADVANCED_FEATURES ? View.VISIBLE : View.GONE);
-
-        checkNewNotice(view);
     }
 
     @Override
@@ -108,36 +114,46 @@ public class MainMenuFragment extends Fragment {
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    private void checkNewNotice(View view) {
-        PojavApplication.sExecutorService.execute(() -> {
-            CheckNewNotice.NoticeInfo noticeInfo = CheckNewNotice.checkNewNotice();
-            if (noticeInfo == null) {
-                mLauncherNoticeView.setVisibility(View.GONE);
-                return;
+    private void checkNewNotice(View view, CheckNewNotice.NoticeInfo noticeInfo) {
+        if (noticeInfo == null) {
+            mLauncherNoticeView.setVisibility(View.GONE);
+            return;
+        }
+
+        runOnUiThread(() -> {
+            //初始化
+            mLauncherNoticeView.setVisibility(View.VISIBLE);
+
+            TextView noticeTitleView = view.findViewById(R.id.zh_menu_notice_title);
+            TextView noticeDateView = view.findViewById(R.id.zh_menu_notice_date);
+            WebView noticeSubstanceWebView = view.findViewById(R.id.zh_menu_notice_substance);
+            Button noticeCloseButton = view.findViewById(R.id.zh_menu_notice_close_button);
+
+            if (!noticeInfo.getRawTitle().equals("NONE")) {
+                noticeTitleView.setText(noticeInfo.getRawTitle());
             }
 
-            runOnUiThread(() -> {
-                //初始化
-                mLauncherNoticeView.setVisibility(View.VISIBLE);
-
-                TextView noticeTitleView = view.findViewById(R.id.zh_menu_notice_title);
-                TextView noticeDateView = view.findViewById(R.id.zh_menu_notice_date);
-                WebView noticeSubstanceWebView = view.findViewById(R.id.zh_menu_notice_substance);
-                Button noticeCloseButton = view.findViewById(R.id.zh_menu_notice_close_button);
-
-                if (!noticeInfo.getRawTitle().equals("NONE")) {
-                    noticeTitleView.setText(noticeInfo.getRawTitle());
-                }
-
-                noticeDateView.setText(noticeInfo.getRawDate());
-                PojavZHTools.getWebViewAfterProcessing(noticeSubstanceWebView);
-                noticeSubstanceWebView.getSettings().setJavaScriptEnabled(true);
-                noticeSubstanceWebView.loadDataWithBaseURL(null, noticeInfo.getSubstance(), "text/html", "UTF-8", null);
-                noticeCloseButton.setOnClickListener(v -> {
-                    DEFAULT_PREF.edit().putInt("ignoreNotice", noticeInfo.getNumbering()).apply();
-                    requireActivity().runOnUiThread(() -> mLauncherNoticeView.setVisibility(View.GONE));
-                });
+            noticeDateView.setText(noticeInfo.getRawDate());
+            PojavZHTools.getWebViewAfterProcessing(noticeSubstanceWebView);
+            noticeSubstanceWebView.getSettings().setJavaScriptEnabled(true);
+            noticeSubstanceWebView.loadDataWithBaseURL(null, noticeInfo.getSubstance(), "text/html", "UTF-8", null);
+            noticeCloseButton.setOnClickListener(v -> {
+                DEFAULT_PREF.edit().putInt("ignoreNotice", noticeInfo.getNumbering()).apply();
+                requireActivity().runOnUiThread(() -> mLauncherNoticeView.setVisibility(View.GONE));
             });
         });
+    }
+
+    private static class FragmentViewModel extends ViewModel {
+        private final MutableLiveData<CheckNewNotice.NoticeInfo> noticeInfoLiveData = new MutableLiveData<>();
+
+        public void loadNoticeInfo() {
+            CheckNewNotice.NoticeInfo noticeInfo = CheckNewNotice.checkNewNotice();
+            noticeInfoLiveData.postValue(noticeInfo);
+        }
+
+        public LiveData<CheckNewNotice.NoticeInfo> getNoticeInfoLiveData() {
+            return noticeInfoLiveData;
+        }
     }
 }
