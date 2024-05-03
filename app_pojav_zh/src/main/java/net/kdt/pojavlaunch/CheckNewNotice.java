@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch;
 
 import static net.kdt.pojavlaunch.PojavZHTools.markdownToHtml;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.annotation.SuppressLint;
 import android.util.Base64;
@@ -22,10 +21,6 @@ import okhttp3.Response;
 public class CheckNewNotice {
     private static boolean isChecked = false;
     private static NoticeInfo noticeInfo = null;
-
-    public static boolean isIsChecked() {
-        return isChecked;
-    }
 
     public static NoticeInfo checkNewNotice() {
         if (isChecked) return noticeInfo; //如果已经检查过了，那么直接返回这个对象
@@ -57,10 +52,6 @@ public class CheckNewNotice {
                         String rawJson = new String(decodedBytes, StandardCharsets.UTF_8);
 
                         JSONObject noticeJson = new JSONObject(rawJson);
-                        int numbering = noticeJson.getInt("numbering");
-                        if (!(numbering > DEFAULT_PREF.getInt("ignoreNotice", 0))) {
-                            return; //关闭过的通知将被忽略
-                        }
 
                         //获取通知消息
                         String language = PojavZHTools.getDefaultLanguage();
@@ -76,7 +67,7 @@ public class CheckNewNotice {
                         String rawDate = noticeJson.getString("date");
                         String substance = markdownToHtml(rawSubstance);
 
-                        noticeInfo = new NoticeInfo(numbering, rawTitle, substance, rawDate);
+                        noticeInfo = new NoticeInfo(rawTitle, substance, rawDate);
                     } catch (Exception e) {
                         Log.e("Check New Notice", e.toString());
                     }
@@ -89,18 +80,12 @@ public class CheckNewNotice {
     }
 
     public static class NoticeInfo {
-        private final int numbering;
         private final String rawTitle, substance, rawDate;
 
-        public NoticeInfo(int numbering, String rawTitle, String substance, String rawDate) {
-            this.numbering = numbering;
+        public NoticeInfo(String rawTitle, String substance, String rawDate) {
             this.rawTitle = rawTitle;
             this.substance = substance;
             this.rawDate = rawDate;
-        }
-
-        public int getNumbering() {
-            return numbering;
         }
 
         public String getRawTitle() {
