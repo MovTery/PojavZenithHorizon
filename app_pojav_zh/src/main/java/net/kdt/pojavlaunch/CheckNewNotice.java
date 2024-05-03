@@ -3,6 +3,7 @@ package net.kdt.pojavlaunch;
 import static net.kdt.pojavlaunch.PojavZHTools.markdownToHtml;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.util.Base64;
 import android.util.Log;
 
@@ -30,12 +31,14 @@ public class CheckNewNotice {
         return noticeInfo;
     }
 
-    public static void checkNewNotice() {
+    public static void checkNewNotice(Context context) {
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(PojavZHTools.URL_GITHUB_HOME + "notice.json")
-                .header("Authorization", "token " + R.string.zh_api_token)
-                .build();
+        Request.Builder url = new Request.Builder()
+                .url(PojavZHTools.URL_GITHUB_HOME + "notice.json");
+        if (!context.getString(R.string.zh_api_token).equals("DUMMY")) {
+            url.header("Authorization", "token " + context.getString(R.string.zh_api_token));
+        }
+        Request request = url.build();
 
         client.newCall(request).enqueue(new Callback() {
 

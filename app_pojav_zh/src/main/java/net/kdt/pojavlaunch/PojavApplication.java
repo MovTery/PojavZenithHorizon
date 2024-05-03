@@ -100,7 +100,7 @@ public class PojavApplication extends Application {
 		File updateFile = new File(getExternalFilesDir(null), "PojavZH.apk");
 		if (updateFile.exists()) org.apache.commons.io.FileUtils.deleteQuietly(updateFile);
 
-		CheckNewNotice.checkNewNotice();
+		CheckNewNotice.checkNewNotice(this);
 	}
 
 	@Override
