@@ -17,10 +17,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.kdt.mcgui.mcVersionSpinner;
 
@@ -47,11 +43,6 @@ public class MainMenuFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        FragmentViewModel viewModel = new ViewModelProvider(this).get(FragmentViewModel.class);
-
-        viewModel.getNoticeInfoLiveData().observe(getViewLifecycleOwner(), noticeInfo -> checkNewNotice(view, noticeInfo));
-        viewModel.loadNoticeInfo();
-
         Button mAboutButton = view.findViewById(R.id.about_button);
         Button mCustomControlButton = view.findViewById(R.id.custom_control_button);
         Button mInstallJarButton = view.findViewById(R.id.install_jar_button);
@@ -98,6 +89,8 @@ public class MainMenuFragment extends Fragment {
 
         mOpenMainDirButton.setVisibility(PREF_ADVANCED_FEATURES ? View.VISIBLE : View.GONE);
         mOpenInstanceDirButton.setVisibility(PREF_ADVANCED_FEATURES ? View.VISIBLE : View.GONE);
+
+        checkNewNotice(view);
     }
 
     @Override
@@ -114,7 +107,8 @@ public class MainMenuFragment extends Fragment {
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    private void checkNewNotice(View view, CheckNewNotice.NoticeInfo noticeInfo) {
+    public void checkNewNotice(View view) {
+        CheckNewNotice.NoticeInfo noticeInfo = CheckNewNotice.checkNewNotice();
         if (noticeInfo == null) {
             mLauncherNoticeView.setVisibility(View.GONE);
             return;
@@ -142,21 +136,5 @@ public class MainMenuFragment extends Fragment {
                 requireActivity().runOnUiThread(() -> mLauncherNoticeView.setVisibility(View.GONE));
             });
         });
-    }
-
-    private static class FragmentViewModel extends ViewModel {
-        public FragmentViewModel() {
-        }
-
-        private final MutableLiveData<CheckNewNotice.NoticeInfo> noticeInfoLiveData = new MutableLiveData<>();
-
-        public void loadNoticeInfo() {
-            CheckNewNotice.NoticeInfo noticeInfo = CheckNewNotice.checkNewNotice();
-            noticeInfoLiveData.postValue(noticeInfo);
-        }
-
-        public LiveData<CheckNewNotice.NoticeInfo> getNoticeInfoLiveData() {
-            return noticeInfoLiveData;
-        }
     }
 }

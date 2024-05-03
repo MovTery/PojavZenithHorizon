@@ -23,6 +23,10 @@ public class CheckNewNotice {
     private static boolean isChecked = false;
     private static NoticeInfo noticeInfo = null;
 
+    public static boolean isIsChecked() {
+        return isChecked;
+    }
+
     public static NoticeInfo checkNewNotice() {
         if (isChecked) return noticeInfo; //如果已经检查过了，那么直接返回这个对象
 

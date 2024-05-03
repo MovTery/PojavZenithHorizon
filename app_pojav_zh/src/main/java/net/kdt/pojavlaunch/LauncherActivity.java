@@ -82,6 +82,9 @@ public class LauncherActivity extends BaseActivity {
             boolean bl = (f instanceof MainMenuFragment);
             mSettingsButton.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), bl
                     ? R.drawable.ic_menu_settings : R.drawable.ic_menu_home));
+            if (bl && !CheckNewNotice.isIsChecked()) {
+                ((MainMenuFragment) f).checkNewNotice(f.getView());
+            }
         }
     };
 
