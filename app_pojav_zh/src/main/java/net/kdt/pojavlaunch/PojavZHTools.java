@@ -92,6 +92,8 @@ public class PojavZHTools {
     public static File FILE_CUSTOM_MOUSE;
     public static String URL_GITHUB_RELEASE = "https://api.github.com/repos/HopiHopy/PojavZH/releases/latest";
     public static String URL_GITHUB_HOME = "https://api.github.com/repos/HopiHopy/PojavZH/contents/";
+    public static long LAST_UPDATE_CHECK_TIME = 0;
+    public static long LAST_NOTICE_CHECK_TIME = 0;
 
     private PojavZHTools() {
     }
@@ -309,6 +311,8 @@ public class PojavZHTools {
     }
 
     public static synchronized void updateCheckerMainProgram(Context context, boolean ignore) {
+        if (System.currentTimeMillis() - LAST_UPDATE_CHECK_TIME <= 5000) return;
+        LAST_UPDATE_CHECK_TIME = System.currentTimeMillis();
         PojavApplication.sExecutorService.execute(() -> {
             int versionCode = getVersionCode(context);
             OkHttpClient client = new OkHttpClient();

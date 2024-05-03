@@ -32,6 +32,9 @@ public class CheckNewNotice {
     }
 
     public static void checkNewNotice(Context context) {
+        if (PojavZHTools.LAST_NOTICE_CHECK_TIME - System.currentTimeMillis() <= 5000) return;
+        PojavZHTools.LAST_NOTICE_CHECK_TIME = System.currentTimeMillis();
+
         OkHttpClient client = new OkHttpClient();
         Request.Builder url = new Request.Builder()
                 .url(PojavZHTools.URL_GITHUB_HOME + "notice.json");
