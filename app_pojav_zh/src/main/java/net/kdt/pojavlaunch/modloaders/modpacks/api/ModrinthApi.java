@@ -146,7 +146,7 @@ public class ModrinthApi implements ModpackApi{
         }
     }
 
-    class ModrinthSearchResult extends SearchResult {
+    static class ModrinthSearchResult extends SearchResult {
         int previousOffset;
     }
 }

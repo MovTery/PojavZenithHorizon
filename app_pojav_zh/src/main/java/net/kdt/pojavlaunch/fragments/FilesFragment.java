@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.ipaulpro.afilechooser.FileIcon;
 import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
@@ -81,7 +82,6 @@ public class FilesFragment extends Fragment {
             public void onFileSelected(File file, String path) {
                 FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
                 filesButton.setButtonVisibility(true, true, true, false);
-                filesButton.displayThumbnails = false;
 
                 int caciocavallo = file.getPath().indexOf("caciocavallo");
                 int lwjgl3 = file.getPath().indexOf("lwjgl3");
@@ -151,6 +151,7 @@ public class FilesFragment extends Fragment {
         mFilePathView = view.findViewById(R.id.zh_files_current_path);
 
         view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
+        mFileListView.setFileIcon(FileIcon.FILE);
     }
 
     private void parseBundle() {

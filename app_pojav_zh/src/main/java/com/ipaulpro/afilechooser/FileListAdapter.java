@@ -16,7 +16,11 @@
 
 package com.ipaulpro.afilechooser;
 
+import static net.kdt.pojavlaunch.PojavZHTools.getIcon;
+import static net.kdt.pojavlaunch.PojavZHTools.isImage;
+
 import android.content.*;
+import android.graphics.drawable.Drawable;
 import android.view.*;
 import android.widget.*;
 import java.io.*;
@@ -36,13 +40,16 @@ public class FileListAdapter extends BaseAdapter {
 
     private final static int ICON_FOLDER = R.drawable.ic_folder;
     private final static int ICON_FILE = R.drawable.ic_file;
+    private final static int ICON_CONTROL = R.drawable.ic_menu_custom_controls;
 
     private final LayoutInflater mInflater;
 
     private List<File> mData = new ArrayList<File>();
+    private final FileIcon iconType; //图标类型
 
-    public FileListAdapter(Context context) {
+    public FileListAdapter(Context context, FileIcon iconType) {
         mInflater = LayoutInflater.from(context);
+        this.iconType = iconType;
     }
 
     public void add(File file) {
@@ -110,11 +117,30 @@ public class FileListAdapter extends BaseAdapter {
         // Set the TextView as the file name
         view.setText(file.getName());
 
-        // If the item is not a directory, use the file icon
-        int icon = file.isDirectory() ? ICON_FOLDER : ICON_FILE;
-        view.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
+        // 根据图标类别来设置图标
+        switch (this.iconType) {
+            case MOUSE:
+                if (isImage(file)) { //判断是不是一张图片
+                    try {
+                        Drawable icon = getIcon(file.getAbsolutePath(), view.getContext());
+                        view.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+                    } catch (Exception e) {
+                        view.setCompoundDrawablesWithIntrinsicBounds(ICON_FILE, 0, 0, 0);
+                    }
+                } else {
+                    view.setCompoundDrawablesWithIntrinsicBounds(file.isDirectory() ? ICON_FOLDER : ICON_FILE, 0, 0, 0);
+                }
+                break;
+            case CONTROL:
+                if (file.getName().endsWith(".json")) {
+                    view.setCompoundDrawablesWithIntrinsicBounds(ICON_CONTROL, 0, 0, 0);
+                }
+                break;
+            default:
+                view.setCompoundDrawablesWithIntrinsicBounds(file.isDirectory() ? ICON_FOLDER : ICON_FILE, 0, 0, 0);
+        }
+
         view.setCompoundDrawablePadding(20);
         return row;
     }
-
 }

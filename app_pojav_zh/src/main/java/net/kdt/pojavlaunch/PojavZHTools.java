@@ -248,7 +248,7 @@ public class PojavZHTools {
         context.startActivity(sendIntent);
     }
 
-    public static void deleteFileListener(Context context, FileListView fileListView, File file, boolean displayThumbnails) {
+    public static void deleteFileListener(Context context, FileListView fileListView, File file) {
         String fileName = file.getName();
         // 显示确认删除的对话框
         AlertDialog.Builder deleteConfirmation = new AlertDialog.Builder(context);
@@ -260,15 +260,14 @@ public class PojavZHTools {
             if (deleted) {
                 Toast.makeText(context, context.getString(R.string.zh_file_deleted) + fileName, Toast.LENGTH_SHORT).show();
             }
-            if (!displayThumbnails) fileListView.refreshPath();
-            else fileListView.listFileAt(fileListView.getFullPath(), true);
+            fileListView.refreshPath();
         });
         deleteConfirmation.setNegativeButton(context.getString(android.R.string.cancel), null);
         deleteConfirmation.show();
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    public static void renameFileListener(Context context, FileListView fileListView, File file, boolean displayThumbnails) {
+    public static void renameFileListener(Context context, FileListView fileListView, File file) {
         String fileParent = file.getParent();
         String fileName = file.getName();
         AlertDialog.Builder renameBuilder = new AlertDialog.Builder(context);
@@ -287,8 +286,7 @@ public class PojavZHTools {
                 boolean renamed = file.renameTo(newFile);
                 if (renamed) {
                     Toast.makeText(context, context.getString(R.string.zh_file_renamed) + file.getName() + " -> " + newName + suffix, Toast.LENGTH_SHORT).show();
-                    if (!displayThumbnails) fileListView.refreshPath();
-                    else fileListView.listFileAt(fileListView.getFullPath(), true);
+                    fileListView.refreshPath();
                 }
             } else {
                 Toast.makeText(context, context.getString(R.string.zh_file_rename_empty), Toast.LENGTH_SHORT).show();

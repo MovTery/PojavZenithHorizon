@@ -1,6 +1,8 @@
 package com.kdt.pickafile;
 
 import androidx.appcompat.app.*;
+
+import android.annotation.SuppressLint;
 import android.content.*;
 import android.util.*;
 import android.widget.*;
@@ -13,6 +15,7 @@ import android.os.*;
 
 import org.apache.commons.io.FileUtils;
 
+@SuppressLint("ViewConstructor")
 public class FileListView extends LinearLayout
 {
     //For list view:
@@ -29,46 +32,48 @@ public class FileListView extends LinearLayout
     private final String[] fileSuffixes;
     private boolean showFiles = true;
     private boolean showFolders = true;
+    private FileIcon fileIcon;
 
-    public FileListView(AlertDialog build) {
-        this(build.getContext(), null, new String[0]);
+    public void setFileIcon(FileIcon fileIcon) {
+        this.fileIcon = fileIcon;
+    }
+
+    public FileListView(AlertDialog build, FileIcon fileIcon) {
+        this(build.getContext(), fileIcon, null, new String[0]);
         dialogToTitleListener(build);
     }
 
-    public FileListView(AlertDialog build, String fileSuffix) {
-        this(build.getContext(), null, new String[]{fileSuffix});
+    public FileListView(AlertDialog build, FileIcon fileIcon, String fileSuffix) {
+        this(build.getContext(), fileIcon, null, new String[]{fileSuffix});
         dialogToTitleListener(build);
     }
 
-    public FileListView(AlertDialog build, String[] fileSuffixes){
-        this(build.getContext(), null, fileSuffixes);
+    public FileListView(FileIcon fileIcon, AlertDialog build, String[] fileSuffixes){
+        this(build.getContext(), fileIcon, null, fileSuffixes);
         dialogToTitleListener(build);
     }
 
-    public FileListView(Context context){
-        this(context, null);
+    public FileListView(Context context, FileIcon fileIcon){
+        this(context, fileIcon, null);
     }
 
-    public FileListView(Context context, AttributeSet attrs){
-        this(context, attrs, new String[0]);
+    public FileListView(Context context, FileIcon fileIcon, AttributeSet attrs){
+        this(context, fileIcon, attrs, new String[0]);
     }
 
-    public FileListView(Context context, AttributeSet attrs, String[] fileSuffixes) {
-        this(context, attrs, 0, fileSuffixes);
+    public FileListView(Context context, FileIcon fileIcon, AttributeSet attrs, String[] fileSuffixes) {
+        this(context, fileIcon, attrs, 0, fileSuffixes);
     }
 
-    public FileListView(Context context, AttributeSet attrs, int defStyle, String[] fileSuffixes) {
+    public FileListView(Context context, FileIcon fileIcon, AttributeSet attrs, int defStyle, String[] fileSuffixes) {
         super(context, attrs, defStyle);
         this.fileSuffixes = fileSuffixes;
+        this.fileIcon = fileIcon;
         init(context);
     }
 
     private void dialogToTitleListener(AlertDialog dialog) {
         if(dialog != null) dialogTitleListener = dialog::setTitle;
-    }
-
-    public ListView getMainLv() {
-        return mainLv;
     }
 
     public void init(final Context context) {
@@ -127,7 +132,7 @@ public class FileListView extends LinearLayout
 
         try {
             listFileAt(Environment.getExternalStorageDirectory());
-        } catch (NullPointerException e) {} // Android 10+ disallows access to sdcard
+        } catch (NullPointerException ignored) {} // Android 10+ disallows access to sdcard
     }
     public void setFileSelectedListener(FileSelectedListener listener)
     {
@@ -137,16 +142,14 @@ public class FileListView extends LinearLayout
         this.dialogTitleListener = listener;
     }
 
-    public void listFileAt(final File path, boolean displayThumbnails) {
+    public void listFileAt(final File path) {
         try{
             if(path.exists()){
                 if(path.isDirectory()){
                     fullPath = path;
 
                     File[] listFile = path.listFiles();
-                    FileListAdapter fileAdapter;
-                    if (displayThumbnails) fileAdapter = new MouseFileListAdapter(context);
-                    else fileAdapter = new FileListAdapter(context);
+                    FileListAdapter fileAdapter = new FileListAdapter(context, this.fileIcon);
                     if(!path.equals(lockPath)){
                         fileAdapter.add(new File(path, ".."));
                     }
@@ -187,10 +190,6 @@ public class FileListView extends LinearLayout
         } catch (Exception e){
             Tools.showError(context, e);
         }
-    }
-
-    public void listFileAt(final File path) {
-        listFileAt(path, false);
     }
 
     public File getFullPath(){

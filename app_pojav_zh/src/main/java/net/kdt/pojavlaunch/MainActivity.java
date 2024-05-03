@@ -44,6 +44,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.ipaulpro.afilechooser.FileIcon;
 import com.kdt.LoggerView;
 import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
@@ -400,7 +401,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         builder.setPositiveButton(android.R.string.cancel, null);
 
         final androidx.appcompat.app.AlertDialog dialog = builder.create();
-        FileListView flv = new FileListView(dialog, "json");
+        FileListView flv = new FileListView(dialog, FileIcon.CONTROL, "json");
         if (Build.VERSION.SDK_INT < 29) flv.listFileAt(new File(Tools.CTRLMAP_PATH));
         else flv.lockPathAt(new File(Tools.CTRLMAP_PATH));
         flv.setFileSelectedListener(new FileSelectedListener(){
