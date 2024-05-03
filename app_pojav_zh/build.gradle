@@ -34,7 +34,8 @@ def getBranchName = {
 
 def getApiToken = {
     String api = System.getenv('MY_API_TOKEN')
-    return api
+    if(api != null) return api
+    return "DUMMY"
 }
 
 configurations {

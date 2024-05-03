@@ -312,9 +312,12 @@ public class PojavZHTools {
         PojavApplication.sExecutorService.execute(() -> {
             int versionCode = getVersionCode(context);
             OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder()
-                    .url(URL_GITHUB_RELEASE)
-                    .build();
+            Request.Builder url = new Request.Builder()
+                    .url(URL_GITHUB_RELEASE);
+            if (!context.getString(R.string.zh_api_token).equals("DUMMY")) {
+                url.header("Authorization", "token " + context.getString(R.string.zh_api_token));
+            }
+            Request request = url.build();
 
             client.newCall(request).enqueue(new Callback() {
 
