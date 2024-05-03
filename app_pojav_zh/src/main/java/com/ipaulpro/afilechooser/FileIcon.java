@@ -1,5 +1,5 @@
 package com.ipaulpro.afilechooser;
 
 public enum FileIcon {
-    MOUSE, CONTROL, FILE
+    MOUSE, CONTROL, FILE, MOD
 }
