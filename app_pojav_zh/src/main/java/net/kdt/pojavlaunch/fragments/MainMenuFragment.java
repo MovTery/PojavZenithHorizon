@@ -35,7 +35,7 @@ public class MainMenuFragment extends Fragment {
     public static final String TAG = "MainMenuFragment";
 
     private mcVersionSpinner mVersionSpinner;
-    private View mLauncherNoticeView;
+    private View mRootView, mLauncherNoticeView;
 
     public MainMenuFragment() {
         super(R.layout.fragment_launcher);
@@ -43,6 +43,8 @@ public class MainMenuFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        this.mRootView = view;
+
         Button mAboutButton = view.findViewById(R.id.about_button);
         Button mCustomControlButton = view.findViewById(R.id.custom_control_button);
         Button mInstallJarButton = view.findViewById(R.id.install_jar_button);
@@ -89,8 +91,6 @@ public class MainMenuFragment extends Fragment {
 
         mOpenMainDirButton.setVisibility(PREF_ADVANCED_FEATURES ? View.VISIBLE : View.GONE);
         mOpenInstanceDirButton.setVisibility(PREF_ADVANCED_FEATURES ? View.VISIBLE : View.GONE);
-
-        checkNewNotice(view);
     }
 
     @Override
@@ -107,7 +107,7 @@ public class MainMenuFragment extends Fragment {
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    public void checkNewNotice(View view) {
+    public void checkNewNotice() {
         CheckNewNotice.NoticeInfo noticeInfo = CheckNewNotice.checkNewNotice();
         if (noticeInfo == null) {
             mLauncherNoticeView.setVisibility(View.GONE);
@@ -118,10 +118,10 @@ public class MainMenuFragment extends Fragment {
             //初始化
             mLauncherNoticeView.setVisibility(View.VISIBLE);
 
-            TextView noticeTitleView = view.findViewById(R.id.zh_menu_notice_title);
-            TextView noticeDateView = view.findViewById(R.id.zh_menu_notice_date);
-            WebView noticeSubstanceWebView = view.findViewById(R.id.zh_menu_notice_substance);
-            Button noticeCloseButton = view.findViewById(R.id.zh_menu_notice_close_button);
+            TextView noticeTitleView = this.mRootView.findViewById(R.id.zh_menu_notice_title);
+            TextView noticeDateView = this.mRootView.findViewById(R.id.zh_menu_notice_date);
+            WebView noticeSubstanceWebView = this.mRootView.findViewById(R.id.zh_menu_notice_substance);
+            Button noticeCloseButton = this.mRootView.findViewById(R.id.zh_menu_notice_close_button);
 
             if (!noticeInfo.getRawTitle().equals("NONE")) {
                 noticeTitleView.setText(noticeInfo.getRawTitle());
