@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ADVANCED_FEATURES;
 import static net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles.getCurrentProfile;
 
@@ -35,7 +34,6 @@ public class MainMenuFragment extends Fragment {
     public static final String TAG = "MainMenuFragment";
 
     private mcVersionSpinner mVersionSpinner;
-    private View mRootView, mLauncherNoticeView;
 
     public MainMenuFragment() {
         super(R.layout.fragment_launcher);
@@ -43,7 +41,7 @@ public class MainMenuFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        this.mRootView = view;
+        initNotice(view);
 
         Button mAboutButton = view.findViewById(R.id.about_button);
         Button mCustomControlButton = view.findViewById(R.id.custom_control_button);
@@ -55,7 +53,6 @@ public class MainMenuFragment extends Fragment {
         ImageButton mEditProfileButton = view.findViewById(R.id.edit_profile_button);
         Button mPlayButton = view.findViewById(R.id.play_button);
         mVersionSpinner = view.findViewById(R.id.mc_version_spinner);
-        mLauncherNoticeView = view.findViewById(R.id.zh_menu_notice);
 
         mAboutButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), AboutFragment.class, AboutFragment.TAG, null));
         mCustomControlButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ControlButtonFragment.class, ControlButtonFragment.TAG, null));
@@ -93,6 +90,27 @@ public class MainMenuFragment extends Fragment {
         mOpenInstanceDirButton.setVisibility(PREF_ADVANCED_FEATURES ? View.VISIBLE : View.GONE);
     }
 
+    private void initNotice(View view) {
+        Button mNoticeSummonButton = view.findViewById(R.id.zh_menu_notice_summon_button);
+        Button mNoticeRefreshButton = view.findViewById(R.id.zh_menu_notice_refresh_button);
+        Button mNoticeCloseButton = view.findViewById(R.id.zh_menu_notice_close_button);
+
+        View mLauncherNoticeView = view.findViewById(R.id.zh_menu_notice);
+
+        mNoticeSummonButton.setOnClickListener(v -> {
+            mLauncherNoticeView.setVisibility(View.VISIBLE);
+            mNoticeSummonButton.setVisibility(View.GONE);
+            checkNewNotice(view);
+        });
+
+        mNoticeRefreshButton.setOnClickListener(v -> checkNewNotice(view));
+
+        mNoticeCloseButton.setOnClickListener(v -> {
+            mLauncherNoticeView.setVisibility(View.GONE);
+            mNoticeSummonButton.setVisibility(View.VISIBLE);
+        });
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -107,21 +125,18 @@ public class MainMenuFragment extends Fragment {
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    public void checkNewNotice() {
+    private void checkNewNotice(View view) {
         CheckNewNotice.NoticeInfo noticeInfo = CheckNewNotice.checkNewNotice();
         if (noticeInfo == null) {
-            mLauncherNoticeView.setVisibility(View.GONE);
             return;
         }
 
         runOnUiThread(() -> {
             //初始化
-            mLauncherNoticeView.setVisibility(View.VISIBLE);
+            TextView noticeTitleView = view.findViewById(R.id.zh_menu_notice_title);
+            TextView noticeDateView = view.findViewById(R.id.zh_menu_notice_date);
+            WebView noticeSubstanceWebView = view.findViewById(R.id.zh_menu_notice_substance);
 
-            TextView noticeTitleView = this.mRootView.findViewById(R.id.zh_menu_notice_title);
-            TextView noticeDateView = this.mRootView.findViewById(R.id.zh_menu_notice_date);
-            WebView noticeSubstanceWebView = this.mRootView.findViewById(R.id.zh_menu_notice_substance);
-            Button noticeCloseButton = this.mRootView.findViewById(R.id.zh_menu_notice_close_button);
 
             if (!noticeInfo.getRawTitle().equals("NONE")) {
                 noticeTitleView.setText(noticeInfo.getRawTitle());
@@ -131,10 +146,6 @@ public class MainMenuFragment extends Fragment {
             PojavZHTools.getWebViewAfterProcessing(noticeSubstanceWebView);
             noticeSubstanceWebView.getSettings().setJavaScriptEnabled(true);
             noticeSubstanceWebView.loadDataWithBaseURL(null, noticeInfo.getSubstance(), "text/html", "UTF-8", null);
-            noticeCloseButton.setOnClickListener(v -> {
-                DEFAULT_PREF.edit().putInt("ignoreNotice", noticeInfo.getNumbering()).apply();
-                requireActivity().runOnUiThread(() -> mLauncherNoticeView.setVisibility(View.GONE));
-            });
         });
     }
 }
