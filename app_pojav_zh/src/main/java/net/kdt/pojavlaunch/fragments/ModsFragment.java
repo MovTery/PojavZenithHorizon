@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.ipaulpro.afilechooser.FileIcon;
 import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
@@ -83,7 +84,6 @@ public class ModsFragment extends Fragment {
 
                 FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
                 filesButton.setButtonVisibility(true, true, true, (fileName.endsWith(".jar") || fileName.endsWith(".disabled")));
-                filesButton.displayThumbnails = false;
                 filesButton.messageText = getString(R.string.zh_file_message);
                 if (fileName.endsWith(".jar"))
                     filesButton.moreButtonText = getString(R.string.zh_profile_mods_disable);
@@ -163,6 +163,7 @@ public class ModsFragment extends Fragment {
 
         view.findViewById(R.id.zh_files_create_folder_button).setVisibility(View.GONE);
         view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
+        mFileListView.setFileIcon(FileIcon.FILE);
     }
 }
 

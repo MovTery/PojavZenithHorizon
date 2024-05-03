@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.ipaulpro.afilechooser.FileIcon;
 import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
@@ -128,5 +129,6 @@ public class FileSelectorFragment extends Fragment {
 
         mSelectFolderButton.setText(getString(R.string.folder_fragment_select));
         mCreateFolderButton.setText(getString(R.string.folder_fragment_create));
+        mFileListView.setFileIcon(FileIcon.FILE);
     }
 }

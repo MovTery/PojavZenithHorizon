@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.ipaulpro.afilechooser.FileIcon;
 import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
@@ -89,7 +90,6 @@ public class ControlButtonFragment extends Fragment {
             public void onFileSelected(File file, String path) {
                 FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
                 filesButton.setButtonVisibility(true, true, true, true);
-                filesButton.displayThumbnails = false;
 
                 filesButton.messageText = getString(R.string.zh_file_message) + "\n" + getString(R.string.zh_file_message_copy);
                 filesButton.moreButtonText = getString(R.string.zh_controls_load);
@@ -186,6 +186,7 @@ public class ControlButtonFragment extends Fragment {
         mAddControlButton.setText(getString(R.string.zh_controls_create_new));
 
         view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
+        mFileListView.setFileIcon(FileIcon.CONTROL);
     }
 }
 

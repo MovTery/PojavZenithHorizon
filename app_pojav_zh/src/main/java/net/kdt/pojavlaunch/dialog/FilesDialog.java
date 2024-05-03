@@ -20,7 +20,7 @@ import net.kdt.pojavlaunch.R;
 import java.io.File;
 
 public class FilesDialog extends Dialog {
-    private final boolean mCancel, mMore, mShare, mRename, mDelete, mDisplayThumbnails;
+    private final boolean mCancel, mMore, mShare, mRename, mDelete;
     private final String mMessageText, mMoreText;
     private final FileListView mFileListView;
     private final File mFile;
@@ -37,8 +37,6 @@ public class FilesDialog extends Dialog {
         this.mRename = filesButton.rename;
         this.mDelete = filesButton.delete;
         this.mMore = filesButton.more;
-
-        this.mDisplayThumbnails = filesButton.displayThumbnails;
 
         this.mMessageText = filesButton.messageText;
         this.mMoreText = filesButton.moreButtonText;
@@ -69,11 +67,11 @@ public class FilesDialog extends Dialog {
             FilesDialog.this.dismiss();
         });
         mRenameButton.setOnClickListener(view -> {
-            renameFileListener(getContext(), mFileListView, mFile, this.mDisplayThumbnails);
+            renameFileListener(getContext(), mFileListView, mFile);
             FilesDialog.this.dismiss();
         });
         mDeleteButton.setOnClickListener(view -> {
-            deleteFileListener(getContext(), mFileListView, mFile, this.mDisplayThumbnails);
+            deleteFileListener(getContext(), mFileListView, mFile);
             FilesDialog.this.dismiss();
         });
 
@@ -91,7 +89,7 @@ public class FilesDialog extends Dialog {
     }
 
     public static class FilesButton {
-        public boolean cancel, share, rename, delete, more, displayThumbnails;
+        public boolean cancel, share, rename, delete, more;
         public String messageText, moreButtonText;
 
         public void setButtonVisibility(boolean shareButton, boolean renameButton, boolean deleteButton, boolean moreButton) {

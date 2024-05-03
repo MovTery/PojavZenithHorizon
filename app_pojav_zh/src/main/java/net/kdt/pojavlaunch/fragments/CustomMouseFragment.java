@@ -25,6 +25,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
+import com.ipaulpro.afilechooser.FileIcon;
 import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
@@ -62,7 +63,7 @@ public class CustomMouseFragment extends Fragment {
 
                             runOnUiThread(() -> {
                                 Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show();
-                                mFileListView.listFileAt(mousePath(), true);
+                                mFileListView.listFileAt(mousePath());
                             });
                         });
                     }
@@ -75,7 +76,7 @@ public class CustomMouseFragment extends Fragment {
         bindViews(view);
         initialize();
         mFileListView.lockPathAt(mousePath());
-        mFileListView.listFileAt(mousePath(), true);
+        mFileListView.listFileAt(mousePath());
         mFileListView.setShowFiles(true);
         mFileListView.setShowFolders(false);
 
@@ -90,7 +91,6 @@ public class CustomMouseFragment extends Fragment {
 
                 FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
                 filesButton.setButtonVisibility(!isDefaultMouse, !isDefaultMouse, !isDefaultMouse, isImage(file)); //默认虚拟鼠标不支持分享、重命名、删除操作
-                filesButton.displayThumbnails = true;
 
                 //如果选中的虚拟鼠标是默认的虚拟鼠标，那么将加上额外的提醒
                 String message = getString(R.string.zh_file_message);
@@ -118,7 +118,7 @@ public class CustomMouseFragment extends Fragment {
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
         mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
 
-        mRefreshButton.setOnClickListener(v -> mFileListView.listFileAt(mousePath(), true));
+        mRefreshButton.setOnClickListener(v -> mFileListView.listFileAt(mousePath()));
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
@@ -160,5 +160,6 @@ public class CustomMouseFragment extends Fragment {
         mMouseView = view.findViewById(R.id.zh_files_icon);
 
         view.findViewById(R.id.zh_files_create_folder_button).setVisibility(View.GONE);
+        mFileListView.setFileIcon(FileIcon.MOUSE);
     }
 }
