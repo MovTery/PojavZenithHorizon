@@ -82,7 +82,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:gravity="end"
-                        android:text="Date"
+                        android:text="@string/zh_unknown"
                         android:textSize="@dimen/_12sdp"
                         android:textStyle="bold"
                         tools:ignore="HardcodedText" />

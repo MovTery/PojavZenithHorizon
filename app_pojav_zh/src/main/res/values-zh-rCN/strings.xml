@@ -8,6 +8,7 @@
     <string name="zh_rename">重命名</string>
     <string name="zh_tip">提示</string>
     <string name="zh_confirm">确认</string>
+    <string name="zh_unknown">未知</string>
     <string name="zh_warning">警告</string>
     <string name="zh_wrong_tip">出现了一些问题</string>
 
@@ -53,7 +54,6 @@
     <string name="zh_keycode_special_scrollup">鼠标滚轮 - 下滑</string>
     <string name="zh_keycode_special_scrolldown">鼠标滚轮 - 上滑</string>
     <string name="zh_keycode_special_menu">主菜单</string>
-    <string name="zh_keycode_unknown">未知</string>
     <string name="zh_keycode_left_alt">左 Alt</string>
     <string name="zh_keycode_right_alt">右 Alt</string>
     <string name="zh_keycode_left_shift">左 Shift</string>
@@ -198,7 +198,6 @@
     <string name="zh_about_version_status_other_branch">其他分支</string>
     <string name="zh_about_version_status_debug">测试版</string>
     <string name="zh_about_version_status_release">正式版</string>
-    <string name="zh_about_version_status_unknown">未知</string>
 
     <string name="zh_help_control_button_title">什么是控制布局？</string>
     <string name="zh_help_control_button_message">控制布局能够在游戏中起到非常重要的作用，它会在屏幕上显示按键，用户能够通过这些按键与游戏进行交互，模拟了 Minecraft: Java Edition 中使用键盘操控游戏的这一过程。\n在控制布局管理界面内，你可以管理当前所有的控制布局，你也可以加载并修改或是自行创建一套新的控制布局，你还可以导入或分享控制布局。</string>

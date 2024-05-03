@@ -434,7 +434,7 @@ public class PojavZHTools {
                 context.getString(R.string.zh_about_version_status_debug) :
                 Objects.equals(context.getString(R.string.zh_version_status), "release") ?
                         context.getString(R.string.zh_about_version_status_release) :
-                        context.getString(R.string.zh_about_version_status_unknown);
+                        context.getString(R.string.zh_unknown);
 
         return "[" + branch + "] " + status;
     }
