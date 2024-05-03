@@ -91,7 +91,7 @@ public class PojavZHTools {
     public static String DIR_LOGIN;
     public static File FILE_CUSTOM_MOUSE;
     public static String URL_GITHUB_RELEASE = "https://api.github.com/repos/HopiHopy/PojavZH/releases/latest";
-    public static String URL_GITHUB_HOME = "https://raw.githubusercontent.com/HopiHopy/PojavZH/v3_openjdk/";
+    public static String URL_GITHUB_HOME = "https://api.github.com/repos/HopiHopy/PojavZH/contents/";
 
     private PojavZHTools() {
     }
