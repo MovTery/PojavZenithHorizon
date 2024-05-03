@@ -34,6 +34,7 @@ public class CheckNewNotice {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(PojavZHTools.URL_GITHUB_HOME + "notice.json")
+                .header("Authorization", "token " + R.string.zh_api_token)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
