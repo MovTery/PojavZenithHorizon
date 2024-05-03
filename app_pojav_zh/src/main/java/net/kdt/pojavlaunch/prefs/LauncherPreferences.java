@@ -75,6 +75,7 @@ public class LauncherPreferences {
     public static boolean PREF_ANIMATION = true;
     public static boolean PREF_QUILT_LAUNCHER = true;
     public static boolean PREF_ADVANCED_FEATURES = false;
+    public static int PREF_IGNORE_NOTICE = 0;
 
 
     public static void loadPreferences(Context ctx) {
@@ -129,6 +130,7 @@ public class LauncherPreferences {
         PREF_ANIMATION = DEFAULT_PREF.getBoolean("animation", true);
         PREF_QUILT_LAUNCHER = DEFAULT_PREF.getBoolean("quitLauncher", true);
         PREF_ADVANCED_FEATURES = DEFAULT_PREF.getBoolean("advancedFeatures", false);
+        PREF_IGNORE_NOTICE = DEFAULT_PREF.getInt("ignoreNotice", 0);
 
         String argLwjglLibname = "-Dorg.lwjgl.opengl.libname=";
         for (String arg : JREUtils.parseJavaArguments(PREF_CUSTOM_JAVA_ARGS)) {

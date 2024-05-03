@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.PojavZHTools.markdownToHtml;
+import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ADVANCED_FEATURES;
 import static net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles.getCurrentProfile;
@@ -32,6 +33,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -130,22 +132,20 @@ public class MainMenuFragment extends Fragment {
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response);
                 } else {
-                    if (response.body() == null) return;
+                    Objects.requireNonNull(response.body());
                     String responseBody = response.body().string(); //解析响应体
                     try {
                         JSONObject jsonObject = new JSONObject(responseBody);
                         int numbering = jsonObject.getInt("numbering");
-                        if (numbering <= DEFAULT_PREF.getInt("ignoreNotice", 0)) return; //忽略此通知
+                        if (!(numbering > DEFAULT_PREF.getInt("ignoreNotice", 0))) return; //忽略此通知
 
-                        View launcherNoticeView = view.findViewById(R.id.zh_menu_notice);
-                        requireActivity().runOnUiThread(() -> launcherNoticeView.setVisibility(View.VISIBLE));
-
+                        //获取通知消息
                         String language = PojavZHTools.getDefaultLanguage();
                         String rawTitle;
                         String rawSubstance;
                         if (language.equals("zh_cn")) {
-                            rawTitle = jsonObject.getString("title_" + language);
-                            rawSubstance = jsonObject.getString("substance_" + language);
+                            rawTitle = jsonObject.getString("title_zh_cn");
+                            rawSubstance = jsonObject.getString("substance_zh_cn");
                         } else {
                             rawTitle = jsonObject.getString("title_zh_tw");
                             rawSubstance = jsonObject.getString("substance_zh_tw");
@@ -153,14 +153,17 @@ public class MainMenuFragment extends Fragment {
                         String rawDate = jsonObject.getString("date");
                         String substance = markdownToHtml(rawSubstance);
 
-                        requireActivity().runOnUiThread(() -> {
+                        runOnUiThread(() -> {
                             //初始化
+                            View launcherNoticeView = view.findViewById(R.id.zh_menu_notice);
+                            launcherNoticeView.setVisibility(View.VISIBLE);
+
                             TextView noticeTitleView = view.findViewById(R.id.zh_menu_notice_title);
                             TextView noticeDateView = view.findViewById(R.id.zh_menu_notice_date);
                             WebView noticeSubstanceWebView = view.findViewById(R.id.zh_menu_notice_substance);
                             Button noticeCloseButton = view.findViewById(R.id.zh_menu_notice_close_button);
 
-                            if (!rawTitle.equals("null")) {
+                            if (!rawTitle.equals("NONE")) {
                                 noticeTitleView.setText(rawTitle);
                             }
 
@@ -168,7 +171,7 @@ public class MainMenuFragment extends Fragment {
                             PojavZHTools.getWebViewAfterProcessing(noticeSubstanceWebView);
                             noticeSubstanceWebView.getSettings().setJavaScriptEnabled(true);
                             noticeSubstanceWebView.loadDataWithBaseURL(null, substance, "text/html", "UTF-8", null);
-                            noticeCloseButton.setOnClickListener(view1 -> {
+                            noticeCloseButton.setOnClickListener(v -> {
                                 DEFAULT_PREF.edit().putInt("ignoreNotice", numbering).apply();
                                 requireActivity().runOnUiThread(() -> launcherNoticeView.setVisibility(View.GONE));
                             });
