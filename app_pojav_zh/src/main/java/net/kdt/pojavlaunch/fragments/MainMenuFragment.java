@@ -92,7 +92,6 @@ public class MainMenuFragment extends Fragment {
 
     private void initNotice(View view) {
         ImageButton mNoticeSummonButton = view.findViewById(R.id.zh_menu_notice_summon_button);
-        Button mNoticeRefreshButton = view.findViewById(R.id.zh_menu_notice_refresh_button);
         Button mNoticeCloseButton = view.findViewById(R.id.zh_menu_notice_close_button);
 
         View mLauncherNoticeView = view.findViewById(R.id.zh_menu_notice);
@@ -102,8 +101,6 @@ public class MainMenuFragment extends Fragment {
             mNoticeSummonButton.setVisibility(View.GONE);
             checkNewNotice(view);
         });
-
-        mNoticeRefreshButton.setOnClickListener(v -> checkNewNotice(view, true));
 
         mNoticeCloseButton.setOnClickListener(v -> {
             mLauncherNoticeView.setVisibility(View.GONE);
@@ -124,16 +121,11 @@ public class MainMenuFragment extends Fragment {
             Toast.makeText(requireContext(), R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
     }
 
-    private void checkNewNotice(View view) {
-        checkNewNotice(view, false);
-    }
-
     @SuppressLint("SetJavaScriptEnabled")
-    private void checkNewNotice(View view, boolean forceRefresh) {
-        CheckNewNotice.checkNewNotice();
+    private void checkNewNotice(View view) {
         CheckNewNotice.NoticeInfo noticeInfo = CheckNewNotice.getNoticeInfo();
 
-        if (noticeInfo == null || (forceRefresh ? false : CheckNewNotice.isIsChecked())) {
+        if (noticeInfo == null || CheckNewNotice.isIsChecked()) {
             return;
         }
 

@@ -91,18 +91,6 @@
             </ScrollView>
 
             <Button
-                android:id="@+id/zh_menu_notice_refresh_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/zh_refresh"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/zh_menu_notice_close_button"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <Button
                 android:id="@+id/zh_menu_notice_close_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -112,7 +100,7 @@
                 android:text="@string/zh_help_ok"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/zh_menu_notice_refresh_button" />
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
