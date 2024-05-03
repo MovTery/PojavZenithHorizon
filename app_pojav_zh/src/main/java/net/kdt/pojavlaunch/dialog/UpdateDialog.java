@@ -9,14 +9,13 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDelegate;
 
+import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.UpdateLauncher;
 
@@ -56,37 +55,7 @@ public class UpdateDialog extends Dialog {
 
         String descriptionHtml = markdownToHtml(this.description);
 
-        mDescription.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-
-                String[] color = new String[2];
-                boolean darkMode = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
-                color[0] = darkMode ? "#333333" : "#CFCFCF";
-                color[1] = darkMode ? "#ffffff" : "#0E0E0E";
-
-                String css = "body { background-color: " + color[0] + "; color: " + color[1] + "; }" +
-                        "a, a:link, a:visited, a:hover, a:active {" +
-                        "  color: " + color[1] + ";" +
-                        "  text-decoration: none;" +
-                        "  pointer-events: none;" + //禁止链接的交互性
-                        "}";
-
-                //JavaScript代码，用于将CSS样式添加到WebView中
-                String js = "var parent = document.getElementsByTagName('head').item(0);" +
-                        "var style = document.createElement('style');" +
-                        "style.type = 'text/css';" +
-                        "if (style.styleSheet){" +
-                        "  style.styleSheet.cssText = '" + css.replace("'", "\\'") + "';" +
-                        "} else {" +
-                        "  style.appendChild(document.createTextNode('" + css.replace("'", "\\'") + "'));" +
-                        "}" +
-                        "parent.appendChild(style);";
-
-                mDescription.evaluateJavascript(js, null);
-            }
-        });
+        PojavZHTools.getWebViewAfterProcessing(mDescription);
 
         mDescription.getSettings().setJavaScriptEnabled(true);
         mDescription.loadDataWithBaseURL(null, descriptionHtml, "text/html", "UTF-8", null);
