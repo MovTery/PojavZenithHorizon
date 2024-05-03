@@ -103,7 +103,7 @@ public class MainMenuFragment extends Fragment {
             checkNewNotice(view);
         });
 
-        mNoticeRefreshButton.setOnClickListener(v -> checkNewNotice(view));
+        mNoticeRefreshButton.setOnClickListener(v -> checkNewNotice(view, true));
 
         mNoticeCloseButton.setOnClickListener(v -> {
             mLauncherNoticeView.setVisibility(View.GONE);
@@ -124,10 +124,16 @@ public class MainMenuFragment extends Fragment {
             Toast.makeText(requireContext(), R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
     private void checkNewNotice(View view) {
-        CheckNewNotice.NoticeInfo noticeInfo = CheckNewNotice.checkNewNotice();
-        if (noticeInfo == null) {
+        checkNewNotice(view, false);
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private void checkNewNotice(View view, boolean forceRefresh) {
+        CheckNewNotice.checkNewNotice();
+        CheckNewNotice.NoticeInfo noticeInfo = CheckNewNotice.getNoticeInfo();
+
+        if (noticeInfo == null || (forceRefresh ? false : CheckNewNotice.isIsChecked())) {
             return;
         }
 

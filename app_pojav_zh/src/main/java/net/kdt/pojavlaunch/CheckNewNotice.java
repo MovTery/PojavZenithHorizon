@@ -22,9 +22,15 @@ public class CheckNewNotice {
     private static boolean isChecked = false;
     private static NoticeInfo noticeInfo = null;
 
-    public static NoticeInfo checkNewNotice() {
-        if (isChecked) return noticeInfo; //如果已经检查过了，那么直接返回这个对象
+    public static boolean isIsChecked() {
+        return isChecked;
+    }
 
+    public static NoticeInfo getNoticeInfo() {
+        return noticeInfo;
+    }
+
+    public static void checkNewNotice() {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(PojavZHTools.URL_GITHUB_HOME + "notice.json")
@@ -76,7 +82,6 @@ public class CheckNewNotice {
         });
 
         isChecked = true;
-        return noticeInfo;
     }
 
     public static class NoticeInfo {

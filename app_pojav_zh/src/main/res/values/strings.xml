@@ -12,6 +12,7 @@
     <string name="zh_rename">Rename</string>
     <string name="zh_tip">Tip</string>
     <string name="zh_confirm">Confirm</string>
+    <string name="zh_unknown">Unknown</string>
     <string name="zh_warning">Warning</string>
     <string name="zh_wrong_tip">Something went wrong</string>
 
@@ -57,7 +58,6 @@
     <string name="zh_keycode_special_scrollup">Mouse Wheel - Scroll Up</string>
     <string name="zh_keycode_special_scrolldown">Mouse Wheel - Scroll Down</string>
     <string name="zh_keycode_special_menu">Main Menu</string>
-    <string name="zh_keycode_unknown">Unknown</string>
     <string name="zh_keycode_left_alt">Left Alt</string>
     <string name="zh_keycode_right_alt">Right Alt</string>
     <string name="zh_keycode_left_shift">Left Shift</string>
@@ -204,7 +204,6 @@
     <string name="zh_about_version_status_other_branch">Other Branch</string>
     <string name="zh_about_version_status_debug">Debug</string>
     <string name="zh_about_version_status_release">Release</string>
-    <string name="zh_about_version_status_unknown">Unknown</string>
 
     <string name="zh_help_control_button_title">What is Control Layout?</string>
     <string name="zh_help_control_button_message">Control Layout plays a vital role in the game by displaying buttons on the screen, which allows users to interact with the game. This simulates the process of using a keyboard to control the game in Minecraft: Java Edition. In the Control Layout Management interface, you can manage all the current control layouts, load and modify or create a new set of control layouts, import, or share control layouts.</string>

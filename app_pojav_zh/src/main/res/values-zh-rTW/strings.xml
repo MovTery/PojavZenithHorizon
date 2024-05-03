@@ -8,6 +8,7 @@
     <string name="zh_rename">重新命名</string>
     <string name="zh_tip">提示</string>
     <string name="zh_confirm">確認</string>
+    <string name="zh_unknown">未知</string>
     <string name="zh_warning">警告</string>
     <string name="zh_wrong_tip">出現了一些問題</string>
 
@@ -53,7 +54,6 @@
     <string name="zh_keycode_special_scrollup">滑鼠滾輪 - 上滑</string>
     <string name="zh_keycode_special_scrolldown">滑鼠滾輪 - 下滑</string>
     <string name="zh_keycode_special_menu">主選單</string>
-    <string name="zh_keycode_unknown">未知</string>
     <string name="zh_keycode_left_alt">左 Alt</string>
     <string name="zh_keycode_right_alt">右 Alt</string>
     <string name="zh_keycode_left_shift">左 Shift</string>
@@ -198,7 +198,6 @@
     <string name="zh_about_version_status_other_branch">其他分支</string>
     <string name="zh_about_version_status_debug">測試版</string>
     <string name="zh_about_version_status_release">正式版</string>
-    <string name="zh_about_version_status_unknown">未知</string>
 
     <string name="zh_help_control_button_title">什麼是控制佈局？</string>
     <string name="zh_help_control_button_message">控制佈局在遊戲中扮演極為重要的角色，它可以顯示出按鈕，玩家可以透過這些按鈕與遊戲進行互動，就像在Minecraft: Java Edition中使用鍵盤控制遊戲一樣。\n在控制佈局管理介面中，你可以管理當前所有控制佈局，也可以載入、修改或自行創建一套新的控制佈局，此外還可以導入或分享控制佈局。</string>
