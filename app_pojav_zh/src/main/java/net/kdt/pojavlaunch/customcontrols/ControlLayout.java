@@ -21,6 +21,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 
 import com.google.gson.JsonSyntaxException;
+import com.ipaulpro.afilechooser.FileIcon;
 import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
@@ -541,7 +542,7 @@ public class ControlLayout extends FrameLayout {
 		builder.setPositiveButton(android.R.string.cancel, null);
 
 		final AlertDialog dialog = builder.create();
-		FileListView flv = new FileListView(dialog, "json");
+		FileListView flv = new FileListView(dialog, FileIcon.CONTROL, "json");
 		if(Build.VERSION.SDK_INT < 29)flv.listFileAt(new File(Tools.CTRLMAP_PATH));
 		else flv.lockPathAt(new File(Tools.CTRLMAP_PATH));
 		flv.setFileSelectedListener(new FileSelectedListener(){
@@ -570,7 +571,7 @@ public class ControlLayout extends FrameLayout {
 		builder.setPositiveButton(android.R.string.cancel, null);
 
 		final AlertDialog dialog = builder.create();
-		FileListView flv = new FileListView(dialog, "json");
+		FileListView flv = new FileListView(dialog, FileIcon.CONTROL, "json");
 		flv.lockPathAt(new File(Tools.CTRLMAP_PATH));
 		flv.setFileSelectedListener(new FileSelectedListener(){
 
