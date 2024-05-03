@@ -38,8 +38,8 @@ public class FileListView extends LinearLayout
         this.fileIcon = fileIcon;
     }
 
-    public FileListView(AlertDialog build, FileIcon fileIcon) {
-        this(build.getContext(), fileIcon, null, new String[0]);
+    public FileListView(AlertDialog build) {
+        this(build.getContext(), null, null, new String[0]);
         dialogToTitleListener(build);
     }
 
@@ -53,12 +53,12 @@ public class FileListView extends LinearLayout
         dialogToTitleListener(build);
     }
 
-    public FileListView(Context context, FileIcon fileIcon){
-        this(context, fileIcon, null);
+    public FileListView(Context context){
+        this(context, null);
     }
 
-    public FileListView(Context context, FileIcon fileIcon, AttributeSet attrs){
-        this(context, fileIcon, attrs, new String[0]);
+    public FileListView(Context context, AttributeSet attrs){
+        this(context, null, attrs, new String[0]);
     }
 
     public FileListView(Context context, FileIcon fileIcon, AttributeSet attrs, String[] fileSuffixes) {
