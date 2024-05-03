@@ -1,6 +1,5 @@
 package net.kdt.pojavlaunch.fragments;
 
-import static net.kdt.pojavlaunch.PojavZHTools.markdownToHtml;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ADVANCED_FEATURES;
@@ -21,6 +20,8 @@ import androidx.fragment.app.Fragment;
 
 import com.kdt.mcgui.mcVersionSpinner;
 
+import net.kdt.pojavlaunch.CheckNewNotice;
+import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -29,22 +30,13 @@ import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 
-import org.json.JSONObject;
-
 import java.io.File;
-import java.io.IOException;
-import java.util.Objects;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class MainMenuFragment extends Fragment {
     public static final String TAG = "MainMenuFragment";
 
     private mcVersionSpinner mVersionSpinner;
+    private View mLauncherNoticeView;
 
     public MainMenuFragment() {
         super(R.layout.fragment_launcher);
@@ -62,6 +54,7 @@ public class MainMenuFragment extends Fragment {
         ImageButton mEditProfileButton = view.findViewById(R.id.edit_profile_button);
         Button mPlayButton = view.findViewById(R.id.play_button);
         mVersionSpinner = view.findViewById(R.id.mc_version_spinner);
+        mLauncherNoticeView = view.findViewById(R.id.zh_menu_notice);
 
         mAboutButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), AboutFragment.class, AboutFragment.TAG, null));
         mCustomControlButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ControlButtonFragment.class, ControlButtonFragment.TAG, null));
@@ -114,72 +107,37 @@ public class MainMenuFragment extends Fragment {
             Toast.makeText(requireContext(), R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void checkNewNotice(View view) {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(PojavZHTools.URL_GITHUB_HOME + "notice.json")
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-
-            @Override
-            public void onFailure(Call call, IOException e) {
+        PojavApplication.sExecutorService.execute(() -> {
+            CheckNewNotice.NoticeInfo noticeInfo = CheckNewNotice.checkNewNotice();
+            if (noticeInfo == null) {
+                mLauncherNoticeView.setVisibility(View.GONE);
+                return;
             }
 
-            @SuppressLint("SetJavaScriptEnabled")
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
-                } else {
-                    Objects.requireNonNull(response.body());
-                    String responseBody = response.body().string(); //解析响应体
-                    try {
-                        JSONObject jsonObject = new JSONObject(responseBody);
-                        int numbering = jsonObject.getInt("numbering");
-                        if (!(numbering > DEFAULT_PREF.getInt("ignoreNotice", 0))) return; //忽略此通知
+            runOnUiThread(() -> {
+                //初始化
+                mLauncherNoticeView.setVisibility(View.VISIBLE);
 
-                        //获取通知消息
-                        String language = PojavZHTools.getDefaultLanguage();
-                        String rawTitle;
-                        String rawSubstance;
-                        if (language.equals("zh_cn")) {
-                            rawTitle = jsonObject.getString("title_zh_cn");
-                            rawSubstance = jsonObject.getString("substance_zh_cn");
-                        } else {
-                            rawTitle = jsonObject.getString("title_zh_tw");
-                            rawSubstance = jsonObject.getString("substance_zh_tw");
-                        }
-                        String rawDate = jsonObject.getString("date");
-                        String substance = markdownToHtml(rawSubstance);
+                TextView noticeTitleView = view.findViewById(R.id.zh_menu_notice_title);
+                TextView noticeDateView = view.findViewById(R.id.zh_menu_notice_date);
+                WebView noticeSubstanceWebView = view.findViewById(R.id.zh_menu_notice_substance);
+                Button noticeCloseButton = view.findViewById(R.id.zh_menu_notice_close_button);
 
-                        runOnUiThread(() -> {
-                            //初始化
-                            View launcherNoticeView = view.findViewById(R.id.zh_menu_notice);
-                            launcherNoticeView.setVisibility(View.VISIBLE);
-
-                            TextView noticeTitleView = view.findViewById(R.id.zh_menu_notice_title);
-                            TextView noticeDateView = view.findViewById(R.id.zh_menu_notice_date);
-                            WebView noticeSubstanceWebView = view.findViewById(R.id.zh_menu_notice_substance);
-                            Button noticeCloseButton = view.findViewById(R.id.zh_menu_notice_close_button);
-
-                            if (!rawTitle.equals("NONE")) {
-                                noticeTitleView.setText(rawTitle);
-                            }
-
-                            noticeDateView.setText(rawDate);
-                            PojavZHTools.getWebViewAfterProcessing(noticeSubstanceWebView);
-                            noticeSubstanceWebView.getSettings().setJavaScriptEnabled(true);
-                            noticeSubstanceWebView.loadDataWithBaseURL(null, substance, "text/html", "UTF-8", null);
-                            noticeCloseButton.setOnClickListener(v -> {
-                                DEFAULT_PREF.edit().putInt("ignoreNotice", numbering).apply();
-                                requireActivity().runOnUiThread(() -> launcherNoticeView.setVisibility(View.GONE));
-                            });
-                        });
-                    } catch (Exception ignored) {
-                    }
+                if (!noticeInfo.getRawTitle().equals("NONE")) {
+                    noticeTitleView.setText(noticeInfo.getRawTitle());
                 }
-            }
+
+                noticeDateView.setText(noticeInfo.getRawDate());
+                PojavZHTools.getWebViewAfterProcessing(noticeSubstanceWebView);
+                noticeSubstanceWebView.getSettings().setJavaScriptEnabled(true);
+                noticeSubstanceWebView.loadDataWithBaseURL(null, noticeInfo.getSubstance(), "text/html", "UTF-8", null);
+                noticeCloseButton.setOnClickListener(v -> {
+                    DEFAULT_PREF.edit().putInt("ignoreNotice", noticeInfo.getNumbering()).apply();
+                    requireActivity().runOnUiThread(() -> mLauncherNoticeView.setVisibility(View.GONE));
+                });
+            });
         });
     }
 }
