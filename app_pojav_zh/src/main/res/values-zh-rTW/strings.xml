@@ -109,6 +109,7 @@
     <string name="zh_main_open_instance_dir">開啟實例目錄</string>
     <string name="zh_main_share_crash_report">分享崩潰報告</string>
     <string name="zh_main_share_log_tip">你確定要分享啟動器的執行日誌嗎？\n日誌文件位置：</string>
+    <string name="zh_main_notice_title">通知欄</string>
     <string name="zh_game_autopick_runtime_failed">未找到合適的執行環境，已設定為當前實例選擇的執行環境</string>
     <string name="zh_game_tip">遊戲正在執行中，可以透過選單開啟日誌輸出，查看遊戲執行狀況</string>
     <string name="zh_game_tip_version">當前啟動的遊戲版本：</string>

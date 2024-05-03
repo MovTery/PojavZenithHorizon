@@ -23,12 +23,15 @@ import android.provider.DocumentsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -88,6 +91,7 @@ public class PojavZHTools {
     public static String DIR_LOGIN;
     public static File FILE_CUSTOM_MOUSE;
     public static String URL_GITHUB_RELEASE = "https://api.github.com/repos/HopiHopy/PojavZH/releases/latest";
+    public static String URL_GITHUB_HOME = "https://raw.githubusercontent.com/HopiHopy/PojavZH/v3_openjdk/";
 
     private PojavZHTools() {
     }
@@ -372,7 +376,7 @@ public class PojavZHTools {
         });
     }
 
-        public static String formattingTime(String time) {
+    public static String formattingTime(String time) {
         int T = time.indexOf('T');
         int Z = time.indexOf('Z');
         if (T == -1 || Z == -1) return time;
@@ -586,10 +590,57 @@ public class PojavZHTools {
         return false;
     }
 
+    public static String getDefaultLanguage() {
+        String country = Locale.getDefault().getCountry();
+        switch (country) {
+            case "HK":
+                return "zh_hk";
+            case "TW":
+                return "zh_tw";
+            case "CN":
+            default:
+                return "zh_cn";
+        }
+    }
+
     public static String markdownToHtml(String markdown) {
         Parser parser = Parser.builder().build();
         Node document = parser.parse(markdown);
         HtmlRenderer renderer = HtmlRenderer.builder().build();
         return renderer.render(document);
+    }
+
+    public static void getWebViewAfterProcessing(WebView view) {
+        view.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+
+                String[] color = new String[2];
+                boolean darkMode = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
+                color[0] = darkMode ? "#333333" : "#CFCFCF";
+                color[1] = darkMode ? "#ffffff" : "#0E0E0E";
+
+                String css = "body { background-color: " + color[0] + "; color: " + color[1] + "; }" +
+                        "a, a:link, a:visited, a:hover, a:active {" +
+                        "  color: " + color[1] + ";" +
+                        "  text-decoration: none;" +
+                        "  pointer-events: none;" + //禁止链接的交互性
+                        "}";
+
+                //JavaScript代码，用于将CSS样式添加到WebView中
+                String js = "var parent = document.getElementsByTagName('head').item(0);" +
+                        "var style = document.createElement('style');" +
+                        "style.type = 'text/css';" +
+                        "if (style.styleSheet){" +
+                        "  style.styleSheet.cssText = '" + css.replace("'", "\\'") + "';" +
+                        "} else {" +
+                        "  style.appendChild(document.createTextNode('" + css.replace("'", "\\'") + "'));" +
+                        "}" +
+                        "parent.appendChild(style);";
+
+                view.evaluateJavascript(js, null);
+            }
+        });
     }
 }

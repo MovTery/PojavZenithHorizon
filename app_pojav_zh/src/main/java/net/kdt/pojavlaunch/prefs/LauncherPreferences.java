@@ -15,8 +15,6 @@ import net.kdt.pojavlaunch.*;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 import net.kdt.pojavlaunch.utils.JREUtils;
 
-import java.util.Locale;
-
 public class LauncherPreferences {
     public static final String PREF_KEY_CURRENT_PROFILE = "currentProfile";
     public static final String PREF_KEY_SKIP_NOTIFICATION_CHECK = "skipNotificationPermissionCheck";
@@ -71,7 +69,7 @@ public class LauncherPreferences {
     public static boolean PREF_SKIP_NOTIFICATION_PERMISSION_CHECK = false;
     public static boolean PREF_VSYNC_IN_ZINK = true;
     public static boolean PREF_SET_TO_CHINESE = true;
-    public static String PREF_SWITCH_TO_CHINESE_LANGUAGE = getDefaultLanguage();
+    public static String PREF_SWITCH_TO_CHINESE_LANGUAGE = PojavZHTools.getDefaultLanguage();
     public static String PREF_LAUNCHER_THEME = "system";
     public static boolean PREF_ENABLE_LOG_OUTPUT = false;
     public static boolean PREF_ANIMATION = true;
@@ -125,7 +123,7 @@ public class LauncherPreferences {
         PREF_SKIP_NOTIFICATION_PERMISSION_CHECK = DEFAULT_PREF.getBoolean(PREF_KEY_SKIP_NOTIFICATION_CHECK, false);
         PREF_VSYNC_IN_ZINK = DEFAULT_PREF.getBoolean("vsync_in_zink", true);
         PREF_SET_TO_CHINESE = DEFAULT_PREF.getBoolean("setToChinese", true);
-        PREF_SWITCH_TO_CHINESE_LANGUAGE = DEFAULT_PREF.getString("switchToChineseLanguage", getDefaultLanguage());
+        PREF_SWITCH_TO_CHINESE_LANGUAGE = DEFAULT_PREF.getString("switchToChineseLanguage", PojavZHTools.getDefaultLanguage());
         PREF_LAUNCHER_THEME = DEFAULT_PREF.getString("launcherTheme", "system");
         PREF_ENABLE_LOG_OUTPUT = DEFAULT_PREF.getBoolean("enableLogOutput", false);
         PREF_ANIMATION = DEFAULT_PREF.getBoolean("animation", true);
@@ -194,15 +192,5 @@ public class LauncherPreferences {
             LauncherPreferences.PREF_NOTCH_SIZE = -1;
         }
         Tools.updateWindowSize(activity);
-    }
-
-    public static String getDefaultLanguage() {
-        String country = Locale.getDefault().getCountry();
-        switch (country) {
-            case "HK": return "zh_hk";
-            case "TW": return "zh_tw";
-            case "CN":
-            default: return "zh_cn";
-        }
     }
 }

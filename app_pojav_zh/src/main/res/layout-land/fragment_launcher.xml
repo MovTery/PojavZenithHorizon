@@ -21,68 +21,164 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_weight="7">
 
-        <ScrollView
-            android:layout_width="match_parent"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/launcher_menu"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintEnd_toStartOf="@+id/zh_menu_notice"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_weight="1" >
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_weight="1" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.kdt.mcgui.LauncherMenuButton
+                        android:id="@+id/about_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/background_line"
+                        android:drawableStart="@drawable/ic_about"
+                        android:text="@string/zh_about_tab"
+                        android:textColor="@color/primary_text"/>
+
+                    <com.kdt.mcgui.LauncherMenuButton
+                        android:id="@+id/custom_control_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/background_line"
+                        android:drawableStart="@drawable/ic_menu_custom_controls"
+                        android:text="@string/zh_custom_control_title"
+                        android:textColor="@color/primary_text"/>
+
+                    <com.kdt.mcgui.LauncherMenuButton
+                        android:id="@+id/install_jar_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/background_line"
+                        android:drawableStart="@drawable/ic_java"
+                        android:text="@string/main_install_jar_file"
+                        android:textColor="@color/primary_text"/>
+
+                    <com.kdt.mcgui.LauncherMenuButton
+                        android:id="@+id/share_logs_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/background_line"
+                        android:drawableStart="@android:drawable/ic_menu_share"
+                        android:text="@string/main_share_logs"
+                        android:textColor="@color/primary_text"/>
+                </LinearLayout>
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/zh_menu_notice"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone"
+            android:background="@drawable/background_card"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/launcher_menu"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_weight="1" >
+
+            <TextView
+                android:id="@+id/zh_menu_notice_title"
+                style="@style/TextAppearance.AppCompat.Title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginTop="8dp"
+                android:gravity="center_horizontal"
+                android:text="@string/zh_main_notice_title"
+                android:textColor="@color/primary_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <com.kdt.mcgui.LauncherMenuButton
-                    android:id="@+id/about_button"
+            <ScrollView
+                android:id="@+id/zh_menu_notice_view_substance"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/zh_menu_notice_close_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/zh_menu_notice_title">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/background_line"
-                    android:drawableStart="@drawable/ic_about"
-                    android:text="@string/zh_about_tab"
-                    android:textColor="@color/primary_text"/>
+                    android:orientation="vertical">
 
-                <com.kdt.mcgui.LauncherMenuButton
-                    android:id="@+id/custom_control_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/background_line"
-                    android:drawableStart="@drawable/ic_menu_custom_controls"
-                    android:text="@string/zh_custom_control_title"
-                    android:textColor="@color/primary_text"/>
+                    <WebView
+                        android:id="@+id/zh_menu_notice_substance"
+                        android:singleLine="true"
+                        android:layout_marginTop="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        tools:ignore="WebViewLayout" />
 
-                <com.kdt.mcgui.LauncherMenuButton
-                    android:id="@+id/install_jar_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/background_line"
-                    android:drawableStart="@drawable/ic_java"
-                    android:text="@string/main_install_jar_file"
-                    android:textColor="@color/primary_text"/>
+                    <TextView
+                        android:id="@+id/zh_menu_notice_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Date"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold"
+                        android:gravity="end"
+                        tools:ignore="HardcodedText" />
+                </LinearLayout>
 
-                <com.kdt.mcgui.LauncherMenuButton
-                    android:id="@+id/share_logs_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/background_line"
-                    android:drawableStart="@android:drawable/ic_menu_share"
-                    android:text="@string/main_share_logs"
-                    android:textColor="@color/primary_text"/>
-            </LinearLayout>
-        </ScrollView>
+            </ScrollView>
+
+            <Button
+                android:id="@+id/zh_menu_notice_close_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/zh_help_ok"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
