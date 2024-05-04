@@ -119,6 +119,7 @@ public class MainMenuFragment extends Fragment {
             mNoticeSummonButton.setVisibility(View.GONE);
             mLauncherNoticeView.setVisibility(View.VISIBLE);
             checkNewNotice(view);
+            DEFAULT_PREF.edit().putBoolean("noticeDefault", true).apply();
             if (noticeInfo != null) DEFAULT_PREF.edit().putInt("numbering", noticeInfo.getNumbering()).apply();
         }
     }
