@@ -93,7 +93,6 @@ public class PojavZHTools {
     public static String URL_GITHUB_RELEASE = "https://api.github.com/repos/HopiHopy/PojavZH/releases/latest";
     public static String URL_GITHUB_HOME = "https://api.github.com/repos/HopiHopy/PojavZH/contents/";
     public static long LAST_UPDATE_CHECK_TIME = 0;
-    public static long LAST_NOTICE_CHECK_TIME = 0;
 
     private PojavZHTools() {
     }
@@ -286,7 +285,7 @@ public class PojavZHTools {
         renameBuilder.setTitle(context.getString(R.string.zh_rename));
         renameBuilder.setView(itemView);
         renameBuilder.setPositiveButton(context.getString(R.string.zh_rename), (dialog1, which1) -> {
-            String newName = input.getText().toString();
+            String newName = input.getText().toString().replace("/", "");
             if (!newName.isEmpty()) {
                 File newFile = new File(fileParent, newName + suffix);
                 boolean renamed = file.renameTo(newFile);

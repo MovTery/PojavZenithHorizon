@@ -73,10 +73,10 @@ public class FileSelectorFragment extends Fragment {
                     .setView(itemView)
                     .setNegativeButton(android.R.string.cancel, null)
                     .setPositiveButton(R.string.folder_dialog_create, (dialog, which) -> {
-                        File folder = new File(mFileListView.getFullPath(), editText.getText().toString());
+                        File folder = new File(mFileListView.getFullPath(), editText.getText().toString().replace("/", ""));
                         boolean success = folder.mkdir();
                         if (success) {
-                            mFileListView.listFileAt(new File(mFileListView.getFullPath(), editText.getText().toString()));
+                            mFileListView.listFileAt(new File(mFileListView.getFullPath(), editText.getText().toString().replace("/", "")));
                         } else {
                             mFileListView.refreshPath();
                         }
