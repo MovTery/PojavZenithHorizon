@@ -130,7 +130,7 @@ public class ControlButtonFragment extends Fragment {
                     .setView(itemView)
                     .setNegativeButton(android.R.string.cancel, null)
                     .setPositiveButton(R.string.zh_create, (dialog, which) -> {
-                        File file = new File(mFileListView.getFullPath().getAbsolutePath(), editText.getText().toString() + ".json");
+                        File file = new File(mFileListView.getFullPath().getAbsolutePath(), editText.getText().toString().replace("/", "") + ".json");
                         if (!file.exists()) {
                             boolean success;
                             try {
