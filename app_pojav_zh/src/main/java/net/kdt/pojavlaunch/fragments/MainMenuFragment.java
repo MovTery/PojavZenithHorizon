@@ -34,6 +34,7 @@ public class MainMenuFragment extends Fragment {
     public static final String TAG = "MainMenuFragment";
 
     private mcVersionSpinner mVersionSpinner;
+    private boolean isNoticeChecked = false;
 
     public MainMenuFragment() {
         super(R.layout.fragment_launcher);
@@ -125,7 +126,7 @@ public class MainMenuFragment extends Fragment {
     private void checkNewNotice(View view) {
         CheckNewNotice.NoticeInfo noticeInfo = CheckNewNotice.getNoticeInfo();
 
-        if (noticeInfo == null) {
+        if (noticeInfo == null || isNoticeChecked) {
             return;
         }
 
@@ -145,5 +146,7 @@ public class MainMenuFragment extends Fragment {
             noticeSubstanceWebView.getSettings().setJavaScriptEnabled(true);
             noticeSubstanceWebView.loadDataWithBaseURL(null, noticeInfo.getSubstance(), "text/html", "UTF-8", null);
         });
+
+        isNoticeChecked = true;
     }
 }
