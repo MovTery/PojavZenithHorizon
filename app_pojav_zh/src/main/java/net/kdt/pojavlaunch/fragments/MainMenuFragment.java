@@ -33,7 +33,7 @@ import java.io.File;
 
 public class MainMenuFragment extends Fragment {
     public static final String TAG = "MainMenuFragment";
-    private final CheckNewNotice.NoticeInfo noticeInfo = CheckNewNotice.getNoticeInfo();
+    private CheckNewNotice.NoticeInfo noticeInfo;
     private mcVersionSpinner mVersionSpinner;
 
     public MainMenuFragment() {
@@ -92,6 +92,8 @@ public class MainMenuFragment extends Fragment {
     }
 
     private void initNotice(View view) {
+        noticeInfo = CheckNewNotice.getNoticeInfo();
+
         ImageButton mNoticeSummonButton = view.findViewById(R.id.zh_menu_notice_summon_button);
         Button mNoticeCloseButton = view.findViewById(R.id.zh_menu_notice_close_button);
 
@@ -114,8 +116,8 @@ public class MainMenuFragment extends Fragment {
         if (DEFAULT_PREF.getBoolean("noticeDefault", false) ||
                 (noticeInfo != null &&
                         noticeInfo.getNumbering() != DEFAULT_PREF.getInt("numbering", 0))) {
-            mNoticeSummonButton.setVisibility(View.VISIBLE);
-            mLauncherNoticeView.setVisibility(View.GONE);
+            mNoticeSummonButton.setVisibility(View.GONE);
+            mLauncherNoticeView.setVisibility(View.VISIBLE);
             checkNewNotice(view);
             if (noticeInfo != null) DEFAULT_PREF.edit().putInt("numbering", noticeInfo.getNumbering()).apply();
         }
