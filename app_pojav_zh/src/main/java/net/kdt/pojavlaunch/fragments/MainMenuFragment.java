@@ -112,6 +112,7 @@ public class MainMenuFragment extends Fragment {
 
         mNoticeSummonButton.setVisibility(DEFAULT_PREF.getBoolean("noticeDefault", false) ? View.GONE : View.VISIBLE);
         mLauncherNoticeView.setVisibility(DEFAULT_PREF.getBoolean("noticeDefault", false) ? View.VISIBLE : View.GONE);
+        if (DEFAULT_PREF.getBoolean("noticeDefault", false)) checkNewNotice(view);
     }
 
     @Override
