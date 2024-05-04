@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ADVANCED_FEATURES;
 import static net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles.getCurrentProfile;
 
@@ -34,7 +35,6 @@ public class MainMenuFragment extends Fragment {
     public static final String TAG = "MainMenuFragment";
 
     private mcVersionSpinner mVersionSpinner;
-    private boolean isNoticeChecked = false;
 
     public MainMenuFragment() {
         super(R.layout.fragment_launcher);
@@ -98,15 +98,20 @@ public class MainMenuFragment extends Fragment {
         View mLauncherNoticeView = view.findViewById(R.id.zh_menu_notice);
 
         mNoticeSummonButton.setOnClickListener(v -> {
+            DEFAULT_PREF.edit().putBoolean("noticeDefault", true).apply();
             mLauncherNoticeView.setVisibility(View.VISIBLE);
             mNoticeSummonButton.setVisibility(View.GONE);
             checkNewNotice(view);
         });
 
         mNoticeCloseButton.setOnClickListener(v -> {
+            DEFAULT_PREF.edit().putBoolean("noticeDefault", false).apply();
             mLauncherNoticeView.setVisibility(View.GONE);
             mNoticeSummonButton.setVisibility(View.VISIBLE);
         });
+
+        mNoticeSummonButton.setVisibility(DEFAULT_PREF.getBoolean("noticeDefault", false) ? View.GONE : View.VISIBLE);
+        mLauncherNoticeView.setVisibility(DEFAULT_PREF.getBoolean("noticeDefault", false) ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -126,7 +131,7 @@ public class MainMenuFragment extends Fragment {
     private void checkNewNotice(View view) {
         CheckNewNotice.NoticeInfo noticeInfo = CheckNewNotice.getNoticeInfo();
 
-        if (noticeInfo == null || isNoticeChecked) {
+        if (noticeInfo == null) {
             return;
         }
 
@@ -146,7 +151,5 @@ public class MainMenuFragment extends Fragment {
             noticeSubstanceWebView.getSettings().setJavaScriptEnabled(true);
             noticeSubstanceWebView.loadDataWithBaseURL(null, noticeInfo.getSubstance(), "text/html", "UTF-8", null);
         });
-
-        isNoticeChecked = true;
     }
 }
