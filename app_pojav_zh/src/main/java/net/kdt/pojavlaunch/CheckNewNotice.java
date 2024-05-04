@@ -20,21 +20,13 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class CheckNewNotice {
-    private static boolean isChecked = false;
     private static NoticeInfo noticeInfo = null;
-
-    public static boolean isIsChecked() {
-        return isChecked;
-    }
 
     public static NoticeInfo getNoticeInfo() {
         return noticeInfo;
     }
 
     public static void checkNewNotice(Context context) {
-        if (PojavZHTools.LAST_NOTICE_CHECK_TIME - System.currentTimeMillis() <= 5000) return;
-        PojavZHTools.LAST_NOTICE_CHECK_TIME = System.currentTimeMillis();
-
         OkHttpClient client = new OkHttpClient();
         Request.Builder url = new Request.Builder()
                 .url(PojavZHTools.URL_GITHUB_HOME + "notice.json");
@@ -87,8 +79,6 @@ public class CheckNewNotice {
                 }
             }
         });
-
-        isChecked = true;
     }
 
     public static class NoticeInfo {
