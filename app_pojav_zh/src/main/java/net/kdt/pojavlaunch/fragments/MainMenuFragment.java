@@ -114,9 +114,10 @@ public class MainMenuFragment extends Fragment {
         if (DEFAULT_PREF.getBoolean("noticeDefault", false) ||
                 (noticeInfo != null &&
                         noticeInfo.getNumbering() != DEFAULT_PREF.getInt("numbering", 0))) {
-            checkNewNotice(view);
             mNoticeSummonButton.setVisibility(View.VISIBLE);
             mLauncherNoticeView.setVisibility(View.GONE);
+            checkNewNotice(view);
+            if (noticeInfo != null) DEFAULT_PREF.edit().putInt("numbering", noticeInfo.getNumbering()).apply();
         }
     }
 
@@ -144,7 +145,6 @@ public class MainMenuFragment extends Fragment {
             TextView noticeTitleView = view.findViewById(R.id.zh_menu_notice_title);
             TextView noticeDateView = view.findViewById(R.id.zh_menu_notice_date);
             WebView noticeSubstanceWebView = view.findViewById(R.id.zh_menu_notice_substance);
-
 
             if (!noticeInfo.getRawTitle().equals("NONE")) {
                 noticeTitleView.setText(noticeInfo.getRawTitle());
