@@ -17,10 +17,9 @@
         android:fillViewport="true"
         tools:ignore="MissingConstraints">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content" >
 
             <TextView
                 android:id="@+id/title_textview"
@@ -28,13 +27,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/padding_heavy"
+                android:layout_marginTop="12dp"
                 android:text="@string/create_profile_vanilla_like_versions"
-                android:textColor="@color/primary_text"
 
+                android:textColor="@color/primary_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <View
                 android:id="@+id/view"
@@ -43,37 +43,60 @@
                 android:layout_marginTop="@dimen/padding_large"
                 app:layout_constraintTop_toBottomOf="@+id/title_textview" />
 
+            <ImageView
+                android:id="@+id/minecraft_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view"
+                app:srcCompat="@drawable/ic_minecraft" />
+
             <Button
                 android:id="@+id/vanilla_profile"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
                 android:layout_marginTop="@dimen/padding_heavy"
                 android:text="@string/create_profile_vanilla"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/minecraft_icon"
                 app:layout_constraintTop_toBottomOf="@+id/view" />
+
+            <ImageView
+                android:id="@+id/optifine_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/minecraft_icon"
+                app:srcCompat="@drawable/ic_optifine" />
 
             <Button
                 android:id="@+id/optifine_profile"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
-                android:layout_marginTop="@dimen/padding_heavy"
+                android:layout_marginTop="8dp"
                 android:text="@string/create_profile_optifine"
-                app:layout_constraintTop_toBottomOf="@+id/view" />
-        </LinearLayout>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/optifine_icon"
+                app:layout_constraintTop_toBottomOf="@+id/vanilla_profile" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical"
+        android:fillViewport="true"
         tools:ignore="MissingConstraints">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content" >
 
             <TextView
                 android:id="@+id/title_modded_textview"
@@ -81,13 +104,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/padding_heavy"
+                android:layout_marginTop="12dp"
                 android:text="@string/create_profile_modded_versions"
-                android:textColor="@color/primary_text"
 
+                android:textColor="@color/primary_text"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <View
                 android:id="@+id/view_modded"
@@ -96,60 +120,111 @@
                 android:layout_marginTop="@dimen/padding_large"
                 app:layout_constraintTop_toBottomOf="@+id/title_modded_textview" />
 
+            <ImageView
+                android:id="@+id/fabric_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_modded"
+                app:srcCompat="@drawable/ic_fabric" />
+
             <Button
                 android:id="@+id/modded_profile_fabric"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
-                android:layout_marginTop="@dimen/padding_heavy"
-                android:text="@string/modloader_dl_install_fabric" />
+                android:layout_marginTop="12dp"
+                android:text="@string/modloader_dl_install_fabric"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/fabric_icon"
+                app:layout_constraintTop_toBottomOf="@+id/view_modded" />
+
+            <ImageView
+                android:id="@+id/quilt_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fabric_icon"
+                app:srcCompat="@drawable/ic_quilt" />
 
             <Button
                 android:id="@+id/modded_profile_quilt"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
-                android:layout_marginTop="@dimen/padding_heavy"
-                android:text="@string/modloader_dl_install_quilt" />
+                android:layout_marginTop="8dp"
+                android:text="@string/modloader_dl_install_quilt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/quilt_icon"
+                app:layout_constraintTop_toBottomOf="@+id/modded_profile_fabric" />
+
+            <ImageView
+                android:id="@+id/forge_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/quilt_icon"
+                app:srcCompat="@drawable/ic_forge" />
 
             <Button
                 android:id="@+id/modded_profile_forge"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
-                android:layout_marginTop="@dimen/padding_heavy"
-                android:text="@string/modloader_dl_install_forge" />
+                android:layout_marginTop="8dp"
+                android:text="@string/modloader_dl_install_forge"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/forge_icon"
+                app:layout_constraintTop_toBottomOf="@+id/modded_profile_quilt" />
+
+            <ImageView
+                android:id="@+id/neoforge_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/forge_icon"
+                app:srcCompat="@drawable/ic_neoforge" />
 
             <Button
                 android:id="@+id/zh_modded_profile_neoforge"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
-                android:layout_marginTop="@dimen/padding_heavy"
-                android:text="@string/zh_modloader_dl_install_neoforge" />
+                android:layout_marginTop="8dp"
+                android:text="@string/zh_modloader_dl_install_neoforge"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/neoforge_icon"
+                app:layout_constraintTop_toBottomOf="@+id/modded_profile_forge" />
+
+            <ImageView
+                android:id="@+id/modpack_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/neoforge_icon"
+                app:srcCompat="@drawable/ic_pojav_full" />
 
             <Button
                 android:id="@+id/modded_profile_modpack"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
-                android:layout_marginTop="@dimen/padding_heavy"
-                android:text="@string/modpack_install_button" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.55" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.25" />
-        </LinearLayout>
+                android:layout_marginTop="8dp"
+                android:text="@string/modpack_install_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/modpack_icon"
+                app:layout_constraintTop_toBottomOf="@+id/zh_modded_profile_neoforge" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
 </LinearLayout>
