@@ -138,6 +138,8 @@ public class MainMenuFragment extends Fragment {
 
     @SuppressLint("SetJavaScriptEnabled")
     private void checkNewNotice(View view) {
+        noticeInfo = CheckNewNotice.getNoticeInfo();
+
         if (noticeInfo == null) {
             return;
         }
