@@ -70,9 +70,10 @@ public class CheckNewNotice {
                             rawSubstance = noticeJson.getString("substance_zh_tw");
                         }
                         String rawDate = noticeJson.getString("date");
+                        int numbering = noticeJson.getInt("numbering");
                         String substance = markdownToHtml(rawSubstance);
 
-                        noticeInfo = new NoticeInfo(rawTitle, substance, rawDate);
+                        noticeInfo = new NoticeInfo(rawTitle, substance, rawDate, numbering);
                     } catch (Exception e) {
                         Log.e("Check New Notice", e.toString());
                     }
@@ -83,11 +84,13 @@ public class CheckNewNotice {
 
     public static class NoticeInfo {
         private final String rawTitle, substance, rawDate;
+        private final int numbering;
 
-        public NoticeInfo(String rawTitle, String substance, String rawDate) {
+        public NoticeInfo(String rawTitle, String substance, String rawDate, int numbering) {
             this.rawTitle = rawTitle;
             this.substance = substance;
             this.rawDate = rawDate;
+            this.numbering = numbering;
         }
 
         public String getRawTitle() {
@@ -100,6 +103,10 @@ public class CheckNewNotice {
 
         public String getRawDate() {
             return rawDate;
+        }
+
+        public int getNumbering() {
+            return numbering;
         }
     }
 }

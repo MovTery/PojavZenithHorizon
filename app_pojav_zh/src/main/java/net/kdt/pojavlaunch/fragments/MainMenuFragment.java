@@ -33,7 +33,7 @@ import java.io.File;
 
 public class MainMenuFragment extends Fragment {
     public static final String TAG = "MainMenuFragment";
-
+    private final CheckNewNotice.NoticeInfo noticeInfo = CheckNewNotice.getNoticeInfo();
     private mcVersionSpinner mVersionSpinner;
 
     public MainMenuFragment() {
@@ -110,9 +110,14 @@ public class MainMenuFragment extends Fragment {
             mNoticeSummonButton.setVisibility(View.VISIBLE);
         });
 
-        mNoticeSummonButton.setVisibility(DEFAULT_PREF.getBoolean("noticeDefault", false) ? View.GONE : View.VISIBLE);
-        mLauncherNoticeView.setVisibility(DEFAULT_PREF.getBoolean("noticeDefault", false) ? View.VISIBLE : View.GONE);
-        if (DEFAULT_PREF.getBoolean("noticeDefault", false)) checkNewNotice(view);
+        //当偏好设置内是开启通知栏 或者 检测到通知编号不为偏好设置里保存的值时，显示通知栏
+        if (DEFAULT_PREF.getBoolean("noticeDefault", false) ||
+                (noticeInfo != null &&
+                        noticeInfo.getNumbering() != DEFAULT_PREF.getInt("numbering", 0))) {
+            checkNewNotice(view);
+            mNoticeSummonButton.setVisibility(View.VISIBLE);
+            mLauncherNoticeView.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -130,8 +135,6 @@ public class MainMenuFragment extends Fragment {
 
     @SuppressLint("SetJavaScriptEnabled")
     private void checkNewNotice(View view) {
-        CheckNewNotice.NoticeInfo noticeInfo = CheckNewNotice.getNoticeInfo();
-
         if (noticeInfo == null) {
             return;
         }
