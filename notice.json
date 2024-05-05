@@ -4,5 +4,5 @@
   "substance_zh_cn": "### 关于 Java GUI\r\n**如果在执行 .Jar 文件或者安装 Forge 加载器时，界面一直黑屏且没有任何东西加载，请将启动器默认 Java 运行环境更改为 Internal 8，因为 Jre 21 暂时无法运行它们！\r\n<kbd>设置</kbd> - <kbd>Java 调整</kbd> - <kbd>运行环境管理器</kbd> - <kbd>设置 Internal 8</kbd>",
   "substance_zh_tw": "### 關於 Java GUI\r\n**如果在執行 .Jar 檔案或者安裝 Forge 載入器時，介面一直黑屏且沒有任何東西加載，請將啟動器預設 Java 運行環境更改為 Internal 8，因為 Jre 21 暫時無法運行它們！\r\n<kbd>設定</kbd> - <kbd>Java 調整</kbd> - <kbd>運行環境管理器</kbd> - <kbd>設定 Internal 8</kbd>",
   "date": "2024/05/05",
-  "numbering": 4
+  "numbering": 5
 }
