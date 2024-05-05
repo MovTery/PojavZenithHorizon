@@ -11,9 +11,9 @@ import com.ipaulpro.afilechooser.*;
 import java.io.*;
 import java.util.*;
 import net.kdt.pojavlaunch.*;
-import android.os.*;
+import net.kdt.pojavlaunch.dialog.DeleteDialog;
 
-import org.apache.commons.io.FileUtils;
+import android.os.*;
 
 @SuppressLint("ViewConstructor")
 public class FileListView extends LinearLayout
@@ -103,28 +103,8 @@ public class FileListView extends LinearLayout
                 fileSelectedListener.onItemLongClick(mainFile, mainFile.getAbsolutePath());
                 return true;
             } else if (mainFile.isDirectory()) {
-                String fileName = mainFile.getName();
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle(getContext().getString(R.string.zh_file_delete_dir));
-                builder.setMessage(getContext().getString(R.string.zh_file_delete_dir_message));
-
-                DialogInterface.OnClickListener deleteDirListener = ((dialog, which) -> {
-                    Toast.makeText(getContext(), getContext().getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
-                    listFileAt(mainFile.getParentFile());
-
-                    try {
-                        FileUtils.deleteDirectory(mainFile);
-                        Toast.makeText(getContext(), getContext().getString(R.string.zh_file_delete_dir_success) + "\n" + fileName, Toast.LENGTH_LONG).show();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    refreshPath();
-                });
-
-                builder.setPositiveButton(getContext().getString(android.R.string.cancel), null)
-                        .setNegativeButton(getContext().getString(R.string.global_delete), deleteDirListener);
-
-                builder.show();
+                DeleteDialog deleteDialog = new DeleteDialog(getContext(), this, mainFile);
+                deleteDialog.show();
             }
             return false;
         });

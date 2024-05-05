@@ -1,6 +1,5 @@
 package net.kdt.pojavlaunch.dialog;
 
-import static net.kdt.pojavlaunch.PojavZHTools.deleteFileListener;
 import static net.kdt.pojavlaunch.PojavZHTools.renameFileListener;
 import static net.kdt.pojavlaunch.PojavZHTools.shareFile;
 
@@ -71,7 +70,8 @@ public class FilesDialog extends Dialog {
             FilesDialog.this.dismiss();
         });
         mDeleteButton.setOnClickListener(view -> {
-            deleteFileListener(getContext(), mFileListView, mFile);
+            DeleteDialog deleteDialog = new DeleteDialog(getContext(), mFileListView, mFile);
+            deleteDialog.show();
             FilesDialog.this.dismiss();
         });
 
