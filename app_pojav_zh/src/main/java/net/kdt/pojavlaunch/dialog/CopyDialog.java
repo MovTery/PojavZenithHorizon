@@ -83,7 +83,7 @@ public class CopyDialog extends Dialog {
                         runOnUiThread(mFileListView::refreshPath);
                     });
                 } else {
-                    Toast.makeText(context, context.getString(R.string.zh_file_rename_empty), Toast.LENGTH_SHORT).show();
+                    runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_file_rename_empty), Toast.LENGTH_SHORT).show());
                 }
             });
             copyBuilder.setNegativeButton(context.getString(android.R.string.cancel), null);

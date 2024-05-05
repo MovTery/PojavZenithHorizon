@@ -39,6 +39,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.kdt.pickafile.FileListView;
 
+import net.kdt.pojavlaunch.dialog.DeleteDialog;
 import net.kdt.pojavlaunch.dialog.UpdateDialog;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.CurseforgeApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.MCBBSApi;
@@ -251,24 +252,6 @@ public class PojavZHTools {
 
         Intent sendIntent = Intent.createChooser(shareIntent, fileName);
         context.startActivity(sendIntent);
-    }
-
-    public static void deleteFileListener(Context context, FileListView fileListView, File file) {
-        String fileName = file.getName();
-        // 显示确认删除的对话框
-        AlertDialog.Builder deleteConfirmation = new AlertDialog.Builder(context);
-
-        deleteConfirmation.setTitle(context.getString(R.string.zh_file_tips));
-        deleteConfirmation.setMessage(context.getString(R.string.zh_file_delete) + "\n" + file.getName());
-        deleteConfirmation.setPositiveButton(context.getString(R.string.global_delete), (dialog1, which1) -> {
-            boolean deleted = FileUtils.deleteQuietly(file);
-            if (deleted) {
-                Toast.makeText(context, context.getString(R.string.zh_file_deleted) + fileName, Toast.LENGTH_SHORT).show();
-            }
-            fileListView.refreshPath();
-        });
-        deleteConfirmation.setNegativeButton(context.getString(android.R.string.cancel), null);
-        deleteConfirmation.show();
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
