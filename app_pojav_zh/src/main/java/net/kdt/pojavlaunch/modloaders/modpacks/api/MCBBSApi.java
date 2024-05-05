@@ -41,6 +41,7 @@ public class MCBBSApi {
             if(!verifyMCBBSPackMeta(mcbbsPackMeta)) {
                 return null;
             }
+
             runOnUiThread(() -> {
                 MCBBSApi.this.downloadDialog = new DownloadDialog(context);
                 MCBBSApi.this.downloadTipTextView = MCBBSApi.this.downloadDialog.getTextView();
@@ -76,6 +77,8 @@ public class MCBBSApi {
                     textView.setText(context.getString(R.string.zh_select_modpack_local_installing_files, fileCount));
                 });
             }
+
+            runOnUiThread(() -> MCBBSApi.this.downloadDialog.dismiss());
 
             if (MCBBSApi.this.isStopped) {
                 // 如果玩家取消了安装，那么就删除已经安装的文件
