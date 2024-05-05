@@ -3,10 +3,12 @@ package net.kdt.pojavlaunch.modloaders.modpacks.api;
 import static net.kdt.pojavlaunch.PojavZHTools.verifyMCBBSPackMeta;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
-import com.kdt.mcgui.ProgressLayout;
+import android.content.Context;
+import android.widget.TextView;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
+import net.kdt.pojavlaunch.dialog.DownloadDialog;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.MCBBSPackMeta;
 import net.kdt.pojavlaunch.utils.FileUtils;
 import net.kdt.pojavlaunch.utils.ZipUtils;
@@ -24,10 +26,14 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 public class MCBBSApi {
+    private DownloadDialog downloadDialog;
+    private TextView downloadTipTextView;
+    private boolean isStopped = false;
+
     public MCBBSApi() {
     }
 
-    public ModLoader installMCBBSZip(File zipFile, File instanceDestination) throws IOException {
+    public ModLoader installMCBBSZip(Context context, File zipFile, File instanceDestination) throws IOException {
         try (ZipFile modpackZipFile = new ZipFile(zipFile)){
             MCBBSPackMeta mcbbsPackMeta = Tools.GLOBAL_GSON.fromJson(
                     Tools.read(ZipUtils.getEntryStream(modpackZipFile, "mcbbs.packmeta")),
@@ -35,21 +41,27 @@ public class MCBBSApi {
             if(!verifyMCBBSPackMeta(mcbbsPackMeta)) {
                 return null;
             }
-            runOnUiThread(() -> ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.zh_select_modpack_local_installing_files, 0));
+            runOnUiThread(() -> {
+                MCBBSApi.this.downloadDialog = new DownloadDialog(context);
+                MCBBSApi.this.downloadTipTextView = MCBBSApi.this.downloadDialog.getTextView();
+
+                MCBBSApi.this.downloadDialog.getCancelButton().setOnClickListener(view -> {
+                    MCBBSApi.this.isStopped = true;
+                    MCBBSApi.this.downloadDialog.dismiss();
+                });
+                MCBBSApi.this.downloadDialog.show();
+            });
 
             String overridesDir = "overrides";
             Enumeration<? extends ZipEntry> zipEntries = modpackZipFile.entries();
 
-            double entrySize = 0.0d; //文件大小计数
             AtomicInteger fileCounters = new AtomicInteger(); //文件数量计数
-            final double totalFileSize = zipFile.length(); //文件总大小
 
             int dirNameLen = overridesDir.length();
-            while(zipEntries.hasMoreElements()) {
+            while(zipEntries.hasMoreElements() && !MCBBSApi.this.isStopped) {
                 ZipEntry zipEntry = zipEntries.nextElement();
                 String entryName = zipEntry.getName();
                 if(!entryName.startsWith(overridesDir) || zipEntry.isDirectory()) continue;
-                entrySize += zipEntry.getSize();
 
                 File zipDestination = new File(instanceDestination, entryName.substring(dirNameLen));
                 FileUtils.ensureParentDirectory(zipDestination);
@@ -59,13 +71,19 @@ public class MCBBSApi {
                 }
 
                 int fileCount = fileCounters.getAndIncrement();
-                int progress = (int) ((entrySize * 100L) / totalFileSize); // 计算进度
-                runOnUiThread(() -> ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, progress,
-                        R.string.zh_select_modpack_local_installing_files, fileCount));
+                runOnUiThread(() -> {
+                    TextView textView = MCBBSApi.this.downloadTipTextView.findViewById(R.id.zh_download_upload_textView);
+                    textView.setText(context.getString(R.string.zh_select_modpack_local_installing_files, fileCount));
+                });
             }
 
-            runOnUiThread(() -> ProgressLayout.clearProgress(ProgressLayout.INSTALL_MODPACK));
-            return createInfo(mcbbsPackMeta.addons);
+            if (MCBBSApi.this.isStopped) {
+                // 如果玩家取消了安装，那么就删除已经安装的文件
+                org.apache.commons.io.FileUtils.deleteDirectory(instanceDestination);
+                return null;
+            } else {
+                return createInfo(mcbbsPackMeta.addons);
+            }
         }
     }
 

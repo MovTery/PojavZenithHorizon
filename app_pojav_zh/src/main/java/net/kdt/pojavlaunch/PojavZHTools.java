@@ -39,7 +39,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.kdt.pickafile.FileListView;
 
-import net.kdt.pojavlaunch.dialog.DeleteDialog;
 import net.kdt.pojavlaunch.dialog.UpdateDialog;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.CurseforgeApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.MCBBSApi;
@@ -468,8 +467,8 @@ public class PojavZHTools {
                             Tools.read(modpackZipFile.getInputStream(mcbbsEntry)),
                             MCBBSPackMeta.class);
 
-                    modLoader = mcbbsModPack(zipFile, packName);
-                    createProfiles(packName, mcbbsPackMeta.name, modLoader.getVersionId());
+                    modLoader = mcbbsModPack(context, zipFile, packName);
+                    if (modLoader != null) createProfiles(packName, mcbbsPackMeta.name, modLoader.getVersionId());
 
                     return modLoader;
                 case 3: // modrinth
@@ -532,9 +531,9 @@ public class PojavZHTools {
         return modrinthApi.installMrpack(zipFile, new File(DIR_GAME_HOME, "custom_instances/" + packName));
     }
 
-    private static ModLoader mcbbsModPack(File zipFile, String packName) throws Exception {
+    private static ModLoader mcbbsModPack(Context context, File zipFile, String packName) throws Exception {
         MCBBSApi mcbbsApi = new MCBBSApi();
-        return mcbbsApi.installMCBBSZip(zipFile, new File(DIR_GAME_HOME, "custom_instances/" + packName));
+        return mcbbsApi.installMCBBSZip(context, zipFile, new File(DIR_GAME_HOME, "custom_instances/" + packName));
     }
 
     private static void createProfiles(String modpackName, String profileName, String versionId) {
