@@ -1,14 +1,11 @@
 package net.kdt.pojavlaunch.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +19,7 @@ import com.kdt.pickafile.FileSelectedListener;
 import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
+import net.kdt.pojavlaunch.dialog.EditTextDialog;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 
@@ -65,22 +63,19 @@ public class FileSelectorFragment extends Fragment {
         mFileListView.refreshPath();
 
         mCreateFolderButton.setOnClickListener(v -> {
-            View itemView = LayoutInflater.from(requireContext()).inflate(R.layout.item_edit_text, null);
-            EditText editText = itemView.findViewById(R.id.zh_edit_text);
+            EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(R.string.folder_dialog_insert_name), null, null, null);
+            editTextDialog.setConfirm(view1 -> {
+                File folder = new File(mFileListView.getFullPath(), editTextDialog.getEditBox().getText().toString().replace("/", ""));
+                boolean success = folder.mkdir();
+                if (success) {
+                    mFileListView.listFileAt(new File(mFileListView.getFullPath(), editTextDialog.getEditBox().getText().toString().replace("/", "")));
+                } else {
+                    mFileListView.refreshPath();
+                }
 
-            new AlertDialog.Builder(getContext())
-                    .setTitle(R.string.folder_dialog_insert_name)
-                    .setView(itemView)
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .setPositiveButton(R.string.folder_dialog_create, (dialog, which) -> {
-                        File folder = new File(mFileListView.getFullPath(), editText.getText().toString().replace("/", ""));
-                        boolean success = folder.mkdir();
-                        if (success) {
-                            mFileListView.listFileAt(new File(mFileListView.getFullPath(), editText.getText().toString().replace("/", "")));
-                        } else {
-                            mFileListView.refreshPath();
-                        }
-                    }).show();
+                editTextDialog.dismiss();
+            });
+            editTextDialog.show();
         });
 
         mSelectFolderButton.setOnClickListener(v -> {

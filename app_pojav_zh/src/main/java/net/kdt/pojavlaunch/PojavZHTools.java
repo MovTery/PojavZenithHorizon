@@ -21,17 +21,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -39,6 +36,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.kdt.pickafile.FileListView;
 
+import net.kdt.pojavlaunch.dialog.EditTextDialog;
 import net.kdt.pojavlaunch.dialog.UpdateDialog;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.CurseforgeApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.MCBBSApi;
@@ -257,17 +255,11 @@ public class PojavZHTools {
     public static void renameFileListener(Context context, FileListView fileListView, File file) {
         String fileParent = file.getParent();
         String fileName = file.getName();
-        AlertDialog.Builder renameBuilder = new AlertDialog.Builder(context);
         String suffix = fileName.substring(fileName.lastIndexOf('.')); //防止修改后缀名，先将后缀名分离出去
 
-        View itemView = LayoutInflater.from(context).inflate(R.layout.item_edit_text, null);
-        EditText input = itemView.findViewById(R.id.zh_edit_text);
-        input.setText(fileName.substring(0, fileName.lastIndexOf(suffix)));
-
-        renameBuilder.setTitle(context.getString(R.string.zh_rename));
-        renameBuilder.setView(itemView);
-        renameBuilder.setPositiveButton(context.getString(R.string.zh_rename), (dialog1, which1) -> {
-            String newName = input.getText().toString().replace("/", "");
+        EditTextDialog editTextDialog = new EditTextDialog(context, context.getString(R.string.zh_rename), null, fileName.substring(0, fileName.lastIndexOf(suffix)), null);
+        editTextDialog.setConfirm(v -> {
+            String newName = editTextDialog.getEditBox().getText().toString().replace("/", "");
             if (!newName.isEmpty()) {
                 File newFile = new File(fileParent, newName + suffix);
                 boolean renamed = file.renameTo(newFile);
@@ -278,9 +270,11 @@ public class PojavZHTools {
             } else {
                 Toast.makeText(context, context.getString(R.string.zh_file_rename_empty), Toast.LENGTH_SHORT).show();
             }
+
+            editTextDialog.dismiss();
         });
-        renameBuilder.setNegativeButton(context.getString(android.R.string.cancel), null);
-        renameBuilder.show();
+
+        editTextDialog.show();
     }
 
     public static void updateChecker(Context context) {

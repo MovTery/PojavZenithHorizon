@@ -8,10 +8,8 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +29,7 @@ import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import net.kdt.pojavlaunch.dialog.CopyDialog;
+import net.kdt.pojavlaunch.dialog.EditTextDialog;
 import net.kdt.pojavlaunch.dialog.FilesDialog;
 
 import java.io.BufferedWriter;
@@ -122,34 +121,31 @@ public class ControlButtonFragment extends Fragment {
             openDocumentLauncher.launch(suffix);
         }); //限制.json文件
         mAddControlButton.setOnClickListener(v -> {
-            View itemView = LayoutInflater.from(requireContext()).inflate(R.layout.item_edit_text, null);
-            EditText editText = itemView.findViewById(R.id.zh_edit_text);
-
-            new AlertDialog.Builder(getContext())
-                    .setTitle(R.string.zh_controls_create_new_title)
-                    .setView(itemView)
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .setPositiveButton(R.string.zh_create, (dialog, which) -> {
-                        File file = new File(mFileListView.getFullPath().getAbsolutePath(), editText.getText().toString().replace("/", "") + ".json");
-                        if (!file.exists()) {
-                            boolean success;
-                            try {
-                                success = file.createNewFile();
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                            if (success) {
-                                try (BufferedWriter optionFileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
-                                    optionFileWriter.write("{\"version\":6}");
-                                } catch (IOException e) {
-                                    Tools.showError(requireContext(), e);
-                                }
-                            }
-                            mFileListView.refreshPath();
-                        } else {
-                            Toast.makeText(requireContext(), getString(R.string.zh_file_create_file_invalid), Toast.LENGTH_SHORT).show();
+            EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(R.string.zh_controls_create_new_title), null, null, null);
+            editTextDialog.setConfirm(view1 -> {
+                File file = new File(mFileListView.getFullPath().getAbsolutePath(), editTextDialog.getEditBox().getText().toString().replace("/", "") + ".json");
+                if (!file.exists()) {
+                    boolean success;
+                    try {
+                        success = file.createNewFile();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    if (success) {
+                        try (BufferedWriter optionFileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
+                            optionFileWriter.write("{\"version\":6}");
+                        } catch (IOException e) {
+                            Tools.showError(requireContext(), e);
                         }
-                    }).show();
+                    }
+                    mFileListView.refreshPath();
+                } else {
+                    Toast.makeText(requireContext(), getString(R.string.zh_file_create_file_invalid), Toast.LENGTH_SHORT).show();
+                }
+
+                editTextDialog.dismiss();
+            });
+            editTextDialog.show();
         });
         mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());
         mHelpButton.setOnClickListener(v -> {

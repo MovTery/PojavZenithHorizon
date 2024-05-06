@@ -10,11 +10,9 @@ import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -36,6 +34,7 @@ import net.kdt.pojavlaunch.customcontrols.buttons.ControlSubButton;
 import net.kdt.pojavlaunch.customcontrols.handleview.ActionRow;
 import net.kdt.pojavlaunch.customcontrols.handleview.ControlHandleView;
 import net.kdt.pojavlaunch.customcontrols.handleview.EditControlPopup;
+import net.kdt.pojavlaunch.dialog.EditTextDialog;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import java.io.File;
@@ -465,7 +464,7 @@ public class ControlLayout extends FrameLayout {
 
 	public void askToExit(EditorExitable editorExitable) {
 		if(mIsModified) {
-			openSaveDialog(editorExitable);
+			openSaveAndExitDialog(editorExitable);
 		}else{
 			openExitDialog(editorExitable);
 		}
@@ -483,57 +482,44 @@ public class ControlLayout extends FrameLayout {
 		return jsonPath;
 	}
 
-	class OnClickExitListener implements View.OnClickListener {
-		private final AlertDialog mDialog;
-		private final EditText mEditText;
-		private final EditorExitable mListener;
+	public void openSaveDialog() {
+		EditTextDialog editTextDialog = new EditTextDialog(getContext(), getContext().getString(R.string.global_save), null, mLayoutFileName, null);
+		editTextDialog.setConfirm(view -> {
+            if (editTextDialog.getEditBox().getText().toString().isEmpty()) {
+                editTextDialog.getEditBox().setError(getContext().getString(R.string.global_error_field_empty));
+                return;
+            }
+            try {
+                String jsonPath = saveToDirectory(editTextDialog.getEditBox().getText().toString());
+                Toast.makeText(getContext(), getContext().getString(R.string.global_save) + ": " + jsonPath, Toast.LENGTH_SHORT).show();
+                editTextDialog.dismiss();
+            } catch (Throwable th) {
+                Tools.showError(getContext(), th, true);
+            }
+        });
 
-		public OnClickExitListener(AlertDialog mDialog, EditText mEditText, EditorExitable mListener) {
-			this.mDialog = mDialog;
-			this.mEditText = mEditText;
-			this.mListener = mListener;
-		}
-
-		@Override
-		public void onClick(View v) {
-			Context context = v.getContext();
-			if (mEditText.getText().toString().isEmpty()) {
-				mEditText.setError(context.getString(R.string.global_error_field_empty));
-				return;
-			}
-			try {
-				String jsonPath = saveToDirectory(mEditText.getText().toString());
-				Toast.makeText(context, context.getString(R.string.global_save) + ": " + jsonPath, Toast.LENGTH_SHORT).show();
-				mDialog.dismiss();
-				if(mListener != null) mListener.exitEditor();
-			} catch (Throwable th) {
-				Tools.showError(context, th, mListener != null);
-			}
-		}
+		editTextDialog.show();
 	}
 
-	@SuppressLint("UseCompatLoadingForDrawables")
-	public void openSaveDialog(EditorExitable editorExitable) {
-		final Context context = getContext();
-		View itemView = LayoutInflater.from(context).inflate(R.layout.item_edit_text, null);
-		EditText edit = itemView.findViewById(R.id.zh_edit_text);
-		edit.setSingleLine();
-		edit.setText(mLayoutFileName);
+	public void openSaveAndExitDialog(EditorExitable editorExitable) {
+		EditTextDialog editTextDialog = new EditTextDialog(getContext(), getContext().getString(R.string.global_save), null, mLayoutFileName, null);
+		editTextDialog.setConfirm(view -> {
+            if (editTextDialog.getEditBox().getText().toString().isEmpty()) {
+                editTextDialog.getEditBox().setError(getContext().getString(R.string.global_error_field_empty));
+                return;
+            }
+            try {
+                String jsonPath = saveToDirectory(editTextDialog.getEditBox().getText().toString());
+                Toast.makeText(getContext(), getContext().getString(R.string.global_save) + ": " + jsonPath, Toast.LENGTH_SHORT).show();
+                editTextDialog.dismiss();
+                editorExitable.exitEditor();
+            } catch (Throwable th) {
+                Tools.showError(getContext(), th, true);
+            }
+        });
+		editTextDialog.setConfirmButtonText(getContext().getString(R.string.global_save_and_exit));
 
-		AlertDialog.Builder builder = new AlertDialog.Builder(context);
-		builder.setTitle(R.string.global_save);
-		builder.setView(itemView);
-		builder.setPositiveButton(android.R.string.ok, null);
-		builder.setNegativeButton(android.R.string.cancel, null);
-		if(editorExitable != null) builder.setNeutralButton(R.string.global_save_and_exit, null);
-		final AlertDialog dialog = builder.create();
-		dialog.setOnShowListener(dialogInterface -> {
-			dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-					.setOnClickListener(new OnClickExitListener(dialog, edit, null));
-			if(editorExitable != null) dialog.getButton(AlertDialog.BUTTON_NEUTRAL)
-					.setOnClickListener(new OnClickExitListener(dialog, edit, editorExitable));
-		});
-		dialog.show();
+		editTextDialog.show();
 	}
 
 	public void openLoadDialog() {

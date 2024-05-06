@@ -5,9 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,6 +26,7 @@ import com.google.gson.Gson;
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
+import net.kdt.pojavlaunch.dialog.EditTextDialog;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.login.AuthResult;
@@ -112,21 +111,14 @@ public class OtherLoginFragment extends Fragment {
             AlertDialog dialog = new AlertDialog.Builder(requireContext())
                     .setTitle(getString(R.string.zh_other_login_add_server))
                     .setItems(new String[]{getString(R.string.zh_other_login_external_login), getString(R.string.zh_other_login_uniform_pass)}, (dialogInterface, type) -> {
-                        View itemView = LayoutInflater.from(requireContext()).inflate(R.layout.item_edit_text, null);
-                        EditText editText = itemView.findViewById(R.id.zh_edit_text);
-                        editText.setMaxLines(1);
-                        editText.setInputType(InputType.TYPE_CLASS_TEXT);
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-
-                        builder.setTitle(type == 0 ?
+                        EditTextDialog editTextDialog = new EditTextDialog(requireContext(), type == 0 ?
                                 getString(R.string.zh_other_login_yggdrasil_api) :
-                                getString(R.string.zh_other_login_32_bit_server));
-                        builder.setView(itemView);
-
-                        builder.setPositiveButton(getString(R.string.zh_confirm), (dialogInterface1, i2) -> addServer(editText, type));
-                        builder.setNegativeButton(getString(android.R.string.cancel), null);
-                        builder.show();
+                                getString(R.string.zh_other_login_32_bit_server), null, null, null);
+                        editTextDialog.setConfirm(view1 -> {
+                            addServer(editTextDialog.getEditBox(), type);
+                            editTextDialog.dismiss();
+                        });
+                        editTextDialog.show();
                     })
                     .setNegativeButton(getString(android.R.string.cancel), null)
                     .create();

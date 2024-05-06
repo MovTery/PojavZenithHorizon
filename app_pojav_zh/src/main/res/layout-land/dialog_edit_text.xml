@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/parent"
+    android:minWidth="450dp"
+    android:minHeight="150dp"
+    android:padding="8dp"
+    android:orientation="vertical"
+    tools:ignore="MissingDefaultResource">
+
+    <TextView
+        android:id="@+id/zh_edit_text_title"
+        android:singleLine="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/zh_tip"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"/>
+
+    <EditText
+        android:id="@+id/zh_edit_text_edit"
+        android:background="@drawable/background_edit_box"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:inputType="text"
+        android:autofillHints="name"
+        tools:ignore="LabelFor" />
+
+    <ScrollView
+        android:id="@+id/zh_edit_text_scroll"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_margin="10dp"
+                android:id="@+id/zh_edit_text_message"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/_15sdp"
+                android:gravity="center_horizontal" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal" >
+
+        <Button
+            android:id="@+id/zh_edit_text_cancel_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@android:string/cancel" />
+
+        <Button
+            android:id="@+id/zh_edit_text_confirm_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/zh_confirm" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

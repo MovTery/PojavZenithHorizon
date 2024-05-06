@@ -32,10 +32,8 @@ import android.provider.OpenableColumns;
 import android.util.ArrayMap;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +49,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import net.kdt.pojavlaunch.dialog.EditTextDialog;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutorTask;
 import net.kdt.pojavlaunch.lifecycle.LifecycleAwareAlertDialog;
@@ -989,21 +988,16 @@ public final class Tools {
         }
 
         // install mods with custom arguments
-        View itemView = LayoutInflater.from(activity).inflate(R.layout.item_edit_text, null);
-        final EditText editText = itemView.findViewById(R.id.zh_edit_text);
-        editText.setSingleLine();
-        editText.setHint("-jar/-cp /path/to/file.jar ...");
+        EditTextDialog editTextDialog = new EditTextDialog(activity, activity.getString(R.string.alerttitle_installmod), null, null, "-jar/-cp /path/to/file.jar ...");
+        editTextDialog.setConfirm(view -> {
+            Intent intent = new Intent(activity, JavaGUILauncherActivity.class);
+            intent.putExtra("javaArgs", editTextDialog.getEditBox().getText().toString());
+            activity.startActivity(intent);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity)
-                .setTitle(R.string.alerttitle_installmod)
-                .setNegativeButton(android.R.string.cancel, null)
-                .setView(itemView)
-                .setPositiveButton(android.R.string.ok, (di, i) -> {
-                    Intent intent = new Intent(activity, JavaGUILauncherActivity.class);
-                    intent.putExtra("javaArgs", editText.getText().toString());
-                    activity.startActivity(intent);
-                });
-        builder.show();
+            editTextDialog.dismiss();
+        });
+
+        editTextDialog.show();
     }
 
     /**
