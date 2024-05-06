@@ -36,7 +36,6 @@
     <string name="zh_controls_create_new">创建新的控制布局</string>
     <string name="zh_controls_create_new_title">控制布局名称：</string>
     <string name="zh_controls_import_control">导入控制布局</string>
-    <string name="zh_controls_load">加载并编辑</string>
     <string name="zh_custom_control_title">管理控制布局</string>
     <string name="zh_custom_control_desc">管理所有的控制布局文件，你可以在这里删除、创建、重命名、导入控制布局等</string>
     <string name="zh_custom_mouse_add">添加虚拟鼠标</string>
