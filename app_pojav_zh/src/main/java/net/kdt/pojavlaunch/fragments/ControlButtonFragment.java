@@ -92,7 +92,7 @@ public class ControlButtonFragment extends Fragment {
                 filesButton.setButtonVisibility(true, true, true, true);
 
                 filesButton.messageText = getString(R.string.zh_file_message) + "\n" + getString(R.string.zh_file_message_copy);
-                filesButton.moreButtonText = getString(R.string.zh_controls_load);
+                filesButton.moreButtonText = getString(R.string.global_load);
 
                 FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, mFileListView, file);
                 filesDialog.setMoreButtonClick(v -> {
