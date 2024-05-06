@@ -9,11 +9,8 @@
             android:summary="@string/multirt_subtitle"
             android:title="@string/multirt_title"/>
 
-        <androidx.preference.EditTextPreference
-            android:dialogTitle="@string/mcl_setting_title_javaargs"
-
+        <Preference
             android:key="javaArgs"
-            android:singleLine="true"
             android:summary="@string/mcl_setting_subtitle_javaargs"
             android:title="@string/mcl_setting_title_javaargs" />
 

@@ -7,10 +7,8 @@ import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +26,7 @@ import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import net.kdt.pojavlaunch.dialog.CopyDialog;
+import net.kdt.pojavlaunch.dialog.EditTextDialog;
 import net.kdt.pojavlaunch.dialog.FilesDialog;
 
 import java.io.File;
@@ -108,22 +107,19 @@ public class FilesFragment extends Fragment {
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
         mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(null)); //不限制文件类型
         mCreateFolderButton.setOnClickListener(v -> {
-            View itemView = LayoutInflater.from(requireContext()).inflate(R.layout.item_edit_text, null);
-            EditText editText = itemView.findViewById(R.id.zh_edit_text);
+            EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(R.string.folder_dialog_insert_name), null, null, null);
+            editTextDialog.setConfirm(view1 -> {
+                File folder = new File(mFileListView.getFullPath(), editTextDialog.getEditBox().getText().toString().replace("/", ""));
+                boolean success = folder.mkdir();
+                if (success) {
+                    mFileListView.listFileAt(new File(mFileListView.getFullPath(), editTextDialog.getEditBox().getText().toString().replace("/", "")));
+                } else {
+                    mFileListView.refreshPath();
+                }
 
-            new AlertDialog.Builder(getContext())
-                    .setTitle(R.string.folder_dialog_insert_name)
-                    .setView(itemView)
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .setPositiveButton(R.string.folder_dialog_create, (dialog, which) -> {
-                        File folder = new File(mFileListView.getFullPath(), editText.getText().toString().replace("/", ""));
-                        boolean success = folder.mkdir();
-                        if (success) {
-                            mFileListView.listFileAt(new File(mFileListView.getFullPath(), editText.getText().toString().replace("/", "")));
-                        } else {
-                            mFileListView.refreshPath();
-                        }
-                    }).show();
+                editTextDialog.dismiss();
+            });
+            editTextDialog.show();
         });
         mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());
         mHelpButton.setOnClickListener(v -> {

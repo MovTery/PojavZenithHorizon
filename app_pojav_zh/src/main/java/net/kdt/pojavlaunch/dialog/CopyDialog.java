@@ -5,15 +5,12 @@ import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 
 import com.kdt.pickafile.FileListView;
 
@@ -63,15 +60,9 @@ public class CopyDialog extends Dialog {
             String newName = fileName.substring(0, fileName.lastIndexOf(suffix)) + "_new";
 
             //复制自定义名称
-            AlertDialog.Builder copyBuilder = new AlertDialog.Builder(context);
-            View itemView = LayoutInflater.from(context).inflate(R.layout.item_edit_text, null);
-            EditText input = itemView.findViewById(R.id.zh_edit_text);
-            input.setText(newName);
-
-            copyBuilder.setTitle(context.getString(R.string.zh_file_copy_dialog_new_name_title));
-            copyBuilder.setView(itemView);
-            copyBuilder.setPositiveButton(context.getString(R.string.zh_confirm), (dialog, which) -> {
-                String newFileName = input.getText().toString();
+            EditTextDialog editTextDialog = new EditTextDialog(context, context.getString(R.string.zh_file_copy_dialog_new_name_title), null, newName, null);
+            editTextDialog.setConfirm(view1 -> {
+                String newFileName = editTextDialog.getEditBox().getText().toString();
                 if (!newFileName.isEmpty()) {
                     //新线程复制文件
                     PojavApplication.sExecutorService.execute(() -> {
@@ -85,9 +76,11 @@ public class CopyDialog extends Dialog {
                 } else {
                     runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_file_rename_empty), Toast.LENGTH_SHORT).show());
                 }
+
+                editTextDialog.dismiss();
             });
-            copyBuilder.setNegativeButton(context.getString(android.R.string.cancel), null);
-            copyBuilder.show();
+
+            editTextDialog.show();
         });
     }
 }
