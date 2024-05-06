@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -31,7 +32,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -468,7 +468,8 @@ public class PojavZHTools {
                             MCBBSPackMeta.class);
 
                     modLoader = mcbbsModPack(context, zipFile, packName);
-                    if (modLoader != null) createProfiles(packName, mcbbsPackMeta.name, modLoader.getVersionId());
+                    if (modLoader != null)
+                        createProfiles(packName, mcbbsPackMeta.name, modLoader.getVersionId());
 
                     return modLoader;
                 case 3: // modrinth
@@ -605,7 +606,8 @@ public class PojavZHTools {
                 super.onPageFinished(view, url);
 
                 String[] color = new String[2];
-                boolean darkMode = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
+                Configuration configuration = view.getResources().getConfiguration();
+                boolean darkMode = (configuration.uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
                 color[0] = darkMode ? "#333333" : "#CFCFCF";
                 color[1] = darkMode ? "#ffffff" : "#0E0E0E";
 
