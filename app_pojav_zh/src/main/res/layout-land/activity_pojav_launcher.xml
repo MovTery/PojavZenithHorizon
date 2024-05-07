@@ -70,6 +70,16 @@
         app:layout_constraintStart_toStartOf="@+id/view"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
+    <View
+        android:id="@+id/progress_shadowView"
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        android:layout_marginBottom="-6dp"
+        android:background="@drawable/shadow_gradient_up"
+        app:layout_constraintBottom_toTopOf="@+id/progress_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <com.kdt.mcgui.ProgressLayout
         android:id="@+id/progress_layout"
         android:layout_width="match_parent"
