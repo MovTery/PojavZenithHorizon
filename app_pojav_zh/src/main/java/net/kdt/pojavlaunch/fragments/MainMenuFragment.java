@@ -1,13 +1,19 @@
 package net.kdt.pojavlaunch.fragments;
 
+import static net.kdt.pojavlaunch.Tools.dpToPx;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ADVANCED_FEATURES;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 import static net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles.getCurrentProfile;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -35,6 +41,9 @@ public class MainMenuFragment extends Fragment {
     public static final String TAG = "MainMenuFragment";
     private CheckNewNotice.NoticeInfo noticeInfo;
     private mcVersionSpinner mVersionSpinner;
+    private View mLauncherNoticeView, mLauncherMenuView;
+    private ImageButton mNoticeSummonButton;
+    private int mLauncherMenuWidth;
 
     public MainMenuFragment() {
         super(R.layout.fragment_launcher);
@@ -42,7 +51,7 @@ public class MainMenuFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        initNotice(view);
+        bindValues(view);
 
         Button mAboutButton = view.findViewById(R.id.about_button);
         Button mCustomControlButton = view.findViewById(R.id.custom_control_button);
@@ -87,6 +96,7 @@ public class MainMenuFragment extends Fragment {
             Tools.swapFragment(requireActivity(), FilesFragment.class, FilesFragment.TAG, bundle);
         });
 
+        initNotice(view);
         mOpenMainDirButton.setVisibility(PREF_ADVANCED_FEATURES ? View.VISIBLE : View.GONE);
         mOpenInstanceDirButton.setVisibility(PREF_ADVANCED_FEATURES ? View.VISIBLE : View.GONE);
     }
@@ -94,22 +104,17 @@ public class MainMenuFragment extends Fragment {
     private void initNotice(View view) {
         noticeInfo = CheckNewNotice.getNoticeInfo();
 
-        ImageButton mNoticeSummonButton = view.findViewById(R.id.zh_menu_notice_summon_button);
         Button mNoticeCloseButton = view.findViewById(R.id.zh_menu_notice_close_button);
-
-        View mLauncherNoticeView = view.findViewById(R.id.zh_menu_notice);
 
         mNoticeSummonButton.setOnClickListener(v -> {
             DEFAULT_PREF.edit().putBoolean("noticeDefault", true).apply();
-            mLauncherNoticeView.setVisibility(View.VISIBLE);
-            mNoticeSummonButton.setVisibility(View.GONE);
+            setNoticeAnim(true);
             checkNewNotice(view);
         });
 
         mNoticeCloseButton.setOnClickListener(v -> {
             DEFAULT_PREF.edit().putBoolean("noticeDefault", false).apply();
-            mLauncherNoticeView.setVisibility(View.GONE);
-            mNoticeSummonButton.setVisibility(View.VISIBLE);
+            setNoticeAnim(false);
         });
 
         //当偏好设置内是开启通知栏 或者 检测到通知编号不为偏好设置里保存的值时，显示通知栏
@@ -120,8 +125,17 @@ public class MainMenuFragment extends Fragment {
             mLauncherNoticeView.setVisibility(View.VISIBLE);
             checkNewNotice(view);
             DEFAULT_PREF.edit().putBoolean("noticeDefault", true).apply();
-            if (noticeInfo != null) DEFAULT_PREF.edit().putInt("numbering", noticeInfo.getNumbering()).apply();
+            if (noticeInfo != null)
+                DEFAULT_PREF.edit().putInt("numbering", noticeInfo.getNumbering()).apply();
         }
+    }
+
+    private void bindValues(View view) {
+        mLauncherNoticeView = view.findViewById(R.id.zh_menu_notice);
+        mLauncherMenuView = view.findViewById(R.id.launcher_menu);
+        mNoticeSummonButton = view.findViewById(R.id.zh_menu_notice_summon_button);
+
+        mLauncherMenuWidth = mLauncherMenuView.getWidth();
     }
 
     @Override
@@ -135,6 +149,72 @@ public class MainMenuFragment extends Fragment {
             Tools.installMod(requireActivity(), isCustomArgs);
         else
             Toast.makeText(requireContext(), R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
+    }
+
+    private void setNoticeAnim(boolean show) {
+        mNoticeSummonButton.setClickable(!show);
+
+        if (PREF_ANIMATION) {
+            //通知组件动画
+            mLauncherNoticeView.setVisibility(View.VISIBLE);
+            mLauncherNoticeView.post(() -> {
+                float extraPx = dpToPx(8);
+
+                if (show) {
+                    mLauncherNoticeView.setTranslationX(-mLauncherNoticeView.getWidth());
+                }
+
+                mLauncherNoticeView.animate()
+                        .translationX(show ? 0 : -mLauncherNoticeView.getWidth() - extraPx) //稍微滑出屏幕以确保完全不可见
+                        .setDuration(200)
+                        .withEndAction(() -> mLauncherNoticeView.setVisibility(show ? View.VISIBLE : View.GONE))
+                        .start();
+            });
+
+            //召唤按钮动画
+            mNoticeSummonButton.setVisibility(View.VISIBLE);
+            mNoticeSummonButton.animate()
+                    .alpha(show ? 0 : 1)
+                    .setDuration(200)
+                    .withEndAction(() -> mNoticeSummonButton.setVisibility(show ? View.GONE : View.VISIBLE))
+                    .start();
+
+            //主菜单View
+            ViewGroup.LayoutParams layoutParams = mLauncherMenuView.getLayoutParams();
+            int originalWidth = mLauncherMenuView.getWidth();
+            int expandedWidth = originalWidth * 2;
+
+            ValueAnimator animator;
+            if (show) {
+                animator = ValueAnimator.ofInt(originalWidth, originalWidth / 2);
+            } else {
+                animator = ValueAnimator.ofInt(originalWidth, expandedWidth);
+            }
+            animator.setDuration(200);
+            animator.addUpdateListener(animation -> {
+                layoutParams.width = (int) animation.getAnimatedValue();
+                mLauncherMenuView.setLayoutParams(layoutParams);
+                mLauncherMenuView.requestLayout();
+            });
+            animator.start();
+
+            animator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    if (show) {
+                        layoutParams.width = mLauncherMenuWidth / 2;
+                    } else {
+                        layoutParams.width = mLauncherMenuWidth;
+                    }
+                    mLauncherMenuView.setLayoutParams(layoutParams);
+                    mLauncherMenuView.requestLayout();
+                }
+            });
+        } else {
+            mLauncherNoticeView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mNoticeSummonButton.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
