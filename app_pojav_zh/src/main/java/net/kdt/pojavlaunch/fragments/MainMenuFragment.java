@@ -108,13 +108,12 @@ public class MainMenuFragment extends Fragment {
 
         mNoticeSummonButton.setOnClickListener(v -> {
             DEFAULT_PREF.edit().putBoolean("noticeDefault", true).apply();
-            setNoticeAnim(true);
-            checkNewNotice(view);
+            setNotice(true, view);
         });
 
         mNoticeCloseButton.setOnClickListener(v -> {
             DEFAULT_PREF.edit().putBoolean("noticeDefault", false).apply();
-            setNoticeAnim(false);
+            setNotice(false, view);
         });
 
         //当偏好设置内是开启通知栏 或者 检测到通知编号不为偏好设置里保存的值时，显示通知栏
@@ -151,7 +150,7 @@ public class MainMenuFragment extends Fragment {
             Toast.makeText(requireContext(), R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
     }
 
-    private void setNoticeAnim(boolean show) {
+    private void setNotice(boolean show, View view) {
         mNoticeSummonButton.setClickable(!show);
 
         if (PREF_ANIMATION) {
@@ -167,7 +166,12 @@ public class MainMenuFragment extends Fragment {
                 mLauncherNoticeView.animate()
                         .translationX(show ? 0 : -mLauncherNoticeView.getWidth() - extraPx) //稍微滑出屏幕以确保完全不可见
                         .setDuration(200)
-                        .withEndAction(() -> mLauncherNoticeView.setVisibility(show ? View.VISIBLE : View.GONE))
+                        .withEndAction(() -> {
+                            mLauncherNoticeView.setVisibility(show ? View.VISIBLE : View.GONE);
+                            if (show) {
+                                checkNewNotice(view);
+                            }
+                        })
                         .start();
             });
 
@@ -214,6 +218,7 @@ public class MainMenuFragment extends Fragment {
         } else {
             mLauncherNoticeView.setVisibility(show ? View.VISIBLE : View.GONE);
             mNoticeSummonButton.setVisibility(show ? View.GONE : View.VISIBLE);
+            checkNewNotice(view);
         }
     }
 
