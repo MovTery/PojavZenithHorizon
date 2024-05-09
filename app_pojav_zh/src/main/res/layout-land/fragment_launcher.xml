@@ -67,14 +67,15 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <WebView
+                    <TextView
                         android:id="@+id/zh_menu_notice_substance"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:background="@android:color/transparent"
-                        android:singleLine="true"
-                        tools:ignore="WebViewLayout" />
+                        android:text="@string/zh_unknown"
+                        android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
 
                     <TextView
                         android:id="@+id/zh_menu_notice_date"
@@ -83,7 +84,7 @@
                         android:layout_marginTop="8dp"
                         android:gravity="end"
                         android:text="@string/zh_unknown"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_14sdp"
                         android:textStyle="bold"
                         tools:ignore="HardcodedText" />
                 </LinearLayout>

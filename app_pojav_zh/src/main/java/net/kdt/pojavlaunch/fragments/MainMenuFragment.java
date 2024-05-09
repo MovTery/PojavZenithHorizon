@@ -7,14 +7,12 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ADVANCED_FEATUR
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 import static net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles.getCurrentProfile;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -43,7 +41,7 @@ public class MainMenuFragment extends Fragment {
     private mcVersionSpinner mVersionSpinner;
     private View mLauncherNoticeView, mLauncherMenuView;
     private ImageButton mNoticeSummonButton;
-    private int mLauncherMenuWidth;
+    private Button mNoticeCloseButton;
 
     public MainMenuFragment() {
         super(R.layout.fragment_launcher);
@@ -104,8 +102,6 @@ public class MainMenuFragment extends Fragment {
     private void initNotice(View view) {
         noticeInfo = CheckNewNotice.getNoticeInfo();
 
-        Button mNoticeCloseButton = view.findViewById(R.id.zh_menu_notice_close_button);
-
         mNoticeSummonButton.setOnClickListener(v -> {
             DEFAULT_PREF.edit().putBoolean("noticeDefault", true).apply();
             setNotice(true, view);
@@ -120,9 +116,7 @@ public class MainMenuFragment extends Fragment {
         if (DEFAULT_PREF.getBoolean("noticeDefault", false) ||
                 (noticeInfo != null &&
                         noticeInfo.getNumbering() != DEFAULT_PREF.getInt("numbering", 0))) {
-            mNoticeSummonButton.setVisibility(View.GONE);
-            mLauncherNoticeView.setVisibility(View.VISIBLE);
-            checkNewNotice(view);
+            setNotice(true, view);
             DEFAULT_PREF.edit().putBoolean("noticeDefault", true).apply();
             if (noticeInfo != null)
                 DEFAULT_PREF.edit().putInt("numbering", noticeInfo.getNumbering()).apply();
@@ -133,8 +127,7 @@ public class MainMenuFragment extends Fragment {
         mLauncherNoticeView = view.findViewById(R.id.zh_menu_notice);
         mLauncherMenuView = view.findViewById(R.id.launcher_menu);
         mNoticeSummonButton = view.findViewById(R.id.zh_menu_notice_summon_button);
-
-        mLauncherMenuWidth = mLauncherMenuView.getWidth();
+        mNoticeCloseButton = view.findViewById(R.id.zh_menu_notice_close_button);
     }
 
     @Override
@@ -151,40 +144,31 @@ public class MainMenuFragment extends Fragment {
     }
 
     private void setNotice(boolean show, View view) {
-        mNoticeSummonButton.setClickable(!show);
+        mNoticeSummonButton.setClickable(false);
+        mNoticeCloseButton.setClickable(false);
 
         if (PREF_ANIMATION) {
             //通知组件动画
             mLauncherNoticeView.setVisibility(View.VISIBLE);
-            mLauncherNoticeView.post(() -> {
-                float extraPx = dpToPx(8);
+            float extraPx = dpToPx(8);
 
-                if (show) {
-                    mLauncherNoticeView.setTranslationX(-mLauncherNoticeView.getWidth());
-                }
+            if (show) {
+                mLauncherNoticeView.setTranslationX(-mLauncherNoticeView.getWidth());
+            }
 
-                mLauncherNoticeView.animate()
-                        .translationX(show ? 0 : -mLauncherNoticeView.getWidth() - extraPx) //稍微滑出屏幕以确保完全不可见
-                        .setDuration(200)
-                        .withEndAction(() -> {
-                            mLauncherNoticeView.setVisibility(show ? View.VISIBLE : View.GONE);
-                            if (show) {
-                                checkNewNotice(view);
-                            }
-                        })
-                        .start();
-            });
+            mLauncherNoticeView.animate()
+                    .translationX(show ? 0 : -mLauncherNoticeView.getWidth() - extraPx) //稍微滑出屏幕以确保完全不可见
+                    .setDuration(200)
+                    .start();
 
             //召唤按钮动画
             mNoticeSummonButton.setVisibility(View.VISIBLE);
             mNoticeSummonButton.animate()
                     .alpha(show ? 0 : 1)
                     .setDuration(200)
-                    .withEndAction(() -> mNoticeSummonButton.setVisibility(show ? View.GONE : View.VISIBLE))
                     .start();
 
             //主菜单View
-            ViewGroup.LayoutParams layoutParams = mLauncherMenuView.getLayoutParams();
             int originalWidth = mLauncherMenuView.getWidth();
             int expandedWidth = originalWidth * 2;
 
@@ -196,28 +180,29 @@ public class MainMenuFragment extends Fragment {
             }
             animator.setDuration(200);
             animator.addUpdateListener(animation -> {
-                layoutParams.width = (int) animation.getAnimatedValue();
+                int newValue = (int) animation.getAnimatedValue();
+                ViewGroup.LayoutParams layoutParams = mLauncherMenuView.getLayoutParams();
+                layoutParams.width = newValue;
                 mLauncherMenuView.setLayoutParams(layoutParams);
-                mLauncherMenuView.requestLayout();
+                mLauncherMenuView.requestLayout(); // 触发重新布局
             });
             animator.start();
 
-            animator.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                    if (show) {
-                        layoutParams.width = mLauncherMenuWidth / 2;
-                    } else {
-                        layoutParams.width = mLauncherMenuWidth;
-                    }
-                    mLauncherMenuView.setLayoutParams(layoutParams);
-                    mLauncherMenuView.requestLayout();
+            Handler handler = new Handler();
+            handler.postDelayed(() -> {
+                mLauncherNoticeView.setVisibility(show ? View.VISIBLE : View.GONE);
+                if (show) {
+                    checkNewNotice(view);
                 }
-            });
+                mNoticeCloseButton.setClickable(show);
+                mNoticeSummonButton.setClickable(!show);
+                mNoticeSummonButton.setVisibility(show ? View.GONE : View.VISIBLE);
+            }, 250);
         } else {
             mLauncherNoticeView.setVisibility(show ? View.VISIBLE : View.GONE);
             mNoticeSummonButton.setVisibility(show ? View.GONE : View.VISIBLE);
+            mNoticeCloseButton.setClickable(show);
+            mNoticeSummonButton.setClickable(!show);
             checkNewNotice(view);
         }
     }
@@ -234,16 +219,14 @@ public class MainMenuFragment extends Fragment {
             //初始化
             TextView noticeTitleView = view.findViewById(R.id.zh_menu_notice_title);
             TextView noticeDateView = view.findViewById(R.id.zh_menu_notice_date);
-            WebView noticeSubstanceWebView = view.findViewById(R.id.zh_menu_notice_substance);
+            TextView noticeSubstanceWebView = view.findViewById(R.id.zh_menu_notice_substance);
 
             if (!noticeInfo.getRawTitle().equals("NONE")) {
                 noticeTitleView.setText(noticeInfo.getRawTitle());
             }
 
             noticeDateView.setText(noticeInfo.getRawDate());
-            PojavZHTools.getWebViewAfterProcessing(noticeSubstanceWebView);
-            noticeSubstanceWebView.getSettings().setJavaScriptEnabled(true);
-            noticeSubstanceWebView.loadDataWithBaseURL(null, noticeInfo.getSubstance(), "text/html", "UTF-8", null);
+            noticeSubstanceWebView.setText(noticeInfo.getSubstance());
         });
     }
 }

@@ -1,7 +1,5 @@
 package net.kdt.pojavlaunch;
 
-import static net.kdt.pojavlaunch.PojavZHTools.markdownToHtml;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Base64;
@@ -71,9 +69,8 @@ public class CheckNewNotice {
                         }
                         String rawDate = noticeJson.getString("date");
                         int numbering = noticeJson.getInt("numbering");
-                        String substance = markdownToHtml(rawSubstance);
 
-                        noticeInfo = new NoticeInfo(rawTitle, substance, rawDate, numbering);
+                        noticeInfo = new NoticeInfo(rawTitle, rawSubstance, rawDate, numbering);
                     } catch (Exception e) {
                         Log.e("Check New Notice", e.toString());
                     }
