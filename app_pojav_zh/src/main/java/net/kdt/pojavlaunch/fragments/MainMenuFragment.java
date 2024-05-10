@@ -134,7 +134,7 @@ public class MainMenuFragment extends Fragment {
                     mCheckNoticeTimer.cancel();
                 }
             }
-        }, 0, 5000); //5秒种检测一次
+        }, 0, 1000); //1秒种检测一次
     }
 
     private void bindValues(View view) {
