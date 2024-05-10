@@ -41,7 +41,7 @@ public class LauncherPreferences {
     public static boolean PREF_DISABLE_SWAP_HAND = false;
     public static float PREF_MOUSESPEED = 1f;
     public static int PREF_RAM_ALLOCATION;
-    public static String PREF_DEFAULT_RUNTIME;
+    public static String PREF_DEFAULT_RUNTIME = "";
     public static boolean PREF_SUSTAINED_PERFORMANCE = false;
     public static boolean PREF_VIRTUAL_MOUSE_START = true;
     public static boolean PREF_ARC_CAPES = false;
@@ -141,12 +141,12 @@ public class LauncherPreferences {
         if(DEFAULT_PREF.contains("defaultRuntime")) {
             PREF_DEFAULT_RUNTIME = DEFAULT_PREF.getString("defaultRuntime","");
         }else{
-            if(MultiRTUtils.getRuntimes().size() < 1) {
+            if(MultiRTUtils.getRuntimes().isEmpty()) {
                 PREF_DEFAULT_RUNTIME = "";
                 return;
             }
             PREF_DEFAULT_RUNTIME = MultiRTUtils.getRuntimes().get(0).name;
-            LauncherPreferences.DEFAULT_PREF.edit().putString("defaultRuntime",LauncherPreferences.PREF_DEFAULT_RUNTIME).apply();
+            LauncherPreferences.DEFAULT_PREF.edit().putString("defaultRuntime", LauncherPreferences.PREF_DEFAULT_RUNTIME).apply();
         }
     }
 
