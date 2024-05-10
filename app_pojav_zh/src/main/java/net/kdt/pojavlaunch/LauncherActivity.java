@@ -1,5 +1,6 @@
 package net.kdt.pojavlaunch;
 
+import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import static net.kdt.pojavlaunch.PojavZHTools.setVisibilityAnim;
 
 import android.Manifest;
@@ -201,6 +202,11 @@ public class LauncherActivity extends BaseActivity {
 
     private ActivityResultLauncher<String> mRequestNotificationPermissionLauncher;
     private WeakReference<Runnable> mRequestNotificationPermissionRunnable;
+
+    @Override
+    protected boolean shouldIgnoreNotch() {
+        return getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT || super.shouldIgnoreNotch();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

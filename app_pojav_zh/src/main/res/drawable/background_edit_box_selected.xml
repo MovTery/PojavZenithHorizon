@@ -14,5 +14,4 @@
                 android:color="@color/background_bottom_bar"/>
         </shape>
     </item>
-    <item android:drawable="?attr/selectableItemBackground"/>
 </layer-list>
