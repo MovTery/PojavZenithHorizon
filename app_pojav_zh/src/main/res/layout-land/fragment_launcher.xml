@@ -31,8 +31,7 @@
             android:visibility="gone"
             android:background="@drawable/background_card"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/launcher_menu"
-            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintEnd_toStartOf="@+id/dividing_line"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -105,14 +104,22 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <View
+            android:id="@+id/dividing_line"
+            android:layout_width="8dp"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/launcher_menu"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/zh_menu_notice"
-            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/dividing_line"
             app:layout_constraintTop_toTopOf="parent">
 
             <ScrollView
@@ -133,7 +140,7 @@
                         android:id="@+id/about_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="0dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
                         android:background="@drawable/background_line"
@@ -145,7 +152,7 @@
                         android:id="@+id/custom_control_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="0dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="10dp"
                         android:background="@drawable/background_line"
@@ -157,7 +164,7 @@
                         android:id="@+id/install_jar_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="0dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="10dp"
                         android:background="@drawable/background_line"
@@ -169,7 +176,7 @@
                         android:id="@+id/share_logs_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="0dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="10dp"
                         android:background="@drawable/background_line"

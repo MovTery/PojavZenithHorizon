@@ -1,18 +1,18 @@
 package net.kdt.pojavlaunch.fragments;
 
-import static net.kdt.pojavlaunch.Tools.dpToPx;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ADVANCED_FEATURES;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 import static net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles.getCurrentProfile;
 
-import android.animation.ValueAnimator;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.kdt.mcgui.mcVersionSpinner;
@@ -39,7 +40,7 @@ public class MainMenuFragment extends Fragment {
     public static final String TAG = "MainMenuFragment";
     private CheckNewNotice.NoticeInfo noticeInfo;
     private mcVersionSpinner mVersionSpinner;
-    private View mLauncherNoticeView, mLauncherMenuView;
+    private View mLauncherNoticeView, mDividingLineView;
     private ImageButton mNoticeSummonButton;
     private Button mNoticeCloseButton;
 
@@ -104,19 +105,21 @@ public class MainMenuFragment extends Fragment {
 
         mNoticeSummonButton.setOnClickListener(v -> {
             DEFAULT_PREF.edit().putBoolean("noticeDefault", true).apply();
-            setNotice(true, view);
+            setNotice(true, true, view);
         });
 
         mNoticeCloseButton.setOnClickListener(v -> {
             DEFAULT_PREF.edit().putBoolean("noticeDefault", false).apply();
-            setNotice(false, view);
+            setNotice(false, true, view);
         });
+
+        setNotice(false, false, view);
 
         //当偏好设置内是开启通知栏 或者 检测到通知编号不为偏好设置里保存的值时，显示通知栏
         if (DEFAULT_PREF.getBoolean("noticeDefault", false) ||
                 (noticeInfo != null &&
                         noticeInfo.getNumbering() != DEFAULT_PREF.getInt("numbering", 0))) {
-            setNotice(true, view);
+            setNotice(true, false, view);
             DEFAULT_PREF.edit().putBoolean("noticeDefault", true).apply();
             if (noticeInfo != null)
                 DEFAULT_PREF.edit().putInt("numbering", noticeInfo.getNumbering()).apply();
@@ -125,7 +128,7 @@ public class MainMenuFragment extends Fragment {
 
     private void bindValues(View view) {
         mLauncherNoticeView = view.findViewById(R.id.zh_menu_notice);
-        mLauncherMenuView = view.findViewById(R.id.launcher_menu);
+        mDividingLineView = view.findViewById(R.id.dividing_line);
         mNoticeSummonButton = view.findViewById(R.id.zh_menu_notice_summon_button);
         mNoticeCloseButton = view.findViewById(R.id.zh_menu_notice_close_button);
     }
@@ -143,23 +146,30 @@ public class MainMenuFragment extends Fragment {
             Toast.makeText(requireContext(), R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
     }
 
-    private void setNotice(boolean show, View view) {
+    private void setNotice(boolean show, boolean anim, View view) {
         mNoticeSummonButton.setClickable(false);
         mNoticeCloseButton.setClickable(false);
 
-        if (PREF_ANIMATION) {
-            //通知组件动画
+        if (PREF_ANIMATION && anim) {
+            //通过分割线来设置通知栏划出动画
             mLauncherNoticeView.setVisibility(View.VISIBLE);
-            float extraPx = dpToPx(8);
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) mDividingLineView.getLayoutParams();
 
-            if (show) {
-                mLauncherNoticeView.setTranslationX(-mLauncherNoticeView.getWidth());
-            }
-
-            mLauncherNoticeView.animate()
-                    .translationX(show ? 0 : -mLauncherNoticeView.getWidth() - extraPx) //稍微滑出屏幕以确保完全不可见
-                    .setDuration(200)
-                    .start();
+            @SuppressLint("ObjectAnimatorBinding")
+            ObjectAnimator animator = ObjectAnimator.ofFloat(params, "horizontalBias", show ? 0f : 0.5f, show ? 0.5f : 0f);
+            animator.setDuration(200);
+            animator.addUpdateListener(animation -> {
+                params.horizontalBias = (float) animation.getAnimatedValue();
+                mDividingLineView.setLayoutParams(params);
+            });
+            animator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    if (!show) mLauncherNoticeView.setVisibility(View.GONE); //关闭通知栏隐藏通知栏
+                }
+            });
+            animator.start();
 
             //召唤按钮动画
             mNoticeSummonButton.setVisibility(View.VISIBLE);
@@ -168,29 +178,8 @@ public class MainMenuFragment extends Fragment {
                     .setDuration(200)
                     .start();
 
-            //主菜单View
-            int originalWidth = mLauncherMenuView.getWidth();
-            int expandedWidth = originalWidth * 2;
-
-            ValueAnimator animator;
-            if (show) {
-                animator = ValueAnimator.ofInt(originalWidth, originalWidth / 2);
-            } else {
-                animator = ValueAnimator.ofInt(originalWidth, expandedWidth);
-            }
-            animator.setDuration(200);
-            animator.addUpdateListener(animation -> {
-                int newValue = (int) animation.getAnimatedValue();
-                ViewGroup.LayoutParams layoutParams = mLauncherMenuView.getLayoutParams();
-                layoutParams.width = newValue;
-                mLauncherMenuView.setLayoutParams(layoutParams);
-                mLauncherMenuView.requestLayout(); // 触发重新布局
-            });
-            animator.start();
-
             Handler handler = new Handler();
             handler.postDelayed(() -> {
-                mLauncherNoticeView.setVisibility(show ? View.VISIBLE : View.GONE);
                 if (show) {
                     checkNewNotice(view);
                 }
@@ -203,6 +192,10 @@ public class MainMenuFragment extends Fragment {
             mNoticeSummonButton.setVisibility(show ? View.GONE : View.VISIBLE);
             mNoticeCloseButton.setClickable(show);
             mNoticeSummonButton.setClickable(!show);
+            //设置分割线位置
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) mDividingLineView.getLayoutParams();
+            params.horizontalBias = show ? 0.5f : 0f;
+            mDividingLineView.setLayoutParams(params);
             checkNewNotice(view);
         }
     }
