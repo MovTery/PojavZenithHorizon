@@ -10,6 +10,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -120,21 +121,24 @@ public class MainMenuFragment extends Fragment {
         mCheckNoticeTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                boolean isFailure = CheckNewNotice.isFailure();
-                if (isFailure) mCheckNoticeTimer.cancel(); //如果访问失败了，那么取消计时器
                 noticeInfo = CheckNewNotice.getNoticeInfo();
-                if (CheckNewNotice.getNoticeInfo() != null) {
-                    //当偏好设置内是开启通知栏 或者 检测到通知编号不为偏好设置里保存的值时，显示通知栏
-                    if (DEFAULT_PREF.getBoolean("noticeDefault", false) ||
-                            noticeInfo.getNumbering() != DEFAULT_PREF.getInt("numbering", 0)) {
-                        runOnUiThread(() -> setNotice(true, false, view));
-                        DEFAULT_PREF.edit().putBoolean("noticeDefault", true).apply();
-                        DEFAULT_PREF.edit().putInt("numbering", noticeInfo.getNumbering()).apply();
-                    }
+                if (CheckNewNotice.isFailure()) { //如果访问失败了，那么取消计时器
+                    mCheckNoticeTimer.cancel();
+                    return;
+                }
+
+                //当偏好设置内是开启通知栏 或者 检测到通知编号不为偏好设置里保存的值时，显示通知栏
+                if (DEFAULT_PREF.getBoolean("noticeDefault", false) ||
+                        (noticeInfo.getNumbering() != DEFAULT_PREF.getInt("numbering", 0))) {
+                    runOnUiThread(() -> setNotice(true, false, view));
+                    SharedPreferences.Editor editor = DEFAULT_PREF.edit();
+                    editor.putBoolean("noticeDefault", true);
+                    editor.putInt("numbering", noticeInfo.getNumbering());
+                    editor.apply();
                     mCheckNoticeTimer.cancel();
                 }
             }
-        }, 0, 1000); //1秒种检测一次
+        }, 0, 500); // 0.5秒钟检查一次
     }
 
     private void bindValues(View view) {
