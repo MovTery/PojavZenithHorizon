@@ -127,7 +127,7 @@ public class MainMenuFragment extends Fragment {
                     //当偏好设置内是开启通知栏 或者 检测到通知编号不为偏好设置里保存的值时，显示通知栏
                     if (DEFAULT_PREF.getBoolean("noticeDefault", false) ||
                             noticeInfo.getNumbering() != DEFAULT_PREF.getInt("numbering", 0)) {
-                        setNotice(true, false, view);
+                        runOnUiThread(() -> setNotice(true, false, view));
                         DEFAULT_PREF.edit().putBoolean("noticeDefault", true).apply();
                         DEFAULT_PREF.edit().putInt("numbering", noticeInfo.getNumbering()).apply();
                     }
