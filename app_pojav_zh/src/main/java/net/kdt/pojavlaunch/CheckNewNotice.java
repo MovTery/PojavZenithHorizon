@@ -19,7 +19,12 @@ import okhttp3.Response;
 
 public class CheckNewNotice {
     private static NoticeInfo noticeInfo = null;
+    private static boolean isFailure = false;
 
+
+    public static boolean isFailure() {
+        return isFailure;
+    }
     public static NoticeInfo getNoticeInfo() {
         return noticeInfo;
     }
@@ -37,6 +42,7 @@ public class CheckNewNotice {
 
             @Override
             public void onFailure(Call call, IOException e) {
+                isFailure = true;
             }
 
             @SuppressLint("SetJavaScriptEnabled")

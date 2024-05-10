@@ -35,6 +35,8 @@ import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 
 import java.io.File;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainMenuFragment extends Fragment {
     public static final String TAG = "MainMenuFragment";
@@ -43,6 +45,7 @@ public class MainMenuFragment extends Fragment {
     private View mLauncherNoticeView, mDividingLineView;
     private ImageButton mNoticeSummonButton;
     private Button mNoticeCloseButton;
+    private Timer mCheckNoticeTimer;
 
     public MainMenuFragment() {
         super(R.layout.fragment_launcher);
@@ -101,8 +104,6 @@ public class MainMenuFragment extends Fragment {
     }
 
     private void initNotice(View view) {
-        noticeInfo = CheckNewNotice.getNoticeInfo();
-
         mNoticeSummonButton.setOnClickListener(v -> {
             DEFAULT_PREF.edit().putBoolean("noticeDefault", true).apply();
             setNotice(true, true, view);
@@ -115,15 +116,25 @@ public class MainMenuFragment extends Fragment {
 
         setNotice(false, false, view);
 
-        //当偏好设置内是开启通知栏 或者 检测到通知编号不为偏好设置里保存的值时，显示通知栏
-        if (DEFAULT_PREF.getBoolean("noticeDefault", false) ||
-                (noticeInfo != null &&
-                        noticeInfo.getNumbering() != DEFAULT_PREF.getInt("numbering", 0))) {
-            setNotice(true, false, view);
-            DEFAULT_PREF.edit().putBoolean("noticeDefault", true).apply();
-            if (noticeInfo != null)
-                DEFAULT_PREF.edit().putInt("numbering", noticeInfo.getNumbering()).apply();
-        }
+        mCheckNoticeTimer = new Timer();
+        mCheckNoticeTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                boolean isFailure = CheckNewNotice.isFailure();
+                if (isFailure) mCheckNoticeTimer.cancel(); //如果访问失败了，那么取消计时器
+                noticeInfo = CheckNewNotice.getNoticeInfo();
+                if (CheckNewNotice.getNoticeInfo() != null) {
+                    //当偏好设置内是开启通知栏 或者 检测到通知编号不为偏好设置里保存的值时，显示通知栏
+                    if (DEFAULT_PREF.getBoolean("noticeDefault", false) ||
+                            noticeInfo.getNumbering() != DEFAULT_PREF.getInt("numbering", 0)) {
+                        setNotice(true, false, view);
+                        DEFAULT_PREF.edit().putBoolean("noticeDefault", true).apply();
+                        DEFAULT_PREF.edit().putInt("numbering", noticeInfo.getNumbering()).apply();
+                    }
+                    mCheckNoticeTimer.cancel();
+                }
+            }
+        }, 0, 5000); //5秒种检测一次
     }
 
     private void bindValues(View view) {
@@ -137,6 +148,15 @@ public class MainMenuFragment extends Fragment {
     public void onResume() {
         super.onResume();
         mVersionSpinner.reloadProfiles();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (mCheckNoticeTimer != null) {
+            mCheckNoticeTimer.cancel();
+        }
     }
 
     private void runInstallerWithConfirmation(boolean isCustomArgs) {
