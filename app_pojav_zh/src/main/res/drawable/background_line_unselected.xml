@@ -7,9 +7,6 @@
 
             <corners android:radius="@dimen/_3sdp" />
 
-            <padding
-                android:bottom="@dimen/padding_input_bottom"
-                android:top="@dimen/padding_input_top" />
 
             <solid android:color="@color/menu_overlay" />
 
@@ -19,4 +16,13 @@
         </shape>
     </item>
     <item android:drawable="?attr/selectableItemBackground"/>
+    <item>
+        <shape
+            android:shape="rectangle">
+
+            <padding
+                android:bottom="@dimen/padding_input_bottom"
+                android:top="@dimen/padding_input_top" />
+        </shape>
+    </item>
 </layer-list>
