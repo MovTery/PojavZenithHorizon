@@ -76,7 +76,7 @@ public class PojavApplication extends Application {
 												.concat("/x86");
 			}
 			AsyncAssetManager.unpackRuntime(getAssets());
-			JRE21Util.checkInternalJre21(getAssets()); //检查Jre21
+			UnpackJRE.unpackAllJre(getAssets()); //解压JRE17、JRE21
 		} catch (Throwable throwable) {
 			Intent ferrorIntent = new Intent(this, FatalErrorActivity.class);
 			ferrorIntent.putExtra("throwable", throwable);
