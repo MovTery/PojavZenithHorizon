@@ -121,11 +121,13 @@ public class MainMenuFragment extends Fragment {
         mCheckNoticeTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                noticeInfo = CheckNewNotice.getNoticeInfo();
                 if (CheckNewNotice.isFailure()) { //如果访问失败了，那么取消计时器
                     mCheckNoticeTimer.cancel();
                     return;
                 }
+
+                noticeInfo = CheckNewNotice.getNoticeInfo();
+                if (noticeInfo == null) return;
 
                 //当偏好设置内是开启通知栏 或者 检测到通知编号不为偏好设置里保存的值时，显示通知栏
                 if (DEFAULT_PREF.getBoolean("noticeDefault", false) ||
