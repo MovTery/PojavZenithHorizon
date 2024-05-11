@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Pojav ZH -->
+    <string name="zh_return">Return</string>
+    <string name="zh_share">Share</string>
+    <string name="zh_refresh">Refresh</string>
+    <string name="zh_create">Create</string>
+    <string name="zh_rename">Rename</string>
+    <string name="zh_tip">Tip</string>
+    <string name="zh_confirm">Confirm</string>
+    <string name="zh_unknown">Unknown</string>
+    <string name="zh_warning">Warning</string>
+    <string name="zh_wrong_tip">Something went wrong</string>
+
+    <string name="zh_account_text">Please select a login method</string>
+    <string name="zh_account_microsoft_account">Microsoft Account</string>
+    <string name="zh_account_local_account">Local account</string>
+    <string name="zh_account_local_account_empty">Username cannot be empty!</string>
+    <string name="zh_account_local_account_exists">Username conflicts with an existing account, please choose a new name!</string>
+    <string name="zh_account_local_account_less">Username is too short!</string>
+    <string name="zh_account_local_account_greater">Username is too long!</string>
+    <string name="zh_account_local_account_illegal">Username contains illegal characters! Only English letters (both uppercase and lowercase), numbers, and underscores are allowed in the username.</string>
+    <string name="zh_account_login_local_name">Username</string>
+    <string name="zh_account_login_start">Login started !</string>
+
+    <string name="zh_activity_import_control">Layout Name Control:</string>
+    <string name="zh_activity_java_gui_keyboard">Keyboard</string>
+    <string name="zh_activity_java_gui_paste">Paste</string>
+
+    <string name="zh_controls_add_control_button">Button</string>
+    <string name="zh_controls_add_control_drawer">Drawer</string>
+    <string name="zh_controls_visibility">Visibility</string>
+    <string name="zh_controls_in_game">In game</string>
+    <string name="zh_controls_in_menu">In menu</string>
+    <string name="zh_controls_load_failed">Failed to load!</string>
+    <string name="zh_controls_unsupported_layout_version">Unsupported control layout version</string>
+    <string name="zh_controls_create_new">Create new control layout</string>
+    <string name="zh_controls_create_new_title">Control layout name:</string>
+    <string name="zh_controls_import_control">Import control layout</string>
+    <string name="zh_controls_settings_title">Control Layout Editor Settings</string>
+    <string name="zh_controls_settings_button_snapping">Button snapping</string>
+    <string name="zh_controls_settings_button_snapping_distance">Button snapping distance</string>
+    <string name="zh_custom_control_title">Control Layout Management</string>
+    <string name="zh_custom_control_desc">Manage all control layout files, where you can delete, create, rename, import control layouts, etc.</string>
+    <string name="zh_custom_mouse_add">Add virtual mouse</string>
+    <string name="zh_custom_mouse_added">Successfully set virtual mouse:</string>
+    <string name="zh_custom_mouse_title">Customize virtual mouse</string>
+    <string name="zh_custom_mouse_desc">By opening the virtual mouse management interface, you can add your preferred virtual mouse images and use them.</string>
+    <string name="zh_custom_mouse_message_default">The currently selected virtual mouse is the default virtual mouse, and does not support sharing, renaming, or deleting operations.</string>
+
+    <string name="zh_file_add_file">Add file</string>
+    <string name="zh_file_add_file_tip">Please select a file with the suffix "%s"</string>
+    <string name="zh_file_create_file_invalid">Cannot have the same name as an existing file!</string>
+    <string name="zh_file_copy_dialog_title">Copy File</string>
+    <string name="zh_file_copy_dialog_message">Are you sure you want to copy this file and create a new one?</string>
+    <string name="zh_file_copy_dialog_new_name_title">Name the copied new file</string>
+    <string name="zh_file_does_not_exist">This folder (or file) doesn\'t exist</string>
+    <string name="zh_file_tips">Operate this file</string>
+    <string name="zh_file_message">Please select the operation you want to perform on this file.</string>
+    <string name="zh_file_message_copy">(Long press this file to copy and create a new file)</string>
+    <string name="zh_file_message_main">(Please note that all files in this directory are very important, mishandling may cause the game to fail to launch!)</string>
+    <string name="zh_file_added">File added successfully</string>
+    <string name="zh_file_delete">Are you sure you want to delete this file?</string>
+    <string name="zh_file_delete_dir">Are you sure you want to delete this folder?</string>
+    <string name="zh_file_delete_dir_message">When deleting a folder, all the files inside it will be deleted as well. If there are important files inside this folder, please cancel this operation!</string>
+    <string name="zh_file_delete_dir_success">The folder has been successfully deleted: </string>
+    <string name="zh_file_deleted">Successfully deleted the file: </string>
+    <string name="zh_file_renamed">File name modified: </string>
+    <string name="zh_file_rename_empty">The file name cannot be empty!</string>
+
+    <string name="zh_neoforge_dl_searching">Searching for NeoForge version number</string>
+    <string name="zh_neoforge_dl_no_installer">Sorry, but this version of NeoForge does not have an installer, which is not yet supported.</string>
+    <string name="zh_neoforge_dl_select_version">Select NeoForge version</string>
+    <string name="zh_modloader_dl_install_neoforge">Create NeoForge profile</string>
+
+    <string name="zh_main_open_main_dir">Open main directory</string>
+    <string name="zh_main_open_instance_dir">Open Instance Directory</string>
+    <string name="zh_main_share_crash_report">Share Crash Report</string>
+    <string name="zh_main_share_log_tip">Are you sure you want to share the launcher\'s running log?\nLog file location:</string>
+    <string name="zh_main_notice_title">Notification Bar</string>
+    <string name="zh_game_autopick_runtime_failed">Failed to find a suitable runtime environment, set to the runtime environment selected by the current instance</string>
+    <string name="zh_game_tip">The game is running, you can open the log output through the menu to check the game\'s running status</string>
+    <string name="zh_game_tip_version">Current game version being launched: </string>
+    <string name="zh_preference_category_language">Language</string>
+    <string name="zh_preference_category_launcher">Launcher</string>
+
+    <string name="zh_profile_custom_path">Custom path</string>
+    <string name="zh_profile_create_mods">Create Mods</string>
+    <string name="zh_profile_create_mods_message">Please ensure the game version supports Mod loading. Unsupported versions won\'t benefit from creating Mods folders or adding Mods!</string>
+    <string name="zh_profile_create_mods_success">Successfully created Mods folder!</string>
+    <string name="zh_profile_mods">Mods</string>
+    <string name="zh_profile_mods_add_mod">Add Mod</string>
+    <string name="zh_profile_mods_added_mod">Successfully added Mod</string>
+    <string name="zh_profile_mods_disable">Disable</string>
+    <string name="zh_profile_mods_disabled">Successfully disabled file: </string>
+    <string name="zh_profile_mods_enable">Enable</string>
+    <string name="zh_profile_mods_enabled">Successfully enabled file: </string>
+    <string name="zh_replacement_customcontrol">Change Control Layout</string>
+    <string name="zh_select_modpack_search">Search for modpacks</string>
+    <string name="zh_select_modpack_local">Local modpack</string>
+    <string name="zh_select_modpack_local_tip">Please select a modpack file that can be imported by the launcher!</string>
+    <string name="zh_select_modpack_local_not_supported">This file is not supported by the launcher!</string>
+    <string name="zh_select_modpack_local_installing_files">Installing game files… (%d)</string>
+    <string name="zh_setting_set_to_chinese_desc">On first launch, automatically set game language to Chinese</string>
+    <string name="zh_setting_set_to_chinese_title">Automatically set to Chinese</string>
+    <string name="zh_setting_chinese_language_title">Switch to Chinese language</string>
+    <string name="zh_setting_launcher_theme">Launcher Theme</string>
+    <string name="zh_setting_launcher_theme_system">Follow System Changes</string>
+    <string name="zh_setting_launcher_theme_light">Light Mode</string>
+    <string name="zh_setting_launcher_theme_dark">Dark Mode</string>
+    <string name="zh_setting_enable_log_output_desc">Enable the log output interface when the application officially starts running the game</string>
+    <string name="zh_setting_enable_log_output_title">Enable log output on game startup</string>
+    <string name="zh_setting_animation_desc">Set whether to play animation when switching launcher interface</string>
+    <string name="zh_setting_animation_title">Enable Animation</string>
+    <string name="zh_setting_quit_launcher_desc">Should the launcher exit when the game officially begins running?</string>
+    <string name="zh_setting_quit_launcher_title">Exit Launcher</string>
+    <string name="zh_setting_advanced_features_desc">When enabled, the launcher will unlock some advanced features (may require a restart to take effect)</string>
+    <string name="zh_setting_advanced_features_title">Advanced Features</string>
+    <string name="zh_setting_reboot_tip">This setting has been changed, but requires the app to be restarted to take effect!</string>
+
+    <string name="zh_update">Check for updates</string>
+    <string name="zh_update_dialog_title">New Version Detected</string>
+    <string name="zh_update_dialog_version">Version:</string>
+    <string name="zh_update_dialog_time">Date:</string>
+    <string name="zh_update_dialog_file_size">File size:</string>
+    <string name="zh_update_dialog_yes">Update</string>
+    <string name="zh_update_dialog_ignore">Ignore this update</string>
+    <string name="zh_update_summary">Get and update to the latest version</string>
+    <string name="zh_update_checking">Checking for updates…</string>
+    <string name="zh_update_without">Already up to date</string>
+    <string name="zh_update_fail">Network exception, unable to get updates temporarily!</string>
+    <string name="zh_update_yes">A new version has been detected. Would you like to download and update?</string>
+    <string name="zh_update_success">The latest installation package has been downloaded. Do you want to install it?\nPackage location: </string>
+    <string name="zh_update_downloading">Downloading… (%s / %s)</string>
+    <string name="zh_update_downloading_tip">Downloading, updating source: Github Releases</string>
+
+    <string name="zh_other_login_api">External Login</string>
+    <string name="zh_other_login_authentication_server">Authentication Server</string>
+    <string name="zh_other_login_register">Register</string>
+    <string name="zh_other_login_email">Email or Username</string>
+    <string name="zh_other_login_password">Password</string>
+    <string name="zh_other_login_add_server">Please select the authentication server type</string>
+    <string name="zh_other_login_external_login">External Login</string>
+    <string name="zh_other_login_uniform_pass">Uniform Pass</string>
+    <string name="zh_other_login_yggdrasil_api">Please enter the Yggdrasil API authentication server address</string>
+    <string name="zh_other_login_32_bit_server">Please enter a 32-bit server ID</string>
+    <string name="zh_other_login_select_role">Please select a role</string>
+    <string name="zh_other_login_error">An error occurred while logging in：\n</string>
+    <string name="zh_other_login_no_server">No authentication server</string>
+    <string name="zh_other_login_baseurl_not_set">BaseUrl is not set</string>
+    <string name="zh_other_login_client">Client</string>
+    <string name="zh_other_login_error_code">error code：</string>
+    <string name="zh_other_login_not_empty">The server, account, or password cannot be empty, please check the content you entered!</string>
+
+    <string name="zh_about_tab">About Pojav ZH</string>
+    <string name="zh_about_github" translatable="false">Github</string>
+    <string name="zh_about_dec1">Pojav ZH is a Minecraft launcher based on the modified version of PojavLauncher that allows Minecraft: Java Edition to be played on Android devices. Pojav ZH is committed to improving user experience by redesigning the application interface and adding more useful features to make it easier for more people to enjoy Minecraft.</string>
+    <string name="zh_about_dec2">Pojav ZH is carefully crafted by the individual, MovTery, who has made significant modifications to the PojavLauncher.</string>
+    <string name="zh_about_dec3">Since PojavLauncher uses the GPL 3.0 open source license, this license is "infectious," and any code that uses, modifies, or derives from GPL libraries or software must also adopt the GPL license for open source. Therefore, Pojav ZH must also follow the GPL 3.0 open source license. If you intend to spread or distribute this software, please be sure to comply with the relevant provisions of the GPL 3.0 open source license.</string>
+    <string name="zh_about_dec4">Software contributors:</string>
+    <string name="zh_about_contributors1">MovTery</string>
+    <string name="zh_about_contributors2" translatable="false">Vera-Firefly</string>
+    <string name="zh_about_version_name">Pojav ZH Version Name:</string>
+    <string name="zh_about_version_code">Pojav ZH Version Code:</string>
+    <string name="zh_about_last_update_time">Last update time:</string>
+    <string name="zh_about_version_status">Version Status:</string>
+    <string name="zh_about_version_status_main_branch">Main Branch</string>
+    <string name="zh_about_version_status_other_branch">Other Branch</string>
+    <string name="zh_about_version_status_debug">Debug</string>
+    <string name="zh_about_version_status_release">Release</string>
+
+    <string name="zh_help_control_button_title">What is Control Layout?</string>
+    <string name="zh_help_control_button_message">Control Layout plays a vital role in the game by displaying buttons on the screen, which allows users to interact with the game. This simulates the process of using a keyboard to control the game in Minecraft: Java Edition. In the Control Layout Management interface, you can manage all the current control layouts, load and modify or create a new set of control layouts, import, or share control layouts.</string>
+    <string name="zh_help_instance_title">What is Game Instance?</string>
+    <string name="zh_help_instance_message">Game Instance is like a list that includes various information about the game. It tells the launcher which game version, control layout, and rendering engine you want to use to start the game. Therefore, the launcher can start the corresponding game according to your needs. Game instances are independent of each other, but you can choose the same things in multiple instances, such as the same set of control layouts. When starting a game from the main menu, you need to choose a game instance, and you need to make sure that all the things selected in your game instance are normal and available, or you may encounter unexpected problems.</string>
+    <string name="zh_help_files_title">Pojav ZH Main Directory</string>
+    <string name="zh_help_files_message">The main directory refers to the main directory where Pojav ZH stores game data. This interface is like a simple file manager, allowing you to manage all files in the main directory freely. However, please be cautious about the files here. Improper operations may cause the launcher to malfunction or the game to fail to start!</string>
+    <string name="zh_help_mod_title">What is Mod?</string>
+    <string name="zh_help_mod_message">It can be understood as a third-party plugin for the game, which can modify the game or add more interesting content to the game. Minecraft: Java Edition usually cannot load Mods, but the player community has developed third-party loaders for Minecraft, which can load Mods, and these third-party loaders are independent game versions. You do not need to choose between the original version and the third-party loader. The Mod management interface can manage all Mods in the "mods" folder in the custom path of the current game instance, or you can import Mods yourself, which requires you to download them from the resource website.</string>
+    <string name="zh_help_other_login_title">What is external login?</string>
+    <string name="zh_help_other_login_message">External login options are usually provided for players to use third-party login services, rather than Minecraft\'s official login method. It allows for more flexible account management and access to unique features and services provided by the third-party service. \nExternal login is often used in conjunction with skin sites, where you can register an account to manage your skins and use them in Minecraft through external login. \nTo use external login, you need to first add an authentication server. This means adding a skin site of your choice; please refer to the site\'s instructions for specific steps. \nAfter adding the site, you can then log in with the account you registered on that site!</string>
+    <string name="zh_help_modpack_title">What is a Mod Pack?</string>
+    <string name="zh_help_modpack_message">A Mod Pack is a client file package containing multiple mods that are integrated together, allowing players to easily experience new gameplay and content. By installing a Mod Pack, players can acquire a large amount of new game content in one go, without having to individually search for and install each mod, saving time and energy.\nPlease note that the majority of Mod Pack authors are primarily catering to PC players and they usually do not take into consideration Pojav players who may attempt to use their Mod Packs. Considering that Mod Packs often contain a large number of mods, it is inevitable that issues may arise, such as incompatibilities or performance problems.\nTherefore, it is essential to carefully choose and consider your own device performance and needs, and to be cautious when selecting a Mod Pack to avoid unnecessary difficulties!</string>
+    <string name="zh_help_mouse_title">How to use Virtual Mouse Manager?</string>
+    <string name="zh_help_mouse_message">In the virtual mouse manager interface, you can view and add virtual mice. Clicking on a virtual mouse allows you to select, rename, or delete it. \nVirtual mice are essentially textures. You can draw your own or find suitable virtual mice, then import them into the launcher and select them as the virtual mouse in the game. \nHere, you can only select image files. Any other files are not supported!</string>
+    <string name="zh_help_ok">Got it</string>
+</resources>
