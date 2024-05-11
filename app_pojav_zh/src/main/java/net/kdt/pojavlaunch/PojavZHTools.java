@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -187,26 +186,6 @@ public class PojavZHTools {
         bitmap.recycle();
 
         return new BitmapDrawable(context.getResources(), scaledBitmap);
-    }
-
-    public static Drawable getScaledIcon(Resources res, int iconResId, int targetSize, Context context) {
-        Drawable drawable = ResourcesCompat.getDrawable(res, iconResId, context.getTheme());
-
-        if (drawable instanceof BitmapDrawable) {
-            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-            Bitmap bitmap = bitmapDrawable.getBitmap();
-
-            int width = bitmap.getWidth();
-            int height = bitmap.getHeight();
-            float scaleWidth = ((float) targetSize / width);
-            float scaleHeight = ((float) targetSize / height);
-            float scale = Math.min(scaleWidth, scaleHeight); //选择较小的缩放因子以保持宽高比
-
-            Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, (int) (width * scale), (int) (height * scale), false);
-            return new BitmapDrawable(context.getResources(), scaledBitmap);
-        } else {
-            return drawable;
-        }
     }
 
     public static boolean isImage(File file) {
