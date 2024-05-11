@@ -41,6 +41,9 @@
     <string name="zh_controls_create_new">Create new control layout</string>
     <string name="zh_controls_create_new_title">Control layout name:</string>
     <string name="zh_controls_import_control">Import control layout</string>
+    <string name="zh_controls_settings_title">Control Layout Editor Settings</string>
+    <string name="zh_controls_settings_button_snapping">Button snapping</string>
+    <string name="zh_controls_settings_button_snapping_distance">Button snapping distance</string>
     <string name="zh_custom_control_title">Control Layout Management</string>
     <string name="zh_custom_control_desc">Manage all control layout files, where you can delete, create, rename, import control layouts, etc.</string>
     <string name="zh_custom_mouse_add">Add virtual mouse</string>

@@ -15,6 +15,7 @@ import net.kdt.pojavlaunch.customcontrols.ControlDrawerData;
 import net.kdt.pojavlaunch.customcontrols.ControlJoystickData;
 import net.kdt.pojavlaunch.customcontrols.ControlLayout;
 import net.kdt.pojavlaunch.customcontrols.EditorExitable;
+import net.kdt.pojavlaunch.dialog.ControlSettingsDialog;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import java.io.IOException;
@@ -52,11 +53,12 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 				case 0: mControlLayout.addControlButton(new ControlData(getString(R.string.zh_controls_add_control_button))); break;
 				case 1: mControlLayout.addDrawer(new ControlDrawerData()); break;
 				case 2: mControlLayout.addJoystickButton(new ControlJoystickData()); break;
-				case 3: mControlLayout.openLoadDialog(); break;
-				case 4: mControlLayout.openSaveDialog(); break;
-				case 5: mControlLayout.openSaveAndExitDialog(this); break;
-				case 6: mControlLayout.openSetDefaultDialog(); break;
-				case 7: // Saving the currently shown control
+				case 3: new ControlSettingsDialog(this).show(); break;
+				case 4: mControlLayout.openLoadDialog(); break;
+				case 5: mControlLayout.openSaveDialog(); break;
+				case 6: mControlLayout.openSaveAndExitDialog(this); break;
+				case 7: mControlLayout.openSetDefaultDialog(); break;
+				case 8: // Saving the currently shown control
 					try {
 						Uri contentUri = DocumentsContract.buildDocumentUri(getString(R.string.storageProviderAuthorities), mControlLayout.saveToDirectory(mControlLayout.mLayoutFileName));
 
