@@ -1,18 +1,17 @@
 package com.movtery.versionlist;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 
-import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import fr.spse.extended_view.ExtendedTextView;
 
 public class VersionListAdapter extends BaseAdapter {
     private final static int ICON_INSTALLED = R.drawable.ic_pojav_full;
@@ -22,14 +21,12 @@ public class VersionListAdapter extends BaseAdapter {
     private final static int ICON_ALPHA = R.drawable.ic_old_grass_block;
 
     private final LayoutInflater mInflater;
-    private final Context context;
     private final List<String> mData = new ArrayList<>();
     private final VersionType versionType; //图标类型
 
     public VersionListAdapter(Context context, VersionType versionType) {
         mInflater = LayoutInflater.from(context);
         this.versionType = versionType;
-        this.context = context;
     }
 
     public void add(String versionId) {
@@ -57,35 +54,31 @@ public class VersionListAdapter extends BaseAdapter {
         View row = convertView;
 
         if (row == null)
-            row = mInflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+            row = mInflater.inflate(R.layout.item_version_profile_layout, parent, false);
 
-        TextView view = (TextView) row;
+        ExtendedTextView view = (ExtendedTextView) row;
         view.setText(getItem(position));
 
-        Drawable icon;
+        int icon;
         switch (versionType) { //根据版本类型来设置图标
             case RELEASE:
-                icon = getIcon(ICON_RELEASE);
+                icon = ICON_RELEASE;
                 break;
             case SNAPSHOT:
-                icon = getIcon(ICON_SNAPSHOT);
+                icon = ICON_SNAPSHOT;
                 break;
             case BETA:
-                icon = getIcon(ICON_BETA);
+                icon = ICON_BETA;
                 break;
             case ALPHA:
-                icon = getIcon(ICON_ALPHA);
+                icon = ICON_ALPHA;
                 break;
             default:
-                icon = getIcon(ICON_INSTALLED);
+                icon = ICON_INSTALLED;
         }
 
-        view.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+        view.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
         view.setCompoundDrawablePadding(20);
         return row;
-    }
-
-    private Drawable getIcon(int iconRes) {
-        return PojavZHTools.getScaledIcon(this.context.getResources(), iconRes, 36, this.context);
     }
 }
