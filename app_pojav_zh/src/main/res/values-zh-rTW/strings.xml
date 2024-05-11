@@ -37,6 +37,9 @@
     <string name="zh_controls_create_new">創建新的控制佈局</string>
     <string name="zh_controls_create_new_title">控制佈局名稱：</string>
     <string name="zh_controls_import_control">導入控制佈局</string>
+    <string name="zh_controls_settings_title">控制佈局編輯器設置</string>
+    <string name="zh_controls_settings_button_snapping">按鍵吸附功能</string>
+    <string name="zh_controls_settings_button_snapping_distance">按鍵吸附距離</string>
     <string name="zh_custom_control_title">管理控制佈局</string>
     <string name="zh_custom_control_desc">管理所有的控制佈局檔案，您可以在此處刪除、建立、重命名、匯入控制佈局等</string>
     <string name="zh_custom_mouse_add">添加虛擬滑鼠</string>
