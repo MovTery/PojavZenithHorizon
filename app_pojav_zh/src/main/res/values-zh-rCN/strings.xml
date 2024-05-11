@@ -32,6 +32,7 @@
     <string name="zh_controls_visibility">可见性</string>
     <string name="zh_controls_in_game">游戏内</string>
     <string name="zh_controls_in_menu">菜单内</string>
+    <string name="zh_controls_load_failed">加载失败！</string>
     <string name="zh_controls_unsupported_layout_version">不支持的控制布局版本！</string>
     <string name="zh_controls_create_new">创建新的控制布局</string>
     <string name="zh_controls_create_new_title">控制布局名称：</string>
