@@ -162,23 +162,12 @@
         android:id="@+id/constraintLayout2"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:background="@color/menu_overlay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/constraintLayout"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_weight="3">
-
-        <View
-            android:id="@+id/_background_display_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/menu_overlay"
-
-            android:translationZ="-1dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
 
         <Button
             android:id="@+id/fabric_installer_start_button"
@@ -191,7 +180,7 @@
             android:text="@string/fabric_dl_install"
             app:layout_constraintBottom_toTopOf="@+id/fabric_installer_progress_bar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout2" />
 
         <Button
             android:id="@+id/zh_fabric_installer_return_button"
@@ -203,7 +192,7 @@
             android:text="@android:string/cancel"
             app:layout_constraintBottom_toTopOf="@+id/fabric_installer_start_button"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout2" />
 
         <TextView
             android:id="@+id/fabric_installer_retry_tip"
@@ -230,8 +219,8 @@
             android:text="@string/global_retry"
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/zh_fabric_installer_return_button"
-            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
-            app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout2" />
 
         <ProgressBar
             android:id="@+id/fabric_installer_progress_bar"
@@ -242,8 +231,8 @@
             android:indeterminate="true"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
-            app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

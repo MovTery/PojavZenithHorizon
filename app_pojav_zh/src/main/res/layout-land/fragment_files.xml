@@ -61,23 +61,12 @@
         android:id="@+id/constraintLayout2"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:background="@color/menu_overlay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/constraintLayout"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_weight="3">
-
-        <View
-            android:id="@+id/_background_display_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/menu_overlay"
-
-            android:translationZ="-1dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
 
         <ImageButton
             android:id="@+id/zh_files_help_button"
@@ -100,9 +89,9 @@
             android:layout_marginBottom="8dp"
             android:text="@string/zh_return"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout2" />
 
         <Button
             android:id="@+id/zh_files_add_file_button"
@@ -113,9 +102,9 @@
             android:layout_marginBottom="8dp"
             android:text="@string/zh_file_add_file"
             app:layout_constraintBottom_toTopOf="@+id/zh_files_return_button"
-            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout2" />
 
         <Button
             android:id="@+id/zh_files_create_folder_button"
@@ -126,10 +115,10 @@
             android:layout_marginBottom="8dp"
             android:text="@string/folder_fragment_create"
             app:layout_constraintBottom_toTopOf="@+id/zh_files_add_file_button"
-            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout2" />
 
         <Button
             android:id="@+id/zh_files_refresh_button"
@@ -140,19 +129,19 @@
             android:layout_marginBottom="8dp"
             android:text="@string/zh_refresh"
             app:layout_constraintBottom_toTopOf="@+id/zh_files_create_folder_button"
-            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout2" />
 
         <ImageView
             android:id="@+id/zh_files_icon"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginTop="45dp"
-            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
-            app:layout_constraintStart_toStartOf="@+id/_background_display_view"
-            app:layout_constraintTop_toTopOf="@+id/_background_display_view"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout2"
             tools:srcCompat="@tools:sample/avatars" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

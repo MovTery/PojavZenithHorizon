@@ -182,24 +182,12 @@
         android:id="@+id/constraintLayout2"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:background="@color/menu_overlay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/constraintLayout"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_weight="3">
-
-        <View
-            android:id="@+id/_background_display_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/menu_overlay"
-
-            android:translationZ="-1dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            tools:ignore="MissingConstraints" />
 
         <Button
             android:id="@+id/zh_about_return_button"
@@ -210,9 +198,9 @@
             android:layout_marginBottom="8dp"
             android:text="@string/zh_return"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout2" />
 
         <Button
             android:id="@+id/zh_about_github_button"
@@ -223,9 +211,9 @@
             android:layout_marginBottom="8dp"
             android:text="@string/zh_about_github"
             app:layout_constraintBottom_toTopOf="@+id/zh_about_return_button"
-            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/_background_display_view" />
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout2" />
 
         <TextView
             android:id="@+id/zh_about_version_name"
@@ -235,9 +223,9 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:singleLine="true"
-            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
-            app:layout_constraintStart_toEndOf="@+id/_background_display_view"
-            app:layout_constraintStart_toStartOf="@+id/_background_display_view"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -248,9 +236,9 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             android:singleLine="true"
-            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
-            app:layout_constraintStart_toEndOf="@+id/_background_display_view"
-            app:layout_constraintStart_toStartOf="@+id/_background_display_view"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
             app:layout_constraintTop_toBottomOf="@+id/zh_about_version_name" />
 
         <TextView
@@ -261,9 +249,9 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             android:singleLine="true"
-            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
-            app:layout_constraintStart_toEndOf="@+id/_background_display_view"
-            app:layout_constraintStart_toStartOf="@+id/_background_display_view"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
             app:layout_constraintTop_toBottomOf="@+id/zh_about_version_code" />
 
         <TextView
@@ -274,9 +262,9 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             android:singleLine="true"
-            app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
-            app:layout_constraintStart_toEndOf="@+id/_background_display_view"
-            app:layout_constraintStart_toStartOf="@+id/_background_display_view"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
             app:layout_constraintTop_toBottomOf="@+id/zh_about_last_update_time" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
