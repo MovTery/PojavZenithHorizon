@@ -1,8 +1,11 @@
 package net.kdt.pojavlaunch.customcontrols;
 
+import android.content.Context;
+
 import com.google.gson.JsonSyntaxException;
 
 import net.kdt.pojavlaunch.LwjglGlfwKeycode;
+import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 
 import org.json.JSONArray;
@@ -14,7 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class LayoutConverter {
-    public static CustomControls loadAndConvertIfNecessary(String jsonPath) throws IOException, JsonSyntaxException {
+    public static CustomControls loadAndConvertIfNecessary(Context ctx, String jsonPath) throws IOException, JsonSyntaxException {
 
         String jsonLayoutData = Tools.read(jsonPath);
         try {
@@ -33,10 +36,13 @@ public class LayoutConverter {
             } else if (layoutJobj.getInt("version") == 6) {
                 return Tools.GLOBAL_GSON.fromJson(jsonLayoutData, CustomControls.class);
             } else {
+                IOException ioException = new IOException();
+                Tools.showError(ctx, ctx.getString(R.string.zh_controls_unsupported_layout_version), ioException);
                 return null;
             }
         } catch (JSONException e) {
-            throw new JsonSyntaxException("加载失败", e);
+            Tools.showError(ctx, ctx.getString(R.string.zh_controls_load_failed), e);
+            return null;
         }
     }
 
