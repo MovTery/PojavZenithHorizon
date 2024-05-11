@@ -35,7 +35,6 @@ import net.kdt.pojavlaunch.multirt.RTSpinnerAdapter;
 import net.kdt.pojavlaunch.multirt.Runtime;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.profiles.ProfileIconCache;
-import net.kdt.pojavlaunch.profiles.VersionSelectorDialog;
 import net.kdt.pojavlaunch.utils.CropperUtils;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
@@ -74,12 +73,18 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Paths, which can be changed
         String value = (String) ExtraCore.consumeValue(ExtraConstants.FILE_SELECTOR);
-        if(value != null){
+        String version = (String) ExtraCore.consumeValue(ExtraConstants.VERSION_SELECTOR);
+        if(value != null) {
             if(mValueToConsume.equals(FileSelectorFragment.BUNDLE_SELECT_FOLDER)){
                 mTempProfile.gameDir = value;
             }else{
                 mTempProfile.controlFile = value;
             }
+        }
+        //选择版本
+        if (version != null) {
+            mTempProfile.lastVersionId = version;
+            mDefaultVersion.setText(version);
         }
         return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -162,11 +167,9 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
                     FileSelectorFragment.class, FileSelectorFragment.TAG, bundle);
         });
 
-        // Setup the expendable list behavior
-        mVersionSelectButton.setOnClickListener(v -> VersionSelectorDialog.open(v.getContext(), false, (id, snapshot)->{
-            mTempProfile.lastVersionId = id;
-            mDefaultVersion.setText(id);
-        }));
+        // 切换至版本选择界面
+        mVersionSelectButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(),
+                VersionSelectorFragment.class, VersionSelectorFragment.TAG, null));
 
         // Set up the icon change click listener
         mProfileIcon.setOnClickListener(v -> CropperUtils.startCropper(mCropperLauncher));
