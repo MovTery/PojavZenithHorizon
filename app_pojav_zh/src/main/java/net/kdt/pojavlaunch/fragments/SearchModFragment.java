@@ -19,12 +19,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.versionlist.VersionSelectedListener;
+
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.dialog.SelectVersionDialog;
 import net.kdt.pojavlaunch.modloaders.modpacks.ModItemAdapter;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.CommonApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchFilters;
-import net.kdt.pojavlaunch.profiles.VersionSelectorDialog;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 
 public class SearchModFragment extends Fragment implements ModItemAdapter.SearchResultCallback {
@@ -153,8 +155,14 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
             assert mSelectedVersion != null;
             assert mApplyButton != null;
 
-            // Setup the expendable list behavior
-            mSelectVersionButton.setOnClickListener(v -> VersionSelectorDialog.open(v.getContext(), true, (id, snapshot)-> mSelectedVersion.setText(id)));
+            // 打开版本选择弹窗
+            mSelectVersionButton.setOnClickListener(v -> SelectVersionDialog.open(requireContext(), new VersionSelectedListener() {
+                @Override
+                public void onVersionSelected(String version) {
+                    mSelectedVersion.setText(version);
+                    SelectVersionDialog.getSelectVersionDialog(requireContext()).dismiss();
+                }
+            }));
 
             // Apply visually all the current settings
             mSelectedVersion.setText(mSearchFilters.mcVersion);
@@ -162,6 +170,7 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
             // Apply the new settings
             mApplyButton.setOnClickListener(v -> {
                 mSearchFilters.mcVersion = mSelectedVersion.getText().toString();
+                searchMods(mSearchEditText.getText().toString());
                 dialogInterface.dismiss();
             });
         });
