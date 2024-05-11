@@ -86,9 +86,7 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         mRecyclerview.addOnScrollListener(mOverlayPositionListener);
 
         mSearchEditText.setOnEditorActionListener((v, actionId, event) -> {
-            mSearchProgressBar.setVisibility(View.VISIBLE);
-            mSearchFilters.name = mSearchEditText.getText().toString();
-            mModItemAdapter.performSearchQuery(mSearchFilters);
+            searchMods(mSearchEditText.getText().toString());
             mSearchEditText.clearFocus();
             return false;
         });
@@ -101,6 +99,8 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
                    mRecyclerview.getPaddingBottom());
         });
         mFilterButton.setOnClickListener(v -> displayFilterDialog());
+
+        searchMods(""); //自动搜索一次
     }
 
     @Override
@@ -130,6 +130,12 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
                 mStatusTextView.setText(R.string.search_modpack_no_result);
                 break;
         }
+    }
+
+    private void searchMods(String name) {
+        mSearchProgressBar.setVisibility(View.VISIBLE);
+        mSearchFilters.name = name;
+        mModItemAdapter.performSearchQuery(mSearchFilters);
     }
 
     private void displayFilterDialog() {
