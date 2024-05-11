@@ -9,15 +9,13 @@ import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 import java.io.IOException;
 
 public class UnpackJRE {
-    public static final String JRE_17_NAME = "Internal-17";
-    public static final String JRE_21_NAME = "Internal-21";
-
     public static void unpackAllJre(AssetManager assetManager) {
-        checkInternalJre(assetManager, JRE_17_NAME, 17);
-        checkInternalJre(assetManager, JRE_21_NAME, 21);
+        checkInternalJre(assetManager, 17);
+        checkInternalJre(assetManager, 21);
     }
 
-    public static void checkInternalJre(AssetManager assetManager, String jreName, int jreVersion) {
+    public static void checkInternalJre(AssetManager assetManager, int jreVersion) {
+        String jreName = "Internal-" + jreVersion;
         String launcherJreVersion;
         String installedJreVersion = MultiRTUtils.__internal__readBinpackVersion(jreName);
         try {
