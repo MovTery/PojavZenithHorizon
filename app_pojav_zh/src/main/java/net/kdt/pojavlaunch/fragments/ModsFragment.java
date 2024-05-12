@@ -23,6 +23,7 @@ import com.kdt.pickafile.FileSelectedListener;
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
+import net.kdt.pojavlaunch.dialog.DeleteDialog;
 import net.kdt.pojavlaunch.dialog.FilesDialog;
 
 import java.io.File;
@@ -126,6 +127,10 @@ public class ModsFragment extends Fragment {
 
             @Override
             public void onItemLongClick(File file, String path) {
+                if (file.isDirectory()) {
+                    DeleteDialog deleteDialog = new DeleteDialog(requireContext(), mFileListView, file);
+                    deleteDialog.show();
+                }
             }
         });
 

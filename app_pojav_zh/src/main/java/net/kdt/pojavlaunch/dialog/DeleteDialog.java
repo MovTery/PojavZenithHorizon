@@ -53,10 +53,9 @@ public class DeleteDialog extends Dialog {
         mTitle.setText(isFolder ?
                 getContext().getString(R.string.zh_file_delete_dir) :
                 getContext().getString(R.string.zh_file_tips));
-        String message = (isFolder ?
+        mMessage.setText(isFolder ?
                 getContext().getString(R.string.zh_file_delete_dir_message) :
-                getContext().getString(R.string.zh_file_delete)) + "\n" + fileName;
-        mMessage.setText(message);
+                getContext().getString(R.string.zh_file_delete));
         mDeleteButton.setText(getContext().getString(R.string.global_delete));
 
         mCancelButton.setOnClickListener(view -> DeleteDialog.this.dismiss());

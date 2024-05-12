@@ -17,12 +17,13 @@
         android:id="@+id/mod_thumbnail_imageview"
         android:layout_width="@dimen/_65sdp"
         android:layout_height="@dimen/_65sdp"
-
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
-        tools:src="@mipmap/ic_launcher_foreground"
-        />
+        tools:src="@mipmap/ic_launcher_foreground" />
 
     <ImageView
         android:id="@+id/mod_source_imageview"

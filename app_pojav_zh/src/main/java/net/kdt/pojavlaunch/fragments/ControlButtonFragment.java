@@ -29,6 +29,7 @@ import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import net.kdt.pojavlaunch.dialog.CopyDialog;
+import net.kdt.pojavlaunch.dialog.DeleteDialog;
 import net.kdt.pojavlaunch.dialog.EditTextDialog;
 import net.kdt.pojavlaunch.dialog.FilesDialog;
 
@@ -109,8 +110,13 @@ public class ControlButtonFragment extends Fragment {
 
             @Override
             public void onItemLongClick(File file, String path) {
-                CopyDialog dialog = new CopyDialog(requireContext(), mFileListView, file);
-                dialog.show();
+                if (file.isDirectory()) {
+                    DeleteDialog deleteDialog = new DeleteDialog(requireContext(), mFileListView, file);
+                    deleteDialog.show();
+                } else {
+                    CopyDialog dialog = new CopyDialog(requireContext(), mFileListView, file);
+                    dialog.show();
+                }
             }
         });
 
