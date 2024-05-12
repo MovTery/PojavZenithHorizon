@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_app"
+    android:background="@android:color/transparent"
     android:orientation="horizontal"
     android:baselineAligned="false"
     tools:ignore="MissingDefaultResource">

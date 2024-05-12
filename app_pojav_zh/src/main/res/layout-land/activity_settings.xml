@@ -41,10 +41,10 @@
 
     <View
         android:id="@+id/shadowView1"
-        android:layout_width="5dp"
+        android:layout_width="4dp"
         android:layout_height="0dp"
-        android:layout_marginStart="-1dp"
         android:background="@drawable/shadow_gradient_left"
+        app:layout_constraintBottom_toTopOf="@+id/zh_settings_progress_layout"
         app:layout_constraintStart_toEndOf="@+id/scrollSettings"
         app:layout_constraintTop_toTopOf="@+id/scrollSettings" />
 
@@ -173,8 +173,7 @@
     <View
         android:id="@+id/progress_shadowView"
         android:layout_width="0dp"
-        android:layout_height="10dp"
-        android:layout_marginBottom="-6dp"
+        android:layout_height="4dp"
         android:background="@drawable/shadow_gradient_up"
         app:layout_constraintBottom_toTopOf="@+id/zh_settings_progress_layout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -185,7 +184,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:layout_marginEnd="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

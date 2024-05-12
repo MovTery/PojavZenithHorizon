@@ -5,7 +5,7 @@
     android:id="@+id/fragment_menu_main"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/background_app"
+    android:background="@android:color/transparent"
     android:gravity="top"
     android:orientation="vertical"
     tools:ignore="MissingDefaultResource">
@@ -203,9 +203,9 @@
 
     <View
         android:id="@+id/shadowView"
-        android:layout_width="10dp"
+        android:layout_width="4dp"
         android:layout_height="match_parent"
-        android:layout_marginStart="-3dp"
+        android:layout_marginStart="-4dp"
         android:background="@drawable/shadow_gradient_right"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/constraintLayout"

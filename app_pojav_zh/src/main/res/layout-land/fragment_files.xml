@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_app"
+    android:background="@android:color/transparent"
     android:orientation="vertical"
     tools:ignore="MissingDefaultResource">
 
@@ -49,9 +49,9 @@
 
     <View
         android:id="@+id/shadowView"
-        android:layout_width="10dp"
+        android:layout_width="4dp"
         android:layout_height="match_parent"
-        android:layout_marginStart="-3dp"
+        android:layout_marginStart="-4dp"
         android:background="@drawable/shadow_gradient_right"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/constraintLayout"
