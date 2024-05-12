@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch;
 
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
-import static net.kdt.pojavlaunch.PojavZHTools.setBackgroundImage;
 import static net.kdt.pojavlaunch.PojavZHTools.setVisibilityAnim;
 
 import android.Manifest;
@@ -29,6 +28,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.kdt.mcgui.ProgressLayout;
 import com.kdt.mcgui.mcAccountSpinner;
+import com.movtery.background.BackgroundType;
 
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
@@ -238,7 +238,7 @@ public class LauncherActivity extends BaseActivity {
                 }
         );
         bindViews();
-        setBackgroundImage(this, mBackgroundView);
+        PojavZHTools.setBackgroundImage(this, BackgroundType.MAIN_MENU, mBackgroundView);
 
         checkNotificationPermission();
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

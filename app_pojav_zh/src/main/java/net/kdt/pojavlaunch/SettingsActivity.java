@@ -1,7 +1,5 @@
 package net.kdt.pojavlaunch;
 
-import static net.kdt.pojavlaunch.PojavZHTools.setBackgroundImage;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -10,6 +8,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.kdt.mcgui.ProgressLayout;
+import com.movtery.background.BackgroundType;
 
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceControlFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceExclusiveFragment;
@@ -36,7 +35,7 @@ public class SettingsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         bindViews();
-        setBackgroundImage(this, mBackgroundView);
+        PojavZHTools.setBackgroundImage(this, BackgroundType.SETTINGS, mBackgroundView);
 
         mReturnButton.setOnClickListener(v -> finish());
 
@@ -127,7 +126,7 @@ public class SettingsActivity extends BaseActivity {
         }
     }
 
-    private void bindViews(){
+    private void bindViews() {
         mBackgroundView = findViewById(R.id.background_view);
 
         mReturnButton = findViewById(R.id.settings_return_button);

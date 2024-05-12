@@ -14,7 +14,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -35,6 +34,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.kdt.pickafile.FileListView;
+import com.movtery.background.BackgroundManager;
+import com.movtery.background.BackgroundType;
 
 import net.kdt.pojavlaunch.dialog.EditTextDialog;
 import net.kdt.pojavlaunch.dialog.UpdateDialog;
@@ -71,6 +72,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
@@ -87,6 +89,7 @@ public class PojavZHTools {
     public static String DIR_GAME_DEFAULT;
     public static String DIR_CUSTOM_MOUSE;
     public static String DIR_LOGIN;
+    public static File DIR_BACKGROUND;
     public static File FILE_CUSTOM_MOUSE;
     public static String URL_GITHUB_RELEASE = "https://api.github.com/repos/HopiHopy/PojavZH/releases/latest";
     public static String URL_GITHUB_HOME = "https://api.github.com/repos/HopiHopy/PojavZH/contents/";
@@ -99,6 +102,11 @@ public class PojavZHTools {
         PojavZHTools.DIR_GAME_DEFAULT = DIR_GAME_HOME + "/.minecraft/instance/default";
         PojavZHTools.DIR_CUSTOM_MOUSE = DIR_GAME_HOME + "/mouse";
         PojavZHTools.DIR_LOGIN = DIR_GAME_HOME + "/login";
+        PojavZHTools.DIR_BACKGROUND = new File(DIR_GAME_HOME + "/background");
+
+        if (!PojavZHTools.DIR_BACKGROUND.exists()) {
+            PojavZHTools.DIR_BACKGROUND.mkdirs();
+        }
     }
 
     public static File copyFileInBackground(Context context, Uri fileUri, String rootPath) {
@@ -165,27 +173,10 @@ public class PojavZHTools {
         // 鼠标：自定义鼠标图片
         if (FILE_CUSTOM_MOUSE.exists()) {
             Bitmap mouseBitmap = BitmapFactory.decodeFile(FILE_CUSTOM_MOUSE.getAbsolutePath());
-            return new BitmapDrawable(mouseBitmap);
+            return new BitmapDrawable(context.getResources(), mouseBitmap);
         } else {
             return ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_mouse_pointer, context.getTheme());
         }
-    }
-
-    public static Drawable getMouse(String pngFilePath, Context context) {
-        Bitmap bitmap = getBitmapFromPng(new File(pngFilePath));
-        if (bitmap == null) {
-            return ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_mouse_pointer, context.getTheme());
-        }
-
-        float scale = Math.min(((float) 48 / bitmap.getWidth()), ((float) 48 / bitmap.getHeight())); //保持高宽比，缩放
-
-        Matrix matrix = new Matrix();
-        matrix.postScale(scale, scale);
-        Bitmap scaledBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-
-        bitmap.recycle();
-
-        return new BitmapDrawable(context.getResources(), scaledBitmap);
     }
 
     public static Bitmap getBitmapFromPng(File pngFile) {
@@ -194,12 +185,23 @@ public class PojavZHTools {
         return bitmap;
     }
 
-    public static void setBackgroundImage(Context context, View backgroundView) {
-        File backgroundImage = new File(Tools.DIR_GAME_HOME, "background.png");
-        if (!backgroundImage.exists() || !isImage(backgroundImage)) return;
+    public static void setBackgroundImage(Context context, BackgroundType backgroundType, View backgroundView) {
+        File backgroundImage = getBackgroundImage(backgroundType);
+        if (backgroundImage == null) return;
+
         Bitmap bitmap = getBitmapFromPng(backgroundImage);
         Drawable drawable = new BitmapDrawable(context.getResources(), bitmap);
         backgroundView.setBackground(drawable);
+    }
+
+    public static File getBackgroundImage(BackgroundType backgroundType) {
+        Properties properties = BackgroundManager.getProperties();
+        String pngName = (String) properties.get(backgroundType.name());
+        if (pngName == null || pngName.equals("null")) return null;
+
+        File backgroundImage = new File(PojavZHTools.DIR_BACKGROUND, pngName);
+        if (!backgroundImage.exists() || !isImage(backgroundImage)) return null;
+        return backgroundImage;
     }
 
     public static boolean isImage(File file) {
