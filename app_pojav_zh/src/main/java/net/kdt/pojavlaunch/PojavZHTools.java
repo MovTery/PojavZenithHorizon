@@ -171,8 +171,8 @@ public class PojavZHTools {
         }
     }
 
-    public static Drawable getIcon(String pngFilePath, Context context) {
-        Bitmap bitmap = BitmapFactory.decodeFile(pngFilePath);
+    public static Drawable getMouse(String pngFilePath, Context context) {
+        Bitmap bitmap = getBitmapFromPng(new File(pngFilePath));
         if (bitmap == null) {
             return ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_mouse_pointer, context.getTheme());
         }
@@ -186,6 +186,20 @@ public class PojavZHTools {
         bitmap.recycle();
 
         return new BitmapDrawable(context.getResources(), scaledBitmap);
+    }
+
+    public static Bitmap getBitmapFromPng(File pngFile) {
+        Bitmap bitmap = null;
+        if (isImage(pngFile)) bitmap = BitmapFactory.decodeFile(pngFile.getAbsolutePath());
+        return bitmap;
+    }
+
+    public static void setBackgroundImage(Context context, View backgroundView) {
+        File backgroundImage = new File(Tools.DIR_GAME_HOME, "background.png");
+        if (!backgroundImage.exists() || !isImage(backgroundImage)) return;
+        Bitmap bitmap = getBitmapFromPng(backgroundImage);
+        Drawable drawable = new BitmapDrawable(context.getResources(), bitmap);
+        backgroundView.setBackground(drawable);
     }
 
     public static boolean isImage(File file) {

@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@android:color/transparent"
+    android:background="@drawable/background_card"
+    android:paddingVertical="@dimen/fragment_padding_medium"
     android:paddingHorizontal="@dimen/fragment_padding_medium">
 
 
