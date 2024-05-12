@@ -437,16 +437,17 @@ public class PojavZHTools {
 
     public static void setVisibilityAnim(View view, boolean shouldShow) {
         if (shouldShow && view.getVisibility() != View.VISIBLE) {
-            fadeAnim(view, 0f, 1f, 300, () -> view.setVisibility(View.VISIBLE));
+            fadeAnim(view, 0, 0f, 1f, 300, () -> view.setVisibility(View.VISIBLE));
         } else if (!shouldShow && view.getVisibility() != View.GONE) {
-            fadeAnim(view, view.getAlpha(), 0f, 300, () -> view.setVisibility(View.GONE));
+            fadeAnim(view, 0, view.getAlpha(), 0f, 300, () -> view.setVisibility(View.GONE));
         }
     }
 
-    public static void fadeAnim(View view, float begin, float end, int duration, Runnable endAction) {
+    public static void fadeAnim(View view, long startDelay, float begin, float end, int duration, Runnable endAction) {
         view.setAlpha(begin);
         view.animate()
                 .alpha(end)
+                .setStartDelay(startDelay)
                 .setDuration(duration)
                 .withEndAction(endAction == null ? () -> {
                 } : endAction);
