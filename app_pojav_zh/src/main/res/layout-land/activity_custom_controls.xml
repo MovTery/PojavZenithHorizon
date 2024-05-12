@@ -6,7 +6,6 @@
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
 	android:layout_alignParentEnd="true"
-	android:background="@color/background_overlay"
 	android:id="@+id/customctrl_drawerlayout"
 	tools:ignore="MissingDefaultResource">
 

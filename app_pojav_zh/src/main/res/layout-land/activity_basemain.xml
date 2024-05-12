@@ -18,8 +18,7 @@
 		<net.kdt.pojavlaunch.customcontrols.ControlLayout
 			android:id="@+id/main_control_layout"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:background="@color/background_app">
+			android:layout_height="match_parent" >
 
 			<TextView
 				android:id="@+id/zh_game_tip"
