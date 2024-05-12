@@ -33,18 +33,18 @@
             android:id="@+id/search_mod_edittext"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
             android:background="@drawable/background_line"
-            android:textSize="@dimen/_13ssp"
-            android:translationZ="2dp"
-
             android:ems="10"
+
             android:hint="@string/hint_search_modpack"
             android:inputType="textPersonName"
             android:paddingHorizontal="@dimen/padding_heavy"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="@dimen/_13ssp"
+            android:translationZ="2dp"
             app:layout_constraintEnd_toStartOf="@id/search_mod_filter"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/search_mod_filter"

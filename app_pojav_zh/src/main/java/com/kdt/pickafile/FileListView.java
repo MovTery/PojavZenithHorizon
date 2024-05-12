@@ -11,7 +11,6 @@ import com.ipaulpro.afilechooser.*;
 import java.io.*;
 import java.util.*;
 import net.kdt.pojavlaunch.*;
-import net.kdt.pojavlaunch.dialog.DeleteDialog;
 
 import android.os.*;
 
@@ -99,14 +98,8 @@ public class FileListView extends LinearLayout
         mainLv.setOnItemLongClickListener((p1, p2, p3, p4) -> {
             // TODO: Implement this method
             File mainFile = new File(p1.getItemAtPosition(p3).toString());
-            if (mainFile.isFile()) {
-                fileSelectedListener.onItemLongClick(mainFile, mainFile.getAbsolutePath());
-                return true;
-            } else if (mainFile.isDirectory()) {
-                DeleteDialog deleteDialog = new DeleteDialog(getContext(), this, mainFile);
-                deleteDialog.show();
-            }
-            return false;
+            fileSelectedListener.onItemLongClick(mainFile, mainFile.getAbsolutePath());
+            return true;
         });
         addView(mainLv, layParam);
 
