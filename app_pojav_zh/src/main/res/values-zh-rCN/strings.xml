@@ -62,8 +62,8 @@
     <string name="mcl_setting_renderer_angle">ANGLE (Vulkan) - (1.17+，速度中等)</string>
     <string name="mcl_setting_veroption_release">正式版</string>
     <string name="mcl_setting_veroption_snapshot">快照版</string>
-    <string name="mcl_setting_veroption_oldalpha">远古 alpha 版</string>
-    <string name="mcl_setting_veroption_oldbeta">远古 beta 版</string>
+    <string name="mcl_setting_veroption_oldalpha">Alpha 版</string>
+    <string name="mcl_setting_veroption_oldbeta">Beta 版</string>
     <string name="mcl_setting_java_sandbox">沙盒 .jar 可执行文件</string>
     <string name="mcl_setting_java_sandbox_subtitle">在执行 .jar 文件时，控制沙盒安全管理器的可用性</string>
     <string name="mcl_version_clone">复制</string>
