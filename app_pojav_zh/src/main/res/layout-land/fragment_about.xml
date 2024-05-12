@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_app"
+    android:background="@android:color/transparent"
     android:orientation="vertical"
     tools:ignore="MissingDefaultResource">
 
@@ -23,7 +23,15 @@
             android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/background_card"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -170,9 +178,9 @@
 
     <View
         android:id="@+id/shadowView"
-        android:layout_width="10dp"
+        android:layout_width="4dp"
         android:layout_height="match_parent"
-        android:layout_marginStart="-3dp"
+        android:layout_marginStart="-4dp"
         android:background="@drawable/shadow_gradient_right"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/constraintLayout"
