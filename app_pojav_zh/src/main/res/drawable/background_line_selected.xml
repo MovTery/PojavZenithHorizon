@@ -2,16 +2,15 @@
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <shape
-            android:shape="rectangle" >
+        <shape android:shape="rectangle">
 
             <corners android:radius="@dimen/_3sdp" />
 
-            <solid android:color="@color/background_line_selected" />
+            <solid android:color="@color/background_line_fill_selected" />
 
             <stroke
                 android:width="@dimen/_1sdp"
-                android:color="@color/background_bottom_bar"/>
+                android:color="@color/background_bottom_bar" />
         </shape>
     </item>
 </layer-list>

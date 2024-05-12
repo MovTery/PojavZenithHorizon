@@ -2,23 +2,18 @@
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <shape
-            android:shape="rectangle" >
-
+        <shape android:shape="rectangle">
             <corners android:radius="@dimen/_3sdp" />
-
-
-            <solid android:color="@color/menu_overlay" />
+            <solid android:color="@color/background_line_fill" />
 
             <stroke
                 android:width="@dimen/_1sdp"
-                android:color="@color/background_line"/>
+                android:color="@color/background_line" />
         </shape>
     </item>
-    <item android:drawable="?attr/selectableItemBackground"/>
+    <item android:drawable="?attr/selectableItemBackground" />
     <item>
-        <shape
-            android:shape="rectangle">
+        <shape android:shape="rectangle">
 
             <padding
                 android:bottom="@dimen/padding_input_bottom"

@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch;
 
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
+import static net.kdt.pojavlaunch.PojavZHTools.setBackgroundImage;
 import static net.kdt.pojavlaunch.PojavZHTools.setVisibilityAnim;
 
 import android.Manifest;
@@ -66,6 +67,7 @@ public class LauncherActivity extends BaseActivity {
                 if(data != null) Tools.launchModInstaller(this, data);
             });
 
+    private View mBackgroundView;
     private mcAccountSpinner mAccountSpinner;
     private FragmentContainerView mFragmentView;
     private ImageButton mSettingsButton, mDeleteAccountButton;
@@ -235,8 +237,9 @@ public class LauncherActivity extends BaseActivity {
                     }
                 }
         );
-        getWindow().setBackgroundDrawable(null);
         bindViews();
+        setBackgroundImage(this, mBackgroundView);
+
         checkNotificationPermission();
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         ProgressKeeper.addTaskCountListener(mDoubleLaunchPreventionListener);
@@ -413,6 +416,8 @@ public class LauncherActivity extends BaseActivity {
 
     /** Stuff all the view boilerplate here */
     private void bindViews(){
+        mBackgroundView = findViewById(R.id.background_view);
+
         mFragmentView = findViewById(R.id.container_fragment);
         mSettingsButton = findViewById(R.id.setting_button);
         mDeleteAccountButton = findViewById(R.id.delete_account_button);

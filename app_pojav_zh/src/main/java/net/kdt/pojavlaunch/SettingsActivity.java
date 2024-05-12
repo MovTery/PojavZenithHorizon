@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch;
 
+import static net.kdt.pojavlaunch.PojavZHTools.setBackgroundImage;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -22,6 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SettingsActivity extends BaseActivity {
+    private View mBackgroundView;
     private ImageButton mReturnButton, mVideoButton, mControlsButton, mJavaButton, mMiscButton, mPojavZHButton, mExperimentalButton;
     private TextView mTitleView;
     private ProgressLayout mProgressLayout;
@@ -33,6 +36,7 @@ public class SettingsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         bindViews();
+        setBackgroundImage(this, mBackgroundView);
 
         mReturnButton.setOnClickListener(v -> finish());
 
@@ -124,6 +128,8 @@ public class SettingsActivity extends BaseActivity {
     }
 
     private void bindViews(){
+        mBackgroundView = findViewById(R.id.background_view);
+
         mReturnButton = findViewById(R.id.settings_return_button);
         mVideoButton = findViewById(R.id.video_settings);
         mControlsButton = findViewById(R.id.controls_settings);

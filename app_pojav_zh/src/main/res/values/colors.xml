@@ -8,7 +8,8 @@
     <color name="background_status_bar">#EDEDED</color>
     <color name="background_bottom_bar">#2D8B9C</color>
     <color name="background_line">#909090</color>
-    <color name="background_line_selected">#D2E8E5</color>
+    <color name="background_line_fill">#BEFFFFFF</color>
+    <color name="background_line_fill_selected">#D8DEEEF1</color>
 
     <color name="menu_bar">#EBF4F3</color>
     <color name="menu_bar_text">#EBF4F3</color>

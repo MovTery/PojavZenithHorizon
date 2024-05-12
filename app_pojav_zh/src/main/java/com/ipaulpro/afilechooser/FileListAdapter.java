@@ -16,7 +16,7 @@
 
 package com.ipaulpro.afilechooser;
 
-import static net.kdt.pojavlaunch.PojavZHTools.getIcon;
+import static net.kdt.pojavlaunch.PojavZHTools.getMouse;
 import static net.kdt.pojavlaunch.PojavZHTools.isImage;
 
 import android.content.*;
@@ -136,7 +136,7 @@ public class FileListAdapter extends BaseAdapter {
             case MOUSE:
                 if (isImage(file)) { //判断是不是一张图片
                     try {
-                        Drawable mouse = getIcon(file.getAbsolutePath(), view.getContext());
+                        Drawable mouse = getMouse(file.getAbsolutePath(), view.getContext());
                         view.setCompoundDrawablesWithIntrinsicBounds(mouse, null, null, null);
                     } catch (Exception e) {
                         view.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
