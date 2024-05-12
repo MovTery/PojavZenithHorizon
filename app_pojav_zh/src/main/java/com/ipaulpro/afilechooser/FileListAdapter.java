@@ -16,10 +16,12 @@
 
 package com.ipaulpro.afilechooser;
 
-import static net.kdt.pojavlaunch.PojavZHTools.getMouse;
+import static net.kdt.pojavlaunch.PojavZHTools.getBitmapFromPng;
 import static net.kdt.pojavlaunch.PojavZHTools.isImage;
 
 import android.content.*;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.*;
 import android.widget.*;
@@ -107,8 +109,13 @@ public class FileListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;
 
-        if (row == null)
-            row = mInflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+        if (row == null) {
+            if (this.iconType != FileIcon.IMAGE && this.iconType != FileIcon.MOUSE) {
+                row = mInflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+            } else {
+                row = mInflater.inflate(R.layout.item_version_profile_layout, parent, false);
+            }
+        }
 
         TextView view = (TextView) row;
 
@@ -133,14 +140,12 @@ public class FileListAdapter extends BaseAdapter {
                 }
                 view.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
                 break;
+            case IMAGE:
             case MOUSE:
-                if (isImage(file)) { //判断是不是一张图片
-                    try {
-                        Drawable mouse = getMouse(file.getAbsolutePath(), view.getContext());
-                        view.setCompoundDrawablesWithIntrinsicBounds(mouse, null, null, null);
-                    } catch (Exception e) {
-                        view.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
-                    }
+                if (isImage(file)) {
+                    Bitmap bitmap = getBitmapFromPng(file);
+                    Drawable drawable = new BitmapDrawable(view.getResources(), bitmap);
+                    view.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
                 } else {
                     view.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
                 }

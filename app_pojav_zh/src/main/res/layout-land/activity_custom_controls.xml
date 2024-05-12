@@ -5,7 +5,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
-	android:layout_alignParentRight="true"
+	android:layout_alignParentEnd="true"
 	android:background="@color/background_overlay"
 	android:id="@+id/customctrl_drawerlayout"
 	tools:ignore="MissingDefaultResource">
@@ -28,7 +28,7 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_alignParentRight="true"
+			android:layout_alignParentEnd="true"
 			android:text="@string/hint_control_mapping"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintTop_toTopOf="parent" />
@@ -46,7 +46,7 @@
 		android:id="@+id/customctrl_navigation_view"
 		android:layout_width="200dp"
 		android:layout_height="match_parent"
-		android:layout_gravity="right"
+		android:layout_gravity="end"
 		android:background="?attr/colorBackgroundFloating"
 		android:fitsSystemWindows="false" />
 

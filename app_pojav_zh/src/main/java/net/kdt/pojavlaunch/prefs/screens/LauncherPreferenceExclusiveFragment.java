@@ -8,7 +8,9 @@ import android.os.Bundle;
 import androidx.preference.Preference;
 
 import net.kdt.pojavlaunch.MainActivity;
+import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.fragments.CustomBackgroundTypeFragment;
 
 public class LauncherPreferenceExclusiveFragment extends LauncherPreferenceFragment {
     public static final String TAG = "LauncherPreferenceExclusiveFragment";
@@ -32,6 +34,12 @@ public class LauncherPreferenceExclusiveFragment extends LauncherPreferenceFragm
                 return true;
             });
         }
+
+        Preference customBackgroundPreference = requirePreference("zh_custom_background");
+        customBackgroundPreference.setOnPreferenceClickListener(preference -> {
+            PojavZHTools.swapSettingsFragment(requireActivity(), CustomBackgroundTypeFragment.class, CustomBackgroundTypeFragment.TAG, null, true);
+            return true;
+        });
 
         Preference updatePreference = requirePreference("zh_check_update");
         updatePreference.setOnPreferenceClickListener(preference -> {

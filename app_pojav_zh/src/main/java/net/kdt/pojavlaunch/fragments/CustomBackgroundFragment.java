@@ -1,0 +1,185 @@
+package net.kdt.pojavlaunch.fragments;
+
+import static net.kdt.pojavlaunch.PojavZHTools.DIR_BACKGROUND;
+import static net.kdt.pojavlaunch.PojavZHTools.copyFileInBackground;
+import static net.kdt.pojavlaunch.PojavZHTools.isImage;
+import static net.kdt.pojavlaunch.Tools.runOnUiThread;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.ipaulpro.afilechooser.FileIcon;
+import com.kdt.pickafile.FileListView;
+import com.kdt.pickafile.FileSelectedListener;
+import com.movtery.background.BackgroundManager;
+import com.movtery.background.BackgroundType;
+
+import net.kdt.pojavlaunch.PojavApplication;
+import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.dialog.FilesDialog;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+
+public class CustomBackgroundFragment extends Fragment {
+    public static final String BUNDLE_BACKGROUND_TYPE = "bundle_background_type";
+
+    public static final String TAG = "CustomBackgroundFragment";
+    private final Map<BackgroundType, String> backgroundMap = new HashMap<>();
+    private ActivityResultLauncher<String[]> openDocumentLauncher;
+    private Button mReturnButton, mAddFileButton, mResetButton, mRefreshButton;
+    private FileListView mFileListView;
+    private BackgroundType backgroundType;
+
+    public CustomBackgroundFragment() {
+        super(R.layout.fragment_custom_background);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        openDocumentLauncher = registerForActivityResult(
+                new ActivityResultContracts.OpenDocument(),
+                result -> {
+                    if (result != null) {
+                        Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
+
+                        PojavApplication.sExecutorService.execute(() -> {
+                            copyFileInBackground(requireContext(), result, mFileListView.getFullPath().getAbsolutePath());
+
+                            runOnUiThread(() -> {
+                                Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show();
+                                mFileListView.listFileAt(backgroundPath());
+                            });
+                        });
+                    }
+                }
+        );
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        bindViews(view);
+        parseBundle();
+        initBackgroundMap();
+
+        mFileListView.lockPathAt(backgroundPath());
+        mFileListView.listFileAt(backgroundPath());
+        mFileListView.setShowFiles(true);
+        mFileListView.setShowFolders(false);
+
+        mFileListView.setFileSelectedListener(new FileSelectedListener() {
+            @Override
+            public void onFileSelected(File file, String path) {
+                String fileName = file.getName();
+
+                boolean image = isImage(file);
+                FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
+                filesButton.setButtonVisibility(true, true, true, image); //默认虚拟鼠标不支持分享、重命名、删除操作
+
+                String message;
+                if (image) { //如果选中的不是一个图片，那么将显示默认的文件选择提示信息
+                    message = getString(R.string.zh_custom_background_dialog_message, getCurrentStatusName());
+                } else {
+                    message = getString(R.string.zh_file_message);
+                }
+
+                filesButton.messageText = message;
+                filesButton.moreButtonText = getString(R.string.global_select);
+
+                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, mFileListView, file);
+                filesDialog.setMoreButtonClick(v -> {
+                    backgroundMap.put(backgroundType, fileName);
+                    BackgroundManager.saveProperties(backgroundMap);
+
+                    Toast.makeText(requireContext(), getString(R.string.zh_custom_background_selected, getCurrentStatusName()) + fileName, Toast.LENGTH_SHORT).show();
+                    filesDialog.dismiss();
+                });
+                filesDialog.show();
+            }
+
+            @Override
+            public void onItemLongClick(File file, String path) {
+            }
+        });
+
+        mResetButton.setOnClickListener(v -> {
+            backgroundMap.put(backgroundType, "null");
+            BackgroundManager.saveProperties(backgroundMap);
+
+            Toast.makeText(requireContext(), getString(R.string.zh_custom_background_reset, getCurrentStatusName()), Toast.LENGTH_SHORT).show();
+        });
+
+        mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
+        mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
+        mRefreshButton.setOnClickListener(v -> mFileListView.listFileAt(backgroundPath()));
+    }
+
+    private void initBackgroundMap() {
+        Properties properties = BackgroundManager.getProperties();
+        backgroundMap.put(BackgroundType.MAIN_MENU, (String) properties.get(BackgroundType.MAIN_MENU.name()));
+        backgroundMap.put(BackgroundType.SETTINGS, (String) properties.get(BackgroundType.SETTINGS.name()));
+        backgroundMap.put(BackgroundType.CUSTOM_CONTROLS, (String) properties.get(BackgroundType.CUSTOM_CONTROLS.name()));
+        backgroundMap.put(BackgroundType.IN_GAME, (String) properties.get(BackgroundType.IN_GAME.name()));
+    }
+
+    private File backgroundPath() {
+        if (!DIR_BACKGROUND.exists()) DIR_BACKGROUND.mkdirs();
+        return DIR_BACKGROUND;
+    }
+
+    private String getCurrentStatusName() {
+        switch (this.backgroundType) {
+            case MAIN_MENU:
+                return getString(R.string.zh_custom_background_main_menu);
+            case SETTINGS:
+                return getString(R.string.zh_custom_background_settings);
+            case CUSTOM_CONTROLS:
+                return getString(R.string.zh_custom_background_controls);
+            case IN_GAME:
+                return getString(R.string.zh_custom_background_in_game);
+            default:
+                return getString(R.string.zh_unknown);
+        }
+    }
+
+    private void parseBundle() {
+        Bundle bundle = getArguments();
+        if (bundle == null) return;
+        switch (bundle.getInt(BUNDLE_BACKGROUND_TYPE)) {
+            case 2:
+                this.backgroundType = BackgroundType.SETTINGS;
+                break;
+            case 3:
+                this.backgroundType = BackgroundType.CUSTOM_CONTROLS;
+                break;
+            case 4:
+                this.backgroundType = BackgroundType.IN_GAME;
+                break;
+            case 1:
+            default:
+                this.backgroundType = BackgroundType.MAIN_MENU;
+                break;
+        }
+    }
+
+    private void bindViews(@NonNull View view) {
+        mReturnButton = view.findViewById(R.id.zh_custom_background_return_button);
+        mAddFileButton = view.findViewById(R.id.zh_custom_background_add_file_button);
+        mResetButton = view.findViewById(R.id.zh_custom_background_reset_button);
+        mRefreshButton = view.findViewById(R.id.zh_custom_background_refresh_button);
+        mFileListView = view.findViewById(R.id.zh_custom_background);
+
+        mFileListView.setFileIcon(FileIcon.FILE);
+    }
+}

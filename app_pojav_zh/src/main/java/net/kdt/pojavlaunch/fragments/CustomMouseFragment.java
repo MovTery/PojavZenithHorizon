@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -43,10 +42,9 @@ public class CustomMouseFragment extends Fragment {
     private ImageButton mHelpButton;
     private ImageView mMouseView;
     private FileListView mFileListView;
-    private TextView mTitleView;
 
     public CustomMouseFragment() {
-        super(R.layout.fragment_files);
+        super(R.layout.fragment_custom_mouse);
     }
 
     @Override
@@ -79,9 +77,6 @@ public class CustomMouseFragment extends Fragment {
         mFileListView.listFileAt(mousePath());
         mFileListView.setShowFiles(true);
         mFileListView.setShowFolders(false);
-
-        mTitleView.setText(getString(R.string.zh_custom_mouse_title));
-        mAddFileButton.setText(getString(R.string.zh_custom_mouse_add));
 
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
             @Override
@@ -151,15 +146,13 @@ public class CustomMouseFragment extends Fragment {
     }
 
     private void bindViews(@NonNull View view) {
-        mReturnButton = view.findViewById(R.id.zh_files_return_button);
-        mAddFileButton = view.findViewById(R.id.zh_files_add_file_button);
-        mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
-        mHelpButton = view.findViewById(R.id.zh_files_help_button);
-        mFileListView = view.findViewById(R.id.zh_files);
-        mTitleView = view.findViewById(R.id.zh_files_current_path);
-        mMouseView = view.findViewById(R.id.zh_files_icon);
+        mReturnButton = view.findViewById(R.id.zh_custom_mouse_return_button);
+        mAddFileButton = view.findViewById(R.id.zh_custom_mouse_add_button);
+        mRefreshButton = view.findViewById(R.id.zh_custom_mouse_refresh_button);
+        mHelpButton = view.findViewById(R.id.zh_custom_mouse_help_button);
+        mFileListView = view.findViewById(R.id.zh_custom_mouse);
+        mMouseView = view.findViewById(R.id.zh_custom_mouse_icon);
 
-        view.findViewById(R.id.zh_files_create_folder_button).setVisibility(View.GONE);
         mFileListView.setFileIcon(FileIcon.MOUSE);
     }
 }

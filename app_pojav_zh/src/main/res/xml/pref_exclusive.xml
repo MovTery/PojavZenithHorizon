@@ -27,6 +27,11 @@
             android:title="@string/zh_setting_launcher_theme"
             app2:useSimpleSummaryProvider="true"/>
 
+        <Preference
+            android:title="@string/zh_custom_background_title"
+            android:summary="@string/zh_custom_background_desc"
+            android:key="zh_custom_background" />
+
         <SwitchPreference
             android:defaultValue="false"
             android:key="enableLogOutput"
@@ -55,8 +60,7 @@
             android:title="@string/zh_update"
             android:summary="@string/zh_update_summary"
             android:key="zh_check_update"
-            android:icon="@drawable/ic_update"
-            />
+            android:icon="@drawable/ic_update" />
 
     </PreferenceCategory>
 

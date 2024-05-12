@@ -48,6 +48,7 @@ import com.ipaulpro.afilechooser.FileIcon;
 import com.kdt.LoggerView;
 import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
+import com.movtery.background.BackgroundType;
 
 import net.kdt.pojavlaunch.customcontrols.ControlButtonMenuListener;
 import net.kdt.pojavlaunch.customcontrols.ControlData;
@@ -153,6 +154,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     protected void initLayout(int resId) {
         setContentView(resId);
         bindValues();
+        PojavZHTools.setBackgroundImage(this, BackgroundType.IN_GAME, mControlLayout);
+
         mControlLayout.setMenuListener(this);
 
         mDrawerPullButton.setOnClickListener(v -> onClickedMenu());
@@ -274,7 +277,6 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         drawerLayout = findViewById(R.id.main_drawer_options);
         navDrawer = findViewById(R.id.main_navigation_view);
         loggerView = findViewById(R.id.mainLoggerView);
-        mControlLayout = findViewById(R.id.main_control_layout);
         touchCharInput = findViewById(R.id.mainTouchCharInput);
         mDrawerPullButton = findViewById(R.id.drawer_button);
         mGameTipView = findViewById(R.id.zh_game_tip);
