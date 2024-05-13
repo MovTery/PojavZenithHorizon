@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.tabs.TabLayout;
 import com.ipaulpro.afilechooser.FileIcon;
 import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
@@ -32,12 +33,12 @@ import java.util.Map;
 import java.util.Properties;
 
 public class CustomBackgroundFragment extends Fragment {
-    public static final String BUNDLE_BACKGROUND_TYPE = "bundle_background_type";
 
     public static final String TAG = "CustomBackgroundFragment";
     private final Map<BackgroundType, String> backgroundMap = new HashMap<>();
     private ActivityResultLauncher<String[]> openDocumentLauncher;
     private Button mReturnButton, mAddFileButton, mResetButton, mRefreshButton;
+    private TabLayout mTabLayout;
     private FileListView mFileListView;
     private BackgroundType backgroundType;
 
@@ -70,8 +71,8 @@ public class CustomBackgroundFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         bindViews(view);
-        parseBundle();
         initBackgroundMap();
+        bindTabs();
 
         mFileListView.lockPathAt(backgroundPath());
         mFileListView.listFileAt(backgroundPath());
@@ -81,6 +82,8 @@ public class CustomBackgroundFragment extends Fragment {
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
+                refreshType(mTabLayout.getSelectedTabPosition());
+
                 String fileName = file.getName();
 
                 boolean image = isImage(file);
@@ -114,6 +117,8 @@ public class CustomBackgroundFragment extends Fragment {
         });
 
         mResetButton.setOnClickListener(v -> {
+            refreshType(mTabLayout.getSelectedTabPosition());
+
             backgroundMap.put(backgroundType, "null");
             BackgroundManager.saveProperties(backgroundMap);
 
@@ -122,7 +127,10 @@ public class CustomBackgroundFragment extends Fragment {
 
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
         mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
-        mRefreshButton.setOnClickListener(v -> mFileListView.listFileAt(backgroundPath()));
+        mRefreshButton.setOnClickListener(v -> {
+            refreshType(mTabLayout.getSelectedTabPosition());
+            mFileListView.listFileAt(backgroundPath());
+        });
     }
 
     private void initBackgroundMap() {
@@ -153,20 +161,18 @@ public class CustomBackgroundFragment extends Fragment {
         }
     }
 
-    private void parseBundle() {
-        Bundle bundle = getArguments();
-        if (bundle == null) return;
-        switch (bundle.getInt(BUNDLE_BACKGROUND_TYPE)) {
-            case 2:
+    private void refreshType(int index) {
+        switch (index) {
+            case 1:
                 this.backgroundType = BackgroundType.SETTINGS;
                 break;
-            case 3:
+            case 2:
                 this.backgroundType = BackgroundType.CUSTOM_CONTROLS;
                 break;
-            case 4:
+            case 3:
                 this.backgroundType = BackgroundType.IN_GAME;
                 break;
-            case 1:
+            case 0:
             default:
                 this.backgroundType = BackgroundType.MAIN_MENU;
                 break;
@@ -174,6 +180,8 @@ public class CustomBackgroundFragment extends Fragment {
     }
 
     private void bindViews(@NonNull View view) {
+        mTabLayout = view.findViewById(R.id.zh_custom_background_tab);
+
         mReturnButton = view.findViewById(R.id.zh_custom_background_return_button);
         mAddFileButton = view.findViewById(R.id.zh_custom_background_add_file_button);
         mResetButton = view.findViewById(R.id.zh_custom_background_reset_button);
@@ -181,5 +189,24 @@ public class CustomBackgroundFragment extends Fragment {
         mFileListView = view.findViewById(R.id.zh_custom_background);
 
         mFileListView.setFileIcon(FileIcon.FILE);
+    }
+
+    private void bindTabs() {
+        TabLayout.Tab mainMenu = mTabLayout.newTab();
+        TabLayout.Tab settings = mTabLayout.newTab();
+        TabLayout.Tab controls = mTabLayout.newTab();
+        TabLayout.Tab inGame = mTabLayout.newTab();
+
+        mainMenu.setText(getResources().getText(R.string.zh_custom_background_main_menu));
+        settings.setText(getResources().getText(R.string.zh_custom_background_settings));
+        controls.setText(getResources().getText(R.string.zh_custom_background_controls));
+        inGame.setText(getResources().getText(R.string.zh_custom_background_in_game));
+
+        mTabLayout.addTab(mainMenu);
+        mTabLayout.addTab(settings);
+        mTabLayout.addTab(controls);
+        mTabLayout.addTab(inGame);
+
+        mTabLayout.selectTab(mainMenu);
     }
 }
