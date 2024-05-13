@@ -156,13 +156,18 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
             assert mApplyButton != null;
 
             // 打开版本选择弹窗
-            mSelectVersionButton.setOnClickListener(v -> SelectVersionDialog.open(requireContext(), new VersionSelectedListener() {
-                @Override
-                public void onVersionSelected(String version) {
-                    mSelectedVersion.setText(version);
-                    SelectVersionDialog.getSelectVersionDialog(requireContext()).dismiss();
-                }
-            }));
+            mSelectVersionButton.setOnClickListener(v -> {
+                SelectVersionDialog selectVersionDialog = new SelectVersionDialog(requireContext());
+                selectVersionDialog.setOnVersionSelectedListener(new VersionSelectedListener() {
+                    @Override
+                    public void onVersionSelected(String version) {
+                        mSelectedVersion.setText(version);
+                        selectVersionDialog.dismiss();
+                    }
+                });
+
+                selectVersionDialog.show();
+            });
 
             // Apply visually all the current settings
             mSelectedVersion.setText(mSearchFilters.mcVersion);

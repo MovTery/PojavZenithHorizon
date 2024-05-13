@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/parent"
     android:minWidth="450dp"
     android:minHeight="150dp"
@@ -11,63 +11,25 @@
     android:orientation="vertical"
     tools:ignore="MissingDefaultResource">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/linearLayout"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/zh_version_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/zh_version_release"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_weight="1"
-            android:text="@string/mcl_setting_veroption_release" />
-
-        <Button
-            android:id="@+id/zh_version_snapshot"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_weight="1"
-            android:text="@string/mcl_setting_veroption_snapshot" />
-
-        <Button
-            android:id="@+id/zh_version_beta"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_weight="1"
-            android:text="@string/mcl_setting_veroption_oldbeta" />
-
-        <Button
-            android:id="@+id/zh_version_alpha"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_weight="1"
-            android:text="@string/mcl_setting_veroption_oldalpha" />
-
-        <Button
-            android:id="@+id/zh_version_cancel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_weight="1"
-            android:text="@android:string/cancel" />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        android:padding="4dp"
+        android:background="@drawable/background_border_card"
+        app:tabMode="fixed"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/background_bottom_bar"
+        app:tabIndicatorHeight="@dimen/_3sdp" />
 
     <com.movtery.versionlist.VersionListView
         android:id="@+id/zh_version"
+        android:background="@drawable/background_border_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"

@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.tabs.TabLayout;
 import com.movtery.versionlist.VersionListView;
 import com.movtery.versionlist.VersionSelectedListener;
 import com.movtery.versionlist.VersionType;
@@ -23,8 +24,9 @@ import java.io.File;
 public class VersionSelectorFragment extends Fragment {
     public static final String TAG = "FileSelectorFragment";
     private Button mRefreshButton, mReturnButton;
-    private Button mInstalledButton, mReleaseButton, mSnapshotButton, mBetaButton, mAlphaButton;
     private VersionListView mVersionListView;
+    private TabLayout mTabLayout;
+    private TabLayout.Tab installed, release, snapshot, beta, alpha;
     private VersionType versionType;
 
     public VersionSelectorFragment() {
@@ -35,33 +37,27 @@ public class VersionSelectorFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         bindViews(view);
+        bindTab();
 
-        versionType = VersionType.RELEASE;
-        refresh();
+        refresh(mTabLayout.getTabAt(mTabLayout.getSelectedTabPosition()));
 
-        mRefreshButton.setOnClickListener(v -> refresh());
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                refresh(tab);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
+
+        mRefreshButton.setOnClickListener(v -> refresh(mTabLayout.getTabAt(mTabLayout.getSelectedTabPosition())));
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
-
-        mInstalledButton.setOnClickListener(v -> {
-            versionType = VersionType.INSTALLED;
-            refresh();
-        });
-        mReleaseButton.setOnClickListener(v -> {
-            versionType = VersionType.RELEASE;
-            refresh();
-        });
-        mSnapshotButton.setOnClickListener(v -> {
-            versionType = VersionType.SNAPSHOT;
-            refresh();
-        });
-        mBetaButton.setOnClickListener(v -> {
-            versionType = VersionType.BETA;
-            refresh();
-        });
-        mAlphaButton.setOnClickListener(v -> {
-            versionType = VersionType.ALPHA;
-            refresh();
-        });
 
         mVersionListView.setVersionSelectedListener(new VersionSelectedListener() {
             @Override
@@ -72,24 +68,63 @@ public class VersionSelectorFragment extends Fragment {
         });
     }
 
-    private void refresh() {
+    private void refresh(TabLayout.Tab tab) {
+        setVersionType(tab);
+
         String[] installedVersionsList = new File(Tools.DIR_GAME_NEW + "/versions").list();
         //如果安装的版本列表为空，那么隐藏 已安装 按钮
-        mInstalledButton.setVisibility((installedVersionsList == null || installedVersionsList.length == 0) ? View.GONE : View.VISIBLE);
+        boolean hasInstalled = !(installedVersionsList == null || installedVersionsList.length == 0);
+        if (hasInstalled) {
+            if (mTabLayout.getTabAt(0) != installed) mTabLayout.addTab(installed, 0);
+        } else {
+            if (mTabLayout.getTabAt(0) == installed) mTabLayout.removeTab(installed);
+        }
 
         mVersionListView.setVersionType(versionType);
+    }
+
+    private void setVersionType(TabLayout.Tab tab) {
+        if (tab == installed) {
+            versionType = VersionType.INSTALLED;
+        } else if (tab == release) {
+            versionType = VersionType.RELEASE;
+        } else if (tab == snapshot) {
+            versionType = VersionType.SNAPSHOT;
+        } else if (tab == beta) {
+            versionType = VersionType.BETA;
+        } else if (tab == alpha) {
+            versionType = VersionType.ALPHA;
+        }
     }
 
     private void bindViews(@NonNull View view) {
         mRefreshButton = view.findViewById(R.id.zh_version_refresh_button);
         mReturnButton = view.findViewById(R.id.zh_version_return_button);
 
-        mInstalledButton = view.findViewById(R.id.zh_version_installed);
-        mReleaseButton = view.findViewById(R.id.zh_version_release);
-        mSnapshotButton = view.findViewById(R.id.zh_version_snapshot);
-        mBetaButton = view.findViewById(R.id.zh_version_beta);
-        mAlphaButton = view.findViewById(R.id.zh_version_alpha);
+        mTabLayout = view.findViewById(R.id.zh_version_tab);
 
         mVersionListView = view.findViewById(R.id.zh_version);
+    }
+
+    private void bindTab() {
+        installed = mTabLayout.newTab();
+        release = mTabLayout.newTab();
+        snapshot = mTabLayout.newTab();
+        beta = mTabLayout.newTab();
+        alpha = mTabLayout.newTab();
+
+        installed.setText(getString(R.string.mcl_setting_veroption_installed));
+        release.setText(getString(R.string.mcl_setting_veroption_release));
+        snapshot.setText(getString(R.string.mcl_setting_veroption_snapshot));
+        beta.setText(getString(R.string.mcl_setting_veroption_oldbeta));
+        alpha.setText(getString(R.string.mcl_setting_veroption_oldalpha));
+
+        mTabLayout.addTab(installed);
+        mTabLayout.addTab(release);
+        mTabLayout.addTab(snapshot);
+        mTabLayout.addTab(beta);
+        mTabLayout.addTab(alpha);
+
+        mTabLayout.selectTab(release);
     }
 }
