@@ -62,7 +62,7 @@ public class DeleteDialog extends Dialog {
         mDeleteButton.setOnClickListener(view -> {
             try {
                 if (isFolder) {
-                    runOnUiThread(() -> mFileListView.listFileAt(mFile.getParentFile()));
+                    if (mFileListView != null) runOnUiThread(() -> mFileListView.listFileAt(mFile.getParentFile()));
                     FileUtils.deleteDirectory(mFile);
                     runOnUiThread(() -> Toast.makeText(getContext(), getContext().getString(R.string.zh_file_delete_dir_success) + "\n" + fileName, Toast.LENGTH_LONG).show());
                 } else {
@@ -74,7 +74,7 @@ public class DeleteDialog extends Dialog {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            runOnUiThread(mFileListView::refreshPath);
+            if (mFileListView != null) runOnUiThread(mFileListView::refreshPath);
 
             DeleteDialog.this.dismiss();
         });

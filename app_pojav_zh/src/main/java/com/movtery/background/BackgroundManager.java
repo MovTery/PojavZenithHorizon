@@ -1,5 +1,7 @@
 package com.movtery.background;
 
+import android.graphics.drawable.Drawable;
+
 import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.Tools;
 
@@ -9,9 +11,26 @@ import java.io.FileWriter;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class BackgroundManager {
+    private static final Map<String, Drawable> backgroundDrawable = new ConcurrentHashMap<>();
     public static File FILE_BACKGROUND_PROPERTIES = new File(Tools.DIR_GAME_HOME, "background.properties");
+
+    public static Drawable getBackgroundDrawable(String name, File imageFile) {
+        boolean hasDrawable = backgroundDrawable.containsKey(name);
+        if (hasDrawable) {
+            return backgroundDrawable.get(name);
+        } else {
+            try {
+                Drawable drawable = Drawable.createFromPath(imageFile.getAbsolutePath());
+                backgroundDrawable.put(name, drawable);
+                return drawable;
+            } catch (Exception e) {
+                return null;
+            }
+        }
+    }
 
     public static Properties getProperties() {
         if (!FILE_BACKGROUND_PROPERTIES.exists()) {

@@ -186,12 +186,20 @@ public class PojavZHTools {
     }
 
     public static void setBackgroundImage(Context context, BackgroundType backgroundType, View backgroundView) {
-        File backgroundImage = getBackgroundImage(backgroundType);
-        if (backgroundImage == null) return;
+        backgroundView.setBackgroundColor(context.getResources().getColor(R.color.background_app));
 
-        Bitmap bitmap = getBitmapFromPng(backgroundImage);
-        Drawable drawable = new BitmapDrawable(context.getResources(), bitmap);
-        backgroundView.setBackground(drawable);
+        File backgroundImage = getBackgroundImage(backgroundType);
+        if (backgroundImage == null) {
+            return;
+        }
+
+        PojavApplication.sExecutorService.execute(() -> {
+            Drawable drawable = BackgroundManager.getBackgroundDrawable(backgroundImage.getName(), backgroundImage);
+            if (drawable != null) {
+                //回到主线程设置背景
+                backgroundView.post(() -> backgroundView.setBackground(drawable));
+            }
+        });
     }
 
     public static File getBackgroundImage(BackgroundType backgroundType) {
@@ -281,7 +289,7 @@ public class PojavZHTools {
                 boolean renamed = file.renameTo(newFile);
                 if (renamed) {
                     Toast.makeText(context, context.getString(R.string.zh_file_renamed) + file.getName() + " -> " + newName + suffix, Toast.LENGTH_SHORT).show();
-                    fileListView.refreshPath();
+                    if (fileListView != null) fileListView.refreshPath();
                 }
             } else {
                 Toast.makeText(context, context.getString(R.string.zh_file_rename_empty), Toast.LENGTH_SHORT).show();
