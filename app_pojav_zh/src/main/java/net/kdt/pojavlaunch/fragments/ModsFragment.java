@@ -91,7 +91,7 @@ public class ModsFragment extends Fragment {
                 else if (fileName.endsWith(".disabled"))
                     filesButton.moreButtonText = getString(R.string.zh_profile_mods_enable);
 
-                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, mFileListView, file);
+                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
                 //检测后缀名，以设置正确的按钮
                 if (fileName.endsWith(".jar")) {
                     filesDialog.setMoreButtonClick(v -> {
@@ -128,7 +128,7 @@ public class ModsFragment extends Fragment {
             @Override
             public void onItemLongClick(File file, String path) {
                 if (file.isDirectory()) {
-                    DeleteDialog deleteDialog = new DeleteDialog(requireContext(), mFileListView, file);
+                    DeleteDialog deleteDialog = new DeleteDialog(requireContext(), () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
                     deleteDialog.show();
                 }
             }

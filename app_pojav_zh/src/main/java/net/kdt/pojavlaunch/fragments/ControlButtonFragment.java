@@ -94,7 +94,7 @@ public class ControlButtonFragment extends Fragment {
                 filesButton.messageText = getString(R.string.zh_file_message) + "\n" + getString(R.string.zh_file_message_copy);
                 filesButton.moreButtonText = getString(R.string.global_load);
 
-                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, mFileListView, file);
+                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
                 filesDialog.setMoreButtonClick(v -> {
                     Intent intent = new Intent(requireContext(), CustomControlsActivity.class);
 
@@ -111,7 +111,7 @@ public class ControlButtonFragment extends Fragment {
             @Override
             public void onItemLongClick(File file, String path) {
                 if (file.isDirectory()) {
-                    DeleteDialog deleteDialog = new DeleteDialog(requireContext(), mFileListView, file);
+                    DeleteDialog deleteDialog = new DeleteDialog(requireContext(), () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
                     deleteDialog.show();
                 } else {
                     CopyDialog dialog = new CopyDialog(requireContext(), mFileListView, file);

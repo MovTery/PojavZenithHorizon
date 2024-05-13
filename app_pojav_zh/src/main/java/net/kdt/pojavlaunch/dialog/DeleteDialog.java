@@ -12,8 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.kdt.pickafile.FileListView;
-
+import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 
 import org.apache.commons.io.FileUtils;
@@ -22,13 +21,13 @@ import java.io.File;
 import java.io.IOException;
 
 public class DeleteDialog extends Dialog {
-    private final FileListView mFileListView;
+    private final Runnable runnable;
     private final File mFile;
     private final boolean isFolder;
 
-    public DeleteDialog(@NonNull Context context, FileListView fileListView, File file) {
+    public DeleteDialog(@NonNull Context context, Runnable runnable, File file) {
         super(context);
-        this.mFileListView = fileListView;
+        this.runnable = runnable;
         this.mFile = file;
 
         this.setCancelable(false);
@@ -62,7 +61,6 @@ public class DeleteDialog extends Dialog {
         mDeleteButton.setOnClickListener(view -> {
             try {
                 if (isFolder) {
-                    if (mFileListView != null) runOnUiThread(() -> mFileListView.listFileAt(mFile.getParentFile()));
                     FileUtils.deleteDirectory(mFile);
                     runOnUiThread(() -> Toast.makeText(getContext(), getContext().getString(R.string.zh_file_delete_dir_success) + "\n" + fileName, Toast.LENGTH_LONG).show());
                 } else {
@@ -74,7 +72,7 @@ public class DeleteDialog extends Dialog {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            if (mFileListView != null) runOnUiThread(mFileListView::refreshPath);
+            if (runnable != null) PojavApplication.sExecutorService.execute(runnable);
 
             DeleteDialog.this.dismiss();
         });

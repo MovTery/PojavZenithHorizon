@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.kdt.pickafile.FileListView;
-
 import net.kdt.pojavlaunch.R;
 
 import java.io.File;
@@ -21,14 +19,14 @@ import java.io.File;
 public class FilesDialog extends Dialog {
     private final boolean mCancel, mMore, mShare, mRename, mDelete;
     private final String mMessageText, mMoreText;
-    private final FileListView mFileListView;
+    private final Runnable runnable;
     private final File mFile;
     private View.OnClickListener mMoreClick;
     private Button mMoreButton;
 
-    public FilesDialog(@NonNull Context context, FilesButton filesButton, FileListView fileListView, File file) {
+    public FilesDialog(@NonNull Context context, FilesButton filesButton, Runnable runnable, File file) {
         super(context);
-        this.mFileListView = fileListView;
+        this.runnable = runnable;
         this.mFile = file;
 
         this.mCancel = true;
@@ -66,11 +64,11 @@ public class FilesDialog extends Dialog {
             FilesDialog.this.dismiss();
         });
         mRenameButton.setOnClickListener(view -> {
-            renameFileListener(getContext(), mFileListView, mFile);
+            renameFileListener(getContext(), runnable, mFile);
             FilesDialog.this.dismiss();
         });
         mDeleteButton.setOnClickListener(view -> {
-            DeleteDialog deleteDialog = new DeleteDialog(getContext(), mFileListView, mFile);
+            DeleteDialog deleteDialog = new DeleteDialog(getContext(), runnable, mFile);
             deleteDialog.show();
             FilesDialog.this.dismiss();
         });

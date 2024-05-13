@@ -100,7 +100,7 @@ public class CustomBackgroundFragment extends Fragment {
                 filesButton.messageText = message;
                 filesButton.moreButtonText = getString(R.string.global_select);
 
-                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, mFileListView, file);
+                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
                 filesDialog.setMoreButtonClick(v -> {
                     backgroundMap.put(backgroundType, fileName);
                     BackgroundManager.saveProperties(backgroundMap);
