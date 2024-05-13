@@ -80,7 +80,7 @@ public class CustomMouseFragment extends Fragment {
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
         mMouseListView.setLayoutManager(layoutManager);
-        mMouseListView.addItemDecoration(new SpacesItemDecoration(0, 0, 0, 8));
+        mMouseListView.addItemDecoration(new SpacesItemDecoration(0, 0, 0, 12));
         mMouseListAdapter = new MouseListAdapter(mData);
         mMouseListView.setAdapter(mMouseListAdapter);
 
