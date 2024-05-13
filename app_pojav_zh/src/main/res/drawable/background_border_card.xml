@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape
+            android:shape="rectangle" >
+
+            <corners android:radius="@dimen/_8sdp" />
+
+            <padding
+                android:bottom="@dimen/padding_input_bottom"
+                android:top="@dimen/padding_input_top" />
+
+            <solid android:color="@color/menu_overlay" />
+
+            <stroke
+                android:width="@dimen/_1sdp"
+                android:color="@color/edit_box_line"/>
+        </shape>
+    </item>
+    <item android:drawable="?attr/selectableItemBackground"/>
+</layer-list>

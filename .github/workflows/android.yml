@@ -133,5 +133,5 @@ jobs:
       - name: Upload Debug
         uses: actions/upload-artifact@v4
         with:
-          name: PojavZH(Debug-无Java运行环境)
+          name: PojavZH(Debug - No Runtime)
           path: app_pojav_zh/build/outputs/apk/debug/*
