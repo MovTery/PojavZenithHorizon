@@ -127,7 +127,7 @@ public class CustomMouseFragment extends Fragment {
 
     private void initialize() {
         //默认显示当前选中的鼠标
-        PojavZHTools.customMouse(mMouseView, requireContext());
+        PojavApplication.sExecutorService.execute(() -> runOnUiThread(() -> mMouseView.setImageDrawable(PojavZHTools.customMouse(requireContext()))));
     }
 
     private File mousePath() {

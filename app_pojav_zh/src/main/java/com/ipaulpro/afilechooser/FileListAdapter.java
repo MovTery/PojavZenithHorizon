@@ -16,12 +16,10 @@
 
 package com.ipaulpro.afilechooser;
 
-import static net.kdt.pojavlaunch.PojavZHTools.getBitmapFromPng;
 import static net.kdt.pojavlaunch.PojavZHTools.isImage;
+import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.content.*;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.*;
 import android.widget.*;
@@ -110,7 +108,7 @@ public class FileListAdapter extends BaseAdapter {
         View row = convertView;
 
         if (row == null) {
-            if (this.iconType != FileIcon.IMAGE && this.iconType != FileIcon.MOUSE) {
+            if (this.iconType != FileIcon.MOUSE) {
                 row = mInflater.inflate(android.R.layout.simple_list_item_1, parent, false);
             } else {
                 row = mInflater.inflate(R.layout.item_version_profile_layout, parent, false);
@@ -140,12 +138,13 @@ public class FileListAdapter extends BaseAdapter {
                 }
                 view.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
                 break;
-            case IMAGE:
             case MOUSE:
                 if (isImage(file)) {
-                    Bitmap bitmap = getBitmapFromPng(file);
-                    Drawable drawable = new BitmapDrawable(view.getResources(), bitmap);
-                    view.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+                    view.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
+                    PojavApplication.sExecutorService.execute(() -> {
+                        Drawable drawable = Drawable.createFromPath(file.getAbsolutePath());
+                        runOnUiThread(() -> view.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null));
+                    });
                 } else {
                     view.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
                 }

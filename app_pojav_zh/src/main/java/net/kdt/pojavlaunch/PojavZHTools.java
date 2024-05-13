@@ -12,9 +12,6 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -24,7 +21,6 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -155,34 +151,15 @@ public class PojavZHTools {
         return numbers;
     }
 
-    public static void customMouse(ImageView mouse, Context context) {
+    public synchronized static Drawable customMouse(Context context) {
         FILE_CUSTOM_MOUSE = new File(DIR_CUSTOM_MOUSE, DEFAULT_PREF.getString("custom_mouse", "default_mouse.png"));
 
         // 鼠标：自定义鼠标图片
         if (FILE_CUSTOM_MOUSE.exists()) {
-            Bitmap mouseBitmap = BitmapFactory.decodeFile(FILE_CUSTOM_MOUSE.getAbsolutePath());
-            mouse.setImageBitmap(mouseBitmap);
-        } else {
-            mouse.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_mouse_pointer, context.getTheme()));
-        }
-    }
-
-    public static Drawable customMouse(Context context) {
-        FILE_CUSTOM_MOUSE = new File(DIR_CUSTOM_MOUSE, DEFAULT_PREF.getString("custom_mouse", "default_mouse.png"));
-
-        // 鼠标：自定义鼠标图片
-        if (FILE_CUSTOM_MOUSE.exists()) {
-            Bitmap mouseBitmap = BitmapFactory.decodeFile(FILE_CUSTOM_MOUSE.getAbsolutePath());
-            return new BitmapDrawable(context.getResources(), mouseBitmap);
+            return Drawable.createFromPath(FILE_CUSTOM_MOUSE.getAbsolutePath());
         } else {
             return ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_mouse_pointer, context.getTheme());
         }
-    }
-
-    public static Bitmap getBitmapFromPng(File pngFile) {
-        Bitmap bitmap = null;
-        if (isImage(pngFile)) bitmap = BitmapFactory.decodeFile(pngFile.getAbsolutePath());
-        return bitmap;
     }
 
     public static void setBackgroundImage(Context context, BackgroundType backgroundType, View backgroundView) {
