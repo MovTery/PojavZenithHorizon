@@ -94,14 +94,14 @@ public class FilesFragment extends Fragment {
                 filesButton.messageText = message;
                 filesButton.moreButtonText = null;
 
-                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, mFileListView, file);
+                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
                 filesDialog.show();
             }
 
             @Override
             public void onItemLongClick(File file, String path) {
                 if (file.isDirectory()) {
-                    DeleteDialog deleteDialog = new DeleteDialog(requireContext(), mFileListView, file);
+                    DeleteDialog deleteDialog = new DeleteDialog(requireContext(), () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
                     deleteDialog.show();
                 } else {
                     CopyDialog dialog = new CopyDialog(requireContext(), mFileListView, file);

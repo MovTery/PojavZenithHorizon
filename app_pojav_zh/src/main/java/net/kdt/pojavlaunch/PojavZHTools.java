@@ -29,7 +29,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.kdt.pickafile.FileListView;
 import com.movtery.background.BackgroundManager;
 import com.movtery.background.BackgroundType;
 
@@ -253,7 +252,7 @@ public class PojavZHTools {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    public static void renameFileListener(Context context, FileListView fileListView, File file) {
+    public static void renameFileListener(Context context, Runnable runnable, File file) {
         String fileParent = file.getParent();
         String fileName = file.getName();
         String suffix = fileName.substring(fileName.lastIndexOf('.')); //防止修改后缀名，先将后缀名分离出去
@@ -266,7 +265,7 @@ public class PojavZHTools {
                 boolean renamed = file.renameTo(newFile);
                 if (renamed) {
                     Toast.makeText(context, context.getString(R.string.zh_file_renamed) + file.getName() + " -> " + newName + suffix, Toast.LENGTH_SHORT).show();
-                    if (fileListView != null) fileListView.refreshPath();
+                    if (runnable != null) PojavApplication.sExecutorService.execute(runnable);
                 }
             } else {
                 Toast.makeText(context, context.getString(R.string.zh_file_rename_empty), Toast.LENGTH_SHORT).show();
