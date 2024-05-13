@@ -6,10 +6,9 @@ import static net.kdt.pojavlaunch.PojavZHTools.isImage;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,12 +20,13 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.ipaulpro.afilechooser.FileIcon;
-import com.kdt.pickafile.FileListView;
-import com.kdt.pickafile.FileSelectedListener;
+import com.movtery.SpacesItemDecoration;
+import com.movtery.custommouse.MouseItemBean;
+import com.movtery.custommouse.MouseListAdapter;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.PojavZHTools;
@@ -34,6 +34,8 @@ import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.dialog.FilesDialog;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomMouseFragment extends Fragment {
     public static final String TAG = "CustomMouseFragment";
@@ -41,7 +43,9 @@ public class CustomMouseFragment extends Fragment {
     private Button mReturnButton, mAddFileButton, mRefreshButton;
     private ImageButton mHelpButton;
     private ImageView mMouseView;
-    private FileListView mFileListView;
+    private final List<MouseItemBean> mData = new ArrayList<>();
+    private RecyclerView mMouseListView;
+    private MouseListAdapter mMouseListAdapter;
 
     public CustomMouseFragment() {
         super(R.layout.fragment_custom_mouse);
@@ -57,11 +61,11 @@ public class CustomMouseFragment extends Fragment {
                         Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
 
                         PojavApplication.sExecutorService.execute(() -> {
-                            copyFileInBackground(requireContext(), result, mFileListView.getFullPath().getAbsolutePath());
+                            copyFileInBackground(requireContext(), result, mousePath().getAbsolutePath());
 
                             runOnUiThread(() -> {
                                 Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show();
-                                mFileListView.listFileAt(mousePath());
+                                refreshAdapter();
                             });
                         });
                     }
@@ -72,48 +76,43 @@ public class CustomMouseFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         bindViews(view);
-        initialize();
-        mFileListView.lockPathAt(mousePath());
-        mFileListView.listFileAt(mousePath());
-        mFileListView.setShowFiles(true);
-        mFileListView.setShowFolders(false);
+        loadData();
 
-        mFileListView.setFileSelectedListener(new FileSelectedListener() {
-            @Override
-            public void onFileSelected(File file, String path) {
-                String fileName = file.getName();
-                boolean isDefaultMouse = fileName.equals("default_mouse.png");
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
+        mMouseListView.setLayoutManager(layoutManager);
+        mMouseListView.addItemDecoration(new SpacesItemDecoration(0, 0, 0, 8));
+        mMouseListAdapter = new MouseListAdapter(mData);
+        mMouseListView.setAdapter(mMouseListAdapter);
 
-                FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-                filesButton.setButtonVisibility(!isDefaultMouse, !isDefaultMouse, !isDefaultMouse, isImage(file)); //默认虚拟鼠标不支持分享、重命名、删除操作
+        mMouseListAdapter.setOnItemClickListener(file -> {
+            String fileName = file.getName();
+            boolean isDefaultMouse = fileName.equals("default_mouse.png");
 
-                //如果选中的虚拟鼠标是默认的虚拟鼠标，那么将加上额外的提醒
-                String message = getString(R.string.zh_file_message);
-                if (isDefaultMouse)
-                    message += "\n" + getString(R.string.zh_custom_mouse_message_default);
+            FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
+            filesButton.setButtonVisibility(!isDefaultMouse, !isDefaultMouse, !isDefaultMouse, isImage(file)); //默认虚拟鼠标不支持分享、重命名、删除操作
 
-                filesButton.messageText = message;
-                filesButton.moreButtonText = getString(R.string.global_select);
+            //如果选中的虚拟鼠标是默认的虚拟鼠标，那么将加上额外的提醒
+            String message = getString(R.string.zh_file_message);
+            if (isDefaultMouse)
+                message += "\n" + getString(R.string.zh_custom_mouse_message_default);
 
-                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
-                filesDialog.setMoreButtonClick(v -> {
-                    DEFAULT_PREF.edit().putString("custom_mouse", fileName).apply();
-                    refreshIcon(path, requireContext());
-                    Toast.makeText(requireContext(), getString(R.string.zh_custom_mouse_added) + fileName, Toast.LENGTH_SHORT).show();
-                    filesDialog.dismiss();
-                });
-                filesDialog.show();
-            }
+            filesButton.messageText = message;
+            filesButton.moreButtonText = getString(R.string.global_select);
 
-            @Override
-            public void onItemLongClick(File file, String path) {
-            }
+            FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, this::refreshAdapter, file);
+            filesDialog.setMoreButtonClick(v -> {
+                DEFAULT_PREF.edit().putString("custom_mouse", fileName).apply();
+                refreshIcon();
+                Toast.makeText(requireContext(), getString(R.string.zh_custom_mouse_added) + fileName, Toast.LENGTH_SHORT).show();
+                filesDialog.dismiss();
+            });
+            filesDialog.show();
         });
 
         mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
         mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
 
-        mRefreshButton.setOnClickListener(v -> mFileListView.listFileAt(mousePath()));
+        mRefreshButton.setOnClickListener(v -> refreshAdapter());
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
@@ -125,9 +124,23 @@ public class CustomMouseFragment extends Fragment {
         });
     }
 
-    private void initialize() {
+    private void loadData() {
+        if (!mData.isEmpty()) mData.clear();
+
+        File[] files = mousePath().listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (isImage(file)) {
+                    MouseItemBean mouseItemBean = new MouseItemBean();
+                    mouseItemBean.name = file.getName();
+                    mouseItemBean.mouseIcon = Drawable.createFromPath(file.getAbsolutePath());
+                    mData.add(mouseItemBean);
+                }
+            }
+        }
+
         //默认显示当前选中的鼠标
-        PojavApplication.sExecutorService.execute(() -> runOnUiThread(() -> mMouseView.setImageDrawable(PojavZHTools.customMouse(requireContext()))));
+        refreshIcon();
     }
 
     private File mousePath() {
@@ -136,13 +149,16 @@ public class CustomMouseFragment extends Fragment {
         return path;
     }
 
-    private void refreshIcon(String path, Context context) {
-        Bitmap mouse = BitmapFactory.decodeFile(path);
-        try {
-            mMouseView.setImageBitmap(mouse);
-        } catch (Exception e) {
-            mMouseView.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_file, context.getTheme()));
-        }
+    @SuppressLint("NotifyDataSetChanged")
+    private void refreshAdapter() {
+        runOnUiThread(() -> {
+            loadData();
+            mMouseListAdapter.notifyDataSetChanged();
+        });
+    }
+
+    private void refreshIcon() {
+        PojavApplication.sExecutorService.execute(() -> runOnUiThread(() -> mMouseView.setImageDrawable(PojavZHTools.customMouse(requireContext()))));
     }
 
     private void bindViews(@NonNull View view) {
@@ -150,9 +166,7 @@ public class CustomMouseFragment extends Fragment {
         mAddFileButton = view.findViewById(R.id.zh_custom_mouse_add_button);
         mRefreshButton = view.findViewById(R.id.zh_custom_mouse_refresh_button);
         mHelpButton = view.findViewById(R.id.zh_custom_mouse_help_button);
-        mFileListView = view.findViewById(R.id.zh_custom_mouse);
+        mMouseListView = view.findViewById(R.id.zh_custom_mouse);
         mMouseView = view.findViewById(R.id.zh_custom_mouse_icon);
-
-        mFileListView.setFileIcon(FileIcon.MOUSE);
     }
 }
