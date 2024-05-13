@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
+    android:layout_height="60dp"
     android:background="@drawable/background_card"
     tools:ignore="MissingDefaultResource">
 
@@ -23,7 +23,7 @@
         android:layout_toEndOf="@id/zh_custom_mouse_image"
         android:layout_marginStart="10dp"
         android:text="Test.png"
-        android:textSize="@dimen/_8sdp"
+        android:textSize="@dimen/_10sdp"
         tools:ignore="HardcodedText" />
 
 </RelativeLayout>
