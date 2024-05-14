@@ -7,7 +7,6 @@ import static org.lwjgl.glfw.CallbackBridge.isGrabbing;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -19,9 +18,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 
 import com.google.gson.JsonSyntaxException;
-import com.ipaulpro.afilechooser.FileIcon;
-import com.kdt.pickafile.FileListView;
-import com.kdt.pickafile.FileSelectedListener;
 
 import net.kdt.pojavlaunch.MinecraftGLSurface;
 import net.kdt.pojavlaunch.R;
@@ -35,9 +31,9 @@ import net.kdt.pojavlaunch.customcontrols.handleview.ActionRow;
 import net.kdt.pojavlaunch.customcontrols.handleview.ControlHandleView;
 import net.kdt.pojavlaunch.customcontrols.handleview.EditControlPopup;
 import net.kdt.pojavlaunch.dialog.EditTextDialog;
+import net.kdt.pojavlaunch.dialog.SelectControlsDialog;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -520,61 +516,29 @@ public class ControlLayout extends FrameLayout {
 	}
 
 	public void openLoadDialog() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-		builder.setTitle(R.string.global_load);
-		builder.setPositiveButton(android.R.string.cancel, null);
-
-		final AlertDialog dialog = builder.create();
-		FileListView flv = new FileListView(dialog, FileIcon.CONTROL, "json");
-		if(Build.VERSION.SDK_INT < 29)flv.listFileAt(new File(Tools.CTRLMAP_PATH));
-		else flv.lockPathAt(new File(Tools.CTRLMAP_PATH));
-		flv.setFileSelectedListener(new FileSelectedListener(){
-
-			@Override
-			public void onFileSelected(File file, String path) {
-				try {
-					loadLayout(path);
-				}catch (IOException e) {
-					Tools.showError(getContext(), e);
-				}
-				dialog.dismiss();
-			}
-
-			@Override
-			public void onItemLongClick(File file, String path) {
+		SelectControlsDialog dialog = new SelectControlsDialog(getContext());
+		dialog.setOnSelectedListener(file -> {
+			try {
+				loadLayout(file.getAbsolutePath());
+			} catch (IOException e) {
+				Tools.showError(getContext(), e);
 			}
 		});
-		dialog.setView(flv);
 		dialog.show();
 	}
 
 	public void openSetDefaultDialog() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-		builder.setTitle(R.string.customctrl_selectdefault);
-		builder.setPositiveButton(android.R.string.cancel, null);
-
-		final AlertDialog dialog = builder.create();
-		FileListView flv = new FileListView(dialog, FileIcon.CONTROL, "json");
-		flv.lockPathAt(new File(Tools.CTRLMAP_PATH));
-		flv.setFileSelectedListener(new FileSelectedListener(){
-
-			@Override
-			public void onFileSelected(File file, String path) {
-				try {
-					LauncherPreferences.DEFAULT_PREF.edit().putString("defaultCtrl", path).apply();
-					LauncherPreferences.PREF_DEFAULTCTRL_PATH = path;loadLayout(path);
-				}catch (IOException|JsonSyntaxException e) {
-					Tools.showError(getContext(), e);
-				}
-				dialog.dismiss();
-			}
-
-			@Override
-			public void onItemLongClick(File file, String path) {
-
-			}
-		});
-		dialog.setView(flv);
+		SelectControlsDialog dialog = new SelectControlsDialog(getContext());
+		dialog.setOnSelectedListener(file -> {
+            String absolutePath = file.getAbsolutePath();
+            try {
+                LauncherPreferences.DEFAULT_PREF.edit().putString("defaultCtrl", absolutePath).apply();
+                LauncherPreferences.PREF_DEFAULTCTRL_PATH = absolutePath;loadLayout(absolutePath);
+            }catch (IOException|JsonSyntaxException e) {
+                Tools.showError(getContext(), e);
+            }
+            dialog.dismiss();
+        });
 		dialog.show();
 	}
 

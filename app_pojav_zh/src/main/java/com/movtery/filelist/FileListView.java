@@ -21,10 +21,10 @@ import java.util.List;
 
 @SuppressLint("ViewConstructor")
 public class FileListView extends LinearLayout {
+    private final List<FileItemBean> mData = new ArrayList<>();
     private Context context;
     private ListViewTools listViewTools;
     private FileIcon fileIcon = FileIcon.FILE;
-    private final List<FileItemBean> mData = new ArrayList<>();
     private SetTitleListener mSetTitleListener;
     private FileSelectedListener fileSelectedListener;
     private File fullPath;
@@ -32,7 +32,7 @@ public class FileListView extends LinearLayout {
     private boolean showFiles = true;
     private boolean showFolders = true;
 
-    public FileListView(Context context){
+    public FileListView(Context context) {
         this(context, null);
     }
 
@@ -75,15 +75,19 @@ public class FileListView extends LinearLayout {
     public void setFileSelectedListener(FileSelectedListener listener) {
         this.fileSelectedListener = listener;
     }
+
     public void setDialogTitleListener(SetTitleListener setTitleListener) {
         this.mSetTitleListener = setTitleListener;
     }
-    public void setShowFiles(boolean showFiles){
+
+    public void setShowFiles(boolean showFiles) {
         this.showFiles = showFiles;
     }
-    public void setShowFolders(boolean showFolders){
+
+    public void setShowFolders(boolean showFolders) {
         this.showFolders = showFolders;
     }
+
     public void setFileIcon(FileIcon fileIcon) {
         this.fileIcon = fileIcon;
     }
@@ -124,7 +128,7 @@ public class FileListView extends LinearLayout {
         }
     }
 
-    public File getFullPath(){
+    public File getFullPath() {
         return fullPath;
     }
 
@@ -133,7 +137,7 @@ public class FileListView extends LinearLayout {
     }
 
     public void parentDir() {
-        if(!fullPath.getAbsolutePath().equals("/")){
+        if (!fullPath.getAbsolutePath().equals("/")) {
             listFileAt(fullPath.getParentFile());
         }
     }

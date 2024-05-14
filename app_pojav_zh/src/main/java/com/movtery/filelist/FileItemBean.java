@@ -4,7 +4,7 @@ import android.graphics.drawable.Drawable;
 
 import java.io.File;
 
-public class FileItemBean implements Comparable<FileItemBean>{
+public class FileItemBean implements Comparable<FileItemBean> {
     private Drawable image;
     private File file;
     private String name;
