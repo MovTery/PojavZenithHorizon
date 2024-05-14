@@ -2,14 +2,21 @@ package com.movtery.versionlist;
 
 import static net.kdt.pojavlaunch.extra.ExtraCore.getValue;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.movtery.filelist.FileItemBean;
+import com.movtery.filelist.ListViewTools;
+import com.movtery.filelist.SpacesItemDecoration;
 
 import net.kdt.pojavlaunch.JMinecraftVersionList;
+import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.utils.FilteredSubList;
@@ -19,12 +26,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class VersionListView extends LinearLayout {
-    private ListView mainListView;
-    private VersionType versionType;
     private Context context;
-    private VersionSelectedListener versionSelectedListener;
+    private List<JMinecraftVersionList.Version> releaseList, snapshotList, betaList, alphaList;
     private String[] mInstalledVersions;
-    private List<?>[] mData;
+    private ListViewTools listViewTools;
+    private VersionSelectedListener versionSelectedListener;
 
     public VersionListView(Context context) {
         this(context, null);
@@ -40,17 +46,14 @@ public class VersionListView extends LinearLayout {
     }
 
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void init(Context context) {
         this.context = context;
 
         LayoutParams layParam = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         setOrientation(VERTICAL);
 
-        mainListView = new ListView(context);
-        mainListView.setOnItemClickListener((adapterView, view, i, l) -> {
-            String version = adapterView.getItemAtPosition(i).toString();
-            versionSelectedListener.onVersionSelected(version);
-        });
+        RecyclerView mainListView = new RecyclerView(context);
 
         JMinecraftVersionList jMinecraftVersionList = (JMinecraftVersionList) getValue(ExtraConstants.RELEASE_TABLE);
         JMinecraftVersionList.Version[] versionArray;
@@ -62,14 +65,29 @@ public class VersionListView extends LinearLayout {
         if (mInstalledVersions != null)
             Arrays.sort(mInstalledVersions);
 
-        List<JMinecraftVersionList.Version> releaseList = new FilteredSubList<>(versionArray, item -> item.type.equals("release"));
-        List<JMinecraftVersionList.Version> snapshotList = new FilteredSubList<>(versionArray, item -> item.type.equals("snapshot"));
-        List<JMinecraftVersionList.Version> betaList = new FilteredSubList<>(versionArray, item -> item.type.equals("old_beta"));
-        List<JMinecraftVersionList.Version> alphaList = new FilteredSubList<>(versionArray, item -> item.type.equals("old_alpha"));
+        releaseList = new FilteredSubList<>(versionArray, item -> item.type.equals("release"));
+        snapshotList = new FilteredSubList<>(versionArray, item -> item.type.equals("snapshot"));
+        betaList = new FilteredSubList<>(versionArray, item -> item.type.equals("old_beta"));
+        alphaList = new FilteredSubList<>(versionArray, item -> item.type.equals("old_alpha"));
 
-        mData = new List[]{Arrays.asList(mInstalledVersions), releaseList, snapshotList, betaList, alphaList};
+        listViewTools = new ListViewTools(
+                context,
+                new SpacesItemDecoration(0, 0, 0, (int) Tools.dpToPx(8)),
+                mainListView,
+                (position, file, name) -> versionSelectedListener.onVersionSelected(name),
+                null,
+                showVersions(VersionType.RELEASE)
+        );
 
         addView(mainListView, layParam);
+    }
+
+    private String[] getVersionIds(List<JMinecraftVersionList.Version> versions) {
+        String[] strings = new String[versions.size()];
+        for (int i = 0; i < versions.size(); i++) {
+            strings[i] = versions.get(i).id;
+        }
+        return strings;
     }
 
     public void setVersionSelectedListener(VersionSelectedListener versionSelectedListener) {
@@ -77,42 +95,29 @@ public class VersionListView extends LinearLayout {
     }
 
     public void setVersionType(VersionType versionType) {
-        this.versionType = versionType;
         showVersions(versionType);
     }
 
-    private void showVersions(VersionType versionType) {
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private List<FileItemBean> showVersions(VersionType versionType) {
         switch (versionType) {
             case INSTALLED:
-                getVersion(0);
-                break;
+                return getVersion(context.getDrawable(R.drawable.ic_pojav_full), mInstalledVersions);
             case RELEASE:
-                getVersion(1);
-                break;
+                return getVersion(context.getDrawable(R.drawable.ic_minecraft), getVersionIds(releaseList));
             case SNAPSHOT:
-                getVersion(2);
-                break;
+                return getVersion(context.getDrawable(R.drawable.ic_command_block), getVersionIds(snapshotList));
             case BETA:
-                getVersion(3);
-                break;
+                return getVersion(context.getDrawable(R.drawable.ic_old_cobblestone), getVersionIds(betaList));
             case ALPHA:
-                getVersion(4);
-                break;
+                return getVersion(context.getDrawable(R.drawable.ic_old_grass_block), getVersionIds(alphaList));
         }
+        return null;
     }
 
-    private void getVersion(int type) {
-        VersionListAdapter versionListAdapter = new VersionListAdapter(this.context, versionType);
-        if (type != 0) {
-            for (Object o : mData[type]) {
-                JMinecraftVersionList.Version version = (JMinecraftVersionList.Version) o;
-                versionListAdapter.add(version.id);
-            }
-        } else {
-            for (String mInstalledVersion : mInstalledVersions) {
-                versionListAdapter.add(mInstalledVersion);
-            }
-        }
-        mainListView.setAdapter(versionListAdapter);
+    private List<FileItemBean> getVersion(Drawable icon, String[] names) {
+        List<FileItemBean> itemBeans = ListViewTools.loadItemBean(icon, names);
+        Tools.runOnUiThread(() -> listViewTools.loadData(itemBeans));
+        return itemBeans;
     }
 }

@@ -1,4 +1,4 @@
-package com.movtery;
+package com.movtery.filelist;
 
 import android.graphics.Rect;
 import android.view.View;

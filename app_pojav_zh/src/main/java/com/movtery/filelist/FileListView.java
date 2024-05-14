@@ -1,0 +1,140 @@
+package com.movtery.filelist;
+
+import static net.kdt.pojavlaunch.Tools.runOnUiThread;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.os.Environment;
+import android.util.AttributeSet;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.Tools;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+@SuppressLint("ViewConstructor")
+public class FileListView extends LinearLayout {
+    private Context context;
+    private ListViewTools listViewTools;
+    private FileIcon fileIcon = FileIcon.FILE;
+    private final List<FileItemBean> mData = new ArrayList<>();
+    private SetTitleListener mSetTitleListener;
+    private FileSelectedListener fileSelectedListener;
+    private File fullPath;
+    private File lockPath = new File("/");
+    private boolean showFiles = true;
+    private boolean showFolders = true;
+
+    public FileListView(Context context){
+        this(context, null);
+    }
+
+    public FileListView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public FileListView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        init(context);
+    }
+
+    public void init(final Context context) {
+        this.context = context;
+
+        LayoutParams layParam = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        setOrientation(VERTICAL);
+
+        RecyclerView mainLv = new RecyclerView(context);
+
+        listViewTools = new ListViewTools(
+                context,
+                new SpacesItemDecoration(0, 0, 0, (int) Tools.dpToPx(8)),
+                mainLv,
+                (FileListAdapter.OnItemClickListener) (position, file, name) -> {
+                    if (position == 0 && !lockPath.equals(fullPath)) {
+                        parentDir();
+                    } else {
+                        listFileAt(file);
+                    }
+                },
+                (FileListAdapter.OnItemLongClickListener) (position, file, name) -> fileSelectedListener.onItemLongClick(file, file.getAbsolutePath()),
+                mData);
+
+        addView(mainLv, layParam);
+
+        listFileAt(Environment.getExternalStorageDirectory());
+    }
+
+    public void setFileSelectedListener(FileSelectedListener listener) {
+        this.fileSelectedListener = listener;
+    }
+    public void setDialogTitleListener(SetTitleListener setTitleListener) {
+        this.mSetTitleListener = setTitleListener;
+    }
+    public void setShowFiles(boolean showFiles){
+        this.showFiles = showFiles;
+    }
+    public void setShowFolders(boolean showFolders){
+        this.showFolders = showFolders;
+    }
+    public void setFileIcon(FileIcon fileIcon) {
+        this.fileIcon = fileIcon;
+    }
+
+    public void lockPathAt(File path) {
+        lockPath = path;
+        listFileAt(path);
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    public void listFileAt(final File path) {
+        if (path != null && path.exists()) {
+            if (path.isDirectory()) {
+                fullPath = path;
+
+                List<FileItemBean> itemBeans = ListViewTools.loadItemBeansFromPath(context, path, this.fileIcon, this.showFiles, this.showFolders);
+
+                Collections.sort(itemBeans);
+
+                if (!path.equals(lockPath)) {
+                    FileItemBean itemBean = new FileItemBean();
+                    itemBean.setImage(context.getResources().getDrawable(R.drawable.ic_folder));
+                    itemBean.setName("..");
+                    itemBeans.add(0, itemBean);
+                }
+
+                if (mSetTitleListener != null) {
+                    mSetTitleListener.setTitle(path.getAbsolutePath());
+                }
+
+                runOnUiThread(() -> listViewTools.loadData(itemBeans));
+            } else {
+                fileSelectedListener.onFileSelected(path, path.getAbsolutePath());
+            }
+        } else {
+            Toast.makeText(context, R.string.zh_file_does_not_exist, Toast.LENGTH_SHORT).show();
+            refreshPath();
+        }
+    }
+
+    public File getFullPath(){
+        return fullPath;
+    }
+
+    public void refreshPath() {
+        listFileAt(getFullPath());
+    }
+
+    public void parentDir() {
+        if(!fullPath.getAbsolutePath().equals("/")){
+            listFileAt(fullPath.getParentFile());
+        }
+    }
+}

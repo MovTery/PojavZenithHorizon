@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.kdt.pickafile.FileListView;
-
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 
@@ -23,12 +21,12 @@ import java.io.File;
 import java.io.IOException;
 
 public class CopyDialog extends Dialog {
-    private final FileListView mFileListView;
+    private final Runnable runnable;
     private final File mFile;
 
-    public CopyDialog(@NonNull Context context, FileListView fileListView, File file) {
+    public CopyDialog(@NonNull Context context, Runnable runnable, File file) {
         super(context);
-        this.mFileListView = fileListView;
+        this.runnable = runnable;
         this.mFile = file;
 
         this.setCancelable(false);
@@ -71,7 +69,9 @@ public class CopyDialog extends Dialog {
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
-                        runOnUiThread(mFileListView::refreshPath);
+                        if (this.runnable != null) {
+                            PojavApplication.sExecutorService.execute(this.runnable);
+                        }
                     });
                 } else {
                     runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_file_rename_empty), Toast.LENGTH_SHORT).show());
