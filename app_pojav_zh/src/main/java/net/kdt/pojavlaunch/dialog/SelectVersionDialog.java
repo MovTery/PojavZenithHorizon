@@ -11,13 +11,10 @@ import com.movtery.versionlist.VersionSelectedListener;
 import com.movtery.versionlist.VersionType;
 
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
-
-import java.io.File;
 
 public class SelectVersionDialog extends Dialog {
     private TabLayout mTabLayout;
-    private TabLayout.Tab installedTab, releaseTab, snapshotTab, betaTab, alphaTab, returnTab;
+    private TabLayout.Tab releaseTab, snapshotTab, betaTab, alphaTab, returnTab;
     private VersionType versionType;
     private VersionListView versionListView;
 
@@ -57,23 +54,11 @@ public class SelectVersionDialog extends Dialog {
 
     private void refresh(TabLayout.Tab tab) {
         setVersionType(tab);
-
-        String[] installedVersionsList = new File(Tools.DIR_GAME_NEW + "/versions").list();
-        //如果安装的版本列表为空，那么隐藏 已安装 按钮
-        boolean hasInstalled = !(installedVersionsList == null || installedVersionsList.length == 0);
-        if (hasInstalled) {
-            if (mTabLayout.getTabAt(0) != installedTab) mTabLayout.addTab(installedTab, 0);
-        } else {
-            if (mTabLayout.getTabAt(0) == installedTab) mTabLayout.removeTab(installedTab);
-        }
-
         versionListView.setVersionType(versionType);
     }
 
     private void setVersionType(TabLayout.Tab tab) {
-        if (tab == installedTab) {
-            versionType = VersionType.INSTALLED;
-        } else if (tab == releaseTab) {
+        if (tab == releaseTab) {
             versionType = VersionType.RELEASE;
         } else if (tab == snapshotTab) {
             versionType = VersionType.SNAPSHOT;
@@ -87,21 +72,18 @@ public class SelectVersionDialog extends Dialog {
     }
 
     private void bindTab(Context context) {
-        installedTab = mTabLayout.newTab();
         releaseTab = mTabLayout.newTab();
         snapshotTab = mTabLayout.newTab();
         betaTab = mTabLayout.newTab();
         alphaTab = mTabLayout.newTab();
         returnTab = mTabLayout.newTab();
 
-        installedTab.setText(context.getString(R.string.mcl_setting_veroption_installed));
         releaseTab.setText(context.getString(R.string.mcl_setting_veroption_release));
         snapshotTab.setText(context.getString(R.string.mcl_setting_veroption_snapshot));
         betaTab.setText(context.getString(R.string.mcl_setting_veroption_oldbeta));
         alphaTab.setText(context.getString(R.string.mcl_setting_veroption_oldalpha));
         returnTab.setText(context.getString(R.string.zh_return));
 
-        mTabLayout.addTab(installedTab);
         mTabLayout.addTab(releaseTab);
         mTabLayout.addTab(snapshotTab);
         mTabLayout.addTab(betaTab);
