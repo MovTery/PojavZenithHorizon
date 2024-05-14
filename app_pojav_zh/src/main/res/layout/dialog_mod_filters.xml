@@ -26,7 +26,7 @@
 
         android:layout_marginEnd="@dimen/padding_medium"
 
-        android:background="@drawable/background_line"
+        android:background="@drawable/background_edit_box"
         android:hint="@string/version_select_hint"
         android:paddingHorizontal="@dimen/padding_heavy"
         android:textSize="@dimen/_13ssp"

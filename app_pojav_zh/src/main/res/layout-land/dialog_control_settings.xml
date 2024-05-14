@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
-                android:background="@drawable/background_line"
+                android:background="@drawable/background_edit_box"
                 android:checked="true"
                 android:text="@string/zh_controls_settings_button_snapping"
                 android:textStyle="bold"
@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/background_line" >
+                android:background="@drawable/background_edit_box" >
 
                 <TextView
                     android:id="@+id/zh_controls_settings_button_snapping_distance_name"

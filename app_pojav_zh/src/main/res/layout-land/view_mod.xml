@@ -19,56 +19,49 @@
         android:layout_height="@dimen/_65sdp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@mipmap/ic_launcher_foreground" />
 
     <ImageView
         android:id="@+id/mod_source_imageview"
-        android:layout_width="@dimen/_13sdp"
-        android:layout_height="@dimen/_13sdp"
-        android:layout_marginTop="3dp"
-
-        android:layout_marginEnd="3dp"
-        android:scaleType="centerCrop"
+        android:layout_width="@dimen/_19sdp"
+        android:layout_height="@dimen/_19sdp"
+        android:layout_marginEnd="8dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/mod_title_textview"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mod_title_textview"
         tools:src="@mipmap/ic_launcher_foreground" />
 
     <TextView
         android:id="@+id/mod_title_textview"
         style="@style/TextAppearance.AppCompat.Body2"
-        android:textColor="@color/primary_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_moderate"
-        android:ellipsize="end"
+        android:layout_marginStart="8dp"
 
-        app:layout_constraintHorizontal_bias="0.0"
+        android:ellipsize="end"
+        android:textColor="@color/primary_text"
         app:layout_constraintEnd_toStartOf="@+id/mod_source_imageview"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/mod_thumbnail_imageview"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mod_thumbnail_imageview"
         tools:text="Feed the beast - Reforged" />
 
     <TextView
         android:id="@+id/mod_body_textview"
         style="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/primary_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_medium"
-        android:layout_marginEnd="@dimen/padding_medium"
         android:ellipsize="end"
         android:maxLines="3"
+        android:textColor="@color/primary_text"
 
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/mod_title_textview"
         app:layout_constraintTop_toBottomOf="@+id/mod_title_textview"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintVertical_bias="0.0"
         tools:text="Feed the beast - Reforged is a machine and magic focused modpack, with no respect for the minimum requirements of minecraft. Very long text" />
 
 
