@@ -14,6 +14,7 @@ import com.movtery.versionlist.VersionListView;
 import com.movtery.versionlist.VersionSelectedListener;
 import com.movtery.versionlist.VersionType;
 
+import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
@@ -57,13 +58,13 @@ public class VersionSelectorFragment extends Fragment {
         });
 
         mRefreshButton.setOnClickListener(v -> refresh(mTabLayout.getTabAt(mTabLayout.getSelectedTabPosition())));
-        mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
+        mReturnButton.setOnClickListener(v -> PojavZHTools.onBackPressed(requireActivity()));
 
         mVersionListView.setVersionSelectedListener(new VersionSelectedListener() {
             @Override
             public void onVersionSelected(String version) {
                 ExtraCore.setValue(ExtraConstants.VERSION_SELECTOR, version);
-                requireActivity().onBackPressed();
+                PojavZHTools.onBackPressed(requireActivity());
             }
         });
     }

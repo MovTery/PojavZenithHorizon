@@ -21,6 +21,7 @@ import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
 import net.kdt.pojavlaunch.PojavApplication;
+import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import net.kdt.pojavlaunch.dialog.DeleteDialog;
@@ -134,7 +135,7 @@ public class ModsFragment extends Fragment {
             }
         });
 
-        mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
+        mReturnButton.setOnClickListener(v -> PojavZHTools.onBackPressed(requireActivity()));
         mAddModButton.setOnClickListener(v -> {
             String suffix = ".jar";
             Toast.makeText(requireActivity(), String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show();

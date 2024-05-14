@@ -104,6 +104,10 @@ public class PojavZHTools {
         }
     }
 
+    public static void onBackPressed(FragmentActivity fragmentActivity) {
+        fragmentActivity.getOnBackPressedDispatcher().onBackPressed();
+    }
+
     public static File copyFileInBackground(Context context, Uri fileUri, String rootPath) {
         String fileName = getFileName(context, fileUri);
         File outputFile = new File(rootPath, fileName);

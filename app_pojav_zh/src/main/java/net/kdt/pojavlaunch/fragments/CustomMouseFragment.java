@@ -109,7 +109,7 @@ public class CustomMouseFragment extends Fragment {
             filesDialog.show();
         });
 
-        mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
+        mReturnButton.setOnClickListener(v -> PojavZHTools.onBackPressed(requireActivity()));
         mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
 
         mRefreshButton.setOnClickListener(v -> refreshAdapter());
