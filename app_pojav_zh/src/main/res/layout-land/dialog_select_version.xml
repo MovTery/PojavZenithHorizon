@@ -22,7 +22,7 @@
         android:background="@drawable/background_edit_box"
         app:tabMode="fixed"
         app:tabGravity="fill"
-        app:tabIndicatorColor="@color/background_bottom_bar"
+        app:tabIndicatorColor="@color/menu_progress"
         app:tabIndicatorHeight="@dimen/_3sdp" />
 
     <com.movtery.versionlist.VersionListView
