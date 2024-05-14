@@ -59,11 +59,11 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.InnerH
     }
 
     public class InnerHolder extends RecyclerView.ViewHolder {
+        private final ImageView icon;
+        private final TextView name;
         private int mPosition;
         private File mFile;
         private String mName;
-        private final ImageView icon;
-        private final TextView name;
 
         public InnerHolder(@NonNull View itemView) {
             super(itemView);

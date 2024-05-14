@@ -44,10 +44,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.ipaulpro.afilechooser.FileIcon;
 import com.kdt.LoggerView;
-import com.kdt.pickafile.FileListView;
-import com.kdt.pickafile.FileSelectedListener;
 import com.movtery.background.BackgroundType;
 
 import net.kdt.pojavlaunch.customcontrols.ControlButtonMenuListener;
@@ -61,6 +58,7 @@ import net.kdt.pojavlaunch.customcontrols.keyboard.LwjglCharSender;
 import net.kdt.pojavlaunch.customcontrols.keyboard.TouchCharInput;
 import net.kdt.pojavlaunch.customcontrols.mouse.Touchpad;
 import net.kdt.pojavlaunch.dialog.ControlSettingsDialog;
+import net.kdt.pojavlaunch.dialog.SelectControlsDialog;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.profiles.ProfileLanguageSelector;
@@ -403,29 +401,15 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     }
 
     private void replacementCustomControls() {
-        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(MainActivity.this);
-        builder.setTitle(R.string.zh_replacement_customcontrol);
-        builder.setPositiveButton(android.R.string.cancel, null);
-
-        final androidx.appcompat.app.AlertDialog dialog = builder.create();
-        FileListView flv = new FileListView(dialog, FileIcon.CONTROL, "json");
-        if (Build.VERSION.SDK_INT < 29) flv.listFileAt(new File(Tools.CTRLMAP_PATH));
-        else flv.lockPathAt(new File(Tools.CTRLMAP_PATH));
-        flv.setFileSelectedListener(new FileSelectedListener(){
-            @Override
-            public void onFileSelected(File file, String path) {
-                try {
-                    mControlLayout.loadLayout(path);
-                    //刷新：是否隐藏菜单按钮
-                    mDrawerPullButton.setVisibility(mControlLayout.hasMenuButton() ? View.GONE : View.VISIBLE);
-                } catch (IOException ignored) {}
-                dialog.dismiss();
-            }
-
-            @Override
-            public void onItemLongClick(File file, String path) {}
+        SelectControlsDialog dialog = new SelectControlsDialog(this);
+        dialog.setOnSelectedListener(file -> {
+            try {
+                mControlLayout.loadLayout(file.getAbsolutePath());
+                //刷新：是否隐藏菜单按钮
+                mDrawerPullButton.setVisibility(mControlLayout.hasMenuButton() ? View.GONE : View.VISIBLE);
+            } catch (IOException ignored) {}
+            dialog.dismiss();
         });
-        dialog.setView(flv);
         dialog.show();
     }
 

@@ -31,13 +31,6 @@ public class ListViewTools {
         recyclerView.setAdapter(this.fileListAdapter);
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void loadData(List<FileItemBean> itemBeans) {
-        this.mData.clear();
-        this.mData.addAll(itemBeans);
-        fileListAdapter.notifyDataSetChanged();
-    }
-
     @SuppressLint("UseCompatLoadingForDrawables")
     public static List<FileItemBean> loadItemBeansFromPath(Context context, File path, FileIcon fileIcon, boolean showFile, boolean showFolder) {
         List<FileItemBean> itemBeans = new ArrayList<>();
@@ -87,5 +80,12 @@ public class ListViewTools {
             }
         }
         return itemBeans;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void loadData(List<FileItemBean> itemBeans) {
+        this.mData.clear();
+        this.mData.addAll(itemBeans);
+        fileListAdapter.notifyDataSetChanged();
     }
 }
