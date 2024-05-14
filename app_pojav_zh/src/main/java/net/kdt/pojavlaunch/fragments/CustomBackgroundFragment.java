@@ -24,6 +24,7 @@ import com.movtery.background.BackgroundManager;
 import com.movtery.background.BackgroundType;
 
 import net.kdt.pojavlaunch.PojavApplication;
+import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.dialog.FilesDialog;
 
@@ -125,7 +126,7 @@ public class CustomBackgroundFragment extends Fragment {
             Toast.makeText(requireContext(), getString(R.string.zh_custom_background_reset, getCurrentStatusName()), Toast.LENGTH_SHORT).show();
         });
 
-        mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
+        mReturnButton.setOnClickListener(v -> PojavZHTools.onBackPressed(requireActivity()));
         mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
         mRefreshButton.setOnClickListener(v -> {
             refreshType(mTabLayout.getSelectedTabPosition());

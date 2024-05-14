@@ -25,6 +25,7 @@ import com.kdt.pickafile.FileSelectedListener;
 
 import net.kdt.pojavlaunch.CustomControlsActivity;
 import net.kdt.pojavlaunch.PojavApplication;
+import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
@@ -120,7 +121,7 @@ public class ControlButtonFragment extends Fragment {
             }
         });
 
-        mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
+        mReturnButton.setOnClickListener(v -> PojavZHTools.onBackPressed(requireActivity()));
         mImportControlButton.setOnClickListener(v -> {
             String suffix = ".json";
             Toast.makeText(requireActivity(), String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show();

@@ -23,6 +23,7 @@ import com.kdt.pickafile.FileListView;
 import com.kdt.pickafile.FileSelectedListener;
 
 import net.kdt.pojavlaunch.PojavApplication;
+import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import net.kdt.pojavlaunch.dialog.CopyDialog;
@@ -110,7 +111,7 @@ public class FilesFragment extends Fragment {
             }
         });
 
-        mReturnButton.setOnClickListener(v -> requireActivity().onBackPressed());
+        mReturnButton.setOnClickListener(v -> PojavZHTools.onBackPressed(requireActivity()));
         mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(null)); //不限制文件类型
         mCreateFolderButton.setOnClickListener(v -> {
             EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(R.string.folder_dialog_insert_name), null, null, null);
