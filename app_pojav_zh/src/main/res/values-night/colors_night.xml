@@ -5,8 +5,7 @@
     <color name="background_status_bar">#242424</color>
     <color name="background_bottom_bar">#232323</color>
     <color name="background_line">#232323</color>
-    <color name="background_line_fill">#BE232323</color>
-    <color name="background_line_fill_selected">#D8373737</color>
+    <color name="background_line_selected">#D8373737</color>
 
     <color name="menu_bar">#555555</color>
     <color name="menu_overlay">#BE232323</color>

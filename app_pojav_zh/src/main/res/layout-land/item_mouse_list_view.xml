@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:background="@drawable/background_card"
+    android:background="@drawable/background_line"
     tools:ignore="MissingDefaultResource">
 
     <ImageView
@@ -21,9 +21,9 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/zh_custom_mouse_image"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="8dp"
         android:text="Test.png"
-        android:textSize="@dimen/_10sdp"
+        android:textSize="@dimen/_14sdp"
         tools:ignore="HardcodedText" />
 
 </RelativeLayout>
