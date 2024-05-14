@@ -41,23 +41,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <View
-                android:id="@+id/view"
-                style="@style/ThickDivider"
-                android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/padding_large"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                app:layout_constraintTop_toBottomOf="@+id/title_textview" />
-
             <ImageView
                 android:id="@+id/minecraft_icon"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/vanilla_profile"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view"
+                app:layout_constraintTop_toTopOf="@+id/vanilla_profile"
                 app:srcCompat="@drawable/ic_minecraft" />
 
             <Button
@@ -65,20 +56,20 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
-                android:layout_marginTop="@dimen/padding_heavy"
+                android:layout_marginTop="24dp"
                 android:text="@string/create_profile_vanilla"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/minecraft_icon"
-                app:layout_constraintTop_toBottomOf="@+id/view" />
+                app:layout_constraintTop_toBottomOf="@+id/title_textview" />
 
             <ImageView
                 android:id="@+id/optifine_icon"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/optifine_profile"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/minecraft_icon"
+                app:layout_constraintTop_toTopOf="@+id/optifine_profile"
                 app:srcCompat="@drawable/ic_optifine" />
 
             <Button
@@ -125,23 +116,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <View
-                android:id="@+id/view_modded"
-                style="@style/ThickDivider"
-                android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/padding_large"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                app:layout_constraintTop_toBottomOf="@+id/title_modded_textview" />
-
             <ImageView
                 android:id="@+id/fabric_icon"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/modded_profile_fabric"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view_modded"
+                app:layout_constraintTop_toTopOf="@+id/modded_profile_fabric"
                 app:srcCompat="@drawable/ic_fabric" />
 
             <Button
@@ -149,20 +131,20 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="24dp"
                 android:text="@string/modloader_dl_install_fabric"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/fabric_icon"
-                app:layout_constraintTop_toBottomOf="@+id/view_modded" />
+                app:layout_constraintTop_toBottomOf="@+id/title_modded_textview" />
 
             <ImageView
                 android:id="@+id/quilt_icon"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/modded_profile_quilt"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fabric_icon"
+                app:layout_constraintTop_toTopOf="@+id/modded_profile_quilt"
                 app:srcCompat="@drawable/ic_quilt" />
 
             <Button
@@ -181,9 +163,9 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/modded_profile_forge"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/quilt_icon"
+                app:layout_constraintTop_toTopOf="@+id/modded_profile_forge"
                 app:srcCompat="@drawable/ic_anvil" />
 
             <Button
@@ -202,9 +184,9 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/zh_modded_profile_neoforge"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/forge_icon"
+                app:layout_constraintTop_toTopOf="@+id/zh_modded_profile_neoforge"
                 app:srcCompat="@drawable/ic_neoforge" />
 
             <Button
@@ -223,9 +205,9 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/modded_profile_modpack"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/neoforge_icon"
+                app:layout_constraintTop_toTopOf="@+id/modded_profile_modpack"
                 app:srcCompat="@drawable/ic_pojav_full" />
 
             <Button
