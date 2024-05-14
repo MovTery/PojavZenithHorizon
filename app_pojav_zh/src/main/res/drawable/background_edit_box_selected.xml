@@ -4,14 +4,8 @@
     <item>
         <shape
             android:shape="rectangle" >
-
-            <corners android:radius="@dimen/_3sdp" />
-
+            <corners android:radius="@dimen/_4sdp" />
             <solid android:color="@color/edit_box_fill_selected" />
-
-            <stroke
-                android:width="@dimen/_1sdp"
-                android:color="@color/background_bottom_bar"/>
         </shape>
     </item>
 </layer-list>
