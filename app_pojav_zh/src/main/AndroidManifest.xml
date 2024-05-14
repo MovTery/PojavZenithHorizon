@@ -15,6 +15,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
     <application
         android:name=".PojavApplication"
@@ -136,7 +137,9 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <service android:name=".services.ProgressService" />
+        <service
+            android:name=".services.ProgressService"
+            android:foregroundServiceType="dataSync" />
         <service
             android:name=".services.GameService"
             android:process=":game" />
