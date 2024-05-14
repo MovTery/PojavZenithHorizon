@@ -17,9 +17,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.tabs.TabLayout;
-import com.ipaulpro.afilechooser.FileIcon;
-import com.kdt.pickafile.FileListView;
-import com.kdt.pickafile.FileSelectedListener;
+import com.movtery.filelist.FileIcon;
+import com.movtery.filelist.FileListView;
+import com.movtery.filelist.FileSelectedListener;
 import com.movtery.background.BackgroundManager;
 import com.movtery.background.BackgroundType;
 

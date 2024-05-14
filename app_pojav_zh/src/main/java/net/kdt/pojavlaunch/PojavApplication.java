@@ -35,7 +35,6 @@ public class PojavApplication extends Application {
 	@Override
 	public void onCreate() {
 		ContextExecutor.setApplication(this);
-		ResourceManager.setInstance(this);
 		Thread.setDefaultUncaughtExceptionHandler((thread, th) -> {
 			boolean storagePermAllowed = (Build.VERSION.SDK_INT < 23 || Build.VERSION.SDK_INT >= 29 ||
 					ActivityCompat.checkSelfPermission(PojavApplication.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) && Tools.checkStorageRoot(PojavApplication.this);
@@ -101,6 +100,8 @@ public class PojavApplication extends Application {
 		if (updateFile.exists()) org.apache.commons.io.FileUtils.deleteQuietly(updateFile);
 
 		CheckNewNotice.checkNewNotice(this);
+
+		ResourceManager.setResources(this);
 	}
 
 	@Override

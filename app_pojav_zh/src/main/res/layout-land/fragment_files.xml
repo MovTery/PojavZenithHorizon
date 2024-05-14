@@ -32,11 +32,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.kdt.pickafile.FileListView
+            <com.movtery.filelist.FileListView
                 android:id="@+id/zh_files"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"

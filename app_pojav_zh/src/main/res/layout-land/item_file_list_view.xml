@@ -7,22 +7,22 @@
     tools:ignore="MissingDefaultResource">
 
     <ImageView
-        android:id="@+id/zh_custom_mouse_image"
+        android:id="@+id/zh_file_image"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="12dp"
         android:layout_centerVertical="true"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_mouse_pointer" />
+        android:src="@drawable/ic_file" />
 
     <TextView
-        android:id="@+id/zh_custom_mouse_name"
+        android:id="@+id/zh_file_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/zh_custom_mouse_image"
+        android:layout_toEndOf="@id/zh_file_image"
         android:layout_marginStart="8dp"
-        android:text="Test.png"
+        android:text="File Name"
         android:textSize="@dimen/_14sdp"
         tools:ignore="HardcodedText" />
 

@@ -28,6 +28,7 @@
     <com.movtery.versionlist.VersionListView
         android:id="@+id/zh_version"
         android:background="@drawable/background_edit_box"
+        android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="8dp"

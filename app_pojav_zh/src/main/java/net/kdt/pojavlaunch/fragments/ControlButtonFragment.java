@@ -19,9 +19,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.ipaulpro.afilechooser.FileIcon;
-import com.kdt.pickafile.FileListView;
-import com.kdt.pickafile.FileSelectedListener;
+import com.movtery.filelist.FileIcon;
+import com.movtery.filelist.FileListView;
+import com.movtery.filelist.FileSelectedListener;
 
 import net.kdt.pojavlaunch.CustomControlsActivity;
 import net.kdt.pojavlaunch.PojavApplication;
@@ -115,7 +115,7 @@ public class ControlButtonFragment extends Fragment {
                     DeleteDialog deleteDialog = new DeleteDialog(requireContext(), () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
                     deleteDialog.show();
                 } else {
-                    CopyDialog dialog = new CopyDialog(requireContext(), mFileListView, file);
+                    CopyDialog dialog = new CopyDialog(requireContext(), () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
                     dialog.show();
                 }
             }
