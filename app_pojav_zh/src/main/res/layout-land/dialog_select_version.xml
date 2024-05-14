@@ -5,8 +5,6 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/parent"
-    android:minWidth="450dp"
-    android:minHeight="150dp"
     android:padding="8dp"
     android:orientation="vertical"
     tools:ignore="MissingDefaultResource">
