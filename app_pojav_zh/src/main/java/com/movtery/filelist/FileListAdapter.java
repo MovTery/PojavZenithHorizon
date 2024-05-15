@@ -1,5 +1,6 @@
 package com.movtery.filelist;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -25,7 +26,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.InnerH
     @NonNull
     @Override
     public FileListAdapter.InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = View.inflate(parent.getContext(), R.layout.item_file_list_view, null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_file_list_view, parent, false);
         return new InnerHolder(view);
     }
 
