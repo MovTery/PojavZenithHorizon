@@ -197,7 +197,7 @@
         android:layout_marginBottom="24dp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:scaleType="fitCenter"
-        android:src="@drawable/spinner_arrow_right"
+        android:src="@drawable/ic_spinner_arrow_right"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

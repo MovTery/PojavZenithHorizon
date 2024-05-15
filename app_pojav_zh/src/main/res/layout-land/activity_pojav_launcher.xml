@@ -96,7 +96,7 @@
         app:layout_constraintEnd_toEndOf="@+id/container_fragment"
         app:layout_constraintStart_toStartOf="@+id/container_fragment"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/hair" />
+        app:srcCompat="@drawable/ic_hair" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
