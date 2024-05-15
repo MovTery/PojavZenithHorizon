@@ -12,7 +12,7 @@
         android:layout_width="@dimen/_128sdp"
         android:layout_height="@dimen/_128sdp"
         android:adjustViewBounds="true"
-        android:src="@drawable/storage_alert" />
+        android:src="@drawable/ic_storage_alert" />
 
     <TextView
         android:layout_width="wrap_content"

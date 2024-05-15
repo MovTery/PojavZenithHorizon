@@ -34,7 +34,7 @@ public class NotificationUtils {
         if(contentTitle != -1) notificationBuilder.setContentTitle(context.getString(contentTitle));
         if(contentText != -1) notificationBuilder.setContentText(context.getString(contentText));
         if(actionIntent != null) notificationBuilder.setContentIntent(pendingIntent);
-        notificationBuilder.setSmallIcon(R.drawable.notif_icon);
+        notificationBuilder.setSmallIcon(R.drawable.ic_pojav_full);
 
         notificationManager.notify(notificationId, notificationBuilder.build());
     }
