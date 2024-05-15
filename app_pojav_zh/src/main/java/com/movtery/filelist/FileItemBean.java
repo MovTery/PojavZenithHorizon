@@ -44,7 +44,7 @@ public class FileItemBean implements Comparable<FileItemBean> {
 
         //首先检查文件是否为目录
         if (this.file != null && this.file.isDirectory()) {
-            if (o.file != null && o.file.isFile()) {
+            if (o.file != null && !o.file.isDirectory()) {
                 //目录排在文件前面
                 return -1;
             }
@@ -53,22 +53,24 @@ public class FileItemBean implements Comparable<FileItemBean> {
             return 1;
         }
 
-        return compareChar(thisName, otherName, 0);
+        return compareChar(thisName, otherName);
     }
 
-    private int compareChar(String first, String second, int index) {
-        //如果任一字符串的长度小于index，那么较短的字符串应该排在前面
-        if (index >= first.length()) return -1;
-        if (index >= second.length()) return 1;
+    private int compareChar(String first, String second) {
+        int firstLength = first.length();
+        int secondLength = second.length();
 
-        char firstChar1 = Character.toLowerCase(first.charAt(index));
-        char firstChar2 = Character.toLowerCase(second.charAt(index));
+        //遍历两个字符串的字符
+        for (int i = 0; i < Math.min(firstLength, secondLength); i++) {
+            char firstChar = Character.toLowerCase(first.charAt(i));
+            char secondChar = Character.toLowerCase(second.charAt(i));
 
-        int compare = Character.compare(firstChar1, firstChar2);
-        if (compare != 0) {
-            return compare;
-        } else {
-            return compareChar(first, second, index + 1);
+            int compare = Character.compare(firstChar, secondChar);
+            if (compare != 0) {
+                return compare;
+            }
         }
+
+        return Integer.compare(firstLength, secondLength);
     }
 }
