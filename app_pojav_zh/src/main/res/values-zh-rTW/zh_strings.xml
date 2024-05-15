@@ -165,8 +165,11 @@
     <string name="zh_about_dec1">Pojav ZH 是一款基於 PojavLauncher 魔改的 Minecraft 啟動器，它能夠在 Android 設備上執行 Minecraft：Java Edition。\nPojav ZH 致力於優化使用者體驗，重新設計了應用介面，新增了更多實用的功能，旨在最大程度地降低遊玩門檻，讓更多人能夠輕鬆體驗 Minecraft 的樂趣。</string>
     <string name="zh_about_dec2">Pojav ZH 由墨北MovTery 個人精心製作，在 PojavLauncher 的基礎上進行了深入的魔改工作。</string>
     <string name="zh_about_dec3">由於 PojavLauncher 使用的是 GPL 3.0 開源協議，這一協議具有 “傳染性”，任何使用、修改或衍生自 GPL 類庫或軟件的代碼也必須採用 GPL 協議進行開源。因此，Pojav ZH 也只能遵循 GPL 3.0 開源協議。如果你打算傳播或分發本軟件，請務必遵守 GPL 3.0 開源協議的相關規定。</string>
-    <string name="zh_about_dec4">軟體貢獻者：</string>
-    <string name="zh_about_contributors1">墨北MovTery</string>
+    <string name="zh_about_dec4">貢獻者與鳴謝：</string>
+    <string name="zh_about_movtery_desc">Pojav ZH 的作者</string>
+    <string name="zh_about_verafirefly_desc">Pojav ZH 專案協助者，為 Pojav ZH 提供渲染方面的技術支援</string>
+    <string name="zh_about_lingmuqiuzhu_desc">為 Pojav ZH 提供了技術支援</string>
+    <string name="zh_about_access_space">訪問空間</string>
     <string name="zh_about_version_name">Pojav ZH 版本號：</string>
     <string name="zh_about_version_code">Pojav ZH 版本碼：</string>
     <string name="zh_about_last_update_time">上次更新時間：</string>
