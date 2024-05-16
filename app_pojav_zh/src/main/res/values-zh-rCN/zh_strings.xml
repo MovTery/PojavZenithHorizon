@@ -3,6 +3,9 @@
     <!-- Pojav ZH -->
     <string name="zh_return">返回</string>
     <string name="zh_share">分享</string>
+    <string name="zh_move">移动</string>
+    <string name="zh_more">更多</string>
+    <string name="zh_paste">粘贴</string>
     <string name="zh_refresh">刷新</string>
     <string name="zh_create">创建</string>
     <string name="zh_rename">重命名</string>
@@ -58,24 +61,19 @@
     <string name="zh_custom_background_reset">已重置 %s 的背景图片</string>
 
     <string name="zh_file_add_file">添加文件</string>
-    <string name="zh_file_add_file_tip">请选择一个后缀名为"%s"的文件</string>
+    <string name="zh_file_add_file_tip">请选择一个后缀名为 "%s" 的文件</string>
     <string name="zh_file_create_file_invalid">不可与已存在的文件同名！</string>
-    <string name="zh_file_copy_dialog_title">复制文件</string>
-    <string name="zh_file_copy_dialog_message">你确定要以此文件复制并创建一个新的文件吗？</string>
-    <string name="zh_file_copy_dialog_new_name_title">为复制的新文件取名</string>
     <string name="zh_file_does_not_exist">这个文件夹(或文件)不存在</string>
     <string name="zh_file_tips">操作此文件</string>
     <string name="zh_file_message">请选择你要对此文件执行的操作</string>
-    <string name="zh_file_message_copy">(长按此文件可复制并创建一个新的文件)</string>
     <string name="zh_file_message_main">(请注意，在此目录下的文件都是非常重要的，操作不当可能导致游戏无法启动！)</string>
     <string name="zh_file_added">成功添加文件</string>
     <string name="zh_file_delete">你确定要删除此文件吗？</string>
     <string name="zh_file_delete_dir">你确定要删除此文件夹吗？</string>
     <string name="zh_file_delete_dir_message">删除文件夹时，会将此文件夹内部全部文件一并删除，如果这个文件夹内含有重要的文件，那么请取消此操作！</string>
     <string name="zh_file_delete_dir_success">成功删除此文件夹：</string>
-    <string name="zh_file_deleted">成功删除文件：</string>
-    <string name="zh_file_renamed">文件名已被修改：\n</string>
     <string name="zh_file_rename_empty">文件名不能为空！</string>
+    <string name="zh_file_rename_exitis">文件名与现有文件相冲突！</string>
 
     <string name="zh_neoforge_dl_searching">正在搜索 NeoForge 版本号</string>
     <string name="zh_neoforge_dl_no_installer">很抱歉，该版本的 NeoForge 没有安装程序，尚不支持</string>

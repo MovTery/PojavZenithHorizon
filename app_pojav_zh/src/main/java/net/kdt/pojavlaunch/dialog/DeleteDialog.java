@@ -5,7 +5,6 @@ import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +30,7 @@ public class DeleteDialog extends Dialog {
         this.mFile = file;
 
         this.setCancelable(false);
-        this.setContentView(R.layout.dialog_operation);
+        this.setContentView(R.layout.dialog_delete);
 
         isFolder = mFile.isDirectory();
         init();
@@ -40,14 +39,10 @@ public class DeleteDialog extends Dialog {
     @SuppressLint("UseCompatLoadingForDrawables")
     private void init() {
         String fileName = mFile.getName();
-        TextView mTitle = findViewById(R.id.zh_operation_title);
-        TextView mMessage = findViewById(R.id.zh_operation_message);
-        Button mCancelButton = findViewById(R.id.zh_operation_cancel);
-        Button mDeleteButton = findViewById(R.id.zh_operation_share);
-
-        findViewById(R.id.zh_operation_more).setVisibility(View.GONE);
-        findViewById(R.id.zh_operation_rename).setVisibility(View.GONE);
-        findViewById(R.id.zh_operation_delete).setVisibility(View.GONE);
+        TextView mTitle = findViewById(R.id.zh_delete_title);
+        TextView mMessage = findViewById(R.id.zh_delete_message);
+        Button mCancelButton = findViewById(R.id.zh_delete_cancel);
+        Button mDeleteButton = findViewById(R.id.zh_delete_confirm);
 
         mTitle.setText(isFolder ?
                 getContext().getString(R.string.zh_file_delete_dir) :
@@ -55,7 +50,6 @@ public class DeleteDialog extends Dialog {
         mMessage.setText(isFolder ?
                 getContext().getString(R.string.zh_file_delete_dir_message) :
                 getContext().getString(R.string.zh_file_delete));
-        mDeleteButton.setText(getContext().getString(R.string.global_delete));
 
         mCancelButton.setOnClickListener(view -> DeleteDialog.this.dismiss());
         mDeleteButton.setOnClickListener(view -> {
@@ -64,10 +58,7 @@ public class DeleteDialog extends Dialog {
                     FileUtils.deleteDirectory(mFile);
                     runOnUiThread(() -> Toast.makeText(getContext(), getContext().getString(R.string.zh_file_delete_dir_success) + "\n" + fileName, Toast.LENGTH_LONG).show());
                 } else {
-                    boolean deleted = FileUtils.deleteQuietly(mFile);
-                    if (deleted) {
-                        runOnUiThread(() -> Toast.makeText(getContext(), getContext().getString(R.string.zh_file_deleted) + fileName, Toast.LENGTH_SHORT).show());
-                    }
+                    FileUtils.deleteQuietly(mFile);
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);

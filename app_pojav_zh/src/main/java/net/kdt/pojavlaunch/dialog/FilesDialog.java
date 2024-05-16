@@ -7,30 +7,36 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+
+import com.movtery.PasteType;
 
 import net.kdt.pojavlaunch.R;
 
 import java.io.File;
 
 public class FilesDialog extends Dialog {
-    private final boolean mCancel, mMore, mShare, mRename, mDelete;
+    public static File COPY_FILE = null;
+    private final boolean mCopy, mMove, mMore, mShare, mRename, mDelete;
     private final String mMessageText, mMoreText;
     private final Runnable runnable;
     private final File mFile;
     private String mFileSuffix;
     private View.OnClickListener mMoreClick;
-    private Button mMoreButton;
+    private RelativeLayout mMoveButton, mCopyButton, mMoreButton;
+    private OnCopyButtonClickListener mCopyClick;
 
     public FilesDialog(@NonNull Context context, FilesButton filesButton, Runnable runnable, File file) {
         super(context);
         this.runnable = runnable;
         this.mFile = file;
+        FilesDialog.COPY_FILE = file;
 
-        this.mCancel = true;
+        this.mCopy = filesButton.copy;
+        this.mMove = filesButton.move;
         this.mShare = filesButton.share;
         this.mRename = filesButton.rename;
         this.mDelete = filesButton.delete;
@@ -39,33 +45,31 @@ public class FilesDialog extends Dialog {
         this.mMessageText = filesButton.messageText;
         this.mMoreText = filesButton.moreButtonText;
 
-        this.setCancelable(false);
-        this.setContentView(R.layout.dialog_operation);
+        this.setCancelable(true);
+        this.setContentView(R.layout.dialog_operation_file);
         init();
     }
 
     private void init() {
         TextView mMessage = findViewById(R.id.zh_operation_message);
-        Button mCancelButton = findViewById(R.id.zh_operation_cancel);
-        Button mShareButton = findViewById(R.id.zh_operation_share);
-        Button mRenameButton = findViewById(R.id.zh_operation_rename);
-        Button mDeleteButton = findViewById(R.id.zh_operation_delete);
-        mMoreButton = findViewById(R.id.zh_operation_more);
+        TextView moreText = findViewById(R.id.zh_file_more_text);
+        RelativeLayout mShareButton = findViewById(R.id.zh_file_share);
+        RelativeLayout mRenameButton = findViewById(R.id.zh_file_rename);
+        RelativeLayout mDeleteButton = findViewById(R.id.zh_file_delete);
+        mCopyButton = findViewById(R.id.zh_file_copy);
+        mMoveButton = findViewById(R.id.zh_file_move);
+        mMoreButton = findViewById(R.id.zh_file_more);
 
-        mCancelButton.setVisibility(mCancel ? View.VISIBLE : View.GONE);
-        mShareButton.setVisibility(mShare ? View.VISIBLE : View.GONE);
-        mRenameButton.setVisibility(mRename ? View.VISIBLE : View.GONE);
-        mDeleteButton.setVisibility(mDelete ? View.VISIBLE : View.GONE);
-        mMoreButton.setVisibility(mMore ? View.VISIBLE : View.GONE);
-
-        if (this.mMessageText != null) mMessage.setText(this.mMessageText);
-        mCancelButton.setOnClickListener(view -> FilesDialog.this.dismiss());
         mShareButton.setOnClickListener(view -> {
             shareFile(getContext(), mFile.getName(), mFile.getAbsolutePath());
             FilesDialog.this.dismiss();
         });
         mRenameButton.setOnClickListener(view -> {
-            renameFileListener(getContext(), runnable, mFile, this.mFileSuffix == null ? mFile.getName().substring(mFile.getName().lastIndexOf('.')) : this.mFileSuffix);
+            if (this.mFile.isFile()) {
+                renameFileListener(getContext(), runnable, mFile, this.mFileSuffix == null ? mFile.getName().substring(mFile.getName().lastIndexOf('.')) : this.mFileSuffix);
+            } else if (this.mFile.isDirectory()) {
+                renameFileListener(getContext(), runnable, mFile);
+            }
             FilesDialog.this.dismiss();
         });
         mDeleteButton.setOnClickListener(view -> {
@@ -74,28 +78,63 @@ public class FilesDialog extends Dialog {
             FilesDialog.this.dismiss();
         });
 
-        if (this.mMoreText != null) mMoreButton.setText(this.mMoreText);
+        if (this.mMessageText != null) mMessage.setText(this.mMessageText);
+        if (this.mMoreText != null) moreText.setText(this.mMoreText);
+
+        setButtonClickable(mShare, mShareButton);
+        setButtonClickable(mRename, mRenameButton);
+        setButtonClickable(mDelete, mDeleteButton);
+        setButtonClickable(mCopy, mCopyButton);
+        setButtonClickable(mMove, mMoveButton);
+        setButtonClickable(mMore, mMoreButton);
+    }
+
+    private void setButtonClickable(boolean clickable, RelativeLayout button) {
+        button.setClickable(clickable);
+        button.setAlpha(clickable ? 1f : 0.5f);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (this.mMore || this.mMoreClick != null) mMoreButton.setOnClickListener(this.mMoreClick);
+        if (this.mCopy && this.mCopyClick != null) mCopyButton.setOnClickListener(v -> {
+            PasteType.PASTE_TYPE = PasteType.PasteTypeEnum.COPY; //复制模式
+            this.mCopyClick.onButtonClick();
+            this.dismiss();
+        });
+
+        if (this.mMove) mMoveButton.setOnClickListener(v -> {
+            PasteType.PASTE_TYPE = PasteType.PasteTypeEnum.MOVE; //移动模式
+            this.mCopyClick.onButtonClick();
+            this.dismiss();
+        });
+
+        if (this.mMore && this.mMoreClick != null) mMoreButton.setOnClickListener(this.mMoreClick);
     }
 
     public void setMoreButtonClick(View.OnClickListener click) {
         this.mMoreClick = click;
     }
 
+    public void setCopyButtonClick(OnCopyButtonClickListener listener) {
+        this.mCopyClick = listener;
+    }
+
     public void setFileSuffix(String suffixes) {
         this.mFileSuffix = suffixes;
     }
 
+    public interface OnCopyButtonClickListener {
+        void onButtonClick();
+    }
+
     public static class FilesButton {
-        public boolean cancel, share, rename, delete, more;
+        public boolean copy, move, share, rename, delete, more;
         public String messageText, moreButtonText;
 
-        public void setButtonVisibility(boolean shareButton, boolean renameButton, boolean deleteButton, boolean moreButton) {
+        public void setButtonVisibility(boolean copy, boolean move, boolean shareButton, boolean renameButton, boolean deleteButton, boolean moreButton) {
+            this.copy = copy;
+            this.move = move;
             this.share = shareButton;
             this.rename = renameButton;
             this.delete = deleteButton;

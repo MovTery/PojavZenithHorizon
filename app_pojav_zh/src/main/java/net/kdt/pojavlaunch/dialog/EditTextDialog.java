@@ -13,12 +13,12 @@ import androidx.annotation.NonNull;
 import net.kdt.pojavlaunch.R;
 
 public class EditTextDialog extends Dialog {
+    private final String title, message, editText, hintText;
     private View.OnClickListener confirm, cancel;
     private TextView mTitle, mMessage;
     private EditText mEditBox;
     private ScrollView mScrollTextView;
-    private final String title, message, editText, hintText;
-    private String cancelButtonText, confirmButtonText;
+    private String confirmButtonText;
 
     public EditTextDialog(@NonNull Context context, String title, String message, String editText, String hintText) {
         super(context);
@@ -37,10 +37,6 @@ public class EditTextDialog extends Dialog {
         mTitle = findViewById(R.id.zh_edit_text_title);
         mMessage = findViewById(R.id.zh_edit_text_message);
         mScrollTextView = findViewById(R.id.zh_edit_text_scroll);
-    }
-
-    public void setCancelButtonText(String cancelButtonText) {
-        this.cancelButtonText = cancelButtonText;
     }
 
     public void setConfirmButtonText(String confirmButtonText) {
@@ -84,7 +80,6 @@ public class EditTextDialog extends Dialog {
         } else {
             mCancelButton.setOnClickListener(view -> this.dismiss());
         }
-        if (this.cancelButtonText != null) mCancelButton.setText(this.cancelButtonText);
         if (this.confirmButtonText != null) mConfirmButton.setText(this.confirmButtonText);
 
         super.show();
