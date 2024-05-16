@@ -12,14 +12,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.movtery.PasteType;
+import com.movtery.PasteFile;
 
 import net.kdt.pojavlaunch.R;
 
 import java.io.File;
 
 public class FilesDialog extends Dialog {
-    public static File COPY_FILE = null;
     private final boolean mCopy, mMove, mMore, mShare, mRename, mDelete;
     private final String mMessageText, mMoreText;
     private final Runnable runnable;
@@ -33,7 +32,7 @@ public class FilesDialog extends Dialog {
         super(context);
         this.runnable = runnable;
         this.mFile = file;
-        FilesDialog.COPY_FILE = file;
+        PasteFile.COPY_FILE = file;
 
         this.mCopy = filesButton.copy;
         this.mMove = filesButton.move;
@@ -51,6 +50,7 @@ public class FilesDialog extends Dialog {
     }
 
     private void init() {
+        TextView mTitle = findViewById(R.id.zh_operation_title);
         TextView mMessage = findViewById(R.id.zh_operation_message);
         TextView moreText = findViewById(R.id.zh_file_more_text);
         RelativeLayout mShareButton = findViewById(R.id.zh_file_share);
@@ -80,6 +80,7 @@ public class FilesDialog extends Dialog {
 
         if (this.mMessageText != null) mMessage.setText(this.mMessageText);
         if (this.mMoreText != null) moreText.setText(this.mMoreText);
+        if (this.mFile.isDirectory()) mTitle.setText(getContext().getString(R.string.zh_file_folder_tips));
 
         setButtonClickable(mShare, mShareButton);
         setButtonClickable(mRename, mRenameButton);
@@ -98,13 +99,13 @@ public class FilesDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (this.mCopy && this.mCopyClick != null) mCopyButton.setOnClickListener(v -> {
-            PasteType.PASTE_TYPE = PasteType.PasteTypeEnum.COPY; //复制模式
+            PasteFile.PASTE_TYPE = PasteFile.PasteType.COPY; //复制模式
             this.mCopyClick.onButtonClick();
             this.dismiss();
         });
 
         if (this.mMove) mMoveButton.setOnClickListener(v -> {
-            PasteType.PASTE_TYPE = PasteType.PasteTypeEnum.MOVE; //移动模式
+            PasteFile.PASTE_TYPE = PasteFile.PasteType.MOVE; //移动模式
             this.mCopyClick.onButtonClick();
             this.dismiss();
         });
