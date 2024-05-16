@@ -35,7 +35,7 @@ public class SelectControlsDialog extends Dialog {
         flv = findViewById(R.id.zh_controls);
         Button mCancelButton = findViewById(R.id.zh_controls_cancel_button);
 
-        flv.setDialogTitleListener(mTitle::setText);
+        flv.setTitleListener(mTitle::setText);
 
         if (Build.VERSION.SDK_INT < 29) flv.listFileAt(new File(Tools.CTRLMAP_PATH));
         else flv.lockPathAt(new File(Tools.CTRLMAP_PATH));

@@ -49,6 +49,7 @@ import org.apache.commons.io.FileUtils;
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -256,10 +257,9 @@ public class PojavZHTools {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    public static void renameFileListener(Context context, Runnable runnable, File file) {
+    public static void renameFileListener(Context context, Runnable runnable, File file, @NotNull String suffix) {
         String fileParent = file.getParent();
         String fileName = file.getName();
-        String suffix = fileName.substring(fileName.lastIndexOf('.')); //防止修改后缀名，先将后缀名分离出去
 
         EditTextDialog editTextDialog = new EditTextDialog(context, context.getString(R.string.zh_rename), null, fileName.substring(0, fileName.lastIndexOf(suffix)), null);
         editTextDialog.setConfirm(v -> {

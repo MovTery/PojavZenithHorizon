@@ -21,6 +21,7 @@ public class FilesDialog extends Dialog {
     private final String mMessageText, mMoreText;
     private final Runnable runnable;
     private final File mFile;
+    private String mFileSuffix;
     private View.OnClickListener mMoreClick;
     private Button mMoreButton;
 
@@ -64,7 +65,7 @@ public class FilesDialog extends Dialog {
             FilesDialog.this.dismiss();
         });
         mRenameButton.setOnClickListener(view -> {
-            renameFileListener(getContext(), runnable, mFile);
+            renameFileListener(getContext(), runnable, mFile, this.mFileSuffix == null ? mFile.getName().substring(mFile.getName().lastIndexOf('.')) : this.mFileSuffix);
             FilesDialog.this.dismiss();
         });
         mDeleteButton.setOnClickListener(view -> {
@@ -84,6 +85,10 @@ public class FilesDialog extends Dialog {
 
     public void setMoreButtonClick(View.OnClickListener click) {
         this.mMoreClick = click;
+    }
+
+    public void setFileSuffix(String suffixes) {
+        this.mFileSuffix = suffixes;
     }
 
     public static class FilesButton {

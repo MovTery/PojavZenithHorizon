@@ -83,7 +83,7 @@ public class ControlButtonFragment extends Fragment {
         mFileListView.setShowFiles(true);
         mFileListView.setShowFolders(true);
         mFileListView.lockPathAt(controlPath());
-        mFileListView.setDialogTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
+        mFileListView.setTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
         mFileListView.refreshPath();
 
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
