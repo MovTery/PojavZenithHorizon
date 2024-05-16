@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/parent"
     android:minWidth="450dp"
     android:minHeight="150dp"
-    android:padding="8dp"
     android:orientation="vertical"
+    android:padding="8dp"
     tools:ignore="MissingDefaultResource">
 
     <TextView
         android:id="@+id/zh_controls_settings_title"
-        android:singleLine="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:singleLine="true"
         android:text="@string/zh_controls_settings_title"
         android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_gravity="center"/>
+        android:textStyle="bold" />
 
     <ScrollView
         android:id="@+id/zh_controls_settings_scroll"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="12dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:id="@+id/layout"
@@ -38,16 +37,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <Switch
                 android:id="@+id/zh_controls_settings_button_snapping"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
                 android:background="@drawable/background_edit_box"
                 android:checked="true"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 android:text="@string/zh_controls_settings_button_snapping"
                 android:textStyle="bold"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
@@ -56,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/background_edit_box" >
+                android:background="@drawable/background_edit_box">
 
                 <TextView
                     android:id="@+id/zh_controls_settings_button_snapping_distance_name"
@@ -101,13 +100,13 @@
     </ScrollView>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:gravity="center_horizontal" >
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/zh_controls_settings_confirm_button"

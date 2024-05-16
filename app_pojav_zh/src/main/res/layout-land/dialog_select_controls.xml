@@ -1,46 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minWidth="480dp"
-    android:id="@+id/parent"
-    android:padding="8dp"
     android:orientation="vertical"
+    android:padding="8dp"
     tools:ignore="MissingDefaultResource">
 
     <TextView
         android:id="@+id/zh_controls_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="@string/global_load"
         android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_gravity="center"/>
+        android:textStyle="bold" />
 
     <com.movtery.filelist.FileListView
         android:id="@+id/zh_controls"
-        android:background="@drawable/background_edit_box"
-        android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/background_edit_box"
+        android:padding="8dp" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="end" >
+        android:gravity="end"
+        android:orientation="horizontal">
 
         <Button
-            android:layout_marginStart="10dp"
             android:id="@+id/zh_controls_cancel_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:text="@android:string/cancel" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

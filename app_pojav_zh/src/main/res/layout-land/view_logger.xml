@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:ignore="MissingDefaultResource">
 
     <View
         android:id="@+id/top_log_view"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:clickable="true"
         android:background="@color/menu_bar"
-        app:layout_constraintTop_toTopOf="parent"
-        android:focusable="true" />
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/log_title"
@@ -36,7 +35,7 @@
         android:textOn="@string/log_view_button_scroll_on"
         app:layout_constraintBottom_toBottomOf="@+id/top_log_view"
         app:layout_constraintEnd_toStartOf="@+id/content_log_toggle_log"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ToggleButton
         android:id="@+id/content_log_toggle_log"
@@ -73,8 +72,8 @@
             android:id="@+id/content_log_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textIsSelectable="true"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white"
+            android:textIsSelectable="true" />
 
     </com.kdt.DefocusableScrollView>
 
