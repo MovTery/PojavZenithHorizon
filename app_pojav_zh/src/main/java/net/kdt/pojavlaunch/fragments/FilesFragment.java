@@ -75,7 +75,7 @@ public class FilesFragment extends Fragment {
         parseBundle();
 
         mFileListView.lockPathAt(new File(mPath));
-        mFileListView.setDialogTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
+        mFileListView.setTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
         mFileListView.refreshPath();
 
         mFileListView.setFileSelectedListener(new FileSelectedListener() {

@@ -60,7 +60,7 @@ public class FileSelectorFragment extends Fragment {
         mFileListView.setShowFiles(mShowFiles);
         mFileListView.setShowFolders(mShowFolders);
         mFileListView.lockPathAt(new File(mRootPath));
-        mFileListView.setDialogTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
+        mFileListView.setTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
         mFileListView.refreshPath();
 
         mCreateFolderButton.setOnClickListener(v -> {

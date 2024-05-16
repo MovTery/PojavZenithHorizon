@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 
 import java.io.File;
@@ -31,6 +32,13 @@ public class ListViewTools {
         recyclerView.setAdapter(this.fileListAdapter);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    public void loadData(List<FileItemBean> itemBeans) {
+        this.mData.clear();
+        this.mData.addAll(itemBeans);
+        fileListAdapter.notifyDataSetChanged();
+    }
+
     @SuppressLint("UseCompatLoadingForDrawables")
     public static List<FileItemBean> loadItemBeansFromPath(Context context, File path, FileIcon fileIcon, boolean showFile, boolean showFolder) {
         List<FileItemBean> itemBeans = new ArrayList<>();
@@ -48,13 +56,25 @@ public class ListViewTools {
                 if (file.isFile()) {
                     switch (fileIcon) {
                         case IMAGE:
-                            itemBean.setImage(Drawable.createFromPath(file.getAbsolutePath()));
+                            if (PojavZHTools.isImage(file)) {
+                                itemBean.setImage(Drawable.createFromPath(file.getAbsolutePath()));
+                            } else {
+                                itemBean.setImage(getFileIcon(file, resources));
+                            }
                             break;
                         case CONTROL:
-                            itemBean.setImage(resources.getDrawable(R.drawable.ic_menu_custom_controls));
+                            if (file.getName().endsWith(".json")) {
+                                itemBean.setImage(resources.getDrawable(R.drawable.ic_menu_custom_controls));
+                            } else {
+                                itemBean.setImage(getFileIcon(file, resources));
+                            }
                             break;
                         case MOD:
-                            itemBean.setImage(resources.getDrawable(R.drawable.ic_java));
+                            if (file.getName().endsWith(".jar")) {
+                                itemBean.setImage(resources.getDrawable(R.drawable.ic_java));
+                            } else {
+                                itemBean.setImage(getFileIcon(file, resources));
+                            }
                             break;
                         case FILE:
                         default:
@@ -82,10 +102,12 @@ public class ListViewTools {
         return itemBeans;
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void loadData(List<FileItemBean> itemBeans) {
-        this.mData.clear();
-        this.mData.addAll(itemBeans);
-        fileListAdapter.notifyDataSetChanged();
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private static Drawable getFileIcon(File file, Resources resources) {
+        if (file.isDirectory()) {
+            return resources.getDrawable(R.drawable.ic_folder);
+        } else {
+            return resources.getDrawable(R.drawable.ic_file);
+        }
     }
 }

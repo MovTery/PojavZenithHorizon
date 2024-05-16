@@ -76,7 +76,7 @@ public class FileListView extends LinearLayout {
         this.fileSelectedListener = listener;
     }
 
-    public void setDialogTitleListener(SetTitleListener setTitleListener) {
+    public void setTitleListener(SetTitleListener setTitleListener) {
         this.mSetTitleListener = setTitleListener;
     }
 
