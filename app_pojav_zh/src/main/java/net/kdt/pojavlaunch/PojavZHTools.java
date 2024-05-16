@@ -7,6 +7,7 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -29,10 +30,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.movtery.PasteType;
 import com.movtery.background.BackgroundManager;
 import com.movtery.background.BackgroundType;
 
 import net.kdt.pojavlaunch.dialog.EditTextDialog;
+import net.kdt.pojavlaunch.dialog.FilesDialog;
 import net.kdt.pojavlaunch.dialog.UpdateDialog;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.CurseforgeApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.MCBBSApi;
@@ -261,14 +264,18 @@ public class PojavZHTools {
         String fileParent = file.getParent();
         String fileName = file.getName();
 
-        EditTextDialog editTextDialog = new EditTextDialog(context, context.getString(R.string.zh_rename), null, fileName.substring(0, fileName.lastIndexOf(suffix)), null);
+        EditTextDialog editTextDialog = new EditTextDialog(context, context.getString(R.string.zh_rename), null, getFileNameWithoutExtension(fileName, suffix), null);
         editTextDialog.setConfirm(v -> {
             String newName = editTextDialog.getEditBox().getText().toString().replace("/", "");
             if (!newName.isEmpty()) {
                 File newFile = new File(fileParent, newName + suffix);
+                if (newFile.exists()) {
+                    editTextDialog.getEditBox().setError(context.getString(R.string.zh_file_rename_exitis));
+                    return;
+                }
+
                 boolean renamed = file.renameTo(newFile);
                 if (renamed) {
-                    Toast.makeText(context, context.getString(R.string.zh_file_renamed) + file.getName() + " -> " + newName + suffix, Toast.LENGTH_SHORT).show();
                     if (runnable != null) PojavApplication.sExecutorService.execute(runnable);
                 }
             } else {
@@ -279,6 +286,101 @@ public class PojavZHTools {
         });
 
         editTextDialog.show();
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    public static void renameFileListener(Context context, Runnable runnable, File file) {
+        String fileParent = file.getParent();
+        String fileName = file.getName();
+
+        EditTextDialog editTextDialog = new EditTextDialog(context, context.getString(R.string.zh_rename), null, fileName, null);
+        editTextDialog.setConfirm(v -> {
+            String newName = editTextDialog.getEditBox().getText().toString().replace("/", "");
+            if (!newName.isEmpty()) {
+                File newFile = new File(fileParent, newName);
+                if (newFile.exists()) {
+                    editTextDialog.getEditBox().setError(context.getString(R.string.zh_file_rename_exitis));
+                    return;
+                }
+
+                boolean renamed = file.renameTo(newFile);
+                if (renamed) {
+                    if (runnable != null) PojavApplication.sExecutorService.execute(runnable);
+                }
+            } else {
+                Toast.makeText(context, context.getString(R.string.zh_file_rename_empty), Toast.LENGTH_SHORT).show();
+            }
+
+            editTextDialog.dismiss();
+        });
+
+        editTextDialog.show();
+    }
+
+    public static void pasteFile(Activity activity, File target, String fileExtension, Runnable endRunnable) {
+        if (FilesDialog.COPY_FILE != null && FilesDialog.COPY_FILE.exists()) {
+            try {
+                //获取当前记录的粘贴状态（如果为空，那么就设置为“复制”模式）
+                PasteType.PasteTypeEnum pasteTypeEnum = PasteType.PASTE_TYPE == null ? PasteType.PasteTypeEnum.COPY : PasteType.PASTE_TYPE;
+
+                File destFileOrDir = getNewDestination(FilesDialog.COPY_FILE, target, fileExtension);
+
+                if (FilesDialog.COPY_FILE.isFile()) {
+                    if (pasteTypeEnum == PasteType.PasteTypeEnum.COPY) {
+                        FileUtils.copyFile(FilesDialog.COPY_FILE, destFileOrDir);
+                    } else if (!Objects.equals(FilesDialog.COPY_FILE.getParent(), destFileOrDir.getParent())) {
+                        //检查父路径是否一致，如果是，那么就不执行这里的移动逻辑
+                        FileUtils.moveFile(FilesDialog.COPY_FILE, destFileOrDir);
+                    }
+                } else if (FilesDialog.COPY_FILE.isDirectory()) {
+                    if (pasteTypeEnum == PasteType.PasteTypeEnum.COPY) {
+                        FileUtils.copyDirectory(FilesDialog.COPY_FILE, destFileOrDir);
+                    } else if (!Objects.equals(FilesDialog.COPY_FILE.getParent(), destFileOrDir.getParent())) {
+                        //与上面一样
+                        FileUtils.moveDirectory(FilesDialog.COPY_FILE, destFileOrDir);
+                    }
+                }
+
+                FilesDialog.COPY_FILE = null;
+                PasteType.PASTE_TYPE = null;
+                PojavApplication.sExecutorService.execute(endRunnable);
+            } catch (Exception e) {
+                Tools.showError(activity, e);
+            }
+        } else {
+            runOnUiThread(() -> Toast.makeText(activity, activity.getString(R.string.zh_file_does_not_exist), Toast.LENGTH_SHORT).show());
+        }
+    }
+
+    //获取新的目标文件或目录，确保不与现有文件或目录冲突
+    private static File getNewDestination(File sourceFile, File targetDir, String fileExtension) {
+        File destFile = new File(targetDir, sourceFile.getName());
+        if (destFile.exists()) {
+            //如果目标文件或目录已存在，则重命名
+            String fileNameWithoutExt = getFileNameWithoutExtension(sourceFile.getName(), fileExtension);
+            if (fileExtension == null) {
+                int dotIndex = sourceFile.getName().lastIndexOf('.');
+                fileExtension = dotIndex == -1 ? "" : sourceFile.getName().substring(dotIndex);
+            }
+            String proposedFileName;
+            int counter = 1;
+            while (destFile.exists()) {
+                proposedFileName = fileNameWithoutExt + " (" + counter + ")" + fileExtension;
+                destFile = new File(targetDir, proposedFileName);
+                counter++;
+            }
+        }
+        return destFile;
+    }
+
+    private static String getFileNameWithoutExtension(String fileName, String fileExtension) {
+        if (fileExtension == null) {
+            int dotIndex = fileName.lastIndexOf('.');
+            return dotIndex == -1 ? fileName : fileName.substring(0, dotIndex);
+        } else {
+            int dotIndex = fileName.lastIndexOf(fileExtension);
+            return dotIndex == -1 ? fileName : fileName.substring(0, dotIndex);
+        }
     }
 
     public static void updateChecker(Context context) {

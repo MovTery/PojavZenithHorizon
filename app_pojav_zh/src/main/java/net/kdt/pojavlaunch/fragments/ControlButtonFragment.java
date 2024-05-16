@@ -29,8 +29,6 @@ import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
-import net.kdt.pojavlaunch.dialog.CopyDialog;
-import net.kdt.pojavlaunch.dialog.DeleteDialog;
 import net.kdt.pojavlaunch.dialog.EditTextDialog;
 import net.kdt.pojavlaunch.dialog.FilesDialog;
 
@@ -44,7 +42,7 @@ import java.nio.charset.StandardCharsets;
 public class ControlButtonFragment extends Fragment {
     public static final String TAG = "ControlButtonFragment";
     private ActivityResultLauncher<Object> openDocumentLauncher;
-    private Button mReturnButton, mAddControlButton, mImportControlButton, mRefreshButton;
+    private Button mReturnButton, mAddControlButton, mImportControlButton, mPasteButton, mRefreshButton;
     private ImageButton mHelpButton;
     private FileListView mFileListView;
     private TextView mFilePathView;
@@ -89,39 +87,22 @@ public class ControlButtonFragment extends Fragment {
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
-                FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-                filesButton.setButtonVisibility(true, true, true, true);
-
-                filesButton.messageText = getString(R.string.zh_file_message) + "\n" + getString(R.string.zh_file_message_copy);
-                filesButton.moreButtonText = getString(R.string.global_load);
-
-                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
-                filesDialog.setMoreButtonClick(v -> {
-                    Intent intent = new Intent(requireContext(), CustomControlsActivity.class);
-
-                    Bundle bundle = new Bundle();
-                    bundle.putString(BUNDLE_CONTROL_PATH, file.getAbsolutePath());
-                    intent.putExtras(bundle);
-
-                    startActivity(intent);
-                    filesDialog.dismiss();
-                }); //加载
-                filesDialog.show();
+                showDialog(file);
             }
 
             @Override
             public void onItemLongClick(File file, String path) {
                 if (file.isDirectory()) {
-                    DeleteDialog deleteDialog = new DeleteDialog(requireContext(), () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
-                    deleteDialog.show();
-                } else {
-                    CopyDialog dialog = new CopyDialog(requireContext(), () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
-                    dialog.show();
+                    showDialog(file);
                 }
             }
         });
 
         mReturnButton.setOnClickListener(v -> PojavZHTools.onBackPressed(requireActivity()));
+        mPasteButton.setOnClickListener(v -> PojavZHTools.pasteFile(requireActivity(), mFileListView.getFullPath(), null, () -> runOnUiThread(() -> {
+            mPasteButton.setVisibility(View.GONE);
+            mFileListView.refreshPath();
+        })));
         mImportControlButton.setOnClickListener(v -> {
             String suffix = ".json";
             Toast.makeText(requireActivity(), String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show();
@@ -166,6 +147,30 @@ public class ControlButtonFragment extends Fragment {
         });
     }
 
+    private void showDialog(File file) {
+        FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
+        filesButton.setButtonVisibility(true, true, true, true, true, true);
+
+        filesButton.messageText = getString(R.string.zh_file_message);
+        filesButton.moreButtonText = getString(R.string.global_load);
+
+        FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
+
+        filesDialog.setCopyButtonClick(() -> mPasteButton.setVisibility(View.VISIBLE));
+
+        filesDialog.setMoreButtonClick(v -> {
+            Intent intent = new Intent(requireContext(), CustomControlsActivity.class);
+
+            Bundle bundle = new Bundle();
+            bundle.putString(BUNDLE_CONTROL_PATH, file.getAbsolutePath());
+            intent.putExtras(bundle);
+
+            startActivity(intent);
+            filesDialog.dismiss();
+        }); //加载
+        filesDialog.show();
+    }
+
     private File controlPath() {
         File ctrlPath = new File(Tools.CTRLMAP_PATH);
         if (!ctrlPath.exists()) ctrlPath.mkdirs();
@@ -180,6 +185,7 @@ public class ControlButtonFragment extends Fragment {
         mReturnButton = view.findViewById(R.id.zh_files_return_button);
         mImportControlButton = view.findViewById(R.id.zh_files_add_file_button);
         mAddControlButton = view.findViewById(R.id.zh_files_create_folder_button);
+        mPasteButton = view.findViewById(R.id.zh_files_paste_button);
         mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
         mHelpButton = view.findViewById(R.id.zh_files_help_button);
         mFileListView = view.findViewById(R.id.zh_files);

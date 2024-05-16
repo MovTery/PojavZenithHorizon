@@ -24,7 +24,6 @@ import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
-import net.kdt.pojavlaunch.dialog.DeleteDialog;
 import net.kdt.pojavlaunch.dialog.FilesDialog;
 
 import java.io.File;
@@ -35,7 +34,7 @@ public class ModsFragment extends Fragment {
     public static final String jarFileSuffix = ".jar";
     public static final String disableJarFileSuffix = ".jar.disabled";
     private ActivityResultLauncher<Object> openDocumentLauncher;
-    private Button mReturnButton, mAddModButton, mRefreshButton;
+    private Button mReturnButton, mAddModButton, mPasteButton, mRefreshButton;
     private ImageButton mHelpButton;
     private FileListView mFileListView;
     private String mRootPath;
@@ -82,59 +81,13 @@ public class ModsFragment extends Fragment {
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
-                String fileName = file.getName();
-                String fileParent = file.getParent();
-                String disableString = "(" + getString(R.string.zh_profile_mods_disable) + ")";
-
-                FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-                filesButton.setButtonVisibility(true, true, true, (fileName.endsWith(jarFileSuffix) || fileName.endsWith(disableJarFileSuffix)));
-                filesButton.messageText = getString(R.string.zh_file_message);
-                if (fileName.endsWith(jarFileSuffix))
-                    filesButton.moreButtonText = getString(R.string.zh_profile_mods_disable);
-                else if (fileName.endsWith(disableJarFileSuffix))
-                    filesButton.moreButtonText = getString(R.string.zh_profile_mods_enable);
-
-                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
-                //检测后缀名，以设置正确的按钮
-                if (fileName.endsWith(jarFileSuffix)) {
-                    filesDialog.setFileSuffix(jarFileSuffix);
-                    filesDialog.setMoreButtonClick(v -> {
-                        File newFile = new File(fileParent, disableString + fileName + ".disabled");
-                        boolean disable = file.renameTo(newFile);
-                        if (disable) {
-                            Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_disabled) + fileName, Toast.LENGTH_SHORT).show();
-                        }
-                        mFileListView.refreshPath();
-                        filesDialog.dismiss();
-                    });
-                } else if (fileName.endsWith(disableJarFileSuffix)) {
-                    filesDialog.setFileSuffix(disableJarFileSuffix);
-                    filesDialog.setMoreButtonClick(v -> {
-                        int index = fileName.indexOf(disableString);
-                        if (index == -1) index = 0;
-                        else index = disableString.length();
-                        String newFileName = fileName.substring(index, fileName.lastIndexOf(disableJarFileSuffix));
-                        if (!fileName.endsWith(jarFileSuffix))
-                            newFileName += jarFileSuffix; //如果没有.jar结尾，那么默认加上.jar后缀
-
-                        File newFile = new File(fileParent, newFileName);
-                        boolean disable = file.renameTo(newFile);
-                        if (disable) {
-                            Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_enabled) + fileName, Toast.LENGTH_SHORT).show();
-                        }
-                        mFileListView.refreshPath();
-                        filesDialog.dismiss();
-                    });
-                }
-
-                filesDialog.show();
+                showDialog(file);
             }
 
             @Override
             public void onItemLongClick(File file, String path) {
                 if (file.isDirectory()) {
-                    DeleteDialog deleteDialog = new DeleteDialog(requireContext(), () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
-                    deleteDialog.show();
+                    showDialog(file);
                 }
             }
         });
@@ -145,6 +98,10 @@ public class ModsFragment extends Fragment {
             Toast.makeText(requireActivity(), String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show();
             openDocumentLauncher.launch(suffix);
         });
+        mPasteButton.setOnClickListener(v -> PojavZHTools.pasteFile(requireActivity(), mFileListView.getFullPath(), getFileSuffix(FilesDialog.COPY_FILE), () -> runOnUiThread(() -> {
+            mPasteButton.setVisibility(View.GONE);
+            mFileListView.refreshPath();
+        })));
         mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
@@ -157,6 +114,70 @@ public class ModsFragment extends Fragment {
         });
     }
 
+    private void showDialog(File file) {
+        String fileName = file.getName();
+        String fileParent = file.getParent();
+        String disableString = "(" + getString(R.string.zh_profile_mods_disable) + ")";
+
+        FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
+        filesButton.setButtonVisibility(true, true, true, true, true, (fileName.endsWith(jarFileSuffix) || fileName.endsWith(disableJarFileSuffix)));
+        filesButton.messageText = getString(R.string.zh_file_message);
+        if (fileName.endsWith(jarFileSuffix))
+            filesButton.moreButtonText = getString(R.string.zh_profile_mods_disable);
+        else if (fileName.endsWith(disableJarFileSuffix))
+            filesButton.moreButtonText = getString(R.string.zh_profile_mods_enable);
+
+        FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
+
+        filesDialog.setCopyButtonClick(() -> mPasteButton.setVisibility(View.VISIBLE));
+
+        //检测后缀名，以设置正确的按钮
+        if (fileName.endsWith(jarFileSuffix)) {
+            filesDialog.setFileSuffix(jarFileSuffix);
+            filesDialog.setMoreButtonClick(v -> {
+                File newFile = new File(fileParent, disableString + fileName + ".disabled");
+                boolean disable = file.renameTo(newFile);
+                if (disable) {
+                    Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_disabled) + fileName, Toast.LENGTH_SHORT).show();
+                }
+                mFileListView.refreshPath();
+                filesDialog.dismiss();
+            });
+        } else if (fileName.endsWith(disableJarFileSuffix)) {
+            filesDialog.setFileSuffix(disableJarFileSuffix);
+            filesDialog.setMoreButtonClick(v -> {
+                int index = fileName.indexOf(disableString);
+                if (index == -1) index = 0;
+                else index = disableString.length();
+                String newFileName = fileName.substring(index, fileName.lastIndexOf(disableJarFileSuffix));
+                if (!fileName.endsWith(jarFileSuffix))
+                    newFileName += jarFileSuffix; //如果没有.jar结尾，那么默认加上.jar后缀
+
+                File newFile = new File(fileParent, newFileName);
+                boolean disable = file.renameTo(newFile);
+                if (disable) {
+                    Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_enabled) + fileName, Toast.LENGTH_SHORT).show();
+                }
+                mFileListView.refreshPath();
+                filesDialog.dismiss();
+            });
+        }
+
+        filesDialog.show();
+    }
+
+    private String getFileSuffix(File file) {
+        String name = file.getName();
+        if (name.endsWith(disableJarFileSuffix)) {
+            return disableJarFileSuffix;
+        } else if (name.endsWith(jarFileSuffix)) {
+            return jarFileSuffix;
+        } else {
+            int dotIndex = file.getName().lastIndexOf('.');
+            return dotIndex == -1 ? "" : file.getName().substring(dotIndex);
+        }
+    }
+
     private void parseBundle() {
         Bundle bundle = getArguments();
         if (bundle == null) return;
@@ -166,6 +187,7 @@ public class ModsFragment extends Fragment {
     private void bindViews(@NonNull View view) {
         mReturnButton = view.findViewById(R.id.zh_files_return_button);
         mAddModButton = view.findViewById(R.id.zh_files_add_file_button);
+        mPasteButton = view.findViewById(R.id.zh_files_paste_button);
         mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
         mHelpButton = view.findViewById(R.id.zh_files_help_button);
         mFileListView = view.findViewById(R.id.zh_files);

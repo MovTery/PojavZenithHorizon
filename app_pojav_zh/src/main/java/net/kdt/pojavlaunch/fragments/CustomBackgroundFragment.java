@@ -17,11 +17,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.tabs.TabLayout;
+import com.movtery.background.BackgroundManager;
+import com.movtery.background.BackgroundType;
 import com.movtery.filelist.FileIcon;
 import com.movtery.filelist.FileListView;
 import com.movtery.filelist.FileSelectedListener;
-import com.movtery.background.BackgroundManager;
-import com.movtery.background.BackgroundType;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.PojavZHTools;
@@ -89,7 +89,7 @@ public class CustomBackgroundFragment extends Fragment {
 
                 boolean image = isImage(file);
                 FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-                filesButton.setButtonVisibility(true, true, true, image); //默认虚拟鼠标不支持分享、重命名、删除操作
+                filesButton.setButtonVisibility(false, false, true, true, true, image); //默认虚拟鼠标不支持分享、重命名、删除操作
 
                 String message;
                 if (image) { //如果选中的不是一个图片，那么将显示默认的文件选择提示信息

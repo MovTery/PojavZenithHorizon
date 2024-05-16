@@ -177,10 +177,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="12dp"
-                        android:layout_marginBottom="8dp"
                         android:layout_marginEnd="12dp"
+                        android:layout_marginBottom="8dp"
                         android:background="@drawable/background_line"
-                        android:drawableStart="@android:drawable/ic_menu_share"
+                        android:drawableStart="@drawable/ic_share"
                         android:text="@string/main_share_logs"
                         android:textColor="@color/primary_text" />
                 </LinearLayout>

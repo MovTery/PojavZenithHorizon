@@ -26,8 +26,6 @@ import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
-import net.kdt.pojavlaunch.dialog.CopyDialog;
-import net.kdt.pojavlaunch.dialog.DeleteDialog;
 import net.kdt.pojavlaunch.dialog.EditTextDialog;
 import net.kdt.pojavlaunch.dialog.FilesDialog;
 
@@ -37,7 +35,7 @@ public class FilesFragment extends Fragment {
     public static final String TAG = "FilesFragment";
     public static final String BUNDLE_PATH = "bundle_path";
     private ActivityResultLauncher<Object> openDocumentLauncher;
-    private Button mReturnButton, mAddFileButton, mCreateFolderButton, mRefreshButton;
+    private Button mReturnButton, mAddFileButton, mCreateFolderButton, mPasteButton, mRefreshButton;
     private ImageButton mHelpButton;
     private FileListView mFileListView;
     private TextView mFilePathView;
@@ -81,32 +79,13 @@ public class FilesFragment extends Fragment {
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
-                FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-                filesButton.setButtonVisibility(true, true, true, false);
-
-                int caciocavallo = file.getPath().indexOf("caciocavallo");
-                int lwjgl3 = file.getPath().indexOf("lwjgl3");
-
-                String message = getString(R.string.zh_file_message);
-                if (!(caciocavallo == -1 && lwjgl3 == -1))
-                    message += "\n" + getString(R.string.zh_file_message_main);
-                message += "\n" + getString(R.string.zh_file_message_copy);
-
-                filesButton.messageText = message;
-                filesButton.moreButtonText = null;
-
-                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
-                filesDialog.show();
+                showDialog(file);
             }
 
             @Override
             public void onItemLongClick(File file, String path) {
                 if (file.isDirectory()) {
-                    DeleteDialog deleteDialog = new DeleteDialog(requireContext(), () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
-                    deleteDialog.show();
-                } else {
-                    CopyDialog dialog = new CopyDialog(requireContext(), () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
-                    dialog.show();
+                    showDialog(file);
                 }
             }
         });
@@ -128,6 +107,10 @@ public class FilesFragment extends Fragment {
             });
             editTextDialog.show();
         });
+        mPasteButton.setOnClickListener(v -> PojavZHTools.pasteFile(requireActivity(), mFileListView.getFullPath(), null, () -> runOnUiThread(() -> {
+            mPasteButton.setVisibility(View.GONE);
+            mFileListView.refreshPath();
+        })));
         mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
@@ -140,6 +123,27 @@ public class FilesFragment extends Fragment {
         });
     }
 
+    private void showDialog(File file) {
+        FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
+        filesButton.setButtonVisibility(true, true, true, true, true, false);
+
+        int caciocavallo = file.getPath().indexOf("caciocavallo");
+        int lwjgl3 = file.getPath().indexOf("lwjgl3");
+
+        String message = getString(R.string.zh_file_message);
+        if (!(caciocavallo == -1 && lwjgl3 == -1))
+            message += "\n" + getString(R.string.zh_file_message_main);
+
+        filesButton.messageText = message;
+        filesButton.moreButtonText = null;
+
+        FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
+
+        filesDialog.setCopyButtonClick(() -> mPasteButton.setVisibility(View.VISIBLE));
+
+        filesDialog.show();
+    }
+
     private String removeLockPath(String path) {
         return path.replace(mPath, ".");
     }
@@ -148,6 +152,7 @@ public class FilesFragment extends Fragment {
         mReturnButton = view.findViewById(R.id.zh_files_return_button);
         mAddFileButton = view.findViewById(R.id.zh_files_add_file_button);
         mCreateFolderButton = view.findViewById(R.id.zh_files_create_folder_button);
+        mPasteButton = view.findViewById(R.id.zh_files_paste_button);
         mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
         mHelpButton = view.findViewById(R.id.zh_files_help_button);
         mFileListView = view.findViewById(R.id.zh_files);

@@ -22,9 +22,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.filelist.FileIcon;
+import com.movtery.filelist.FileItemBean;
 import com.movtery.filelist.ListViewTools;
 import com.movtery.filelist.SpacesItemDecoration;
-import com.movtery.filelist.FileItemBean;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.PojavZHTools;
@@ -38,11 +38,11 @@ import java.util.List;
 
 public class CustomMouseFragment extends Fragment {
     public static final String TAG = "CustomMouseFragment";
+    private final List<FileItemBean> mData = new ArrayList<>();
     private ActivityResultLauncher<String[]> openDocumentLauncher;
     private Button mReturnButton, mAddFileButton, mRefreshButton;
     private ImageButton mHelpButton;
     private ImageView mMouseView;
-    private final List<FileItemBean> mData = new ArrayList<>();
     private ListViewTools listViewTools;
 
     public CustomMouseFragment() {
@@ -122,7 +122,7 @@ public class CustomMouseFragment extends Fragment {
             boolean isDefaultMouse = fileName.equals("default_mouse.png");
 
             FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-            filesButton.setButtonVisibility(!isDefaultMouse, !isDefaultMouse, !isDefaultMouse, isImage(file)); //默认虚拟鼠标不支持分享、重命名、删除操作
+            filesButton.setButtonVisibility(false, false, !isDefaultMouse, !isDefaultMouse, !isDefaultMouse, isImage(file)); //默认虚拟鼠标不支持分享、重命名、删除操作
 
             //如果选中的虚拟鼠标是默认的虚拟鼠标，那么将加上额外的提醒
             String message = getString(R.string.zh_file_message);
