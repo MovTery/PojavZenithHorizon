@@ -32,6 +32,8 @@ import java.io.File;
 public class ModsFragment extends Fragment {
     public static final String TAG = "ModsFragment";
     public static final String BUNDLE_ROOT_PATH = "root_path";
+    public static final String jarFileSuffix = ".jar";
+    public static final String disableJarFileSuffix = ".jar.disabled";
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private Button mReturnButton, mAddModButton, mRefreshButton;
     private ImageButton mHelpButton;
@@ -85,16 +87,16 @@ public class ModsFragment extends Fragment {
                 String disableString = "(" + getString(R.string.zh_profile_mods_disable) + ")";
 
                 FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-                filesButton.setButtonVisibility(true, true, true, (fileName.endsWith(".jar") || fileName.endsWith(".disabled")));
+                filesButton.setButtonVisibility(true, true, true, (fileName.endsWith(jarFileSuffix) || fileName.endsWith(disableJarFileSuffix)));
                 filesButton.messageText = getString(R.string.zh_file_message);
-                if (fileName.endsWith(".jar"))
+                if (fileName.endsWith(jarFileSuffix))
                     filesButton.moreButtonText = getString(R.string.zh_profile_mods_disable);
-                else if (fileName.endsWith(".disabled"))
+                else if (fileName.endsWith(disableJarFileSuffix))
                     filesButton.moreButtonText = getString(R.string.zh_profile_mods_enable);
 
                 FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
                 //检测后缀名，以设置正确的按钮
-                if (fileName.endsWith(".jar")) {
+                if (fileName.endsWith(jarFileSuffix)) {
                     filesDialog.setMoreButtonClick(v -> {
                         File newFile = new File(fileParent, disableString + fileName + ".disabled");
                         boolean disable = file.renameTo(newFile);
@@ -104,14 +106,14 @@ public class ModsFragment extends Fragment {
                         mFileListView.refreshPath();
                         filesDialog.dismiss();
                     });
-                } else if (fileName.endsWith(".disabled")) {
+                } else if (fileName.endsWith(disableJarFileSuffix)) {
                     filesDialog.setMoreButtonClick(v -> {
                         int index = fileName.indexOf(disableString);
                         if (index == -1) index = 0;
-                        else if (index == 0) index = disableString.length();
-                        String newFileName = fileName.substring(index, fileName.lastIndexOf('.'));
-                        if (!fileName.endsWith(".jar"))
-                            newFileName += ".jar"; //如果没有.jar结尾，那么默认加上.jar后缀
+                        else index = disableString.length();
+                        String newFileName = fileName.substring(index, fileName.lastIndexOf(disableJarFileSuffix));
+                        if (!fileName.endsWith(jarFileSuffix))
+                            newFileName += jarFileSuffix; //如果没有.jar结尾，那么默认加上.jar后缀
 
                         File newFile = new File(fileParent, newFileName);
                         boolean disable = file.renameTo(newFile);

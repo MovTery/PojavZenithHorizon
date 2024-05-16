@@ -46,26 +46,17 @@
 
                     <TextView
                         android:id="@+id/zh_about_title"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:text="@string/app_name"
-                        android:textSize="@dimen/_20sdp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/zh_about_tab"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <View
-                        android:id="@+id/zh_about_line_1"
-                        style="@style/ThickDivider"
-                        android:layout_width="match_parent"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginEnd="4dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/zh_about_title" />
+                        app:layout_constraintTop_toTopOf="parent"  />
 
                     <TextView
                         android:id="@+id/zh_about_dec1"
@@ -75,19 +66,21 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         android:text="@string/zh_about_dec1"
+                        android:textStyle="bold"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/zh_about_line_1" />
+                        app:layout_constraintTop_toBottomOf="@id/zh_about_title" />
 
                     <TextView
                         android:id="@+id/zh_about_dec2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         android:text="@string/zh_about_dec2"
+                        android:textStyle="bold"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -98,24 +91,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         android:text="@string/zh_about_dec3"
+                        android:textStyle="bold"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/zh_about_dec2" />
-
-                    <View
-                        android:id="@+id/zh_about_line_2"
-                        style="@style/ThickDivider"
-                        android:layout_width="match_parent"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="4dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/zh_about_dec3" />
 
                     <Button
                         android:id="@+id/zh_about_pojavlauncher_button"
@@ -132,13 +115,13 @@
                         android:id="@+id/zh_about_license_button"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="15dp"
+                        android:layout_marginBottom="8dp"
                         android:text="GPL v3"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/zh_about_line_2"
+                        app:layout_constraintTop_toBottomOf="@+id/zh_about_dec3"
                         tools:ignore="HardcodedText" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
