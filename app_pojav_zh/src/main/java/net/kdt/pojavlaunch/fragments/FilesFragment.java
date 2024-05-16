@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.movtery.PasteFile;
 import com.movtery.filelist.FileIcon;
 import com.movtery.filelist.FileListView;
 import com.movtery.filelist.FileSelectedListener;
@@ -125,12 +126,17 @@ public class FilesFragment extends Fragment {
 
     private void showDialog(File file) {
         FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-        filesButton.setButtonVisibility(true, true, true, true, true, false);
+        filesButton.setButtonVisibility(true, true, !file.isDirectory(), true, true, false);
 
         int caciocavallo = file.getPath().indexOf("caciocavallo");
         int lwjgl3 = file.getPath().indexOf("lwjgl3");
 
-        String message = getString(R.string.zh_file_message);
+        String message;
+        if (file.isDirectory()) {
+            message = getString(R.string.zh_file_folder_message);
+        } else {
+            message = getString(R.string.zh_file_message);
+        }
         if (!(caciocavallo == -1 && lwjgl3 == -1))
             message += "\n" + getString(R.string.zh_file_message_main);
 
@@ -160,6 +166,8 @@ public class FilesFragment extends Fragment {
 
         view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
         mFileListView.setFileIcon(FileIcon.FILE);
+
+        mPasteButton.setVisibility(PasteFile.PASTE_TYPE != null ? View.VISIBLE : View.GONE);
     }
 
     private void parseBundle() {

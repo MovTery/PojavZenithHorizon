@@ -62,10 +62,11 @@
 
     <string name="zh_file_add_file">新增檔案</string>
     <string name="zh_file_add_file_tip">請選擇一個後綴名為 "%s" 的檔案</string>
-    <string name="zh_file_create_file_invalid">不能與已存在的文件同名！</string>
     <string name="zh_file_does_not_exist">這個資料夾（或檔案）不存在</string>
     <string name="zh_file_tips">操作此檔案</string>
-    <string name="zh_file_message">請選擇你要對此檔案進行的操作</string>
+    <string name="zh_file_folder_tips">操作此資料夾</string>
+    <string name="zh_file_message">請選擇你要對此檔案執行的操作</string>
+    <string name="zh_file_folder_message">請選擇你要對此資料夾執行的操作</string>
     <string name="zh_file_message_main">(請注意，在此目錄下的檔案都是非常重要的，操作不當可能導致遊戲無法啟動！)</string>
     <string name="zh_file_added">成功新增檔案</string>
     <string name="zh_file_delete">你確定要刪除此檔案嗎？</string>

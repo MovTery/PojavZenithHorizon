@@ -30,12 +30,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.movtery.PasteType;
+import com.movtery.PasteFile;
 import com.movtery.background.BackgroundManager;
 import com.movtery.background.BackgroundType;
 
 import net.kdt.pojavlaunch.dialog.EditTextDialog;
-import net.kdt.pojavlaunch.dialog.FilesDialog;
 import net.kdt.pojavlaunch.dialog.UpdateDialog;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.CurseforgeApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.MCBBSApi;
@@ -318,31 +317,31 @@ public class PojavZHTools {
     }
 
     public static void pasteFile(Activity activity, File target, String fileExtension, Runnable endRunnable) {
-        if (FilesDialog.COPY_FILE != null && FilesDialog.COPY_FILE.exists()) {
+        if (PasteFile.COPY_FILE != null && PasteFile.COPY_FILE.exists()) {
             try {
                 //获取当前记录的粘贴状态（如果为空，那么就设置为“复制”模式）
-                PasteType.PasteTypeEnum pasteTypeEnum = PasteType.PASTE_TYPE == null ? PasteType.PasteTypeEnum.COPY : PasteType.PASTE_TYPE;
+                PasteFile.PasteType pasteType = PasteFile.PASTE_TYPE == null ? PasteFile.PasteType.COPY : PasteFile.PASTE_TYPE;
 
-                File destFileOrDir = getNewDestination(FilesDialog.COPY_FILE, target, fileExtension);
+                File destFileOrDir = getNewDestination(PasteFile.COPY_FILE, target, fileExtension);
 
-                if (FilesDialog.COPY_FILE.isFile()) {
-                    if (pasteTypeEnum == PasteType.PasteTypeEnum.COPY) {
-                        FileUtils.copyFile(FilesDialog.COPY_FILE, destFileOrDir);
-                    } else if (!Objects.equals(FilesDialog.COPY_FILE.getParent(), destFileOrDir.getParent())) {
+                if (PasteFile.COPY_FILE.isFile()) {
+                    if (pasteType == PasteFile.PasteType.COPY) {
+                        FileUtils.copyFile(PasteFile.COPY_FILE, destFileOrDir);
+                    } else if (!Objects.equals(PasteFile.COPY_FILE.getParent(), destFileOrDir.getParent())) {
                         //检查父路径是否一致，如果是，那么就不执行这里的移动逻辑
-                        FileUtils.moveFile(FilesDialog.COPY_FILE, destFileOrDir);
+                        FileUtils.moveFile(PasteFile.COPY_FILE, destFileOrDir);
                     }
-                } else if (FilesDialog.COPY_FILE.isDirectory()) {
-                    if (pasteTypeEnum == PasteType.PasteTypeEnum.COPY) {
-                        FileUtils.copyDirectory(FilesDialog.COPY_FILE, destFileOrDir);
-                    } else if (!Objects.equals(FilesDialog.COPY_FILE.getParent(), destFileOrDir.getParent())) {
+                } else if (PasteFile.COPY_FILE.isDirectory()) {
+                    if (pasteType == PasteFile.PasteType.COPY) {
+                        FileUtils.copyDirectory(PasteFile.COPY_FILE, destFileOrDir);
+                    } else if (!Objects.equals(PasteFile.COPY_FILE.getParent(), destFileOrDir.getParent())) {
                         //与上面一样
-                        FileUtils.moveDirectory(FilesDialog.COPY_FILE, destFileOrDir);
+                        FileUtils.moveDirectory(PasteFile.COPY_FILE, destFileOrDir);
                     }
                 }
 
-                FilesDialog.COPY_FILE = null;
-                PasteType.PASTE_TYPE = null;
+                PasteFile.COPY_FILE = null;
+                PasteFile.PASTE_TYPE = null;
                 PojavApplication.sExecutorService.execute(endRunnable);
             } catch (Exception e) {
                 Tools.showError(activity, e);

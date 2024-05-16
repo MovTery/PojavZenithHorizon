@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.movtery.PasteFile;
 import com.movtery.filelist.FileIcon;
 import com.movtery.filelist.FileListView;
 import com.movtery.filelist.FileSelectedListener;
@@ -128,7 +129,7 @@ public class ControlButtonFragment extends Fragment {
                     }
                     mFileListView.refreshPath();
                 } else {
-                    Toast.makeText(requireContext(), getString(R.string.zh_file_create_file_invalid), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), getString(R.string.zh_file_rename_exitis), Toast.LENGTH_SHORT).show();
                 }
 
                 editTextDialog.dismiss();
@@ -149,9 +150,13 @@ public class ControlButtonFragment extends Fragment {
 
     private void showDialog(File file) {
         FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-        filesButton.setButtonVisibility(true, true, true, true, true, true);
+        filesButton.setButtonVisibility(true, true, !file.isDirectory(), true, true, true);
 
-        filesButton.messageText = getString(R.string.zh_file_message);
+        if (file.isDirectory()) {
+            filesButton.messageText = getString(R.string.zh_file_folder_message);
+        } else {
+            filesButton.messageText = getString(R.string.zh_file_message);
+        }
         filesButton.moreButtonText = getString(R.string.global_load);
 
         FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
@@ -196,6 +201,8 @@ public class ControlButtonFragment extends Fragment {
 
         view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
         mFileListView.setFileIcon(FileIcon.CONTROL);
+
+        mPasteButton.setVisibility(PasteFile.PASTE_TYPE != null ? View.VISIBLE : View.GONE);
     }
 }
 

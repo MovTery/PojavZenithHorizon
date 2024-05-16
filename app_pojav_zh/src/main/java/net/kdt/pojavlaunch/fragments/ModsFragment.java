@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.movtery.PasteFile;
 import com.movtery.filelist.FileIcon;
 import com.movtery.filelist.FileListView;
 import com.movtery.filelist.FileSelectedListener;
@@ -98,7 +99,7 @@ public class ModsFragment extends Fragment {
             Toast.makeText(requireActivity(), String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show();
             openDocumentLauncher.launch(suffix);
         });
-        mPasteButton.setOnClickListener(v -> PojavZHTools.pasteFile(requireActivity(), mFileListView.getFullPath(), getFileSuffix(FilesDialog.COPY_FILE), () -> runOnUiThread(() -> {
+        mPasteButton.setOnClickListener(v -> PojavZHTools.pasteFile(requireActivity(), mFileListView.getFullPath(), getFileSuffix(PasteFile.COPY_FILE), () -> runOnUiThread(() -> {
             mPasteButton.setVisibility(View.GONE);
             mFileListView.refreshPath();
         })));
@@ -120,8 +121,12 @@ public class ModsFragment extends Fragment {
         String disableString = "(" + getString(R.string.zh_profile_mods_disable) + ")";
 
         FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-        filesButton.setButtonVisibility(true, true, true, true, true, (fileName.endsWith(jarFileSuffix) || fileName.endsWith(disableJarFileSuffix)));
-        filesButton.messageText = getString(R.string.zh_file_message);
+        filesButton.setButtonVisibility(true, true, !file.isDirectory(), true, true, (fileName.endsWith(jarFileSuffix) || fileName.endsWith(disableJarFileSuffix)));
+        if (file.isDirectory()) {
+            filesButton.messageText = getString(R.string.zh_file_folder_message);
+        } else {
+            filesButton.messageText = getString(R.string.zh_file_message);
+        }
         if (fileName.endsWith(jarFileSuffix))
             filesButton.moreButtonText = getString(R.string.zh_profile_mods_disable);
         else if (fileName.endsWith(disableJarFileSuffix))
@@ -196,6 +201,8 @@ public class ModsFragment extends Fragment {
         view.findViewById(R.id.zh_files_create_folder_button).setVisibility(View.GONE);
         view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
         mFileListView.setFileIcon(FileIcon.MOD);
+
+        mPasteButton.setVisibility(PasteFile.PASTE_TYPE != null ? View.VISIBLE : View.GONE);
     }
 }
 
