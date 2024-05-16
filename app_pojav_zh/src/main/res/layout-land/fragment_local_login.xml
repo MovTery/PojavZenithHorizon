@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -40,18 +39,18 @@
 
         android:layout_marginHorizontal="@dimen/_25sdp"
 
-        android:imeOptions="flagNoExtractUi"
+        android:autofillHints="username"
 
-        android:textSize="@dimen/_16ssp"
         android:background="@drawable/background_edit_box"
+        android:imeOptions="flagNoExtractUi"
+        android:inputType="text"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
+        android:textSize="@dimen/_16ssp"
         app:layout_constraintBottom_toBottomOf="@+id/login_menu"
         app:layout_constraintEnd_toStartOf="@+id/login_button"
         app:layout_constraintStart_toStartOf="@+id/login_menu"
         app:layout_constraintTop_toTopOf="@+id/login_menu"
-        android:autofillHints="username"
-        android:inputType="text"
         tools:ignore="LabelFor" />
 
     <Button

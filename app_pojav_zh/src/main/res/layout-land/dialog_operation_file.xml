@@ -110,8 +110,10 @@
                 android:layout_height="26dp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="18dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_edit_profile" />
+                android:scaleType="fitCenter"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:src="@drawable/ic_edit" />
 
             <TextView
                 android:layout_width="wrap_content"

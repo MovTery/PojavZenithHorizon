@@ -1,33 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/parent"
     android:minWidth="450dp"
     android:minHeight="150dp"
-    android:padding="8dp"
     android:orientation="vertical"
+    android:padding="8dp"
     tools:ignore="MissingDefaultResource">
 
     <TextView
         android:id="@+id/zh_exit_title"
-        android:singleLine="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:singleLine="true"
         android:text="@string/zh_wrong_tip"
         android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_gravity="center"/>
+        android:textStyle="bold" />
 
     <ScrollView
         android:id="@+id/text_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_weight="1">
 
         <LinearLayout
             android:id="@+id/layout"
@@ -47,30 +46,30 @@
     </ScrollView>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="end" >
+        android:gravity="end"
+        android:orientation="horizontal">
 
         <Button
-            android:layout_marginStart="10dp"
             android:id="@+id/zh_exit_share_crash_report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:text="@string/zh_main_share_crash_report" />
 
         <Button
-            android:layout_marginStart="10dp"
             android:id="@+id/zh_exit_share_log"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:text="@string/main_share_logs" />
 
         <Button
-            android:layout_marginStart="10dp"
             android:id="@+id/zh_exit_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:text="@android:string/cancel" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

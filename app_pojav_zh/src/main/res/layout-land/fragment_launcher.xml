@@ -227,7 +227,6 @@
             android:layout_width="0dp"
             android:layout_height="45dp"
             android:layout_marginStart="10dp"
-
             android:layout_marginTop="16dp"
             android:layout_marginEnd="10dp"
             android:paddingHorizontal="@dimen/padding_large"
@@ -244,7 +243,6 @@
             android:layout_width="0dp"
             android:layout_height="45dp"
             android:layout_marginStart="10dp"
-
             android:layout_marginTop="8dp"
             android:layout_marginEnd="10dp"
             android:paddingHorizontal="@dimen/padding_large"
@@ -261,9 +259,7 @@
             android:id="@+id/mc_version_spinner"
             android:layout_width="0dp"
             android:layout_height="@dimen/_38sdp"
-
             android:layout_marginStart="4dp"
-
             android:layout_marginBottom="8dp"
             android:background="?attr/selectableItemBackground"
             android:drawableEnd="@drawable/spinner_arrow"
@@ -282,10 +278,12 @@
             android:layout_width="@dimen/_38sdp"
             android:layout_height="0dp"
             android:layout_marginEnd="4dp"
-
             android:layout_marginBottom="8dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_edit_profile"
+            android:scaleType="fitCenter"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:src="@drawable/ic_edit"
             app:layout_constraintBottom_toTopOf="@+id/play_button"
             app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
             app:layout_constraintTop_toTopOf="@+id/mc_version_spinner" />
@@ -294,8 +292,6 @@
             android:id="@+id/play_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
-
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="8dp"

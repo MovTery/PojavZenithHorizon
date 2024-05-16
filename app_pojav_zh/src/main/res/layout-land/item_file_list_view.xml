@@ -10,8 +10,8 @@
         android:id="@+id/zh_file_image"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginStart="12dp"
         android:layout_centerVertical="true"
+        android:layout_marginStart="12dp"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_file" />
 
@@ -20,9 +20,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/zh_file_image"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_toEndOf="@id/zh_file_image"
         android:singleLine="true"
         android:text="File Name"
         android:textSize="@dimen/_12sdp"

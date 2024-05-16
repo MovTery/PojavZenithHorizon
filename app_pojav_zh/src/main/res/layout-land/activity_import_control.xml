@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -45,17 +44,17 @@
         android:layout_height="@dimen/_37sdp"
 
         android:layout_marginHorizontal="@dimen/_25sdp"
+        android:autofillHints="name"
         android:hint="@string/zh_activity_import_control"
-        android:imeOptions="flagForceAscii"
 
-        android:textSize="@dimen/_16ssp"
+        android:imeOptions="flagForceAscii"
+        android:inputType="text"
         android:textColorHint="@color/primary_text"
+        android:textSize="@dimen/_16ssp"
         app:layout_constraintBottom_toBottomOf="@+id/_background_display_view"
         app:layout_constraintEnd_toStartOf="@+id/mineButton_import_control"
         app:layout_constraintStart_toStartOf="@+id/_background_display_view"
-        app:layout_constraintTop_toTopOf="@+id/_background_display_view"
-        android:autofillHints="name"
-        android:inputType="text" />
+        app:layout_constraintTop_toTopOf="@+id/_background_display_view" />
 
     <Button
         android:id="@+id/mineButton_import_control"

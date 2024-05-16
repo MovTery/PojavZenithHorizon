@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,31 +16,31 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/crop_dialog_view"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintHorizontal_weight="0.2">
+            app:layout_constraintHorizontal_weight="0.2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ToggleButton
                 android:id="@+id/crop_dialog_hlock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textOff="@string/cropper_lock_horizontal"
-                android:textOn="@string/cropper_lock_horizontal"/>
+                android:textOn="@string/cropper_lock_horizontal" />
 
             <ToggleButton
                 android:id="@+id/crop_dialog_vlock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textOff="@string/cropper_lock_vertical"
-                android:textOn="@string/cropper_lock_vertical"/>
+                android:textOn="@string/cropper_lock_vertical" />
 
             <Button
                 android:id="@+id/crop_dialog_reset"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/cropper_reset"/>
+                android:text="@string/cropper_reset" />
 
         </LinearLayout>
 
@@ -49,11 +48,11 @@
             android:id="@+id/crop_dialog_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/buttonContainer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintHorizontal_weight="0.8"/>
+            app:layout_constraintHorizontal_weight="0.8"
+            app:layout_constraintStart_toEndOf="@+id/buttonContainer"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ProgressBar
             android:id="@+id/crop_dialog_progressbar"

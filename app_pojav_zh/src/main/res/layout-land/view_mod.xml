@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/padding_medium"
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
     android:background="@drawable/background_line"
     android:paddingHorizontal="@dimen/_2sdp"
     android:paddingVertical="@dimen/_2sdp"
-    android:layout_marginVertical="@dimen/padding_medium"
     tools:ignore="MissingDefaultResource">
 
     <ImageView
@@ -74,8 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout="@layout/view_mod_extended"
-        app:layout_constraintTop_toBottomOf="@id/mod_thumbnail_imageview"/>
-
+        app:layout_constraintTop_toBottomOf="@id/mod_thumbnail_imageview" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

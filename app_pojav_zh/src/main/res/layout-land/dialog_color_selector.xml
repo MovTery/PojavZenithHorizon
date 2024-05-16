@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/color_picker_layout"
     android:layout_width="@dimen/_280sdp"
     android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
+    android:layout_marginVertical="@dimen/padding_heavy"
     android:background="@drawable/background_control_editor"
     android:paddingHorizontal="@dimen/padding_moderate"
     android:paddingVertical="@dimen/padding_moderate"
-    android:id="@+id/color_picker_layout"
-    android:layout_marginVertical="@dimen/padding_heavy"
-    android:layout_gravity="center_vertical"
     tools:ignore="MissingDefaultResource">
 
     <net.kdt.pojavlaunch.colorselector.SVRectangleView
         android:id="@+id/color_selector_rectangle_view"
         android:layout_width="0dp"
         android:layout_height="@dimen/_150sdp"
-        android:focusable="true"
         android:layout_marginEnd="8dp"
+        android:focusable="true"
 
         app:layout_constraintEnd_toStartOf="@+id/color_selector_alpha_view"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,14 +50,13 @@
         app:layout_constraintTop_toBottomOf="@+id/color_selector_color_view" />
 
 
-
     <net.kdt.pojavlaunch.colorselector.AlphaView
         android:id="@+id/color_selector_alpha_view"
         android:layout_width="25dp"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/color_selector_hue_view"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/color_selector_hue_view"
         app:layout_constraintTop_toTopOf="parent" />
 
     <net.kdt.pojavlaunch.colorselector.HueView
