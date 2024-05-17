@@ -97,6 +97,7 @@
     <string name="zh_profile_create_mods_message">请你确保此实例使用的游戏版本确实能够加载 Mod，如果它并不支持加载 Mod，那么创建 Mods 文件夹并添加 Mod 将不会起到任何作用！</string>
     <string name="zh_profile_create_mods_success">成功创建 Mods 文件夹!</string>
     <string name="zh_profile_mods">Mod 管理</string>
+    <string name="zh_profile_mods_download_mod">下载 Mod</string>
     <string name="zh_profile_mods_add_mod">添加 Mod</string>
     <string name="zh_profile_mods_added_mod">成功添加 Mod</string>
     <string name="zh_profile_mods_disable">禁用</string>

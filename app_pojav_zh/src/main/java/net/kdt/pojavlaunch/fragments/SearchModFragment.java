@@ -32,16 +32,17 @@ import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 public class SearchModFragment extends Fragment implements ModItemAdapter.SearchResultCallback {
 
     public static final String TAG = "SearchModFragment";
+    public static final String BUNDLE_SEARCH_MODPACK = "BundleSearchModPack";
+    private SearchFilters mSearchFilters;
+    private boolean isModpack;
     private View mOverlay;
     private float mOverlayTopCache; // Padding cache reduce resource lookup
-
     private final RecyclerView.OnScrollListener mOverlayPositionListener = new RecyclerView.OnScrollListener() {
         @Override
         public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
             mOverlay.setY(MathUtils.clamp(mOverlay.getY() - dy, -mOverlay.getHeight(), mOverlayTopCache));
         }
     };
-
     private EditText mSearchEditText;
     private ImageButton mFilterButton;
     private RecyclerView mRecyclerview;
@@ -49,15 +50,10 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
     private ProgressBar mSearchProgressBar;
     private TextView mStatusTextView;
     private ColorStateList mDefaultTextColor;
-
     private ModpackApi modpackApi;
 
-    private final SearchFilters mSearchFilters;
-
-    public SearchModFragment(){
+    public SearchModFragment() {
         super(R.layout.fragment_mod_search);
-        mSearchFilters = new SearchFilters();
-        mSearchFilters.isModpack = true;
     }
 
     @Override
@@ -68,8 +64,12 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        parseBundle();
+        mSearchFilters = new SearchFilters();
+        mSearchFilters.isModpack = this.isModpack;
+
         // You can only access resources after attaching to current context
-        mModItemAdapter = new ModItemAdapter(getResources(), modpackApi, this);
+        mModItemAdapter = new ModItemAdapter(getResources(), modpackApi, this, isModpack);
         ProgressKeeper.addTaskCountListener(mModItemAdapter);
         mOverlayTopCache = getResources().getDimension(R.dimen.fragment_padding_medium);
 
@@ -93,16 +93,16 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
             return false;
         });
 
-        mOverlay.post(()->{
-           int overlayHeight = mOverlay.getHeight();
-           mRecyclerview.setPadding(mRecyclerview.getPaddingLeft(),
-                   mRecyclerview.getPaddingTop() + overlayHeight,
-                   mRecyclerview.getPaddingRight(),
-                   mRecyclerview.getPaddingBottom());
+        mOverlay.post(() -> {
+            int overlayHeight = mOverlay.getHeight();
+            mRecyclerview.setPadding(mRecyclerview.getPaddingLeft(),
+                    mRecyclerview.getPaddingTop() + overlayHeight,
+                    mRecyclerview.getPaddingRight(),
+                    mRecyclerview.getPaddingBottom());
         });
         mFilterButton.setOnClickListener(v -> displayFilterDialog());
 
-        searchMods(""); //自动搜索一次
+        searchMods(null); //自动搜索一次
     }
 
     @Override
@@ -136,8 +136,14 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
 
     private void searchMods(String name) {
         mSearchProgressBar.setVisibility(View.VISIBLE);
-        mSearchFilters.name = name;
+        mSearchFilters.name = name == null ? "" : name;
         mModItemAdapter.performSearchQuery(mSearchFilters);
+    }
+
+    private void parseBundle() {
+        Bundle bundle = getArguments();
+        if (bundle == null) return;
+        isModpack = bundle.getBoolean(BUNDLE_SEARCH_MODPACK, false);
     }
 
     private void displayFilterDialog() {
