@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.movtery.versionlist.VersionSelectedListener;
 
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.dialog.SelectVersionDialog;
 import net.kdt.pojavlaunch.modloaders.modpacks.ModItemAdapter;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.CommonApi;
@@ -33,8 +34,10 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
 
     public static final String TAG = "SearchModFragment";
     public static final String BUNDLE_SEARCH_MODPACK = "BundleSearchModPack";
+    public static final String BUNDLE_MOD_PATH = "BundleModPath";
     private SearchFilters mSearchFilters;
     private boolean isModpack;
+    private String mModsPath;
     private View mOverlay;
     private float mOverlayTopCache; // Padding cache reduce resource lookup
     private final RecyclerView.OnScrollListener mOverlayPositionListener = new RecyclerView.OnScrollListener() {
@@ -69,9 +72,9 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         mSearchFilters.isModpack = this.isModpack;
 
         // You can only access resources after attaching to current context
-        mModItemAdapter = new ModItemAdapter(getResources(), modpackApi, this, isModpack);
+        mModItemAdapter = new ModItemAdapter(getResources(), modpackApi, this, isModpack, mModsPath);
         ProgressKeeper.addTaskCountListener(mModItemAdapter);
-        mOverlayTopCache = getResources().getDimension(R.dimen.fragment_padding_medium);
+        mOverlayTopCache = Tools.dpToPx(20);
 
         mOverlay = view.findViewById(R.id.search_mod_overlay);
         mSearchEditText = view.findViewById(R.id.search_mod_edittext);
@@ -92,9 +95,12 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
             mSearchEditText.clearFocus();
             return false;
         });
+        if (!this.isModpack) {
+            mSearchEditText.setHint(R.string.zh_profile_mods_search_mod);
+        }
 
         mOverlay.post(() -> {
-            int overlayHeight = mOverlay.getHeight();
+            int overlayHeight = (int) (mOverlay.getHeight() - Tools.dpToPx(20));
             mRecyclerview.setPadding(mRecyclerview.getPaddingLeft(),
                     mRecyclerview.getPaddingTop() + overlayHeight,
                     mRecyclerview.getPaddingRight(),
@@ -144,6 +150,7 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         Bundle bundle = getArguments();
         if (bundle == null) return;
         isModpack = bundle.getBoolean(BUNDLE_SEARCH_MODPACK, false);
+        mModsPath = bundle.getString(BUNDLE_MOD_PATH, null);
     }
 
     private void displayFilterDialog() {

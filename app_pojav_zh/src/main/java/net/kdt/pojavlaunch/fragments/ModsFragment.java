@@ -107,6 +107,7 @@ public class ModsFragment extends Fragment {
         mDownloadButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putBoolean(SearchModFragment.BUNDLE_SEARCH_MODPACK, false);
+            bundle.putString(SearchModFragment.BUNDLE_MOD_PATH, mRootPath);
             Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, bundle);
         });
         mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());

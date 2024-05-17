@@ -1,10 +1,7 @@
 package net.kdt.pojavlaunch.modloaders.modpacks.api;
 
-import static net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles.getCurrentProfile;
-
 import com.kdt.mcgui.ProgressLayout;
 
-import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ModIconCache;
@@ -20,13 +17,12 @@ import java.util.Locale;
 import java.util.concurrent.Callable;
 
 public class ModpackInstaller {
-    public static ModLoader installMod(ModDetail modDetail, int selectedVersion) throws IOException {
+    public static ModLoader installMod(ModDetail modDetail, String path, int selectedVersion) throws IOException {
         String versionUrl = modDetail.versionUrls[selectedVersion];
         String versionHash = modDetail.versionHashes[selectedVersion];
         String modName = modDetail.versionNames[selectedVersion];
 
-        String currentProfilePath = PojavZHTools.getGameDirPath(getCurrentProfile().gameDir).getAbsolutePath();
-        File modsPath = new File(currentProfilePath, "mods");
+        File modsPath = new File(path, "mods");
         File modFile = new File(modsPath, modName + ".jar");
 
         try {
