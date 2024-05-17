@@ -1,7 +1,10 @@
 package net.kdt.pojavlaunch.modloaders.modpacks.api;
 
+import static net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles.getCurrentProfile;
+
 import com.kdt.mcgui.ProgressLayout;
 
+import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ModIconCache;
@@ -17,6 +20,30 @@ import java.util.Locale;
 import java.util.concurrent.Callable;
 
 public class ModpackInstaller {
+    public static ModLoader installMod(ModDetail modDetail, int selectedVersion) throws IOException {
+        String versionUrl = modDetail.versionUrls[selectedVersion];
+        String versionHash = modDetail.versionHashes[selectedVersion];
+        String modName = modDetail.versionNames[selectedVersion];
+
+        String currentProfilePath = PojavZHTools.getGameDirPath(getCurrentProfile().gameDir).getAbsolutePath();
+        File modsPath = new File(currentProfilePath, "mods");
+        File modFile = new File(modsPath, modName + ".jar");
+
+        try {
+            byte[] downloadBuffer = new byte[8192];
+            DownloadUtils.ensureSha1(modFile, versionHash, (Callable<Void>) () -> {
+                DownloadUtils.downloadFileMonitored(versionUrl, modFile, downloadBuffer,
+                        new DownloaderProgressWrapper(R.string.modpack_download_downloading_mods,
+                                ProgressLayout.INSTALL_MODPACK));
+                return null;
+            });
+        } finally {
+            ProgressLayout.clearProgress(ProgressLayout.INSTALL_MODPACK);
+        }
+
+        return null;
+    }
+
 
     public static ModLoader installModpack(ModDetail modDetail, int selectedVersion, InstallFunction installFunction) throws IOException {
         String versionUrl = modDetail.versionUrls[selectedVersion];

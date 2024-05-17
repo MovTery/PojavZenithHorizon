@@ -40,6 +40,7 @@ import java.util.WeakHashMap;
 import java.util.concurrent.Future;
 
 public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements TaskCountListener {
+    private final boolean isModpack;
     private static final ModItem[] MOD_ITEMS_EMPTY = new ModItem[0];
     private static final int VIEW_TYPE_MOD_ITEM = 0;
     private static final int VIEW_TYPE_LOADING = 1;
@@ -63,11 +64,12 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private boolean mTasksRunning;
 
 
-    public ModItemAdapter(Resources resources, ModpackApi api, SearchResultCallback callback) {
+    public ModItemAdapter(Resources resources, ModpackApi api, SearchResultCallback callback, boolean isModpack) {
         mCornerDimensionCache = resources.getDimension(R.dimen._1sdp) / 250;
         mModpackApi = api;
         mModItems = new ModItem[]{};
         mSearchResultCallback = callback;
+        this.isModpack = isModpack;
     }
 
     public void performSearchQuery(SearchFilters searchFilters) {
@@ -177,6 +179,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                     mExtendedButton.setOnClickListener(v1 -> mModpackApi.handleInstallation(
                             mExtendedButton.getContext().getApplicationContext(),
+                            isModpack,
                             mModDetail,
                             mExtendedSpinner.getSelectedItemPosition()));
                     mExtendedSpinner.setAdapter(mLoadingAdapter);

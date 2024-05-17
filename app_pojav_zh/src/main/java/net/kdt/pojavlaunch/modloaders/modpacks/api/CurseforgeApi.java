@@ -114,8 +114,7 @@ public class CurseforgeApi implements ModpackApi{
             JsonObject modDetail = allModDetails.get(i);
             versionNames[i] = modDetail.get("displayName").getAsString();
 
-            JsonElement downloadUrl = modDetail.get("downloadUrl");
-            versionUrls[i] = downloadUrl.getAsString();
+            versionUrls[i] = "https://www.curseforge.com/api/v1/mods/" + modDetail.get("modId").getAsString() + "/files/" + modDetail.get("id").getAsString() + "/download";
 
             JsonArray gameVersions = modDetail.getAsJsonArray("gameVersions");
             for(JsonElement jsonElement : gameVersions) {
@@ -133,9 +132,12 @@ public class CurseforgeApi implements ModpackApi{
     }
 
     @Override
-    public ModLoader installMod(ModDetail modDetail, int selectedVersion) throws IOException{
-        //TODO considering only modpacks for now
-        return ModpackInstaller.installModpack(modDetail, selectedVersion, this::installCurseforgeZip);
+    public ModLoader installMod(boolean isModPack, ModDetail modDetail, int selectedVersion) throws IOException{
+        if (isModPack) {
+            return ModpackInstaller.installModpack(modDetail, selectedVersion, this::installCurseforgeZip);
+        } else {
+            return ModpackInstaller.installMod(modDetail, selectedVersion);
+        }
     }
 
 

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -24,6 +23,7 @@ import com.movtery.filelist.FileSelectedListener;
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import net.kdt.pojavlaunch.dialog.FilesDialog;
 
@@ -35,19 +35,23 @@ public class ModsFragment extends Fragment {
     public static final String jarFileSuffix = ".jar";
     public static final String disableJarFileSuffix = ".jar.disabled";
     private ActivityResultLauncher<Object> openDocumentLauncher;
-    private Button mReturnButton, mAddModButton, mPasteButton, mRefreshButton;
+    private Button mReturnButton, mAddModButton, mPasteButton, mDownloadButton, mRefreshButton;
     private ImageButton mHelpButton;
     private FileListView mFileListView;
     private String mRootPath;
-    private TextView mTitleView;
 
     public ModsFragment() {
-        super(R.layout.fragment_files);
+        super(R.layout.fragment_mods);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        runOnUiThread(() -> {
+            if (mFileListView != null) {
+                mFileListView.refreshPath();
+            }
+        });
         openDocumentLauncher = registerForActivityResult(
                 new OpenDocumentWithExtension("jar"),
                 result -> {
@@ -76,9 +80,6 @@ public class ModsFragment extends Fragment {
         mFileListView.lockPathAt(new File(mRootPath));
         mFileListView.refreshPath();
 
-        mTitleView.setText(getString(R.string.zh_profile_mods));
-        mAddModButton.setText(getString(R.string.zh_profile_mods_add_mod));
-
         mFileListView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
@@ -103,6 +104,11 @@ public class ModsFragment extends Fragment {
             mPasteButton.setVisibility(View.GONE);
             mFileListView.refreshPath();
         })));
+        mDownloadButton.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putBoolean(SearchModFragment.BUNDLE_SEARCH_MODPACK, false);
+            Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, bundle);
+        });
         mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
@@ -190,16 +196,14 @@ public class ModsFragment extends Fragment {
     }
 
     private void bindViews(@NonNull View view) {
-        mReturnButton = view.findViewById(R.id.zh_files_return_button);
-        mAddModButton = view.findViewById(R.id.zh_files_add_file_button);
-        mPasteButton = view.findViewById(R.id.zh_files_paste_button);
-        mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
-        mHelpButton = view.findViewById(R.id.zh_files_help_button);
-        mFileListView = view.findViewById(R.id.zh_files);
-        mTitleView = view.findViewById(R.id.zh_files_current_path);
+        mReturnButton = view.findViewById(R.id.zh_mods_return_button);
+        mAddModButton = view.findViewById(R.id.zh_mods_add_mod_button);
+        mPasteButton = view.findViewById(R.id.zh_mods_paste_button);
+        mDownloadButton = view.findViewById(R.id.zh_mods_download_mod_button);
+        mRefreshButton = view.findViewById(R.id.zh_mods_refresh_button);
+        mHelpButton = view.findViewById(R.id.zh_mods_help_button);
+        mFileListView = view.findViewById(R.id.zh_mods);
 
-        view.findViewById(R.id.zh_files_create_folder_button).setVisibility(View.GONE);
-        view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
         mFileListView.setFileIcon(FileIcon.MOD);
 
         mPasteButton.setVisibility(PasteFile.PASTE_TYPE != null ? View.VISIBLE : View.GONE);
