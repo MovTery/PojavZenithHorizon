@@ -60,6 +60,7 @@ public class SelectModPackFragment extends Fragment {
             if (PojavZHTools.DIR_GAME_MODPACK == null) {
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(SearchModFragment.BUNDLE_SEARCH_MODPACK, true);
+                bundle.putString(SearchModFragment.BUNDLE_MOD_PATH, null);
                 Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, bundle);
             } else {
                 Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();

@@ -47,13 +47,13 @@ public interface ModpackApi {
      * @param modDetail The mod detail data
      * @param selectedVersion The selected version
      */
-    default void handleInstallation(Context context, boolean isModPack,  ModDetail modDetail, int selectedVersion) {
+    default void handleInstallation(Context context, boolean isModPack, String modsPath,  ModDetail modDetail, int selectedVersion) {
         // Doing this here since when starting installation, the progress does not start immediately
         // which may lead to two concurrent installations (very bad)
         ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.global_waiting);
         PojavApplication.sExecutorService.execute(() -> {
             try {
-                ModLoader loaderInfo = installMod(isModPack, modDetail, selectedVersion);
+                ModLoader loaderInfo = installMod(isModPack, modsPath, modDetail, selectedVersion);
                 if (loaderInfo == null) return;
                 loaderInfo.getDownloadTask(new NotificationDownloadListener(context, loaderInfo)).run();
             }catch (IOException e) {
@@ -69,5 +69,5 @@ public interface ModpackApi {
      * @param modDetail The mod detail data
      * @param selectedVersion The selected version
      */
-    ModLoader installMod(boolean isModPack, ModDetail modDetail, int selectedVersion) throws IOException;
+    ModLoader installMod(boolean isModPack, String modsPath, ModDetail modDetail, int selectedVersion) throws IOException;
 }

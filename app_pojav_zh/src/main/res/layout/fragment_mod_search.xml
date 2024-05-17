@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/fragment_padding_medium"
-        android:layout_marginTop="@dimen/fragment_padding_medium"
+        android:layout_marginTop="20dp"
         android:background="@drawable/background_overlay"
         android:paddingHorizontal="@dimen/padding_medium"
         android:paddingVertical="@dimen/padding_medium"

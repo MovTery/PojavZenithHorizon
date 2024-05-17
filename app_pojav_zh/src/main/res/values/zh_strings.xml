@@ -99,6 +99,7 @@
     <string name="zh_profile_create_mods_success">Successfully created Mods folder!</string>
     <string name="zh_profile_mods">Mods</string>
     <string name="zh_profile_mods_download_mod">Download Mod</string>
+    <string name="zh_profile_mods_search_mod">Search Mod</string>
     <string name="zh_profile_mods_add_mod">Add Mod</string>
     <string name="zh_profile_mods_added_mod">Successfully added Mod</string>
     <string name="zh_profile_mods_disable">Disable</string>
