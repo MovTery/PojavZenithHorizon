@@ -38,6 +38,7 @@ import net.kdt.pojavlaunch.customcontrols.ControlDrawerData;
 import net.kdt.pojavlaunch.customcontrols.ControlJoystickData;
 import net.kdt.pojavlaunch.customcontrols.buttons.ControlDrawer;
 import net.kdt.pojavlaunch.customcontrols.buttons.ControlInterface;
+import net.kdt.pojavlaunch.dialog.SelectKeycodeDialog;
 
 import java.util.List;
 
@@ -45,6 +46,7 @@ import java.util.List;
  * Class providing a sort of popup on top of a Layout, allowing to edit a given ControlButton
  */
 public class EditControlPopup {
+    private final Context context;
     protected final Spinner[] mKeycodeSpinners = new Spinner[4];
     private final DefocusableScrollView mScrollView;
     private final ColorSelector mColorSelector;
@@ -93,6 +95,8 @@ public class EditControlPopup {
 
 
     public EditControlPopup(Context context, ViewGroup parent) {
+        this.context = context;
+
         mScrollView = (DefocusableScrollView) LayoutInflater.from(context).inflate(R.layout.dialog_control_button_setting, parent, false);
         parent.addView(mScrollView);
 
@@ -566,19 +570,22 @@ public class EditControlPopup {
 
         for (int i = 0; i < mKeycodeSpinners.length; ++i) {
             int finalI = i;
-            mKeycodeTextviews[i].setOnClickListener(v -> mKeycodeSpinners[finalI].performClick());
+            mKeycodeTextviews[i].setOnClickListener(v -> {
+                SelectKeycodeDialog dialog = SelectKeycodeDialog.createDialog(this.context);
+                SelectKeycodeDialog.setSelectKeyCodeListener(dialog, index -> {
+                    mKeycodeSpinners[finalI].setSelection(index);
+
+                    updateKeycodeText(index, finalI);
+
+                    dialog.dismiss();
+                });
+                dialog.show();
+            });
 
             mKeycodeSpinners[i].setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    // Side note, spinner listeners are fired later than all the other ones.
-                    // Meaning the internalChanges bool is useless here.
-                    if (position < mSpecialArray.size()) {
-                        mCurrentlyEditedButton.getProperties().keycodes[finalI] = mKeycodeSpinners[finalI].getSelectedItemPosition() - mSpecialArray.size();
-                    } else {
-                        mCurrentlyEditedButton.getProperties().keycodes[finalI] = EfficientAndroidLWJGLKeycode.getValueByIndex(mKeycodeSpinners[finalI].getSelectedItemPosition() - mSpecialArray.size());
-                    }
-                    mKeycodeTextviews[finalI].setText((String) mKeycodeSpinners[finalI].getSelectedItem());
+                    updateKeycodeText(position, finalI);
                 }
 
                 @Override
@@ -632,6 +639,17 @@ public class EditControlPopup {
             });
             appearColor(isAtRight(), mCurrentlyEditedButton.getProperties().bgColor);
         });
+    }
+
+    private void updateKeycodeText(int index, int finalI) {
+        // Side note, spinner listeners are fired later than all the other ones.
+        // Meaning the internalChanges bool is useless here.
+        if (index < mSpecialArray.size()) {
+            mCurrentlyEditedButton.getProperties().keycodes[finalI] = mKeycodeSpinners[finalI].getSelectedItemPosition() - mSpecialArray.size();
+        } else {
+            mCurrentlyEditedButton.getProperties().keycodes[finalI] = EfficientAndroidLWJGLKeycode.getValueByIndex(mKeycodeSpinners[finalI].getSelectedItemPosition() - mSpecialArray.size());
+        }
+        mKeycodeTextviews[finalI].setText((String) mKeycodeSpinners[finalI].getSelectedItem());
     }
 
     private float safeParseFloat(String string) {
