@@ -22,8 +22,7 @@ public class ModpackInstaller {
         String versionHash = modDetail.versionHashes[selectedVersion];
         String modName = modDetail.versionNames[selectedVersion];
 
-        File modsPath = new File(path, "mods");
-        File modFile = new File(modsPath, modName + ".jar");
+        File modFile = new File(path, modName + ".jar");
 
         try {
             byte[] downloadBuffer = new byte[8192];
