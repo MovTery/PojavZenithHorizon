@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.fragments.ModsFragment;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -70,8 +71,10 @@ public class RecyclerViewCreator {
                             }
                             break;
                         case MOD:
-                            if (file.getName().endsWith(".jar")) {
+                            if (file.getName().endsWith(ModsFragment.jarFileSuffix)) {
                                 itemBean.setImage(resources.getDrawable(R.drawable.ic_java));
+                            } else if (file.getName().endsWith(ModsFragment.disableJarFileSuffix)) {
+                                itemBean.setImage(resources.getDrawable(R.drawable.ic_disabled));
                             } else {
                                 itemBean.setImage(getFileIcon(file, resources));
                             }

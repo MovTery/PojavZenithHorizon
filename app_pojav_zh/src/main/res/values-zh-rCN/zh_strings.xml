@@ -98,13 +98,12 @@
     <string name="zh_profile_create_mods_success">成功创建 Mods 文件夹!</string>
     <string name="zh_profile_mods">Mod 管理</string>
     <string name="zh_profile_mods_download_mod">下载 Mod</string>
+    <string name="zh_profile_mods_download_mod_failed">下载 Mod 文件时失败</string>
     <string name="zh_profile_mods_search_mod">搜索 Mod</string>
     <string name="zh_profile_mods_add_mod">添加 Mod</string>
     <string name="zh_profile_mods_added_mod">成功添加 Mod</string>
     <string name="zh_profile_mods_disable">禁用</string>
-    <string name="zh_profile_mods_disabled">成功禁用文件：</string>
     <string name="zh_profile_mods_enable">启用</string>
-    <string name="zh_profile_mods_enabled">成功启用文件：</string>
     <string name="zh_replacement_customcontrol">更换控制布局</string>
     <string name="zh_select_modpack_search">搜索整合包</string>
     <string name="zh_select_modpack_local">本地整合包</string>

@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.versionlist.VersionSelectedListener;
 
+import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.dialog.SelectVersionDialog;
@@ -47,7 +48,6 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         }
     };
     private EditText mSearchEditText;
-    private ImageButton mFilterButton;
     private RecyclerView mRecyclerview;
     private ModItemAdapter mModItemAdapter;
     private ProgressBar mSearchProgressBar;
@@ -81,7 +81,8 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         mSearchProgressBar = view.findViewById(R.id.search_mod_progressbar);
         mRecyclerview = view.findViewById(R.id.search_mod_list);
         mStatusTextView = view.findViewById(R.id.search_mod_status_text);
-        mFilterButton = view.findViewById(R.id.search_mod_filter);
+        ImageButton mBackButton = view.findViewById(R.id.search_mod_back);
+        ImageButton mFilterButton = view.findViewById(R.id.search_mod_filter);
 
         mDefaultTextColor = mStatusTextView.getTextColors();
 
@@ -106,6 +107,7 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
                     mRecyclerview.getPaddingRight(),
                     mRecyclerview.getPaddingBottom());
         });
+        mBackButton.setOnClickListener(v -> PojavZHTools.onBackPressed(requireActivity()));
         mFilterButton.setOnClickListener(v -> displayFilterDialog());
 
         searchMods(null); //自动搜索一次
