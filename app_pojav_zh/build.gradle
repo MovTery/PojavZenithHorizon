@@ -133,7 +133,7 @@ android {
         prefab true
     }
 
-    buildToolsVersion = '33.0.2'
+    buildToolsVersion = '34.0.0'
     lint {
         abortOnError false
     }

@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.movtery.PasteFile;
 import com.movtery.filelist.FileIcon;
-import com.movtery.filelist.FileListView;
+import com.movtery.filelist.FileRecyclerView;
 import com.movtery.filelist.FileSelectedListener;
 
 import net.kdt.pojavlaunch.PojavApplication;
@@ -37,7 +37,7 @@ public class ModsFragment extends Fragment {
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private Button mReturnButton, mAddModButton, mPasteButton, mDownloadButton, mRefreshButton;
     private ImageButton mHelpButton;
-    private FileListView mFileListView;
+    private FileRecyclerView mFileRecyclerView;
     private String mRootPath;
 
     public ModsFragment() {
@@ -48,8 +48,8 @@ public class ModsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         runOnUiThread(() -> {
-            if (mFileListView != null) {
-                mFileListView.refreshPath();
+            if (mFileRecyclerView != null) {
+                mFileRecyclerView.refreshPath();
             }
         });
         openDocumentLauncher = registerForActivityResult(
@@ -63,7 +63,7 @@ public class ModsFragment extends Fragment {
 
                             runOnUiThread(() -> {
                                 Toast.makeText(requireContext(), getString(R.string.zh_profile_mods_added_mod), Toast.LENGTH_SHORT).show();
-                                mFileListView.refreshPath();
+                                mFileRecyclerView.refreshPath();
                             });
                         });
                     }
@@ -75,12 +75,12 @@ public class ModsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         bindViews(view);
         parseBundle();
-        mFileListView.setShowFiles(true);
-        mFileListView.setShowFolders(false);
-        mFileListView.lockPathAt(new File(mRootPath));
-        mFileListView.refreshPath();
+        mFileRecyclerView.setShowFiles(true);
+        mFileRecyclerView.setShowFolders(false);
+        mFileRecyclerView.lockPathAt(new File(mRootPath));
+        mFileRecyclerView.refreshPath();
 
-        mFileListView.setFileSelectedListener(new FileSelectedListener() {
+        mFileRecyclerView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
                 showDialog(file);
@@ -100,9 +100,9 @@ public class ModsFragment extends Fragment {
             Toast.makeText(requireActivity(), String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show();
             openDocumentLauncher.launch(suffix);
         });
-        mPasteButton.setOnClickListener(v -> PojavZHTools.pasteFile(requireActivity(), mFileListView.getFullPath(), getFileSuffix(PasteFile.COPY_FILE), () -> runOnUiThread(() -> {
+        mPasteButton.setOnClickListener(v -> PojavZHTools.pasteFile(requireActivity(), mFileRecyclerView.getFullPath(), getFileSuffix(PasteFile.COPY_FILE), () -> runOnUiThread(() -> {
             mPasteButton.setVisibility(View.GONE);
-            mFileListView.refreshPath();
+            mFileRecyclerView.refreshPath();
         })));
         mDownloadButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
@@ -110,7 +110,7 @@ public class ModsFragment extends Fragment {
             bundle.putString(SearchModFragment.BUNDLE_MOD_PATH, mRootPath);
             Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, bundle);
         });
-        mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());
+        mRefreshButton.setOnClickListener(v -> mFileRecyclerView.refreshPath());
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
@@ -139,7 +139,7 @@ public class ModsFragment extends Fragment {
         else if (fileName.endsWith(disableJarFileSuffix))
             filesButton.moreButtonText = getString(R.string.zh_profile_mods_enable);
 
-        FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
+        FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileRecyclerView.refreshPath()), file);
 
         filesDialog.setCopyButtonClick(() -> mPasteButton.setVisibility(View.VISIBLE));
 
@@ -152,7 +152,7 @@ public class ModsFragment extends Fragment {
                 if (disable) {
                     Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_disabled) + fileName, Toast.LENGTH_SHORT).show();
                 }
-                mFileListView.refreshPath();
+                mFileRecyclerView.refreshPath();
                 filesDialog.dismiss();
             });
         } else if (fileName.endsWith(disableJarFileSuffix)) {
@@ -170,7 +170,7 @@ public class ModsFragment extends Fragment {
                 if (disable) {
                     Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_enabled) + fileName, Toast.LENGTH_SHORT).show();
                 }
-                mFileListView.refreshPath();
+                mFileRecyclerView.refreshPath();
                 filesDialog.dismiss();
             });
         }
@@ -203,9 +203,9 @@ public class ModsFragment extends Fragment {
         mDownloadButton = view.findViewById(R.id.zh_mods_download_mod_button);
         mRefreshButton = view.findViewById(R.id.zh_mods_refresh_button);
         mHelpButton = view.findViewById(R.id.zh_mods_help_button);
-        mFileListView = view.findViewById(R.id.zh_mods);
+        mFileRecyclerView = view.findViewById(R.id.zh_mods);
 
-        mFileListView.setFileIcon(FileIcon.MOD);
+        mFileRecyclerView.setFileIcon(FileIcon.MOD);
 
         mPasteButton.setVisibility(PasteFile.PASTE_TYPE != null ? View.VISIBLE : View.GONE);
     }

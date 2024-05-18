@@ -20,7 +20,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.movtery.background.BackgroundManager;
 import com.movtery.background.BackgroundType;
 import com.movtery.filelist.FileIcon;
-import com.movtery.filelist.FileListView;
+import com.movtery.filelist.FileRecyclerView;
 import com.movtery.filelist.FileSelectedListener;
 
 import net.kdt.pojavlaunch.PojavApplication;
@@ -40,7 +40,7 @@ public class CustomBackgroundFragment extends Fragment {
     private ActivityResultLauncher<String[]> openDocumentLauncher;
     private Button mReturnButton, mAddFileButton, mResetButton, mRefreshButton;
     private TabLayout mTabLayout;
-    private FileListView mFileListView;
+    private FileRecyclerView mFileRecyclerView;
     private BackgroundType backgroundType;
 
     public CustomBackgroundFragment() {
@@ -57,11 +57,11 @@ public class CustomBackgroundFragment extends Fragment {
                         Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
 
                         PojavApplication.sExecutorService.execute(() -> {
-                            copyFileInBackground(requireContext(), result, mFileListView.getFullPath().getAbsolutePath());
+                            copyFileInBackground(requireContext(), result, mFileRecyclerView.getFullPath().getAbsolutePath());
 
                             runOnUiThread(() -> {
                                 Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show();
-                                mFileListView.listFileAt(backgroundPath());
+                                mFileRecyclerView.listFileAt(backgroundPath());
                             });
                         });
                     }
@@ -75,12 +75,12 @@ public class CustomBackgroundFragment extends Fragment {
         initBackgroundMap();
         bindTabs();
 
-        mFileListView.lockPathAt(backgroundPath());
-        mFileListView.listFileAt(backgroundPath());
-        mFileListView.setShowFiles(true);
-        mFileListView.setShowFolders(false);
+        mFileRecyclerView.lockPathAt(backgroundPath());
+        mFileRecyclerView.listFileAt(backgroundPath());
+        mFileRecyclerView.setShowFiles(true);
+        mFileRecyclerView.setShowFolders(false);
 
-        mFileListView.setFileSelectedListener(new FileSelectedListener() {
+        mFileRecyclerView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
                 refreshType(mTabLayout.getSelectedTabPosition());
@@ -101,7 +101,7 @@ public class CustomBackgroundFragment extends Fragment {
                 filesButton.messageText = message;
                 filesButton.moreButtonText = getString(R.string.global_select);
 
-                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
+                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileRecyclerView.refreshPath()), file);
                 filesDialog.setMoreButtonClick(v -> {
                     backgroundMap.put(backgroundType, fileName);
                     BackgroundManager.saveProperties(backgroundMap);
@@ -130,7 +130,7 @@ public class CustomBackgroundFragment extends Fragment {
         mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
         mRefreshButton.setOnClickListener(v -> {
             refreshType(mTabLayout.getSelectedTabPosition());
-            mFileListView.listFileAt(backgroundPath());
+            mFileRecyclerView.listFileAt(backgroundPath());
         });
     }
 
@@ -187,9 +187,9 @@ public class CustomBackgroundFragment extends Fragment {
         mAddFileButton = view.findViewById(R.id.zh_custom_background_add_file_button);
         mResetButton = view.findViewById(R.id.zh_custom_background_reset_button);
         mRefreshButton = view.findViewById(R.id.zh_custom_background_refresh_button);
-        mFileListView = view.findViewById(R.id.zh_custom_background);
+        mFileRecyclerView = view.findViewById(R.id.zh_custom_background);
 
-        mFileListView.setFileIcon(FileIcon.FILE);
+        mFileRecyclerView.setFileIcon(FileIcon.FILE);
     }
 
     private void bindTabs() {
