@@ -72,7 +72,6 @@
     <string name="zh_file_delete">你确定要删除此文件吗？</string>
     <string name="zh_file_delete_dir">你确定要删除此文件夹吗？</string>
     <string name="zh_file_delete_dir_message">删除文件夹时，会将此文件夹内部全部文件一并删除，如果这个文件夹内含有重要的文件，那么请取消此操作！</string>
-    <string name="zh_file_delete_dir_success">成功删除此文件夹：</string>
     <string name="zh_file_rename_empty">文件名不能为空！</string>
     <string name="zh_file_rename_exitis">文件名与现有文件相冲突！</string>
 
