@@ -1,13 +1,10 @@
 package net.kdt.pojavlaunch.dialog;
 
-import static net.kdt.pojavlaunch.Tools.runOnUiThread;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -56,7 +53,6 @@ public class DeleteDialog extends Dialog {
             try {
                 if (isFolder) {
                     FileUtils.deleteDirectory(mFile);
-                    runOnUiThread(() -> Toast.makeText(getContext(), getContext().getString(R.string.zh_file_delete_dir_success) + "\n" + fileName, Toast.LENGTH_LONG).show());
                 } else {
                     FileUtils.deleteQuietly(mFile);
                 }

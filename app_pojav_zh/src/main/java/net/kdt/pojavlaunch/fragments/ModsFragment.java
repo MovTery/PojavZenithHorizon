@@ -100,7 +100,7 @@ public class ModsFragment extends Fragment {
             Toast.makeText(requireActivity(), String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show();
             openDocumentLauncher.launch(suffix);
         });
-        mPasteButton.setOnClickListener(v -> PojavZHTools.pasteFile(requireActivity(), mFileRecyclerView.getFullPath(), getFileSuffix(PasteFile.COPY_FILE), () -> runOnUiThread(() -> {
+        mPasteButton.setOnClickListener(v -> PasteFile.pasteFile(requireActivity(), mFileRecyclerView.getFullPath(), getFileSuffix(PasteFile.COPY_FILE), () -> runOnUiThread(() -> {
             mPasteButton.setVisibility(View.GONE);
             mFileRecyclerView.refreshPath();
         })));

@@ -7,7 +7,6 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -30,7 +29,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.movtery.PasteFile;
 import com.movtery.background.BackgroundManager;
 import com.movtery.background.BackgroundType;
 
@@ -320,70 +318,14 @@ public class PojavZHTools {
         return origin.renameTo(target);
     }
 
-    public static void pasteFile(Activity activity, File target, String fileExtension, Runnable endRunnable) {
-        if (PasteFile.COPY_FILE != null && PasteFile.COPY_FILE.exists()) {
-            try {
-                //获取当前记录的粘贴状态（如果为空，那么就设置为“复制”模式）
-                PasteFile.PasteType pasteType = PasteFile.PASTE_TYPE == null ? PasteFile.PasteType.COPY : PasteFile.PASTE_TYPE;
-
-                File destFileOrDir = getNewDestination(PasteFile.COPY_FILE, target, fileExtension);
-
-                if (PasteFile.COPY_FILE.isFile()) {
-                    if (pasteType == PasteFile.PasteType.COPY) {
-                        FileUtils.copyFile(PasteFile.COPY_FILE, destFileOrDir);
-                    } else if (!Objects.equals(PasteFile.COPY_FILE.getParent(), destFileOrDir.getParent())) {
-                        //检查父路径是否一致，如果是，那么就不执行这里的移动逻辑
-                        FileUtils.moveFile(PasteFile.COPY_FILE, destFileOrDir);
-                    }
-                } else if (PasteFile.COPY_FILE.isDirectory()) {
-                    if (pasteType == PasteFile.PasteType.COPY) {
-                        FileUtils.copyDirectory(PasteFile.COPY_FILE, destFileOrDir);
-                    } else if (!Objects.equals(PasteFile.COPY_FILE.getParent(), destFileOrDir.getParent())) {
-                        //与上面一样
-                        FileUtils.moveDirectory(PasteFile.COPY_FILE, destFileOrDir);
-                    }
-                }
-
-                PasteFile.COPY_FILE = null;
-                PasteFile.PASTE_TYPE = null;
-                PojavApplication.sExecutorService.execute(endRunnable);
-            } catch (Exception e) {
-                Tools.showError(activity, e);
-            }
-        } else {
-            runOnUiThread(() -> Toast.makeText(activity, activity.getString(R.string.zh_file_does_not_exist), Toast.LENGTH_SHORT).show());
-        }
-    }
-
-    //获取新的目标文件或目录，确保不与现有文件或目录冲突
-    private static File getNewDestination(File sourceFile, File targetDir, String fileExtension) {
-        File destFile = new File(targetDir, sourceFile.getName());
-        if (destFile.exists()) {
-            //如果目标文件或目录已存在，则重命名
-            String fileNameWithoutExt = getFileNameWithoutExtension(sourceFile.getName(), fileExtension);
-            if (fileExtension == null) {
-                int dotIndex = sourceFile.getName().lastIndexOf('.');
-                fileExtension = dotIndex == -1 ? "" : sourceFile.getName().substring(dotIndex);
-            }
-            String proposedFileName;
-            int counter = 1;
-            while (destFile.exists()) {
-                proposedFileName = fileNameWithoutExt + " (" + counter + ")" + fileExtension;
-                destFile = new File(targetDir, proposedFileName);
-                counter++;
-            }
-        }
-        return destFile;
-    }
-
-    private static String getFileNameWithoutExtension(String fileName, String fileExtension) {
+    public static String getFileNameWithoutExtension(String fileName, String fileExtension) {
+        int dotIndex;
         if (fileExtension == null) {
-            int dotIndex = fileName.lastIndexOf('.');
-            return dotIndex == -1 ? fileName : fileName.substring(0, dotIndex);
+            dotIndex = fileName.lastIndexOf('.');
         } else {
-            int dotIndex = fileName.lastIndexOf(fileExtension);
-            return dotIndex == -1 ? fileName : fileName.substring(0, dotIndex);
+            dotIndex = fileName.lastIndexOf(fileExtension);
         }
+        return dotIndex == -1 ? fileName : fileName.substring(0, dotIndex);
     }
 
     public static void updateChecker(Context context) {

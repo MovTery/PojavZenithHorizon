@@ -100,7 +100,7 @@ public class ControlButtonFragment extends Fragment {
         });
 
         mReturnButton.setOnClickListener(v -> PojavZHTools.onBackPressed(requireActivity()));
-        mPasteButton.setOnClickListener(v -> PojavZHTools.pasteFile(requireActivity(), mFileRecyclerView.getFullPath(), null, () -> runOnUiThread(() -> {
+        mPasteButton.setOnClickListener(v -> PasteFile.pasteFile(requireActivity(), mFileRecyclerView.getFullPath(), null, () -> runOnUiThread(() -> {
             mPasteButton.setVisibility(View.GONE);
             mFileRecyclerView.refreshPath();
         })));

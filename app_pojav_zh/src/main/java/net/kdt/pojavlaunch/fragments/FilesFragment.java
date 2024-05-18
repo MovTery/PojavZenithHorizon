@@ -108,7 +108,7 @@ public class FilesFragment extends Fragment {
             });
             editTextDialog.show();
         });
-        mPasteButton.setOnClickListener(v -> PojavZHTools.pasteFile(requireActivity(), mFileRecyclerView.getFullPath(), null, () -> runOnUiThread(() -> {
+        mPasteButton.setOnClickListener(v -> PasteFile.pasteFile(requireActivity(), mFileRecyclerView.getFullPath(), null, () -> runOnUiThread(() -> {
             mPasteButton.setVisibility(View.GONE);
             mFileRecyclerView.refreshPath();
         })));
