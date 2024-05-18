@@ -125,7 +125,6 @@ public class ModsFragment extends Fragment {
     private void showDialog(File file) {
         String fileName = file.getName();
         String fileParent = file.getParent();
-        String disableString = "(" + getString(R.string.zh_profile_mods_disable) + ")";
 
         FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
         filesButton.setButtonVisibility(true, true, !file.isDirectory(), true, true, (fileName.endsWith(jarFileSuffix) || fileName.endsWith(disableJarFileSuffix)));
@@ -147,29 +146,20 @@ public class ModsFragment extends Fragment {
         if (fileName.endsWith(jarFileSuffix)) {
             filesDialog.setFileSuffix(jarFileSuffix);
             filesDialog.setMoreButtonClick(v -> {
-                File newFile = new File(fileParent, disableString + fileName + ".disabled");
-                boolean disable = file.renameTo(newFile);
-                if (disable) {
-                    Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_disabled) + fileName, Toast.LENGTH_SHORT).show();
-                }
+                File newFile = new File(fileParent, fileName + ".disabled");
+                PojavZHTools.renameFile(file, newFile);
                 mFileRecyclerView.refreshPath();
                 filesDialog.dismiss();
             });
         } else if (fileName.endsWith(disableJarFileSuffix)) {
             filesDialog.setFileSuffix(disableJarFileSuffix);
             filesDialog.setMoreButtonClick(v -> {
-                int index = fileName.indexOf(disableString);
-                if (index == -1) index = 0;
-                else index = disableString.length();
-                String newFileName = fileName.substring(index, fileName.lastIndexOf(disableJarFileSuffix));
+                String newFileName = fileName.substring(0, fileName.lastIndexOf(disableJarFileSuffix));
                 if (!fileName.endsWith(jarFileSuffix))
                     newFileName += jarFileSuffix; //如果没有.jar结尾，那么默认加上.jar后缀
 
                 File newFile = new File(fileParent, newFileName);
-                boolean disable = file.renameTo(newFile);
-                if (disable) {
-                    Toast.makeText(requireActivity(), getString(R.string.zh_profile_mods_enabled) + fileName, Toast.LENGTH_SHORT).show();
-                }
+                PojavZHTools.renameFile(file, newFile);
                 mFileRecyclerView.refreshPath();
                 filesDialog.dismiss();
             });

@@ -302,7 +302,7 @@ public class PojavZHTools {
                     return;
                 }
 
-                boolean renamed = file.renameTo(newFile);
+                boolean renamed = renameFile(file, newFile);
                 if (renamed) {
                     if (runnable != null) PojavApplication.sExecutorService.execute(runnable);
                 }
@@ -314,6 +314,10 @@ public class PojavZHTools {
         });
 
         editTextDialog.show();
+    }
+
+    public static boolean renameFile(File origin, File target) {
+        return origin.renameTo(target);
     }
 
     public static void pasteFile(Activity activity, File target, String fileExtension, Runnable endRunnable) {

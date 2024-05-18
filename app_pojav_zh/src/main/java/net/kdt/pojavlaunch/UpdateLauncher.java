@@ -79,7 +79,6 @@ public class UpdateLauncher {
                     ) {
                         byte[] buffer = new byte[1024 * 1024];
                         int bytesRead;
-                        int downloadedBytes = 0;
 
                         runOnUiThread(() -> {
                             UpdateLauncher.this.downloadDialog = new DownloadDialog(UpdateLauncher.this.context);
@@ -105,8 +104,7 @@ public class UpdateLauncher {
 
                         while ((bytesRead = inputStream.read(buffer)) != -1) {
                             outputStream.write(buffer, 0, bytesRead);
-                            downloadedBytes += bytesRead;
-                            downloadedSize[0] = downloadedBytes;
+                            downloadedSize[0] += bytesRead;
                         }
                         scheduler.shutdown();
                         finish(outputFile);

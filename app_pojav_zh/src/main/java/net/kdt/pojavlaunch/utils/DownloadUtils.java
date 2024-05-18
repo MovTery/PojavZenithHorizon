@@ -67,8 +67,12 @@ public class DownloadUtils {
         FileUtils.ensureParentDirectory(outputFile);
 
         HttpURLConnection conn = (HttpURLConnection) new URL(urlInput).openConnection();
-        InputStream readStr = conn.getInputStream();
-        try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+        conn.setConnectTimeout(10000);
+        conn.setReadTimeout(10000);
+        try (
+                FileOutputStream fos = new FileOutputStream(outputFile);
+                InputStream readStr = conn.getInputStream()
+        ) {
             int current;
             int overall = 0;
             int length = conn.getContentLength();
