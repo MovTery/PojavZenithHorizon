@@ -54,7 +54,7 @@
         android:layout_height="40dp"
         android:layout_marginEnd="8dp"
         android:scaleType="centerCrop"
-        android:src="@android:drawable/ic_delete"
+        android:src="@drawable/ic_close"
         app:layout_constraintBottom_toBottomOf="@+id/top_log_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

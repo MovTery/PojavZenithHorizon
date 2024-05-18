@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -50,6 +51,7 @@ public class FilesDialog extends Dialog {
     }
 
     private void init() {
+        ImageView mCloseButton = findViewById(R.id.zh_operation_close);
         TextView mTitle = findViewById(R.id.zh_operation_title);
         TextView mMessage = findViewById(R.id.zh_operation_message);
         TextView moreText = findViewById(R.id.zh_file_more_text);
@@ -60,6 +62,7 @@ public class FilesDialog extends Dialog {
         mMoveButton = findViewById(R.id.zh_file_move);
         mMoreButton = findViewById(R.id.zh_file_more);
 
+        mCloseButton.setOnClickListener(v -> this.dismiss());
         mShareButton.setOnClickListener(view -> {
             shareFile(getContext(), mFile.getName(), mFile.getAbsolutePath());
             FilesDialog.this.dismiss();

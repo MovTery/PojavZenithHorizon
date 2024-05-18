@@ -9,6 +9,17 @@
     android:minWidth="480dp"
     tools:ignore="MissingDefaultResource">
 
+    <ImageView
+        android:id="@+id/zh_operation_close"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
@@ -82,7 +93,7 @@
                 android:layout_width="26dp"
                 android:layout_height="26dp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="24dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_copy" />
 
@@ -109,7 +120,7 @@
                 android:layout_width="26dp"
                 android:layout_height="26dp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="24dp"
                 android:scaleType="fitCenter"
                 android:scaleX="0.8"
                 android:scaleY="0.8"
@@ -138,7 +149,7 @@
                 android:layout_width="26dp"
                 android:layout_height="26dp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="24dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_share" />
 
@@ -176,7 +187,7 @@
                 android:layout_width="26dp"
                 android:layout_height="26dp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="24dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_move" />
 
@@ -203,7 +214,7 @@
                 android:layout_width="26dp"
                 android:layout_height="26dp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="24dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_menu_delete_forever" />
 
@@ -230,7 +241,7 @@
                 android:layout_width="26dp"
                 android:layout_height="26dp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="24dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_more" />
 
