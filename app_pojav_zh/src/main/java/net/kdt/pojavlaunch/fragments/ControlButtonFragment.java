@@ -21,7 +21,7 @@ import androidx.fragment.app.Fragment;
 
 import com.movtery.PasteFile;
 import com.movtery.filelist.FileIcon;
-import com.movtery.filelist.FileListView;
+import com.movtery.filelist.FileRecyclerView;
 import com.movtery.filelist.FileSelectedListener;
 
 import net.kdt.pojavlaunch.CustomControlsActivity;
@@ -45,7 +45,7 @@ public class ControlButtonFragment extends Fragment {
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private Button mReturnButton, mAddControlButton, mImportControlButton, mPasteButton, mRefreshButton;
     private ImageButton mHelpButton;
-    private FileListView mFileListView;
+    private FileRecyclerView mFileRecyclerView;
     private TextView mFilePathView;
 
     public ControlButtonFragment() {
@@ -62,11 +62,11 @@ public class ControlButtonFragment extends Fragment {
                         Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
 
                         PojavApplication.sExecutorService.execute(() -> {
-                            copyFileInBackground(requireContext(), result, mFileListView.getFullPath().getAbsolutePath());
+                            copyFileInBackground(requireContext(), result, mFileRecyclerView.getFullPath().getAbsolutePath());
 
                             runOnUiThread(() -> {
                                 Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show();
-                                mFileListView.refreshPath();
+                                mFileRecyclerView.refreshPath();
                             });
                         });
                     }
@@ -79,13 +79,13 @@ public class ControlButtonFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         bindViews(view);
 
-        mFileListView.setShowFiles(true);
-        mFileListView.setShowFolders(true);
-        mFileListView.lockPathAt(controlPath());
-        mFileListView.setTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
-        mFileListView.refreshPath();
+        mFileRecyclerView.setShowFiles(true);
+        mFileRecyclerView.setShowFolders(true);
+        mFileRecyclerView.lockPathAt(controlPath());
+        mFileRecyclerView.setTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
+        mFileRecyclerView.refreshPath();
 
-        mFileListView.setFileSelectedListener(new FileSelectedListener() {
+        mFileRecyclerView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
                 showDialog(file);
@@ -100,9 +100,9 @@ public class ControlButtonFragment extends Fragment {
         });
 
         mReturnButton.setOnClickListener(v -> PojavZHTools.onBackPressed(requireActivity()));
-        mPasteButton.setOnClickListener(v -> PojavZHTools.pasteFile(requireActivity(), mFileListView.getFullPath(), null, () -> runOnUiThread(() -> {
+        mPasteButton.setOnClickListener(v -> PojavZHTools.pasteFile(requireActivity(), mFileRecyclerView.getFullPath(), null, () -> runOnUiThread(() -> {
             mPasteButton.setVisibility(View.GONE);
-            mFileListView.refreshPath();
+            mFileRecyclerView.refreshPath();
         })));
         mImportControlButton.setOnClickListener(v -> {
             String suffix = ".json";
@@ -112,7 +112,7 @@ public class ControlButtonFragment extends Fragment {
         mAddControlButton.setOnClickListener(v -> {
             EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(R.string.zh_controls_create_new_title), null, null, null);
             editTextDialog.setConfirm(view1 -> {
-                File file = new File(mFileListView.getFullPath().getAbsolutePath(), editTextDialog.getEditBox().getText().toString().replace("/", "") + ".json");
+                File file = new File(mFileRecyclerView.getFullPath().getAbsolutePath(), editTextDialog.getEditBox().getText().toString().replace("/", "") + ".json");
                 if (!file.exists()) {
                     boolean success;
                     try {
@@ -127,7 +127,7 @@ public class ControlButtonFragment extends Fragment {
                             Tools.showError(requireContext(), e);
                         }
                     }
-                    mFileListView.refreshPath();
+                    mFileRecyclerView.refreshPath();
                 } else {
                     Toast.makeText(requireContext(), getString(R.string.zh_file_rename_exitis), Toast.LENGTH_SHORT).show();
                 }
@@ -136,7 +136,7 @@ public class ControlButtonFragment extends Fragment {
             });
             editTextDialog.show();
         });
-        mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());
+        mRefreshButton.setOnClickListener(v -> mFileRecyclerView.refreshPath());
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
@@ -159,7 +159,7 @@ public class ControlButtonFragment extends Fragment {
         }
         filesButton.moreButtonText = getString(R.string.global_load);
 
-        FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
+        FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileRecyclerView.refreshPath()), file);
 
         filesDialog.setCopyButtonClick(() -> mPasteButton.setVisibility(View.VISIBLE));
 
@@ -193,14 +193,14 @@ public class ControlButtonFragment extends Fragment {
         mPasteButton = view.findViewById(R.id.zh_files_paste_button);
         mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
         mHelpButton = view.findViewById(R.id.zh_files_help_button);
-        mFileListView = view.findViewById(R.id.zh_files);
+        mFileRecyclerView = view.findViewById(R.id.zh_files);
         mFilePathView = view.findViewById(R.id.zh_files_current_path);
 
         mImportControlButton.setText(getString(R.string.zh_controls_import_control));
         mAddControlButton.setText(getString(R.string.zh_controls_create_new));
 
         view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
-        mFileListView.setFileIcon(FileIcon.CONTROL);
+        mFileRecyclerView.setFileIcon(FileIcon.CONTROL);
 
         mPasteButton.setVisibility(PasteFile.PASTE_TYPE != null ? View.VISIBLE : View.GONE);
     }

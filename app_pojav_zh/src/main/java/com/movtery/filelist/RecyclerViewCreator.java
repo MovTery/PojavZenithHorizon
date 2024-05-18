@@ -15,28 +15,28 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListViewTools {
-    private final FileListAdapter fileListAdapter;
+public class RecyclerViewCreator {
+    private final FileRecyclerAdapter fileRecyclerAdapter;
     private final List<FileItemBean> mData;
 
-    public ListViewTools(Context context, RecyclerView.ItemDecoration itemDecoration, RecyclerView recyclerView, FileListAdapter.OnItemClickListener onItemClickListener, FileListAdapter.OnItemLongClickListener onItemLongClickListener, List<FileItemBean> itemBeans) {
+    public RecyclerViewCreator(Context context, RecyclerView.ItemDecoration itemDecoration, RecyclerView recyclerView, FileRecyclerAdapter.OnItemClickListener onItemClickListener, FileRecyclerAdapter.OnItemLongClickListener onItemLongClickListener, List<FileItemBean> itemBeans) {
         this.mData = itemBeans;
 
-        this.fileListAdapter = new FileListAdapter(this.mData);
-        this.fileListAdapter.setOnItemClickListener(onItemClickListener);
-        this.fileListAdapter.setOnItemLongClickListener(onItemLongClickListener);
+        this.fileRecyclerAdapter = new FileRecyclerAdapter(this.mData);
+        this.fileRecyclerAdapter.setOnItemClickListener(onItemClickListener);
+        this.fileRecyclerAdapter.setOnItemLongClickListener(onItemLongClickListener);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(itemDecoration);
-        recyclerView.setAdapter(this.fileListAdapter);
+        recyclerView.setAdapter(this.fileRecyclerAdapter);
     }
 
     @SuppressLint("NotifyDataSetChanged")
     public void loadData(List<FileItemBean> itemBeans) {
         this.mData.clear();
         this.mData.addAll(itemBeans);
-        fileListAdapter.notifyDataSetChanged();
+        fileRecyclerAdapter.notifyDataSetChanged();
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")

@@ -14,24 +14,24 @@ import net.kdt.pojavlaunch.R;
 import java.io.File;
 import java.util.List;
 
-public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.InnerHolder> {
+public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapter.InnerHolder> {
     private final List<FileItemBean> mData;
     private OnItemClickListener mOnItemClickListener;
     private OnItemLongClickListener mOnItemLongClickListener;
 
-    public FileListAdapter(List<FileItemBean> mData) {
+    public FileRecyclerAdapter(List<FileItemBean> mData) {
         this.mData = mData;
     }
 
     @NonNull
     @Override
-    public FileListAdapter.InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FileRecyclerAdapter.InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_file_list_view, parent, false);
         return new InnerHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FileListAdapter.InnerHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FileRecyclerAdapter.InnerHolder holder, int position) {
         holder.setData(mData.get(position), position);
     }
 

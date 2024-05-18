@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment;
 
 import com.movtery.PasteFile;
 import com.movtery.filelist.FileIcon;
-import com.movtery.filelist.FileListView;
+import com.movtery.filelist.FileRecyclerView;
 import com.movtery.filelist.FileSelectedListener;
 
 import net.kdt.pojavlaunch.PojavApplication;
@@ -38,7 +38,7 @@ public class FilesFragment extends Fragment {
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private Button mReturnButton, mAddFileButton, mCreateFolderButton, mPasteButton, mRefreshButton;
     private ImageButton mHelpButton;
-    private FileListView mFileListView;
+    private FileRecyclerView mFileRecyclerView;
     private TextView mFilePathView;
     private String mPath;
 
@@ -55,11 +55,11 @@ public class FilesFragment extends Fragment {
                     if (result != null) {
                         Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
                         PojavApplication.sExecutorService.execute(() -> {
-                            copyFileInBackground(requireContext(), result, mFileListView.getFullPath().getAbsolutePath());
+                            copyFileInBackground(requireContext(), result, mFileRecyclerView.getFullPath().getAbsolutePath());
 
                             runOnUiThread(() -> {
                                 Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show();
-                                mFileListView.refreshPath();
+                                mFileRecyclerView.refreshPath();
                             });
                         });
                     }
@@ -73,11 +73,11 @@ public class FilesFragment extends Fragment {
         bindViews(view);
         parseBundle();
 
-        mFileListView.lockPathAt(new File(mPath));
-        mFileListView.setTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
-        mFileListView.refreshPath();
+        mFileRecyclerView.lockPathAt(new File(mPath));
+        mFileRecyclerView.setTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
+        mFileRecyclerView.refreshPath();
 
-        mFileListView.setFileSelectedListener(new FileSelectedListener() {
+        mFileRecyclerView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
                 showDialog(file);
@@ -96,23 +96,23 @@ public class FilesFragment extends Fragment {
         mCreateFolderButton.setOnClickListener(v -> {
             EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(R.string.folder_dialog_insert_name), null, null, null);
             editTextDialog.setConfirm(view1 -> {
-                File folder = new File(mFileListView.getFullPath(), editTextDialog.getEditBox().getText().toString().replace("/", ""));
+                File folder = new File(mFileRecyclerView.getFullPath(), editTextDialog.getEditBox().getText().toString().replace("/", ""));
                 boolean success = folder.mkdir();
                 if (success) {
-                    mFileListView.listFileAt(new File(mFileListView.getFullPath(), editTextDialog.getEditBox().getText().toString().replace("/", "")));
+                    mFileRecyclerView.listFileAt(new File(mFileRecyclerView.getFullPath(), editTextDialog.getEditBox().getText().toString().replace("/", "")));
                 } else {
-                    mFileListView.refreshPath();
+                    mFileRecyclerView.refreshPath();
                 }
 
                 editTextDialog.dismiss();
             });
             editTextDialog.show();
         });
-        mPasteButton.setOnClickListener(v -> PojavZHTools.pasteFile(requireActivity(), mFileListView.getFullPath(), null, () -> runOnUiThread(() -> {
+        mPasteButton.setOnClickListener(v -> PojavZHTools.pasteFile(requireActivity(), mFileRecyclerView.getFullPath(), null, () -> runOnUiThread(() -> {
             mPasteButton.setVisibility(View.GONE);
-            mFileListView.refreshPath();
+            mFileRecyclerView.refreshPath();
         })));
-        mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());
+        mRefreshButton.setOnClickListener(v -> mFileRecyclerView.refreshPath());
         mHelpButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
@@ -143,7 +143,7 @@ public class FilesFragment extends Fragment {
         filesButton.messageText = message;
         filesButton.moreButtonText = null;
 
-        FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileListView.refreshPath()), file);
+        FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileRecyclerView.refreshPath()), file);
 
         filesDialog.setCopyButtonClick(() -> mPasteButton.setVisibility(View.VISIBLE));
 
@@ -161,11 +161,11 @@ public class FilesFragment extends Fragment {
         mPasteButton = view.findViewById(R.id.zh_files_paste_button);
         mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
         mHelpButton = view.findViewById(R.id.zh_files_help_button);
-        mFileListView = view.findViewById(R.id.zh_files);
+        mFileRecyclerView = view.findViewById(R.id.zh_files);
         mFilePathView = view.findViewById(R.id.zh_files_current_path);
 
         view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
-        mFileListView.setFileIcon(FileIcon.FILE);
+        mFileRecyclerView.setFileIcon(FileIcon.FILE);
 
         mPasteButton.setVisibility(PasteFile.PASTE_TYPE != null ? View.VISIBLE : View.GONE);
     }

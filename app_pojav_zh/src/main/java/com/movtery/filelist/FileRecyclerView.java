@@ -20,10 +20,10 @@ import java.util.Collections;
 import java.util.List;
 
 @SuppressLint("ViewConstructor")
-public class FileListView extends LinearLayout {
+public class FileRecyclerView extends LinearLayout {
     private final List<FileItemBean> mData = new ArrayList<>();
     private Context context;
-    private ListViewTools listViewTools;
+    private RecyclerViewCreator recyclerViewCreator;
     private FileIcon fileIcon = FileIcon.FILE;
     private SetTitleListener mSetTitleListener;
     private FileSelectedListener fileSelectedListener;
@@ -32,15 +32,15 @@ public class FileListView extends LinearLayout {
     private boolean showFiles = true;
     private boolean showFolders = true;
 
-    public FileListView(Context context) {
+    public FileRecyclerView(Context context) {
         this(context, null);
     }
 
-    public FileListView(Context context, AttributeSet attrs) {
+    public FileRecyclerView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public FileListView(Context context, AttributeSet attrs, int defStyle) {
+    public FileRecyclerView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context);
     }
@@ -53,18 +53,18 @@ public class FileListView extends LinearLayout {
 
         RecyclerView mainLv = new RecyclerView(context);
 
-        listViewTools = new ListViewTools(
+        recyclerViewCreator = new RecyclerViewCreator(
                 context,
                 new SpacesItemDecoration(0, 0, 0, (int) Tools.dpToPx(8)),
                 mainLv,
-                (FileListAdapter.OnItemClickListener) (position, file, name) -> {
+                (position, file, name) -> {
                     if (position == 0 && !lockPath.equals(fullPath)) {
                         parentDir();
                     } else {
                         listFileAt(file);
                     }
                 },
-                (FileListAdapter.OnItemLongClickListener) (position, file, name) -> fileSelectedListener.onItemLongClick(file, file.getAbsolutePath()),
+                (position, file, name) -> fileSelectedListener.onItemLongClick(file, file.getAbsolutePath()),
                 mData);
 
         addView(mainLv, layParam);
@@ -103,7 +103,7 @@ public class FileListView extends LinearLayout {
             if (path.isDirectory()) {
                 fullPath = path;
 
-                List<FileItemBean> itemBeans = ListViewTools.loadItemBeansFromPath(context, path, this.fileIcon, this.showFiles, this.showFolders);
+                List<FileItemBean> itemBeans = RecyclerViewCreator.loadItemBeansFromPath(context, path, this.fileIcon, this.showFiles, this.showFolders);
 
                 Collections.sort(itemBeans);
 
@@ -118,7 +118,7 @@ public class FileListView extends LinearLayout {
                     mSetTitleListener.setTitle(path.getAbsolutePath());
                 }
 
-                runOnUiThread(() -> listViewTools.loadData(itemBeans));
+                runOnUiThread(() -> recyclerViewCreator.loadData(itemBeans));
             } else {
                 fileSelectedListener.onFileSelected(path, path.getAbsolutePath());
             }

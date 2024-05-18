@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.movtery.filelist.FileListView;
+import com.movtery.filelist.FileRecyclerView;
 import com.movtery.filelist.FileSelectedListener;
 
 import net.kdt.pojavlaunch.R;
@@ -19,7 +19,7 @@ import net.kdt.pojavlaunch.customcontrols.ControlSelectedListener;
 import java.io.File;
 
 public class SelectControlsDialog extends Dialog {
-    private FileListView flv;
+    private FileRecyclerView flv;
 
     public SelectControlsDialog(@NonNull Context context) {
         super(context);

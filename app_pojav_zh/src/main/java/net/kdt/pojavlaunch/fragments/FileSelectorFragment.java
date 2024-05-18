@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.movtery.filelist.FileIcon;
-import com.movtery.filelist.FileListView;
+import com.movtery.filelist.FileRecyclerView;
 import com.movtery.filelist.FileSelectedListener;
 
 import net.kdt.pojavlaunch.PojavZHTools;
@@ -34,7 +34,7 @@ public class FileSelectorFragment extends Fragment {
     public static final String BUNDLE_ROOT_PATH = "root_path";
 
     private Button mSelectFolderButton, mCreateFolderButton, mRefreshButton;
-    private FileListView mFileListView;
+    private FileRecyclerView mFileRecyclerView;
     private TextView mFilePathView;
 
     private boolean mSelectFolder = true;
@@ -57,21 +57,21 @@ public class FileSelectorFragment extends Fragment {
         if (!mSelectFolder) mSelectFolderButton.setVisibility(View.GONE);
         else mSelectFolderButton.setVisibility(View.VISIBLE);
 
-        mFileListView.setShowFiles(mShowFiles);
-        mFileListView.setShowFolders(mShowFolders);
-        mFileListView.lockPathAt(new File(mRootPath));
-        mFileListView.setTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
-        mFileListView.refreshPath();
+        mFileRecyclerView.setShowFiles(mShowFiles);
+        mFileRecyclerView.setShowFolders(mShowFolders);
+        mFileRecyclerView.lockPathAt(new File(mRootPath));
+        mFileRecyclerView.setTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
+        mFileRecyclerView.refreshPath();
 
         mCreateFolderButton.setOnClickListener(v -> {
             EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(R.string.folder_dialog_insert_name), null, null, null);
             editTextDialog.setConfirm(view1 -> {
-                File folder = new File(mFileListView.getFullPath(), editTextDialog.getEditBox().getText().toString().replace("/", ""));
+                File folder = new File(mFileRecyclerView.getFullPath(), editTextDialog.getEditBox().getText().toString().replace("/", ""));
                 boolean success = folder.mkdir();
                 if (success) {
-                    mFileListView.listFileAt(new File(mFileListView.getFullPath(), editTextDialog.getEditBox().getText().toString().replace("/", "")));
+                    mFileRecyclerView.listFileAt(new File(mFileRecyclerView.getFullPath(), editTextDialog.getEditBox().getText().toString().replace("/", "")));
                 } else {
-                    mFileListView.refreshPath();
+                    mFileRecyclerView.refreshPath();
                 }
 
                 editTextDialog.dismiss();
@@ -80,13 +80,13 @@ public class FileSelectorFragment extends Fragment {
         });
 
         mSelectFolderButton.setOnClickListener(v -> {
-            ExtraCore.setValue(ExtraConstants.FILE_SELECTOR, removeLockPath(mFileListView.getFullPath().getAbsolutePath()));
+            ExtraCore.setValue(ExtraConstants.FILE_SELECTOR, removeLockPath(mFileRecyclerView.getFullPath().getAbsolutePath()));
             Tools.removeCurrentFragment(requireActivity());
         });
 
-        mRefreshButton.setOnClickListener(v -> mFileListView.refreshPath());
+        mRefreshButton.setOnClickListener(v -> mFileRecyclerView.refreshPath());
 
-        mFileListView.setFileSelectedListener(new FileSelectedListener() {
+        mFileRecyclerView.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
                 ExtraCore.setValue(ExtraConstants.FILE_SELECTOR, removeLockPath(path));
@@ -116,7 +116,7 @@ public class FileSelectorFragment extends Fragment {
         mSelectFolderButton = view.findViewById(R.id.zh_files_return_button);
         mCreateFolderButton = view.findViewById(R.id.zh_files_add_file_button);
         mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
-        mFileListView = view.findViewById(R.id.zh_files);
+        mFileRecyclerView = view.findViewById(R.id.zh_files);
         mFilePathView = view.findViewById(R.id.zh_files_current_path);
 
         view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
@@ -125,6 +125,6 @@ public class FileSelectorFragment extends Fragment {
 
         mSelectFolderButton.setText(getString(R.string.folder_fragment_select));
         mCreateFolderButton.setText(getString(R.string.folder_fragment_create));
-        mFileListView.setFileIcon(FileIcon.FILE);
+        mFileRecyclerView.setFileIcon(FileIcon.FILE);
     }
 }

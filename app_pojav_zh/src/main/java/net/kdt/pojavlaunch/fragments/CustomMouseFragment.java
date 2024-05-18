@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.filelist.FileIcon;
 import com.movtery.filelist.FileItemBean;
-import com.movtery.filelist.ListViewTools;
+import com.movtery.filelist.RecyclerViewCreator;
 import com.movtery.filelist.SpacesItemDecoration;
 
 import net.kdt.pojavlaunch.PojavApplication;
@@ -43,7 +43,7 @@ public class CustomMouseFragment extends Fragment {
     private Button mReturnButton, mAddFileButton, mRefreshButton;
     private ImageButton mHelpButton;
     private ImageView mMouseView;
-    private ListViewTools listViewTools;
+    private RecyclerViewCreator recyclerViewCreator;
 
     public CustomMouseFragment() {
         super(R.layout.fragment_custom_mouse);
@@ -93,7 +93,7 @@ public class CustomMouseFragment extends Fragment {
 
     private void loadData() {
         runOnUiThread(() -> {
-            listViewTools.loadData(ListViewTools.loadItemBeansFromPath(requireContext(), mousePath(), FileIcon.IMAGE, true, false));
+            recyclerViewCreator.loadData(RecyclerViewCreator.loadItemBeansFromPath(requireContext(), mousePath(), FileIcon.IMAGE, true, false));
             //默认显示当前选中的鼠标
             refreshIcon();
         });
@@ -117,7 +117,7 @@ public class CustomMouseFragment extends Fragment {
         mMouseView = view.findViewById(R.id.zh_custom_mouse_icon);
 
         RecyclerView mMouseListView = view.findViewById(R.id.zh_custom_mouse);
-        listViewTools = new ListViewTools(requireContext(), new SpacesItemDecoration(0, 0, 0, (int) Tools.dpToPx(8)), mMouseListView, (position, file, name) -> {
+        recyclerViewCreator = new RecyclerViewCreator(requireContext(), new SpacesItemDecoration(0, 0, 0, (int) Tools.dpToPx(8)), mMouseListView, (position, file, name) -> {
             String fileName = file.getName();
             boolean isDefaultMouse = fileName.equals("default_mouse.png");
 
