@@ -38,7 +38,7 @@ import net.kdt.pojavlaunch.customcontrols.ControlDrawerData;
 import net.kdt.pojavlaunch.customcontrols.ControlJoystickData;
 import net.kdt.pojavlaunch.customcontrols.buttons.ControlDrawer;
 import net.kdt.pojavlaunch.customcontrols.buttons.ControlInterface;
-import net.kdt.pojavlaunch.dialog.SelectKeycodeDialog;
+import net.kdt.pojavlaunch.dialog.KeyboardDialog;
 
 import java.util.List;
 
@@ -48,6 +48,7 @@ import java.util.List;
 public class EditControlPopup {
     private final Context context;
     protected final Spinner[] mKeycodeSpinners = new Spinner[4];
+    private KeyboardDialog keynoardDialog;
     private final DefocusableScrollView mScrollView;
     private final ColorSelector mColorSelector;
 
@@ -419,6 +420,8 @@ public class EditControlPopup {
         mVisibilityTextView = mScrollView.findViewById(R.id.visibility_textview);
         mSizeTextview = mScrollView.findViewById(R.id.editSize_textView);
         mSizeXTextView = mScrollView.findViewById(R.id.editSize_x_textView);
+
+        keynoardDialog = new KeyboardDialog(this.context);
     }
 
     /**
@@ -571,15 +574,14 @@ public class EditControlPopup {
         for (int i = 0; i < mKeycodeSpinners.length; ++i) {
             int finalI = i;
             mKeycodeTextviews[i].setOnClickListener(v -> {
-                SelectKeycodeDialog dialog = SelectKeycodeDialog.createDialog(this.context);
-                SelectKeycodeDialog.setSelectKeyCodeListener(dialog, index -> {
+                keynoardDialog.setOnKeycodeSelectListener(index -> {
                     mKeycodeSpinners[finalI].setSelection(index);
 
                     updateKeycodeText(index, finalI);
 
-                    dialog.dismiss();
+                    keynoardDialog.dismiss();
                 });
-                dialog.show();
+                keynoardDialog.show();
             });
 
             mKeycodeSpinners[i].setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
