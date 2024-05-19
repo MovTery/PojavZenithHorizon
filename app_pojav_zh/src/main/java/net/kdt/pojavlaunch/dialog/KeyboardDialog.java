@@ -17,21 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class SelectKeycodeDialog extends Dialog {
-    private static SelectKeycodeDialog mDialog = null;
-
-    public static SelectKeycodeDialog createDialog(Context context) {
-        if (mDialog == null) mDialog = new SelectKeycodeDialog(context);
-        return mDialog;
-    }
-
-    public static void setSelectKeyCodeListener(@NonNull SelectKeycodeDialog dialog, OnKeycodeSelectListener onKeycodeSelectListener) {
-        dialog.setOnKeycodeSelectListener(onKeycodeSelectListener);
-    }
-
+public class KeyboardDialog extends Dialog {
     private OnKeycodeSelectListener mOnKeycodeSelectListener;
 
-    public SelectKeycodeDialog(@NonNull Context context) {
+    public KeyboardDialog(@NonNull Context context) {
         super(context);
 
         setContentView(R.layout.dialog_keyboard);
@@ -218,7 +207,7 @@ public class SelectKeycodeDialog extends Dialog {
         }
     }
 
-    private void setOnKeycodeSelectListener(OnKeycodeSelectListener listener) {
+    public void setOnKeycodeSelectListener(OnKeycodeSelectListener listener) {
         this.mOnKeycodeSelectListener = listener;
     }
 
