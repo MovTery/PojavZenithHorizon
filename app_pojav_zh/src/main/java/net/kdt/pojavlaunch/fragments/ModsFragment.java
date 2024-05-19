@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.movtery.PasteFile;
+import com.movtery.utils.PasteFile;
 import com.movtery.filelist.FileIcon;
 import com.movtery.filelist.FileRecyclerView;
 import com.movtery.filelist.FileSelectedListener;

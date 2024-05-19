@@ -1,4 +1,4 @@
-package com.movtery;
+package com.movtery.utils;
 
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 

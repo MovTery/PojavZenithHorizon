@@ -9,6 +9,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.kdt.mcgui.ProgressLayout;
+import com.movtery.utils.SimpleStringJoiner;
 
 import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
@@ -62,6 +63,13 @@ public class CurseforgeApi implements ModpackApi{
         params.put("sortOrder", "desc");
         if(searchFilters.mcVersion != null && !searchFilters.mcVersion.isEmpty())
             params.put("gameVersion", searchFilters.mcVersion);
+        if (searchFilters.modloaders != null && !searchFilters.modloaders.isEmpty()) {
+            SimpleStringJoiner stringJoiner = new SimpleStringJoiner(",", "[", "]");
+            for (String modloader : searchFilters.modloaders) {
+                stringJoiner.join(modloader);
+            }
+            params.put("modLoaderTypes", stringJoiner.getValue());
+        }
         if(previousPageResult != null)
             params.put("index", curseforgeSearchResult.previousOffset);
 
@@ -94,6 +102,25 @@ public class CurseforgeApi implements ModpackApi{
         curseforgeSearchResult.previousOffset += dataArray.size();
         return curseforgeSearchResult;
 
+    }
+
+    private int getModloaderType(@NonNull String modloader) {
+        switch (modloader) {
+            case "forge":
+                return 1;
+            case "cauldron":
+                return 2;
+            case "liteloader":
+                return 3;
+            case "fabric":
+                return 4;
+            case "quilt":
+                return 5;
+            case "neoforge":
+                return 6;
+            default:
+                return 0;
+        }
     }
 
     @Override

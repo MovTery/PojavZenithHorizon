@@ -3,6 +3,7 @@ package net.kdt.pojavlaunch.modloaders.modpacks.api;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.kdt.mcgui.ProgressLayout;
+import com.movtery.utils.SimpleStringJoiner;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -47,6 +48,13 @@ public class ModrinthApi implements ModpackApi{
         facetString.append(String.format("[\"project_type:%s\"]", searchFilters.isModpack ? "modpack" : "mod"));
         if(searchFilters.mcVersion != null && !searchFilters.mcVersion.isEmpty())
             facetString.append(String.format(",[\"versions:%s\"]", searchFilters.mcVersion));
+        if (searchFilters.modloaders != null && !searchFilters.modloaders.isEmpty()) {
+            SimpleStringJoiner categories = new SimpleStringJoiner(", ", "[", "]");
+            for (String modloader : searchFilters.modloaders) {
+                categories.join(String.format("\"categories:%s\"", modloader));
+            }
+            facetString.append(",").append(categories.getValue());
+        }
         facetString.append("]");
         params.put("facets", facetString.toString());
         params.put("query", searchFilters.name.replace(' ', '+'));
