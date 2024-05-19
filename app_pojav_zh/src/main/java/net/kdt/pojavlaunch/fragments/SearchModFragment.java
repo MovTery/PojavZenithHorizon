@@ -140,11 +140,11 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         switch (error) {
             case ERROR_INTERNAL:
                 mStatusTextView.setTextColor(Color.RED);
-                mStatusTextView.setText(R.string.search_modpack_error);
+                mStatusTextView.setText(isModpack ? R.string.search_modpack_error : R.string.zh_profile_mods_search_mod_failed);
                 break;
             case ERROR_NO_RESULTS:
                 mStatusTextView.setTextColor(mDefaultTextColor);
-                mStatusTextView.setText(R.string.search_modpack_no_result);
+                mStatusTextView.setText(isModpack ? R.string.search_modpack_no_result : R.string.zh_profile_mods_search_mod_no_result);
                 break;
         }
     }
