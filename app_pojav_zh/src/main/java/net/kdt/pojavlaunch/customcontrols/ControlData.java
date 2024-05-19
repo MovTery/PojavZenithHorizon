@@ -46,7 +46,7 @@ public class ControlData {
     }
 
     // Internal usage only
-    public boolean isHideable;
+    public transient boolean isHideable;
     /**
      * Both fields below are dynamic position data, auto updates
      * X and Y position, unlike the original one which uses fixed
@@ -55,7 +55,7 @@ public class ControlData {
      * bigger device or vice versa.
      */
     public String dynamicX, dynamicY;
-    public boolean isDynamicBtn, isToggle, passThruEnabled;
+    public boolean isToggle, passThruEnabled;
     public String name;
     public int[] keycodes;      //Should store up to 4 keys
     public float opacity;       //Alpha value from 0 to 1;
@@ -95,7 +95,6 @@ public class ControlData {
 
     public ControlData(String name, int[] keycodes, float x, float y, float width, float height) {
         this(name, keycodes, Float.toString(x), Float.toString(y), width, height, false);
-        this.isDynamicBtn = false;
     }
 
     public ControlData(String name, int[] keycodes, String dynamicX, String dynamicY) {
@@ -121,7 +120,6 @@ public class ControlData {
         this.dynamicY = dynamicY;
         this.width = width;
         this.height = height;
-        this.isDynamicBtn = false;
         this.isToggle = isToggle;
         this.opacity = opacity;
         this.bgColor = bgColor;
