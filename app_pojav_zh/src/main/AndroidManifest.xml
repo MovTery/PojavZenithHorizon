@@ -16,6 +16,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
 
     <application
         android:name=".PojavApplication"
@@ -142,6 +143,7 @@
             android:foregroundServiceType="dataSync" />
         <service
             android:name=".services.GameService"
+            android:foregroundServiceType="mediaPlayback"
             android:process=":game" />
     </application>
     <queries>
