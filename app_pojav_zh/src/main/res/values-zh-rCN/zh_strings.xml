@@ -61,7 +61,7 @@
     <string name="zh_custom_background_reset">已重置 %s 的背景图片</string>
 
     <string name="zh_file_add_file">添加文件</string>
-    <string name="zh_file_add_file_tip">请选择一个后缀名为 "%s" 的文件</string>
+    <string name="zh_file_add_file_tip">请选择一个后缀名为 %s 的文件</string>
     <string name="zh_file_does_not_exist">这个文件夹(或文件)不存在</string>
     <string name="zh_file_tips">操作此文件</string>
     <string name="zh_file_folder_tips">操作此文件夹</string>
@@ -158,7 +158,7 @@
     <string name="zh_other_login_baseurl_not_set">未设置基础URL</string>
     <string name="zh_other_login_client">客户端</string>
     <string name="zh_other_login_error_code">错误代码：</string>
-    <string name="zh_other_login_not_empty">服务器、账户或密码不能为空，请检查你输入的内容！</string>
+    <string name="zh_other_login_server_not_empty">服务器不能为空，请检查身份验证服务器设置！</string>
 
     <string name="zh_about_tab">关于 Pojav ZH</string>
     <string name="zh_about_dec1">Pojav ZH 是一款基于 PojavLauncher 魔改的 Minecraft 启动器，它能够在 Android 设备上运行 Minecraft: Java Edition。\nPojav ZH 致力于优化用户体验，重新设计了应用界面，新增了更多实用的功能，旨在最大程度地降低游玩门槛，让更多人能够轻松体验 Minecraft 的乐趣。</string>

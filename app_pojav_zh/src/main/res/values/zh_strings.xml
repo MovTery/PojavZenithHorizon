@@ -61,7 +61,7 @@
     <string name="zh_custom_background_reset">The background image for %s has been reset.</string>
 
     <string name="zh_file_add_file">Add file</string>
-    <string name="zh_file_add_file_tip">Please select a file with the suffix "%s"</string>
+    <string name="zh_file_add_file_tip">Please select a file with the suffix %s</string>
     <string name="zh_file_does_not_exist">This folder (or file) doesn\'t exist</string>
 
     <string name="zh_file_tips">Operate this file</string>
@@ -159,7 +159,7 @@
     <string name="zh_other_login_baseurl_not_set">BaseUrl is not set</string>
     <string name="zh_other_login_client">Client</string>
     <string name="zh_other_login_error_code">error code：</string>
-    <string name="zh_other_login_not_empty">The server, account, or password cannot be empty, please check the content you entered!</string>
+    <string name="zh_other_login_server_not_empty">Server can not be empty, please check the authentication server settings!</string>
 
     <string name="zh_about_tab">About Pojav ZH</string>
     <string name="zh_about_github" translatable="false">Github</string>

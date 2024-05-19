@@ -112,25 +112,34 @@ public class ControlButtonFragment extends Fragment {
         mAddControlButton.setOnClickListener(v -> {
             EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(R.string.zh_controls_create_new_title), null, null, null);
             editTextDialog.setConfirm(view1 -> {
-                File file = new File(mFileRecyclerView.getFullPath().getAbsolutePath(), editTextDialog.getEditBox().getText().toString().replace("/", "") + ".json");
-                if (!file.exists()) {
-                    boolean success;
-                    try {
-                        success = file.createNewFile();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    if (success) {
-                        try (BufferedWriter optionFileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
-                            optionFileWriter.write("{\"version\":6}");
-                        } catch (IOException e) {
-                            Tools.showError(requireContext(), e);
-                        }
-                    }
-                    mFileRecyclerView.refreshPath();
-                } else {
-                    Toast.makeText(requireContext(), getString(R.string.zh_file_rename_exitis), Toast.LENGTH_SHORT).show();
+                String name = editTextDialog.getEditBox().getText().toString().replace("/", "");
+                //检查文件名是否为空
+                if (name.isEmpty()) {
+                    editTextDialog.getEditBox().setError(getString(R.string.zh_file_rename_empty));
+                    return;
                 }
+
+                File file = new File(mFileRecyclerView.getFullPath().getAbsolutePath(), name + ".json");
+
+                if (file.exists()) { //检查文件是否已经存在
+                    editTextDialog.getEditBox().setError(getString(R.string.zh_file_rename_exitis));
+                    return;
+                }
+
+                boolean success;
+                try {
+                    success = file.createNewFile();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                if (success) {
+                    try (BufferedWriter optionFileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
+                        optionFileWriter.write("{\"version\":6}");
+                    } catch (IOException e) {
+                        Tools.showError(requireContext(), e);
+                    }
+                }
+                mFileRecyclerView.refreshPath();
 
                 editTextDialog.dismiss();
             });
