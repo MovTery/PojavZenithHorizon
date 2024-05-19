@@ -96,10 +96,22 @@ public class FilesFragment extends Fragment {
         mCreateFolderButton.setOnClickListener(v -> {
             EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(R.string.folder_dialog_insert_name), null, null, null);
             editTextDialog.setConfirm(view1 -> {
-                File folder = new File(mFileRecyclerView.getFullPath(), editTextDialog.getEditBox().getText().toString().replace("/", ""));
+                String name = editTextDialog.getEditBox().getText().toString().replace("/", "");
+                if (name.isEmpty()) {
+                    editTextDialog.getEditBox().setError(getString(R.string.zh_file_rename_empty));
+                    return;
+                }
+
+                File folder = new File(mFileRecyclerView.getFullPath(), name);
+
+                if (folder.exists()) {
+                    editTextDialog.getEditBox().setError(getString(R.string.zh_file_rename_exitis));
+                    return;
+                }
+
                 boolean success = folder.mkdir();
                 if (success) {
-                    mFileRecyclerView.listFileAt(new File(mFileRecyclerView.getFullPath(), editTextDialog.getEditBox().getText().toString().replace("/", "")));
+                    mFileRecyclerView.listFileAt(new File(mFileRecyclerView.getFullPath(), name));
                 } else {
                     mFileRecyclerView.refreshPath();
                 }

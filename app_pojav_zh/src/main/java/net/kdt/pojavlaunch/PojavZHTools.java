@@ -264,19 +264,26 @@ public class PojavZHTools {
         EditTextDialog editTextDialog = new EditTextDialog(context, context.getString(R.string.zh_rename), null, getFileNameWithoutExtension(fileName, suffix), null);
         editTextDialog.setConfirm(v -> {
             String newName = editTextDialog.getEditBox().getText().toString().replace("/", "");
-            if (!newName.isEmpty()) {
-                File newFile = new File(fileParent, newName + suffix);
-                if (newFile.exists()) {
-                    editTextDialog.getEditBox().setError(context.getString(R.string.zh_file_rename_exitis));
-                    return;
-                }
 
-                boolean renamed = file.renameTo(newFile);
-                if (renamed) {
-                    if (runnable != null) PojavApplication.sExecutorService.execute(runnable);
-                }
-            } else {
-                Toast.makeText(context, context.getString(R.string.zh_file_rename_empty), Toast.LENGTH_SHORT).show();
+            if (Objects.equals(fileName, newName)) {
+                editTextDialog.dismiss();
+                return;
+            }
+
+            if (newName.isEmpty()) {
+                editTextDialog.getEditBox().setError(context.getString(R.string.zh_file_rename_empty));
+                return;
+            }
+
+            File newFile = new File(fileParent, newName + suffix);
+            if (newFile.exists()) {
+                editTextDialog.getEditBox().setError(context.getString(R.string.zh_file_rename_exitis));
+                return;
+            }
+
+            boolean renamed = file.renameTo(newFile);
+            if (renamed) {
+                if (runnable != null) PojavApplication.sExecutorService.execute(runnable);
             }
 
             editTextDialog.dismiss();
@@ -293,19 +300,26 @@ public class PojavZHTools {
         EditTextDialog editTextDialog = new EditTextDialog(context, context.getString(R.string.zh_rename), null, fileName, null);
         editTextDialog.setConfirm(v -> {
             String newName = editTextDialog.getEditBox().getText().toString().replace("/", "");
-            if (!newName.isEmpty()) {
-                File newFile = new File(fileParent, newName);
-                if (newFile.exists()) {
-                    editTextDialog.getEditBox().setError(context.getString(R.string.zh_file_rename_exitis));
-                    return;
-                }
 
-                boolean renamed = renameFile(file, newFile);
-                if (renamed) {
-                    if (runnable != null) PojavApplication.sExecutorService.execute(runnable);
-                }
-            } else {
-                Toast.makeText(context, context.getString(R.string.zh_file_rename_empty), Toast.LENGTH_SHORT).show();
+            if (Objects.equals(fileName, newName)) {
+                editTextDialog.dismiss();
+                return;
+            }
+
+            if (newName.isEmpty()) {
+                editTextDialog.getEditBox().setError(context.getString(R.string.zh_file_rename_empty));
+                return;
+            }
+
+            File newFile = new File(fileParent, newName);
+            if (newFile.exists()) {
+                editTextDialog.getEditBox().setError(context.getString(R.string.zh_file_rename_exitis));
+                return;
+            }
+
+            boolean renamed = renameFile(file, newFile);
+            if (renamed) {
+                if (runnable != null) PojavApplication.sExecutorService.execute(runnable);
             }
 
             editTextDialog.dismiss();

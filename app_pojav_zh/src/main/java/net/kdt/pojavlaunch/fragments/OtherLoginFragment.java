@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch.fragments;
 
+import static net.kdt.pojavlaunch.Tools.runOnUiThread;
+
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -115,7 +117,14 @@ public class OtherLoginFragment extends Fragment {
                                 getString(R.string.zh_other_login_yggdrasil_api) :
                                 getString(R.string.zh_other_login_32_bit_server), null, null, null);
                         editTextDialog.setConfirm(view1 -> {
-                            addServer(editTextDialog.getEditBox(), type);
+                            EditText editBox = editTextDialog.getEditBox();
+
+                            if (editBox.getText().toString().isEmpty()) {
+                                editBox.setError(getString(R.string.global_error_field_empty));
+                                return;
+                            }
+
+                            addServer(editBox, type);
                             editTextDialog.dismiss();
                         });
                         editTextDialog.show();
@@ -139,7 +148,10 @@ public class OtherLoginFragment extends Fragment {
             String user = mUserEditText.getText().toString();
             String pass = mPassEditText.getText().toString();
             String baseUrl = mCurrentBaseUrl;
-            if (!user.isEmpty() && !pass.isEmpty() && !(baseUrl == null || baseUrl.isEmpty())) {
+
+            if (!checkAccountInformation(user, pass)) return;
+
+            if (!(baseUrl == null || baseUrl.isEmpty())) {
                 requireActivity().runOnUiThread(() -> mProgressDialog.show());
                 try {
                     OtherLoginApi.getINSTANCE().setBaseUrl(mCurrentBaseUrl);
@@ -202,7 +214,7 @@ public class OtherLoginFragment extends Fragment {
                     Log.e("login", e.toString());
                 }
             } else {
-                requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), getString(R.string.zh_other_login_not_empty), Toast.LENGTH_SHORT).show());
+                runOnUiThread(() -> Toast.makeText(requireContext(), getString(R.string.zh_other_login_server_not_empty), Toast.LENGTH_SHORT).show());
             }
         }));
     }
@@ -215,6 +227,23 @@ public class OtherLoginFragment extends Fragment {
         mLoginButton = view.findViewById(R.id.other_login_button);
         mRegister = view.findViewById(R.id.register);
         mAddServer = view.findViewById(R.id.add_server);
+    }
+
+    private boolean checkAccountInformation(String user, String pass) {
+        boolean userTextEmpty = user.isEmpty();
+        boolean passTextEmpty = pass.isEmpty();
+
+        if (userTextEmpty || passTextEmpty) {
+            if (userTextEmpty) {
+                runOnUiThread(() -> mUserEditText.setError(getString(R.string.global_error_field_empty)));
+            }
+            if (passTextEmpty) {
+                runOnUiThread(() -> mPassEditText.setError(getString(R.string.global_error_field_empty)));
+            }
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private void addServer(EditText editText, int type) {

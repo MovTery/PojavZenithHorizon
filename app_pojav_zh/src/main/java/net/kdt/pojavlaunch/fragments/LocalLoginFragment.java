@@ -1,11 +1,8 @@
 package net.kdt.pojavlaunch.fragments;
 
-import static net.kdt.pojavlaunch.Tools.runOnUiThread;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -52,21 +49,23 @@ public class LocalLoginFragment extends Fragment {
         Matcher matcher = pattern.matcher(text);
 
         if (text.isEmpty()) {
-            runOnUiThread(() -> Toast.makeText(getContext(), getString(R.string.zh_account_local_account_empty), Toast.LENGTH_SHORT).show());
+            mUsernameEditText.setError(getString(R.string.zh_account_local_account_empty));
             return false;
         } else if (text.length() < 3) {
-            runOnUiThread(() -> Toast.makeText(getContext(), getString(R.string.zh_account_local_account_less), Toast.LENGTH_SHORT).show());
+            mUsernameEditText.setError(getString(R.string.zh_account_local_account_less));
             return false;
         } else if (text.length() > 16) {
-            runOnUiThread(() -> Toast.makeText(getContext(), getString(R.string.zh_account_local_account_greater), Toast.LENGTH_SHORT).show());
+            mUsernameEditText.setError(getString(R.string.zh_account_local_account_greater));
             return false;
         } else if (matcher.find()) {
-            runOnUiThread(() -> Toast.makeText(getContext(), getString(R.string.zh_account_local_account_illegal), Toast.LENGTH_SHORT).show());
+            mUsernameEditText.setError(getString(R.string.zh_account_local_account_illegal));
             return false;
         }
 
         boolean exists = new File(Tools.DIR_ACCOUNT_NEW + "/" + text + ".json").exists();
-        if (exists) runOnUiThread(() -> Toast.makeText(getContext(), getString(R.string.zh_account_local_account_exists), Toast.LENGTH_SHORT).show());
+        if (exists) {
+            mUsernameEditText.setError(getString(R.string.zh_account_local_account_exists));
+        }
         return !(exists);
     }
 }
