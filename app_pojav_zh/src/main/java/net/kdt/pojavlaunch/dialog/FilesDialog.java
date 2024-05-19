@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.movtery.PasteFile;
+import com.movtery.utils.PasteFile;
 
 import net.kdt.pojavlaunch.R;
 

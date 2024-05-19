@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="@dimen/padding_heavy"
@@ -45,14 +46,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/search_mod_selected_mc_version_textview" />
 
+    <TextView
+        android:id="@+id/search_mod_modloader_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/zh_profile_mods_modloader"
+
+        app:layout_constraintStart_toStartOf="@+id/zh_search_mod_modloader"
+        app:layout_constraintTop_toBottomOf="@+id/search_mod_selected_mc_version_textview" />
+
+    <Spinner
+        android:id="@+id/zh_search_mod_modloader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_edit_box"
+        android:paddingVertical="0px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_mod_modloader_textview"
+        tools:paddingVertical="@dimen/_12sdp" />
+
     <!-- Apply -->
     <Button
         android:id="@+id/search_mod_apply_filters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/padding_large"
-        android:text="@string/generic_apply"
+        android:layout_marginTop="12dp"
 
-        app:layout_constraintTop_toBottomOf="@id/search_mod_selected_mc_version_textview" />
+        android:text="@string/generic_apply"
+        app:layout_constraintTop_toBottomOf="@+id/zh_search_mod_modloader"
+        tools:layout_editor_absoluteX="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

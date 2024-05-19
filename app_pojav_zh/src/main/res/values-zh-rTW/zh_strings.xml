@@ -97,6 +97,7 @@
     <string name="zh_profile_create_mods_success">成功建立 Mods 資料夾!</string>
     <string name="zh_profile_mods">Mod 管理</string>
     <string name="zh_profile_mods_download_mod">下載 Mod</string>
+    <string name="zh_profile_mods_modloader">Mod 加載器</string>
     <string name="zh_profile_mods_download_mod_failed">下載 Mod 檔案時失敗</string>
     <string name="zh_profile_mods_search_mod">搜尋 Mod</string>
     <string name="zh_profile_mods_add_mod">新增 Mod</string>
