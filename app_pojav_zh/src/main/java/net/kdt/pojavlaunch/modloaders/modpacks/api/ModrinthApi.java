@@ -59,7 +59,7 @@ public class ModrinthApi implements ModpackApi{
         }
         facetString.append("]");
         params.put("facets", facetString.toString());
-        params.put("query", searchFilters.name.replace(' ', '+'));
+        params.put("query", searchFilters.name);
         params.put("limit", 50);
         params.put("index", "relevance");
         if(modrinthSearchResult != null)
@@ -73,7 +73,7 @@ public class ModrinthApi implements ModpackApi{
         ModItem[] items = new ModItem[responseHits.size()];
         for(int i=0; i<responseHits.size(); ++i){
             JsonObject hit = responseHits.get(i).getAsJsonObject();
-            JsonArray loaders = hit.get("display_categories").getAsJsonArray();
+            JsonArray loaders = hit.get("categories").getAsJsonArray();
             SimpleStringJoiner sj = new SimpleStringJoiner(",  ");
             for (JsonElement loader : loaders) {
                 String string = loader.getAsString();

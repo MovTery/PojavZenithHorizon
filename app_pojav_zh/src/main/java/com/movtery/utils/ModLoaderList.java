@@ -49,19 +49,26 @@ public class ModLoaderList {
         }
     }
 
-    public static String getModloaderNameById(int id) {
+    public static String getModloaderNameByCurseId(int id) {
         switch (id) {
             case 1:
                 return "Forge";
-            case 2:
-                return "Fabric";
-            case 3:
-                return "Quilt";
             case 4:
+                return "Fabric";
+            case 5:
+                return "Quilt";
+            case 6:
                 return "NeoForge";
             default:
                 return null;
         }
+        //0=Any
+        //1=Forge
+        //2=Cauldron
+        //3=LiteLoader
+        //4=Fabric
+        //5=Quilt
+        //6=NeoForge
     }
 
     public static boolean isModloaderName(String modloader) {

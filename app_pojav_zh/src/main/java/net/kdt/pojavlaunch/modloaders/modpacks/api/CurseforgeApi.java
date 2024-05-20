@@ -84,6 +84,7 @@ public class CurseforgeApi implements ModpackApi{
         if(response == null) return null;
         JsonArray dataArray = response.getAsJsonArray("data");
         if(dataArray == null) return null;
+
         JsonObject paginationInfo = response.getAsJsonObject("pagination");
         ArrayList<ModItem> modItemList = new ArrayList<>(dataArray.size());
         for(int i = 0; i < dataArray.size(); i++) {
@@ -101,7 +102,7 @@ public class CurseforgeApi implements ModpackApi{
                     dataElement.get("name").getAsString(),
                     dataElement.get("summary").getAsString(),
                     dataElement.get("downloadCount").getAsInt(),
-                    searchFilters.isModpack ? null : getModloaders(dataElement.getAsJsonArray("latestFilesIndexes")),
+                    getModloaders(dataElement.getAsJsonArray("latestFilesIndexes")),
                     dataElement.getAsJsonObject("logo").get("thumbnailUrl").getAsString());
             modItemList.add(modItem);
         }
@@ -125,7 +126,7 @@ public class CurseforgeApi implements ModpackApi{
         }
         SimpleStringJoiner sj = new SimpleStringJoiner(",  ");
         for (Integer index : modloaderSet) {
-            String modloaderName = ModLoaderList.getModloaderNameById(index);
+            String modloaderName = ModLoaderList.getModloaderNameByCurseId(index);
             if (!ModLoaderList.isModloaderName(modloaderName)) continue;
             sj.join(modloaderName); //将id转换为Mod加载器名称
         }
