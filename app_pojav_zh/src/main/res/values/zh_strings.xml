@@ -13,6 +13,7 @@
     <string name="zh_confirm">Confirm</string>
     <string name="zh_unknown">Unknown</string>
     <string name="zh_warning">Warning</string>
+    <string name="zh_loading">Loading</string>
     <string name="zh_wan"> </string>
     <string name="zh_yi"> </string>
     <string name="zh_wrong_tip">Something went wrong</string>
@@ -100,11 +101,18 @@
     <string name="zh_profile_create_mods_success">Successfully created Mods folder!</string>
     <string name="zh_profile_mods">Mods</string>
     <string name="zh_profile_mods_download_mod">Download Mod</string>
+    <string name="zh_profile_mods_sort_by">Sort By</string>
     <string name="zh_profile_mods_modloader">Mod Loader</string>
     <string name="zh_profile_mods_download_mod_failed">Failed to download Mod file</string>
     <string name="zh_profile_mods_search_mod_failed">Failed to search for Mod</string>
+    <string name="zh_profile_mods_search_mod_search_download_error">Failed to download Mod metadata</string>
     <string name="zh_profile_mods_search_mod_no_result">No relevant Mod found</string>
     <string name="zh_profile_mods_search_mod">Search Mod</string>
+    <string name="zh_profile_mods_search_sort_by_relevant">Relevance</string>
+    <string name="zh_profile_mods_search_sort_by_total_downloads">Total Downloads</string>
+    <string name="zh_profile_mods_search_sort_by_popularity">Popularity</string>
+    <string name="zh_profile_mods_search_sort_by_recently_created">Recently Created</string>
+    <string name="zh_profile_mods_search_sort_by_recently_updated">Recently Updated</string>
     <string name="zh_profile_mods_information_download_count">Downloads:</string>
     <string name="zh_profile_mods_add_mod">Add Mod</string>
     <string name="zh_profile_mods_added_mod">Successfully added Mod</string>

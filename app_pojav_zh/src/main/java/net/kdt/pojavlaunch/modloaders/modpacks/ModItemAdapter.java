@@ -50,7 +50,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private static final int VIEW_TYPE_LOADING = 1;
 
     /* Used when versions haven't loaded yet, default text to reduce layout shifting */
-    private final SimpleArrayAdapter<String> mLoadingAdapter = new SimpleArrayAdapter<>(Collections.singletonList("Loading"));
+    private final SimpleArrayAdapter<String> mLoadingAdapter = new SimpleArrayAdapter<>(Collections.singletonList(ResourceManager.getString(R.string.zh_loading)));
     /* This my seem horribly inefficient but it is in fact the most efficient way without effectively writing a weak collection from scratch */
     private final Set<ViewHolder> mViewHolderSet = Collections.newSetFromMap(new WeakHashMap<>());
     private final ModIconCache mIconCache = new ModIconCache();
@@ -181,6 +181,8 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     mExtendedButton = mExtendedLayout.findViewById(R.id.mod_extended_select_version_button);
                     mExtendedSpinner = mExtendedLayout.findViewById(R.id.mod_extended_version_spinner);
                     mExtendedErrorTextView = mExtendedLayout.findViewById(R.id.mod_extended_error_textview);
+
+                    if (!isModpack) mExtendedErrorTextView.setText(R.string.zh_profile_mods_search_mod_search_download_error);
 
                     mExtendedButton.setOnClickListener(v1 -> mModpackApi.handleInstallation(
                             mExtendedButton.getContext().getApplicationContext(),

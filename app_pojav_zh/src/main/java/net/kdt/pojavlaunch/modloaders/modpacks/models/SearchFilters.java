@@ -13,4 +13,5 @@ public class SearchFilters {
     public String name;
     @Nullable public String mcVersion;
     public List<String> modloaders = new ArrayList<>();
+    public int sort = 0;
 }
