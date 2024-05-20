@@ -1,8 +1,10 @@
 package net.kdt.pojavlaunch.modloaders.modpacks.api;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.kdt.mcgui.ProgressLayout;
+import com.movtery.utils.ModLoaderList;
 import com.movtery.utils.SimpleStringJoiner;
 
 import net.kdt.pojavlaunch.R;
@@ -71,12 +73,21 @@ public class ModrinthApi implements ModpackApi{
         ModItem[] items = new ModItem[responseHits.size()];
         for(int i=0; i<responseHits.size(); ++i){
             JsonObject hit = responseHits.get(i).getAsJsonObject();
+            JsonArray loaders = hit.get("display_categories").getAsJsonArray();
+            SimpleStringJoiner sj = new SimpleStringJoiner(",  ");
+            for (JsonElement loader : loaders) {
+                String string = loader.getAsString();
+                if (!ModLoaderList.isModloaderName(string)) continue; //排除不是Mod加载器名字的字符串
+                sj.join(ModLoaderList.getModloaderName(string));
+            }
             items[i] = new ModItem(
                     Constants.SOURCE_MODRINTH,
                     hit.get("project_type").getAsString().equals("modpack"),
                     hit.get("project_id").getAsString(),
                     hit.get("title").getAsString(),
                     hit.get("description").getAsString(),
+                    hit.get("downloads").getAsInt(),
+                    sj.getValue(),
                     hit.get("icon_url").getAsString()
             );
         }
@@ -95,6 +106,7 @@ public class ModrinthApi implements ModpackApi{
         System.out.println(response);
         String[] names = new String[response.size()];
         String[] mcNames = new String[response.size()];
+        String[] mcVersionInfo = new String[response.size()];
         String[] urls = new String[response.size()];
         String[] hashes = new String[response.size()];
 
@@ -102,6 +114,16 @@ public class ModrinthApi implements ModpackApi{
             JsonObject version = response.get(i).getAsJsonObject();
             names[i] = version.get("name").getAsString();
             mcNames[i] = version.get("game_versions").getAsJsonArray().get(0).getAsString();
+
+            JsonArray loaders = version.get("loaders").getAsJsonArray();
+            SimpleStringJoiner sj = new SimpleStringJoiner(", ");
+            for (JsonElement loader : loaders) {
+                String loaderName = loader.getAsString();
+                if (!ModLoaderList.isModloaderName(loaderName)) continue;
+                sj.join(ModLoaderList.getModloaderName(loaderName));
+            }
+            mcVersionInfo[i] = sj.getValue();
+
             urls[i] = version.get("files").getAsJsonArray().get(0).getAsJsonObject().get("url").getAsString();
             // Assume there may not be hashes, in case the API changes
             JsonObject hashesMap = version.getAsJsonArray("files").get(0).getAsJsonObject()
@@ -114,7 +136,7 @@ public class ModrinthApi implements ModpackApi{
             hashes[i] = hashesMap.get("sha1").getAsString();
         }
 
-        return new ModDetail(item, names, mcNames, urls, hashes);
+        return new ModDetail(item, names, mcNames, mcVersionInfo, urls, hashes);
     }
 
     @Override

@@ -13,6 +13,8 @@
     <string name="zh_confirm">确认</string>
     <string name="zh_unknown">未知</string>
     <string name="zh_warning">警告</string>
+    <string name="zh_wan">万</string>
+    <string name="zh_yi">亿</string>
     <string name="zh_wrong_tip">出现了一些问题</string>
 
     <string name="zh_account_text">请选择一种登录方式</string>
@@ -102,6 +104,7 @@
     <string name="zh_profile_mods_search_mod_failed">搜索 Mod 时失败</string>
     <string name="zh_profile_mods_search_mod_no_result">未找到相关 Mod</string>
     <string name="zh_profile_mods_search_mod">搜索 Mod</string>
+    <string name="zh_profile_mods_information_download_count">下载量: </string>
     <string name="zh_profile_mods_add_mod">添加 Mod</string>
     <string name="zh_profile_mods_added_mod">成功添加 Mod</string>
     <string name="zh_profile_mods_disable">禁用</string>

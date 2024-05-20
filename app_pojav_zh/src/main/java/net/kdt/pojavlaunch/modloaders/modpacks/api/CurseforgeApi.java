@@ -30,6 +30,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Pattern;
 import java.util.zip.ZipFile;
 
@@ -98,6 +100,8 @@ public class CurseforgeApi implements ModpackApi{
                     dataElement.get("id").getAsString(),
                     dataElement.get("name").getAsString(),
                     dataElement.get("summary").getAsString(),
+                    dataElement.get("downloadCount").getAsInt(),
+                    searchFilters.isModpack ? null : getModloaders(dataElement.getAsJsonArray("latestFilesIndexes")),
                     dataElement.getAsJsonObject("logo").get("thumbnailUrl").getAsString());
             modItemList.add(modItem);
         }
@@ -107,6 +111,25 @@ public class CurseforgeApi implements ModpackApi{
         curseforgeSearchResult.previousOffset += dataArray.size();
         return curseforgeSearchResult;
 
+    }
+
+    @NonNull
+    private static String getModloaders(JsonArray latestFilesIndexes) {
+        //获取Mod加载器信息
+        Set<Integer> modloaderSet = new TreeSet<>();
+        latestFilesIndexes.getAsJsonArray();
+        for (JsonElement latestFilesElement : latestFilesIndexes) {
+            JsonObject latestFilesObject = latestFilesElement.getAsJsonObject();
+            if (latestFilesObject.get("modLoader") == null) continue;
+            modloaderSet.add(latestFilesObject.get("modLoader").getAsInt());
+        }
+        SimpleStringJoiner sj = new SimpleStringJoiner(",  ");
+        for (Integer index : modloaderSet) {
+            String modloaderName = ModLoaderList.getModloaderNameById(index);
+            if (!ModLoaderList.isModloaderName(modloaderName)) continue;
+            sj.join(modloaderName); //将id转换为Mod加载器名称
+        }
+        return sj.getValue();
     }
 
     @Override
@@ -121,6 +144,7 @@ public class CurseforgeApi implements ModpackApi{
         int length = allModDetails.size();
         String[] versionNames = new String[length];
         String[] mcVersionNames = new String[length];
+        String[] mcVersionInfo = new String[length];
         String[] versionUrls = new String[length];
         String[] hashes = new String[length];
         for(int i = 0; i < allModDetails.size(); i++) {
@@ -130,18 +154,29 @@ public class CurseforgeApi implements ModpackApi{
             versionUrls[i] = "https://www.curseforge.com/api/v1/mods/" + modDetail.get("modId").getAsString() + "/files/" + modDetail.get("id").getAsString() + "/download";
 
             JsonArray gameVersions = modDetail.getAsJsonArray("gameVersions");
+            Set<String> modloaderNames = new TreeSet<>();
             for(JsonElement jsonElement : gameVersions) {
                 String gameVersion = jsonElement.getAsString();
                 if(!sMcVersionPattern.matcher(gameVersion).matches()) {
+                    modloaderNames.add(gameVersion);
                     continue;
                 }
                 mcVersionNames[i] = gameVersion;
                 break;
             }
+            //获取全部的Mod加载器
+            SimpleStringJoiner sj = new SimpleStringJoiner(", ");
+            if (!modloaderNames.isEmpty()) {
+                for (String modloaderName : modloaderNames) {
+                    if (!ModLoaderList.isModloaderName(modloaderName)) continue;
+                    sj.join(modloaderName);
+                }
+            }
+            mcVersionInfo[i] = sj.getValue();
 
             hashes[i] = getSha1FromModData(modDetail);
         }
-        return new ModDetail(item, versionNames, mcVersionNames, versionUrls, hashes);
+        return new ModDetail(item, versionNames, mcVersionNames, mcVersionInfo, versionUrls, hashes);
     }
 
     @Override

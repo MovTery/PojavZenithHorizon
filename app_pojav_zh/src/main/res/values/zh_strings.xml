@@ -13,6 +13,8 @@
     <string name="zh_confirm">Confirm</string>
     <string name="zh_unknown">Unknown</string>
     <string name="zh_warning">Warning</string>
+    <string name="zh_wan"> </string>
+    <string name="zh_yi"> </string>
     <string name="zh_wrong_tip">Something went wrong</string>
 
     <string name="zh_account_text">Please select a login method</string>
@@ -103,6 +105,7 @@
     <string name="zh_profile_mods_search_mod_failed">Failed to search for Mod</string>
     <string name="zh_profile_mods_search_mod_no_result">No relevant Mod found</string>
     <string name="zh_profile_mods_search_mod">Search Mod</string>
+    <string name="zh_profile_mods_information_download_count">Downloads: </string>
     <string name="zh_profile_mods_add_mod">Add Mod</string>
     <string name="zh_profile_mods_added_mod">Successfully added Mod</string>
     <string name="zh_profile_mods_disable">Disable</string>

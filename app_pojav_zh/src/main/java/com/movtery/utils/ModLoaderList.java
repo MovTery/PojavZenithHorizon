@@ -49,6 +49,37 @@ public class ModLoaderList {
         }
     }
 
+    public static String getModloaderNameById(int id) {
+        switch (id) {
+            case 1:
+                return "Forge";
+            case 2:
+                return "Fabric";
+            case 3:
+                return "Quilt";
+            case 4:
+                return "NeoForge";
+            default:
+                return null;
+        }
+    }
+
+    public static boolean isModloaderName(String modloader) {
+        if (modloader == null || modloader.isEmpty()) return false;
+
+        String name = modloader.toLowerCase();
+        switch (name) {
+            case "forge":
+            case "fabric":
+            case "quilt":
+            case "neoforge":
+                return true;
+            case "none":
+            default:
+                return false;
+        }
+    }
+
     private static void setModloaderList() {
         modloaderList.clear();
         modloaderList.add(ResourceManager.getString(R.string.zh_unknown));
