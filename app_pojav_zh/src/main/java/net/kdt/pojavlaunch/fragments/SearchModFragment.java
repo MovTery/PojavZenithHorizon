@@ -212,6 +212,9 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
                     public void onNothingSelected(AdapterView<?> parent) {
                     }
                 });
+
+                //默认选中筛选器设置的Mod加载器
+                mModloader.setSelection(mSearchFilters.modloaders.isEmpty() ? 0 : ModLoaderList.getModloaderId(mSearchFilters.modloaders.get(0)));
             }
 
             // Apply the new settings

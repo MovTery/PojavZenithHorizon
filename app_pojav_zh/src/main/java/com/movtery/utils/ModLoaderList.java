@@ -33,6 +33,22 @@ public class ModLoaderList {
         }
     }
 
+    public static int getModloaderId(@NonNull String modloader) {
+        switch (modloader) {
+            case "forge":
+                return 1;
+            case "fabric":
+                return 2;
+            case "quilt":
+                return 3;
+            case "neoforge":
+                return 4;
+            case "none":
+            default:
+                return 0;
+        }
+    }
+
     private static void setModloaderList() {
         modloaderList.clear();
         modloaderList.add(ResourceManager.getString(R.string.zh_unknown));
