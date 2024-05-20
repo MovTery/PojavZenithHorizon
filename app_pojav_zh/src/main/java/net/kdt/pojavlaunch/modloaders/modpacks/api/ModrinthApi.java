@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.utils.ModLoaderList;
+import com.movtery.utils.SearchModSort;
 import com.movtery.utils.SimpleStringJoiner;
 
 import net.kdt.pojavlaunch.R;
@@ -61,7 +62,7 @@ public class ModrinthApi implements ModpackApi{
         params.put("facets", facetString.toString());
         params.put("query", searchFilters.name);
         params.put("limit", 50);
-        params.put("index", "relevance");
+        params.put("index", SearchModSort.getModrinthIndexById(searchFilters.sort));
         if(modrinthSearchResult != null)
             params.put("offset", modrinthSearchResult.previousOffset);
 

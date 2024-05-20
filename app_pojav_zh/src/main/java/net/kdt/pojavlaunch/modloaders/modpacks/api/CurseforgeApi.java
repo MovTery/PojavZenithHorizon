@@ -10,6 +10,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.utils.ModLoaderList;
+import com.movtery.utils.SearchModSort;
 import com.movtery.utils.SimpleStringJoiner;
 
 import net.kdt.pojavlaunch.PojavZHTools;
@@ -44,7 +45,6 @@ public class CurseforgeApi implements ModpackApi{
     private static final int CURSEFORGE_MODPACK_CLASS_ID = 4471;
     // https://api.curseforge.com/v1/categories?gameId=432 and search for "Mods" (case-sensitive)
     private static final int CURSEFORGE_MOD_CLASS_ID = 6;
-    private static final int CURSEFORGE_SORT_RELEVANCY = 1;
     private static final int CURSEFORGE_PAGINATION_SIZE = 50;
     private static final int CURSEFORGE_PAGINATION_END_REACHED = -1;
     private static final int CURSEFORGE_PAGINATION_ERROR = -2;
@@ -62,7 +62,7 @@ public class CurseforgeApi implements ModpackApi{
         params.put("gameId", CURSEFORGE_MINECRAFT_GAME_ID);
         params.put("classId", searchFilters.isModpack ? CURSEFORGE_MODPACK_CLASS_ID : CURSEFORGE_MOD_CLASS_ID);
         params.put("searchFilter", searchFilters.name);
-        params.put("sortField", CURSEFORGE_SORT_RELEVANCY);
+        params.put("sortField", SearchModSort.getCurseforgeIndexById(searchFilters.sort));
         params.put("sortOrder", "desc");
         if(searchFilters.mcVersion != null && !searchFilters.mcVersion.isEmpty())
             params.put("gameVersion", searchFilters.mcVersion);

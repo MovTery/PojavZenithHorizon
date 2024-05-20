@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.utils.ModLoaderList;
+import com.movtery.utils.SearchModSort;
 import com.movtery.versionlist.VersionSelectedListener;
 
 import net.kdt.pojavlaunch.PojavZHTools;
@@ -171,6 +172,7 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         dialog.setOnShowListener(dialogInterface -> {
             TextView mSelectedVersion = dialog.findViewById(R.id.search_mod_selected_mc_version_textview);
             Button mSelectVersionButton = dialog.findViewById(R.id.search_mod_mc_version_button);
+            Spinner mSortBy = dialog.findViewById(R.id.zh_search_mod_sort);
             Spinner mModloader = dialog.findViewById(R.id.zh_search_mod_modloader);
             Button mApplyButton = dialog.findViewById(R.id.search_mod_apply_filters);
 
@@ -195,9 +197,30 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
             // Apply visually all the current settings
             mSelectedVersion.setText(mSearchFilters.mcVersion);
 
+            List<String> sortList = new ArrayList<>(SearchModSort.getIndexList());
+            if (mSortBy != null) {
+                mSortBy.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.item_simple_list_1, sortList));
+                //默认选中筛选器设置的排序索引
+                mSortBy.setSelection(mSearchFilters.sort);
+
+                mSortBy.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        mSearchFilters.sort = position;
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
+            }
+
             List<String> modloaderList = new ArrayList<>(ModLoaderList.getModloaderList());
             if (mModloader != null) {
                 mModloader.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.item_simple_list_1, modloaderList));
+                //默认选中筛选器设置的Mod加载器
+                mModloader.setSelection(mSearchFilters.modloaders.isEmpty() ? 0 : ModLoaderList.getModloaderId(mSearchFilters.modloaders.get(0)));
+
                 mModloader.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -212,9 +235,6 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
                     public void onNothingSelected(AdapterView<?> parent) {
                     }
                 });
-
-                //默认选中筛选器设置的Mod加载器
-                mModloader.setSelection(mSearchFilters.modloaders.isEmpty() ? 0 : ModLoaderList.getModloaderId(mSearchFilters.modloaders.get(0)));
             }
 
             // Apply the new settings
