@@ -19,9 +19,11 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kdt.SimpleArrayAdapter;
+import com.movtery.utils.NumberWithUnits;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.ResourceManager;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ImageReceiver;
@@ -33,6 +35,7 @@ import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchFilters;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchResult;
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Set;
@@ -154,7 +157,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         private ModDetail mModDetail = null;
         private ModItem mModItem = null;
-        private final TextView mTitle, mDescription;
+        private final TextView mTitle, mDescription, mDownloadCount, mModloader;
         private final ImageView mIconView, mSourceView;
         private View mExtendedLayout;
         private Spinner mExtendedSpinner;
@@ -230,6 +233,8 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             // Define click listener for the ViewHolder's View
             mTitle = view.findViewById(R.id.mod_title_textview);
             mDescription = view.findViewById(R.id.mod_body_textview);
+            mDownloadCount = view.findViewById(R.id.zh_mod_download_count_textview);
+            mModloader = view.findViewById(R.id.zh_mod_modloader_textview);
             mIconView = view.findViewById(R.id.mod_thumbnail_imageview);
             mSourceView = view.findViewById(R.id.mod_source_imageview);
         }
@@ -267,6 +272,18 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             mTitle.setText(item.title);
             mDescription.setText(item.description);
 
+            String downloaderCount = ResourceManager.getString(R.string.zh_profile_mods_information_download_count) + NumberWithUnits.formatNumberWithUnit(item.downloadCount,
+                    //判断当前系统语言是否为英文
+                    ResourceManager.getResources().getConfiguration().locale.getLanguage().equals("en"));
+            mDownloadCount.setText(downloaderCount);
+            String modloaderText = ResourceManager.getString(R.string.zh_profile_mods_modloader) + ": ";
+            if (item.modloader != null && !item.modloader.isEmpty()) {
+                modloaderText += item.modloader;
+            } else {
+                modloaderText += ResourceManager.getString(R.string.zh_unknown);
+            }
+            mModloader.setText(modloaderText);
+
             if(hasExtended()){
                 closeDetailedView();
             }
@@ -277,7 +294,8 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             if(detailedItem != null) {
                 setInstallEnabled(true);
                 mExtendedErrorTextView.setVisibility(View.GONE);
-                mVersionAdapter.setObjects(Arrays.asList(detailedItem.versionNames));
+                String[] versionNamesArray = getVersionInfoArray(detailedItem);
+                mVersionAdapter.setObjects(Arrays.asList(versionNamesArray));
                 mExtendedSpinner.setAdapter(mVersionAdapter);
             } else {
                 closeDetailedView();
@@ -286,6 +304,24 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 mExtendedSpinner.setAdapter(null);
                 mVersionAdapter.setObjects(null);
             }
+        }
+
+        @NonNull
+        private String[] getVersionInfoArray(ModDetail detailedItem) {
+            ArrayList<String> versionNames = new ArrayList<>();
+            for (int i = 0; i < detailedItem.versionNames.length; i++) {
+                //为每一个版本加上Mod加载器信息
+                String modloader = ResourceManager.getString(R.string.zh_profile_mods_modloader) + ": ";
+                if (detailedItem.versionInfo == null || detailedItem.versionInfo[i] == null || detailedItem.versionInfo[i].isEmpty()) {
+                    modloader += ResourceManager.getString(R.string.zh_unknown);
+                } else {
+                    modloader += detailedItem.versionInfo[i];
+                }
+                versionNames.add(detailedItem.versionNames[i] + "    " + modloader);
+            }
+            String[] versionNamesArray = new String[detailedItem.versionNames.length];
+            versionNames.toArray(versionNamesArray);
+            return versionNamesArray;
         }
 
         private void openDetailedView() {
