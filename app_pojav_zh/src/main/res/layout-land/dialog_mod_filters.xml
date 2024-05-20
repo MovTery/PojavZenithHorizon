@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="@dimen/padding_heavy"
     android:paddingTop="@dimen/padding_heavy"
-    android:paddingBottom="@dimen/padding_large">
+    android:paddingBottom="@dimen/padding_large"
+    tools:ignore="MissingDefaultResource">
 
     <!-- Version filter -->
     <TextView
@@ -50,21 +51,34 @@
         android:id="@+id/search_mod_modloader_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/zh_profile_mods_modloader"
 
-        app:layout_constraintStart_toStartOf="@+id/zh_search_mod_modloader"
-        app:layout_constraintTop_toBottomOf="@+id/search_mod_selected_mc_version_textview" />
+        android:text="@string/zh_profile_mods_modloader"
+        app:layout_constraintBottom_toTopOf="@+id/zh_search_mod_modloader"
+        app:layout_constraintStart_toStartOf="@+id/zh_search_mod_modloader" />
 
     <Spinner
         android:id="@+id/zh_search_mod_modloader"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:background="@drawable/background_edit_box"
         android:paddingVertical="0px"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_mod_modloader_textview"
+        app:layout_constraintTop_toBottomOf="@+id/search_mod_selected_mc_version_textview"
         tools:paddingVertical="@dimen/_12sdp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="63dp"
+        android:layout_height="18dp"
+        android:paddingHorizontal="@dimen/_8sdp"
+        android:rotation="180"
+        android:src="@drawable/spinner_arrow"
+        app:layout_constraintBottom_toBottomOf="@+id/zh_search_mod_modloader"
+        app:layout_constraintEnd_toEndOf="@+id/zh_search_mod_modloader"
+        app:layout_constraintTop_toTopOf="@+id/zh_search_mod_modloader"
+        tools:ignore="MissingConstraints" />
 
     <!-- Apply -->
     <Button
@@ -75,7 +89,8 @@
         android:layout_marginTop="12dp"
 
         android:text="@string/generic_apply"
-        app:layout_constraintTop_toBottomOf="@+id/zh_search_mod_modloader"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/zh_search_mod_modloader" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
