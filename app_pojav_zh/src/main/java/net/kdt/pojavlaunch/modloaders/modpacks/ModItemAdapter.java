@@ -272,7 +272,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             mTitle.setText(item.title);
             mDescription.setText(item.description);
 
-            String downloaderCount = ResourceManager.getString(R.string.zh_profile_mods_information_download_count) + NumberWithUnits.formatNumberWithUnit(item.downloadCount,
+            String downloaderCount = ResourceManager.getString(R.string.zh_profile_mods_information_download_count) + " " + NumberWithUnits.formatNumberWithUnit(item.downloadCount,
                     //判断当前系统语言是否为英文
                     ResourceManager.getResources().getConfiguration().locale.getLanguage().contains("en"));
             mDownloadCount.setText(downloaderCount);

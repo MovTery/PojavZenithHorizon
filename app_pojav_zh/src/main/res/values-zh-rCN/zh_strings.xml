@@ -104,7 +104,7 @@
     <string name="zh_profile_mods_search_mod_failed">搜索 Mod 时失败</string>
     <string name="zh_profile_mods_search_mod_no_result">未找到相关 Mod</string>
     <string name="zh_profile_mods_search_mod">搜索 Mod</string>
-    <string name="zh_profile_mods_information_download_count">下载量: </string>
+    <string name="zh_profile_mods_information_download_count">下载量:</string>
     <string name="zh_profile_mods_add_mod">添加 Mod</string>
     <string name="zh_profile_mods_added_mod">成功添加 Mod</string>
     <string name="zh_profile_mods_disable">禁用</string>

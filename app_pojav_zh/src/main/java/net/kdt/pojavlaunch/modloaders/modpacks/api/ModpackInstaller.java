@@ -20,9 +20,9 @@ public class ModpackInstaller {
     public static ModLoader installMod(ModDetail modDetail, String path, int selectedVersion) throws IOException {
         String versionUrl = modDetail.versionUrls[selectedVersion];
         String versionHash = modDetail.versionHashes[selectedVersion];
-        String modName = modDetail.versionNames[selectedVersion];
+        String modFileName = "[" + modDetail.title + "] " + modDetail.versionFileNames[selectedVersion];
 
-        File modFile = new File(path, modName + ".jar");
+        File modFile = new File(path, modFileName);
 
         try {
             byte[] downloadBuffer = new byte[8192];
