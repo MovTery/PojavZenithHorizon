@@ -143,6 +143,7 @@ public class CurseforgeApi implements ModpackApi{
         }
         if(index == CURSEFORGE_PAGINATION_ERROR) return null;
         int length = allModDetails.size();
+        String[] versionFileNames = new String[length];
         String[] versionNames = new String[length];
         String[] mcVersionNames = new String[length];
         String[] mcVersionInfo = new String[length];
@@ -151,8 +152,9 @@ public class CurseforgeApi implements ModpackApi{
         for(int i = 0; i < allModDetails.size(); i++) {
             JsonObject modDetail = allModDetails.get(i);
             versionNames[i] = modDetail.get("displayName").getAsString();
-
-            versionUrls[i] = "https://www.curseforge.com/api/v1/mods/" + modDetail.get("modId").getAsString() + "/files/" + modDetail.get("id").getAsString() + "/download";
+            //获取文件名与下载链接
+            versionFileNames[i] = modDetail.get("fileName").getAsString();
+            versionUrls[i] = modDetail.get("downloadUrl").getAsString();
 
             JsonArray gameVersions = modDetail.getAsJsonArray("gameVersions");
             Set<String> modloaderNames = new TreeSet<>();
@@ -177,7 +179,7 @@ public class CurseforgeApi implements ModpackApi{
 
             hashes[i] = getSha1FromModData(modDetail);
         }
-        return new ModDetail(item, versionNames, mcVersionNames, mcVersionInfo, versionUrls, hashes);
+        return new ModDetail(item, versionFileNames, versionNames, mcVersionNames, mcVersionInfo, versionUrls, hashes);
     }
 
     @Override

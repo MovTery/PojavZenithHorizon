@@ -90,7 +90,7 @@
     <string name="zh_main_notice_title">Notification Bar</string>
     <string name="zh_game_autopick_runtime_failed">Failed to find a suitable runtime environment, set to the runtime environment selected by the current instance</string>
     <string name="zh_game_tip">The game is running, you can open the log output through the menu to check the game\'s running status</string>
-    <string name="zh_game_tip_version">Current game version being launched: </string>
+    <string name="zh_game_tip_version">Current game version being launched:</string>
     <string name="zh_preference_category_language">Language</string>
     <string name="zh_preference_category_launcher">Launcher</string>
 
@@ -105,7 +105,7 @@
     <string name="zh_profile_mods_search_mod_failed">Failed to search for Mod</string>
     <string name="zh_profile_mods_search_mod_no_result">No relevant Mod found</string>
     <string name="zh_profile_mods_search_mod">Search Mod</string>
-    <string name="zh_profile_mods_information_download_count">Downloads: </string>
+    <string name="zh_profile_mods_information_download_count">Downloads:</string>
     <string name="zh_profile_mods_add_mod">Add Mod</string>
     <string name="zh_profile_mods_added_mod">Successfully added Mod</string>
     <string name="zh_profile_mods_disable">Disable</string>
@@ -145,7 +145,7 @@
     <string name="zh_update_without">Already up to date</string>
     <string name="zh_update_fail">Network exception, unable to get updates temporarily!</string>
     <string name="zh_update_yes">A new version has been detected. Would you like to download and update?</string>
-    <string name="zh_update_success">The latest installation package has been downloaded. Do you want to install it?\nPackage location: </string>
+    <string name="zh_update_success">The latest installation package has been downloaded. Do you want to install it?\nPackage location:</string>
     <string name="zh_update_downloading">Downloading… (%s / %s)</string>
     <string name="zh_update_downloading_tip">Downloading, updating source: Github Releases</string>
 

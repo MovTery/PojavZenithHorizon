@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import java.util.Arrays;
 
 public class ModDetail extends ModItem {
+    public String[] versionFileNames;
     /* A cheap way to map from the front facing name to the underlying id */
     public String[] versionNames;
     public String [] mcVersionNames;
@@ -13,8 +14,9 @@ public class ModDetail extends ModItem {
     public String[] versionUrls;
     /* SHA 1 hashes, null if a hash is unavailable */
     public String[] versionHashes;
-    public ModDetail(ModItem item, String[] versionNames, String[] mcVersionNames, String[] versionInfo, String[] versionUrls, String[] hashes) {
+    public ModDetail(ModItem item, String[] versionFileNames, String[] versionNames, String[] mcVersionNames, String[] versionInfo, String[] versionUrls, String[] hashes) {
         super(item.apiSource, item.isModpack, item.id, item.title, item.description, item.downloadCount, item.modloader, item.imageUrl);
+        this.versionFileNames = versionFileNames;
         this.versionNames = versionNames;
         this.mcVersionNames = mcVersionNames;
         this.versionInfo = versionInfo;

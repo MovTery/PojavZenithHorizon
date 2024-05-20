@@ -104,6 +104,7 @@ public class ModrinthApi implements ModpackApi{
         JsonArray response = mApiHandler.get(String.format("project/%s/version", item.id), JsonArray.class);
         if(response == null) return null;
         System.out.println(response);
+        String[] versionFileNames = new String[response.size()];
         String[] names = new String[response.size()];
         String[] mcNames = new String[response.size()];
         String[] mcVersionInfo = new String[response.size()];
@@ -112,6 +113,9 @@ public class ModrinthApi implements ModpackApi{
 
         for (int i=0; i<response.size(); ++i) {
             JsonObject version = response.get(i).getAsJsonObject();
+            JsonObject filesJsonObject = version.get("files").getAsJsonArray().get(0).getAsJsonObject();
+            //获取文件名
+            versionFileNames[i] = filesJsonObject.get("filename").getAsString();
             names[i] = version.get("name").getAsString();
             mcNames[i] = version.get("game_versions").getAsJsonArray().get(0).getAsString();
 
@@ -124,7 +128,7 @@ public class ModrinthApi implements ModpackApi{
             }
             mcVersionInfo[i] = sj.getValue();
 
-            urls[i] = version.get("files").getAsJsonArray().get(0).getAsJsonObject().get("url").getAsString();
+            urls[i] = filesJsonObject.get("url").getAsString();
             // Assume there may not be hashes, in case the API changes
             JsonObject hashesMap = version.getAsJsonArray("files").get(0).getAsJsonObject()
                     .get("hashes").getAsJsonObject();
@@ -136,7 +140,7 @@ public class ModrinthApi implements ModpackApi{
             hashes[i] = hashesMap.get("sha1").getAsString();
         }
 
-        return new ModDetail(item, names, mcNames, mcVersionInfo, urls, hashes);
+        return new ModDetail(item, versionFileNames, names, mcNames, mcVersionInfo, urls, hashes);
     }
 
     @Override
