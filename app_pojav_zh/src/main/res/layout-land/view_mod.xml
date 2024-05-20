@@ -71,13 +71,14 @@
         android:layout_marginTop="2dp"
         android:ellipsize="end"
         android:singleLine="true"
-        android:text="@string/zh_profile_mods_information_download_count"
+        android:text="Downloads: "
         android:textColor="@color/primary_text"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/mod_body_textview"
-        app:layout_constraintTop_toBottomOf="@+id/mod_body_textview" />
+        app:layout_constraintTop_toBottomOf="@+id/mod_body_textview"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/zh_mod_modloader_textview"
