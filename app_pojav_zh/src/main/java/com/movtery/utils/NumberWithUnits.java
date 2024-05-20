@@ -3,6 +3,8 @@ package com.movtery.utils;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.ResourceManager;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 public class NumberWithUnits {
@@ -26,10 +28,11 @@ public class NumberWithUnits {
     }
 
     private static String formatNumber(long number, int stage, String[] units) {
+        BigDecimal bigDecimal = new BigDecimal(number);
         int unitIndex = 0;
-        long num = number;
-        while (num >= stage && unitIndex < units.length - 1) {
-            num /= stage;
+
+        while (bigDecimal.compareTo(BigDecimal.valueOf(stage)) >= 0 && unitIndex < units.length - 1) {
+            bigDecimal = bigDecimal.divide(BigDecimal.valueOf(stage), 2, RoundingMode.DOWN);
             unitIndex++;
         }
 
@@ -38,7 +41,8 @@ public class NumberWithUnits {
             return String.valueOf(number);
         } else {
             DecimalFormat df = new DecimalFormat("#.00");
-            return df.format(num) + " " + units[unitIndex];
+            String formattedNumber = df.format(bigDecimal.setScale(2, RoundingMode.DOWN).doubleValue());
+            return formattedNumber + " " + units[unitIndex];
         }
     }
 }
