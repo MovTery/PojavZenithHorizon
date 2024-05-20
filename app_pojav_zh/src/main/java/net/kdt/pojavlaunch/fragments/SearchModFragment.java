@@ -91,6 +91,7 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         mStatusTextView = view.findViewById(R.id.search_mod_status_text);
         ImageButton mBackButton = view.findViewById(R.id.search_mod_back);
         ImageButton mFilterButton = view.findViewById(R.id.search_mod_filter);
+        ImageButton mSearchButton = view.findViewById(R.id.zh_search_mod_search);
 
         mDefaultTextColor = mStatusTextView.getTextColors();
 
@@ -117,6 +118,8 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         });
         mBackButton.setOnClickListener(v -> PojavZHTools.onBackPressed(requireActivity()));
         mFilterButton.setOnClickListener(v -> displayFilterDialog());
+
+        mSearchButton.setOnClickListener(v -> searchMods(mSearchEditText.getText().toString()));
 
         searchMods(null); //自动搜索一次
     }
