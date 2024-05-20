@@ -19,7 +19,8 @@ public class ModLoaderList {
     }
 
     public static String getModloaderName(@NonNull String modloader) {
-        switch (modloader) {
+        String string = modloader.toLowerCase();
+        switch (string) {
             case "forge":
                 return "Forge";
             case "fabric":
@@ -34,7 +35,8 @@ public class ModLoaderList {
     }
 
     public static int getModloaderId(@NonNull String modloader) {
-        switch (modloader) {
+        String string = modloader.toLowerCase();
+        switch (string) {
             case "forge":
                 return 1;
             case "fabric":
@@ -90,9 +92,9 @@ public class ModLoaderList {
     private static void setModloaderList() {
         modloaderList.clear();
         modloaderList.add(ResourceManager.getString(R.string.zh_unknown));
-        modloaderList.add("forge");
-        modloaderList.add("fabric");
-        modloaderList.add("quilt");
-        modloaderList.add("neoforge");
+        modloaderList.add("Forge");
+        modloaderList.add("Fabric");
+        modloaderList.add("Quilt");
+        modloaderList.add("NeoForge");
     }
 }

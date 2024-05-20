@@ -56,10 +56,23 @@
             android:id="@+id/search_mod_filter"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_marginEnd="4dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:minWidth="@dimen/_38sdp"
             android:paddingHorizontal="@dimen/padding_medium"
             android:src="@drawable/ic_filter"
+            app:layout_constraintBottom_toBottomOf="@id/search_mod_edittext"
+            app:layout_constraintEnd_toStartOf="@id/zh_search_mod_search"
+            app:layout_constraintTop_toTopOf="@id/search_mod_edittext" />
+
+        <ImageButton
+            android:id="@+id/zh_search_mod_search"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:minWidth="@dimen/_38sdp"
+            android:paddingHorizontal="@dimen/padding_medium"
+            android:src="@drawable/ic_search"
             app:layout_constraintBottom_toBottomOf="@id/search_mod_edittext"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/search_mod_edittext" />
