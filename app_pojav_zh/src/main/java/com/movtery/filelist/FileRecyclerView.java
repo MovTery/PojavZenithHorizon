@@ -109,7 +109,7 @@ public class FileRecyclerView extends LinearLayout {
 
                 if (!path.equals(lockPath)) {
                     FileItemBean itemBean = new FileItemBean();
-                    itemBean.setImage(context.getResources().getDrawable(R.drawable.ic_folder));
+                    itemBean.setImage(context.getResources().getDrawable(R.drawable.ic_folder, context.getTheme()));
                     itemBean.setName("..");
                     itemBeans.add(0, itemBean);
                 }

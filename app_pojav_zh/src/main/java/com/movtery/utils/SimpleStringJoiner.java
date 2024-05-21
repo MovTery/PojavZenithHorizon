@@ -31,17 +31,12 @@ public class SimpleStringJoiner {
         this.suffix = suffix != null ? suffix : "";
     }
 
-    public SimpleStringJoiner join(int newElement) {
-        return join(String.valueOf(newElement));
-    }
-
-    public SimpleStringJoiner join(String newElement) {
+    public void join(String newElement) {
         if (this.value.length() == 0) {
             this.value.append(newElement);
         } else {
             this.value.append(this.delimiter).append(newElement);
         }
-        return this;
     }
 
     public void reset() {
