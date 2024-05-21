@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Pojav ZH -->
+    <string name="zh_close">關閉</string>
     <string name="zh_return">返回</string>
+    <string name="zh_edit">編輯</string>
     <string name="zh_share">分享</string>
     <string name="zh_move">移動</string>
     <string name="zh_more">更多</string>
@@ -45,7 +47,16 @@
     <string name="zh_controls_settings_title">控制佈局編輯器設置</string>
     <string name="zh_controls_settings_button_snapping">按鍵吸附功能</string>
     <string name="zh_controls_settings_button_snapping_distance">按鍵吸附距離</string>
+    <string name="zh_controls_info_file_name">檔案名稱：</string>
+    <string name="zh_controls_info_name">佈局名稱：</string>
+    <string name="zh_controls_info_version">佈局版本：</string>
+    <string name="zh_controls_info_author">作者：</string>
+    <string name="zh_controls_info_desc">描述說明：</string>
+    <string name="zh_controls_info_more">詳細資訊</string>
+    <string name="zh_controls_info_view">查看資訊</string>
+    <string name="zh_controls_info_no_info">此控制佈局沒有描述說明…</string>
     <string name="zh_custom_control_title">管理控制佈局</string>
+
     <string name="zh_custom_mouse_add">添加虛擬滑鼠</string>
     <string name="zh_custom_mouse_added">成功設定虛擬滑鼠：</string>
     <string name="zh_custom_mouse_title">自訂虛擬滑鼠</string>
