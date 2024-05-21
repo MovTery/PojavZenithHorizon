@@ -229,7 +229,10 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         List<String> modloader = new ArrayList<>();
                         String string = parent.getItemAtPosition(position).toString();
-                        if (string.equals(getString(R.string.zh_unknown))) return;
+                        if (string.equals(getString(R.string.zh_unknown))) {
+                            mSearchFilters.modloaders = modloader;
+                            return;
+                        }
                         modloader.add(string);
                         mSearchFilters.modloaders = modloader;
                     }

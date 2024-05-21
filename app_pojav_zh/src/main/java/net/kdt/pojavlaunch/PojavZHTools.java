@@ -167,7 +167,7 @@ public class PojavZHTools {
     }
 
     public static void setBackgroundImage(Context context, BackgroundType backgroundType, View backgroundView) {
-        backgroundView.setBackgroundColor(context.getResources().getColor(R.color.background_app));
+        backgroundView.setBackgroundColor(context.getResources().getColor(R.color.background_app, context.getTheme()));
 
         File backgroundImage = getBackgroundImage(backgroundType);
         if (backgroundImage == null) {
@@ -233,11 +233,7 @@ public class PojavZHTools {
         }
 
         List<File> fileList = Arrays.asList(files);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            fileList.sort(Comparator.comparingLong(File::lastModified).reversed());
-        } else {
-            return null;
-        }
+        fileList.sort(Comparator.comparingLong(File::lastModified).reversed());
 
         return fileList.get(0);
     }

@@ -475,7 +475,7 @@ public final class Tools {
     public static DisplayMetrics getDisplayMetrics(Activity activity) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
 
-        if (SDK_INT >= Build.VERSION_CODES.N && (activity.isInMultiWindowMode() || activity.isInPictureInPictureMode())) {
+        if ((activity.isInMultiWindowMode() || activity.isInPictureInPictureMode())) {
             //For devices with free form/split screen, we need window size, not screen size.
             displayMetrics = activity.getResources().getDisplayMetrics();
         } else {
@@ -1126,11 +1126,8 @@ public final class Tools {
     }
 
     public static boolean checkVulkanSupport(PackageManager packageManager) {
-        if (SDK_INT >= Build.VERSION_CODES.N) {
-            return packageManager.hasSystemFeature(PackageManager.FEATURE_VULKAN_HARDWARE_LEVEL) &&
-                    packageManager.hasSystemFeature(PackageManager.FEATURE_VULKAN_HARDWARE_VERSION);
-        }
-        return false;
+        return packageManager.hasSystemFeature(PackageManager.FEATURE_VULKAN_HARDWARE_LEVEL) &&
+                packageManager.hasSystemFeature(PackageManager.FEATURE_VULKAN_HARDWARE_VERSION);
     }
 
     public static <T> T getWeakReference(WeakReference<T> weakReference) {

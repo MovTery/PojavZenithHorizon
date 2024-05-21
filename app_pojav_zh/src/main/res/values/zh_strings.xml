@@ -7,7 +7,6 @@
     <string name="zh_more">More</string>
     <string name="zh_paste">Paste</string>
     <string name="zh_refresh">Refresh</string>
-    <string name="zh_create">Create</string>
     <string name="zh_rename">Rename</string>
     <string name="zh_tip">Tip</string>
     <string name="zh_confirm">Confirm</string>
@@ -47,7 +46,6 @@
     <string name="zh_controls_settings_button_snapping">Button snapping</string>
     <string name="zh_controls_settings_button_snapping_distance">Button snapping distance</string>
     <string name="zh_custom_control_title">Control Layout Management</string>
-    <string name="zh_custom_control_desc">Manage all control layout files, where you can delete, create, rename, import control layouts, etc.</string>
     <string name="zh_custom_mouse_add">Add virtual mouse</string>
     <string name="zh_custom_mouse_added">Successfully set virtual mouse:</string>
     <string name="zh_custom_mouse_title">Customize virtual mouse</string>
@@ -149,10 +147,8 @@
     <string name="zh_update_dialog_yes">Update</string>
     <string name="zh_update_dialog_ignore">Ignore this update</string>
     <string name="zh_update_summary">Get and update to the latest version</string>
-    <string name="zh_update_checking">Checking for updates…</string>
     <string name="zh_update_without">Already up to date</string>
     <string name="zh_update_fail">Network exception, unable to get updates temporarily!</string>
-    <string name="zh_update_yes">A new version has been detected. Would you like to download and update?</string>
     <string name="zh_update_success">The latest installation package has been downloaded. Do you want to install it?\nPackage location:</string>
     <string name="zh_update_downloading">Downloading… (%s / %s)</string>
     <string name="zh_update_downloading_tip">Downloading, updating source: Github Releases</string>
@@ -167,7 +163,6 @@
     <string name="zh_other_login_uniform_pass">Uniform Pass</string>
     <string name="zh_other_login_yggdrasil_api">Please enter the Yggdrasil API authentication server address</string>
     <string name="zh_other_login_32_bit_server">Please enter a 32-bit server ID</string>
-    <string name="zh_other_login_select_role">Please select a role</string>
     <string name="zh_other_login_error">An error occurred while logging in：\n</string>
     <string name="zh_other_login_no_server">No authentication server</string>
     <string name="zh_other_login_baseurl_not_set">BaseUrl is not set</string>

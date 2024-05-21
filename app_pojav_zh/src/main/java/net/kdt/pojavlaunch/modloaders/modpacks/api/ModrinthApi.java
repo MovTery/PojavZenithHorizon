@@ -78,7 +78,7 @@ public class ModrinthApi implements ModpackApi{
             SimpleStringJoiner sj = new SimpleStringJoiner(",  ");
             for (JsonElement loader : loaders) {
                 String string = loader.getAsString();
-                if (!ModLoaderList.isModloaderName(string)) continue; //排除不是Mod加载器名字的字符串
+                if (ModLoaderList.notModloaderName(string)) continue; //排除不是Mod加载器名字的字符串
                 sj.join(ModLoaderList.getModloaderName(string));
             }
             items[i] = new ModItem(
@@ -124,7 +124,7 @@ public class ModrinthApi implements ModpackApi{
             SimpleStringJoiner sj = new SimpleStringJoiner(", ");
             for (JsonElement loader : loaders) {
                 String loaderName = loader.getAsString();
-                if (!ModLoaderList.isModloaderName(loaderName)) continue;
+                if (ModLoaderList.notModloaderName(loaderName)) continue;
                 sj.join(ModLoaderList.getModloaderName(loaderName));
             }
             mcVersionInfo[i] = sj.getValue();

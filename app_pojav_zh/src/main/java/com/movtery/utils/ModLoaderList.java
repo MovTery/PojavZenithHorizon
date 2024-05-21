@@ -6,10 +6,18 @@ import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.ResourceManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ModLoaderList {
+    private static final String[] MODLOADER_NAMES = {"Forge", "Fabric", "Quilt", "NeoForge"};
+    private static final String[] MODLOADER_NAMES_LOWERCASE = {"forge", "fabric", "quilt", "neoforge"};
     private static final List<String> modloaderList = new ArrayList<>();
+    private static final Map<String, String> modloaderNameMap = new HashMap<>();
+    private static final Map<String, Integer> modloaderIdMap = new HashMap<>();
 
     public static List<String> getModloaderList() {
         if (modloaderList.isEmpty()) {
@@ -18,49 +26,45 @@ public class ModLoaderList {
         return modloaderList;
     }
 
+    private static void initNameMap() {
+        modloaderNameMap.put(MODLOADER_NAMES_LOWERCASE[0], MODLOADER_NAMES[0]);
+        modloaderNameMap.put(MODLOADER_NAMES_LOWERCASE[1], MODLOADER_NAMES[1]);
+        modloaderNameMap.put(MODLOADER_NAMES_LOWERCASE[2], MODLOADER_NAMES[2]);
+        modloaderNameMap.put(MODLOADER_NAMES_LOWERCASE[3], MODLOADER_NAMES[3]);
+    }
+
+    private static void initIdMap() {
+        modloaderIdMap.put(MODLOADER_NAMES_LOWERCASE[0], 1);
+        modloaderIdMap.put(MODLOADER_NAMES_LOWERCASE[1], 2);
+        modloaderIdMap.put(MODLOADER_NAMES_LOWERCASE[2], 3);
+        modloaderIdMap.put(MODLOADER_NAMES_LOWERCASE[3], 4);
+    }
+
     public static String getModloaderName(@NonNull String modloader) {
         String string = modloader.toLowerCase();
-        switch (string) {
-            case "forge":
-                return "Forge";
-            case "fabric":
-                return "Fabric";
-            case "quilt":
-                return "Quilt";
-            case "neoforge":
-                return "NeoForge";
-            default:
-                return "none";
-        }
+        if (modloaderNameMap.isEmpty()) initNameMap();
+        return modloaderNameMap.getOrDefault(string, "none");
     }
 
     public static int getModloaderId(@NonNull String modloader) {
         String string = modloader.toLowerCase();
-        switch (string) {
-            case "forge":
-                return 1;
-            case "fabric":
-                return 2;
-            case "quilt":
-                return 3;
-            case "neoforge":
-                return 4;
-            case "none":
-            default:
-                return 0;
-        }
+        if (modloaderIdMap.isEmpty()) initIdMap();
+        AtomicInteger returnValue = new AtomicInteger();
+        Optional.ofNullable(modloaderIdMap.get(string))
+                .ifPresent(returnValue::set);
+        return returnValue.get();
     }
 
     public static String getModloaderNameByCurseId(int id) {
         switch (id) {
             case 1:
-                return "Forge";
+                return MODLOADER_NAMES[0];
             case 4:
-                return "Fabric";
+                return MODLOADER_NAMES[1];
             case 5:
-                return "Quilt";
+                return MODLOADER_NAMES[2];
             case 6:
-                return "NeoForge";
+                return MODLOADER_NAMES[3];
             default:
                 return null;
         }
@@ -73,8 +77,8 @@ public class ModLoaderList {
         //6=NeoForge
     }
 
-    public static boolean isModloaderName(String modloader) {
-        if (modloader == null || modloader.isEmpty()) return false;
+    public static boolean notModloaderName(String modloader) {
+        if (modloader == null || modloader.isEmpty()) return true;
 
         String name = modloader.toLowerCase();
         switch (name) {
@@ -82,19 +86,19 @@ public class ModLoaderList {
             case "fabric":
             case "quilt":
             case "neoforge":
-                return true;
+                return false;
             case "none":
             default:
-                return false;
+                return true;
         }
     }
 
     private static void setModloaderList() {
         modloaderList.clear();
         modloaderList.add(ResourceManager.getString(R.string.zh_unknown));
-        modloaderList.add("Forge");
-        modloaderList.add("Fabric");
-        modloaderList.add("Quilt");
-        modloaderList.add("NeoForge");
+        modloaderList.add(MODLOADER_NAMES[0]);
+        modloaderList.add(MODLOADER_NAMES[1]);
+        modloaderList.add(MODLOADER_NAMES[2]);
+        modloaderList.add(MODLOADER_NAMES[3]);
     }
 }

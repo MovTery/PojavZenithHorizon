@@ -93,6 +93,7 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 
 	@Override
 	public void onBackPressed() {
+		super.onBackPressed();
 		mControlLayout.askToExit(this);
 	}
 

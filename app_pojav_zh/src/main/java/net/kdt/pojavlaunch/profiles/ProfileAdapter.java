@@ -35,18 +35,18 @@ public class ProfileAdapter extends BaseAdapter {
     public ProfileAdapter(ProfileAdapterExtra[] extraEntries) {
         reloadProfiles(extraEntries);
     }
-    /*
+    /**
      * Gets how much profiles are loaded in the adapter right now
-     * @returns loaded profile count
+     * @return loaded profile count
      */
     @Override
     public int getCount() {
         return mProfileList.size() + mExtraEntires.length;
     }
-    /*
+    /**
      * Gets the profile at a given index
      * @param position index to retreive
-     * @returns MinecraftProfile name or null
+     * @return MinecraftProfile name or null
      */
     @Override
     public Object getItem(int position) {
