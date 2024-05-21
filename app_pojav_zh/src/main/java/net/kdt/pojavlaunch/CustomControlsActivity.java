@@ -1,5 +1,6 @@
 package net.kdt.pojavlaunch;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -91,9 +92,9 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 		}
 	}
 
+	@SuppressLint("MissingSuperCall")
 	@Override
 	public void onBackPressed() {
-		super.onBackPressed();
 		mControlLayout.askToExit(this);
 	}
 
