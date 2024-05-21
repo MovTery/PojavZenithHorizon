@@ -127,7 +127,7 @@ public class CurseforgeApi implements ModpackApi{
         SimpleStringJoiner sj = new SimpleStringJoiner(",  ");
         for (Integer index : modloaderSet) {
             String modloaderName = ModLoaderList.getModloaderNameByCurseId(index);
-            if (!ModLoaderList.isModloaderName(modloaderName)) continue;
+            if (ModLoaderList.notModloaderName(modloaderName)) continue;
             sj.join(modloaderName); //将id转换为Mod加载器名称
         }
         return sj.getValue();
@@ -171,7 +171,7 @@ public class CurseforgeApi implements ModpackApi{
             SimpleStringJoiner sj = new SimpleStringJoiner(", ");
             if (!modloaderNames.isEmpty()) {
                 for (String modloaderName : modloaderNames) {
-                    if (!ModLoaderList.isModloaderName(modloaderName)) continue;
+                    if (ModLoaderList.notModloaderName(modloaderName)) continue;
                     sj.join(modloaderName);
                 }
             }

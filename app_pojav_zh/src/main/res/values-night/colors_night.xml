@@ -13,13 +13,10 @@
     <color name="menu_overlay">#BE232323</color>
     <color name="menu_progress">#888888</color>
 
-    <color name="edit_box_line">#373737</color>
     <color name="edit_box_fill">#4C4C4C</color>
     <color name="edit_box_fill_selected">#636363</color>
 
     <color name="icon_color">#FFFFFF</color>
-    <color name="icon_color_fill">#808080</color>
 
     <color name="primary_text">#FFFFFF</color>
-    <color name="secondary_text">#B2B2B2</color>
 </resources>

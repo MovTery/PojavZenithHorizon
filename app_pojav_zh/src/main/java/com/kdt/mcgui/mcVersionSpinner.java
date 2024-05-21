@@ -6,7 +6,6 @@ import static net.kdt.pojavlaunch.fragments.ProfileEditorFragment.DELETED_PROFIL
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.transition.Slide;
 import android.transition.Transition;
 import android.util.AttributeSet;
@@ -180,16 +179,14 @@ public class mcVersionSpinner extends ExtendedTextView {
 
 
         // Custom animation, nice slide in
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            mPopupAnimation = new Slide(Gravity.BOTTOM);
-            mPopupWindow.setEnterTransition((Transition) mPopupAnimation);
-            mPopupWindow.setExitTransition((Transition) mPopupAnimation);
-        }
+        mPopupAnimation = new Slide(Gravity.BOTTOM);
+        mPopupWindow.setEnterTransition((Transition) mPopupAnimation);
+        mPopupWindow.setExitTransition((Transition) mPopupAnimation);
     }
 
     private void hidePopup(boolean animate) {
         if(mPopupWindow == null) return;
-        if(!animate && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if(!animate) {
             mPopupWindow.setEnterTransition(null);
             mPopupWindow.setExitTransition(null);
             mPopupWindow.dismiss();

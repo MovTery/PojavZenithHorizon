@@ -7,7 +7,6 @@
     <string name="zh_more">更多</string>
     <string name="zh_paste">粘貼</string>
     <string name="zh_refresh">重新整理</string>
-    <string name="zh_create">創建</string>
     <string name="zh_rename">重新命名</string>
     <string name="zh_tip">提示</string>
     <string name="zh_confirm">確認</string>
@@ -47,7 +46,6 @@
     <string name="zh_controls_settings_button_snapping">按鍵吸附功能</string>
     <string name="zh_controls_settings_button_snapping_distance">按鍵吸附距離</string>
     <string name="zh_custom_control_title">管理控制佈局</string>
-    <string name="zh_custom_control_desc">管理所有的控制佈局檔案，您可以在此處刪除、建立、重命名、匯入控制佈局等</string>
     <string name="zh_custom_mouse_add">添加虛擬滑鼠</string>
     <string name="zh_custom_mouse_added">成功設定虛擬滑鼠：</string>
     <string name="zh_custom_mouse_title">自訂虛擬滑鼠</string>
@@ -148,10 +146,8 @@
     <string name="zh_update_dialog_yes">更新</string>
     <string name="zh_update_dialog_ignore">忽略這次更新</string>
     <string name="zh_update_summary">取得並更新至最新版本</string>
-    <string name="zh_update_checking">正在檢查更新…</string>
     <string name="zh_update_without">目前已經是最新版本</string>
     <string name="zh_update_fail">網路異常，暫時無法取得更新！</string>
-    <string name="zh_update_yes">偵測到新版本，是否下載並更新？</string>
     <string name="zh_update_success">最新的安裝包已經下載完成，是否安裝？\n安裝包位置：</string>
     <string name="zh_update_downloading">正在下載安裝包… (%s / %s)</string>
     <string name="zh_update_downloading_tip">正在下載中，更新來源：Github Releases</string>
@@ -166,7 +162,6 @@
     <string name="zh_other_login_uniform_pass">統一通行證</string>
     <string name="zh_other_login_yggdrasil_api">請輸入 Yggdrasil API 認證服務器地址</string>
     <string name="zh_other_login_32_bit_server">請輸入32位服務器ID</string>
-    <string name="zh_other_login_select_role">請選擇角色</string>
     <string name="zh_other_login_error">登錄時出現錯誤：\n</string>
     <string name="zh_other_login_no_server">無認證服務器</string>
     <string name="zh_other_login_baseurl_not_set">未設定基礎URL</string>
