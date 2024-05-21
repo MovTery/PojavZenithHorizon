@@ -112,12 +112,7 @@ public class PojavZHTools {
 
     public static boolean isEnglish() {
         LocaleList locales = ResourceManager.getResources().getConfiguration().getLocales();
-        for (int i = 0; i < locales.size(); i++) {
-            if (locales.get(i).getLanguage().equals("en")) {
-                return true;
-            }
-        }
-        return false;
+        return locales.get(0).getLanguage().equals("en");
     }
 
     public static File copyFileInBackground(Context context, Uri fileUri, String rootPath) {
