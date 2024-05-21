@@ -53,7 +53,7 @@
     <Button
         android:id="@+id/zh_about_button"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"
         android:text="About Button"
         app:layout_constraintBottom_toBottomOf="parent"
