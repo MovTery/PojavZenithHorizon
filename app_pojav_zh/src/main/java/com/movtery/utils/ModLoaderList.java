@@ -6,15 +6,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class ModLoaderList {
     private static final String[] MODLOADER_NAMES = {"Forge", "Fabric", "Quilt", "NeoForge"};
     private static final String[] MODLOADER_NAMES_LOWERCASE = {"forge", "fabric", "quilt", "neoforge"};
     private static final List<String> modloaderList = new ArrayList<>();
     private static final Map<String, String> modloaderNameMap = new HashMap<>();
-    private static final Map<String, Integer> modloaderIdMap = new HashMap<>();
 
     public static List<String> getModloaderList() {
         if (modloaderList.isEmpty()) {
@@ -30,26 +27,10 @@ public class ModLoaderList {
         modloaderNameMap.put(MODLOADER_NAMES_LOWERCASE[3], MODLOADER_NAMES[3]);
     }
 
-    private static void initIdMap() {
-        modloaderIdMap.put(MODLOADER_NAMES_LOWERCASE[0], 1);
-        modloaderIdMap.put(MODLOADER_NAMES_LOWERCASE[1], 2);
-        modloaderIdMap.put(MODLOADER_NAMES_LOWERCASE[2], 3);
-        modloaderIdMap.put(MODLOADER_NAMES_LOWERCASE[3], 4);
-    }
-
     public static String getModloaderName(@NonNull String modloader) {
         String string = modloader.toLowerCase();
         if (modloaderNameMap.isEmpty()) initNameMap();
         return modloaderNameMap.getOrDefault(string, "none");
-    }
-
-    public static int getModloaderId(@NonNull String modloader) {
-        String string = modloader.toLowerCase();
-        if (modloaderIdMap.isEmpty()) initIdMap();
-        AtomicInteger returnValue = new AtomicInteger();
-        Optional.ofNullable(modloaderIdMap.get(string))
-                .ifPresent(returnValue::set);
-        return returnValue.get();
     }
 
     public static String getModloaderNameByCurseId(int id) {

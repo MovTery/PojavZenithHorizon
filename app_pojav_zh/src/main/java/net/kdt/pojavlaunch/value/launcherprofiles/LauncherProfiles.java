@@ -32,7 +32,7 @@ public class LauncherProfiles {
         // Fill with default
         if (mainProfileJson == null) mainProfileJson = new MinecraftLauncherProfiles();
         if (mainProfileJson.profiles == null) mainProfileJson.profiles = new HashMap<>();
-        if (mainProfileJson.profiles.size() == 0)
+        if (mainProfileJson.profiles.isEmpty())
             mainProfileJson.profiles.put(UUID.randomUUID().toString(), MinecraftProfile.getDefaultProfile());
 
         // Normalize profile names from mod installers

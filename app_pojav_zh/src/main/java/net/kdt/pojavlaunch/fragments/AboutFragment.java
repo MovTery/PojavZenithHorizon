@@ -89,19 +89,19 @@ public class AboutFragment extends Fragment {
     @SuppressLint("UseCompatLoadingForDrawables")
     private void loadAboutData(Resources resources) {
         this.mData.add(new AboutItemBean(
-                resources.getDrawable(R.drawable.image_about_movtery),
+                resources.getDrawable(R.drawable.image_about_movtery, requireContext().getTheme()),
                 "墨北MovTery",
                 getString(R.string.zh_about_movtery_desc),
                 new AboutItemBean.AboutItemButtonBean(requireActivity(), getString(R.string.zh_about_access_space), "https://space.bilibili.com/2008204513")));
 
         this.mData.add(new AboutItemBean(
-                resources.getDrawable(R.drawable.image_about_verafirefly),
+                resources.getDrawable(R.drawable.image_about_verafirefly, requireContext().getTheme()),
                 "Vera-Firefly",
                 getString(R.string.zh_about_verafirefly_desc),
                 new AboutItemBean.AboutItemButtonBean(requireActivity(), getString(R.string.zh_about_access_space), "https://space.bilibili.com/1412062866")));
 
         this.mData.add(new AboutItemBean(
-                resources.getDrawable(R.drawable.image_about_lingmuqiuzhu),
+                resources.getDrawable(R.drawable.image_about_lingmuqiuzhu, requireContext().getTheme()),
                 "柃木秋竹",
                 getString(R.string.zh_about_lingmuqiuzhu_desc),
                 null));

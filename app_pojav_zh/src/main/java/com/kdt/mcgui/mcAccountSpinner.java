@@ -93,6 +93,7 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
     };
 
     private final DoneListener mDoneListener = account -> {
+        mLoginBarPaint.setColor(Color.TRANSPARENT);
         Toast.makeText(getContext(), R.string.main_login_done, Toast.LENGTH_SHORT).show();
 
         // Check if the account being added is not one that is already existing
@@ -126,7 +127,7 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
 
     /* Triggered when we need to do microsoft login */
     private final ExtraListener<Uri> mMicrosoftLoginListener = (key, value) -> {
-        mLoginBarPaint.setColor(getResources().getColor(R.color.background_bottom_bar));
+        mLoginBarPaint.setColor(getResources().getColor(R.color.background_bottom_bar, getContext().getTheme()));
         new MicrosoftBackgroundLogin(false, value.getQueryParameter("code")).performLogin(
                 mProgressListener, mDoneListener, mErrorListener);
         return false;
@@ -161,8 +162,8 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
     @SuppressLint("ClickableViewAccessibility")
     private void init(){
         // Set visual properties
-        setBackgroundColor(getResources().getColor(R.color.background_bottom_bar));
-        mLoginBarPaint.setColor(getResources().getColor(R.color.background_bottom_bar));
+        setBackgroundColor(getResources().getColor(R.color.background_bottom_bar, getContext().getTheme()));
+        mLoginBarPaint.setColor(getResources().getColor(R.color.background_bottom_bar, getContext().getTheme()));
         mLoginBarPaint.setStrokeWidth(getResources().getDimensionPixelOffset(R.dimen._1sdp));
 
         // Set behavior
@@ -311,7 +312,7 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
             return;
         }
 
-        mLoginBarPaint.setColor(getResources().getColor(R.color.background_bottom_bar));
+        mLoginBarPaint.setColor(getResources().getColor(R.color.background_bottom_bar, getContext().getTheme()));
         if(minecraftAccount.isMicrosoft){
             if(System.currentTimeMillis() > minecraftAccount.expiresAt){
                 // Perform login only if needed

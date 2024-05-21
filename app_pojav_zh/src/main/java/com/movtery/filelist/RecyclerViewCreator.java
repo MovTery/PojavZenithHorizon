@@ -63,28 +63,21 @@ public class RecyclerViewCreator {
                                 itemBean.setImage(getFileIcon(file, resources));
                             }
                             break;
-                        case CONTROL:
-                            if (file.getName().endsWith(".json")) {
-                                itemBean.setImage(resources.getDrawable(R.drawable.ic_menu_custom_controls));
-                            } else {
-                                itemBean.setImage(getFileIcon(file, resources));
-                            }
-                            break;
                         case MOD:
                             if (file.getName().endsWith(ModsFragment.jarFileSuffix)) {
-                                itemBean.setImage(resources.getDrawable(R.drawable.ic_java));
+                                itemBean.setImage(resources.getDrawable(R.drawable.ic_java, context.getTheme()));
                             } else if (file.getName().endsWith(ModsFragment.disableJarFileSuffix)) {
-                                itemBean.setImage(resources.getDrawable(R.drawable.ic_disabled));
+                                itemBean.setImage(resources.getDrawable(R.drawable.ic_disabled, context.getTheme()));
                             } else {
                                 itemBean.setImage(getFileIcon(file, resources));
                             }
                             break;
                         case FILE:
                         default:
-                            itemBean.setImage(resources.getDrawable(R.drawable.ic_file));
+                            itemBean.setImage(resources.getDrawable(R.drawable.ic_file, context.getTheme()));
                     }
                 } else {
-                    itemBean.setImage(resources.getDrawable(R.drawable.ic_folder));
+                    itemBean.setImage(resources.getDrawable(R.drawable.ic_folder, context.getTheme()));
                 }
                 itemBeans.add(itemBean);
             }
@@ -108,9 +101,9 @@ public class RecyclerViewCreator {
     @SuppressLint("UseCompatLoadingForDrawables")
     private static Drawable getFileIcon(File file, Resources resources) {
         if (file.isDirectory()) {
-            return resources.getDrawable(R.drawable.ic_folder);
+            return resources.getDrawable(R.drawable.ic_folder, resources.newTheme());
         } else {
-            return resources.getDrawable(R.drawable.ic_file);
+            return resources.getDrawable(R.drawable.ic_file, resources.newTheme());
         }
     }
 }
