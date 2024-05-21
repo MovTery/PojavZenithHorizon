@@ -6,6 +6,8 @@ import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.customcontrols.CustomControls;
 import net.kdt.pojavlaunch.customcontrols.LayoutConverter;
 
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -23,11 +25,12 @@ public class EditControlData {
 
     public static CustomControls loadCustomControlsFromFile(Context context, File file) {
         try {
-            return LayoutConverter.loadAndConvertIfNecessary(context, file.getAbsolutePath());
-        } catch (IOException e) {
-            Tools.showError(context, e);
+            String jsonLayoutData = Tools.read(file);
+            JSONObject layoutJsonObject = new JSONObject(jsonLayoutData);
+            return LayoutConverter.loadFromJsonObject(context, layoutJsonObject, jsonLayoutData, file.getAbsolutePath());
+        } catch (Exception ignored) {
+            return null;
         }
-        return null;
     }
 
     public static void saveToFile(Context context, CustomControls customControls, File file) {

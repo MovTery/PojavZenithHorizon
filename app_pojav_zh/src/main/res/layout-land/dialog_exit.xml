@@ -48,28 +48,28 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="end"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/zh_exit_share_crash_report"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_weight="1"
             android:text="@string/zh_main_share_crash_report" />
 
         <Button
             android:id="@+id/zh_exit_share_log"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_weight="1"
             android:text="@string/main_share_logs" />
 
         <Button
             android:id="@+id/zh_exit_cancel"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_weight="1"
             android:text="@android:string/cancel" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

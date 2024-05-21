@@ -67,27 +67,29 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="end"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/zh_update_ignore_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/zh_update_dialog_ignore" />
 
         <Button
             android:id="@+id/zh_update_cancel_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_weight="1"
             android:text="@android:string/cancel" />
 
         <Button
             android:id="@+id/zh_update_update_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_weight="1"
             android:text="@string/zh_update_dialog_yes" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

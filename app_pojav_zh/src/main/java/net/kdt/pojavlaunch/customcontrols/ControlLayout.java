@@ -78,7 +78,7 @@ public class ControlLayout extends FrameLayout {
 	}
 
 	public void loadLayout(CustomControls controlLayout) {
-		mInfoData = controlLayout.mControlInfoDataList;
+		mInfoData = controlLayout == null ? null : controlLayout.mControlInfoDataList;
 		if (mInfoData == null) {
 			mInfoData = new ControlInfoData();
 		}

@@ -22,26 +22,38 @@ public class LayoutConverter {
         String jsonLayoutData = Tools.read(jsonPath);
         try {
             JSONObject layoutJobj = new JSONObject(jsonLayoutData);
-
-            if (!layoutJobj.has("version")) { //v1 layout
-                CustomControls layout = LayoutConverter.convertV1Layout(layoutJobj);
-                layout.save(jsonPath);
-                return layout;
-            } else if (layoutJobj.getInt("version") == 2) {
-                CustomControls layout = LayoutConverter.convertV2Layout(layoutJobj);
-                layout.save(jsonPath);
-                return layout;
-            }else if (layoutJobj.getInt("version") >= 3 && layoutJobj.getInt("version") <= 5) {
-                return LayoutConverter.convertV3_4Layout(layoutJobj);
-            } else if (layoutJobj.getInt("version") <= 7) {
-                return Tools.GLOBAL_GSON.fromJson(jsonLayoutData, CustomControls.class);
-            } else {
-                IOException ioException = new IOException();
-                Tools.showError(ctx, ctx.getString(R.string.zh_controls_unsupported_layout_version), ioException);
-                return null;
-            }
-        } catch (JSONException e) {
+            return loadAndConvertIfNecessary(ctx, layoutJobj, jsonLayoutData, jsonPath);
+        } catch (Exception e) {
             Tools.showError(ctx, ctx.getString(R.string.zh_controls_load_failed), e);
+            return null;
+        }
+    }
+
+    public static CustomControls loadFromJsonObject(Context ctx, JSONObject layoutJobj, String jsonString, String jsonPath) {
+        try {
+            return loadAndConvertIfNecessary(ctx, layoutJobj, jsonString, jsonPath);
+        } catch (Exception e) {
+            Tools.showError(ctx, ctx.getString(R.string.zh_controls_load_failed), e);
+            return null;
+        }
+    }
+
+    private static CustomControls loadAndConvertIfNecessary(Context ctx, JSONObject layoutJobj, String jsonLayoutData, String jsonPath) throws Exception {
+        if (!layoutJobj.has("version")) { //v1 layout
+            CustomControls layout = LayoutConverter.convertV1Layout(layoutJobj);
+            layout.save(jsonPath);
+            return layout;
+        } else if (layoutJobj.getInt("version") == 2) {
+            CustomControls layout = LayoutConverter.convertV2Layout(layoutJobj);
+            layout.save(jsonPath);
+            return layout;
+        }else if (layoutJobj.getInt("version") >= 3 && layoutJobj.getInt("version") <= 5) {
+            return LayoutConverter.convertV3_4Layout(layoutJobj);
+        } else if (layoutJobj.getInt("version") <= 7) {
+            return Tools.GLOBAL_GSON.fromJson(jsonLayoutData, CustomControls.class);
+        } else {
+            IOException ioException = new IOException();
+            Tools.showError(ctx, ctx.getString(R.string.zh_controls_unsupported_layout_version), ioException);
             return null;
         }
     }

@@ -29,19 +29,11 @@
         android:background="@drawable/background_edit_box"
         android:padding="8dp" />
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <Button
+        android:id="@+id/zh_controls_cancel_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="end"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/zh_controls_cancel_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@android:string/cancel" />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        android:layout_marginBottom="8dp"
+        android:text="@android:string/cancel" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

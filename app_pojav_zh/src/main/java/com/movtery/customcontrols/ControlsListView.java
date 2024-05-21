@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.movtery.filelist.FileSelectedListener;
 import com.movtery.filelist.SpacesItemDecoration;
 
+import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.Tools;
 
 import java.io.File;
@@ -71,6 +72,7 @@ public class ControlsListView extends LinearLayout {
             for (File file : files) {
                 if (file.isFile() && file.getName().endsWith(".json")) {
                     ControlInfoData controlInfoData = EditControlData.loadFormFile(getContext(), file);
+                    if (controlInfoData == null) continue;
                     data.add(controlInfoData);
                 }
             }
@@ -89,7 +91,9 @@ public class ControlsListView extends LinearLayout {
 
     @SuppressLint("NotifyDataSetChanged")
     public void refresh() {
-        loadInfoData(this.fullPath);
-        runOnUiThread(() -> controlListAdapter.notifyDataSetChanged());
+        PojavApplication.sExecutorService.execute(() -> {
+            loadInfoData(fullPath);
+            runOnUiThread(() -> controlListAdapter.notifyDataSetChanged());
+        });
     }
 }
