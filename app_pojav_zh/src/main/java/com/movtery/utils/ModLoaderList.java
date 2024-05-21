@@ -2,9 +2,6 @@ package com.movtery.utils;
 
 import androidx.annotation.NonNull;
 
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.ResourceManager;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -95,7 +92,6 @@ public class ModLoaderList {
 
     private static void setModloaderList() {
         modloaderList.clear();
-        modloaderList.add(ResourceManager.getString(R.string.zh_unknown));
         modloaderList.add(MODLOADER_NAMES[0]);
         modloaderList.add(MODLOADER_NAMES[1]);
         modloaderList.add(MODLOADER_NAMES[2]);

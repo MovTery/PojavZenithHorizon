@@ -22,6 +22,7 @@ import com.kdt.SimpleArrayAdapter;
 import com.movtery.utils.NumberWithUnits;
 
 import net.kdt.pojavlaunch.PojavApplication;
+import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.ResourceManager;
 import net.kdt.pojavlaunch.Tools;
@@ -276,9 +277,9 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             String downloaderCount = ResourceManager.getString(R.string.zh_profile_mods_information_download_count) + " " + NumberWithUnits.formatNumberWithUnit(item.downloadCount,
                     //判断当前系统语言是否为英文
-                    ResourceManager.getResources().getConfiguration().locale.getLanguage().contains("en"));
+                    PojavZHTools.isEnglish());
             mDownloadCount.setText(downloaderCount);
-            String modloaderText = ResourceManager.getString(R.string.zh_profile_mods_modloader) + ": ";
+            String modloaderText = ResourceManager.getString(R.string.zh_profile_mods_information_modloader) + " ";
             if (item.modloader != null && !item.modloader.isEmpty()) {
                 modloaderText += item.modloader;
             } else {

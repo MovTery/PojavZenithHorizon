@@ -16,6 +16,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.LocaleList;
 import android.provider.DocumentsContract;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -107,6 +108,16 @@ public class PojavZHTools {
 
     public static void onBackPressed(FragmentActivity fragmentActivity) {
         fragmentActivity.getOnBackPressedDispatcher().onBackPressed();
+    }
+
+    public static boolean isEnglish() {
+        LocaleList locales = ResourceManager.getResources().getConfiguration().getLocales();
+        for (int i = 0; i < locales.size(); i++) {
+            if (locales.get(i).getLanguage().equals("en")) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static File copyFileInBackground(Context context, Uri fileUri, String rootPath) {
