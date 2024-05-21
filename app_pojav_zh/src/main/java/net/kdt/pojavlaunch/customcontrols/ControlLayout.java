@@ -2,6 +2,7 @@ package net.kdt.pojavlaunch.customcontrols;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
+import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import static org.lwjgl.glfw.CallbackBridge.isGrabbing;
 
@@ -18,8 +19,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 
 import com.google.gson.JsonSyntaxException;
+import com.movtery.customcontrols.ControlInfoData;
 
 import net.kdt.pojavlaunch.MinecraftGLSurface;
+import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.customcontrols.buttons.ControlButton;
@@ -30,7 +33,7 @@ import net.kdt.pojavlaunch.customcontrols.buttons.ControlSubButton;
 import net.kdt.pojavlaunch.customcontrols.handleview.ActionRow;
 import net.kdt.pojavlaunch.customcontrols.handleview.ControlHandleView;
 import net.kdt.pojavlaunch.customcontrols.handleview.EditControlPopup;
-import net.kdt.pojavlaunch.dialog.EditTextDialog;
+import net.kdt.pojavlaunch.dialog.EditControlInfoDialog;
 import net.kdt.pojavlaunch.dialog.SelectControlsDialog;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
@@ -41,6 +44,7 @@ import java.util.List;
 
 public class ControlLayout extends FrameLayout {
 	protected CustomControls mLayout;
+	private ControlInfoData mInfoData;
 	/* Accessible when inside the game by ControlInterface implementations, cached for perf. */
 	private MinecraftGLSurface mGameSurface = null;
 
@@ -74,6 +78,11 @@ public class ControlLayout extends FrameLayout {
 	}
 
 	public void loadLayout(CustomControls controlLayout) {
+		mInfoData = controlLayout.mControlInfoDataList;
+		if (mInfoData == null) {
+			mInfoData = new ControlInfoData();
+		}
+
 		if(mActionRow == null){
 			mActionRow = new ActionRow(getContext());
 			addView(mActionRow);
@@ -475,44 +484,31 @@ public class ControlLayout extends FrameLayout {
 		return jsonPath;
 	}
 
-	public void openSaveDialog() {
-		EditTextDialog editTextDialog = new EditTextDialog(getContext(), getContext().getString(R.string.global_save), null, mLayoutFileName, null);
-		editTextDialog.setConfirm(view -> {
-            if (editTextDialog.getEditBox().getText().toString().isEmpty()) {
-                editTextDialog.getEditBox().setError(getContext().getString(R.string.global_error_field_empty));
-                return;
-            }
-            try {
-                String jsonPath = saveToDirectory(editTextDialog.getEditBox().getText().toString());
-                Toast.makeText(getContext(), getContext().getString(R.string.global_save) + ": " + jsonPath, Toast.LENGTH_SHORT).show();
-                editTextDialog.dismiss();
-            } catch (Throwable th) {
-                Tools.showError(getContext(), th, true);
-            }
-        });
+	private void saveDialog(String title, Runnable confirmRunnable) {
+		EditControlInfoDialog infoDialog = new EditControlInfoDialog(getContext(), true, null, mLayoutFileName, mInfoData);
 
-		editTextDialog.show();
+		if (title != null && !title.isEmpty()) infoDialog.setTitle(title);
+
+		infoDialog.setOnConfirmClickListner((fileName, controlInfoData) -> {
+			try {
+				String jsonPath = saveToDirectory(fileName);
+				Toast.makeText(getContext(), getContext().getString(R.string.global_save) + ": " + jsonPath, Toast.LENGTH_SHORT).show();
+				if (confirmRunnable != null) PojavApplication.sExecutorService.execute(confirmRunnable);
+			} catch (Throwable th) {
+				Tools.showError(getContext(), th, true);
+			}
+
+			infoDialog.dismiss();
+		});
+		infoDialog.show();
+	}
+
+	public void openSaveDialog() {
+		saveDialog(null, null);
 	}
 
 	public void openSaveAndExitDialog(EditorExitable editorExitable) {
-		EditTextDialog editTextDialog = new EditTextDialog(getContext(), getContext().getString(R.string.global_save), null, mLayoutFileName, null);
-		editTextDialog.setConfirm(view -> {
-            if (editTextDialog.getEditBox().getText().toString().isEmpty()) {
-                editTextDialog.getEditBox().setError(getContext().getString(R.string.global_error_field_empty));
-                return;
-            }
-            try {
-                String jsonPath = saveToDirectory(editTextDialog.getEditBox().getText().toString());
-                Toast.makeText(getContext(), getContext().getString(R.string.global_save) + ": " + jsonPath, Toast.LENGTH_SHORT).show();
-                editTextDialog.dismiss();
-                editorExitable.exitEditor();
-            } catch (Throwable th) {
-                Tools.showError(getContext(), th, true);
-            }
-        });
-		editTextDialog.setConfirmButtonText(getContext().getString(R.string.global_save_and_exit));
-
-		editTextDialog.show();
+		saveDialog(getContext().getString(R.string.global_save_and_exit), () -> runOnUiThread(editorExitable::exitEditor));
 	}
 
 	public void openLoadDialog() {

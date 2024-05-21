@@ -159,12 +159,11 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
 
         mControlSelectButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle(3);
-            bundle.putBoolean(FileSelectorFragment.BUNDLE_SELECT_FOLDER, false);
-            bundle.putString(FileSelectorFragment.BUNDLE_ROOT_PATH, Tools.CTRLMAP_PATH);
+            bundle.putBoolean(ControlButtonFragment.BUNDLE_SELECT_CONTROL, true);
             mValueToConsume = FileSelectorFragment.BUNDLE_SELECT_FILE;
 
             Tools.swapFragment(requireActivity(),
-                    FileSelectorFragment.class, FileSelectorFragment.TAG, bundle);
+                    ControlButtonFragment.class, ControlButtonFragment.TAG, bundle);
         });
 
         // 切换至版本选择界面

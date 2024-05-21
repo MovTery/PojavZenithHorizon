@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Pojav ZH -->
+    <string name="zh_close">关闭</string>
     <string name="zh_return">返回</string>
+    <string name="zh_edit">编辑</string>
     <string name="zh_share">分享</string>
     <string name="zh_move">移动</string>
     <string name="zh_more">更多</string>
@@ -45,7 +47,16 @@
     <string name="zh_controls_settings_title">控制布局编辑器设置</string>
     <string name="zh_controls_settings_button_snapping">按键吸附功能</string>
     <string name="zh_controls_settings_button_snapping_distance">按键吸附距离</string>
+    <string name="zh_controls_info_file_name">文件名称：</string>
+    <string name="zh_controls_info_name">布局名称：</string>
+    <string name="zh_controls_info_version">布局版本：</string>
+    <string name="zh_controls_info_author">作者：</string>
+    <string name="zh_controls_info_desc">描述说明：</string>
+    <string name="zh_controls_info_more">详细信息</string>
+    <string name="zh_controls_info_view">查看信息</string>
+    <string name="zh_controls_info_no_info">此控制布局没有描述说明…</string>
     <string name="zh_custom_control_title">管理控制布局</string>
+
     <string name="zh_custom_mouse_add">添加虚拟鼠标</string>
     <string name="zh_custom_mouse_added">成功设置虚拟鼠标：</string>
     <string name="zh_custom_mouse_title">自定义虚拟鼠标</string>

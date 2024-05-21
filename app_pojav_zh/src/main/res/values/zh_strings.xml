@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Pojav ZH -->
+    <string name="zh_close">Close</string>
     <string name="zh_return">Return</string>
+    <string name="zh_edit">Edit</string>
     <string name="zh_share">Share</string>
     <string name="zh_move">Move</string>
     <string name="zh_more">More</string>
@@ -45,7 +47,16 @@
     <string name="zh_controls_settings_title">Control Layout Editor Settings</string>
     <string name="zh_controls_settings_button_snapping">Button snapping</string>
     <string name="zh_controls_settings_button_snapping_distance">Button snapping distance</string>
+    <string name="zh_controls_info_file_name">File Name:</string>
+    <string name="zh_controls_info_name">Layout Name:</string>
+    <string name="zh_controls_info_version">Layout Version:</string>
+    <string name="zh_controls_info_author">Author:</string>
+    <string name="zh_controls_info_desc">Description:</string>
+    <string name="zh_controls_info_more">More Information</string>
+    <string name="zh_controls_info_view">View information</string>
+    <string name="zh_controls_info_no_info">There is no description available for this layout…</string>
     <string name="zh_custom_control_title">Control Layout Management</string>
+
     <string name="zh_custom_mouse_add">Add virtual mouse</string>
     <string name="zh_custom_mouse_added">Successfully set virtual mouse:</string>
     <string name="zh_custom_mouse_title">Customize virtual mouse</string>
