@@ -110,7 +110,8 @@
     <string name="zh_profile_mods_search_sort_by_popularity">人气</string>
     <string name="zh_profile_mods_search_sort_by_recently_created">最近创建</string>
     <string name="zh_profile_mods_search_sort_by_recently_updated">最近更新</string>
-    <string name="zh_profile_mods_information_download_count">下载量:</string>
+    <string name="zh_profile_mods_information_download_count">总下载量:</string>
+    <string name="zh_profile_mods_information_modloader">支持的 Mod 加载器:</string>
     <string name="zh_profile_mods_add_mod">添加 Mod</string>
     <string name="zh_profile_mods_added_mod">成功添加 Mod</string>
     <string name="zh_profile_mods_disable">禁用</string>

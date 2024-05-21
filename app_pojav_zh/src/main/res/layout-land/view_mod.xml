@@ -8,18 +8,16 @@
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
     android:background="@drawable/background_line"
-    android:paddingHorizontal="@dimen/_2sdp"
-    android:paddingVertical="@dimen/_2sdp"
+    android:padding="@dimen/_8sdp"
     tools:ignore="MissingDefaultResource">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/mod_thumbnail_imageview"
         android:layout_width="@dimen/_65sdp"
         android:layout_height="@dimen/_65sdp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/RoundedCornersImageView"
         tools:src="@mipmap/ic_launcher_foreground" />
 
     <ImageView
@@ -55,9 +53,9 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="3"
-        android:textSize="12sp"
         android:textColor="@color/primary_text"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/mod_title_textview"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/mod_title_textview"
         app:layout_constraintTop_toBottomOf="@+id/mod_title_textview"
@@ -68,7 +66,7 @@
         style="@style/TextAppearance.AppCompat.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="Downloads: "
@@ -86,7 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="Forge"
