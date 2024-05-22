@@ -42,7 +42,6 @@
     <string name="zh_controls_load_failed">加載失敗！</string>
     <string name="zh_controls_unsupported_layout_version">不支援的控制佈局版本！</string>
     <string name="zh_controls_create_new">創建新的控制佈局</string>
-    <string name="zh_controls_create_new_title">控制佈局名稱：</string>
     <string name="zh_controls_import_control">導入控制佈局</string>
     <string name="zh_controls_settings_title">控制佈局編輯器設置</string>
     <string name="zh_controls_settings_button_snapping">按鍵吸附功能</string>

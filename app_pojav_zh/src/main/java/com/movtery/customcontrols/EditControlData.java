@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class EditControlData {
 
@@ -39,5 +40,10 @@ public class EditControlData {
         } catch (IOException e) {
             Tools.showError(context, e);
         }
+    }
+
+    public static void createNewControlFile(Context context, File jsonFile, ControlInfoData mControlInfoDataList) {
+        CustomControls customControls = new CustomControls(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), mControlInfoDataList);
+        saveToFile(context, customControls, jsonFile);
     }
 }

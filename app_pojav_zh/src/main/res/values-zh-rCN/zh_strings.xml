@@ -42,7 +42,6 @@
     <string name="zh_controls_load_failed">加载失败！</string>
     <string name="zh_controls_unsupported_layout_version">不支持的控制布局版本！</string>
     <string name="zh_controls_create_new">创建新的控制布局</string>
-    <string name="zh_controls_create_new_title">控制布局名称：</string>
     <string name="zh_controls_import_control">导入控制布局</string>
     <string name="zh_controls_settings_title">控制布局编辑器设置</string>
     <string name="zh_controls_settings_button_snapping">按键吸附功能</string>

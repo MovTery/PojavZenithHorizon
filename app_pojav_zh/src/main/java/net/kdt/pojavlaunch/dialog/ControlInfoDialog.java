@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import com.movtery.customcontrols.ControlInfoData;
 import com.movtery.customcontrols.EditControlData;
 
+import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.customcontrols.CustomControls;
@@ -44,9 +45,9 @@ public class ControlInfoDialog extends Dialog {
 
         closeButton.setOnClickListener(v -> this.dismiss());
         editButton.setOnClickListener(v -> {
-            EditControlInfoDialog editControlInfoDialog = new EditControlInfoDialog(context, false, runnable, controlInfoData.fileName, controlInfoData);
+            EditControlInfoDialog editControlInfoDialog = new EditControlInfoDialog(context, false, controlInfoData.fileName, controlInfoData);
             editControlInfoDialog.setTitle(R.string.zh_edit);
-            editControlInfoDialog.setOnConfirmClickListner((fileName, controlInfoData) -> {
+            editControlInfoDialog.setOnConfirmClickListener((fileName, controlInfoData) -> {
                 File controlFile = new File(Tools.CTRLMAP_PATH, fileName);
 
                 CustomControls customControls = EditControlData.loadCustomControlsFromFile(context, controlFile);
@@ -59,6 +60,8 @@ public class ControlInfoDialog extends Dialog {
 
                     EditControlData.saveToFile(context, customControls, controlFile);
                 }
+
+                PojavApplication.sExecutorService.execute(runnable);
 
                 editControlInfoDialog.dismiss();
             });

@@ -10,23 +10,20 @@ import androidx.annotation.NonNull;
 
 import com.movtery.customcontrols.ControlInfoData;
 
-import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 
 public class EditControlInfoDialog extends Dialog {
     private final ControlInfoData controlInfoData;
-    private final Runnable runnable;
     private final String mFileName;
     private final boolean editFileName;
     private String title;
     private EditText mFileNameEditBox, mNameEditBox, mVersionEditBox, mAuthorEditBox, mDescEditBox;
     private OnConfirmClickListener mOnConfirmClickListener;
 
-    public EditControlInfoDialog(@NonNull Context context, boolean editFileName, Runnable endRunnable, String fileName, ControlInfoData controlInfoData) {
+    public EditControlInfoDialog(@NonNull Context context, boolean editFileName, String fileName, ControlInfoData controlInfoData) {
         super(context);
 
         this.editFileName = editFileName;
-        this.runnable = endRunnable;
         this.controlInfoData = controlInfoData;
         this.mFileName = fileName;
 
@@ -64,7 +61,7 @@ public class EditControlInfoDialog extends Dialog {
         if (mOnConfirmClickListener != null) {
             mOnConfirmClickListener.OnClick(mFileNameEditBox.getText().toString(), controlInfoData);
         }
-        if (runnable != null) PojavApplication.sExecutorService.execute(runnable);
+        this.dismiss();
     }
 
     private void updateControlInfoData() {
@@ -92,8 +89,12 @@ public class EditControlInfoDialog extends Dialog {
         if (value != null && !value.isEmpty() && !value.equals("null")) editText.setText(value);
     }
 
-    public void setOnConfirmClickListner(OnConfirmClickListener listener) {
+    public void setOnConfirmClickListener(OnConfirmClickListener listener) {
         this.mOnConfirmClickListener = listener;
+    }
+
+    public EditText getFileNameEditBox() {
+        return mFileNameEditBox;
     }
 
     public void setTitle(String title) {
