@@ -485,11 +485,11 @@ public class ControlLayout extends FrameLayout {
 	}
 
 	private void saveDialog(String title, Runnable confirmRunnable) {
-		EditControlInfoDialog infoDialog = new EditControlInfoDialog(getContext(), true, null, mLayoutFileName, mInfoData);
+		EditControlInfoDialog infoDialog = new EditControlInfoDialog(getContext(), true, mLayoutFileName, mInfoData);
 
 		if (title != null && !title.isEmpty()) infoDialog.setTitle(title);
 
-		infoDialog.setOnConfirmClickListner((fileName, controlInfoData) -> {
+		infoDialog.setOnConfirmClickListener((fileName, controlInfoData) -> {
 			try {
 				String jsonPath = saveToDirectory(fileName);
 				Toast.makeText(getContext(), getContext().getString(R.string.global_save) + ": " + jsonPath, Toast.LENGTH_SHORT).show();

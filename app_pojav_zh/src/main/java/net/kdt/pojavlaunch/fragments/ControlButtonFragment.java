@@ -18,7 +18,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.movtery.customcontrols.ControlInfoData;
 import com.movtery.customcontrols.ControlsListView;
+import com.movtery.customcontrols.EditControlData;
 import com.movtery.utils.PasteFile;
 import com.movtery.filelist.FileSelectedListener;
 
@@ -28,17 +30,12 @@ import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
-import net.kdt.pojavlaunch.dialog.EditTextDialog;
+import net.kdt.pojavlaunch.dialog.EditControlInfoDialog;
 import net.kdt.pojavlaunch.dialog.FilesDialog;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.nio.charset.StandardCharsets;
 
 public class ControlButtonFragment extends Fragment {
     public static final String TAG = "ControlButtonFragment";
@@ -115,40 +112,22 @@ public class ControlButtonFragment extends Fragment {
             openDocumentLauncher.launch(suffix);
         }); //限制.json文件
         mAddControlButton.setOnClickListener(v -> {
-            EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(R.string.zh_controls_create_new_title), null, null, null);
-            editTextDialog.setConfirm(view1 -> {
-                String name = editTextDialog.getEditBox().getText().toString().replace("/", "");
-                //检查文件名是否为空
-                if (name.isEmpty()) {
-                    editTextDialog.getEditBox().setError(getString(R.string.zh_file_rename_empty));
-                    return;
-                }
-
-                File file = new File(new File(Tools.CTRLMAP_PATH).getAbsolutePath(), name + ".json");
+            EditControlInfoDialog editControlInfoDialog = new EditControlInfoDialog(requireContext(), true, null, new ControlInfoData());
+            editControlInfoDialog.setTitle(getString(R.string.zh_controls_create_new));
+            editControlInfoDialog.setOnConfirmClickListener((fileName, controlInfoData) -> {
+                File file = new File(new File(Tools.CTRLMAP_PATH).getAbsolutePath(), fileName + ".json");
 
                 if (file.exists()) { //检查文件是否已经存在
-                    editTextDialog.getEditBox().setError(getString(R.string.zh_file_rename_exitis));
+                    editControlInfoDialog.getFileNameEditBox().setError(getString(R.string.zh_file_rename_exitis));
                     return;
                 }
 
-                boolean success;
-                try {
-                    success = file.createNewFile();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                if (success) {
-                    try (BufferedWriter optionFileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
-                        optionFileWriter.write("{\"version\":6}");
-                    } catch (IOException e) {
-                        Tools.showError(requireContext(), e);
-                    }
-                }
-                controlsListView.refresh();
+                //创建布局文件
+                EditControlData.createNewControlFile(requireContext(), file, controlInfoData);
 
-                editTextDialog.dismiss();
+                controlsListView.refresh();
             });
-            editTextDialog.show();
+            editControlInfoDialog.show();
         });
         mRefreshButton.setOnClickListener(v -> controlsListView.refresh());
         mHelpButton.setOnClickListener(v -> {
