@@ -25,12 +25,15 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.kdt.mcgui.mcVersionSpinner;
+import com.movtery.ui.fragment.AboutFragment;
+import com.movtery.ui.fragment.ControlButtonFragment;
+import com.movtery.ui.fragment.FilesFragment;
 
-import net.kdt.pojavlaunch.CheckNewNotice;
-import net.kdt.pojavlaunch.PojavZHTools;
+import com.movtery.function.CheckNewNotice;
+import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.dialog.ShareLogDialog;
+import com.movtery.ui.dialog.ShareLogDialog;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
@@ -92,7 +95,7 @@ public class MainMenuFragment extends Fragment {
         mOpenInstanceDirButton.setOnClickListener(v -> {
             String path = PojavZHTools.getGameDirPath(getCurrentProfile().gameDir).getAbsolutePath();
             File file = new File(path);
-            if (!file.exists()) file.mkdirs(); //必须保证此路径存在
+            if (!file.exists()) PojavZHTools.mkdirs(file); //必须保证此路径存在
 
             Bundle bundle = new Bundle();
             bundle.putString(FilesFragment.BUNDLE_PATH, path);

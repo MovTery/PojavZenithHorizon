@@ -22,9 +22,9 @@ import com.kdt.SimpleArrayAdapter;
 import com.movtery.utils.NumberWithUnits;
 
 import net.kdt.pojavlaunch.PojavApplication;
-import net.kdt.pojavlaunch.PojavZHTools;
+import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.ResourceManager;
+import com.movtery.function.ResourceManager;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ImageReceiver;

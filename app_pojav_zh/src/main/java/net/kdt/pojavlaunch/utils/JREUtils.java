@@ -2,7 +2,7 @@ package net.kdt.pojavlaunch.utils;
 
 import static net.kdt.pojavlaunch.Architecture.ARCH_X86;
 import static net.kdt.pojavlaunch.Architecture.is64BitsDevice;
-import static net.kdt.pojavlaunch.PojavZHTools.getLatestFile;
+import static com.movtery.utils.PojavZHTools.getLatestFile;
 import static net.kdt.pojavlaunch.Tools.LOCAL_RENDERER;
 import static net.kdt.pojavlaunch.Tools.NATIVE_LIB_DIR;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.movtery.utils.PojavZHTools;
 import com.oracle.dalvik.*;
 import java.io.*;
 import java.util.*;
@@ -284,7 +285,7 @@ public class JREUtils {
         setJavaEnvironment(activity, runtimeHome);
 
         final String graphicsLib = loadGraphicsLibrary();
-        List<String> userArgs = getJavaArgs(activity, runtimeHome, userArgsString);
+        List<String> userArgs = getJavaArgs(runtimeHome, userArgsString);
 
         //Remove arguments that can interfere with the good working of the launcher
         purgeArg(userArgs,"-Xms");
@@ -331,10 +332,9 @@ public class JREUtils {
     /**
      *  Gives an argument list filled with both the user args
      *  and the auto-generated ones (eg. the window resolution).
-     * @param ctx The application context
      * @return A list filled with args.
      */
-    public static List<String> getJavaArgs(Context ctx, String runtimeHome, String userArgumentsString) {
+    public static List<String> getJavaArgs(String runtimeHome, String userArgumentsString) {
         List<String> userArguments = parseJavaArguments(userArgumentsString);
         String resolvFile;
         resolvFile = new File(Tools.DIR_DATA,"resolv.conf").getAbsolutePath();

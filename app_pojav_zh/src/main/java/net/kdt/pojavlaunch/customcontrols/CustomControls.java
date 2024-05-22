@@ -2,7 +2,7 @@ package net.kdt.pojavlaunch.customcontrols;
 
 import androidx.annotation.Keep;
 
-import com.movtery.customcontrols.ControlInfoData;
+import com.movtery.ui.subassembly.customcontrols.ControlInfoData;
 
 import java.io.IOException;
 import java.util.*;

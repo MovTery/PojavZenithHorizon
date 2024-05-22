@@ -12,6 +12,8 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.util.Log;
 
+import com.movtery.utils.PojavZHTools;
+
 import net.kdt.pojavlaunch.*;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 import net.kdt.pojavlaunch.utils.JREUtils;

@@ -2,7 +2,7 @@ package net.kdt.pojavlaunch;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-import static net.kdt.pojavlaunch.PojavZHTools.getVersionName;
+import static com.movtery.utils.PojavZHTools.getVersionName;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_LAUNCHER_THEME;
 
 import android.app.*;
@@ -15,6 +15,11 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.*;
 
 import android.util.*;
+
+import com.movtery.function.CheckNewNotice;
+import com.movtery.function.ResourceManager;
+import com.movtery.utils.UnpackJRE;
+
 import java.io.*;
 import java.text.*;
 import java.util.*;

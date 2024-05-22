@@ -31,7 +31,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.movtery.filelist.FileRecyclerView
+            <com.movtery.ui.subassembly.filelist.FileRecyclerView
                 android:id="@+id/zh_mods"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -90,7 +90,8 @@
             android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_help" />
+            app:srcCompat="@drawable/ic_help"
+            tools:ignore="ContentDescription" />
 
         <Button
             android:id="@+id/zh_mods_return_button"

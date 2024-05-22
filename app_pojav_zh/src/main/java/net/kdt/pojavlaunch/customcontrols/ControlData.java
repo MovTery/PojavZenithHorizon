@@ -1,7 +1,7 @@
 package net.kdt.pojavlaunch.customcontrols;
 
 import static net.kdt.pojavlaunch.LwjglGlfwKeycode.GLFW_KEY_UNKNOWN;
-import static net.kdt.pojavlaunch.ResourceManager.getString;
+import static com.movtery.function.ResourceManager.getString;
 
 import android.util.ArrayMap;
 

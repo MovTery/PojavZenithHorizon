@@ -13,7 +13,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import net.kdt.pojavlaunch.GrabListener;
-import net.kdt.pojavlaunch.PojavZHTools;
+import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import org.lwjgl.glfw.CallbackBridge;

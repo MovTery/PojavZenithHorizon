@@ -9,11 +9,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.kdt.mcgui.ProgressLayout;
-import com.movtery.utils.ModLoaderList;
-import com.movtery.utils.SearchModSort;
+import com.movtery.function.mod.ModLoaderList;
+import com.movtery.function.mod.SearchModSort;
 import com.movtery.utils.SimpleStringJoiner;
 
-import net.kdt.pojavlaunch.PojavZHTools;
+import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.Constants;
