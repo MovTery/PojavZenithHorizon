@@ -17,6 +17,7 @@
         android:layout_height="@dimen/_65sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@android:color/transparent"
         app:shapeAppearanceOverlay="@style/RoundedCornersImageView"
         tools:src="@mipmap/ic_launcher_foreground" />
 
