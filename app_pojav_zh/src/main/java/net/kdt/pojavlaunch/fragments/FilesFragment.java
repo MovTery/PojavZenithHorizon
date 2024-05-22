@@ -75,7 +75,6 @@ public class FilesFragment extends Fragment {
 
         mFileRecyclerView.lockPathAt(new File(mPath));
         mFileRecyclerView.setTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
-        mFileRecyclerView.refreshPath();
 
         mFileRecyclerView.setFileSelectedListener(new FileSelectedListener() {
             @Override
