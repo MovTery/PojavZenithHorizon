@@ -126,6 +126,8 @@ public class ControlButtonFragment extends Fragment {
                 EditControlData.createNewControlFile(requireContext(), file, controlInfoData);
 
                 controlsListView.refresh();
+
+                editControlInfoDialog.dismiss();
             });
             editControlInfoDialog.show();
         });

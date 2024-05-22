@@ -61,7 +61,6 @@ public class EditControlInfoDialog extends Dialog {
         if (mOnConfirmClickListener != null) {
             mOnConfirmClickListener.OnClick(mFileNameEditBox.getText().toString(), controlInfoData);
         }
-        this.dismiss();
     }
 
     private void updateControlInfoData() {
