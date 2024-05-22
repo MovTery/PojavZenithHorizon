@@ -45,7 +45,7 @@
                 app:tabIndicatorHeight="@dimen/_3sdp"
                 app:tabMode="fixed" />
 
-            <com.movtery.filelist.FileRecyclerView
+            <com.movtery.ui.subassembly.filelist.FileRecyclerView
                 android:id="@+id/zh_custom_background"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

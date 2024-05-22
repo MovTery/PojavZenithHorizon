@@ -11,14 +11,16 @@ import android.widget.ListView;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.movtery.background.BackgroundType;
+import com.movtery.ui.subassembly.background.BackgroundType;
 
 import net.kdt.pojavlaunch.customcontrols.ControlData;
 import net.kdt.pojavlaunch.customcontrols.ControlDrawerData;
 import net.kdt.pojavlaunch.customcontrols.ControlJoystickData;
 import net.kdt.pojavlaunch.customcontrols.ControlLayout;
 import net.kdt.pojavlaunch.customcontrols.EditorExitable;
-import net.kdt.pojavlaunch.dialog.ControlSettingsDialog;
+import com.movtery.ui.dialog.ControlSettingsDialog;
+import com.movtery.utils.PojavZHTools;
+
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import java.io.IOException;

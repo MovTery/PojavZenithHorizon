@@ -12,14 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.movtery.filelist.FileIcon;
-import com.movtery.filelist.FileRecyclerView;
-import com.movtery.filelist.FileSelectedListener;
+import com.movtery.ui.subassembly.filelist.FileIcon;
+import com.movtery.ui.subassembly.filelist.FileRecyclerView;
+import com.movtery.ui.subassembly.filelist.FileSelectedListener;
 
-import net.kdt.pojavlaunch.PojavZHTools;
+import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.dialog.EditTextDialog;
+import com.movtery.ui.dialog.EditTextDialog;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 

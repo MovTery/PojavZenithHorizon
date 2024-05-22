@@ -1,6 +1,6 @@
 package net.kdt.pojavlaunch;
 
-import static net.kdt.pojavlaunch.PojavZHTools.getLatestFile;
+import static com.movtery.utils.PojavZHTools.getLatestFile;
 import static net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles.getCurrentProfile;
 
 import android.annotation.SuppressLint;
@@ -12,7 +12,8 @@ import androidx.annotation.Keep;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import net.kdt.pojavlaunch.dialog.ExitDialog;
+import com.movtery.ui.dialog.ExitDialog;
+import com.movtery.utils.PojavZHTools;
 
 import java.io.File;
 

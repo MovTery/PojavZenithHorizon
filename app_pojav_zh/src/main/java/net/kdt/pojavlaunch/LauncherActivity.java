@@ -1,7 +1,7 @@
 package net.kdt.pojavlaunch;
 
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
-import static net.kdt.pojavlaunch.PojavZHTools.setVisibilityAnim;
+import static com.movtery.utils.PojavZHTools.setVisibilityAnim;
 
 import android.Manifest;
 import android.content.Intent;
@@ -28,7 +28,9 @@ import androidx.fragment.app.FragmentManager;
 
 import com.kdt.mcgui.ProgressLayout;
 import com.kdt.mcgui.mcAccountSpinner;
-import com.movtery.background.BackgroundType;
+import com.movtery.ui.actitvity.SettingsActivity;
+import com.movtery.ui.subassembly.background.BackgroundType;
+import com.movtery.utils.PojavZHTools;
 
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import net.kdt.pojavlaunch.extra.ExtraConstants;

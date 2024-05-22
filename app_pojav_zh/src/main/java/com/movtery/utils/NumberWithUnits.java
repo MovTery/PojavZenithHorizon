@@ -1,7 +1,7 @@
 package com.movtery.utils;
 
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.ResourceManager;
+import com.movtery.function.ResourceManager;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

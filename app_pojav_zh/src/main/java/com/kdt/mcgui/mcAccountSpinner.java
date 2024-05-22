@@ -40,8 +40,8 @@ import net.kdt.pojavlaunch.authenticator.microsoft.MicrosoftBackgroundLogin;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.extra.ExtraListener;
-import net.kdt.pojavlaunch.login.AuthResult;
-import net.kdt.pojavlaunch.login.OtherLoginApi;
+import com.movtery.function.login.AuthResult;
+import com.movtery.function.login.OtherLoginApi;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
 
 import java.io.File;

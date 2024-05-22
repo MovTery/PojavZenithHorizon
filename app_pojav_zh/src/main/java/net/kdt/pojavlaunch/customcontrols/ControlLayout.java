@@ -19,7 +19,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 
 import com.google.gson.JsonSyntaxException;
-import com.movtery.customcontrols.ControlInfoData;
+import com.movtery.ui.subassembly.customcontrols.ControlInfoData;
 
 import net.kdt.pojavlaunch.MinecraftGLSurface;
 import net.kdt.pojavlaunch.PojavApplication;
@@ -33,8 +33,8 @@ import net.kdt.pojavlaunch.customcontrols.buttons.ControlSubButton;
 import net.kdt.pojavlaunch.customcontrols.handleview.ActionRow;
 import net.kdt.pojavlaunch.customcontrols.handleview.ControlHandleView;
 import net.kdt.pojavlaunch.customcontrols.handleview.EditControlPopup;
-import net.kdt.pojavlaunch.dialog.EditControlInfoDialog;
-import net.kdt.pojavlaunch.dialog.SelectControlsDialog;
+import com.movtery.ui.dialog.EditControlInfoDialog;
+import com.movtery.ui.dialog.SelectControlsDialog;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import java.io.IOException;

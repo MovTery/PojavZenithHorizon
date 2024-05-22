@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.widget.Toast;
 
 import net.kdt.pojavlaunch.PojavApplication;
-import net.kdt.pojavlaunch.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 

@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 
 import com.kdt.LoggerView;
+import com.movtery.utils.PojavZHTools;
 
 import net.kdt.pojavlaunch.customcontrols.keyboard.AwtCharSender;
 import net.kdt.pojavlaunch.customcontrols.keyboard.TouchCharInput;
@@ -159,7 +160,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
                 return;
             }
             final String javaArgs = extras.getString("javaArgs");
-            final Uri resourceUri = (Uri) extras.getParcelable("modUri");
+            final Uri resourceUri = extras.getParcelable("modUri");
             if(extras.getBoolean("openLogOutput", false)) openLogOutput(null);
             if (javaArgs != null) {
                 startModInstaller(null, javaArgs);
@@ -226,7 +227,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
 
 
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
     @Override
     public boolean onTouch(View v, MotionEvent e) {
         boolean isDown;

@@ -1,7 +1,5 @@
 package net.kdt.pojavlaunch.prefs.screens;
 
-import static net.kdt.pojavlaunch.PojavZHTools.updateChecker;
-
 import android.app.Activity;
 import android.os.Bundle;
 
