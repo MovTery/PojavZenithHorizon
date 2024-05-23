@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.kdt.mcgui.ProgressLayout;
 
+import com.movtery.utils.CopyDefaultFromAssets;
 import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
@@ -71,9 +72,7 @@ public class AsyncAssetManager {
         ProgressLayout.setProgress(ProgressLayout.EXTRACT_SINGLE_FILES, 0);
         sExecutorService.execute(() -> {
             try {
-                Tools.copyAssetFile(ctx, "default.json", Tools.CTRLMAP_PATH, false);
-
-                Tools.copyAssetFile(ctx, "default_mouse.png", PojavZHTools.DIR_CUSTOM_MOUSE, false);
+                CopyDefaultFromAssets.copyFromAssets(ctx);
 
                 Tools.copyAssetFile(ctx, "authlib-injector.jar", PojavZHTools.DIR_LOGIN, true);
                 Tools.copyAssetFile(ctx, "nide8auth.jar", PojavZHTools.DIR_LOGIN, true);
