@@ -38,14 +38,14 @@ import com.movtery.ui.dialog.UpdateDialog;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
-import com.movtery.function.ResourceManager;
+import com.movtery.feature.ResourceManager;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.CurseforgeApi;
-import com.movtery.function.mod.api.MCBBSApi;
+import com.movtery.feature.mod.api.MCBBSApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModLoader;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModrinthApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.CurseManifest;
-import com.movtery.function.mod.models.MCBBSPackMeta;
+import com.movtery.feature.mod.models.MCBBSPackMeta;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModrinthIndex;
 import net.kdt.pojavlaunch.utils.ZipUtils;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;

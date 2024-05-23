@@ -32,9 +32,9 @@ import com.movtery.ui.dialog.EditTextDialog;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.fragments.MainMenuFragment;
-import com.movtery.function.login.AuthResult;
-import com.movtery.function.login.OtherLoginApi;
-import com.movtery.function.login.Servers;
+import com.movtery.feature.login.AuthResult;
+import com.movtery.feature.login.OtherLoginApi;
+import com.movtery.feature.login.Servers;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
 
 import org.json.JSONObject;

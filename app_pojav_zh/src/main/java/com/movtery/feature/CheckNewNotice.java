@@ -1,4 +1,4 @@
-package com.movtery.function;
+package com.movtery.feature;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

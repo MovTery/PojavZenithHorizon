@@ -1,4 +1,4 @@
-package com.movtery.function.login;
+package com.movtery.feature.login;
 
 import com.google.gson.annotations.SerializedName;
 

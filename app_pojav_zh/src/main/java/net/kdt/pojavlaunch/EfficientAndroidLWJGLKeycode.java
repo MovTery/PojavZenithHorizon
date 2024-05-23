@@ -1,6 +1,6 @@
 package net.kdt.pojavlaunch;
 
-import static com.movtery.function.ResourceManager.getString;
+import static com.movtery.feature.ResourceManager.getString;
 import static org.lwjgl.glfw.CallbackBridge.sendKeyPress;
 
 import android.view.KeyEvent;

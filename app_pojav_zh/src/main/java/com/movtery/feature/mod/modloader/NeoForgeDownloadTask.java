@@ -1,4 +1,4 @@
-package com.movtery.function.mod.modloader;
+package com.movtery.feature.mod.modloader;
 
 import com.kdt.mcgui.ProgressLayout;
 import net.kdt.pojavlaunch.R;

@@ -1,4 +1,4 @@
-package com.movtery.function.mod.models;
+package com.movtery.feature.mod.models;
 
 public class MCBBSPackMeta {
     public String author;

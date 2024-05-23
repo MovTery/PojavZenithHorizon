@@ -1,4 +1,4 @@
-package com.movtery.function;
+package com.movtery.feature;
 
 import static com.movtery.utils.PojavZHTools.formatFileSize;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;

@@ -29,7 +29,7 @@ import com.movtery.ui.fragment.AboutFragment;
 import com.movtery.ui.fragment.ControlButtonFragment;
 import com.movtery.ui.fragment.FilesFragment;
 
-import com.movtery.function.CheckNewNotice;
+import com.movtery.feature.CheckNewNotice;
 import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;

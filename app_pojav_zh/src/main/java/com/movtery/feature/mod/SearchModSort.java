@@ -1,7 +1,7 @@
-package com.movtery.function.mod;
+package com.movtery.feature.mod;
 
 import net.kdt.pojavlaunch.R;
-import com.movtery.function.ResourceManager;
+import com.movtery.feature.ResourceManager;
 
 import java.util.ArrayList;
 import java.util.List;
