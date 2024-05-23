@@ -73,6 +73,7 @@
                         android:text="@string/zh_unknown"
                         android:textSize="@dimen/_16sdp"
                         android:textStyle="bold"
+                        android:textIsSelectable="true"
                         tools:ignore="HardcodedText" />
 
                     <TextView
