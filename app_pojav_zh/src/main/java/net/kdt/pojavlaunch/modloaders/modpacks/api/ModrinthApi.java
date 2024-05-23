@@ -4,8 +4,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.kdt.mcgui.ProgressLayout;
-import com.movtery.function.mod.ModLoaderList;
-import com.movtery.function.mod.SearchModSort;
+import com.movtery.feature.mod.ModLoaderList;
+import com.movtery.feature.mod.SearchModSort;
 import com.movtery.utils.SimpleStringJoiner;
 
 import net.kdt.pojavlaunch.R;

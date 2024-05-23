@@ -1,4 +1,4 @@
-package com.movtery.function.mod.api;
+package com.movtery.feature.mod.api;
 
 import static com.movtery.utils.PojavZHTools.verifyMCBBSPackMeta;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import com.movtery.ui.dialog.DownloadDialog;
-import com.movtery.function.mod.models.MCBBSPackMeta;
+import com.movtery.feature.mod.models.MCBBSPackMeta;
 
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModLoader;
 import net.kdt.pojavlaunch.utils.FileUtils;

@@ -1,4 +1,4 @@
-package com.movtery.function.mod;
+package com.movtery.feature.mod;
 
 import androidx.annotation.NonNull;
 

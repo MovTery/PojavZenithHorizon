@@ -1,4 +1,4 @@
-package com.movtery.function.mod.modloader;
+package com.movtery.feature.mod.modloader;
 
 import android.content.Intent;
 

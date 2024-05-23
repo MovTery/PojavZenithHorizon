@@ -1,4 +1,4 @@
-package com.movtery.function.login;
+package com.movtery.feature.login;
 
 import android.content.Context;
 import android.util.Log;

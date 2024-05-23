@@ -17,7 +17,7 @@ import androidx.annotation.NonNull;
 
 import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.R;
-import com.movtery.function.UpdateLauncher;
+import com.movtery.feature.UpdateLauncher;
 
 public class UpdateDialog extends Dialog {
     private final String versionName;

@@ -16,8 +16,8 @@ import androidx.core.app.*;
 
 import android.util.*;
 
-import com.movtery.function.CheckNewNotice;
-import com.movtery.function.ResourceManager;
+import com.movtery.feature.CheckNewNotice;
+import com.movtery.feature.ResourceManager;
 import com.movtery.utils.UnpackJRE;
 
 import java.io.*;

@@ -24,7 +24,7 @@ import com.movtery.utils.NumberWithUnits;
 import net.kdt.pojavlaunch.PojavApplication;
 import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.R;
-import com.movtery.function.ResourceManager;
+import com.movtery.feature.ResourceManager;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ImageReceiver;

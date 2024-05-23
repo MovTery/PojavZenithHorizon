@@ -5,7 +5,7 @@ import net.kdt.pojavlaunch.Tools;
 
 import java.util.ArrayList;
 
-import static com.movtery.function.ResourceManager.getString;
+import static com.movtery.feature.ResourceManager.getString;
 import static net.kdt.pojavlaunch.customcontrols.ControlDrawerData.Orientation.DOWN;
 import static net.kdt.pojavlaunch.customcontrols.ControlDrawerData.Orientation.LEFT;
 import static net.kdt.pojavlaunch.customcontrols.ControlDrawerData.Orientation.RIGHT;

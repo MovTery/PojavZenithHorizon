@@ -6,9 +6,9 @@ import android.view.LayoutInflater;
 import android.widget.ExpandableListAdapter;
 import androidx.annotation.NonNull;
 
-import com.movtery.function.mod.modloader.NeoForgeDownloadTask;
-import com.movtery.function.mod.modloader.NeoForgeUtils;
-import com.movtery.function.mod.modloader.NeoForgeVersionListAdapter;
+import com.movtery.feature.mod.modloader.NeoForgeDownloadTask;
+import com.movtery.feature.mod.modloader.NeoForgeUtils;
+import com.movtery.feature.mod.modloader.NeoForgeVersionListAdapter;
 
 import net.kdt.pojavlaunch.JavaGUILauncherActivity;
 import net.kdt.pojavlaunch.R;

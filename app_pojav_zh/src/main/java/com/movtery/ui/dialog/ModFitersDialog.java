@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.movtery.function.mod.ModLoaderList;
-import com.movtery.function.mod.SearchModSort;
+import com.movtery.feature.mod.ModLoaderList;
+import com.movtery.feature.mod.SearchModSort;
 import com.movtery.ui.subassembly.versionlist.VersionSelectedListener;
 
 import net.kdt.pojavlaunch.R;
