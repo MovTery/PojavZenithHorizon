@@ -48,11 +48,6 @@ public class ModsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        runOnUiThread(() -> {
-            if (mFileRecyclerView != null) {
-                mFileRecyclerView.refreshPath();
-            }
-        });
         openDocumentLauncher = registerForActivityResult(
                 new OpenDocumentWithExtension("jar"),
                 result -> {

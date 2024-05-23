@@ -54,11 +54,6 @@ public class ControlButtonFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        runOnUiThread(() -> {
-            if (controlsListView != null) {
-                controlsListView.refresh();
-            }
-        });
         openDocumentLauncher = registerForActivityResult(
                 new OpenDocumentWithExtension("json"),
                 result -> {
