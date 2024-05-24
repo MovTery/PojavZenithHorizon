@@ -992,6 +992,11 @@ public final class Tools {
         // install mods with custom arguments
         EditTextDialog editTextDialog = new EditTextDialog(activity, activity.getString(R.string.alerttitle_installmod), null, null, "-jar/-cp /path/to/file.jar ...");
         editTextDialog.setConfirm(view -> {
+            if (editTextDialog.getEditBox().getText().toString().isEmpty()) {
+                editTextDialog.getEditBox().setError(activity.getString(R.string.global_error_field_empty));
+                return;
+            }
+
             Intent intent = new Intent(activity, JavaGUILauncherActivity.class);
             intent.putExtra("javaArgs", editTextDialog.getEditBox().getText().toString());
             activity.startActivity(intent);
