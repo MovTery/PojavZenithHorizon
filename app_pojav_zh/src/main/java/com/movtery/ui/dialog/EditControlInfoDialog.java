@@ -42,6 +42,13 @@ public class EditControlInfoDialog extends Dialog {
         mAuthorEditBox = findViewById(R.id.zh_edit_control_info_author_edit);
         mDescEditBox = findViewById(R.id.zh_edit_control_info_desc_edit);
         mFileNameEditBox.setEnabled(editFileName);
+
+        //设置hint
+        mFileNameEditBox.setHint(R.string.zh_required); //必填
+        mNameEditBox.setHint(R.string.zh_optional); //选填
+        mVersionEditBox.setHint(R.string.zh_optional);
+        mAuthorEditBox.setHint(R.string.zh_optional);
+        mDescEditBox.setHint(R.string.zh_optional);
     }
 
     private void initButtons() {
