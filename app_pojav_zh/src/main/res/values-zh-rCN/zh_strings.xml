@@ -15,6 +15,8 @@
     <string name="zh_unknown">未知</string>
     <string name="zh_warning">警告</string>
     <string name="zh_loading">加载中</string>
+    <string name="zh_optional">选填</string>
+    <string name="zh_required">必填</string>
     <string name="zh_wan">万</string>
     <string name="zh_yi">亿</string>
     <string name="zh_wrong_tip">出现了一些问题</string>
@@ -61,6 +63,7 @@
     <string name="zh_custom_mouse_title">自定义虚拟鼠标</string>
     <string name="zh_custom_mouse_desc">打开虚拟鼠标管理界面，你能够自行添加你喜欢的虚拟鼠标贴图，并使用它们</string>
     <string name="zh_custom_mouse_message_default">当前选中的虚拟鼠标为默认的虚拟鼠标，不支持对其进行分享、重命名、删除操作</string>
+    <string name="zh_custom_background_add">添加背景图片</string>
     <string name="zh_custom_background_title">自定义启动器背景图片</string>
     <string name="zh_custom_background_desc">打开启动器背景图标管理界面，你能够自行添加你喜欢的背景图片，并为各个不同的界面设置不同的背景</string>
     <string name="zh_custom_background_main_menu">主菜单</string>
