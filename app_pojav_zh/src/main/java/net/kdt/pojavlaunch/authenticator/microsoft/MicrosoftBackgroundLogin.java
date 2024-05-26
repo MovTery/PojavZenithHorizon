@@ -52,7 +52,7 @@ public class MicrosoftBackgroundLogin {
         XSTS_ERRORS.put(2148916236L ,R.string.xerr_adult_verification);
         XSTS_ERRORS.put(2148916237L ,R.string.xerr_adult_verification);
         XSTS_ERRORS.put(2148916238L ,R.string.xerr_child);
-        XSTS_ERRORS.put(2148074255L ,R.string.zh_account_login_xerr_unauthorized);
+        XSTS_ERRORS.put(2148074255L ,R.string.zh_account_microsoft_xerr_unauthorized);
     }
 
     /* Fields used to fill the account  */
@@ -349,7 +349,7 @@ public class MicrosoftBackgroundLogin {
         if(conn.getResponseCode() == 429) {
             return new PresentedException(R.string.microsoft_login_retry_later);
         } else if (conn.getResponseCode() == 400 || conn.getResponseCode() == 401) {
-            return new PresentedException(R.string.zh_account_login_xerr_unauthorized);
+            return new PresentedException(R.string.zh_account_microsoft_xerr_unauthorized);
         }
         return new RuntimeException(conn.getResponseMessage());
     }

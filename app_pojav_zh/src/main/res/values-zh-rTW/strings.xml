@@ -85,7 +85,7 @@
     <string name="global_default">預設</string>
 
     <!-- MainActivity: strings -->
-    <string name="mcn_exit_title">應用程式/遊戲以代碼 %d 退出，具體錯誤原因請查看日誌文件或崩潰報告。如果你無法親自解決此問題，請將日誌文件或崩潰報告發送給有能力解決的人幫助你解決問題！</string>
+    <string name="mcn_exit_title">應用程式/遊戲以代碼 %d 退出，具體錯誤原因請查看日誌文件或崩潰報告。如果你無法自行解決此問題，請將日誌文件或崩潰報告發送給有能力解決的人協助你解決問題！\n\n請不要只是截圖當前彈窗畫面，否則沒人知道究竟發生了什麼事，請分享你的日誌文件或崩潰報告！</string>
     <string name="mcn_exit_confirm">你確定要強制關閉嗎？</string>
     <string name="mcn_check_fail_vulkan_support">此裝置不支援 Zink（Vulkan）渲染器！</string>
 
