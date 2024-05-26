@@ -11,6 +11,8 @@
     android:background="@drawable/background_control_editor"
     android:paddingHorizontal="@dimen/padding_moderate"
     android:paddingVertical="@dimen/padding_moderate"
+    android:clickable="true"
+    android:focusable="true"
     tools:ignore="MissingDefaultResource">
 
     <net.kdt.pojavlaunch.colorselector.SVRectangleView
