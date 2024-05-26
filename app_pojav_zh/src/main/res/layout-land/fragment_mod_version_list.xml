@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_card"
     android:orientation="vertical"
     android:paddingHorizontal="@dimen/fragment_padding_medium"
-    android:paddingVertical="@dimen/fragment_padding_medium">
-
+    android:paddingVertical="@dimen/fragment_padding_medium"
+    tools:ignore="MissingDefaultResource">
 
     <TextView
         android:id="@+id/title_textview"
@@ -20,29 +20,13 @@
         android:textAlignment="center"
         android:textColor="@color/primary_text" />
 
-    <View
-        android:id="@+id/view"
-        style="@style/ThickDivider"
-        android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/padding_large"
-        android:paddingBottom="@dimen/fragment_padding_medium"
-        app:layout_constraintTop_toBottomOf="@+id/title_textview" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text=""
-        android:textColor="@color/primary_text" />
-
     <ExpandableListView
         android:id="@+id/mod_dl_expandable_version_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="18dp"
         android:layout_weight="1"
-        android:scrollbarThumbVertical="@color/background_bottom_bar">
-
-    </ExpandableListView>
+        android:scrollbarThumbVertical="@color/background_bottom_bar" />
 
     <LinearLayout
         android:id="@+id/mod_dl_retry_layout"
