@@ -31,6 +31,7 @@
     <string name="zh_account_local_account_illegal">用戶名包含非法字符！僅支持英文字母（大小寫均可）、數字以及下劃線作為用戶名</string>
     <string name="zh_account_login_local_name">用戶名</string>
     <string name="zh_account_login_start">開始登入！</string>
+    <string name="zh_account_login_xerr_unauthorized">你的登入信息貌似已經過期，這種情況常出現在帳戶密碼被修改之後，請移除當前帳號並重新登入你的帳號，以重置的你的登入信息。</string>
 
     <string name="zh_activity_import_control">控制佈局名稱：</string>
     <string name="zh_activity_java_gui_keyboard">輸入法</string>
