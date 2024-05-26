@@ -23,6 +23,7 @@
 
     <string name="zh_account_text">Please select a login method</string>
     <string name="zh_account_microsoft_account">Microsoft Account</string>
+    <string name="zh_account_microsoft_xerr_unauthorized">Your Microsoft account login information seems to have expired. This often happens after the account password has been changed. Please remove the current account and log in again to reset your login information.</string>
     <string name="zh_account_local_account">Local account</string>
     <string name="zh_account_local_account_empty">Username cannot be empty!</string>
     <string name="zh_account_local_account_exists">Username conflicts with an existing account, please choose a new name!</string>
@@ -31,7 +32,6 @@
     <string name="zh_account_local_account_illegal">Username contains illegal characters! Only English letters (both uppercase and lowercase), numbers, and underscores are allowed in the username.</string>
     <string name="zh_account_login_local_name">Username</string>
     <string name="zh_account_login_start">Login started !</string>
-    <string name="zh_account_login_xerr_unauthorized">Your login information seems to have expired, this often happens when the account password has been changed. Please remove the current account and re-login to your account to reset your login information.</string>
 
     <string name="zh_activity_import_control">Layout Name Control:</string>
     <string name="zh_activity_java_gui_keyboard">Keyboard</string>
