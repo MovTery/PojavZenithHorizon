@@ -18,15 +18,17 @@ public class NeoForgeVersionListAdapter extends BaseExpandableListAdapter implem
 
     public NeoForgeVersionListAdapter(List<String> neoforgeVersions, LayoutInflater layoutInflater) {
         this.mLayoutInflater = layoutInflater;
-        //As the version list of NeoForge is in reverse order, it needs to be flipped before use.
+        //排序并反转版本列表
+        Collections.sort(neoforgeVersions);
         Collections.reverse(neoforgeVersions);
+
         mGameVersions = new ArrayList<>();
         mNeoForgeVersions = new ArrayList<>();
         for(String version : neoforgeVersions) {
             String gameVersion = null;
             int dashIndex;
             if (!version.contains("1.20.1") && !version.contains("47.1.82")) {
-                //For example, in the string "20.2.3-beta", only the substring "20.2" is needed.
+                //在字符串“20.2.3-beta”的例子中，只需要子字符串“20.2”
                 dashIndex = version.indexOf(".", 3);
                 gameVersion = "1." + version.substring(0, dashIndex); // "1." + "20.2"
             } else if (version.contains("1.20.1")) {
