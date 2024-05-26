@@ -193,13 +193,10 @@ public class PojavZHTools {
             return;
         }
 
-        PojavApplication.sExecutorService.execute(() -> {
-            Drawable drawable = BackgroundManager.getBackgroundDrawable(backgroundImage.getName(), backgroundImage);
-            if (drawable != null) {
-                //回到主线程设置背景
-                backgroundView.post(() -> backgroundView.setBackground(drawable));
-            }
-        });
+        Drawable drawable = BackgroundManager.getBackgroundDrawable(backgroundImage.getName(), backgroundImage);
+        if (drawable != null) {
+            backgroundView.post(() -> backgroundView.setBackground(drawable));
+        }
     }
 
     public static File getBackgroundImage(BackgroundType backgroundType) {

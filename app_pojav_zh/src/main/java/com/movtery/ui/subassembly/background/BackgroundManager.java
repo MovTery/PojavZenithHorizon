@@ -6,9 +6,8 @@ import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.Tools;
 
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.InputStream;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
@@ -37,10 +36,8 @@ public class BackgroundManager {
             return getDefaultProperties();
         }
         Properties properties = new Properties();
-        try (
-                InputStream is = new FileInputStream(FILE_BACKGROUND_PROPERTIES)
-        ) {
-            properties.load(is);
+        try (FileReader fileReader = new FileReader(FILE_BACKGROUND_PROPERTIES)) {
+            properties.load(fileReader);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
