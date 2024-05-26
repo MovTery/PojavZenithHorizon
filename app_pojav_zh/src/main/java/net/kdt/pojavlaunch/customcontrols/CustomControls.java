@@ -10,7 +10,7 @@ import net.kdt.pojavlaunch.*;
 
 @Keep
 public class CustomControls {
-	public int version = -1;
+	public int version = 7;
     public float scaledAt;
 	public List<ControlData> mControlDataList;
 	public List<ControlDrawerData> mDrawerDataList;
@@ -32,7 +32,6 @@ public class CustomControls {
 	public void save(String path) throws IOException {
 		//Current version is the V3.0 so the version as to be marked as 6 !
 		version = 7;
-
 		Tools.write(path, Tools.GLOBAL_GSON.toJson(this));
 	}
 }

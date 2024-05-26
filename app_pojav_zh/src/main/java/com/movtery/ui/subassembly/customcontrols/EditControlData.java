@@ -28,7 +28,7 @@ public class EditControlData {
         try {
             String jsonLayoutData = Tools.read(file);
             JSONObject layoutJsonObject = new JSONObject(jsonLayoutData);
-            return LayoutConverter.loadFromJsonObject(context, layoutJsonObject, jsonLayoutData, file.getAbsolutePath());
+            return LayoutConverter.loadFromJsonObject(context, layoutJsonObject, jsonLayoutData, file.getAbsolutePath(), false);
         } catch (Exception ignored) {
             return null;
         }

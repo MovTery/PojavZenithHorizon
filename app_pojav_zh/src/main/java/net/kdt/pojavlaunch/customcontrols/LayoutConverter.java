@@ -22,23 +22,23 @@ public class LayoutConverter {
         String jsonLayoutData = Tools.read(jsonPath);
         try {
             JSONObject layoutJobj = new JSONObject(jsonLayoutData);
-            return loadAndConvertIfNecessary(ctx, layoutJobj, jsonLayoutData, jsonPath);
+            return loadAndConvertIfNecessary(ctx, layoutJobj, jsonLayoutData, jsonPath, true);
         } catch (Exception e) {
             Tools.showError(ctx, ctx.getString(R.string.zh_controls_load_failed), e);
             return null;
         }
     }
 
-    public static CustomControls loadFromJsonObject(Context ctx, JSONObject layoutJobj, String jsonString, String jsonPath) {
+    public static CustomControls loadFromJsonObject(Context ctx, JSONObject layoutJobj, String jsonString, String jsonPath, boolean showError) {
         try {
-            return loadAndConvertIfNecessary(ctx, layoutJobj, jsonString, jsonPath);
+            return loadAndConvertIfNecessary(ctx, layoutJobj, jsonString, jsonPath, showError);
         } catch (Exception e) {
             Tools.showError(ctx, ctx.getString(R.string.zh_controls_load_failed), e);
             return null;
         }
     }
 
-    private static CustomControls loadAndConvertIfNecessary(Context ctx, JSONObject layoutJobj, String jsonLayoutData, String jsonPath) throws Exception {
+    private static CustomControls loadAndConvertIfNecessary(Context ctx, JSONObject layoutJobj, String jsonLayoutData, String jsonPath, boolean showError) throws Exception {
         if (!layoutJobj.has("version")) { //v1 layout
             CustomControls layout = LayoutConverter.convertV1Layout(layoutJobj);
             layout.save(jsonPath);
@@ -52,8 +52,10 @@ public class LayoutConverter {
         } else if (layoutJobj.getInt("version") == 6 || layoutJobj.getInt("version") == 7) {
             return Tools.GLOBAL_GSON.fromJson(jsonLayoutData, CustomControls.class);
         } else {
-            IOException ioException = new IOException();
-            Tools.showError(ctx, ctx.getString(R.string.zh_controls_unsupported_layout_version), ioException);
+            if (showError) {
+                IOException ioException = new IOException();
+                Tools.showError(ctx, ctx.getString(R.string.zh_controls_unsupported_layout_version), ioException);
+            }
             return null;
         }
     }
