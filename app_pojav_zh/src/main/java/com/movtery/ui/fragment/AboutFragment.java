@@ -50,9 +50,9 @@ public class AboutFragment extends Fragment {
         mLicenseButton.setOnClickListener(v -> Tools.openURL(requireActivity(), "https://www.gnu.org/licenses/gpl-3.0.html"));
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
-        mAboutRecyclerView.setLayoutManager(layoutManager);
-
         AboutRecyclerAdapter adapter = new AboutRecyclerAdapter(this.mData);
+        mAboutRecyclerView.setLayoutManager(layoutManager);
+        mAboutRecyclerView.setNestedScrollingEnabled(false); //禁止滑动
         mAboutRecyclerView.addItemDecoration(new SpacesItemDecoration(0, 0, 0, (int) Tools.dpToPx(8)));
         mAboutRecyclerView.setAdapter(adapter);
     }
