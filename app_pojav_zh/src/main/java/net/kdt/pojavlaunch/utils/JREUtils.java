@@ -315,7 +315,7 @@ public class JREUtils {
         final int exitCode = VMLauncher.launchJVM(userArgs.toArray(new String[0]));
         Logger.appendToLog("Java Exit code: " + exitCode);
         if (exitCode != 0) {
-            File crashReportFile = getLatestFile(new File(gameDirectory, "crash-reports"));
+            File crashReportFile = getLatestFile(new File(gameDirectory, "crash-reports"), 1);
             LifecycleAwareAlertDialog.DialogCreator dialogCreator = (dialog, builder) -> {
                 builder.setMessage(activity.getString(R.string.mcn_exit_title, exitCode))
                         .setPositiveButton(R.string.main_share_logs, (dialogInterface, which)-> shareLog(activity));

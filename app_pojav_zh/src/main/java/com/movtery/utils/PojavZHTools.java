@@ -241,7 +241,7 @@ public class PojavZHTools {
         return new File(DIR_GAME_DEFAULT);
     }
 
-    public static File getLatestFile(File folder) {
+    public static File getLatestFile(File folder, int modifyTime) {
         if (!folder.isDirectory()) {
             return null;
         }
@@ -253,6 +253,15 @@ public class PojavZHTools {
 
         List<File> fileList = Arrays.asList(files);
         fileList.sort(Comparator.comparingLong(File::lastModified).reversed());
+
+        if (modifyTime > 0) {
+            long difference = System.currentTimeMillis() - fileList.get(0).lastModified();
+            long value = difference / (1000L * 60 * 60);
+
+            if (value >= modifyTime) {
+                return null;
+            }
+        }
 
         return fileList.get(0);
     }
