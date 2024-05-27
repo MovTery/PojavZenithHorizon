@@ -1,4 +1,4 @@
-package com.movtery.ui.subassembly.filelist;
+package com.movtery.ui.subassembly.recyclerview;
 
 import android.graphics.Rect;
 import android.view.View;

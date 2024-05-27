@@ -23,8 +23,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.ui.subassembly.filelist.FileIcon;
 import com.movtery.ui.subassembly.filelist.FileItemBean;
-import com.movtery.ui.subassembly.filelist.RecyclerViewCreator;
-import com.movtery.ui.subassembly.filelist.SpacesItemDecoration;
+import com.movtery.ui.subassembly.filelist.FileRecyclerViewCreator;
+import com.movtery.ui.subassembly.recyclerview.SpacesItemDecoration;
 
 import net.kdt.pojavlaunch.PojavApplication;
 
@@ -44,7 +44,7 @@ public class CustomMouseFragment extends Fragment {
     private Button mReturnButton, mAddFileButton, mRefreshButton;
     private ImageButton mHelpButton;
     private ImageView mMouseView;
-    private RecyclerViewCreator recyclerViewCreator;
+    private FileRecyclerViewCreator fileRecyclerViewCreator;
 
     public CustomMouseFragment() {
         super(R.layout.fragment_custom_mouse);
@@ -94,7 +94,7 @@ public class CustomMouseFragment extends Fragment {
 
     private void loadData() {
         runOnUiThread(() -> {
-            recyclerViewCreator.loadData(RecyclerViewCreator.loadItemBeansFromPath(requireContext(), mousePath(), FileIcon.IMAGE, true, false));
+            fileRecyclerViewCreator.loadData(FileRecyclerViewCreator.loadItemBeansFromPath(requireContext(), mousePath(), FileIcon.IMAGE, true, false));
             //默认显示当前选中的鼠标
             refreshIcon();
         });
@@ -118,7 +118,7 @@ public class CustomMouseFragment extends Fragment {
         mMouseView = view.findViewById(R.id.zh_custom_mouse_icon);
 
         RecyclerView mMouseListView = view.findViewById(R.id.zh_custom_mouse);
-        recyclerViewCreator = new RecyclerViewCreator(requireContext(), new SpacesItemDecoration(0, 0, 0, (int) Tools.dpToPx(8)), mMouseListView, (position, file, name) -> {
+        fileRecyclerViewCreator = new FileRecyclerViewCreator(requireContext(), new SpacesItemDecoration(0, 0, 0, (int) Tools.dpToPx(8)), mMouseListView, (position, file, name) -> {
             String fileName = file.getName();
             boolean isDefaultMouse = fileName.equals("default_mouse.png");
 

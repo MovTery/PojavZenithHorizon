@@ -115,6 +115,7 @@
     <string name="zh_profile_mods_sort_by">排序方式</string>
     <string name="zh_profile_mods_modloader">Mod 加载器</string>
     <string name="zh_profile_mods_download_mod_failed">下载 Mod 文件时失败</string>
+    <string name="zh_profile_mods_download_mod_release_version">仅展示 Minecraft 正式版本</string>
     <string name="zh_profile_mods_search_mod_failed">搜索 Mod 时失败</string>
     <string name="zh_profile_mods_search_mod_search_download_error">Mod 元数据下载失败</string>
     <string name="zh_profile_mods_search_mod_no_result">未找到相关 Mod</string>

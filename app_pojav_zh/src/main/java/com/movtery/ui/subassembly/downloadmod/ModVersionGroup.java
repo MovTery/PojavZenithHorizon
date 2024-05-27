@@ -8,6 +8,7 @@ import java.util.List;
 public class ModVersionGroup {
     private final String versionId;
     private final List<ModItem> modversionList;
+    private boolean unfold;
 
     public ModVersionGroup(String versionId, List<ModItem> modversionList) {
         this.versionId = versionId;
@@ -20,6 +21,14 @@ public class ModVersionGroup {
 
     public List<ModItem> getModversionList() {
         return modversionList;
+    }
+
+    public boolean isUnfold() {
+        return unfold;
+    }
+
+    public void setUnfold(boolean unfold) {
+        this.unfold = unfold;
     }
 
     @NonNull

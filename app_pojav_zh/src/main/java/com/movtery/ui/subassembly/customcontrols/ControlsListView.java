@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.ui.subassembly.filelist.FileSelectedListener;
-import com.movtery.ui.subassembly.filelist.SpacesItemDecoration;
+import com.movtery.ui.subassembly.recyclerview.SpacesItemDecoration;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.Tools;

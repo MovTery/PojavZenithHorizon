@@ -5,6 +5,7 @@ import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -21,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.movtery.ui.subassembly.downloadmod.DownloadModAdapter;
 import com.movtery.ui.subassembly.downloadmod.ModApiViewModel;
 import com.movtery.ui.subassembly.downloadmod.ModVersionGroup;
-import com.movtery.ui.subassembly.filelist.SpacesItemDecoration;
+import com.movtery.ui.subassembly.recyclerview.SpacesItemDecoration;
 import com.movtery.utils.PojavZHTools;
 
 import net.kdt.pojavlaunch.PojavApplication;
@@ -36,6 +37,8 @@ import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DownloadModFragment extends Fragment {
     public static final String TAG = "DownloadModFragment";
@@ -48,6 +51,7 @@ public class DownloadModFragment extends Fragment {
     private ImageReceiver mImageReceiver;
     private ImageView mModIcon;
     private Button mReturnButton, mRefreshButton;
+    private CheckBox mReleaseCheckBox;
     private boolean mIsModpack;
     private String mModsPath;
 
@@ -65,6 +69,7 @@ public class DownloadModFragment extends Fragment {
         mModVersionView.addItemDecoration(new SpacesItemDecoration(0, 0, 0, (int) Tools.dpToPx(8)));
 
         mRefreshButton.setOnClickListener(v -> refresh());
+        mReleaseCheckBox.setOnClickListener(v -> refresh());
         mReturnButton.setOnClickListener(v -> PojavZHTools.onBackPressed(requireActivity()));
 
         refresh();
@@ -81,9 +86,20 @@ public class DownloadModFragment extends Fragment {
 
             ModDetail mModDetail = mModApi.getModDetails(mModItem);
 
+            String regex = "^\\d+\\.\\d+\\.\\d+$|^\\d+\\.\\d+$";
+            Pattern pattern = Pattern.compile(regex);
+
             TreeMap<String, List<ModVersionGroup.ModItem>> mModVersionsByMinecraftVersion = new TreeMap<>();
             for(ModVersionGroup.ModItem modItem : mModDetail.modItems) {
                 for (String mcVersion : modItem.getVersionId()) {
+                    if (mReleaseCheckBox.isChecked()) {
+                        Matcher matcher = pattern.matcher(mcVersion);
+                        if (!matcher.matches()) {
+                            //如果不是正式版本，将继续检测下一项
+                            continue;
+                        }
+                    }
+
                     mModVersionsByMinecraftVersion.computeIfAbsent(mcVersion, k -> new ArrayList<>())
                             .add(modItem);
                 }
@@ -113,6 +129,7 @@ public class DownloadModFragment extends Fragment {
         mModNameText = view.findViewById(R.id.zh_mod_name);
         mReturnButton = view.findViewById(R.id.zh_mod_return_button);
         mRefreshButton = view.findViewById(R.id.zh_mod_refresh_button);
+        mReleaseCheckBox = view.findViewById(R.id.zh_mod_release_version);
     }
 
     private void parseViewModel() {
