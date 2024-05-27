@@ -118,6 +118,7 @@ public class DownloadModAdapter extends RecyclerView.Adapter<DownloadModAdapter.
         private void refreshState(ModVersionGroup modVersionGroup) { // 刷新状态
             flipArrow.animate().rotation(modVersionGroup.isUnfold() ? 0 : 180).setDuration(150).start();
             modlistView.setVisibility(modVersionGroup.isUnfold() ? View.VISIBLE : View.GONE);
+            if (PREF_ANIMATION) modlistView.scheduleLayoutAnimation();
         }
     }
 }
