@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch.modloaders.modpacks.api;
 
 import com.kdt.mcgui.ProgressLayout;
+import com.movtery.ui.subassembly.downloadmod.ModVersionGroup;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -17,17 +18,15 @@ import java.util.Locale;
 import java.util.concurrent.Callable;
 
 public class ModpackInstaller {
-    public static ModLoader installMod(ModDetail modDetail, String path, int selectedVersion) throws IOException {
-        String versionUrl = modDetail.versionUrls[selectedVersion];
-        String versionHash = modDetail.versionHashes[selectedVersion];
-        String modFileName = "[" + modDetail.title + "] " + modDetail.versionFileNames[selectedVersion];
+    public static ModLoader installMod(ModDetail modDetail, String path, ModVersionGroup.ModItem modItem) throws IOException {
+        String modFileName = "[" + modDetail.title + "] " + modItem.getName();
 
         File modFile = new File(path, modFileName);
 
         try {
             byte[] downloadBuffer = new byte[8192];
-            DownloadUtils.ensureSha1(modFile, versionHash, (Callable<Void>) () -> {
-                DownloadUtils.downloadFileMonitored(versionUrl, modFile, downloadBuffer,
+            DownloadUtils.ensureSha1(modFile, modItem.getVersionHash(), (Callable<Void>) () -> {
+                DownloadUtils.downloadFileMonitored(modItem.getDownloadUrl(), modFile, downloadBuffer,
                         new DownloaderProgressWrapper(R.string.modpack_download_downloading_mods,
                                 ProgressLayout.INSTALL_MODPACK));
                 return null;
@@ -40,9 +39,7 @@ public class ModpackInstaller {
     }
 
 
-    public static ModLoader installModpack(ModDetail modDetail, int selectedVersion, InstallFunction installFunction) throws IOException {
-        String versionUrl = modDetail.versionUrls[selectedVersion];
-        String versionHash = modDetail.versionHashes[selectedVersion];
+    public static ModLoader installModpack(ModDetail modDetail, ModVersionGroup.ModItem modItem, InstallFunction installFunction) throws IOException {
         String modpackName = modDetail.title.toLowerCase(Locale.ROOT).trim().replace(" ", "_" );
 
         // Build a new minecraft instance, folder first
@@ -52,8 +49,8 @@ public class ModpackInstaller {
         ModLoader modLoaderInfo;
         try {
             byte[] downloadBuffer = new byte[8192];
-            DownloadUtils.ensureSha1(modpackFile, versionHash, (Callable<Void>) () -> {
-                DownloadUtils.downloadFileMonitored(versionUrl, modpackFile, downloadBuffer,
+            DownloadUtils.ensureSha1(modpackFile, modItem.getVersionHash(), (Callable<Void>) () -> {
+                DownloadUtils.downloadFileMonitored(modItem.getDownloadUrl(), modpackFile, downloadBuffer,
                         new DownloaderProgressWrapper(R.string.modpack_download_downloading_metadata,
                                 ProgressLayout.INSTALL_MODPACK));
                 return null;

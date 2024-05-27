@@ -11,6 +11,7 @@ import com.google.gson.JsonObject;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.feature.mod.ModLoaderList;
 import com.movtery.feature.mod.SearchModSort;
+import com.movtery.ui.subassembly.downloadmod.ModVersionGroup;
 import com.movtery.utils.SimpleStringJoiner;
 
 import com.movtery.utils.PojavZHTools;
@@ -31,6 +32,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
@@ -142,20 +144,16 @@ public class CurseforgeApi implements ModpackApi{
             index = getPaginatedDetails(allModDetails, index, item.id);
         }
         if(index == CURSEFORGE_PAGINATION_ERROR) return null;
-        int length = allModDetails.size();
-        String[] versionFileNames = new String[length];
-        String[] versionNames = new String[length];
-        String[] mcVersionNames = new String[length];
-        String[] mcVersionInfo = new String[length];
-        String[] versionUrls = new String[length];
-        String[] hashes = new String[length];
+        List<ModVersionGroup.ModItem> modItems = new ArrayList<>();
+
         for(int i = 0; i < allModDetails.size(); i++) {
             JsonObject modDetail = allModDetails.get(i);
-            versionNames[i] = modDetail.get("displayName").getAsString();
-            //获取文件名与下载链接
-            versionFileNames[i] = modDetail.get("fileName").getAsString();
-            versionUrls[i] = modDetail.get("downloadUrl").getAsString();
-
+            //获取信息
+            String downloadUrl = modDetail.get("downloadUrl").getAsString();
+            String fileName = modDetail.get("fileName").getAsString();
+            String displayName = modDetail.get("displayName").getAsString();
+            //获取版本信息
+            List<String> mcVersions = new ArrayList<>();
             JsonArray gameVersions = modDetail.getAsJsonArray("gameVersions");
             Set<String> modloaderNames = new TreeSet<>();
             for(JsonElement jsonElement : gameVersions) {
@@ -164,30 +162,39 @@ public class CurseforgeApi implements ModpackApi{
                     modloaderNames.add(gameVersion);
                     continue;
                 }
-                mcVersionNames[i] = gameVersion;
+
+                mcVersions.add(gameVersion);
                 break;
             }
+
             //获取全部的Mod加载器
-            SimpleStringJoiner sj = new SimpleStringJoiner(", ");
+            SimpleStringJoiner modloaderList = new SimpleStringJoiner(", ");
             if (!modloaderNames.isEmpty()) {
                 for (String modloaderName : modloaderNames) {
                     if (ModLoaderList.notModloaderName(modloaderName)) continue;
-                    sj.join(modloaderName);
+                    modloaderList.join(modloaderName);
                 }
             }
-            mcVersionInfo[i] = sj.getValue();
 
-            hashes[i] = getSha1FromModData(modDetail);
+            String[] mcVersionsArray = new String[mcVersions.size()];
+            mcVersions.toArray(mcVersionsArray);
+            modItems.add(new ModVersionGroup.ModItem(mcVersionsArray,
+                    fileName,
+                    displayName,
+                    modloaderList.getValue(),
+                    getSha1FromModData(modDetail),
+                    modDetail.get("downloadCount").getAsInt(),
+                    downloadUrl));
         }
-        return new ModDetail(item, versionFileNames, versionNames, mcVersionNames, mcVersionInfo, versionUrls, hashes);
+        return new ModDetail(item, modItems);
     }
 
     @Override
-    public ModLoader installMod(boolean isModPack, String modsPath, ModDetail modDetail, int selectedVersion) throws IOException{
+    public ModLoader installMod(boolean isModPack, String modsPath, ModDetail modDetail, ModVersionGroup.ModItem modItem) throws IOException{
         if (isModPack) {
-            return ModpackInstaller.installModpack(modDetail, selectedVersion, this::installCurseforgeZip);
+            return ModpackInstaller.installModpack(modDetail, modItem, this::installCurseforgeZip);
         } else {
-            return ModpackInstaller.installMod(modDetail, modsPath, selectedVersion);
+            return ModpackInstaller.installMod(modDetail, modsPath, modItem);
         }
     }
 
