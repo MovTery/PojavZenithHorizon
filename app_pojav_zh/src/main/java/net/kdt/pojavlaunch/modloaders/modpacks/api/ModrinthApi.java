@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.feature.mod.ModLoaderList;
 import com.movtery.feature.mod.SearchModSort;
+import com.movtery.ui.subassembly.downloadmod.ModVersionGroup;
 import com.movtery.utils.SimpleStringJoiner;
 
 import net.kdt.pojavlaunch.R;
@@ -21,7 +22,9 @@ import net.kdt.pojavlaunch.utils.ZipUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipFile;
 
@@ -103,53 +106,62 @@ public class ModrinthApi implements ModpackApi{
     public ModDetail getModDetails(ModItem item) {
 
         JsonArray response = mApiHandler.get(String.format("project/%s/version", item.id), JsonArray.class);
-        if(response == null) return null;
+        if (response == null) return null;
         System.out.println(response);
-        String[] versionFileNames = new String[response.size()];
-        String[] names = new String[response.size()];
-        String[] mcNames = new String[response.size()];
-        String[] mcVersionInfo = new String[response.size()];
-        String[] urls = new String[response.size()];
-        String[] hashes = new String[response.size()];
+        List<ModVersionGroup.ModItem> modItems = new ArrayList<>();
 
-        for (int i=0; i<response.size(); ++i) {
+        for (int i = 0; i < response.size(); ++i) {
             JsonObject version = response.get(i).getAsJsonObject();
             JsonObject filesJsonObject = version.get("files").getAsJsonArray().get(0).getAsJsonObject();
-            //获取文件名
-            versionFileNames[i] = filesJsonObject.get("filename").getAsString();
-            names[i] = version.get("name").getAsString();
-            mcNames[i] = version.get("game_versions").getAsJsonArray().get(0).getAsString();
-
+            //提取信息
+            String downloadUrl = filesJsonObject.get("url").getAsString();
+            String filename = filesJsonObject.get("filename").getAsString();
+            String name = version.get("name").getAsString();
+            //Mod加载器信息
             JsonArray loaders = version.get("loaders").getAsJsonArray();
-            SimpleStringJoiner sj = new SimpleStringJoiner(", ");
+            SimpleStringJoiner modloaderList = new SimpleStringJoiner(", ");
             for (JsonElement loader : loaders) {
                 String loaderName = loader.getAsString();
                 if (ModLoaderList.notModloaderName(loaderName)) continue;
-                sj.join(ModLoaderList.getModloaderName(loaderName));
+                modloaderList.join(ModLoaderList.getModloaderName(loaderName));
             }
-            mcVersionInfo[i] = sj.getValue();
 
-            urls[i] = filesJsonObject.get("url").getAsString();
             // Assume there may not be hashes, in case the API changes
+            String hash;
             JsonObject hashesMap = version.getAsJsonArray("files").get(0).getAsJsonObject()
                     .get("hashes").getAsJsonObject();
-            if(hashesMap == null || hashesMap.get("sha1") == null){
-                hashes[i] = null;
-                continue;
+            if (hashesMap == null || hashesMap.get("sha1") == null) {
+                hash = null;
+            } else {
+                hash = hashesMap.get("sha1").getAsString();
             }
 
-            hashes[i] = hashesMap.get("sha1").getAsString();
+            JsonArray gameVersionJson = version.get("game_versions").getAsJsonArray();
+
+            List<String> mcVersions = new ArrayList<>();
+            for (JsonElement gameVersions : gameVersionJson) {
+                mcVersions.add(gameVersions.getAsString());
+            }
+            String[] mcVersionsArray = new String[mcVersions.size()];
+            mcVersions.toArray(mcVersionsArray);
+            modItems.add(new ModVersionGroup.ModItem(mcVersionsArray,
+                    filename,
+                    name,
+                    modloaderList.getValue(),
+                    hash,
+                    version.get("downloads").getAsInt(),
+                    downloadUrl));
         }
 
-        return new ModDetail(item, versionFileNames, names, mcNames, mcVersionInfo, urls, hashes);
+        return new ModDetail(item, modItems);
     }
 
     @Override
-    public ModLoader installMod(boolean isModPack, String modsPath, ModDetail modDetail, int selectedVersion) throws IOException{
+    public ModLoader installMod(boolean isModPack, String modsPath, ModDetail modDetail, ModVersionGroup.ModItem modItem) throws IOException{
         if (isModPack) {
-            return ModpackInstaller.installModpack(modDetail, selectedVersion, this::installMrpack);
+            return ModpackInstaller.installModpack(modDetail, modItem, this::installMrpack);
         } else {
-            return ModpackInstaller.installMod(modDetail, modsPath, selectedVersion);
+            return ModpackInstaller.installMod(modDetail, modsPath, modItem);
         }
     }
 

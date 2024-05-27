@@ -25,7 +25,6 @@ import net.kdt.pojavlaunch.modloaders.modpacks.ModItemAdapter;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.CommonApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchFilters;
-import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 
 public class SearchModFragment extends Fragment implements ModItemAdapter.SearchResultCallback {
 
@@ -68,8 +67,7 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         mSearchFilters.isModpack = this.isModpack;
 
         // You can only access resources after attaching to current context
-        mModItemAdapter = new ModItemAdapter(getResources(), modpackApi, this, isModpack, mModsPath);
-        ProgressKeeper.addTaskCountListener(mModItemAdapter);
+        mModItemAdapter = new ModItemAdapter(requireActivity(), getResources(), modpackApi, this, isModpack, mModsPath);
         mOverlayTopCache = Tools.dpToPx(20);
 
         mOverlay = view.findViewById(R.id.search_mod_overlay);
@@ -115,7 +113,6 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ProgressKeeper.removeTaskCountListener(mModItemAdapter);
         mRecyclerview.removeOnScrollListener(mOverlayPositionListener);
     }
 

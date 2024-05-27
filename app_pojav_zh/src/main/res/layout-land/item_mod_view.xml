@@ -97,16 +97,4 @@
         app:layout_constraintTop_toBottomOf="@+id/mod_body_textview"
         tools:ignore="HardcodedText" />
 
-    <!--
-        When clicked for the first time, the view is extended with more information.
-        Inflating later is cheaper, hence the stub
-     -->
-    <ViewStub
-        android:id="@+id/mod_limited_state_stub"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout="@layout/view_mod_extended"
-        app:layout_constraintTop_toBottomOf="@id/mod_thumbnail_imageview" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

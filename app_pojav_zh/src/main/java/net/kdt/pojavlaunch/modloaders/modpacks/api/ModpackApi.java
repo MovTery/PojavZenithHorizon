@@ -4,6 +4,7 @@ package net.kdt.pojavlaunch.modloaders.modpacks.api;
 import android.content.Context;
 
 import com.kdt.mcgui.ProgressLayout;
+import com.movtery.ui.subassembly.downloadmod.ModVersionGroup;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
@@ -45,15 +46,15 @@ public interface ModpackApi {
     /**
      * Download and install the mod(pack)
      * @param modDetail The mod detail data
-     * @param selectedVersion The selected version
+     * @param modItem The selected version
      */
-    default void handleInstallation(Context context, boolean isModPack, String modsPath,  ModDetail modDetail, int selectedVersion) {
+    default void handleInstallation(Context context, boolean isModPack, String modsPath,  ModDetail modDetail, ModVersionGroup.ModItem modItem) {
         // Doing this here since when starting installation, the progress does not start immediately
         // which may lead to two concurrent installations (very bad)
         ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.global_waiting);
         PojavApplication.sExecutorService.execute(() -> {
             try {
-                ModLoader loaderInfo = installMod(isModPack, modsPath, modDetail, selectedVersion);
+                ModLoader loaderInfo = installMod(isModPack, modsPath, modDetail, modItem);
                 if (loaderInfo == null) return;
                 loaderInfo.getDownloadTask(new NotificationDownloadListener(context, loaderInfo)).run();
             }catch (IOException e) {
@@ -67,7 +68,7 @@ public interface ModpackApi {
      * May require the download of additional files.
      * May requires launching the installation of a modloader
      * @param modDetail The mod detail data
-     * @param selectedVersion The selected version
+     * @param modItem The selected version
      */
-    ModLoader installMod(boolean isModPack, String modsPath, ModDetail modDetail, int selectedVersion) throws IOException;
+    ModLoader installMod(boolean isModPack, String modsPath, ModDetail modDetail, ModVersionGroup.ModItem modItem) throws IOException;
 }
