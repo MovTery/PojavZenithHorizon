@@ -1,9 +1,13 @@
 package com.movtery.ui.subassembly.filelist;
 
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +22,7 @@ import java.util.List;
 
 public class FileRecyclerViewCreator {
     private final FileRecyclerAdapter fileRecyclerAdapter;
+    private final RecyclerView mainRecyclerView;
     private final List<FileItemBean> mData;
 
     public FileRecyclerViewCreator(Context context, RecyclerView.ItemDecoration itemDecoration, RecyclerView recyclerView, FileRecyclerAdapter.OnItemClickListener onItemClickListener, FileRecyclerAdapter.OnItemLongClickListener onItemLongClickListener, List<FileItemBean> itemBeans) {
@@ -27,10 +32,13 @@ public class FileRecyclerViewCreator {
         this.fileRecyclerAdapter.setOnItemClickListener(onItemClickListener);
         this.fileRecyclerAdapter.setOnItemLongClickListener(onItemLongClickListener);
 
+        this.mainRecyclerView = recyclerView;
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(itemDecoration);
-        recyclerView.setAdapter(this.fileRecyclerAdapter);
+        if (PREF_ANIMATION) this.mainRecyclerView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(context, R.anim.fade_downwards)));
+        this.mainRecyclerView.setLayoutManager(layoutManager);
+        this.mainRecyclerView.addItemDecoration(itemDecoration);
+        this.mainRecyclerView.setAdapter(this.fileRecyclerAdapter);
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -38,6 +46,7 @@ public class FileRecyclerViewCreator {
         this.mData.clear();
         this.mData.addAll(itemBeans);
         fileRecyclerAdapter.notifyDataSetChanged();
+        if (PREF_ANIMATION) this.mainRecyclerView.scheduleLayoutAnimation();
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")

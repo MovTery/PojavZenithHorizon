@@ -1,10 +1,13 @@
 package com.movtery.ui.subassembly.customcontrols;
 
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
@@ -15,6 +18,7 @@ import com.movtery.ui.subassembly.filelist.FileSelectedListener;
 import com.movtery.ui.subassembly.recyclerview.SpacesItemDecoration;
 
 import net.kdt.pojavlaunch.PojavApplication;
+import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 
 import java.io.File;
@@ -26,6 +30,7 @@ public class ControlsListView extends LinearLayout {
     private final List<ControlInfoData> mData = new ArrayList<>();
     private ControlListAdapter controlListAdapter;
     private FileSelectedListener fileSelectedListener;
+    private RecyclerView mainListView;
     private File fullPath = new File(Tools.CTRLMAP_PATH);
 
     public ControlsListView(Context context) {
@@ -45,7 +50,7 @@ public class ControlsListView extends LinearLayout {
         LayoutParams layParam = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         setOrientation(VERTICAL);
 
-        RecyclerView mainListView = new RecyclerView(context);
+        mainListView = new RecyclerView(context);
         controlListAdapter = new ControlListAdapter(this.mData);
         controlListAdapter.setOnItemClickListener((position, name) -> {
             File file = new File(fullPath, name);
@@ -54,6 +59,7 @@ public class ControlsListView extends LinearLayout {
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         mainListView.setLayoutManager(layoutManager);
+        if (PREF_ANIMATION) mainListView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(context, R.anim.fade_downwards)));
         mainListView.addItemDecoration(new SpacesItemDecoration(0, 0, 0, (int) Tools.dpToPx(8)));
         mainListView.setAdapter(controlListAdapter);
 
@@ -93,7 +99,10 @@ public class ControlsListView extends LinearLayout {
     public void refresh() {
         PojavApplication.sExecutorService.execute(() -> {
             loadInfoData(fullPath);
-            runOnUiThread(() -> controlListAdapter.notifyDataSetChanged());
+            runOnUiThread(() -> {
+                controlListAdapter.notifyDataSetChanged();
+                if (PREF_ANIMATION) mainListView.scheduleLayoutAnimation();
+            });
         });
     }
 }
