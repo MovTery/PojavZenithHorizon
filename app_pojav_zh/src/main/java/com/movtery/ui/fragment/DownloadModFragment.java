@@ -1,9 +1,12 @@
 package com.movtery.ui.fragment;
 
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -65,6 +68,7 @@ public class DownloadModFragment extends Fragment {
         parseViewModel();
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
+        if (PREF_ANIMATION) mModVersionView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.fade_downwards)));
         mModVersionView.setLayoutManager(layoutManager);
         mModVersionView.addItemDecoration(new SpacesItemDecoration(0, 0, 0, (int) Tools.dpToPx(8)));
 
@@ -77,12 +81,7 @@ public class DownloadModFragment extends Fragment {
 
     private void refresh() {
         PojavApplication.sExecutorService.execute(() -> {
-            runOnUiThread(() -> {
-                mProgressBar.setVisibility(View.VISIBLE);
-                mLoadingText.setVisibility(View.VISIBLE);
-                mModVersionView.setVisibility(View.GONE);
-                mRefreshButton.setClickable(false);
-            });
+            componentProcessing(true);
 
             ModDetail mModDetail = mModApi.getModDetails(mModItem);
 
@@ -110,14 +109,28 @@ public class DownloadModFragment extends Fragment {
                     .forEach((k, v) -> mData.add(new ModVersionGroup(k, v)));
 
             runOnUiThread(() -> {
-                DownloadModAdapter mModAdapter = new DownloadModAdapter(mModApi, mModDetail, mData, mIsModpack, mModsPath);
-                mModVersionView.setAdapter(mModAdapter);
+                DownloadModAdapter mModAdapter = (DownloadModAdapter) mModVersionView.getAdapter();
+                if (mModAdapter == null) {
+                    mModAdapter = new DownloadModAdapter(mModApi, mModDetail, mData, mIsModpack, mModsPath);
+                    mModVersionView.setLayoutManager(new LinearLayoutManager(requireContext()));
+                    mModVersionView.setAdapter(mModAdapter);
+                } else {
+                    mModAdapter.updateData(mData);
+                }
 
-                mProgressBar.setVisibility(View.GONE);
-                mLoadingText.setVisibility(View.GONE);
-                mModVersionView.setVisibility(View.VISIBLE);
-                mRefreshButton.setClickable(true);
+                componentProcessing(false);
+                if (PREF_ANIMATION) mModVersionView.scheduleLayoutAnimation();
             });
+        });
+    }
+
+    private void componentProcessing(boolean state) {
+        runOnUiThread(() -> {
+            mProgressBar.setVisibility(state ? View.VISIBLE : View.GONE);
+            mLoadingText.setVisibility(state ? View.VISIBLE : View.GONE);
+            mModVersionView.setVisibility(state ? View.GONE : View.VISIBLE);
+            mRefreshButton.setClickable(!state);
+            mReleaseCheckBox.setClickable(!state);
         });
     }
 

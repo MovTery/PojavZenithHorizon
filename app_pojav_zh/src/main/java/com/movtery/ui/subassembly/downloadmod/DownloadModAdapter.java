@@ -1,10 +1,14 @@
 package com.movtery.ui.subassembly.downloadmod;
 
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -21,9 +25,9 @@ import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
 import java.util.List;
 
 public class DownloadModAdapter extends RecyclerView.Adapter<DownloadModAdapter.InnerHolder> {
+    private List<ModVersionGroup> mData;
     private final ModpackApi mModApi;
     private final ModDetail modDetail;
-    private final List<ModVersionGroup> mData;
     private final boolean isModpack;
     private final String modsPath;
 
@@ -52,6 +56,12 @@ public class DownloadModAdapter extends RecyclerView.Adapter<DownloadModAdapter.
         return mData != null ? mData.size() : 0;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateData(List<ModVersionGroup> newData) {
+        this.mData = newData;
+        notifyDataSetChanged();
+    }
+
     public class InnerHolder extends RecyclerView.ViewHolder {
         private final View mainView;
         private final TextView versionId;
@@ -66,6 +76,8 @@ public class DownloadModAdapter extends RecyclerView.Adapter<DownloadModAdapter.
             flipArrow = itemView.findViewById(R.id.mod_flip_arrow);
             modlistView = itemView.findViewById(R.id.mod_recycler_view);
             progressBar = itemView.findViewById(R.id.mod_version_loading);
+
+            if (PREF_ANIMATION) modlistView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(modlistView.getContext(), R.anim.fade_downwards)));
         }
 
         public void setData(ModVersionGroup modVersionGroup) {
@@ -97,6 +109,7 @@ public class DownloadModAdapter extends RecyclerView.Adapter<DownloadModAdapter.
                         versionAdapter.updateData(modVersionList);
                     }
 
+                    if (PREF_ANIMATION) modlistView.scheduleLayoutAnimation();
                     progressBar.setVisibility(View.GONE);
                 });
             });
