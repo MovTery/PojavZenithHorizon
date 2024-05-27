@@ -21,7 +21,7 @@ public class KeyboardDialog extends Dialog {
     private OnKeycodeSelectListener mOnKeycodeSelectListener;
 
     public KeyboardDialog(@NonNull Context context) {
-        super(context);
+        super(context, R.style.FullScreenDialog);
 
         setContentView(R.layout.dialog_keyboard);
         init();
@@ -33,12 +33,17 @@ public class KeyboardDialog extends Dialog {
 
         Window window = getWindow();
         if (window != null) {
-            WindowManager.LayoutParams layoutParams = window.getAttributes();
-            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-            layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
-            layoutParams.gravity = Gravity.CENTER; //居中显示
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+            window.setGravity(Gravity.CENTER);
 
-            window.setAttributes(layoutParams);
+            //隐藏状态栏
+            window.getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_FULLSCREEN |
+                            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+            );
+            window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
     }
 
