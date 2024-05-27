@@ -116,6 +116,7 @@
     <string name="zh_profile_mods_sort_by">Sort By</string>
     <string name="zh_profile_mods_modloader">Mod Loader</string>
     <string name="zh_profile_mods_download_mod_failed">Failed to download Mod file</string>
+    <string name="zh_profile_mods_download_mod_release_version">Show only Minecraft release versions</string>
     <string name="zh_profile_mods_search_mod_failed">Failed to search for Mod</string>
     <string name="zh_profile_mods_search_mod_search_download_error">Failed to download Mod metadata</string>
     <string name="zh_profile_mods_search_mod_no_result">No relevant Mod found</string>

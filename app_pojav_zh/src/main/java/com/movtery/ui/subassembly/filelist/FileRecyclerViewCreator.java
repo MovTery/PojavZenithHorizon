@@ -16,11 +16,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerViewCreator {
+public class FileRecyclerViewCreator {
     private final FileRecyclerAdapter fileRecyclerAdapter;
     private final List<FileItemBean> mData;
 
-    public RecyclerViewCreator(Context context, RecyclerView.ItemDecoration itemDecoration, RecyclerView recyclerView, FileRecyclerAdapter.OnItemClickListener onItemClickListener, FileRecyclerAdapter.OnItemLongClickListener onItemLongClickListener, List<FileItemBean> itemBeans) {
+    public FileRecyclerViewCreator(Context context, RecyclerView.ItemDecoration itemDecoration, RecyclerView recyclerView, FileRecyclerAdapter.OnItemClickListener onItemClickListener, FileRecyclerAdapter.OnItemLongClickListener onItemLongClickListener, List<FileItemBean> itemBeans) {
         this.mData = itemBeans;
 
         this.fileRecyclerAdapter = new FileRecyclerAdapter(this.mData);

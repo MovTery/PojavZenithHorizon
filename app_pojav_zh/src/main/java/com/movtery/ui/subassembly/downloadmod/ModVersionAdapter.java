@@ -1,5 +1,6 @@
 package com.movtery.ui.subassembly.downloadmod;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.movtery.feature.ResourceManager;
 import com.movtery.utils.NumberWithUnits;
 import com.movtery.utils.PojavZHTools;
 
@@ -24,7 +24,7 @@ import java.util.List;
 public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.InnerHolder> implements TaskCountListener {
     private final ModpackApi mModApi;
     private final ModDetail modDetail;
-    private final List<ModVersionGroup.ModItem> mData;
+    private List<ModVersionGroup.ModItem> mData;
     private final boolean isModpack;
     private final String modsPath;
     private boolean mTasksRunning;
@@ -51,10 +51,7 @@ public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.In
 
     @Override
     public int getItemCount() {
-        if (mData != null) {
-            return mData.size();
-        }
-        return 0;
+        return mData != null ? mData.size() : 0;
     }
 
     @Override
@@ -62,12 +59,18 @@ public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.In
         Tools.runOnUiThread(() -> mTasksRunning = taskCount != 0);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateData(List<ModVersionGroup.ModItem> newData) {
+        this.mData = newData;
+        notifyDataSetChanged();
+    }
+
     public class InnerHolder extends RecyclerView.ViewHolder {
         private final View mainView;
         private final TextView mTitle, mDownloadCount, mModloaders;
+
         public InnerHolder(@NonNull View itemView) {
             super(itemView);
-
             mainView = itemView;
             mTitle = itemView.findViewById(R.id.mod_title_textview);
             mDownloadCount = itemView.findViewById(R.id.zh_mod_download_count_textview);
@@ -76,17 +79,16 @@ public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.In
 
         public void setData(ModVersionGroup.ModItem modItem) {
             mTitle.setText(modItem.getTitle());
-            //下载量
-            String downloaderCount = ResourceManager.getString(R.string.zh_profile_mods_information_download_count) + " " + NumberWithUnits.formatNumberWithUnit(modItem.getDownload(),
-                    //判断当前系统语言是否为英文
-                    PojavZHTools.isEnglish());
-            mDownloadCount.setText(downloaderCount);
-            //Mod加载器
-            String modloaderText = ResourceManager.getString(R.string.zh_profile_mods_information_modloader) + " ";
+
+            String downloadCountText = mainView.getContext().getString(R.string.zh_profile_mods_information_download_count) + " " +
+                    NumberWithUnits.formatNumberWithUnit(modItem.getDownload(), PojavZHTools.isEnglish());
+            mDownloadCount.setText(downloadCountText);
+
+            String modloaderText = mainView.getContext().getString(R.string.zh_profile_mods_information_modloader) + " ";
             if (modItem.getModloaders() != null && !modItem.getModloaders().isEmpty()) {
                 modloaderText += modItem.getModloaders();
             } else {
-                modloaderText += ResourceManager.getString(R.string.zh_unknown);
+                modloaderText += mainView.getContext().getString(R.string.zh_unknown);
             }
             mModloaders.setText(modloaderText);
 

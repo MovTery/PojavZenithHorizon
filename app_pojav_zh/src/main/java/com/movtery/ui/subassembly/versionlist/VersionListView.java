@@ -12,8 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.ui.subassembly.filelist.FileItemBean;
-import com.movtery.ui.subassembly.filelist.RecyclerViewCreator;
-import com.movtery.ui.subassembly.filelist.SpacesItemDecoration;
+import com.movtery.ui.subassembly.filelist.FileRecyclerViewCreator;
+import com.movtery.ui.subassembly.recyclerview.SpacesItemDecoration;
 
 import net.kdt.pojavlaunch.JMinecraftVersionList;
 import net.kdt.pojavlaunch.R;
@@ -29,7 +29,7 @@ public class VersionListView extends LinearLayout {
     private Context context;
     private List<JMinecraftVersionList.Version> releaseList, snapshotList, betaList, alphaList;
     private String[] mInstalledVersions;
-    private RecyclerViewCreator recyclerViewCreator;
+    private FileRecyclerViewCreator fileRecyclerViewCreator;
     private VersionSelectedListener versionSelectedListener;
 
     public VersionListView(Context context) {
@@ -70,7 +70,7 @@ public class VersionListView extends LinearLayout {
         betaList = new FilteredSubList<>(versionArray, item -> item.type.equals("old_beta"));
         alphaList = new FilteredSubList<>(versionArray, item -> item.type.equals("old_alpha"));
 
-        recyclerViewCreator = new RecyclerViewCreator(
+        fileRecyclerViewCreator = new FileRecyclerViewCreator(
                 context,
                 new SpacesItemDecoration(0, 0, 0, (int) Tools.dpToPx(8)),
                 mainListView,
@@ -116,8 +116,8 @@ public class VersionListView extends LinearLayout {
     }
 
     private List<FileItemBean> getVersion(Drawable icon, String[] names) {
-        List<FileItemBean> itemBeans = RecyclerViewCreator.loadItemBean(icon, names);
-        Tools.runOnUiThread(() -> recyclerViewCreator.loadData(itemBeans));
+        List<FileItemBean> itemBeans = FileRecyclerViewCreator.loadItemBean(icon, names);
+        Tools.runOnUiThread(() -> fileRecyclerViewCreator.loadData(itemBeans));
         return itemBeans;
     }
 }

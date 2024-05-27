@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.ui.subassembly.about.AboutItemBean;
 import com.movtery.ui.subassembly.about.AboutRecyclerAdapter;
-import com.movtery.ui.subassembly.filelist.SpacesItemDecoration;
+import com.movtery.ui.subassembly.recyclerview.SpacesItemDecoration;
 
 import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.R;

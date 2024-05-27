@@ -49,10 +49,7 @@ public class DownloadModAdapter extends RecyclerView.Adapter<DownloadModAdapter.
 
     @Override
     public int getItemCount() {
-        if (mData != null) {
-            return mData.size();
-        }
-        return 0;
+        return mData != null ? mData.size() : 0;
     }
 
     public class InnerHolder extends RecyclerView.ViewHolder {
@@ -73,27 +70,41 @@ public class DownloadModAdapter extends RecyclerView.Adapter<DownloadModAdapter.
 
         public void setData(ModVersionGroup modVersionGroup) {
             mainView.setOnClickListener(v -> {
-                flipArrow.setRotation(flipArrow.getRotation() == 180 ? 0 : 180);
-                modlistView.setVisibility(modlistView.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+                modVersionGroup.setUnfold(!modVersionGroup.isUnfold()); // 反转展开状态
+                refreshState(modVersionGroup);
             });
 
             String title = "Minecraft " + modVersionGroup.getVersionId();
             versionId.setText(title);
 
             refresh(modVersionGroup);
+            refreshState(modVersionGroup);
         }
 
         private void refresh(ModVersionGroup modVersionGroup) {
-            PojavApplication.sExecutorService.execute(() -> runOnUiThread(() -> {
-                progressBar.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
 
-                ModVersionAdapter versionAdapter = new ModVersionAdapter(mModApi, modDetail, modVersionGroup.getModversionList(), isModpack, modsPath);
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(modlistView.getContext());
-                modlistView.setLayoutManager(layoutManager);
-                modlistView.setAdapter(versionAdapter);
+            PojavApplication.sExecutorService.execute(() -> {
+                List<ModVersionGroup.ModItem> modVersionList = modVersionGroup.getModversionList();
 
-                progressBar.setVisibility(View.GONE);
-            }));
+                runOnUiThread(() -> {
+                    ModVersionAdapter versionAdapter = (ModVersionAdapter) modlistView.getAdapter();
+                    if (versionAdapter == null) {
+                        versionAdapter = new ModVersionAdapter(mModApi, modDetail, modVersionList, isModpack, modsPath);
+                        modlistView.setLayoutManager(new LinearLayoutManager(modlistView.getContext()));
+                        modlistView.setAdapter(versionAdapter);
+                    } else {
+                        versionAdapter.updateData(modVersionList);
+                    }
+
+                    progressBar.setVisibility(View.GONE);
+                });
+            });
+        }
+
+        private void refreshState(ModVersionGroup modVersionGroup) { // 刷新状态
+            flipArrow.animate().rotation(modVersionGroup.isUnfold() ? 0 : 180).setDuration(150).start();
+            modlistView.setVisibility(modVersionGroup.isUnfold() ? View.VISIBLE : View.GONE);
         }
     }
 }

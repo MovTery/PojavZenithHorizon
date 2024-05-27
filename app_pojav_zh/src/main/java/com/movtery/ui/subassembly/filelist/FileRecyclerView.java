@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.ui.subassembly.recyclerview.SpacesItemDecoration;
+
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 
@@ -22,7 +24,7 @@ import java.util.List;
 public class FileRecyclerView extends LinearLayout {
     private final List<FileItemBean> mData = new ArrayList<>();
     private Context context;
-    private RecyclerViewCreator recyclerViewCreator;
+    private FileRecyclerViewCreator fileRecyclerViewCreator;
     private FileIcon fileIcon = FileIcon.FILE;
     private SetTitleListener mSetTitleListener;
     private FileSelectedListener fileSelectedListener;
@@ -52,7 +54,7 @@ public class FileRecyclerView extends LinearLayout {
 
         RecyclerView mainLv = new RecyclerView(context);
 
-        recyclerViewCreator = new RecyclerViewCreator(
+        fileRecyclerViewCreator = new FileRecyclerViewCreator(
                 context,
                 new SpacesItemDecoration(0, 0, 0, (int) Tools.dpToPx(8)),
                 mainLv,
@@ -100,7 +102,7 @@ public class FileRecyclerView extends LinearLayout {
             if (path.isDirectory()) {
                 fullPath = path;
 
-                List<FileItemBean> itemBeans = RecyclerViewCreator.loadItemBeansFromPath(context, path, this.fileIcon, this.showFiles, this.showFolders);
+                List<FileItemBean> itemBeans = FileRecyclerViewCreator.loadItemBeansFromPath(context, path, this.fileIcon, this.showFiles, this.showFolders);
 
                 Collections.sort(itemBeans);
 
@@ -115,7 +117,7 @@ public class FileRecyclerView extends LinearLayout {
                     mSetTitleListener.setTitle(path.getAbsolutePath());
                 }
 
-                runOnUiThread(() -> recyclerViewCreator.loadData(itemBeans));
+                runOnUiThread(() -> fileRecyclerViewCreator.loadData(itemBeans));
             } else {
                 fileSelectedListener.onFileSelected(path, path.getAbsolutePath());
             }
