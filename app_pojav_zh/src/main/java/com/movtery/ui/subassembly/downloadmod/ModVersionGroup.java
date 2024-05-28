@@ -7,10 +7,10 @@ import java.util.List;
 
 public class ModVersionGroup {
     private final String versionId;
-    private final List<ModItem> modversionList;
+    private final List<ModVersionItem> modversionList;
     private boolean unfold;
 
-    public ModVersionGroup(String versionId, List<ModItem> modversionList) {
+    public ModVersionGroup(String versionId, List<ModVersionItem> modversionList) {
         this.versionId = versionId;
         this.modversionList = modversionList;
     }
@@ -19,7 +19,7 @@ public class ModVersionGroup {
         return versionId;
     }
 
-    public List<ModItem> getModversionList() {
+    public List<ModVersionItem> getModversionList() {
         return modversionList;
     }
 
@@ -40,7 +40,7 @@ public class ModVersionGroup {
                 '}';
     }
 
-    public static class ModItem {
+    public static class ModVersionItem {
         private final String[] versionId;
         private final String name;
         private final String title;
@@ -48,8 +48,9 @@ public class ModVersionGroup {
         private final String versionHash;
         private final int download;
         private final String downloadUrl;
+        private final List<ModDependencies> modDependencies;
 
-        public ModItem(String[] versionId, String name, String title, String modloaders, String versionHash, int download, String downloadUrl) {
+        public ModVersionItem(String[] versionId, String name, String title, String modloaders, List<ModDependencies> modDependencies, String versionHash, int download, String downloadUrl) {
             this.versionId = versionId;
             this.name = name;
             this.title = title;
@@ -57,6 +58,7 @@ public class ModVersionGroup {
             this.versionHash = versionHash;
             this.download = download;
             this.downloadUrl = downloadUrl;
+            this.modDependencies = modDependencies;
         }
 
         public String getName() {
@@ -79,6 +81,9 @@ public class ModVersionGroup {
         }
         public String getDownloadUrl() {
             return downloadUrl;
+        }
+        public List<ModDependencies> getModDependencies() {
+            return modDependencies;
         }
 
         @NonNull

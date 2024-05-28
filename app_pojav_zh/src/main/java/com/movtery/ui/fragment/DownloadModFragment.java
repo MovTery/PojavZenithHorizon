@@ -99,9 +99,9 @@ public class DownloadModFragment extends Fragment {
             String regex = "^\\d+\\.\\d+\\.\\d+$|^\\d+\\.\\d+$";
             Pattern pattern = Pattern.compile(regex);
 
-            TreeMap<String, List<ModVersionGroup.ModItem>> mModVersionsByMinecraftVersion = new TreeMap<>();
-            for (ModVersionGroup.ModItem modItem : mModDetail.modItems) {
-                for (String mcVersion : modItem.getVersionId()) {
+            TreeMap<String, List<ModVersionGroup.ModVersionItem>> mModVersionsByMinecraftVersion = new TreeMap<>();
+            for (ModVersionGroup.ModVersionItem modVersionItem : mModDetail.modVersionItems) {
+                for (String mcVersion : modVersionItem.getVersionId()) {
                     if (Thread.currentThread().isInterrupted()) {
                         return;
                     }
@@ -115,7 +115,7 @@ public class DownloadModFragment extends Fragment {
                     }
 
                     mModVersionsByMinecraftVersion.computeIfAbsent(mcVersion, k -> new ArrayList<>())
-                            .add(modItem);
+                            .add(modVersionItem);
                 }
             }
 
@@ -134,7 +134,7 @@ public class DownloadModFragment extends Fragment {
 
                 DownloadModAdapter mModAdapter = (DownloadModAdapter) mModVersionView.getAdapter();
                 if (mModAdapter == null) {
-                    mModAdapter = new DownloadModAdapter(mModApi, mModDetail, mData, mIsModpack, mModsPath);
+                    mModAdapter = new DownloadModAdapter(this, mModApi, mModDetail, mData, mIsModpack, mModsPath);
                     mModVersionView.setLayoutManager(new LinearLayoutManager(requireContext()));
                     mModVersionView.setAdapter(mModAdapter);
                 } else {

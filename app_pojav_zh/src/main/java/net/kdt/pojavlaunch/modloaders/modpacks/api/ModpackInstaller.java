@@ -18,15 +18,15 @@ import java.util.Locale;
 import java.util.concurrent.Callable;
 
 public class ModpackInstaller {
-    public static ModLoader installMod(ModDetail modDetail, String path, ModVersionGroup.ModItem modItem) throws IOException {
-        String modFileName = "[" + modDetail.title + "] " + modItem.getName();
+    public static ModLoader installMod(ModDetail modDetail, String path, ModVersionGroup.ModVersionItem modVersionItem) throws IOException {
+        String modFileName = "[" + modDetail.title + "] " + modVersionItem.getName();
 
         File modFile = new File(path, modFileName);
 
         try {
             byte[] downloadBuffer = new byte[8192];
-            DownloadUtils.ensureSha1(modFile, modItem.getVersionHash(), (Callable<Void>) () -> {
-                DownloadUtils.downloadFileMonitored(modItem.getDownloadUrl(), modFile, downloadBuffer,
+            DownloadUtils.ensureSha1(modFile, modVersionItem.getVersionHash(), (Callable<Void>) () -> {
+                DownloadUtils.downloadFileMonitored(modVersionItem.getDownloadUrl(), modFile, downloadBuffer,
                         new DownloaderProgressWrapper(R.string.modpack_download_downloading_mods,
                                 ProgressLayout.INSTALL_MODPACK));
                 return null;
@@ -39,7 +39,7 @@ public class ModpackInstaller {
     }
 
 
-    public static ModLoader installModpack(ModDetail modDetail, ModVersionGroup.ModItem modItem, InstallFunction installFunction) throws IOException {
+    public static ModLoader installModpack(ModDetail modDetail, ModVersionGroup.ModVersionItem modVersionItem, InstallFunction installFunction) throws IOException {
         String modpackName = modDetail.title.toLowerCase(Locale.ROOT).trim().replace(" ", "_" );
 
         // Build a new minecraft instance, folder first
@@ -49,8 +49,8 @@ public class ModpackInstaller {
         ModLoader modLoaderInfo;
         try {
             byte[] downloadBuffer = new byte[8192];
-            DownloadUtils.ensureSha1(modpackFile, modItem.getVersionHash(), (Callable<Void>) () -> {
-                DownloadUtils.downloadFileMonitored(modItem.getDownloadUrl(), modpackFile, downloadBuffer,
+            DownloadUtils.ensureSha1(modpackFile, modVersionItem.getVersionHash(), (Callable<Void>) () -> {
+                DownloadUtils.downloadFileMonitored(modVersionItem.getDownloadUrl(), modpackFile, downloadBuffer,
                         new DownloaderProgressWrapper(R.string.modpack_download_downloading_metadata,
                                 ProgressLayout.INSTALL_MODPACK));
                 return null;

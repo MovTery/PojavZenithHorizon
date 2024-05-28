@@ -110,8 +110,8 @@ public class CommonApi implements ModpackApi {
     }
 
     @Override
-    public ModLoader installMod(boolean isModPack, String modsPath, ModDetail modDetail, ModVersionGroup.ModItem modItem) throws IOException {
-        return getModpackApi(modDetail.apiSource).installMod(isModPack, modsPath, modDetail, modItem);
+    public ModLoader installMod(boolean isModPack, String modsPath, ModDetail modDetail, ModVersionGroup.ModVersionItem modVersionItem) throws IOException {
+        return getModpackApi(modDetail.apiSource).installMod(isModPack, modsPath, modDetail, modVersionItem);
     }
 
     private @NonNull ModpackApi getModpackApi(int apiSource) {
