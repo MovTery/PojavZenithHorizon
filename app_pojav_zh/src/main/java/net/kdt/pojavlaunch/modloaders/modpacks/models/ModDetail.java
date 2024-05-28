@@ -6,10 +6,10 @@ import java.util.List;
 
 public class ModDetail extends ModItem {
     /* SHA 1 hashes, null if a hash is unavailable */
-    public List<ModVersionGroup.ModItem> modItems;
+    public List<ModVersionGroup.ModVersionItem> modVersionItems;
 
-    public ModDetail(ModItem item, List<ModVersionGroup.ModItem> modItems) {
+    public ModDetail(ModItem item, List<ModVersionGroup.ModVersionItem> modVersionItems) {
         super(item.apiSource, item.isModpack, item.id, item.title, item.description, item.downloadCount, item.modloader, item.imageUrl);
-        this.modItems = modItems;
+        this.modVersionItems = modVersionItems;
     }
 }

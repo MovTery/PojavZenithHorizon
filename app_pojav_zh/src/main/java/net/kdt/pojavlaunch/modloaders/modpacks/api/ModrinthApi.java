@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.feature.mod.ModLoaderList;
 import com.movtery.feature.mod.SearchModSort;
+import com.movtery.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.ui.subassembly.downloadmod.ModVersionGroup;
 import com.movtery.utils.SimpleStringJoiner;
 
@@ -108,7 +109,9 @@ public class ModrinthApi implements ModpackApi{
         JsonArray response = mApiHandler.get(String.format("project/%s/version", item.id), JsonArray.class);
         if (response == null) return null;
         System.out.println(response);
-        List<ModVersionGroup.ModItem> modItems = new ArrayList<>();
+
+        List<ModVersionGroup.ModVersionItem> modItems = new ArrayList<>();
+        Map<String, ModItem> dependenciesModMap = new HashMap<>();
 
         for (int i = 0; i < response.size(); ++i) {
             JsonObject version = response.get(i).getAsJsonObject();
@@ -144,10 +147,51 @@ public class ModrinthApi implements ModpackApi{
             }
             String[] mcVersionsArray = new String[mcVersions.size()];
             mcVersions.toArray(mcVersionsArray);
-            modItems.add(new ModVersionGroup.ModItem(mcVersionsArray,
+
+            JsonArray dependencies = version.get("dependencies").getAsJsonArray();
+            List<ModDependencies> modDependencies = new ArrayList<>();
+            if (!item.isModpack && dependencies.size() != 0) {
+                for (JsonElement dependency : dependencies) {
+                    JsonObject object = dependency.getAsJsonObject();
+                    String projectId = object.get("project_id").getAsString();
+                    String dependencyType = object.get("dependency_type").getAsString();
+
+                    ModItem items;
+                    if (!dependenciesModMap.containsKey(projectId)) {
+                        JsonObject hit = mApiHandler.get("project/" + projectId, JsonObject.class);
+                        System.out.println(response);
+                        JsonArray modLoaders = hit.get("categories").getAsJsonArray();
+                        SimpleStringJoiner modLoadersArray = new SimpleStringJoiner(",  ");
+                        for (JsonElement loader : modLoaders) {
+                            String string = loader.getAsString();
+                            if (ModLoaderList.notModloaderName(string)) continue; //排除不是Mod加载器名字的字符串
+                            modLoadersArray.join(ModLoaderList.getModloaderName(string));
+                        }
+                        items = new ModItem(
+                                Constants.SOURCE_MODRINTH,
+                                hit.get("project_type").getAsString().equals("modpack"),
+                                projectId,
+                                hit.get("title").getAsString(),
+                                hit.get("description").getAsString(),
+                                hit.get("downloads").getAsInt(),
+                                modLoadersArray.getValue(),
+                                hit.get("icon_url").getAsString()
+                        );
+
+                        dependenciesModMap.put(projectId, items);
+                    } else {
+                        items = dependenciesModMap.get(projectId);
+                    }
+
+                    modDependencies.add(new ModDependencies(items, ModDependencies.getDependencyType(dependencyType)));
+                }
+            }
+
+            modItems.add(new ModVersionGroup.ModVersionItem(mcVersionsArray,
                     filename,
                     name,
                     modloaderList.getValue(),
+                    modDependencies,
                     hash,
                     version.get("downloads").getAsInt(),
                     downloadUrl));
@@ -157,11 +201,11 @@ public class ModrinthApi implements ModpackApi{
     }
 
     @Override
-    public ModLoader installMod(boolean isModPack, String modsPath, ModDetail modDetail, ModVersionGroup.ModItem modItem) throws IOException{
+    public ModLoader installMod(boolean isModPack, String modsPath, ModDetail modDetail, ModVersionGroup.ModVersionItem modVersionItem) throws IOException{
         if (isModPack) {
-            return ModpackInstaller.installModpack(modDetail, modItem, this::installMrpack);
+            return ModpackInstaller.installModpack(modDetail, modVersionItem, this::installMrpack);
         } else {
-            return ModpackInstaller.installMod(modDetail, modsPath, modItem);
+            return ModpackInstaller.installMod(modDetail, modsPath, modVersionItem);
         }
     }
 

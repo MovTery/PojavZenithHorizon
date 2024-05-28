@@ -128,6 +128,16 @@
     <string name="zh_profile_mods_search_sort_by_recently_updated">Recently Updated</string>
     <string name="zh_profile_mods_information_download_count">Total Downloads:</string>
     <string name="zh_profile_mods_information_modloader">Supported Mod Loaders:</string>
+    <string name="zh_profile_mods_information_dependencies">Dependency Type:</string>
+    <string name="zh_profile_mods_dependencies_dialog_title">%s has the following dependency Mods</string>
+    <string name="zh_profile_mods_dependencies_dialog_tip">Please download the corresponding dependency Mods as needed. Missing necessary dependency Mods will result in the game not running!</string>
+    <string name="zh_profile_mods_dependencies_dialog_this_mod">Download this Mod first</string>
+    <string name="zh_profile_mods_dependencies_required">Required</string>
+    <string name="zh_profile_mods_dependencies_optional">Optional</string>
+    <string name="zh_profile_mods_dependencies_incompatible">Incompatible</string>
+    <string name="zh_profile_mods_dependencies_embedded">Embedded</string>
+    <string name="zh_profile_mods_dependencies_tool">Tool</string>
+    <string name="zh_profile_mods_dependencies_include">Includes</string>
     <string name="zh_profile_mods_add_mod">Add Mod</string>
     <string name="zh_profile_mods_added_mod">Successfully added Mod</string>
     <string name="zh_profile_mods_disable">Disable</string>

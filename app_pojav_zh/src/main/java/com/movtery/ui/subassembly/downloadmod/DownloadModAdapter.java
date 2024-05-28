@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,13 +26,15 @@ import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
 import java.util.List;
 
 public class DownloadModAdapter extends RecyclerView.Adapter<DownloadModAdapter.InnerHolder> {
+    private final Fragment fragment;
     private List<ModVersionGroup> mData;
     private final ModpackApi mModApi;
     private final ModDetail modDetail;
     private final boolean isModpack;
     private final String modsPath;
 
-    public DownloadModAdapter(ModpackApi api, ModDetail modDetail, List<ModVersionGroup> mData, boolean isModpack, String modsPath) {
+    public DownloadModAdapter(Fragment fragment, ModpackApi api, ModDetail modDetail, List<ModVersionGroup> mData, boolean isModpack, String modsPath) {
+        this.fragment = fragment;
         this.mModApi = api;
         this.modDetail = modDetail;
         this.mData = mData;
@@ -97,12 +100,12 @@ public class DownloadModAdapter extends RecyclerView.Adapter<DownloadModAdapter.
             progressBar.setVisibility(View.VISIBLE);
 
             PojavApplication.sExecutorService.execute(() -> {
-                List<ModVersionGroup.ModItem> modVersionList = modVersionGroup.getModversionList();
+                List<ModVersionGroup.ModVersionItem> modVersionList = modVersionGroup.getModversionList();
 
                 runOnUiThread(() -> {
                     ModVersionAdapter versionAdapter = (ModVersionAdapter) modlistView.getAdapter();
                     if (versionAdapter == null) {
-                        versionAdapter = new ModVersionAdapter(mModApi, modDetail, modVersionList, isModpack, modsPath);
+                        versionAdapter = new ModVersionAdapter(fragment, mModApi, modDetail, modVersionList, isModpack, modsPath);
                         modlistView.setLayoutManager(new LinearLayoutManager(modlistView.getContext()));
                         modlistView.setAdapter(versionAdapter);
                     } else {
