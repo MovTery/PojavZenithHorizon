@@ -40,6 +40,7 @@ import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
+import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -57,6 +58,7 @@ public class DownloadModFragment extends Fragment {
     private CheckBox mReleaseCheckBox;
     private boolean mIsModpack;
     private String mModsPath;
+    private Future<?> currentTask;
 
     public DownloadModFragment() {
         super(R.layout.fragment_mod_download);
@@ -74,13 +76,22 @@ public class DownloadModFragment extends Fragment {
 
         mRefreshButton.setOnClickListener(v -> refresh());
         mReleaseCheckBox.setOnClickListener(v -> refresh());
-        mReturnButton.setOnClickListener(v -> PojavZHTools.onBackPressed(requireActivity()));
+        mReturnButton.setOnClickListener(v -> {
+            if (currentTask != null && !currentTask.isDone()) {
+                currentTask.cancel(true); //中断刷新任务
+            }
+            PojavZHTools.onBackPressed(requireActivity());
+        });
 
         refresh();
     }
 
     private void refresh() {
-        PojavApplication.sExecutorService.execute(() -> {
+        if (currentTask != null && !currentTask.isDone()) {
+            currentTask.cancel(true);
+        }
+
+        currentTask = PojavApplication.sExecutorService.submit(() -> {
             componentProcessing(true);
 
             ModDetail mModDetail = mModApi.getModDetails(mModItem);
@@ -89,8 +100,12 @@ public class DownloadModFragment extends Fragment {
             Pattern pattern = Pattern.compile(regex);
 
             TreeMap<String, List<ModVersionGroup.ModItem>> mModVersionsByMinecraftVersion = new TreeMap<>();
-            for(ModVersionGroup.ModItem modItem : mModDetail.modItems) {
+            for (ModVersionGroup.ModItem modItem : mModDetail.modItems) {
                 for (String mcVersion : modItem.getVersionId()) {
+                    if (Thread.currentThread().isInterrupted()) {
+                        return;
+                    }
+
                     if (mReleaseCheckBox.isChecked()) {
                         Matcher matcher = pattern.matcher(mcVersion);
                         if (!matcher.matches()) {
@@ -108,7 +123,15 @@ public class DownloadModFragment extends Fragment {
             mModVersionsByMinecraftVersion.descendingMap() //反转
                     .forEach((k, v) -> mData.add(new ModVersionGroup(k, v)));
 
+            if (Thread.currentThread().isInterrupted()) {
+                return;
+            }
+
             runOnUiThread(() -> {
+                if (Thread.currentThread().isInterrupted()) {
+                    return;
+                }
+
                 DownloadModAdapter mModAdapter = (DownloadModAdapter) mModVersionView.getAdapter();
                 if (mModAdapter == null) {
                     mModAdapter = new DownloadModAdapter(mModApi, mModDetail, mData, mIsModpack, mModsPath);
@@ -130,7 +153,6 @@ public class DownloadModFragment extends Fragment {
             mLoadingText.setVisibility(state ? View.VISIBLE : View.GONE);
             mModVersionView.setVisibility(state ? View.GONE : View.VISIBLE);
 
-            mReturnButton.setClickable(!state);
             mRefreshButton.setClickable(!state);
             mReleaseCheckBox.setClickable(!state);
         });
