@@ -28,15 +28,17 @@ public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.In
     private final ModpackApi mModApi;
     private final ModDetail modDetail;
     private List<ModVersionGroup.ModVersionItem> mData;
+    private final String modName;
     private final boolean isModpack;
     private final String modsPath;
     private boolean mTasksRunning;
 
-    public ModVersionAdapter(Fragment fragment, ModpackApi api, ModDetail modDetail, List<ModVersionGroup.ModVersionItem> mData, boolean isModpack, String modsPath) {
+    public ModVersionAdapter(Fragment fragment, ModpackApi api, ModDetail modDetail, List<ModVersionGroup.ModVersionItem> mData, String modName, boolean isModpack, String modsPath) {
         this.fragment = fragment;
         this.mModApi = api;
         this.modDetail = modDetail;
         this.mData = mData;
+        this.modName = modName;
         this.isModpack = isModpack;
         this.modsPath = modsPath;
     }
@@ -106,7 +108,7 @@ public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.In
                     ModDependenciesDialog dependenciesDialog = new ModDependenciesDialog(
                             mainView.getContext(),
                             () -> mModApi.handleInstallation(mainView.getContext(), isModpack, modsPath, modDetail, modVersionItem),
-                            modVersionItem.getTitle(),
+                            modName,
                             fragment, mModApi, modVersionItem.getModDependencies(), isModpack, modsPath);
                     dependenciesDialog.show();
                     return;

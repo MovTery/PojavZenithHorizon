@@ -200,18 +200,14 @@ public class CurseforgeApi implements ModpackApi{
                         Set<String> itemsModloaderNames = new TreeSet<>();
                         for(JsonElement jsonElement : itemsGameVersions) {
                             String gameVersion = jsonElement.getAsString();
-                            if(!sMcVersionPattern.matcher(gameVersion).matches() && !ModLoaderList.notModloaderName(gameVersion)) {
-                                itemsModloaderNames.add(gameVersion);
-                                continue;
-                            }
 
-                            mcVersions.add(gameVersion);
-                            break;
+                            if(ModLoaderList.notModloaderName(gameVersion)) continue;
+                            itemsModloaderNames.add(ModLoaderList.getModloaderName(gameVersion));
                         }
 
                         SimpleStringJoiner modLoadersArray = new SimpleStringJoiner(",  ");
                         for (String string : itemsModloaderNames) {
-                            modLoadersArray.join(ModLoaderList.getModloaderName(string));
+                            modLoadersArray.join(string);
                         }
 
                         items = new ModItem(

@@ -30,14 +30,16 @@ public class DownloadModAdapter extends RecyclerView.Adapter<DownloadModAdapter.
     private List<ModVersionGroup> mData;
     private final ModpackApi mModApi;
     private final ModDetail modDetail;
+    private final String modName;
     private final boolean isModpack;
     private final String modsPath;
 
-    public DownloadModAdapter(Fragment fragment, ModpackApi api, ModDetail modDetail, List<ModVersionGroup> mData, boolean isModpack, String modsPath) {
+    public DownloadModAdapter(Fragment fragment, ModpackApi api, ModDetail modDetail, List<ModVersionGroup> mData, String modName, boolean isModpack, String modsPath) {
         this.fragment = fragment;
         this.mModApi = api;
         this.modDetail = modDetail;
         this.mData = mData;
+        this.modName = modName;
         this.isModpack = isModpack;
         this.modsPath = modsPath;
     }
@@ -105,7 +107,7 @@ public class DownloadModAdapter extends RecyclerView.Adapter<DownloadModAdapter.
                 runOnUiThread(() -> {
                     ModVersionAdapter versionAdapter = (ModVersionAdapter) modlistView.getAdapter();
                     if (versionAdapter == null) {
-                        versionAdapter = new ModVersionAdapter(fragment, mModApi, modDetail, modVersionList, isModpack, modsPath);
+                        versionAdapter = new ModVersionAdapter(fragment, mModApi, modDetail, modVersionList, modName, isModpack, modsPath);
                         modlistView.setLayoutManager(new LinearLayoutManager(modlistView.getContext()));
                         modlistView.setAdapter(versionAdapter);
                     } else {

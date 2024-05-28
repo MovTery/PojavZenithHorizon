@@ -130,7 +130,7 @@
     <string name="zh_profile_mods_information_dependencies">依赖类型:</string>
     <string name="zh_profile_mods_dependencies_dialog_title">%s 有以下的依赖 Mod</string>
     <string name="zh_profile_mods_dependencies_dialog_tip">请根据需求下载对应的依赖 Mod，缺少必要的依赖 Mod 将导致游戏无法运行！</string>
-    <string name="zh_profile_mods_dependencies_dialog_this_mod">先下载本 Mod</string>
+    <string name="zh_profile_mods_dependencies_dialog_this_mod">下载 %s</string>
     <string name="zh_profile_mods_dependencies_required">需装</string>
     <string name="zh_profile_mods_dependencies_optional">可选</string>
     <string name="zh_profile_mods_dependencies_incompatible">不兼容</string>

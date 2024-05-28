@@ -26,6 +26,7 @@ import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ModDependenciesDialog extends Dialog {
@@ -44,7 +45,7 @@ public class ModDependenciesDialog extends Dialog {
 
         Window window = getWindow();
         if (window != null) {
-            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
             window.setGravity(Gravity.CENTER);
 
             //隐藏状态栏
@@ -65,7 +66,9 @@ public class ModDependenciesDialog extends Dialog {
         Button mDownloadButton = findViewById(R.id.zh_mod_dependencies_download_button);
 
         mTitle.setText(context.getString(R.string.zh_profile_mods_dependencies_dialog_title, modName));
+        mDownloadButton.setText(context.getString(R.string.zh_profile_mods_dependencies_dialog_this_mod, modName));
 
+        Collections.sort(mData);
         ModDependenciesAdapter adapter = new ModDependenciesAdapter(fragment, api, mData, isModpack, modsPath);
         adapter.setOnItemCLickListener(this::dismiss);
         modRecyclerView.setLayoutManager(new LinearLayoutManager(context));

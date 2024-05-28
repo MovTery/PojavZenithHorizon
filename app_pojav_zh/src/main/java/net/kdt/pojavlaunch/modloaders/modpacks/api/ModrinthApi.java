@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.zip.ZipFile;
 
 public class ModrinthApi implements ModpackApi{
@@ -75,17 +76,29 @@ public class ModrinthApi implements ModpackApi{
         JsonArray responseHits = response.getAsJsonArray("hits");
         if(responseHits == null) return null;
 
-        ModItem[] items = new ModItem[responseHits.size()];
-        for(int i=0; i<responseHits.size(); ++i){
+        List<ModItem> modItems = new ArrayList<>();
+        for (int i = 0; i < responseHits.size(); ++i) {
             JsonObject hit = responseHits.get(i).getAsJsonObject();
-            JsonArray loaders = hit.get("categories").getAsJsonArray();
+
+            JsonArray categories = hit.get("categories").getAsJsonArray();
             SimpleStringJoiner sj = new SimpleStringJoiner(",  ");
-            for (JsonElement loader : loaders) {
-                String string = loader.getAsString();
+            boolean isDataPack = false;
+            for (JsonElement category : categories) {
+                String string = category.getAsString();
+
+                if (Objects.equals(string, "datapack")) {
+                    isDataPack = true; //老是能搜到数据包我不理解...
+                }
+
                 if (ModLoaderList.notModloaderName(string)) continue; //排除不是Mod加载器名字的字符串
                 sj.join(ModLoaderList.getModloaderName(string));
             }
-            items[i] = new ModItem(
+
+            if (isDataPack) {
+                continue;
+            }
+
+            modItems.add(new ModItem(
                     Constants.SOURCE_MODRINTH,
                     hit.get("project_type").getAsString().equals("modpack"),
                     hit.get("project_id").getAsString(),
@@ -93,12 +106,11 @@ public class ModrinthApi implements ModpackApi{
                     hit.get("description").getAsString(),
                     hit.get("downloads").getAsInt(),
                     sj.getValue(),
-                    hit.get("icon_url").getAsString()
-            );
+                    hit.get("icon_url").getAsString()));
         }
-        if(modrinthSearchResult == null) modrinthSearchResult = new ModrinthSearchResult();
+        if (modrinthSearchResult == null) modrinthSearchResult = new ModrinthSearchResult();
         modrinthSearchResult.previousOffset += responseHits.size();
-        modrinthSearchResult.results = items;
+        modrinthSearchResult.results = modItems.toArray(new ModItem[0]);
         modrinthSearchResult.totalResultCount = response.get("total_hits").getAsInt();
         return modrinthSearchResult;
     }
@@ -125,7 +137,6 @@ public class ModrinthApi implements ModpackApi{
             SimpleStringJoiner modloaderList = new SimpleStringJoiner(", ");
             for (JsonElement loader : loaders) {
                 String loaderName = loader.getAsString();
-                if (ModLoaderList.notModloaderName(loaderName)) continue;
                 modloaderList.join(ModLoaderList.getModloaderName(loaderName));
             }
 
@@ -159,12 +170,11 @@ public class ModrinthApi implements ModpackApi{
                     ModItem items;
                     if (!dependenciesModMap.containsKey(projectId)) {
                         JsonObject hit = mApiHandler.get("project/" + projectId, JsonObject.class);
-                        System.out.println(response);
-                        JsonArray modLoaders = hit.get("categories").getAsJsonArray();
+
+                        JsonArray modLoaders = hit.get("loaders").getAsJsonArray();
                         SimpleStringJoiner modLoadersArray = new SimpleStringJoiner(",  ");
                         for (JsonElement loader : modLoaders) {
                             String string = loader.getAsString();
-                            if (ModLoaderList.notModloaderName(string)) continue; //排除不是Mod加载器名字的字符串
                             modLoadersArray.join(ModLoaderList.getModloaderName(string));
                         }
                         items = new ModItem(
