@@ -14,7 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
-import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,7 +41,7 @@ import java.util.WeakHashMap;
 import java.util.concurrent.Future;
 
 public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private final FragmentActivity activity;
+    private final Fragment fragment;
     private final boolean isModpack;
     private final String modsPath;
     private static final ModItem[] MOD_ITEMS_EMPTY = new ModItem[0];
@@ -64,13 +64,13 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private boolean mLastPage;
 
 
-    public ModItemAdapter(FragmentActivity activity, RecyclerView modsRecyclerView, Resources resources, ModpackApi api, SearchResultCallback callback, boolean isModpack, String modsPath) {
+    public ModItemAdapter(Fragment fragment, RecyclerView modsRecyclerView, Resources resources, ModpackApi api, SearchResultCallback callback, boolean isModpack, String modsPath) {
         mCornerDimensionCache = resources.getDimension(R.dimen._1sdp) / 250;
         mModpackApi = api;
         mModItems = new ModItem[]{};
         mSearchResultCallback = callback;
 
-        this.activity = activity;
+        this.fragment = fragment;
         this.modsRecyclerView = modsRecyclerView;
         this.isModpack = isModpack;
         this.modsPath = modsPath;
@@ -153,12 +153,12 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(view);
             mViewHolderSet.add(this);
             view.setOnClickListener(v -> {
-                ModApiViewModel viewModel = new ViewModelProvider(activity).get(ModApiViewModel.class);
+                ModApiViewModel viewModel = new ViewModelProvider(fragment.requireActivity()).get(ModApiViewModel.class);
                 viewModel.setModApi(mModpackApi);
                 viewModel.setModItem(mModItem);
                 viewModel.setModpack(isModpack);
                 viewModel.setModsPath(modsPath);
-                PojavZHTools.showOrAddFragment(activity, DownloadModFragment.class, DownloadModFragment.TAG, null);
+                PojavZHTools.addFragment(fragment, DownloadModFragment.class, DownloadModFragment.TAG, null);
             });
 
             // Define click listener for the ViewHolder's View
