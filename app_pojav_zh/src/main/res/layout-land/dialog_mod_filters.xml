@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="8dp"
-    android:paddingVertical="12dp"
     android:minWidth="480dp"
+    android:paddingHorizontal="12dp"
+    android:paddingVertical="12dp"
     tools:ignore="MissingDefaultResource">
 
     <!-- Version filter -->
@@ -16,21 +16,17 @@
         android:layout_height="wrap_content"
         android:text="@string/profiles_profile_version"
         app:layout_constraintStart_toStartOf="@+id/search_mod_selected_mc_version_textview"
-
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/search_mod_selected_mc_version_textview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
-        android:layout_marginEnd="@dimen/padding_medium"
-
+        android:layout_marginEnd="4dp"
         android:background="@drawable/background_edit_box"
         android:hint="@string/version_select_hint"
         android:paddingHorizontal="@dimen/padding_heavy"
         android:textSize="@dimen/_13ssp"
-
         app:layout_constraintEnd_toStartOf="@+id/search_mod_mc_version_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_mod_mc_version_textview" />
@@ -40,9 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:paddingHorizontal="@dimen/padding_large"
-
         android:text="@string/global_select"
-
         app:layout_constraintBottom_toBottomOf="@+id/search_mod_selected_mc_version_textview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/search_mod_selected_mc_version_textview" />
@@ -51,7 +45,6 @@
         android:id="@+id/search_mod_sort_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_marginTop="8dp"
         android:text="@string/zh_profile_mods_sort_by"
         app:layout_constraintStart_toStartOf="@+id/zh_search_mod_sort"
@@ -84,7 +77,6 @@
         android:id="@+id/search_mod_modloader_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_marginTop="8dp"
         android:text="@string/zh_profile_mods_modloader"
         app:layout_constraintStart_toStartOf="@+id/linearLayout"
@@ -103,8 +95,8 @@
             android:id="@+id/zh_search_forge_checkBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginEnd="4dp"
+            android:layout_weight="1"
             android:background="@drawable/background_edit_box"
             android:text="Forge"
             app:layout_constraintStart_toStartOf="@+id/search_mod_modloader_textview"
@@ -115,9 +107,9 @@
             android:id="@+id/zh_search_fabric_checkBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
+            android:layout_weight="1"
             android:background="@drawable/background_edit_box"
             android:text="Fabric"
             app:layout_constraintStart_toEndOf="@+id/zh_search_forge_checkBox"
@@ -128,9 +120,9 @@
             android:id="@+id/zh_search_quilt_checkBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
+            android:layout_weight="1"
             android:background="@drawable/background_edit_box"
             android:text="Quilt"
             app:layout_constraintStart_toEndOf="@+id/zh_search_forge_checkBox"
@@ -141,8 +133,8 @@
             android:id="@+id/zh_search_neoforge_checkBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginStart="4dp"
+            android:layout_weight="1"
             android:background="@drawable/background_edit_box"
             android:text="NeoForge"
             app:layout_constraintStart_toEndOf="@+id/zh_search_forge_checkBox"
@@ -155,8 +147,9 @@
         android:id="@+id/search_mod_apply_filters"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/padding_large"
-
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="-4dp"
+        android:layout_marginEnd="-4dp"
         android:text="@string/generic_apply"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
