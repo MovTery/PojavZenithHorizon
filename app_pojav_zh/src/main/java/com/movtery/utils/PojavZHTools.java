@@ -28,6 +28,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.movtery.ui.subassembly.background.BackgroundManager;
@@ -225,6 +226,44 @@ public class PojavZHTools {
         if (addToBackStack) transaction.addToBackStack(fragmentClass.getName());
         transaction.setReorderingAllowed(true)
                 .replace(R.id.zh_settings_fragment, fragmentClass, bundle, fragmentTag)
+                .commit();
+    }
+
+    public static void showOrAddFragment(FragmentActivity fragmentActivity, Class<? extends Fragment> fragmentClass,
+                                         @Nullable String fragmentTag, @Nullable Bundle bundle) {
+        FragmentManager fragmentManager = fragmentActivity.getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        if (PREF_ANIMATION) {
+            transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
+        }
+
+        Fragment existingFragment = fragmentManager.findFragmentByTag(fragmentTag);
+        if (existingFragment == null) {
+            try {
+                //如果不存在，则创建并添加新的 Fragment
+                Fragment newFragment = fragmentClass.newInstance();
+                if (bundle != null) {
+                    newFragment.setArguments(bundle);
+                }
+                transaction.add(R.id.container_fragment, newFragment, fragmentTag);
+            } catch (Exception e) {
+                Tools.showError(fragmentActivity, e);
+                return;
+            }
+        } else {
+            transaction.show(existingFragment);
+        }
+
+        //隐藏其他 Fragment
+        for (Fragment fragment : fragmentManager.getFragments()) {
+            if (fragment != null && fragment.isVisible() && fragment.getTag() != null && !fragment.getTag().equals(fragmentTag)) {
+                transaction.hide(fragment);
+            }
+        }
+
+        transaction.setReorderingAllowed(true)
+                .addToBackStack(fragmentClass.getName())
                 .commit();
     }
 

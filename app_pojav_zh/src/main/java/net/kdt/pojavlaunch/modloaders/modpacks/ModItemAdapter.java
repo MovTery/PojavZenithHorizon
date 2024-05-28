@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch.modloaders.modpacks;
 
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
+
 import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -49,6 +51,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private final Set<ViewHolder> mViewHolderSet = Collections.newSetFromMap(new WeakHashMap<>());
     private final ModIconCache mIconCache = new ModIconCache();
     private final SearchResultCallback mSearchResultCallback;
+    private final RecyclerView modsRecyclerView;
     private ModItem[] mModItems;
     private final ModpackApi mModpackApi;
 
@@ -61,13 +64,14 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private boolean mLastPage;
 
 
-    public ModItemAdapter(FragmentActivity activity, Resources resources, ModpackApi api, SearchResultCallback callback, boolean isModpack, String modsPath) {
+    public ModItemAdapter(FragmentActivity activity, RecyclerView modsRecyclerView, Resources resources, ModpackApi api, SearchResultCallback callback, boolean isModpack, String modsPath) {
         mCornerDimensionCache = resources.getDimension(R.dimen._1sdp) / 250;
         mModpackApi = api;
         mModItems = new ModItem[]{};
         mSearchResultCallback = callback;
 
         this.activity = activity;
+        this.modsRecyclerView = modsRecyclerView;
         this.isModpack = isModpack;
         this.modsPath = modsPath;
     }
@@ -154,7 +158,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 viewModel.setModItem(mModItem);
                 viewModel.setModpack(isModpack);
                 viewModel.setModsPath(modsPath);
-                Tools.swapFragment(activity, DownloadModFragment.class, DownloadModFragment.TAG, null);
+                PojavZHTools.showOrAddFragment(activity, DownloadModFragment.class, DownloadModFragment.TAG, null);
             });
 
             // Define click listener for the ViewHolder's View
@@ -284,6 +288,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     mModItems = finalModItems;
                     notifyDataSetChanged();
                 }
+                if (PREF_ANIMATION) modsRecyclerView.scheduleLayoutAnimation();
             });
         }
     }
