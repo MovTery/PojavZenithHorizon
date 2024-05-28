@@ -129,6 +129,8 @@ public class DownloadModFragment extends Fragment {
             mProgressBar.setVisibility(state ? View.VISIBLE : View.GONE);
             mLoadingText.setVisibility(state ? View.VISIBLE : View.GONE);
             mModVersionView.setVisibility(state ? View.GONE : View.VISIBLE);
+
+            mReturnButton.setClickable(!state);
             mRefreshButton.setClickable(!state);
             mReleaseCheckBox.setClickable(!state);
         });

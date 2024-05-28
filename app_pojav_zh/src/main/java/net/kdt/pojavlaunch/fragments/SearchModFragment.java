@@ -1,10 +1,16 @@
 package net.kdt.pojavlaunch.fragments;
 
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
+
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -60,15 +66,17 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         modpackApi = new CommonApi(context.getString(R.string.curseforge_api_key));
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         parseBundle();
         mSearchFilters = new SearchFilters();
         mSearchFilters.isModpack = this.isModpack;
-
-        // You can only access resources after attaching to current context
-        mModItemAdapter = new ModItemAdapter(requireActivity(), getResources(), modpackApi, this, isModpack, mModsPath);
-        mOverlayTopCache = Tools.dpToPx(20);
 
         mOverlay = view.findViewById(R.id.search_mod_overlay);
         mSearchEditText = view.findViewById(R.id.search_mod_edittext);
@@ -81,6 +89,10 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
 
         mDefaultTextColor = mStatusTextView.getTextColors();
 
+        // You can only access resources after attaching to current context
+        mModItemAdapter = new ModItemAdapter(requireActivity(), mRecyclerview, getResources(), modpackApi, this, isModpack, mModsPath);
+        mOverlayTopCache = Tools.dpToPx(20);
+        if (PREF_ANIMATION) mRecyclerview.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.fade_downwards)));
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerview.setAdapter(mModItemAdapter);
 
