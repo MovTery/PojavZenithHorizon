@@ -7,13 +7,18 @@ import androidx.annotation.NonNull;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
 
-public class ModDependencies {
+public class ModDependencies implements Comparable<ModDependencies> {
     public ModItem item;
     public DependencyType dependencyType;
 
     public ModDependencies(ModItem item, DependencyType dependencyType) {
         this.item = item;
         this.dependencyType = dependencyType;
+    }
+
+    @Override
+    public int compareTo(ModDependencies o) {
+        return this.dependencyType.compareTo(o.dependencyType);
     }
 
     @NonNull

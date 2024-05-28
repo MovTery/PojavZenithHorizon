@@ -16,6 +16,7 @@
     </style>
 
     <style name="CustomButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="textAllCaps">false</item>
         <item name="android:background">@drawable/button_background</item>
     </style>
 
