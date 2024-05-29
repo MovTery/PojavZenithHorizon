@@ -58,17 +58,21 @@ public class ApiHandler {
 
     public static String getRaw(Map<String, String> headers, String url) {
         Log.d("ApiHandler", url);
-        try {
-            HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+        HttpURLConnection conn = null;
+        try{
+            conn = (HttpURLConnection) new URL(url).openConnection();
             addHeaders(conn, headers);
             InputStream inputStream = conn.getInputStream();
             String data = Tools.read(inputStream);
+
             Log.d(ApiHandler.class.toString(), data);
             inputStream.close();
             conn.disconnect();
             return data;
         } catch (IOException e) {
-            e.printStackTrace();
+            if (conn != null) {
+                conn.disconnect();
+            }
         }
         return null;
     }
