@@ -14,12 +14,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.ui.fragment.DownloadModFragment;
 import com.movtery.ui.subassembly.downloadmod.ModApiViewModel;
+import com.movtery.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.utils.NumberWithUnits;
 
 import net.kdt.pojavlaunch.PojavApplication;
@@ -27,7 +27,6 @@ import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import com.movtery.feature.ResourceManager;
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ImageReceiver;
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ModIconCache;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.Constants;
@@ -41,9 +40,7 @@ import java.util.WeakHashMap;
 import java.util.concurrent.Future;
 
 public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private final FragmentActivity fragmentActivity;
-    private final boolean isModpack;
-    private final String modsPath;
+    private final ModDependencies.SelectedMod mod;
     private static final ModItem[] MOD_ITEMS_EMPTY = new ModItem[0];
     private static final int VIEW_TYPE_MOD_ITEM = 0;
     private static final int VIEW_TYPE_LOADING = 1;
@@ -53,7 +50,6 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private final SearchResultCallback mSearchResultCallback;
     private final RecyclerView modsRecyclerView;
     private ModItem[] mModItems;
-    private final ModpackApi mModpackApi;
 
     /* Cache for ever so slightly rounding the image for the corner not to stick out of the layout */
     private final float mCornerDimensionCache;
@@ -64,16 +60,13 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private boolean mLastPage;
 
 
-    public ModItemAdapter(FragmentActivity fragmentActivity, RecyclerView modsRecyclerView, Resources resources, ModpackApi api, SearchResultCallback callback, boolean isModpack, String modsPath) {
+    public ModItemAdapter(ModDependencies.SelectedMod mod, RecyclerView modsRecyclerView, Resources resources, SearchResultCallback callback) {
         mCornerDimensionCache = resources.getDimension(R.dimen._1sdp) / 250;
-        mModpackApi = api;
         mModItems = new ModItem[]{};
         mSearchResultCallback = callback;
 
-        this.fragmentActivity = fragmentActivity;
+        this.mod = mod;
         this.modsRecyclerView = modsRecyclerView;
-        this.isModpack = isModpack;
-        this.modsPath = modsPath;
     }
 
     public void performSearchQuery(SearchFilters searchFilters) {
@@ -142,7 +135,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      * Basic viewholder with expension capabilities
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private ModItem mModItem = null;
+        private final View view;
         private final TextView mTitle, mDescription, mDownloadCount, mModloader;
         private final ImageView mIconView, mSourceView;
         private Future<?> mExtensionFuture;
@@ -151,15 +144,8 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public ViewHolder(View view) {
             super(view);
+            this.view = view;
             mViewHolderSet.add(this);
-            view.setOnClickListener(v -> {
-                ModApiViewModel viewModel = new ViewModelProvider(fragmentActivity).get(ModApiViewModel.class);
-                viewModel.setModApi(mModpackApi);
-                viewModel.setModItem(mModItem);
-                viewModel.setModpack(isModpack);
-                viewModel.setModsPath(modsPath);
-                PojavZHTools.addFragment(fragmentActivity, DownloadModFragment.class, DownloadModFragment.TAG, null);
-            });
 
             // Define click listener for the ViewHolder's View
             mTitle = view.findViewById(R.id.mod_title_textview);
@@ -172,6 +158,15 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         /** Display basic info about the moditem */
         public void setStateLimited(ModItem item) {
+            this.view.setOnClickListener(v -> {
+                ModApiViewModel viewModel = new ViewModelProvider(mod.fragment.requireActivity()).get(ModApiViewModel.class);
+                viewModel.setModApi(mod.api);
+                viewModel.setModItem(item);
+                viewModel.setModpack(mod.isModpack);
+                viewModel.setModsPath(mod.modsPath);
+                PojavZHTools.addFragment(mod.fragment, DownloadModFragment.class, DownloadModFragment.TAG, null);
+            });
+
             if(mThumbnailBitmap != null) {
                 mIconView.setImageBitmap(null);
                 mThumbnailBitmap.recycle();
@@ -188,7 +183,6 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 mExtensionFuture = null;
             }
 
-            mModItem = item;
             // here the previous reference to the image receiver will disappear
             mImageReceiver = bm->{
                 mImageReceiver = null;
@@ -248,7 +242,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         @SuppressLint("NotifyDataSetChanged")
         @Override
         public void run(Future<?> myFuture) {
-            SearchResult result = mModpackApi.searchMod(mSearchFilters, mPreviousResult);
+            SearchResult result = mod.api.searchMod(mSearchFilters, mPreviousResult);
             ModItem[] resultModItems = result != null ? result.results : null;
             if(resultModItems != null && resultModItems.length != 0 && mPreviousResult != null) {
                 ModItem[] newModItems = new ModItem[resultModItems.length + mModItems.length];

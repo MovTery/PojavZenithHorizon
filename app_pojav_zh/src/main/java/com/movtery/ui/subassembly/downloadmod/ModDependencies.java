@@ -3,8 +3,10 @@ package com.movtery.ui.subassembly.downloadmod;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
 
 public class ModDependencies implements Comparable<ModDependencies> {
@@ -74,5 +76,21 @@ public class ModDependencies implements Comparable<ModDependencies> {
     public enum DependencyType {
         REQUIRED, OPTIONAL, INCOMPATIBLE, EMBEDDED, //相同
         TOOL, INCLUDE //仅curseforge
+    }
+
+    public static class SelectedMod {
+        public Fragment fragment;
+        public String modName;
+        public ModpackApi api;
+        public boolean isModpack;
+        public String modsPath;
+
+        public SelectedMod(Fragment fragment, String modName, ModpackApi api, boolean isModpack, String modsPath) {
+            this.fragment = fragment;
+            this.modName = modName;
+            this.api = api;
+            this.isModpack = isModpack;
+            this.modsPath = modsPath;
+        }
     }
 }

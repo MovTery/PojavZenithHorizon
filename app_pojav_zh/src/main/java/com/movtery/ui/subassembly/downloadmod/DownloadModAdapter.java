@@ -14,34 +14,24 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
 
 import java.util.List;
 
 public class DownloadModAdapter extends RecyclerView.Adapter<DownloadModAdapter.InnerHolder> {
-    private final FragmentActivity fragmentActivity;
+    private final ModDependencies.SelectedMod mod;
     private List<ModVersionGroup> mData;
-    private final ModpackApi mModApi;
     private final ModDetail modDetail;
-    private final String modName;
-    private final boolean isModpack;
-    private final String modsPath;
 
-    public DownloadModAdapter(FragmentActivity fragmentActivity, ModpackApi api, ModDetail modDetail, List<ModVersionGroup> mData, String modName, boolean isModpack, String modsPath) {
-        this.fragmentActivity = fragmentActivity;
-        this.mModApi = api;
+    public DownloadModAdapter(ModDependencies.SelectedMod mod, ModDetail modDetail, List<ModVersionGroup> mData) {
+        this.mod = mod;
         this.modDetail = modDetail;
         this.mData = mData;
-        this.modName = modName;
-        this.isModpack = isModpack;
-        this.modsPath = modsPath;
     }
 
     @NonNull
@@ -107,7 +97,7 @@ public class DownloadModAdapter extends RecyclerView.Adapter<DownloadModAdapter.
                 runOnUiThread(() -> {
                     ModVersionAdapter versionAdapter = (ModVersionAdapter) modlistView.getAdapter();
                     if (versionAdapter == null) {
-                        versionAdapter = new ModVersionAdapter(fragmentActivity, mModApi, modDetail, modVersionList, modName, isModpack, modsPath);
+                        versionAdapter = new ModVersionAdapter(mod, modDetail, modVersionList);
                         modlistView.setLayoutManager(new LinearLayoutManager(modlistView.getContext()));
                         modlistView.setAdapter(versionAdapter);
                     } else {

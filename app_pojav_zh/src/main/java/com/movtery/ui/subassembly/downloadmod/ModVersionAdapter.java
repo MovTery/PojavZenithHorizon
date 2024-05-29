@@ -8,7 +8,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.ui.dialog.ModDependenciesDialog;
@@ -17,30 +16,21 @@ import com.movtery.utils.PojavZHTools;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
 
 import java.util.List;
 
 public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.InnerHolder> implements TaskCountListener {
-    private final FragmentActivity fragmentActivity;
-    private final ModpackApi mModApi;
+    private final ModDependencies.SelectedMod mod;
     private final ModDetail modDetail;
     private List<ModVersionGroup.ModVersionItem> mData;
-    private final String modName;
-    private final boolean isModpack;
-    private final String modsPath;
     private boolean mTasksRunning;
 
-    public ModVersionAdapter(FragmentActivity fragmentActivity, ModpackApi api, ModDetail modDetail, List<ModVersionGroup.ModVersionItem> mData, String modName, boolean isModpack, String modsPath) {
-        this.fragmentActivity = fragmentActivity;
-        this.mModApi = api;
+    public ModVersionAdapter(ModDependencies.SelectedMod mod, ModDetail modDetail, List<ModVersionGroup.ModVersionItem> mData) {
+        this.mod = mod;
         this.modDetail = modDetail;
         this.mData = mData;
-        this.modName = modName;
-        this.isModpack = isModpack;
-        this.modsPath = modsPath;
     }
 
     @NonNull
@@ -107,14 +97,14 @@ public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.In
                 if (!modVersionItem.getModDependencies().isEmpty()) {
                     ModDependenciesDialog dependenciesDialog = new ModDependenciesDialog(
                             mainView.getContext(),
-                            () -> mModApi.handleInstallation(mainView.getContext(), isModpack, modsPath, modDetail, modVersionItem),
-                            modName,
-                            fragmentActivity, mModApi, modVersionItem.getModDependencies(), isModpack, modsPath);
+                            mod,
+                            modVersionItem.getModDependencies(),
+                            () -> mod.api.handleInstallation(mainView.getContext(), mod.isModpack, mod.modsPath, modDetail, modVersionItem));
                     dependenciesDialog.show();
                     return;
                 }
 
-                mModApi.handleInstallation(mainView.getContext(), isModpack, modsPath, modDetail, modVersionItem);
+                mod.api.handleInstallation(mainView.getContext(), mod.isModpack, mod.modsPath, modDetail, modVersionItem);
             });
         }
     }
