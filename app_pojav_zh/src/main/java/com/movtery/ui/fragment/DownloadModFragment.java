@@ -76,20 +76,25 @@ public class DownloadModFragment extends Fragment {
 
         mRefreshButton.setOnClickListener(v -> refresh());
         mReleaseCheckBox.setOnClickListener(v -> refresh());
-        mReturnButton.setOnClickListener(v -> {
-            if (currentTask != null && !currentTask.isDone()) {
-                currentTask.cancel(true); //中断刷新任务
-            }
-            PojavZHTools.onBackPressed(requireActivity());
-        });
+        mReturnButton.setOnClickListener(v -> PojavZHTools.onBackPressed(requireActivity()));
 
         refresh();
     }
 
-    private void refresh() {
+    @Override
+    public void onDestroy() {
+        cancelTask();
+        super.onDestroy();
+    }
+
+    private void cancelTask() {
         if (currentTask != null && !currentTask.isDone()) {
             currentTask.cancel(true);
         }
+    }
+
+    private void refresh() {
+        cancelTask();
 
         currentTask = PojavApplication.sExecutorService.submit(() -> {
             componentProcessing(true);
