@@ -90,7 +90,7 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         mDefaultTextColor = mStatusTextView.getTextColors();
 
         // You can only access resources after attaching to current context
-        mModItemAdapter = new ModItemAdapter(this, mRecyclerview, getResources(), modpackApi, this, isModpack, mModsPath);
+        mModItemAdapter = new ModItemAdapter(requireActivity(), mRecyclerview, getResources(), modpackApi, this, isModpack, mModsPath);
         mOverlayTopCache = Tools.dpToPx(20);
         if (PREF_ANIMATION) mRecyclerview.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.fade_downwards)));
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));

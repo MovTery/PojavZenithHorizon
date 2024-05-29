@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,12 +31,12 @@ import java.util.List;
 
 public class ModDependenciesDialog extends Dialog {
 
-    public ModDependenciesDialog(@NonNull Context context, Runnable downloadRunnable, String modName, Fragment fragment, ModpackApi api, List<ModDependencies> mData, boolean isModpack, String modsPath) {
+    public ModDependenciesDialog(@NonNull Context context, Runnable downloadRunnable, String modName, FragmentActivity fragmentActivity, ModpackApi api, List<ModDependencies> mData, boolean isModpack, String modsPath) {
         super(context);
 
         this.setCancelable(false);
         this.setContentView(R.layout.dialog_mod_dependencies);
-        init(context, downloadRunnable, modName, fragment, api, mData, isModpack, modsPath);
+        init(context, downloadRunnable, modName, fragmentActivity, api, mData, isModpack, modsPath);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class ModDependenciesDialog extends Dialog {
         }
     }
 
-    private void init(Context context, Runnable downloadRunnable, String modName, Fragment fragment, ModpackApi api, List<ModDependencies> mData, boolean isModpack, String modsPath) {
+    private void init(Context context, Runnable downloadRunnable, String modName, FragmentActivity fragmentActivity, ModpackApi api, List<ModDependencies> mData, boolean isModpack, String modsPath) {
         TextView mTitle = findViewById(R.id.zh_mod_dependencies_title);
         RecyclerView modRecyclerView = findViewById(R.id.zh_mod_dependencies);
         Button mCloseButton = findViewById(R.id.zh_mod_dependencies_close_button);
@@ -69,7 +69,7 @@ public class ModDependenciesDialog extends Dialog {
         mDownloadButton.setText(context.getString(R.string.zh_profile_mods_dependencies_dialog_this_mod, modName));
 
         Collections.sort(mData);
-        ModDependenciesAdapter adapter = new ModDependenciesAdapter(fragment, api, mData, isModpack, modsPath);
+        ModDependenciesAdapter adapter = new ModDependenciesAdapter(fragmentActivity, api, mData, isModpack, modsPath);
         adapter.setOnItemCLickListener(this::dismiss);
         modRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         if (PREF_ANIMATION) modRecyclerView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(context, R.anim.fade_downwards)));

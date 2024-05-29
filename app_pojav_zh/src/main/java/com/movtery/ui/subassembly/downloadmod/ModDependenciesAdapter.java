@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,15 +30,15 @@ import java.util.List;
 import java.util.concurrent.Future;
 
 public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependenciesAdapter.InnerHolder>{
-    private final Fragment fragment;
+    private final FragmentActivity fragmentActivity;
     private final ModpackApi mModApi;
     private final List<ModDependencies> mData;
     private final boolean isModpack;
     private final String modsPath;
     private SetOnClickListener onClickListener;
 
-    public ModDependenciesAdapter(Fragment fragment, ModpackApi api, List<ModDependencies> mData, boolean isModpack, String modsPath) {
-        this.fragment = fragment;
+    public ModDependenciesAdapter(FragmentActivity fragmentActivity, ModpackApi api, List<ModDependencies> mData, boolean isModpack, String modsPath) {
+        this.fragmentActivity = fragmentActivity;
         this.mModApi = api;
         this.mData = mData;
         this.isModpack = isModpack;
@@ -114,8 +114,8 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
             mIconCache.getImage(mImageReceiver, item.getIconCacheTag(), item.imageUrl);
             mSourceImage.setImageResource(getSourceDrawable(item.apiSource));
             mTitle.setText(item.title);
-            String dependencies = fragment.getString(R.string.zh_profile_mods_information_dependencies) + " " +
-                    ModDependencies.getTextFromType(fragment.getContext(), modVersionItem.dependencyType);
+            String dependencies = fragmentActivity.getString(R.string.zh_profile_mods_information_dependencies) + " " +
+                    ModDependencies.getTextFromType(fragmentActivity, modVersionItem.dependencyType);
             mDependencies.setText(dependencies);
             mDesc.setText(item.description);
 
@@ -132,12 +132,12 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
             mModloaders.setText(modloaderText);
 
             mainView.setOnClickListener(v -> {
-                ModApiViewModel viewModel = new ViewModelProvider(fragment.requireActivity()).get(ModApiViewModel.class);
+                ModApiViewModel viewModel = new ViewModelProvider(fragmentActivity).get(ModApiViewModel.class);
                 viewModel.setModApi(mModApi);
                 viewModel.setModItem(item);
                 viewModel.setModpack(isModpack);
                 viewModel.setModsPath(modsPath);
-                PojavZHTools.addFragment(fragment, DownloadModFragment.class, DownloadModFragment.TAG, null);
+                PojavZHTools.addFragment(fragmentActivity, DownloadModFragment.class, DownloadModFragment.TAG, null);
 
                 if (onClickListener != null) onClickListener.onItemClick();
             });
