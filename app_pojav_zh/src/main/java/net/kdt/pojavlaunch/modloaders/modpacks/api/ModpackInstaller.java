@@ -21,7 +21,7 @@ public class ModpackInstaller {
     public static ModLoader installMod(ModDetail modDetail, String path, ModVersionGroup.ModVersionItem modVersionItem) throws IOException {
         String modFileName = "[" + modDetail.title + "] " + modVersionItem.getName();
 
-        File modFile = new File(path, modFileName);
+        File modFile = new File(path, modFileName.replace("/", "-"));
 
         try {
             byte[] downloadBuffer = new byte[8192];
@@ -45,7 +45,7 @@ public class ModpackInstaller {
         // Build a new minecraft instance, folder first
 
         // Get the modpack file
-        File modpackFile = new File(Tools.DIR_CACHE, modpackName + ".cf"); // Cache File
+        File modpackFile = new File(Tools.DIR_CACHE, modpackName.replace("/", "-") + ".cf"); // Cache File
         ModLoader modLoaderInfo;
         try {
             byte[] downloadBuffer = new byte[8192];
