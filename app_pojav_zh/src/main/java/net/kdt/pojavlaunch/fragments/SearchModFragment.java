@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -90,7 +91,9 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         mDefaultTextColor = mStatusTextView.getTextColors();
 
         // You can only access resources after attaching to current context
-        mModItemAdapter = new ModItemAdapter(requireActivity(), mRecyclerview, getResources(), modpackApi, this, isModpack, mModsPath);
+        mModItemAdapter = new ModItemAdapter(new ModDependencies.SelectedMod(SearchModFragment.this,
+                null, modpackApi, isModpack, mModsPath),
+                mRecyclerview, getResources(), this);
         mOverlayTopCache = Tools.dpToPx(20);
         if (PREF_ANIMATION) mRecyclerview.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.fade_downwards)));
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));

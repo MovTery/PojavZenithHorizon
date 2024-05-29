@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,7 +19,6 @@ import com.movtery.utils.NumberWithUnits;
 import com.movtery.utils.PojavZHTools;
 
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ImageReceiver;
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ModIconCache;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.Constants;
@@ -30,19 +28,13 @@ import java.util.List;
 import java.util.concurrent.Future;
 
 public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependenciesAdapter.InnerHolder>{
-    private final FragmentActivity fragmentActivity;
-    private final ModpackApi mModApi;
+    private final ModDependencies.SelectedMod mod;
     private final List<ModDependencies> mData;
-    private final boolean isModpack;
-    private final String modsPath;
     private SetOnClickListener onClickListener;
 
-    public ModDependenciesAdapter(FragmentActivity fragmentActivity, ModpackApi api, List<ModDependencies> mData, boolean isModpack, String modsPath) {
-        this.fragmentActivity = fragmentActivity;
-        this.mModApi = api;
+    public ModDependenciesAdapter(ModDependencies.SelectedMod mod, List<ModDependencies> mData) {
+        this.mod = mod;
         this.mData = mData;
-        this.isModpack = isModpack;
-        this.modsPath = modsPath;
     }
 
     @NonNull
@@ -114,8 +106,8 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
             mIconCache.getImage(mImageReceiver, item.getIconCacheTag(), item.imageUrl);
             mSourceImage.setImageResource(getSourceDrawable(item.apiSource));
             mTitle.setText(item.title);
-            String dependencies = fragmentActivity.getString(R.string.zh_profile_mods_information_dependencies) + " " +
-                    ModDependencies.getTextFromType(fragmentActivity, modVersionItem.dependencyType);
+            String dependencies = mod.fragment.requireActivity().getString(R.string.zh_profile_mods_information_dependencies) + " " +
+                    ModDependencies.getTextFromType(mod.fragment.requireContext(), modVersionItem.dependencyType);
             mDependencies.setText(dependencies);
             mDesc.setText(item.description);
 
@@ -132,12 +124,12 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
             mModloaders.setText(modloaderText);
 
             mainView.setOnClickListener(v -> {
-                ModApiViewModel viewModel = new ViewModelProvider(fragmentActivity).get(ModApiViewModel.class);
-                viewModel.setModApi(mModApi);
+                ModApiViewModel viewModel = new ViewModelProvider(mod.fragment.requireActivity()).get(ModApiViewModel.class);
+                viewModel.setModApi(mod.api);
                 viewModel.setModItem(item);
-                viewModel.setModpack(isModpack);
-                viewModel.setModsPath(modsPath);
-                PojavZHTools.addFragment(fragmentActivity, DownloadModFragment.class, DownloadModFragment.TAG, null);
+                viewModel.setModpack(mod.isModpack);
+                viewModel.setModsPath(mod.modsPath);
+                PojavZHTools.addFragment(mod.fragment, DownloadModFragment.class, DownloadModFragment.TAG, null);
 
                 if (onClickListener != null) onClickListener.onItemClick();
             });

@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.ui.subassembly.downloadmod.DownloadModAdapter;
 import com.movtery.ui.subassembly.downloadmod.ModApiViewModel;
+import com.movtery.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.ui.subassembly.downloadmod.ModVersionGroup;
 import com.movtery.ui.subassembly.recyclerview.SpacesItemDecoration;
 import com.movtery.utils.PojavZHTools;
@@ -139,7 +140,10 @@ public class DownloadModFragment extends Fragment {
 
                 DownloadModAdapter mModAdapter = (DownloadModAdapter) mModVersionView.getAdapter();
                 if (mModAdapter == null) {
-                    mModAdapter = new DownloadModAdapter(requireActivity(), mModApi, mModDetail, mData, mModItem.title, mIsModpack, mModsPath);
+                    mModAdapter = new DownloadModAdapter(
+                            new ModDependencies.SelectedMod(this,
+                                    mModItem.title, mModApi, mIsModpack, mModsPath),
+                            mModDetail, mData);
                     mModVersionView.setLayoutManager(new LinearLayoutManager(requireContext()));
                     mModVersionView.setAdapter(mModAdapter);
                 } else {
