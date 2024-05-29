@@ -228,16 +228,22 @@ public class PojavZHTools {
                 .commit();
     }
 
-    public static void addFragment(Fragment fragment, Class<? extends Fragment> fragmentClass,
-                                    @Nullable String fragmentTag, @Nullable Bundle bundle) {
-        FragmentTransaction transaction = fragment.requireActivity().getSupportFragmentManager().beginTransaction();
+    public static void addFragment(FragmentActivity fragmentActivity, Class<? extends Fragment> fragmentClass,
+                                   @Nullable String fragmentTag, @Nullable Bundle bundle) {
+        FragmentTransaction transaction = fragmentActivity.getSupportFragmentManager().beginTransaction();
 
         if (PREF_ANIMATION)
             transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
+
+        for (Fragment fragment : fragmentActivity.getSupportFragmentManager().getFragments()) {
+            if (fragment.getTag() != null && !fragment.getTag().equals(fragmentTag)) {
+                transaction.hide(fragment);
+            }
+        }
+
         transaction.setReorderingAllowed(true)
                 .addToBackStack(fragmentClass.getName())
                 .add(R.id.container_fragment, fragmentClass, bundle, fragmentTag)
-                .hide(fragment)
                 .commit();
     }
 

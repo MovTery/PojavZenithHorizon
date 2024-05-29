@@ -8,7 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.ui.dialog.ModDependenciesDialog;
@@ -24,7 +24,7 @@ import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
 import java.util.List;
 
 public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.InnerHolder> implements TaskCountListener {
-    private final Fragment fragment;
+    private final FragmentActivity fragmentActivity;
     private final ModpackApi mModApi;
     private final ModDetail modDetail;
     private List<ModVersionGroup.ModVersionItem> mData;
@@ -33,8 +33,8 @@ public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.In
     private final String modsPath;
     private boolean mTasksRunning;
 
-    public ModVersionAdapter(Fragment fragment, ModpackApi api, ModDetail modDetail, List<ModVersionGroup.ModVersionItem> mData, String modName, boolean isModpack, String modsPath) {
-        this.fragment = fragment;
+    public ModVersionAdapter(FragmentActivity fragmentActivity, ModpackApi api, ModDetail modDetail, List<ModVersionGroup.ModVersionItem> mData, String modName, boolean isModpack, String modsPath) {
+        this.fragmentActivity = fragmentActivity;
         this.mModApi = api;
         this.modDetail = modDetail;
         this.mData = mData;
@@ -109,7 +109,7 @@ public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.In
                             mainView.getContext(),
                             () -> mModApi.handleInstallation(mainView.getContext(), isModpack, modsPath, modDetail, modVersionItem),
                             modName,
-                            fragment, mModApi, modVersionItem.getModDependencies(), isModpack, modsPath);
+                            fragmentActivity, mModApi, modVersionItem.getModDependencies(), isModpack, modsPath);
                     dependenciesDialog.show();
                     return;
                 }

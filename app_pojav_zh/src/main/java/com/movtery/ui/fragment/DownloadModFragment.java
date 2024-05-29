@@ -139,7 +139,7 @@ public class DownloadModFragment extends Fragment {
 
                 DownloadModAdapter mModAdapter = (DownloadModAdapter) mModVersionView.getAdapter();
                 if (mModAdapter == null) {
-                    mModAdapter = new DownloadModAdapter(this, mModApi, mModDetail, mData, mModItem.title, mIsModpack, mModsPath);
+                    mModAdapter = new DownloadModAdapter(requireActivity(), mModApi, mModDetail, mData, mModItem.title, mIsModpack, mModsPath);
                     mModVersionView.setLayoutManager(new LinearLayoutManager(requireContext()));
                     mModVersionView.setAdapter(mModAdapter);
                 } else {
