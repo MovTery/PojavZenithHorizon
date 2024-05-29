@@ -93,8 +93,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="12dp"
-
         android:layout_marginBottom="12dp"
+        android:scrollbars="vertical"
+        android:scrollbarThumbVertical="@color/background_bottom_bar"
         android:background="@drawable/background_card"
         android:clipToPadding="false"
         android:paddingTop="@dimen/_15sdp"
