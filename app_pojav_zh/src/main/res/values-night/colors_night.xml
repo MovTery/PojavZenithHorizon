@@ -7,7 +7,6 @@
     <color name="background_status_bar">#242424</color>
     <color name="background_bottom_bar">#232323</color>
     <color name="background_line">#232323</color>
-    <color name="background_line_selected">#D8373737</color>
 
     <color name="button_background">#3C3C3C</color>
     <color name="dialog_background">#232323</color>
@@ -15,6 +14,9 @@
     <color name="menu_bar">#555555</color>
     <color name="menu_overlay">#BE232323</color>
     <color name="menu_progress">#888888</color>
+
+    <color name="background_item">#BF2E2E2E</color>
+    <color name="background_item_selected">#D8373737</color>
 
     <color name="edit_box_fill">#4C4C4C</color>
     <color name="edit_box_fill_selected">#636363</color>
