@@ -35,18 +35,16 @@
     <EditText
         android:id="@+id/login_edit_name"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_37sdp"
-
-        android:layout_marginHorizontal="@dimen/_25sdp"
-
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
         android:autofillHints="username"
-
         android:background="@drawable/background_edit_box"
         android:imeOptions="flagNoExtractUi"
         android:inputType="text"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
         android:textSize="@dimen/_16ssp"
+        app:layout_constraintHorizontal_weight="2.5"
         app:layout_constraintBottom_toBottomOf="@+id/login_menu"
         app:layout_constraintEnd_toStartOf="@+id/login_button"
         app:layout_constraintStart_toStartOf="@+id/login_menu"
@@ -58,10 +56,10 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/_42sdp"
         android:layout_marginHorizontal="@dimen/_25sdp"
-        android:onClick="loginMC"
         android:text="@string/login_online_login_label"
-
+        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintBottom_toBottomOf="@+id/login_menu"
+        app:layout_constraintStart_toEndOf="@+id/login_edit_name"
         app:layout_constraintEnd_toEndOf="@+id/login_menu"
         app:layout_constraintTop_toTopOf="@+id/login_menu" />
 
