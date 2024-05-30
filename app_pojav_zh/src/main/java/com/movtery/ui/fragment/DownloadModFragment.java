@@ -27,6 +27,7 @@ import com.movtery.ui.subassembly.downloadmod.ModApiViewModel;
 import com.movtery.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.ui.subassembly.downloadmod.ModVersionGroup;
 import com.movtery.ui.subassembly.recyclerview.SpacesItemDecoration;
+import com.movtery.utils.MCVersionComparator;
 import com.movtery.utils.PojavZHTools;
 
 import net.kdt.pojavlaunch.PojavApplication;
@@ -40,9 +41,7 @@ import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.Future;
@@ -134,7 +133,7 @@ public class DownloadModFragment extends Fragment {
 
             List<ModVersionGroup> mData = new ArrayList<>();
             mModVersionsByMinecraftVersion.entrySet().stream()
-                    .sorted(Map.Entry.comparingByKey(Comparator.reverseOrder())) //反转
+                    .sorted((o1, o2) -> MCVersionComparator.versionCompare(o1.getKey(), o2.getKey()))
                     .forEach(entry -> mData.add(new ModVersionGroup(entry.getKey(), entry.getValue())));
 
             runOnUiThread(() -> {
