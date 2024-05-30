@@ -65,7 +65,15 @@ public class FileRecyclerView extends LinearLayout {
                         listFileAt(file);
                     }
                 },
-                (position, file, name) -> fileSelectedListener.onItemLongClick(file, file.getAbsolutePath()),
+                (position, file, name) -> {
+                    if (file != null) {
+                        if (position == 0 && !lockPath.equals(fullPath)) {
+                            parentDir();
+                        } else  {
+                            fileSelectedListener.onItemLongClick(file, file.getAbsolutePath());
+                        }
+                    }
+                },
                 mData);
 
         addView(mainLv, layParam);
