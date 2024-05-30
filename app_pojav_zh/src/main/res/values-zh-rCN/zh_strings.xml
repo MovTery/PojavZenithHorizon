@@ -112,6 +112,7 @@
     <string name="zh_profile_create_mods_success">成功创建 Mods 文件夹!</string>
     <string name="zh_profile_mods">Mod 管理</string>
     <string name="zh_profile_mods_download_mod">下载 Mod</string>
+    <string name="zh_profile_mods_platform">搜索平台</string>
     <string name="zh_profile_mods_sort_by">排序方式</string>
     <string name="zh_profile_mods_modloader">Mod 加载器</string>
     <string name="zh_profile_mods_download_mod_failed">下载 Mod 文件时失败</string>
@@ -120,6 +121,7 @@
     <string name="zh_profile_mods_search_mod_search_download_error">Mod 元数据下载失败</string>
     <string name="zh_profile_mods_search_mod_no_result">未找到相关 Mod</string>
     <string name="zh_profile_mods_search_mod">搜索 Mod</string>
+    <string name="zh_profile_mods_search_platform_both">混合</string>
     <string name="zh_profile_mods_search_sort_by_relevant">相关性</string>
     <string name="zh_profile_mods_search_sort_by_total_downloads">总下载量</string>
     <string name="zh_profile_mods_search_sort_by_popularity">人气</string>

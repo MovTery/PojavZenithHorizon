@@ -14,4 +14,11 @@ public class SearchFilters {
     @Nullable public String mcVersion;
     public List<String> modloaders = new ArrayList<>();
     public int sort = 0;
+    public ApiPlatform platform = ApiPlatform.BOTH;
+
+    public enum ApiPlatform {
+        CURSEFORGE,
+        MODRINTH,
+        BOTH
+    }
 }

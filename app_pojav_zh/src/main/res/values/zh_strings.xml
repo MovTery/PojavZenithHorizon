@@ -113,6 +113,7 @@
     <string name="zh_profile_create_mods_success">Successfully created Mods folder!</string>
     <string name="zh_profile_mods">Mods</string>
     <string name="zh_profile_mods_download_mod">Download Mod</string>
+    <string name="zh_profile_mods_platform">Search Platform</string>
     <string name="zh_profile_mods_sort_by">Sort By</string>
     <string name="zh_profile_mods_modloader">Mod Loader</string>
     <string name="zh_profile_mods_download_mod_failed">Failed to download Mod file</string>
@@ -121,6 +122,7 @@
     <string name="zh_profile_mods_search_mod_search_download_error">Failed to download Mod metadata</string>
     <string name="zh_profile_mods_search_mod_no_result">No relevant Mod found</string>
     <string name="zh_profile_mods_search_mod">Search Mod</string>
+    <string name="zh_profile_mods_search_platform_both">Mixed</string>
     <string name="zh_profile_mods_search_sort_by_relevant">Relevance</string>
     <string name="zh_profile_mods_search_sort_by_total_downloads">Total Downloads</string>
     <string name="zh_profile_mods_search_sort_by_popularity">Popularity</string>
