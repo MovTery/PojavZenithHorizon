@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.movtery.feature.mod.ModLoaderList;
+import com.movtery.feature.mod.SearchModPlatform;
 import com.movtery.feature.mod.SearchModSort;
 import com.movtery.ui.subassembly.versionlist.VersionSelectedListener;
 
@@ -39,6 +40,7 @@ public class ModFitersDialog extends Dialog {
         TextView mSelectedVersion = findViewById(R.id.search_mod_selected_mc_version_textview);
         Button mSelectVersionButton = findViewById(R.id.search_mod_mc_version_button);
         Spinner mSortBy = findViewById(R.id.zh_search_mod_sort);
+        Spinner mPlatform = findViewById(R.id.zh_search_mod_platform);
         CheckBox mModloaderForge = findViewById(R.id.zh_search_forge_checkBox);
         CheckBox mModloaderFabric = findViewById(R.id.zh_search_fabric_checkBox);
         CheckBox mModloaderQuilt = findViewById(R.id.zh_search_quilt_checkBox);
@@ -64,6 +66,23 @@ public class ModFitersDialog extends Dialog {
         });
 
         mSelectedVersion.setText(mSearchFilters.mcVersion);
+
+        List<String> platfromList = SearchModPlatform.getIndexList();
+        if (mPlatform != null) {
+            mPlatform.setAdapter(new ArrayAdapter<>(getContext(), R.layout.item_simple_list_1, platfromList));
+            mPlatform.setSelection(SearchModPlatform.getIndex(mSearchFilters.platform));
+
+            mPlatform.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    mSearchFilters.platform = SearchModPlatform.getPlatform(position);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+        }
 
         List<String> sortList = new ArrayList<>(SearchModSort.getIndexList());
         if (mSortBy != null) {
