@@ -130,6 +130,10 @@
     <string name="zh_profile_mods_information_download_count">總下載量：</string>
     <string name="zh_profile_mods_information_modloader">支援的 Mod 載入器：</string>
     <string name="zh_profile_mods_information_dependencies">依賴類型:</string>
+    <string name="zh_profile_mods_information_release_type">版本類型:</string>
+    <string name="zh_profile_mods_information_release_type_release">正式版</string>
+    <string name="zh_profile_mods_information_release_type_beta">測試版</string>
+    <string name="zh_profile_mods_information_release_type_alpha">內測版</string>
     <string name="zh_profile_mods_dependencies_dialog_title">%s 有以下的依賴 Mod</string>
     <string name="zh_profile_mods_dependencies_dialog_tip">請根據需求下載對應的依賴 Mod，缺少必要的依賴 Mod 將導致遊戲無法運行！</string>
     <string name="zh_profile_mods_dependencies_dialog_this_mod">下載 %s</string>

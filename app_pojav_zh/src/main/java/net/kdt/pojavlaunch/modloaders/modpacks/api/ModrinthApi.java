@@ -8,6 +8,7 @@ import com.movtery.feature.mod.ModLoaderList;
 import com.movtery.feature.mod.SearchModSort;
 import com.movtery.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.ui.subassembly.downloadmod.ModVersionGroup;
+import com.movtery.ui.subassembly.downloadmod.VersionType;
 import com.movtery.utils.SimpleStringJoiner;
 
 import net.kdt.pojavlaunch.R;
@@ -132,6 +133,7 @@ public class ModrinthApi implements ModpackApi{
             String downloadUrl = filesJsonObject.get("url").getAsString();
             String filename = filesJsonObject.get("filename").getAsString();
             String name = version.get("name").getAsString();
+            String versionTypeString = version.get("version_type").getAsString();
             //Mod加载器信息
             JsonArray loaders = version.get("loaders").getAsJsonArray();
             SimpleStringJoiner modloaderList = new SimpleStringJoiner(", ");
@@ -202,6 +204,7 @@ public class ModrinthApi implements ModpackApi{
                     name,
                     modloaderList.getValue(),
                     modDependencies,
+                    VersionType.getVersionType(versionTypeString),
                     hash,
                     version.get("downloads").getAsInt(),
                     downloadUrl));

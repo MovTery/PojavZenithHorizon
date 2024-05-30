@@ -131,6 +131,10 @@
     <string name="zh_profile_mods_information_download_count">Total Downloads:</string>
     <string name="zh_profile_mods_information_modloader">Supported Mod Loaders:</string>
     <string name="zh_profile_mods_information_dependencies">Dependency Type:</string>
+    <string name="zh_profile_mods_information_release_type">Release Type:</string>
+    <string name="zh_profile_mods_information_release_type_release">Release</string>
+    <string name="zh_profile_mods_information_release_type_beta">Beta</string>
+    <string name="zh_profile_mods_information_release_type_alpha">Alpha</string>
     <string name="zh_profile_mods_dependencies_dialog_title">%s has the following dependency Mods</string>
     <string name="zh_profile_mods_dependencies_dialog_tip">Please download the corresponding dependency Mods as needed. Missing necessary dependency Mods will result in the game not running!</string>
     <string name="zh_profile_mods_dependencies_dialog_this_mod">Download %s</string>

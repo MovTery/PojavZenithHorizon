@@ -49,8 +49,9 @@ public class ModVersionGroup {
         private final int download;
         private final String downloadUrl;
         private final List<ModDependencies> modDependencies;
+        private final VersionType.VersionTypeEnum versionType;
 
-        public ModVersionItem(String[] versionId, String name, String title, String modloaders, List<ModDependencies> modDependencies, String versionHash, int download, String downloadUrl) {
+        public ModVersionItem(String[] versionId, String name, String title, String modloaders, List<ModDependencies> modDependencies, VersionType.VersionTypeEnum versionType, String versionHash, int download, String downloadUrl) {
             this.versionId = versionId;
             this.name = name;
             this.title = title;
@@ -59,6 +60,7 @@ public class ModVersionGroup {
             this.download = download;
             this.downloadUrl = downloadUrl;
             this.modDependencies = modDependencies;
+            this.versionType = versionType;
         }
 
         public String getName() {
@@ -85,16 +87,23 @@ public class ModVersionGroup {
         public List<ModDependencies> getModDependencies() {
             return modDependencies;
         }
+        public VersionType.VersionTypeEnum getVersionType() {
+            return versionType;
+        }
 
         @NonNull
         @Override
         public String toString() {
-            return "ModItem{" +
+            return "ModVersionItem{" +
                     "versionId=" + Arrays.toString(versionId) +
+                    ", name='" + name + '\'' +
                     ", title='" + title + '\'' +
                     ", modloaders='" + modloaders + '\'' +
+                    ", versionHash='" + versionHash + '\'' +
                     ", download=" + download +
                     ", downloadUrl='" + downloadUrl + '\'' +
+                    ", modDependencies=" + modDependencies +
+                    ", versionType=" + versionType +
                     '}';
         }
     }

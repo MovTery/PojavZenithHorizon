@@ -13,6 +13,7 @@ import com.movtery.feature.mod.ModLoaderList;
 import com.movtery.feature.mod.SearchModSort;
 import com.movtery.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.ui.subassembly.downloadmod.ModVersionGroup;
+import com.movtery.ui.subassembly.downloadmod.VersionType;
 import com.movtery.utils.SimpleStringJoiner;
 
 import com.movtery.utils.PojavZHTools;
@@ -156,6 +157,7 @@ public class CurseforgeApi implements ModpackApi{
             String downloadUrl = modDetail.get("downloadUrl").getAsString();
             String fileName = modDetail.get("fileName").getAsString();
             String displayName = modDetail.get("displayName").getAsString();
+            String releaseTypeString = modDetail.get("releaseType").getAsString();
             //获取版本信息
             List<String> mcVersions = new ArrayList<>();
             JsonArray gameVersions = modDetail.getAsJsonArray("gameVersions");
@@ -235,6 +237,7 @@ public class CurseforgeApi implements ModpackApi{
                     displayName,
                     modloaderList.getValue(),
                     modDependencies,
+                    VersionType.getVersionType(releaseTypeString),
                     getSha1FromModData(modDetail),
                     modDetail.get("downloadCount").getAsInt(),
                     downloadUrl));
