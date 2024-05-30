@@ -39,8 +39,12 @@ import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.TreeMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -105,33 +109,33 @@ public class DownloadModFragment extends Fragment {
             String regex = "^\\d+\\.\\d+\\.\\d+$|^\\d+\\.\\d+$";
             Pattern pattern = Pattern.compile(regex);
 
-            TreeMap<String, List<ModVersionGroup.ModVersionItem>> mModVersionsByMinecraftVersion = new TreeMap<>();
-            for (ModVersionGroup.ModVersionItem modVersionItem : mModDetail.modVersionItems) {
-                for (String mcVersion : modVersionItem.getVersionId()) {
-                    if (Thread.currentThread().isInterrupted()) {
-                        return;
-                    }
-
-                    if (mReleaseCheckBox.isChecked()) {
-                        Matcher matcher = pattern.matcher(mcVersion);
-                        if (!matcher.matches()) {
-                            //如果不是正式版本，将继续检测下一项
-                            continue;
+            ConcurrentMap<String, List<ModVersionGroup.ModVersionItem>> mModVersionsByMinecraftVersion = new ConcurrentHashMap<>();
+            mModDetail.modVersionItems.parallelStream().forEach(modVersionItem -> {
+                synchronized (mModVersionsByMinecraftVersion) {
+                    String[] versionId = modVersionItem.getVersionId();
+                    for (String mcVersion : versionId) {
+                        if (Thread.currentThread().isInterrupted()) {
+                            return;
                         }
-                    }
 
-                    mModVersionsByMinecraftVersion.computeIfAbsent(mcVersion, k -> new ArrayList<>())
-                            .add(modVersionItem);
+                        if (mReleaseCheckBox.isChecked()) {
+                            Matcher matcher = pattern.matcher(mcVersion);
+                            if (!matcher.matches()) {
+                                //如果不是正式版本，将继续检测下一项
+                                continue;
+                            }
+                        }
+
+                        mModVersionsByMinecraftVersion.computeIfAbsent(mcVersion, k -> Collections.synchronizedList(new ArrayList<>()))
+                                .add(modVersionItem); //将Mod 版本数据加入到相应的版本号分组中
+                    }
                 }
-            }
+            });
 
             List<ModVersionGroup> mData = new ArrayList<>();
-            mModVersionsByMinecraftVersion.descendingMap() //反转
-                    .forEach((k, v) -> mData.add(new ModVersionGroup(k, v)));
-
-            if (Thread.currentThread().isInterrupted()) {
-                return;
-            }
+            mModVersionsByMinecraftVersion.entrySet().stream()
+                    .sorted(Map.Entry.comparingByKey(Comparator.reverseOrder())) //反转
+                    .forEach(entry -> mData.add(new ModVersionGroup(entry.getKey(), entry.getValue())));
 
             runOnUiThread(() -> {
                 if (Thread.currentThread().isInterrupted()) {
