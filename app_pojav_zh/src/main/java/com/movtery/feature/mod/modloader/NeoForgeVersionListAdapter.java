@@ -7,8 +7,9 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.TextView;
 
+import com.movtery.utils.MCVersionComparator;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class NeoForgeVersionListAdapter extends BaseExpandableListAdapter implements ExpandableListAdapter {
@@ -18,9 +19,8 @@ public class NeoForgeVersionListAdapter extends BaseExpandableListAdapter implem
 
     public NeoForgeVersionListAdapter(List<String> neoforgeVersions, LayoutInflater layoutInflater) {
         this.mLayoutInflater = layoutInflater;
-        //排序并反转版本列表
-        Collections.sort(neoforgeVersions);
-        Collections.reverse(neoforgeVersions);
+        //排序版本列表
+        neoforgeVersions.sort(MCVersionComparator::versionCompare);
 
         mGameVersions = new ArrayList<>();
         mNeoForgeVersions = new ArrayList<>();

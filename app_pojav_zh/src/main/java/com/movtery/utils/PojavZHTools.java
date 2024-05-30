@@ -68,6 +68,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
@@ -171,6 +172,15 @@ public class PojavZHTools {
             count++;
         }
 
+        return numbers;
+    }
+
+    public static List<Integer> extractNumbers(String str) {
+        List<Integer> numbers = new ArrayList<>();
+        Matcher matcher = Pattern.compile("\\d+").matcher(str);
+        while (matcher.find()) {
+            numbers.add(Integer.parseInt(matcher.group()));
+        }
         return numbers;
     }
 
