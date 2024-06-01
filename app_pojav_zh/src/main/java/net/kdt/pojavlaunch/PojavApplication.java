@@ -52,7 +52,7 @@ public class PojavApplication extends Application {
 				crashStream.append(" - Device: ").append(Build.PRODUCT).append(" ").append(Build.MODEL).append("\n");
 				crashStream.append(" - Android version: ").append(Build.VERSION.RELEASE).append("\n");
 				crashStream.append(" - Crash stack trace:\n");
-				crashStream.append(" - Launcher version: " + getVersionName(this) + "\n");
+				crashStream.append(" - Launcher version: ").append(getVersionName(this)).append("\n");
 				crashStream.append(Log.getStackTraceString(th));
 				crashStream.close();
 			} catch (Throwable throwable) {
@@ -98,10 +98,6 @@ public class PojavApplication extends Application {
 					break;
 			}
 		}
-
-		//删除更新安装包（如果存在）
-		File updateFile = new File(getExternalFilesDir(null), "PojavZH.apk");
-		if (updateFile.exists()) org.apache.commons.io.FileUtils.deleteQuietly(updateFile);
 
 		CheckNewNotice.checkNewNotice(this);
 

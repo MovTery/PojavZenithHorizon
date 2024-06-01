@@ -2,10 +2,13 @@ package com.movtery.feature;
 
 import static com.movtery.utils.PojavZHTools.formatFileSize;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,10 +17,15 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.FileProvider;
 
 import com.movtery.ui.dialog.DownloadDialog;
+import com.movtery.ui.dialog.UpdateDialog;
+import com.movtery.utils.PojavZHTools;
 
+import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 
 import org.apache.commons.io.FileUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -48,7 +56,7 @@ public class UpdateLauncher {
     public UpdateLauncher(Context context, String tagName, String fileSize, UpdateSource updateSource) {
         this.context = context;
         this.updateSource = updateSource;
-        this.apkFile = new File(context.getExternalFilesDir(null), "PojavZH.apk");
+        this.apkFile = new File(PojavZHTools.DIR_APP_CACHE, "PojavZH.apk");
         this.tagName = tagName;
         this.fileSize = fileSize;
         init();
@@ -134,6 +142,48 @@ public class UpdateLauncher {
     private void finish(File outputFile) {
         runOnUiThread(UpdateLauncher.this.downloadDialog::dismiss);
 
+        installApk(context, outputFile);
+    }
+
+    private void stop() {
+        if (this.call == null) return;
+        this.call.cancel();
+        FileUtils.deleteQuietly(this.apkFile);
+    }
+
+    public enum UpdateSource {
+        GITHUB_RELEASE, GHPROXY
+    }
+
+    public static void CheckDownloadedPackage(Context context, boolean ignore) {
+        File downloadedFile = new File(PojavZHTools.DIR_APP_CACHE, "PojavZH.apk");
+
+        if (downloadedFile.exists()) {
+            PackageManager packageManager = context.getPackageManager();
+            PackageInfo packageInfo = packageManager.getPackageArchiveInfo(downloadedFile.getAbsolutePath(), 0);
+
+            if (packageInfo != null) {
+                String packageName = packageInfo.packageName;
+                int versionCode = packageInfo.versionCode;
+
+                int thisVersionCode = PojavZHTools.getVersionCode(context);
+                DEFAULT_PREF.edit().putInt("launcherVersionCode", thisVersionCode).apply();
+
+                if (Objects.equals(packageName, "net.kdt.pojavlaunch.zh") && versionCode > thisVersionCode) {
+                    installApk(context, downloadedFile);
+                } else {
+                    FileUtils.deleteQuietly(downloadedFile);
+                }
+            } else {
+                FileUtils.deleteQuietly(downloadedFile);
+            }
+        } else {
+            //如果安装包不存在，那么将自动获取更新
+            UpdateLauncher.updateCheckerMainProgram(context, ignore);
+        }
+    }
+
+    private static void installApk(Context context, File outputFile) {
         runOnUiThread(() -> {
             DialogInterface.OnClickListener install = (dialogInterface, i) -> { //安装
                 Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -154,13 +204,76 @@ public class UpdateLauncher {
         });
     }
 
-    private void stop() {
-        if (this.call == null) return;
-        this.call.cancel();
-        FileUtils.deleteQuietly(this.apkFile);
-    }
+    public static synchronized void updateCheckerMainProgram(Context context, boolean ignore) {
+        if (System.currentTimeMillis() - PojavZHTools.LAST_UPDATE_CHECK_TIME <= 5000) return;
+        PojavZHTools.LAST_UPDATE_CHECK_TIME = System.currentTimeMillis();
+        PojavApplication.sExecutorService.execute(() -> {
+            int versionCode = PojavZHTools.getVersionCode(context);
+            OkHttpClient client = new OkHttpClient();
+            Request.Builder url = new Request.Builder()
+                    .url(PojavZHTools.URL_GITHUB_RELEASE);
+            if (!context.getString(R.string.zh_api_token).equals("DUMMY")) {
+                url.header("Authorization", "token " + context.getString(R.string.zh_api_token));
+            }
+            Request request = url.build();
 
-    public enum UpdateSource {
-        GITHUB_RELEASE, GHPROXY
+            client.newCall(request).enqueue(new Callback() {
+
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_fail), Toast.LENGTH_SHORT).show());
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    if (!response.isSuccessful()) {
+                        throw new IOException("Unexpected code " + response);
+                    } else {
+                        Objects.requireNonNull(response.body());
+                        String responseBody = response.body().string(); //解析响应体
+                        try {
+                            JSONObject jsonObject = new JSONObject(responseBody);
+                            String versionName = jsonObject.getString("name");
+
+                            if (ignore && versionName.equals(DEFAULT_PREF.getString("ignoreUpdate", null)))
+                                return; //忽略此版本
+
+                            String tagName = jsonObject.getString("tag_name");
+                            JSONArray assetsJson = jsonObject.getJSONArray("assets");
+                            JSONObject firstAsset = assetsJson.getJSONObject(0);
+                            long fileSize = firstAsset.getLong("size");
+                            int githubVersion = 0;
+                            try {
+                                githubVersion = Integer.parseInt(tagName);
+                            } catch (Exception ignored) {
+                            }
+
+                            if (versionCode < githubVersion) {
+                                runOnUiThread(() -> {
+                                    UpdateDialog.UpdateInformation updateInformation = new UpdateDialog.UpdateInformation();
+                                    try {
+                                        updateInformation.information(versionName,
+                                                tagName,
+                                                PojavZHTools.formattingTime(jsonObject.getString("created_at")),
+                                                formatFileSize(fileSize),
+                                                jsonObject.getString("body"));
+                                    } catch (Exception ignored) {
+                                    }
+                                    UpdateDialog updateDialog = new UpdateDialog(context, updateInformation);
+
+                                    updateDialog.show();
+                                });
+                            } else if (!ignore) {
+                                runOnUiThread(() -> {
+                                    String nowVersionName = PojavZHTools.getVersionName(context);
+                                    runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_without) + " " + nowVersionName, Toast.LENGTH_SHORT).show());
+                                });
+                            }
+                        } catch (Exception ignored) {
+                        }
+                    }
+                }
+            });
+        });
     }
 }

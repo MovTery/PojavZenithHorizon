@@ -28,6 +28,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.kdt.mcgui.ProgressLayout;
 import com.kdt.mcgui.mcAccountSpinner;
+import com.movtery.feature.UpdateLauncher;
 import com.movtery.ui.actitvity.SettingsActivity;
 import com.movtery.ui.subassembly.background.BackgroundType;
 import com.movtery.utils.PojavZHTools;
@@ -268,7 +269,7 @@ public class LauncherActivity extends BaseActivity {
         mProgressLayout.observe(ProgressLayout.DOWNLOAD_VERSION_LIST);
 
         mAccountDeleteButtonVisibility = new Timer();
-        mAccountDeleteButtonVisibility.scheduleAtFixedRate(new TimerTask() {
+        mAccountDeleteButtonVisibility.schedule(new TimerTask() {
             @Override
             public void run() {
                 runOnUiThread(() -> {
@@ -282,7 +283,8 @@ public class LauncherActivity extends BaseActivity {
         if (PojavZHTools.checkDate(4, 1)) mHair.setVisibility(View.VISIBLE);
         else mHair.setVisibility(View.GONE);
 
-        PojavZHTools.updateChecker(this);
+        //检查已经下载后的包，或者检查更新
+        UpdateLauncher.CheckDownloadedPackage(this, true);
     }
 
     @Override

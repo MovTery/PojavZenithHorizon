@@ -34,7 +34,6 @@ import com.movtery.ui.subassembly.background.BackgroundManager;
 import com.movtery.ui.subassembly.background.BackgroundType;
 
 import com.movtery.ui.dialog.EditTextDialog;
-import com.movtery.ui.dialog.UpdateDialog;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
@@ -56,12 +55,9 @@ import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
@@ -81,18 +77,13 @@ import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
 public class PojavZHTools {
     public static String DIR_GAME_MODPACK = null;
     public static String DIR_GAME_DEFAULT;
     public static String DIR_CUSTOM_MOUSE;
     public static String DIR_LOGIN;
     public static File DIR_BACKGROUND;
+    public static File DIR_APP_CACHE;
     public static File FILE_CUSTOM_MOUSE;
     public static String URL_GITHUB_RELEASE = "https://api.github.com/repos/HopiHopy/PojavZH/releases/latest";
     public static String URL_GITHUB_HOME = "https://api.github.com/repos/HopiHopy/PojavZH/contents/";
@@ -101,11 +92,12 @@ public class PojavZHTools {
     private PojavZHTools() {
     }
 
-    public static void initContextConstants() {
+    public static void initContextConstants(Context context) {
         PojavZHTools.DIR_GAME_DEFAULT = DIR_GAME_HOME + "/.minecraft/instance/default";
         PojavZHTools.DIR_CUSTOM_MOUSE = DIR_GAME_HOME + "/mouse";
         PojavZHTools.DIR_LOGIN = DIR_GAME_HOME + "/login";
         PojavZHTools.DIR_BACKGROUND = new File(DIR_GAME_HOME + "/background");
+        PojavZHTools.DIR_APP_CACHE = context.getExternalCacheDir();
 
         if (!PojavZHTools.DIR_BACKGROUND.exists()) {
             mkdirs(PojavZHTools.DIR_BACKGROUND);
@@ -384,87 +376,6 @@ public class PojavZHTools {
             dotIndex = fileName.lastIndexOf(fileExtension);
         }
         return dotIndex == -1 ? fileName : fileName.substring(0, dotIndex);
-    }
-
-    public static void updateChecker(Context context) {
-        updateCheckerMainProgram(context, true);
-    }
-
-    public static void updateChecker(Context context, boolean ignore) {
-        updateCheckerMainProgram(context, ignore);
-    }
-
-    public static synchronized void updateCheckerMainProgram(Context context, boolean ignore) {
-        if (System.currentTimeMillis() - LAST_UPDATE_CHECK_TIME <= 5000) return;
-        LAST_UPDATE_CHECK_TIME = System.currentTimeMillis();
-        PojavApplication.sExecutorService.execute(() -> {
-            int versionCode = getVersionCode(context);
-            OkHttpClient client = new OkHttpClient();
-            Request.Builder url = new Request.Builder()
-                    .url(URL_GITHUB_RELEASE);
-            if (!context.getString(R.string.zh_api_token).equals("DUMMY")) {
-                url.header("Authorization", "token " + context.getString(R.string.zh_api_token));
-            }
-            Request request = url.build();
-
-            client.newCall(request).enqueue(new Callback() {
-
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_fail), Toast.LENGTH_SHORT).show());
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    if (!response.isSuccessful()) {
-                        throw new IOException("Unexpected code " + response);
-                    } else {
-                        Objects.requireNonNull(response.body());
-                        String responseBody = response.body().string(); //解析响应体
-                        try {
-                            JSONObject jsonObject = new JSONObject(responseBody);
-                            String versionName = jsonObject.getString("name");
-
-                            if (ignore && versionName.equals(DEFAULT_PREF.getString("ignoreUpdate", null)))
-                                return; //忽略此版本
-
-                            String tagName = jsonObject.getString("tag_name");
-                            JSONArray assetsJson = jsonObject.getJSONArray("assets");
-                            JSONObject firstAsset = assetsJson.getJSONObject(0);
-                            long fileSize = firstAsset.getLong("size");
-                            int githubVersion = 0;
-                            try {
-                                githubVersion = Integer.parseInt(tagName);
-                            } catch (Exception ignored) {
-                            }
-
-                            if (versionCode < githubVersion) {
-                                runOnUiThread(() -> {
-                                    UpdateDialog.UpdateInformation updateInformation = new UpdateDialog.UpdateInformation();
-                                    try {
-                                        updateInformation.information(versionName,
-                                                tagName,
-                                                formattingTime(jsonObject.getString("created_at")),
-                                                formatFileSize(fileSize),
-                                                jsonObject.getString("body"));
-                                    } catch (Exception ignored) {
-                                    }
-                                    UpdateDialog updateDialog = new UpdateDialog(context, updateInformation);
-
-                                    updateDialog.show();
-                                });
-                            } else if (!ignore) {
-                                runOnUiThread(() -> {
-                                    String nowVersionName = getVersionName(context);
-                                    runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_without) + " " + nowVersionName, Toast.LENGTH_SHORT).show());
-                                });
-                            }
-                        } catch (Exception ignored) {
-                        }
-                    }
-                }
-            });
-        });
     }
 
     public static String formattingTime(String time) {
