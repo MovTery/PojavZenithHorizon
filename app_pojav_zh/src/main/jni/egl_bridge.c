@@ -40,6 +40,13 @@
 // This means that you are forced to have this function/variable for ABI compatibility
 #define ABI_COMPAT __attribute__((unused))
 
+//POJAVLAUNCHER_NSBYPASS_H
+#ifndef POJAVLAUNCHER_NSBYPASS_H
+#define POJAVLAUNCHER_NSBYPASS_H
+
+void* load_turnip_vulkan();
+
+#endif
 
 struct PotatoBridge {
 
@@ -53,6 +60,11 @@ struct PotatoBridge {
 };
 EGLConfig config;
 struct PotatoBridge potatoBridge;
+
+int (*vtest_main_p) (int argc, char** argv);
+void (*vtest_swap_buffers_p) (void);
+void bigcore_set_affinity();
+void* egl_make_current(void* window);
 
 EXTERNAL_API void pojavTerminate() {
     printf("EGLBridge: Terminating\n");
