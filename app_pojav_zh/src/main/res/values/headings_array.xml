@@ -3,8 +3,9 @@
     <string-array name="renderer">
         <item name="1">@string/mcl_setting_renderer_gles2_4</item>
         <item name="2">@string/mcl_setting_renderer_vulkan_zink</item>
-        <item name="3">@string/mcl_setting_renderer_freedreno</item>
-        <item name="4">@string/mcl_setting_renderer_angle</item>
+        <item name="3">@string/mcl_setting_renderer_opengles3_virgl</item>
+        <item name="4">@string/mcl_setting_renderer_freedreno</item>
+        <item name="5">@string/mcl_setting_renderer_angle</item>
     </string-array>
 
     <string-array name="menu_customcontrol">
@@ -44,17 +45,21 @@
     <string-array name="renderer_values">
         <item>opengles2</item> <!-- gl4es_extra 1.1.4 with OpenGL ES 2/"3" -->
         <item>vulkan_zink</item> <!-- virglrenderer with OpenGL ES 3 -->
+        <item>opengles3_virgl</item>
         <item>vulkan_freedreno</item>
         <item>opengles3_desktopgl_angle_vulkan</item>
     </string-array>
+
     <string-array name="download_source_names">
         <item>@string/global_default</item>
         <item>BMCLAPI</item>
     </string-array>
+
     <string-array name="download_source_values">
         <item>default</item>
         <item>bmclapi</item>
     </string-array>
+
     <string-array name="chinese_language_names">
         <item>简体中文（中国大陆）</item>
         <item>繁體中文（香港特別行政區）</item>
@@ -66,11 +71,13 @@
         <item>zh_hk</item>
         <item>zh_tw</item>
     </string-array>
+
     <string-array name="launcher_theme_names">
         <item>@string/zh_setting_launcher_theme_system</item>
         <item>@string/zh_setting_launcher_theme_light</item>
         <item>@string/zh_setting_launcher_theme_dark</item>
     </string-array>
+
     <string-array name="launcher_theme_values">
         <item>system</item>
         <item>light</item>
