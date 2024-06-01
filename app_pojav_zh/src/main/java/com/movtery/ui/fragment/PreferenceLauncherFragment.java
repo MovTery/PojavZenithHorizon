@@ -1,13 +1,13 @@
 package com.movtery.ui.fragment;
 
-import static com.movtery.utils.PojavZHTools.updateChecker;
-
 import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.preference.Preference;
 
 import net.kdt.pojavlaunch.MainActivity;
+
+import com.movtery.feature.UpdateLauncher;
 import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceFragment;
@@ -43,7 +43,7 @@ public class PreferenceLauncherFragment extends LauncherPreferenceFragment {
 
         Preference updatePreference = requirePreference("zh_check_update");
         updatePreference.setOnPreferenceClickListener(preference -> {
-            updateChecker(requireContext(), false);
+            UpdateLauncher.CheckDownloadedPackage(requireContext(), false);
             return true;
         });
     }

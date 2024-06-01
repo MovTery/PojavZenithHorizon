@@ -85,7 +85,7 @@ public class LauncherPreferences {
     public static void loadPreferences(Context ctx) {
         //Required for the data folder.
         Tools.initContextConstants(ctx);
-        PojavZHTools.initContextConstants();
+        PojavZHTools.initContextConstants(ctx);
 
         PREF_RENDERER = DEFAULT_PREF.getString("renderer", "opengles2");
         PREF_BUTTONSIZE = DEFAULT_PREF.getInt("buttonscale", 100);
