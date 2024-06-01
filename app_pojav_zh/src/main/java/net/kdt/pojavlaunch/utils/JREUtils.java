@@ -213,7 +213,6 @@ public class JREUtils {
         envMap.put("allow_higher_compat_version", "true");
         envMap.put("allow_glsl_extension_directive_midshader", "true");
         envMap.put("MESA_LOADER_DRIVER_OVERRIDE", "zink");
-        envMap.put("VTEST_SOCKET_NAME", new File(Tools.DIR_CACHE, ".virgl_test").getAbsolutePath());
 
         envMap.put("LD_LIBRARY_PATH", LD_LIBRARY_PATH);
         envMap.put("PATH", jreHome + "/bin:" + Os.getenv("PATH"));
@@ -224,6 +223,11 @@ public class JREUtils {
         if(LOCAL_RENDERER != null) {
             envMap.put("POJAV_RENDERER", LOCAL_RENDERER);
             envMap.put("MESA_LIBRARY", localMesaLibrary);
+            if(LOCAL_RENDERER.equals("opengles3_virgl")) {
+                envMap.put("VTEST_SOCKET_NAME", new File(Tools.DIR_CACHE, ".virgl_test").getAbsolutePath());
+                envMap.put("MESA_GL_VERSION_OVERRIDE", "4.6");
+                envMap.put("MESA_GLSL_VERSION_OVERRIDE", "460");
+            }
             if(LOCAL_RENDERER.equals("opengles3_desktopgl_angle_vulkan")) {
                 envMap.put("LIBGL_ES", "3");
                 envMap.put("POJAVEXEC_EGL","libEGL_angle.so"); // Use ANGLE EGL
@@ -463,6 +467,9 @@ public class JREUtils {
             case "vulkan_zink":
             case "vulkan_freedreno":
                 renderLibrary = "libOSMesa.so";
+                break;
+            case "opengles3_virgl":
+                renderLibrary = "libOSMesa_2205.so";
                 break;
             case "opengles3_desktopgl_angle_vulkan":
                 renderLibrary = "libtinywrapper.so";
