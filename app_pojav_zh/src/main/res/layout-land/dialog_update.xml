@@ -4,7 +4,7 @@
     android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minWidth="450dp"
+    android:minWidth="480dp"
     android:minHeight="150dp"
     android:orientation="vertical"
     android:padding="8dp"
@@ -70,19 +70,19 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/zh_update_ignore_button"
+            android:id="@+id/zh_update_cancel_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/zh_update_dialog_ignore" />
+            android:text="@android:string/cancel" />
 
         <Button
-            android:id="@+id/zh_update_cancel_button"
+            android:id="@+id/zh_update_ignore_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:text="@android:string/cancel" />
+            android:text="@string/zh_update_dialog_ignore" />
 
         <Button
             android:id="@+id/zh_update_update_button"

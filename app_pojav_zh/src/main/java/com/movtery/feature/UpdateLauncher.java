@@ -37,6 +37,7 @@ import okhttp3.Response;
 
 public class UpdateLauncher {
     private final Context context;
+    private final UpdateSource updateSource;
     private DownloadDialog downloadDialog;
     private TextView downloadTipTextView;
     private final File apkFile;
@@ -44,8 +45,9 @@ public class UpdateLauncher {
     private String destinationFilePath;
     private Call call;
 
-    public UpdateLauncher(Context context, String tagName, String fileSize) {
+    public UpdateLauncher(Context context, String tagName, String fileSize, UpdateSource updateSource) {
         this.context = context;
+        this.updateSource = updateSource;
         this.apkFile = new File(context.getExternalFilesDir(null), "PojavZH.apk");
         this.tagName = tagName;
         this.fileSize = fileSize;
@@ -53,13 +55,26 @@ public class UpdateLauncher {
     }
 
     private void init() {
-        String fileUrl = "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk";
         this.destinationFilePath = this.apkFile.getAbsolutePath();
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(fileUrl)
+                .url(getFileUrl())
                 .build();
         this.call = client.newCall(request); //获取请求对象
+    }
+
+    private String getFileUrl() {
+        String fileUrl;
+        switch (updateSource) {
+            case GHPROXY:
+                fileUrl = "https://mirror.ghproxy.com/github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk";
+                break;
+            case GITHUB_RELEASE:
+            default:
+                fileUrl = "https://github.com/HopiHopy/PojavZH/releases/download/" + tagName + "/PojavZH.apk";
+                break;
+        }
+        return fileUrl;
     }
 
     public void start() {
@@ -102,7 +117,7 @@ public class UpdateLauncher {
                             TextView textView = UpdateLauncher.this.downloadTipTextView.findViewById(R.id.zh_download_upload_textView);
                             textView.setText(String.format(context.getString(R.string.zh_update_downloading), formattedDownloaded, fileSize));
                         });
-                        scheduler.scheduleAtFixedRate(printTask, 0, 200, TimeUnit.MILLISECONDS);
+                        scheduler.scheduleWithFixedDelay(printTask, 0, 200, TimeUnit.MILLISECONDS);
 
                         while ((bytesRead = inputStream.read(buffer)) != -1) {
                             outputStream.write(buffer, 0, bytesRead);
@@ -143,5 +158,9 @@ public class UpdateLauncher {
         if (this.call == null) return;
         this.call.cancel();
         FileUtils.deleteQuietly(this.apkFile);
+    }
+
+    public enum UpdateSource {
+        GITHUB_RELEASE, GHPROXY
     }
 }

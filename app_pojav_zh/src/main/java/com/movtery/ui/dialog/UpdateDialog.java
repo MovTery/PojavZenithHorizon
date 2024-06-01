@@ -11,13 +11,11 @@ import android.content.Context;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.R;
-import com.movtery.feature.UpdateLauncher;
 
 public class UpdateDialog extends Dialog {
     private final String versionName;
@@ -66,9 +64,10 @@ public class UpdateDialog extends Dialog {
 
         mUpdateButton.setOnClickListener(view -> {
             this.dismiss();
-            runOnUiThread(() -> Toast.makeText(getContext(), getContext().getString(R.string.zh_update_downloading_tip), Toast.LENGTH_SHORT).show());
-            UpdateLauncher updateLauncher = new UpdateLauncher(getContext(), tagName, fileSize);
-            updateLauncher.start();
+            runOnUiThread(() -> {
+                UpdateSourceDialog updateSourceDialog = new UpdateSourceDialog(getContext(), tagName, fileSize);
+                updateSourceDialog.show();
+            });
         });
         mCancelButton.setOnClickListener(view -> this.dismiss());
         mIgnoreButton.setOnClickListener(view -> {

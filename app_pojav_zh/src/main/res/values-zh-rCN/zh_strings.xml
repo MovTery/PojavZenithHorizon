@@ -181,8 +181,10 @@
     <string name="zh_update_without">当前已是最新版本</string>
     <string name="zh_update_fail">网络异常，暂时无法获取更新！</string>
     <string name="zh_update_success">最新的安装包已经下载完成，是否安装？\n安装包位置：</string>
+    <string name="zh_update_update_source">选择更新源</string>
+    <string name="zh_update_update_source_ghproxy">Ghproxy 加速源</string>
     <string name="zh_update_downloading">正在下载安装包… (%s / %s)</string>
-    <string name="zh_update_downloading_tip">正在获取中，更新源：Github Releases</string>
+    <string name="zh_update_downloading_tip">正在获取中，更新源：%s</string>
 
     <string name="zh_other_login_api">外置登录</string>
     <string name="zh_other_login_authentication_server">身份验证服务器</string>
