@@ -23,7 +23,7 @@ void (*glReadPixels_p) (GLint x, GLint y, GLsizei width, GLsizei height, GLenum 
 void dlsym_OSMesa() {
     char* main_path = NULL;
     char* mesa_library = getenv("MESA_LIBRARY");
-    if(pojav_environ->config_renderer == RENDERER_VK_ZINK) {
+    if(pojav_environ->config_renderer == RENDERER_VK_ZINK || pojav_environ->config_renderer == RENDERER_VIRGL) {
         if(asprintf(&main_path, "%s/%s", getenv("POJAV_NATIVEDIR"), mesa_library) == -1) {
             abort();
         }
