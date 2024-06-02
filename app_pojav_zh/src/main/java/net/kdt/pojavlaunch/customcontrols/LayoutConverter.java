@@ -8,12 +8,15 @@ import net.kdt.pojavlaunch.LwjglGlfwKeycode;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 
+import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.lwjgl.glfw.CallbackBridge;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class LayoutConverter {
@@ -25,6 +28,18 @@ public class LayoutConverter {
             return loadAndConvertIfNecessary(ctx, layoutJobj, jsonLayoutData, jsonPath, true);
         } catch (Exception e) {
             Tools.showError(ctx, ctx.getString(R.string.zh_controls_load_failed), e);
+            return null;
+        }
+    }
+
+    public static CustomControls loadFromAssets(Context context, String jsonName) {
+        try (InputStream is = context.getAssets().open(jsonName)) {
+            String string = IOUtils.toString(is, StandardCharsets.UTF_8);
+
+            JSONObject layoutJobj = new JSONObject(string);
+            return loadAndConvertIfNecessary(context, layoutJobj, string, null, true);
+        } catch (Exception e) {
+            Tools.showError(context, context.getString(R.string.zh_controls_load_failed), e);
             return null;
         }
     }
@@ -41,11 +56,11 @@ public class LayoutConverter {
     private static CustomControls loadAndConvertIfNecessary(Context ctx, JSONObject layoutJobj, String jsonLayoutData, String jsonPath, boolean showError) throws Exception {
         if (!layoutJobj.has("version")) { //v1 layout
             CustomControls layout = LayoutConverter.convertV1Layout(layoutJobj);
-            layout.save(jsonPath);
+            if (jsonPath != null) layout.save(jsonPath);
             return layout;
         } else if (layoutJobj.getInt("version") == 2) {
             CustomControls layout = LayoutConverter.convertV2Layout(layoutJobj);
-            layout.save(jsonPath);
+            if (jsonPath != null)layout.save(jsonPath);
             return layout;
         }else if (layoutJobj.getInt("version") >= 3 && layoutJobj.getInt("version") <= 5) {
             return LayoutConverter.convertV3_4Layout(layoutJobj);

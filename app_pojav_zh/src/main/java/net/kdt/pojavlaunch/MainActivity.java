@@ -252,7 +252,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         } catch(IOException e) {
             try {
                 Log.w("MainActivity", "Unable to load the control file, loading the default now", e);
-                mControlLayout.loadLayout(Tools.CTRLDEF_FILE);
+                mControlLayout.loadLayout((String) null);
             } catch (IOException ioException) {
                 Tools.showError(this, ioException);
             }
