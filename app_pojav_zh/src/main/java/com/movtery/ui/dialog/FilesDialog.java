@@ -33,7 +33,7 @@ public class FilesDialog extends Dialog {
         super(context);
         this.runnable = runnable;
         this.mFile = file;
-        PasteFile.COPY_FILE = file;
+        if (mFile != null) PasteFile.COPY_FILE = file;
 
         this.mCopy = filesButton.copy;
         this.mMove = filesButton.move;
@@ -64,26 +64,30 @@ public class FilesDialog extends Dialog {
 
         mCloseButton.setOnClickListener(v -> this.dismiss());
         mShareButton.setOnClickListener(view -> {
-            shareFile(getContext(), mFile.getName(), mFile.getAbsolutePath());
+            if (mFile != null) shareFile(getContext(), mFile.getName(), mFile.getAbsolutePath());
             FilesDialog.this.dismiss();
         });
         mRenameButton.setOnClickListener(view -> {
-            if (this.mFile.isFile()) {
-                renameFileListener(getContext(), runnable, mFile, this.mFileSuffix == null ? mFile.getName().substring(mFile.getName().lastIndexOf('.')) : this.mFileSuffix);
-            } else if (this.mFile.isDirectory()) {
-                renameFileListener(getContext(), runnable, mFile);
+            if (mFile != null) {
+                if (this.mFile.isFile()) {
+                    renameFileListener(getContext(), runnable, mFile, this.mFileSuffix == null ? mFile.getName().substring(mFile.getName().lastIndexOf('.')) : this.mFileSuffix);
+                } else if (this.mFile.isDirectory()) {
+                    renameFileListener(getContext(), runnable, mFile);
+                }
             }
             FilesDialog.this.dismiss();
         });
         mDeleteButton.setOnClickListener(view -> {
-            DeleteDialog deleteDialog = new DeleteDialog(getContext(), runnable, mFile);
-            deleteDialog.show();
+            if (mFile != null) {
+                DeleteDialog deleteDialog = new DeleteDialog(getContext(), runnable, mFile);
+                deleteDialog.show();
+            }
             FilesDialog.this.dismiss();
         });
 
         if (this.mMessageText != null) mMessage.setText(this.mMessageText);
         if (this.mMoreText != null) moreText.setText(this.mMoreText);
-        if (this.mFile.isDirectory()) mTitle.setText(getContext().getString(R.string.zh_file_folder_tips));
+        if (this.mFile != null && this.mFile.isDirectory()) mTitle.setText(getContext().getString(R.string.zh_file_folder_tips));
 
         setButtonClickable(mShare, mShareButton);
         setButtonClickable(mRename, mRenameButton);

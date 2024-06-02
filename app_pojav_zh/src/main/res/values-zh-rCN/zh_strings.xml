@@ -61,6 +61,7 @@
 
     <string name="zh_custom_mouse_add">添加虚拟鼠标</string>
     <string name="zh_custom_mouse_added">成功设置虚拟鼠标：</string>
+    <string name="zh_custom_mouse_default">默认虚拟鼠标</string>
     <string name="zh_custom_mouse_title">自定义虚拟鼠标</string>
     <string name="zh_custom_mouse_desc">打开虚拟鼠标管理界面，你能够自行添加你喜欢的虚拟鼠标贴图，并使用它们</string>
     <string name="zh_custom_mouse_message_default">当前选中的虚拟鼠标为默认的虚拟鼠标，不支持对其进行分享、重命名、删除操作</string>

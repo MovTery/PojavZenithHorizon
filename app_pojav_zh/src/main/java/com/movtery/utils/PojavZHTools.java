@@ -177,7 +177,12 @@ public class PojavZHTools {
     }
 
     public synchronized static Drawable customMouse(Context context) {
-        FILE_CUSTOM_MOUSE = new File(DIR_CUSTOM_MOUSE, DEFAULT_PREF.getString("custom_mouse", "default_mouse.png"));
+        String customMouse = DEFAULT_PREF.getString("custom_mouse", null);
+        if (customMouse == null) {
+            FILE_CUSTOM_MOUSE = null;
+            return ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_mouse_pointer, context.getTheme());
+        }
+        FILE_CUSTOM_MOUSE = new File(DIR_CUSTOM_MOUSE, customMouse);
 
         // 鼠标：自定义鼠标图片
         if (FILE_CUSTOM_MOUSE.exists()) {
@@ -212,6 +217,7 @@ public class PojavZHTools {
     }
 
     public static boolean isImage(File file) {
+        if (file == null) return false;
         String fileExtension = MimeTypeMap.getFileExtensionFromUrl(file.getName());
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         String mimeType = mime.getMimeTypeFromExtension(fileExtension);
