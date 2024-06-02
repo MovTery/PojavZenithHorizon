@@ -45,6 +45,7 @@ public class ModFitersDialog extends Dialog {
         CheckBox mModloaderFabric = findViewById(R.id.zh_search_fabric_checkBox);
         CheckBox mModloaderQuilt = findViewById(R.id.zh_search_quilt_checkBox);
         CheckBox mModloaderNeoForge = findViewById(R.id.zh_search_neoforge_checkBox);
+        Button mResetButton = findViewById(R.id.search_mod_reset);
         Button mApplyButton = findViewById(R.id.search_mod_apply_filters);
 
         assert mSelectVersionButton != null;
@@ -130,6 +131,23 @@ public class ModFitersDialog extends Dialog {
             if (mModloaderNeoForge.isChecked() && !mSearchFilters.modloaders.contains(neoforge)) {
                 mSearchFilters.modloaders.add(neoforge);
             } else mSearchFilters.modloaders.remove(neoforge);
+        });
+
+        mResetButton.setOnClickListener(v -> {
+            mSearchFilters.name = "";
+            mSearchFilters.mcVersion = "";
+            mSearchFilters.modloaders = new ArrayList<>();
+            mSearchFilters.sort = 0;
+            mSearchFilters.platform = SearchFilters.ApiPlatform.BOTH;
+
+            //重置控件
+            mSelectedVersion.setText("");
+            if (mSortBy != null) mSortBy.setSelection(0);
+            if (mPlatform != null) mPlatform.setSelection(0);
+            mModloaderForge.setChecked(false);
+            mModloaderFabric.setChecked(false);
+            mModloaderQuilt.setChecked(false);
+            mModloaderNeoForge.setChecked(false);
         });
 
         // Apply the new settings
