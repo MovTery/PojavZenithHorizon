@@ -176,17 +176,34 @@
             tools:ignore="HardcodedText" />
     </LinearLayout>
 
-    <!-- Apply -->
-    <Button
-        android:id="@+id/search_mod_apply_filters"
+    <LinearLayout
+        android:id="@+id/linearLayout_buttons"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginStart="-4dp"
-        android:layout_marginEnd="-4dp"
-        android:text="@string/generic_apply"
+        android:layout_marginEnd="4dp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <Button
+            android:id="@+id/search_mod_reset"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="2dp"
+            android:text="@string/cropper_reset"/>
+
+        <!-- Apply -->
+        <Button
+            android:id="@+id/search_mod_apply_filters"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="2dp"
+            android:text="@string/generic_apply"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
