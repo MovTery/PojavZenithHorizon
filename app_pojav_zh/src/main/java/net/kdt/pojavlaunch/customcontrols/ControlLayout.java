@@ -37,6 +37,7 @@ import com.movtery.ui.dialog.EditControlInfoDialog;
 import com.movtery.ui.dialog.SelectControlsDialog;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,10 +71,21 @@ public class ControlLayout extends FrameLayout {
 
 
 	public void loadLayout(String jsonPath) throws IOException, JsonSyntaxException {
-		CustomControls layout = LayoutConverter.loadAndConvertIfNecessary(getContext(), jsonPath);
+		File jsonFile = new File(jsonPath);
+
+		CustomControls layout;
+		if (jsonFile.exists()) {
+			layout = LayoutConverter.loadAndConvertIfNecessary(getContext(), jsonPath);
+		} else {
+			layout = LayoutConverter.loadFromAssets(getContext(), "default.json");
+		}
 		if(layout != null) {
 			loadLayout(layout);
-			updateLoadedFileName(jsonPath);
+			if (jsonFile.exists()) {
+				updateLoadedFileName(jsonPath);
+			} else {
+				mLayoutFileName = "default";
+			}
 		}
 	}
 
@@ -529,7 +541,8 @@ public class ControlLayout extends FrameLayout {
             String absolutePath = file.getAbsolutePath();
             try {
                 LauncherPreferences.DEFAULT_PREF.edit().putString("defaultCtrl", absolutePath).apply();
-                LauncherPreferences.PREF_DEFAULTCTRL_PATH = absolutePath;loadLayout(absolutePath);
+                LauncherPreferences.PREF_DEFAULTCTRL_PATH = absolutePath;
+				loadLayout(absolutePath);
             }catch (IOException|JsonSyntaxException e) {
                 Tools.showError(getContext(), e);
             }
