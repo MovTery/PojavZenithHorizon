@@ -128,13 +128,13 @@ public class ModDownloader {
                         return null;
                     });
 
-                }catch (IOException e) {
+                } catch (IOException e) {
                     downloadFailed(e);
                 }
             }
         }
 
-        private IOException tryDownload(String sourceUrl) throws InterruptedException {
+        private IOException tryDownload(String sourceUrl) throws InterruptedIOException {
             IOException exception = null;
             for (int i = 0; i < 5; i++) {
                 try {
@@ -142,7 +142,7 @@ public class ModDownloader {
                     if(mUseFileCount) mDownloadSize.addAndGet(1);
                     return null;
                 } catch (InterruptedIOException e) {
-                    throw new InterruptedException();
+                    throw e;
                 } catch (IOException e) {
                     e.printStackTrace();
                     exception = e;
