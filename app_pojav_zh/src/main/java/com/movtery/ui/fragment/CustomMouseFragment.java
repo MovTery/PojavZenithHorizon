@@ -6,6 +6,7 @@ import static com.movtery.utils.PojavZHTools.isImage;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -92,9 +93,12 @@ public class CustomMouseFragment extends Fragment {
         });
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void loadData() {
+        List<FileItemBean> fileItemBeans = FileRecyclerViewCreator.loadItemBeansFromPath(requireContext(), mousePath(), FileIcon.IMAGE, true, false);
+        fileItemBeans.add(0, new FileItemBean(requireContext().getDrawable(R.drawable.ic_mouse_pointer), null, getString(R.string.zh_custom_mouse_default)));
         runOnUiThread(() -> {
-            fileRecyclerViewCreator.loadData(FileRecyclerViewCreator.loadItemBeansFromPath(requireContext(), mousePath(), FileIcon.IMAGE, true, false));
+            fileRecyclerViewCreator.loadData(fileItemBeans);
             //默认显示当前选中的鼠标
             refreshIcon();
         });
@@ -119,11 +123,13 @@ public class CustomMouseFragment extends Fragment {
 
         RecyclerView mMouseListView = view.findViewById(R.id.zh_custom_mouse);
         fileRecyclerViewCreator = new FileRecyclerViewCreator(requireContext(), new SpacesItemDecoration(0, 0, 0, (int) Tools.dpToPx(8)), mMouseListView, (position, file, name) -> {
-            String fileName = file.getName();
-            boolean isDefaultMouse = fileName.equals("default_mouse.png");
+            String fileName = file == null ? null : file.getName();
+            boolean isDefaultMouse = position == 0;
 
             FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-            filesButton.setButtonVisibility(false, false, !isDefaultMouse, !isDefaultMouse, !isDefaultMouse, isImage(file)); //默认虚拟鼠标不支持分享、重命名、删除操作
+            filesButton.setButtonVisibility(false, false,
+                    !isDefaultMouse, !isDefaultMouse, !isDefaultMouse,
+                    (isDefaultMouse || isImage(file))); //默认虚拟鼠标不支持分享、重命名、删除操作
 
             //如果选中的虚拟鼠标是默认的虚拟鼠标，那么将加上额外的提醒
             String message = getString(R.string.zh_file_message);
@@ -137,7 +143,7 @@ public class CustomMouseFragment extends Fragment {
             filesDialog.setMoreButtonClick(v -> {
                 DEFAULT_PREF.edit().putString("custom_mouse", fileName).apply();
                 refreshIcon();
-                Toast.makeText(requireContext(), getString(R.string.zh_custom_mouse_added) + fileName, Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), getString(R.string.zh_custom_mouse_added) + (fileName == null ? getString(R.string.zh_custom_mouse_default) : fileName), Toast.LENGTH_SHORT).show();
                 filesDialog.dismiss();
             });
             filesDialog.show();

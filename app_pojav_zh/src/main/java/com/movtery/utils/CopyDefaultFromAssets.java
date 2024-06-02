@@ -13,10 +13,6 @@ public class CopyDefaultFromAssets {
         if (checkDirectoryEmpty(Tools.CTRLMAP_PATH)) {
             Tools.copyAssetFile(context, "default.json", Tools.CTRLMAP_PATH, false);
         }
-        //默认虚拟鼠标
-        if (checkDirectoryEmpty(PojavZHTools.DIR_CUSTOM_MOUSE)) {
-            Tools.copyAssetFile(context, "default_mouse.png", PojavZHTools.DIR_CUSTOM_MOUSE, false);
-        }
     }
 
     public static boolean checkDirectoryEmpty(String dir) {

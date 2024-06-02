@@ -11,6 +11,15 @@ public class FileItemBean implements Comparable<FileItemBean> {
     private File file;
     private String name;
 
+    public FileItemBean() {
+    }
+
+    public FileItemBean(Drawable image, File file, String name) {
+        this.image = image;
+        this.file = file;
+        this.name = name;
+    }
+
     public Drawable getImage() {
         return image;
     }
