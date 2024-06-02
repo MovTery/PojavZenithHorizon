@@ -175,7 +175,7 @@ int pojavInitOpenGL() {
         load_vulkan();
         setenv("GALLIUM_DRIVER","zink",1);
         set_osm_bridge_tbl();
-    } else if (strcmp(renderer, "opengles3_virgl") == 0) {
+    } else if (strcmp(renderer, "virgl") == 0) {
         pojav_environ->config_renderer = RENDERER_VIRGL;
         setenv("GALLIUM_DRIVER","virpipe",1);
         setenv("OSMESA_NO_FLUSH_FRONTBUFFER","1",false);

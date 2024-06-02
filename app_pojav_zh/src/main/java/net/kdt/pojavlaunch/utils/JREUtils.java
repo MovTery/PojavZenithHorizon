@@ -223,7 +223,7 @@ public class JREUtils {
         if(LOCAL_RENDERER != null) {
             envMap.put("POJAV_RENDERER", LOCAL_RENDERER);
             envMap.put("MESA_LIBRARY", localMesaLibrary);
-            if(LOCAL_RENDERER.equals("opengles3_virgl")) {
+            if(LOCAL_RENDERER.equals("virgl")) {
                 envMap.put("VTEST_SOCKET_NAME", new File(Tools.DIR_CACHE, ".virgl_test").getAbsolutePath());
                 envMap.put("MESA_GL_VERSION_OVERRIDE", "4.6");
                 envMap.put("MESA_GLSL_VERSION_OVERRIDE", "460");
@@ -468,7 +468,7 @@ public class JREUtils {
             case "vulkan_freedreno":
                 renderLibrary = "libOSMesa.so";
                 break;
-            case "opengles3_virgl":
+            case "virgl":
                 renderLibrary = "libOSMesa_2205.so";
                 break;
             case "opengles3_desktopgl_angle_vulkan":
