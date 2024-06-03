@@ -1,70 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app2="http://schemas.android.com/apk/res-auto">
+    xmlns:app2="http://schemas.android.com/apk/res-auto"
+    app2:iconSpaceReserved="false">
 
-    <PreferenceCategory android:title="@string/zh_preference_category_language">
+    <PreferenceCategory
+        android:title="@string/zh_preference_category_language"
+        app2:iconSpaceReserved="false" >
+
         <SwitchPreference
             android:defaultValue="true"
             android:key="setToChinese"
             android:summary="@string/zh_setting_set_to_chinese_desc"
-            android:title="@string/zh_setting_set_to_chinese_title" />
+            android:title="@string/zh_setting_set_to_chinese_title"
+            app2:iconSpaceReserved="false" />
 
         <androidx.preference.ListPreference
             android:key="switchToChineseLanguage"
             android:entries="@array/chinese_language_names"
             android:entryValues="@array/chinese_language_values"
             android:title="@string/zh_setting_chinese_language_title"
-            app2:useSimpleSummaryProvider="true"/>
+            app2:useSimpleSummaryProvider="true"
+            app2:iconSpaceReserved="false" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/zh_preference_category_launcher">
+    <PreferenceCategory
+        android:title="@string/zh_preference_category_launcher"
+        app2:iconSpaceReserved="false" >
+
         <androidx.preference.ListPreference
             android:key="launcherTheme"
             android:defaultValue="system"
             android:entries="@array/launcher_theme_names"
             android:entryValues="@array/launcher_theme_values"
             android:title="@string/zh_setting_launcher_theme"
-            app2:useSimpleSummaryProvider="true"/>
+            app2:useSimpleSummaryProvider="true"
+            app2:iconSpaceReserved="false" />
 
         <Preference
             android:title="@string/zh_custom_background_title"
             android:summary="@string/zh_custom_background_desc"
-            android:key="zh_custom_background" />
+            android:key="zh_custom_background"
+            app2:iconSpaceReserved="false" />
 
         <SwitchPreference
             android:defaultValue="false"
             android:key="enableLogOutput"
             android:summary="@string/zh_setting_enable_log_output_desc"
-            android:title="@string/zh_setting_enable_log_output_title" />
+            android:title="@string/zh_setting_enable_log_output_title"
+            app2:iconSpaceReserved="false" />
 
         <SwitchPreference
             android:defaultValue="true"
             android:key="quitLauncher"
             android:title="@string/zh_setting_quit_launcher_title"
-            android:summary="@string/zh_setting_quit_launcher_desc" />
+            android:summary="@string/zh_setting_quit_launcher_desc"
+            app2:iconSpaceReserved="false" />
 
         <SwitchPreference
             android:defaultValue="false"
             android:key="advancedFeatures"
             android:title="@string/zh_setting_advanced_features_title"
-            android:summary="@string/zh_setting_advanced_features_desc" />
+            android:summary="@string/zh_setting_advanced_features_desc"
+            app2:iconSpaceReserved="false" />
 
         <SwitchPreference
             android:key="animation"
             android:title="@string/zh_setting_animation_title"
             android:summary="@string/zh_setting_animation_desc"
-            android:defaultValue="true" />
+            android:defaultValue="true"
+            app2:iconSpaceReserved="false" />
 
         <Preference
             android:title="@string/zh_clear_up_cache"
             android:summary="@string/zh_clear_up_cache_desc"
-            android:key="zh_clean_up_cache" />
+            android:key="zh_clean_up_cache"
+            app2:iconSpaceReserved="false" />
 
         <Preference
             android:title="@string/zh_update"
             android:summary="@string/zh_update_summary"
-            android:key="zh_check_update" />
+            android:key="zh_check_update"
+            app2:iconSpaceReserved="false" />
 
     </PreferenceCategory>
 

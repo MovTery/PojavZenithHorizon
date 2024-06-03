@@ -20,36 +20,27 @@
         android:textSize="16sp"
         android:textStyle="bold" />
 
-    <ScrollView
-        android:id="@+id/text_scroll"
+    <TextView
+        android:id="@+id/zh_exit_message"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_weight="1">
-
-        <LinearLayout
-            android:id="@+id/layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/zh_exit_message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textSize="@dimen/_16sdp" />
-
-        </LinearLayout>
-
-    </ScrollView>
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/_16sdp" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/zh_exit_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@android:string/cancel" />
 
         <Button
             android:id="@+id/zh_exit_share_crash_report"
@@ -64,13 +55,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/main_share_logs" />
-
-        <Button
-            android:id="@+id/zh_exit_cancel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@android:string/cancel" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
