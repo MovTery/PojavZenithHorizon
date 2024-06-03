@@ -18,19 +18,37 @@ public class CleanUpCache {
         if (isCleaning) return;
         isCleaning = true;
 
-        long totalSize = FileUtils.sizeOfDirectory(Tools.DIR_CACHE);
+        long totalSize = 0;
+        int fileCount = 0;
         try {
             File[] files = Tools.DIR_CACHE.listFiles();
+
             if (files != null) {
-                if (files.length == 0) {
-                    runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_clear_up_cache_not_found), Toast.LENGTH_SHORT).show());
-                    return;
-                }
                 for (File file : files) {
+                    if (file.getName().equals("user_icon")) continue;
+
+                    ++fileCount;
+
+                    if (file.isDirectory()) {
+                        totalSize += FileUtils.sizeOfDirectory(file);
+                    } else {
+                        totalSize += FileUtils.sizeOf(file);
+                    }
+
                     FileUtils.deleteQuietly(file);
                 }
 
-                runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_clear_up_cache_clean_up, PojavZHTools.formatFileSize(totalSize)), Toast.LENGTH_SHORT).show());
+                int finalFileCount = fileCount;
+                long finalTotalSize = totalSize;
+                runOnUiThread(() -> {
+                    if (finalFileCount != 0) {
+                        Toast.makeText(context, context.getString(R.string.zh_clear_up_cache_clean_up, PojavZHTools.formatFileSize(finalTotalSize)), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, context.getString(R.string.zh_clear_up_cache_not_found), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+                runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_clear_up_cache_not_found), Toast.LENGTH_SHORT).show());
             }
         } finally {
             isCleaning = false;
