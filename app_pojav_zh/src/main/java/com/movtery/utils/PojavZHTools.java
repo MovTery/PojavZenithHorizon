@@ -395,9 +395,17 @@ public class PojavZHTools {
 
     @SuppressLint("DefaultLocale")
     public static String formatFileSize(long bytes) {
-        if (bytes <= 0) return "0 MB";
-        final double value = bytes / (1024.0 * 1024);
-        return String.format("%.2f MB", value);
+        if (bytes <= 0) return "0 B";
+
+        final String[] units = {"B", "KB", "MB", "GB"};
+        int unitIndex = 0;
+        double value = bytes;
+        //循环获取合适的单位
+        while (value >= 1024 && unitIndex < units.length - 1) {
+            value /= 1024;
+            unitIndex++;
+        }
+        return String.format("%.2f %s", value, units[unitIndex]);
     }
 
     public static int getVersionCode(Context context) {

@@ -14,7 +14,7 @@ import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.BaseActivity;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceControlFragment;
-import com.movtery.ui.fragment.PreferenceLauncherFragment;
+import com.movtery.ui.fragment.preference.PreferenceLauncherFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceExperimentalFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceJavaFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceMiscellaneousFragment;

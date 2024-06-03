@@ -171,6 +171,11 @@
     <string name="zh_setting_advanced_features_title">高级功能</string>
     <string name="zh_setting_reboot_tip">此项设置已被更改，但是需要重启应用才能生效！</string>
 
+    <string name="zh_clear_up_cache">清理缓存</string>
+    <string name="zh_clear_up_cache_desc">检查并清理应用的缓存文件，清除缓存文件不影响应用正常使用</string>
+    <string name="zh_clear_up_cache_not_found">未搜寻到缓存文件</string>
+    <string name="zh_clear_up_cache_clean_up">清理完毕，本次总共清除了 %s 的缓存文件</string>
+
     <string name="zh_update">检查更新</string>
     <string name="zh_update_dialog_title">检测到新版本</string>
     <string name="zh_update_dialog_version">版本：</string>

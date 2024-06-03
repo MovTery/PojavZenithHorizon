@@ -172,6 +172,11 @@
     <string name="zh_setting_advanced_features_title">Advanced Features</string>
     <string name="zh_setting_reboot_tip">This setting has been changed, but requires the app to be restarted to take effect!</string>
 
+    <string name="zh_clear_up_cache">Clear Cache</string>
+    <string name="zh_clear_up_cache_desc">Check and clean up the cache files of the application, clearing the cache files does not affect the normal use of the application</string>
+    <string name="zh_clear_up_cache_not_found">No cache files found</string>
+    <string name="zh_clear_up_cache_clean_up">Cleaning complete, a total of %s cache files have been cleared this time.</string>
+
     <string name="zh_update">Check for updates</string>
     <string name="zh_update_dialog_title">New Version Detected</string>
     <string name="zh_update_dialog_version">Version:</string>
