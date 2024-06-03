@@ -84,6 +84,7 @@ public class PojavZHTools {
     public static String DIR_LOGIN;
     public static File DIR_BACKGROUND;
     public static File DIR_APP_CACHE;
+    public static File DIR_USER_ICON;
     public static File FILE_CUSTOM_MOUSE;
     public static String URL_GITHUB_RELEASE = "https://api.github.com/repos/HopiHopy/PojavZH/releases/latest";
     public static String URL_GITHUB_HOME = "https://api.github.com/repos/HopiHopy/PojavZH/contents/";
@@ -98,6 +99,7 @@ public class PojavZHTools {
         PojavZHTools.DIR_LOGIN = DIR_GAME_HOME + "/login";
         PojavZHTools.DIR_BACKGROUND = new File(DIR_GAME_HOME + "/background");
         PojavZHTools.DIR_APP_CACHE = context.getExternalCacheDir();
+        PojavZHTools.DIR_USER_ICON = new File(Tools.DIR_CACHE, "/user_icon");
 
         if (!PojavZHTools.DIR_BACKGROUND.exists()) {
             mkdirs(PojavZHTools.DIR_BACKGROUND);
