@@ -41,16 +41,18 @@
     <EditText
         android:id="@+id/editText_import_control_file_name"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_37sdp"
-
-        android:layout_marginHorizontal="@dimen/_25sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:background="@drawable/background_edit_box"
         android:autofillHints="name"
         android:hint="@string/zh_activity_import_control"
-
         android:imeOptions="flagForceAscii"
         android:inputType="text"
         android:textColorHint="@color/primary_text"
         android:textSize="@dimen/_16ssp"
+        app:layout_constraintHorizontal_weight="3"
         app:layout_constraintBottom_toBottomOf="@+id/_background_display_view"
         app:layout_constraintEnd_toStartOf="@+id/mineButton_import_control"
         app:layout_constraintStart_toStartOf="@+id/_background_display_view"
@@ -60,10 +62,12 @@
         android:id="@+id/mineButton_import_control"
         android:layout_width="0dp"
         android:layout_height="@dimen/_42sdp"
-        android:layout_marginHorizontal="@dimen/_25sdp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="@dimen/_25sdp"
         android:onClick="startImport"
         android:text="@string/import_control_import_button"
-
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/editText_import_control_file_name"
         app:layout_constraintBottom_toBottomOf="@+id/_background_display_view"
         app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
         app:layout_constraintTop_toTopOf="@+id/_background_display_view" />
