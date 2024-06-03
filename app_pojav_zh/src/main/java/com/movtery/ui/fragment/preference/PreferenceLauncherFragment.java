@@ -1,4 +1,4 @@
-package com.movtery.ui.fragment;
+package com.movtery.ui.fragment.preference;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import androidx.preference.Preference;
 import net.kdt.pojavlaunch.MainActivity;
 
 import com.movtery.feature.UpdateLauncher;
+import com.movtery.ui.fragment.CustomBackgroundFragment;
+import com.movtery.utils.CleanUpCache;
 import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceFragment;
@@ -38,6 +40,12 @@ public class PreferenceLauncherFragment extends LauncherPreferenceFragment {
         Preference customBackgroundPreference = requirePreference("zh_custom_background");
         customBackgroundPreference.setOnPreferenceClickListener(preference -> {
             PojavZHTools.swapSettingsFragment(requireActivity(), CustomBackgroundFragment.class, CustomBackgroundFragment.TAG, null, true);
+            return true;
+        });
+
+        Preference cleanUpCachePreference = requirePreference("zh_clean_up_cache");
+        cleanUpCachePreference.setOnPreferenceClickListener(preference -> {
+            CleanUpCache.start(requireContext());
             return true;
         });
 

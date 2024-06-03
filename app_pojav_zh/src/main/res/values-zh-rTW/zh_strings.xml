@@ -171,6 +171,11 @@
     <string name="zh_setting_advanced_features_title">高級功能</string>
     <string name="zh_setting_reboot_tip">這項設定已被更改，但是需要重新啟動應用程式才能生效！</string>
 
+    <string name="zh_clear_up_cache">清理快取</string>
+    <string name="zh_clear_up_cache_desc">檢查並清理應用的快取檔案，清除快取檔案不影響應用正常使用</string>
+    <string name="zh_clear_up_cache_not_found">未搜尋到快取檔案</string>
+    <string name="zh_clear_up_cache_clean_up">清理完畢，本次總共清除了 %s 的快取檔案</string>
+
     <string name="zh_update">檢查更新</string>
     <string name="zh_update_dialog_title">檢測到新版本</string>
     <string name="zh_update_dialog_version">版本：</string>

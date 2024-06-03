@@ -57,10 +57,14 @@
             android:defaultValue="true" />
 
         <Preference
+            android:title="@string/zh_clear_up_cache"
+            android:summary="@string/zh_clear_up_cache_desc"
+            android:key="zh_clean_up_cache" />
+
+        <Preference
             android:title="@string/zh_update"
             android:summary="@string/zh_update_summary"
-            android:key="zh_check_update"
-            android:icon="@drawable/ic_update" />
+            android:key="zh_check_update" />
 
     </PreferenceCategory>
 
