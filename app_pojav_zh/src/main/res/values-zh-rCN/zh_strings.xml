@@ -97,7 +97,6 @@
     <string name="zh_modloader_dl_install_neoforge">创建 NeoForge 实例</string>
 
     <string name="zh_main_open_main_dir">打开主目录</string>
-    <string name="zh_main_open_instance_dir">打开实例目录</string>
     <string name="zh_main_share_crash_report">分享崩溃报告</string>
     <string name="zh_main_share_log_tip">你确定要分享启动器的运行日志吗？\n日志文件位置：</string>
     <string name="zh_main_notice_title">通知栏</string>
@@ -108,10 +107,6 @@
     <string name="zh_preference_category_launcher">启动器</string>
 
     <string name="zh_profile_custom_path">自定义路径</string>
-    <string name="zh_profile_create_mods">创建 Mods</string>
-    <string name="zh_profile_create_mods_message">请你确保此实例使用的游戏版本确实能够加载 Mod，如果它并不支持加载 Mod，那么创建 Mods 文件夹并添加 Mod 将不会起到任何作用！</string>
-    <string name="zh_profile_create_mods_success">成功创建 Mods 文件夹!</string>
-    <string name="zh_profile_mods">Mod 管理</string>
     <string name="zh_profile_mods_download_mod">下载 Mod</string>
     <string name="zh_profile_mods_platform">搜索平台</string>
     <string name="zh_profile_mods_sort_by">排序方式</string>
@@ -148,6 +143,17 @@
     <string name="zh_profile_mods_added_mod">成功添加 Mod</string>
     <string name="zh_profile_mods_disable">禁用</string>
     <string name="zh_profile_mods_enable">启用</string>
+    
+    <string name="zh_profile_manager_shortcuts">快捷功能</string>
+    <string name="zh_profile_manager_shortcuts_mods">Mod 管理</string>
+    <string name="zh_profile_manager_shortcuts_instance_path">实例路径文件夹</string>
+    <string name="zh_profile_manager_shortcuts_resource_path">资源包文件夹</string>
+    <string name="zh_profile_manager_shortcuts_world_path">游戏存档文件夹</string>
+    <string name="zh_profile_manager_shortcuts_logs_path">日志文件夹</string>
+    <string name="zh_profile_manager_shortcuts_crash_report_path">崩溃报告文件夹</string>
+    <string name="zh_profile_manager_edit">编辑实例</string>
+    <string name="zh_profile_manager_delete">删除实例</string>
+
     <string name="zh_replacement_customcontrol">更换控制布局</string>
     <string name="zh_select_modpack_search">搜索整合包</string>
     <string name="zh_select_modpack_local">本地整合包</string>

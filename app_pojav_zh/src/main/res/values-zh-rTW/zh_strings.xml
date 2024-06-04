@@ -97,7 +97,6 @@
     <string name="zh_modloader_dl_install_neoforge">建立 NeoForge 實例</string>
 
     <string name="zh_main_open_main_dir">打開主目錄</string>
-    <string name="zh_main_open_instance_dir">開啟實例目錄</string>
     <string name="zh_main_share_crash_report">分享崩潰報告</string>
     <string name="zh_main_share_log_tip">你確定要分享啟動器的執行日誌嗎？\n日誌文件位置：</string>
     <string name="zh_main_notice_title">通知欄</string>
@@ -108,10 +107,6 @@
     <string name="zh_preference_category_launcher">啟動器</string>
 
     <string name="zh_profile_custom_path">自訂路徑</string>
-    <string name="zh_profile_create_mods">建立 Mods</string>
-    <string name="zh_profile_create_mods_message">請確認此實例使用的遊戲版本能夠載入 Mod，如果無法載入 Mod，則建立 Mods 資料夾並添加 Mod 將不起作用！</string>
-    <string name="zh_profile_create_mods_success">成功建立 Mods 資料夾!</string>
-    <string name="zh_profile_mods">Mod 管理</string>
     <string name="zh_profile_mods_download_mod">下載 Mod</string>
     <string name="zh_profile_mods_platform">搜尋平台</string>
     <string name="zh_profile_mods_sort_by">排序方式</string>
@@ -148,6 +143,17 @@
     <string name="zh_profile_mods_added_mod">成功添加 Mod</string>
     <string name="zh_profile_mods_disable">禁用</string>
     <string name="zh_profile_mods_enable">啟用</string>
+
+    <string name="zh_profile_manager_shortcuts">快速功能</string>
+    <string name="zh_profile_manager_shortcuts_mods">模組管理</string>
+    <string name="zh_profile_manager_shortcuts_instance_path">實例路徑資料夾</string>
+    <string name="zh_profile_manager_shortcuts_resource_path">資源包資料夾</string>
+    <string name="zh_profile_manager_shortcuts_world_path">遊戲存檔資料夾</string>
+    <string name="zh_profile_manager_shortcuts_logs_path">日誌資料夾</string>
+    <string name="zh_profile_manager_shortcuts_crash_report_path">崩潰報告資料夾</string>
+    <string name="zh_profile_manager_edit">編輯實例</string>
+    <string name="zh_profile_manager_delete">刪除實例</string>
+
     <string name="zh_replacement_customcontrol">更換控制佈局</string>
     <string name="zh_select_modpack_search">搜索整合包</string>
     <string name="zh_select_modpack_local">本地整合包</string>

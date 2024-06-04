@@ -98,7 +98,6 @@
     <string name="zh_modloader_dl_install_neoforge">Create NeoForge profile</string>
 
     <string name="zh_main_open_main_dir">Open main directory</string>
-    <string name="zh_main_open_instance_dir">Open Instance Directory</string>
     <string name="zh_main_share_crash_report">Share Crash Report</string>
     <string name="zh_main_share_log_tip">Are you sure you want to share the launcher\'s running log?\nLog file location:</string>
     <string name="zh_main_notice_title">Notification Bar</string>
@@ -109,10 +108,6 @@
     <string name="zh_preference_category_launcher">Launcher</string>
 
     <string name="zh_profile_custom_path">Custom path</string>
-    <string name="zh_profile_create_mods">Create Mods</string>
-    <string name="zh_profile_create_mods_message">Please ensure the game version supports Mod loading. Unsupported versions won\'t benefit from creating Mods folders or adding Mods!</string>
-    <string name="zh_profile_create_mods_success">Successfully created Mods folder!</string>
-    <string name="zh_profile_mods">Mods</string>
     <string name="zh_profile_mods_download_mod">Download Mod</string>
     <string name="zh_profile_mods_platform">Search Platform</string>
     <string name="zh_profile_mods_sort_by">Sort By</string>
@@ -149,6 +144,17 @@
     <string name="zh_profile_mods_added_mod">Successfully added Mod</string>
     <string name="zh_profile_mods_disable">Disable</string>
     <string name="zh_profile_mods_enable">Enable</string>
+
+    <string name="zh_profile_manager_shortcuts">Shortcut Features</string>
+    <string name="zh_profile_manager_shortcuts_mods">Mod Management</string>
+    <string name="zh_profile_manager_shortcuts_instance_path">Instance Folder Path</string>
+    <string name="zh_profile_manager_shortcuts_resource_path">Resource Pack Folder</string>
+    <string name="zh_profile_manager_shortcuts_world_path">Game Save Folder</string>
+    <string name="zh_profile_manager_shortcuts_logs_path">Logs Folder</string>
+    <string name="zh_profile_manager_shortcuts_crash_report_path">Crash Report Folder</string>
+    <string name="zh_profile_manager_edit">Edit Instance</string>
+    <string name="zh_profile_manager_delete">Delete Instance</string>
+
     <string name="zh_replacement_customcontrol">Change Control Layout</string>
     <string name="zh_select_modpack_search">Search for modpacks</string>
     <string name="zh_select_modpack_local">Local modpack</string>

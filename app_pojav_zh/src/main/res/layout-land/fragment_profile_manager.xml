@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    tools:ignore="MissingDefaultResource">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="12dp"
+        android:layout_weight="1"
+        android:background="@drawable/background_card"
+        android:fillViewport="true"
+        tools:ignore="MissingConstraints">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title_textview"
+                style="@style/TextAppearance.AppCompat.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:text="@string/zh_profile_manager_shortcuts"
+
+                android:textColor="@color/primary_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/icon1"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/zh_shortcuts_mods"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/zh_shortcuts_mods"
+                app:srcCompat="@drawable/ic_profile_mods" />
+
+            <Button
+                android:id="@+id/zh_shortcuts_mods"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/padding_heavy"
+                android:layout_marginTop="24dp"
+                android:text="@string/zh_profile_manager_shortcuts_mods"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/icon1"
+                app:layout_constraintTop_toBottomOf="@+id/title_textview" />
+
+            <ImageView
+                android:id="@+id/icon2"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:scaleType="centerInside"
+                app:layout_constraintBottom_toBottomOf="@+id/zh_instance_path"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/zh_instance_path"
+                app:srcCompat="@drawable/ic_profile_folder" />
+
+            <Button
+                android:id="@+id/zh_instance_path"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/padding_heavy"
+                android:layout_marginTop="8dp"
+                android:text="@string/zh_profile_manager_shortcuts_instance_path"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/icon2"
+                app:layout_constraintTop_toBottomOf="@+id/zh_shortcuts_mods" />
+            
+            <ImageView
+                android:id="@+id/icon3"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:scaleType="centerInside"
+                app:layout_constraintBottom_toBottomOf="@+id/zh_resource_path"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/zh_resource_path"
+                app:srcCompat="@drawable/ic_profile_resource_pack" />
+
+            <Button
+                android:id="@+id/zh_resource_path"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/padding_heavy"
+                android:layout_marginTop="8dp"
+                android:text="@string/zh_profile_manager_shortcuts_resource_path"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/icon2"
+                app:layout_constraintTop_toBottomOf="@+id/zh_instance_path" />
+            
+            <ImageView
+                android:id="@+id/icon4"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:scaleType="centerInside"
+                app:layout_constraintBottom_toBottomOf="@+id/zh_world_path"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/zh_world_path"
+                app:srcCompat="@drawable/ic_profile_saves" />
+
+            <Button
+                android:id="@+id/zh_world_path"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/padding_heavy"
+                android:layout_marginTop="8dp"
+                android:text="@string/zh_profile_manager_shortcuts_world_path"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/icon2"
+                app:layout_constraintTop_toBottomOf="@+id/zh_resource_path" />
+            
+            <ImageView
+                android:id="@+id/icon5"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:scaleType="centerInside"
+                app:layout_constraintBottom_toBottomOf="@+id/zh_logs_path"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/zh_logs_path"
+                app:srcCompat="@drawable/ic_profile_logs" />
+
+            <Button
+                android:id="@+id/zh_logs_path"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/padding_heavy"
+                android:layout_marginTop="8dp"
+                android:text="@string/zh_profile_manager_shortcuts_logs_path"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/icon2"
+                app:layout_constraintTop_toBottomOf="@+id/zh_world_path" />
+            
+            <ImageView
+                android:id="@+id/icon6"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/zh_crash_report_path"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/zh_crash_report_path"
+                app:srcCompat="@drawable/ic_profile_crash_report" />
+
+            <Button
+                android:id="@+id/zh_crash_report_path"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/padding_heavy"
+                android:layout_marginTop="8dp"
+                android:text="@string/zh_profile_manager_shortcuts_crash_report_path"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/icon2"
+                app:layout_constraintTop_toBottomOf="@+id/zh_logs_path" />
+            
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        android:layout_weight="1"
+        android:background="@drawable/background_card"
+        android:fillViewport="true"
+        tools:ignore="MissingConstraints">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title_modded_textview"
+                style="@style/TextAppearance.AppCompat.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:text="@string/zh_profile_manager_edit"
+
+                android:textColor="@color/primary_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/icon7"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:scaleType="centerInside"
+                app:layout_constraintBottom_toBottomOf="@+id/zh_profile_edit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/zh_profile_edit"
+                app:srcCompat="@drawable/ic_edit" />
+
+            <Button
+                android:id="@+id/zh_profile_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/padding_heavy"
+                android:layout_marginTop="24dp"
+                android:text="@string/zh_profile_manager_edit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/icon7"
+                app:layout_constraintTop_toBottomOf="@+id/title_modded_textview" />
+
+            <ImageView
+                android:id="@+id/icon8"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:scaleType="centerInside"
+                app:layout_constraintBottom_toBottomOf="@+id/zh_profile_delete"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/zh_profile_delete"
+                app:srcCompat="@drawable/ic_menu_delete_forever" />
+
+            <Button
+                android:id="@+id/zh_profile_delete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/padding_heavy"
+                android:layout_marginTop="8dp"
+                android:text="@string/zh_profile_manager_delete"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/icon8"
+                app:layout_constraintTop_toBottomOf="@+id/zh_profile_edit" />
+            
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</LinearLayout>
+
