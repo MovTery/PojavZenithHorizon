@@ -161,6 +161,18 @@
                         android:textColor="@color/primary_text" />
 
                     <com.kdt.mcgui.LauncherMenuButton
+                        android:id="@+id/zh_open_main_dir_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@drawable/background_item"
+                        android:drawableStart="@drawable/ic_folder"
+                        android:text="@string/zh_main_open_main_dir"
+                        android:textColor="@color/primary_text" />
+
+                    <com.kdt.mcgui.LauncherMenuButton
                         android:id="@+id/install_jar_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -223,22 +235,6 @@
         app:layout_constraintStart_toEndOf="@+id/constraintLayout"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/zh_open_main_dir_button"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="10dp"
-            android:paddingHorizontal="@dimen/padding_large"
-            android:paddingVertical="0px"
-            android:text="@string/zh_main_open_main_dir"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
-            app:layout_constraintTop_toTopOf="@+id/constraintLayout2"
-            tools:ignore="NotSibling" />
-
         <com.kdt.mcgui.mcVersionSpinner
             android:id="@+id/mc_version_spinner"
             android:layout_width="0dp"
@@ -276,8 +272,8 @@
             android:id="@+id/play_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/main_play"
             android:textAllCaps="true"
