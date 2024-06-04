@@ -4,7 +4,6 @@ import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ADVANCED_FEATURES;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
-import static net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles.getCurrentProfile;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -30,7 +29,7 @@ import com.movtery.ui.fragment.ControlButtonFragment;
 import com.movtery.ui.fragment.FilesFragment;
 
 import com.movtery.feature.CheckNewNotice;
-import com.movtery.utils.PojavZHTools;
+import com.movtery.ui.fragment.ProfileManagerFragment;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import com.movtery.ui.dialog.ShareLogDialog;
@@ -64,9 +63,8 @@ public class MainMenuFragment extends Fragment {
         Button mInstallJarButton = view.findViewById(R.id.install_jar_button);
         Button mShareLogsButton = view.findViewById(R.id.share_logs_button);
         Button mOpenMainDirButton = view.findViewById(R.id.zh_open_main_dir_button);
-        Button mOpenInstanceDirButton = view.findViewById(R.id.zh_open_instance_dir_button);
 
-        ImageButton mEditProfileButton = view.findViewById(R.id.edit_profile_button);
+        ImageButton mManagerProfileButton = view.findViewById(R.id.manager_profile_button);
         Button mPlayButton = view.findViewById(R.id.play_button);
         mVersionSpinner = view.findViewById(R.id.mc_version_spinner);
 
@@ -77,7 +75,7 @@ public class MainMenuFragment extends Fragment {
             runInstallerWithConfirmation(true);
             return true;
         });
-        mEditProfileButton.setOnClickListener(v -> mVersionSpinner.openProfileEditor(requireActivity()));
+        mManagerProfileButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ProfileManagerFragment.class, ProfileManagerFragment.TAG, null));
 
         mPlayButton.setOnClickListener(v -> ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true));
 
@@ -92,19 +90,8 @@ public class MainMenuFragment extends Fragment {
             Tools.swapFragment(requireActivity(), FilesFragment.class, FilesFragment.TAG, bundle);
         });
 
-        mOpenInstanceDirButton.setOnClickListener(v -> {
-            String path = PojavZHTools.getGameDirPath(getCurrentProfile().gameDir).getAbsolutePath();
-            File file = new File(path);
-            if (!file.exists()) PojavZHTools.mkdirs(file); //必须保证此路径存在
-
-            Bundle bundle = new Bundle();
-            bundle.putString(FilesFragment.BUNDLE_PATH, path);
-            Tools.swapFragment(requireActivity(), FilesFragment.class, FilesFragment.TAG, bundle);
-        });
-
         initNotice(view);
         mOpenMainDirButton.setVisibility(PREF_ADVANCED_FEATURES ? View.VISIBLE : View.GONE);
-        mOpenInstanceDirButton.setVisibility(PREF_ADVANCED_FEATURES ? View.VISIBLE : View.GONE);
     }
 
     private void initNotice(View view) {
@@ -121,7 +108,7 @@ public class MainMenuFragment extends Fragment {
         setNotice(false, false, view);
 
         mCheckNoticeTimer = new Timer();
-        mCheckNoticeTimer.scheduleAtFixedRate(new TimerTask() {
+        mCheckNoticeTimer.schedule(new TimerTask() {
             @Override
             public void run() {
                 if (CheckNewNotice.isFailure()) { //如果访问失败了，那么取消计时器

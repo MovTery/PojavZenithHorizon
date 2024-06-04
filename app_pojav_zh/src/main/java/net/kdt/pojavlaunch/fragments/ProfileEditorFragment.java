@@ -17,7 +17,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
@@ -26,7 +25,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.movtery.ui.fragment.ControlButtonFragment;
-import com.movtery.ui.fragment.ModsFragment;
 import com.movtery.ui.fragment.VersionSelectorFragment;
 
 import com.movtery.utils.PojavZHTools;
@@ -58,7 +56,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
     private String mProfileKey;
     private MinecraftProfile mTempProfile = null;
     private String mValueToConsume = "";
-    private Button mSaveButton, mDeleteButton, mModsButton, mControlSelectButton, mGameDirButton, mVersionSelectButton;
+    private Button mSaveButton, mControlSelectButton, mGameDirButton, mVersionSelectButton;
     private ImageButton mHelpButton;
     private Spinner mDefaultRuntime, mDefaultRenderer;
     private EditText mDefaultName, mDefaultJvmArgument;
@@ -109,43 +107,6 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
             ProfileIconCache.dropIcon(mProfileKey);
             save();
             Tools.backToMainMenu(requireActivity());
-        });
-
-        mDeleteButton.setOnClickListener(v -> {
-            if(LauncherProfiles.mainProfileJson.profiles.size() > 1){
-                ProfileIconCache.dropIcon(mProfileKey);
-                LauncherProfiles.mainProfileJson.profiles.remove(mProfileKey);
-                LauncherProfiles.write();
-                ExtraCore.setValue(ExtraConstants.REFRESH_VERSION_SPINNER, DELETED_PROFILE);
-            }
-
-            Tools.removeCurrentFragment(requireActivity());
-        });
-
-        mModsButton.setOnClickListener(v -> {
-            File mods = mTempProfile.gameDir == null ?
-                    new File(PojavZHTools.DIR_GAME_DEFAULT, "mods") :
-                    new File(PojavZHTools.getGameDirPath(mTempProfile.gameDir), "mods");
-            if (mods.exists()) {
-                Bundle bundle = new Bundle();
-                bundle.putString(ModsFragment.BUNDLE_ROOT_PATH, mods.toString());
-
-                Tools.swapFragment(requireActivity(),
-                        ModsFragment.class, ModsFragment.TAG, bundle);
-            } else {
-                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-                builder.setTitle(getString(R.string.folder_fragment_create));
-                builder.setMessage(getString(R.string.zh_profile_create_mods_message));
-                builder.setPositiveButton(getString(R.string.zh_profile_create_mods), (d, i) -> {
-                    boolean b = mods.mkdirs();
-                    if (b) {
-                        Toast.makeText(requireContext(), getString(R.string.zh_profile_create_mods_success), Toast.LENGTH_SHORT).show();
-                        mModsButton.setText(mods.exists() ? getString(R.string.zh_profile_mods) : getString(R.string.zh_profile_create_mods));
-                    }
-                });
-                builder.setNegativeButton(getString(android.R.string.cancel), null);
-                builder.show();
-            }
         });
 
         mGameDirButton.setOnClickListener(v -> {
@@ -199,12 +160,6 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
                 ProfileIconCache.fetchIcon(getResources(), mProfileKey, mTempProfile.icon)
         );
 
-        File mods = mTempProfile.gameDir == null ?
-                new File(PojavZHTools.DIR_GAME_DEFAULT, "mods") :
-                new File(PojavZHTools.getGameDirPath(mTempProfile.gameDir), "mods");
-        boolean modsFolder = mods.exists();
-        mModsButton.setText(modsFolder ? getString(R.string.zh_profile_mods) : getString(R.string.zh_profile_create_mods));
-
         // Runtime spinner
         List<Runtime> runtimes = MultiRTUtils.getRuntimes();
         int jvmIndex = runtimes.indexOf(new Runtime(requireContext().getString(R.string.global_default)));
@@ -255,9 +210,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         mDefaultName = view.findViewById(R.id.vprof_editor_profile_name);
         mDefaultJvmArgument = view.findViewById(R.id.vprof_editor_jre_args);
 
-        mModsButton = view.findViewById(R.id.zh_mods_button);
         mSaveButton = view.findViewById(R.id.vprof_editor_save_button);
-        mDeleteButton = view.findViewById(R.id.vprof_editor_delete_button);
         mControlSelectButton = view.findViewById(R.id.vprof_editor_ctrl_button);
         mVersionSelectButton = view.findViewById(R.id.vprof_editor_version_button);
         mGameDirButton = view.findViewById(R.id.vprof_editor_path_button);

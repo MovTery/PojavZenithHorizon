@@ -239,23 +239,6 @@
             app:layout_constraintTop_toTopOf="@+id/constraintLayout2"
             tools:ignore="NotSibling" />
 
-        <Button
-            android:id="@+id/zh_open_instance_dir_button"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="10dp"
-            android:paddingHorizontal="@dimen/padding_large"
-            android:paddingVertical="0px"
-            android:text="@string/zh_main_open_instance_dir"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/zh_open_main_dir_button"
-            tools:ignore="NotSibling" />
-
         <com.kdt.mcgui.mcVersionSpinner
             android:id="@+id/mc_version_spinner"
             android:layout_width="0dp"
@@ -269,13 +252,13 @@
             app:drawableStartIntegerScaling="true"
             app:drawableStartSize="@dimen/_36sdp"
             app:layout_constraintBottom_toTopOf="@+id/play_button"
-            app:layout_constraintEnd_toStartOf="@+id/edit_profile_button"
+            app:layout_constraintEnd_toStartOf="@+id/manager_profile_button"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
             app:layout_constraintStart_toStartOf="@+id/constraintLayout2" />
 
         <ImageButton
-            android:id="@+id/edit_profile_button"
+            android:id="@+id/manager_profile_button"
             android:layout_width="@dimen/_38sdp"
             android:layout_height="0dp"
             android:layout_marginEnd="4dp"
@@ -284,7 +267,7 @@
             android:scaleType="fitCenter"
             android:scaleX="0.7"
             android:scaleY="0.7"
-            android:src="@drawable/ic_edit"
+            android:src="@drawable/ic_setting"
             app:layout_constraintBottom_toTopOf="@+id/play_button"
             app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
             app:layout_constraintTop_toTopOf="@+id/mc_version_spinner" />
