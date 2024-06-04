@@ -46,7 +46,7 @@ public class ControlInfoDialog extends Dialog {
         closeButton.setOnClickListener(v -> this.dismiss());
         editButton.setOnClickListener(v -> {
             EditControlInfoDialog editControlInfoDialog = new EditControlInfoDialog(context, false, controlInfoData.fileName, controlInfoData);
-            editControlInfoDialog.setTitle(R.string.zh_edit);
+            editControlInfoDialog.setTitle(context.getString(R.string.zh_edit));
             editControlInfoDialog.setOnConfirmClickListener((fileName, controlInfoData) -> {
                 File controlFile = new File(Tools.CTRLMAP_PATH, fileName);
 

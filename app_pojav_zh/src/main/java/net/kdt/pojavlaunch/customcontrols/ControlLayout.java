@@ -516,7 +516,7 @@ public class ControlLayout extends FrameLayout {
 	}
 
 	public void openSaveDialog() {
-		saveDialog(null, null);
+		saveDialog(getContext().getString(R.string.global_save), null);
 	}
 
 	public void openSaveAndExitDialog(EditorExitable editorExitable) {
