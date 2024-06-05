@@ -21,6 +21,8 @@
     <string name="zh_yi">亿</string>
     <string name="zh_wrong_tip">出现了一些问题</string>
 
+    <string name="zh_permissions_manage_external_storage">Pojav ZH 需要管理设备所有文件的权限，以便自定义保存游戏文件位置，请为 Pojav ZH 开启权限！</string>
+
     <string name="zh_account_text">请选择一种登录方式</string>
     <string name="zh_account_microsoft_account">微软账号</string>
     <string name="zh_account_microsoft_xerr_unauthorized">你的微软账号登录信息貌似已经过期，这种情况常出现在账户密码被修改之后，请移除当前帐号并重新登录你的账号，以重置的你的登录信息。</string>
