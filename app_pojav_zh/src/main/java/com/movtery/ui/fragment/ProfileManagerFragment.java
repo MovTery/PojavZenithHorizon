@@ -86,8 +86,8 @@ public class ProfileManagerFragment extends Fragment {
     }
 
     private void swapFilesFragment(File lockPath, File listPath) {
-        if (!lockPath.exists()) {
-            PojavZHTools.mkdirs(lockPath);
+        if (!lockPath.exists() || !listPath.exists()) {
+            PojavZHTools.mkdirs(listPath);
         }
 
         Bundle bundle = new Bundle();
