@@ -86,7 +86,7 @@ public class MainMenuFragment extends Fragment {
 
         mOpenMainDirButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putString(FilesFragment.BUNDLE_PATH, Tools.DIR_GAME_HOME);
+            bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, Tools.DIR_GAME_HOME);
             Tools.swapFragment(requireActivity(), FilesFragment.class, FilesFragment.TAG, bundle);
         });
 

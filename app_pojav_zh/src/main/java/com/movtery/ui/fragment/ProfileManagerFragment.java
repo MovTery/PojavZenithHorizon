@@ -66,11 +66,11 @@ public class ProfileManagerFragment extends Fragment {
                     ModsFragment.class, ModsFragment.TAG, bundle);
         });
 
-        instanceButton.setOnClickListener(v -> swapFilesFragment(gameDirPath));
-        resourceButton.setOnClickListener(v -> swapFilesFragment(new File(gameDirPath, "/resourcepacks")));
-        worldButton.setOnClickListener(v -> swapFilesFragment(new File(gameDirPath, "/saves")));
-        logsButton.setOnClickListener(v -> swapFilesFragment(new File(gameDirPath, "/logs")));
-        crashReportButton.setOnClickListener(v -> swapFilesFragment(new File(gameDirPath, "/crash-reports")));
+        instanceButton.setOnClickListener(v -> swapFilesFragment(gameDirPath, gameDirPath));
+        resourceButton.setOnClickListener(v -> swapFilesFragment(gameDirPath, new File(gameDirPath, "/resourcepacks")));
+        worldButton.setOnClickListener(v -> swapFilesFragment(gameDirPath, new File(gameDirPath, "/saves")));
+        logsButton.setOnClickListener(v -> swapFilesFragment(gameDirPath, new File(gameDirPath, "/logs")));
+        crashReportButton.setOnClickListener(v -> swapFilesFragment(gameDirPath, new File(gameDirPath, "/crash-reports")));
 
         editButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ProfileEditorFragment.class, ProfileEditorFragment.TAG, null));
         deleteButton.setOnClickListener(v -> {
@@ -85,13 +85,14 @@ public class ProfileManagerFragment extends Fragment {
         });
     }
 
-    private void swapFilesFragment(File path) {
-        if (!path.exists()) {
-            PojavZHTools.mkdirs(path);
+    private void swapFilesFragment(File lockPath, File listPath) {
+        if (!lockPath.exists()) {
+            PojavZHTools.mkdirs(lockPath);
         }
 
         Bundle bundle = new Bundle();
-        bundle.putString(FilesFragment.BUNDLE_PATH, path.getAbsolutePath());
+        bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, lockPath.getAbsolutePath());
+        bundle.putString(FilesFragment.BUNDLE_LIST_PATH, listPath.getAbsolutePath());
 
         Tools.swapFragment(requireActivity(),
                 FilesFragment.class, FilesFragment.TAG, bundle);

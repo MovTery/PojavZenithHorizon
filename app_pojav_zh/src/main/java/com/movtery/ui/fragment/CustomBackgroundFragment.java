@@ -76,7 +76,7 @@ public class CustomBackgroundFragment extends Fragment {
         initBackgroundMap();
         bindTabs();
 
-        mFileRecyclerView.lockPathAt(backgroundPath());
+        mFileRecyclerView.lockAndListAt(backgroundPath(), backgroundPath());
         mFileRecyclerView.setShowFiles(true);
         mFileRecyclerView.setShowFolders(false);
 

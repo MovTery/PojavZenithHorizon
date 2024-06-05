@@ -73,7 +73,7 @@ public class ModsFragment extends Fragment {
         parseBundle();
         mFileRecyclerView.setShowFiles(true);
         mFileRecyclerView.setShowFolders(false);
-        mFileRecyclerView.lockPathAt(new File(mRootPath));
+        mFileRecyclerView.lockAndListAt(new File(mRootPath), new File(mRootPath));
 
         mFileRecyclerView.setFileSelectedListener(new FileSelectedListener() {
             @Override
