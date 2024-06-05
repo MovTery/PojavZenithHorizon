@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.ui.subassembly.customprofilepath.ProfilePathHome;
 import com.movtery.ui.subassembly.filelist.FileItemBean;
 import com.movtery.ui.subassembly.filelist.FileRecyclerViewCreator;
 import com.movtery.ui.subassembly.recyclerview.SpacesItemDecoration;
@@ -61,7 +62,7 @@ public class VersionListView extends LinearLayout {
             versionArray = new JMinecraftVersionList.Version[0];
         else versionArray = jMinecraftVersionList.versions;
 
-        mInstalledVersions = new File(Tools.DIR_GAME_NEW + "/versions").list();
+        mInstalledVersions = new File(ProfilePathHome.getGameHome() + "/versions").list();
         if (mInstalledVersions != null)
             Arrays.sort(mInstalledVersions);
 

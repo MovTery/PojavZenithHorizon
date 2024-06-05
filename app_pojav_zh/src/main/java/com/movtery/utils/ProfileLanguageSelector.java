@@ -3,8 +3,9 @@ package com.movtery.utils;
 import static com.movtery.utils.PojavZHTools.containsDot;
 import static com.movtery.utils.PojavZHTools.extractNumbers;
 import static com.movtery.utils.PojavZHTools.getGameDirPath;
-import static net.kdt.pojavlaunch.Tools.DIR_HOME_VERSION;
 import static net.kdt.pojavlaunch.Tools.read;
+
+import com.movtery.ui.subassembly.customprofilepath.ProfilePathHome;
 
 import net.kdt.pojavlaunch.JMinecraftVersionList;
 import net.kdt.pojavlaunch.Logger;
@@ -59,7 +60,7 @@ public class ProfileLanguageSelector {
 
         JMinecraftVersionList.Version version;
         try {
-            version = Tools.GLOBAL_GSON.fromJson(read(DIR_HOME_VERSION + "/" + versionName + "/" + versionName + ".json"), JMinecraftVersionList.Version.class);
+            version = Tools.GLOBAL_GSON.fromJson(read(ProfilePathHome.getVersionsHome() + "/" + versionName + "/" + versionName + ".json"), JMinecraftVersionList.Version.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

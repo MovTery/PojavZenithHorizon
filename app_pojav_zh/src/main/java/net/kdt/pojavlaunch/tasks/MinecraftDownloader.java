@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.kdt.mcgui.ProgressLayout;
+import com.movtery.ui.subassembly.customprofilepath.ProfilePathHome;
 
 import net.kdt.pojavlaunch.JAssetInfo;
 import net.kdt.pojavlaunch.JAssets;
@@ -118,11 +119,11 @@ public class MinecraftDownloader {
     }
 
     private File createGameJsonPath(String versionId) {
-        return new File(Tools.DIR_HOME_VERSION, versionId + File.separator + versionId + ".json");
+        return new File(ProfilePathHome.getVersionsHome(), versionId + File.separator + versionId + ".json");
     }
 
     private File createGameJarPath(String versionId) {
-        return new File(Tools.DIR_HOME_VERSION, versionId + File.separator + versionId + ".jar");
+        return new File(ProfilePathHome.getVersionsHome(), versionId + File.separator + versionId + ".jar");
     }
 
     /**
@@ -161,7 +162,7 @@ public class MinecraftDownloader {
     private JAssets downloadAssetsIndex(JMinecraftVersionList.Version verInfo) throws IOException{
         JMinecraftVersionList.AssetIndex assetIndex = verInfo.assetIndex;
         if(assetIndex == null || verInfo.assets == null) return null;
-        File targetFile = new File(Tools.ASSETS_PATH, "indexes"+ File.separator + verInfo.assets + ".json");
+        File targetFile = new File(ProfilePathHome.getAssetsHome(), "indexes"+ File.separator + verInfo.assets + ".json");
         FileUtils.ensureParentDirectory(targetFile);
         DownloadUtils.ensureSha1(targetFile, assetIndex.sha1, ()-> {
             ProgressLayout.setProgress(ProgressLayout.DOWNLOAD_MINECRAFT, 0,
@@ -257,7 +258,7 @@ public class MinecraftDownloader {
                 skipIfFailed = true;
             }
             if(!LauncherPreferences.PREF_CHECK_LIBRARY_SHA) sha1 = null;
-            scheduleDownload(new File(Tools.DIR_HOME_LIBRARY, libArtifactPath),
+            scheduleDownload(new File(ProfilePathHome.getLibrariesHome(), libArtifactPath),
                     DownloadMirror.DOWNLOAD_CLASS_LIBRARIES,
                     url, sha1, size, skipIfFailed
             );
@@ -274,7 +275,7 @@ public class MinecraftDownloader {
             if(assetInfo == null) continue;
             File targetFile;
             String hashedPath = assetInfo.hash.substring(0, 2) + File.separator + assetInfo.hash;
-            String basePath = assets.mapToResources ? Tools.OBSOLETE_RESOURCES_PATH : Tools.ASSETS_PATH;
+            String basePath = assets.mapToResources ? ProfilePathHome.getResourcesHome() : ProfilePathHome.getAssetsHome();
             if(assets.virtual || assets.mapToResources) {
                 targetFile = new File(basePath, asset);
             } else {
@@ -296,7 +297,7 @@ public class MinecraftDownloader {
         File internalLoggingConfig = new File(Tools.DIR_DATA + File.separator + "security",
                 loggingFileProperties.id.replace("client", "log4j-rce-patch"));
         if(internalLoggingConfig.exists()) return;
-        File destination = new File(Tools.DIR_GAME_NEW, loggingFileProperties.id);
+        File destination = new File(ProfilePathHome.getGameHome(), loggingFileProperties.id);
         scheduleDownload(destination,
                 DownloadMirror.DOWNLOAD_CLASS_LIBRARIES,
                 loggingFileProperties.url,

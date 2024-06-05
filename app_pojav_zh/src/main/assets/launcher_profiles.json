@@ -2,6 +2,7 @@
   "profiles": {
     "(Default)": {
       "name": "(默认)",
+      "gameDir": "./.minecraft/instance/default",
       "lastVersionId": "1.7.10"
     }
   },

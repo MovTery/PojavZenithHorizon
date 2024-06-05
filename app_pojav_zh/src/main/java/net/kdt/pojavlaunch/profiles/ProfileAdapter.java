@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 
 import androidx.core.graphics.ColorUtils;
 
+import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
+
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
@@ -135,7 +137,7 @@ public class ProfileAdapter extends BaseAdapter {
 
     /** Reload profiles from the file */
     public void reloadProfiles(){
-        LauncherProfiles.load();
+        LauncherProfiles.load(ProfilePathManager.getCurrentProfile());
         mProfiles = new HashMap<>(LauncherProfiles.mainProfileJson.profiles);
         mProfileList = new ArrayList<>(Arrays.asList(mProfiles.keySet().toArray(new String[0])));
         notifyDataSetChanged();

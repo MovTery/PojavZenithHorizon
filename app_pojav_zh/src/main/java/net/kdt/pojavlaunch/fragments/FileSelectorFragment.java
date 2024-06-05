@@ -1,9 +1,7 @@
 package net.kdt.pojavlaunch.fragments;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,14 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
 import com.movtery.ui.subassembly.filelist.FileIcon;
 import com.movtery.ui.subassembly.filelist.FileRecyclerView;
 import com.movtery.ui.subassembly.filelist.FileSelectedListener;
 
-import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import com.movtery.ui.dialog.EditTextDialog;
+
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 
@@ -31,6 +30,7 @@ public class FileSelectorFragment extends Fragment {
     public static final String BUNDLE_SELECT_FILE = "select_file";
     public static final String BUNDLE_SHOW_FILE = "show_file";
     public static final String BUNDLE_SHOW_FOLDER = "show_folder";
+    public static final String BUNDLE_REMOVE_LOCK_PATH = "remove_lock_path";
     public static final String BUNDLE_ROOT_PATH = "root_path";
 
     private Button mSelectFolderButton, mCreateFolderButton, mRefreshButton;
@@ -40,9 +40,8 @@ public class FileSelectorFragment extends Fragment {
     private boolean mSelectFolder = true;
     private boolean mShowFiles = true;
     private boolean mShowFolders = true;
-    private String mRootPath = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
-            ? PojavZHTools.DIR_GAME_DEFAULT
-            : Environment.getExternalStorageDirectory().getAbsolutePath();
+    private boolean mRemoveLockPath = true;
+    private String mRootPath = ProfilePathManager.getCurrentPath();
 
 
     public FileSelectorFragment() {
@@ -112,7 +111,11 @@ public class FileSelectorFragment extends Fragment {
     }
 
     private String removeLockPath(String path) {
-        return path.replace(mRootPath, ".");
+        String string = path;
+        if (mRemoveLockPath) {
+            string = path.replace(mRootPath, ".");
+        }
+        return string;
     }
 
     private void parseBundle() {
@@ -122,6 +125,7 @@ public class FileSelectorFragment extends Fragment {
         mShowFiles = bundle.getBoolean(BUNDLE_SHOW_FILE, mShowFiles);
         mShowFolders = bundle.getBoolean(BUNDLE_SHOW_FOLDER, mShowFolders);
         mRootPath = bundle.getString(BUNDLE_ROOT_PATH, mRootPath);
+        mRemoveLockPath = bundle.getBoolean(BUNDLE_REMOVE_LOCK_PATH, true);
     }
 
     private void bindViews(@NonNull View view) {

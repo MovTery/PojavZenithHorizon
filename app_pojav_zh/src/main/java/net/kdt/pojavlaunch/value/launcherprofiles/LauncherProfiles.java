@@ -4,6 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
+
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
@@ -16,10 +18,9 @@ import java.util.UUID;
 
 public class LauncherProfiles {
     public static MinecraftLauncherProfiles mainProfileJson;
-    private static final File launcherProfilesFile = new File(Tools.DIR_GAME_NEW, "launcher_profiles.json");
 
     /** Reload the profile from the file, creating a default one if necessary */
-    public static void load(){
+    public static void load(File launcherProfilesFile) {
         if (launcherProfilesFile.exists()) {
             try {
                 mainProfileJson = Tools.GLOBAL_GSON.fromJson(Tools.read(launcherProfilesFile.getAbsolutePath()), MinecraftLauncherProfiles.class);
@@ -37,13 +38,13 @@ public class LauncherProfiles {
 
         // Normalize profile names from mod installers
         if(normalizeProfileIds(mainProfileJson)){
-            write();
-            load();
+            write(launcherProfilesFile);
+            load(launcherProfilesFile);
         }
     }
 
     /** Apply the current configuration into a file */
-    public static void write() {
+    public static void write(File launcherProfilesFile) {
         try {
             Tools.write(launcherProfilesFile.getAbsolutePath(), mainProfileJson.toJson());
         } catch (IOException e) {
@@ -53,7 +54,7 @@ public class LauncherProfiles {
     }
 
     public static @NonNull MinecraftProfile getCurrentProfile() {
-        if(mainProfileJson == null) LauncherProfiles.load();
+        if(mainProfileJson == null) LauncherProfiles.load(ProfilePathManager.getCurrentProfile());
         String defaultProfileName = LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, "");
         MinecraftProfile profile = mainProfileJson.profiles.get(defaultProfileName);
         if(profile == null) throw new RuntimeException("The current profile stopped existing :(");

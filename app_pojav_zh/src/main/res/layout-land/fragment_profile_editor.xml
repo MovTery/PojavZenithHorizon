@@ -169,7 +169,7 @@
                     android:layout_marginEnd="@dimen/padding_medium"
                     android:background="@drawable/background_item"
                     android:ems="10"
-                    android:hint=".minecraft/instance/default"
+                    android:hint="./.minecraft/instance/default"
                     android:paddingHorizontal="@dimen/padding_heavy"
                     android:textSize="@dimen/_13ssp"
                     app:layout_constraintEnd_toStartOf="@id/vprof_editor_path_button"

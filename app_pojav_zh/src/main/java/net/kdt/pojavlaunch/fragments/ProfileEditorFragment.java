@@ -27,6 +27,7 @@ import androidx.fragment.app.Fragment;
 import com.movtery.ui.fragment.ControlButtonFragment;
 import com.movtery.ui.fragment.VersionSelectorFragment;
 
+import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
 import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -114,8 +115,8 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
             if (!dir.exists()) PojavZHTools.mkdirs(dir);
             Bundle bundle = new Bundle(2);
             bundle.putBoolean(FileSelectorFragment.BUNDLE_SELECT_FOLDER, true);
-            bundle.putString(FileSelectorFragment.BUNDLE_ROOT_PATH, Tools.DIR_GAME_HOME);
             bundle.putBoolean(FileSelectorFragment.BUNDLE_SHOW_FILE, false);
+            bundle.putString(FileSelectorFragment.BUNDLE_ROOT_PATH, ProfilePathManager.getCurrentPath());
             mValueToConsume = FileSelectorFragment.BUNDLE_SELECT_FOLDER;
 
             Tools.swapFragment(requireActivity(),
@@ -237,9 +238,8 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         if(mDefaultRenderer.getSelectedItemPosition() == mRenderNames.size()) mTempProfile.pojavRendererName = null;
         else mTempProfile.pojavRendererName = mRenderNames.get(mDefaultRenderer.getSelectedItemPosition());
 
-
         LauncherProfiles.mainProfileJson.profiles.put(mProfileKey, mTempProfile);
-        LauncherProfiles.write();
+        LauncherProfiles.write(ProfilePathManager.getCurrentProfile());
         ExtraCore.setValue(ExtraConstants.REFRESH_VERSION_SPINNER, mProfileKey);
     }
 

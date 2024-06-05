@@ -1,4 +1,5 @@
 package net.kdt.pojavlaunch.utils;
+
 import static org.lwjgl.glfw.CallbackBridge.windowHeight;
 import static org.lwjgl.glfw.CallbackBridge.windowWidth;
 
@@ -8,6 +9,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.movtery.ui.subassembly.customprofilepath.ProfilePathHome;
 
 import net.kdt.pojavlaunch.Tools;
 
@@ -35,7 +38,7 @@ public class MCOptionUtils {
 
     public static void load(){
         load(sOptionFolderPath == null
-                ? Tools.DIR_GAME_NEW
+                ? ProfilePathHome.getGameHome()
                 : sOptionFolderPath);
     }
 

@@ -50,6 +50,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import com.movtery.ui.dialog.EditTextDialog;
+import com.movtery.ui.subassembly.customprofilepath.ProfilePathHome;
+import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
 import com.movtery.utils.PojavZHTools;
 
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
@@ -113,15 +115,8 @@ public final class Tools {
     // New since 3.3.1
     public static String DIR_ACCOUNT_NEW;
     public static String DIR_GAME_HOME = Environment.getExternalStorageDirectory().getAbsolutePath() + "/games/PojavZH";
-    public static String DIR_GAME_NEW;
     // New since 3.0.0
     public static String DIRNAME_HOME_JRE = "lib";
-    // New since 2.4.2
-    public static String DIR_HOME_VERSION;
-    public static String DIR_HOME_LIBRARY;
-    public static String DIR_HOME_CRASH;
-    public static String ASSETS_PATH;
-    public static String OBSOLETE_RESOURCES_PATH;
     public static String CTRLMAP_PATH;
     public static String CTRLDEF_FILE;
     public static DisplayMetrics currentDisplayMetrics;
@@ -157,12 +152,6 @@ public final class Tools {
         DIR_DATA = ctx.getFilesDir().getParent();
         MULTIRT_HOME = DIR_DATA + "/runtimes";
         DIR_GAME_HOME = getPojavStorageRoot(ctx).getAbsolutePath();
-        DIR_GAME_NEW = DIR_GAME_HOME + "/.minecraft";
-        DIR_HOME_VERSION = DIR_GAME_NEW + "/versions";
-        DIR_HOME_LIBRARY = DIR_GAME_NEW + "/libraries";
-        DIR_HOME_CRASH = DIR_GAME_NEW + "/crash-reports";
-        ASSETS_PATH = DIR_GAME_NEW + "/assets";
-        OBSOLETE_RESOURCES_PATH = DIR_GAME_NEW + "/resources";
         CTRLMAP_PATH = DIR_GAME_HOME + "/controlmap";
         CTRLDEF_FILE = DIR_GAME_HOME + "/controlmap/default.json";
         NATIVE_LIB_DIR = ctx.getApplicationInfo().nativeLibraryDir;
@@ -185,7 +174,7 @@ public final class Tools {
         }
         Runtime runtime = MultiRTUtils.forceReread(Tools.pickRuntime(activity, minecraftProfile, versionJavaRequirement));
         JMinecraftVersionList.Version versionInfo = Tools.getVersionInfo(versionId);
-        LauncherProfiles.load();
+        LauncherProfiles.load(ProfilePathManager.getCurrentProfile());
         File gamedir = Tools.getGameDirPath(minecraftProfile);
 
 
@@ -215,7 +204,7 @@ public final class Tools {
         if (versionInfo.logging != null) {
             String configFile = Tools.DIR_DATA + "/security/" + versionInfo.logging.client.file.id.replace("client", "log4j-rce-patch");
             if (!new File(configFile).exists()) {
-                configFile = Tools.DIR_GAME_NEW + "/" + versionInfo.logging.client.file.id;
+                configFile = ProfilePathHome.getGameHome() + "/" + versionInfo.logging.client.file.id;
             }
             javaArgList.add("-Dlog4j.configurationFile=" + configFile);
         }
@@ -237,9 +226,9 @@ public final class Tools {
     public static File getGameDirPath(@NonNull MinecraftProfile minecraftProfile) {
         if (minecraftProfile.gameDir != null) {
             if (minecraftProfile.gameDir.startsWith(Tools.LAUNCHERPROFILES_RTPREFIX))
-                return new File(minecraftProfile.gameDir.replace(Tools.LAUNCHERPROFILES_RTPREFIX, Tools.DIR_GAME_HOME + "/"));
+                return new File(minecraftProfile.gameDir.replace(Tools.LAUNCHERPROFILES_RTPREFIX, ProfilePathManager.getCurrentPath() + "/"));
             else
-                return new File(Tools.DIR_GAME_HOME, minecraftProfile.gameDir);
+                return new File(ProfilePathManager.getCurrentPath(), minecraftProfile.gameDir);
         }
         return new File(PojavZHTools.DIR_GAME_DEFAULT);
     }
@@ -332,7 +321,7 @@ public final class Tools {
 
         Map<String, String> varArgMap = new ArrayMap<>();
         varArgMap.put("classpath_separator", ":");
-        varArgMap.put("library_directory", DIR_HOME_LIBRARY);
+        varArgMap.put("library_directory", ProfilePathHome.getLibrariesHome());
         varArgMap.put("version_name", versionInfo.id);
         varArgMap.put("natives_directory", Tools.NATIVE_LIB_DIR);
 
@@ -374,9 +363,9 @@ public final class Tools {
         varArgMap.put("auth_player_name", username);
         varArgMap.put("auth_uuid", profile.profileId.replace("-", ""));
         varArgMap.put("auth_xuid", profile.xuid);
-        varArgMap.put("assets_root", Tools.ASSETS_PATH);
+        varArgMap.put("assets_root", ProfilePathHome.getAssetsHome());
         varArgMap.put("assets_index_name", versionInfo.assets);
-        varArgMap.put("game_assets", Tools.ASSETS_PATH);
+        varArgMap.put("game_assets", ProfilePathHome.getAssetsHome());
         varArgMap.put("game_directory", gameDir.getAbsolutePath());
         varArgMap.put("user_properties", "{}");
         varArgMap.put("user_type", userType);
@@ -433,7 +422,7 @@ public final class Tools {
     }
 
     public static String getClientClasspath(String version) {
-        return DIR_HOME_VERSION + "/" + version + "/" + version + ".jar";
+        return ProfilePathHome.getVersionsHome() + "/" + version + "/" + version + ".jar";
     }
 
     private static String getLWJGL3ClassPath() {
@@ -738,7 +727,7 @@ public final class Tools {
         List<String> libDir = new ArrayList<>();
         for (DependentLibrary libItem : info.libraries) {
             if (!checkRules(libItem.rules)) continue;
-            libDir.add(Tools.DIR_HOME_LIBRARY + "/" + artifactToPath(libItem));
+            libDir.add(ProfilePathHome.getLibrariesHome() + "/" + artifactToPath(libItem));
         }
         return libDir.toArray(new String[0]);
     }
@@ -750,14 +739,14 @@ public final class Tools {
     @SuppressWarnings({"unchecked", "rawtypes"})
     public static JMinecraftVersionList.Version getVersionInfo(String versionName, boolean skipInheriting) {
         try {
-            JMinecraftVersionList.Version customVer = Tools.GLOBAL_GSON.fromJson(read(DIR_HOME_VERSION + "/" + versionName + "/" + versionName + ".json"), JMinecraftVersionList.Version.class);
+            JMinecraftVersionList.Version customVer = Tools.GLOBAL_GSON.fromJson(read(ProfilePathHome.getVersionsHome() + "/" + versionName + "/" + versionName + ".json"), JMinecraftVersionList.Version.class);
             if (skipInheriting || customVer.inheritsFrom == null || customVer.inheritsFrom.equals(customVer.id)) {
                 preProcessLibraries(customVer.libraries);
             } else {
                 JMinecraftVersionList.Version inheritsVer;
                 //If it won't download, just search for it
                 try {
-                    inheritsVer = Tools.GLOBAL_GSON.fromJson(read(DIR_HOME_VERSION + "/" + customVer.inheritsFrom + "/" + customVer.inheritsFrom + ".json"), JMinecraftVersionList.Version.class);
+                    inheritsVer = Tools.GLOBAL_GSON.fromJson(read(ProfilePathHome.getVersionsHome() + "/" + customVer.inheritsFrom + "/" + customVer.inheritsFrom + ".json"), JMinecraftVersionList.Version.class);
                 } catch (IOException e) {
                     throw new RuntimeException("Can't find the source version for " + versionName + " (req version=" + customVer.inheritsFrom + ")");
                 }

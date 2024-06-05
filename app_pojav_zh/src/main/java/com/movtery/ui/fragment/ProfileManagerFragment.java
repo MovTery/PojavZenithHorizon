@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
 import com.movtery.utils.PojavZHTools;
 
 import net.kdt.pojavlaunch.R;
@@ -77,7 +78,7 @@ public class ProfileManagerFragment extends Fragment {
             if(LauncherProfiles.mainProfileJson.profiles.size() > 1){
                 ProfileIconCache.dropIcon(mProfileKey);
                 LauncherProfiles.mainProfileJson.profiles.remove(mProfileKey);
-                LauncherProfiles.write();
+                LauncherProfiles.write(ProfilePathManager.getCurrentProfile());
                 ExtraCore.setValue(ExtraConstants.REFRESH_VERSION_SPINNER, DELETED_PROFILE);
             }
 
@@ -86,7 +87,10 @@ public class ProfileManagerFragment extends Fragment {
     }
 
     private void swapFilesFragment(File lockPath, File listPath) {
-        if (!lockPath.exists() || !listPath.exists()) {
+        if (!lockPath.exists()) {
+            PojavZHTools.mkdirs(lockPath);
+        }
+        if (!listPath.exists()) {
             PojavZHTools.mkdirs(listPath);
         }
 

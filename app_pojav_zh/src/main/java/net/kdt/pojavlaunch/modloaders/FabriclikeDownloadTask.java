@@ -1,6 +1,8 @@
 package net.kdt.pojavlaunch.modloaders;
 
 import com.kdt.mcgui.ProgressLayout;
+import com.movtery.ui.subassembly.customprofilepath.ProfilePathHome;
+import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -52,18 +54,18 @@ public class FabriclikeDownloadTask implements Runnable, Tools.DownloaderFeedbac
             e.printStackTrace();
             return false;
         }
-        File versionJsonDir = new File(Tools.DIR_HOME_VERSION, versionId);
+        File versionJsonDir = new File(ProfilePathHome.getVersionsHome(), versionId);
         File versionJsonFile = new File(versionJsonDir, versionId+".json");
         FileUtils.ensureDirectory(versionJsonDir);
         Tools.write(versionJsonFile.getAbsolutePath(), fabricJson);
         if(mCreateProfile) {
-            LauncherProfiles.load();
+            LauncherProfiles.load(ProfilePathManager.getCurrentProfile());
             MinecraftProfile fabricProfile = new MinecraftProfile();
             fabricProfile.lastVersionId = versionId;
             fabricProfile.name = mUtils.getName();
             fabricProfile.icon = mUtils.getIconName();
             LauncherProfiles.insertMinecraftProfile(fabricProfile);
-            LauncherProfiles.write();
+            LauncherProfiles.write(ProfilePathManager.getCurrentProfile());
         }
         return true;
     }

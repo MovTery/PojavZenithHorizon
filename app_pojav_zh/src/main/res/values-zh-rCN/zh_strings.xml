@@ -22,6 +22,9 @@
     <string name="zh_wrong_tip">出现了一些问题</string>
 
     <string name="zh_permissions_manage_external_storage">Pojav ZH 需要管理设备所有文件的权限，以便自定义保存游戏文件位置，请为 Pojav ZH 开启权限！</string>
+    <string name="zh_profiles_path_default">默认路径</string>
+    <string name="zh_profiles_path_create_new">添加新路径</string>
+    <string name="zh_profiles_path_create_new_title">为此路径命名</string>
 
     <string name="zh_account_text">请选择一种登录方式</string>
     <string name="zh_account_microsoft_account">微软账号</string>

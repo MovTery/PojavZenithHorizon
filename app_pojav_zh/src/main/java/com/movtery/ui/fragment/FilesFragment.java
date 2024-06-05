@@ -1,7 +1,6 @@
 package com.movtery.ui.fragment;
 
 import static com.movtery.utils.PojavZHTools.copyFileInBackground;
-import static net.kdt.pojavlaunch.Tools.DIR_GAME_HOME;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.annotation.SuppressLint;
@@ -18,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
 import com.movtery.ui.subassembly.filelist.FileIcon;
 import com.movtery.utils.PasteFile;
 import com.movtery.ui.subassembly.filelist.FileRecyclerView;
@@ -190,7 +190,7 @@ public class FilesFragment extends Fragment {
     private void parseBundle() {
         Bundle bundle = getArguments();
         if (bundle == null) return;
-        mLockPath = bundle.getString(BUNDLE_LOCK_PATH, DIR_GAME_HOME);
+        mLockPath = bundle.getString(BUNDLE_LOCK_PATH, ProfilePathManager.getCurrentPath());
         mListPath = bundle.getString(BUNDLE_LIST_PATH, null);
     }
 }
