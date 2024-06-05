@@ -86,8 +86,8 @@ public class PojavZHTools {
     public static File DIR_APP_CACHE;
     public static File DIR_USER_ICON;
     public static File FILE_CUSTOM_MOUSE;
-    public static String URL_GITHUB_RELEASE = "https://api.github.com/repos/HopiHopy/PojavZH/releases/latest";
-    public static String URL_GITHUB_HOME = "https://api.github.com/repos/HopiHopy/PojavZH/contents/";
+    public static final String URL_GITHUB_RELEASE = "https://api.github.com/repos/HopiHopy/PojavZH/releases/latest";
+    public static final String URL_GITHUB_HOME = "https://api.github.com/repos/HopiHopy/PojavZH/contents/";
     public static long LAST_UPDATE_CHECK_TIME = 0;
 
     private PojavZHTools() {
