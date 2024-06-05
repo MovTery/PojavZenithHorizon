@@ -90,10 +90,9 @@ public class mcVersionSpinner extends ExtendedTextView {
         // Setup various attributes
         setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen._12ssp));
         setGravity(Gravity.CENTER_VERTICAL);
-        int startPadding = getContext().getResources().getDimensionPixelOffset(R.dimen._17sdp);
-        int endPadding = getContext().getResources().getDimensionPixelOffset(R.dimen._5sdp);
-        setPaddingRelative(startPadding, 0, endPadding, 0);
-        setCompoundDrawablePadding(startPadding);
+        int padding = getContext().getResources().getDimensionPixelOffset(R.dimen._8sdp);
+        setPaddingRelative(padding, 0, padding, 0);
+        setCompoundDrawablePadding(padding);
 
         int profileIndex;
         String extra_value = (String) ExtraCore.consumeValue(ExtraConstants.REFRESH_VERSION_SPINNER);

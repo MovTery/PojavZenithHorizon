@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.kdt.mcgui.ProgressLayout;
 
+import com.movtery.ui.subassembly.customprofilepath.ProfilePathHome;
 import com.movtery.utils.CopyDefaultFromAssets;
 import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.Tools;
@@ -77,7 +78,7 @@ public class AsyncAssetManager {
                 Tools.copyAssetFile(ctx, "authlib-injector.jar", PojavZHTools.DIR_LOGIN, true);
                 Tools.copyAssetFile(ctx, "nide8auth.jar", PojavZHTools.DIR_LOGIN, true);
 
-                Tools.copyAssetFile(ctx, "launcher_profiles.json", Tools.DIR_GAME_NEW, false);
+                Tools.copyAssetFile(ctx, "launcher_profiles.json", ProfilePathHome.getGameHome(), false);
                 Tools.copyAssetFile(ctx,"resolv.conf",Tools.DIR_DATA, false);
             } catch (IOException e) {
                 Log.e("AsyncAssetManager", "Failed to unpack critical components !");

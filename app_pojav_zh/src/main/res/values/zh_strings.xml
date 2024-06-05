@@ -22,6 +22,9 @@
     <string name="zh_wrong_tip">Something went wrong</string>
 
     <string name="zh_permissions_manage_external_storage">Pojav ZH requires permission to manage all files on the device to customize the game file save location. Please enable this permission for Pojav ZH!</string>
+    <string name="zh_profiles_path_default">Default Private Path</string>
+    <string name="zh_profiles_path_create_new">Add New Path</string>
+    <string name="zh_profiles_path_create_new_title">Name This Path</string>
 
     <string name="zh_account_text">Please select a login method</string>
     <string name="zh_account_microsoft_account">Microsoft Account</string>

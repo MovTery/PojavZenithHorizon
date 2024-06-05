@@ -60,6 +60,7 @@ import net.kdt.pojavlaunch.customcontrols.mouse.GyroControl;
 import net.kdt.pojavlaunch.customcontrols.mouse.Touchpad;
 import com.movtery.ui.dialog.ControlSettingsDialog;
 import com.movtery.ui.dialog.SelectControlsDialog;
+import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
 import com.movtery.utils.PojavZHTools;
 
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
@@ -376,7 +377,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         Logger.appendToLog("--------- beginning with launcher debug");
         printLauncherInfo(versionId, Tools.isValidString(minecraftProfile.javaArgs) ? minecraftProfile.javaArgs : LauncherPreferences.PREF_CUSTOM_JAVA_ARGS, minecraftProfile.javaDir == null ? "Default" : minecraftProfile.javaDir);
         JREUtils.redirectAndPrintJRELog();
-        LauncherProfiles.load();
+        LauncherProfiles.load(ProfilePathManager.getCurrentProfile());
         int requiredJavaVersion = 8;
         if(version.javaVersion != null) requiredJavaVersion = version.javaVersion.majorVersion;
         if(LauncherPreferences.PREF_SET_TO_CHINESE) ProfileLanguageSelector.setToChinese(minecraftProfile); //首次启动设置为中文

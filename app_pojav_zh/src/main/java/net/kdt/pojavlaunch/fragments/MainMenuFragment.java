@@ -34,6 +34,8 @@ import com.movtery.ui.fragment.ProfileManagerFragment;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import com.movtery.ui.dialog.ShareLogDialog;
+import com.movtery.ui.fragment.ProfilePathManagerFragment;
+
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
@@ -65,6 +67,7 @@ public class MainMenuFragment extends Fragment {
         Button mShareLogsButton = view.findViewById(R.id.share_logs_button);
         Button mOpenMainDirButton = view.findViewById(R.id.zh_open_main_dir_button);
 
+        ImageButton mPathManagerButton = view.findViewById(R.id.path_manager_button);
         ImageButton mManagerProfileButton = view.findViewById(R.id.manager_profile_button);
         Button mPlayButton = view.findViewById(R.id.play_button);
         mVersionSpinner = view.findViewById(R.id.mc_version_spinner);
@@ -76,6 +79,7 @@ public class MainMenuFragment extends Fragment {
             runInstallerWithConfirmation(true);
             return true;
         });
+        mPathManagerButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ProfilePathManagerFragment.class, ProfilePathManagerFragment.TAG, null));
         mManagerProfileButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ProfileManagerFragment.class, ProfileManagerFragment.TAG, null));
 
         mPlayButton.setOnClickListener(v -> ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true));

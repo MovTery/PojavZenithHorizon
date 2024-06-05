@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch.modloaders.modpacks.api;
 
 import com.kdt.mcgui.ProgressLayout;
+import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
 import com.movtery.ui.subassembly.downloadmod.ModVersionGroup;
 
 import net.kdt.pojavlaunch.R;
@@ -57,7 +58,7 @@ public class ModpackInstaller {
             });
 
             // Install the modpack
-            modLoaderInfo = installFunction.installModpack(modpackFile, new File(Tools.DIR_GAME_HOME, "custom_instances/"+modpackName));
+            modLoaderInfo = installFunction.installModpack(modpackFile, new File(ProfilePathManager.getCurrentPath(), "custom_instances/"+modpackName));
 
         } finally {
             modpackFile.delete();
@@ -76,7 +77,7 @@ public class ModpackInstaller {
 
 
         LauncherProfiles.mainProfileJson.profiles.put(modpackName, profile);
-        LauncherProfiles.write();
+        LauncherProfiles.write(ProfilePathManager.getCurrentProfile());
 
         return modLoaderInfo;
     }

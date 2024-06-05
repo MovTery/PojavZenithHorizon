@@ -45,6 +45,9 @@ import net.kdt.pojavlaunch.modloaders.modpacks.api.ModLoader;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModrinthApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.CurseManifest;
 import com.movtery.feature.mod.models.MCBBSPackMeta;
+import com.movtery.ui.subassembly.customprofilepath.ProfilePathHome;
+import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
+
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModrinthIndex;
 import net.kdt.pojavlaunch.utils.ZipUtils;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
@@ -86,6 +89,7 @@ public class PojavZHTools {
     public static File DIR_APP_CACHE;
     public static File DIR_USER_ICON;
     public static File FILE_CUSTOM_MOUSE;
+    public static File FILE_PROFILE_PATH;
     public static final String URL_GITHUB_RELEASE = "https://api.github.com/repos/HopiHopy/PojavZH/releases/latest";
     public static final String URL_GITHUB_HOME = "https://api.github.com/repos/HopiHopy/PojavZH/contents/";
     public static long LAST_UPDATE_CHECK_TIME = 0;
@@ -94,12 +98,13 @@ public class PojavZHTools {
     }
 
     public static void initContextConstants(Context context) {
-        PojavZHTools.DIR_GAME_DEFAULT = DIR_GAME_HOME + "/.minecraft/instance/default";
+        PojavZHTools.DIR_GAME_DEFAULT = ProfilePathHome.getGameHome() + "/instance/default";
         PojavZHTools.DIR_CUSTOM_MOUSE = DIR_GAME_HOME + "/mouse";
         PojavZHTools.DIR_LOGIN = DIR_GAME_HOME + "/login";
         PojavZHTools.DIR_BACKGROUND = new File(DIR_GAME_HOME + "/background");
         PojavZHTools.DIR_APP_CACHE = context.getExternalCacheDir();
         PojavZHTools.DIR_USER_ICON = new File(Tools.DIR_CACHE, "/user_icon");
+        PojavZHTools.FILE_PROFILE_PATH = new File(Tools.DIR_DATA, "/profile_path.json");
 
         if (!PojavZHTools.DIR_BACKGROUND.exists()) {
             mkdirs(PojavZHTools.DIR_BACKGROUND);
@@ -254,9 +259,9 @@ public class PojavZHTools {
     public static File getGameDirPath(String gameDir) {
         if (gameDir != null) {
             if (gameDir.startsWith(Tools.LAUNCHERPROFILES_RTPREFIX))
-                return new File(gameDir.replace(Tools.LAUNCHERPROFILES_RTPREFIX, DIR_GAME_HOME + "/"));
+                return new File(gameDir.replace(Tools.LAUNCHERPROFILES_RTPREFIX, ProfilePathManager.getCurrentPath() + "/"));
             else
-                return new File(DIR_GAME_HOME, gameDir);
+                return new File(ProfilePathManager.getCurrentPath(), gameDir);
         }
         return new File(DIR_GAME_DEFAULT);
     }
@@ -555,17 +560,17 @@ public class PojavZHTools {
 
     private static ModLoader curseforgeModPack(Context context, File zipFile, String packName) throws Exception {
         CurseforgeApi curseforgeApi = new CurseforgeApi(context.getString(R.string.curseforge_api_key));
-        return curseforgeApi.installCurseforgeZip(zipFile, new File(DIR_GAME_HOME, "custom_instances/" + packName));
+        return curseforgeApi.installCurseforgeZip(zipFile, new File(ProfilePathManager.getCurrentPath(), "custom_instances/" + packName));
     }
 
     private static ModLoader modrinthModPack(File zipFile, String packName) throws Exception {
         ModrinthApi modrinthApi = new ModrinthApi();
-        return modrinthApi.installMrpack(zipFile, new File(DIR_GAME_HOME, "custom_instances/" + packName));
+        return modrinthApi.installMrpack(zipFile, new File(ProfilePathManager.getCurrentPath(), "custom_instances/" + packName));
     }
 
     private static ModLoader mcbbsModPack(Context context, File zipFile, String packName) throws Exception {
         MCBBSApi mcbbsApi = new MCBBSApi();
-        return mcbbsApi.installMCBBSZip(context, zipFile, new File(DIR_GAME_HOME, "custom_instances/" + packName));
+        return mcbbsApi.installMCBBSZip(context, zipFile, new File(ProfilePathManager.getCurrentPath(), "custom_instances/" + packName));
     }
 
     private static void createProfiles(String modpackName, String profileName, String versionId) {
@@ -575,7 +580,7 @@ public class PojavZHTools {
         profile.lastVersionId = versionId;
 
         LauncherProfiles.mainProfileJson.profiles.put(modpackName, profile);
-        LauncherProfiles.write();
+        LauncherProfiles.write(ProfilePathManager.getCurrentProfile());
     }
 
     public static boolean verifyManifest(CurseManifest manifest) { //检测是否为curseforge整合包(通过manifest.json内的数据进行判断)

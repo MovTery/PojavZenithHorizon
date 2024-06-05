@@ -10,13 +10,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.tabs.TabLayout;
+import com.movtery.ui.subassembly.customprofilepath.ProfilePathHome;
 import com.movtery.ui.subassembly.versionlist.VersionListView;
 import com.movtery.ui.subassembly.versionlist.VersionSelectedListener;
 import com.movtery.ui.subassembly.versionlist.VersionType;
 
 import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 
@@ -72,7 +72,7 @@ public class VersionSelectorFragment extends Fragment {
     private void refresh(TabLayout.Tab tab) {
         setVersionType(tab);
 
-        String[] installedVersionsList = new File(Tools.DIR_GAME_NEW + "/versions").list();
+        String[] installedVersionsList = new File(ProfilePathHome.getGameHome() + "/versions").list();
         //如果安装的版本列表为空，那么隐藏 已安装 按钮
         boolean hasInstalled = !(installedVersionsList == null || installedVersionsList.length == 0);
         if (hasInstalled) {

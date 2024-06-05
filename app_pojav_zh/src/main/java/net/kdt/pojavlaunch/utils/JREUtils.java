@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.movtery.ui.subassembly.customprofilepath.ProfilePathHome;
+import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
 import com.movtery.utils.PojavZHTools;
 import com.oracle.dalvik.*;
 import java.io.*;
@@ -180,7 +182,7 @@ public class JREUtils {
         Map<String, String> envMap = new ArrayMap<>();
         envMap.put("POJAV_NATIVEDIR", NATIVE_LIB_DIR);
         envMap.put("JAVA_HOME", jreHome);
-        envMap.put("HOME", Tools.DIR_GAME_HOME);
+        envMap.put("HOME", ProfilePathManager.getCurrentPath());
         envMap.put("TMPDIR", Tools.DIR_CACHE.getAbsolutePath());
         envMap.put("LIBGL_MIPMAP", "3");
 
@@ -237,7 +239,7 @@ public class JREUtils {
         envMap.put("AWTSTUB_WIDTH", Integer.toString(CallbackBridge.windowWidth > 0 ? CallbackBridge.windowWidth : CallbackBridge.physicalWidth));
         envMap.put("AWTSTUB_HEIGHT", Integer.toString(CallbackBridge.windowHeight > 0 ? CallbackBridge.windowHeight : CallbackBridge.physicalHeight));
 
-        File customEnvFile = new File(Tools.DIR_GAME_HOME, "custom_env.txt");
+        File customEnvFile = new File(ProfilePathManager.getCurrentPath(), "custom_env.txt");
         if (customEnvFile.exists() && customEnvFile.isFile()) {
             BufferedReader reader = new BufferedReader(new FileReader(customEnvFile));
             String line;
@@ -313,7 +315,7 @@ public class JREUtils {
 
         initJavaRuntime(runtimeHome);
         setupExitTrap(activity.getApplication());
-        chdir(gameDirectory == null ? Tools.DIR_GAME_NEW : gameDirectory.getAbsolutePath());
+        chdir(gameDirectory == null ? ProfilePathHome.getGameHome() : gameDirectory.getAbsolutePath());
         userArgs.add(0,"java"); //argv[0] is the program name according to C standard.
 
         final int exitCode = VMLauncher.launchJVM(userArgs.toArray(new String[0]));
@@ -347,11 +349,11 @@ public class JREUtils {
                 "-Djava.home=" + runtimeHome,
                 "-Djava.io.tmpdir=" + Tools.DIR_CACHE.getAbsolutePath(),
                 "-Djna.boot.library.path=" + NATIVE_LIB_DIR,
-                "-Duser.home=" + Tools.DIR_GAME_HOME,
+                "-Duser.home=" + ProfilePathManager.getCurrentPath(),
                 "-Duser.language=" + System.getProperty("user.language"),
                 "-Dos.name=Linux",
                 "-Dos.version=Android-" + Build.VERSION.RELEASE,
-                "-Dpojav.path.minecraft=" + Tools.DIR_GAME_NEW,
+                "-Dpojav.path.minecraft=" + ProfilePathHome.getGameHome(),
                 "-Dpojav.path.private.account=" + Tools.DIR_ACCOUNT_NEW,
                 "-Duser.timezone=" + TimeZone.getDefault().getID(),
 
