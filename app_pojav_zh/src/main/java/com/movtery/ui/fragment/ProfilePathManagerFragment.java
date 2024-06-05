@@ -13,9 +13,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.movtery.ui.dialog.EditTextDialog;
 import com.movtery.ui.subassembly.customprofilepath.ProfileItem;
 import com.movtery.ui.subassembly.customprofilepath.ProfilePathAdapter;
+import com.movtery.ui.subassembly.customprofilepath.ProfilePathJsonObject;
 import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
 import com.movtery.ui.subassembly.recyclerview.SpacesItemDecoration;
 import com.movtery.utils.PojavZHTools;
@@ -33,7 +37,7 @@ import java.util.UUID;
 
 public class ProfilePathManagerFragment extends Fragment {
     public static final String TAG = "ProfilePathManagerFragment";
-    private List<ProfileItem> mData = new ArrayList<>();
+    private final List<ProfileItem> mData = new ArrayList<>();
     private ProfilePathAdapter adapter;
 
     public ProfilePathManagerFragment() {
@@ -54,8 +58,8 @@ public class ProfilePathManagerFragment extends Fragment {
                     return;
                 }
 
-                mData.add(new ProfileItem(UUID.randomUUID().toString(), string, value));
-                ProfilePathManager.save(mData);
+                this.mData.add(new ProfileItem(UUID.randomUUID().toString(), string, value));
+                ProfilePathManager.save(this.mData);
                 refresh();
                 editTextDialog.dismiss();
             });
@@ -74,7 +78,7 @@ public class ProfilePathManagerFragment extends Fragment {
         Button createNewButton = view.findViewById(R.id.zh_profile_path_create_new_button);
         Button returnButton = view.findViewById(R.id.zh_profile_path_return_button);
 
-        adapter = new ProfilePathAdapter(pathList, mData);
+        adapter = new ProfilePathAdapter(pathList, this.mData);
         adapter.setOnItemClickListener(profileItem -> {
             ProfilePathManager.setCurrentPath(profileItem.path);
             PojavZHTools.onBackPressed(requireActivity());
@@ -100,16 +104,37 @@ public class ProfilePathManagerFragment extends Fragment {
 
     private void refresh() {
         refreshData();
-        adapter.updateData(mData);
+        adapter.updateData(this.mData);
     }
 
     private void refreshData() {
-        mData = ProfilePathManager.loadDataFromFile();
-        mData.add(0, new ProfileItem("default", getString(R.string.zh_profiles_path_default), Tools.DIR_GAME_HOME));
+        this.mData.clear();
+        this.mData.add(new ProfileItem("default", getString(R.string.zh_profiles_path_default), Tools.DIR_GAME_HOME));
+
+        try {
+            String json;
+            if (PojavZHTools.FILE_PROFILE_PATH.exists()) {
+                json = Tools.read(PojavZHTools.FILE_PROFILE_PATH);
+                if (json.isEmpty()) {
+                    return;
+                }
+            } else {
+                return;
+            }
+
+            JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
+
+            for (String key : jsonObject.keySet()) {
+                ProfilePathJsonObject profilePathId = new Gson().fromJson(jsonObject.get(key), ProfilePathJsonObject.class);
+                ProfileItem item = new ProfileItem(key, profilePathId.title, profilePathId.path);
+                this.mData.add(item);
+            }
+        } catch (Exception ignored) {
+        }
     }
 
     private boolean isAddedPath(String path) {
-        for (ProfileItem mDatum : mData) {
+        for (ProfileItem mDatum : this.mData) {
             if (Objects.equals(mDatum.path, path)) {
                 return true;
             }
