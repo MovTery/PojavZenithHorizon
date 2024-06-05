@@ -59,8 +59,8 @@ public class FileSelectorFragment extends Fragment {
 
         mFileRecyclerView.setShowFiles(mShowFiles);
         mFileRecyclerView.setShowFolders(mShowFolders);
-        mFileRecyclerView.lockPathAt(new File(mRootPath));
         mFileRecyclerView.setTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
+        mFileRecyclerView.lockAndListAt(new File(mRootPath), new File(mRootPath));
 
         mCreateFolderButton.setOnClickListener(v -> {
             EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(R.string.folder_dialog_insert_name), null, null, null);

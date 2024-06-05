@@ -34,13 +34,14 @@ import java.io.File;
 
 public class FilesFragment extends Fragment {
     public static final String TAG = "FilesFragment";
-    public static final String BUNDLE_PATH = "bundle_path";
+    public static final String BUNDLE_LOCK_PATH = "bundle_lock_path";
+    public static final String BUNDLE_LIST_PATH = "bundle_list_path";
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private Button mReturnButton, mAddFileButton, mCreateFolderButton, mPasteButton, mRefreshButton;
     private ImageButton mHelpButton;
     private FileRecyclerView mFileRecyclerView;
     private TextView mFilePathView;
-    private String mPath;
+    private String mLockPath, mListPath;
 
     public FilesFragment() {
         super(R.layout.fragment_files);
@@ -73,8 +74,13 @@ public class FilesFragment extends Fragment {
         bindViews(view);
         parseBundle();
 
-        mFileRecyclerView.lockPathAt(new File(mPath));
         mFileRecyclerView.setTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
+
+        if (mListPath != null) {
+            mFileRecyclerView.lockAndListAt(new File(mLockPath), new File(mListPath));
+        } else {
+            mFileRecyclerView.lockAndListAt(new File(mLockPath), new File(mLockPath));
+        }
 
         mFileRecyclerView.setFileSelectedListener(new FileSelectedListener() {
             @Override
@@ -162,7 +168,7 @@ public class FilesFragment extends Fragment {
     }
 
     private String removeLockPath(String path) {
-        return path.replace(mPath, ".");
+        return path.replace(mLockPath, ".");
     }
 
     private void bindViews(@NonNull View view) {
@@ -184,7 +190,8 @@ public class FilesFragment extends Fragment {
     private void parseBundle() {
         Bundle bundle = getArguments();
         if (bundle == null) return;
-        mPath = bundle.getString(BUNDLE_PATH, DIR_GAME_HOME);
+        mLockPath = bundle.getString(BUNDLE_LOCK_PATH, DIR_GAME_HOME);
+        mListPath = bundle.getString(BUNDLE_LIST_PATH, null);
     }
 }
 

@@ -99,9 +99,9 @@ public class FileRecyclerView extends LinearLayout {
         this.fileIcon = fileIcon;
     }
 
-    public void lockPathAt(File path) {
-        lockPath = path;
-        listFileAt(path);
+    public void lockAndListAt(File lockPath, File listPath) {
+        this.lockPath = lockPath;
+        listFileAt(listPath);
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
