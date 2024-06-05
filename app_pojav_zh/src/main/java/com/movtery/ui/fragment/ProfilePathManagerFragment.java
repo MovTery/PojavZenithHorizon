@@ -21,7 +21,6 @@ import com.movtery.ui.subassembly.customprofilepath.ProfileItem;
 import com.movtery.ui.subassembly.customprofilepath.ProfilePathAdapter;
 import com.movtery.ui.subassembly.customprofilepath.ProfilePathJsonObject;
 import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
-import com.movtery.ui.subassembly.recyclerview.SpacesItemDecoration;
 import com.movtery.utils.PojavZHTools;
 
 import net.kdt.pojavlaunch.R;
@@ -85,7 +84,6 @@ public class ProfilePathManagerFragment extends Fragment {
         });
 
         pathList.setLayoutManager(new LinearLayoutManager(requireContext()));
-        pathList.addItemDecoration(new SpacesItemDecoration(0, 0, 0, 8));
         pathList.setAdapter(adapter);
 
         refreshButton.setOnClickListener(v -> refresh());

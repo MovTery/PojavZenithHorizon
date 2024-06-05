@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.ui.subassembly.filelist.FileSelectedListener;
-import com.movtery.ui.subassembly.recyclerview.SpacesItemDecoration;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
@@ -60,7 +59,6 @@ public class ControlsListView extends LinearLayout {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         mainListView.setLayoutManager(layoutManager);
         if (PREF_ANIMATION) mainListView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(context, R.anim.fade_downwards)));
-        mainListView.addItemDecoration(new SpacesItemDecoration(0, 0, 0, (int) Tools.dpToPx(8)));
         mainListView.setAdapter(controlListAdapter);
 
         addView(mainListView, layParam);

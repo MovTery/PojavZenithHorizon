@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="@dimen/padding_medium"
+    android:layout_marginStart="4dp"
+    android:layout_marginEnd="4dp"
     android:background="@drawable/background_item"
     android:padding="@dimen/_8sdp"
     tools:ignore="MissingDefaultResource">

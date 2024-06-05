@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.ui.subassembly.downloadmod.ModDependenciesAdapter;
-import com.movtery.ui.subassembly.recyclerview.SpacesItemDecoration;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
@@ -71,7 +70,6 @@ public class ModDependenciesDialog extends Dialog {
         ModDependenciesAdapter adapter = new ModDependenciesAdapter(mod, mData);
         adapter.setOnItemCLickListener(this::dismiss);
         modRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        modRecyclerView.addItemDecoration(new SpacesItemDecoration(4, 4, 0, 0));
         if (PREF_ANIMATION) modRecyclerView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(context, R.anim.fade_downwards)));
         modRecyclerView.setAdapter(adapter);
 

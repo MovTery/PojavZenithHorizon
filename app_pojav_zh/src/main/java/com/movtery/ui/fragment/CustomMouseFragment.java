@@ -25,13 +25,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.movtery.ui.subassembly.filelist.FileIcon;
 import com.movtery.ui.subassembly.filelist.FileItemBean;
 import com.movtery.ui.subassembly.filelist.FileRecyclerViewCreator;
-import com.movtery.ui.subassembly.recyclerview.SpacesItemDecoration;
 
 import net.kdt.pojavlaunch.PojavApplication;
 
 import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
 import com.movtery.ui.dialog.FilesDialog;
 
 import java.io.File;
@@ -122,7 +120,7 @@ public class CustomMouseFragment extends Fragment {
         mMouseView = view.findViewById(R.id.zh_custom_mouse_icon);
 
         RecyclerView mMouseListView = view.findViewById(R.id.zh_custom_mouse);
-        fileRecyclerViewCreator = new FileRecyclerViewCreator(requireContext(), new SpacesItemDecoration(0, 0, 0, (int) Tools.dpToPx(8)), mMouseListView, (position, file, name) -> {
+        fileRecyclerViewCreator = new FileRecyclerViewCreator(requireContext(), mMouseListView, (position, file, name) -> {
             String fileName = file == null ? null : file.getName();
             boolean isDefaultMouse = position == 0;
 

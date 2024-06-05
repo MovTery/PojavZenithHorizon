@@ -26,13 +26,11 @@ import com.movtery.ui.subassembly.downloadmod.DownloadModAdapter;
 import com.movtery.ui.subassembly.downloadmod.ModApiViewModel;
 import com.movtery.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.ui.subassembly.downloadmod.ModVersionGroup;
-import com.movtery.ui.subassembly.recyclerview.SpacesItemDecoration;
 import com.movtery.utils.MCVersionComparator;
 import com.movtery.utils.PojavZHTools;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ImageReceiver;
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ModIconCache;
@@ -76,7 +74,6 @@ public class DownloadModFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
         if (PREF_ANIMATION) mModVersionView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.fade_downwards)));
         mModVersionView.setLayoutManager(layoutManager);
-        mModVersionView.addItemDecoration(new SpacesItemDecoration(0, 0, 0, (int) Tools.dpToPx(8)));
 
         mRefreshButton.setOnClickListener(v -> refresh());
         mReleaseCheckBox.setOnClickListener(v -> refresh());
