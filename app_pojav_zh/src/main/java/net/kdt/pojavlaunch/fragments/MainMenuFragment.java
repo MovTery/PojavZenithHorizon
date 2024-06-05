@@ -11,6 +11,7 @@ import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
@@ -86,7 +87,8 @@ public class MainMenuFragment extends Fragment {
 
         mOpenMainDirButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, Tools.DIR_GAME_HOME);
+            bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, Environment.getExternalStorageDirectory().getAbsolutePath());
+            bundle.putString(FilesFragment.BUNDLE_LIST_PATH, Tools.DIR_GAME_HOME);
             Tools.swapFragment(requireActivity(), FilesFragment.class, FilesFragment.TAG, bundle);
         });
 
