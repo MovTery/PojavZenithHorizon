@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchModPlatform {
-    public static List<String> indexList = new ArrayList<>();
+    public static final List<String> indexList = new ArrayList<>();
 
     public static List<String> getIndexList() {
         if (indexList.isEmpty()) {

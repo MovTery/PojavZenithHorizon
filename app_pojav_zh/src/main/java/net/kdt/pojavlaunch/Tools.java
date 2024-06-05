@@ -103,7 +103,7 @@ public final class Tools {
     public static final String URL_HOME = "https://github.com/HopiHopy/PojavZH";
     public static final String LAUNCHERPROFILES_RTPREFIX = "pojav://";
     private final static boolean isClientFirst = false;
-    public static String APP_NAME = "Pojav ZH";
+    public static final String APP_NAME = "Pojav ZH";
     public static String NATIVE_LIB_DIR;
     public static String DIR_DATA; //Initialized later to get context
     public static File DIR_CACHE;

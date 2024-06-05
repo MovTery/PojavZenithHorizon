@@ -26,7 +26,6 @@ import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
-import net.kdt.pojavlaunch.fragments.ProfileEditorFragment;
 import net.kdt.pojavlaunch.fragments.ProfileTypeSelectFragment;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.profiles.ProfileAdapter;
@@ -79,15 +78,6 @@ public class mcVersionSpinner extends ExtendedTextView {
         if(mListView != null) mListView.setSelection(position);
         mProfileAdapter.setView(this, mProfileAdapter.getItem(position), false);
         mSelectedIndex = position;
-    }
-
-    public void openProfileEditor(FragmentActivity fragmentActivity) {
-        Object currentSelection = mProfileAdapter.getItem(mSelectedIndex);
-        if(currentSelection instanceof ProfileAdapterExtra) {
-            performExtraAction((ProfileAdapterExtra) currentSelection);
-        }else{
-            Tools.swapFragment(fragmentActivity, ProfileEditorFragment.class, ProfileEditorFragment.TAG, null);
-        }
     }
 
     /** Reload profiles from the file, forcing the spinner to consider the new data */

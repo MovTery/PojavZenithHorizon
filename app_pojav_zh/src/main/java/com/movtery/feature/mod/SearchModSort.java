@@ -12,7 +12,7 @@ public class SearchModSort {
     public static final int CURSEFORGE_SORT_INDEX_POPULARITY = 2;
     public static final int CURSEFORGE_SORT_INDEX_RECENTLY_CREATED = 11;
     public static final int CURSEFORGE_SORT_INDEX_RECENTLY_UPDATED = 3;
-    public static List<String> indexList = new ArrayList<>();
+    public static final List<String> indexList = new ArrayList<>();
 
     public static List<String> getIndexList() {
         if (indexList.isEmpty()) {
