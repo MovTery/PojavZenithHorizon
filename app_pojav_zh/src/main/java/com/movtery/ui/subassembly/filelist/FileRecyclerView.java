@@ -10,10 +10,7 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.movtery.ui.subassembly.recyclerview.SpacesItemDecoration;
-
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -56,7 +53,6 @@ public class FileRecyclerView extends LinearLayout {
 
         fileRecyclerViewCreator = new FileRecyclerViewCreator(
                 context,
-                new SpacesItemDecoration(0, 0, 0, (int) Tools.dpToPx(8)),
                 mainLv,
                 (position, file, name) -> {
                     if (position == 0 && !lockPath.equals(fullPath)) {

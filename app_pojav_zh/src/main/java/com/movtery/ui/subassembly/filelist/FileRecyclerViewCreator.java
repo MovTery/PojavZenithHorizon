@@ -25,7 +25,7 @@ public class FileRecyclerViewCreator {
     private final RecyclerView mainRecyclerView;
     private final List<FileItemBean> mData;
 
-    public FileRecyclerViewCreator(Context context, RecyclerView.ItemDecoration itemDecoration, RecyclerView recyclerView, FileRecyclerAdapter.OnItemClickListener onItemClickListener, FileRecyclerAdapter.OnItemLongClickListener onItemLongClickListener, List<FileItemBean> itemBeans) {
+    public FileRecyclerViewCreator(Context context, RecyclerView recyclerView, FileRecyclerAdapter.OnItemClickListener onItemClickListener, FileRecyclerAdapter.OnItemLongClickListener onItemLongClickListener, List<FileItemBean> itemBeans) {
         this.mData = itemBeans;
 
         this.fileRecyclerAdapter = new FileRecyclerAdapter(this.mData);
@@ -37,7 +37,6 @@ public class FileRecyclerViewCreator {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         if (PREF_ANIMATION) this.mainRecyclerView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(context, R.anim.fade_downwards)));
         this.mainRecyclerView.setLayoutManager(layoutManager);
-        this.mainRecyclerView.addItemDecoration(itemDecoration);
         this.mainRecyclerView.setAdapter(this.fileRecyclerAdapter);
     }
 

@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.ui.subassembly.about.AboutItemBean;
 import com.movtery.ui.subassembly.about.AboutRecyclerAdapter;
-import com.movtery.ui.subassembly.recyclerview.SpacesItemDecoration;
 
 import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.R;
@@ -53,7 +52,6 @@ public class AboutFragment extends Fragment {
         AboutRecyclerAdapter adapter = new AboutRecyclerAdapter(this.mData);
         mAboutRecyclerView.setLayoutManager(layoutManager);
         mAboutRecyclerView.setNestedScrollingEnabled(false); //禁止滑动
-        mAboutRecyclerView.addItemDecoration(new SpacesItemDecoration(0, 0, 0, (int) Tools.dpToPx(8)));
         mAboutRecyclerView.setAdapter(adapter);
     }
 

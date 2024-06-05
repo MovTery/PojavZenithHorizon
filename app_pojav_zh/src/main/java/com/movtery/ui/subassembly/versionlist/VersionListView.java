@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.movtery.ui.subassembly.customprofilepath.ProfilePathHome;
 import com.movtery.ui.subassembly.filelist.FileItemBean;
 import com.movtery.ui.subassembly.filelist.FileRecyclerViewCreator;
-import com.movtery.ui.subassembly.recyclerview.SpacesItemDecoration;
 
 import net.kdt.pojavlaunch.JMinecraftVersionList;
 import net.kdt.pojavlaunch.R;
@@ -73,7 +72,6 @@ public class VersionListView extends LinearLayout {
 
         fileRecyclerViewCreator = new FileRecyclerViewCreator(
                 context,
-                new SpacesItemDecoration(0, 0, 0, (int) Tools.dpToPx(8)),
                 mainListView,
                 (position, file, name) -> versionSelectedListener.onVersionSelected(name),
                 null,
