@@ -2,6 +2,7 @@ package net.kdt.pojavlaunch.fragments;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ public class FileSelectorFragment extends Fragment {
     public static final String BUNDLE_ROOT_PATH = "root_path";
 
     private ImageButton mSelectFolderButton, mCreateFolderButton, mRefreshButton;
+    private View mExternalStorage, mSoftwarePrivate;
     private FileRecyclerView mFileRecyclerView;
     private TextView mFilePathView;
 
@@ -61,6 +63,9 @@ public class FileSelectorFragment extends Fragment {
         mFileRecyclerView.setShowFolders(mShowFolders);
         mFileRecyclerView.setTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
         mFileRecyclerView.lockAndListAt(new File(mRootPath), new File(mRootPath));
+
+        mExternalStorage.setOnClickListener(v -> mFileRecyclerView.listFileAt(Environment.getExternalStorageDirectory()));
+        mSoftwarePrivate.setOnClickListener(v -> mFileRecyclerView.listFileAt(requireContext().getExternalFilesDir(null)));
 
         mCreateFolderButton.setOnClickListener(v -> {
             EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(R.string.folder_dialog_insert_name), null, null, null);
@@ -136,8 +141,9 @@ public class FileSelectorFragment extends Fragment {
         mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
         mFileRecyclerView = view.findViewById(R.id.zh_files);
         mFilePathView = view.findViewById(R.id.zh_files_current_path);
+        mExternalStorage = view.findViewById(R.id.zh_files_external_storage);
+        mSoftwarePrivate = view.findViewById(R.id.zh_files_software_private);
 
-        view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
         view.findViewById(R.id.zh_files_add_file_button).setVisibility(View.GONE);
         view.findViewById(R.id.zh_files_paste_button).setVisibility(View.GONE);
 

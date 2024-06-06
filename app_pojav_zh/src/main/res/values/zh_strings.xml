@@ -99,6 +99,8 @@
     <string name="zh_file_delete_dir_message">When deleting a folder, all the files inside it will be deleted as well. If there are important files inside this folder, please cancel this operation!</string>
     <string name="zh_file_rename_empty">The file name cannot be empty!</string>
     <string name="zh_file_rename_exitis">File name conflicts with an existing file!</string>
+    <string name="zh_file_external_storage">External Storage</string>
+    <string name="zh_file_software_private">Private Directory</string>
 
     <string name="zh_neoforge_dl_searching">Searching for NeoForge version number</string>
     <string name="zh_neoforge_dl_no_installer">Sorry, but this version of NeoForge does not have an installer, which is not yet supported.</string>
