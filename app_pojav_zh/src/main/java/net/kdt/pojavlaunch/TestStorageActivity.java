@@ -2,7 +2,6 @@ package net.kdt.pojavlaunch;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -16,6 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import com.movtery.ui.dialog.TipDialog;
 
 import net.kdt.pojavlaunch.tasks.AsyncAssetManager;
 
@@ -58,17 +59,17 @@ public class TestStorageActivity extends Activity {
     @RequiresApi(api = Build.VERSION_CODES.R)
     private void handlePermissionsForAndroid11AndAbove() {
         if (!Environment.isExternalStorageManager()) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.zh_tip);
-            builder.setMessage(R.string.zh_permissions_manage_external_storage);
-            builder.setCancelable(false);
-            builder.setPositiveButton(R.string.zh_confirm, (dialog, which) -> {
+            TipDialog.Builder builder = new TipDialog.Builder(this);
+            builder.setMessage(getString(R.string.zh_permissions_manage_external_storage));
+            builder.setConfirmClickListener(() -> {
                 Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
                 intent.setData(Uri.parse("package:" + getPackageName()));
                 startActivityForResult(intent, REQUEST_CODE_PERMISSIONS);
             });
+            builder.setCancelClickListener(this::finish);
+            builder.setCancelable(false);
 
-            builder.show();
+            builder.buildDialog();
         } else {
             exit();
         }

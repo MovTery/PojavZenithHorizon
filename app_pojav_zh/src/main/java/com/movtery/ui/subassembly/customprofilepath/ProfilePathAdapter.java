@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.ui.dialog.EditTextDialog;
+import com.movtery.ui.dialog.TipDialog;
 
 import net.kdt.pojavlaunch.R;
 
@@ -110,8 +111,17 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
 
             mDeleteButton.setOnClickListener(v -> {
                 if (!profileItem.id.equals("default")) {
-                    mData.remove(position);
-                    updateData(mData);
+                    Context context = mDeleteButton.getContext();
+                    TipDialog.Builder builder = new TipDialog.Builder(context);
+                    builder.setTitle(context.getString(R.string.zh_profiles_path_delete_title));
+                    builder.setMessage(context.getString(R.string.zh_profiles_path_delete_message));
+                    builder.setCancelable(false);
+                    builder.setConfirmClickListener(() -> {
+                        mData.remove(position);
+                        updateData(mData);
+                    });
+
+                    builder.buildDialog();
                 }
             });
 
