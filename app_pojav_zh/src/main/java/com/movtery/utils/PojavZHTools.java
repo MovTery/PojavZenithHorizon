@@ -25,6 +25,7 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -181,6 +182,10 @@ public class PojavZHTools {
             numbers.add(Integer.parseInt(matcher.group()));
         }
         return numbers;
+    }
+
+    public static void setTooltipText(View view, CharSequence tooltip) {
+        TooltipCompat.setTooltipText(view, tooltip);
     }
 
     public synchronized static Drawable customMouse(Context context) {
