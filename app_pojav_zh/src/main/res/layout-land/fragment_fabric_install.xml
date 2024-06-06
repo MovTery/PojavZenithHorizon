@@ -49,25 +49,15 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <View
-                    android:id="@+id/view"
-                    style="@style/ThickDivider"
-                    android:layout_width="match_parent"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="4dp"
-                    app:layout_constraintEnd_toStartOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/title_textview" />
-
                 <TextView
                     android:id="@+id/fabric_installer_label_game_ver"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="12dp"
                     android:text="@string/fabric_dl_game_version"
-                    app:layout_constraintBottom_toTopOf="@+id/fabric_installer_game_ver_spinner"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/title_textview"
                     tools:ignore="MissingConstraints" />
 
                 <Spinner
@@ -75,7 +65,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="25dp"
                     android:layout_marginEnd="8dp"
 
                     android:background="@drawable/background_item"
@@ -85,7 +74,7 @@
                     android:paddingEnd="7dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view" />
+                    app:layout_constraintTop_toBottomOf="@+id/fabric_installer_label_game_ver" />
 
                 <ImageView
                     android:id="@+id/imageView3"
@@ -105,9 +94,10 @@
                     android:layout_height="wrap_content"
 
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:text="@string/fabric_dl_loader_version"
-                    app:layout_constraintBottom_toTopOf="@+id/fabric_installer_loader_ver_spinner"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fabric_installer_game_ver_spinner"
                     tools:ignore="MissingConstraints" />
 
                 <Spinner
@@ -115,7 +105,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="25dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/background_item"
                     android:minHeight="48dp"
@@ -124,7 +113,7 @@
                     android:paddingEnd="7dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/fabric_installer_game_ver_spinner" />
+                    app:layout_constraintTop_toBottomOf="@+id/fabric_installer_label_loader_ver" />
 
                 <ImageView
                     android:id="@+id/imageView4"
@@ -143,10 +132,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:text="@string/mcl_options"
-                    app:layout_constraintBottom_toTopOf="@+id/fabric_installer_only_stable_checkbox"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/fabric_installer_loader_ver_spinner"
+                    app:layout_constraintTop_toBottomOf="@+id/fabric_installer_loader_ver_spinner"
                     tools:ignore="MissingConstraints" />
 
                 <CheckBox
@@ -154,14 +143,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="25dp"
                     android:layout_marginEnd="8dp"
                     android:checked="true"
                     android:minHeight="@dimen/_30sdp"
                     android:text="@string/fabric_dl_only_stable"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/fabric_installer_loader_ver_spinner" />
+                    app:layout_constraintTop_toBottomOf="@+id/fabric_installer_label_options" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
@@ -208,8 +196,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@android:string/cancel"
+            android:text="@string/zh_close"
             app:layout_constraintBottom_toTopOf="@+id/fabric_installer_start_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/constraintLayout2" />
@@ -247,6 +234,8 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:indeterminate="true"
             android:visibility="visible"
