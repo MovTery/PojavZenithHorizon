@@ -25,6 +25,8 @@
     <string name="zh_profiles_path_default">Default Private Path</string>
     <string name="zh_profiles_path_create_new">Add New Path</string>
     <string name="zh_profiles_path_create_new_title">Name This Path</string>
+    <string name="zh_profiles_path_delete_title">Delete this Path</string>
+    <string name="zh_profiles_path_delete_message">The launcher will delete this path, but will not delete the files saved in the corresponding path. This path can be added again after deletion.</string>
 
     <string name="zh_account_text">Please select a login method</string>
     <string name="zh_account_microsoft_account">Microsoft Account</string>
