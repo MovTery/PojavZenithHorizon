@@ -59,17 +59,17 @@ public class TestStorageActivity extends Activity {
     @RequiresApi(api = Build.VERSION_CODES.R)
     private void handlePermissionsForAndroid11AndAbove() {
         if (!Environment.isExternalStorageManager()) {
-            TipDialog.Builder builder = new TipDialog.Builder(this);
-            builder.setMessage(getString(R.string.zh_permissions_manage_external_storage));
-            builder.setConfirmClickListener(() -> {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                intent.setData(Uri.parse("package:" + getPackageName()));
-                startActivityForResult(intent, REQUEST_CODE_PERMISSIONS);
-            });
-            builder.setCancelClickListener(this::finish);
-            builder.setCancelable(false);
+            new TipDialog.Builder(this)
+                    .setMessage(getString(R.string.zh_permissions_manage_external_storage))
+                    .setConfirmClickListener(() -> {
+                        Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                        intent.setData(Uri.parse("package:" + getPackageName()));
+                        startActivityForResult(intent, REQUEST_CODE_PERMISSIONS);
+                    })
+                    .setCancelClickListener(this::finish)
+                    .setCancelable(false)
 
-            builder.buildDialog();
+                    .buildDialog();
         } else {
             exit();
         }

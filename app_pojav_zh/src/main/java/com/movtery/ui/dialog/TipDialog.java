@@ -78,32 +78,39 @@ public class TipDialog extends Dialog {
             tipDialog.show();
         }
 
-        public void setTitle(String title) {
+        public Builder setTitle(String title) {
             this.title = title;
+            return this;
         }
 
-        public void setMessage(String message) {
+        public Builder setMessage(String message) {
             this.message = message;
+            return this;
         }
 
-        public void setCancel(String cancel) {
+        public Builder setCancel(String cancel) {
             this.cancel = cancel;
+            return this;
         }
 
-        public void setConfirm(String confirm) {
+        public Builder setConfirm(String confirm) {
             this.confirm = confirm;
+            return this;
         }
 
-        public void setCancelClickListener(OnCancelClickListener cancelClickListener) {
+        public Builder setCancelClickListener(OnCancelClickListener cancelClickListener) {
             this.cancelClickListener = cancelClickListener;
+            return this;
         }
 
-        public void setConfirmClickListener(OnConfirmClickListener confirmClickListener) {
+        public Builder setConfirmClickListener(OnConfirmClickListener confirmClickListener) {
             this.confirmClickListener = confirmClickListener;
+            return this;
         }
 
-        public void setCancelable(boolean cancelable) {
+        public Builder setCancelable(boolean cancelable) {
             this.cancelable = cancelable;
+            return this;
         }
     }
 
