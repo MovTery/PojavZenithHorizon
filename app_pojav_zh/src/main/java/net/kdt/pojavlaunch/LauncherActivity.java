@@ -30,6 +30,7 @@ import com.kdt.mcgui.ProgressLayout;
 import com.kdt.mcgui.mcAccountSpinner;
 import com.movtery.feature.UpdateLauncher;
 import com.movtery.ui.actitvity.SettingsActivity;
+import com.movtery.ui.dialog.TipDialog;
 import com.movtery.ui.subassembly.background.BackgroundType;
 import com.movtery.utils.PojavZHTools;
 
@@ -157,11 +158,11 @@ public class LauncherActivity extends BaseActivity {
     };
 
     /* Listener for account deletion */
-    private final View.OnClickListener mAccountDeleteButtonListener = v -> new AlertDialog.Builder(this)
-            .setMessage(R.string.warning_remove_account)
-            .setPositiveButton(android.R.string.cancel, null)
-            .setNeutralButton(R.string.global_delete, (dialog, which) -> mAccountSpinner.removeCurrentAccount())
-            .show();
+    private final View.OnClickListener mAccountDeleteButtonListener = v -> new TipDialog.Builder(this)
+        .setMessage(getString(R.string.warning_remove_account))
+            .setConfirm(getString(R.string.global_delete))
+            .setConfirmClickListener(() -> mAccountSpinner.removeCurrentAccount())
+            .buildDialog();
 
     private final ExtraListener<Boolean> mLaunchGameListener = (key, value) -> {
         if(mProgressLayout.hasProcesses()){

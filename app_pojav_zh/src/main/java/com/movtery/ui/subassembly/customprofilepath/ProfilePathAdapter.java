@@ -127,20 +127,18 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
             mDeleteButton.setOnClickListener(v -> {
                 if (!profileItem.id.equals("default")) {
                     Context context = mDeleteButton.getContext();
-                    TipDialog.Builder builder = new TipDialog.Builder(context);
-                    builder.setTitle(context.getString(R.string.zh_profiles_path_delete_title));
-                    builder.setMessage(context.getString(R.string.zh_profiles_path_delete_message));
-                    builder.setCancelable(false);
-                    builder.setConfirmClickListener(() -> {
-                        if (Objects.equals(currentId, profileItem.id)) {
-                            //如果删除的是当前选中的路径，那么将自动选择为默认路径
-                            setPathId("default");
-                        }
-                        mData.remove(position);
-                        updateData(mData);
-                    });
-
-                    builder.buildDialog();
+                    new TipDialog.Builder(context)
+                            .setTitle(context.getString(R.string.zh_profiles_path_delete_title))
+                            .setMessage(context.getString(R.string.zh_profiles_path_delete_message))
+                            .setCancelable(false)
+                            .setConfirmClickListener(() -> {
+                                if (Objects.equals(currentId, profileItem.id)) {
+                                    //如果删除的是当前选中的路径，那么将自动选择为默认路径
+                                    setPathId("default");
+                                }
+                                mData.remove(position);
+                                updateData(mData);
+                            }).buildDialog();
                 }
             });
 
