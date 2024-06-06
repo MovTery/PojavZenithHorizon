@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.fragment.app.Fragment;
 
 import com.movtery.ui.subassembly.customcontrols.ControlInfoData;
@@ -180,6 +181,12 @@ public class ControlButtonFragment extends Fragment {
         controlsListView = view.findViewById(R.id.zh_controls_list);
 
         mPasteButton.setVisibility(PasteFile.PASTE_TYPE != null ? View.VISIBLE : View.GONE);
+
+        TooltipCompat.setTooltipText(mReturnButton, mReturnButton.getContentDescription());
+        TooltipCompat.setTooltipText(mImportControlButton, mImportControlButton.getContentDescription());
+        TooltipCompat.setTooltipText(mAddControlButton, mAddControlButton.getContentDescription());
+        TooltipCompat.setTooltipText(mPasteButton, mPasteButton.getContentDescription());
+        TooltipCompat.setTooltipText(mRefreshButton, mRefreshButton.getContentDescription());
     }
 }
 
