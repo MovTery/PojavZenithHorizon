@@ -33,6 +33,7 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
     public ProfilePathAdapter(RecyclerView view, List<ProfileItem> mData) {
         this.mData = mData;
         this.view = view;
+        this.currentId = DEFAULT_PREF.getString("launcherProfile", "default");
     }
 
     @NonNull
@@ -65,6 +66,19 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
         this.view.scheduleLayoutAnimation();
     }
 
+    private void setPathId(String id) {
+        currentId = id;
+        ProfilePathManager.setCurrentPathId(id);
+        updateRadioButtonState(id);
+    }
+
+    private void updateRadioButtonState(String id) {
+        //遍历全部RadioButton，取消除去此id的全部RadioButton
+        for (Map.Entry<String, RadioButton> entry : radioButtonMap.entrySet()) {
+            entry.getValue().setChecked(Objects.equals(id, entry.getKey()));
+        }
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final RadioButton mRadioButton;
         private final TextView mTitle, mPath;
@@ -82,22 +96,11 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
         }
 
         public void setView(ProfileItem profileItem, int position) {
-            currentId = DEFAULT_PREF.getString("launcherProfile", "default");
             radioButtonMap.put(profileItem.id, mRadioButton);
-
-            if (Objects.equals(currentId, profileItem.id)) {
-                setRadioButton(profileItem.id);
-            }
-
             mTitle.setText(profileItem.title);
             mPath.setText(profileItem.path);
 
-            View.OnClickListener onClickListener = v -> {
-                currentId = profileItem.id;
-                setRadioButton(profileItem.id);
-                ProfilePathManager.setCurrentPathId(profileItem.id);
-            };
-
+            View.OnClickListener onClickListener = v -> setPathId(profileItem.id);
             itemView.setOnClickListener(onClickListener);
             mRadioButton.setOnClickListener(onClickListener);
 
@@ -113,8 +116,7 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
                             return;
                         }
 
-                        mData.remove(position);
-                        mData.add(position, new ProfileItem(profileItem.id, string, profileItem.path));
+                        mData.get(position).title = string;
                         updateData(mData);
                         editTextDialog.dismiss();
                     });
@@ -132,8 +134,7 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
                     builder.setConfirmClickListener(() -> {
                         if (Objects.equals(currentId, profileItem.id)) {
                             //如果删除的是当前选中的路径，那么将自动选择为默认路径
-                            ProfilePathManager.setCurrentPathId("default");
-                            setRadioButton("default");
+                            setPathId("default");
                         }
                         mData.remove(position);
                         updateData(mData);
@@ -147,16 +148,10 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
                 mRenameButton.setVisibility(View.GONE);
                 mDeleteButton.setVisibility(View.GONE);
             }
-        }
 
-        private void setRadioButton(String id) {
-            radioButtonMap.forEach((k, v) -> {
-                if (Objects.equals(id, k)) {
-                    v.toggle(); //遍历全部RadioButton，取消除去此id的全部RadioButton
-                } else {
-                    v.setChecked(false);
-                }
-            });
+            if (Objects.equals(currentId, profileItem.id)) {
+                updateRadioButtonState(profileItem.id);
+            }
         }
     }
 }
