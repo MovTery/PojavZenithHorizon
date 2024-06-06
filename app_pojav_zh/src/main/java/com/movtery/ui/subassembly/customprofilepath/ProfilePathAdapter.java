@@ -28,7 +28,7 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
     private List<ProfileItem> mData;
     private final Map<String, RadioButton> radioButtonMap = new TreeMap<>();
     private final RecyclerView view;
-    private OnItemClickListener onItemClickListener;
+    private String currentId;
 
     public ProfilePathAdapter(RecyclerView view, List<ProfileItem> mData) {
         this.mData = mData;
@@ -65,14 +65,6 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
         this.view.scheduleLayoutAnimation();
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.onItemClickListener = listener;
-    }
-
-    public interface OnItemClickListener {
-        void onClick(ProfileItem profileItem);
-    }
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final RadioButton mRadioButton;
         private final TextView mTitle, mPath;
@@ -90,7 +82,7 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
         }
 
         public void setView(ProfileItem profileItem, int position) {
-            String currentId = DEFAULT_PREF.getString("launcherProfile", "default");
+            currentId = DEFAULT_PREF.getString("launcherProfile", "default");
             radioButtonMap.put(profileItem.id, mRadioButton);
 
             if (Objects.equals(currentId, profileItem.id)) {
@@ -101,8 +93,9 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
             mPath.setText(profileItem.path);
 
             View.OnClickListener onClickListener = v -> {
+                currentId = profileItem.id;
                 setRadioButton(profileItem.id);
-                if (onItemClickListener != null) onItemClickListener.onClick(profileItem);
+                ProfilePathManager.setCurrentPathId(profileItem.id);
             };
 
             itemView.setOnClickListener(onClickListener);
@@ -139,7 +132,7 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
                     builder.setConfirmClickListener(() -> {
                         if (Objects.equals(currentId, profileItem.id)) {
                             //如果删除的是当前选中的路径，那么将自动选择为默认路径
-                            if (onItemClickListener != null) onItemClickListener.onClick(mData.get(0));
+                            ProfilePathManager.setCurrentPathId("default");
                             setRadioButton("default");
                         }
                         mData.remove(position);
