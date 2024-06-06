@@ -98,13 +98,13 @@ public class PojavZHTools {
     }
 
     public static void initContextConstants(Context context) {
+        PojavZHTools.FILE_PROFILE_PATH = new File(Tools.DIR_DATA, "/profile_path.json");
         PojavZHTools.DIR_GAME_DEFAULT = ProfilePathHome.getGameHome() + "/instance/default";
         PojavZHTools.DIR_CUSTOM_MOUSE = DIR_GAME_HOME + "/mouse";
         PojavZHTools.DIR_LOGIN = DIR_GAME_HOME + "/login";
         PojavZHTools.DIR_BACKGROUND = new File(DIR_GAME_HOME + "/background");
         PojavZHTools.DIR_APP_CACHE = context.getExternalCacheDir();
         PojavZHTools.DIR_USER_ICON = new File(Tools.DIR_CACHE, "/user_icon");
-        PojavZHTools.FILE_PROFILE_PATH = new File(Tools.DIR_DATA, "/profile_path.json");
 
         if (!PojavZHTools.DIR_BACKGROUND.exists()) {
             mkdirs(PojavZHTools.DIR_BACKGROUND);

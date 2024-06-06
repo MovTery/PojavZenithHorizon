@@ -4,6 +4,7 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.movtery.feature.ResourceManager;
 import com.movtery.utils.PojavZHTools;
 
@@ -17,12 +18,30 @@ import java.util.List;
 public class ProfilePathManager {
     private static final String defaultPath = Tools.DIR_GAME_HOME;
 
-    public static void setCurrentPath(String path) {
-        DEFAULT_PREF.edit().putString("launcherProfilePath", path).apply();
+    public static void setCurrentPathId(String id) {
+        DEFAULT_PREF.edit().putString("launcherProfile", id).apply();
     }
 
     public static String getCurrentPath() {
-        return DEFAULT_PREF.getString("launcherProfilePath", defaultPath);
+        //通过选中的id来获取当前路径
+        String id = DEFAULT_PREF.getString("launcherProfile", "default");
+        if (id.equals("default")) {
+            return defaultPath;
+        }
+
+        if (PojavZHTools.FILE_PROFILE_PATH.exists()) {
+            try {
+                String read = Tools.read(PojavZHTools.FILE_PROFILE_PATH);
+                JsonObject jsonObject = JsonParser.parseString(read).getAsJsonObject();
+                if (jsonObject.has(id)) {
+                    ProfilePathJsonObject profilePathJsonObject = new Gson().fromJson(jsonObject.get(id), ProfilePathJsonObject.class);
+                    return profilePathJsonObject.path;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return defaultPath;
     }
 
     public static File getCurrentProfile() {

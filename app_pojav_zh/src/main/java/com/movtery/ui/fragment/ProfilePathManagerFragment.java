@@ -78,10 +78,7 @@ public class ProfilePathManagerFragment extends Fragment {
         Button returnButton = view.findViewById(R.id.zh_profile_path_return_button);
 
         adapter = new ProfilePathAdapter(pathList, this.mData);
-        adapter.setOnItemClickListener(profileItem -> {
-            ProfilePathManager.setCurrentPath(profileItem.path);
-            PojavZHTools.onBackPressed(requireActivity());
-        });
+        adapter.setOnItemClickListener(profileItem -> ProfilePathManager.setCurrentPathId(profileItem.id));
 
         pathList.setLayoutManager(new LinearLayoutManager(requireContext()));
         pathList.setAdapter(adapter);
