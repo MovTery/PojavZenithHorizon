@@ -4,11 +4,9 @@ import static com.movtery.utils.PojavZHTools.copyFileInBackground;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +36,6 @@ public class FilesFragment extends Fragment {
     public static final String BUNDLE_LIST_PATH = "bundle_list_path";
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private Button mReturnButton, mAddFileButton, mCreateFolderButton, mPasteButton, mRefreshButton;
-    private ImageButton mHelpButton;
     private FileRecyclerView mFileRecyclerView;
     private TextView mFilePathView;
     private String mLockPath, mListPath;
@@ -130,15 +127,6 @@ public class FilesFragment extends Fragment {
             mFileRecyclerView.refreshPath();
         })));
         mRefreshButton.setOnClickListener(v -> mFileRecyclerView.refreshPath());
-        mHelpButton.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-
-            builder.setTitle(getString(R.string.zh_help_files_title));
-            builder.setMessage(getString(R.string.zh_help_files_message));
-            builder.setPositiveButton(getString(R.string.zh_help_ok), null);
-
-            builder.show();
-        });
     }
 
     private void showDialog(File file) {
@@ -177,7 +165,6 @@ public class FilesFragment extends Fragment {
         mCreateFolderButton = view.findViewById(R.id.zh_files_create_folder_button);
         mPasteButton = view.findViewById(R.id.zh_files_paste_button);
         mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
-        mHelpButton = view.findViewById(R.id.zh_files_help_button);
         mFileRecyclerView = view.findViewById(R.id.zh_files);
         mFilePathView = view.findViewById(R.id.zh_files_current_path);
 

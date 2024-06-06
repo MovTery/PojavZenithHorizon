@@ -3,11 +3,9 @@ package com.movtery.ui.fragment;
 import static com.movtery.utils.PojavZHTools.copyFileInBackground;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -37,7 +35,6 @@ public class ModsFragment extends Fragment {
     public static final String disableJarFileSuffix = ".jar.disabled";
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private Button mReturnButton, mAddModButton, mPasteButton, mDownloadButton, mRefreshButton;
-    private ImageButton mHelpButton;
     private FileRecyclerView mFileRecyclerView;
     private String mRootPath;
 
@@ -106,15 +103,6 @@ public class ModsFragment extends Fragment {
             Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, bundle);
         });
         mRefreshButton.setOnClickListener(v -> mFileRecyclerView.refreshPath());
-        mHelpButton.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-
-            builder.setTitle(getString(R.string.zh_help_mod_title));
-            builder.setMessage(getString(R.string.zh_help_mod_message));
-            builder.setPositiveButton(getString(R.string.zh_help_ok), null);
-
-            builder.show();
-        });
     }
 
     private void showDialog(File file) {
@@ -187,7 +175,6 @@ public class ModsFragment extends Fragment {
         mPasteButton = view.findViewById(R.id.zh_mods_paste_button);
         mDownloadButton = view.findViewById(R.id.zh_mods_download_mod_button);
         mRefreshButton = view.findViewById(R.id.zh_mods_refresh_button);
-        mHelpButton = view.findViewById(R.id.zh_mods_help_button);
         mFileRecyclerView = view.findViewById(R.id.zh_mods);
 
         mFileRecyclerView.setFileIcon(FileIcon.MOD);

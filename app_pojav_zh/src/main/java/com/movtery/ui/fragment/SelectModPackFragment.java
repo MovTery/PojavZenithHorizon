@@ -2,7 +2,6 @@ package com.movtery.ui.fragment;
 
 import static com.movtery.utils.PojavZHTools.copyFileInBackground;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -74,15 +73,6 @@ public class SelectModPackFragment extends Fragment {
             } else {
                 Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
             }
-        });
-        view.findViewById(R.id.zh_modpack_help_button).setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-
-            builder.setTitle(getString(R.string.zh_help_modpack_title));
-            builder.setMessage(getString(R.string.zh_help_modpack_message));
-            builder.setPositiveButton(getString(R.string.zh_help_ok), null);
-
-            builder.show();
         });
     }
 }

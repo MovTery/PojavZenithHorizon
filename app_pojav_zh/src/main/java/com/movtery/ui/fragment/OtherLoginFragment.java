@@ -53,7 +53,7 @@ public class OtherLoginFragment extends Fragment {
     private EditText mUserEditText, mPassEditText;
     private Button mLoginButton;
     private TextView mRegister;
-    private ImageButton mAddServer, mHelpButton;
+    private ImageButton mAddServer;
     private File mServersFile;
     private Servers mServers;
     private List<String> mServerList;
@@ -77,16 +77,6 @@ public class OtherLoginFragment extends Fragment {
 
         refreshServer();
         showRegisterButton(); //刷新注册按钮
-
-        mHelpButton.setOnClickListener(v -> {
-            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(requireActivity());
-
-            builder.setTitle(getString(R.string.zh_help_other_login_title));
-            builder.setMessage(getString(R.string.zh_help_other_login_message));
-            builder.setPositiveButton(getString(R.string.zh_help_ok), null);
-
-            builder.show();
-        });
 
         mServerSpinner.setAdapter(mServerSpinnerAdapter);
         mServerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -221,7 +211,6 @@ public class OtherLoginFragment extends Fragment {
     }
 
     private void bindViews(@NonNull View view) {
-        mHelpButton = view.findViewById(R.id.zh_other_login_help_button);
         mServerSpinner = view.findViewById(R.id.server_spinner);
         mUserEditText = view.findViewById(R.id.login_edit_email);
         mPassEditText = view.findViewById(R.id.login_edit_password);
