@@ -7,11 +7,9 @@ import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -41,7 +39,6 @@ public class CustomMouseFragment extends Fragment {
     private final List<FileItemBean> mData = new ArrayList<>();
     private ActivityResultLauncher<String[]> openDocumentLauncher;
     private Button mReturnButton, mAddFileButton, mRefreshButton;
-    private ImageButton mHelpButton;
     private ImageView mMouseView;
     private FileRecyclerViewCreator fileRecyclerViewCreator;
 
@@ -80,15 +77,6 @@ public class CustomMouseFragment extends Fragment {
         mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
 
         mRefreshButton.setOnClickListener(v -> loadData());
-        mHelpButton.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-
-            builder.setTitle(getString(R.string.zh_help_mouse_title));
-            builder.setMessage(getString(R.string.zh_help_mouse_message));
-            builder.setPositiveButton(getString(R.string.zh_help_ok), null);
-
-            builder.show();
-        });
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -116,7 +104,6 @@ public class CustomMouseFragment extends Fragment {
         mReturnButton = view.findViewById(R.id.zh_custom_mouse_return_button);
         mAddFileButton = view.findViewById(R.id.zh_custom_mouse_add_button);
         mRefreshButton = view.findViewById(R.id.zh_custom_mouse_refresh_button);
-        mHelpButton = view.findViewById(R.id.zh_custom_mouse_help_button);
         mMouseView = view.findViewById(R.id.zh_custom_mouse_icon);
 
         RecyclerView mMouseListView = view.findViewById(R.id.zh_custom_mouse);

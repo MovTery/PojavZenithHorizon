@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -21,7 +20,6 @@ import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.movtery.ui.fragment.ControlButtonFragment;
@@ -58,7 +56,6 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
     private MinecraftProfile mTempProfile = null;
     private String mValueToConsume = "";
     private Button mSaveButton, mControlSelectButton, mGameDirButton, mVersionSelectButton;
-    private ImageButton mHelpButton;
     private Spinner mDefaultRuntime, mDefaultRenderer;
     private EditText mDefaultName, mDefaultJvmArgument;
     private TextView mDefaultPath, mDefaultVersion, mDefaultControl;
@@ -139,16 +136,6 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         // Set up the icon change click listener
         mProfileIcon.setOnClickListener(v -> CropperUtils.startCropper(mCropperLauncher));
 
-        mHelpButton.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-
-            builder.setTitle(getString(R.string.zh_help_instance_title));
-            builder.setMessage(getString(R.string.zh_help_instance_message));
-            builder.setPositiveButton(getString(R.string.zh_help_ok), null);
-
-            builder.show();
-        });
-
         loadValues(LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, ""), view.getContext());
     }
 
@@ -216,7 +203,6 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         mVersionSelectButton = view.findViewById(R.id.vprof_editor_version_button);
         mGameDirButton = view.findViewById(R.id.vprof_editor_path_button);
         mProfileIcon = view.findViewById(R.id.vprof_editor_profile_icon);
-        mHelpButton = view.findViewById(R.id.zh_instance_help_button);
     }
 
     private void save(){

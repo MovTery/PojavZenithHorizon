@@ -5,12 +5,10 @@ import static com.movtery.utils.PojavZHTools.copyFileInBackground;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -43,7 +41,6 @@ public class ControlButtonFragment extends Fragment {
     public static final String BUNDLE_SELECT_CONTROL = "bundle_select_control";
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private Button mReturnButton, mAddControlButton, mImportControlButton, mPasteButton, mRefreshButton;
-    private ImageButton mHelpButton;
     private ControlsListView controlsListView;
     private boolean mSelectControl = false;
 
@@ -128,15 +125,6 @@ public class ControlButtonFragment extends Fragment {
             editControlInfoDialog.show();
         });
         mRefreshButton.setOnClickListener(v -> controlsListView.refresh());
-        mHelpButton.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-
-            builder.setTitle(getString(R.string.zh_help_control_button_title));
-            builder.setMessage(getString(R.string.zh_help_control_button_message));
-            builder.setPositiveButton(getString(R.string.zh_help_ok), null);
-
-            builder.show();
-        });
     }
 
     private String removeLockPath(String path) {
@@ -189,7 +177,6 @@ public class ControlButtonFragment extends Fragment {
         mAddControlButton = view.findViewById(R.id.zh_controls_create_new_button);
         mPasteButton = view.findViewById(R.id.zh_controls_paste_button);
         mRefreshButton = view.findViewById(R.id.zh_controls_refresh_button);
-        mHelpButton = view.findViewById(R.id.zh_controls_help_button);
         controlsListView = view.findViewById(R.id.zh_controls_list);
 
         mPasteButton.setVisibility(PasteFile.PASTE_TYPE != null ? View.VISIBLE : View.GONE);
