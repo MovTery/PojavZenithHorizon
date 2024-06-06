@@ -13,7 +13,6 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.TooltipCompat;
 import androidx.fragment.app.Fragment;
 
 import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
@@ -174,11 +173,11 @@ public class FilesFragment extends Fragment {
 
         mPasteButton.setVisibility(PasteFile.PASTE_TYPE != null ? View.VISIBLE : View.GONE);
 
-        TooltipCompat.setTooltipText(mReturnButton, mReturnButton.getContentDescription());
-        TooltipCompat.setTooltipText(mAddFileButton, mAddFileButton.getContentDescription());
-        TooltipCompat.setTooltipText(mCreateFolderButton, mCreateFolderButton.getContentDescription());
-        TooltipCompat.setTooltipText(mPasteButton, mPasteButton.getContentDescription());
-        TooltipCompat.setTooltipText(mRefreshButton, mRefreshButton.getContentDescription());
+        PojavZHTools.setTooltipText(mReturnButton, mReturnButton.getContentDescription());
+        PojavZHTools.setTooltipText(mAddFileButton, mAddFileButton.getContentDescription());
+        PojavZHTools.setTooltipText(mCreateFolderButton, mCreateFolderButton.getContentDescription());
+        PojavZHTools.setTooltipText(mPasteButton, mPasteButton.getContentDescription());
+        PojavZHTools.setTooltipText(mRefreshButton, mRefreshButton.getContentDescription());
     }
 
     private void parseBundle() {

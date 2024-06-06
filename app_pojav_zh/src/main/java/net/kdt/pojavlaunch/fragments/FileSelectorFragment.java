@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.TooltipCompat;
 import androidx.fragment.app.Fragment;
 
 import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
@@ -19,6 +18,7 @@ import com.movtery.ui.subassembly.filelist.FileSelectedListener;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import com.movtery.ui.dialog.EditTextDialog;
+import com.movtery.utils.PojavZHTools;
 
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
@@ -146,8 +146,8 @@ public class FileSelectorFragment extends Fragment {
         mSelectFolderButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_check, requireActivity().getTheme()));
         mFileRecyclerView.setFileIcon(FileIcon.FILE);
 
-        TooltipCompat.setTooltipText(mSelectFolderButton, mSelectFolderButton.getContentDescription());
-        TooltipCompat.setTooltipText(mCreateFolderButton, mCreateFolderButton.getContentDescription());
-        TooltipCompat.setTooltipText(mRefreshButton, mRefreshButton.getContentDescription());
+        PojavZHTools.setTooltipText(mSelectFolderButton, mSelectFolderButton.getContentDescription());
+        PojavZHTools.setTooltipText(mCreateFolderButton, mCreateFolderButton.getContentDescription());
+        PojavZHTools.setTooltipText(mRefreshButton, mRefreshButton.getContentDescription());
     }
 }
