@@ -1,11 +1,14 @@
 package com.movtery.ui.subassembly.customprofilepath;
 
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,9 +20,13 @@ import com.movtery.ui.dialog.TipDialog;
 import net.kdt.pojavlaunch.R;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.TreeMap;
 
 public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.ViewHolder> {
     private List<ProfileItem> mData;
+    private final Map<String, RadioButton> radioButtonMap = new TreeMap<>();
     private final RecyclerView view;
     private OnItemClickListener onItemClickListener;
 
@@ -67,6 +74,7 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        private final RadioButton mRadioButton;
         private final TextView mTitle, mPath;
         private final ImageButton mRenameButton, mDeleteButton;
         private final View itemView;
@@ -74,6 +82,7 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
             super(itemView);
             this.itemView = itemView;
 
+            mRadioButton = itemView.findViewById(R.id.zh_profile_path_radio_button);
             mTitle = itemView.findViewById(R.id.zh_profile_path_title);
             mPath = itemView.findViewById(R.id.zh_profile_path_path);
             mRenameButton = itemView.findViewById(R.id.zh_profile_path_rename);
@@ -81,12 +90,23 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
         }
 
         public void setView(ProfileItem profileItem, int position) {
+            String currentId = DEFAULT_PREF.getString("launcherProfile", "default");
+            radioButtonMap.put(profileItem.id, mRadioButton);
+
+            if (Objects.equals(currentId, profileItem.id)) {
+                setRadioButton(profileItem.id);
+            }
+
             mTitle.setText(profileItem.title);
             mPath.setText(profileItem.path);
 
-            itemView.setOnClickListener(v -> {
+            View.OnClickListener onClickListener = v -> {
+                setRadioButton(profileItem.id);
                 if (onItemClickListener != null) onItemClickListener.onClick(profileItem);
-            });
+            };
+
+            itemView.setOnClickListener(onClickListener);
+            mRadioButton.setOnClickListener(onClickListener);
 
             mRenameButton.setOnClickListener(v -> {
                 if (!profileItem.id.equals("default")) {
@@ -117,6 +137,11 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
                     builder.setMessage(context.getString(R.string.zh_profiles_path_delete_message));
                     builder.setCancelable(false);
                     builder.setConfirmClickListener(() -> {
+                        if (Objects.equals(currentId, profileItem.id)) {
+                            //如果删除的是当前选中的路径，那么将自动选择为默认路径
+                            if (onItemClickListener != null) onItemClickListener.onClick(mData.get(0));
+                            setRadioButton("default");
+                        }
                         mData.remove(position);
                         updateData(mData);
                     });
@@ -129,6 +154,16 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
                 mRenameButton.setVisibility(View.GONE);
                 mDeleteButton.setVisibility(View.GONE);
             }
+        }
+
+        private void setRadioButton(String id) {
+            radioButtonMap.forEach((k, v) -> {
+                if (Objects.equals(id, k)) {
+                    v.toggle(); //遍历全部RadioButton，取消除去此id的全部RadioButton
+                } else {
+                    v.setChecked(false);
+                }
+            });
         }
     }
 }
