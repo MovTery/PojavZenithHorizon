@@ -8,7 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -40,7 +40,7 @@ public class ControlButtonFragment extends Fragment {
     public static final String TAG = "ControlButtonFragment";
     public static final String BUNDLE_SELECT_CONTROL = "bundle_select_control";
     private ActivityResultLauncher<Object> openDocumentLauncher;
-    private Button mReturnButton, mAddControlButton, mImportControlButton, mPasteButton, mRefreshButton;
+    private ImageButton mReturnButton, mAddControlButton, mImportControlButton, mPasteButton, mRefreshButton;
     private ControlsListView controlsListView;
     private boolean mSelectControl = false;
 

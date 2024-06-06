@@ -3,7 +3,7 @@ package net.kdt.pojavlaunch.fragments;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,7 +33,7 @@ public class FileSelectorFragment extends Fragment {
     public static final String BUNDLE_REMOVE_LOCK_PATH = "remove_lock_path";
     public static final String BUNDLE_ROOT_PATH = "root_path";
 
-    private Button mSelectFolderButton, mCreateFolderButton, mRefreshButton;
+    private ImageButton mSelectFolderButton, mCreateFolderButton, mRefreshButton;
     private FileRecyclerView mFileRecyclerView;
     private TextView mFilePathView;
 
@@ -128,6 +128,7 @@ public class FileSelectorFragment extends Fragment {
         mRemoveLockPath = bundle.getBoolean(BUNDLE_REMOVE_LOCK_PATH, true);
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void bindViews(@NonNull View view) {
         mSelectFolderButton = view.findViewById(R.id.zh_files_return_button);
         mCreateFolderButton = view.findViewById(R.id.zh_files_add_file_button);
@@ -138,8 +139,11 @@ public class FileSelectorFragment extends Fragment {
         view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
         view.findViewById(R.id.zh_files_create_folder_button).setVisibility(View.GONE);
 
-        mSelectFolderButton.setText(getString(R.string.folder_fragment_select));
-        mCreateFolderButton.setText(getString(R.string.folder_fragment_create));
+        mSelectFolderButton.setContentDescription(getString(R.string.folder_fragment_select));
+        mCreateFolderButton.setContentDescription(getString(R.string.folder_fragment_create));
+        mSelectFolderButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_check, getContext().getTheme()));
         mFileRecyclerView.setFileIcon(FileIcon.FILE);
+
+        view.findViewById(R.id.zh_files_paste_button).setVisibility(View.GONE);
     }
 }

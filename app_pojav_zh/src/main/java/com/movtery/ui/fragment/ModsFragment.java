@@ -5,7 +5,7 @@ import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -34,7 +34,7 @@ public class ModsFragment extends Fragment {
     public static final String jarFileSuffix = ".jar";
     public static final String disableJarFileSuffix = ".jar.disabled";
     private ActivityResultLauncher<Object> openDocumentLauncher;
-    private Button mReturnButton, mAddModButton, mPasteButton, mDownloadButton, mRefreshButton;
+    private ImageButton mReturnButton, mAddModButton, mPasteButton, mDownloadButton, mRefreshButton;
     private FileRecyclerView mFileRecyclerView;
     private String mRootPath;
 
