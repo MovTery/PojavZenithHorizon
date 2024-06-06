@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.fragment.app.Fragment;
 
 import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
@@ -131,19 +132,22 @@ public class FileSelectorFragment extends Fragment {
     @SuppressLint("UseCompatLoadingForDrawables")
     private void bindViews(@NonNull View view) {
         mSelectFolderButton = view.findViewById(R.id.zh_files_return_button);
-        mCreateFolderButton = view.findViewById(R.id.zh_files_add_file_button);
+        mCreateFolderButton = view.findViewById(R.id.zh_files_create_folder_button);
         mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
         mFileRecyclerView = view.findViewById(R.id.zh_files);
         mFilePathView = view.findViewById(R.id.zh_files_current_path);
 
         view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
-        view.findViewById(R.id.zh_files_create_folder_button).setVisibility(View.GONE);
+        view.findViewById(R.id.zh_files_add_file_button).setVisibility(View.GONE);
+        view.findViewById(R.id.zh_files_paste_button).setVisibility(View.GONE);
 
         mSelectFolderButton.setContentDescription(getString(R.string.folder_fragment_select));
         mCreateFolderButton.setContentDescription(getString(R.string.folder_fragment_create));
-        mSelectFolderButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_check, getContext().getTheme()));
+        mSelectFolderButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_check, requireActivity().getTheme()));
         mFileRecyclerView.setFileIcon(FileIcon.FILE);
 
-        view.findViewById(R.id.zh_files_paste_button).setVisibility(View.GONE);
+        TooltipCompat.setTooltipText(mSelectFolderButton, mSelectFolderButton.getContentDescription());
+        TooltipCompat.setTooltipText(mCreateFolderButton, mCreateFolderButton.getContentDescription());
+        TooltipCompat.setTooltipText(mRefreshButton, mRefreshButton.getContentDescription());
     }
 }

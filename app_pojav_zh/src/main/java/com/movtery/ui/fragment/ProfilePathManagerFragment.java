@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -76,6 +77,10 @@ public class ProfilePathManagerFragment extends Fragment {
         ImageButton refreshButton = view.findViewById(R.id.zh_profile_path_refresh_button);
         ImageButton createNewButton = view.findViewById(R.id.zh_profile_path_create_new_button);
         ImageButton returnButton = view.findViewById(R.id.zh_profile_path_return_button);
+
+        TooltipCompat.setTooltipText(refreshButton, refreshButton.getContentDescription());
+        TooltipCompat.setTooltipText(createNewButton, createNewButton.getContentDescription());
+        TooltipCompat.setTooltipText(returnButton, returnButton.getContentDescription());
 
         adapter = new ProfilePathAdapter(pathList, this.mData);
         pathList.setLayoutManager(new LinearLayoutManager(requireContext()));

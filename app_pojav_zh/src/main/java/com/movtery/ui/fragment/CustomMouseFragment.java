@@ -17,6 +17,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -105,6 +106,10 @@ public class CustomMouseFragment extends Fragment {
         mAddFileButton = view.findViewById(R.id.zh_custom_mouse_add_button);
         mRefreshButton = view.findViewById(R.id.zh_custom_mouse_refresh_button);
         mMouseView = view.findViewById(R.id.zh_custom_mouse_icon);
+
+        TooltipCompat.setTooltipText(mReturnButton, mReturnButton.getContentDescription());
+        TooltipCompat.setTooltipText(mAddFileButton, mAddFileButton.getContentDescription());
+        TooltipCompat.setTooltipText(mRefreshButton, mRefreshButton.getContentDescription());
 
         RecyclerView mMouseListView = view.findViewById(R.id.zh_custom_mouse);
         fileRecyclerViewCreator = new FileRecyclerViewCreator(requireContext(), mMouseListView, (position, file, name) -> {

@@ -14,6 +14,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.tabs.TabLayout;
@@ -190,6 +191,11 @@ public class CustomBackgroundFragment extends Fragment {
         mFileRecyclerView = view.findViewById(R.id.zh_custom_background);
 
         mFileRecyclerView.setFileIcon(FileIcon.FILE);
+
+        TooltipCompat.setTooltipText(mReturnButton, mReturnButton.getContentDescription());
+        TooltipCompat.setTooltipText(mAddFileButton, mAddFileButton.getContentDescription());
+        TooltipCompat.setTooltipText(mResetButton, mResetButton.getContentDescription());
+        TooltipCompat.setTooltipText(mRefreshButton, mRefreshButton.getContentDescription());
     }
 
     private void bindTabs() {
