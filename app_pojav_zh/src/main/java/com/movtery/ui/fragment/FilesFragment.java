@@ -5,6 +5,7 @@ import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ public class FilesFragment extends Fragment {
     public static final String BUNDLE_LIST_PATH = "bundle_list_path";
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private ImageButton mReturnButton, mAddFileButton, mCreateFolderButton, mPasteButton, mRefreshButton;
+    private View mExternalStorage, mSoftwarePrivate;
     private FileRecyclerView mFileRecyclerView;
     private TextView mFilePathView;
     private String mLockPath, mListPath;
@@ -92,6 +94,9 @@ public class FilesFragment extends Fragment {
                 }
             }
         });
+
+        mExternalStorage.setOnClickListener(v -> mFileRecyclerView.listFileAt(Environment.getExternalStorageDirectory()));
+        mSoftwarePrivate.setOnClickListener(v -> mFileRecyclerView.listFileAt(requireContext().getExternalFilesDir(null)));
 
         mReturnButton.setOnClickListener(v -> PojavZHTools.onBackPressed(requireActivity()));
         mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(null)); //不限制文件类型
@@ -167,8 +172,9 @@ public class FilesFragment extends Fragment {
         mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
         mFileRecyclerView = view.findViewById(R.id.zh_files);
         mFilePathView = view.findViewById(R.id.zh_files_current_path);
+        mExternalStorage = view.findViewById(R.id.zh_files_external_storage);
+        mSoftwarePrivate = view.findViewById(R.id.zh_files_software_private);
 
-        view.findViewById(R.id.zh_files_icon).setVisibility(View.GONE);
         mFileRecyclerView.setFileIcon(FileIcon.FILE);
 
         mPasteButton.setVisibility(PasteFile.PASTE_TYPE != null ? View.VISIBLE : View.GONE);

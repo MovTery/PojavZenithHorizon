@@ -81,14 +81,72 @@
         app:layout_constraintStart_toEndOf="@+id/constraintLayout"
         app:layout_constraintTop_toTopOf="parent">
 
+        <RelativeLayout
+            android:id="@+id/zh_files_external_storage"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="12dp"
+            android:background="?android:attr/selectableItemBackground"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayoutCompat5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/zh_file_external_storage"
+                android:src="@drawable/ic_folder" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
+                android:layout_toEndOf="@+id/imageView"
+                android:singleLine="true"
+                android:textColor="@color/black_or_white"
+                android:text="@string/zh_file_external_storage" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/zh_files_software_private"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="?android:attr/selectableItemBackground"
+            app:layout_constraintBottom_toTopOf="@+id/zh_files_external_storage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/zh_file_software_private"
+                android:src="@drawable/ic_folder" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
+                android:layout_toEndOf="@+id/imageView1"
+                android:singleLine="true"
+                android:textColor="@color/black_or_white"
+                android:text="@string/zh_file_software_private" />
+        </RelativeLayout>
+
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCompat5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="26dp"
-            android:orientation="horizontal"
             android:gravity="center_horizontal"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -98,9 +156,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:scaleType="fitCenter"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/zh_refresh"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_refresh" />
 
             <ImageButton
@@ -108,9 +166,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:scaleType="fitCenter"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/zh_paste"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_paste" />
 
             <ImageButton
@@ -118,9 +176,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:scaleType="fitCenter"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/zh_file_add_file"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_add_new" />
 
             <ImageButton
@@ -128,9 +186,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:scaleType="fitCenter"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/folder_fragment_create"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_add" />
 
             <ImageButton
@@ -138,23 +196,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:scaleType="fitCenter"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/zh_return"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_close" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <ImageView
-            android:id="@+id/zh_files_icon"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginTop="45dp"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
-            app:layout_constraintTop_toTopOf="@+id/constraintLayout2"
-            tools:srcCompat="@tools:sample/avatars"
-            tools:ignore="ContentDescription" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
