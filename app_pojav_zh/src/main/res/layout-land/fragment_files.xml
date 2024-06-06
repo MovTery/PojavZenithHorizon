@@ -85,7 +85,7 @@
             android:id="@+id/zh_files_external_storage"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="16dp"
             android:background="?android:attr/selectableItemBackground"
             app:layout_constraintBottom_toTopOf="@+id/linearLayoutCompat5"
             app:layout_constraintEnd_toEndOf="parent"

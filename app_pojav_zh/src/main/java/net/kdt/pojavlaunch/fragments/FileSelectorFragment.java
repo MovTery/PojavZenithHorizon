@@ -33,6 +33,7 @@ public class FileSelectorFragment extends Fragment {
     public static final String BUNDLE_SHOW_FILE = "show_file";
     public static final String BUNDLE_SHOW_FOLDER = "show_folder";
     public static final String BUNDLE_REMOVE_LOCK_PATH = "remove_lock_path";
+    public static final String BUNDLE_QUICK_ACCESS_PATHS = "quick_access_paths";
     public static final String BUNDLE_ROOT_PATH = "root_path";
 
     private ImageButton mSelectFolderButton, mCreateFolderButton, mRefreshButton;
@@ -44,6 +45,7 @@ public class FileSelectorFragment extends Fragment {
     private boolean mShowFiles = true;
     private boolean mShowFolders = true;
     private boolean mRemoveLockPath = true;
+    private boolean mQuickAccessPaths = true;
     private String mRootPath = ProfilePathManager.getCurrentPath();
 
 
@@ -54,8 +56,8 @@ public class FileSelectorFragment extends Fragment {
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        bindViews(view);
         parseBundle();
+        bindViews(view);
         if (!mSelectFolder) mSelectFolderButton.setVisibility(View.GONE);
         else mSelectFolderButton.setVisibility(View.VISIBLE);
 
@@ -132,6 +134,7 @@ public class FileSelectorFragment extends Fragment {
         mShowFolders = bundle.getBoolean(BUNDLE_SHOW_FOLDER, mShowFolders);
         mRootPath = bundle.getString(BUNDLE_ROOT_PATH, mRootPath);
         mRemoveLockPath = bundle.getBoolean(BUNDLE_REMOVE_LOCK_PATH, true);
+        mQuickAccessPaths = bundle.getBoolean(BUNDLE_QUICK_ACCESS_PATHS, true);
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -146,6 +149,10 @@ public class FileSelectorFragment extends Fragment {
 
         view.findViewById(R.id.zh_files_add_file_button).setVisibility(View.GONE);
         view.findViewById(R.id.zh_files_paste_button).setVisibility(View.GONE);
+        if (!mQuickAccessPaths) {
+            mExternalStorage.setVisibility(View.GONE);
+            mSoftwarePrivate.setVisibility(View.GONE);
+        }
 
         mSelectFolderButton.setContentDescription(getString(R.string.folder_fragment_select));
         mCreateFolderButton.setContentDescription(getString(R.string.folder_fragment_create));
