@@ -70,45 +70,49 @@
         app:layout_constraintStart_toEndOf="@+id/constraintLayout"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/zh_custom_mouse_return_button"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/zh_return"
+            android:layout_marginBottom="26dp"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout2" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-        <Button
-            android:id="@+id/zh_custom_mouse_add_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/zh_custom_mouse_add"
-            app:layout_constraintBottom_toTopOf="@+id/zh_custom_mouse_return_button"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout2" />
+            <ImageButton
+                android:id="@+id/zh_custom_mouse_refresh_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/zh_refresh"
+                android:src="@drawable/ic_refresh" />
 
-        <Button
-            android:id="@+id/zh_custom_mouse_refresh_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/zh_refresh"
-            app:layout_constraintBottom_toTopOf="@+id/zh_custom_mouse_add_button"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout2" />
+            <ImageButton
+                android:id="@+id/zh_custom_mouse_add_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/zh_custom_mouse_add"
+                android:src="@drawable/ic_add_new" />
+
+            <ImageButton
+                android:id="@+id/zh_custom_mouse_return_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/zh_return"
+                android:src="@drawable/ic_close" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <ImageView
             android:id="@+id/zh_custom_mouse_icon"

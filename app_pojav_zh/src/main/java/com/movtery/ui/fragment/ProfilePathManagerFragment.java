@@ -5,7 +5,7 @@ import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -73,9 +73,9 @@ public class ProfilePathManagerFragment extends Fragment {
         refreshData();
 
         RecyclerView pathList = view.findViewById(R.id.zh_profile_path);
-        Button refreshButton = view.findViewById(R.id.zh_profile_path_refresh_button);
-        Button createNewButton = view.findViewById(R.id.zh_profile_path_create_new_button);
-        Button returnButton = view.findViewById(R.id.zh_profile_path_return_button);
+        ImageButton refreshButton = view.findViewById(R.id.zh_profile_path_refresh_button);
+        ImageButton createNewButton = view.findViewById(R.id.zh_profile_path_create_new_button);
+        ImageButton returnButton = view.findViewById(R.id.zh_profile_path_return_button);
 
         adapter = new ProfilePathAdapter(pathList, this.mData);
         pathList.setLayoutManager(new LinearLayoutManager(requireContext()));

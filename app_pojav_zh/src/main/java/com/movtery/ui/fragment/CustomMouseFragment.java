@@ -9,7 +9,7 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -38,7 +38,7 @@ public class CustomMouseFragment extends Fragment {
     public static final String TAG = "CustomMouseFragment";
     private final List<FileItemBean> mData = new ArrayList<>();
     private ActivityResultLauncher<String[]> openDocumentLauncher;
-    private Button mReturnButton, mAddFileButton, mRefreshButton;
+    private ImageButton mReturnButton, mAddFileButton, mRefreshButton;
     private ImageView mMouseView;
     private FileRecyclerViewCreator fileRecyclerViewCreator;
 

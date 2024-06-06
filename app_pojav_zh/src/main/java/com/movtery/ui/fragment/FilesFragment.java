@@ -6,7 +6,7 @@ import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +35,7 @@ public class FilesFragment extends Fragment {
     public static final String BUNDLE_LOCK_PATH = "bundle_lock_path";
     public static final String BUNDLE_LIST_PATH = "bundle_list_path";
     private ActivityResultLauncher<Object> openDocumentLauncher;
-    private Button mReturnButton, mAddFileButton, mCreateFolderButton, mPasteButton, mRefreshButton;
+    private ImageButton mReturnButton, mAddFileButton, mCreateFolderButton, mPasteButton, mRefreshButton;
     private FileRecyclerView mFileRecyclerView;
     private TextView mFilePathView;
     private String mLockPath, mListPath;

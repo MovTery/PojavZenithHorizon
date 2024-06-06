@@ -7,7 +7,7 @@ import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -39,7 +39,7 @@ public class CustomBackgroundFragment extends Fragment {
     public static final String TAG = "CustomBackgroundFragment";
     private final Map<BackgroundType, String> backgroundMap = new HashMap<>();
     private ActivityResultLauncher<String[]> openDocumentLauncher;
-    private Button mReturnButton, mAddFileButton, mResetButton, mRefreshButton;
+    private ImageButton mReturnButton, mAddFileButton, mResetButton, mRefreshButton;
     private TabLayout mTabLayout;
     private FileRecyclerView mFileRecyclerView;
     private BackgroundType backgroundType;
