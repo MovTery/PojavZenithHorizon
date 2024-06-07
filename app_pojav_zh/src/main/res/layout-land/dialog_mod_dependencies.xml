@@ -42,7 +42,7 @@
             android:background="@drawable/background_edit_box"
             android:padding="8dp"
             android:scrollbars="vertical"
-            android:scrollbarThumbVertical="@color/background_bottom_bar"
+            android:scrollbarThumbVertical="@color/scrollbar_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
