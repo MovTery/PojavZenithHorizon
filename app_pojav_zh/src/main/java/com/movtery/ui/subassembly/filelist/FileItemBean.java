@@ -2,7 +2,7 @@ package com.movtery.ui.subassembly.filelist;
 
 import android.graphics.drawable.Drawable;
 
-import com.movtery.utils.SortStrings;
+import com.movtery.utils.stringutils.SortStrings;
 
 import java.io.File;
 

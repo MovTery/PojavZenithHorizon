@@ -1,4 +1,4 @@
-package com.movtery.utils;
+package com.movtery.utils.stringutils;
 
 public class SortStrings {
     public static int compareChar(String thisName, String otherName) {

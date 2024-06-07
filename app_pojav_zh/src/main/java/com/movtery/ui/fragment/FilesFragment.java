@@ -36,7 +36,7 @@ public class FilesFragment extends Fragment {
     public static final String BUNDLE_LOCK_PATH = "bundle_lock_path";
     public static final String BUNDLE_LIST_PATH = "bundle_list_path";
     private ActivityResultLauncher<Object> openDocumentLauncher;
-    private ImageButton mReturnButton, mAddFileButton, mCreateFolderButton, mPasteButton, mRefreshButton;
+    private ImageButton mReturnButton, mAddFileButton, mCreateFolderButton, mPasteButton, mSearchButton, mRefreshButton;
     private View mExternalStorage, mSoftwarePrivate;
     private FileRecyclerView mFileRecyclerView;
     private TextView mFilePathView;
@@ -131,6 +131,7 @@ public class FilesFragment extends Fragment {
             mPasteButton.setVisibility(View.GONE);
             mFileRecyclerView.refreshPath();
         })));
+        mSearchButton.setOnClickListener(v -> mFileRecyclerView.showSearchDialog());
         mRefreshButton.setOnClickListener(v -> mFileRecyclerView.refreshPath());
     }
 
@@ -170,6 +171,7 @@ public class FilesFragment extends Fragment {
         mCreateFolderButton = view.findViewById(R.id.zh_files_create_folder_button);
         mPasteButton = view.findViewById(R.id.zh_files_paste_button);
         mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
+        mSearchButton = view.findViewById(R.id.zh_files_search_button);
         mFileRecyclerView = view.findViewById(R.id.zh_files);
         mFilePathView = view.findViewById(R.id.zh_files_current_path);
         mExternalStorage = view.findViewById(R.id.zh_files_external_storage);
@@ -183,6 +185,7 @@ public class FilesFragment extends Fragment {
         PojavZHTools.setTooltipText(mAddFileButton, mAddFileButton.getContentDescription());
         PojavZHTools.setTooltipText(mCreateFolderButton, mCreateFolderButton.getContentDescription());
         PojavZHTools.setTooltipText(mPasteButton, mPasteButton.getContentDescription());
+        PojavZHTools.setTooltipText(mSearchButton, mSearchButton.getContentDescription());
         PojavZHTools.setTooltipText(mRefreshButton, mRefreshButton.getContentDescription());
     }
 

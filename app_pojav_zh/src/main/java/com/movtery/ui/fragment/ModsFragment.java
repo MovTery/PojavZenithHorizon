@@ -34,7 +34,7 @@ public class ModsFragment extends Fragment {
     public static final String jarFileSuffix = ".jar";
     public static final String disableJarFileSuffix = ".jar.disabled";
     private ActivityResultLauncher<Object> openDocumentLauncher;
-    private ImageButton mReturnButton, mAddModButton, mPasteButton, mDownloadButton, mRefreshButton;
+    private ImageButton mReturnButton, mAddModButton, mPasteButton, mDownloadButton, mSearchButton, mRefreshButton;
     private FileRecyclerView mFileRecyclerView;
     private String mRootPath;
 
@@ -102,6 +102,7 @@ public class ModsFragment extends Fragment {
             bundle.putString(SearchModFragment.BUNDLE_MOD_PATH, mRootPath);
             Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, bundle);
         });
+        mSearchButton.setOnClickListener(v -> mFileRecyclerView.showSearchDialog());
         mRefreshButton.setOnClickListener(v -> mFileRecyclerView.refreshPath());
     }
 
@@ -174,6 +175,7 @@ public class ModsFragment extends Fragment {
         mAddModButton = view.findViewById(R.id.zh_mods_add_mod_button);
         mPasteButton = view.findViewById(R.id.zh_mods_paste_button);
         mDownloadButton = view.findViewById(R.id.zh_mods_download_mod_button);
+        mSearchButton = view.findViewById(R.id.zh_mods_search_button);
         mRefreshButton = view.findViewById(R.id.zh_mods_refresh_button);
         mFileRecyclerView = view.findViewById(R.id.zh_mods);
 
@@ -185,6 +187,7 @@ public class ModsFragment extends Fragment {
         PojavZHTools.setTooltipText(mAddModButton, mAddModButton.getContentDescription());
         PojavZHTools.setTooltipText(mPasteButton, mPasteButton.getContentDescription());
         PojavZHTools.setTooltipText(mDownloadButton, mDownloadButton.getContentDescription());
+        PojavZHTools.setTooltipText(mSearchButton, mSearchButton.getContentDescription());
         PojavZHTools.setTooltipText(mRefreshButton, mRefreshButton.getContentDescription());
     }
 }

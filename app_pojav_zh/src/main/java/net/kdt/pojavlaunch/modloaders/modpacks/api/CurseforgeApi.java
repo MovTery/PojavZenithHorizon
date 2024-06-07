@@ -14,7 +14,7 @@ import com.movtery.feature.mod.SearchModSort;
 import com.movtery.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.ui.subassembly.downloadmod.ModVersionGroup;
 import com.movtery.ui.subassembly.downloadmod.VersionType;
-import com.movtery.utils.SimpleStringJoiner;
+import com.movtery.utils.stringutils.SimpleStringJoiner;
 
 import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.R;

@@ -10,6 +10,7 @@
     <string name="zh_paste">Paste</string>
     <string name="zh_refresh">Refresh</string>
     <string name="zh_rename">Rename</string>
+    <string name="zh_search">Search</string>
     <string name="zh_tip">Tip</string>
     <string name="zh_confirm">Confirm</string>
     <string name="zh_unknown">Unknown</string>
@@ -44,7 +45,6 @@
 
     <string name="zh_activity_import_control">Layout Name Control:</string>
     <string name="zh_activity_java_gui_keyboard">Keyboard</string>
-    <string name="zh_activity_java_gui_paste">Paste</string>
 
     <string name="zh_controls_add_control_button">Button</string>
     <string name="zh_controls_add_control_drawer">Drawer</string>

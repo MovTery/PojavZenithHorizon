@@ -10,6 +10,9 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.ui.dialog.EditTextDialog;
+import com.movtery.utils.stringutils.StringFilter;
+
 import net.kdt.pojavlaunch.R;
 
 import java.io.File;
@@ -29,6 +32,7 @@ public class FileRecyclerView extends LinearLayout {
     private File lockPath = new File("/");
     private boolean showFiles = true;
     private boolean showFolders = true;
+    private String filterString = "";
 
     public FileRecyclerView(Context context) {
         this(context, null);
@@ -95,6 +99,14 @@ public class FileRecyclerView extends LinearLayout {
         this.fileIcon = fileIcon;
     }
 
+    public void setFilterString(String filterString) {
+        this.filterString = filterString;
+    }
+
+    public String getFilterString() {
+        return filterString;
+    }
+
     public void lockAndListAt(File lockPath, File listPath) {
         this.lockPath = lockPath;
         listFileAt(listPath);
@@ -106,7 +118,7 @@ public class FileRecyclerView extends LinearLayout {
             if (path.isDirectory()) {
                 fullPath = path;
 
-                List<FileItemBean> itemBeans = FileRecyclerViewCreator.loadItemBeansFromPath(context, path, this.fileIcon, this.showFiles, this.showFolders);
+                List<FileItemBean> itemBeans = filterFiles(FileRecyclerViewCreator.loadItemBeansFromPath(context, path, this.fileIcon, this.showFiles, this.showFolders));
 
                 Collections.sort(itemBeans);
 
@@ -131,12 +143,36 @@ public class FileRecyclerView extends LinearLayout {
         }
     }
 
+    private List<FileItemBean> filterFiles(List<FileItemBean> itemBeans) {
+        if (!filterString.isEmpty()) {
+            List<FileItemBean> newItemBeans = new ArrayList<>();
+            for (FileItemBean input : itemBeans) {
+                if (StringFilter.containsAllCharacters(input.getFile().getName(), filterString)) {
+                    newItemBeans.add(input);
+                }
+            }
+            return newItemBeans;
+        }
+        return itemBeans;
+    }
+
     public File getFullPath() {
         return fullPath;
     }
 
     public void refreshPath() {
         listFileAt(getFullPath());
+    }
+
+    public void showSearchDialog() {
+        EditTextDialog editTextDialog = new EditTextDialog(context, context.getString(R.string.zh_search), null, getFilterString(), null);
+        editTextDialog.setConfirm(v1 -> {
+            String string = editTextDialog.getEditBox().getText().toString();
+            setFilterString(string);
+            refreshPath();
+            editTextDialog.dismiss();
+        });
+        editTextDialog.show();
     }
 
     public void parentDir() {
