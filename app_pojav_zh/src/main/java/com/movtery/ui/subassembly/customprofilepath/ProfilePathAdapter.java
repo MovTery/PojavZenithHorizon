@@ -4,6 +4,8 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +14,15 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.ui.dialog.EditTextDialog;
 import com.movtery.ui.dialog.TipDialog;
+import com.movtery.ui.fragment.FilesFragment;
 
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.Tools;
 
 import java.util.List;
 import java.util.Map;
@@ -25,12 +30,14 @@ import java.util.Objects;
 import java.util.TreeMap;
 
 public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.ViewHolder> {
+    private final FragmentActivity fragmentActivity;
     private List<ProfileItem> mData;
     private final Map<String, RadioButton> radioButtonMap = new TreeMap<>();
     private final RecyclerView view;
     private String currentId;
 
-    public ProfilePathAdapter(RecyclerView view, List<ProfileItem> mData) {
+    public ProfilePathAdapter(FragmentActivity fragmentActivity, RecyclerView view, List<ProfileItem> mData) {
+        this.fragmentActivity = fragmentActivity;
         this.mData = mData;
         this.view = view;
         this.currentId = DEFAULT_PREF.getString("launcherProfile", "default");
@@ -82,7 +89,7 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final RadioButton mRadioButton;
         private final TextView mTitle, mPath;
-        private final ImageButton mRenameButton, mDeleteButton;
+        private final ImageButton mRenameButton, mVisitButton, mDeleteButton;
         private final View itemView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,6 +99,7 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
             mTitle = itemView.findViewById(R.id.zh_profile_path_title);
             mPath = itemView.findViewById(R.id.zh_profile_path_path);
             mRenameButton = itemView.findViewById(R.id.zh_profile_path_rename);
+            mVisitButton = itemView.findViewById(R.id.zh_profile_path_visit);
             mDeleteButton = itemView.findViewById(R.id.zh_profile_path_delete);
         }
 
@@ -122,6 +130,13 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
                     });
                     editTextDialog.show();
                 }
+            });
+
+            mVisitButton.setOnClickListener(v -> {
+                Bundle bundle = new Bundle();
+                bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, Environment.getExternalStorageDirectory().getAbsolutePath());
+                bundle.putString(FilesFragment.BUNDLE_LIST_PATH, profileItem.path);
+                Tools.swapFragment(fragmentActivity, FilesFragment.class, FilesFragment.TAG, bundle);
             });
 
             mDeleteButton.setOnClickListener(v -> {
