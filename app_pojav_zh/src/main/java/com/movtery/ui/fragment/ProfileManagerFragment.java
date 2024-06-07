@@ -97,6 +97,7 @@ public class ProfileManagerFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, lockPath.getAbsolutePath());
         bundle.putString(FilesFragment.BUNDLE_LIST_PATH, listPath.getAbsolutePath());
+        bundle.putBoolean(FilesFragment.BUNDLE_QUICK_ACCESS_PATHS, false);
 
         Tools.swapFragment(requireActivity(),
                 FilesFragment.class, FilesFragment.TAG, bundle);
