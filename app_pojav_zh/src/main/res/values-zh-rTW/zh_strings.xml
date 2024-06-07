@@ -7,9 +7,10 @@
     <string name="zh_share">分享</string>
     <string name="zh_move">移動</string>
     <string name="zh_more">更多</string>
-    <string name="zh_paste">粘貼</string>
+    <string name="zh_paste">貼上</string>
     <string name="zh_refresh">重新整理</string>
     <string name="zh_rename">重新命名</string>
+    <string name="zh_search">搜尋</string>
     <string name="zh_tip">提示</string>
     <string name="zh_confirm">確認</string>
     <string name="zh_unknown">未知</string>
@@ -44,7 +45,6 @@
 
     <string name="zh_activity_import_control">控制佈局名稱：</string>
     <string name="zh_activity_java_gui_keyboard">輸入法</string>
-    <string name="zh_activity_java_gui_paste">貼上</string>
 
     <string name="zh_controls_add_control_button">按鍵</string>
     <string name="zh_controls_add_control_drawer">組合鍵</string>

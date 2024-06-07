@@ -162,6 +162,16 @@
                 android:src="@drawable/ic_refresh" />
 
             <ImageButton
+                android:id="@+id/zh_files_search_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/zh_search"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_search" />
+
+            <ImageButton
                 android:id="@+id/zh_files_paste_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

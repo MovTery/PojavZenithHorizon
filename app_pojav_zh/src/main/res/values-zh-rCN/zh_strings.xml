@@ -10,6 +10,7 @@
     <string name="zh_paste">粘贴</string>
     <string name="zh_refresh">刷新</string>
     <string name="zh_rename">重命名</string>
+    <string name="zh_search">搜索</string>
     <string name="zh_tip">提示</string>
     <string name="zh_confirm">确认</string>
     <string name="zh_unknown">未知</string>
@@ -44,7 +45,6 @@
 
     <string name="zh_activity_import_control">控制布局名称：</string>
     <string name="zh_activity_java_gui_keyboard">输入法</string>
-    <string name="zh_activity_java_gui_paste">粘贴</string>
 
     <string name="zh_controls_add_control_button">按键</string>
     <string name="zh_controls_add_control_drawer">组合键</string>

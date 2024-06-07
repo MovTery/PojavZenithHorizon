@@ -36,7 +36,7 @@ public class FileSelectorFragment extends Fragment {
     public static final String BUNDLE_QUICK_ACCESS_PATHS = "quick_access_paths";
     public static final String BUNDLE_ROOT_PATH = "root_path";
 
-    private ImageButton mSelectFolderButton, mCreateFolderButton, mRefreshButton;
+    private ImageButton mSelectFolderButton, mCreateFolderButton, mSearchButton, mRefreshButton;
     private View mExternalStorage, mSoftwarePrivate;
     private FileRecyclerView mFileRecyclerView;
     private TextView mFilePathView;
@@ -102,7 +102,7 @@ public class FileSelectorFragment extends Fragment {
             ExtraCore.setValue(ExtraConstants.FILE_SELECTOR, removeLockPath(mFileRecyclerView.getFullPath().getAbsolutePath()));
             Tools.removeCurrentFragment(requireActivity());
         });
-
+        mSearchButton.setOnClickListener(v -> mFileRecyclerView.showSearchDialog());
         mRefreshButton.setOnClickListener(v -> mFileRecyclerView.refreshPath());
 
         mFileRecyclerView.setFileSelectedListener(new FileSelectedListener() {
@@ -141,6 +141,7 @@ public class FileSelectorFragment extends Fragment {
     private void bindViews(@NonNull View view) {
         mSelectFolderButton = view.findViewById(R.id.zh_files_return_button);
         mCreateFolderButton = view.findViewById(R.id.zh_files_create_folder_button);
+        mSearchButton = view.findViewById(R.id.zh_files_search_button);
         mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
         mFileRecyclerView = view.findViewById(R.id.zh_files);
         mFilePathView = view.findViewById(R.id.zh_files_current_path);
@@ -161,6 +162,7 @@ public class FileSelectorFragment extends Fragment {
 
         PojavZHTools.setTooltipText(mSelectFolderButton, mSelectFolderButton.getContentDescription());
         PojavZHTools.setTooltipText(mCreateFolderButton, mCreateFolderButton.getContentDescription());
+        PojavZHTools.setTooltipText(mSearchButton, mSearchButton.getContentDescription());
         PojavZHTools.setTooltipText(mRefreshButton, mRefreshButton.getContentDescription());
     }
 }

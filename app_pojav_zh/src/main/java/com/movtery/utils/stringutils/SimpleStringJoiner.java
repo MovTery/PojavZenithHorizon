@@ -1,4 +1,4 @@
-package com.movtery.utils;
+package com.movtery.utils.stringutils;
 
 import androidx.annotation.NonNull;
 
