@@ -218,6 +218,7 @@ public interface ControlInterface extends View.OnLongClickListener, GrabListener
         float MIN_DISTANCE = Tools.dpToPx(8);
 
         if (button == this) return false;
+        if (button.getControlView().getVisibility() == GONE) return false;
         return !(net.kdt.pojavlaunch.utils.MathUtils.dist(
                 button.getControlView().getX() + button.getControlView().getWidth() / 2f,
                 button.getControlView().getY() + button.getControlView().getHeight() / 2f,
