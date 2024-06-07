@@ -7,6 +7,8 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -259,6 +261,17 @@ public class PojavZHTools {
                 .add(R.id.container_fragment, fragmentClass, bundle, fragmentTag)
                 .hide(fragment)
                 .commit();
+    }
+
+    public static void restartApp(Context context) {
+        Intent intent = context.getPackageManager()
+                .getLaunchIntentForPackage(context.getPackageName());
+        PendingIntent restartIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + 1000, restartIntent);
+
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
 
     public static File getGameDirPath(String gameDir) {

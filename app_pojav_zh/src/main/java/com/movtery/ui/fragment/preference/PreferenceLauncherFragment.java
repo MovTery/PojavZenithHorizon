@@ -1,13 +1,11 @@
 package com.movtery.ui.fragment.preference;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.preference.Preference;
 
-import net.kdt.pojavlaunch.MainActivity;
-
 import com.movtery.feature.UpdateLauncher;
+import com.movtery.ui.dialog.TipDialog;
 import com.movtery.ui.fragment.CustomBackgroundFragment;
 import com.movtery.utils.CleanUpCache;
 import com.movtery.utils.PojavZHTools;
@@ -23,16 +21,10 @@ public class PreferenceLauncherFragment extends LauncherPreferenceFragment {
         Preference launcherTheme = findPreference("launcherTheme");
         if (launcherTheme != null) {
             launcherTheme.setOnPreferenceChangeListener((preference, newValue) -> {
-                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-
-                builder.setTitle(getString(R.string.zh_tip));
-                builder.setMessage(getString(R.string.zh_setting_reboot_tip));
-                builder.setPositiveButton(getString(R.string.zh_confirm),
-                        (dialogInterface, i) -> MainActivity.fullyExit());
-                builder.setNegativeButton(getString(android.R.string.cancel), null);
-
-                builder.show();
-
+                new TipDialog.Builder(requireContext())
+                        .setMessage(R.string.zh_setting_reboot_tip)
+                        .setConfirmClickListener(() -> PojavZHTools.restartApp(requireContext()))
+                        .buildDialog();
                 return true;
             });
         }
