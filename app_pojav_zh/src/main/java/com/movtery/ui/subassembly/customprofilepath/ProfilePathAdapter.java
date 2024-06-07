@@ -129,7 +129,7 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
                     Context context = mDeleteButton.getContext();
                     new TipDialog.Builder(context)
                             .setTitle(context.getString(R.string.zh_profiles_path_delete_title))
-                            .setMessage(context.getString(R.string.zh_profiles_path_delete_message))
+                            .setMessage(R.string.zh_profiles_path_delete_message)
                             .setCancelable(false)
                             .setConfirmClickListener(() -> {
                                 if (Objects.equals(currentId, profileItem.id)) {

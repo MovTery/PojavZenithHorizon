@@ -83,8 +83,18 @@ public class TipDialog extends Dialog {
             return this;
         }
 
+        public Builder setTitle(int title) {
+            this.title = this.context.getString(title);
+            return this;
+        }
+
         public Builder setMessage(String message) {
             this.message = message;
+            return this;
+        }
+
+        public Builder setMessage(int message) {
+            this.message = this.context.getString(message);
             return this;
         }
 
@@ -93,8 +103,18 @@ public class TipDialog extends Dialog {
             return this;
         }
 
+        public Builder setCancel(int cancel) {
+            this.cancel = this.context.getString(cancel);
+            return this;
+        }
+
         public Builder setConfirm(String confirm) {
             this.confirm = confirm;
+            return this;
+        }
+
+        public Builder setConfirm(int confirm) {
+            this.confirm = this.context.getString(confirm);
             return this;
         }
 

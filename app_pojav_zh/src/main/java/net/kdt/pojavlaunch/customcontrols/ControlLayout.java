@@ -16,9 +16,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
-
 import com.google.gson.JsonSyntaxException;
+import com.movtery.ui.dialog.TipDialog;
 import com.movtery.ui.subassembly.customcontrols.ControlInfoData;
 
 import net.kdt.pojavlaunch.MinecraftGLSurface;
@@ -552,12 +551,11 @@ public class ControlLayout extends FrameLayout {
 	}
 
 	public void openExitDialog(EditorExitable exitListener) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-		builder.setTitle(R.string.customctrl_editor_exit_title);
-		builder.setMessage(R.string.customctrl_editor_exit_msg);
-		builder.setPositiveButton(R.string.global_yes, (d,w)->exitListener.exitEditor());
-		builder.setNegativeButton(R.string.global_no, (d,w)->{});
-		builder.show();
+		new TipDialog.Builder(getContext())
+				.setTitle(R.string.customctrl_editor_exit_title)
+				.setMessage(R.string.customctrl_editor_exit_msg)
+				.setConfirmClickListener(exitListener::exitEditor)
+				.buildDialog();
 	}
 
 	public boolean areControlVisible(){
