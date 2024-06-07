@@ -81,7 +81,7 @@ public class ProfilePathManagerFragment extends Fragment {
         PojavZHTools.setTooltipText(createNewButton, createNewButton.getContentDescription());
         PojavZHTools.setTooltipText(returnButton, returnButton.getContentDescription());
 
-        adapter = new ProfilePathAdapter(pathList, this.mData);
+        adapter = new ProfilePathAdapter(requireActivity(), pathList, this.mData);
         pathList.setLayoutManager(new LinearLayoutManager(requireContext()));
         pathList.setAdapter(adapter);
 
