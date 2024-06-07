@@ -5,6 +5,7 @@ import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.movtery.ui.subassembly.filelist.FileIcon;
+import com.movtery.ui.subassembly.filelist.FileRecyclerAdapter;
 import com.movtery.ui.subassembly.filelist.FileRecyclerView;
 import com.movtery.utils.PasteFile;
 import com.movtery.ui.subassembly.filelist.FileSelectedListener;
@@ -35,6 +37,7 @@ public class ModsFragment extends Fragment {
     public static final String disableJarFileSuffix = ".jar.disabled";
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private ImageButton mReturnButton, mAddModButton, mPasteButton, mDownloadButton, mSearchButton, mRefreshButton;
+    private CheckBox mMultiSelectCheck, mSelectAllCheck;
     private FileRecyclerView mFileRecyclerView;
     private String mRootPath;
 
@@ -85,30 +88,75 @@ public class ModsFragment extends Fragment {
                 }
             }
         });
+        mFileRecyclerView.setOnMultiSelectListener(itemBeans -> {
+            if (!itemBeans.isEmpty()) {
+                FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
+                filesButton.titleText = getString(R.string.zh_file_multi_select_mode_title);
+                filesButton.messageText = getString(R.string.zh_file_multi_select_mode_message, itemBeans.size());
+                filesButton.moreButtonText = getString(R.string.zh_profile_mods_disable_or_enable);
+                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, itemBeans, () -> runOnUiThread(() -> {
+                    mFileRecyclerView.refreshPath();
+                    closeMultiSelect();
+                }), v -> itemBeans.forEach(value -> {
+                    File file = value.getFile();
+                    if (file != null && file.exists()) {
+                        String fileName = file.getName();
+                        if (fileName.endsWith(jarFileSuffix)) {
+                            disableMod(file);
+                        } else if (fileName.endsWith(disableJarFileSuffix)) {
+                            enableMod(file);
+                        }
+                    }
+                }));
+                filesDialog.setCopyButtonClick(() -> mPasteButton.setVisibility(View.VISIBLE));
+                filesDialog.show();
+            }
+        });
+        FileRecyclerAdapter adapter = mFileRecyclerView.getAdapter();
+        mMultiSelectCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            mSelectAllCheck.setChecked(false);
+            mSelectAllCheck.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+            adapter.setMultiSelectMode(isChecked);
+        });
+        mSelectAllCheck.setOnCheckedChangeListener((buttonView, isChecked) -> adapter.selectAllFiles(isChecked));
 
         mReturnButton.setOnClickListener(v -> PojavZHTools.onBackPressed(requireActivity()));
         mAddModButton.setOnClickListener(v -> {
+            closeMultiSelect();
             String suffix = ".jar";
             Toast.makeText(requireActivity(), String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show();
             openDocumentLauncher.launch(suffix);
         });
-        mPasteButton.setOnClickListener(v -> PasteFile.pasteFile(requireActivity(), mFileRecyclerView.getFullPath(), getFileSuffix(PasteFile.COPY_FILE), () -> runOnUiThread(() -> {
+        mPasteButton.setOnClickListener(v -> PasteFile.getInstance().pasteFiles(requireActivity(), mFileRecyclerView.getFullPath(), this::getFileSuffix, () -> runOnUiThread(() -> {
+            closeMultiSelect();
             mPasteButton.setVisibility(View.GONE);
             mFileRecyclerView.refreshPath();
         })));
         mDownloadButton.setOnClickListener(v -> {
+            closeMultiSelect();
             Bundle bundle = new Bundle();
             bundle.putBoolean(SearchModFragment.BUNDLE_SEARCH_MODPACK, false);
             bundle.putString(SearchModFragment.BUNDLE_MOD_PATH, mRootPath);
             Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, bundle);
         });
-        mSearchButton.setOnClickListener(v -> mFileRecyclerView.showSearchDialog());
-        mRefreshButton.setOnClickListener(v -> mFileRecyclerView.refreshPath());
+        mSearchButton.setOnClickListener(v -> {
+            closeMultiSelect();
+            mFileRecyclerView.showSearchDialog();
+        });
+        mRefreshButton.setOnClickListener(v -> {
+            closeMultiSelect();
+            mFileRecyclerView.refreshPath();
+        });
+    }
+
+    private void closeMultiSelect() {
+        //点击其它控件时关闭多选模式
+        mMultiSelectCheck.setChecked(false);
+        mSelectAllCheck.setVisibility(View.GONE);
     }
 
     private void showDialog(File file) {
         String fileName = file.getName();
-        String fileParent = file.getParent();
 
         FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
         filesButton.setButtonVisibility(true, true, !file.isDirectory(), true, true, (fileName.endsWith(jarFileSuffix) || fileName.endsWith(disableJarFileSuffix)));
@@ -130,26 +178,38 @@ public class ModsFragment extends Fragment {
         if (fileName.endsWith(jarFileSuffix)) {
             filesDialog.setFileSuffix(jarFileSuffix);
             filesDialog.setMoreButtonClick(v -> {
-                File newFile = new File(fileParent, fileName + ".disabled");
-                PojavZHTools.renameFile(file, newFile);
-                mFileRecyclerView.refreshPath();
+                disableMod(file);
                 filesDialog.dismiss();
             });
         } else if (fileName.endsWith(disableJarFileSuffix)) {
             filesDialog.setFileSuffix(disableJarFileSuffix);
             filesDialog.setMoreButtonClick(v -> {
-                String newFileName = fileName.substring(0, fileName.lastIndexOf(disableJarFileSuffix));
-                if (!fileName.endsWith(jarFileSuffix))
-                    newFileName += jarFileSuffix; //如果没有.jar结尾，那么默认加上.jar后缀
-
-                File newFile = new File(fileParent, newFileName);
-                PojavZHTools.renameFile(file, newFile);
-                mFileRecyclerView.refreshPath();
+                enableMod(file);
                 filesDialog.dismiss();
             });
         }
 
         filesDialog.show();
+    }
+
+    private void disableMod(File file) {
+        String fileName = file.getName();
+        String fileParent = file.getParent();
+        File newFile = new File(fileParent, fileName + ".disabled");
+        PojavZHTools.renameFile(file, newFile);
+        mFileRecyclerView.refreshPath();
+    }
+
+    private void enableMod(File file) {
+        String fileName = file.getName();
+        String fileParent = file.getParent();
+        String newFileName = fileName.substring(0, fileName.lastIndexOf(disableJarFileSuffix));
+        if (!fileName.endsWith(jarFileSuffix))
+            newFileName += jarFileSuffix; //如果没有.jar结尾，那么默认加上.jar后缀
+
+        File newFile = new File(fileParent, newFileName);
+        PojavZHTools.renameFile(file, newFile);
+        mFileRecyclerView.refreshPath();
     }
 
     private String getFileSuffix(File file) {
@@ -177,11 +237,13 @@ public class ModsFragment extends Fragment {
         mDownloadButton = view.findViewById(R.id.zh_mods_download_mod_button);
         mSearchButton = view.findViewById(R.id.zh_mods_search_button);
         mRefreshButton = view.findViewById(R.id.zh_mods_refresh_button);
+        mMultiSelectCheck = view.findViewById(R.id.zh_mods_multi_select_files);
+        mSelectAllCheck = view.findViewById(R.id.zh_mods_select_all);
         mFileRecyclerView = view.findViewById(R.id.zh_mods);
 
         mFileRecyclerView.setFileIcon(FileIcon.MOD);
 
-        mPasteButton.setVisibility(PasteFile.PASTE_TYPE != null ? View.VISIBLE : View.GONE);
+        mPasteButton.setVisibility(PasteFile.getInstance().getPasteType() != null ? View.VISIBLE : View.GONE);
 
         PojavZHTools.setTooltipText(mReturnButton, mReturnButton.getContentDescription());
         PojavZHTools.setTooltipText(mAddModButton, mAddModButton.getContentDescription());

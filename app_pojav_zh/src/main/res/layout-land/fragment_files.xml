@@ -56,6 +56,15 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="HardcodedText" />
 
+            <CheckBox
+                android:id="@+id/zh_file_select_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/zh_files"
+                app:layout_constraintEnd_toEndOf="@+id/zh_files" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -137,6 +146,19 @@
                 android:textColor="@color/black_or_white"
                 android:text="@string/zh_file_software_private" />
         </RelativeLayout>
+
+        <CheckBox
+            android:id="@+id/zh_file_multi_select_files"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:paddingStart="8dp"
+            android:text="@string/zh_file_multi_select_mode"
+            app:layout_constraintBottom_toTopOf="@+id/zh_files_software_private"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="RtlSymmetry" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/linearLayoutCompat5"

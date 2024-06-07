@@ -58,14 +58,15 @@ public class FileRecyclerView extends LinearLayout {
         fileRecyclerViewCreator = new FileRecyclerViewCreator(
                 context,
                 mainLv,
-                (position, file, name) -> {
+                (position, fileItemBean) -> {
                     if (position == 0 && !lockPath.equals(fullPath)) {
                         parentDir();
                     } else {
-                        listFileAt(file);
+                        listFileAt(fileItemBean.getFile());
                     }
                 },
-                (position, file, name) -> {
+                (position, fileItemBean) -> {
+                    File file = fileItemBean.getFile();
                     if (file != null) {
                         if (position == 0 && !lockPath.equals(fullPath)) {
                             parentDir();
@@ -81,6 +82,10 @@ public class FileRecyclerView extends LinearLayout {
 
     public void setFileSelectedListener(FileSelectedListener listener) {
         this.fileSelectedListener = listener;
+    }
+
+    public void setOnMultiSelectListener(FileRecyclerAdapter.OnMultiSelectListener listener) {
+        this.fileRecyclerViewCreator.setOnMultiSelectListener(listener);
     }
 
     public void setTitleListener(SetTitleListener setTitleListener) {
@@ -107,6 +112,10 @@ public class FileRecyclerView extends LinearLayout {
         return filterString;
     }
 
+    public FileRecyclerAdapter getAdapter() {
+        return fileRecyclerViewCreator.getFileRecyclerAdapter();
+    }
+
     public void lockAndListAt(File lockPath, File listPath) {
         this.lockPath = lockPath;
         listFileAt(listPath);
@@ -126,6 +135,7 @@ public class FileRecyclerView extends LinearLayout {
                     FileItemBean itemBean = new FileItemBean();
                     itemBean.setImage(context.getResources().getDrawable(R.drawable.ic_folder, context.getTheme()));
                     itemBean.setName("..");
+                    itemBean.setCanCheck(false);
                     itemBeans.add(0, itemBean);
                 }
 

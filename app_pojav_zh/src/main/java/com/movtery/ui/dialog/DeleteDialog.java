@@ -1,6 +1,5 @@
 package com.movtery.ui.dialog;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
@@ -11,28 +10,43 @@ import net.kdt.pojavlaunch.R;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.List;
 
 public class DeleteDialog extends TipDialog.Builder {
-    private final Context context;
-    private final Runnable runnable;
-    private final File mFile;
-    private final boolean isFolder;
+    private Context context;
+    private Runnable runnable;
+
+    public DeleteDialog(@NonNull Context context, Runnable runnable, List<File> file) {
+        super(context);
+        init(context, runnable);
+        multiSelectMode(file);
+    }
 
     public DeleteDialog(@NonNull Context context, Runnable runnable, File file) {
         super(context);
-        this.context = context;
-        this.runnable = runnable;
-        this.mFile = file;
-
-        this.setCancelable(false);
-
-        isFolder = mFile.isDirectory();
-        init();
+        init(context, runnable);
+        singleChoiceMode(file);
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private void init() {
+    private void init(Context context, Runnable runnable) {
+        this.context = context;
+        this.runnable = runnable;
+        this.setCancelable(false);
+    }
+
+    private void multiSelectMode(List<File> files) {
+        setTitle(R.string.zh_file_delete_multiple_items_title);
+        setMessage(R.string.zh_file_delete_multiple_items_message);
+        setConfirm(R.string.global_delete);
+
+        setConfirmClickListener(() -> {
+            files.forEach(FileUtils::deleteQuietly);
+            if (runnable != null) PojavApplication.sExecutorService.execute(runnable);
+        });
+    }
+
+    private void singleChoiceMode(File file) {
+        boolean isFolder = file.isDirectory();
         setTitle(isFolder ?
                 context.getString(R.string.zh_file_delete_dir) :
                 context.getString(R.string.zh_file_tips));
@@ -42,15 +56,7 @@ public class DeleteDialog extends TipDialog.Builder {
         setConfirm(R.string.global_delete);
 
         setConfirmClickListener(() -> {
-            try {
-                if (isFolder) {
-                    FileUtils.deleteDirectory(mFile);
-                } else {
-                    FileUtils.deleteQuietly(mFile);
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            FileUtils.deleteQuietly(file);
             if (runnable != null) PojavApplication.sExecutorService.execute(runnable);
         });
     }

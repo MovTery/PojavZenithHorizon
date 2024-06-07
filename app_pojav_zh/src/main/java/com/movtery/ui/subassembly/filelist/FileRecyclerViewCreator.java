@@ -48,6 +48,14 @@ public class FileRecyclerViewCreator {
         if (PREF_ANIMATION) this.mainRecyclerView.scheduleLayoutAnimation();
     }
 
+    public void setOnMultiSelectListener(FileRecyclerAdapter.OnMultiSelectListener listener) {
+        fileRecyclerAdapter.setOnMultiSelectListener(listener);
+    }
+
+    public FileRecyclerAdapter getFileRecyclerAdapter() {
+        return fileRecyclerAdapter;
+    }
+
     @SuppressLint("UseCompatLoadingForDrawables")
     public static List<FileItemBean> loadItemBeansFromPath(Context context, File path, FileIcon fileIcon, boolean showFile, boolean showFolder) {
         List<FileItemBean> itemBeans = new ArrayList<>();

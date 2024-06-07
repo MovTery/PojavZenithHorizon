@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
 import com.movtery.ui.subassembly.filelist.FileIcon;
+import com.movtery.ui.subassembly.filelist.FileRecyclerAdapter;
 import com.movtery.utils.PasteFile;
 import com.movtery.ui.subassembly.filelist.FileRecyclerView;
 import com.movtery.ui.subassembly.filelist.FileSelectedListener;
@@ -36,13 +38,16 @@ public class FilesFragment extends Fragment {
     public static final String BUNDLE_LOCK_PATH = "bundle_lock_path";
     public static final String BUNDLE_LIST_PATH = "bundle_list_path";
     public static final String BUNDLE_QUICK_ACCESS_PATHS = "quick_access_paths";
+    public static final String BUNDLE_MULTI_SELECT_MODE = "multi_select_mode";
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private ImageButton mReturnButton, mAddFileButton, mCreateFolderButton, mPasteButton, mSearchButton, mRefreshButton;
+    private CheckBox mMultiSelectCheck, mSelectAllCheck;
     private View mExternalStorage, mSoftwarePrivate;
     private FileRecyclerView mFileRecyclerView;
     private TextView mFilePathView;
     private String mLockPath, mListPath;
-    private boolean mQuickAccessPaths = true;
+    private boolean mQuickAccessPaths;
+    private boolean mMultiSelectMode;
 
     public FilesFragment() {
         super(R.layout.fragment_files);
@@ -97,12 +102,42 @@ public class FilesFragment extends Fragment {
             }
         });
 
-        mExternalStorage.setOnClickListener(v -> mFileRecyclerView.listFileAt(Environment.getExternalStorageDirectory()));
-        mSoftwarePrivate.setOnClickListener(v -> mFileRecyclerView.listFileAt(requireContext().getExternalFilesDir(null)));
+        mFileRecyclerView.setOnMultiSelectListener(itemBeans -> {
+            if (!itemBeans.isEmpty()) {
+                FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
+                filesButton.titleText = getString(R.string.zh_file_multi_select_mode_title);
+                filesButton.messageText = getString(R.string.zh_file_multi_select_mode_message, itemBeans.size());
+                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, itemBeans, () -> runOnUiThread(() -> {
+                    mFileRecyclerView.refreshPath();
+                    closeMultiSelect();
+                }), null);
+                filesDialog.setCopyButtonClick(() -> mPasteButton.setVisibility(View.VISIBLE));
+                filesDialog.show();
+            }
+        });
+        mExternalStorage.setOnClickListener(v -> {
+            closeMultiSelect();
+            mFileRecyclerView.listFileAt(Environment.getExternalStorageDirectory());
+        });
+        mSoftwarePrivate.setOnClickListener(v -> {
+            closeMultiSelect();
+            mFileRecyclerView.listFileAt(requireContext().getExternalFilesDir(null));
+        });
+        FileRecyclerAdapter adapter = mFileRecyclerView.getAdapter();
+        mMultiSelectCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            mSelectAllCheck.setChecked(false);
+            mSelectAllCheck.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+            adapter.setMultiSelectMode(isChecked);
+        });
+        mSelectAllCheck.setOnCheckedChangeListener((buttonView, isChecked) -> adapter.selectAllFiles(isChecked));
 
         mReturnButton.setOnClickListener(v -> PojavZHTools.onBackPressed(requireActivity()));
-        mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(null)); //不限制文件类型
+        mAddFileButton.setOnClickListener(v -> {
+            closeMultiSelect();
+            openDocumentLauncher.launch(null);
+        }); //不限制文件类型
         mCreateFolderButton.setOnClickListener(v -> {
+            closeMultiSelect();
             EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(R.string.folder_dialog_insert_name), null, null, null);
             editTextDialog.setConfirm(view1 -> {
                 String name = editTextDialog.getEditBox().getText().toString().replace("/", "");
@@ -129,12 +164,25 @@ public class FilesFragment extends Fragment {
             });
             editTextDialog.show();
         });
-        mPasteButton.setOnClickListener(v -> PasteFile.pasteFile(requireActivity(), mFileRecyclerView.getFullPath(), null, () -> runOnUiThread(() -> {
+        mPasteButton.setOnClickListener(v -> PasteFile.getInstance().pasteFiles(requireActivity(), mFileRecyclerView.getFullPath(), null, () -> runOnUiThread(() -> {
+            closeMultiSelect();
             mPasteButton.setVisibility(View.GONE);
             mFileRecyclerView.refreshPath();
         })));
-        mSearchButton.setOnClickListener(v -> mFileRecyclerView.showSearchDialog());
-        mRefreshButton.setOnClickListener(v -> mFileRecyclerView.refreshPath());
+        mSearchButton.setOnClickListener(v -> {
+            closeMultiSelect();
+            mFileRecyclerView.showSearchDialog();
+        });
+        mRefreshButton.setOnClickListener(v -> {
+            closeMultiSelect();
+            mFileRecyclerView.refreshPath();
+        });
+    }
+
+    private void closeMultiSelect() {
+        //点击其它控件时关闭多选模式
+        mMultiSelectCheck.setChecked(false);
+        mSelectAllCheck.setVisibility(View.GONE);
     }
 
     private void showDialog(File file) {
@@ -178,15 +226,21 @@ public class FilesFragment extends Fragment {
         mFilePathView = view.findViewById(R.id.zh_files_current_path);
         mExternalStorage = view.findViewById(R.id.zh_files_external_storage);
         mSoftwarePrivate = view.findViewById(R.id.zh_files_software_private);
+        mMultiSelectCheck = view.findViewById(R.id.zh_file_multi_select_files);
+        mSelectAllCheck = view.findViewById(R.id.zh_file_select_all);
 
         if (!mQuickAccessPaths) {
             mExternalStorage.setVisibility(View.GONE);
             mSoftwarePrivate.setVisibility(View.GONE);
         }
+        if (!mMultiSelectMode) {
+            mMultiSelectCheck.setVisibility(View.GONE);
+            mSelectAllCheck.setVisibility(View.GONE);
+        }
 
         mFileRecyclerView.setFileIcon(FileIcon.FILE);
 
-        mPasteButton.setVisibility(PasteFile.PASTE_TYPE != null ? View.VISIBLE : View.GONE);
+        mPasteButton.setVisibility(PasteFile.getInstance().getPasteType() != null ? View.VISIBLE : View.GONE);
 
         PojavZHTools.setTooltipText(mReturnButton, mReturnButton.getContentDescription());
         PojavZHTools.setTooltipText(mAddFileButton, mAddFileButton.getContentDescription());
@@ -202,6 +256,7 @@ public class FilesFragment extends Fragment {
         mLockPath = bundle.getString(BUNDLE_LOCK_PATH, ProfilePathManager.getCurrentPath());
         mListPath = bundle.getString(BUNDLE_LIST_PATH, null);
         mQuickAccessPaths = bundle.getBoolean(BUNDLE_QUICK_ACCESS_PATHS, true);
+        mMultiSelectMode = bundle.getBoolean(BUNDLE_MULTI_SELECT_MODE, true);
     }
 }
 

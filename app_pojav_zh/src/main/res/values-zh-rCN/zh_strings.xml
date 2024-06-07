@@ -98,10 +98,15 @@
     <string name="zh_file_delete">你确定要删除此文件吗？</string>
     <string name="zh_file_delete_dir">你确定要删除此文件夹吗？</string>
     <string name="zh_file_delete_dir_message">删除文件夹时，会将此文件夹内部全部文件一并删除，如果这个文件夹内含有重要的文件，那么请取消此操作！</string>
+    <string name="zh_file_delete_multiple_items_title">你确定要删除已选的项目吗？</string>
+    <string name="zh_file_delete_multiple_items_message">此操作将永久删除全部已经选择的项目，请谨慎操作！</string>
     <string name="zh_file_rename_empty">文件名不能为空！</string>
     <string name="zh_file_rename_exitis">文件名与现有文件相冲突！</string>
     <string name="zh_file_external_storage">外部存储目录</string>
     <string name="zh_file_software_private">软件私有目录</string>
+    <string name="zh_file_multi_select_mode">开启多选模式</string>
+    <string name="zh_file_multi_select_mode_title">多选项目</string>
+    <string name="zh_file_multi_select_mode_message">当前总共选择了 %d 个项目</string>
 
     <string name="zh_neoforge_dl_searching">正在搜索 NeoForge 版本号</string>
     <string name="zh_neoforge_dl_no_installer">很抱歉，该版本的 NeoForge 没有安装程序，尚不支持</string>
@@ -155,7 +160,8 @@
     <string name="zh_profile_mods_added_mod">成功添加 Mod</string>
     <string name="zh_profile_mods_disable">禁用</string>
     <string name="zh_profile_mods_enable">启用</string>
-    
+    <string name="zh_profile_mods_disable_or_enable">禁用/启用</string>
+
     <string name="zh_profile_manager_shortcuts">快捷功能</string>
     <string name="zh_profile_manager_shortcuts_mods">Mod 管理</string>
     <string name="zh_profile_manager_shortcuts_instance_path">实例路径文件夹</string>

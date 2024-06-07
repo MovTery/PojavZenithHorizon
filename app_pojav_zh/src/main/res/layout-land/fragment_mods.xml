@@ -55,6 +55,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <CheckBox
+                android:id="@+id/zh_mods_select_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/zh_mods"
+                app:layout_constraintEnd_toEndOf="@+id/zh_mods" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -80,14 +89,28 @@
         app:layout_constraintStart_toEndOf="@+id/constraintLayout"
         app:layout_constraintTop_toTopOf="parent">
 
+        <CheckBox
+            android:id="@+id/zh_mods_multi_select_files"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:paddingStart="8dp"
+            android:text="@string/zh_file_multi_select_mode"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayoutCompat6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="RtlSymmetry" />
+
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCompat6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="26dp"
-            android:orientation="horizontal"
             android:gravity="center_horizontal"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -97,9 +120,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:scaleType="fitCenter"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/zh_refresh"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_refresh" />
 
             <ImageButton
@@ -117,9 +140,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:scaleType="fitCenter"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/zh_paste"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_paste" />
 
             <ImageButton
@@ -127,9 +150,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:scaleType="fitCenter"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/zh_profile_mods_download_mod"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_download" />
 
             <ImageButton
@@ -137,9 +160,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:scaleType="fitCenter"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/zh_profile_mods_add_mod"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_add_new" />
 
             <ImageButton
@@ -147,9 +170,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:scaleType="fitCenter"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/zh_return"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_close" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
