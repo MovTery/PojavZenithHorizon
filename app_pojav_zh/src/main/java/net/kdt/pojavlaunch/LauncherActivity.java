@@ -159,8 +159,8 @@ public class LauncherActivity extends BaseActivity {
 
     /* Listener for account deletion */
     private final View.OnClickListener mAccountDeleteButtonListener = v -> new TipDialog.Builder(this)
-        .setMessage(getString(R.string.warning_remove_account))
-            .setConfirm(getString(R.string.global_delete))
+        .setMessage(R.string.warning_remove_account)
+            .setConfirm(R.string.global_delete)
             .setConfirmClickListener(() -> mAccountSpinner.removeCurrentAccount())
             .buildDialog();
 

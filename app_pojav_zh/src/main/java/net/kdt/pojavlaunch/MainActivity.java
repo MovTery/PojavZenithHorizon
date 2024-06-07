@@ -45,6 +45,7 @@ import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.kdt.LoggerView;
+import com.movtery.ui.dialog.TipDialog;
 import com.movtery.ui.subassembly.background.BackgroundType;
 
 import net.kdt.pojavlaunch.customcontrols.ControlButtonMenuListener;
@@ -440,16 +441,16 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     }
 
     public static void dialogForceClose(Context ctx) {
-        new AlertDialog.Builder(ctx)
+        new TipDialog.Builder(ctx)
                 .setMessage(R.string.mcn_exit_confirm)
-                .setNegativeButton(android.R.string.cancel, null)
-                .setPositiveButton(android.R.string.ok, (p1, p2) -> {
+                .setConfirmClickListener(() -> {
                     try {
                         fullyExit();
                     } catch (Throwable th) {
                         Log.w(Tools.APP_NAME, "Could not enable System.exit() method!", th);
                     }
-                }).show();
+                })
+                .buildDialog();
     }
 
     @Override

@@ -39,7 +39,7 @@ public class DeleteDialog extends TipDialog.Builder {
         setMessage(isFolder ?
                 context.getString(R.string.zh_file_delete_dir_message) :
                 context.getString(R.string.zh_file_delete));
-        setConfirm(context.getString(R.string.global_delete));
+        setConfirm(R.string.global_delete);
 
         setConfirmClickListener(() -> {
             try {
