@@ -35,12 +35,14 @@ public class FilesFragment extends Fragment {
     public static final String TAG = "FilesFragment";
     public static final String BUNDLE_LOCK_PATH = "bundle_lock_path";
     public static final String BUNDLE_LIST_PATH = "bundle_list_path";
+    public static final String BUNDLE_QUICK_ACCESS_PATHS = "quick_access_paths";
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private ImageButton mReturnButton, mAddFileButton, mCreateFolderButton, mPasteButton, mSearchButton, mRefreshButton;
     private View mExternalStorage, mSoftwarePrivate;
     private FileRecyclerView mFileRecyclerView;
     private TextView mFilePathView;
     private String mLockPath, mListPath;
+    private boolean mQuickAccessPaths = true;
 
     public FilesFragment() {
         super(R.layout.fragment_files);
@@ -70,8 +72,8 @@ public class FilesFragment extends Fragment {
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        bindViews(view);
         parseBundle();
+        bindViews(view);
 
         mFileRecyclerView.setTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
 
@@ -177,6 +179,11 @@ public class FilesFragment extends Fragment {
         mExternalStorage = view.findViewById(R.id.zh_files_external_storage);
         mSoftwarePrivate = view.findViewById(R.id.zh_files_software_private);
 
+        if (!mQuickAccessPaths) {
+            mExternalStorage.setVisibility(View.GONE);
+            mSoftwarePrivate.setVisibility(View.GONE);
+        }
+
         mFileRecyclerView.setFileIcon(FileIcon.FILE);
 
         mPasteButton.setVisibility(PasteFile.PASTE_TYPE != null ? View.VISIBLE : View.GONE);
@@ -194,6 +201,7 @@ public class FilesFragment extends Fragment {
         if (bundle == null) return;
         mLockPath = bundle.getString(BUNDLE_LOCK_PATH, ProfilePathManager.getCurrentPath());
         mListPath = bundle.getString(BUNDLE_LIST_PATH, null);
+        mQuickAccessPaths = bundle.getBoolean(BUNDLE_QUICK_ACCESS_PATHS, true);
     }
 }
 
