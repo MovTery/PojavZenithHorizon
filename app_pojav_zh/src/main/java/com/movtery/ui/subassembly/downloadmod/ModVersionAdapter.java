@@ -18,6 +18,7 @@ import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
+import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.In
         this.mod = mod;
         this.modDetail = modDetail;
         this.mData = mData;
+        ProgressKeeper.addTaskCountListener(this);
     }
 
     @NonNull
