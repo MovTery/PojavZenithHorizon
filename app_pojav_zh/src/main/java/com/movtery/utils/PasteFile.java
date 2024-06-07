@@ -12,52 +12,95 @@ import net.kdt.pojavlaunch.Tools;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class PasteFile {
-    public static File COPY_FILE = null;
-    public static PasteType PASTE_TYPE = null;
+    private List<File> copyFiles = new ArrayList<>();
+    private PasteType pasteType = null;
 
-    public static void pasteFile(Activity activity, File target, String fileExtension, Runnable endRunnable) {
-        if (PasteFile.COPY_FILE != null && PasteFile.COPY_FILE.exists()) {
-            try {
-                //获取当前记录的粘贴状态（如果为空，那么就设置为“复制”模式）
-                PasteFile.PasteType pasteType = PasteFile.PASTE_TYPE == null ? PasteFile.PasteType.COPY : PasteFile.PASTE_TYPE;
+    // 单例模式
+    private static final PasteFile instance = new PasteFile();
 
-                File destFileOrDir = getNewDestination(PasteFile.COPY_FILE, target, fileExtension);
+    public static PasteFile getInstance() {
+        return instance;
+    }
 
-                if (PasteFile.COPY_FILE.isFile()) {
-                    if (pasteType == PasteFile.PasteType.COPY) {
-                        FileUtils.copyFile(PasteFile.COPY_FILE, destFileOrDir);
-                    } else if (!Objects.equals(PasteFile.COPY_FILE.getParent(), destFileOrDir.getParent())) {
-                        //检查父路径是否一致，如果是，那么就不执行这里的移动逻辑
-                        FileUtils.moveFile(PasteFile.COPY_FILE, destFileOrDir);
-                    }
-                } else if (PasteFile.COPY_FILE.isDirectory()) {
-                    if (pasteType == PasteFile.PasteType.COPY) {
-                        FileUtils.copyDirectory(PasteFile.COPY_FILE, destFileOrDir);
-                    } else if (!Objects.equals(PasteFile.COPY_FILE.getParent(), destFileOrDir.getParent())) {
-                        //与上面一样
-                        FileUtils.moveDirectory(PasteFile.COPY_FILE, destFileOrDir);
+    private PasteFile() {}
+
+    public void setCopyFiles(List<File> files) {
+        this.copyFiles = new ArrayList<>(files);
+    }
+
+    public void setCopyFile(File file) {
+        this.copyFiles.clear();
+        this.copyFiles.add(file);
+    }
+
+    public void setPaste(List<File> files, PasteType type) {
+        setCopyFiles(files);
+        this.pasteType = type;
+    }
+
+    public void setPaste(File file, PasteType type) {
+        setCopyFile(file);
+        this.pasteType = type;
+    }
+
+    public PasteType getPasteType() {
+        return pasteType;
+    }
+
+    public interface FileExtensionGetter {
+        String onGet(File file);
+    }
+
+    public void pasteFiles(Activity activity, File target, FileExtensionGetter fileExtensionGetter, Runnable endRunnable) {
+        if (copyFiles == null || copyFiles.isEmpty()) {
+            runOnUiThread(() -> Toast.makeText(activity, activity.getString(R.string.zh_file_does_not_exist), Toast.LENGTH_SHORT).show());
+            return;
+        }
+
+        PojavApplication.sExecutorService.execute(() -> {
+            for (File file : copyFiles) {
+                if (file.exists()) {
+                    try {
+                        handleFileOperation(file, target, fileExtensionGetter);
+                    } catch (Exception e) {
+                        Tools.showError(activity, e);
                     }
                 }
-
-                PasteFile.COPY_FILE = null;
-                PasteFile.PASTE_TYPE = null;
-                PojavApplication.sExecutorService.execute(endRunnable);
-            } catch (Exception e) {
-                Tools.showError(activity, e);
             }
-        } else {
-            runOnUiThread(() -> Toast.makeText(activity, activity.getString(R.string.zh_file_does_not_exist), Toast.LENGTH_SHORT).show());
+            resetState();
+            if (endRunnable != null) {
+                endRunnable.run();
+            }
+        });
+    }
+
+    private void handleFileOperation(File file, File target, FileExtensionGetter fileExtensionGetter) throws Exception {
+        String fileExtension = (fileExtensionGetter != null) ? fileExtensionGetter.onGet(file) : null;
+        File destFileOrDir = getNewDestination(file, target, fileExtension);
+
+        if (file.isFile()) {
+            if (pasteType == PasteType.COPY) {
+                FileUtils.copyFile(file, destFileOrDir);
+            } else if (!Objects.equals(file.getParent(), destFileOrDir.getParent())) {
+                FileUtils.moveFile(file, destFileOrDir);
+            }
+        } else if (file.isDirectory()) {
+            if (pasteType == PasteType.COPY) {
+                FileUtils.copyDirectory(file, destFileOrDir);
+            } else if (!Objects.equals(file.getParent(), destFileOrDir.getParent())) {
+                FileUtils.moveDirectory(file, destFileOrDir);
+            }
         }
     }
 
-    //获取新的目标文件或目录，确保不与现有文件或目录冲突
-    private static File getNewDestination(File sourceFile, File targetDir, String fileExtension) {
+    private File getNewDestination(File sourceFile, File targetDir, String fileExtension) {
         File destFile = new File(targetDir, sourceFile.getName());
         if (destFile.exists()) {
-            //如果目标文件或目录已存在，则重命名
             String fileNameWithoutExt = PojavZHTools.getFileNameWithoutExtension(sourceFile.getName(), fileExtension);
             if (fileExtension == null) {
                 int dotIndex = sourceFile.getName().lastIndexOf('.');
@@ -72,6 +115,11 @@ public class PasteFile {
             }
         }
         return destFile;
+    }
+
+    private void resetState() {
+        pasteType = null;
+        copyFiles.clear();
     }
 
     public enum PasteType {

@@ -2,6 +2,8 @@ package com.movtery.ui.subassembly.filelist;
 
 import android.graphics.drawable.Drawable;
 
+import androidx.annotation.NonNull;
+
 import com.movtery.utils.stringutils.SortStrings;
 
 import java.io.File;
@@ -10,6 +12,7 @@ public class FileItemBean implements Comparable<FileItemBean> {
     private Drawable image;
     private File file;
     private String name;
+    private boolean isCanCheck = true;
 
     public FileItemBean() {
     }
@@ -44,6 +47,14 @@ public class FileItemBean implements Comparable<FileItemBean> {
         this.name = name;
     }
 
+    public boolean isCanCheck() {
+        return isCanCheck;
+    }
+
+    public void setCanCheck(boolean canCheck) {
+        isCanCheck = canCheck;
+    }
+
     @Override
     public int compareTo(FileItemBean o) {
         if (o == null) {
@@ -65,5 +76,14 @@ public class FileItemBean implements Comparable<FileItemBean> {
         }
 
         return SortStrings.compareChar(thisName, otherName);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "FileItemBean{" +
+                "file=" + file +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

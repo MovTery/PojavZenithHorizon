@@ -111,7 +111,8 @@ public class CustomMouseFragment extends Fragment {
         PojavZHTools.setTooltipText(mRefreshButton, mRefreshButton.getContentDescription());
 
         RecyclerView mMouseListView = view.findViewById(R.id.zh_custom_mouse);
-        fileRecyclerViewCreator = new FileRecyclerViewCreator(requireContext(), mMouseListView, (position, file, name) -> {
+        fileRecyclerViewCreator = new FileRecyclerViewCreator(requireContext(), mMouseListView, (position, fileItemBean) -> {
+            File file = fileItemBean.getFile();
             String fileName = file == null ? null : file.getName();
             boolean isDefaultMouse = position == 0;
 

@@ -95,7 +95,7 @@ public class ControlButtonFragment extends Fragment {
         });
 
         mReturnButton.setOnClickListener(v -> PojavZHTools.onBackPressed(requireActivity()));
-        mPasteButton.setOnClickListener(v -> PasteFile.pasteFile(requireActivity(), new File(Tools.CTRLMAP_PATH), null, () -> runOnUiThread(() -> {
+        mPasteButton.setOnClickListener(v -> PasteFile.getInstance().pasteFiles(requireActivity(), new File(Tools.CTRLMAP_PATH), null, () -> runOnUiThread(() -> {
             mPasteButton.setVisibility(View.GONE);
             controlsListView.refresh();
         })));
@@ -179,7 +179,7 @@ public class ControlButtonFragment extends Fragment {
         mRefreshButton = view.findViewById(R.id.zh_controls_refresh_button);
         controlsListView = view.findViewById(R.id.zh_controls_list);
 
-        mPasteButton.setVisibility(PasteFile.PASTE_TYPE != null ? View.VISIBLE : View.GONE);
+        mPasteButton.setVisibility(PasteFile.getInstance().getPasteType() != null ? View.VISIBLE : View.GONE);
 
         PojavZHTools.setTooltipText(mReturnButton, mReturnButton.getContentDescription());
         PojavZHTools.setTooltipText(mImportControlButton, mImportControlButton.getContentDescription());
