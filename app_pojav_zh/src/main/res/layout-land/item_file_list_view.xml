@@ -11,9 +11,9 @@
     <ImageView
         android:id="@+id/zh_file_image"
         android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_height="match_parent"
         android:layout_marginStart="12dp"
-        android:scaleType="fitCenter"
+        android:scaleType="centerInside"
         android:src="@drawable/ic_file"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

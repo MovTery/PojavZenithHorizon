@@ -27,7 +27,6 @@ import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
-import net.kdt.pojavlaunch.fragments.FileSelectorFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,13 +87,13 @@ public class ProfilePathManagerFragment extends Fragment {
         refreshButton.setOnClickListener(v -> refresh());
         createNewButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putBoolean(FileSelectorFragment.BUNDLE_SELECT_FOLDER, true);
-            bundle.putBoolean(FileSelectorFragment.BUNDLE_SHOW_FILE, false);
-            bundle.putBoolean(FileSelectorFragment.BUNDLE_REMOVE_LOCK_PATH, false);
-            bundle.putString(FileSelectorFragment.BUNDLE_ROOT_PATH, Environment.getExternalStorageDirectory().getAbsolutePath());
+            bundle.putBoolean(FilesFragment.BUNDLE_SELECT_FOLDER_MODE, true);
+            bundle.putBoolean(FilesFragment.BUNDLE_SHOW_FILE, false);
+            bundle.putBoolean(FilesFragment.BUNDLE_REMOVE_LOCK_PATH, false);
+            bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, Environment.getExternalStorageDirectory().getAbsolutePath());
 
             Tools.swapFragment(requireActivity(),
-                    FileSelectorFragment.class, FileSelectorFragment.TAG, bundle);
+                    FilesFragment.class, FilesFragment.TAG, bundle);
         });
         returnButton.setOnClickListener(v -> PojavZHTools.onBackPressed(requireActivity()));
     }
