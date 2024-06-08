@@ -23,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.movtery.ui.fragment.ControlButtonFragment;
+import com.movtery.ui.fragment.FilesFragment;
 import com.movtery.ui.fragment.VersionSelectorFragment;
 
 import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
@@ -75,7 +76,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         String value = (String) ExtraCore.consumeValue(ExtraConstants.FILE_SELECTOR);
         String version = (String) ExtraCore.consumeValue(ExtraConstants.VERSION_SELECTOR);
         if(value != null) {
-            if(mValueToConsume.equals(FileSelectorFragment.BUNDLE_SELECT_FOLDER)){
+            if(mValueToConsume.equals(FilesFragment.BUNDLE_SELECT_FOLDER_MODE)){
                 mTempProfile.gameDir = value;
             }else{
                 mTempProfile.controlFile = value;
@@ -111,20 +112,20 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
             File dir = new File(PojavZHTools.DIR_GAME_DEFAULT);
             if (!dir.exists()) PojavZHTools.mkdirs(dir);
             Bundle bundle = new Bundle(2);
-            bundle.putBoolean(FileSelectorFragment.BUNDLE_SELECT_FOLDER, true);
-            bundle.putBoolean(FileSelectorFragment.BUNDLE_SHOW_FILE, false);
-            bundle.putBoolean(FileSelectorFragment.BUNDLE_QUICK_ACCESS_PATHS, false);
-            bundle.putString(FileSelectorFragment.BUNDLE_ROOT_PATH, ProfilePathManager.getCurrentPath());
-            mValueToConsume = FileSelectorFragment.BUNDLE_SELECT_FOLDER;
+            bundle.putBoolean(FilesFragment.BUNDLE_SELECT_FOLDER_MODE, true);
+            bundle.putBoolean(FilesFragment.BUNDLE_SHOW_FILE, false);
+            bundle.putBoolean(FilesFragment.BUNDLE_QUICK_ACCESS_PATHS, false);
+            bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, ProfilePathManager.getCurrentPath());
+            mValueToConsume = FilesFragment.BUNDLE_SELECT_FOLDER_MODE;
 
             Tools.swapFragment(requireActivity(),
-                    FileSelectorFragment.class, FileSelectorFragment.TAG, bundle);
+                    FilesFragment.class, FilesFragment.TAG, bundle);
         });
 
         mControlSelectButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle(3);
             bundle.putBoolean(ControlButtonFragment.BUNDLE_SELECT_CONTROL, true);
-            mValueToConsume = FileSelectorFragment.BUNDLE_SELECT_FILE;
+            mValueToConsume = ControlButtonFragment.BUNDLE_SELECT_CONTROL;
 
             Tools.swapFragment(requireActivity(),
                     ControlButtonFragment.class, ControlButtonFragment.TAG, bundle);

@@ -27,7 +27,11 @@ import com.movtery.ui.subassembly.filelist.FileSelectedListener;
 import net.kdt.pojavlaunch.PojavApplication;
 import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
+import net.kdt.pojavlaunch.extra.ExtraConstants;
+import net.kdt.pojavlaunch.extra.ExtraCore;
+
 import com.movtery.ui.dialog.EditTextDialog;
 import com.movtery.ui.dialog.FilesDialog;
 
@@ -39,17 +43,20 @@ public class FilesFragment extends Fragment {
     public static final String TAG = "FilesFragment";
     public static final String BUNDLE_LOCK_PATH = "bundle_lock_path";
     public static final String BUNDLE_LIST_PATH = "bundle_list_path";
+    public static final String BUNDLE_SHOW_FILE = "show_file";
+    public static final String BUNDLE_SHOW_FOLDER = "show_folder";
     public static final String BUNDLE_QUICK_ACCESS_PATHS = "quick_access_paths";
     public static final String BUNDLE_MULTI_SELECT_MODE = "multi_select_mode";
+    public static final String BUNDLE_SELECT_FOLDER_MODE = "select_folder_mode";
+    public static final String BUNDLE_REMOVE_LOCK_PATH = "remove_lock_path";
     private ActivityResultLauncher<Object> openDocumentLauncher;
+    private boolean mShowFiles, mShowFolders, mQuickAccessPaths, mMultiSelectMode, mSelectFolderMode, mRemoveLockPath;
     private ImageButton mReturnButton, mAddFileButton, mCreateFolderButton, mPasteButton, mSearchButton, mRefreshButton;
     private CheckBox mMultiSelectCheck, mSelectAllCheck;
     private View mExternalStorage, mSoftwarePrivate;
     private FileRecyclerView mFileRecyclerView;
     private TextView mFilePathView;
     private String mLockPath, mListPath;
-    private boolean mQuickAccessPaths;
-    private boolean mMultiSelectMode;
 
     public FilesFragment() {
         super(R.layout.fragment_files);
@@ -82,6 +89,8 @@ public class FilesFragment extends Fragment {
         parseBundle();
         bindViews(view);
 
+        mFileRecyclerView.setShowFiles(mShowFiles);
+        mFileRecyclerView.setShowFolders(mShowFolders);
         mFileRecyclerView.setTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
 
         if (mListPath != null) {
@@ -147,8 +156,13 @@ public class FilesFragment extends Fragment {
         mSelectAllCheck.setOnCheckedChangeListener((buttonView, isChecked) -> adapter.selectAllFiles(isChecked));
 
         mReturnButton.setOnClickListener(v -> {
-            closeMultiSelect();
-            PojavZHTools.onBackPressed(requireActivity());
+            if (!mSelectFolderMode) {
+                closeMultiSelect();
+                Tools.removeCurrentFragment(requireActivity());
+            } else {
+                ExtraCore.setValue(ExtraConstants.FILE_SELECTOR, removeLockPath(mFileRecyclerView.getFullPath().getAbsolutePath()));
+                Tools.removeCurrentFragment(requireActivity());
+            }
         });
         mAddFileButton.setOnClickListener(v -> {
             closeMultiSelect();
@@ -230,9 +244,14 @@ public class FilesFragment extends Fragment {
     }
 
     private String removeLockPath(String path) {
-        return path.replace(mLockPath, ".");
+        String string = path;
+        if (mRemoveLockPath) {
+            string = path.replace(mLockPath, ".");
+        }
+        return string;
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void bindViews(@NonNull View view) {
         mReturnButton = view.findViewById(R.id.zh_files_return_button);
         mAddFileButton = view.findViewById(R.id.zh_files_add_file_button);
@@ -251,11 +270,15 @@ public class FilesFragment extends Fragment {
             mExternalStorage.setVisibility(View.GONE);
             mSoftwarePrivate.setVisibility(View.GONE);
         }
-        if (!mMultiSelectMode) {
+        if (mSelectFolderMode || !mMultiSelectMode) {
             mMultiSelectCheck.setVisibility(View.GONE);
             mSelectAllCheck.setVisibility(View.GONE);
         }
 
+        if (mSelectFolderMode) {
+            mReturnButton.setContentDescription(getString(R.string.folder_fragment_select));
+            mReturnButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_check, requireActivity().getTheme()));
+        }
         mFileRecyclerView.setFileIcon(FileIcon.FILE);
 
         mPasteButton.setVisibility(PasteFile.getInstance().getPasteType() != null ? View.VISIBLE : View.GONE);
@@ -273,8 +296,12 @@ public class FilesFragment extends Fragment {
         if (bundle == null) return;
         mLockPath = bundle.getString(BUNDLE_LOCK_PATH, ProfilePathManager.getCurrentPath());
         mListPath = bundle.getString(BUNDLE_LIST_PATH, null);
+        mShowFiles = bundle.getBoolean(BUNDLE_SHOW_FILE, true);
+        mShowFolders = bundle.getBoolean(BUNDLE_SHOW_FOLDER, true);
         mQuickAccessPaths = bundle.getBoolean(BUNDLE_QUICK_ACCESS_PATHS, true);
         mMultiSelectMode = bundle.getBoolean(BUNDLE_MULTI_SELECT_MODE, true);
+        mSelectFolderMode = bundle.getBoolean(BUNDLE_SELECT_FOLDER_MODE, false);
+        mRemoveLockPath = bundle.getBoolean(BUNDLE_REMOVE_LOCK_PATH, true);
     }
 }
 
