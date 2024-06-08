@@ -108,6 +108,7 @@
     <string name="zh_file_multi_select_mode">Enable Multi-Select Mode</string>
     <string name="zh_file_multi_select_mode_title">Multi-Select Mode</string>
     <string name="zh_file_multi_select_mode_message">Currently, a total of %d items are selected</string>
+    <string name="zh_file_operation_file">Operating on file… (%s / %s, %d)</string>
 
     <string name="zh_neoforge_dl_searching">Searching for NeoForge version number</string>
     <string name="zh_neoforge_dl_no_installer">Sorry, but this version of NeoForge does not have an installer, which is not yet supported.</string>

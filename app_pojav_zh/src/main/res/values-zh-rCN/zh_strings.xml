@@ -107,6 +107,7 @@
     <string name="zh_file_multi_select_mode">开启多选模式</string>
     <string name="zh_file_multi_select_mode_title">多选项目</string>
     <string name="zh_file_multi_select_mode_message">当前总共选择了 %d 个项目</string>
+    <string name="zh_file_operation_file">正在操作文件中… (%s / %s, %d)</string>
 
     <string name="zh_neoforge_dl_searching">正在搜索 NeoForge 版本号</string>
     <string name="zh_neoforge_dl_no_installer">很抱歉，该版本的 NeoForge 没有安装程序，尚不支持</string>

@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment;
 import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
 import com.movtery.ui.subassembly.filelist.FileIcon;
 import com.movtery.ui.subassembly.filelist.FileRecyclerAdapter;
-import com.movtery.utils.PasteFile;
+import com.movtery.utils.file.PasteFile;
 import com.movtery.ui.subassembly.filelist.FileRecyclerView;
 import com.movtery.ui.subassembly.filelist.FileSelectedListener;
 
@@ -106,21 +106,28 @@ public class FilesFragment extends Fragment {
 
         mFileRecyclerView.setOnMultiSelectListener(itemBeans -> {
             if (!itemBeans.isEmpty()) {
-                //取出全部文件
-                List<File> selectedFiles = new ArrayList<>();
-                itemBeans.forEach(value -> {
-                    File file = value.getFile();
-                    if (file != null) {
-                        selectedFiles.add(file);
-                    }
+                PojavApplication.sExecutorService.execute(() -> {
+                    //取出全部文件
+                    List<File> selectedFiles = new ArrayList<>();
+                    itemBeans.forEach(value -> {
+                        File file = value.getFile();
+                        if (file != null) {
+                            selectedFiles.add(file);
+                        }
+                    });
+                    FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
+                    filesButton.setButtonVisibility(true, true, false, false, true, false);
+                    filesButton.setDialogText(getString(R.string.zh_file_multi_select_mode_title),
+                            getString(R.string.zh_file_multi_select_mode_message, itemBeans.size()), null);
+                    runOnUiThread(() -> {
+                        FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> {
+                            closeMultiSelect();
+                            mFileRecyclerView.refreshPath();
+                        }), selectedFiles);
+                        filesDialog.setCopyButtonClick(() -> mPasteButton.setVisibility(View.VISIBLE));
+                        filesDialog.show();
+                    });
                 });
-                FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-                filesButton.setButtonVisibility(true, true, false, false, true, false);
-                filesButton.setDialogText(getString(R.string.zh_file_multi_select_mode_title),
-                        getString(R.string.zh_file_multi_select_mode_message, itemBeans.size()), null);
-                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileRecyclerView.refreshPath()), selectedFiles);
-                filesDialog.setCopyButtonClick(() -> mPasteButton.setVisibility(View.VISIBLE));
-                filesDialog.show();
             }
         });
         mExternalStorage.setOnClickListener(v -> {
@@ -139,7 +146,10 @@ public class FilesFragment extends Fragment {
         });
         mSelectAllCheck.setOnCheckedChangeListener((buttonView, isChecked) -> adapter.selectAllFiles(isChecked));
 
-        mReturnButton.setOnClickListener(v -> PojavZHTools.onBackPressed(requireActivity()));
+        mReturnButton.setOnClickListener(v -> {
+            closeMultiSelect();
+            PojavZHTools.onBackPressed(requireActivity());
+        });
         mAddFileButton.setOnClickListener(v -> {
             closeMultiSelect();
             openDocumentLauncher.launch(null);
