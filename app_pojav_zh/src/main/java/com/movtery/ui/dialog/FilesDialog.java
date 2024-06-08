@@ -5,17 +5,14 @@ import static com.movtery.utils.PojavZHTools.shareFile;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.movtery.ui.subassembly.filelist.FileItemBean;
 import com.movtery.utils.PasteFile;
 
-import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 
 import java.io.File;
@@ -26,29 +23,31 @@ public class FilesDialog extends Dialog {
     private final Runnable runnable;
     private TextView mTitle, mMessage, moreText;
     private String mFileSuffix;
-    private View.OnClickListener mMoreClick;
-    private RelativeLayout mShareButton, mRenameButton, mDeleteButton, mMoveButton, mCopyButton, mMoreButton;
     private OnCopyButtonClickListener mCopyClick;
+    private OnMoreButtonClickListener mMoreClick;
+    private RelativeLayout mShareButton, mRenameButton, mDeleteButton, mMoveButton, mCopyButton;
 
-    public FilesDialog(@NonNull Context context, FilesButton filesButton, List<FileItemBean> itemBeans, Runnable runnable, View.OnClickListener more) {
+    public FilesDialog(@NonNull Context context, FilesButton filesButton, Runnable runnable, List<File> selectedFiles) {
         super(context);
         this.runnable = runnable;
-        init();
-        multiSelectMode(filesButton, itemBeans, more);
+        init(filesButton);
+        handleButtons(filesButton, selectedFiles);
     }
 
     public FilesDialog(@NonNull Context context, FilesButton filesButton, Runnable runnable, File file) {
         super(context);
         this.runnable = runnable;
-        init();
-        singleChoiceMode(filesButton, file);
+        init(filesButton);
+        List<File> singleFileList = new ArrayList<>();
+        singleFileList.add(file);
+        init(filesButton);
+        handleButtons(filesButton, singleFileList);
     }
 
-    private void init() {
+    private void init(FilesButton filesButton) {
         this.setCancelable(true);
         this.setContentView(R.layout.dialog_operation_file);
 
-        ImageView mCloseButton = findViewById(R.id.zh_operation_close);
         mTitle = findViewById(R.id.zh_operation_title);
         mMessage = findViewById(R.id.zh_operation_message);
         moreText = findViewById(R.id.zh_file_more_text);
@@ -57,61 +56,11 @@ public class FilesDialog extends Dialog {
         mDeleteButton = findViewById(R.id.zh_file_delete);
         mCopyButton = findViewById(R.id.zh_file_copy);
         mMoveButton = findViewById(R.id.zh_file_move);
-        mMoreButton = findViewById(R.id.zh_file_more);
+        RelativeLayout mMoreButton = findViewById(R.id.zh_file_more);
 
+        ImageView mCloseButton = findViewById(R.id.zh_operation_close);
         mCloseButton.setOnClickListener(v -> this.dismiss());
-    }
 
-    private void closeDialog() {
-        FilesDialog.this.dismiss();
-    }
-
-    private void multiSelectMode(FilesButton filesButton, List<FileItemBean> itemBeans, View.OnClickListener more) {
-        //多选模式禁用分享、重命名
-        setButtonClickable(false, mShareButton);
-        setButtonClickable(false, mRenameButton);
-        setButtonClickable(true, mDeleteButton);
-        setButtonClickable(true, mCopyButton);
-        setButtonClickable(true, mMoveButton);
-        setButtonClickable(more != null, mMoreButton);
-
-        List<File> selectedFiles = new ArrayList<>();
-        itemBeans.forEach(v -> {
-            File file = v.getFile();
-            if (file != null) selectedFiles.add(file);
-        } );
-        mDeleteButton.setOnClickListener(view -> {
-            DeleteDialog deleteDialog = new DeleteDialog(getContext(), this.runnable, selectedFiles);
-            deleteDialog.show();
-            closeDialog();
-        });
-        mCopyButton.setOnClickListener(v -> {
-            if (this.mCopyClick != null) {
-                PasteFile.getInstance().setPaste(selectedFiles, PasteFile.PasteType.COPY); //复制模式
-                this.mCopyClick.onButtonClick();
-            }
-            closeDialog();
-        });
-        mMoveButton.setOnClickListener(v -> {
-            if (this.mCopyClick != null) {
-                PasteFile.getInstance().setPaste(selectedFiles, PasteFile.PasteType.MOVE); //移动模式
-                this.mCopyClick.onButtonClick();
-            }
-            closeDialog();
-        });
-        if (more != null) {
-            mMoreButton.setOnClickListener(v -> {
-                more.onClick(v);
-                if (this.runnable != null) PojavApplication.sExecutorService.execute(this.runnable);
-                closeDialog();
-            });
-        }
-        if (filesButton != null && filesButton.titleText != null) mTitle.setText(filesButton.titleText);
-        if (filesButton != null && filesButton.messageText != null) mMessage.setText(filesButton.messageText);
-        if (filesButton != null && filesButton.moreButtonText != null) moreText.setText(filesButton.moreButtonText);
-    }
-
-    private void singleChoiceMode(FilesButton filesButton, File file) {
         setButtonClickable(filesButton.share, mShareButton);
         setButtonClickable(filesButton.rename, mRenameButton);
         setButtonClickable(filesButton.delete, mDeleteButton);
@@ -119,47 +68,65 @@ public class FilesDialog extends Dialog {
         setButtonClickable(filesButton.move, mMoveButton);
         setButtonClickable(filesButton.more, mMoreButton);
 
-        mShareButton.setOnClickListener(view -> {
-            if (file != null) shareFile(getContext(), file.getName(), file.getAbsolutePath());
+        if (filesButton.more) {
+            mMoreButton.setOnClickListener(v -> {
+                if (this.mMoreClick != null) this.mMoreClick.onButtonClick();
+                closeDialog();
+            });
+        }
+    }
+
+    private void handleButtons(FilesButton filesButton, List<File> selectedFiles) {
+        mDeleteButton.setOnClickListener(view -> {
+            DeleteDialog deleteDialog = new DeleteDialog(getContext(), this.runnable, selectedFiles);
+            deleteDialog.show();
             closeDialog();
         });
-        mRenameButton.setOnClickListener(view -> {
-            if (file != null) {
+
+        mCopyButton.setOnClickListener(v -> {
+            if (this.mCopyClick != null) {
+                PasteFile.getInstance().setPaste(selectedFiles, PasteFile.PasteType.COPY); // 复制模式
+                this.mCopyClick.onButtonClick();
+            }
+            closeDialog();
+        });
+
+        mMoveButton.setOnClickListener(v -> {
+            if (this.mCopyClick != null) {
+                PasteFile.getInstance().setPaste(selectedFiles, PasteFile.PasteType.MOVE); // 移动模式
+                this.mCopyClick.onButtonClick();
+            }
+            closeDialog();
+        });
+
+        if (selectedFiles.size() == 1) {
+            File file = selectedFiles.get(0);
+            mShareButton.setOnClickListener(view -> {
+                shareFile(getContext(), file.getName(), file.getAbsolutePath());
+                closeDialog();
+            });
+            mRenameButton.setOnClickListener(view -> {
                 if (file.isFile()) {
-                    renameFileListener(getContext(), runnable, file, this.mFileSuffix == null ? file.getName().substring(file.getName().lastIndexOf('.')) : this.mFileSuffix);
+                    renameFileListener(getContext(), runnable, file, mFileSuffix == null ? file.getName().substring(file.getName().lastIndexOf('.')) : mFileSuffix);
                 } else if (file.isDirectory()) {
                     renameFileListener(getContext(), runnable, file);
                 }
-            }
-            closeDialog();
-        });
-        mDeleteButton.setOnClickListener(view -> {
-            if (file != null) {
-                DeleteDialog deleteDialog = new DeleteDialog(getContext(), runnable, file);
-                deleteDialog.show();
-            }
-            closeDialog();
-        });
-        mCopyButton.setOnClickListener(v -> {
-            if (filesButton.copy && this.mCopyClick != null) {
-                PasteFile.getInstance().setPaste(file, PasteFile.PasteType.COPY); //复制模式
-                this.mCopyClick.onButtonClick();
-            }
-            closeDialog();
-        });
-        mMoveButton.setOnClickListener(v -> {
-            if (filesButton.move && this.mCopyClick != null) {
-                PasteFile.getInstance().setPaste(file, PasteFile.PasteType.MOVE); //移动模式
-                this.mCopyClick.onButtonClick();
-            }
-            closeDialog();
-        });
+                closeDialog();
+            });
+        }
 
-        if (filesButton.more && this.mMoreClick != null) mMoreButton.setOnClickListener(this.mMoreClick);
+        setDialogTexts(filesButton, selectedFiles.get(0));
+    }
 
+    private void setDialogTexts(FilesButton filesButton, File file) {
+        if (filesButton.titleText != null) mTitle.setText(filesButton.titleText);
         if (filesButton.messageText != null) mMessage.setText(filesButton.messageText);
         if (filesButton.moreButtonText != null) moreText.setText(filesButton.moreButtonText);
         if (file != null && file.isDirectory()) mTitle.setText(getContext().getString(R.string.zh_file_folder_tips));
+    }
+
+    private void closeDialog() {
+        FilesDialog.this.dismiss();
     }
 
     private void setButtonClickable(boolean clickable, RelativeLayout button) {
@@ -167,12 +134,12 @@ public class FilesDialog extends Dialog {
         button.setAlpha(clickable ? 1f : 0.5f);
     }
 
-    public void setMoreButtonClick(View.OnClickListener click) {
-        this.mMoreClick = click;
+    public void setCopyButtonClick(OnCopyButtonClickListener click) {
+        this.mCopyClick = click;
     }
 
-    public void setCopyButtonClick(OnCopyButtonClickListener listener) {
-        this.mCopyClick = listener;
+    public void setMoreButtonClick(OnMoreButtonClickListener click) {
+        this.mMoreClick = click;
     }
 
     public void setFileSuffix(String suffixes) {
@@ -180,6 +147,10 @@ public class FilesDialog extends Dialog {
     }
 
     public interface OnCopyButtonClickListener {
+        void onButtonClick();
+    }
+
+    public interface OnMoreButtonClickListener {
         void onButtonClick();
     }
 
@@ -194,6 +165,12 @@ public class FilesDialog extends Dialog {
             this.rename = renameButton;
             this.delete = deleteButton;
             this.more = moreButton;
+        }
+
+        public void setDialogText(String titleText, String messageText, String moreButtonText) {
+            this.titleText = titleText;
+            this.messageText = messageText;
+            this.moreButtonText = moreButtonText;
         }
     }
 }

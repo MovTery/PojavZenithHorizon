@@ -29,6 +29,8 @@ import com.movtery.ui.dialog.FilesDialog;
 import net.kdt.pojavlaunch.fragments.SearchModFragment;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModsFragment extends Fragment {
     public static final String TAG = "ModsFragment";
@@ -90,14 +92,22 @@ public class ModsFragment extends Fragment {
         });
         mFileRecyclerView.setOnMultiSelectListener(itemBeans -> {
             if (!itemBeans.isEmpty()) {
+                //取出全部文件
+                List<File> selectedFiles = new ArrayList<>();
+                itemBeans.forEach(value -> {
+                    File file = value.getFile();
+                    if (file != null) {
+                        selectedFiles.add(file);
+                    }
+                });
                 FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-                filesButton.titleText = getString(R.string.zh_file_multi_select_mode_title);
-                filesButton.messageText = getString(R.string.zh_file_multi_select_mode_message, itemBeans.size());
-                filesButton.moreButtonText = getString(R.string.zh_profile_mods_disable_or_enable);
-                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, itemBeans, () -> runOnUiThread(() -> {
-                    mFileRecyclerView.refreshPath();
-                    closeMultiSelect();
-                }), v -> itemBeans.forEach(value -> {
+                filesButton.setButtonVisibility(true, true, false, false, true, true);
+                filesButton.setDialogText(getString(R.string.zh_file_multi_select_mode_title),
+                        getString(R.string.zh_file_multi_select_mode_message, itemBeans.size()),
+                        getString(R.string.zh_profile_mods_disable_or_enable));
+                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileRecyclerView.refreshPath()), selectedFiles);
+                filesDialog.setCopyButtonClick(() -> mPasteButton.setVisibility(View.VISIBLE));
+                filesDialog.setMoreButtonClick(() -> itemBeans.forEach(value -> {
                     File file = value.getFile();
                     if (file != null && file.exists()) {
                         String fileName = file.getName();
@@ -108,7 +118,6 @@ public class ModsFragment extends Fragment {
                         }
                     }
                 }));
-                filesDialog.setCopyButtonClick(() -> mPasteButton.setVisibility(View.VISIBLE));
                 filesDialog.show();
             }
         });
@@ -177,13 +186,13 @@ public class ModsFragment extends Fragment {
         //检测后缀名，以设置正确的按钮
         if (fileName.endsWith(jarFileSuffix)) {
             filesDialog.setFileSuffix(jarFileSuffix);
-            filesDialog.setMoreButtonClick(v -> {
+            filesDialog.setMoreButtonClick(() -> {
                 disableMod(file);
                 filesDialog.dismiss();
             });
         } else if (fileName.endsWith(disableJarFileSuffix)) {
             filesDialog.setFileSuffix(disableJarFileSuffix);
-            filesDialog.setMoreButtonClick(v -> {
+            filesDialog.setMoreButtonClick(() -> {
                 enableMod(file);
                 filesDialog.dismiss();
             });

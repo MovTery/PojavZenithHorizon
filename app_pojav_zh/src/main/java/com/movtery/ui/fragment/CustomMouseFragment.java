@@ -130,7 +130,7 @@ public class CustomMouseFragment extends Fragment {
             filesButton.moreButtonText = getString(R.string.global_select);
 
             FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, this::loadData, file);
-            filesDialog.setMoreButtonClick(v -> {
+            filesDialog.setMoreButtonClick(() -> {
                 DEFAULT_PREF.edit().putString("custom_mouse", fileName).apply();
                 refreshIcon();
                 Toast.makeText(requireContext(), getString(R.string.zh_custom_mouse_added) + (fileName == null ? getString(R.string.zh_custom_mouse_default) : fileName), Toast.LENGTH_SHORT).show();
