@@ -41,12 +41,13 @@ public class OperationFile {
         runOnUiThread(() -> {
             DownloadDialog dialog = new DownloadDialog(context);
             TextView textView = dialog.getTextView();
+            textView.setText(context.getString(
+                    R.string.zh_file_operation_file, "0B", "0B", 0));
 
             dialog.getCancelButton().setOnClickListener(view -> {
                 cancelTask();
                 dialog.dismiss();
             });
-            dialog.show();
 
             AtomicLong totalFileSize = new AtomicLong(0);
             AtomicLong fileSize = new AtomicLong(0);
@@ -83,6 +84,10 @@ public class OperationFile {
                     preDeleteFiles.add(selectedFile);
                 });
                 totalFileSize.set(fileSize.get());
+
+                if (totalFileSize.get() > 10 * 1024 * 1024) {
+                    runOnUiThread(dialog::show); //如果预处理文件总大小大于10MB，则显示弹窗，避免处理过快，弹窗一瞬间消失的问题
+                }
 
                 preDeleteFiles.forEach(file -> {
                     if (currentTask.isCancelled()) {

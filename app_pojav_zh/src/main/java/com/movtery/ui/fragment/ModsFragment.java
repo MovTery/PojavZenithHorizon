@@ -113,7 +113,10 @@ public class ModsFragment extends Fragment {
                         mFileRecyclerView.refreshPath();
                     }), selectedFiles);
                     filesDialog.setCopyButtonClick(() -> mPasteButton.setVisibility(View.VISIBLE));
-                    filesDialog.setMoreButtonClick(() -> new OperationFile(requireContext(), () -> runOnUiThread(this::closeMultiSelect), file -> {
+                    filesDialog.setMoreButtonClick(() -> new OperationFile(requireContext(), () -> runOnUiThread(() -> {
+                        closeMultiSelect();
+                        mFileRecyclerView.refreshPath();
+                    }), file -> {
                         if (file != null && file.exists()) {
                             String fileName = file.getName();
                             if (fileName.endsWith(jarFileSuffix)) {
@@ -197,12 +200,14 @@ public class ModsFragment extends Fragment {
             filesDialog.setFileSuffix(jarFileSuffix);
             filesDialog.setMoreButtonClick(() -> {
                 disableMod(file);
+                mFileRecyclerView.refreshPath();
                 filesDialog.dismiss();
             });
         } else if (fileName.endsWith(disableJarFileSuffix)) {
             filesDialog.setFileSuffix(disableJarFileSuffix);
             filesDialog.setMoreButtonClick(() -> {
                 enableMod(file);
+                mFileRecyclerView.refreshPath();
                 filesDialog.dismiss();
             });
         }
@@ -215,7 +220,6 @@ public class ModsFragment extends Fragment {
         String fileParent = file.getParent();
         File newFile = new File(fileParent, fileName + ".disabled");
         PojavZHTools.renameFile(file, newFile);
-        mFileRecyclerView.refreshPath();
     }
 
     private void enableMod(File file) {
@@ -227,7 +231,6 @@ public class ModsFragment extends Fragment {
 
         File newFile = new File(fileParent, newFileName);
         PojavZHTools.renameFile(file, newFile);
-        mFileRecyclerView.refreshPath();
     }
 
     private String getFileSuffix(File file) {
