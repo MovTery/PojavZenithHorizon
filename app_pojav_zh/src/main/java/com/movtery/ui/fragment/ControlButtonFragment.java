@@ -146,7 +146,7 @@ public class ControlButtonFragment extends Fragment {
 
         filesDialog.setCopyButtonClick(() -> mPasteButton.setVisibility(View.VISIBLE));
 
-        filesDialog.setMoreButtonClick(v -> {
+        filesDialog.setMoreButtonClick(() -> {
             Intent intent = new Intent(requireContext(), CustomControlsActivity.class);
 
             Bundle bundle = new Bundle();

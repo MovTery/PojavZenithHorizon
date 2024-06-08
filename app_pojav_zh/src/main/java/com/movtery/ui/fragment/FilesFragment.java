@@ -32,6 +32,8 @@ import com.movtery.ui.dialog.EditTextDialog;
 import com.movtery.ui.dialog.FilesDialog;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FilesFragment extends Fragment {
     public static final String TAG = "FilesFragment";
@@ -104,13 +106,19 @@ public class FilesFragment extends Fragment {
 
         mFileRecyclerView.setOnMultiSelectListener(itemBeans -> {
             if (!itemBeans.isEmpty()) {
+                //取出全部文件
+                List<File> selectedFiles = new ArrayList<>();
+                itemBeans.forEach(value -> {
+                    File file = value.getFile();
+                    if (file != null) {
+                        selectedFiles.add(file);
+                    }
+                });
                 FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-                filesButton.titleText = getString(R.string.zh_file_multi_select_mode_title);
-                filesButton.messageText = getString(R.string.zh_file_multi_select_mode_message, itemBeans.size());
-                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, itemBeans, () -> runOnUiThread(() -> {
-                    mFileRecyclerView.refreshPath();
-                    closeMultiSelect();
-                }), null);
+                filesButton.setButtonVisibility(true, true, false, false, true, false);
+                filesButton.setDialogText(getString(R.string.zh_file_multi_select_mode_title),
+                        getString(R.string.zh_file_multi_select_mode_message, itemBeans.size()), null);
+                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileRecyclerView.refreshPath()), selectedFiles);
                 filesDialog.setCopyButtonClick(() -> mPasteButton.setVisibility(View.VISIBLE));
                 filesDialog.show();
             }
