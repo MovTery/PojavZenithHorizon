@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.movtery.utils.PasteFile;
+import com.movtery.utils.file.PasteFile;
 
 import net.kdt.pojavlaunch.R;
 
@@ -113,6 +113,10 @@ public class FilesDialog extends Dialog {
                 }
                 closeDialog();
             });
+        } else {
+            //多选模式禁止使用分享、重命名
+            setButtonClickable(false, mShareButton);
+            setButtonClickable(false, mRenameButton);
         }
 
         setDialogTexts(filesButton, selectedFiles.get(0));

@@ -1,13 +1,13 @@
-package com.movtery.utils;
+package com.movtery.utils.file;
 
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.app.Activity;
 import android.widget.Toast;
 
-import net.kdt.pojavlaunch.PojavApplication;
+import com.movtery.utils.PojavZHTools;
+
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
 
 import org.apache.commons.io.FileUtils;
 
@@ -61,22 +61,20 @@ public class PasteFile {
             runOnUiThread(() -> Toast.makeText(activity, activity.getString(R.string.zh_file_does_not_exist), Toast.LENGTH_SHORT).show());
             return;
         }
-
-        PojavApplication.sExecutorService.execute(() -> {
-            for (File file : copyFiles) {
-                if (file.exists()) {
-                    try {
-                        handleFileOperation(file, target, fileExtensionGetter);
-                    } catch (Exception e) {
-                        Tools.showError(activity, e);
-                    }
-                }
-            }
+        new OperationFile(activity, () -> {
             resetState();
             if (endRunnable != null) {
                 endRunnable.run();
             }
-        });
+        }, file -> {
+            try {
+                if (copyFiles.contains(file)) {
+                    handleFileOperation(file, target, fileExtensionGetter);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }).operationFile(copyFiles);
     }
 
     private void handleFileOperation(File file, File target, FileExtensionGetter fileExtensionGetter) throws Exception {

@@ -106,25 +106,23 @@ public class DownloadModFragment extends Fragment {
             Pattern pattern = Pattern.compile(regex);
 
             ConcurrentMap<String, List<ModVersionGroup.ModVersionItem>> mModVersionsByMinecraftVersion = new ConcurrentHashMap<>();
-            mModDetail.modVersionItems.parallelStream().forEach(modVersionItem -> {
-                synchronized (mModVersionsByMinecraftVersion) {
-                    String[] versionId = modVersionItem.getVersionId();
-                    for (String mcVersion : versionId) {
-                        if (Thread.currentThread().isInterrupted()) {
-                            return;
-                        }
-
-                        if (mReleaseCheckBox.isChecked()) {
-                            Matcher matcher = pattern.matcher(mcVersion);
-                            if (!matcher.matches()) {
-                                //如果不是正式版本，将继续检测下一项
-                                continue;
-                            }
-                        }
-
-                        mModVersionsByMinecraftVersion.computeIfAbsent(mcVersion, k -> Collections.synchronizedList(new ArrayList<>()))
-                                .add(modVersionItem); //将Mod 版本数据加入到相应的版本号分组中
+            mModDetail.modVersionItems.forEach(modVersionItem -> {
+                String[] versionId = modVersionItem.getVersionId();
+                for (String mcVersion : versionId) {
+                    if (Thread.currentThread().isInterrupted()) {
+                        return;
                     }
+
+                    if (mReleaseCheckBox.isChecked()) {
+                        Matcher matcher = pattern.matcher(mcVersion);
+                        if (!matcher.matches()) {
+                            //如果不是正式版本，将继续检测下一项
+                            continue;
+                        }
+                    }
+
+                    mModVersionsByMinecraftVersion.computeIfAbsent(mcVersion, k -> Collections.synchronizedList(new ArrayList<>()))
+                            .add(modVersionItem); //将Mod 版本数据加入到相应的版本号分组中
                 }
             });
 

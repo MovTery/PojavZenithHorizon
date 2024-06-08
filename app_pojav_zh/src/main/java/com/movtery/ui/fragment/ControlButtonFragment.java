@@ -20,7 +20,7 @@ import com.movtery.ui.subassembly.customcontrols.ControlInfoData;
 import com.movtery.ui.subassembly.customcontrols.ControlsListView;
 import com.movtery.ui.subassembly.customcontrols.EditControlData;
 import com.movtery.ui.dialog.EditControlInfoDialog;
-import com.movtery.utils.PasteFile;
+import com.movtery.utils.file.PasteFile;
 import com.movtery.ui.subassembly.filelist.FileSelectedListener;
 
 import net.kdt.pojavlaunch.CustomControlsActivity;
