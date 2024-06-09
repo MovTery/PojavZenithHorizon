@@ -24,6 +24,7 @@ import okhttp3.Response;
 public class CheckNewNotice {
     private static NoticeInfo noticeInfo = null;
     private static boolean isFailure = false;
+    private static boolean isFirstImpressionNotice = true;
 
 
     public static boolean isFailure() {
@@ -31,6 +32,14 @@ public class CheckNewNotice {
     }
     public static NoticeInfo getNoticeInfo() {
         return noticeInfo;
+    }
+
+    public static boolean isFirstImpressionNotice() {
+        return isFirstImpressionNotice;
+    }
+
+    public static void setFirstImpressionNotice(boolean isFirstImpressionNotice) {
+        CheckNewNotice.isFirstImpressionNotice = isFirstImpressionNotice;
     }
 
     public static void checkNewNotice(Context context) {
