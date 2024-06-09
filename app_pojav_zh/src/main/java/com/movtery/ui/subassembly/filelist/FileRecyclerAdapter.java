@@ -1,6 +1,7 @@
 package com.movtery.ui.subassembly.filelist;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -153,6 +154,14 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
             this.mFileItemBean = fileItemBean;
             this.icon.setImageDrawable(fileItemBean.getImage());
             this.name.setText(fileItemBean.getName() == null ? fileItemBean.getFile().getName() : fileItemBean.getName());
+
+            int color;
+            if (fileItemBean.isHighlighted()) {
+                color = Color.GREEN; //设置高亮
+            } else {
+                color = this.name.getResources().getColor(R.color.black_or_white, this.name.getContext().getTheme());
+            }
+            this.name.setTextColor(color);
 
             if (fileItemBean.isCanCheck()) {
                 checkBox.setVisibility(isMultiSelectMode ? View.VISIBLE : View.GONE);

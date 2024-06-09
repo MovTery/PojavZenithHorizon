@@ -2,8 +2,8 @@ package com.movtery.ui.subassembly.filelist;
 
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
-import android.content.Context;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -26,8 +26,17 @@ public class SearchView {
     private void init() {
         mSearchEditText = view.findViewById(R.id.zh_search_edit_text);
         ImageButton mSearchButton = view.findViewById(R.id.zh_search_search_button);
+        CheckBox mShowSearchResultsOnly = view.findViewById(R.id.zh_search_show_search_results_only);
 
-        mSearchButton.setOnClickListener(v -> fileRecyclerView.searchFiles(mSearchEditText.getText().toString()));
+        mSearchButton.setOnClickListener(v -> search());
+        mShowSearchResultsOnly.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            fileRecyclerView.setShowSearchResultsOnly(isChecked);
+            search();
+        });
+    }
+
+    private void search() {
+        fileRecyclerView.searchFiles(mSearchEditText.getText().toString());
     }
 
     public void setVisibility() {

@@ -10,8 +10,6 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.movtery.utils.stringutils.StringFilter;
-
 import net.kdt.pojavlaunch.R;
 
 import java.io.File;
@@ -32,6 +30,7 @@ public class FileRecyclerView extends LinearLayout {
     private boolean showFiles = true;
     private boolean showFolders = true;
     private String filterString = "";
+    private boolean showSearchResultsOnly = false;
 
     public FileRecyclerView(Context context) {
         this(context, null);
@@ -108,6 +107,10 @@ public class FileRecyclerView extends LinearLayout {
         refreshPath();
     }
 
+    public void setShowSearchResultsOnly(boolean showSearchResultsOnly) {
+        this.showSearchResultsOnly = showSearchResultsOnly;
+    }
+
     public FileRecyclerAdapter getAdapter() {
         return fileRecyclerViewCreator.getFileRecyclerAdapter();
     }
@@ -123,9 +126,9 @@ public class FileRecyclerView extends LinearLayout {
             if (path.isDirectory()) {
                 fullPath = path;
 
-                List<FileItemBean> itemBeans = filterFiles(FileRecyclerViewCreator.loadItemBeansFromPath(context, path, this.fileIcon, this.showFiles, this.showFolders));
-
+                List<FileItemBean> itemBeans = FileRecyclerViewCreator.loadItemBeansFromPath(context, this.filterString, showSearchResultsOnly, path, this.fileIcon, this.showFiles, this.showFolders);
                 Collections.sort(itemBeans);
+                filterString = "";
 
                 if (!path.equals(lockPath)) {
                     FileItemBean itemBean = new FileItemBean();
@@ -146,20 +149,6 @@ public class FileRecyclerView extends LinearLayout {
         } else {
             Toast.makeText(context, R.string.zh_file_does_not_exist, Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private List<FileItemBean> filterFiles(List<FileItemBean> itemBeans) {
-        if (!filterString.isEmpty()) {
-            List<FileItemBean> newItemBeans = new ArrayList<>();
-            for (FileItemBean input : itemBeans) {
-                if (StringFilter.containsAllCharacters(input.getFile().getName(), filterString)) {
-                    newItemBeans.add(input);
-                }
-            }
-            filterString = "";
-            return newItemBeans;
-        }
-        return itemBeans;
     }
 
     public File getFullPath() {

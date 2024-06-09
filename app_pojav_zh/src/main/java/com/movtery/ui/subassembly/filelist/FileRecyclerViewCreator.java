@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.movtery.utils.PojavZHTools;
 import net.kdt.pojavlaunch.R;
 import com.movtery.ui.fragment.ModsFragment;
+import com.movtery.utils.stringutils.StringFilter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -56,8 +57,13 @@ public class FileRecyclerViewCreator {
         return fileRecyclerAdapter;
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
+
     public static List<FileItemBean> loadItemBeansFromPath(Context context, File path, FileIcon fileIcon, boolean showFile, boolean showFolder) {
+        return loadItemBeansFromPath(context, null, false, path, fileIcon, showFile, showFolder);
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    public static List<FileItemBean> loadItemBeansFromPath(Context context, String filterString, boolean showSearchResultsOnly, File path, FileIcon fileIcon, boolean showFile, boolean showFolder) {
         List<FileItemBean> itemBeans = new ArrayList<>();
         File[] files = path.listFiles();
         if (files != null) {
@@ -68,6 +74,14 @@ public class FileRecyclerViewCreator {
                 if (file.isFile() && !showFile) continue;
 
                 FileItemBean itemBean = new FileItemBean();
+                boolean b = filterString != null && !filterString.isEmpty();
+                if (b) {
+                    if (StringFilter.containsAllCharacters(file.getName(), filterString)) {
+                        itemBean.setHighlighted(true);
+                    } else if (showSearchResultsOnly) {
+                        continue;
+                    }
+                }
                 itemBean.setFile(file);
                 itemBean.setName(null);
                 if (file.isFile()) {

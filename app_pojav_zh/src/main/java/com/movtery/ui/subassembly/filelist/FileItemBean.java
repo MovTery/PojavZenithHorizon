@@ -12,6 +12,7 @@ public class FileItemBean implements Comparable<FileItemBean> {
     private Drawable image;
     private File file;
     private String name;
+    private boolean isHighlighted = false;
     private boolean isCanCheck = true;
 
     public FileItemBean() {
@@ -45,6 +46,14 @@ public class FileItemBean implements Comparable<FileItemBean> {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isHighlighted() {
+        return isHighlighted;
+    }
+
+    public void setHighlighted(boolean highlighted) {
+        isHighlighted = highlighted;
     }
 
     public boolean isCanCheck() {
