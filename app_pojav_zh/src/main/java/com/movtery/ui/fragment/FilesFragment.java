@@ -245,12 +245,12 @@ public class FilesFragment extends Fragment {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void bindViews(@NonNull View view) {
-        mReturnButton = view.findViewById(R.id.zh_files_return_button);
-        mAddFileButton = view.findViewById(R.id.zh_files_add_file_button);
-        mCreateFolderButton = view.findViewById(R.id.zh_files_create_folder_button);
-        mPasteButton = view.findViewById(R.id.zh_files_paste_button);
-        mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
-        mSearchSummonButton = view.findViewById(R.id.zh_files_search_button);
+        mReturnButton = view.findViewById(R.id.zh_return_button);
+        mAddFileButton = view.findViewById(R.id.zh_add_file_button);
+        mCreateFolderButton = view.findViewById(R.id.zh_create_folder_button);
+        mPasteButton = view.findViewById(R.id.zh_paste_button);
+        mRefreshButton = view.findViewById(R.id.zh_refresh_button);
+        mSearchSummonButton = view.findViewById(R.id.zh_search_button);
         mFileRecyclerView = view.findViewById(R.id.zh_files);
         mFilePathView = view.findViewById(R.id.zh_files_current_path);
         mExternalStorage = view.findViewById(R.id.zh_files_external_storage);
@@ -258,7 +258,9 @@ public class FilesFragment extends Fragment {
         mMultiSelectCheck = view.findViewById(R.id.zh_file_multi_select_files);
         mSelectAllCheck = view.findViewById(R.id.zh_file_select_all);
 
-        mSearchView = new SearchView(mFileRecyclerView, view.findViewById(R.id.zh_search_view));
+        mSearchView = new SearchView(view.findViewById(R.id.zh_search_view));
+        mSearchView.setSearchListener(mFileRecyclerView::searchFiles);
+        mSearchView.setShowSearchResultsListener(mFileRecyclerView::setShowSearchResultsOnly);
 
         if (!mQuickAccessPaths) {
             mExternalStorage.setVisibility(View.GONE);

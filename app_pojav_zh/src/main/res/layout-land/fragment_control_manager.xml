@@ -80,68 +80,28 @@
         app:layout_constraintStart_toEndOf="@+id/constraintLayout"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <include
+            android:id="@+id/zh_search_view"
+            layout="@layout/item_search_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            layout="@layout/item_file_action_bar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="26dp"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <ImageButton
-                android:id="@+id/zh_controls_refresh_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:scaleType="fitCenter"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/zh_refresh"
-                android:src="@drawable/ic_refresh" />
-
-            <ImageButton
-                android:id="@+id/zh_controls_paste_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:scaleType="fitCenter"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/zh_paste"
-                android:src="@drawable/ic_paste" />
-
-            <ImageButton
-                android:id="@+id/zh_controls_import_control_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:scaleType="fitCenter"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/zh_controls_import_control"
-                android:src="@drawable/ic_add_new" />
-
-            <ImageButton
-                android:id="@+id/zh_controls_create_new_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:scaleType="fitCenter"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/zh_controls_create_new"
-                android:src="@drawable/ic_add" />
-
-            <ImageButton
-                android:id="@+id/zh_controls_return_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:scaleType="fitCenter"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/zh_return"
-                android:src="@drawable/ic_close" />
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            app:layout_constraintStart_toStartOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

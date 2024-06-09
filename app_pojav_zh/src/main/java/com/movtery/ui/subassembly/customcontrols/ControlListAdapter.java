@@ -3,6 +3,7 @@ package com.movtery.ui.subassembly.customcontrols;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +19,10 @@ import com.movtery.ui.dialog.ControlInfoDialog;
 import java.util.List;
 
 public class ControlListAdapter extends RecyclerView.Adapter<ControlListAdapter.InnerHolder> {
-    private final List<ControlInfoData> mData;
+    private final List<ControlItemBean> mData;
     private OnItemClickListener mOnItemClickListener;
 
-    public ControlListAdapter(List<ControlInfoData> mData) {
+    public ControlListAdapter(List<ControlItemBean> mData) {
         this.mData = mData;
     }
 
@@ -73,30 +74,40 @@ public class ControlListAdapter extends RecyclerView.Adapter<ControlListAdapter.
         }
 
         @SuppressLint("UseCompatLoadingForDrawables")
-        public void setData(ControlInfoData mData, int position) {
+        public void setData(ControlItemBean controlItemBean, int position) {
             this.mPosition = position;
-            this.mName = mData.fileName;
+            ControlInfoData controlInfoData = controlItemBean.getControlInfoData();
+            this.mName = controlInfoData.fileName;
 
             mInfo.setOnClickListener(v -> {
                 @SuppressLint("NotifyDataSetChanged")
-                ControlInfoDialog controlInfoDialog = new ControlInfoDialog(mInfo.getContext(), () -> runOnUiThread(ControlListAdapter.this::notifyDataSetChanged), mData);
+                ControlInfoDialog controlInfoDialog = new ControlInfoDialog(mInfo.getContext(), () -> runOnUiThread(ControlListAdapter.this::notifyDataSetChanged), controlInfoData);
                 controlInfoDialog.show();
             });
 
             //初始化控制布局名称，如果为空，那么将设置为文件名
-            if (mData.name != null && !mData.name.isEmpty() && !mData.name.equals("null")) {
-                mTitle.setText(mData.name);
-                String fileNameString = mFileName.getContext().getString(R.string.zh_controls_info_file_name) + mData.fileName;
+            if (controlInfoData.name != null && !controlInfoData.name.isEmpty() && !controlInfoData.name.equals("null")) {
+                mTitle.setText(controlInfoData.name);
+                String fileNameString = mFileName.getContext().getString(R.string.zh_controls_info_file_name) + controlInfoData.fileName;
                 mFileName.setVisibility(View.VISIBLE);
                 mFileName.setText(fileNameString);
             } else {
-                mTitle.setText(mData.fileName);
+                mTitle.setText(controlInfoData.fileName);
                 mFileName.setVisibility(View.GONE);
             }
 
+            //设置高亮
+            int color;
+            if (controlItemBean.isHighlighted()) {
+                color = Color.rgb(69, 179, 162);
+            } else {
+                color = mTitle.getResources().getColor(R.color.primary_text, mTitle.getContext().getTheme());
+            }
+            mTitle.setTextColor(color);
+
             //初始化作者名，如果没有填写，那么就隐藏它
-            if (mData.author != null && !mData.author.isEmpty() && !mData.author.equals("null")) {
-                String authorString = mAuthor.getContext().getString(R.string.zh_controls_info_author) + mData.author;
+            if (controlInfoData.author != null && !controlInfoData.author.isEmpty() && !controlInfoData.author.equals("null")) {
+                String authorString = mAuthor.getContext().getString(R.string.zh_controls_info_author) + controlInfoData.author;
                 mAuthor.setVisibility(View.VISIBLE);
                 mAuthor.setText(authorString);
             } else {
@@ -104,8 +115,8 @@ public class ControlListAdapter extends RecyclerView.Adapter<ControlListAdapter.
             }
 
             //初始化版本
-            if (mData.version != null && !mData.version.isEmpty() && !mData.version.equals("null")) {
-                String authorString = mVersion.getContext().getString(R.string.zh_controls_info_version) + mData.version;
+            if (controlInfoData.version != null && !controlInfoData.version.isEmpty() && !controlInfoData.version.equals("null")) {
+                String authorString = mVersion.getContext().getString(R.string.zh_controls_info_version) + controlInfoData.version;
                 mVersion.setVisibility(View.VISIBLE);
                 mVersion.setText(authorString);
             } else {
@@ -113,8 +124,8 @@ public class ControlListAdapter extends RecyclerView.Adapter<ControlListAdapter.
             }
 
             //初始化描述说明
-            if (mData.desc != null && !mData.desc.isEmpty() && !mData.desc.equals("null")) {
-                mDesc.setText(mData.desc);
+            if (controlInfoData.desc != null && !controlInfoData.desc.isEmpty() && !controlInfoData.desc.equals("null")) {
+                mDesc.setText(controlInfoData.desc);
             } else {
                 mDesc.setText(R.string.zh_controls_info_no_info);
             }

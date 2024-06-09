@@ -101,9 +101,15 @@ public class CustomMouseFragment extends Fragment {
     }
 
     private void bindViews(@NonNull View view) {
-        mReturnButton = view.findViewById(R.id.zh_custom_mouse_return_button);
-        mAddFileButton = view.findViewById(R.id.zh_custom_mouse_add_button);
-        mRefreshButton = view.findViewById(R.id.zh_custom_mouse_refresh_button);
+        mReturnButton = view.findViewById(R.id.zh_return_button);
+        mAddFileButton = view.findViewById(R.id.zh_add_file_button);
+        mRefreshButton = view.findViewById(R.id.zh_refresh_button);
+
+        mAddFileButton.setContentDescription(getString(R.string.zh_custom_mouse_add));
+        view.findViewById(R.id.zh_search_button).setVisibility(View.GONE);
+        view.findViewById(R.id.zh_paste_button).setVisibility(View.GONE);
+        view.findViewById(R.id.zh_create_folder_button).setVisibility(View.GONE);
+
         mMouseView = view.findViewById(R.id.zh_custom_mouse_icon);
 
         PojavZHTools.setTooltipText(mReturnButton, mReturnButton.getContentDescription());

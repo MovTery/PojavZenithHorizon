@@ -14,6 +14,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.tabs.TabLayout;
@@ -183,12 +184,18 @@ public class CustomBackgroundFragment extends Fragment {
     private void bindViews(@NonNull View view) {
         mTabLayout = view.findViewById(R.id.zh_custom_background_tab);
 
-        mReturnButton = view.findViewById(R.id.zh_custom_background_return_button);
-        mAddFileButton = view.findViewById(R.id.zh_custom_background_add_file_button);
-        mResetButton = view.findViewById(R.id.zh_custom_background_reset_button);
-        mRefreshButton = view.findViewById(R.id.zh_custom_background_refresh_button);
-        mFileRecyclerView = view.findViewById(R.id.zh_custom_background);
+        mReturnButton = view.findViewById(R.id.zh_return_button);
+        mAddFileButton = view.findViewById(R.id.zh_add_file_button);
+        mResetButton = view.findViewById(R.id.zh_paste_button);
+        mRefreshButton = view.findViewById(R.id.zh_refresh_button);
 
+        mResetButton.setContentDescription(getString(R.string.cropper_reset));
+        mAddFileButton.setContentDescription(getString(R.string.zh_custom_background_add));
+        mResetButton.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_reset));
+        view.findViewById(R.id.zh_create_folder_button).setVisibility(View.GONE);
+        view.findViewById(R.id.zh_search_button).setVisibility(View.GONE);
+
+        mFileRecyclerView = view.findViewById(R.id.zh_custom_background);
         mFileRecyclerView.setFileIcon(FileIcon.FILE);
 
         PojavZHTools.setTooltipText(mReturnButton, mReturnButton.getContentDescription());

@@ -13,12 +13,12 @@ import net.kdt.pojavlaunch.R;
 
 public class SearchView {
     private final View view;
-    private final FileRecyclerView fileRecyclerView;
     private EditText mSearchEditText;
+    private SearchListener searchListener;
+    private ShowSearchResultsListener showSearchResultsListener;
 
-    public SearchView(FileRecyclerView fileRecyclerView, View view) {
+    public SearchView(View view) {
         this.view = view;
-        this.fileRecyclerView = fileRecyclerView;
 
         init();
     }
@@ -30,13 +30,21 @@ public class SearchView {
 
         mSearchButton.setOnClickListener(v -> search());
         mShowSearchResultsOnly.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            fileRecyclerView.setShowSearchResultsOnly(isChecked);
-            search();
+            if (showSearchResultsListener != null) showSearchResultsListener.onSearch(isChecked);
+            if (!mSearchEditText.getText().toString().isEmpty()) search();
         });
     }
 
     private void search() {
-        fileRecyclerView.searchFiles(mSearchEditText.getText().toString());
+        if (searchListener != null) searchListener.onSearch(mSearchEditText.getText().toString());
+    }
+
+    public void setSearchListener(SearchListener listener) {
+        this.searchListener = listener;
+    }
+
+    public void setShowSearchResultsListener(ShowSearchResultsListener listener) {
+        this.showSearchResultsListener = listener;
     }
 
     public void setVisibility() {
@@ -50,5 +58,13 @@ public class SearchView {
             PojavZHTools.fadeAnim(view, 0, 1, 0, 150,
                     () -> runOnUiThread(() -> view.setVisibility(View.GONE)));
         }
+    }
+
+    public interface SearchListener {
+        void onSearch(String string);
+    }
+
+    public interface ShowSearchResultsListener {
+        void onSearch(boolean show);
     }
 }
