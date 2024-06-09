@@ -59,17 +59,11 @@ public class TestStorageActivity extends Activity {
     @RequiresApi(api = Build.VERSION_CODES.R)
     private void handlePermissionsForAndroid11AndAbove() {
         if (!Environment.isExternalStorageManager()) {
-            new TipDialog.Builder(this)
-                    .setMessage(getString(R.string.zh_permissions_manage_external_storage))
-                    .setConfirmClickListener(() -> {
-                        Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                        intent.setData(Uri.parse("package:" + getPackageName()));
-                        startActivityForResult(intent, REQUEST_CODE_PERMISSIONS);
-                    })
-                    .setCancelClickListener(this::finish)
-                    .setCancelable(false)
-
-                    .buildDialog();
+            showDialog(() -> {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                intent.setData(Uri.parse("package:" + getPackageName()));
+                startActivityForResult(intent, REQUEST_CODE_PERMISSIONS);
+            });
         } else {
             exit();
         }
@@ -77,10 +71,10 @@ public class TestStorageActivity extends Activity {
 
     private void handlePermissionsForAndroid10AndBelow() {
         if (!hasStoragePermissions()) {
-            ActivityCompat.requestPermissions(this, new String[]{
+            showDialog(() -> ActivityCompat.requestPermissions(this, new String[]{
                     Manifest.permission.READ_EXTERNAL_STORAGE,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
-            }, REQUEST_CODE_PERMISSIONS);
+            }, REQUEST_CODE_PERMISSIONS));
         } else {
             exit();
         }
@@ -98,6 +92,20 @@ public class TestStorageActivity extends Activity {
             }
         }
         return true;
+    }
+
+    private void showDialog(RequestPermissions requestPermissions) {
+        new TipDialog.Builder(this)
+                .setMessage(getString(R.string.zh_permissions_manage_external_storage))
+                .setConfirmClickListener(requestPermissions::onRequest)
+                .setCancelClickListener(this::finish)
+                .setCancelable(false)
+
+                .buildDialog();
+    }
+
+    private interface RequestPermissions {
+        void onRequest();
     }
 
     private void exit() {
