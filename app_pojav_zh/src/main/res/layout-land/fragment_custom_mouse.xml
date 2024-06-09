@@ -70,49 +70,16 @@
         app:layout_constraintStart_toEndOf="@+id/constraintLayout"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <include
+            layout="@layout/item_file_action_bar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="26dp"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <ImageButton
-                android:id="@+id/zh_custom_mouse_refresh_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:scaleType="fitCenter"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/zh_refresh"
-                android:src="@drawable/ic_refresh" />
-
-            <ImageButton
-                android:id="@+id/zh_custom_mouse_add_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:scaleType="fitCenter"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/zh_custom_mouse_add"
-                android:src="@drawable/ic_add_new" />
-
-            <ImageButton
-                android:id="@+id/zh_custom_mouse_return_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:scaleType="fitCenter"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/zh_return"
-                android:src="@drawable/ic_close" />
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <ImageView
             android:id="@+id/zh_custom_mouse_icon"

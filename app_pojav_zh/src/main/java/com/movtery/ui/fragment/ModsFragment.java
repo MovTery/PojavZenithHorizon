@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.movtery.ui.subassembly.filelist.FileIcon;
@@ -254,17 +255,24 @@ public class ModsFragment extends Fragment {
     }
 
     private void bindViews(@NonNull View view) {
-        mReturnButton = view.findViewById(R.id.zh_mods_return_button);
-        mAddModButton = view.findViewById(R.id.zh_mods_add_mod_button);
-        mPasteButton = view.findViewById(R.id.zh_mods_paste_button);
-        mDownloadButton = view.findViewById(R.id.zh_mods_download_mod_button);
-        mSearchSummonButton = view.findViewById(R.id.zh_mods_search_button);
-        mRefreshButton = view.findViewById(R.id.zh_mods_refresh_button);
+        mReturnButton = view.findViewById(R.id.zh_return_button);
+        mAddModButton = view.findViewById(R.id.zh_add_file_button);
+        mPasteButton = view.findViewById(R.id.zh_paste_button);
+        mDownloadButton = view.findViewById(R.id.zh_create_folder_button);
+        mSearchSummonButton = view.findViewById(R.id.zh_search_button);
+        mRefreshButton = view.findViewById(R.id.zh_refresh_button);
+
+        mAddModButton.setContentDescription(getString(R.string.zh_profile_mods_add_mod));
+        mDownloadButton.setContentDescription(getString(R.string.zh_profile_mods_download_mod));
+        mDownloadButton.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_download));
+
         mMultiSelectCheck = view.findViewById(R.id.zh_mods_multi_select_files);
         mSelectAllCheck = view.findViewById(R.id.zh_mods_select_all);
         mFileRecyclerView = view.findViewById(R.id.zh_mods);
 
-        mSearchView = new SearchView(mFileRecyclerView, view.findViewById(R.id.zh_search_view));
+        mSearchView = new SearchView(view.findViewById(R.id.zh_search_view));
+        mSearchView.setSearchListener(mFileRecyclerView::searchFiles);
+        mSearchView.setShowSearchResultsListener(mFileRecyclerView::setShowSearchResultsOnly);
         mFileRecyclerView.setFileIcon(FileIcon.MOD);
 
         mPasteButton.setVisibility(PasteFile.getInstance().getPasteType() != null ? View.VISIBLE : View.GONE);

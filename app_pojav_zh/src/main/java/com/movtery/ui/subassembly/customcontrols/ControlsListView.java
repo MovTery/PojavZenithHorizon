@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.ui.subassembly.filelist.FileSelectedListener;
+import com.movtery.utils.stringutils.StringFilter;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
@@ -26,11 +27,13 @@ import java.util.List;
 import java.util.Objects;
 
 public class ControlsListView extends LinearLayout {
-    private final List<ControlInfoData> mData = new ArrayList<>();
+    private final List<ControlItemBean> mData = new ArrayList<>();
     private ControlListAdapter controlListAdapter;
     private FileSelectedListener fileSelectedListener;
     private RecyclerView mainListView;
     private File fullPath = new File(Tools.CTRLMAP_PATH);
+    private String filterString = "";
+    private boolean showSearchResultsOnly = false;
 
     public ControlsListView(Context context) {
         this(context, null);
@@ -69,7 +72,7 @@ public class ControlsListView extends LinearLayout {
     }
 
     private void loadInfoData(File path) {
-        List<ControlInfoData> data = new ArrayList<>();
+        List<ControlItemBean> data = new ArrayList<>();
 
         File[] files = path.listFiles();
         if (files != null) {
@@ -77,11 +80,34 @@ public class ControlsListView extends LinearLayout {
                 if (file.isFile() && file.getName().endsWith(".json")) {
                     ControlInfoData controlInfoData = EditControlData.loadFormFile(getContext(), file);
                     if (controlInfoData == null) continue;
-                    data.add(controlInfoData);
+
+                    ControlItemBean controlItemBean = new ControlItemBean(controlInfoData);
+
+                    if (shouldHighlight(controlInfoData, file)) {
+                        controlItemBean.setHighlighted(true);
+                    } else if (showSearchResultsOnly) {
+                        continue;
+                    }
+                    data.add(controlItemBean);
                 }
             }
         }
 
+        updateData(data);
+    }
+
+    private boolean shouldHighlight(ControlInfoData controlInfoData, File file) {
+        if (filterString == null || filterString.isEmpty()) return false;
+
+        String name = controlInfoData.name;
+        String searchString = (name != null && !name.isEmpty() && !name.equals("null")) ? name : file.getName();
+
+        //支持搜索文件名或布局名称
+        return StringFilter.containsAllCharacters(searchString, filterString) ||
+                StringFilter.containsAllCharacters(file.getName(), filterString);
+    }
+
+    private void updateData(List<ControlItemBean> data) {
         if (!Objects.equals(data, this.mData)) {
             this.mData.clear();
             this.mData.addAll(data);
@@ -93,10 +119,20 @@ public class ControlsListView extends LinearLayout {
         refresh();
     }
 
+    public void searchControls(String filterString) {
+        this.filterString = filterString;
+        refresh();
+    }
+
+    public void setShowSearchResultsOnly(boolean showSearchResultsOnly) {
+        this.showSearchResultsOnly = showSearchResultsOnly;
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     public void refresh() {
         PojavApplication.sExecutorService.execute(() -> {
             loadInfoData(fullPath);
+            filterString = "";
             runOnUiThread(() -> {
                 controlListAdapter.notifyDataSetChanged();
                 if (PREF_ANIMATION) mainListView.scheduleLayoutAnimation();
