@@ -50,7 +50,6 @@ public class MainMenuFragment extends Fragment implements TaskCountListener {
     private CheckNewNotice.NoticeInfo noticeInfo;
     private mcVersionSpinner mVersionSpinner;
     private View mLauncherNoticeView, mDividingLineView;
-    private ImageButton mNoticeSummonButton;
     private Button mNoticeCloseButton;
     private Timer mCheckNoticeTimer;
     private boolean mTasksRunning;
@@ -110,11 +109,6 @@ public class MainMenuFragment extends Fragment implements TaskCountListener {
     }
 
     private void initNotice(View view) {
-        mNoticeSummonButton.setOnClickListener(v -> {
-            DEFAULT_PREF.edit().putBoolean("noticeDefault", true).apply();
-            setNotice(true, true, view);
-        });
-
         mNoticeCloseButton.setOnClickListener(v -> {
             DEFAULT_PREF.edit().putBoolean("noticeDefault", false).apply();
             setNotice(false, true, view);
@@ -136,11 +130,12 @@ public class MainMenuFragment extends Fragment implements TaskCountListener {
 
                 //当偏好设置内是开启通知栏 或者 检测到通知编号不为偏好设置里保存的值时，显示通知栏
                 if (DEFAULT_PREF.getBoolean("noticeDefault", false) ||
-                        (noticeInfo.getNumbering() != DEFAULT_PREF.getInt("numbering", 0))) {
-                    runOnUiThread(() -> setNotice(true, false, view));
+                        (noticeInfo.getNumbering() != DEFAULT_PREF.getInt("noticeNumbering", 0))) {
+                    runOnUiThread(() -> setNotice(true, CheckNewNotice.isFirstImpressionNotice(), view));
+                    CheckNewNotice.setFirstImpressionNotice(false);
                     SharedPreferences.Editor editor = DEFAULT_PREF.edit();
                     editor.putBoolean("noticeDefault", true);
-                    editor.putInt("numbering", noticeInfo.getNumbering());
+                    editor.putInt("noticeNumbering", noticeInfo.getNumbering());
                     editor.apply();
                     mCheckNoticeTimer.cancel();
                 }
@@ -151,7 +146,6 @@ public class MainMenuFragment extends Fragment implements TaskCountListener {
     private void bindValues(View view) {
         mLauncherNoticeView = view.findViewById(R.id.zh_menu_notice);
         mDividingLineView = view.findViewById(R.id.dividing_line);
-        mNoticeSummonButton = view.findViewById(R.id.zh_menu_notice_summon_button);
         mNoticeCloseButton = view.findViewById(R.id.zh_menu_notice_close_button);
     }
 
@@ -178,7 +172,6 @@ public class MainMenuFragment extends Fragment implements TaskCountListener {
     }
 
     private void setNotice(boolean show, boolean anim, View view) {
-        mNoticeSummonButton.setClickable(false);
         mNoticeCloseButton.setClickable(false);
 
         if (PREF_ANIMATION && anim) {
@@ -202,27 +195,16 @@ public class MainMenuFragment extends Fragment implements TaskCountListener {
             });
             animator.start();
 
-            //召唤按钮动画
-            mNoticeSummonButton.setVisibility(View.VISIBLE);
-            mNoticeSummonButton.animate()
-                    .alpha(show ? 0 : 1)
-                    .setDuration(200)
-                    .start();
-
             Handler handler = new Handler();
             handler.postDelayed(() -> {
                 if (show) {
                     checkNewNotice(view);
                 }
                 mNoticeCloseButton.setClickable(show);
-                mNoticeSummonButton.setClickable(!show);
-                mNoticeSummonButton.setVisibility(show ? View.GONE : View.VISIBLE);
             }, 250);
         } else {
             mLauncherNoticeView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mNoticeSummonButton.setVisibility(show ? View.GONE : View.VISIBLE);
             mNoticeCloseButton.setClickable(show);
-            mNoticeSummonButton.setClickable(!show);
             //设置分割线位置
             ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) mDividingLineView.getLayoutParams();
             params.horizontalBias = show ? 0.5f : 0f;

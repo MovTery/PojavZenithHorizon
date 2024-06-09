@@ -202,18 +202,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageButton
-        android:id="@+id/zh_menu_notice_summon_button"
-        android:layout_width="35dp"
-        android:layout_height="@dimen/_35sdp"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="24dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_spinner_arrow_right"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <View
         android:id="@+id/shadowView"
         android:layout_width="4dp"
