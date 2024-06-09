@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import com.movtery.ui.subassembly.filelist.FileIcon;
 import com.movtery.ui.subassembly.filelist.FileRecyclerAdapter;
 import com.movtery.ui.subassembly.filelist.FileRecyclerView;
+import com.movtery.ui.subassembly.filelist.SearchView;
 import com.movtery.utils.file.OperationFile;
 import com.movtery.utils.file.PasteFile;
 import com.movtery.ui.subassembly.filelist.FileSelectedListener;
@@ -39,7 +40,8 @@ public class ModsFragment extends Fragment {
     public static final String jarFileSuffix = ".jar";
     public static final String disableJarFileSuffix = ".jar.disabled";
     private ActivityResultLauncher<Object> openDocumentLauncher;
-    private ImageButton mReturnButton, mAddModButton, mPasteButton, mDownloadButton, mSearchButton, mRefreshButton;
+    private ImageButton mReturnButton, mAddModButton, mPasteButton, mDownloadButton, mSearchSummonButton, mRefreshButton;
+    private SearchView mSearchView;
     private CheckBox mMultiSelectCheck, mSelectAllCheck;
     private FileRecyclerView mFileRecyclerView;
     private String mRootPath;
@@ -160,9 +162,9 @@ public class ModsFragment extends Fragment {
             bundle.putString(SearchModFragment.BUNDLE_MOD_PATH, mRootPath);
             Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, bundle);
         });
-        mSearchButton.setOnClickListener(v -> {
+        mSearchSummonButton.setOnClickListener(v -> {
             closeMultiSelect();
-            mFileRecyclerView.showSearchDialog();
+            mSearchView.setVisibility();
         });
         mRefreshButton.setOnClickListener(v -> {
             closeMultiSelect();
@@ -256,12 +258,13 @@ public class ModsFragment extends Fragment {
         mAddModButton = view.findViewById(R.id.zh_mods_add_mod_button);
         mPasteButton = view.findViewById(R.id.zh_mods_paste_button);
         mDownloadButton = view.findViewById(R.id.zh_mods_download_mod_button);
-        mSearchButton = view.findViewById(R.id.zh_mods_search_button);
+        mSearchSummonButton = view.findViewById(R.id.zh_mods_search_button);
         mRefreshButton = view.findViewById(R.id.zh_mods_refresh_button);
         mMultiSelectCheck = view.findViewById(R.id.zh_mods_multi_select_files);
         mSelectAllCheck = view.findViewById(R.id.zh_mods_select_all);
         mFileRecyclerView = view.findViewById(R.id.zh_mods);
 
+        mSearchView = new SearchView(mFileRecyclerView, view.findViewById(R.id.zh_search_view));
         mFileRecyclerView.setFileIcon(FileIcon.MOD);
 
         mPasteButton.setVisibility(PasteFile.getInstance().getPasteType() != null ? View.VISIBLE : View.GONE);
@@ -270,7 +273,7 @@ public class ModsFragment extends Fragment {
         PojavZHTools.setTooltipText(mAddModButton, mAddModButton.getContentDescription());
         PojavZHTools.setTooltipText(mPasteButton, mPasteButton.getContentDescription());
         PojavZHTools.setTooltipText(mDownloadButton, mDownloadButton.getContentDescription());
-        PojavZHTools.setTooltipText(mSearchButton, mSearchButton.getContentDescription());
+        PojavZHTools.setTooltipText(mSearchSummonButton, mSearchSummonButton.getContentDescription());
         PojavZHTools.setTooltipText(mRefreshButton, mRefreshButton.getContentDescription());
     }
 }

@@ -18,8 +18,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
-import com.movtery.ui.subassembly.filelist.FileIcon;
 import com.movtery.ui.subassembly.filelist.FileRecyclerAdapter;
+import com.movtery.ui.subassembly.filelist.SearchView;
 import com.movtery.utils.file.PasteFile;
 import com.movtery.ui.subassembly.filelist.FileRecyclerView;
 import com.movtery.ui.subassembly.filelist.FileSelectedListener;
@@ -51,7 +51,8 @@ public class FilesFragment extends Fragment {
     public static final String BUNDLE_REMOVE_LOCK_PATH = "remove_lock_path";
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private boolean mShowFiles, mShowFolders, mQuickAccessPaths, mMultiSelectMode, mSelectFolderMode, mRemoveLockPath;
-    private ImageButton mReturnButton, mAddFileButton, mCreateFolderButton, mPasteButton, mSearchButton, mRefreshButton;
+    private ImageButton mReturnButton, mAddFileButton, mCreateFolderButton, mPasteButton, mSearchSummonButton, mRefreshButton;
+    private SearchView mSearchView;
     private CheckBox mMultiSelectCheck, mSelectAllCheck;
     private View mExternalStorage, mSoftwarePrivate;
     private FileRecyclerView mFileRecyclerView;
@@ -201,9 +202,9 @@ public class FilesFragment extends Fragment {
             mPasteButton.setVisibility(View.GONE);
             mFileRecyclerView.refreshPath();
         })));
-        mSearchButton.setOnClickListener(v -> {
+        mSearchSummonButton.setOnClickListener(v -> {
             closeMultiSelect();
-            mFileRecyclerView.showSearchDialog();
+            mSearchView.setVisibility();
         });
         mRefreshButton.setOnClickListener(v -> {
             closeMultiSelect();
@@ -249,13 +250,15 @@ public class FilesFragment extends Fragment {
         mCreateFolderButton = view.findViewById(R.id.zh_files_create_folder_button);
         mPasteButton = view.findViewById(R.id.zh_files_paste_button);
         mRefreshButton = view.findViewById(R.id.zh_files_refresh_button);
-        mSearchButton = view.findViewById(R.id.zh_files_search_button);
+        mSearchSummonButton = view.findViewById(R.id.zh_files_search_button);
         mFileRecyclerView = view.findViewById(R.id.zh_files);
         mFilePathView = view.findViewById(R.id.zh_files_current_path);
         mExternalStorage = view.findViewById(R.id.zh_files_external_storage);
         mSoftwarePrivate = view.findViewById(R.id.zh_files_software_private);
         mMultiSelectCheck = view.findViewById(R.id.zh_file_multi_select_files);
         mSelectAllCheck = view.findViewById(R.id.zh_file_select_all);
+
+        mSearchView = new SearchView(mFileRecyclerView, view.findViewById(R.id.zh_search_view));
 
         if (!mQuickAccessPaths) {
             mExternalStorage.setVisibility(View.GONE);
@@ -271,7 +274,6 @@ public class FilesFragment extends Fragment {
             mReturnButton.setContentDescription(getString(R.string.folder_fragment_select));
             mReturnButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_check, requireActivity().getTheme()));
         }
-        mFileRecyclerView.setFileIcon(FileIcon.FILE);
 
         mPasteButton.setVisibility(PasteFile.getInstance().getPasteType() != null ? View.VISIBLE : View.GONE);
 
@@ -279,7 +281,7 @@ public class FilesFragment extends Fragment {
         PojavZHTools.setTooltipText(mAddFileButton, mAddFileButton.getContentDescription());
         PojavZHTools.setTooltipText(mCreateFolderButton, mCreateFolderButton.getContentDescription());
         PojavZHTools.setTooltipText(mPasteButton, mPasteButton.getContentDescription());
-        PojavZHTools.setTooltipText(mSearchButton, mSearchButton.getContentDescription());
+        PojavZHTools.setTooltipText(mSearchSummonButton, mSearchSummonButton.getContentDescription());
         PojavZHTools.setTooltipText(mRefreshButton, mRefreshButton.getContentDescription());
     }
 
