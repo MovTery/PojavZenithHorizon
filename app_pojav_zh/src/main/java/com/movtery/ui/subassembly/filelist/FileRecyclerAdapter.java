@@ -157,7 +157,7 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
 
             int color;
             if (fileItemBean.isHighlighted()) {
-                color = Color.GREEN; //设置高亮
+                color = Color.rgb(69, 179, 162); //设置高亮
             } else {
                 color = this.name.getResources().getColor(R.color.black_or_white, this.name.getContext().getTheme());
             }

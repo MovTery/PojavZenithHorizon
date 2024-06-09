@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -69,13 +70,10 @@ public class FileRecyclerViewCreator {
         if (files != null) {
             Resources resources = context.getResources();
             for (File file : files) {
-                //显示文件与显示文件夹
-                if (file.isDirectory() && !showFolder) continue;
-                if (file.isFile() && !showFile) continue;
+                if (!showFileOrFolder(file, showFile, showFolder)) continue;
 
                 FileItemBean itemBean = new FileItemBean();
-                boolean b = filterString != null && !filterString.isEmpty();
-                if (b) {
+                if (filterString != null && !filterString.isEmpty()) {
                     if (StringFilter.containsAllCharacters(file.getName(), filterString)) {
                         itemBean.setHighlighted(true);
                     } else if (showSearchResultsOnly) {
@@ -84,35 +82,43 @@ public class FileRecyclerViewCreator {
                 }
                 itemBean.setFile(file);
                 itemBean.setName(null);
-                if (file.isFile()) {
-                    switch (fileIcon) {
-                        case IMAGE:
-                            if (PojavZHTools.isImage(file)) {
-                                itemBean.setImage(Drawable.createFromPath(file.getAbsolutePath()));
-                            } else {
-                                itemBean.setImage(getFileIcon(file, resources));
-                            }
-                            break;
-                        case MOD:
-                            if (file.getName().endsWith(ModsFragment.jarFileSuffix)) {
-                                itemBean.setImage(resources.getDrawable(R.drawable.ic_java, context.getTheme()));
-                            } else if (file.getName().endsWith(ModsFragment.disableJarFileSuffix)) {
-                                itemBean.setImage(resources.getDrawable(R.drawable.ic_disabled, context.getTheme()));
-                            } else {
-                                itemBean.setImage(getFileIcon(file, resources));
-                            }
-                            break;
-                        case FILE:
-                        default:
-                            itemBean.setImage(resources.getDrawable(R.drawable.ic_file, context.getTheme()));
-                    }
-                } else {
-                    itemBean.setImage(resources.getDrawable(R.drawable.ic_folder, context.getTheme()));
-                }
+                itemBean.setImage(getIcon(context, file, fileIcon, resources));
                 itemBeans.add(itemBean);
             }
         }
         return itemBeans;
+    }
+
+    private static boolean showFileOrFolder(File file, boolean showFile, boolean showFolder) {
+        //显示文件与显示文件夹
+        if (file.isDirectory() && !showFolder) return false;
+        return !file.isFile() || showFile;
+    }
+
+    private static Drawable getIcon(Context context, File file, FileIcon fileIcon, Resources resources) {
+        if (file.isFile()) {
+            switch (fileIcon) {
+                case IMAGE:
+                    if (PojavZHTools.isImage(file)) {
+                        return Drawable.createFromPath(file.getAbsolutePath());
+                    } else {
+                        return getFileIcon(file, resources);
+                    }
+                case MOD:
+                    if (file.getName().endsWith(ModsFragment.jarFileSuffix)) {
+                        return ContextCompat.getDrawable(context, R.drawable.ic_java);
+                    } else if (file.getName().endsWith(ModsFragment.disableJarFileSuffix)) {
+                        return ContextCompat.getDrawable(context, R.drawable.ic_disabled);
+                    } else {
+                        return getFileIcon(file, resources);
+                    }
+                case FILE:
+                default:
+                    return ContextCompat.getDrawable(context, R.drawable.ic_file);
+            }
+        } else {
+            return ContextCompat.getDrawable(context, R.drawable.ic_folder);
+        }
     }
 
     public static List<FileItemBean> loadItemBean(Drawable drawable, String[] names) {
