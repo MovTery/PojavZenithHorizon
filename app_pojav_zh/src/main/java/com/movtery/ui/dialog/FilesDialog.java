@@ -25,11 +25,12 @@ public class FilesDialog extends Dialog {
     private String mFileSuffix;
     private OnCopyButtonClickListener mCopyClick;
     private OnMoreButtonClickListener mMoreClick;
-    private RelativeLayout mShareButton, mRenameButton, mDeleteButton, mMoveButton, mCopyButton;
+    private RelativeLayout mShareButton, mRenameButton, mDeleteButton, mMoveButton, mCopyButton, mMoreButton;
 
     public FilesDialog(@NonNull Context context, FilesButton filesButton, Runnable runnable, List<File> selectedFiles) {
         super(context);
         this.runnable = runnable;
+
         init(filesButton);
         handleButtons(filesButton, selectedFiles);
     }
@@ -37,9 +38,9 @@ public class FilesDialog extends Dialog {
     public FilesDialog(@NonNull Context context, FilesButton filesButton, Runnable runnable, File file) {
         super(context);
         this.runnable = runnable;
-        init(filesButton);
         List<File> singleFileList = new ArrayList<>();
         singleFileList.add(file);
+
         init(filesButton);
         handleButtons(filesButton, singleFileList);
     }
@@ -56,17 +57,10 @@ public class FilesDialog extends Dialog {
         mDeleteButton = findViewById(R.id.zh_file_delete);
         mCopyButton = findViewById(R.id.zh_file_copy);
         mMoveButton = findViewById(R.id.zh_file_move);
-        RelativeLayout mMoreButton = findViewById(R.id.zh_file_more);
+        mMoreButton = findViewById(R.id.zh_file_more);
 
         ImageView mCloseButton = findViewById(R.id.zh_operation_close);
         mCloseButton.setOnClickListener(v -> this.dismiss());
-
-        setButtonClickable(filesButton.share, mShareButton);
-        setButtonClickable(filesButton.rename, mRenameButton);
-        setButtonClickable(filesButton.delete, mDeleteButton);
-        setButtonClickable(filesButton.copy, mCopyButton);
-        setButtonClickable(filesButton.move, mMoveButton);
-        setButtonClickable(filesButton.more, mMoreButton);
 
         if (filesButton.more) {
             mMoreButton.setOnClickListener(v -> {
@@ -83,23 +77,23 @@ public class FilesDialog extends Dialog {
             closeDialog();
         });
 
+        PasteFile pasteFile = PasteFile.getInstance();
         mCopyButton.setOnClickListener(v -> {
             if (this.mCopyClick != null) {
-                PasteFile.getInstance().setPaste(selectedFiles, PasteFile.PasteType.COPY); // 复制模式
+                pasteFile.setPaste(selectedFiles, PasteFile.PasteType.COPY); // 复制模式
                 this.mCopyClick.onButtonClick();
             }
             closeDialog();
         });
-
         mMoveButton.setOnClickListener(v -> {
             if (this.mCopyClick != null) {
-                PasteFile.getInstance().setPaste(selectedFiles, PasteFile.PasteType.MOVE); // 移动模式
+                pasteFile.setPaste(selectedFiles, PasteFile.PasteType.MOVE); // 移动模式
                 this.mCopyClick.onButtonClick();
             }
             closeDialog();
         });
 
-        if (selectedFiles.size() == 1) {
+        if (selectedFiles.size() == 1) { //单选模式
             File file = selectedFiles.get(0);
             mShareButton.setOnClickListener(view -> {
                 shareFile(getContext(), file.getName(), file.getAbsolutePath());
@@ -113,6 +107,9 @@ public class FilesDialog extends Dialog {
                 }
                 closeDialog();
             });
+
+            setButtonClickable(filesButton.share, mShareButton);
+            setButtonClickable(filesButton.rename, mRenameButton);
         } else {
             //多选模式禁止使用分享、重命名
             setButtonClickable(false, mShareButton);
@@ -120,6 +117,11 @@ public class FilesDialog extends Dialog {
         }
 
         setDialogTexts(filesButton, selectedFiles.get(0));
+
+        setButtonClickable(filesButton.delete, mDeleteButton);
+        setButtonClickable(filesButton.copy, mCopyButton);
+        setButtonClickable(filesButton.move, mMoveButton);
+        setButtonClickable(filesButton.more, mMoreButton);
     }
 
     private void setDialogTexts(FilesButton filesButton, File file) {
@@ -133,6 +135,7 @@ public class FilesDialog extends Dialog {
         FilesDialog.this.dismiss();
     }
 
+    //此方法要在设置点击事件之后调用，否则禁用按钮后按钮仍然能够点击
     private void setButtonClickable(boolean clickable, RelativeLayout button) {
         button.setClickable(clickable);
         button.setAlpha(clickable ? 1f : 0.5f);
