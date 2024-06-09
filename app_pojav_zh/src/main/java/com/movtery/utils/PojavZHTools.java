@@ -489,13 +489,13 @@ public class PojavZHTools {
     }
 
     public static void fadeAnim(View view, long startDelay, float begin, float end, int duration, Runnable endAction) {
+        view.setVisibility(View.VISIBLE);
         view.setAlpha(begin);
         view.animate()
                 .alpha(end)
                 .setStartDelay(startDelay)
                 .setDuration(duration)
-                .withEndAction(endAction == null ? () -> {
-                } : endAction);
+                .withEndAction(endAction == null ? () -> {} : endAction);
     }
 
     public static ModLoader installModPack(Context context, int type, File zipFile) throws Exception {

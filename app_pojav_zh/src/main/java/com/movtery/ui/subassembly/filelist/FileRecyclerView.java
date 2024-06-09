@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.movtery.ui.dialog.EditTextDialog;
 import com.movtery.utils.stringutils.StringFilter;
 
 import net.kdt.pojavlaunch.R;
@@ -104,12 +103,9 @@ public class FileRecyclerView extends LinearLayout {
         this.fileIcon = fileIcon;
     }
 
-    public void setFilterString(String filterString) {
+    public void searchFiles(String filterString) {
         this.filterString = filterString;
-    }
-
-    public String getFilterString() {
-        return filterString;
+        refreshPath();
     }
 
     public FileRecyclerAdapter getAdapter() {
@@ -149,7 +145,6 @@ public class FileRecyclerView extends LinearLayout {
             }
         } else {
             Toast.makeText(context, R.string.zh_file_does_not_exist, Toast.LENGTH_SHORT).show();
-            refreshPath();
         }
     }
 
@@ -161,6 +156,7 @@ public class FileRecyclerView extends LinearLayout {
                     newItemBeans.add(input);
                 }
             }
+            filterString = "";
             return newItemBeans;
         }
         return itemBeans;
@@ -172,17 +168,6 @@ public class FileRecyclerView extends LinearLayout {
 
     public void refreshPath() {
         listFileAt(getFullPath());
-    }
-
-    public void showSearchDialog() {
-        EditTextDialog editTextDialog = new EditTextDialog(context, context.getString(R.string.zh_search), null, getFilterString(), null);
-        editTextDialog.setConfirm(v1 -> {
-            String string = editTextDialog.getEditBox().getText().toString();
-            setFilterString(string);
-            refreshPath();
-            editTextDialog.dismiss();
-        });
-        editTextDialog.show();
     }
 
     public void parentDir() {
