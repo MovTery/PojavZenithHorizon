@@ -105,15 +105,16 @@ public class DownloadModFragment extends Fragment {
             String regex = "^\\d+\\.\\d+\\.\\d+$|^\\d+\\.\\d+$";
             Pattern pattern = Pattern.compile(regex);
 
+            boolean releaseCheckBoxChecked = mReleaseCheckBox.isChecked();
             ConcurrentMap<String, List<ModVersionGroup.ModVersionItem>> mModVersionsByMinecraftVersion = new ConcurrentHashMap<>();
             mModDetail.modVersionItems.forEach(modVersionItem -> {
                 String[] versionId = modVersionItem.getVersionId();
                 for (String mcVersion : versionId) {
-                    if (Thread.currentThread().isInterrupted()) {
+                    if (currentTask.isCancelled()) {
                         return;
                     }
 
-                    if (mReleaseCheckBox.isChecked()) {
+                    if (releaseCheckBoxChecked) {
                         Matcher matcher = pattern.matcher(mcVersion);
                         if (!matcher.matches()) {
                             //如果不是正式版本，将继续检测下一项
@@ -129,10 +130,15 @@ public class DownloadModFragment extends Fragment {
             List<ModVersionGroup> mData = new ArrayList<>();
             mModVersionsByMinecraftVersion.entrySet().stream()
                     .sorted((o1, o2) -> MCVersionComparator.versionCompare(o1.getKey(), o2.getKey()))
-                    .forEach(entry -> mData.add(new ModVersionGroup(entry.getKey(), entry.getValue())));
+                    .forEach(entry -> {
+                        if (currentTask.isCancelled()) {
+                            return;
+                        }
+                        mData.add(new ModVersionGroup(entry.getKey(), entry.getValue()));
+                    });
 
             runOnUiThread(() -> {
-                if (Thread.currentThread().isInterrupted()) {
+                if (currentTask.isCancelled()) {
                     return;
                 }
 
