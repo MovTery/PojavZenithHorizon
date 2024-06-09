@@ -182,14 +182,14 @@ public class ModsFragment extends Fragment {
         FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
         filesButton.setButtonVisibility(true, true, !file.isDirectory(), true, true, (fileName.endsWith(jarFileSuffix) || fileName.endsWith(disableJarFileSuffix)));
         if (file.isDirectory()) {
-            filesButton.messageText = getString(R.string.zh_file_folder_message);
+            filesButton.setMessageText(getString(R.string.zh_file_folder_message));
         } else {
-            filesButton.messageText = getString(R.string.zh_file_message);
+            filesButton.setMessageText(getString(R.string.zh_file_message));
         }
         if (fileName.endsWith(jarFileSuffix))
-            filesButton.moreButtonText = getString(R.string.zh_profile_mods_disable);
+            filesButton.setMoreButtonText(getString(R.string.zh_profile_mods_disable));
         else if (fileName.endsWith(disableJarFileSuffix))
-            filesButton.moreButtonText = getString(R.string.zh_profile_mods_enable);
+            filesButton.setMoreButtonText(getString(R.string.zh_profile_mods_enable));
 
         FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileRecyclerView.refreshPath()), file);
 

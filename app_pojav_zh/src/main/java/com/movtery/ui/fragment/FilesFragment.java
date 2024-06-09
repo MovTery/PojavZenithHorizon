@@ -221,25 +221,16 @@ public class FilesFragment extends Fragment {
         FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
         filesButton.setButtonVisibility(true, true, !file.isDirectory(), true, true, false);
 
-        int caciocavallo = file.getPath().indexOf("caciocavallo");
-        int lwjgl3 = file.getPath().indexOf("lwjgl3");
-
         String message;
         if (file.isDirectory()) {
             message = getString(R.string.zh_file_folder_message);
         } else {
             message = getString(R.string.zh_file_message);
         }
-        if (!(caciocavallo == -1 && lwjgl3 == -1))
-            message += "\n" + getString(R.string.zh_file_message_main);
-
-        filesButton.messageText = message;
-        filesButton.moreButtonText = null;
+        filesButton.setMessageText(message);
 
         FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileRecyclerView.refreshPath()), file);
-
         filesDialog.setCopyButtonClick(() -> mPasteButton.setVisibility(View.VISIBLE));
-
         filesDialog.show();
     }
 
@@ -276,6 +267,7 @@ public class FilesFragment extends Fragment {
         }
 
         if (mSelectFolderMode) {
+            mAddFileButton.setVisibility(View.GONE);
             mReturnButton.setContentDescription(getString(R.string.folder_fragment_select));
             mReturnButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_check, requireActivity().getTheme()));
         }
