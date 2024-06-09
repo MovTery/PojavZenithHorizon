@@ -91,7 +91,7 @@
 
         <include
             android:id="@+id/zh_search_view"
-            layout="@layout/item_search_view"
+            layout="@layout/view_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -117,7 +117,7 @@
 
         <include
             android:id="@+id/linearLayoutCompat6"
-            layout="@layout/item_file_action_bar"
+            layout="@layout/view_file_action_bar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

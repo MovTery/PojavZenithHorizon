@@ -20,6 +20,7 @@ import java.util.List;
 public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapter.InnerHolder> {
     private final List<FileItemBean> mData;
     private final List<FileItemBean> selectedFiles = new ArrayList<>();
+    private final int textColor = Color.rgb(69, 179, 162);
     private boolean isMultiSelectMode = false;
     private OnItemClickListener mOnItemClickListener;
     private OnItemLongClickListener mOnItemLongClickListener;
@@ -59,7 +60,6 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
                 checkBox.setChecked(true);
             }
         }
-        System.out.println(selectedFiles);
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -157,7 +157,7 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
 
             int color;
             if (fileItemBean.isHighlighted()) {
-                color = Color.rgb(69, 179, 162); //设置高亮
+                color = textColor; //设置高亮
             } else {
                 color = this.name.getResources().getColor(R.color.black_or_white, this.name.getContext().getTheme());
             }
