@@ -93,7 +93,6 @@
     <string name="zh_file_folder_tips">操作此資料夾</string>
     <string name="zh_file_message">請選擇你要對此檔案執行的操作</string>
     <string name="zh_file_folder_message">請選擇你要對此資料夾執行的操作</string>
-    <string name="zh_file_message_main">(請注意，在此目錄下的檔案都是非常重要的，操作不當可能導致遊戲無法啟動！)</string>
     <string name="zh_file_added">成功新增檔案</string>
     <string name="zh_file_delete">你確定要刪除此檔案嗎？</string>
     <string name="zh_file_delete_dir">你確定要刪除此資料夾嗎？</string>

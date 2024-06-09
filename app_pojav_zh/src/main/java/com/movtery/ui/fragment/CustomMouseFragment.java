@@ -126,8 +126,8 @@ public class CustomMouseFragment extends Fragment {
             if (isDefaultMouse)
                 message += "\n" + getString(R.string.zh_custom_mouse_message_default);
 
-            filesButton.messageText = message;
-            filesButton.moreButtonText = getString(R.string.global_select);
+            filesButton.setMessageText(message);
+            filesButton.setMoreButtonText(getString(R.string.global_select));
 
             FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, this::loadData, file);
             filesDialog.setMoreButtonClick(() -> {

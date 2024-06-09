@@ -98,8 +98,8 @@ public class CustomBackgroundFragment extends Fragment {
                     message = getString(R.string.zh_file_message);
                 }
 
-                filesButton.messageText = message;
-                filesButton.moreButtonText = getString(R.string.global_select);
+                filesButton.setMessageText(message);
+                filesButton.setMoreButtonText(getString(R.string.global_select));
 
                 FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileRecyclerView.refreshPath()), file);
                 filesDialog.setMoreButtonClick(() -> {

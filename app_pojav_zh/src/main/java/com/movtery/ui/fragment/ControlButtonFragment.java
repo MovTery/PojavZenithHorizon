@@ -136,11 +136,11 @@ public class ControlButtonFragment extends Fragment {
         filesButton.setButtonVisibility(true, true, !file.isDirectory(), true, true, true);
 
         if (file.isDirectory()) {
-            filesButton.messageText = getString(R.string.zh_file_folder_message);
+            filesButton.setMessageText(getString(R.string.zh_file_folder_message));
         } else {
-            filesButton.messageText = getString(R.string.zh_file_message);
+            filesButton.setMessageText(getString(R.string.zh_file_message));
         }
-        filesButton.moreButtonText = getString(R.string.global_load);
+        filesButton.setMoreButtonText(getString(R.string.global_load));
 
         FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> controlsListView.refresh()), file);
 

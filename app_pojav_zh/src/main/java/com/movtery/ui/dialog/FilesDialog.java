@@ -162,8 +162,8 @@ public class FilesDialog extends Dialog {
     }
 
     public static class FilesButton {
-        public boolean copy, move, share, rename, delete, more;
-        public String titleText, messageText, moreButtonText;
+        private boolean copy, move, share, rename, delete, more;
+        private String titleText, messageText, moreButtonText;
 
         public void setButtonVisibility(boolean copy, boolean move, boolean shareButton, boolean renameButton, boolean deleteButton, boolean moreButton) {
             this.copy = copy;
@@ -177,6 +177,18 @@ public class FilesDialog extends Dialog {
         public void setDialogText(String titleText, String messageText, String moreButtonText) {
             this.titleText = titleText;
             this.messageText = messageText;
+            this.moreButtonText = moreButtonText;
+        }
+
+        public void setTitleText(String titleText) {
+            this.titleText = titleText;
+        }
+
+        public void setMessageText(String messageText) {
+            this.messageText = messageText;
+        }
+
+        public void setMoreButtonText(String moreButtonText) {
             this.moreButtonText = moreButtonText;
         }
     }
