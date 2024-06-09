@@ -13,18 +13,29 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:paddingHorizontal="8dp"
         android:autofillHints="name"
         android:background="@drawable/background_edit_box"
         android:inputType="text"
-        app:layout_constraintHorizontal_weight="8"
+        android:paddingHorizontal="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/zh_search_search_button"
+        app:layout_constraintEnd_toStartOf="@+id/zh_search_show_search_results_only"
         app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_weight="8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         tools:ignore="LabelFor" />
+
+    <CheckBox
+        android:id="@+id/zh_search_show_search_results_only"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/zh_search_edit_text"
+        app:layout_constraintEnd_toStartOf="@+id/zh_search_search_button"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/zh_search_edit_text"
+        app:layout_constraintTop_toTopOf="@+id/zh_search_edit_text" />
 
     <ImageButton
         android:id="@+id/zh_search_search_button"
@@ -37,7 +48,7 @@
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintBottom_toBottomOf="@+id/zh_search_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/zh_search_edit_text"
+        app:layout_constraintStart_toEndOf="@+id/zh_search_show_search_results_only"
         app:layout_constraintTop_toTopOf="@+id/zh_search_edit_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
