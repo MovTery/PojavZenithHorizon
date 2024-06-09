@@ -33,9 +33,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Objects;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -52,6 +51,7 @@ public class UpdateLauncher {
     private final String tagName, fileSize;
     private String destinationFilePath;
     private Call call;
+    private Timer timer;
 
     public UpdateLauncher(Context context, String tagName, String fileSize, UpdateSource updateSource) {
         this.context = context;
@@ -119,19 +119,22 @@ public class UpdateLauncher {
                         final long[] downloadedSize = new long[1];
 
                         //限制刷新速度
-                        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-                        Runnable printTask = () -> runOnUiThread(() -> {
-                            String formattedDownloaded = formatFileSize(downloadedSize[0]);
-                            TextView textView = UpdateLauncher.this.downloadTipTextView.findViewById(R.id.zh_download_upload_textView);
-                            textView.setText(String.format(context.getString(R.string.zh_update_downloading), formattedDownloaded, fileSize));
-                        });
-                        scheduler.scheduleWithFixedDelay(printTask, 0, 200, TimeUnit.MILLISECONDS);
+                        timer = new Timer();
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                runOnUiThread(() -> {
+                                    String formattedDownloaded = formatFileSize(downloadedSize[0]);
+                                    TextView textView = UpdateLauncher.this.downloadTipTextView.findViewById(R.id.zh_download_upload_textView);
+                                    textView.setText(String.format(context.getString(R.string.zh_update_downloading), formattedDownloaded, fileSize));
+                                });
+                            }
+                        }, 0, 80);
 
                         while ((bytesRead = inputStream.read(buffer)) != -1) {
                             outputStream.write(buffer, 0, bytesRead);
                             downloadedSize[0] += bytesRead;
                         }
-                        scheduler.shutdown();
                         finish(outputFile);
                     }
                 }
@@ -141,6 +144,7 @@ public class UpdateLauncher {
 
     private void finish(File outputFile) {
         runOnUiThread(UpdateLauncher.this.downloadDialog::dismiss);
+        timer.cancel();
 
         installApk(context, outputFile);
     }
@@ -148,6 +152,7 @@ public class UpdateLauncher {
     private void stop() {
         if (this.call == null) return;
         this.call.cancel();
+        this.timer.cancel();
         FileUtils.deleteQuietly(this.apkFile);
     }
 

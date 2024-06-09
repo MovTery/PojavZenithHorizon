@@ -18,10 +18,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.Executors;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class OperationFile {
@@ -29,7 +28,7 @@ public class OperationFile {
     private final Runnable runnable;
     private final OperationFileFunction operationFileFunction;
     private Future<?> currentTask;
-    private ScheduledExecutorService scheduler;
+    private Timer timer;
 
     public OperationFile(Context context, Runnable runnable, OperationFileFunction operationFileFunction) {
         this.context = context;
@@ -54,13 +53,17 @@ public class OperationFile {
             AtomicLong fileCount = new AtomicLong(0);
 
             currentTask = PojavApplication.sExecutorService.submit(() -> {
-                scheduler = Executors.newSingleThreadScheduledExecutor();
-                Runnable printTask = () -> runOnUiThread(() -> textView.setText(context.getString(
-                        R.string.zh_file_operation_file,
-                        formatFileSize(fileSize.get()),
-                        PojavZHTools.formatFileSize(totalFileSize.get()),
-                        fileCount.get())));
-                scheduler.scheduleWithFixedDelay(printTask, 0, 200, TimeUnit.MILLISECONDS);
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(() -> textView.setText(context.getString(
+                                R.string.zh_file_operation_file,
+                                formatFileSize(fileSize.get()),
+                                PojavZHTools.formatFileSize(totalFileSize.get()),
+                                fileCount.get())));
+                    }
+                }, 0, 80);
 
                 List<File> preDeleteFiles = new ArrayList<>();
                 selectedFiles.forEach(selectedFile -> {
@@ -98,7 +101,7 @@ public class OperationFile {
                     operationFileFunction.operationFile(file);
                 });
                 runOnUiThread(dialog::dismiss);
-                scheduler.shutdown();
+                timer.cancel();
                 finish();
             });
         });
@@ -107,8 +110,8 @@ public class OperationFile {
     private void cancelTask() {
         if (currentTask != null && !currentTask.isDone()) {
             currentTask.cancel(true);
-            if (scheduler != null && !scheduler.isShutdown()) {
-                scheduler.shutdownNow();
+            if (timer != null) {
+                timer.cancel();
             }
             finish();
         }
