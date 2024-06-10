@@ -21,7 +21,6 @@ import android.os.Bundle;
 import android.os.LocaleList;
 import android.provider.DocumentsContract;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
@@ -63,7 +62,9 @@ import org.commonmark.renderer.html.HtmlRenderer;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
@@ -230,12 +231,26 @@ public class PojavZHTools {
         return backgroundImage;
     }
 
-    public static boolean isImage(File file) {
-        if (file == null) return false;
-        String fileExtension = MimeTypeMap.getFileExtensionFromUrl(file.getName());
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        String mimeType = mime.getMimeTypeFromExtension(fileExtension);
-        return mimeType != null && mimeType.startsWith("image/");
+    /***
+     * 通过读取文件的头部信息来判断文件是否为图片
+     * @param filePath 文件路径
+     * @return 返回是否为图片
+     */
+    public static boolean isImage(File filePath) {
+        try (FileInputStream input = new FileInputStream(filePath)) {
+            byte[] header = new byte[4];
+            if (input.read(header, 0, 4) != -1) {
+                return (header[0] == (byte) 0xFF && header[1] == (byte) 0xD8 && header[2] == (byte) 0xFF) || //JPEG
+                        (header[0] == (byte) 0x89 && header[1] == (byte) 0x50 && header[2] == (byte) 0x4E && header[3] == (byte) 0x47) || //PNG
+                        (header[0] == (byte) 0x47 && header[1] == (byte) 0x49 && header[2] == (byte) 0x46) || //GIF
+                        (header[0] == (byte) 0x42 && header[1] == (byte) 0x4D) || //BMP
+                        ((header[0] == (byte) 0x49 && header[1] == (byte) 0x49 && header[2] == (byte) 0x2A && header[3] == (byte) 0x00) || //TIFF
+                                (header[0] == (byte) 0x4D && header[1] == (byte) 0x4D && header[2] == (byte) 0x00 && header[3] == (byte) 0x2A)); //TIFF
+            }
+        } catch (IOException e) {
+            return false;
+        }
+        return false;
     }
 
     public static void swapSettingsFragment(FragmentActivity fragmentActivity, Class<? extends Fragment> fragmentClass,
