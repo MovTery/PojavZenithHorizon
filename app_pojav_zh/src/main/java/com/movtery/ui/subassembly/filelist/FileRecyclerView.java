@@ -16,6 +16,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @SuppressLint("ViewConstructor")
 public class FileRecyclerView extends LinearLayout {
@@ -31,6 +32,8 @@ public class FileRecyclerView extends LinearLayout {
     private boolean showFolders = true;
     private String filterString = "";
     private boolean showSearchResultsOnly = false;
+    private boolean caseSensitive = false;
+    private final AtomicInteger searchCount = new AtomicInteger(0);
 
     public FileRecyclerView(Context context) {
         this(context, null);
@@ -102,9 +105,12 @@ public class FileRecyclerView extends LinearLayout {
         this.fileIcon = fileIcon;
     }
 
-    public void searchFiles(String filterString) {
+    public int searchFiles(String filterString, boolean caseSensitive) {
+        searchCount.set(0);
         this.filterString = filterString;
+        this.caseSensitive = caseSensitive;
         refreshPath();
+        return searchCount.get();
     }
 
     public void setShowSearchResultsOnly(boolean showSearchResultsOnly) {
@@ -126,7 +132,7 @@ public class FileRecyclerView extends LinearLayout {
             if (path.isDirectory()) {
                 fullPath = path;
 
-                List<FileItemBean> itemBeans = FileRecyclerViewCreator.loadItemBeansFromPath(context, this.filterString, showSearchResultsOnly, path, this.fileIcon, this.showFiles, this.showFolders);
+                List<FileItemBean> itemBeans = FileRecyclerViewCreator.loadItemBeansFromPath(context, this.filterString, showSearchResultsOnly, caseSensitive, searchCount, path, this.fileIcon, this.showFiles, this.showFolders);
                 Collections.sort(itemBeans);
                 filterString = "";
 
