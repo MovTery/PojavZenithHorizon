@@ -188,7 +188,7 @@ public class ControlButtonFragment extends Fragment {
         controlsListView = view.findViewById(R.id.zh_controls_list);
 
         mSearchView = new SearchView(view.findViewById(R.id.zh_search_view));
-        mSearchView.setSearchListener(controlsListView::searchControls);
+        mSearchView.setAsynchronousUpdatesListener(controlsListView::searchControls);
         mSearchView.setShowSearchResultsListener(controlsListView::setShowSearchResultsOnly);
 
         mPasteButton.setVisibility(PasteFile.getInstance().getPasteType() != null ? View.VISIBLE : View.GONE);

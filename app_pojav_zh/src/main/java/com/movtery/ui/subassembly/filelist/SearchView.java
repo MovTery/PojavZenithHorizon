@@ -17,6 +17,7 @@ public class SearchView {
     private EditText mSearchEditText;
     private SearchListener searchListener;
     private ShowSearchResultsListener showSearchResultsListener;
+    private SearchAsynchronousUpdatesListener searchAsynchronousUpdatesListener;
 
     public SearchView(View view) {
         this.view = view;
@@ -39,14 +40,23 @@ public class SearchView {
     }
 
     private void search(TextView searchCountText, boolean caseSensitive) {
-        int searchCount = 0;
-        if (searchListener != null) searchCount = searchListener.onSearch(mSearchEditText.getText().toString(), caseSensitive);
-        searchCountText.setText(searchCountText.getContext().getString(R.string.zh_search_count, searchCount));
-        if (searchCount != 0) searchCountText.setVisibility(View.VISIBLE);
+        int searchCount;
+        String string = mSearchEditText.getText().toString();
+        if (searchListener != null) {
+            searchCount = searchListener.onSearch(string, caseSensitive);
+            searchCountText.setText(searchCountText.getContext().getString(R.string.zh_search_count, searchCount));
+            if (searchCount != 0) searchCountText.setVisibility(View.VISIBLE);
+        } else if (searchAsynchronousUpdatesListener != null) {
+            searchAsynchronousUpdatesListener.onSearch(searchCountText, string, caseSensitive);
+        }
     }
 
     public void setSearchListener(SearchListener listener) {
         this.searchListener = listener;
+    }
+
+    public void setAsynchronousUpdatesListener(SearchAsynchronousUpdatesListener listener) {
+        this.searchAsynchronousUpdatesListener = listener;
     }
 
     public void setShowSearchResultsListener(ShowSearchResultsListener listener) {
@@ -68,6 +78,10 @@ public class SearchView {
 
     public interface SearchListener {
         int onSearch(String string, boolean caseSensitive);
+    }
+
+    public interface SearchAsynchronousUpdatesListener {
+        void onSearch(TextView searchCount, String string, boolean caseSensitive);
     }
 
     public interface ShowSearchResultsListener {

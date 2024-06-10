@@ -6,9 +6,11 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,6 +38,7 @@ public class ControlsListView extends LinearLayout {
     private String filterString = "";
     private boolean showSearchResultsOnly = false;
     private boolean caseSensitive = false;
+    private TextView searchCountText;
     private final AtomicInteger searchCount = new AtomicInteger(0);
 
     public ControlsListView(Context context) {
@@ -116,6 +119,14 @@ public class ControlsListView extends LinearLayout {
             this.mData.clear();
             this.mData.addAll(data);
         }
+        if (searchCountText != null) {
+            runOnUiThread(() -> {
+                //展示搜索结果
+                int count = searchCount.get();
+                searchCountText.setText(searchCountText.getContext().getString(R.string.zh_search_count, count));
+                if (count != 0) searchCountText.setVisibility(View.VISIBLE);
+            });
+        }
     }
 
     public void listAtPath(File path) {
@@ -123,12 +134,12 @@ public class ControlsListView extends LinearLayout {
         refresh();
     }
 
-    public int searchControls(String filterString, boolean caseSensitive) {
+    public void searchControls(TextView searchCountText, String filterString, boolean caseSensitive) {
         searchCount.set(0);
         this.filterString = filterString;
         this.caseSensitive = caseSensitive;
+        this.searchCountText = searchCountText;
         refresh();
-        return searchCount.get();
     }
 
     public void setShowSearchResultsOnly(boolean showSearchResultsOnly) {
