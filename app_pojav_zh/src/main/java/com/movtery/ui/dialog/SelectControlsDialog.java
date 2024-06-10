@@ -3,7 +3,7 @@ package com.movtery.ui.dialog;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 
@@ -30,11 +30,11 @@ public class SelectControlsDialog extends Dialog {
     @SuppressLint("UseCompatLoadingForDrawables")
     private void init() {
         controlsListView = findViewById(R.id.zh_controls);
-        Button mCancelButton = findViewById(R.id.zh_controls_cancel_button);
+        ImageButton mCloseButton = findViewById(R.id.zh_controls_close_button);
 
         controlsListView.listAtPath(new File(Tools.CTRLMAP_PATH));
 
-        mCancelButton.setOnClickListener(v -> this.dismiss());
+        mCloseButton.setOnClickListener(v -> this.dismiss());
     }
 
     public void setOnSelectedListener(ControlSelectedListener controlSelectedListener) {
