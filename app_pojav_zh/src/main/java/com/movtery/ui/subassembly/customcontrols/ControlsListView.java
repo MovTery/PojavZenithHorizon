@@ -25,6 +25,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ControlsListView extends LinearLayout {
     private final List<ControlItemBean> mData = new ArrayList<>();
@@ -34,6 +35,8 @@ public class ControlsListView extends LinearLayout {
     private File fullPath = new File(Tools.CTRLMAP_PATH);
     private String filterString = "";
     private boolean showSearchResultsOnly = false;
+    private boolean caseSensitive = false;
+    private final AtomicInteger searchCount = new AtomicInteger(0);
 
     public ControlsListView(Context context) {
         this(context, null);
@@ -85,6 +88,7 @@ public class ControlsListView extends LinearLayout {
 
                     if (shouldHighlight(controlInfoData, file)) {
                         controlItemBean.setHighlighted(true);
+                        searchCount.addAndGet(1);
                     } else if (showSearchResultsOnly) {
                         continue;
                     }
@@ -103,8 +107,8 @@ public class ControlsListView extends LinearLayout {
         String searchString = (name != null && !name.isEmpty() && !name.equals("null")) ? name : file.getName();
 
         //支持搜索文件名或布局名称
-        return StringFilter.containsAllCharacters(searchString, filterString) ||
-                StringFilter.containsAllCharacters(file.getName(), filterString);
+        return StringFilter.containsSubstring(searchString, filterString, caseSensitive) ||
+                StringFilter.containsSubstring(file.getName(), filterString, caseSensitive);
     }
 
     private void updateData(List<ControlItemBean> data) {
@@ -119,9 +123,12 @@ public class ControlsListView extends LinearLayout {
         refresh();
     }
 
-    public void searchControls(String filterString) {
+    public int searchControls(String filterString, boolean caseSensitive) {
+        searchCount.set(0);
         this.filterString = filterString;
+        this.caseSensitive = caseSensitive;
         refresh();
+        return searchCount.get();
     }
 
     public void setShowSearchResultsOnly(boolean showSearchResultsOnly) {

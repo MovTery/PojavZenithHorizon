@@ -21,6 +21,7 @@ import com.movtery.utils.stringutils.StringFilter;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class FileRecyclerViewCreator {
     private final FileRecyclerAdapter fileRecyclerAdapter;
@@ -60,11 +61,11 @@ public class FileRecyclerViewCreator {
 
 
     public static List<FileItemBean> loadItemBeansFromPath(Context context, File path, FileIcon fileIcon, boolean showFile, boolean showFolder) {
-        return loadItemBeansFromPath(context, null, false, path, fileIcon, showFile, showFolder);
+        return loadItemBeansFromPath(context, null, false, false, new AtomicInteger(), path, fileIcon, showFile, showFolder);
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    public static List<FileItemBean> loadItemBeansFromPath(Context context, String filterString, boolean showSearchResultsOnly, File path, FileIcon fileIcon, boolean showFile, boolean showFolder) {
+    public static List<FileItemBean> loadItemBeansFromPath(Context context, String filterString, boolean showSearchResultsOnly, boolean caseSensitive, AtomicInteger searchCount, File path, FileIcon fileIcon, boolean showFile, boolean showFolder) {
         List<FileItemBean> itemBeans = new ArrayList<>();
         File[] files = path.listFiles();
         if (files != null) {
@@ -74,8 +75,9 @@ public class FileRecyclerViewCreator {
 
                 FileItemBean itemBean = new FileItemBean();
                 if (filterString != null && !filterString.isEmpty()) {
-                    if (StringFilter.containsAllCharacters(file.getName(), filterString)) {
+                    if (StringFilter.containsSubstring(file.getName(), filterString, caseSensitive)) {
                         itemBean.setHighlighted(true);
+                        searchCount.addAndGet(1);
                     } else if (showSearchResultsOnly) {
                         continue;
                     }

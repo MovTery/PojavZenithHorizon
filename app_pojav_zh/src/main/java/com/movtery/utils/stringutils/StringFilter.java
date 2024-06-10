@@ -1,36 +1,22 @@
 package com.movtery.utils.stringutils;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StringFilter {
-    /***
-     * 这个方法将用于检查任意字符串是否包含一些字符，同时还检查了输入字符串内字符出现的个数，是否与检查字符串内包含的字符个数一致
+    /**
+     * 检查输入字符串是否包含指定的子字符串。
      * @param input 输入字符串
-     * @param examine 检查字符串，用于检查输入字符串内是否包含此字符串内的字符
-     * @return 返回输入字符串是否包含检查字符串
+     * @param substring 检查子字符串
+     * @param caseSensitive 是否区分大小写
+     * @return 如果输入字符串包含指定的子字符串，返回true；否则返回false
      */
-    public static boolean containsAllCharacters(String input, String examine) {
-        //记录每个字符的出现次数
-        Map<Character, Integer> examineCountMap = new HashMap<>();
-        for (char c : examine.toCharArray()) {
-            examineCountMap.put(c, examineCountMap.getOrDefault(c, 0) + 1);
-        }
-        Map<Character, Integer> inputCountMap = new HashMap<>();
-        for (char c : input.toCharArray()) {
-            inputCountMap.put(c, inputCountMap.getOrDefault(c, 0) + 1);
-        }
-
-
-        for (Map.Entry<Character, Integer> entry : examineCountMap.entrySet()) {
-            char c = entry.getKey();
-            int examineOccurrences = entry.getValue();
-            int inputOccurrences = inputCountMap.getOrDefault(c, 0);
-            if (inputOccurrences < examineOccurrences) {
-                return false;
-            }
-        }
-
-        return true;
+    public static boolean containsSubstring(String input, String substring, boolean caseSensitive) {
+        String adjustedInput = caseSensitive ? input : input.toLowerCase();
+        String adjustedSubstring = caseSensitive ? substring : substring.toLowerCase();
+        String regex = Pattern.quote(adjustedSubstring);
+        Pattern compiledPattern = Pattern.compile(regex);
+        Matcher matcher = compiledPattern.matcher(adjustedInput);
+        return matcher.find();
     }
 }
