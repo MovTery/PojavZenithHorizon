@@ -1,6 +1,5 @@
 package com.movtery.ui.subassembly.downloadmod;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,10 +25,10 @@ import java.util.List;
 public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.InnerHolder> implements TaskCountListener {
     private final ModDependencies.SelectedMod mod;
     private final ModDetail modDetail;
-    private List<ModVersionGroup.ModVersionItem> mData;
+    private final List<ModVersionItem> mData;
     private boolean mTasksRunning;
 
-    public ModVersionAdapter(ModDependencies.SelectedMod mod, ModDetail modDetail, List<ModVersionGroup.ModVersionItem> mData) {
+    public ModVersionAdapter(ModDependencies.SelectedMod mod, ModDetail modDetail, List<ModVersionItem> mData) {
         this.mod = mod;
         this.modDetail = modDetail;
         this.mData = mData;
@@ -58,12 +57,6 @@ public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.In
         Tools.runOnUiThread(() -> mTasksRunning = taskCount != 0);
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void updateData(List<ModVersionGroup.ModVersionItem> newData) {
-        this.mData = newData;
-        notifyDataSetChanged();
-    }
-
     public class InnerHolder extends RecyclerView.ViewHolder {
         private final View mainView;
         private final ImageView mImageView;
@@ -79,7 +72,7 @@ public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.In
             mReleaseType = itemView.findViewById(R.id.zh_mod_release_type_textview);
         }
 
-        public void setData(ModVersionGroup.ModVersionItem modVersionItem) {
+        public void setData(ModVersionItem modVersionItem) {
             mImageView.setImageResource(getDownloadType(modVersionItem.getVersionType()));
 
             mTitle.setText(modVersionItem.getTitle());

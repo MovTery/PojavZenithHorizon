@@ -2,7 +2,7 @@ package net.kdt.pojavlaunch.modloaders.modpacks.api;
 
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
-import com.movtery.ui.subassembly.downloadmod.ModVersionGroup;
+import com.movtery.ui.subassembly.downloadmod.ModVersionItem;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -19,7 +19,7 @@ import java.util.Locale;
 import java.util.concurrent.Callable;
 
 public class ModpackInstaller {
-    public static ModLoader installMod(ModDetail modDetail, String path, ModVersionGroup.ModVersionItem modVersionItem) throws IOException {
+    public static ModLoader installMod(ModDetail modDetail, String path, ModVersionItem modVersionItem) throws IOException {
         String modFileName = "[" + modDetail.title + "] " + modVersionItem.getName();
 
         File modFile = new File(path, modFileName.replace("/", "-"));
@@ -40,7 +40,7 @@ public class ModpackInstaller {
     }
 
 
-    public static ModLoader installModpack(ModDetail modDetail, ModVersionGroup.ModVersionItem modVersionItem, InstallFunction installFunction) throws IOException {
+    public static ModLoader installModpack(ModDetail modDetail, ModVersionItem modVersionItem, InstallFunction installFunction) throws IOException {
         String modpackName = modDetail.title.toLowerCase(Locale.ROOT).trim().replace(" ", "_" );
 
         // Build a new minecraft instance, folder first

@@ -4,7 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.movtery.ui.subassembly.downloadmod.ModVersionGroup;
+import com.movtery.ui.subassembly.downloadmod.ModVersionItem;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.Constants;
@@ -111,7 +111,7 @@ public class CommonApi implements ModpackApi {
     }
 
     @Override
-    public ModLoader installMod(boolean isModPack, String modsPath, ModDetail modDetail, ModVersionGroup.ModVersionItem modVersionItem) throws IOException {
+    public ModLoader installMod(boolean isModPack, String modsPath, ModDetail modDetail, ModVersionItem modVersionItem) throws IOException {
         return getModpackApi(modDetail.apiSource).installMod(isModPack, modsPath, modDetail, modVersionItem);
     }
 
