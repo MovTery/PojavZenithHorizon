@@ -7,7 +7,7 @@ import com.kdt.mcgui.ProgressLayout;
 import com.movtery.feature.mod.ModLoaderList;
 import com.movtery.feature.mod.SearchModSort;
 import com.movtery.ui.subassembly.downloadmod.ModDependencies;
-import com.movtery.ui.subassembly.downloadmod.ModVersionGroup;
+import com.movtery.ui.subassembly.downloadmod.ModVersionItem;
 import com.movtery.ui.subassembly.downloadmod.VersionType;
 import com.movtery.utils.stringutils.SimpleStringJoiner;
 
@@ -123,7 +123,7 @@ public class ModrinthApi implements ModpackApi{
         if (response == null) return null;
         System.out.println(response);
 
-        List<ModVersionGroup.ModVersionItem> modItems = new ArrayList<>();
+        List<ModVersionItem> modItems = new ArrayList<>();
         Map<String, ModItem> dependenciesModMap = new HashMap<>();
 
         for (int i = 0; i < response.size(); ++i) {
@@ -199,7 +199,7 @@ public class ModrinthApi implements ModpackApi{
                 }
             }
 
-            modItems.add(new ModVersionGroup.ModVersionItem(mcVersionsArray,
+            modItems.add(new ModVersionItem(mcVersionsArray,
                     filename,
                     name,
                     modloaderList.getValue(),
@@ -214,7 +214,7 @@ public class ModrinthApi implements ModpackApi{
     }
 
     @Override
-    public ModLoader installMod(boolean isModPack, String modsPath, ModDetail modDetail, ModVersionGroup.ModVersionItem modVersionItem) throws IOException{
+    public ModLoader installMod(boolean isModPack, String modsPath, ModDetail modDetail, ModVersionItem modVersionItem) throws IOException{
         if (isModPack) {
             return ModpackInstaller.installModpack(modDetail, modVersionItem, this::installMrpack);
         } else {

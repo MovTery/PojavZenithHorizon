@@ -12,7 +12,7 @@ import com.kdt.mcgui.ProgressLayout;
 import com.movtery.feature.mod.ModLoaderList;
 import com.movtery.feature.mod.SearchModSort;
 import com.movtery.ui.subassembly.downloadmod.ModDependencies;
-import com.movtery.ui.subassembly.downloadmod.ModVersionGroup;
+import com.movtery.ui.subassembly.downloadmod.ModVersionItem;
 import com.movtery.ui.subassembly.downloadmod.VersionType;
 import com.movtery.utils.stringutils.SimpleStringJoiner;
 
@@ -148,7 +148,7 @@ public class CurseforgeApi implements ModpackApi{
         }
         if(index == CURSEFORGE_PAGINATION_ERROR) return null;
 
-        List<ModVersionGroup.ModVersionItem> modVersionItems = new ArrayList<>();
+        List<ModVersionItem> modVersionItems = new ArrayList<>();
         Map<String, ModItem> dependenciesModMap = new HashMap<>();
 
         for(int i = 0; i < allModDetails.size(); i++) {
@@ -232,7 +232,7 @@ public class CurseforgeApi implements ModpackApi{
                 }
             }
 
-            modVersionItems.add(new ModVersionGroup.ModVersionItem(mcVersionsArray,
+            modVersionItems.add(new ModVersionItem(mcVersionsArray,
                     fileName,
                     displayName,
                     modloaderList.getValue(),
@@ -247,7 +247,7 @@ public class CurseforgeApi implements ModpackApi{
     }
 
     @Override
-    public ModLoader installMod(boolean isModPack, String modsPath, ModDetail modDetail, ModVersionGroup.ModVersionItem modVersionItem) throws IOException{
+    public ModLoader installMod(boolean isModPack, String modsPath, ModDetail modDetail, ModVersionItem modVersionItem) throws IOException{
         if (isModPack) {
             return ModpackInstaller.installModpack(modDetail, modVersionItem, this::installCurseforgeZip);
         } else {

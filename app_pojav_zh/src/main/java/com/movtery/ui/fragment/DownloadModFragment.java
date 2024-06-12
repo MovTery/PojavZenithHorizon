@@ -3,31 +3,20 @@ package com.movtery.ui.fragment;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
-import android.os.Bundle;
-import android.view.View;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.movtery.ui.subassembly.downloadmod.DownloadModAdapter;
 import com.movtery.ui.subassembly.downloadmod.ModApiViewModel;
 import com.movtery.ui.subassembly.downloadmod.ModDependencies;
-import com.movtery.ui.subassembly.downloadmod.ModVersionGroup;
+import com.movtery.ui.subassembly.downloadmod.ModVersionAdapter;
+import com.movtery.ui.subassembly.downloadmod.ModVersionItem;
+import com.movtery.ui.subassembly.collapsibleexpandlist.CollapsibleExpandAdapter;
+import com.movtery.ui.subassembly.collapsibleexpandlist.CollapsibleExpandItemBean;
+import com.movtery.ui.subassembly.collapsibleexpandlist.CollapsibleExpandListFragment;
 import com.movtery.utils.MCVersionComparator;
-import com.movtery.utils.PojavZHTools;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
@@ -46,140 +35,94 @@ import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DownloadModFragment extends Fragment {
+public class DownloadModFragment extends CollapsibleExpandListFragment {
     public static final String TAG = "DownloadModFragment";
     private ModItem mModItem;
     private ModpackApi mModApi;
-    private RecyclerView mModVersionView;
-    private ProgressBar mProgressBar;
-    private TextView mLoadingText, mModNameText;
     private final ModIconCache mIconCache = new ModIconCache();
     private ImageReceiver mImageReceiver;
-    private ImageView mModIcon;
-    private Button mReturnButton, mRefreshButton;
-    private CheckBox mReleaseCheckBox;
     private boolean mIsModpack;
     private String mModsPath;
-    private Future<?> currentTask;
 
     public DownloadModFragment() {
-        super(R.layout.fragment_mod_download);
+        super();
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        bindViews(view);
+    protected void init() {
         parseViewModel();
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
-        if (PREF_ANIMATION) mModVersionView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.fade_downwards)));
-        mModVersionView.setLayoutManager(layoutManager);
-
-        mRefreshButton.setOnClickListener(v -> refresh());
-        mReleaseCheckBox.setOnClickListener(v -> refresh());
-        mReturnButton.setOnClickListener(v -> PojavZHTools.onBackPressed(requireActivity()));
-
-        refresh();
+        setOnRefreshListener(() -> PojavApplication.sExecutorService.submit(() -> {
+            try {
+                runOnUiThread(() -> componentProcessing(true));
+                ModDetail mModDetail = mModApi.getModDetails(mModItem);
+                processModDetails(mModDetail);
+            } catch (Exception e) {
+                runOnUiThread(() -> componentProcessing(false));
+            }
+        }));
+        super.init();
     }
 
-    @Override
-    public void onDestroy() {
-        cancelTask();
-        super.onDestroy();
-    }
+    private void processModDetails(ModDetail mModDetail) {
+        Future<?> currentTask = getCurrentTask();
+        String regex = "^\\d+\\.\\d+\\.\\d+$|^\\d+\\.\\d+$";
+        Pattern pattern = Pattern.compile(regex);
 
-    private void cancelTask() {
-        if (currentTask != null && !currentTask.isDone()) {
-            currentTask.cancel(true);
-        }
-    }
+        boolean releaseCheckBoxChecked = getReleaseCheckBox().isChecked();
+        ConcurrentMap<String, List<ModVersionItem>> mModVersionsByMinecraftVersion = new ConcurrentHashMap<>();
+        mModDetail.modVersionItems.forEach(modVersionItem -> {
+            if (currentTask.isCancelled()) {
+                return;
+            }
 
-    private void refresh() {
-        cancelTask();
-
-        currentTask = PojavApplication.sExecutorService.submit(() -> {
-            componentProcessing(true);
-
-            ModDetail mModDetail = mModApi.getModDetails(mModItem);
-
-            String regex = "^\\d+\\.\\d+\\.\\d+$|^\\d+\\.\\d+$";
-            Pattern pattern = Pattern.compile(regex);
-
-            boolean releaseCheckBoxChecked = mReleaseCheckBox.isChecked();
-            ConcurrentMap<String, List<ModVersionGroup.ModVersionItem>> mModVersionsByMinecraftVersion = new ConcurrentHashMap<>();
-            mModDetail.modVersionItems.forEach(modVersionItem -> {
-                String[] versionId = modVersionItem.getVersionId();
-                for (String mcVersion : versionId) {
-                    if (currentTask.isCancelled()) {
-                        return;
-                    }
-
-                    if (releaseCheckBoxChecked) {
-                        Matcher matcher = pattern.matcher(mcVersion);
-                        if (!matcher.matches()) {
-                            //如果不是正式版本，将继续检测下一项
-                            continue;
-                        }
-                    }
-
-                    mModVersionsByMinecraftVersion.computeIfAbsent(mcVersion, k -> Collections.synchronizedList(new ArrayList<>()))
-                            .add(modVersionItem); //将Mod 版本数据加入到相应的版本号分组中
-                }
-            });
-
-            List<ModVersionGroup> mData = new ArrayList<>();
-            mModVersionsByMinecraftVersion.entrySet().stream()
-                    .sorted((o1, o2) -> MCVersionComparator.versionCompare(o1.getKey(), o2.getKey()))
-                    .forEach(entry -> {
-                        if (currentTask.isCancelled()) {
-                            return;
-                        }
-                        mData.add(new ModVersionGroup(entry.getKey(), entry.getValue()));
-                    });
-
-            runOnUiThread(() -> {
+            String[] versionId = modVersionItem.getVersionId();
+            for (String mcVersion : versionId) {
                 if (currentTask.isCancelled()) {
                     return;
                 }
 
-                DownloadModAdapter mModAdapter = (DownloadModAdapter) mModVersionView.getAdapter();
-                if (mModAdapter == null) {
-                    mModAdapter = new DownloadModAdapter(
-                            new ModDependencies.SelectedMod(this,
-                                    mModItem.title, mModApi, mIsModpack, mModsPath),
-                            mModDetail, mData);
-                    mModVersionView.setLayoutManager(new LinearLayoutManager(requireContext()));
-                    mModVersionView.setAdapter(mModAdapter);
-                } else {
-                    mModAdapter.updateData(mData);
+                if (releaseCheckBoxChecked) {
+                    Matcher matcher = pattern.matcher(mcVersion);
+                    if (!matcher.matches()) {
+                        //如果不是正式版本，将继续检测下一项
+                        continue;
+                    }
                 }
 
-                componentProcessing(false);
-                if (PREF_ANIMATION) mModVersionView.scheduleLayoutAnimation();
-            });
+                mModVersionsByMinecraftVersion.computeIfAbsent(mcVersion, k -> Collections.synchronizedList(new ArrayList<>()))
+                        .add(modVersionItem); //将Mod 版本数据加入到相应的版本号分组中
+            }
         });
-    }
 
-    private void componentProcessing(boolean state) {
+        List<CollapsibleExpandItemBean> mData = new ArrayList<>();
+        mModVersionsByMinecraftVersion.entrySet().stream()
+                .sorted((o1, o2) -> MCVersionComparator.versionCompare(o1.getKey(), o2.getKey()))
+                .forEach(entry -> {
+                    if (currentTask.isCancelled()) {
+                        return;
+                    }
+                    mData.add(new CollapsibleExpandItemBean("Minecraft " + entry.getKey(), new ModVersionAdapter(new ModDependencies.SelectedMod(DownloadModFragment.this,
+                            mModItem.title, mModApi, mIsModpack, mModsPath), mModDetail, entry.getValue())));
+                });
+
         runOnUiThread(() -> {
-            mProgressBar.setVisibility(state ? View.VISIBLE : View.GONE);
-            mLoadingText.setVisibility(state ? View.VISIBLE : View.GONE);
-            mModVersionView.setVisibility(state ? View.GONE : View.VISIBLE);
+            if (currentTask.isCancelled()) {
+                return;
+            }
 
-            mRefreshButton.setClickable(!state);
-            mReleaseCheckBox.setClickable(!state);
+            RecyclerView modVersionView = getModVersionView();
+            CollapsibleExpandAdapter mModAdapter = (CollapsibleExpandAdapter) modVersionView.getAdapter();
+            if (mModAdapter == null) {
+                mModAdapter = new CollapsibleExpandAdapter(mData);
+                modVersionView.setLayoutManager(new LinearLayoutManager(requireContext()));
+                modVersionView.setAdapter(mModAdapter);
+            } else {
+                mModAdapter.updateData(mData);
+            }
+
+            componentProcessing(false);
+            if (PREF_ANIMATION) modVersionView.scheduleLayoutAnimation();
         });
-    }
-
-    private void bindViews(View view) {
-        mModVersionView = view.findViewById(R.id.zh_mod);
-        mProgressBar = view.findViewById(R.id.zh_mod_loading);
-        mLoadingText = view.findViewById(R.id.zh_mod_loading_text);
-        mModIcon = view.findViewById(R.id.zh_mod_icon);
-        mModNameText = view.findViewById(R.id.zh_mod_name);
-        mReturnButton = view.findViewById(R.id.zh_mod_return_button);
-        mRefreshButton = view.findViewById(R.id.zh_mod_refresh_button);
-        mReleaseCheckBox = view.findViewById(R.id.zh_mod_release_version);
     }
 
     private void parseViewModel() {
@@ -189,13 +132,13 @@ public class DownloadModFragment extends Fragment {
         mIsModpack = viewModel.isModpack();
         mModsPath = viewModel.getModsPath();
 
-        mModNameText.setText(mModItem.title);
+        setModNameText(mModItem.title);
 
         mImageReceiver = bm -> {
             mImageReceiver = null;
             RoundedBitmapDrawable drawable = RoundedBitmapDrawableFactory.create(getResources(), bm);
             drawable.setCornerRadius(getResources().getDimension(R.dimen._1sdp) / 250 * bm.getHeight());
-            mModIcon.setImageDrawable(drawable);
+            setModIcon(drawable);
         };
         mIconCache.getImage(mImageReceiver, mModItem.getIconCacheTag(), mModItem.imageUrl);
     }

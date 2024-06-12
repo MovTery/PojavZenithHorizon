@@ -4,7 +4,7 @@ package net.kdt.pojavlaunch.modloaders.modpacks.api;
 import android.content.Context;
 
 import com.kdt.mcgui.ProgressLayout;
-import com.movtery.ui.subassembly.downloadmod.ModVersionGroup;
+import com.movtery.ui.subassembly.downloadmod.ModVersionItem;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
@@ -48,7 +48,7 @@ public interface ModpackApi {
      * @param modDetail The mod detail data
      * @param modVersionItem The selected version
      */
-    default void handleInstallation(Context context, boolean isModPack, String modsPath,  ModDetail modDetail, ModVersionGroup.ModVersionItem modVersionItem) {
+    default void handleInstallation(Context context, boolean isModPack, String modsPath,  ModDetail modDetail, ModVersionItem modVersionItem) {
         // Doing this here since when starting installation, the progress does not start immediately
         // which may lead to two concurrent installations (very bad)
         ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.global_waiting);
@@ -70,5 +70,5 @@ public interface ModpackApi {
      * @param modDetail The mod detail data
      * @param modVersionItem The selected version
      */
-    ModLoader installMod(boolean isModPack, String modsPath, ModDetail modDetail, ModVersionGroup.ModVersionItem modVersionItem) throws IOException;
+    ModLoader installMod(boolean isModPack, String modsPath, ModDetail modDetail, ModVersionItem modVersionItem) throws IOException;
 }
