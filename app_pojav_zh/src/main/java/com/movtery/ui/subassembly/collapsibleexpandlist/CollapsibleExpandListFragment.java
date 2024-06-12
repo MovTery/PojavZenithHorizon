@@ -2,6 +2,7 @@ package com.movtery.ui.subassembly.collapsibleexpandlist;
 
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -14,7 +15,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -104,7 +104,7 @@ public class CollapsibleExpandListFragment extends Fragment {
         this.mModNameText.setText(modNameText);
     }
 
-    protected void setModIcon(RoundedBitmapDrawable modIcon) {
+    protected void setModIcon(Drawable modIcon) {
         this.mModIcon.setImageDrawable(modIcon);
     }
 

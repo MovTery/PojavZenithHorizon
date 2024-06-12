@@ -15,7 +15,6 @@ import com.movtery.utils.NumberWithUnits;
 import com.movtery.utils.PojavZHTools;
 
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
@@ -54,7 +53,7 @@ public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.In
 
     @Override
     public void onUpdateTaskCount(int taskCount) {
-        Tools.runOnUiThread(() -> mTasksRunning = taskCount != 0);
+        mTasksRunning = taskCount != 0;
     }
 
     public class InnerHolder extends RecyclerView.ViewHolder {

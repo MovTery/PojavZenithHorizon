@@ -1,0 +1,151 @@
+package com.movtery.ui.fragment;
+
+import static net.kdt.pojavlaunch.Tools.runOnUiThread;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
+
+import android.content.Context;
+import android.content.Intent;
+import android.view.View;
+
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.movtery.feature.mod.modloader.NeoForgeUtils;
+import com.movtery.feature.mod.modloader.NeoForgeVersionListAdapter;
+import com.movtery.ui.subassembly.collapsibleexpandlist.CollapsibleExpandAdapter;
+import com.movtery.ui.subassembly.collapsibleexpandlist.CollapsibleExpandItemBean;
+import com.movtery.ui.subassembly.collapsibleexpandlist.CollapsibleExpandListFragment;
+import com.movtery.utils.MCVersionComparator;
+
+import net.kdt.pojavlaunch.JavaGUILauncherActivity;
+import net.kdt.pojavlaunch.PojavApplication;
+import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.Tools;
+import net.kdt.pojavlaunch.modloaders.ModloaderDownloadListener;
+import net.kdt.pojavlaunch.modloaders.ModloaderListenerProxy;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.Future;
+
+public class DownloadNeoForgeFragment extends CollapsibleExpandListFragment implements ModloaderDownloadListener {
+    public static final String TAG = "DownloadNeoForgeFragment";
+    private final ModloaderListenerProxy modloaderListenerProxy = new ModloaderListenerProxy();
+
+    public DownloadNeoForgeFragment() {
+        super();
+    }
+
+    @Override
+    protected void init() {
+        setOnRefreshListener(this::refreshForgeVersions);
+        setModIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_neoforge));
+        setModNameText("NeoForge");
+        getReleaseCheckBox().setVisibility(View.GONE); //隐藏“仅展示正式版”选择框，在这里没有用处
+        super.init();
+    }
+
+    private Future<?> refreshForgeVersions() {
+        return PojavApplication.sExecutorService.submit(() -> {
+            try {
+                runOnUiThread(() -> componentProcessing(true));
+                processModDetails(loadVersionList());
+            } catch (Exception e) {
+                runOnUiThread(() -> componentProcessing(false));
+            }
+        });
+    }
+
+    public List<String> loadVersionList() {
+        try {
+            List<String> versions = new ArrayList<>();
+            versions.addAll(NeoForgeUtils.downloadNeoForgedForgeVersions());
+            versions.addAll(NeoForgeUtils.downloadNeoForgeVersions());
+            return versions;
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    private void processModDetails(List<String> neoForgeVersions) {
+        if (neoForgeVersions == null) {
+            runOnUiThread(() -> componentProcessing(false));
+            return;
+        }
+
+        ConcurrentMap<String, List<String>> mNeoForgeVersions = new ConcurrentHashMap<>();
+        neoForgeVersions.forEach(neoForgeVersion -> {
+            //查找并分组Minecraft版本与NeoForge版本
+            String gameVersion = null;
+            int dashIndex;
+            if (!neoForgeVersion.contains("1.20.1") && !neoForgeVersion.contains("47.1.82")) {
+                //在字符串“20.2.3-beta”的例子中，只需要子字符串“20.2”
+                dashIndex = neoForgeVersion.indexOf(".", 3);
+                gameVersion = "1." + neoForgeVersion.substring(0, dashIndex); // "1." + "20.2"
+            } else if (neoForgeVersion.contains("1.20.1")) {
+                dashIndex = neoForgeVersion.indexOf("-");
+                gameVersion = neoForgeVersion.substring(0, dashIndex); // "1.20.1"
+            } else if (neoForgeVersion.equals("47.1.82")) return;
+            mNeoForgeVersions.computeIfAbsent(gameVersion, k -> new ArrayList<>()).add(neoForgeVersion);
+        });
+
+        List<CollapsibleExpandItemBean> mData = new ArrayList<>();
+        mNeoForgeVersions.entrySet().stream()
+                .sorted(java.util.Map.Entry.comparingByKey(MCVersionComparator::versionCompare))
+                .forEach(entry -> mData.add(new CollapsibleExpandItemBean("Minecraft " + entry.getKey(),
+                        new NeoForgeVersionListAdapter(requireContext(), modloaderListenerProxy, this, entry.getValue()))));
+
+        runOnUiThread(() -> {
+            RecyclerView modVersionView = getModVersionView();
+            CollapsibleExpandAdapter mModAdapter = (CollapsibleExpandAdapter) modVersionView.getAdapter();
+            if (mModAdapter == null) {
+                mModAdapter = new CollapsibleExpandAdapter(mData);
+                modVersionView.setLayoutManager(new LinearLayoutManager(requireContext()));
+                modVersionView.setAdapter(mModAdapter);
+            } else {
+                mModAdapter.updateData(mData);
+            }
+
+            componentProcessing(false);
+            if (PREF_ANIMATION) modVersionView.scheduleLayoutAnimation();
+        });
+    }
+
+    @Override
+    public void onDownloadFinished(File downloadedFile) {
+        Tools.runOnUiThread(()->{
+            Context context = requireContext();
+            getParentFragmentManager().popBackStackImmediate();
+            modloaderListenerProxy.detachListener();
+
+            Intent modInstallerStartIntent = new Intent(context, JavaGUILauncherActivity.class);
+            NeoForgeUtils.addAutoInstallArgs(modInstallerStartIntent, downloadedFile);
+            context.startActivity(modInstallerStartIntent);
+        });
+    }
+
+    @Override
+    public void onDataNotAvailable() {
+        Tools.runOnUiThread(()->{
+            Context context = requireContext();
+            modloaderListenerProxy.detachListener();
+            Tools.dialog(context,
+                    context.getString(R.string.global_error),
+                    context.getString(R.string.forge_dl_no_installer));
+        });
+    }
+
+    @Override
+    public void onDownloadError(Exception e) {
+        Tools.runOnUiThread(()->{
+            Context context = requireContext();
+            modloaderListenerProxy.detachListener();
+            Tools.showError(context, e);
+        });
+    }
+}

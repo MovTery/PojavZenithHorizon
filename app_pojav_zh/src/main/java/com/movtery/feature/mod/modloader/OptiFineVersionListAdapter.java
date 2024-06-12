@@ -7,18 +7,20 @@ import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.modloaders.ModloaderDownloadListener;
 import net.kdt.pojavlaunch.modloaders.ModloaderListenerProxy;
+import net.kdt.pojavlaunch.modloaders.OptiFineDownloadTask;
+import net.kdt.pojavlaunch.modloaders.OptiFineUtils;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
 
 import java.util.List;
 
-public class NeoForgeVersionListAdapter extends ModVersionListAdapter implements TaskCountListener {
+public class OptiFineVersionListAdapter extends ModVersionListAdapter implements TaskCountListener {
     private boolean mTasksRunning;
 
-    public NeoForgeVersionListAdapter(Context context, ModloaderListenerProxy modloaderListenerProxy, ModloaderDownloadListener listener, List<String> mData) {
+    public OptiFineVersionListAdapter(Context context, ModloaderListenerProxy modloaderListenerProxy, ModloaderDownloadListener listener, List<OptiFineUtils.OptiFineVersion> mData) {
         super(mData);
         ProgressKeeper.addTaskCountListener(this);
-        setIconDrawable(R.drawable.ic_neoforge);
+        setIconDrawable(R.drawable.ic_optifine);
         setOnItemClickListener(version -> {
             if (mTasksRunning) {
                 Toast.makeText(context, context.getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
@@ -26,7 +28,7 @@ public class NeoForgeVersionListAdapter extends ModVersionListAdapter implements
             }
 
             modloaderListenerProxy.attachListener(listener);
-            PojavApplication.sExecutorService.execute(() -> new NeoForgeDownloadTask(modloaderListenerProxy, (String) version).run());
+            PojavApplication.sExecutorService.execute(() -> new OptiFineDownloadTask((OptiFineUtils.OptiFineVersion) version, modloaderListenerProxy).run());
         });
     }
 
