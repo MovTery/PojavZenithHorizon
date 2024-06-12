@@ -2,15 +2,16 @@ package com.movtery.ui.subassembly.collapsibleexpandlist;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class CollapsibleExpandItemBean {
     private String title;
-    private RecyclerView.Adapter<?> adapter;
+    private final AtomicReference<RecyclerView.Adapter<?>> adapter;
     private boolean unfold;
 
     public CollapsibleExpandItemBean(String title, RecyclerView.Adapter<?> adapter) {
         this.title = title;
-        this.adapter = adapter;
+        this.adapter = new AtomicReference<>(adapter);
     }
 
     public String getTitle() {
@@ -22,11 +23,11 @@ public class CollapsibleExpandItemBean {
     }
 
     public RecyclerView.Adapter<?> getAdapter() {
-        return adapter;
+        return adapter.get();
     }
 
     public void setAdapter(RecyclerView.Adapter<?> adapter) {
-        this.adapter = adapter;
+        this.adapter.set(adapter);
     }
 
     public boolean isUnfold() {
@@ -42,8 +43,9 @@ public class CollapsibleExpandItemBean {
     public String toString() {
         return "CollapsibleExpandItemBean{" +
                 "title='" + title + '\'' +
-                ", adapter=" + adapter +
+                ", adapter=" + adapter.get() +
                 ", unfold=" + unfold +
                 '}';
     }
 }
+

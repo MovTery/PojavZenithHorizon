@@ -93,11 +93,7 @@ public class CollapsibleExpandAdapter extends RecyclerView.Adapter<CollapsibleEx
             progressBar.setVisibility(View.VISIBLE);
 
             PojavApplication.sExecutorService.execute(() -> runOnUiThread(() -> {
-                RecyclerView.Adapter<?> adapter = modlistView.getAdapter();
-                if (adapter == null) {
-                    adapter = collapsibleExpandItemBean.getAdapter();
-                    modlistView.setAdapter(adapter);
-                }
+                modlistView.setAdapter(collapsibleExpandItemBean.getAdapter()); //确保适配器设置正确
 
                 if (PREF_ANIMATION) modlistView.scheduleLayoutAnimation();
                 progressBar.setVisibility(View.GONE);
