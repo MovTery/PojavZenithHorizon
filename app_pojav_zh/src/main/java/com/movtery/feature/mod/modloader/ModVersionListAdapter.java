@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.kdt.pojavlaunch.R;
@@ -28,7 +27,6 @@ public class ModVersionListAdapter extends RecyclerView.Adapter<ModVersionListAd
     @Override
     public ModVersionListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_file_list_view, parent, false);
-        view.setBackground(ContextCompat.getDrawable(view.getContext(), R.drawable.background_edit_box));
         return new ViewHolder(view);
     }
 
