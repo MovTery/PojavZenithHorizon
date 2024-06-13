@@ -119,8 +119,7 @@ public class DownloadModFragment extends TwoLevelListFragment {
                 } else {
                     mModAdapter.updateData(mData);
                 }
-            } catch (Exception e) {
-                return;
+            } catch (Exception ignored) {
             }
 
             componentProcessing(false);
