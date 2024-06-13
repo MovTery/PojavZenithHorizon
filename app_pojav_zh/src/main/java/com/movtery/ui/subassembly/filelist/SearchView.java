@@ -1,7 +1,5 @@
 package com.movtery.ui.subassembly.filelist;
 
-import static net.kdt.pojavlaunch.Tools.runOnUiThread;
-
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -65,14 +63,12 @@ public class SearchView {
 
     public void setVisibility() {
         boolean isVisible = view.getVisibility() == View.VISIBLE;
-        PojavZHTools.fadeAnim(view, 0, isVisible ? 1 : 0, isVisible ? 0 : 1, 150,
-                () -> runOnUiThread(() -> view.setVisibility(isVisible ? View.GONE : View.VISIBLE)));
+        PojavZHTools.setVisibilityAnim(view, !isVisible, 150);
     }
 
     public void close() {
         if (view.getVisibility() != View.GONE) {
-            PojavZHTools.fadeAnim(view, 0, 1, 0, 150,
-                    () -> runOnUiThread(() -> view.setVisibility(View.GONE)));
+            PojavZHTools.setVisibilityAnim(view, false, 150);
         }
     }
 

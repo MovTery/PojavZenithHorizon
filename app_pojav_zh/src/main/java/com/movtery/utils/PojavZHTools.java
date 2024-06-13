@@ -496,15 +496,19 @@ public class PojavZHTools {
     }
 
     public static void setVisibilityAnim(View view, boolean shouldShow) {
+        setVisibilityAnim(view, shouldShow, 300);
+    }
+
+    public static void setVisibilityAnim(View view, boolean shouldShow, int duration) {
         if (shouldShow && view.getVisibility() != View.VISIBLE) {
-            fadeAnim(view, 0, 0f, 1f, 300, () -> view.setVisibility(View.VISIBLE));
+            fadeAnim(view, 0, 0f, 1f, duration, () -> view.setVisibility(View.VISIBLE));
         } else if (!shouldShow && view.getVisibility() != View.GONE) {
-            fadeAnim(view, 0, view.getAlpha(), 0f, 300, () -> view.setVisibility(View.GONE));
+            fadeAnim(view, 0, view.getAlpha(), 0f, duration, () -> view.setVisibility(View.GONE));
         }
     }
 
     public static void fadeAnim(View view, long startDelay, float begin, float end, int duration, Runnable endAction) {
-        if (view.getVisibility() != View.VISIBLE && end == 0) {
+        if ((view.getVisibility() != View.VISIBLE && end == 0) || (view.getVisibility() == View.VISIBLE && end == 1)) {
             if (endAction != null) PojavApplication.sExecutorService.execute(endAction);
             return;
         }
