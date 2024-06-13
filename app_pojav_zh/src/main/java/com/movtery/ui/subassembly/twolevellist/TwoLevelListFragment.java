@@ -10,7 +10,6 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,8 +27,8 @@ import java.util.concurrent.Future;
 public abstract class TwoLevelListFragment extends Fragment {
     private RecyclerView.Adapter<?> parentAdapter = null;
     private RecyclerView mRecyclerView;
-    private ProgressBar mProgressBar;
-    private TextView mLoadingText, mNameText, mSelectTitle;
+    private View mLoadeingView;
+    private TextView mNameText, mSelectTitle, mFailedToLoad;
     private ImageView mIcon;
     private Button mReturnButton, mRefreshButton;
     private CheckBox mReleaseCheckBox;
@@ -94,8 +93,7 @@ public abstract class TwoLevelListFragment extends Fragment {
     protected abstract Future<?> refresh();
 
     protected void componentProcessing(boolean state) {
-        mProgressBar.setVisibility(state ? View.VISIBLE : View.GONE);
-        mLoadingText.setVisibility(state ? View.VISIBLE : View.GONE);
+        mLoadeingView.setVisibility(state ? View.VISIBLE : View.GONE);
         mRecyclerView.setVisibility(state ? View.GONE : View.VISIBLE);
 
         mRefreshButton.setClickable(!state);
@@ -104,11 +102,12 @@ public abstract class TwoLevelListFragment extends Fragment {
 
     private void bindViews(View view) {
         mRecyclerView = view.findViewById(R.id.zh_mod);
-        mProgressBar = view.findViewById(R.id.zh_mod_loading);
-        mLoadingText = view.findViewById(R.id.zh_mod_loading_text);
+        mLoadeingView = view.findViewById(R.id.zh_mod_loading);
         mIcon = view.findViewById(R.id.zh_mod_icon);
         mNameText = view.findViewById(R.id.zh_mod_name);
         mSelectTitle = view.findViewById(R.id.zh_select_title);
+        mFailedToLoad = view.findViewById(R.id.zh_mod_failed_to_load);
+
         mReturnButton = view.findViewById(R.id.zh_mod_return_button);
         mRefreshButton = view.findViewById(R.id.zh_mod_refresh_button);
         mReleaseCheckBox = view.findViewById(R.id.zh_mod_release_version);
@@ -122,19 +121,28 @@ public abstract class TwoLevelListFragment extends Fragment {
         this.mIcon.setImageDrawable(icon);
     }
 
-    public RecyclerView getRecyclerView() {
+    protected RecyclerView getRecyclerView() {
         return mRecyclerView;
     }
 
-    public CheckBox getReleaseCheckBox() {
+    protected CheckBox getReleaseCheckBox() {
         return mReleaseCheckBox;
     }
 
-    public Future<?> getCurrentTask() {
+    protected Future<?> getCurrentTask() {
         return currentTask;
     }
 
-    public void switchToChild(RecyclerView.Adapter<?> adapter, String title) {
+    protected void setFailedToLoad(boolean failed) {
+        if (PREF_ANIMATION) {
+            PojavZHTools.fadeAnim(mFailedToLoad, 0, failed ? 0 : 1, failed ? 1 : 0, 200,
+                    () -> mFailedToLoad.setVisibility(failed ? View.VISIBLE : View.GONE));
+        } else {
+            mFailedToLoad.setVisibility(failed ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    protected void switchToChild(RecyclerView.Adapter<?> adapter, String title) {
         if (adapter != null) {
             //保存父级，设置选中的标题文本，切换至子级
             parentAdapter = mRecyclerView.getAdapter();

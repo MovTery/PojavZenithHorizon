@@ -52,18 +52,27 @@ public class DownloadForgeFragment extends TwoLevelListFragment implements Modlo
     protected Future<?> refresh() {
         return PojavApplication.sExecutorService.submit(() -> {
             try {
-                runOnUiThread(() -> componentProcessing(true));
+                runOnUiThread(() -> {
+                    setFailedToLoad(false);
+                    componentProcessing(true);
+                });
                 List<String> forgeVersions = ForgeUtils.downloadForgeVersions();
                 processModDetails(forgeVersions);
             } catch (Exception e) {
-                runOnUiThread(() -> componentProcessing(false));
+                runOnUiThread(() -> {
+                    componentProcessing(false);
+                    setFailedToLoad(true);
+                });
             }
         });
     }
 
     private void processModDetails(List<String> forgeVersions) {
         if (forgeVersions == null) {
-            runOnUiThread(() -> componentProcessing(false));
+            runOnUiThread(() -> {
+                componentProcessing(false);
+                setFailedToLoad(true);
+            });
             return;
         }
 
