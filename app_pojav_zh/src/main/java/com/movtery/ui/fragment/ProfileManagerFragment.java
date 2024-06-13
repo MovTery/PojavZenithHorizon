@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.movtery.ui.dialog.TipDialog;
 import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
 import com.movtery.utils.PojavZHTools;
 
@@ -74,16 +75,20 @@ public class ProfileManagerFragment extends Fragment {
         crashReportButton.setOnClickListener(v -> swapFilesFragment(gameDirPath, new File(gameDirPath, "/crash-reports")));
 
         editButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ProfileEditorFragment.class, ProfileEditorFragment.TAG, null));
-        deleteButton.setOnClickListener(v -> {
-            if(LauncherProfiles.mainProfileJson.profiles.size() > 1){
-                ProfileIconCache.dropIcon(mProfileKey);
-                LauncherProfiles.mainProfileJson.profiles.remove(mProfileKey);
-                LauncherProfiles.write(ProfilePathManager.getCurrentProfile());
-                ExtraCore.setValue(ExtraConstants.REFRESH_VERSION_SPINNER, DELETED_PROFILE);
-            }
+        deleteButton.setOnClickListener(v -> new TipDialog.Builder(requireContext())
+                .setTitle(R.string.zh_warning)
+                .setMessage(R.string.zh_profile_manager_delete_message)
+                .setConfirmClickListener(() -> {
+                    if(LauncherProfiles.mainProfileJson.profiles.size() > 1){
+                        ProfileIconCache.dropIcon(mProfileKey);
+                        LauncherProfiles.mainProfileJson.profiles.remove(mProfileKey);
+                        LauncherProfiles.write(ProfilePathManager.getCurrentProfile());
+                        ExtraCore.setValue(ExtraConstants.REFRESH_VERSION_SPINNER, DELETED_PROFILE);
+                    }
 
-            Tools.removeCurrentFragment(requireActivity());
-        });
+                    Tools.removeCurrentFragment(requireActivity());
+                })
+                .buildDialog());
     }
 
     private void swapFilesFragment(File lockPath, File listPath) {
