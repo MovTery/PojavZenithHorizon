@@ -9,6 +9,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ public abstract class TwoLevelListFragment extends Fragment {
     private View mLoadeingView;
     private TextView mNameText, mSelectTitle, mFailedToLoad;
     private ImageView mIcon;
+    private ImageButton mBackToTop;
     private Button mReturnButton, mRefreshButton;
     private CheckBox mReleaseCheckBox;
     private Future<?> currentTask;
@@ -63,6 +65,8 @@ public abstract class TwoLevelListFragment extends Fragment {
             }
         });
 
+        mBackToTop.setOnClickListener(v -> mRecyclerView.smoothScrollToPosition(0));
+
         refreshTask();
     }
 
@@ -82,20 +86,10 @@ public abstract class TwoLevelListFragment extends Fragment {
         mReleaseCheckBox.setClickable(!visible);
 
         if (PREF_ANIMATION) {
-            int titleStartAlpha = visible ? 1 : 0;
-            int titleEndAlpha = visible ? 0 : 1;
-            int refreshStartAlpha = visible ? 0 : 1;
-            int refreshEndAlpha = visible ? 1 : 0;
+            PojavZHTools.setVisibilityAnim(mSelectTitle, visible);
+            PojavZHTools.setVisibilityAnim(mRefreshButton, !visible);
 
-            PojavZHTools.fadeAnim(mSelectTitle, 0, titleEndAlpha, titleStartAlpha, 200,
-                    () -> mSelectTitle.setVisibility(titleVisibility));
-            PojavZHTools.fadeAnim(mRefreshButton, 0, refreshEndAlpha, refreshStartAlpha, 200,
-                    () -> mRefreshButton.setVisibility(refreshVisibility));
-
-            if (releaseCheckBoxVisible) {
-                PojavZHTools.fadeAnim(mReleaseCheckBox, 0, refreshEndAlpha, refreshStartAlpha, 200,
-                        () -> mReleaseCheckBox.setVisibility(refreshVisibility));
-            }
+            if (releaseCheckBoxVisible) PojavZHTools.setVisibilityAnim(mReleaseCheckBox, !visible);
         } else {
             mSelectTitle.setVisibility(titleVisibility);
             mRefreshButton.setVisibility(refreshVisibility);
@@ -128,6 +122,7 @@ public abstract class TwoLevelListFragment extends Fragment {
 
     private void bindViews(View view) {
         mRecyclerView = view.findViewById(R.id.zh_mod);
+        mBackToTop = view.findViewById(R.id.zh_mod_back_to_top);
         mLoadeingView = view.findViewById(R.id.zh_mod_loading);
         mIcon = view.findViewById(R.id.zh_mod_icon);
         mNameText = view.findViewById(R.id.zh_mod_name);
@@ -137,6 +132,21 @@ public abstract class TwoLevelListFragment extends Fragment {
         mReturnButton = view.findViewById(R.id.zh_mod_return_button);
         mRefreshButton = view.findViewById(R.id.zh_mod_refresh_button);
         mReleaseCheckBox = view.findViewById(R.id.zh_mod_release_version);
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                RecyclerView.Adapter<?> adapter = recyclerView.getAdapter();
+                if (layoutManager != null && adapter != null) {
+                    int firstPosition = layoutManager.findFirstVisibleItemPosition();
+                    boolean b = firstPosition >= adapter.getItemCount() / 3;
+
+                    PojavZHTools.setVisibilityAnim(mBackToTop, b);
+                }
+            }
+        });
     }
 
     protected void setNameText(String nameText) {
@@ -166,8 +176,7 @@ public abstract class TwoLevelListFragment extends Fragment {
 
     protected void setFailedToLoad(boolean failed) {
         if (PREF_ANIMATION) {
-            PojavZHTools.fadeAnim(mFailedToLoad, 0, failed ? 0 : 1, failed ? 1 : 0, 200,
-                    () -> mFailedToLoad.setVisibility(failed ? View.VISIBLE : View.GONE));
+            PojavZHTools.setVisibilityAnim(mFailedToLoad, failed);
         } else {
             mFailedToLoad.setVisibility(failed ? View.VISIBLE : View.GONE);
         }
