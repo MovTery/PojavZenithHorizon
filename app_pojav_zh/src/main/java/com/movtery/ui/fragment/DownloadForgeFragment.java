@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.feature.mod.modloader.ForgeVersionListAdapter;
 import com.movtery.ui.subassembly.twolevellist.TwoLevelListAdapter;
-import com.movtery.ui.subassembly.twolevellist.TwoLevelListItemBean;
 import com.movtery.ui.subassembly.twolevellist.TwoLevelListFragment;
+import com.movtery.ui.subassembly.twolevellist.TwoLevelListItemBean;
 import com.movtery.utils.MCVersionComparator;
 
 import net.kdt.pojavlaunch.JavaGUILauncherActivity;
@@ -74,20 +74,31 @@ public class DownloadForgeFragment extends TwoLevelListFragment implements Modlo
             });
             return;
         }
+        Future<?> currentTask = getCurrentTask();
 
         ConcurrentMap<String, List<String>> mForgeVersions = new ConcurrentHashMap<>();
         forgeVersions.forEach(forgeVersion -> {
+            if (currentTask.isCancelled()) return;
+
             //查找并分组Minecraft版本与Forge版本
             int dashIndex = forgeVersion.indexOf("-");
             String gameVersion = forgeVersion.substring(0, dashIndex);
             mForgeVersions.computeIfAbsent(gameVersion, k -> new ArrayList<>()).add(forgeVersion);
         });
 
+        if (currentTask.isCancelled()) return;
+
         List<TwoLevelListItemBean> mData = new ArrayList<>();
         mForgeVersions.entrySet().stream()
                 .sorted(java.util.Map.Entry.comparingByKey(MCVersionComparator::versionCompare))
-                .forEach(entry -> mData.add(new TwoLevelListItemBean("Minecraft " + entry.getKey(),  //为整理好的Forge版本设置Adapter
-                        new ForgeVersionListAdapter(requireContext(), modloaderListenerProxy, this, entry.getValue()))));
+                .forEach(entry -> {
+                    if (currentTask.isCancelled()) return;
+
+                    mData.add(new TwoLevelListItemBean("Minecraft " + entry.getKey(),  //为整理好的Forge版本设置Adapter
+                            new ForgeVersionListAdapter(requireContext(), modloaderListenerProxy, this, entry.getValue())));
+                });
+
+        if (currentTask.isCancelled()) return;
 
         runOnUiThread(() -> {
             RecyclerView recyclerView = getRecyclerView();
@@ -107,7 +118,7 @@ public class DownloadForgeFragment extends TwoLevelListFragment implements Modlo
 
     @Override
     public void onDownloadFinished(File downloadedFile) {
-        Tools.runOnUiThread(()->{
+        Tools.runOnUiThread(() -> {
             Context context = requireContext();
             getParentFragmentManager().popBackStackImmediate();
             modloaderListenerProxy.detachListener();
@@ -120,7 +131,7 @@ public class DownloadForgeFragment extends TwoLevelListFragment implements Modlo
 
     @Override
     public void onDataNotAvailable() {
-        Tools.runOnUiThread(()->{
+        Tools.runOnUiThread(() -> {
             Context context = requireContext();
             modloaderListenerProxy.detachListener();
             Tools.dialog(context,
@@ -131,7 +142,7 @@ public class DownloadForgeFragment extends TwoLevelListFragment implements Modlo
 
     @Override
     public void onDownloadError(Exception e) {
-        Tools.runOnUiThread(()->{
+        Tools.runOnUiThread(() -> {
             Context context = requireContext();
             modloaderListenerProxy.detachListener();
             Tools.showError(context, e);

@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.feature.mod.modloader.OptiFineVersionListAdapter;
 import com.movtery.ui.subassembly.twolevellist.TwoLevelListAdapter;
-import com.movtery.ui.subassembly.twolevellist.TwoLevelListItemBean;
 import com.movtery.ui.subassembly.twolevellist.TwoLevelListFragment;
+import com.movtery.ui.subassembly.twolevellist.TwoLevelListItemBean;
 import com.movtery.utils.MCVersionComparator;
 
 import net.kdt.pojavlaunch.JavaGUILauncherActivity;
@@ -65,16 +65,32 @@ public class DownloadOptiFineFragment extends TwoLevelListFragment implements Mo
             runOnUiThread(() -> componentProcessing(false));
             return;
         }
+        Future<?> currentTask = getCurrentTask();
 
         ConcurrentMap<String, List<OptiFineUtils.OptiFineVersion>> mOptiFineVersions = new ConcurrentHashMap<>();
-        optiFineVersions.optifineVersions.forEach(optiFineVersionList -> //通过版本列表一层层遍历并合成为 Minecraft版本 + Optifine版本的Map集合
-                optiFineVersionList.forEach(optiFineVersion ->
-                        mOptiFineVersions.computeIfAbsent(optiFineVersion.minecraftVersion, k -> new ArrayList<>()).add(optiFineVersion)));
+        optiFineVersions.optifineVersions.forEach(optiFineVersionList -> { //通过版本列表一层层遍历并合成为 Minecraft版本 + Optifine版本的Map集合
+            if (currentTask.isCancelled()) return;
+
+            optiFineVersionList.forEach(optiFineVersion -> {
+                if (currentTask.isCancelled()) return;
+
+                mOptiFineVersions.computeIfAbsent(optiFineVersion.minecraftVersion, k -> new ArrayList<>()).add(optiFineVersion);
+            });
+        });
+
+        if (currentTask.isCancelled()) return;
 
         List<TwoLevelListItemBean> mData = new ArrayList<>();
         mOptiFineVersions.entrySet().stream()
                 .sorted(java.util.Map.Entry.comparingByKey(MCVersionComparator::versionCompare))
-                .forEach(entry -> mData.add(new TwoLevelListItemBean(entry.getKey(), new OptiFineVersionListAdapter(requireContext(), modloaderListenerProxy, this, entry.getValue()))));
+                .forEach(entry -> {
+                    if (currentTask.isCancelled()) return;
+
+                    mData.add(new TwoLevelListItemBean(entry.getKey(),
+                            new OptiFineVersionListAdapter(requireContext(), modloaderListenerProxy, this, entry.getValue())));
+                });
+
+        if (currentTask.isCancelled()) return;
 
         runOnUiThread(() -> {
             RecyclerView recyclerView = getRecyclerView();
@@ -94,7 +110,7 @@ public class DownloadOptiFineFragment extends TwoLevelListFragment implements Mo
 
     @Override
     public void onDownloadFinished(File downloadedFile) {
-        Tools.runOnUiThread(()->{
+        Tools.runOnUiThread(() -> {
             Context context = requireContext();
             getParentFragmentManager().popBackStackImmediate();
             modloaderListenerProxy.detachListener();
@@ -107,7 +123,7 @@ public class DownloadOptiFineFragment extends TwoLevelListFragment implements Mo
 
     @Override
     public void onDataNotAvailable() {
-        Tools.runOnUiThread(()->{
+        Tools.runOnUiThread(() -> {
             Context context = requireContext();
             modloaderListenerProxy.detachListener();
             Tools.dialog(context,
@@ -118,7 +134,7 @@ public class DownloadOptiFineFragment extends TwoLevelListFragment implements Mo
 
     @Override
     public void onDownloadError(Exception e) {
-        Tools.runOnUiThread(()->{
+        Tools.runOnUiThread(() -> {
             Context context = requireContext();
             modloaderListenerProxy.detachListener();
             Tools.showError(context, e);

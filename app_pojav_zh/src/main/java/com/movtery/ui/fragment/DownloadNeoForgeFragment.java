@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.movtery.feature.mod.modloader.NeoForgeUtils;
 import com.movtery.feature.mod.modloader.NeoForgeVersionListAdapter;
 import com.movtery.ui.subassembly.twolevellist.TwoLevelListAdapter;
-import com.movtery.ui.subassembly.twolevellist.TwoLevelListItemBean;
 import com.movtery.ui.subassembly.twolevellist.TwoLevelListFragment;
+import com.movtery.ui.subassembly.twolevellist.TwoLevelListItemBean;
 import com.movtery.utils.MCVersionComparator;
 
 import net.kdt.pojavlaunch.JavaGUILauncherActivity;
@@ -76,9 +76,12 @@ public class DownloadNeoForgeFragment extends TwoLevelListFragment implements Mo
             runOnUiThread(() -> componentProcessing(false));
             return;
         }
+        Future<?> currentTask = getCurrentTask();
 
         ConcurrentMap<String, List<String>> mNeoForgeVersions = new ConcurrentHashMap<>();
         neoForgeVersions.forEach(neoForgeVersion -> {
+            if (currentTask.isCancelled()) return;
+
             //查找并分组Minecraft版本与NeoForge版本
             String gameVersion = null;
             int dashIndex;
@@ -93,11 +96,19 @@ public class DownloadNeoForgeFragment extends TwoLevelListFragment implements Mo
             mNeoForgeVersions.computeIfAbsent(gameVersion, k -> new ArrayList<>()).add(neoForgeVersion);
         });
 
+        if (currentTask.isCancelled()) return;
+
         List<TwoLevelListItemBean> mData = new ArrayList<>();
         mNeoForgeVersions.entrySet().stream()
                 .sorted(java.util.Map.Entry.comparingByKey(MCVersionComparator::versionCompare))
-                .forEach(entry -> mData.add(new TwoLevelListItemBean("Minecraft " + entry.getKey(),
-                        new NeoForgeVersionListAdapter(requireContext(), modloaderListenerProxy, this, entry.getValue()))));
+                .forEach(entry -> {
+                    if (currentTask.isCancelled()) return;
+
+                    mData.add(new TwoLevelListItemBean("Minecraft " + entry.getKey(),
+                            new NeoForgeVersionListAdapter(requireContext(), modloaderListenerProxy, this, entry.getValue())));
+                });
+
+        if (currentTask.isCancelled()) return;
 
         runOnUiThread(() -> {
             RecyclerView recyclerView = getRecyclerView();
@@ -117,7 +128,7 @@ public class DownloadNeoForgeFragment extends TwoLevelListFragment implements Mo
 
     @Override
     public void onDownloadFinished(File downloadedFile) {
-        Tools.runOnUiThread(()->{
+        Tools.runOnUiThread(() -> {
             Context context = requireContext();
             getParentFragmentManager().popBackStackImmediate();
             modloaderListenerProxy.detachListener();
@@ -130,7 +141,7 @@ public class DownloadNeoForgeFragment extends TwoLevelListFragment implements Mo
 
     @Override
     public void onDataNotAvailable() {
-        Tools.runOnUiThread(()->{
+        Tools.runOnUiThread(() -> {
             Context context = requireContext();
             modloaderListenerProxy.detachListener();
             Tools.dialog(context,
@@ -141,7 +152,7 @@ public class DownloadNeoForgeFragment extends TwoLevelListFragment implements Mo
 
     @Override
     public void onDownloadError(Exception e) {
-        Tools.runOnUiThread(()->{
+        Tools.runOnUiThread(() -> {
             Context context = requireContext();
             modloaderListenerProxy.detachListener();
             Tools.showError(context, e);

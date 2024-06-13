@@ -14,8 +14,8 @@ import com.movtery.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.ui.subassembly.downloadmod.ModVersionAdapter;
 import com.movtery.ui.subassembly.downloadmod.ModVersionItem;
 import com.movtery.ui.subassembly.twolevellist.TwoLevelListAdapter;
-import com.movtery.ui.subassembly.twolevellist.TwoLevelListItemBean;
 import com.movtery.ui.subassembly.twolevellist.TwoLevelListFragment;
+import com.movtery.ui.subassembly.twolevellist.TwoLevelListItemBean;
 import com.movtery.utils.MCVersionComparator;
 
 import net.kdt.pojavlaunch.PojavApplication;
@@ -37,9 +37,9 @@ import java.util.regex.Pattern;
 
 public class DownloadModFragment extends TwoLevelListFragment {
     public static final String TAG = "DownloadModFragment";
+    private final ModIconCache mIconCache = new ModIconCache();
     private ModItem mModItem;
     private ModpackApi mModApi;
-    private final ModIconCache mIconCache = new ModIconCache();
     private ImageReceiver mImageReceiver;
     private boolean mIsModpack;
     private String mModsPath;
@@ -75,15 +75,11 @@ public class DownloadModFragment extends TwoLevelListFragment {
         boolean releaseCheckBoxChecked = getReleaseCheckBox().isChecked();
         ConcurrentMap<String, List<ModVersionItem>> mModVersionsByMinecraftVersion = new ConcurrentHashMap<>();
         mModDetail.modVersionItems.forEach(modVersionItem -> {
-            if (currentTask.isCancelled()) {
-                return;
-            }
+            if (currentTask.isCancelled()) return;
 
             String[] versionId = modVersionItem.getVersionId();
             for (String mcVersion : versionId) {
-                if (currentTask.isCancelled()) {
-                    return;
-                }
+                if (currentTask.isCancelled()) return;
 
                 if (releaseCheckBoxChecked) {
                     Matcher matcher = pattern.matcher(mcVersion);
@@ -98,22 +94,21 @@ public class DownloadModFragment extends TwoLevelListFragment {
             }
         });
 
+        if (currentTask.isCancelled()) return;
+
         List<TwoLevelListItemBean> mData = new ArrayList<>();
         mModVersionsByMinecraftVersion.entrySet().stream()
                 .sorted((o1, o2) -> MCVersionComparator.versionCompare(o1.getKey(), o2.getKey()))
                 .forEach(entry -> {
-                    if (currentTask.isCancelled()) {
-                        return;
-                    }
+                    if (currentTask.isCancelled()) return;
+
                     mData.add(new TwoLevelListItemBean("Minecraft " + entry.getKey(), new ModVersionAdapter(new ModDependencies.SelectedMod(DownloadModFragment.this,
                             mModItem.title, mModApi, mIsModpack, mModsPath), mModDetail, entry.getValue())));
                 });
 
-        runOnUiThread(() -> {
-            if (currentTask.isCancelled()) {
-                return;
-            }
+        if (currentTask.isCancelled()) return;
 
+        runOnUiThread(() -> {
             RecyclerView modVersionView = getRecyclerView();
             TwoLevelListAdapter mModAdapter = (TwoLevelListAdapter) modVersionView.getAdapter();
             if (mModAdapter == null) {
