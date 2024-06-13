@@ -504,13 +504,17 @@ public class PojavZHTools {
     }
 
     public static void fadeAnim(View view, long startDelay, float begin, float end, int duration, Runnable endAction) {
+        if (view.getVisibility() != View.VISIBLE && end == 0) {
+            if (endAction != null) PojavApplication.sExecutorService.execute(endAction);
+            return;
+        }
         view.setVisibility(View.VISIBLE);
         view.setAlpha(begin);
         view.animate()
                 .alpha(end)
                 .setStartDelay(startDelay)
                 .setDuration(duration)
-                .withEndAction(endAction == null ? () -> {} : endAction);
+                .withEndAction(endAction);
     }
 
     public static ModLoader installModPack(Context context, int type, File zipFile) throws Exception {
