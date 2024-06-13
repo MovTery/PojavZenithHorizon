@@ -110,13 +110,17 @@ public class DownloadModFragment extends TwoLevelListFragment {
 
         runOnUiThread(() -> {
             RecyclerView modVersionView = getRecyclerView();
-            TwoLevelListAdapter mModAdapter = (TwoLevelListAdapter) modVersionView.getAdapter();
-            if (mModAdapter == null) {
-                mModAdapter = new TwoLevelListAdapter(this, mData);
-                modVersionView.setLayoutManager(new LinearLayoutManager(requireContext()));
-                modVersionView.setAdapter(mModAdapter);
-            } else {
-                mModAdapter.updateData(mData);
+            try {
+                TwoLevelListAdapter mModAdapter = (TwoLevelListAdapter) modVersionView.getAdapter();
+                if (mModAdapter == null) {
+                    mModAdapter = new TwoLevelListAdapter(this, mData);
+                    modVersionView.setLayoutManager(new LinearLayoutManager(requireContext()));
+                    modVersionView.setAdapter(mModAdapter);
+                } else {
+                    mModAdapter.updateData(mData);
+                }
+            } catch (Exception e) {
+                return;
             }
 
             componentProcessing(false);

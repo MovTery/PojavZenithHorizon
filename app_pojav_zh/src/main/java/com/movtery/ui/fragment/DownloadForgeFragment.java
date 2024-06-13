@@ -102,13 +102,17 @@ public class DownloadForgeFragment extends TwoLevelListFragment implements Modlo
 
         runOnUiThread(() -> {
             RecyclerView recyclerView = getRecyclerView();
-            TwoLevelListAdapter mModAdapter = (TwoLevelListAdapter) recyclerView.getAdapter();
-            if (mModAdapter == null) {
-                mModAdapter = new TwoLevelListAdapter(this, mData);
-                recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-                recyclerView.setAdapter(mModAdapter);
-            } else {
-                mModAdapter.updateData(mData);
+            try {
+                TwoLevelListAdapter mModAdapter = (TwoLevelListAdapter) recyclerView.getAdapter();
+                if (mModAdapter == null) {
+                    mModAdapter = new TwoLevelListAdapter(this, mData);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+                    recyclerView.setAdapter(mModAdapter);
+                } else {
+                    mModAdapter.updateData(mData);
+                }
+            } catch (Exception e) {
+                return;
             }
 
             componentProcessing(false);
