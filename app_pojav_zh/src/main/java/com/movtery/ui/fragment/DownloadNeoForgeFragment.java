@@ -134,11 +134,11 @@ public class DownloadNeoForgeFragment extends TwoLevelListFragment implements Mo
     public void onDownloadFinished(File downloadedFile) {
         Tools.runOnUiThread(() -> {
             Context context = requireContext();
-            getParentFragmentManager().popBackStackImmediate();
             modloaderListenerProxy.detachListener();
 
             Intent modInstallerStartIntent = new Intent(context, JavaGUILauncherActivity.class);
             NeoForgeUtils.addAutoInstallArgs(modInstallerStartIntent, downloadedFile);
+            Tools.backToMainMenu(requireActivity());
             context.startActivity(modInstallerStartIntent);
         });
     }
