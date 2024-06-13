@@ -138,9 +138,11 @@ public class LauncherActivity extends BaseActivity {
         } else {
             PojavZHTools.DIR_GAME_MODPACK = null;
             FileUtils.deleteQuietly(dirGameModpackFile);
-            new AlertDialog.Builder(this).setMessage(R.string.zh_select_modpack_local_not_supported) //弹窗提醒
-                    .setPositiveButton(android.R.string.cancel, null)
-                    .show();
+            runOnUiThread(() -> new TipDialog.Builder(this)
+                    .setMessage(R.string.zh_select_modpack_local_not_supported) //弹窗提醒
+                    .setShowCancel(true)
+                    .setShowConfirm(false)
+                    .buildDialog());
         }
 
         return false;

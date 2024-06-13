@@ -2,6 +2,7 @@ package com.movtery.ui.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -11,17 +12,22 @@ import net.kdt.pojavlaunch.R;
 
 public class TipDialog extends Dialog {
     private final String title, message, confirm, cancel;
+    private final boolean showCancel, showConfirm;
     private final OnCancelClickListener cancelListener;
     private final OnConfirmClickListener confirmListener;
 
     public TipDialog(@NonNull Context context,
                      String title, String message, String confirm, String cancel,
+                     boolean showCancel, boolean showConfirm,
                      OnCancelClickListener cancelListener, OnConfirmClickListener confirmListener) {
         super(context);
         this.title = title;
         this.message = message;
         this.confirm = confirm;
         this.cancel = cancel;
+
+        this.showCancel = showCancel;
+        this.showConfirm = showConfirm;
 
         this.cancelListener = cancelListener;
         this.confirmListener = confirmListener;
@@ -58,6 +64,9 @@ public class TipDialog extends Dialog {
         } else {
             confirmButton.setOnClickListener(v -> this.dismiss());
         }
+
+        cancelButton.setVisibility(showCancel ? View.VISIBLE : View.GONE);
+        confirmButton.setVisibility(showConfirm ? View.VISIBLE : View.GONE);
     }
 
     public static class Builder {
@@ -66,6 +75,8 @@ public class TipDialog extends Dialog {
         private OnCancelClickListener cancelClickListener;
         private OnConfirmClickListener confirmClickListener;
         private boolean cancelable = true;
+        private boolean showCancel = true;
+        private boolean showConfirm = true;
 
         public Builder(Context context) {
             this.context = context;
@@ -73,7 +84,9 @@ public class TipDialog extends Dialog {
 
         public void buildDialog() {
             TipDialog tipDialog = new TipDialog(this.context,
-                    title, message, confirm, cancel, cancelClickListener, confirmClickListener);
+                    title, message, confirm, cancel,
+                    showCancel, showConfirm,
+                    cancelClickListener, confirmClickListener);
             tipDialog.setCancelable(cancelable);
             tipDialog.show();
         }
@@ -130,6 +143,16 @@ public class TipDialog extends Dialog {
 
         public Builder setCancelable(boolean cancelable) {
             this.cancelable = cancelable;
+            return this;
+        }
+
+        public Builder setShowCancel(boolean showCancel) {
+            this.showCancel = showCancel;
+            return this;
+        }
+
+        public Builder setShowConfirm(boolean showConfirm) {
+            this.showConfirm = showConfirm;
             return this;
         }
     }
