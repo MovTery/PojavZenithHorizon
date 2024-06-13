@@ -13,9 +13,9 @@ import com.movtery.ui.subassembly.downloadmod.ModApiViewModel;
 import com.movtery.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.ui.subassembly.downloadmod.ModVersionAdapter;
 import com.movtery.ui.subassembly.downloadmod.ModVersionItem;
-import com.movtery.ui.subassembly.collapsibleexpandlist.CollapsibleExpandAdapter;
-import com.movtery.ui.subassembly.collapsibleexpandlist.CollapsibleExpandItemBean;
-import com.movtery.ui.subassembly.collapsibleexpandlist.CollapsibleExpandListFragment;
+import com.movtery.ui.subassembly.twolevellist.TwoLevelListAdapter;
+import com.movtery.ui.subassembly.twolevellist.TwoLevelListItemBean;
+import com.movtery.ui.subassembly.twolevellist.TwoLevelListFragment;
 import com.movtery.utils.MCVersionComparator;
 
 import net.kdt.pojavlaunch.PojavApplication;
@@ -35,7 +35,7 @@ import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DownloadModFragment extends CollapsibleExpandListFragment {
+public class DownloadModFragment extends TwoLevelListFragment {
     public static final String TAG = "DownloadModFragment";
     private ModItem mModItem;
     private ModpackApi mModApi;
@@ -51,7 +51,12 @@ public class DownloadModFragment extends CollapsibleExpandListFragment {
     @Override
     protected void init() {
         parseViewModel();
-        setOnRefreshListener(() -> PojavApplication.sExecutorService.submit(() -> {
+        super.init();
+    }
+
+    @Override
+    protected Future<?> refresh() {
+        return PojavApplication.sExecutorService.submit(() -> {
             try {
                 runOnUiThread(() -> componentProcessing(true));
                 ModDetail mModDetail = mModApi.getModDetails(mModItem);
@@ -59,8 +64,7 @@ public class DownloadModFragment extends CollapsibleExpandListFragment {
             } catch (Exception e) {
                 runOnUiThread(() -> componentProcessing(false));
             }
-        }));
-        super.init();
+        });
     }
 
     private void processModDetails(ModDetail mModDetail) {
@@ -94,14 +98,14 @@ public class DownloadModFragment extends CollapsibleExpandListFragment {
             }
         });
 
-        List<CollapsibleExpandItemBean> mData = new ArrayList<>();
+        List<TwoLevelListItemBean> mData = new ArrayList<>();
         mModVersionsByMinecraftVersion.entrySet().stream()
                 .sorted((o1, o2) -> MCVersionComparator.versionCompare(o1.getKey(), o2.getKey()))
                 .forEach(entry -> {
                     if (currentTask.isCancelled()) {
                         return;
                     }
-                    mData.add(new CollapsibleExpandItemBean("Minecraft " + entry.getKey(), new ModVersionAdapter(new ModDependencies.SelectedMod(DownloadModFragment.this,
+                    mData.add(new TwoLevelListItemBean("Minecraft " + entry.getKey(), new ModVersionAdapter(new ModDependencies.SelectedMod(DownloadModFragment.this,
                             mModItem.title, mModApi, mIsModpack, mModsPath), mModDetail, entry.getValue())));
                 });
 
@@ -110,10 +114,10 @@ public class DownloadModFragment extends CollapsibleExpandListFragment {
                 return;
             }
 
-            RecyclerView modVersionView = getModVersionView();
-            CollapsibleExpandAdapter mModAdapter = (CollapsibleExpandAdapter) modVersionView.getAdapter();
+            RecyclerView modVersionView = getRecyclerView();
+            TwoLevelListAdapter mModAdapter = (TwoLevelListAdapter) modVersionView.getAdapter();
             if (mModAdapter == null) {
-                mModAdapter = new CollapsibleExpandAdapter(mData);
+                mModAdapter = new TwoLevelListAdapter(this, mData);
                 modVersionView.setLayoutManager(new LinearLayoutManager(requireContext()));
                 modVersionView.setAdapter(mModAdapter);
             } else {
@@ -132,13 +136,13 @@ public class DownloadModFragment extends CollapsibleExpandListFragment {
         mIsModpack = viewModel.isModpack();
         mModsPath = viewModel.getModsPath();
 
-        setModNameText(mModItem.title);
+        setNameText(mModItem.title);
 
         mImageReceiver = bm -> {
             mImageReceiver = null;
             RoundedBitmapDrawable drawable = RoundedBitmapDrawableFactory.create(getResources(), bm);
             drawable.setCornerRadius(getResources().getDimension(R.dimen._1sdp) / 250 * bm.getHeight());
-            setModIcon(drawable);
+            setIcon(drawable);
         };
         mIconCache.getImage(mImageReceiver, mModItem.getIconCacheTag(), mModItem.imageUrl);
     }

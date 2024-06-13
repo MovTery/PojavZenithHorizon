@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.feature.mod.modloader.OptiFineVersionListAdapter;
-import com.movtery.ui.subassembly.collapsibleexpandlist.CollapsibleExpandAdapter;
-import com.movtery.ui.subassembly.collapsibleexpandlist.CollapsibleExpandItemBean;
-import com.movtery.ui.subassembly.collapsibleexpandlist.CollapsibleExpandListFragment;
+import com.movtery.ui.subassembly.twolevellist.TwoLevelListAdapter;
+import com.movtery.ui.subassembly.twolevellist.TwoLevelListItemBean;
+import com.movtery.ui.subassembly.twolevellist.TwoLevelListFragment;
 import com.movtery.utils.MCVersionComparator;
 
 import net.kdt.pojavlaunch.JavaGUILauncherActivity;
@@ -32,7 +32,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.Future;
 
-public class DownloadOptiFineFragment extends CollapsibleExpandListFragment implements ModloaderDownloadListener {
+public class DownloadOptiFineFragment extends TwoLevelListFragment implements ModloaderDownloadListener {
     public static final String TAG = "DownloadOptiFineFragment";
     private final ModloaderListenerProxy modloaderListenerProxy = new ModloaderListenerProxy();
 
@@ -42,14 +42,14 @@ public class DownloadOptiFineFragment extends CollapsibleExpandListFragment impl
 
     @Override
     protected void init() {
-        setOnRefreshListener(this::refreshOptiFileVersions);
-        setModIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_optifine));
-        setModNameText("OptiFine");
+        setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_optifine));
+        setNameText("OptiFine");
         getReleaseCheckBox().setVisibility(View.GONE);
         super.init();
     }
 
-    private Future<?> refreshOptiFileVersions() {
+    @Override
+    protected Future<?> refresh() {
         return PojavApplication.sExecutorService.submit(() -> {
             try {
                 runOnUiThread(() -> componentProcessing(true));
@@ -72,24 +72,24 @@ public class DownloadOptiFineFragment extends CollapsibleExpandListFragment impl
                 optiFineVersionList.forEach(optiFineVersion ->
                         mOptiFineVersions.computeIfAbsent(optiFineVersion.minecraftVersion, k -> new ArrayList<>()).add(optiFineVersion)));
 
-        List<CollapsibleExpandItemBean> mData = new ArrayList<>();
+        List<TwoLevelListItemBean> mData = new ArrayList<>();
         mOptiFineVersions.entrySet().stream()
                 .sorted(java.util.Map.Entry.comparingByKey(MCVersionComparator::versionCompare))
-                .forEach(entry -> mData.add(new CollapsibleExpandItemBean(entry.getKey(), new OptiFineVersionListAdapter(requireContext(), modloaderListenerProxy, this, entry.getValue()))));
+                .forEach(entry -> mData.add(new TwoLevelListItemBean(entry.getKey(), new OptiFineVersionListAdapter(requireContext(), modloaderListenerProxy, this, entry.getValue()))));
 
         runOnUiThread(() -> {
-            RecyclerView modVersionView = getModVersionView();
-            CollapsibleExpandAdapter mModAdapter = (CollapsibleExpandAdapter) modVersionView.getAdapter();
+            RecyclerView recyclerView = getRecyclerView();
+            TwoLevelListAdapter mModAdapter = (TwoLevelListAdapter) recyclerView.getAdapter();
             if (mModAdapter == null) {
-                mModAdapter = new CollapsibleExpandAdapter(mData);
-                modVersionView.setLayoutManager(new LinearLayoutManager(requireContext()));
-                modVersionView.setAdapter(mModAdapter);
+                mModAdapter = new TwoLevelListAdapter(this, mData);
+                recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+                recyclerView.setAdapter(mModAdapter);
             } else {
                 mModAdapter.updateData(mData);
             }
 
             componentProcessing(false);
-            if (PREF_ANIMATION) modVersionView.scheduleLayoutAnimation();
+            if (PREF_ANIMATION) recyclerView.scheduleLayoutAnimation();
         });
     }
 
