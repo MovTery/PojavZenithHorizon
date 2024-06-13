@@ -14,6 +14,8 @@ import android.util.Base64;
 
 import androidx.annotation.Keep;
 
+import org.apache.commons.io.FileUtils;
+
 
 @Keep
 public class MinecraftAccount {
@@ -35,6 +37,7 @@ public class MinecraftAccount {
     void updateSkinFace(String uuid) {
         try {
             File skinFile = getSkinFaceFile(username);
+            if(skinFile.exists()) FileUtils.deleteQuietly(skinFile); //清除一次图标
             Tools.downloadFile("https://crafthead.net/helm/" + uuid + "/100", skinFile.getAbsolutePath());
 
             Log.i("SkinLoader", "Update skin face success");
