@@ -111,8 +111,7 @@ public class DownloadForgeFragment extends TwoLevelListFragment implements Modlo
                 } else {
                     mModAdapter.updateData(mData);
                 }
-            } catch (Exception e) {
-                return;
+            } catch (Exception ignored) {
             }
 
             componentProcessing(false);
