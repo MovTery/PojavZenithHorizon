@@ -124,11 +124,11 @@ public class DownloadForgeFragment extends TwoLevelListFragment implements Modlo
     public void onDownloadFinished(File downloadedFile) {
         Tools.runOnUiThread(() -> {
             Context context = requireContext();
-            getParentFragmentManager().popBackStackImmediate();
             modloaderListenerProxy.detachListener();
 
             Intent modInstallerStartIntent = new Intent(context, JavaGUILauncherActivity.class);
             ForgeUtils.addAutoInstallArgs(modInstallerStartIntent, downloadedFile, true);
+            Tools.backToMainMenu(requireActivity());
             context.startActivity(modInstallerStartIntent);
         });
     }

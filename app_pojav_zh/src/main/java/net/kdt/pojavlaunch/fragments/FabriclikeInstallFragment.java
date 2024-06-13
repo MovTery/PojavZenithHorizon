@@ -125,17 +125,11 @@ public abstract class FabriclikeInstallFragment extends Fragment implements Modl
     @Override
     public void onDownloadFinished(File downloadedFile) {
         Tools.runOnUiThread(()->{
-
             getListenerProxy().detachListener();
             setListenerProxy(null);
             mStartButton.setEnabled(true);
-            // This works because the due to the fact that we have transitioned here
-            // without adding a transaction to the back stack, which caused the previous
-            // transaction to be amended (i guess?? thats how the back stack dump looks like)
-            // we can get back to the main fragment with just one back stack pop.
-            // For some reason that amendment causes the transaction to lose its tag
-            // so we cant use the tag here.
-            getParentFragmentManager().popBackStackImmediate();
+            //直接退回至主界面，解决99%的问题
+            Tools.backToMainMenu(requireActivity());
         });
     }
 
