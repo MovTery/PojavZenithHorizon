@@ -19,13 +19,15 @@ import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.fragments.SearchModFragment;
+import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
 
 import java.io.File;
 
-public class SelectModPackFragment extends Fragment {
+public class SelectModPackFragment extends Fragment implements TaskCountListener {
     public static final String TAG = "SelectModPackFragment";
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private File modPackFile;
+    private boolean mTasksRunning;
 
     public SelectModPackFragment(){
         super(R.layout.fragment_select_modpack);
@@ -57,7 +59,7 @@ public class SelectModPackFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         view.findViewById(R.id.zh_modpack_button_search_modpack).setOnClickListener(v -> {
-            if (PojavZHTools.DIR_GAME_MODPACK == null) {
+            if (!mTasksRunning) {
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(SearchModFragment.BUNDLE_SEARCH_MODPACK, true);
                 bundle.putString(SearchModFragment.BUNDLE_MOD_PATH, null);
@@ -67,12 +69,17 @@ public class SelectModPackFragment extends Fragment {
             }
         });
         view.findViewById(R.id.zh_modpack_button_local_modpack).setOnClickListener(v -> {
-            if (PojavZHTools.DIR_GAME_MODPACK == null) {
+            if (!mTasksRunning) {
                 Toast.makeText(requireActivity(), getString(R.string.zh_select_modpack_local_tip), Toast.LENGTH_SHORT).show();
                 openDocumentLauncher.launch(null);
             } else {
                 Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onUpdateTaskCount(int taskCount) {
+        mTasksRunning = !(taskCount == 0);
     }
 }
