@@ -33,6 +33,7 @@ public abstract class TwoLevelListFragment extends Fragment {
     private Button mReturnButton, mRefreshButton;
     private CheckBox mReleaseCheckBox;
     private Future<?> currentTask;
+    private boolean releaseCheckBoxVisible = true;
 
     public TwoLevelListFragment() {
         super(R.layout.fragment_mod_download);
@@ -53,7 +54,7 @@ public abstract class TwoLevelListFragment extends Fragment {
         mReleaseCheckBox.setOnClickListener(v -> refreshTask());
         mReturnButton.setOnClickListener(v -> {
             if (parentAdapter != null) {
-                setSelectTitleVisible(false);
+                hideParentElement(false);
                 mRecyclerView.setAdapter(parentAdapter);
                 mRecyclerView.scheduleLayoutAnimation();
                 parentAdapter = null;
@@ -71,12 +72,32 @@ public abstract class TwoLevelListFragment extends Fragment {
         super.onDestroy();
     }
 
-    private void setSelectTitleVisible(boolean visible) {
+    private void hideParentElement(boolean visible) {
+        int titleVisibility = visible ? View.VISIBLE : View.GONE;
+        int checkBoxVisibility = visible ? View.GONE : View.VISIBLE;
+
         if (PREF_ANIMATION) {
-            PojavZHTools.fadeAnim(mSelectTitle, 0, visible ? 0 : 1, visible ? 1 : 0, 200,
-                    () -> mSelectTitle.setVisibility(visible ? View.VISIBLE : View.GONE));
+            int titleStartAlpha = visible ? 1 : 0;
+            int titleEndAlpha = visible ? 0 : 1;
+            int checkBoxStartAlpha = visible ? 0 : 1;
+            int checkBoxEndAlpha = visible ? 1 : 0;
+
+            PojavZHTools.fadeAnim(mSelectTitle, 0, titleEndAlpha, titleStartAlpha, 200,
+                    () -> mSelectTitle.setVisibility(titleVisibility));
+
+            if (releaseCheckBoxVisible) {
+                mReleaseCheckBox.setClickable(false);
+                PojavZHTools.fadeAnim(mReleaseCheckBox, 0, checkBoxEndAlpha, checkBoxStartAlpha, 200,
+                        () -> {
+                            mReleaseCheckBox.setVisibility(checkBoxVisibility);
+                            mReleaseCheckBox.setClickable(true);
+                        });
+            }
         } else {
-            mSelectTitle.setVisibility(visible ? View.VISIBLE : View.GONE);
+            mSelectTitle.setVisibility(titleVisibility);
+            if (releaseCheckBoxVisible) {
+                mReleaseCheckBox.setVisibility(checkBoxVisibility);
+            }
         }
     }
 
@@ -133,6 +154,11 @@ public abstract class TwoLevelListFragment extends Fragment {
         return currentTask;
     }
 
+    protected void setReleaseCheckBoxGone() {
+        releaseCheckBoxVisible = false;
+        mReleaseCheckBox.setVisibility(View.GONE);
+    }
+
     protected void setFailedToLoad(boolean failed) {
         if (PREF_ANIMATION) {
             PojavZHTools.fadeAnim(mFailedToLoad, 0, failed ? 0 : 1, failed ? 1 : 0, 200,
@@ -147,7 +173,7 @@ public abstract class TwoLevelListFragment extends Fragment {
             //保存父级，设置选中的标题文本，切换至子级
             parentAdapter = mRecyclerView.getAdapter();
             mSelectTitle.setText(title);
-            setSelectTitleVisible(true);
+            hideParentElement(true);
             mRecyclerView.setAdapter(adapter);
             mRecyclerView.scheduleLayoutAnimation();
         }

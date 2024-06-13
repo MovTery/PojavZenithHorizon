@@ -5,7 +5,6 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.View;
 
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -45,7 +44,7 @@ public class DownloadNeoForgeFragment extends TwoLevelListFragment implements Mo
     protected void init() {
         setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_neoforge));
         setNameText("NeoForge");
-        getReleaseCheckBox().setVisibility(View.GONE); //隐藏“仅展示正式版”选择框，在这里没有用处
+        setReleaseCheckBoxGone(); //隐藏“仅展示正式版”选择框，在这里没有用处
         super.init();
     }
 
