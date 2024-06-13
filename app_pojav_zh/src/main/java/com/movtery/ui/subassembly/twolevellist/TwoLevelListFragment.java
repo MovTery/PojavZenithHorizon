@@ -73,33 +73,38 @@ public abstract class TwoLevelListFragment extends Fragment {
     }
 
     private void hideParentElement(boolean visible) {
+        cancelTask(); //中断当前正在执行的任务
+
         int titleVisibility = visible ? View.VISIBLE : View.GONE;
-        int checkBoxVisibility = visible ? View.GONE : View.VISIBLE;
+        int refreshVisibility = visible ? View.GONE : View.VISIBLE;
+
+        mRefreshButton.setClickable(!visible);
+        mReleaseCheckBox.setClickable(!visible);
 
         if (PREF_ANIMATION) {
             int titleStartAlpha = visible ? 1 : 0;
             int titleEndAlpha = visible ? 0 : 1;
-            int checkBoxStartAlpha = visible ? 0 : 1;
-            int checkBoxEndAlpha = visible ? 1 : 0;
+            int refreshStartAlpha = visible ? 0 : 1;
+            int refreshEndAlpha = visible ? 1 : 0;
 
             PojavZHTools.fadeAnim(mSelectTitle, 0, titleEndAlpha, titleStartAlpha, 200,
                     () -> mSelectTitle.setVisibility(titleVisibility));
+            PojavZHTools.fadeAnim(mRefreshButton, 0, refreshEndAlpha, refreshStartAlpha, 200,
+                    () -> mRefreshButton.setVisibility(refreshVisibility));
 
             if (releaseCheckBoxVisible) {
-                mReleaseCheckBox.setClickable(false);
-                PojavZHTools.fadeAnim(mReleaseCheckBox, 0, checkBoxEndAlpha, checkBoxStartAlpha, 200,
-                        () -> {
-                            mReleaseCheckBox.setVisibility(checkBoxVisibility);
-                            mReleaseCheckBox.setClickable(true);
-                        });
+                PojavZHTools.fadeAnim(mReleaseCheckBox, 0, refreshEndAlpha, refreshStartAlpha, 200,
+                        () -> mReleaseCheckBox.setVisibility(refreshVisibility));
             }
         } else {
             mSelectTitle.setVisibility(titleVisibility);
+            mRefreshButton.setVisibility(refreshVisibility);
             if (releaseCheckBoxVisible) {
-                mReleaseCheckBox.setVisibility(checkBoxVisibility);
+                mReleaseCheckBox.setVisibility(refreshVisibility);
             }
         }
     }
+
 
     private void cancelTask() {
         if (currentTask != null && !currentTask.isDone()) {
