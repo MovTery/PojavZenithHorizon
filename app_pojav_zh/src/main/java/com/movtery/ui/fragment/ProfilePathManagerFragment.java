@@ -1,10 +1,14 @@
 package com.movtery.ui.fragment;
 
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
+
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
@@ -81,6 +85,7 @@ public class ProfilePathManagerFragment extends Fragment {
         PojavZHTools.setTooltipText(returnButton, returnButton.getContentDescription());
 
         adapter = new ProfilePathAdapter(requireActivity(), pathList, this.mData);
+        if (PREF_ANIMATION) pathList.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(view.getContext(), R.anim.fade_downwards)));
         pathList.setLayoutManager(new LinearLayoutManager(requireContext()));
         pathList.setAdapter(adapter);
 
