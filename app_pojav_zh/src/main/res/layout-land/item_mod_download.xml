@@ -8,17 +8,6 @@
     android:background="@drawable/background_item"
     tools:ignore="MissingDefaultResource">
 
-    <ImageView
-        android:id="@+id/mod_flip_arrow"
-        android:layout_width="14sp"
-        android:layout_height="14sp"
-        android:layout_marginStart="18dp"
-        android:rotation="180"
-        app:layout_constraintBottom_toBottomOf="@+id/mod_version_id"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mod_version_id"
-        app:srcCompat="@drawable/spinner_arrow" />
-
     <TextView
         android:id="@+id/mod_version_id"
         android:layout_width="wrap_content"
@@ -26,34 +15,8 @@
         android:layout_marginStart="16dp"
         android:text="Version ID"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/mod_flip_arrow"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
-
-    <ProgressBar
-        android:id="@+id/mod_version_loading"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/mod_version_id"
-        app:layout_constraintStart_toEndOf="@+id/mod_version_id"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mod_recycler_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="8dp"
-        android:paddingHorizontal="8dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mod_version_id" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
