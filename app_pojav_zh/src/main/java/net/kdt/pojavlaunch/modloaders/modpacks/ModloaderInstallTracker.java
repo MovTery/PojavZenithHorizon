@@ -1,11 +1,13 @@
 package net.kdt.pojavlaunch.modloaders.modpacks;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import androidx.fragment.app.FragmentActivity;
+
+import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModLoader;
 
 import java.io.File;
@@ -17,13 +19,13 @@ import java.io.File;
  */
 public class ModloaderInstallTracker implements SharedPreferences.OnSharedPreferenceChangeListener {
     private final SharedPreferences mSharedPreferences;
-    private final Activity mActivity;
+    private final FragmentActivity mActivity;
 
     /**
      * Create a ModInstallTracker object. This must be done in the Activity's onCreate method.
      * @param activity the host activity
      */
-    public ModloaderInstallTracker(Activity activity) {
+    public ModloaderInstallTracker(FragmentActivity activity) {
         mActivity = activity;
         mSharedPreferences = getPreferences(activity);
 
@@ -65,6 +67,7 @@ public class ModloaderInstallTracker implements SharedPreferences.OnSharedPrefer
 
     private void startModInstallation(ModLoader modLoader, File modInstallFile) {
         Intent installIntent = modLoader.getInstallationIntent(mActivity, modInstallFile);
+        Tools.backToMainMenu(mActivity);
         mActivity.startActivity(installIntent);
     }
 
