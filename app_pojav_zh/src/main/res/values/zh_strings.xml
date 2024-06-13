@@ -175,6 +175,7 @@
     <string name="zh_profile_manager_shortcuts_crash_report_path">Crash Report Folder</string>
     <string name="zh_profile_manager_edit">Edit Instance</string>
     <string name="zh_profile_manager_delete">Delete Instance</string>
+    <string name="zh_profile_manager_delete_message">This operation will delete this instance, but it will not delete the game files associated with the instance</string>
 
     <string name="zh_replacement_customcontrol">Change Control Layout</string>
     <string name="zh_select_modpack_search">Search for modpacks</string>

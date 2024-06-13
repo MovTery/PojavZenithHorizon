@@ -174,6 +174,7 @@
     <string name="zh_profile_manager_shortcuts_crash_report_path">崩溃报告文件夹</string>
     <string name="zh_profile_manager_edit">编辑实例</string>
     <string name="zh_profile_manager_delete">删除实例</string>
+    <string name="zh_profile_manager_delete_message">此操作将会删除此实例，但并不会删除实例关联的游戏文件</string>
 
     <string name="zh_replacement_customcontrol">更换控制布局</string>
     <string name="zh_select_modpack_search">搜索整合包</string>
