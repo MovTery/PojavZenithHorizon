@@ -5,7 +5,6 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.View;
 
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -44,7 +43,7 @@ public class DownloadOptiFineFragment extends TwoLevelListFragment implements Mo
     protected void init() {
         setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_optifine));
         setNameText("OptiFine");
-        getReleaseCheckBox().setVisibility(View.GONE);
+        setReleaseCheckBoxGone();
         super.init();
     }
 
