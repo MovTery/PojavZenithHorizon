@@ -42,7 +42,11 @@ import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.extra.ExtraListener;
 import com.movtery.feature.login.AuthResult;
 import com.movtery.feature.login.OtherLoginApi;
+import com.movtery.utils.PojavZHTools;
+
 import net.kdt.pojavlaunch.value.MinecraftAccount;
+
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -206,7 +210,9 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
         int position = getSelectedItemPosition();
         if(position == 0) return;
         File accountFile = new File(Tools.DIR_ACCOUNT_NEW, mAccountList.get(position)+".json");
-        if(accountFile.exists()) accountFile.delete();
+        File userIconFile = new File(PojavZHTools.DIR_USER_ICON, mAccountList.get(position)+".png");
+        if(accountFile.exists()) FileUtils.deleteQuietly(accountFile);
+        if(userIconFile.exists()) FileUtils.deleteQuietly(userIconFile);
         mAccountList.remove(position);
 
         reloadAccounts(false, 0);
