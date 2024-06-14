@@ -193,42 +193,45 @@ public class CurseforgeApi implements ModpackApi{
                     String modId = object.get("modId").getAsString();
                     String dependencyType = object.get("relationType").getAsString();
 
-                    ModItem items;
+                    ModItem items = null;
                     if (!dependenciesModMap.containsKey(modId)) {
                         JsonObject response = searchModFromID(modId);
                         JsonObject hit = response.get("data").getAsJsonObject();
 
-                        JsonArray itemsGameVersions = modDetail.getAsJsonArray("gameVersions");
-                        Set<String> itemsModloaderNames = new TreeSet<>();
-                        for(JsonElement jsonElement : itemsGameVersions) {
-                            String gameVersion = jsonElement.getAsString();
+                        if (hit != null) {
+                            JsonArray itemsGameVersions = modDetail.getAsJsonArray("gameVersions");
+                            Set<String> itemsModloaderNames = new TreeSet<>();
+                            for(JsonElement jsonElement : itemsGameVersions) {
+                                String gameVersion = jsonElement.getAsString();
 
-                            if(ModLoaderList.notModloaderName(gameVersion)) continue;
-                            itemsModloaderNames.add(ModLoaderList.getModloaderName(gameVersion));
+                                if(ModLoaderList.notModloaderName(gameVersion)) continue;
+                                itemsModloaderNames.add(ModLoaderList.getModloaderName(gameVersion));
+                            }
+
+                            SimpleStringJoiner modLoadersArray = new SimpleStringJoiner(",  ");
+                            for (String string : itemsModloaderNames) {
+                                modLoadersArray.join(string);
+                            }
+
+                            items = new ModItem(
+                                    Constants.SOURCE_CURSEFORGE,
+                                    hit.get("categories").getAsJsonArray().get(0).getAsJsonObject().get("classId").getAsInt() != CURSEFORGE_MOD_CLASS_ID,
+                                    modId,
+                                    hit.get("name").getAsString(),
+                                    hit.get("summary").getAsString(),
+                                    hit.get("downloadCount").getAsInt(),
+                                    modLoadersArray.getValue(),
+                                    hit.getAsJsonObject("logo").get("thumbnailUrl").getAsString()
+                            );
                         }
-
-                        SimpleStringJoiner modLoadersArray = new SimpleStringJoiner(",  ");
-                        for (String string : itemsModloaderNames) {
-                            modLoadersArray.join(string);
-                        }
-
-                        items = new ModItem(
-                                Constants.SOURCE_CURSEFORGE,
-                                hit.get("categories").getAsJsonArray().get(0).getAsJsonObject().get("classId").getAsInt() != CURSEFORGE_MOD_CLASS_ID,
-                                modId,
-                                hit.get("name").getAsString(),
-                                hit.get("summary").getAsString(),
-                                hit.get("downloadCount").getAsInt(),
-                                modLoadersArray.getValue(),
-                                hit.getAsJsonObject("logo").get("thumbnailUrl").getAsString()
-                        );
-
                         dependenciesModMap.put(modId, items);
                     } else {
                         items = dependenciesModMap.get(modId);
                     }
 
-                    modDependencies.add(new ModDependencies(items, ModDependencies.getDependencyType(dependencyType)));
+                    if (items != null) {
+                        modDependencies.add(new ModDependencies(items, ModDependencies.getDependencyType(dependencyType)));
+                    }
                 }
             }
 

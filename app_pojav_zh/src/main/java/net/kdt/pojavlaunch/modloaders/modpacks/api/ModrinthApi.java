@@ -169,33 +169,36 @@ public class ModrinthApi implements ModpackApi{
                     String projectId = object.get("project_id").getAsString();
                     String dependencyType = object.get("dependency_type").getAsString();
 
-                    ModItem items;
+                    ModItem items = null;
                     if (!dependenciesModMap.containsKey(projectId)) {
                         JsonObject hit = mApiHandler.get("project/" + projectId, JsonObject.class);
 
-                        JsonArray modLoaders = hit.get("loaders").getAsJsonArray();
-                        SimpleStringJoiner modLoadersArray = new SimpleStringJoiner(",  ");
-                        for (JsonElement loader : modLoaders) {
-                            String string = loader.getAsString();
-                            modLoadersArray.join(ModLoaderList.getModloaderName(string));
+                        if (hit != null) {
+                            JsonArray modLoaders = hit.get("loaders").getAsJsonArray();
+                            SimpleStringJoiner modLoadersArray = new SimpleStringJoiner(",  ");
+                            for (JsonElement loader : modLoaders) {
+                                String string = loader.getAsString();
+                                modLoadersArray.join(ModLoaderList.getModloaderName(string));
+                            }
+                            items = new ModItem(
+                                    Constants.SOURCE_MODRINTH,
+                                    hit.get("project_type").getAsString().equals("modpack"),
+                                    projectId,
+                                    hit.get("title").getAsString(),
+                                    hit.get("description").getAsString(),
+                                    hit.get("downloads").getAsInt(),
+                                    modLoadersArray.getValue(),
+                                    hit.get("icon_url").getAsString()
+                            );
                         }
-                        items = new ModItem(
-                                Constants.SOURCE_MODRINTH,
-                                hit.get("project_type").getAsString().equals("modpack"),
-                                projectId,
-                                hit.get("title").getAsString(),
-                                hit.get("description").getAsString(),
-                                hit.get("downloads").getAsInt(),
-                                modLoadersArray.getValue(),
-                                hit.get("icon_url").getAsString()
-                        );
-
                         dependenciesModMap.put(projectId, items);
                     } else {
                         items = dependenciesModMap.get(projectId);
                     }
 
-                    modDependencies.add(new ModDependencies(items, ModDependencies.getDependencyType(dependencyType)));
+                    if (items != null) {
+                        modDependencies.add(new ModDependencies(items, ModDependencies.getDependencyType(dependencyType)));
+                    }
                 }
             }
 
