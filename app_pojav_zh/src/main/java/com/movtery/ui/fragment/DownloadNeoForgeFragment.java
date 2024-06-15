@@ -67,7 +67,7 @@ public class DownloadNeoForgeFragment extends TwoLevelListFragment implements Mo
             versions.addAll(NeoForgeUtils.downloadNeoForgedForgeVersions());
             versions.addAll(NeoForgeUtils.downloadNeoForgeVersions());
 
-Collections.reverse(versions);
+            Collections.reverse(versions);
 
             return versions;
         } catch (IOException e) {
