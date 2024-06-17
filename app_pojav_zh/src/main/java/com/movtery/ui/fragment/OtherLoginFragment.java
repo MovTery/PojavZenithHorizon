@@ -31,7 +31,6 @@ import net.kdt.pojavlaunch.Tools;
 import com.movtery.ui.dialog.EditTextDialog;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
-import net.kdt.pojavlaunch.fragments.MainMenuFragment;
 import com.movtery.feature.login.AuthResult;
 import com.movtery.feature.login.OtherLoginApi;
 import com.movtery.feature.login.Servers;
@@ -161,7 +160,7 @@ public class OtherLoginFragment extends Fragment {
                                     account.username = authResult.getSelectedProfile().getName();
                                     account.profileId = authResult.getSelectedProfile().getId();
                                     ExtraCore.setValue(ExtraConstants.OTHER_LOGIN_TODO, account);
-                                    Tools.swapFragment(requireActivity(), MainMenuFragment.class, MainMenuFragment.TAG, null);
+                                    Tools.backToMainMenu(requireActivity());
                                 } else {
                                     List<String> list = new ArrayList<>();
                                     for (AuthResult.AvailableProfiles profiles : authResult.getAvailableProfiles()) {
@@ -178,7 +177,7 @@ public class OtherLoginFragment extends Fragment {
                                                     }
                                                 }
                                                 ExtraCore.setValue(ExtraConstants.OTHER_LOGIN_TODO, account);
-                                                Tools.swapFragment(requireActivity(), MainMenuFragment.class, MainMenuFragment.TAG, null);
+                                                Tools.backToMainMenu(requireActivity());
                                             })
                                             .setNegativeButton(getString(android.R.string.cancel), null)
                                             .create();
