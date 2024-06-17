@@ -69,4 +69,13 @@ public class NeoForgeUtils {
     public static void addAutoInstallArgs(Intent intent, File modInstallerJar) {
         intent.putExtra("javaArgs", "-jar "+modInstallerJar.getAbsolutePath());
     }
+
+    public static String formatGameVersion(String neoForgeVersion) {
+        String originalGameVersion = neoForgeVersion.substring(0, 4); //例neoForgeVersion = 21.0.xxx : 21.0
+        if (originalGameVersion.charAt(originalGameVersion.length() - 1) == '0') { //例21.0.xxx
+            return "1." + originalGameVersion.substring(0, 2);
+        } else { //例20.2.xxx
+            return "1." + originalGameVersion;
+        }
+    }
 }
