@@ -87,16 +87,16 @@ public class DownloadNeoForgeFragment extends TwoLevelListFragment implements Mo
             if (currentTask.isCancelled()) return;
 
             //查找并分组Minecraft版本与NeoForge版本
-            String gameVersion = null;
-            int dashIndex;
-            if (!neoForgeVersion.contains("1.20.1") && !neoForgeVersion.contains("47.1.82")) {
-                //在字符串“20.2.3-beta”的例子中，只需要子字符串“20.2”
-                dashIndex = neoForgeVersion.indexOf(".", 3);
-                gameVersion = "1." + neoForgeVersion.substring(0, dashIndex); // "1." + "20.2"
-            } else if (neoForgeVersion.contains("1.20.1")) {
-                dashIndex = neoForgeVersion.indexOf("-");
-                gameVersion = neoForgeVersion.substring(0, dashIndex); // "1.20.1"
-            } else if (neoForgeVersion.equals("47.1.82")) return;
+            String gameVersion;
+
+            boolean is1_20_1 = neoForgeVersion.contains("1.20.1");
+            if (is1_20_1) {
+                gameVersion = "1.20.1";
+            } else if (neoForgeVersion.equals("47.1.82")) {
+                return;
+            } else { //1.20.2+
+                gameVersion = NeoForgeUtils.formatGameVersion(neoForgeVersion);
+            }
             mNeoForgeVersions.computeIfAbsent(gameVersion, k -> new ArrayList<>()).add(neoForgeVersion);
         });
 
