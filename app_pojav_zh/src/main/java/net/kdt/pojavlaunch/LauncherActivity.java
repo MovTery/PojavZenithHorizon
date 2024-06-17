@@ -229,7 +229,11 @@ public class LauncherActivity extends BaseActivity {
             fragmentManager.beginTransaction()
                     .setReorderingAllowed(true)
                     .addToBackStack("ROOT")
-                    .add(R.id.container_fragment, MainMenuFragment.class, null, "ROOT").commit();
+                    .add(R.id.container_fragment, MainMenuFragment.class, null, "ROOT");
+            
+            if (LauncherPreferences.PREF_ANIMATION) fragmentManager.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
+            
+            fragmentManager.commit();
         }
 
         IconCacheJanitor.runJanitor();
