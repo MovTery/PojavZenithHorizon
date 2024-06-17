@@ -25,7 +25,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.kdt.mcgui.ProgressLayout;
 import com.kdt.mcgui.mcAccountSpinner;
@@ -227,15 +226,10 @@ public class LauncherActivity extends BaseActivity {
             // Manually add the first fragment to the backstack to get easily back to it
             // There must be a better way to handle the root though...
             // (artDev: No, there is not. I've spent days researching this for another unrelated project.)
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            
-            transaction.setReorderingAllowed(true)
+            fragmentManager.beginTransaction()
+                    .setReorderingAllowed(true)
                     .addToBackStack("ROOT")
-                    .add(R.id.container_fragment, MainMenuFragment.class, null, "ROOT");
-            
-            if (LauncherPreferences.PREF_ANIMATION) transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
-            
-            transaction.commit();
+                    .add(R.id.container_fragment, MainMenuFragment.class, null, "ROOT").commit();
         }
 
         IconCacheJanitor.runJanitor();
