@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.movtery.feature.mod.modloader.OptiFineVersionListAdapter;
+import com.movtery.feature.mod.modloader.BaseModVersionListAdapter;
 import com.movtery.ui.subassembly.twolevellist.TwoLevelListAdapter;
 import com.movtery.ui.subassembly.twolevellist.TwoLevelListFragment;
 import com.movtery.ui.subassembly.twolevellist.TwoLevelListItemBean;
@@ -22,6 +22,7 @@ import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.ModloaderDownloadListener;
 import net.kdt.pojavlaunch.modloaders.ModloaderListenerProxy;
+import net.kdt.pojavlaunch.modloaders.OptiFineDownloadTask;
 import net.kdt.pojavlaunch.modloaders.OptiFineUtils;
 
 import java.io.File;
@@ -86,8 +87,10 @@ public class DownloadOptiFineFragment extends TwoLevelListFragment implements Mo
                 .forEach(entry -> {
                     if (currentTask.isCancelled()) return;
 
-                    mData.add(new TwoLevelListItemBean(entry.getKey(),
-                            new OptiFineVersionListAdapter(requireContext(), modloaderListenerProxy, this, entry.getValue())));
+                    BaseModVersionListAdapter adapter = new BaseModVersionListAdapter(requireContext(), modloaderListenerProxy, this, R.drawable.ic_optifine, entry.getValue());
+                    adapter.setOnItemClickListener(version -> new Thread(new OptiFineDownloadTask((OptiFineUtils.OptiFineVersion) version, modloaderListenerProxy)).start());
+
+                    mData.add(new TwoLevelListItemBean(entry.getKey(), adapter));
                 });
 
         if (currentTask.isCancelled()) return;

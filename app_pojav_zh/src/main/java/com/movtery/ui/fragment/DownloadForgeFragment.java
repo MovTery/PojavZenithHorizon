@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.movtery.feature.mod.modloader.ForgeVersionListAdapter;
+import com.movtery.feature.mod.modloader.BaseModVersionListAdapter;
 import com.movtery.ui.subassembly.twolevellist.TwoLevelListAdapter;
 import com.movtery.ui.subassembly.twolevellist.TwoLevelListFragment;
 import com.movtery.ui.subassembly.twolevellist.TwoLevelListItemBean;
@@ -20,6 +20,7 @@ import net.kdt.pojavlaunch.JavaGUILauncherActivity;
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
+import net.kdt.pojavlaunch.modloaders.ForgeDownloadTask;
 import net.kdt.pojavlaunch.modloaders.ForgeUtils;
 import net.kdt.pojavlaunch.modloaders.ModloaderDownloadListener;
 import net.kdt.pojavlaunch.modloaders.ModloaderListenerProxy;
@@ -94,8 +95,11 @@ public class DownloadForgeFragment extends TwoLevelListFragment implements Modlo
                 .forEach(entry -> {
                     if (currentTask.isCancelled()) return;
 
-                    mData.add(new TwoLevelListItemBean("Minecraft " + entry.getKey(),  //为整理好的Forge版本设置Adapter
-                            new ForgeVersionListAdapter(requireContext(), modloaderListenerProxy, this, entry.getValue())));
+                    //为整理好的Forge版本设置Adapter
+                    BaseModVersionListAdapter adapter = new BaseModVersionListAdapter(requireContext(), modloaderListenerProxy, this, R.drawable.ic_anvil, entry.getValue());
+                    adapter.setOnItemClickListener(version -> new Thread(new ForgeDownloadTask(modloaderListenerProxy, (String) version)).start());
+
+                    mData.add(new TwoLevelListItemBean("Minecraft " + entry.getKey(), adapter));
                 });
 
         if (currentTask.isCancelled()) return;

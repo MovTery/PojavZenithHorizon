@@ -10,8 +10,9 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.feature.mod.modloader.BaseModVersionListAdapter;
+import com.movtery.feature.mod.modloader.NeoForgeDownloadTask;
 import com.movtery.feature.mod.modloader.NeoForgeUtils;
-import com.movtery.feature.mod.modloader.NeoForgeVersionListAdapter;
 import com.movtery.ui.subassembly.twolevellist.TwoLevelListAdapter;
 import com.movtery.ui.subassembly.twolevellist.TwoLevelListFragment;
 import com.movtery.ui.subassembly.twolevellist.TwoLevelListItemBean;
@@ -108,8 +109,10 @@ public class DownloadNeoForgeFragment extends TwoLevelListFragment implements Mo
                 .forEach(entry -> {
                     if (currentTask.isCancelled()) return;
 
-                    mData.add(new TwoLevelListItemBean("Minecraft " + entry.getKey(),
-                            new NeoForgeVersionListAdapter(requireContext(), modloaderListenerProxy, this, entry.getValue())));
+                    BaseModVersionListAdapter adapter = new BaseModVersionListAdapter(requireContext(), modloaderListenerProxy, this, R.drawable.ic_neoforge, entry.getValue());
+                    adapter.setOnItemClickListener(version -> new Thread(new NeoForgeDownloadTask(modloaderListenerProxy, (String) version)).start());
+
+                    mData.add(new TwoLevelListItemBean("Minecraft " + entry.getKey(), adapter));
                 });
 
         if (currentTask.isCancelled()) return;
