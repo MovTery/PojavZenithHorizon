@@ -5,7 +5,6 @@ import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -13,10 +12,10 @@ import android.net.Uri;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.FileProvider;
 
 import com.movtery.pojavzh.ui.dialog.DownloadDialog;
+import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.dialog.UpdateDialog;
 import com.movtery.pojavzh.utils.ZHTools;
 
@@ -190,22 +189,17 @@ public class UpdateLauncher {
 
     private static void installApk(Context context, File outputFile) {
         runOnUiThread(() -> {
-            DialogInterface.OnClickListener install = (dialogInterface, i) -> { //安装
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", outputFile);
-                intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                context.startActivity(intent);
-            };
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle(context.getString(R.string.zh_tip))
+            new TipDialog.Builder(context)
                     .setMessage(context.getString(R.string.zh_update_success) + outputFile.getAbsolutePath())
                     .setCancelable(false)
-                    .setPositiveButton(context.getString(R.string.global_yes), install)
-                    .setNegativeButton(context.getString(android.R.string.cancel), null)
-                    .show();
+                    .setConfirmClickListener(() -> { //安装
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", outputFile);
+                        intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        context.startActivity(intent);
+                    }).buildDialog();
         });
     }
 

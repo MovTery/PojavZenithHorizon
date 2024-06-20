@@ -106,7 +106,7 @@
         <RelativeLayout
             android:id="@+id/zh_files_external_storage"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="42dp"
             android:layout_marginBottom="16dp"
             android:background="?android:attr/selectableItemBackground"
             app:layout_constraintBottom_toTopOf="@+id/linearLayoutCompat5"
@@ -135,7 +135,7 @@
         <RelativeLayout
             android:id="@+id/zh_files_software_private"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="42dp"
             android:background="?android:attr/selectableItemBackground"
             app:layout_constraintBottom_toTopOf="@+id/zh_files_external_storage"
             app:layout_constraintEnd_toEndOf="parent"
@@ -165,7 +165,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="4dp"
             android:paddingStart="8dp"
             android:text="@string/zh_file_multi_select_mode"
             app:layout_constraintBottom_toTopOf="@+id/zh_files_software_private"
