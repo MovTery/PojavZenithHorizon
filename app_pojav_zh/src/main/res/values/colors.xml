@@ -9,7 +9,6 @@
     <color name="background_overlay">#CFCFCF</color>
     <color name="background_status_bar">#EDEDED</color>
     <color name="background_bottom_bar">#2D8B9C</color>
-    <color name="background_line">#909090</color>
 
     <color name="button_background">#DDE0E1</color>
     <color name="dialog_background">#F4F4F4</color>

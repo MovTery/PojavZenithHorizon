@@ -32,12 +32,6 @@
         <item name="android:windowIsFloating">false</item>
     </style>
 
-    <style name="ThickDivider">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/_1sdp</item>
-        <item name="android:background">@color/background_line</item>
-    </style>
-
     <style name="RoundedCornersImageView">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">4%</item>
