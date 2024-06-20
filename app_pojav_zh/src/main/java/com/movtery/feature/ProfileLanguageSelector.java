@@ -1,4 +1,4 @@
-package com.movtery.utils;
+package com.movtery.feature;
 
 import static com.movtery.utils.PojavZHTools.containsDot;
 import static com.movtery.utils.PojavZHTools.extractNumbers;
@@ -6,6 +6,7 @@ import static com.movtery.utils.PojavZHTools.getGameDirPath;
 import static net.kdt.pojavlaunch.Tools.read;
 
 import com.movtery.ui.subassembly.customprofilepath.ProfilePathHome;
+import com.movtery.utils.PojavZHTools;
 
 import net.kdt.pojavlaunch.JMinecraftVersionList;
 import net.kdt.pojavlaunch.Logger;
@@ -55,8 +56,10 @@ public class ProfileLanguageSelector {
         return version;
     }
 
-    private static String getLanguage(String versionName, String lang) {
-        if (versionName == null || lang == null) return null;
+    private static String getLanguage(String versionName, String rawLang) {
+        if (versionName == null || rawLang == null) return null;
+        String lang = rawLang;
+        if (rawLang.equals("system")) lang = PojavZHTools.getSystemLanguage();
 
         JMinecraftVersionList.Version version;
         try {
@@ -107,7 +110,7 @@ public class ProfileLanguageSelector {
         File optionFile = new File((getGameDirPath(minecraftProfile.gameDir)), "options.txt");
         ArrayList<String> options = new ArrayList<>();
         boolean foundMatch = false;
-        String language = getLanguage(minecraftProfile.lastVersionId, LauncherPreferences.PREF_SWITCH_TO_CHINESE_LANGUAGE);
+        String language = getLanguage(minecraftProfile.lastVersionId, LauncherPreferences.PREF_GAME_LANGUAGE);
 
         try (BufferedReader optionFileReader = new BufferedReader(new InputStreamReader(new FileInputStream(optionFile), StandardCharsets.UTF_8))) {
             String line;

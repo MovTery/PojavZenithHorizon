@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="all_game_language">
+        <item>@string/zh_setting_set_game_language_system</item>
+        <item>Afrikaans</item>
+        <item>اللغة العربية</item>
+        <item>Asturianu</item>
+        <item>Azərbaycanca</item>
+        <item>Башҡортса</item>
+        <item>Boarisch</item>
+        <item>Беларуская</item>
+        <item>Български</item>
+        <item>Brezhoneg</item>
+        <item>Braobans</item>
+        <item>Bosanski</item>
+        <item>Català</item>
+        <item>Čeština</item>
+        <item>Cymraeg</item>
+        <item>Dansk</item>
+        <item>Österreichisches Deitsch</item>
+        <item>Schwiizerdutsch</item>
+        <item>Deutsch</item>
+        <item>Ελληνικά</item>
+        <item>English （Australia）</item>
+        <item>English （Canada）</item>
+        <item>English （United Kingdom）</item>
+        <item>English （New Zealand）</item>
+        <item>Pirate Speak</item>
+        <item>ɥsᴉꞁᵷuƎ （uʍoᗡ ǝpᴉsd∩）</item>
+        <item>English （US）</item>
+        <item>Anglish</item>
+        <item>Shakespearean English</item>
+        <item>Esperanto</item>
+        <item>Español （Argentina）</item>
+        <item>Español （Chile）</item>
+        <item>Español （Ecuador）</item>
+        <item>Español （España）</item>
+        <item>Español （México）</item>
+        <item>Español （Uruguay）</item>
+        <item>Español （Venezuela）</item>
+        <item>Andalûh</item>
+        <item>Eesti</item>
+        <item>Euskara</item>
+        <item>فارسی</item>
+        <item>Suomi</item>
+        <item>Filipino</item>
+        <item>Føroyskt</item>
+        <item>Français québécois</item>
+        <item>Français</item>
+        <item>Frängisch</item>
+        <item>Furlan</item>
+        <item>Frysk</item>
+        <item>Gaeilge</item>
+        <item>Gàidhlig</item>
+        <item>Galego</item>
+        <item>ʻŌlelo Hawaiʻi</item>
+        <item>עברית</item>
+        <item>हिन्दी</item>
+        <item>Hrvatski</item>
+        <item>Magyar</item>
+        <item>Հայերեն</item>
+        <item>Bahasa Indonesia</item>
+        <item>Igbo</item>
+        <item>Ido</item>
+        <item>Íslenska</item>
+        <item>Medžuslovjansky</item>
+        <item>Italiano</item>
+        <item>日本語</item>
+        <item>la .lojban.</item>
+        <item>ქართული</item>
+        <item>Қазақша</item>
+        <item>ಕನ್ನಡ</item>
+        <item>한국어</item>
+        <item>Kölsch/Ripoarisch</item>
+        <item>Kernewek</item>
+        <item>Latina</item>
+        <item>Lëtzebuergesch</item>
+        <item>Limburgs</item>
+        <item>Lombard</item>
+        <item>ລາວ（ປະເທດລາວ）</item>
+        <item>LOLCAT</item>
+        <item>Lietuvių</item>
+        <item>Latviešu</item>
+        <item>文言（華夏）</item>
+        <item>Македонски</item>
+        <item>Монгол</item>
+        <item>Bahasa Melayu</item>
+        <item>Malti</item>
+        <item>Mēxikatlahtōlli</item>
+        <item>Platdüütsk</item>
+        <item>Vlaams</item>
+        <item>Nederlands</item>
+        <item>Norsk nynorsk</item>
+        <item>Norsk Bokmål</item>
+        <item>Occitan</item>
+        <item>Övdalsk</item>
+        <item>Polski</item>
+        <item>Português （Brasil）</item>
+        <item>Português （Portugal）</item>
+        <item>Quenya</item>
+        <item>Română</item>
+        <item>Дореформенный русскій</item>
+        <item>Русский</item>
+        <item>Руснацькый</item>
+        <item>Сахалыы（Cаха Сирэ）</item>
+        <item>Davvisámegiella</item>
+        <item>Slovenčina</item>
+        <item>Slovenščina</item>
+        <item>Af-Soomaali</item>
+        <item>Shqip</item>
+        <item>Srpski</item>
+        <item>Српски</item>
+        <item>Svenska</item>
+        <item>Säggs\'sch</item>
+        <item>Ślōnskŏ</item>
+        <item>தமிழ்</item>
+        <item>ภาษาไทย</item>
+        <item>Tagalog</item>
+        <item>tlhIngan Hol</item>
+        <item>toki pona</item>
+        <item>Türkçe</item>
+        <item>Татарча</item>
+        <item>Українська</item>
+        <item>Català （Valencià）</item>
+        <item>Vèneto</item>
+        <item>Tiếng Việt</item>
+        <item>Viossa</item>
+        <item>ייִדיש</item>
+        <item>Yorùbá</item>
+        <item>简体中文（中国大陆）</item>
+        <item>繁體中文（香港特別行政區）</item>
+        <item>繁體中文（台灣）</item>
+        <item>بهاس ملايو</item>
+    </string-array>
+</resources>
