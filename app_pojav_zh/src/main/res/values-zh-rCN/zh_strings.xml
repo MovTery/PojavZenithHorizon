@@ -196,8 +196,6 @@
     <string name="zh_setting_animation_title">启用动画</string>
     <string name="zh_setting_quit_launcher_desc">在应用正式开始运行游戏时，是否退出启动器</string>
     <string name="zh_setting_quit_launcher_title">退出启动器</string>
-    <string name="zh_setting_advanced_features_desc">开启后，启动器将开放部分高级功能 (可能需要重启才能生效)</string>
-    <string name="zh_setting_advanced_features_title">高级功能</string>
     <string name="zh_setting_reboot_tip">此项设置已被更改，但是需要重启应用才能生效！</string>
 
     <string name="zh_clear_up_cache">清理缓存</string>
