@@ -656,17 +656,9 @@ public class PojavZHTools {
         return false;
     }
 
-    public static String getDefaultLanguage() {
-        String country = Locale.getDefault().getCountry();
-        switch (country) {
-            case "HK":
-                return "zh_hk";
-            case "TW":
-                return "zh_tw";
-            case "CN":
-            default:
-                return "zh_cn";
-        }
+    public static String getSystemLanguage() {
+        Locale locale = Locale.getDefault();
+        return locale.getLanguage() + "_" + locale.getCountry().toLowerCase();
     }
 
     public static String markdownToHtml(String markdown) {

@@ -76,15 +76,21 @@ public class CheckNewNotice {
                         JSONObject noticeJson = new JSONObject(rawJson);
 
                         //获取通知消息
-                        String language = PojavZHTools.getDefaultLanguage();
+                        String language = PojavZHTools.getSystemLanguage();
                         String rawTitle;
                         String rawSubstance;
-                        if (language.equals("zh_cn")) {
-                            rawTitle = noticeJson.getString("title_zh_cn");
-                            rawSubstance = noticeJson.getString("substance_zh_cn");
-                        } else {
-                            rawTitle = noticeJson.getString("title_zh_tw");
-                            rawSubstance = noticeJson.getString("substance_zh_tw");
+                        switch (language) {
+                            case "zh_cn":
+                                rawTitle = noticeJson.getString("title_zh_cn");
+                                rawSubstance = noticeJson.getString("substance_zh_cn");
+                                break;
+                            case "zh_tw":
+                                rawTitle = noticeJson.getString("title_zh_tw");
+                                rawSubstance = noticeJson.getString("substance_zh_tw");
+                                break;
+                            default:
+                                rawTitle = noticeJson.getString("title_en_us");
+                                rawSubstance = noticeJson.getString("substance_en_us");
                         }
                         String rawDate = noticeJson.getString("date");
                         int numbering = noticeJson.getInt("numbering");

@@ -182,9 +182,10 @@
     <string name="zh_select_modpack_local_tip">请选择一个启动器支持导入的整合包文件！</string>
     <string name="zh_select_modpack_local_not_supported">此文件不受启动器支持！</string>
     <string name="zh_select_modpack_local_installing_files">安装游戏文件中… (%d)</string>
-    <string name="zh_setting_set_to_chinese_desc">在游戏首次启动时，自动将语言设置为中文</string>
-    <string name="zh_setting_set_to_chinese_title">自动设置为中文</string>
-    <string name="zh_setting_chinese_language_title">中文语言切换</string>
+    <string name="zh_setting_set_game_language_desc">在游戏首次启动时，自动设置游戏语言为选定的语言</string>
+    <string name="zh_setting_set_game_language_title">自动设置游戏语言</string>
+    <string name="zh_setting_set_game_language_list">设置游戏语言</string>
+    <string name="zh_setting_set_game_language_system">根据系统语言</string>
     <string name="zh_setting_launcher_theme">启动器主题</string>
     <string name="zh_setting_launcher_theme_system">跟随系统变化</string>
     <string name="zh_setting_launcher_theme_light">浅色模式</string>

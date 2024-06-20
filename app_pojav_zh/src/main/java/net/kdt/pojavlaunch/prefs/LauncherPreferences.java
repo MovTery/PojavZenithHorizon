@@ -71,8 +71,8 @@ public class LauncherPreferences {
     public static String PREF_DOWNLOAD_SOURCE = "default";
     public static boolean PREF_SKIP_NOTIFICATION_PERMISSION_CHECK = false;
     public static boolean PREF_VSYNC_IN_ZINK = false;
-    public static boolean PREF_SET_TO_CHINESE = true;
-    public static String PREF_SWITCH_TO_CHINESE_LANGUAGE = PojavZHTools.getDefaultLanguage();
+    public static boolean PREF_AUTOMATICALLY_SET_GAME_LANGUAGE = true;
+    public static String PREF_GAME_LANGUAGE = PojavZHTools.getSystemLanguage();
     public static String PREF_LAUNCHER_THEME = "system";
     public static boolean PREF_ENABLE_LOG_OUTPUT = false;
     public static boolean PREF_ANIMATION = true;
@@ -127,8 +127,8 @@ public class LauncherPreferences {
         PREF_VERIFY_MANIFEST = DEFAULT_PREF.getBoolean("verifyManifest", true);
         PREF_SKIP_NOTIFICATION_PERMISSION_CHECK = DEFAULT_PREF.getBoolean(PREF_KEY_SKIP_NOTIFICATION_CHECK, false);
         PREF_VSYNC_IN_ZINK = DEFAULT_PREF.getBoolean("vsync_in_zink", false);
-        PREF_SET_TO_CHINESE = DEFAULT_PREF.getBoolean("setToChinese", true);
-        PREF_SWITCH_TO_CHINESE_LANGUAGE = DEFAULT_PREF.getString("switchToChineseLanguage", PojavZHTools.getDefaultLanguage());
+        PREF_AUTOMATICALLY_SET_GAME_LANGUAGE = DEFAULT_PREF.getBoolean("setToChinese", true);
+        PREF_GAME_LANGUAGE = DEFAULT_PREF.getString("setGameLanguage", PojavZHTools.getSystemLanguage());
         PREF_LAUNCHER_THEME = DEFAULT_PREF.getString("launcherTheme", "system");
         PREF_ENABLE_LOG_OUTPUT = DEFAULT_PREF.getBoolean("enableLogOutput", false);
         PREF_ANIMATION = DEFAULT_PREF.getBoolean("animation", true);

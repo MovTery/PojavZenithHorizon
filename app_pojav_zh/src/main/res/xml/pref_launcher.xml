@@ -10,15 +10,16 @@
         <SwitchPreference
             android:defaultValue="true"
             android:key="setToChinese"
-            android:summary="@string/zh_setting_set_to_chinese_desc"
-            android:title="@string/zh_setting_set_to_chinese_title"
+            android:summary="@string/zh_setting_set_game_language_desc"
+            android:title="@string/zh_setting_set_game_language_title"
             app2:iconSpaceReserved="false" />
 
         <androidx.preference.ListPreference
-            android:key="switchToChineseLanguage"
-            android:entries="@array/chinese_language_names"
-            android:entryValues="@array/chinese_language_values"
-            android:title="@string/zh_setting_chinese_language_title"
+            android:key="setGameLanguage"
+            android:entries="@array/all_game_language"
+            android:entryValues="@array/all_game_language_value"
+            android:title="@string/zh_setting_set_game_language_list"
+            android:defaultValue="system"
             app2:useSimpleSummaryProvider="true"
             app2:iconSpaceReserved="false" />
 

@@ -183,9 +183,10 @@
     <string name="zh_select_modpack_local_tip">Please select a modpack file that can be imported by the launcher!</string>
     <string name="zh_select_modpack_local_not_supported">This file is not supported by the launcher!</string>
     <string name="zh_select_modpack_local_installing_files">Installing game files… (%d)</string>
-    <string name="zh_setting_set_to_chinese_desc">On first launch, automatically set game language to Chinese</string>
-    <string name="zh_setting_set_to_chinese_title">Automatically set to Chinese</string>
-    <string name="zh_setting_chinese_language_title">Switch to Chinese language</string>
+    <string name="zh_setting_set_game_language_desc">Automatically set the game language to the selected language when the game is first launched</string>
+    <string name="zh_setting_set_game_language_title">Automatically Set Game Language</string>
+    <string name="zh_setting_set_game_language_list">Set Game Language</string>
+    <string name="zh_setting_set_game_language_system">Follow System Language</string>
     <string name="zh_setting_launcher_theme">Launcher Theme</string>
     <string name="zh_setting_launcher_theme_system">Follow System Changes</string>
     <string name="zh_setting_launcher_theme_light">Light Mode</string>
