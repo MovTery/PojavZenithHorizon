@@ -197,8 +197,6 @@
     <string name="zh_setting_animation_title">Enable Animation</string>
     <string name="zh_setting_quit_launcher_desc">Should the launcher exit when the game officially begins running?</string>
     <string name="zh_setting_quit_launcher_title">Exit Launcher</string>
-    <string name="zh_setting_advanced_features_desc">When enabled, the launcher will unlock some advanced features (may require a restart to take effect)</string>
-    <string name="zh_setting_advanced_features_title">Advanced Features</string>
     <string name="zh_setting_reboot_tip">This setting has been changed, but requires the app to be restarted to take effect!</string>
 
     <string name="zh_clear_up_cache">Clear Cache</string>
