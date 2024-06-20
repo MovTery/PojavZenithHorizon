@@ -1,5 +1,5 @@
 <div align="center">
-    <img width="256" src=".github/images/PojavZenithHorizon.png"></img>
+    <img width="256" src="app_pojav_zh/src/main/res/drawable/app_name_title.png"></img>
 </div>
 
 [![Android CI](https://github.com/HopiHopy/PojavZenithHorizon/actions/workflows/android.yml/badge.svg)](https://github.com/HopiHopy/PojavZenithHorizon/actions/workflows/android.yml)  
@@ -7,6 +7,12 @@
 - <a href="/README-EN_US.md">English</a>丨<a href="/README.md">简体中文</a>
 - Pojav Zenith Horizon 是基於 [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher) 的 Minecraft 啟動器修改版本，能夠在 Android 裝置上運行 [Minecraft: Java Edition](https://www.minecraft.net/)。
 - Pojav Zenith Horizon 致力於優化使用者體驗，重新設計應用介面，新增更多實用功能，旨在最大程度降低遊戲門檻，讓更多人輕鬆體驗 Minecraft 的樂趣。
+
+<h2 align="center">Screenshots</h2>
+
+![GameScreen1](/.github/images/Screenshot_Light_ZH_TW.jpg)
+![GameScreen1](/.github/images/Screenshot_Dark_ZH_TW.jpg)
+![GameScreen1](/.github/images/Screenshot_Game_ZH_TW.jpg)
 
 <h2 align="center">新增功能</h2>  
 
