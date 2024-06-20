@@ -1,5 +1,5 @@
 <div align="center">
-    <img width="256" src=".github/images/PojavZenithHorizon.png"></img>
+    <img width="512" src=".github/images/PojavZenithHorizon.png"></img>
 </div>
 
 [![Android CI](https://github.com/HopiHopy/PojavZenithHorizon/actions/workflows/android.yml/badge.svg)](https://github.com/HopiHopy/PojavZenithHorizon/actions/workflows/android.yml)  
