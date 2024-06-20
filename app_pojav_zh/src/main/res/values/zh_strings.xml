@@ -113,8 +113,6 @@
     <string name="zh_search_count">%d search results</string>
 
     <string name="zh_neoforge_dl_searching">Searching for NeoForge version number</string>
-    <string name="zh_neoforge_dl_no_installer">Sorry, but this version of NeoForge does not have an installer, which is not yet supported.</string>
-    <string name="zh_neoforge_dl_select_version">Select NeoForge version</string>
     <string name="zh_modloader_dl_install_neoforge">Create NeoForge profile</string>
 
     <string name="zh_main_open_main_dir">Open main directory</string>
@@ -135,7 +133,6 @@
     <string name="zh_profile_mods_download_mod_failed">Failed to download Mod file</string>
     <string name="zh_profile_mods_download_mod_release_version">Show only Minecraft release versions</string>
     <string name="zh_profile_mods_search_mod_failed">Failed to search for Mod</string>
-    <string name="zh_profile_mods_search_mod_search_download_error">Failed to download Mod metadata</string>
     <string name="zh_profile_mods_search_mod_no_result">No relevant Mod found</string>
     <string name="zh_profile_mods_search_mod">Search Mod</string>
     <string name="zh_profile_mods_search_platform_both">Mixed</string>
