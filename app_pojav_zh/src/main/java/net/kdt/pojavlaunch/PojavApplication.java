@@ -2,7 +2,7 @@ package net.kdt.pojavlaunch;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-import static com.movtery.utils.PojavZHTools.getVersionName;
+import static com.movtery.pojavzh.utils.ZHTools.getVersionName;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_LAUNCHER_THEME;
 
 import android.app.*;
@@ -16,9 +16,9 @@ import androidx.core.app.*;
 
 import android.util.*;
 
-import com.movtery.feature.CheckNewNotice;
-import com.movtery.feature.ResourceManager;
-import com.movtery.utils.UnpackJRE;
+import com.movtery.pojavzh.feature.CheckNewNotice;
+import com.movtery.pojavzh.feature.ResourceManager;
+import com.movtery.pojavzh.utils.UnpackJRE;
 
 import java.io.*;
 import java.text.*;
@@ -47,7 +47,7 @@ public class PojavApplication extends Application {
 				// Write to file, since some devices may not able to show error
 				FileUtils.ensureParentDirectory(crashFile);
 				PrintStream crashStream = new PrintStream(crashFile);
-				crashStream.append("PojavZH crash report\n");
+				crashStream.append("Pojav Zenith Horizon crash report\n");
 				crashStream.append(" - Time: ").append(DateFormat.getDateTimeInstance().format(new Date())).append("\n");
 				crashStream.append(" - Device: ").append(Build.PRODUCT).append(" ").append(Build.MODEL).append("\n");
 				crashStream.append(" - Android version: ").append(Build.VERSION.RELEASE).append("\n");

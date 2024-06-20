@@ -38,7 +38,7 @@ import net.kdt.pojavlaunch.customcontrols.ControlDrawerData;
 import net.kdt.pojavlaunch.customcontrols.ControlJoystickData;
 import net.kdt.pojavlaunch.customcontrols.buttons.ControlDrawer;
 import net.kdt.pojavlaunch.customcontrols.buttons.ControlInterface;
-import com.movtery.ui.dialog.KeyboardDialog;
+import com.movtery.pojavzh.ui.dialog.KeyboardDialog;
 
 import java.util.List;
 

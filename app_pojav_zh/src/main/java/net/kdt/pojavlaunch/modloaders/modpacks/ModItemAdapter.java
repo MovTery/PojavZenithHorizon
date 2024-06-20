@@ -17,15 +17,15 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.movtery.ui.fragment.DownloadModFragment;
-import com.movtery.ui.subassembly.downloadmod.ModApiViewModel;
-import com.movtery.ui.subassembly.downloadmod.ModDependencies;
-import com.movtery.utils.NumberWithUnits;
+import com.movtery.pojavzh.ui.fragment.DownloadModFragment;
+import com.movtery.pojavzh.ui.subassembly.downloadmod.ModApiViewModel;
+import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
+import com.movtery.pojavzh.utils.NumberWithUnits;
 
 import net.kdt.pojavlaunch.PojavApplication;
-import com.movtery.utils.PojavZHTools;
+import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
-import com.movtery.feature.ResourceManager;
+import com.movtery.pojavzh.feature.ResourceManager;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ImageReceiver;
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ModIconCache;
@@ -164,7 +164,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 viewModel.setModItem(item);
                 viewModel.setModpack(mod.isModpack);
                 viewModel.setModsPath(mod.modsPath);
-                PojavZHTools.addFragment(mod.fragment, DownloadModFragment.class, DownloadModFragment.TAG, null);
+                ZHTools.addFragment(mod.fragment, DownloadModFragment.class, DownloadModFragment.TAG, null);
             });
 
             if(mThumbnailBitmap != null) {
@@ -198,7 +198,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             String downloaderCount = ResourceManager.getString(R.string.zh_profile_mods_information_download_count) + " " + NumberWithUnits.formatNumberWithUnit(item.downloadCount,
                     //判断当前系统语言是否为英文
-                    PojavZHTools.isEnglish());
+                    ZHTools.isEnglish());
             mDownloadCount.setText(downloaderCount);
             String modloaderText = ResourceManager.getString(R.string.zh_profile_mods_information_modloader) + " ";
             if (item.modloader != null && !item.modloader.isEmpty()) {

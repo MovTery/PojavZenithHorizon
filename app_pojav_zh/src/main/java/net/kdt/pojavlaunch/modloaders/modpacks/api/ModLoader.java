@@ -9,8 +9,8 @@ import net.kdt.pojavlaunch.modloaders.FabriclikeUtils;
 import net.kdt.pojavlaunch.modloaders.ForgeDownloadTask;
 import net.kdt.pojavlaunch.modloaders.ForgeUtils;
 import net.kdt.pojavlaunch.modloaders.ModloaderDownloadListener;
-import com.movtery.feature.mod.modloader.NeoForgeDownloadTask;
-import com.movtery.feature.mod.modloader.NeoForgeUtils;
+import com.movtery.pojavzh.feature.mod.modloader.NeoForgeDownloadTask;
+import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils;
 
 import java.io.File;
 

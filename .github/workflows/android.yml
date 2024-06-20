@@ -84,13 +84,13 @@ jobs:
         if: github.repository_owner == 'HopiHopy' && github.ref_name == 'v3_openjdk'
         uses: actions/upload-artifact@v4
         with:
-          name: PojavZH(Release)
+          name: PojavZenithHorizon(Release)
           path: app_pojav_zh/build/outputs/apk/release/*
 
       - name: Upload Debug
         uses: actions/upload-artifact@v4
         with:
-          name: PojavZH(Debug)
+          name: PojavZenithHorizon(Debug)
           path: app_pojav_zh/build/outputs/apk/debug/*
 
   buildnoruntime:
@@ -133,5 +133,5 @@ jobs:
       - name: Upload Debug
         uses: actions/upload-artifact@v4
         with:
-          name: PojavZH(Debug - No Runtime)
+          name: PojavZenithHorizon(Debug - No Runtime)
           path: app_pojav_zh/build/outputs/apk/debug/*

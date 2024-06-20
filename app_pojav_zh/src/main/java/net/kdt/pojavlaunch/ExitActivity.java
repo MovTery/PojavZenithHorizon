@@ -1,6 +1,6 @@
 package net.kdt.pojavlaunch;
 
-import static com.movtery.utils.PojavZHTools.getLatestFile;
+import static com.movtery.pojavzh.utils.ZHTools.getLatestFile;
 import static net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles.getCurrentProfile;
 
 import android.annotation.SuppressLint;
@@ -12,8 +12,8 @@ import androidx.annotation.Keep;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.movtery.ui.dialog.ExitDialog;
-import com.movtery.utils.PojavZHTools;
+import com.movtery.pojavzh.ui.dialog.ExitDialog;
+import com.movtery.pojavzh.utils.ZHTools;
 
 import java.io.File;
 
@@ -30,7 +30,7 @@ public class ExitActivity extends AppCompatActivity {
             code = extras.getInt("code",-1);
         }
 
-        File crashReportFile = getLatestFile(new File(PojavZHTools.getGameDirPath(getCurrentProfile().gameDir), "crash-reports"), 2);
+        File crashReportFile = getLatestFile(new File(ZHTools.getGameDirPath(getCurrentProfile().gameDir), "crash-reports"), 2);
 
         ExitDialog exitDialog = new ExitDialog(this, code, crashReportFile, new File(Tools.DIR_GAME_HOME, "latestlog.txt"));
         exitDialog.setOnDismissListener(dialog -> ExitActivity.this.finish());

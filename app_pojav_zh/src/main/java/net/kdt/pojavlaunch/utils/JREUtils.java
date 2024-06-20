@@ -2,7 +2,7 @@ package net.kdt.pojavlaunch.utils;
 
 import static net.kdt.pojavlaunch.Architecture.ARCH_X86;
 import static net.kdt.pojavlaunch.Architecture.is64BitsDevice;
-import static com.movtery.utils.PojavZHTools.getLatestFile;
+import static com.movtery.pojavzh.utils.ZHTools.getLatestFile;
 import static net.kdt.pojavlaunch.Tools.LOCAL_RENDERER;
 import static net.kdt.pojavlaunch.Tools.NATIVE_LIB_DIR;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
@@ -20,9 +20,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.movtery.ui.subassembly.customprofilepath.ProfilePathHome;
-import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
-import com.movtery.utils.PojavZHTools;
+import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathHome;
+import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.utils.ZHTools;
 import com.oracle.dalvik.*;
 import java.io.*;
 import java.util.*;
@@ -326,7 +326,7 @@ public class JREUtils {
                 builder.setMessage(activity.getString(R.string.mcn_exit_title, exitCode))
                         .setPositiveButton(R.string.main_share_logs, (dialogInterface, which)-> shareLog(activity));
                 if (crashReportFile != null && crashReportFile.exists()) {
-                    builder.setNegativeButton(R.string.zh_main_share_crash_report, (dialogInterface, which) -> PojavZHTools.shareFile(activity, crashReportFile.getName(), crashReportFile.getAbsolutePath()));
+                    builder.setNegativeButton(R.string.zh_main_share_crash_report, (dialogInterface, which) -> ZHTools.shareFile(activity, crashReportFile.getName(), crashReportFile.getAbsolutePath()));
                 }
             };
 

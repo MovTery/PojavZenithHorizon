@@ -4,7 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.movtery.ui.subassembly.downloadmod.ModVersionItem;
+import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.Constants;

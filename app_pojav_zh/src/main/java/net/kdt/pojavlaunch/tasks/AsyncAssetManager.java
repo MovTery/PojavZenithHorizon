@@ -10,9 +10,9 @@ import android.util.Log;
 
 import com.kdt.mcgui.ProgressLayout;
 
-import com.movtery.ui.subassembly.customprofilepath.ProfilePathHome;
-import com.movtery.utils.CopyDefaultFromAssets;
-import com.movtery.utils.PojavZHTools;
+import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathHome;
+import com.movtery.pojavzh.utils.CopyDefaultFromAssets;
+import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
@@ -75,8 +75,8 @@ public class AsyncAssetManager {
             try {
                 CopyDefaultFromAssets.copyFromAssets(ctx);
 
-                Tools.copyAssetFile(ctx, "authlib-injector.jar", PojavZHTools.DIR_LOGIN, true);
-                Tools.copyAssetFile(ctx, "nide8auth.jar", PojavZHTools.DIR_LOGIN, true);
+                Tools.copyAssetFile(ctx, "authlib-injector.jar", ZHTools.DIR_LOGIN, true);
+                Tools.copyAssetFile(ctx, "nide8auth.jar", ZHTools.DIR_LOGIN, true);
 
                 Tools.copyAssetFile(ctx, "launcher_profiles.json", ProfilePathHome.getGameHome(), false);
                 Tools.copyAssetFile(ctx,"resolv.conf",Tools.DIR_DATA, false);
@@ -117,7 +117,7 @@ public class AsyncAssetManager {
             if (versionFile.getParentFile().exists() && versionFile.getParentFile().isDirectory()) {
                 FileUtils.deleteDirectory(versionFile.getParentFile());
             }
-            PojavZHTools.mkdir(versionFile.getParentFile());
+            ZHTools.mkdir(versionFile.getParentFile());
 
             Log.i("UnpackPrep", component + ": Pack was installed manually, or does not exist, unpacking new...");
             String[] fileList = am.list("components/" + component);
@@ -132,7 +132,7 @@ public class AsyncAssetManager {
                 if (versionFile.getParentFile().exists() && versionFile.getParentFile().isDirectory()) {
                     FileUtils.deleteDirectory(versionFile.getParentFile());
                 }
-                PojavZHTools.mkdir(versionFile.getParentFile());
+                ZHTools.mkdir(versionFile.getParentFile());
 
                 String[] fileList = am.list("components/" + component);
                 for (String fileName : fileList) {

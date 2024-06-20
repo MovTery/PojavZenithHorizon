@@ -17,8 +17,8 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.google.gson.JsonSyntaxException;
-import com.movtery.ui.dialog.TipDialog;
-import com.movtery.ui.subassembly.customcontrols.ControlInfoData;
+import com.movtery.pojavzh.ui.dialog.TipDialog;
+import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlInfoData;
 
 import net.kdt.pojavlaunch.MinecraftGLSurface;
 import net.kdt.pojavlaunch.PojavApplication;
@@ -32,8 +32,8 @@ import net.kdt.pojavlaunch.customcontrols.buttons.ControlSubButton;
 import net.kdt.pojavlaunch.customcontrols.handleview.ActionRow;
 import net.kdt.pojavlaunch.customcontrols.handleview.ControlHandleView;
 import net.kdt.pojavlaunch.customcontrols.handleview.EditControlPopup;
-import com.movtery.ui.dialog.EditControlInfoDialog;
-import com.movtery.ui.dialog.SelectControlsDialog;
+import com.movtery.pojavzh.ui.dialog.EditControlInfoDialog;
+import com.movtery.pojavzh.ui.dialog.SelectControlsDialog;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import java.io.File;

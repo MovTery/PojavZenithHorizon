@@ -25,16 +25,16 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.kdt.mcgui.mcVersionSpinner;
-import com.movtery.ui.fragment.AboutFragment;
-import com.movtery.ui.fragment.ControlButtonFragment;
-import com.movtery.ui.fragment.FilesFragment;
+import com.movtery.pojavzh.ui.fragment.AboutFragment;
+import com.movtery.pojavzh.ui.fragment.ControlButtonFragment;
+import com.movtery.pojavzh.ui.fragment.FilesFragment;
 
-import com.movtery.feature.CheckNewNotice;
-import com.movtery.ui.fragment.ProfileManagerFragment;
+import com.movtery.pojavzh.feature.CheckNewNotice;
+import com.movtery.pojavzh.ui.fragment.ProfileManagerFragment;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
-import com.movtery.ui.dialog.ShareLogDialog;
-import com.movtery.ui.fragment.ProfilePathManagerFragment;
+import com.movtery.pojavzh.ui.dialog.ShareLogDialog;
+import com.movtery.pojavzh.ui.fragment.ProfilePathManagerFragment;
 
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;

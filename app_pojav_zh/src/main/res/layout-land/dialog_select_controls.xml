@@ -34,7 +34,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.movtery.ui.subassembly.customcontrols.ControlsListView
+    <com.movtery.pojavzh.ui.subassembly.customcontrols.ControlsListView
         android:id="@+id/zh_controls"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

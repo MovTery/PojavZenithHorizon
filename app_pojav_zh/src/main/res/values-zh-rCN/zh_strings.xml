@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Pojav ZH -->
+    <!-- Pojav Zenith Horizon -->
     <string name="zh_close">关闭</string>
     <string name="zh_return">返回</string>
     <string name="zh_edit">编辑</string>
@@ -23,7 +23,7 @@
     <string name="zh_yi">亿</string>
     <string name="zh_wrong_tip">出现了一些问题</string>
 
-    <string name="zh_permissions_manage_external_storage">Pojav ZH 需要管理设备所有文件的权限，以便自定义保存游戏文件位置，请为 Pojav ZH 开启权限！</string>
+    <string name="zh_permissions_manage_external_storage">Pojav Zenith Horizon 需要管理设备所有文件的权限，以便自定义保存游戏文件位置，请为 Pojav Zenith Horizon 开启权限！</string>
     <string name="zh_profiles_path_title">游戏路径管理</string>
     <string name="zh_profiles_path_default">默认路径</string>
     <string name="zh_profiles_path_create_new">添加新路径</string>
@@ -238,17 +238,17 @@
     <string name="zh_other_login_error_code">错误代码：</string>
     <string name="zh_other_login_server_not_empty">服务器不能为空，请检查身份验证服务器设置！</string>
 
-    <string name="zh_about_tab">关于 Pojav ZH</string>
-    <string name="zh_about_dec1">Pojav ZH 是一款基于 PojavLauncher 魔改的 Minecraft 启动器，它能够在 Android 设备上运行 Minecraft: Java Edition。\nPojav ZH 致力于优化用户体验，重新设计了应用界面，新增了更多实用的功能，旨在最大程度地降低游玩门槛，让更多人能够轻松体验 Minecraft 的乐趣。</string>
-    <string name="zh_about_dec2">Pojav ZH 由 墨北MovTery 个人精心制作，在 PojavLauncher 的基础上进行了深入的魔改工作。</string>
-    <string name="zh_about_dec3">由于 PojavLauncher 使用的是 GPL 3.0 开源协议，这一协议具有 “传染性”，任何使用、修改或衍生自 GPL 类库或软件的代码也必须采用 GPL 协议进行开源。因此，Pojav ZH 也只能遵循 GPL 3.0 开源协议。如果你打算传播或分发本软件，请务必遵守 GPL 3.0 开源协议的相关规定。</string>
+    <string name="zh_about_tab">关于 Pojav Zenith Horizon</string>
+    <string name="zh_about_dec1">Pojav Zenith Horizon 是一款基于 PojavLauncher 魔改的 Minecraft 启动器，它能够在 Android 设备上运行 Minecraft: Java Edition。\nPojav Zenith Horizon 致力于优化用户体验，重新设计了应用界面，新增了更多实用的功能，旨在最大程度地降低游玩门槛，让更多人能够轻松体验 Minecraft 的乐趣。</string>
+    <string name="zh_about_dec2">Pojav Zenith Horizon 由 墨北MovTery 个人精心制作，在 PojavLauncher 的基础上进行了深入的魔改工作。</string>
+    <string name="zh_about_dec3">由于 PojavLauncher 使用的是 GPL 3.0 开源协议，这一协议具有 “传染性”，任何使用、修改或衍生自 GPL 类库或软件的代码也必须采用 GPL 协议进行开源。因此，Pojav Zenith Horizon 也只能遵循 GPL 3.0 开源协议。如果你打算传播或分发本软件，请务必遵守 GPL 3.0 开源协议的相关规定。</string>
     <string name="zh_about_dec4">贡献者与鸣谢：</string>
-    <string name="zh_about_movtery_desc">Pojav ZH 的作者</string>
-    <string name="zh_about_verafirefly_desc">Pojav ZH 项目协助者，为 Pojav ZH 提供渲染方面的技术支持</string>
-    <string name="zh_about_lingmuqiuzhu_desc">为 Pojav ZH 提供了技术支持</string>
+    <string name="zh_about_movtery_desc">Pojav Zenith Horizon 的作者</string>
+    <string name="zh_about_verafirefly_desc">Pojav Zenith Horizon 项目协助者，为 Pojav Zenith Horizon 提供渲染方面的技术支持</string>
+    <string name="zh_about_lingmuqiuzhu_desc">为 Pojav Zenith Horizon 提供了技术支持</string>
     <string name="zh_about_access_space">访问空间</string>
-    <string name="zh_about_version_name">Pojav ZH 版本号：</string>
-    <string name="zh_about_version_code">Pojav ZH 版本码：</string>
+    <string name="zh_about_version_name">软件版本名：</string>
+    <string name="zh_about_version_code">软件版本码：</string>
     <string name="zh_about_last_update_time">上一次更新时间：</string>
     <string name="zh_about_version_status">版本状态：</string>
     <string name="zh_about_version_status_main_branch">主要分支</string>

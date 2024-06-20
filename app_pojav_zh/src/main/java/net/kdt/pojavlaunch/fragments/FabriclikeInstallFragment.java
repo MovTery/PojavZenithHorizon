@@ -19,7 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import net.kdt.pojavlaunch.PojavApplication;
-import com.movtery.utils.PojavZHTools;
+import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.FabriclikeDownloadTask;
@@ -64,7 +64,7 @@ public abstract class FabriclikeInstallFragment extends Fragment implements Modl
         super.onViewCreated(view, savedInstanceState);
         mStartButton = view.findViewById(R.id.fabric_installer_start_button);
         mStartButton.setOnClickListener(this::onClickStart);
-        view.findViewById(R.id.zh_fabric_installer_return_button).setOnClickListener(v -> PojavZHTools.onBackPressed(requireActivity())); //返回按钮
+        view.findViewById(R.id.zh_fabric_installer_return_button).setOnClickListener(v -> ZHTools.onBackPressed(requireActivity())); //返回按钮
         mGameVersionSpinner = view.findViewById(R.id.fabric_installer_game_ver_spinner);
         mGameVersionSpinner.setOnItemSelectedListener(new GameVersionSelectedListener());
         mLoaderVersionSpinner = view.findViewById(R.id.fabric_installer_loader_ver_spinner);

@@ -17,7 +17,7 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 
 import com.kdt.LoggerView;
-import com.movtery.utils.PojavZHTools;
+import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.customcontrols.keyboard.AwtCharSender;
 import net.kdt.pojavlaunch.customcontrols.keyboard.TouchCharInput;
@@ -87,7 +87,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
         findViewById(R.id.installmod_window_moveleft).setOnTouchListener(this);
         findViewById(R.id.installmod_window_moveright).setOnTouchListener(this);
 
-        mMousePointerImageView.setImageDrawable(PojavZHTools.customMouse(this));
+        mMousePointerImageView.setImageDrawable(ZHTools.customMouse(this));
 
         mMousePointerImageView.post(() -> {
             ViewGroup.LayoutParams params = mMousePointerImageView.getLayoutParams();

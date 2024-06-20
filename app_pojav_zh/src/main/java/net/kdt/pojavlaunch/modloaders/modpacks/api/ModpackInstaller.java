@@ -1,8 +1,8 @@
 package net.kdt.pojavlaunch.modloaders.modpacks.api;
 
 import com.kdt.mcgui.ProgressLayout;
-import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
-import com.movtery.ui.subassembly.downloadmod.ModVersionItem;
+import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
