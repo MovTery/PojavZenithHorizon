@@ -19,7 +19,6 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -391,12 +390,12 @@ public class LauncherActivity extends BaseActivity {
     }
 
     private void showNotificationPermissionReasoning() {
-        new AlertDialog.Builder(this)
+        new TipDialog.Builder(this)
                 .setTitle(R.string.notification_permission_dialog_title)
                 .setMessage(R.string.notification_permission_dialog_text)
-                .setPositiveButton(android.R.string.ok, (d, w) -> askForNotificationPermission(null))
-                .setNegativeButton(android.R.string.cancel, (d, w)-> handleNoNotificationPermission())
-                .show();
+                .setConfirmClickListener(() -> askForNotificationPermission(null))
+                .setCancelClickListener(this::handleNoNotificationPermission)
+                .buildDialog();
     }
 
     private void handleNoNotificationPermission() {

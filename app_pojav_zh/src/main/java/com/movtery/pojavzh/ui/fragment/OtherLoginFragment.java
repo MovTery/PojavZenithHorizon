@@ -2,7 +2,6 @@ package com.movtery.pojavzh.ui.fragment;
 
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -24,16 +23,17 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.google.gson.Gson;
+import com.movtery.pojavzh.feature.login.AuthResult;
+import com.movtery.pojavzh.feature.login.OtherLoginApi;
+import com.movtery.pojavzh.feature.login.Servers;
+import com.movtery.pojavzh.ui.dialog.EditTextDialog;
+import com.movtery.pojavzh.ui.dialog.TipDialog;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
-import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
-import com.movtery.pojavzh.feature.login.AuthResult;
-import com.movtery.pojavzh.feature.login.OtherLoginApi;
-import com.movtery.pojavzh.feature.login.Servers;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
 
 import org.json.JSONObject;
@@ -58,7 +58,6 @@ public class OtherLoginFragment extends Fragment {
     private List<String> mServerList;
     private String mCurrentRegisterUrl;
     private ArrayAdapter<String> mServerSpinnerAdapter;
-
 
     public OtherLoginFragment() {
         super(R.layout.fragment_other_login);
@@ -98,31 +97,13 @@ public class OtherLoginFragment extends Fragment {
             }
         });
 
-        mAddServer.setOnClickListener(v -> {
-            @SuppressLint("UseCompatLoadingForDrawables")
-            AlertDialog dialog = new AlertDialog.Builder(requireContext())
-                    .setTitle(getString(R.string.zh_other_login_add_server))
-                    .setItems(new String[]{getString(R.string.zh_other_login_external_login), getString(R.string.zh_other_login_uniform_pass)}, (dialogInterface, type) -> {
-                        EditTextDialog editTextDialog = new EditTextDialog(requireContext(), type == 0 ?
-                                getString(R.string.zh_other_login_yggdrasil_api) :
-                                getString(R.string.zh_other_login_32_bit_server), null, null, null);
-                        editTextDialog.setConfirm(view1 -> {
-                            EditText editBox = editTextDialog.getEditBox();
-
-                            if (editBox.getText().toString().isEmpty()) {
-                                editBox.setError(getString(R.string.global_error_field_empty));
-                                return;
-                            }
-
-                            addServer(editBox, type);
-                            editTextDialog.dismiss();
-                        });
-                        editTextDialog.show();
-                    })
-                    .setNegativeButton(getString(android.R.string.cancel), null)
-                    .create();
-            dialog.show();
-        });
+        mAddServer.setOnClickListener(v -> new TipDialog.Builder(requireContext())
+                .setMessage(getString(R.string.zh_other_login_add_server))
+                .setCancel(R.string.zh_other_login_external_login)
+                .setConfirm(R.string.zh_other_login_uniform_pass)
+                .setCancelClickListener(() -> showServerTypeSelectDialog(R.string.zh_other_login_yggdrasil_api, 0))
+                .setConfirmClickListener(() -> showServerTypeSelectDialog(R.string.zh_other_login_32_bit_server, 1))
+                .buildDialog());
 
         mRegister.setOnClickListener(v -> {
             if (!Objects.isNull(mCurrentRegisterUrl)) {
@@ -168,7 +149,6 @@ public class OtherLoginFragment extends Fragment {
                                     }
                                     String[] items = list.toArray(new String[0]);
                                     AlertDialog dialog = new AlertDialog.Builder(requireContext())
-                                            .setTitle("")
                                             .setItems(items, (d, i) -> {
                                                 for (AuthResult.AvailableProfiles profiles : authResult.getAvailableProfiles()) {
                                                     if (profiles.getName().equals(items[i])) {
@@ -190,12 +170,11 @@ public class OtherLoginFragment extends Fragment {
                         public void onFailed(String error) {
                             requireActivity().runOnUiThread(() -> {
                                 mProgressDialog.dismiss();
-                                AlertDialog dialog = new AlertDialog.Builder(requireContext())
-                                        .setTitle(getString(R.string.zh_warning))
-                                        .setTitle(getString(R.string.zh_other_login_error) + error)
-                                        .setPositiveButton(getString(R.string.zh_confirm), null)
-                                        .create();
-                                dialog.show();
+                                new TipDialog.Builder(requireContext())
+                                        .setTitle(R.string.zh_warning)
+                                        .setMessage(getString(R.string.zh_other_login_error) + error)
+                                        .setShowCancel(false)
+                                        .buildDialog();
                             });
                         }
                     });
@@ -216,6 +195,22 @@ public class OtherLoginFragment extends Fragment {
         mLoginButton = view.findViewById(R.id.other_login_button);
         mRegister = view.findViewById(R.id.register);
         mAddServer = view.findViewById(R.id.add_server);
+    }
+
+    private void showServerTypeSelectDialog(int stringId, int type) {
+        EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(stringId), null, null, null);
+        editTextDialog.setConfirm(view1 -> {
+            EditText editBox = editTextDialog.getEditBox();
+
+            if (editBox.getText().toString().isEmpty()) {
+                editBox.setError(getString(R.string.global_error_field_empty));
+                return;
+            }
+
+            addServer(editBox, type);
+            editTextDialog.dismiss();
+        });
+        editTextDialog.show();
     }
 
     private boolean checkAccountInformation(String user, String pass) {
@@ -304,8 +299,7 @@ public class OtherLoginFragment extends Fragment {
     private void showRegisterButton() {
         //当服务器列表为空、服务器列表没有可用服务器时，注册按钮将被隐藏
         mRegister.setVisibility((mServerList == null ||
-                (mServerList.size() == 1 &&
-                        mServerList.get(0).equals(getString(R.string.zh_other_login_no_server))))
+                (mServerList.size() == 1 && mServerList.get(0).equals(getString(R.string.zh_other_login_no_server))))
                 ? View.GONE : View.VISIBLE);
     }
 }
