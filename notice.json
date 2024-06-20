@@ -1,10 +1,10 @@
 {
-  "title_zh_cn": "重要通知",
-  "title_zh_tw": "重要通知",
-  "title_en_us": "Important Notice",
-  "substance_zh_cn": "关于安卓10无法访问内部存储的问题：\r\n我们已经在最新的版本中修复了这个问题，请尽快将启动器更新至最新版本（1.2.1.1+），否则这个问题将持续存在！",
-  "substance_zh_tw": "關於安卓10無法存取內部儲存的問題：\r\n我們已經在最新的版本中修復了這個問題，請盡快將啟動器更新至最新版本（1.2.1.1+），否則這個問題將持續存在！",
-  "substance_en_us": "Regarding the issue with accessing internal storage on Android 10:\r\nWe have fixed this problem in the latest version. Please update the launcher to the latest version (1.2.1.1+) as soon as possible, otherwise, this issue will persist!",
-  "date": "2024/06/10",
-  "numbering": 9
+  "title_zh_cn": "Pojav Zenith Horizon",
+  "title_zh_tw": "Pojav Zenith Horizon",
+  "title_en_us": "Pojav Zenith Horizon",
+  "substance_zh_cn": "原名：“Pojav ZH”\r\n经过一些慎重的考虑，我决定不再继续使用“Pojav ZH”作为软件名，而是通过“ZH”作为首字母命名。",
+  "substance_zh_tw": "原名：“Pojav ZH”\r\n經過一番深思熟慮後，我決定不再使用原本的軟體名稱“Pojav ZH”，而是選擇以“ZH”作為首字母的命名方式。",
+  "substance_en_us": "Original name: \"Pojav ZH\"\r\nAfter careful consideration, I have decided to no longer use \"Pojav ZH\" as the software name, and instead name it using \"ZH\" as the initial letters.",
+  "date": "2024/06/20",
+  "numbering": 10
 }
