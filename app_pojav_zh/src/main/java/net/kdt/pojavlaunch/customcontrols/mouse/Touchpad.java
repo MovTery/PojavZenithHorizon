@@ -13,7 +13,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import net.kdt.pojavlaunch.GrabListener;
-import com.movtery.utils.PojavZHTools;
+import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import org.lwjgl.glfw.CallbackBridge;
@@ -85,7 +85,7 @@ public class Touchpad extends View implements GrabListener, AbstractTouchpad {
 
     private void init(){
         // Setup mouse pointer
-        mMousePointerDrawable = PojavZHTools.customMouse(getContext());
+        mMousePointerDrawable = ZHTools.customMouse(getContext());
         // For some reason it's annotated as Nullable even though it doesn't seem to actually
         // ever return null
         assert mMousePointerDrawable != null;

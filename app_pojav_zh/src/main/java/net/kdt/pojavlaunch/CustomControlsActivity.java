@@ -11,15 +11,15 @@ import android.widget.ListView;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.movtery.ui.subassembly.background.BackgroundType;
+import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
 
 import net.kdt.pojavlaunch.customcontrols.ControlData;
 import net.kdt.pojavlaunch.customcontrols.ControlDrawerData;
 import net.kdt.pojavlaunch.customcontrols.ControlJoystickData;
 import net.kdt.pojavlaunch.customcontrols.ControlLayout;
 import net.kdt.pojavlaunch.customcontrols.EditorExitable;
-import com.movtery.ui.dialog.ControlSettingsDialog;
-import com.movtery.utils.PojavZHTools;
+import com.movtery.pojavzh.ui.dialog.ControlSettingsDialog;
+import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
@@ -49,7 +49,7 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 		mDrawerNavigationView = findViewById(R.id.customctrl_navigation_view);
 		View mPullDrawerButton = findViewById(R.id.drawer_button);
 
-		PojavZHTools.setBackgroundImage(this, BackgroundType.CUSTOM_CONTROLS, mDrawerLayout);
+		ZHTools.setBackgroundImage(this, BackgroundType.CUSTOM_CONTROLS, mDrawerLayout);
 
 		mPullDrawerButton.setOnClickListener(v -> mDrawerLayout.openDrawer(mDrawerNavigationView));
 		mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);

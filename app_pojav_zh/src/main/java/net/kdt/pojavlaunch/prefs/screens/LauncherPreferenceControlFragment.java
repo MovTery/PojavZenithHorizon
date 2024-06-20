@@ -9,9 +9,9 @@ import android.os.Bundle;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 
-import com.movtery.utils.PojavZHTools;
+import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
-import com.movtery.ui.fragment.CustomMouseFragment;
+import com.movtery.pojavzh.ui.fragment.CustomMouseFragment;
 import net.kdt.pojavlaunch.prefs.CustomSeekBarPreference;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
@@ -59,7 +59,7 @@ public class LauncherPreferenceControlFragment extends LauncherPreferenceFragmen
 
         Preference customMousePreference = requirePreference("zh_custom_mouse");
         customMousePreference.setOnPreferenceClickListener(preference -> {
-            PojavZHTools.swapSettingsFragment(requireActivity(), CustomMouseFragment.class, CustomMouseFragment.TAG, null, true);
+            ZHTools.swapSettingsFragment(requireActivity(), CustomMouseFragment.class, CustomMouseFragment.TAG, null, true);
             return true;
         });
 

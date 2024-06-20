@@ -7,10 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.movtery.ui.fragment.DownloadForgeFragment;
-import com.movtery.ui.fragment.DownloadNeoForgeFragment;
-import com.movtery.ui.fragment.DownloadOptiFineFragment;
-import com.movtery.ui.fragment.SelectModPackFragment;
+import com.movtery.pojavzh.ui.fragment.DownloadForgeFragment;
+import com.movtery.pojavzh.ui.fragment.DownloadNeoForgeFragment;
+import com.movtery.pojavzh.ui.fragment.DownloadOptiFineFragment;
+import com.movtery.pojavzh.ui.fragment.SelectModPackFragment;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;

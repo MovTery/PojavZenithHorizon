@@ -24,7 +24,7 @@
         app:tabIndicatorHeight="@dimen/_3sdp"
         app:tabMode="fixed" />
 
-    <com.movtery.ui.subassembly.versionlist.VersionListView
+    <com.movtery.pojavzh.ui.subassembly.versionlist.VersionListView
         android:id="@+id/zh_version"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

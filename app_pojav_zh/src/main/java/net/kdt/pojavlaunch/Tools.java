@@ -3,7 +3,7 @@ package net.kdt.pojavlaunch;
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.P;
 import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
-import static com.movtery.utils.PojavZHTools.shareFile;
+import static com.movtery.pojavzh.utils.ZHTools.shareFile;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_IGNORE_NOTCH;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_NOTCH_SIZE;
@@ -49,10 +49,10 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import com.movtery.ui.dialog.EditTextDialog;
-import com.movtery.ui.subassembly.customprofilepath.ProfilePathHome;
-import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
-import com.movtery.utils.PojavZHTools;
+import com.movtery.pojavzh.ui.dialog.EditTextDialog;
+import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathHome;
+import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutorTask;
@@ -102,10 +102,10 @@ public final class Tools {
     public static final float BYTE_TO_MB = 1024 * 1024;
     public static final Handler MAIN_HANDLER = new Handler(Looper.getMainLooper());
     public static final Gson GLOBAL_GSON = new GsonBuilder().setPrettyPrinting().create();
-    public static final String URL_HOME = "https://github.com/HopiHopy/PojavZH";
+    public static final String URL_HOME = "https://github.com/HopiHopy/PojavZenithHorizon";
     public static final String LAUNCHERPROFILES_RTPREFIX = "pojav://";
     private final static boolean isClientFirst = false;
-    public static final String APP_NAME = "Pojav ZH";
+    public static final String APP_NAME = "Pojav Zenith Horizon";
     public static String NATIVE_LIB_DIR;
     public static String DIR_DATA; //Initialized later to get context
     public static File DIR_CACHE;
@@ -114,7 +114,7 @@ public final class Tools {
     public static int DEVICE_ARCHITECTURE;
     // New since 3.3.1
     public static String DIR_ACCOUNT_NEW;
-    public static String DIR_GAME_HOME = Environment.getExternalStorageDirectory().getAbsolutePath() + "/games/PojavZH";
+    public static String DIR_GAME_HOME = Environment.getExternalStorageDirectory().getAbsolutePath() + "/games/PojavZenithHorizon";
     // New since 3.0.0
     public static String DIRNAME_HOME_JRE = "lib";
     public static String CTRLMAP_PATH;
@@ -126,7 +126,7 @@ public final class Tools {
         if (SDK_INT >= 29) {
             return ctx.getExternalFilesDir(null);
         } else {
-            return new File(Environment.getExternalStorageDirectory(), "games/PojavZH");
+            return new File(Environment.getExternalStorageDirectory(), "games/PojavZenithHorizon");
         }
     }
 
@@ -230,7 +230,7 @@ public final class Tools {
             else
                 return new File(ProfilePathManager.getCurrentPath(), minecraftProfile.gameDir);
         }
-        return new File(PojavZHTools.DIR_GAME_DEFAULT);
+        return new File(ZHTools.DIR_GAME_DEFAULT);
     }
 
     public static void buildNotificationChannel(Context context) {

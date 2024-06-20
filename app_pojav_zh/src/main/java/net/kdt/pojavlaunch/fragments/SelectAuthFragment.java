@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.movtery.ui.fragment.OtherLoginFragment;
+import com.movtery.pojavzh.ui.fragment.OtherLoginFragment;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;

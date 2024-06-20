@@ -12,7 +12,7 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.util.Log;
 
-import com.movtery.utils.PojavZHTools;
+import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.*;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
@@ -72,7 +72,7 @@ public class LauncherPreferences {
     public static boolean PREF_SKIP_NOTIFICATION_PERMISSION_CHECK = false;
     public static boolean PREF_VSYNC_IN_ZINK = false;
     public static boolean PREF_AUTOMATICALLY_SET_GAME_LANGUAGE = true;
-    public static String PREF_GAME_LANGUAGE = PojavZHTools.getSystemLanguage();
+    public static String PREF_GAME_LANGUAGE = ZHTools.getSystemLanguage();
     public static String PREF_LAUNCHER_THEME = "system";
     public static boolean PREF_ENABLE_LOG_OUTPUT = false;
     public static boolean PREF_ANIMATION = true;
@@ -85,7 +85,7 @@ public class LauncherPreferences {
     public static void loadPreferences(Context ctx) {
         //Required for the data folder.
         Tools.initContextConstants(ctx);
-        PojavZHTools.initContextConstants(ctx);
+        ZHTools.initContextConstants(ctx);
 
         PREF_RENDERER = DEFAULT_PREF.getString("renderer", "opengles2");
         PREF_BUTTONSIZE = DEFAULT_PREF.getInt("buttonscale", 100);
@@ -128,7 +128,7 @@ public class LauncherPreferences {
         PREF_SKIP_NOTIFICATION_PERMISSION_CHECK = DEFAULT_PREF.getBoolean(PREF_KEY_SKIP_NOTIFICATION_CHECK, false);
         PREF_VSYNC_IN_ZINK = DEFAULT_PREF.getBoolean("vsync_in_zink", false);
         PREF_AUTOMATICALLY_SET_GAME_LANGUAGE = DEFAULT_PREF.getBoolean("setToChinese", true);
-        PREF_GAME_LANGUAGE = DEFAULT_PREF.getString("setGameLanguage", PojavZHTools.getSystemLanguage());
+        PREF_GAME_LANGUAGE = DEFAULT_PREF.getString("setGameLanguage", ZHTools.getSystemLanguage());
         PREF_LAUNCHER_THEME = DEFAULT_PREF.getString("launcherTheme", "system");
         PREF_ENABLE_LOG_OUTPUT = DEFAULT_PREF.getBoolean("enableLogOutput", false);
         PREF_ANIMATION = DEFAULT_PREF.getBoolean("animation", true);

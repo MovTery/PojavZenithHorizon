@@ -1,7 +1,7 @@
 package net.kdt.pojavlaunch;
 
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
-import static com.movtery.utils.PojavZHTools.setVisibilityAnim;
+import static com.movtery.pojavzh.utils.ZHTools.setVisibilityAnim;
 
 import android.Manifest;
 import android.content.Intent;
@@ -28,11 +28,11 @@ import androidx.fragment.app.FragmentManager;
 
 import com.kdt.mcgui.ProgressLayout;
 import com.kdt.mcgui.mcAccountSpinner;
-import com.movtery.feature.UpdateLauncher;
-import com.movtery.ui.actitvity.SettingsActivity;
-import com.movtery.ui.dialog.TipDialog;
-import com.movtery.ui.subassembly.background.BackgroundType;
-import com.movtery.utils.PojavZHTools;
+import com.movtery.pojavzh.feature.UpdateLauncher;
+import com.movtery.pojavzh.ui.actitvity.SettingsActivity;
+import com.movtery.pojavzh.ui.dialog.TipDialog;
+import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
+import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
@@ -114,10 +114,10 @@ public class LauncherActivity extends BaseActivity {
             return false;
         }
 
-        File dirGameModpackFile = new File(PojavZHTools.DIR_GAME_MODPACK);
+        File dirGameModpackFile = new File(ZHTools.DIR_GAME_MODPACK);
         int type;
         try {
-            type = PojavZHTools.determineModpack(dirGameModpackFile);
+            type = ZHTools.determineModpack(dirGameModpackFile);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -126,7 +126,7 @@ public class LauncherActivity extends BaseActivity {
             ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.global_waiting);
             PojavApplication.sExecutorService.execute(() -> {
                 try {
-                    ModLoader loaderInfo = PojavZHTools.installModPack(this, type, dirGameModpackFile);
+                    ModLoader loaderInfo = ZHTools.installModPack(this, type, dirGameModpackFile);
                     if (loaderInfo == null) return;
                     loaderInfo.getDownloadTask(new NotificationDownloadListener(this, loaderInfo)).run();
                 }catch (Exception e) {
@@ -136,7 +136,7 @@ public class LauncherActivity extends BaseActivity {
                 }
             });
         } else {
-            PojavZHTools.DIR_GAME_MODPACK = null;
+            ZHTools.DIR_GAME_MODPACK = null;
             FileUtils.deleteQuietly(dirGameModpackFile);
             runOnUiThread(() -> new TipDialog.Builder(this)
                     .setMessage(R.string.zh_select_modpack_local_not_supported) //弹窗提醒
@@ -244,7 +244,7 @@ public class LauncherActivity extends BaseActivity {
                 }
         );
         bindViews();
-        PojavZHTools.setBackgroundImage(this, BackgroundType.MAIN_MENU, mBackgroundView);
+        ZHTools.setBackgroundImage(this, BackgroundType.MAIN_MENU, mBackgroundView);
 
         checkNotificationPermission();
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -283,7 +283,7 @@ public class LauncherActivity extends BaseActivity {
         }, 0, 1000); //每一秒钟检测一次是否需要隐藏或者显示 移除账号按钮
 
         // 愚人节彩蛋
-        if (PojavZHTools.checkDate(4, 1)) mHair.setVisibility(View.VISIBLE);
+        if (ZHTools.checkDate(4, 1)) mHair.setVisibility(View.VISIBLE);
         else mHair.setVisibility(View.GONE);
 
         //检查已经下载后的包，或者检查更新

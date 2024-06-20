@@ -1,7 +1,7 @@
 package net.kdt.pojavlaunch;
 
-import static com.movtery.utils.PojavZHTools.getVersionCode;
-import static com.movtery.utils.PojavZHTools.getVersionName;
+import static com.movtery.pojavzh.utils.ZHTools.getVersionCode;
+import static com.movtery.pojavzh.utils.ZHTools.getVersionName;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ENABLE_LOG_OUTPUT;
@@ -45,8 +45,8 @@ import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.kdt.LoggerView;
-import com.movtery.ui.dialog.TipDialog;
-import com.movtery.ui.subassembly.background.BackgroundType;
+import com.movtery.pojavzh.ui.dialog.TipDialog;
+import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
 
 import net.kdt.pojavlaunch.customcontrols.ControlButtonMenuListener;
 import net.kdt.pojavlaunch.customcontrols.ControlData;
@@ -59,14 +59,14 @@ import net.kdt.pojavlaunch.customcontrols.keyboard.LwjglCharSender;
 import net.kdt.pojavlaunch.customcontrols.keyboard.TouchCharInput;
 import net.kdt.pojavlaunch.customcontrols.mouse.GyroControl;
 import net.kdt.pojavlaunch.customcontrols.mouse.Touchpad;
-import com.movtery.ui.dialog.ControlSettingsDialog;
-import com.movtery.ui.dialog.SelectControlsDialog;
-import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
-import com.movtery.utils.PojavZHTools;
+import com.movtery.pojavzh.ui.dialog.ControlSettingsDialog;
+import com.movtery.pojavzh.ui.dialog.SelectControlsDialog;
+import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
-import com.movtery.feature.ProfileLanguageSelector;
+import com.movtery.pojavzh.feature.ProfileLanguageSelector;
 import net.kdt.pojavlaunch.services.GameService;
 import net.kdt.pojavlaunch.utils.JREUtils;
 import net.kdt.pojavlaunch.utils.MCOptionUtils;
@@ -156,7 +156,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     protected void initLayout(int resId) {
         setContentView(resId);
         bindValues();
-        PojavZHTools.setBackgroundImage(this, BackgroundType.IN_GAME, mControlLayout);
+        ZHTools.setBackgroundImage(this, BackgroundType.IN_GAME, mControlLayout);
 
         mControlLayout.setMenuListener(this);
 
@@ -229,8 +229,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                         String tipString = mGameTipView.getText() + "\n" + getString(R.string.zh_game_tip_version) + minecraftProfile.lastVersionId;
                         mGameTipView.setText(tipString);
                         mGameTipView.setVisibility(View.VISIBLE);
-                        PojavZHTools.fadeAnim(mGameTipView, 1000, 0f, 1f, 300,
-                                () -> PojavZHTools.fadeAnim(mGameTipView, 15000, 1f, 0f, 300,
+                        ZHTools.fadeAnim(mGameTipView, 1000, 0f, 1f, 300,
+                                () -> ZHTools.fadeAnim(mGameTipView, 15000, 1f, 0f, 300,
                                         () -> mGameTipView.setVisibility(View.GONE))); //隐藏此提示文本
                     });
 

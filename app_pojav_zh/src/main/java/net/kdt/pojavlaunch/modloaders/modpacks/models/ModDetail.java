@@ -1,6 +1,6 @@
 package net.kdt.pojavlaunch.modloaders.modpacks.models;
 
-import com.movtery.ui.subassembly.downloadmod.ModVersionItem;
+import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
 
 import java.util.List;
 

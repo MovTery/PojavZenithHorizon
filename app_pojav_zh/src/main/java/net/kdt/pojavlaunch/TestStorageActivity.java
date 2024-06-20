@@ -16,7 +16,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.movtery.ui.dialog.TipDialog;
+import com.movtery.pojavzh.ui.dialog.TipDialog;
 
 import net.kdt.pojavlaunch.tasks.AsyncAssetManager;
 

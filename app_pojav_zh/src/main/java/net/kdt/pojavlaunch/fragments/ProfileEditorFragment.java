@@ -22,12 +22,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.movtery.ui.fragment.ControlButtonFragment;
-import com.movtery.ui.fragment.FilesFragment;
-import com.movtery.ui.fragment.VersionSelectorFragment;
+import com.movtery.pojavzh.ui.fragment.ControlButtonFragment;
+import com.movtery.pojavzh.ui.fragment.FilesFragment;
+import com.movtery.pojavzh.ui.fragment.VersionSelectorFragment;
 
-import com.movtery.ui.subassembly.customprofilepath.ProfilePathManager;
-import com.movtery.utils.PojavZHTools;
+import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
@@ -109,8 +109,8 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         });
 
         mGameDirButton.setOnClickListener(v -> {
-            File dir = new File(PojavZHTools.DIR_GAME_DEFAULT);
-            if (!dir.exists()) PojavZHTools.mkdirs(dir);
+            File dir = new File(ZHTools.DIR_GAME_DEFAULT);
+            if (!dir.exists()) ZHTools.mkdirs(dir);
             Bundle bundle = new Bundle(2);
             bundle.putBoolean(FilesFragment.BUNDLE_SELECT_FOLDER_MODE, true);
             bundle.putBoolean(FilesFragment.BUNDLE_SHOW_FILE, false);

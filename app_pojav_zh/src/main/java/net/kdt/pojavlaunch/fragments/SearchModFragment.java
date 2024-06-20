@@ -23,11 +23,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.movtery.ui.subassembly.downloadmod.ModDependencies;
-import com.movtery.utils.PojavZHTools;
+import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
+import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
-import com.movtery.ui.dialog.ModFitersDialog;
+import com.movtery.pojavzh.ui.dialog.ModFitersDialog;
 import net.kdt.pojavlaunch.modloaders.modpacks.ModItemAdapter;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.CommonApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi;
@@ -117,7 +117,7 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
                     mRecyclerview.getPaddingRight(),
                     mRecyclerview.getPaddingBottom());
         });
-        mBackButton.setOnClickListener(v -> PojavZHTools.onBackPressed(requireActivity()));
+        mBackButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
         mFilterButton.setOnClickListener(v -> displayFilterDialog());
 
         mSearchButton.setOnClickListener(v -> searchMods(mSearchEditText.getText().toString()));
