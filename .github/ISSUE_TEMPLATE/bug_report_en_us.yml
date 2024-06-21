@@ -1,0 +1,54 @@
+name: Bug Report
+description: 'Create a bug report to help us improve Pojav Zenith Horizon.'
+title: "[BUG] Brief Description"
+labels: [bug]
+body:
+  - type: textarea
+    id: version
+    attributes:
+      label: Issue Description
+      description: >-
+        Clearly and in detail describe the issue you are encountering.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Logs/Screenshots or Video
+      description: |
+        Upload logs/screenshots or a video of the issue encountered recently.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Steps to Reproduce
+      description: |
+        Steps to reproduce the issue. Please be as detailed as possible.
+      placeholder: |
+        1. Open the launcher
+        ... *(Actions to reproduce the issue)*
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Expected Behavior
+      description: Briefly describe what you expected to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Additional Information
+      description: |
+        Provide any additional information that may help us reproduce and fix the issue.
+      value: |
+        - Device Model:
+        - CPU Architecture:
+        - Android Version:
+        - Pojav Zenith Horizon Version:
+      render: markdown
+    validations:
+      required: true
