@@ -421,7 +421,7 @@ public class EditControlPopup {
         mSizeTextview = mScrollView.findViewById(R.id.editSize_textView);
         mSizeXTextView = mScrollView.findViewById(R.id.editSize_x_textView);
 
-        keynoardDialog = new KeyboardDialog(this.context);
+        keynoardDialog = new KeyboardDialog(this.context, true);
     }
 
     /**

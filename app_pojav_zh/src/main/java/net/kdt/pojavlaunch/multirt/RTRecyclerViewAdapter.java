@@ -14,8 +14,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.movtery.pojavzh.ui.dialog.TipDialog;
 
 import net.kdt.pojavlaunch.Architecture;
 import net.kdt.pojavlaunch.R;
@@ -105,11 +106,11 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RTRecyclerViewAd
                 if (mCurrentRuntime == null) return;
 
                 if(MultiRTUtils.getRuntimes().size() < 2) {
-                    new AlertDialog.Builder(mContext)
-                            .setTitle(R.string.global_error)
+                    new TipDialog.Builder(mContext)
+                            .setTitle(R.string.zh_warning)
                             .setMessage(R.string.multirt_config_removeerror_last)
-                            .setPositiveButton(android.R.string.ok,(adapter, which)->adapter.dismiss())
-                            .show();
+                            .setShowCancel(false)
+                            .buildDialog();
                     return;
                 }
 
