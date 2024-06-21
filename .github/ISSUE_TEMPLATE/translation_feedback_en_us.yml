@@ -1,0 +1,25 @@
+name: Translation Issue Report
+description: 'If you believe there are inaccuracies in the translations within the launcher, please use this template to inform us!'
+title: "[Translation Issue] Brief Title"
+labels: [翻译问题]
+body:
+  - type: textarea
+    id: version
+    attributes:
+      label: Which texts are inaccurately translated?
+      description: |
+        Please provide the texts you believe are inaccurately translated, and suggest the correct translations.
+      placeholder: |
+        1. aaa -> bbb
+        2. ccc -> ddd
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Screenshots or Video
+      description: |
+        Please provide screenshots or a video from within the application to help us locate the inaccurately translated texts.
+    validations:
+      required: true
