@@ -45,6 +45,7 @@ import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.kdt.LoggerView;
+import com.movtery.pojavzh.ui.dialog.KeyboardDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
 
@@ -94,6 +95,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     private View mDrawerPullButton;
     private TextView mGameTipView;
     private GyroControl mGyroControl = null;
+    private KeyboardDialog keyboardDialog;
     public static ControlLayout mControlLayout;
 
     MinecraftProfile minecraftProfile;
@@ -157,6 +159,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         setContentView(resId);
         bindValues();
         ZHTools.setBackgroundImage(this, BackgroundType.IN_GAME, mControlLayout);
+
+        keyboardDialog = new KeyboardDialog(this, false);
 
         mControlLayout.setMenuListener(this);
 
@@ -398,10 +402,11 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     }
 
     private void dialogSendCustomKey() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle(R.string.control_customkey);
-        dialog.setItems(EfficientAndroidLWJGLKeycode.generateKeyName(), (dInterface, position) -> EfficientAndroidLWJGLKeycode.execKeyIndex(position));
-        dialog.show();
+        keyboardDialog.setOnKeycodeSelectListener(index -> {
+            EfficientAndroidLWJGLKeycode.execKeyIndex(index);
+            keyboardDialog.dismiss();
+        });
+        keyboardDialog.show();
     }
 
     private void replacementCustomControls() {

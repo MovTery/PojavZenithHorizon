@@ -20,11 +20,11 @@ import java.util.Objects;
 public class KeyboardDialog extends Dialog {
     private OnKeycodeSelectListener mOnKeycodeSelectListener;
 
-    public KeyboardDialog(@NonNull Context context) {
+    public KeyboardDialog(@NonNull Context context, boolean showSpecialButtons) {
         super(context, R.style.FullScreenDialog);
 
         setContentView(R.layout.dialog_keyboard);
-        init();
+        init(showSpecialButtons);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class KeyboardDialog extends Dialog {
         }
     }
 
-    private void init() {
+    private void init(boolean showSpecialButtons) {
         ImageView closeButton = findViewById(R.id.zh_keyboard_close);
 
         List<View> specialButtons = new ArrayList<>();
@@ -180,15 +180,17 @@ public class KeyboardDialog extends Dialog {
 
         closeButton.setOnClickListener(v -> this.dismiss());
 
-        //这里的按键比较特殊，它的顺序就是反着的
-        int specialCount = specialButtons.size();
-        for (View specialButton : specialButtons) {
-            specialCount -= 1;
-            int finalSpecialCount = specialCount;
-            specialButton.setOnClickListener(v -> onKeycodeSelect(finalSpecialCount));
+        if (showSpecialButtons) {
+            //这里的按键比较特殊，它的顺序就是反着的
+            int specialCount = specialButtons.size();
+            for (View specialButton : specialButtons) {
+                specialCount -= 1;
+                int finalSpecialCount = specialCount;
+                specialButton.setOnClickListener(v -> onKeycodeSelect(finalSpecialCount));
+            }
         }
 
-        int buttonCount = (specialButtons.size() - 1);
+        int buttonCount = showSpecialButtons ? (specialButtons.size() - 1) : -1;
         for (View button : buttons) {
             buttonCount += 1;
             int finalButtonCount = buttonCount;
@@ -203,6 +205,10 @@ public class KeyboardDialog extends Dialog {
                     Objects.equals(button, findViewById(R.id.keyboard_kp_decimal)) ||
                     Objects.equals(button, findViewById(R.id.keyboard_kp_enter))
             ) buttonCount += 1;
+        }
+
+        if (!showSpecialButtons) {
+            findViewById(R.id.layout_0).setVisibility(View.GONE);
         }
     }
 
