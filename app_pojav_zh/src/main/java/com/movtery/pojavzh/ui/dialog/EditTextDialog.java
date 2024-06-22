@@ -36,6 +36,7 @@ public class EditTextDialog extends Dialog {
         mTitle = findViewById(R.id.zh_edit_text_title);
         mMessage = findViewById(R.id.zh_edit_text_message);
         mScrollTextView = findViewById(R.id.zh_edit_text_scroll);
+        mEditBox = findViewById(R.id.zh_edit_text_edit);
     }
 
     public void setCancel(View.OnClickListener cancel) {
@@ -61,7 +62,6 @@ public class EditTextDialog extends Dialog {
             this.mScrollTextView.setVisibility(View.GONE);
         }
 
-        mEditBox = findViewById(R.id.zh_edit_text_edit);
         if (editText != null) mEditBox.setText(editText);
         if (hintText != null) mEditBox.setHint(hintText);
 

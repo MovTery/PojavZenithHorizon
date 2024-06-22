@@ -189,7 +189,12 @@
     <string name="zh_select_modpack_local_tip">Please select a modpack file that can be imported by the launcher!</string>
     <string name="zh_select_modpack_local_not_supported">This file is not supported by the launcher!</string>
     <string name="zh_select_modpack_local_installing_files">Installing game files… (%d)</string>
-    <string name="zh_setting_java_memory_info">Control how much memory is allocated to Minecraft\\nCurrent memory usage: %s / %s, Free memory: %s</string>
+    <string name="zh_setting_java_memory_desc">Control how much memory is allocated to Minecraft</string>
+    <string name="zh_setting_java_memory_info">Current memory usage: %s / %s, Free memory size: %s</string>
+    <string name="zh_setting_java_memory_max">Maximum allowable memory size: %s</string>
+    <string name="zh_setting_java_memory_exceeded">The current memory allocation exceeds available memory size</string>
+    <string name="zh_setting_java_memory_too_big">The current memory allocation is too large, maximum allowable size is %d MB</string>
+    <string name="zh_setting_java_memory_too_small">The current memory allocation is too small, at least %d MB is required</string>
     <string name="zh_setting_set_game_language_desc">Automatically set the game language to the selected language when the game is first launched</string>
     <string name="zh_setting_set_game_language_title">Automatically Set Game Language</string>
     <string name="zh_setting_set_game_language_list">Set Game Language</string>
