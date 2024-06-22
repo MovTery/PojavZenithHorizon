@@ -656,6 +656,14 @@ public class ZHTools {
         return false;
     }
 
+    public static boolean areaChecks() {
+        return getSystemLanguageName().equals("zh");
+    }
+
+    public static String getSystemLanguageName() {
+        return Locale.getDefault().getLanguage();
+    }
+
     public static String getSystemLanguage() {
         Locale locale = Locale.getDefault();
         return locale.getLanguage() + "_" + locale.getCountry().toLowerCase();
