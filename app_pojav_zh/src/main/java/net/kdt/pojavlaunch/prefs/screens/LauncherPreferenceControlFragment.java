@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch.prefs.screens;
 
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
@@ -23,9 +25,9 @@ public class LauncherPreferenceControlFragment extends LauncherPreferenceFragmen
         // Get values
         int longPressTrigger = LauncherPreferences.PREF_LONGPRESS_TRIGGER;
         int prefButtonSize = (int) LauncherPreferences.PREF_BUTTONSIZE;
-        int mouseScale = (int) LauncherPreferences.PREF_MOUSESCALE;
         int gyroSampleRate = LauncherPreferences.PREF_GYRO_SAMPLE_RATE;
-        float mouseSpeed = LauncherPreferences.PREF_MOUSESPEED;
+        int mouseScale = DEFAULT_PREF.getInt("mousescale", 100);
+        float mouseSpeed = DEFAULT_PREF.getInt("mousespeed",100);
         float gyroSpeed = LauncherPreferences.PREF_GYRO_SENSITIVITY;
         float joystickDeadzone = LauncherPreferences.PREF_DEADZONE_SCALE;
 
@@ -54,7 +56,7 @@ public class LauncherPreferenceControlFragment extends LauncherPreferenceFragmen
         CustomSeekBarPreference seek6 = requirePreference("mousespeed",
                 CustomSeekBarPreference.class);
         seek6.setRange(25, 300);
-        seek6.setValue((int)(mouseSpeed *100f));
+        seek6.setValue((int) mouseSpeed);
         seek6.setSuffix(" %");
 
         Preference customMousePreference = requirePreference("zh_custom_mouse");

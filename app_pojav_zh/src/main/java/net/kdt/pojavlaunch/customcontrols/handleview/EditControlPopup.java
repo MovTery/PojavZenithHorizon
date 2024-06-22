@@ -578,8 +578,6 @@ public class EditControlPopup {
                     mKeycodeSpinners[finalI].setSelection(index);
 
                     updateKeycodeText(index, finalI);
-
-                    keynoardDialog.dismiss();
                 });
                 keynoardDialog.show();
             });

@@ -69,6 +69,10 @@
     <string name="zh_controls_info_no_info">There is no description available for this layout…</string>
     <string name="zh_custom_control_title">Control Layout Management</string>
 
+    <string name="zh_mouse_settings_title">Virtual Mouse Settings</string>
+    <string name="zh_mouse_settings_speed_name">Virtual Mouse Speed</string>
+    <string name="zh_mouse_settings_scale_name">Virtual Mouse Scale</string>
+
     <string name="zh_custom_mouse_add">Add virtual mouse</string>
     <string name="zh_custom_mouse_added">Successfully set virtual mouse:</string>
     <string name="zh_custom_mouse_default">Default Virtual Mouse</string>

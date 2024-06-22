@@ -215,6 +215,7 @@ public class KeyboardDialog extends Dialog {
     private void onKeycodeSelect(int index) {
         if (this.mOnKeycodeSelectListener != null) {
             this.mOnKeycodeSelectListener.onSelect(index);
+            dismiss();
         }
     }
 

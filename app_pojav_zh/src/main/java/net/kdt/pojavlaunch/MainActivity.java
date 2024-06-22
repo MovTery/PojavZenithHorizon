@@ -46,6 +46,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.kdt.LoggerView;
 import com.movtery.pojavzh.ui.dialog.KeyboardDialog;
+import com.movtery.pojavzh.ui.dialog.MouseSettingsDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
 
@@ -115,7 +116,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         Intent gameServiceIntent = new Intent(this, GameService.class);
         // Start the service a bit early
         ContextCompat.startForegroundService(this, gameServiceIntent);
-        initLayout(R.layout.activity_basemain);
+        initLayout();
         CallbackBridge.addGrabListener(touchpad);
         CallbackBridge.addGrabListener(minecraftGLView);
         if(LauncherPreferences.PREF_ENABLE_GYRO) mGyroControl = new GyroControl(this);
@@ -155,8 +156,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         bindService(gameServiceIntent, this, 0);
     }
 
-    protected void initLayout(int resId) {
-        setContentView(resId);
+    protected void initLayout() {
+        setContentView(R.layout.activity_basemain);
         bindValues();
         ZHTools.setBackgroundImage(this, BackgroundType.IN_GAME, mControlLayout);
 
@@ -364,7 +365,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     }
 
     public static boolean isAndroid8OrHigher() {
-        return Build.VERSION.SDK_INT >= 26;
+        return true;
     }
 
     private void runCraft(String versionId, JMinecraftVersionList.Version version) throws Throwable {
@@ -402,10 +403,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     }
 
     private void dialogSendCustomKey() {
-        keyboardDialog.setOnKeycodeSelectListener(index -> {
-            EfficientAndroidLWJGLKeycode.execKeyIndex(index);
-            keyboardDialog.dismiss();
-        });
+        keyboardDialog.setOnKeycodeSelectListener(EfficientAndroidLWJGLKeycode::execKeyIndex);
         keyboardDialog.show();
     }
 
@@ -483,40 +481,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     }
 
 
-    int tmpMouseSpeed;
     public void adjustMouseSpeedLive() {
-        AlertDialog.Builder b = new AlertDialog.Builder(this);
-        b.setTitle(R.string.mcl_setting_title_mousespeed);
-        View v = LayoutInflater.from(this).inflate(R.layout.dialog_live_mouse_speed_editor,null);
-        final SeekBar sb = v.findViewById(R.id.mouseSpeed);
-        final TextView tv = v.findViewById(R.id.mouseSpeedTV);
-        sb.setMax(275);
-        tmpMouseSpeed = (int) ((LauncherPreferences.PREF_MOUSESPEED*100));
-        sb.setProgress(tmpMouseSpeed-25);
-        tv.setText(getString(R.string.percent_format, tmpMouseSpeed));
-        sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                tmpMouseSpeed = i+25;
-                tv.setText(getString(R.string.percent_format, tmpMouseSpeed));
-            }
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {}
-        });
-        b.setView(v);
-        b.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
-            LauncherPreferences.PREF_MOUSESPEED = ((float)tmpMouseSpeed)/100f;
-            DEFAULT_PREF.edit().putInt("mousespeed",tmpMouseSpeed).apply();
-            dialogInterface.dismiss();
-            System.gc();
-        });
-        b.setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> {
-            dialogInterface.dismiss();
-            System.gc();
-        });
-        b.show();
+        new MouseSettingsDialog(this, () -> touchpad.updateMouseScale()).show();
     }
 
     int tmpGyroSensitivity;

@@ -1,11 +1,9 @@
 package net.kdt.pojavlaunch.utils;
 
-
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.content.*;
 import android.content.res.*;
-import android.os.Build;
 import android.os.LocaleList;
 
 import androidx.preference.*;
@@ -35,9 +33,7 @@ public class LocaleUtils extends ContextWrapper {
             configuration.setLocales(localeList);
 
             resources.updateConfiguration(configuration, resources.getDisplayMetrics());
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1){
-                context = context.createConfigurationContext(configuration);
-            }
+            context = context.createConfigurationContext(configuration);
         }
 
         return new LocaleUtils(context);

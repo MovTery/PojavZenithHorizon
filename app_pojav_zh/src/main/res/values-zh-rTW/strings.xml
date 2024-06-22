@@ -36,7 +36,6 @@
     <string name="mcl_setting_subtitle_longpresstrigger">更改長按摧毀方塊、丟棄物品的觸發延遲</string>
     <string name="mcl_setting_title_buttonscale">控制佈局縮放</string>
     <string name="mcl_setting_subtitle_buttonscale">如果按鈕太小，可以將其放大</string>
-    <string name="mcl_setting_title_mousescale">滑鼠縮放</string>
     <string name="mcl_setting_subtitle_mousescale">修改虛擬滑鼠的大小</string>
     <string name="mcl_setting_title_javaargs">JVM 啟動參數</string>
     <string name="mcl_setting_subtitle_javaargs">注意，非專業人士修改此值可能導致遊戲崩潰</string>
@@ -126,7 +125,6 @@
     <string name="mcl_disable_gestures_subtitle">禁用手勢，例如長按破壞方塊和點擊放置方塊</string>
     <string name="mcl_disable_swap_hand">禁用雙擊交換手中物品</string>
     <string name="mcl_disable_swap_hand_subtitle">禁用雙擊快捷欄上的物品來將其與副手物品交換</string>
-    <string name="mcl_setting_title_mousespeed">滑鼠速度</string>
     <string name="mcl_setting_subtitle_mousespeed">修改虛擬滑鼠的移動速度</string>
     <string name="customctrl_passthru">滑鼠透傳</string>
     <string name="customctrl_swipeable">可滑動</string>

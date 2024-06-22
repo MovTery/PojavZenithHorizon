@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch;
 
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
+
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ClipboardManager;
@@ -91,8 +93,8 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
 
         mMousePointerImageView.post(() -> {
             ViewGroup.LayoutParams params = mMousePointerImageView.getLayoutParams();
-            params.width = (int) (36 / 100f * LauncherPreferences.PREF_MOUSESCALE);
-            params.height = (int) (54 / 100f * LauncherPreferences.PREF_MOUSESCALE);
+            params.width = (int) (36 / 100f * DEFAULT_PREF.getInt("mousescale", 100));
+            params.height = (int) (54 / 100f * (DEFAULT_PREF.getInt("mousescale", 100) / 100));
         });
 
         mTouchPad.setOnTouchListener(new View.OnTouchListener() {

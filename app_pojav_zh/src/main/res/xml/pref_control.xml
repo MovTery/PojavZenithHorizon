@@ -60,7 +60,7 @@
         <net.kdt.pojavlaunch.prefs.CustomSeekBarPreference
             android:key="mousescale"
             android:summary="@string/mcl_setting_subtitle_mousescale"
-            android:title="@string/mcl_setting_title_mousescale"
+            android:title="@string/zh_mouse_settings_scale_name"
             app2:selectable="false"
             app2:seekBarIncrement="5"
             app2:showSeekBarValue="true"
@@ -69,7 +69,7 @@
         <net.kdt.pojavlaunch.prefs.CustomSeekBarPreference
             android:key="mousespeed"
             android:summary="@string/mcl_setting_subtitle_mousespeed"
-            android:title="@string/mcl_setting_title_mousespeed"
+            android:title="@string/zh_mouse_settings_speed_name"
             app2:selectable="false"
             app2:seekBarIncrement="5"
             app2:showSeekBarValue="true"

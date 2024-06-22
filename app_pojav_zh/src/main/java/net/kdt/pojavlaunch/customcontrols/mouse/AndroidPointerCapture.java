@@ -1,11 +1,8 @@
 package net.kdt.pojavlaunch.customcontrols.mouse;
 
-import android.os.Build;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
-
-import androidx.annotation.RequiresApi;
 
 import net.kdt.pojavlaunch.MainActivity;
 import net.kdt.pojavlaunch.MinecraftGLSurface;
@@ -13,7 +10,6 @@ import net.kdt.pojavlaunch.Tools;
 
 import org.lwjgl.glfw.CallbackBridge;
 
-@RequiresApi(api = Build.VERSION_CODES.O)
 public class AndroidPointerCapture implements ViewTreeObserver.OnWindowFocusChangeListener, View.OnCapturedPointerListener {
     private static final float TOUCHPAD_SCROLL_THRESHOLD = 1;
     private final AbstractTouchpad mTouchpad;
