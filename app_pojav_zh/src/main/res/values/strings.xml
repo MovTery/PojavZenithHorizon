@@ -40,7 +40,6 @@
     <string name="mcl_setting_subtitle_longpresstrigger">Change long press trigger delay for destroying blocks and dropping items.</string>
     <string name="mcl_setting_title_buttonscale">Control buttons scaling</string>
     <string name="mcl_setting_subtitle_buttonscale">Upscale them if the buttons are too small.</string>
-    <string name="mcl_setting_title_mousescale">Mouse scaling</string>
     <string name="mcl_setting_subtitle_mousescale">Change the size of the virtual mouse.</string>
     <string name="mcl_setting_title_javaargs">JVM Launch arguments</string>
     <string name="mcl_setting_subtitle_javaargs">Be careful, this may make game crash if modified without knowledge.</string>
@@ -130,7 +129,6 @@
     <string name="mcl_disable_gestures_subtitle">Disables gestures, such as hold to break block, and tap to place a block.</string>
     <string name="mcl_disable_swap_hand">Disable double tap to swap hands</string>
     <string name="mcl_disable_swap_hand_subtitle">Disables double tapping on the hotbar item to swap it in the second hand.</string>
-    <string name="mcl_setting_title_mousespeed">Mouse Speed</string>
     <string name="mcl_setting_subtitle_mousespeed">Changes the speed of the virtual mouse.</string>
     <string name="customctrl_passthru">Mouse pass-thru</string>
     <string name="customctrl_swipeable">Swipeable</string>

@@ -69,6 +69,10 @@
     <string name="zh_controls_info_no_info">此控制佈局沒有描述說明…</string>
     <string name="zh_custom_control_title">管理控制佈局</string>
 
+    <string name="zh_mouse_settings_title">虛擬滑鼠設定</string>
+    <string name="zh_mouse_settings_speed_name">虛擬滑鼠速度</string>
+    <string name="zh_mouse_settings_scale_name">虛擬滑鼠縮放</string>
+
     <string name="zh_custom_mouse_add">添加虛擬滑鼠</string>
     <string name="zh_custom_mouse_added">成功設定虛擬滑鼠：</string>
     <string name="zh_custom_mouse_default">預設虛擬滑鼠</string>

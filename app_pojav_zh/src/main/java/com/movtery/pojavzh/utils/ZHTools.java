@@ -16,7 +16,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.LocaleList;
 import android.provider.DocumentsContract;
@@ -63,10 +62,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
@@ -137,17 +134,7 @@ public class ZHTools {
         File outputFile = new File(rootPath, fileName);
         try (InputStream inputStream = context.getContentResolver().openInputStream(fileUri)) {
             Objects.requireNonNull(inputStream);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                Files.copy(inputStream, outputFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            } else {
-                try (OutputStream outputStream = new FileOutputStream(outputFile)) {
-                    byte[] buffer = new byte[1024 * 8]; //8kb
-                    int bytesRead;
-                    while ((bytesRead = inputStream.read(buffer)) != -1) {
-                        outputStream.write(buffer, 0, bytesRead);
-                    }
-                }
-            }
+            Files.copy(inputStream, outputFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -649,11 +636,8 @@ public class ZHTools {
 
     public static boolean checkDate(int month, int day) {
         LocalDate currentDate;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            currentDate = LocalDate.now();
-            return currentDate.getMonthValue() == month && currentDate.getDayOfMonth() == day;
-        }
-        return false;
+        currentDate = LocalDate.now();
+        return currentDate.getMonthValue() == month && currentDate.getDayOfMonth() == day;
     }
 
     public static boolean areaChecks() {
