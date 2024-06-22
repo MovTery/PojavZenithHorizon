@@ -20,20 +20,6 @@
         android:textSize="16sp"
         android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/zh_edit_text_edit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:autofillHints="name"
-        android:background="@drawable/background_edit_box"
-        android:inputType="text"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        tools:ignore="LabelFor" />
-
     <ScrollView
         android:id="@+id/zh_edit_text_scroll"
         android:layout_width="match_parent"
@@ -51,13 +37,27 @@
             <TextView
                 android:id="@+id/zh_edit_text_message"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:textSize="@dimen/_15sdp" />
+                android:textSize="13sp" />
 
         </LinearLayout>
 
     </ScrollView>
+
+    <EditText
+        android:id="@+id/zh_edit_text_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:autofillHints="name"
+        android:background="@drawable/background_edit_box"
+        android:inputType="text"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        tools:ignore="LabelFor" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"

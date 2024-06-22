@@ -8,6 +8,9 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.InputType;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.preference.Preference;
@@ -42,27 +45,50 @@ public class LauncherPreferenceJavaFragment extends LauncherPreferenceFragment {
         // Triggers a write for some reason
         addPreferencesFromResource(R.xml.pref_java);
 
-        CustomSeekBarPreference seek7 = requirePreference("allocation",
-                CustomSeekBarPreference.class);
+        CustomSeekBarPreference allocationSeek = requirePreference("allocation", CustomSeekBarPreference.class);
 
         int maxRAM;
-        int deviceRam = getTotalDeviceMemory(seek7.getContext());
+        int deviceRam = getTotalDeviceMemory(allocationSeek.getContext());
 
         if (is32BitsDevice() || deviceRam < 2048) maxRAM = Math.min(1024, deviceRam);
         else maxRAM = deviceRam - (deviceRam < 3064 ? 800 : 1024); //To have a minimum for the device to breathe
 
-        seek7.setMin(256);
-        seek7.setMax(maxRAM);
-        seek7.setValue(ramAllocation);
-        seek7.setSuffix(" MB");
+        allocationSeek.setRange(256, maxRAM);
+        allocationSeek.setValue(ramAllocation);
+        allocationSeek.setSuffix(" MB");
 
-        updateMemoryInfo(requireContext(), seek7);
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                runOnUiThread(() -> updateMemoryInfo(requireContext(), seek7));
+                runOnUiThread(() -> updateMemoryInfo(requireContext(), allocationSeek));
             }
-        }, 0, 1000);
+        }, 0, 500);
+
+        allocationSeek.setOnPreferenceClickListener(preference -> {
+            //点击此项将弹出输入框以手动输入内存值
+            EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(R.string.mcl_memory_allocation),
+                    getMemoryInfoText(requireContext()) + "\r\n" + getString(R.string.zh_setting_java_memory_max, String.format("%s MB", maxRAM)),
+                    String.valueOf(allocationSeek.getValue()), null);
+            editTextDialog.getEditBox().setInputType(InputType.TYPE_CLASS_NUMBER);
+            editTextDialog.setConfirm(view -> {
+                EditText editBox = editTextDialog.getEditBox();
+                int value = Integer.parseInt(editBox.getText().toString());
+
+                if (value < 256) {
+                    Toast.makeText(requireContext(), getString(R.string.zh_setting_java_memory_too_small, 256), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (value > maxRAM) {
+                    Toast.makeText(requireContext(), getString(R.string.zh_setting_java_memory_too_big, maxRAM), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                allocationSeek.setValue(value);
+                editTextDialog.dismiss();
+            });
+            editTextDialog.show();
+            return true;
+        });
 
         Preference editJVMArgs = findPreference("javaArgs");
         if (editJVMArgs != null) {
@@ -81,6 +107,8 @@ public class LauncherPreferenceJavaFragment extends LauncherPreferenceFragment {
             openMultiRTDialog();
             return true;
         });
+
+        updateMemoryInfo(requireContext(), allocationSeek);
     }
 
     @Override
@@ -90,12 +118,29 @@ public class LauncherPreferenceJavaFragment extends LauncherPreferenceFragment {
     }
 
     private void updateMemoryInfo(Context context, CustomSeekBarPreference seek) {
-        String summary = getString(
+        long seekValue = (long) seek.getValue() * 1024 * 1024;
+        long freeDeviceMemory = MemoryUtils.getFreeDeviceMemory(context);
+
+        boolean isMemorySizeExceeded = seekValue > freeDeviceMemory;
+
+        String summary = getString(R.string.zh_setting_java_memory_desc);
+        summary += "\r\n" + getMemoryInfoText(context, freeDeviceMemory);
+        if (isMemorySizeExceeded) summary += "\r\n" + getString(R.string.zh_setting_java_memory_exceeded);
+
+        String finalSummary = summary;
+        runOnUiThread(() -> seek.setSummary(finalSummary));
+    }
+
+    private String getMemoryInfoText(Context context) {
+        return getMemoryInfoText(context, MemoryUtils.getFreeDeviceMemory(context));
+    }
+
+    private String getMemoryInfoText(Context context, long freeDeviceMemory) {
+        return getString(
                 R.string.zh_setting_java_memory_info,
                 ZHTools.formatFileSize(MemoryUtils.getUsedDeviceMemory(context)),
                 ZHTools.formatFileSize(MemoryUtils.getTotalDeviceMemory(context)),
-                ZHTools.formatFileSize(MemoryUtils.getFreeDeviceMemory(context)));
-        runOnUiThread(() -> seek.setSummary(summary));
+                ZHTools.formatFileSize(freeDeviceMemory));
     }
 
     private void openMultiRTDialog() {

@@ -188,7 +188,12 @@
     <string name="zh_select_modpack_local_tip">請選擇一個啟動器支持導入的整合包文件！</string>
     <string name="zh_select_modpack_local_not_supported">此檔案不受啟動器支援！</string>
     <string name="zh_select_modpack_local_installing_files">安裝遊戲檔案中… (%d)</string>
-    <string name="zh_setting_java_memory_info">設定 Minecraft 分配的記憶體大小\n目前記憶體使用：%s / %s ，剩餘記憶體：%s</string>
+    <string name="zh_setting_java_memory_desc">控制分配給 Minecraft 的記憶體大小</string>
+    <string name="zh_setting_java_memory_info">目前記憶體使用：%s / %s ，空閒記憶體大小：%s</string>
+    <string name="zh_setting_java_memory_max">可設定的最大記憶體大小：%s</string>
+    <string name="zh_setting_java_memory_exceeded">目前設定的記憶體大小超過了可用的記憶體大小</string>
+    <string name="zh_setting_java_memory_too_big">目前設定的記憶體空間過大，最多只能設定為 %d MB</string>
+    <string name="zh_setting_java_memory_too_small">目前設定的記憶體空間過小，至少需要設定為 %d MB</string>
     <string name="zh_setting_set_game_language_desc">在遊戲首次啟動時，自動設定遊戲語言為選定的語言</string>
     <string name="zh_setting_set_game_language_title">自動設定遊戲語言</string>
     <string name="zh_setting_set_game_language_list">設定遊戲語言</string>
