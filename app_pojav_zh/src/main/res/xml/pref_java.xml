@@ -21,7 +21,7 @@
 
         <net.kdt.pojavlaunch.prefs.CustomSeekBarPreference
             android:key="allocation"
-            android:summary="@string/mcl_memory_allocation_subtitle"
+            android:summary="@string/zh_setting_java_memory_info"
             android:title="@string/mcl_memory_allocation"
             app2:showSeekBarValue="true"
             app2:seekBarIncrement="8"
