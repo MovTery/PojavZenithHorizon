@@ -52,6 +52,11 @@
     <string name="zh_controls_visibility">Visibility</string>
     <string name="zh_controls_in_game">In game</string>
     <string name="zh_controls_in_menu">In menu</string>
+    <string name="zh_controls_orientation_up">Up</string>
+    <string name="zh_controls_orientation_down">Down</string>
+    <string name="zh_controls_orientation_left">Left</string>
+    <string name="zh_controls_orientation_right">Right</string>
+    <string name="zh_controls_orientation_free">Free</string>
     <string name="zh_controls_load_failed">Failed to load!</string>
     <string name="zh_controls_unsupported_layout_version">Unsupported control layout version</string>
     <string name="zh_controls_create_new">Create new control layout</string>

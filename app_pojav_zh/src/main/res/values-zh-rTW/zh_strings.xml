@@ -52,6 +52,11 @@
     <string name="zh_controls_visibility">可見度</string>
     <string name="zh_controls_in_game">遊戲內</string>
     <string name="zh_controls_in_menu">菜單內</string>
+    <string name="zh_controls_orientation_up">朝上</string>
+    <string name="zh_controls_orientation_down">朝下</string>
+    <string name="zh_controls_orientation_left">朝左</string>
+    <string name="zh_controls_orientation_right">朝右</string>
+    <string name="zh_controls_orientation_free">自由</string>
     <string name="zh_controls_load_failed">加載失敗！</string>
     <string name="zh_controls_unsupported_layout_version">不支援的控制佈局版本！</string>
     <string name="zh_controls_create_new">創建新的控制佈局</string>

@@ -12,6 +12,8 @@ import static net.kdt.pojavlaunch.customcontrols.ControlDrawerData.Orientation.R
 import static net.kdt.pojavlaunch.customcontrols.ControlDrawerData.Orientation.UP;
 import static net.kdt.pojavlaunch.customcontrols.ControlDrawerData.Orientation.FREE;
 
+import android.content.Context;
+
 @androidx.annotation.Keep
 public class ControlDrawerData {
 
@@ -28,8 +30,14 @@ public class ControlDrawerData {
         FREE
     }
 
-    public static Orientation[] getOrientations(){
-        return new Orientation[]{DOWN,LEFT,UP,RIGHT,FREE};
+    public static String[] getOrientations(Context context) {
+        return new String[]{
+                context.getString(R.string.zh_controls_orientation_down),
+                context.getString(R.string.zh_controls_orientation_left),
+                context.getString(R.string.zh_controls_orientation_up),
+                context.getString(R.string.zh_controls_orientation_right),
+                context.getString(R.string.zh_controls_orientation_free)
+        };
     }
 
     public static int orientationToInt(Orientation orientation){
