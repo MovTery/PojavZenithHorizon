@@ -11,9 +11,11 @@ import android.content.Context;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.movtery.pojavzh.feature.UpdateLauncher;
 import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 
@@ -64,10 +66,16 @@ public class UpdateDialog extends Dialog {
 
         mUpdateButton.setOnClickListener(view -> {
             this.dismiss();
-            runOnUiThread(() -> {
-                UpdateSourceDialog updateSourceDialog = new UpdateSourceDialog(getContext(), tagName, fileSize);
-                updateSourceDialog.show();
-            });
+            if (ZHTools.areaChecks()) {
+                runOnUiThread(() -> {
+                    UpdateSourceDialog updateSourceDialog = new UpdateSourceDialog(getContext(), tagName, fileSize);
+                    updateSourceDialog.show();
+                });
+            } else {
+                runOnUiThread(() -> Toast.makeText(getContext(), getContext().getString(R.string.zh_update_downloading_tip, "Github Release"), Toast.LENGTH_SHORT).show());
+                UpdateLauncher updateLauncher = new UpdateLauncher(getContext(), tagName, fileSize, UpdateLauncher.UpdateSource.GITHUB_RELEASE);
+                updateLauncher.start();
+            }
         });
         mCancelButton.setOnClickListener(view -> this.dismiss());
         mIgnoreButton.setOnClickListener(view -> {
