@@ -248,8 +248,8 @@ public class EditControlPopup {
         }
 
         // Orientation spinner
-        ArrayAdapter<ControlDrawerData.Orientation> adapter = new ArrayAdapter<>(mScrollView.getContext(), android.R.layout.simple_spinner_item);
-        adapter.addAll(ControlDrawerData.getOrientations());
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(mScrollView.getContext(), android.R.layout.simple_spinner_item);
+        adapter.addAll(ControlDrawerData.getOrientations(context));
         adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
 
         mOrientationSpinner.setAdapter(adapter);
