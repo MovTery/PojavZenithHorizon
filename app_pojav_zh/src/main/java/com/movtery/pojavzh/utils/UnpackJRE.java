@@ -20,7 +20,7 @@ public class UnpackJRE {
     public static void checkInternalJre(AssetManager assetManager, int jreVersion) {
         String jreName = "Internal-" + jreVersion;
         String launcherJreVersion;
-        String installedJreVersion = MultiRTUtils.__internal__readBinpackVersion(jreName);
+        String installedJreVersion = MultiRTUtils.readInternalRuntimeVersion(jreName);
         try {
             launcherJreVersion = Tools.read(assetManager.open("components/jre-" + jreVersion + "/version"));
         } catch (IOException exc) {
