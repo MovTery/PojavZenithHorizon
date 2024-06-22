@@ -13,8 +13,8 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/mod_thumbnail_imageview"
-        android:layout_width="@dimen/_58sdp"
-        android:layout_height="@dimen/_58sdp"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="@android:color/transparent"
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:ellipsize="end"
-        android:textSize="11sp"
+        android:textSize="12sp"
         android:textColor="@color/primary_text"
         app:layout_constraintEnd_toStartOf="@+id/mod_source_imageview"
         app:layout_constraintHorizontal_bias="0.0"
@@ -53,14 +53,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:maxLines="3"
+        android:maxLines="2"
         android:textColor="@color/primary_text"
-        android:textSize="11sp"
+        android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="@+id/mod_title_textview"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/mod_title_textview"
         app:layout_constraintTop_toBottomOf="@+id/mod_title_textview"
-        tools:text="Feed the beast - Reforged is a machine and magic focused modpack, with no respect for the minimum requirements of minecraft. Very long text" />
+        tools:text="Feed the beast - Reforged is a machine and magic focused modpack, with no respect for the minimum requirements of minecraft. Very long text"
+        tools:ignore="SmallSp" />
 
     <TextView
         android:id="@+id/zh_mod_dependencies_textview"
@@ -72,12 +73,12 @@
         android:singleLine="true"
         android:text="Dependencies: "
         android:textColor="@color/primary_text"
-        android:textSize="11sp"
+        android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/mod_body_textview"
         app:layout_constraintTop_toBottomOf="@+id/mod_body_textview"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText,SmallSp" />
 
     <TextView
         android:id="@+id/zh_mod_download_count_textview"
@@ -90,12 +91,12 @@
         android:singleLine="true"
         android:text="Downloads: "
         android:textColor="@color/primary_text"
-        android:textSize="11sp"
+        android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/zh_mod_dependencies_textview"
         app:layout_constraintTop_toBottomOf="@+id/mod_body_textview"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText,SmallSp" />
 
     <TextView
         android:id="@+id/zh_mod_modloader_textview"
@@ -108,11 +109,11 @@
         android:singleLine="true"
         android:text="Forge"
         android:textColor="@color/primary_text"
-        android:textSize="11sp"
+        android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/zh_mod_download_count_textview"
         app:layout_constraintTop_toBottomOf="@+id/mod_body_textview"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText,SmallSp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
