@@ -188,6 +188,7 @@
     <string name="zh_select_modpack_local_tip">請選擇一個啟動器支持導入的整合包文件！</string>
     <string name="zh_select_modpack_local_not_supported">此檔案不受啟動器支援！</string>
     <string name="zh_select_modpack_local_installing_files">安裝遊戲檔案中… (%d)</string>
+    <string name="zh_setting_java_memory_info">設定 Minecraft 分配的記憶體大小\n目前記憶體使用：%s / %s ，剩餘記憶體：%s</string>
     <string name="zh_setting_set_game_language_desc">在遊戲首次啟動時，自動設定遊戲語言為選定的語言</string>
     <string name="zh_setting_set_game_language_title">自動設定遊戲語言</string>
     <string name="zh_setting_set_game_language_list">設定遊戲語言</string>
