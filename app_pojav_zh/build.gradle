@@ -48,7 +48,6 @@ android {
 
     compileSdk = 34
 
-
     signingConfigs {
         releaseBuild {
             def pwd = System.getenv("MOVTERY_KEYSTORE_PASSWORD")
@@ -67,7 +66,7 @@ android {
 
     defaultConfig {
         applicationId "net.kdt.pojavlaunch.zh"
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 34
         versionCode getDateSeconds()
         versionName "1.2.3"
