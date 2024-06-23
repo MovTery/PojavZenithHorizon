@@ -79,5 +79,5 @@ body:
     attributes:
       label: 这个问题还没有人反馈过
       options:
-        - options: 我已经查看过 Issues，并且没有发现与之类似的问题被反馈
+        - label: 我已经查看过 Issues，并且没有发现与之类似的问题被反馈
           required: true
