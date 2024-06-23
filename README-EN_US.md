@@ -8,13 +8,7 @@
 - Pojav Zenith Horizon is a modified Minecraft launcher based on [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher), capable of running [Minecraft: Java Edition](https://www.minecraft.net/) on Android devices.
 - Pojav Zenith Horizon is dedicated to enhancing user experience with a redesigned interface and additional practical features, aiming to minimize barriers to playing Minecraft and allowing more users to enjoy the game effortlessly.
 
-<h2 align="center">Screenshots</h2>
-
-![GameScreen1](/.github/images/Screenshot_Light_EN_US.jpg)
-![GameScreen1](/.github/images/Screenshot_Dark_EN_US.jpg)
-![GameScreen1](/.github/images/Screenshot_Game_EN_US.jpg)
-
-<h2 align="center">New Features</h2>  
+<h2 align="center">New Features</h2>
 
 - [√] Refactored application layout for improved aesthetics and usability.
 - [√] Built-in simple file manager to mitigate Android permission restrictions.
@@ -26,7 +20,13 @@
 - [√] Choice between light and dark themes.
 - [√] Launcher remains active after closing the game.
 
+<h2 align="center">Screenshots</h2>
+
+![Screenshot1](/.github/images/Screenshot_Light_EN_US.jpg)
+![Screenshot2](/.github/images/Screenshot_Dark_EN_US.jpg)
+![Screenshot3](/.github/images/Screenshot_Game_EN_US.jpg)
+
 <h2 align="center">Download</h2>  
 
 - Visit [Release](https://github.com/HopiHopy/PojavZenithHorizon/releases) to find the latest stable version, thoroughly tested and updated periodically.  
-- (Not recommended) Visit [Actions](https://github.com/HopiHopy/PojavZenithHorizon/actions) for the latest Chinese language updates (mainline: v3_openjdk, other branches can be ignored!), and click on **PojavZenithHorizon** to download (Debug for test builds, Release for stable builds, content is identical, only package names differ and can be independently installed).
+- (Not recommended) Visit [Actions](https://github.com/HopiHopy/PojavZenithHorizon/actions) for the latest Chinese language updates (mainline: main, other branches can be ignored!), and click on **PojavZenithHorizon** to download (Debug for test builds, Release for stable builds, content is identical, only package names differ and can be independently installed).
