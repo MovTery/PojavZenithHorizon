@@ -9,7 +9,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * Class providing callback across all of a program
  * to allow easy thread safe implementations of UI update without context leak
  * It is also perfectly engineered to make it unpleasant to use.
- *
  * This class uses a singleton pattern to simplify access to it
  */
 @SuppressWarnings({"rawtypes", "unchecked"})
