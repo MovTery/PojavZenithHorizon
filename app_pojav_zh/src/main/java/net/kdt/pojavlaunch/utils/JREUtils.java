@@ -2,11 +2,9 @@ package net.kdt.pojavlaunch.utils;
 
 import static net.kdt.pojavlaunch.Architecture.ARCH_X86;
 import static net.kdt.pojavlaunch.Architecture.is64BitsDevice;
-import static com.movtery.pojavzh.utils.ZHTools.getLatestFile;
 import static net.kdt.pojavlaunch.Tools.LOCAL_RENDERER;
 import static net.kdt.pojavlaunch.Tools.NATIVE_LIB_DIR;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
-import static net.kdt.pojavlaunch.Tools.shareLog;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_DUMP_SHADERS;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_VSYNC_IN_ZINK;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ZINK_PREFER_SYSTEM_DRIVER;
@@ -20,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.movtery.pojavzh.ui.actitvity.ErrorActivity;
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.utils.ZHTools;
@@ -29,7 +28,6 @@ import java.util.*;
 import net.kdt.pojavlaunch.*;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
-import net.kdt.pojavlaunch.lifecycle.LifecycleAwareAlertDialog;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 import net.kdt.pojavlaunch.multirt.Runtime;
 import net.kdt.pojavlaunch.plugins.FFmpegPlugin;
@@ -318,18 +316,9 @@ public class JREUtils {
         final int exitCode = VMLauncher.launchJVM(userArgs.toArray(new String[0]));
         Logger.appendToLog("Java Exit code: " + exitCode);
         if (exitCode != 0) {
-            File crashReportFile = getLatestFile(new File(gameDirectory, "crash-reports"), 1);
-            LifecycleAwareAlertDialog.DialogCreator dialogCreator = (dialog, builder) -> {
-                builder.setMessage(activity.getString(R.string.mcn_exit_title, exitCode))
-                        .setPositiveButton(R.string.main_share_logs, (dialogInterface, which)-> shareLog(activity));
-                if (crashReportFile != null && crashReportFile.exists()) {
-                    builder.setNegativeButton(R.string.zh_main_share_crash_report, (dialogInterface, which) -> ZHTools.shareFile(activity, crashReportFile.getName(), crashReportFile.getAbsolutePath()));
-                }
-            };
-
-            LifecycleAwareAlertDialog.haltOnDialog(activity.getLifecycle(), activity, dialogCreator);
+            File crashReportFile = ZHTools.getLatestFile(new File(gameDirectory, "crash-reports"), 30);
+            ErrorActivity.showExitMessage(activity, exitCode, crashReportFile.getAbsolutePath());
         }
-        MainActivity.fullyExit();
     }
 
     /**
