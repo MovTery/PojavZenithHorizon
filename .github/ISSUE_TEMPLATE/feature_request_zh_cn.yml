@@ -19,3 +19,10 @@ body:
         如果可以的话，你也可以提供图片，帮助我们更好的理解你的好想法
     validations:
       required: false
+
+  - type: checkboxes
+    attributes:
+      label: 这个功能建议还没有人提出过
+      options:
+        - label: 我已经查看过 Issues，并且没有发现与之类似的功能建议被提出
+          required: true
