@@ -1,14 +1,14 @@
 name: Feature Suggestion
-description: 'If you have some new ideas, please use this template to tell us!'
+description: 'If you have some new ideas, please use this template to let us know!'
 title: "[Suggestion] Brief Description"
-labels: [建议]
+labels: [suggestion]
 body:
   - type: textarea
     id: version
     attributes:
       label: Feature Description
       description: |
-        Please describe your idea in detail here.
+        Please describe your great idea in detail here.
     validations:
       required: true
 
@@ -16,6 +16,13 @@ body:
     attributes:
       label: Additional Information
       description: |
-        Optionally, you can also provide images to help us better understand your idea.
+        If possible, you can also provide images to help us better understand your idea.
     validations:
       required: false
+
+  - type: checkboxes
+    attributes:
+      label: No one else has suggested this feature yet
+      options:
+        - label: I have checked the issues and have not found any similar feature suggestions
+          required: true

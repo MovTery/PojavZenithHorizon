@@ -23,7 +23,7 @@ body:
   - type: textarea
     attributes:
       label: 复现步骤
-      description: 复现问题的步骤，请尽量详细一些
+      description: 复现问题的步骤，请尽量详细一些，方便我们快速定位问题
       placeholder: |
         1. 打开启动器
         ... *(复现问题的一些操作)*
@@ -38,6 +38,31 @@ body:
     validations:
       required: true
 
+  - type: dropdown
+    attributes:
+      label: Android 版本
+      options:
+        - '14'
+        - '13'
+        - '12'
+        - '11'
+        - '10'
+        - '9'
+        - '8'
+        - '7-'
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Pojav Zenith Horizon 版本
+      description: |
+        遇到此问题的版本是？你可以在“关于 Pojav Zenith Horizon”页面内查看
+      placeholder: 1.2.3
+    validations:
+      required: true
+
   - type: textarea
     attributes:
       label: 其他信息
@@ -46,8 +71,13 @@ body:
       value: |
         - 设备型号：
         - CPU 架构：
-        - Android 版本：
-        - Pojav Zenith Horizon 版本：
       render: markdown
     validations:
       required: true
+
+  - type: checkboxes
+    attributes:
+      label: 这个问题还没有人反馈过
+      options:
+        - label: 我已经查看过 Issues，并且没有发现与之类似的问题被反馈
+          required: true

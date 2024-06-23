@@ -7,8 +7,8 @@ body:
     id: version
     attributes:
       label: Issue Description
-      description: >-
-        Clearly and in detail describe the issue you are encountering.
+      description: >
+        Clearly and thoroughly describe the issue you encountered.
     validations:
       required: true
 
@@ -16,7 +16,7 @@ body:
     attributes:
       label: Logs/Screenshots or Video
       description: |
-        Upload logs/screenshots or a video of the issue encountered recently.
+        Upload logs/screenshots or video of the issue encountered recently.
     validations:
       required: true
 
@@ -24,10 +24,10 @@ body:
     attributes:
       label: Steps to Reproduce
       description: |
-        Steps to reproduce the issue. Please be as detailed as possible.
+        Steps to reproduce the issue. Please be as detailed as possible to help us locate the problem quickly.
       placeholder: |
         1. Open the launcher
-        ... *(Actions to reproduce the issue)*
+        ... *(Operations to reproduce the issue)*
       render: markdown
     validations:
       required: true
@@ -39,16 +39,46 @@ body:
     validations:
       required: true
 
+  - type: dropdown
+    attributes:
+      label: Android Version
+      options:
+        - '14'
+        - '13'
+        - '12'
+        - '11'
+        - '10'
+        - '9'
+        - '8'
+        - '7-'
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Pojav Zenith Horizon Version
+      description: |
+        Version where you encountered this issue. You can find it in the "About Pojav Zenith Horizon" page.
+      placeholder: 1.2.3
+    validations:
+      required: true
+
   - type: textarea
     attributes:
       label: Additional Information
       description: |
-        Provide any additional information that may help us reproduce and fix the issue.
+        Provide more information to help us reproduce and fix the issue.
       value: |
         - Device Model:
         - CPU Architecture:
-        - Android Version:
-        - Pojav Zenith Horizon Version:
       render: markdown
     validations:
       required: true
+
+  - type: checkboxes
+    attributes:
+      label: No one else has reported this issue yet
+      options:
+        - label: I have checked the issues and have not found any similar reports
+          required: true

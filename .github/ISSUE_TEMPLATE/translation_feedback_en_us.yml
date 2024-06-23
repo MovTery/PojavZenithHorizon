@@ -1,14 +1,14 @@
-name: Translation Issue Report
-description: 'If you believe there are inaccuracies in the translations within the launcher, please use this template to inform us!'
+name: Translation Feedback
+description: 'If you believe there are inaccuracies in the translations within the launcher, please use this template to let us know!'
 title: "[Translation Issue] Brief Title"
-labels: [翻译问题]
+labels: [translation issue]
 body:
   - type: textarea
     id: version
     attributes:
-      label: Which texts are inaccurately translated?
+      label: Which texts do you think are inaccurately translated?
       description: |
-        Please provide the texts you believe are inaccurately translated, and suggest the correct translations.
+        Please provide the texts you believe are inaccurately translated, along with what you think is the correct translation.
       placeholder: |
         1. aaa -> bbb
         2. ccc -> ddd
@@ -18,8 +18,15 @@ body:
 
   - type: textarea
     attributes:
-      label: Screenshots or Video
+      label: Screenshots or Videos
       description: |
-        Please provide screenshots or a video from within the application to help us locate the inaccurately translated texts.
+        Please provide screenshots or videos from within the application to help us better identify where the translation inaccuracies occur.
     validations:
       required: true
+
+  - type: checkboxes
+    attributes:
+      label: No one else has reported this translation issue yet
+      options:
+        - label: I have checked the issues and have not found any similar translation issues reported
+          required: true

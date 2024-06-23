@@ -23,3 +23,10 @@ body:
         你需要提供应用内相关截图或视频，以方便我们更好的确定翻译不准确的文本在哪个位置
     validations:
       required: true
+
+  - type: checkboxes
+    attributes:
+      label: 这个翻译问题还没有人反馈过
+      options:
+        - label: 我已经查看过 Issues，并且没有发现与之类似的翻译问题被反馈
+          required: true
