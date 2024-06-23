@@ -4,7 +4,6 @@ title: "[建议] 简短的被描述"
 labels: [建议]
 body:
   - type: textarea
-    id: version
     attributes:
       label: 功能描述
       description: |

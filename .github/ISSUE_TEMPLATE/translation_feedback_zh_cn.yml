@@ -4,7 +4,6 @@ title: "[翻译问题] 简单的标题"
 labels: [翻译问题]
 body:
   - type: textarea
-    id: version
     attributes:
       label: 哪些文本是翻译不准确的呢？
       description: |
