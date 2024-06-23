@@ -27,7 +27,7 @@ public class LauncherPreferenceControlFragment extends LauncherPreferenceFragmen
         int prefButtonSize = (int) LauncherPreferences.PREF_BUTTONSIZE;
         int gyroSampleRate = LauncherPreferences.PREF_GYRO_SAMPLE_RATE;
         int mouseScale = DEFAULT_PREF.getInt("mousescale", 100);
-        float mouseSpeed = DEFAULT_PREF.getInt("mousespeed",100);
+        int mouseSpeed = DEFAULT_PREF.getInt("mousespeed",100);
         float gyroSpeed = LauncherPreferences.PREF_GYRO_SENSITIVITY;
         float joystickDeadzone = LauncherPreferences.PREF_DEADZONE_SCALE;
 
@@ -47,17 +47,15 @@ public class LauncherPreferenceControlFragment extends LauncherPreferenceFragmen
         seek3.setValue(prefButtonSize);
         seek3.setSuffix(" %");
 
-        CustomSeekBarPreference seek4 = requirePreference("mousescale",
-                CustomSeekBarPreference.class);
-        seek4.setRange(25, 300);
-        seek4.setValue(mouseScale);
-        seek4.setSuffix(" %");
+        CustomSeekBarPreference mouseScaleSeek = requirePreference("mousescale", CustomSeekBarPreference.class);
+        mouseScaleSeek.setRange(25, 300);
+        mouseScaleSeek.setValue(mouseScale);
+        mouseScaleSeek.setSuffix(" %");
 
-        CustomSeekBarPreference seek6 = requirePreference("mousespeed",
-                CustomSeekBarPreference.class);
-        seek6.setRange(25, 300);
-        seek6.setValue((int) mouseSpeed);
-        seek6.setSuffix(" %");
+        CustomSeekBarPreference mouseSpeedSeek = requirePreference("mousespeed", CustomSeekBarPreference.class);
+        mouseSpeedSeek.setRange(25, 300);
+        mouseSpeedSeek.setValue(mouseSpeed);
+        mouseSpeedSeek.setSuffix(" %");
 
         Preference customMousePreference = requirePreference("zh_custom_mouse");
         customMousePreference.setOnPreferenceClickListener(preference -> {

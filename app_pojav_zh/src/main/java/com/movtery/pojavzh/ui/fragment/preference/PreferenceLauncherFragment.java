@@ -18,16 +18,14 @@ public class PreferenceLauncherFragment extends LauncherPreferenceFragment {
     @Override
     public void onCreatePreferences(Bundle b, String str) {
         addPreferencesFromResource(R.xml.pref_launcher);
-        Preference launcherTheme = findPreference("launcherTheme");
-        if (launcherTheme != null) {
-            launcherTheme.setOnPreferenceChangeListener((preference, newValue) -> {
-                new TipDialog.Builder(requireContext())
-                        .setMessage(R.string.zh_setting_reboot_tip)
-                        .setConfirmClickListener(() -> ZHTools.restartApp(requireContext()))
-                        .buildDialog();
-                return true;
-            });
-        }
+        Preference launcherTheme = requirePreference("launcherTheme");
+        launcherTheme.setOnPreferenceChangeListener((preference, newValue) -> {
+            new TipDialog.Builder(requireContext())
+                    .setMessage(R.string.zh_setting_reboot_tip)
+                    .setConfirmClickListener(() -> ZHTools.restartApp(requireContext()))
+                    .buildDialog();
+            return true;
+        });
 
         Preference customBackgroundPreference = requirePreference("zh_custom_background");
         customBackgroundPreference.setOnPreferenceClickListener(preference -> {

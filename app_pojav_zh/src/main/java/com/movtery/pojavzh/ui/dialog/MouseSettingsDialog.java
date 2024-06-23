@@ -30,13 +30,13 @@ public class MouseSettingsDialog extends Dialog {
         TextView mMouseSpeedText = findViewById(R.id.zh_mouse_settings_speed_text);
         TextView mMouseScaleText = findViewById(R.id.zh_mouse_settings_scale_text);
 
-        int mouseSpeed = DEFAULT_PREF.getInt("mousespeed", 100);
-        int mouseScale = DEFAULT_PREF.getInt("mousescale", 100);
+        final int[] mouseSpeed = {DEFAULT_PREF.getInt("mousespeed", 100)};
+        final int[] mouseScale = {DEFAULT_PREF.getInt("mousescale", 100)};
 
-        mMouseSpeedSeekBar.setProgress(mouseSpeed);
-        mMouseScaleSeekBar.setProgress(mouseScale);
-        String speedText = mouseSpeed + " %";
-        String scaleText = mouseScale + " %";
+        mMouseSpeedSeekBar.setProgress(mouseSpeed[0]);
+        mMouseScaleSeekBar.setProgress(mouseScale[0]);
+        String speedText = mouseSpeed[0] + " %";
+        String scaleText = mouseScale[0] + " %";
         mMouseSpeedText.setText(speedText);
         mMouseScaleText.setText(scaleText);
 
@@ -44,7 +44,7 @@ public class MouseSettingsDialog extends Dialog {
         mMouseSpeedSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                DEFAULT_PREF.edit().putInt("mousespeed", progress).apply();
+                mouseSpeed[0] = progress;
                 String text = progress + " %";
                 mMouseSpeedText.setText(text);
             }
@@ -61,7 +61,7 @@ public class MouseSettingsDialog extends Dialog {
         mMouseScaleSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                DEFAULT_PREF.edit().putInt("mousescale", progress).apply();
+                mouseScale[0] = progress;
                 String text = progress + " %";
                 mMouseScaleText.setText(text);
             }
@@ -78,12 +78,12 @@ public class MouseSettingsDialog extends Dialog {
         });
 
         mConfirmButton.setOnClickListener(v -> {
-            if (listener != null) listener.onConfirm();
+            if (listener != null) listener.onConfirm(mouseSpeed[0], mouseScale[0]);
             this.dismiss();
         });
     }
 
     public interface OnConfirmListener {
-        void onConfirm();
+        void onConfirm(int mouseSpeed, int mouseScale);
     }
 }
