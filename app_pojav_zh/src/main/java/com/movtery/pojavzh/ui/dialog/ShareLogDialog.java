@@ -25,26 +25,22 @@ public class ShareLogDialog extends Dialog {
                 log.exists() ? log.getAbsolutePath() : context.getString(R.string.zh_file_does_not_exist));
         this.logFile = log;
 
-        setContentView(R.layout.dialog_exit);
+        setContentView(R.layout.dialog_share_log);
         setCancelable(false);
         init(context);
     }
 
     private void init(Context context) {
-        TextView mTitle = findViewById(R.id.zh_exit_title);
-        TextView mMessage = findViewById(R.id.zh_exit_message);
-        Button mShareCrashReport = findViewById(R.id.zh_exit_share_crash_report);
-        Button mShareLog = findViewById(R.id.zh_exit_share_log);
-        Button mCancel = findViewById(R.id.zh_exit_cancel);
+        TextView mMessage = findViewById(R.id.zh_share_log_message);
+        Button mConfirm = findViewById(R.id.zh_share_log_confirm);
+        Button mCancel = findViewById(R.id.zh_share_log_cancel);
 
-        mTitle.setText(context.getString(R.string.main_share_logs));
         mMessage.setText(this.message);
-        mShareCrashReport.setVisibility(View.GONE);
-        mShareLog.setVisibility((this.logFile.exists()) ? View.VISIBLE : View.GONE);
+        mConfirm.setVisibility((this.logFile.exists()) ? View.VISIBLE : View.GONE);
         mCancel.setVisibility(View.VISIBLE);
 
         mCancel.setOnClickListener(view -> ShareLogDialog.this.dismiss());
-        if (this.logFile.exists()) mShareLog.setOnClickListener(view -> {
+        if (this.logFile.exists()) mConfirm.setOnClickListener(view -> {
             shareLog(context);
             ShareLogDialog.this.dismiss();
         });
