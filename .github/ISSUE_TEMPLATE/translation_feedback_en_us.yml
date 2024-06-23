@@ -4,7 +4,6 @@ title: "[Translation Issue] Brief Title"
 labels: [translation issue]
 body:
   - type: textarea
-    id: version
     attributes:
       label: Which texts do you think are inaccurately translated?
       description: |

@@ -4,7 +4,6 @@ title: "[Suggestion] Brief Description"
 labels: [suggestion]
 body:
   - type: textarea
-    id: version
     attributes:
       label: Feature Description
       description: |
