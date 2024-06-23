@@ -482,7 +482,11 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
 
     public void adjustMouseSpeedLive() {
-        new MouseSettingsDialog(this, () -> touchpad.updateMouseScale()).show();
+        new MouseSettingsDialog(this, (mouseSpeed, mouseScale) -> {
+            DEFAULT_PREF.edit().putInt("mousespeed", mouseSpeed).apply();
+            DEFAULT_PREF.edit().putInt("mousescale", mouseScale).apply();
+            touchpad.updateMouseScale();
+        }).show();
     }
 
     int tmpGyroSensitivity;
