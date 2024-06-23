@@ -12,8 +12,8 @@ jobs:
       MOVTERY_KEYSTORE_PASSWORD: ${{ secrets.MOVTERY_KEYSTORE_PASSWORD }}
 
     steps:
-      - name: Set IS_MAIN_BRANCH if on v3_openjdk branch
-        if: github.ref_name == 'v3_openjdk'
+      - name: Set IS_MAIN_BRANCH if on main branch
+        if: github.ref_name == 'main'
         run: echo "IS_MAIN_BRANCH=true" >> $GITHUB_ENV
 
       - name: Checkout
@@ -70,7 +70,7 @@ jobs:
           java-version: '17'
 
       - name: Build Release.apk
-        if: github.repository_owner == 'HopiHopy' && github.ref_name == 'v3_openjdk'
+        if: github.repository_owner == 'HopiHopy' && github.ref_name == 'main'
         run: |
           gradle :app_pojav_zh:assemblerelease
 
@@ -81,7 +81,7 @@ jobs:
 
       - name: Upload Release
         continue-on-error: true
-        if: github.repository_owner == 'HopiHopy' && github.ref_name == 'v3_openjdk'
+        if: github.repository_owner == 'HopiHopy' && github.ref_name == 'main'
         uses: actions/upload-artifact@v4
         with:
           name: PojavZenithHorizon(Release)
@@ -100,8 +100,8 @@ jobs:
       MOVTERY_KEYSTORE_PASSWORD: ${{ secrets.MOVTERY_KEYSTORE_PASSWORD }}
 
     steps:
-      - name: Set IS_MAIN_BRANCH if on v3_openjdk branch
-        if: github.ref_name == 'v3_openjdk'
+      - name: Set IS_MAIN_BRANCH if on main branch
+        if: github.ref_name == 'main'
         run: echo "IS_MAIN_BRANCH=true" >> $GITHUB_ENV
 
       - name: Checkout
