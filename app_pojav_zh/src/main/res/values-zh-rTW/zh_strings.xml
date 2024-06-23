@@ -23,6 +23,8 @@
     <string name="zh_yi">億</string>
     <string name="zh_wrong_tip">出現了一些問題</string>
 
+    <string name="zh_dialog_select_jar">選擇 Jar 檔案</string>
+
     <string name="zh_permissions_manage_external_storage">Pojav Zenith Horizon 需要管理設備所有檔案的權限，以便自訂儲存遊戲檔案位置，請為 Pojav Zenith Horizon 開啟權限！</string>
     <string name="zh_profiles_path_title">遊戲路徑管理</string>
     <string name="zh_profiles_path_default">預設路徑</string>

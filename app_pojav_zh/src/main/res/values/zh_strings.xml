@@ -23,6 +23,8 @@
     <string name="zh_yi"> </string>
     <string name="zh_wrong_tip">Something went wrong</string>
 
+    <string name="zh_dialog_select_jar">Select Jar file</string>
+
     <string name="zh_permissions_manage_external_storage">Pojav Zenith Horizon requires permission to manage all files on the device in order to customize the location where game files are saved. Please grant permission to Pojav Zenith Horizon!</string>
     <string name="zh_profiles_path_title">Game Path Management</string>
     <string name="zh_profiles_path_default">Default Path</string>

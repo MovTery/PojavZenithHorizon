@@ -93,7 +93,9 @@ public class LauncherPreferenceJavaFragment extends LauncherPreferenceFragment {
         Preference editJVMArgs = findPreference("javaArgs");
         if (editJVMArgs != null) {
             editJVMArgs.setOnPreferenceClickListener(preference -> {
-                EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(R.string.mcl_setting_title_javaargs), null, DEFAULT_PREF.getString("javaArgs", ""), null);
+                EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(R.string.mcl_setting_title_javaargs),
+                        getString(R.string.mcl_setting_subtitle_javaargs),
+                        DEFAULT_PREF.getString("javaArgs", ""), null);
                 editTextDialog.setConfirm(view -> {
                     DEFAULT_PREF.edit().putString("javaArgs", editTextDialog.getEditBox().getText().toString()).apply();
                     editTextDialog.dismiss();

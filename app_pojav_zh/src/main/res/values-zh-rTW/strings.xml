@@ -13,9 +13,6 @@
     <!-- Warnings -->
     <string name="warning_remove_account">此帳戶將被移除！</string>
 
-    <!-- AlertDialog title -->
-    <string name="alerttitle_installmod">選擇模組安裝器</string>
-
     <!-- Error messages -->
     <string name="error_fatal">Pojav Zenith Horizon 意外地崩潰了</string>
     <string name="error_no_version">沒有版本！</string>
