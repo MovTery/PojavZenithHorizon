@@ -17,9 +17,6 @@
     <!-- Warnings -->
     <string name="warning_remove_account">This account will be removed!</string>
 
-    <!-- AlertDialog title -->
-    <string name="alerttitle_installmod">Select a mod installer</string>
-
     <!-- Error messages -->
     <string name="error_fatal">Pojav Zenith Horizon has unexpectedly crashed</string>
     <string name="error_no_version">No version!</string>
