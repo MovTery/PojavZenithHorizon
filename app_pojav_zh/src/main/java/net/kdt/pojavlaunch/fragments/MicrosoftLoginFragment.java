@@ -17,7 +17,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
@@ -114,7 +113,7 @@ public class MicrosoftLoginFragment extends Fragment {
 
             // Sometimes, the user just clicked cancel
             if(url.contains("res=cancel")){
-                ZHTools.onBackPressed(requireActivity());
+                Tools.backToMainMenu(requireActivity());
                 return true;
             }
 

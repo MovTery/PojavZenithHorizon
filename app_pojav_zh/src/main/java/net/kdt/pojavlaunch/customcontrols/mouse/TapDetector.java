@@ -82,7 +82,7 @@ public class TapDetector {
         //Check for high enough speed and precision
         if(mCurrentTapNumber > 0){
             if  ((deltaTime < TAP_MIN_DELTA_MS || deltaTime > TAP_MAX_DELTA_MS) ||
-                    ((deltaX*deltaX + deltaY*deltaY) > TAP_SLOP_SQUARE_PX)) {
+                ((deltaX*deltaX + deltaY*deltaY) > TAP_SLOP_SQUARE_PX)) {
                 if (mDetectionMethod == DETECTION_METHOD_BOTH && (eventAction == ACTION_UP || eventAction == ACTION_POINTER_UP)) {
                     // For the both method, the user is expected to start with a down action.
                     resetTapDetectionState();

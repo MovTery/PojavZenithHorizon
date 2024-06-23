@@ -130,6 +130,7 @@ public class Touchpad extends View implements GrabListener, AbstractTouchpad {
         mMouseY = Math.max(0, Math.min(currentDisplayMetrics.heightPixels, mMouseY + y * (DEFAULT_PREF.getInt("mousespeed",100) / 100f)));
         updateMousePosition();
     }
+
     @Override
     public void enable(boolean supposed) {
         if(mDisplayState) return;

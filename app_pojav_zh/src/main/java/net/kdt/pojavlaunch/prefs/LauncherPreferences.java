@@ -42,7 +42,7 @@ public class LauncherPreferences {
     public static boolean PREF_DISABLE_GESTURES = false;
     public static boolean PREF_DISABLE_SWAP_HAND = false;
     public static int PREF_RAM_ALLOCATION;
-    public static String PREF_DEFAULT_RUNTIME = "";
+    public static String PREF_DEFAULT_RUNTIME;
     public static boolean PREF_SUSTAINED_PERFORMANCE = false;
     public static boolean PREF_VIRTUAL_MOUSE_START = true;
     public static boolean PREF_ARC_CAPES = false;
@@ -64,7 +64,7 @@ public class LauncherPreferences {
     public static float PREF_DEADZONE_SCALE = 1f;
     public static boolean PREF_BIG_CORE_AFFINITY = false;
     public static boolean PREF_ZINK_PREFER_SYSTEM_DRIVER = false;
-
+    
     public static boolean PREF_VERIFY_MANIFEST = true;
     public static String PREF_DOWNLOAD_SOURCE = "default";
     public static boolean PREF_SKIP_NOTIFICATION_PERMISSION_CHECK = false;
@@ -147,7 +147,7 @@ public class LauncherPreferences {
                 return;
             }
             PREF_DEFAULT_RUNTIME = MultiRTUtils.getRuntimes().get(0).name;
-            LauncherPreferences.DEFAULT_PREF.edit().putString("defaultRuntime", LauncherPreferences.PREF_DEFAULT_RUNTIME).apply();
+            LauncherPreferences.DEFAULT_PREF.edit().putString("defaultRuntime",LauncherPreferences.PREF_DEFAULT_RUNTIME).apply();
         }
     }
 
@@ -190,6 +190,7 @@ public class LauncherPreferences {
             if (orientation == Configuration.ORIENTATION_PORTRAIT) LauncherPreferences.PREF_NOTCH_SIZE = cutout.height();
             else if (orientation == Configuration.ORIENTATION_LANDSCAPE) LauncherPreferences.PREF_NOTCH_SIZE = cutout.width();
             else LauncherPreferences.PREF_NOTCH_SIZE = Math.min(cutout.width(), cutout.height());
+
         }catch (Exception e){
             Log.i("NOTCH DETECTION", "No notch detected, or the device if in split screen mode");
             LauncherPreferences.PREF_NOTCH_SIZE = -1;

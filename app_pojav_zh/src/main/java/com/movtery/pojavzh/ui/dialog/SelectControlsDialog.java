@@ -12,7 +12,6 @@ import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.customcontrols.ControlSelectedListener;
 
 import java.io.File;
 
@@ -48,5 +47,9 @@ public class SelectControlsDialog extends Dialog {
             @Override
             public void onItemLongClick(File file, String path) {}
         });
+    }
+
+    public interface ControlSelectedListener {
+        void onSelectedListener(File file);
     }
 }

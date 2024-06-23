@@ -5,7 +5,6 @@ import static com.movtery.pojavzh.utils.ZHTools.setVisibilityAnim;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -85,8 +84,7 @@ public class LauncherActivity extends BaseActivity {
     private final FragmentManager.FragmentLifecycleCallbacks mFragmentCallbackListener = new FragmentManager.FragmentLifecycleCallbacks() {
         @Override
         public void onFragmentResumed(@NonNull FragmentManager fm, @NonNull Fragment f) {
-            boolean bl = (f instanceof MainMenuFragment);
-            mSettingsButton.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), bl
+            mSettingsButton.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), f instanceof MainMenuFragment
                     ? R.drawable.ic_menu_settings : R.drawable.ic_menu_home));
         }
     };
@@ -304,11 +302,6 @@ public class LauncherActivity extends BaseActivity {
     }
 
     @Override
-    public boolean setFullscreen() {
-        return super.setFullscreen();
-    }
-
-    @Override
     protected void onStart() {
         super.onStart();
         getSupportFragmentManager().registerFragmentLifecycleCallbacks(mFragmentCallbackListener, true);
@@ -431,10 +424,5 @@ public class LauncherActivity extends BaseActivity {
         mProgressLayout = findViewById(R.id.progress_layout);
 
         mHair = findViewById(R.id.zh_hair);
-    }
-
-    @Override
-    public void onConfigurationChanged(@NonNull Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
     }
 }

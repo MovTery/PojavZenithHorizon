@@ -17,7 +17,6 @@ import net.kdt.pojavlaunch.prefs.LauncherPreferences;
  * overriding only onCreatePreferences
  */
 public class LauncherPreferenceFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
-    public static final String TAG = "LauncherPreferenceFragment";
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

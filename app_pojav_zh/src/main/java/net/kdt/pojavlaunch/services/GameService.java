@@ -1,6 +1,5 @@
 package net.kdt.pojavlaunch.services;
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
@@ -26,7 +25,6 @@ public class GameService extends Service {
         Tools.buildNotificationChannel(getApplicationContext());
     }
 
-    @SuppressLint("ForegroundServiceType")
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if(intent != null && intent.getBooleanExtra("kill", false)) {

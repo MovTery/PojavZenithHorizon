@@ -7,7 +7,7 @@ import android.os.Handler;
 import net.kdt.pojavlaunch.LwjglGlfwKeycode;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
-public class DropGesture implements Runnable {
+public class DropGesture implements Runnable{
     private final Handler mHandler;
     private boolean mActive;
 

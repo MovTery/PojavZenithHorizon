@@ -452,8 +452,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                     } catch (Throwable th) {
                         Log.w(Tools.APP_NAME, "Could not enable System.exit() method!", th);
                     }
-                })
-                .buildDialog();
+                }).buildDialog();
     }
 
     @Override
@@ -518,7 +517,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         b.setView(v);
         b.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
             LauncherPreferences.PREF_GYRO_SENSITIVITY = ((float) tmpGyroSensitivity)/100f;
-            DEFAULT_PREF.edit().putInt("gyroSensitivity", tmpGyroSensitivity).apply();
+            LauncherPreferences.DEFAULT_PREF.edit().putInt("gyroSensitivity", tmpGyroSensitivity).apply();
             dialogInterface.dismiss();
             System.gc();
         });
