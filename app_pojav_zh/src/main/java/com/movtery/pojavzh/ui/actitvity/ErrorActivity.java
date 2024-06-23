@@ -62,7 +62,8 @@ public class ErrorActivity extends BaseActivity {
         File crashReportFile = ZHTools.getLatestFile(extras.getString(BUNDLE_CRASH_REPORTS_PATH), 15);
         File logFile = new File(Tools.DIR_GAME_HOME, "latestlog.txt");
 
-        mErrorText.setText(getString(R.string.mcn_exit_title, code));
+        mErrorText.setText(getString(R.string.zh_game_exit_message, code));
+        mErrorText.setTextSize(14f);
         mShareCrashReportButton.setVisibility((crashReportFile != null && crashReportFile.exists()) ? View.VISIBLE : View.GONE);
         mShareLogButton.setVisibility(logFile.exists() ? View.VISIBLE : View.GONE);
 

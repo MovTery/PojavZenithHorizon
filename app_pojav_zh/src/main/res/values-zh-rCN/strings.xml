@@ -65,7 +65,6 @@
     <string name="global_default">默认</string>
     
     <!-- MainActivity: strings -->
-    <string name="mcn_exit_title">应用程序/游戏以代码 %d 退出，具体错误原因请查看日志文件或崩溃报告。如果你无法亲自解决此问题，请将日志文件或崩溃报告发送给有能力解决的人帮助你解决问题！\n\n请不要只是截图当前弹窗界面，否则没人知道究竟发生了什么事，请分享你的日志文件或崩溃报告！</string>
     <string name="mcn_exit_confirm">你确定要强制关闭吗?</string>
 
     <!-- MainActivity: Control buttons -->

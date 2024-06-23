@@ -69,7 +69,6 @@
     <string name="global_default">Default</string>
 
     <!-- MainActivity: strings -->
-    <string name="mcn_exit_title">The application/game exited with code %d. Please check the log file or crash report for specific error details. If you cannot resolve this issue on your own, please send the log file or crash report to someone who can help you! \n\nPlease do not just take a screenshot of this popup window, as no one will know what happened. Share your log file or crash report instead!</string>
     <string name="mcn_exit_confirm">Are you sure want to force close?</string>
 
     <!-- MainActivity: Control buttons -->
