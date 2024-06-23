@@ -162,7 +162,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
                 return;
             }
             final String javaArgs = extras.getString("javaArgs");
-            final Uri resourceUri = extras.getParcelable("modUri");
+            final Uri resourceUri = (Uri) extras.getParcelable("modUri");
             if(extras.getBoolean("openLogOutput", false)) openLogOutput(null);
             if (javaArgs != null) {
                 startModInstaller(null, javaArgs);
@@ -229,7 +229,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
 
 
 
-    @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View v, MotionEvent e) {
         boolean isDown;

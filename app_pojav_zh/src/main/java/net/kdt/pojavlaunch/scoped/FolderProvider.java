@@ -1,5 +1,6 @@
 package net.kdt.pojavlaunch.scoped;
 
+import android.annotation.TargetApi;
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.database.MatrixCursor;
@@ -260,7 +261,7 @@ public class FolderProvider extends DocumentsProvider {
         return f;
     }
 
-    public static String getMimeType(File file) {
+    private static String getMimeType(File file) {
         if (file.isDirectory()) {
             return Document.MIME_TYPE_DIR;
         } else {
@@ -316,6 +317,7 @@ public class FolderProvider extends DocumentsProvider {
     }
 
     @Override
+    @TargetApi(26)
     public DocumentsContract.Path findDocumentPath(@Nullable String parentDocumentId, String childDocumentId) throws FileNotFoundException {
         File source = BASE_DIR;
         if(parentDocumentId != null) source = getFileForDocId(parentDocumentId);

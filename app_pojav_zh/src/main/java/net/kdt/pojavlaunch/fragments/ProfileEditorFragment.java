@@ -111,7 +111,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         mGameDirButton.setOnClickListener(v -> {
             File dir = new File(ZHTools.DIR_GAME_DEFAULT);
             if (!dir.exists()) ZHTools.mkdirs(dir);
-            Bundle bundle = new Bundle(2);
+            Bundle bundle = new Bundle();
             bundle.putBoolean(FilesFragment.BUNDLE_SELECT_FOLDER_MODE, true);
             bundle.putBoolean(FilesFragment.BUNDLE_SHOW_FILE, false);
             bundle.putBoolean(FilesFragment.BUNDLE_QUICK_ACCESS_PATHS, false);
@@ -123,7 +123,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         });
 
         mControlSelectButton.setOnClickListener(v -> {
-            Bundle bundle = new Bundle(3);
+            Bundle bundle = new Bundle();
             bundle.putBoolean(ControlButtonFragment.BUNDLE_SELECT_CONTROL, true);
             mValueToConsume = ControlButtonFragment.BUNDLE_SELECT_CONTROL;
 

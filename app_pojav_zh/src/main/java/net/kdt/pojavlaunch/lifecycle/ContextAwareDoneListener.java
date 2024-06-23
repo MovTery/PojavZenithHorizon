@@ -10,8 +10,6 @@ import android.content.Intent;
 import net.kdt.pojavlaunch.MainActivity;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
-import net.kdt.pojavlaunch.lifecycle.ContextExecutorTask;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.tasks.AsyncMinecraftDownloader;
 import net.kdt.pojavlaunch.utils.NotificationUtils;

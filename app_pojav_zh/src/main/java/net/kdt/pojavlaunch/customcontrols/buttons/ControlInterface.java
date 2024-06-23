@@ -375,7 +375,6 @@ public interface ControlInterface extends View.OnLongClickListener, GrabListener
                         if (Math.abs(event.getRawX() - downRawX) > 8 || Math.abs(event.getRawY() - downRawY) > 8)
                             mCanTriggerLongClick = false;
                         getControlLayoutParent().adaptPanelPosition();
-
                         snapAndAlign(
                                 MathUtils.clamp(event.getRawX() - downX, 0, CallbackBridge.physicalWidth - view.getWidth()),
                                 MathUtils.clamp(event.getRawY() - downY, 0, CallbackBridge.physicalHeight - view.getHeight())
@@ -397,7 +396,6 @@ public interface ControlInterface extends View.OnLongClickListener, GrabListener
             // Re-calculate position
             getControlView().setX(getControlView().getX());
             getControlView().setY(getControlView().getY());
-
         });
     }
 

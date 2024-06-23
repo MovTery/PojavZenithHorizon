@@ -55,7 +55,7 @@ public class ProgressService extends Service implements TaskCountListener {
                 .setNotificationSilent();
     }
 
-    @SuppressLint({"StringFormatInvalid", "ForegroundServiceType"})
+    @SuppressLint("StringFormatInvalid")
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null) {

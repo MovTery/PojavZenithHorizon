@@ -19,6 +19,7 @@ public class InGUIEventProcessor implements TouchEventProcessor {
     private float mStartX, mStartY;
     private final float mScaleFactor;
     private final Scroller mScroller = new Scroller(FINGER_SCROLL_THRESHOLD);
+
     public InGUIEventProcessor(float scaleFactor) {
         mSingleTapDetector = new TapDetector(1, TapDetector.DETECTION_METHOD_BOTH);
         mScaleFactor = scaleFactor;
@@ -74,6 +75,7 @@ public class InGUIEventProcessor implements TouchEventProcessor {
                 if(mIsMouseDown) disableMouse();
                 resetGesture();
         }
+
 
         return true;
     }
