@@ -286,12 +286,17 @@ public class ZHTools {
         return new File(DIR_GAME_DEFAULT);
     }
 
-    public static File getLatestFile(File folder, int modifyTime) {
-        if (!folder.isDirectory()) {
+    public static File getLatestFile(String folderPath, int modifyTime) {
+        if (folderPath == null) return null;
+        return getLatestFile(new File(folderPath), modifyTime);
+    }
+
+    public static File getLatestFile(File folder, long modifyTime) {
+        if (folder == null || !folder.isDirectory()) {
             return null;
         }
 
-        File[] files = folder.listFiles((dir, name) -> !name.startsWith(".")); //排除隐藏文件
+        File[] files = folder.listFiles((dir, name) -> !name.startsWith("."));
         if (files == null || files.length == 0) {
             return null;
         }
@@ -300,10 +305,8 @@ public class ZHTools {
         fileList.sort(Comparator.comparingLong(File::lastModified).reversed());
 
         if (modifyTime > 0) {
-            long difference = System.currentTimeMillis() - fileList.get(0).lastModified();
-            long value = difference / (1000L * 60 * 60);
-
-            if (value >= modifyTime) {
+            long difference = (System.currentTimeMillis() - fileList.get(0).lastModified()) / 1000; //转换为秒
+            if (difference >= modifyTime) {
                 return null;
             }
         }

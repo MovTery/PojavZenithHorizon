@@ -1,6 +1,5 @@
 package com.movtery.pojavzh.ui.actitvity;
 
-import static com.movtery.pojavzh.utils.ZHTools.getLatestFile;
 import static net.kdt.pojavlaunch.Tools.shareLog;
 import static net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles.getCurrentProfile;
 
@@ -25,6 +24,7 @@ import java.io.File;
 public class ErrorActivity extends BaseActivity {
     private static final String BUNDLE_IS_ERROR = "is_error";
     private static final String BUNDLE_CODE = "code";
+    private static final String BUNDLE_CRASH_REPORTS_PATH = "crash_reports_path";
     private static final String BUNDLE_THROWABLE = "throwable";
     private static final String BUNDLE_SAVE_PATH = "save_path";
 
@@ -59,7 +59,7 @@ public class ErrorActivity extends BaseActivity {
 
         mTitleText.setText(R.string.zh_wrong_tip);
         int code = extras.getInt(BUNDLE_CODE,-1);
-        File crashReportFile = getLatestFile(new File(ZHTools.getGameDirPath(getCurrentProfile().gameDir), "crash-reports"), 2);
+        File crashReportFile = ZHTools.getLatestFile(extras.getString(BUNDLE_CRASH_REPORTS_PATH), 15);
         File logFile = new File(Tools.DIR_GAME_HOME, "latestlog.txt");
 
         mErrorText.setText(getString(R.string.mcn_exit_title, code));
@@ -110,11 +110,16 @@ public class ErrorActivity extends BaseActivity {
     }
 
     public static void showExitMessage(Context ctx, int code) {
+        showExitMessage(ctx, code, new File(ZHTools.getGameDirPath(getCurrentProfile().gameDir), "crash-reports").getAbsolutePath());
+    }
+
+    public static void showExitMessage(Context ctx, int code, String crashReportsPath) {
         Intent intent = new Intent(ctx, ErrorActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(BUNDLE_CODE, code);
         intent.putExtra(BUNDLE_IS_ERROR, false);
+        intent.putExtra(BUNDLE_CRASH_REPORTS_PATH, crashReportsPath);
         ctx.startActivity(intent);
     }
 }
