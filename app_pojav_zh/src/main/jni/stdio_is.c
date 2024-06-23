@@ -171,7 +171,7 @@ static void custom_atexit() {
 JNIEXPORT void JNICALL Java_net_kdt_pojavlaunch_utils_JREUtils_setupExitTrap(JNIEnv *env, __attribute((unused)) jclass clazz, jobject context) {
     exitTrap_ctx = (*env)->NewGlobalRef(env,context);
     (*env)->GetJavaVM(env,&exitTrap_jvm);
-    exitTrap_exitClass = (*env)->NewGlobalRef(env,(*env)->FindClass(env,"net/kdt/pojavlaunch/ExitActivity"));
+    exitTrap_exitClass = (*env)->NewGlobalRef(env,(*env)->FindClass(env, "com/movtery/pojavzh/ui/actitvity/ErrorActivity"));
     exitTrap_staticMethod = (*env)->GetStaticMethodID(env,exitTrap_exitClass,"showExitMessage","(Landroid/content/Context;I)V");
 
     if(bytehook_init(BYTEHOOK_MODE_AUTOMATIC, false) == BYTEHOOK_STATUS_CODE_OK) {

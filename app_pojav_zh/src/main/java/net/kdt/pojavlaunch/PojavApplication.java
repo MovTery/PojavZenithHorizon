@@ -18,6 +18,7 @@ import android.util.*;
 
 import com.movtery.pojavzh.feature.CheckNewNotice;
 import com.movtery.pojavzh.feature.ResourceManager;
+import com.movtery.pojavzh.ui.actitvity.ErrorActivity;
 import com.movtery.pojavzh.utils.UnpackJRE;
 
 import java.io.*;
@@ -60,7 +61,7 @@ public class PojavApplication extends Application {
 				Log.e(CRASH_REPORT_TAG, " - The crash stack trace was:", th);
 			}
 
-			FatalErrorActivity.showError(PojavApplication.this, crashFile.getAbsolutePath(), storagePermAllowed, th);
+			ErrorActivity.showError(PojavApplication.this, crashFile.getAbsolutePath(), th);
 			MainActivity.fullyExit();
 		});
 		
@@ -81,7 +82,7 @@ public class PojavApplication extends Application {
 			AsyncAssetManager.unpackRuntime(getAssets());
 			UnpackJRE.unpackAllJre(getAssets()); //解压JRE17、JRE21
 		} catch (Throwable throwable) {
-			Intent ferrorIntent = new Intent(this, FatalErrorActivity.class);
+			Intent ferrorIntent = new Intent(this, ErrorActivity.class);
 			ferrorIntent.putExtra("throwable", throwable);
 			ferrorIntent.setFlags(FLAG_ACTIVITY_NEW_TASK);
 			startActivity(ferrorIntent);

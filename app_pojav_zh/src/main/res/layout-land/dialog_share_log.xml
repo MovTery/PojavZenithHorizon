@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minWidth="400dp"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="8dp"
+    tools:ignore="MissingDefaultResource">
 
     <TextView
-        android:id="@+id/zh_exit_title"
+        android:id="@+id/zh_share_log_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:singleLine="true"
-        android:text="@string/zh_wrong_tip"
+        android:text="@string/main_share_logs"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/zh_exit_message"
+        android:id="@+id/zh_share_log_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -29,7 +31,7 @@
         android:textSize="@dimen/_16sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zh_exit_title" />
+        app:layout_constraintTop_toBottomOf="@+id/zh_share_log_title" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearLayoutCompat2"
@@ -40,28 +42,21 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zh_exit_message">
+        app:layout_constraintTop_toBottomOf="@+id/zh_share_log_message">
 
         <Button
-            android:id="@+id/zh_exit_cancel"
+            android:id="@+id/zh_share_log_cancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@android:string/cancel" />
 
         <Button
-            android:id="@+id/zh_exit_share_crash_report"
+            android:id="@+id/zh_share_log_confirm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/zh_main_share_crash_report" />
-
-        <Button
-            android:id="@+id/zh_exit_share_log"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/main_share_logs" />
+            android:text="@string/zh_confirm" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
