@@ -129,11 +129,13 @@
     <string name="zh_main_share_crash_report">分享崩溃报告</string>
     <string name="zh_main_share_log_tip">你确定要分享启动器的运行日志吗？\n日志文件位置：</string>
     <string name="zh_main_notice_title">通知栏</string>
+    <string name="zh_preference_category_language">语言</string>
+    <string name="zh_preference_category_launcher">启动器</string>
+
+    <string name="zh_game_exit_message">应用程序/游戏以代码 %d 退出，具体错误原因请查看日志文件或崩溃报告。如果你无法亲自解决此问题，请将日志文件或崩溃报告发送给有能力解决的人帮助你解决问题！\n\n请不要只是截图当前应用界面，否则没人知道究竟发生了什么事，请分享你的日志文件或崩溃报告！</string>
     <string name="zh_game_autopick_runtime_failed">未找到合适的运行环境，已设置为当前实例选择的运行环境</string>
     <string name="zh_game_tip">游戏正在运行中，可以通过菜单开启日志输出，查看游戏运行状况</string>
     <string name="zh_game_tip_version">当前启动的游戏版本：</string>
-    <string name="zh_preference_category_language">语言</string>
-    <string name="zh_preference_category_launcher">启动器</string>
 
     <string name="zh_profile_custom_path">自定义路径</string>
     <string name="zh_profile_mods_download_mod">下载 Mod</string>
