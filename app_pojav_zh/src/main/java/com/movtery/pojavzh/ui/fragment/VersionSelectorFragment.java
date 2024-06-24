@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.tabs.TabLayout;
+import com.movtery.pojavzh.extra.ZHExtraConstants;
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.ui.subassembly.versionlist.VersionListView;
 import com.movtery.pojavzh.ui.subassembly.versionlist.VersionSelectedListener;
@@ -17,7 +18,6 @@ import com.movtery.pojavzh.ui.subassembly.versionlist.VersionType;
 
 import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 
 import java.io.File;
@@ -63,7 +63,7 @@ public class VersionSelectorFragment extends Fragment {
         mVersionListView.setVersionSelectedListener(new VersionSelectedListener() {
             @Override
             public void onVersionSelected(String version) {
-                ExtraCore.setValue(ExtraConstants.VERSION_SELECTOR, version);
+                ExtraCore.setValue(ZHExtraConstants.VERSION_SELECTOR, version);
                 ZHTools.onBackPressed(requireActivity());
             }
         });

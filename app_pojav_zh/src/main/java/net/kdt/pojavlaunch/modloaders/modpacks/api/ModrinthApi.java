@@ -1,11 +1,15 @@
 package net.kdt.pojavlaunch.modloaders.modpacks.api;
 
+import android.util.Log;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.feature.mod.ModLoaderList;
 import com.movtery.pojavzh.feature.mod.SearchModSort;
+import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
+import com.movtery.pojavzh.feature.mod.modpack.install.OnInstallStartListener;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.VersionType;
@@ -219,7 +223,7 @@ public class ModrinthApi implements ModpackApi{
     @Override
     public ModLoader installMod(boolean isModPack, String modsPath, ModDetail modDetail, ModVersionItem modVersionItem) throws IOException{
         if (isModPack) {
-            return ModpackInstaller.installModpack(modDetail, modVersionItem, this::installMrpack);
+            return ModpackInstaller.installModpack(modDetail, modVersionItem, (modpackFile, instanceDestination) -> installMrpack(modpackFile, instanceDestination, null));
         } else {
             return ModpackInstaller.installMod(modDetail, modsPath, modVersionItem);
         }
@@ -246,12 +250,16 @@ public class ModrinthApi implements ModpackApi{
         return null;
     }
 
-    public ModLoader installMrpack(File mrpackFile, File instanceDestination) throws IOException {
+    public ModLoader installMrpack(File mrpackFile, File instanceDestination, OnInstallStartListener onInstallStartListener) throws IOException {
         try (ZipFile modpackZipFile = new ZipFile(mrpackFile)){
             ModrinthIndex modrinthIndex = Tools.GLOBAL_GSON.fromJson(
                     Tools.read(ZipUtils.getEntryStream(modpackZipFile, "modrinth.index.json")),
                     ModrinthIndex.class);
-            
+            if(!ModPackUtils.verifyModrinthIndex(modrinthIndex)) {
+                Log.i("ModrinthApi","manifest verification failed");
+                return null;
+            }
+            if (onInstallStartListener != null) onInstallStartListener.onStart();
             ModDownloader modDownloader = new ModDownloader(instanceDestination);
             for(ModrinthIndex.ModrinthIndexFile indexFile : modrinthIndex.files) {
                 modDownloader.submitDownload(indexFile.fileSize, indexFile.path, indexFile.hashes.sha1, indexFile.downloads);

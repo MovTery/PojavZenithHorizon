@@ -2,7 +2,6 @@ package com.movtery.pojavzh.utils;
 
 import static net.kdt.pojavlaunch.Tools.DIR_GAME_HOME;
 import static net.kdt.pojavlaunch.Tools.getFileName;
-import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
@@ -22,7 +21,6 @@ import android.provider.DocumentsContract;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.TooltipCompat;
@@ -31,7 +29,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.movtery.pojavzh.feature.mod.modpack.MCBBSModPack;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundManager;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
 
@@ -41,20 +38,9 @@ import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 import com.movtery.pojavzh.feature.ResourceManager;
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.modloaders.modpacks.api.CurseforgeApi;
-import net.kdt.pojavlaunch.modloaders.modpacks.api.ModLoader;
-import net.kdt.pojavlaunch.modloaders.modpacks.api.ModrinthApi;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.CurseManifest;
-import com.movtery.pojavzh.feature.mod.models.MCBBSPackMeta;
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
 
-import net.kdt.pojavlaunch.modloaders.modpacks.models.ModrinthIndex;
-import net.kdt.pojavlaunch.utils.ZipUtils;
-import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
-import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
-
-import org.apache.commons.io.FileUtils;
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
@@ -78,11 +64,8 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 public class ZHTools {
-    public static String DIR_GAME_MODPACK = null;
     public static String DIR_GAME_DEFAULT;
     public static String DIR_CUSTOM_MOUSE;
     public static String DIR_LOGIN;
@@ -509,132 +492,6 @@ public class ZHTools {
                 .setStartDelay(startDelay)
                 .setDuration(duration)
                 .withEndAction(endAction);
-    }
-
-    public static ModLoader installModPack(Context context, int type, File zipFile) throws Exception {
-        try (ZipFile modpackZipFile = new ZipFile(zipFile)) {
-            String zipName = zipFile.getName();
-            String packName = zipName.substring(0, zipName.lastIndexOf('.'));
-            ModLoader modLoader;
-            switch (type) {
-                case 1: //curseforge
-                    ZipEntry curseforgeEntry = modpackZipFile.getEntry("manifest.json");
-                    CurseManifest curseManifest = Tools.GLOBAL_GSON.fromJson(
-                            Tools.read(modpackZipFile.getInputStream(curseforgeEntry)),
-                            CurseManifest.class);
-
-                    modLoader = curseforgeModPack(context, zipFile, packName);
-                    createProfiles(packName, curseManifest.name, modLoader.getVersionId());
-
-                    return modLoader;
-                case 2: //mcbbs
-                    ZipEntry mcbbsEntry = modpackZipFile.getEntry("mcbbs.packmeta");
-
-                    MCBBSPackMeta mcbbsPackMeta = Tools.GLOBAL_GSON.fromJson(
-                            Tools.read(modpackZipFile.getInputStream(mcbbsEntry)),
-                            MCBBSPackMeta.class);
-
-                    modLoader = mcbbsModPack(context, zipFile, packName);
-                    if (modLoader != null)
-                        MCBBSModPack.createProfiles(packName, mcbbsPackMeta, modLoader.getVersionId());
-
-                    return modLoader;
-                case 3: // modrinth
-                    ModrinthIndex modrinthIndex = Tools.GLOBAL_GSON.fromJson(
-                            Tools.read(ZipUtils.getEntryStream(modpackZipFile, "modrinth.index.json")),
-                            ModrinthIndex.class); // 用于获取创建实例所需的数据
-
-                    modLoader = modrinthModPack(zipFile, packName);
-                    createProfiles(packName, modrinthIndex.name, modLoader.getVersionId());
-
-                    return modLoader;
-                default:
-                    runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_select_modpack_local_not_supported), Toast.LENGTH_SHORT).show());
-                    return null;
-            }
-        } finally {
-            DIR_GAME_MODPACK = null;
-            FileUtils.deleteQuietly(zipFile); // 删除文件（虽然文件通常来说并不会很大）
-        }
-    }
-
-    public static int determineModpack(File modpack) throws Exception {
-        String zipName = modpack.getName();
-        String suffix = zipName.substring(zipName.lastIndexOf('.'));
-        try (ZipFile modpackZipFile = new ZipFile(modpack)) {
-            if (suffix.equals(".zip")) {
-                ZipEntry mcbbsEntry = modpackZipFile.getEntry("mcbbs.packmeta");
-                ZipEntry curseforgeEntry = modpackZipFile.getEntry("manifest.json");
-                if (mcbbsEntry == null && curseforgeEntry != null) {
-                    CurseManifest curseManifest = Tools.GLOBAL_GSON.fromJson(
-                            Tools.read(modpackZipFile.getInputStream(curseforgeEntry)),
-                            CurseManifest.class);
-                    if (verifyManifest(curseManifest)) return 1; //curseforge
-                } else if (mcbbsEntry != null) {
-                    MCBBSPackMeta mcbbsPackMeta = Tools.GLOBAL_GSON.fromJson(
-                            Tools.read(modpackZipFile.getInputStream(mcbbsEntry)),
-                            MCBBSPackMeta.class);
-                    if (verifyMCBBSPackMeta(mcbbsPackMeta)) return 2; // mcbbs
-                }
-            } else if (suffix.equals(".mrpack")) {
-                ZipEntry entry = modpackZipFile.getEntry("modrinth.index.json");
-                if (entry != null) {
-                    ModrinthIndex modrinthIndex = Tools.GLOBAL_GSON.fromJson(
-                            Tools.read(modpackZipFile.getInputStream(entry)),
-                            ModrinthIndex.class);
-                    if (verifyModrinthIndex(modrinthIndex)) return 3; //modrinth
-                }
-            }
-            return 0;
-        }
-    }
-
-    private static ModLoader curseforgeModPack(Context context, File zipFile, String packName) throws Exception {
-        CurseforgeApi curseforgeApi = new CurseforgeApi(context.getString(R.string.curseforge_api_key));
-        return curseforgeApi.installCurseforgeZip(zipFile, new File(ProfilePathManager.getCurrentPath(), "custom_instances/" + packName));
-    }
-
-    private static ModLoader modrinthModPack(File zipFile, String packName) throws Exception {
-        ModrinthApi modrinthApi = new ModrinthApi();
-        return modrinthApi.installMrpack(zipFile, new File(ProfilePathManager.getCurrentPath(), "custom_instances/" + packName));
-    }
-
-    private static ModLoader mcbbsModPack(Context context, File zipFile, String packName) throws Exception {
-        MCBBSModPack mcbbsModPack = new MCBBSModPack(context, zipFile);
-        return mcbbsModPack.install(new File(ProfilePathManager.getCurrentPath(), "custom_instances/" + packName));
-    }
-
-    private static void createProfiles(String modpackName, String profileName, String versionId) {
-        MinecraftProfile profile = new MinecraftProfile();
-        profile.gameDir = "./custom_instances/" + modpackName;
-        profile.name = profileName;
-        profile.lastVersionId = versionId;
-
-        LauncherProfiles.mainProfileJson.profiles.put(modpackName, profile);
-        LauncherProfiles.write(ProfilePathManager.getCurrentProfile());
-    }
-
-    public static boolean verifyManifest(CurseManifest manifest) { //检测是否为curseforge整合包(通过manifest.json内的数据进行判断)
-        if (!"minecraftModpack".equals(manifest.manifestType)) return false;
-        if (manifest.manifestVersion != 1) return false;
-        if (manifest.minecraft == null) return false;
-        if (manifest.minecraft.version == null) return false;
-        if (manifest.minecraft.modLoaders == null) return false;
-        return manifest.minecraft.modLoaders.length >= 1;
-    }
-
-    public static boolean verifyModrinthIndex(ModrinthIndex modrinthIndex) { //检测是否为modrinth整合包(通过modrinth.index.json内的数据进行判断)
-        if (!"minecraft".equals(modrinthIndex.game)) return false;
-        if (modrinthIndex.formatVersion != 1) return false;
-        return modrinthIndex.dependencies != null;
-    }
-
-    public static boolean verifyMCBBSPackMeta(MCBBSPackMeta mcbbsPackMeta) { //检测是否为MCBBS整合包(通过mcbbs.packmeta内的数据进行判断)
-        if (!"minecraftModpack".equals(mcbbsPackMeta.manifestType)) return false;
-        if (mcbbsPackMeta.manifestVersion != 2) return false;
-        if (mcbbsPackMeta.addons == null) return false;
-        if (mcbbsPackMeta.addons[0].id == null) return false;
-        return (mcbbsPackMeta.addons[0].version != null);
     }
 
     public static boolean checkDate(int month, int day) {

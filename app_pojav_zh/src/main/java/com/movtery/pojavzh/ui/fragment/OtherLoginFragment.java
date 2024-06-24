@@ -23,6 +23,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.google.gson.Gson;
+import com.movtery.pojavzh.extra.ZHExtraConstants;
 import com.movtery.pojavzh.feature.login.AuthResult;
 import com.movtery.pojavzh.feature.login.OtherLoginApi;
 import com.movtery.pojavzh.feature.login.Servers;
@@ -32,7 +33,6 @@ import com.movtery.pojavzh.ui.dialog.TipDialog;
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
 
@@ -140,7 +140,7 @@ public class OtherLoginFragment extends Fragment {
                                 if (!Objects.isNull(authResult.getSelectedProfile())) {
                                     account.username = authResult.getSelectedProfile().getName();
                                     account.profileId = authResult.getSelectedProfile().getId();
-                                    ExtraCore.setValue(ExtraConstants.OTHER_LOGIN_TODO, account);
+                                    ExtraCore.setValue(ZHExtraConstants.OTHER_LOGIN_TODO, account);
                                     Tools.backToMainMenu(requireActivity());
                                 } else {
                                     List<String> list = new ArrayList<>();
@@ -156,7 +156,7 @@ public class OtherLoginFragment extends Fragment {
                                                         account.username = profiles.getName();
                                                     }
                                                 }
-                                                ExtraCore.setValue(ExtraConstants.OTHER_LOGIN_TODO, account);
+                                                ExtraCore.setValue(ZHExtraConstants.OTHER_LOGIN_TODO, account);
                                                 Tools.backToMainMenu(requireActivity());
                                             })
                                             .setNegativeButton(getString(android.R.string.cancel), null)
