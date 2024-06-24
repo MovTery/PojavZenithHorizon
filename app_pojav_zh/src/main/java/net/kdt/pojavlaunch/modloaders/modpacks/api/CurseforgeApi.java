@@ -14,7 +14,6 @@ import com.movtery.pojavzh.feature.mod.SearchModSort;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.VersionType;
-import com.movtery.pojavzh.utils.stringutils.SimpleStringJoiner;
 
 import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
@@ -37,6 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.StringJoiner;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 import java.util.zip.ZipFile;
@@ -73,11 +73,11 @@ public class CurseforgeApi implements ModpackApi{
             params.put("gameVersion", searchFilters.mcVersion);
         if (searchFilters.modloaders != null && !searchFilters.modloaders.isEmpty()) {
             if (searchFilters.modloaders.size() > 1) {
-                SimpleStringJoiner stringJoiner = new SimpleStringJoiner(",", "[", "]");
+                StringJoiner stringJoiner = new StringJoiner(",", "[", "]");
                 for (String modloader : searchFilters.modloaders) {
-                    stringJoiner.join(ModLoaderList.getModloaderName(modloader));
+                    stringJoiner.add(ModLoaderList.getModloaderName(modloader));
                 }
-                params.put("modLoaderTypes", stringJoiner.getValue());
+                params.put("modLoaderTypes", stringJoiner.toString());
             } else {
                 params.put("modLoaderType", ModLoaderList.getModloaderName(searchFilters.modloaders.get(0)));
             }
@@ -129,13 +129,13 @@ public class CurseforgeApi implements ModpackApi{
             if (latestFilesObject.get("modLoader") == null) continue;
             modloaderSet.add(latestFilesObject.get("modLoader").getAsInt());
         }
-        SimpleStringJoiner sj = new SimpleStringJoiner(",  ");
+        StringJoiner sj = new StringJoiner(",  ");
         for (Integer index : modloaderSet) {
             String modloaderName = ModLoaderList.getModloaderNameByCurseId(index);
             if (ModLoaderList.notModloaderName(modloaderName)) continue;
-            sj.join(modloaderName); //将id转换为Mod加载器名称
+            sj.add(modloaderName); //将id转换为Mod加载器名称
         }
-        return sj.getValue();
+        return sj.toString();
     }
 
     @Override
@@ -174,11 +174,11 @@ public class CurseforgeApi implements ModpackApi{
             }
 
             //获取全部的Mod加载器
-            SimpleStringJoiner modloaderList = new SimpleStringJoiner(", ");
+            StringJoiner modloaderList = new StringJoiner(", ");
             if (!modloaderNames.isEmpty()) {
                 for (String modloaderName : modloaderNames) {
                     if (ModLoaderList.notModloaderName(modloaderName)) continue;
-                    modloaderList.join(modloaderName);
+                    modloaderList.add(modloaderName);
                 }
             }
 
@@ -208,9 +208,9 @@ public class CurseforgeApi implements ModpackApi{
                                 itemsModloaderNames.add(ModLoaderList.getModloaderName(gameVersion));
                             }
 
-                            SimpleStringJoiner modLoadersArray = new SimpleStringJoiner(",  ");
+                            StringJoiner modLoadersArray = new StringJoiner(",  ");
                             for (String string : itemsModloaderNames) {
-                                modLoadersArray.join(string);
+                                modLoadersArray.add(string);
                             }
 
                             items = new ModItem(
@@ -220,7 +220,7 @@ public class CurseforgeApi implements ModpackApi{
                                     hit.get("name").getAsString(),
                                     hit.get("summary").getAsString(),
                                     hit.get("downloadCount").getAsInt(),
-                                    modLoadersArray.getValue(),
+                                    modLoadersArray.toString(),
                                     hit.getAsJsonObject("logo").get("thumbnailUrl").getAsString()
                             );
                         }
@@ -238,7 +238,7 @@ public class CurseforgeApi implements ModpackApi{
             modVersionItems.add(new ModVersionItem(mcVersionsArray,
                     fileName,
                     displayName,
-                    modloaderList.getValue(),
+                    modloaderList.toString(),
                     modDependencies,
                     VersionType.getVersionType(releaseTypeString),
                     getSha1FromModData(modDetail),

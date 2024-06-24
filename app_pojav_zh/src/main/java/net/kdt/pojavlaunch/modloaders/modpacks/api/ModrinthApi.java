@@ -9,7 +9,6 @@ import com.movtery.pojavzh.feature.mod.SearchModSort;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.VersionType;
-import com.movtery.pojavzh.utils.stringutils.SimpleStringJoiner;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -29,6 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.StringJoiner;
 import java.util.zip.ZipFile;
 
 public class ModrinthApi implements ModpackApi{
@@ -58,11 +58,11 @@ public class ModrinthApi implements ModpackApi{
         if(searchFilters.mcVersion != null && !searchFilters.mcVersion.isEmpty())
             facetString.append(String.format(",[\"versions:%s\"]", searchFilters.mcVersion));
         if (searchFilters.modloaders != null && !searchFilters.modloaders.isEmpty()) {
-            SimpleStringJoiner categories = new SimpleStringJoiner(", ", "[", "]");
+            StringJoiner categories = new StringJoiner(", ", "[", "]");
             for (String modloader : searchFilters.modloaders) {
-                categories.join(String.format("\"categories:%s\"", modloader));
+                categories.add(String.format("\"categories:%s\"", modloader));
             }
-            facetString.append(",").append(categories.getValue());
+            facetString.append(",").append(categories);
         }
         facetString.append("]");
         params.put("facets", facetString.toString());
@@ -82,7 +82,7 @@ public class ModrinthApi implements ModpackApi{
             JsonObject hit = responseHits.get(i).getAsJsonObject();
 
             JsonArray categories = hit.get("categories").getAsJsonArray();
-            SimpleStringJoiner sj = new SimpleStringJoiner(",  ");
+            StringJoiner sj = new StringJoiner(",  ");
             boolean isDataPack = false;
             for (JsonElement category : categories) {
                 String string = category.getAsString();
@@ -92,7 +92,7 @@ public class ModrinthApi implements ModpackApi{
                 }
 
                 if (ModLoaderList.notModloaderName(string)) continue; //排除不是Mod加载器名字的字符串
-                sj.join(ModLoaderList.getModloaderName(string));
+                sj.add(ModLoaderList.getModloaderName(string));
             }
 
             if (isDataPack) {
@@ -106,7 +106,7 @@ public class ModrinthApi implements ModpackApi{
                     hit.get("title").getAsString(),
                     hit.get("description").getAsString(),
                     hit.get("downloads").getAsInt(),
-                    sj.getValue(),
+                    sj.toString(),
                     hit.get("icon_url").getAsString()));
         }
         if (modrinthSearchResult == null) modrinthSearchResult = new ModrinthSearchResult();
@@ -136,10 +136,10 @@ public class ModrinthApi implements ModpackApi{
             String versionTypeString = version.get("version_type").getAsString();
             //Mod加载器信息
             JsonArray loaders = version.get("loaders").getAsJsonArray();
-            SimpleStringJoiner modloaderList = new SimpleStringJoiner(", ");
+            StringJoiner modloaderList = new StringJoiner(", ");
             for (JsonElement loader : loaders) {
                 String loaderName = loader.getAsString();
-                modloaderList.join(ModLoaderList.getModloaderName(loaderName));
+                modloaderList.add(ModLoaderList.getModloaderName(loaderName));
             }
 
             // Assume there may not be hashes, in case the API changes
@@ -175,10 +175,10 @@ public class ModrinthApi implements ModpackApi{
 
                         if (hit != null) {
                             JsonArray modLoaders = hit.get("loaders").getAsJsonArray();
-                            SimpleStringJoiner modLoadersArray = new SimpleStringJoiner(",  ");
+                            StringJoiner modLoadersArray = new StringJoiner(",  ");
                             for (JsonElement loader : modLoaders) {
                                 String string = loader.getAsString();
-                                modLoadersArray.join(ModLoaderList.getModloaderName(string));
+                                modLoadersArray.add(ModLoaderList.getModloaderName(string));
                             }
                             items = new ModItem(
                                     Constants.SOURCE_MODRINTH,
@@ -187,7 +187,7 @@ public class ModrinthApi implements ModpackApi{
                                     hit.get("title").getAsString(),
                                     hit.get("description").getAsString(),
                                     hit.get("downloads").getAsInt(),
-                                    modLoadersArray.getValue(),
+                                    modLoadersArray.toString(),
                                     hit.get("icon_url").getAsString()
                             );
                         }
@@ -205,7 +205,7 @@ public class ModrinthApi implements ModpackApi{
             modItems.add(new ModVersionItem(mcVersionsArray,
                     filename,
                     name,
-                    modloaderList.getValue(),
+                    modloaderList.toString(),
                     modDependencies,
                     VersionType.getVersionType(versionTypeString),
                     hash,

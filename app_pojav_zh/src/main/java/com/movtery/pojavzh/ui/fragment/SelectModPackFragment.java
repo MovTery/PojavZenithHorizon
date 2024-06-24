@@ -2,6 +2,7 @@ package com.movtery.pojavzh.ui.fragment;
 
 import static com.movtery.pojavzh.utils.ZHTools.copyFileInBackground;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -40,12 +41,13 @@ public class SelectModPackFragment extends Fragment implements TaskCountListener
         openDocumentLauncher = registerForActivityResult(
                 new OpenDocumentWithExtension(null),
                 result -> {
-                    if (result != null) {
-                        Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
-
+                    if (result != null && !mTasksRunning) {
+                        AlertDialog dialog = new AlertDialog.Builder(requireContext())
+                                .setView(R.layout.view_task_running)
+                                .show();
                         PojavApplication.sExecutorService.execute(() -> {
                             modPackFile = copyFileInBackground(requireContext(), result, Tools.DIR_CACHE.getAbsolutePath());
-
+                            requireActivity().runOnUiThread(dialog::dismiss);
                             ZHTools.DIR_GAME_MODPACK = modPackFile.getAbsolutePath();
                             ExtraCore.setValue(ExtraConstants.INSTALL_LOCAL_MODPACK, true);
                         });
