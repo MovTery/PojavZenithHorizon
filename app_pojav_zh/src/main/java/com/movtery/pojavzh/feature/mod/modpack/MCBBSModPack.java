@@ -3,12 +3,14 @@ package com.movtery.pojavzh.feature.mod.modpack;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.movtery.pojavzh.feature.mod.models.MCBBSPackMeta;
+import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
+import com.movtery.pojavzh.feature.mod.modpack.install.OnInstallStartListener;
 import com.movtery.pojavzh.ui.dialog.DownloadDialog;
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
-import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.file.FileUtils;
 
 import net.kdt.pojavlaunch.R;
@@ -43,15 +45,17 @@ public class MCBBSModPack {
         this.zipFile = zipFile;
     }
 
-    public ModLoader install(File instanceDestination) throws IOException {
+    public ModLoader install(File instanceDestination, OnInstallStartListener onInstallStartListener) throws IOException {
         if (zipFile != null) {
             try (ZipFile modpackZipFile = new ZipFile(this.zipFile)) {
                 MCBBSPackMeta mcbbsPackMeta = Tools.GLOBAL_GSON.fromJson(
                         Tools.read(ZipUtils.getEntryStream(modpackZipFile, "mcbbs.packmeta")),
                         MCBBSPackMeta.class);
-                if (!ZHTools.verifyMCBBSPackMeta(mcbbsPackMeta)) {
+                if (!ModPackUtils.verifyMCBBSPackMeta(mcbbsPackMeta)) {
+                    Log.i("MCBBSModPack","manifest verification failed");
                     return null;
                 }
+                if (onInstallStartListener != null) onInstallStartListener.onStart();
 
                 initDialog();
 
@@ -147,7 +151,7 @@ public class MCBBSModPack {
         return new ModLoader(modLoaderTypeInt, modLoaderVersion, version);
     }
 
-    public static void createProfiles(String modpackName, MCBBSPackMeta mcbbsPackMeta, String versionId) {
+    public static void createModPackProfiles(String modpackName, MCBBSPackMeta mcbbsPackMeta, String versionId) {
         MinecraftProfile profile = new MinecraftProfile();
         profile.gameDir = "./custom_instances/" + modpackName;
         profile.name = mcbbsPackMeta.name;

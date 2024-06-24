@@ -11,11 +11,12 @@ import com.google.gson.JsonObject;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.feature.mod.ModLoaderList;
 import com.movtery.pojavzh.feature.mod.SearchModSort;
+import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
+import com.movtery.pojavzh.feature.mod.modpack.install.OnInstallStartListener;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.VersionType;
 
-import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.Constants;
@@ -252,7 +253,7 @@ public class CurseforgeApi implements ModpackApi{
     @Override
     public ModLoader installMod(boolean isModPack, String modsPath, ModDetail modDetail, ModVersionItem modVersionItem) throws IOException{
         if (isModPack) {
-            return ModpackInstaller.installModpack(modDetail, modVersionItem, this::installCurseforgeZip);
+            return ModpackInstaller.installModpack(modDetail, modVersionItem, (modpackFile, instanceDestination) -> installCurseforgeZip(modpackFile, instanceDestination, null));
         } else {
             return ModpackInstaller.installMod(modDetail, modsPath, modVersionItem);
         }
@@ -285,7 +286,7 @@ public class CurseforgeApi implements ModpackApi{
         return index + data.size();
     }
 
-    public ModLoader installCurseforgeZip(File zipFile, File instanceDestination) throws IOException {
+    public ModLoader installCurseforgeZip(File zipFile, File instanceDestination, OnInstallStartListener onInstallStartListener) throws IOException {
         try (ZipFile modpackZipFile = new ZipFile(zipFile)){
             CurseManifest curseManifest = Tools.GLOBAL_GSON.fromJson(
                     Tools.read(ZipUtils.getEntryStream(modpackZipFile, "manifest.json")),
@@ -294,6 +295,7 @@ public class CurseforgeApi implements ModpackApi{
                 Log.i("CurseforgeApi","manifest verification failed");
                 return null;
             }
+            if (onInstallStartListener != null) onInstallStartListener.onStart();
             ModDownloader modDownloader = new ModDownloader(new File(instanceDestination,"mods"), true);
             int fileCount = curseManifest.files.length;
             for(int i = 0; i < fileCount; i++) {
@@ -390,7 +392,7 @@ public class CurseforgeApi implements ModpackApi{
     }
 
     private boolean verifyManifest(CurseManifest manifest) {
-        return ZHTools.verifyManifest(manifest);
+        return ModPackUtils.verifyManifest(manifest);
     }
 
     static class CurseforgeSearchResult extends SearchResult {

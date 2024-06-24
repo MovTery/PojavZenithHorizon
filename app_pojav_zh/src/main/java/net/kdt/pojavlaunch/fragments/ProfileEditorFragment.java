@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.movtery.pojavzh.extra.ZHExtraConstants;
 import com.movtery.pojavzh.ui.fragment.ControlButtonFragment;
 import com.movtery.pojavzh.ui.fragment.FilesFragment;
 import com.movtery.pojavzh.ui.fragment.VersionSelectorFragment;
@@ -74,7 +75,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Paths, which can be changed
         String value = (String) ExtraCore.consumeValue(ExtraConstants.FILE_SELECTOR);
-        String version = (String) ExtraCore.consumeValue(ExtraConstants.VERSION_SELECTOR);
+        String version = (String) ExtraCore.consumeValue(ZHExtraConstants.VERSION_SELECTOR);
         if(value != null) {
             if(mValueToConsume.equals(FilesFragment.BUNDLE_SELECT_FOLDER_MODE)){
                 mTempProfile.gameDir = value;

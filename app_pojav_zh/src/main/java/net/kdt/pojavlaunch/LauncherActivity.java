@@ -26,7 +26,11 @@ import androidx.fragment.app.FragmentManager;
 
 import com.kdt.mcgui.ProgressLayout;
 import com.kdt.mcgui.mcAccountSpinner;
+import com.movtery.pojavzh.extra.ZHExtraConstants;
 import com.movtery.pojavzh.feature.UpdateLauncher;
+import com.movtery.pojavzh.feature.mod.modpack.install.InstallExtra;
+import com.movtery.pojavzh.feature.mod.modpack.install.InstallLocalModPack;
+import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
 import com.movtery.pojavzh.ui.actitvity.SettingsActivity;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
@@ -105,16 +109,18 @@ public class LauncherActivity extends BaseActivity {
         return false;
     };
 
-    private final ExtraListener<Boolean> mInstallLocalModpack = (key, value) -> {
-        if(mProgressLayout.hasProcesses()){
+    private final ExtraListener<InstallExtra> mInstallLocalModpack = (key, value) -> {
+        if (!value.startInstall) return false;
+
+        if (mProgressLayout.hasProcesses()) {
             Toast.makeText(this, R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
             return false;
         }
 
-        File dirGameModpackFile = new File(ZHTools.DIR_GAME_MODPACK);
+        File dirGameModpackFile = new File(value.modpackPath);
         int type;
         try {
-            type = ZHTools.determineModpack(dirGameModpackFile);
+            type = ModPackUtils.determineModpack(dirGameModpackFile);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -123,7 +129,7 @@ public class LauncherActivity extends BaseActivity {
             ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.global_waiting);
             PojavApplication.sExecutorService.execute(() -> {
                 try {
-                    ModLoader loaderInfo = ZHTools.installModPack(this, type, dirGameModpackFile);
+                    ModLoader loaderInfo = InstallLocalModPack.installModPack(this, type, dirGameModpackFile, () -> runOnUiThread(value.dialog::dismiss));
                     if (loaderInfo == null) return;
                     loaderInfo.getDownloadTask(new NotificationDownloadListener(this, loaderInfo)).run();
                 }catch (Exception e) {
@@ -133,7 +139,6 @@ public class LauncherActivity extends BaseActivity {
                 }
             });
         } else {
-            ZHTools.DIR_GAME_MODPACK = null;
             FileUtils.deleteQuietly(dirGameModpackFile);
             runOnUiThread(() -> new TipDialog.Builder(this)
                     .setMessage(R.string.zh_select_modpack_local_not_supported) //弹窗提醒
@@ -256,7 +261,7 @@ public class LauncherActivity extends BaseActivity {
 
         ExtraCore.addExtraListener(ExtraConstants.LAUNCH_GAME, mLaunchGameListener);
 
-        ExtraCore.addExtraListener(ExtraConstants.INSTALL_LOCAL_MODPACK, mInstallLocalModpack);
+        ExtraCore.addExtraListener(ZHExtraConstants.INSTALL_LOCAL_MODPACK, mInstallLocalModpack);
 
         new AsyncVersionList().getVersionList(versions -> ExtraCore.setValue(ExtraConstants.RELEASE_TABLE, versions), false);
 
@@ -316,7 +321,7 @@ public class LauncherActivity extends BaseActivity {
         ExtraCore.removeExtraListenerFromValue(ExtraConstants.BACK_PREFERENCE, mBackPreferenceListener);
         ExtraCore.removeExtraListenerFromValue(ExtraConstants.SELECT_AUTH_METHOD, mSelectAuthMethod);
         ExtraCore.removeExtraListenerFromValue(ExtraConstants.LAUNCH_GAME, mLaunchGameListener);
-        ExtraCore.removeExtraListenerFromValue(ExtraConstants.INSTALL_LOCAL_MODPACK, mInstallLocalModpack);
+        ExtraCore.removeExtraListenerFromValue(ZHExtraConstants.INSTALL_LOCAL_MODPACK, mInstallLocalModpack);
 
         getSupportFragmentManager().unregisterFragmentLifecycleCallbacks(mFragmentCallbackListener);
 

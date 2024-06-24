@@ -12,14 +12,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.movtery.pojavzh.extra.ZHExtraConstants;
+import com.movtery.pojavzh.feature.mod.modpack.install.InstallExtra;
+
 import net.kdt.pojavlaunch.PojavApplication;
-import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
-import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.fragments.SearchModFragment;
+import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
 
 import java.io.File;
@@ -44,12 +46,11 @@ public class SelectModPackFragment extends Fragment implements TaskCountListener
                     if (result != null && !mTasksRunning) {
                         AlertDialog dialog = new AlertDialog.Builder(requireContext())
                                 .setView(R.layout.view_task_running)
+                                .setCancelable(false)
                                 .show();
                         PojavApplication.sExecutorService.execute(() -> {
                             modPackFile = copyFileInBackground(requireContext(), result, Tools.DIR_CACHE.getAbsolutePath());
-                            requireActivity().runOnUiThread(dialog::dismiss);
-                            ZHTools.DIR_GAME_MODPACK = modPackFile.getAbsolutePath();
-                            ExtraCore.setValue(ExtraConstants.INSTALL_LOCAL_MODPACK, true);
+                            ExtraCore.setValue(ZHExtraConstants.INSTALL_LOCAL_MODPACK, new InstallExtra(true, modPackFile.getAbsolutePath(), dialog));
                         });
                     }
                 }
@@ -59,6 +60,7 @@ public class SelectModPackFragment extends Fragment implements TaskCountListener
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ProgressKeeper.addTaskCountListener(this);
 
         view.findViewById(R.id.zh_modpack_button_search_modpack).setOnClickListener(v -> {
             if (!mTasksRunning) {

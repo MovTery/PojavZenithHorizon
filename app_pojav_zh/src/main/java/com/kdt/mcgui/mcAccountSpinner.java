@@ -40,6 +40,8 @@ import net.kdt.pojavlaunch.authenticator.microsoft.MicrosoftBackgroundLogin;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.extra.ExtraListener;
+
+import com.movtery.pojavzh.extra.ZHExtraConstants;
 import com.movtery.pojavzh.feature.login.AuthResult;
 import com.movtery.pojavzh.feature.login.OtherLoginApi;
 import com.movtery.pojavzh.utils.ZHTools;
@@ -176,7 +178,7 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
 
         ExtraCore.addExtraListener(ExtraConstants.MOJANG_LOGIN_TODO, mMojangLoginListener);
         ExtraCore.addExtraListener(ExtraConstants.MICROSOFT_LOGIN_TODO, mMicrosoftLoginListener);
-        ExtraCore.addExtraListener(ExtraConstants.OTHER_LOGIN_TODO, mOtherLoginListener);
+        ExtraCore.addExtraListener(ZHExtraConstants.OTHER_LOGIN_TODO, mOtherLoginListener);
     }
 
 
@@ -303,7 +305,7 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
                         public void onSuccess(AuthResult authResult) {
                             minecraftAccount.expiresAt=System.currentTimeMillis()+30*60*1000;
                             minecraftAccount.accessToken=authResult.getAccessToken();
-                            ((Activity)getContext()).runOnUiThread(()-> ExtraCore.setValue(ExtraConstants.OTHER_LOGIN_TODO, minecraftAccount));
+                            ((Activity)getContext()).runOnUiThread(()-> ExtraCore.setValue(ZHExtraConstants.OTHER_LOGIN_TODO, minecraftAccount));
                         }
 
                         @Override
