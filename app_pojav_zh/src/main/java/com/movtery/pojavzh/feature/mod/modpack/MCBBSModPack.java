@@ -23,6 +23,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -78,7 +79,11 @@ public class MCBBSModPack {
                                 if (zipDestination.exists() && !file.force) continue;
                                 //如果哈希值一致，则复制文件（文件已存在则根据“强制”设定来决定是否覆盖文件）
                                 net.kdt.pojavlaunch.utils.FileUtils.ensureParentDirectory(zipDestination);
-                                IOUtils.copy(inputStream, Files.newOutputStream(zipDestination.toPath()));
+
+                                try (InputStream entryInputStream = modpackZipFile.getInputStream(entry);
+                                     OutputStream outputStream = Files.newOutputStream(zipDestination.toPath())) {
+                                    IOUtils.copy(entryInputStream, outputStream);
+                                }
 
                                 int fileCount = fileCounters.getAndIncrement();
                                 runOnUiThread(() -> {
