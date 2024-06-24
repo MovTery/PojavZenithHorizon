@@ -5,18 +5,16 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
+import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.stringutils.StringFilter;
 
 import net.kdt.pojavlaunch.PojavApplication;
@@ -29,36 +27,27 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ControlsListView extends LinearLayout {
+public class ControlsListViewCreator {
+    private final Context context;
+    private final RecyclerView mainListView;
     private final List<ControlItemBean> mData = new ArrayList<>();
+    private final AtomicInteger searchCount = new AtomicInteger(0);
+
     private ControlListAdapter controlListAdapter;
     private FileSelectedListener fileSelectedListener;
-    private RecyclerView mainListView;
     private File fullPath = new File(Tools.CTRLMAP_PATH);
     private String filterString = "";
     private boolean showSearchResultsOnly = false;
     private boolean caseSensitive = false;
     private TextView searchCountText;
-    private final AtomicInteger searchCount = new AtomicInteger(0);
 
-    public ControlsListView(Context context) {
-        this(context, null);
+    public ControlsListViewCreator(Context context, RecyclerView recyclerView) {
+        this.context = context;
+        this.mainListView = recyclerView;
+        init();
     }
 
-    public ControlsListView(Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
-
-    public ControlsListView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(context);
-    }
-
-    public void init(Context context) {
-        LayoutParams layParam = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        setOrientation(VERTICAL);
-
-        mainListView = new RecyclerView(context);
+    public void init() {
         controlListAdapter = new ControlListAdapter(this.mData);
         controlListAdapter.setOnItemClickListener((position, name) -> {
             File file = new File(fullPath, name);
@@ -69,8 +58,6 @@ public class ControlsListView extends LinearLayout {
         mainListView.setLayoutManager(layoutManager);
         if (PREF_ANIMATION) mainListView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(context, R.anim.fade_downwards)));
         mainListView.setAdapter(controlListAdapter);
-
-        addView(mainListView, layParam);
     }
 
     public void setFileSelectedListener(FileSelectedListener listener) {
@@ -84,7 +71,7 @@ public class ControlsListView extends LinearLayout {
         if (files != null) {
             for (File file : files) {
                 if (file.isFile() && file.getName().endsWith(".json")) {
-                    ControlInfoData controlInfoData = EditControlData.loadFormFile(getContext(), file);
+                    ControlInfoData controlInfoData = EditControlData.loadFormFile(context, file);
                     if (controlInfoData == null) continue;
 
                     ControlItemBean controlItemBean = new ControlItemBean(controlInfoData);
@@ -129,8 +116,8 @@ public class ControlsListView extends LinearLayout {
         }
     }
 
-    public void listAtPath(File path) {
-        this.fullPath = path;
+    public void listAtPath() {
+        this.fullPath = controlPath();
         refresh();
     }
 
@@ -144,6 +131,12 @@ public class ControlsListView extends LinearLayout {
 
     public void setShowSearchResultsOnly(boolean showSearchResultsOnly) {
         this.showSearchResultsOnly = showSearchResultsOnly;
+    }
+
+    private File controlPath() {
+        File ctrlPath = new File(Tools.CTRLMAP_PATH);
+        if (!ctrlPath.exists()) ZHTools.mkdirs(ctrlPath);
+        return ctrlPath;
     }
 
     @SuppressLint("NotifyDataSetChanged")
