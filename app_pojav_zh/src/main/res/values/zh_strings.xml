@@ -19,12 +19,10 @@
     <string name="zh_loading">Loading</string>
     <string name="zh_optional">Optional</string>
     <string name="zh_required">Required</string>
-    <string name="zh_wan"> </string>
-    <string name="zh_yi"> </string>
+    <string name="zh_wan">万</string>
+    <string name="zh_yi">亿</string>
     <string name="zh_wrong_tip">Something went wrong</string>
-
     <string name="zh_dialog_select_jar">Select Jar file</string>
-
     <string name="zh_permissions_manage_external_storage">Pojav Zenith Horizon requires permission to manage all files on the device in order to customize the location where game files are saved. Please grant permission to Pojav Zenith Horizon!</string>
     <string name="zh_profiles_path_title">Game Path Management</string>
     <string name="zh_profiles_path_default">Default Path</string>
@@ -33,7 +31,6 @@
     <string name="zh_profiles_path_delete_title">Delete This Path</string>
     <string name="zh_profiles_path_delete_message">The launcher will delete this path, but it will not delete the files saved in the corresponding path. You can re-add this path after deletion.</string>
     <string name="zh_profiles_path_task_in_progress">Task in progress, path management features are temporarily unavailable</string>
-
     <string name="zh_account_text">Please select a login method</string>
     <string name="zh_account_microsoft_account">Microsoft Account</string>
     <string name="zh_account_microsoft_xerr_unauthorized">Your Microsoft account login information seems to have expired. This often happens after the account password has been changed. Please remove the current account and log in again to reset your login information.</string>
@@ -45,10 +42,8 @@
     <string name="zh_account_local_account_illegal">Username contains illegal characters! Only English letters (both uppercase and lowercase), numbers, and underscores are allowed in the username.</string>
     <string name="zh_account_login_local_name">Username</string>
     <string name="zh_account_login_start">Login started !</string>
-
     <string name="zh_activity_import_control">Layout Name Control:</string>
     <string name="zh_activity_java_gui_keyboard">Keyboard</string>
-
     <string name="zh_controls_add_control_button">Button</string>
     <string name="zh_controls_add_control_drawer">Drawer</string>
     <string name="zh_controls_visibility">Visibility</string>
@@ -75,11 +70,9 @@
     <string name="zh_controls_info_view">View information</string>
     <string name="zh_controls_info_no_info">There is no description available for this layout…</string>
     <string name="zh_custom_control_title">Control Layout Management</string>
-
     <string name="zh_mouse_settings_title">Virtual Mouse Settings</string>
     <string name="zh_mouse_settings_speed_name">Virtual Mouse Speed</string>
     <string name="zh_mouse_settings_scale_name">Virtual Mouse Scale</string>
-
     <string name="zh_custom_mouse_add">Add virtual mouse</string>
     <string name="zh_custom_mouse_added">Successfully set virtual mouse:</string>
     <string name="zh_custom_mouse_default">Default Virtual Mouse</string>
@@ -93,14 +86,12 @@
     <string name="zh_custom_background_settings">Settings Screen</string>
     <string name="zh_custom_background_controls">Control Layout</string>
     <string name="zh_custom_background_in_game">In-game</string>
-    <string name="zh_custom_background_dialog_message">Click the "Select" button to set this image as the background for %s.</string>
+    <string name="zh_custom_background_dialog_message">Click the \"Select\" button to set this image as the background for %s.</string>
     <string name="zh_custom_background_selected">Successfully set the background image for %s:</string>
     <string name="zh_custom_background_reset">The background image for %s has been reset.</string>
-
     <string name="zh_file_add_file">Add file</string>
     <string name="zh_file_add_file_tip">Please select a file with the suffix %s</string>
     <string name="zh_file_does_not_exist">This folder (or file) doesn\'t exist</string>
-
     <string name="zh_file_tips">Operate this file</string>
     <string name="zh_file_folder_tips">Operate this folder</string>
     <string name="zh_file_message">Please select the action you want to perform on this file</string>
@@ -119,25 +110,20 @@
     <string name="zh_file_multi_select_mode_title">Multi-Select Mode</string>
     <string name="zh_file_multi_select_mode_message">Currently, a total of %d items are selected</string>
     <string name="zh_file_operation_file">Operating on file… (%s / %s, %d)</string>
-
     <string name="zh_search_case_sensitive">Case Sensitive</string>
     <string name="zh_search_count">%d search results</string>
-
     <string name="zh_neoforge_dl_searching">Searching for NeoForge version number</string>
     <string name="zh_modloader_dl_install_neoforge">Create NeoForge profile</string>
-
     <string name="zh_main_open_main_dir">Open main directory</string>
     <string name="zh_main_share_crash_report">Share Crash Report</string>
     <string name="zh_main_share_log_tip">Are you sure you want to share the launcher\'s running log?\nLog file location:</string>
     <string name="zh_main_notice_title">Notification Bar</string>
     <string name="zh_preference_category_language">Language</string>
     <string name="zh_preference_category_launcher">Launcher</string>
-
     <string name="zh_game_exit_message">The application/game exited with code %d. Please refer to the log file or crash report for specific error details. If you are unable to resolve this issue yourself, please send the log file or crash report to someone who can help you!\n\nDo not just screenshot the current application interface, as no one will know what happened. Please share your log file or crash report!</string>
     <string name="zh_game_autopick_runtime_failed">Failed to find a suitable runtime environment, set to the runtime environment selected by the current instance</string>
     <string name="zh_game_tip">The game is running, you can open the log output through the menu to check the game\'s running status</string>
     <string name="zh_game_tip_version">Current game version being launched:</string>
-
     <string name="zh_profile_custom_path">Custom path</string>
     <string name="zh_profile_mods_download_mod">Download Mod</string>
     <string name="zh_profile_mods_platform">Search Platform</string>
@@ -175,7 +161,6 @@
     <string name="zh_profile_mods_disable">Disable</string>
     <string name="zh_profile_mods_enable">Enable</string>
     <string name="zh_profile_mods_disable_or_enable">Disable/Enable</string>
-
     <string name="zh_profile_manager_shortcuts">Shortcut Features</string>
     <string name="zh_profile_manager_shortcuts_mods">Mod Management</string>
     <string name="zh_profile_manager_shortcuts_instance_path">Instance Folder Path</string>
@@ -186,7 +171,6 @@
     <string name="zh_profile_manager_edit">Edit Instance</string>
     <string name="zh_profile_manager_delete">Delete Instance</string>
     <string name="zh_profile_manager_delete_message">This operation will delete this instance, but it will not delete the game files associated with the instance</string>
-
     <string name="zh_replacement_customcontrol">Change Control Layout</string>
     <string name="zh_select_modpack_search">Search for modpacks</string>
     <string name="zh_select_modpack_local">Local modpack</string>
@@ -214,12 +198,10 @@
     <string name="zh_setting_quit_launcher_desc">Should the launcher exit when the game officially begins running?</string>
     <string name="zh_setting_quit_launcher_title">Exit Launcher</string>
     <string name="zh_setting_reboot_tip">This setting has been changed, but requires the app to be restarted to take effect!</string>
-
     <string name="zh_clear_up_cache">Clear Cache</string>
     <string name="zh_clear_up_cache_desc">Check and clean up the cache files of the application, clearing the cache files does not affect the normal use of the application</string>
     <string name="zh_clear_up_cache_not_found">No cache files found</string>
     <string name="zh_clear_up_cache_clean_up">Cleaning complete, a total of %s cache files have been cleared this time.</string>
-
     <string name="zh_update">Check for updates</string>
     <string name="zh_update_dialog_title">New Version Detected</string>
     <string name="zh_update_dialog_version">Version:</string>
@@ -235,7 +217,6 @@
     <string name="zh_update_update_source_ghproxy">Ghproxy Accelerated Source</string>
     <string name="zh_update_downloading">Downloading… (%s / %s)</string>
     <string name="zh_update_downloading_tip">Downloading, updating source: %s</string>
-
     <string name="zh_other_login_api">External Login</string>
     <string name="zh_other_login_authentication_server">Authentication Server</string>
     <string name="zh_other_login_register">Register</string>
@@ -252,12 +233,10 @@
     <string name="zh_other_login_client">Client</string>
     <string name="zh_other_login_error_code">error code：</string>
     <string name="zh_other_login_server_not_empty">Server can not be empty, please check the authentication server settings!</string>
-
     <string name="zh_about_tab">About Pojav Zenith Horizon</string>
-    <string name="zh_about_github" translatable="false">Github</string>
     <string name="zh_about_dec1">Pojav Zenith Horizon is a Minecraft launcher based on the modified version of PojavLauncher that allows Minecraft: Java Edition to be played on Android devices. Pojav Zenith Horizon is committed to improving user experience by redesigning the application interface and adding more useful features to make it easier for more people to enjoy Minecraft.</string>
     <string name="zh_about_dec2">Pojav Zenith Horizon is carefully crafted by the individual, MovTery, who has made significant modifications to the PojavLauncher.</string>
-    <string name="zh_about_dec3">Since PojavLauncher uses the GPL 3.0 open source license, this license is "infectious," and any code that uses, modifies, or derives from GPL libraries or software must also adopt the GPL license for open source. Therefore, Pojav Zenith Horizon must also follow the GPL 3.0 open source license. If you intend to spread or distribute this software, please be sure to comply with the relevant provisions of the GPL 3.0 open source license.</string>
+    <string name="zh_about_dec3">Since PojavLauncher uses the GPL 3.0 open source license, this license is \"infectious,\" and any code that uses, modifies, or derives from GPL libraries or software must also adopt the GPL license for open source. Therefore, Pojav Zenith Horizon must also follow the GPL 3.0 open source license. If you intend to spread or distribute this software, please be sure to comply with the relevant provisions of the GPL 3.0 open source license.</string>
     <string name="zh_about_dec4">Contributors and Acknowledgements:</string>
     <string name="zh_about_movtery_desc">Author of Pojav Zenith Horizon</string>
     <string name="zh_about_verafirefly_desc">Project collaborator of Pojav Zenith Horizon, providing rendering technical support for Pojav Zenith Horizon</string>

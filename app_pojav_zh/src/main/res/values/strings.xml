@@ -3,30 +3,22 @@
     <!-- App name part -->
     <string name="app_name" translatable="false">Pojav Zenith Horizon</string>
     <string name="app_short_name" translatable="false">Pojav Zenith Horizon</string>
-
     <!-- Action bar part -->
-
     <!-- Languages list part -->
-
     <!-- Login strings -->
     <string name="login_online_login_label">Login</string>
-
     <!-- Hint -->
-    <string name="hint_control_mapping">"Tap the top center cog icon to open the context menu ⚙\nTap a button to customize: edit, resize, delete, or customize it's keybind."</string>
-
+    <string name="hint_control_mapping">Tap the top center cog icon to open the context menu ⚙\nTap a button to customize: edit, resize, delete, or customize it\'s keybind.</string>
     <!-- Warnings -->
     <string name="warning_remove_account">This account will be removed!</string>
-
     <!-- Error messages -->
     <string name="error_fatal">Pojav Zenith Horizon has unexpectedly crashed</string>
     <string name="error_no_version">No version!</string>
     <string name="error_show_more">Show more</string>
     <string name="error_show_less">Show less</string>
-
     <!-- MCLauncherActivity: Strings -->
     <string name="mcl_options">Options</string>
     <string name="mcl_option_customcontrol">Custom controls</string>
-
     <string name="mcl_setting_title_use_surface_view">Use alternate surface rendering</string>
     <string name="mcl_setting_subtitle_use_surface_view">May help performance in GPU bound scenarios.</string>
     <string name="mcl_setting_title_ignore_notch">Ignore notch</string>
@@ -53,7 +45,6 @@
     <string name="mcl_setting_java_sandbox">Sandbox .jar execution</string>
     <string name="mcl_setting_java_sandbox_subtitle">Control the availability of the sandbox security manager when executing a .jar file.</string>
     <string name="mcl_version_clone">Clone</string>
-
     <!-- Global strings -->
     <string name="global_error">Error</string>
     <string name="global_load">Load</string>
@@ -67,22 +58,18 @@
     <string name="global_select">Select</string>
     <string name="global_retry">Retry</string>
     <string name="global_default">Default</string>
-
     <!-- MainActivity: strings -->
     <string name="mcn_exit_confirm">Are you sure want to force close?</string>
-
     <!-- MainActivity: Control buttons -->
     <string name="control_primary">Pri</string>
     <string name="control_secondary">Sec</string>
     <string name="control_mouse">Mouse</string>
     <string name="control_mouseoff">Mouse: off</string>
     <string name="control_mouseon">Mouse: on </string>
-
     <!-- MainActivity: Menu advanced controls -->
     <string name="control_forceclose">Force close</string>
     <string name="control_viewout">Log output</string>
     <string name="control_customkey">Send custom keycode</string>
-
     <!-- ImportControlActivity Strings -->
     <string name="import_control_label">Import controls</string>
     <string name="import_control_invalid_file">Invalid or corrupted file</string>
@@ -94,27 +81,21 @@
     <string name="control_more3"></string>
     <string name="control_more4"></string>
 -->
-
     <string name="customctrl_toggle">Toggleable</string>
     <string name="customctrl_size">Size</string>
-
     <string name="customctrl_mapping">Mapping</string>
     <string name="customctrl_orientation">Orientation</string>
     <string name="customctrl_background_color">Background color</string>
     <string name="customctrl_corner_radius">Corner radius</string>
     <string name="customctrl_stroke_width">Stroke width</string>
     <string name="customctrl_stroke_color">Stroke color</string>
-
     <string name="customctrl_button_opacity">Button Opacity</string>
-
     <string name="customctrl_addbutton">Add button</string>
     <string name="customctrl_addbutton_drawer">Add button drawer</string>
     <string name="customctrl_addbutton_joystick">Add joystick</string>
     <string name="customctrl_addsubbutton">Add sub-button</string>
-
     <string name="customctrl_selectdefault">Select default controlmap</string>
     <string name="customctrl_export">Export controlmap</string>
-
     <string name="main_share_logs">Share log file</string>
     <string name="main_install_jar_file">Execute a .jar</string>
     <string name="main_play">Play</string>
@@ -145,7 +126,6 @@
     <string name="multirt_nojava8rt">Can\'t find Java 8. In order to use this option, you need to install Java 8.</string>
     <string name="multirt_delete_runtime">Delete runtime</string>
     <string name="pvc_jvmArgs">JVM arguments</string>
-
     <string name="preference_mouse_start_title">Start with virtual mouse on</string>
     <string name="preference_mouse_start_description">The virtual mouse appears at startup when this option is on.</string>
     <string name="preference_control_title">Control customization</string>
@@ -155,17 +135,14 @@
     <string name="preference_force_vsync_description">Limit thermal throttling by limiting peak performance.</string>
     <string name="preference_force_english_title">Force language to English</string>
     <string name="preference_force_english_description">Allows you to see original strings, as intended by developers. Requires a restart.</string>
-
     <string name="preference_category_gyro_controls">Gyroscope controls</string>
     <string name="preference_category_virtual_mouse">Virtual mouse</string>
-
     <string name="preference_gyro_invert_x_axis">Invert X axis</string>
     <string name="preference_gyro_invert_y_axis">Invert Y axis</string>
     <string name="preference_gyro_invert_x_axis_description">Invert the horizontal axis.</string>
     <string name="preference_gyro_invert_y_axis_description">Invert the vertical axis.</string>
     <string name="preference_gyro_smoothing_title">Enable gyroscope smoothing</string>
     <string name="preference_gyro_smoothing_description">Reduce jitter in exchange of latency.</string>
-
     <string name="unnamed">Unnamed</string>
     <string name="profiles_latest_snapshot">Latest snapshot</string>
     <string name="profiles_latest_release">Latest release</string>
@@ -176,9 +153,7 @@
     <string name="pedit_renderer">Renderer</string>
     <string name="arc_capes_title">Cosmetica Capes</string>
     <string name="arc_capes_desc">Enables capes from Cosmetica (previously Arc). For more information please visit https://cosmetica.cc. Requires OptiFine.</string>
-    <string name="color_default_hex" translatable="false">FFFF0000</string>
     <string name="notif_channel_name">General</string>
-    <string name="notif_channel_id" translatable="false">channel_id</string>
     <string name="lazy_service_default_title">Pojav Foreground Service</string>
     <string name="mcl_setting_veroption_installed">Installed</string>
     <string name="use_global_default">(Use global default)</string>
@@ -219,15 +194,12 @@
     <string name="customctrl_editor_exit_msg">Are you sure you want to exit?</string>
     <string name="customctrl_editor_exit">Leave editor</string>
     <string name="global_save_and_exit">Save and exit</string>
-
     <string name="preference_controller_map_wiped">The controller config has been wiped.</string>
     <string name="preference_category_controller_settings">Controller settings</string>
     <string name="preference_wipe_controller_title">Reset controller mapping</string>
     <string name="preference_wipe_controller_description">Allows you to remap the controller buttons.</string>
     <string name="preference_deadzone_scale_title">Joystick deadzone scale</string>
     <string name="preference_deadzone_scale_description">Increase it if the joystick drifts.</string>
-
-
     <string name="preference_force_big_core_title">Force the renderer to run on the big core</string>
     <string name="preference_force_big_core_desc">Forces the Minecraft render thread to run on the core with the highest maximum frequency.</string>
     <string name="version_select_hint">Select a version</string>
@@ -250,18 +222,12 @@
     <string name="of_dl_failed_to_scrape">Failed to collect data for OptiFine installation</string>
     <string name="of_dl_progress">Downloading %s</string>
     <string name="create_profile_optifine">Create OptiFine profile</string>
-
-
     <string name="hint_search_modpack">Search for modpacks</string>
-
     <string name="preference_vulkan_driver_system_title">Use system Vulkan driver</string>
     <string name="preference_vulkan_driver_system_description">Force the launcher to use the system Vulkan driver instead of Turnip on Adreno GPUs. Only affects Zink and mods that use Vulkan.</string>
-
     <string name="generic_apply">Apply</string>
-
     <string name="search_modpack_no_result">No modpacks found</string>
     <string name="search_modpack_error">Failed to find modpacks</string>
-
     <string name="modpack_download_downloading_metadata">Downloading modpack metadata (%.2f MB / %.2f MB)</string>
     <string name="modpack_download_downloading_mods">Downloading mods (%.2f MB / %.2f MB)</string>
     <string name="modpack_download_downloading_mods_fc">Downloading mods (File %d out of %d)</string>
@@ -272,7 +238,6 @@
     <string name="modpack_install_modloader_download_failed">Failed to download the mod loader files</string>
     <string name="modpack_install_download_failed">Failed to download modpack files</string>
     <string name="modpack_install_button">Create modpack profile</string>
-
     <string name="notif_error_occured">An error has occurred</string>
     <string name="notif_error_occured_desc">Click to see more details</string>
     <string name="fabric_dl_only_stable">Show only stable versions</string>
@@ -280,8 +245,7 @@
     <string name="dl_tampered_manifest"><![CDATA[The game version manifest on the mirror does not match the official Mojang version manifest, which means it may have been tampered with.<br/>
         <b>This is not safe. Your personal information may be at risk if you continue.</b><br/>
         If you still want to use the mirror, press \"Turn off manifest checks\" and start the download again.<br/>
-        If you want to use the official download source, press \"Switch to official site\" and start the download again.<br/>]]>
-    </string>
+        If you want to use the official download source, press \"Switch to official site\" and start the download again.<br/>]]></string>
     <string name="dl_turn_off_manifest_checks">Turn off manifest checks</string>
     <string name="dl_switch_to_official_site">Switch to official site</string>
     <string name="preference_download_source_title">Game download source</string>
