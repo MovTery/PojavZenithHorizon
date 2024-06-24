@@ -16,7 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlsListView;
+import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlsListViewCreator;
 import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlInfoData;
 import com.movtery.pojavzh.ui.subassembly.customcontrols.EditControlData;
 import com.movtery.pojavzh.ui.dialog.EditControlInfoDialog;
@@ -43,7 +43,7 @@ public class ControlButtonFragment extends Fragment {
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private ImageButton mReturnButton, mAddControlButton, mImportControlButton, mPasteButton, mSearchSummonButton, mRefreshButton;
     private SearchView mSearchView;
-    private ControlsListView controlsListView;
+    private ControlsListViewCreator controlsListViewCreator;
     private boolean mSelectControl = false;
 
     public ControlButtonFragment() {
@@ -64,7 +64,7 @@ public class ControlButtonFragment extends Fragment {
 
                             runOnUiThread(() -> {
                                 Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show();
-                                controlsListView.refresh();
+                                controlsListViewCreator.refresh();
                             });
                         });
                     }
@@ -78,9 +78,7 @@ public class ControlButtonFragment extends Fragment {
         bindViews(view);
         parseBundle();
 
-        controlsListView.listAtPath(controlPath());
-
-        controlsListView.setFileSelectedListener(new FileSelectedListener() {
+        controlsListViewCreator.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
                 if (mSelectControl) {
@@ -99,7 +97,7 @@ public class ControlButtonFragment extends Fragment {
         mReturnButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
         mPasteButton.setOnClickListener(v -> PasteFile.getInstance().pasteFiles(requireActivity(), new File(Tools.CTRLMAP_PATH), null, () -> runOnUiThread(() -> {
             mPasteButton.setVisibility(View.GONE);
-            controlsListView.refresh();
+            controlsListViewCreator.refresh();
         })));
         mImportControlButton.setOnClickListener(v -> {
             String suffix = ".json";
@@ -120,14 +118,16 @@ public class ControlButtonFragment extends Fragment {
                 //创建布局文件
                 EditControlData.createNewControlFile(requireContext(), file, controlInfoData);
 
-                controlsListView.refresh();
+                controlsListViewCreator.refresh();
 
                 editControlInfoDialog.dismiss();
             });
             editControlInfoDialog.show();
         });
         mSearchSummonButton.setOnClickListener(v -> mSearchView.setVisibility());
-        mRefreshButton.setOnClickListener(v -> controlsListView.refresh());
+        mRefreshButton.setOnClickListener(v -> controlsListViewCreator.refresh());
+
+        controlsListViewCreator.listAtPath();
     }
 
     private String removeLockPath(String path) {
@@ -145,7 +145,7 @@ public class ControlButtonFragment extends Fragment {
         }
         filesButton.setMoreButtonText(getString(R.string.global_load));
 
-        FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> controlsListView.refresh()), file);
+        FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> controlsListViewCreator.refresh()), file);
 
         filesDialog.setCopyButtonClick(() -> mPasteButton.setVisibility(View.VISIBLE));
 
@@ -160,12 +160,6 @@ public class ControlButtonFragment extends Fragment {
             filesDialog.dismiss();
         }); //加载
         filesDialog.show();
-    }
-
-    private File controlPath() {
-        File ctrlPath = new File(Tools.CTRLMAP_PATH);
-        if (!ctrlPath.exists()) ZHTools.mkdirs(ctrlPath);
-        return ctrlPath;
     }
 
     private void parseBundle() {
@@ -185,11 +179,11 @@ public class ControlButtonFragment extends Fragment {
         mImportControlButton.setContentDescription(getString(R.string.zh_controls_import_control));
         mAddControlButton.setContentDescription(getString(R.string.zh_controls_create_new));
 
-        controlsListView = view.findViewById(R.id.zh_controls_list);
+        controlsListViewCreator = new ControlsListViewCreator(requireContext(), view.findViewById(R.id.zh_controls_list));
 
         mSearchView = new SearchView(view.findViewById(R.id.zh_search_view));
-        mSearchView.setAsynchronousUpdatesListener(controlsListView::searchControls);
-        mSearchView.setShowSearchResultsListener(controlsListView::setShowSearchResultsOnly);
+        mSearchView.setAsynchronousUpdatesListener(controlsListViewCreator::searchControls);
+        mSearchView.setShowSearchResultsListener(controlsListViewCreator::setShowSearchResultsOnly);
 
         mPasteButton.setVisibility(PasteFile.getInstance().getPasteType() != null ? View.VISIBLE : View.GONE);
 

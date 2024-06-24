@@ -5,6 +5,7 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -14,21 +15,22 @@ import androidx.annotation.NonNull;
 import net.kdt.pojavlaunch.R;
 
 public class MouseSettingsDialog extends Dialog {
-    public MouseSettingsDialog(@NonNull Context context, OnConfirmListener listener) {
+    public MouseSettingsDialog(@NonNull Context context, OnConfirmListener confirmListener, SelectMouseDialog.MouseSelectedListener mouseSelectedListener) {
         super(context);
 
         this.setCancelable(false);
         setContentView(R.layout.dialog_mouse_settings);
-        init(listener);
+        init(confirmListener, mouseSelectedListener);
     }
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
-    private void init(OnConfirmListener listener) {
+    private void init(OnConfirmListener listener, SelectMouseDialog.MouseSelectedListener mouseSelectedListener) {
         Button mConfirmButton = findViewById(R.id.zh_mouse_settings_confirm_button);
         SeekBar mMouseSpeedSeekBar = findViewById(R.id.zh_mouse_settings_speed_seek);
         SeekBar mMouseScaleSeekBar = findViewById(R.id.zh_mouse_settings_scale_seek);
         TextView mMouseSpeedText = findViewById(R.id.zh_mouse_settings_speed_text);
         TextView mMouseScaleText = findViewById(R.id.zh_mouse_settings_scale_text);
+        View mCustomMouseView = findViewById(R.id.zh_mouse_settings_custom_mouse);
 
         final int[] mouseSpeed = {DEFAULT_PREF.getInt("mousespeed", 100)};
         final int[] mouseScale = {DEFAULT_PREF.getInt("mousescale", 100)};
@@ -75,6 +77,12 @@ public class MouseSettingsDialog extends Dialog {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
             }
+        });
+
+        mCustomMouseView.setOnClickListener(v -> {
+            SelectMouseDialog selectMouseDialog = new SelectMouseDialog(getContext());
+            selectMouseDialog.setOnSelectedListener(mouseSelectedListener);
+            selectMouseDialog.show();
         });
 
         mConfirmButton.setOnClickListener(v -> {

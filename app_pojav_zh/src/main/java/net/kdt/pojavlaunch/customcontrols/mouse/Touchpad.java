@@ -83,7 +83,7 @@ public class Touchpad extends View implements GrabListener, AbstractTouchpad {
 
     private void init(){
         // Setup mouse pointer
-        mMousePointerDrawable = ZHTools.customMouse(getContext());
+        updateMouseDrawable();
         // For some reason it's annotated as Nullable even though it doesn't seem to actually
         // ever return null
         assert mMousePointerDrawable != null;
@@ -104,6 +104,10 @@ public class Touchpad extends View implements GrabListener, AbstractTouchpad {
                 (int) (36 / 100f * DEFAULT_PREF.getInt("mousescale", 100)),
                 (int) (54 / 100f * DEFAULT_PREF.getInt("mousescale", 100))
         );
+    }
+
+    public void updateMouseDrawable() {
+        mMousePointerDrawable = ZHTools.customMouse(getContext());
     }
 
     @Override
