@@ -1,28 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Action bar part -->
-
     <!-- Languages list part -->
-
     <!-- Login strings -->
     <string name="login_online_login_label">登入</string>
-
     <!-- Hint -->
     <string name="hint_control_mapping">點擊頂部中央齒輪圖示打開菜單 ⚙\n點擊一個按鍵進行自訂：編輯、縮放、刪除或自訂其映射綁定</string>
-
     <!-- Warnings -->
     <string name="warning_remove_account">此帳戶將被移除！</string>
-
     <!-- Error messages -->
     <string name="error_fatal">Pojav Zenith Horizon 意外地崩潰了</string>
     <string name="error_no_version">沒有版本！</string>
     <string name="error_show_more">顯示更多信息</string>
     <string name="error_show_less">顯示更少信息</string>
-
     <!-- MCLauncherActivity: Strings -->
     <string name="mcl_options">選項</string>
     <string name="mcl_option_customcontrol">自訂控制佈局</string>
-
     <string name="mcl_setting_title_use_surface_view">使用替代表面渲染</string>
     <string name="mcl_setting_subtitle_use_surface_view">可能有助於提升受 GPU 機能限制的性能</string>
     <string name="mcl_setting_title_ignore_notch">全螢幕模式</string>
@@ -49,7 +42,6 @@
     <string name="mcl_setting_java_sandbox">沙盒 .jar 可執行檔</string>
     <string name="mcl_setting_java_sandbox_subtitle">在執行 .jar 檔時，控制沙盒安全管理器的可用性</string>
     <string name="mcl_version_clone">複製</string>
-
     <!-- Global strings -->
     <string name="global_error">錯誤</string>
     <string name="global_load">載入</string>
@@ -63,22 +55,18 @@
     <string name="global_select">選擇</string>
     <string name="global_retry">重試</string>
     <string name="global_default">預設</string>
-
     <!-- MainActivity: strings -->
     <string name="mcn_exit_confirm">你確定要強制關閉嗎？</string>
-
     <!-- MainActivity: Control buttons -->
     <string name="control_primary">主</string>
     <string name="control_secondary">副</string>
     <string name="control_mouse">滑鼠</string>
     <string name="control_mouseoff">滑鼠：關</string>
     <string name="control_mouseon">滑鼠：開 </string>
-
     <!-- MainActivity: Menu advanced controls -->
     <string name="control_forceclose">強制關閉</string>
     <string name="control_viewout">日誌輸出</string>
     <string name="control_customkey">發送自訂鍵碼</string>
-
     <!-- ImportControlActivity Strings -->
     <string name="import_control_label">匯入控制佈局</string>
     <string name="import_control_invalid_file">檔案無效或已損壞</string>
@@ -90,27 +78,21 @@
     <string name="control_more3"></string>
     <string name="control_more4"></string>
 -->
-
     <string name="customctrl_toggle">可切換</string>
     <string name="customctrl_size">大小</string>
-
     <string name="customctrl_mapping">映射</string>
     <string name="customctrl_orientation">朝向</string>
     <string name="customctrl_background_color">背景顏色</string>
     <string name="customctrl_corner_radius">圓角半徑</string>
     <string name="customctrl_stroke_width">邊框寬度</string>
     <string name="customctrl_stroke_color">邊框顏色</string>
-
     <string name="customctrl_button_opacity">按鍵不透明度</string>
-
     <string name="customctrl_addbutton">添加按鍵</string>
     <string name="customctrl_addbutton_drawer">添加組合鍵</string>
     <string name="customctrl_addbutton_joystick">添加搖桿</string>
     <string name="customctrl_addsubbutton">添加子按鍵</string>
-
     <string name="customctrl_selectdefault">選擇預設控制佈局</string>
     <string name="customctrl_export">匯出控制佈局</string>
-
     <string name="main_share_logs">分享日誌檔案</string>
     <string name="main_install_jar_file">執行 .jar 檔案</string>
     <string name="main_play">啟動遊戲</string>
@@ -141,7 +123,6 @@
     <string name="multirt_nojava8rt">無法找到 Java 8，要使用此選項，你必須安裝 Java 8</string>
     <string name="multirt_delete_runtime">刪除執行環境</string>
     <string name="pvc_jvmArgs">JVM 參數</string>
-
     <string name="preference_mouse_start_title">啟動遊戲時預設開啟虛擬滑鼠</string>
     <string name="preference_mouse_start_description">此選項開啟時，虛擬滑鼠會在啟動時顯示</string>
     <string name="preference_control_title">自訂控制佈局</string>
@@ -151,17 +132,14 @@
     <string name="preference_force_vsync_description">透過限制峰值性能來降低過熱降頻的風險</string>
     <string name="preference_force_english_title">強制使用英文</string>
     <string name="preference_force_english_description">讓你顯示原始字串，需重啟應用程式</string>
-
     <string name="preference_category_gyro_controls">陀螺儀控制</string>
     <string name="preference_category_virtual_mouse">虛擬滑鼠</string>
-
     <string name="preference_gyro_invert_x_axis">反轉 X 軸</string>
     <string name="preference_gyro_invert_y_axis">反轉 Y 軸</string>
     <string name="preference_gyro_invert_x_axis_description">反轉水平軸</string>
     <string name="preference_gyro_invert_y_axis_description">反轉垂直軸</string>
     <string name="preference_gyro_smoothing_title">啟用陀螺儀平滑</string>
     <string name="preference_gyro_smoothing_description">減少抖動以換取延遲</string>
-
     <string name="unnamed">未命名</string>
     <string name="profiles_latest_snapshot">最新快照版</string>
     <string name="profiles_latest_release">最新正式版</string>
@@ -172,9 +150,7 @@
     <string name="pedit_renderer">渲染器</string>
     <string name="arc_capes_title">Cosmetica 披風</string>
     <string name="arc_capes_desc">啟用來自 Cosmetica（原 Arc）的披風，若需了解更多資訊，請至 https://arcapes.com ，需要 OptiFine</string>
-
     <string name="notif_channel_name">一般</string>
-
     <string name="lazy_service_default_title">Pojav 前景服務</string>
     <string name="mcl_setting_veroption_installed">已安裝</string>
     <string name="use_global_default">（使用全域預設值）</string>
@@ -215,15 +191,12 @@
     <string name="customctrl_editor_exit_msg">你是否確認退出？</string>
     <string name="customctrl_editor_exit">退出編輯器</string>
     <string name="global_save_and_exit">儲存並退出</string>
-
     <string name="preference_controller_map_wiped">控制器配置已被重置</string>
     <string name="preference_category_controller_settings">控制器設定</string>
     <string name="preference_wipe_controller_title">重置控制器映射</string>
     <string name="preference_wipe_controller_description">允許你重新映射控制器按鍵</string>
     <string name="preference_deadzone_scale_title">搖桿死區縮放</string>
     <string name="preference_deadzone_scale_description">若搖桿偏移，請調高此選項</string>
-
-
     <string name="preference_force_big_core_title">強制渲染器在大核上執行</string>
     <string name="preference_force_big_core_desc">強制 Minecraft 渲染線程在最高頻率的核心執行</string>
     <string name="version_select_hint">選擇版本</string>
@@ -246,38 +219,30 @@
     <string name="of_dl_failed_to_scrape">無法收集 OptiFine 安裝數據</string>
     <string name="of_dl_progress">正在下載%s</string>
     <string name="create_profile_optifine">創建 OptiFine 實例</string>
-
-
-    <string name="hint_search_modpack">搜索整合包</string>
-
+    <string name="hint_search_modpack">搜尋模組包</string>
     <string name="preference_vulkan_driver_system_title">使用系統 Vulkan 驅動程式</string>
     <string name="preference_vulkan_driver_system_description">強制啟動器在 Adreno GPU 上使用系統 Vulkan 驅動程式而非 Turnip，僅影響使用 Vulkan 的 Zink 和模組</string>
-
     <string name="generic_apply">應用</string>
-
-    <string name="search_modpack_no_result">未找到整合包</string>
-    <string name="search_modpack_error">搜索整合包失敗</string>
-
-    <string name="modpack_download_downloading_metadata">正在下載整合包元數據（%.2fMB / %.2fMB）</string>
+    <string name="search_modpack_no_result">未找到模組包</string>
+    <string name="search_modpack_error">搜索模組包失敗</string>
+    <string name="modpack_download_downloading_metadata">正在下載模組包元數據（%.2fMB / %.2fMB）</string>
     <string name="modpack_download_downloading_mods">正在下載模組（%.2fMB / %.2fMB）</string>
     <string name="modpack_download_downloading_mods_fc">正在下載模組（已下載檔案：%d，總檔案數：%d）</string>
     <string name="modpack_download_applying_overrides">正在應用覆蓋（%d/%d）</string>
-    <string name="modpack_install_notification_title">Pojav 整合包安裝器</string>
-    <string name="modpack_install_notification_success">點擊此處完成整合包安裝</string>
+    <string name="modpack_install_notification_title">Pojav 模組包安裝器</string>
+    <string name="modpack_install_notification_success">點擊此處完成模組包安裝</string>
     <string name="modpack_install_notification_data_not_available">模組載入器信息下載失敗</string>
     <string name="modpack_install_modloader_download_failed">模組載入器文件下載失敗</string>
-    <string name="modpack_install_download_failed">整合包文件下載失敗</string>
-    <string name="modpack_install_button">創建整合包實例</string>
-
+    <string name="modpack_install_download_failed">模組包文件下載失敗</string>
+    <string name="modpack_install_button">創建模組包實例</string>
     <string name="notif_error_occured">發生了一個錯誤</string>
     <string name="notif_error_occured_desc">點擊查看詳細資訊</string>
-    <string name="fabric_dl_only_stable">僅顯示穩定版本</string>請將以下內容翻譯成繁體中文：
+    <string name="fabric_dl_only_stable">僅顯示穩定版本</string>
     <string name="dl_tampered_manifest_title">文件校驗警告</string>
     <string name="dl_tampered_manifest"><![CDATA[鏡像源上的遊戲版本清單與Mojang官方版本清單並不一致，這意味著它可能被篡改了<br/>
             <b>這樣做並不安全。如果你繼續，你的個人信息可能面臨風險！</b><br/>
             如果你仍想繼續使用鏡像源，點擊「關閉遊戲版本清單檢查」再次開始下載<br/>
-            如果你想使用官方下載源，點擊「轉換至官方下載源」再次開始下載<br/>]]>
-    </string>
+            如果你想使用官方下載源，點擊「轉換至官方下載源」再次開始下載<br/>]]></string>
     <string name="dl_turn_off_manifest_checks">關閉遊戲版本清單檢查</string>
     <string name="dl_switch_to_official_site">轉換至官方下載源</string>
     <string name="preference_download_source_title">遊戲下載源</string>
@@ -292,10 +257,10 @@
     <string name="preference_category_miscellaneous">其他設定</string>
     <string name="preference_category_video">視頻設定</string>
     <string name="notification_permission_dialog_title">權限請求</string>
-    <string name="notification_permission_dialog_text">Pojav Zenith Horizon 需要發布通知的權限，以防止你離開應用程式時，停止 遊戲/整合包 的下載。如果沒有此權限，當你將 Pojav Zenith Horizon 置於後臺時，安卓系統可能會停止你的下載進度</string>
+    <string name="notification_permission_dialog_text">Pojav Zenith Horizon 需要發布通知的權限，以防止你離開應用程式時，停止 遊戲/模組包 的下載。如果沒有此權限，當你將 Pojav Zenith Horizon 置於後臺時，安卓系統可能會停止你的下載進度</string>
     <string name="notification_permission_toast">你可以隨時通過進入「系統設定」改變你的決心</string>
     <string name="preference_ask_for_notification_title">允許通知</string>
-    <string name="preference_ask_for_notification_description">點擊可重新請求通知權限，這是 遊戲/整合包 在後臺正常下載所必需的</string>
+    <string name="preference_ask_for_notification_description">點擊可重新請求通知權限，這是 遊戲/模組包 在後臺正常下載所必需的</string>
     <string name="preference_vsync_in_zink_title">允許與Zink進行垂直同步</string>
     <string name="preference_vsync_in_zink_description">允許啟動器使用內部系統API為Zink啟用垂直同步。如果啟動器正在使用Zink，你的系統更新導致啟動器崩潰，請關閉此功能</string>
     <string name="newdl_starting">讀取遊戲元數據中…</string>

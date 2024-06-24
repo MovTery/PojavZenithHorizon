@@ -22,9 +22,7 @@
     <string name="zh_wan">萬</string>
     <string name="zh_yi">億</string>
     <string name="zh_wrong_tip">出現了一些問題</string>
-
     <string name="zh_dialog_select_jar">選擇 Jar 檔案</string>
-
     <string name="zh_permissions_manage_external_storage">Pojav Zenith Horizon 需要管理設備所有檔案的權限，以便自訂儲存遊戲檔案位置，請為 Pojav Zenith Horizon 開啟權限！</string>
     <string name="zh_profiles_path_title">遊戲路徑管理</string>
     <string name="zh_profiles_path_default">預設路徑</string>
@@ -33,7 +31,6 @@
     <string name="zh_profiles_path_delete_title">刪除此路徑</string>
     <string name="zh_profiles_path_delete_message">啟動器將刪除此路徑，但不會刪除對應路徑內儲存的檔案，刪除之後仍然可以重新新增此路徑</string>
     <string name="zh_profiles_path_task_in_progress">任務執行中，暫時無法使用路徑管理功能</string>
-
     <string name="zh_account_text">請選擇一種登錄方式</string>
     <string name="zh_account_microsoft_account">微軟帳號</string>
     <string name="zh_account_microsoft_xerr_unauthorized">你的微軟帳號登入資訊似乎已經過期，這種情況常出現在帳號密碼被修改之後，請移除目前帳號並重新登入你的帳號，以重置你的登入資訊。</string>
@@ -45,10 +42,8 @@
     <string name="zh_account_local_account_illegal">用戶名包含非法字符！僅支持英文字母（大小寫均可）、數字以及下劃線作為用戶名</string>
     <string name="zh_account_login_local_name">用戶名</string>
     <string name="zh_account_login_start">開始登入！</string>
-
     <string name="zh_activity_import_control">控制佈局名稱：</string>
     <string name="zh_activity_java_gui_keyboard">輸入法</string>
-
     <string name="zh_controls_add_control_button">按鍵</string>
     <string name="zh_controls_add_control_drawer">組合鍵</string>
     <string name="zh_controls_visibility">可見度</string>
@@ -75,11 +70,9 @@
     <string name="zh_controls_info_view">查看資訊</string>
     <string name="zh_controls_info_no_info">此控制佈局沒有描述說明…</string>
     <string name="zh_custom_control_title">管理控制佈局</string>
-
     <string name="zh_mouse_settings_title">虛擬滑鼠設定</string>
     <string name="zh_mouse_settings_speed_name">虛擬滑鼠速度</string>
     <string name="zh_mouse_settings_scale_name">虛擬滑鼠縮放</string>
-
     <string name="zh_custom_mouse_add">添加虛擬滑鼠</string>
     <string name="zh_custom_mouse_added">成功設定虛擬滑鼠：</string>
     <string name="zh_custom_mouse_default">預設虛擬滑鼠</string>
@@ -96,7 +89,6 @@
     <string name="zh_custom_background_dialog_message">點擊 “選擇” 按鈕，將此圖片設置為 %s 的背景圖片</string>
     <string name="zh_custom_background_selected">成功為 %s 設置背景圖片：</string>
     <string name="zh_custom_background_reset">已重置 %s 的背景圖片</string>
-
     <string name="zh_file_add_file">新增檔案</string>
     <string name="zh_file_add_file_tip">請選擇一個後綴名為 %s 的檔案</string>
     <string name="zh_file_does_not_exist">這個資料夾（或檔案）不存在</string>
@@ -118,25 +110,20 @@
     <string name="zh_file_multi_select_mode_title">多選項目</string>
     <string name="zh_file_multi_select_mode_message">目前共選擇了 %d 個項目</string>
     <string name="zh_file_operation_file">正在操作檔案中… (%s / %s, %d)</string>
-
     <string name="zh_search_case_sensitive">大小寫區分</string>
     <string name="zh_search_count">%d 個搜尋結果</string>
-
     <string name="zh_neoforge_dl_searching">正在搜尋 NeoForge 版本號</string>
     <string name="zh_modloader_dl_install_neoforge">建立 NeoForge 實例</string>
-
     <string name="zh_main_open_main_dir">打開主目錄</string>
     <string name="zh_main_share_crash_report">分享崩潰報告</string>
     <string name="zh_main_share_log_tip">你確定要分享啟動器的執行日誌嗎？\n日誌文件位置：</string>
     <string name="zh_main_notice_title">通知欄</string>
     <string name="zh_preference_category_language">語言</string>
     <string name="zh_preference_category_launcher">啟動器</string>
-
     <string name="zh_game_exit_message">應用程式/遊戲以代碼 %d 結束，詳細錯誤原因請查看日誌檔或崩潰報告。若您無法親自解決此問題，請將日誌檔或崩潰報告寄給能夠解決問題的人協助您處理！\n\n請不要只是截圖目前應用程式介面，否則無法得知發生了什麼事，請分享您的日誌檔或崩潰報告！</string>
     <string name="zh_game_autopick_runtime_failed">未找到合適的執行環境，已設定為當前實例選擇的執行環境</string>
     <string name="zh_game_tip">遊戲正在執行中，可以透過選單開啟日誌輸出，查看遊戲執行狀況</string>
     <string name="zh_game_tip_version">當前啟動的遊戲版本：</string>
-
     <string name="zh_profile_custom_path">自訂路徑</string>
     <string name="zh_profile_mods_download_mod">下載 Mod</string>
     <string name="zh_profile_mods_platform">搜尋平台</string>
@@ -174,7 +161,6 @@
     <string name="zh_profile_mods_disable">停用</string>
     <string name="zh_profile_mods_enable">啟用</string>
     <string name="zh_profile_mods_disable_or_enable">停用/啟用</string>
-
     <string name="zh_profile_manager_shortcuts">快速功能</string>
     <string name="zh_profile_manager_shortcuts_mods">模組管理</string>
     <string name="zh_profile_manager_shortcuts_instance_path">實例路徑資料夾</string>
@@ -185,11 +171,10 @@
     <string name="zh_profile_manager_edit">編輯實例</string>
     <string name="zh_profile_manager_delete">刪除實例</string>
     <string name="zh_profile_manager_delete_message">此操作將會刪除此實例，但並不會刪除實例關聯的遊戲檔案</string>
-
     <string name="zh_replacement_customcontrol">更換控制佈局</string>
-    <string name="zh_select_modpack_search">搜索整合包</string>
-    <string name="zh_select_modpack_local">本地整合包</string>
-    <string name="zh_select_modpack_local_tip">請選擇一個啟動器支持導入的整合包文件！</string>
+    <string name="zh_select_modpack_search">搜索模組包</string>
+    <string name="zh_select_modpack_local">本地模組包</string>
+    <string name="zh_select_modpack_local_tip">請選擇一個啟動器支持導入的模組包文件！</string>
     <string name="zh_select_modpack_local_not_supported">此檔案不受啟動器支援！</string>
     <string name="zh_select_modpack_local_installing_files">安裝遊戲檔案中… (%d)</string>
     <string name="zh_setting_java_memory_desc">控制分配給 Minecraft 的記憶體大小</string>
@@ -213,12 +198,10 @@
     <string name="zh_setting_quit_launcher_desc">在應用正式開始執行遊戲時，是否退出啟動器</string>
     <string name="zh_setting_quit_launcher_title">退出啟動器</string>
     <string name="zh_setting_reboot_tip">這項設定已被更改，但是需要重新啟動應用程式才能生效！</string>
-
     <string name="zh_clear_up_cache">清理快取</string>
     <string name="zh_clear_up_cache_desc">檢查並清理應用的快取檔案，清除快取檔案不影響應用正常使用</string>
     <string name="zh_clear_up_cache_not_found">未搜尋到快取檔案</string>
     <string name="zh_clear_up_cache_clean_up">清理完畢，本次總共清除了 %s 的快取檔案</string>
-
     <string name="zh_update">檢查更新</string>
     <string name="zh_update_dialog_title">檢測到新版本</string>
     <string name="zh_update_dialog_version">版本：</string>
@@ -234,7 +217,6 @@
     <string name="zh_update_update_source_ghproxy">Ghproxy 加速源</string>
     <string name="zh_update_downloading">正在下載安裝包… (%s / %s)</string>
     <string name="zh_update_downloading_tip">正在下載中，更新來源：%s</string>
-
     <string name="zh_other_login_api">外部登錄</string>
     <string name="zh_other_login_authentication_server">身份驗證服務器</string>
     <string name="zh_other_login_register">註冊</string>
@@ -251,7 +233,6 @@
     <string name="zh_other_login_client">客戶端</string>
     <string name="zh_other_login_error_code">錯誤代碼：</string>
     <string name="zh_other_login_server_not_empty">伺服器不能為空，請檢查身份驗證伺服器設定！</string>
-
     <string name="zh_about_tab">關於 Pojav Zenith Horizon</string>
     <string name="zh_about_dec1">Pojav Zenith Horizon 是一款基於 PojavLauncher 魔改的 Minecraft 啟動器，它能夠在 Android 設備上執行 Minecraft：Java Edition。\nPojav Zenith Horizon 致力於優化使用者體驗，重新設計了應用介面，新增了更多實用的功能，旨在最大程度地降低遊玩門檻，讓更多人能夠輕鬆體驗 Minecraft 的樂趣。</string>
     <string name="zh_about_dec2">Pojav Zenith Horizon 由墨北MovTery 個人精心製作，在 PojavLauncher 的基礎上進行了深入的魔改工作。</string>
