@@ -234,7 +234,7 @@ public final class Tools {
 
     public static void buildNotificationChannel(Context context) {
         NotificationChannel channel = new NotificationChannel(
-                context.getString(R.string.notif_channel_id),
+                "channel_id",
                 context.getString(R.string.notif_channel_name), NotificationManager.IMPORTANCE_DEFAULT);
         NotificationManagerCompat manager = NotificationManagerCompat.from(context);
         manager.createNotificationChannel(channel);
