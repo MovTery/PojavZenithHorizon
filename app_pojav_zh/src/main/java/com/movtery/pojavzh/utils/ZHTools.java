@@ -31,6 +31,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.movtery.pojavzh.feature.mod.modpack.MCBBSModPack;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundManager;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
 
@@ -41,7 +42,6 @@ import net.kdt.pojavlaunch.R;
 import com.movtery.pojavzh.feature.ResourceManager;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.CurseforgeApi;
-import com.movtery.pojavzh.feature.mod.api.MCBBSApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModLoader;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModrinthApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.CurseManifest;
@@ -536,7 +536,7 @@ public class ZHTools {
 
                     modLoader = mcbbsModPack(context, zipFile, packName);
                     if (modLoader != null)
-                        createProfiles(packName, mcbbsPackMeta.name, modLoader.getVersionId());
+                        MCBBSModPack.createProfiles(packName, mcbbsPackMeta, modLoader.getVersionId());
 
                     return modLoader;
                 case 3: // modrinth
@@ -600,8 +600,8 @@ public class ZHTools {
     }
 
     private static ModLoader mcbbsModPack(Context context, File zipFile, String packName) throws Exception {
-        MCBBSApi mcbbsApi = new MCBBSApi();
-        return mcbbsApi.installMCBBSZip(context, zipFile, new File(ProfilePathManager.getCurrentPath(), "custom_instances/" + packName));
+        MCBBSModPack mcbbsModPack = new MCBBSModPack(context, zipFile);
+        return mcbbsModPack.install(new File(ProfilePathManager.getCurrentPath(), "custom_instances/" + packName));
     }
 
     private static void createProfiles(String modpackName, String profileName, String versionId) {
