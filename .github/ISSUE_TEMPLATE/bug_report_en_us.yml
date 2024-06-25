@@ -71,6 +71,7 @@ body:
       value: |
         - Device Model:
         - CPU Architecture:
+        - GPU Information:
       render: markdown
     validations:
       required: true

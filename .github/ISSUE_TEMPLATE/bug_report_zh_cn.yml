@@ -71,6 +71,7 @@ body:
       value: |
         - 设备型号：
         - CPU 架构：
+        - GPU 信息：
       render: markdown
     validations:
       required: true
