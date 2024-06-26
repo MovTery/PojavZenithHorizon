@@ -32,6 +32,6 @@
     <string name="zh_keycode_kp_7">數字鍵盤 7</string>
     <string name="zh_keycode_kp_8">數字鍵盤 8</string>
     <string name="zh_keycode_kp_9">數字鍵盤 9</string>
-    <string name="zh_keycode_left_ctrl">左 ctrl</string>
-    <string name="zh_keycode_right_ctrl">右 ctrl</string>
+    <string name="zh_keycode_left_ctrl">左 Ctrl</string>
+    <string name="zh_keycode_right_ctrl">右 Ctrl</string>
 </resources>
