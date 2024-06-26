@@ -63,14 +63,10 @@ jobs:
 
       - uses: gradle/gradle-build-action@v2
         with:
-          gradle-version: 7.6.1
+          gradle-version: 8.4
 
       - name: Build JRE JAR files
         run: |
-          chmod +x ./scripts/languagelist_updater.sh
-          ./scripts/languagelist_updater.sh
-
-          mkdir out
           # Build JRE JAR files (security manager, etc...)
           gradle :jre_lwjgl3glfw:build --no-daemon
 
@@ -120,10 +116,6 @@ jobs:
 
       - name: Build JRE JAR files
         run: |
-          chmod +x ./scripts/languagelist_updater.sh
-          ./scripts/languagelist_updater.sh
-
-          mkdir out
           # Build JRE JAR files (security manager, etc...)
           gradle :jre_lwjgl3glfw:build --no-daemon
 
