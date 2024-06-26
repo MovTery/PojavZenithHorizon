@@ -287,7 +287,6 @@
     <string name="notif_download_finished">游戏已经准备好启动了</string>
     <string name="notif_download_finished_desc">点击这里启动它！</string>
     <string name="preference_category_buttons">控制布局</string>
-    <string name="preference_category_experimental_settings">实验性的补丁</string>
     <string name="preference_category_java_tweaks">Java 调整</string>
     <string name="preference_category_miscellaneous">其他设置</string>
     <string name="preference_category_video">视频设置</string>
