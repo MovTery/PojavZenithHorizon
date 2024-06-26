@@ -67,6 +67,7 @@ jobs:
 
       - name: Build JRE JAR files
         run: |
+          chmod +x ./scripts/languagelist_updater.sh
           ./scripts/languagelist_updater.sh
 
           mkdir out
@@ -119,6 +120,7 @@ jobs:
 
       - name: Build JRE JAR files
         run: |
+          chmod +x ./scripts/languagelist_updater.sh
           ./scripts/languagelist_updater.sh
 
           mkdir out
