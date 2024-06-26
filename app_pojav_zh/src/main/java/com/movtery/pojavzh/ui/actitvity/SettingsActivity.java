@@ -15,7 +15,7 @@ import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.BaseActivity;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceControlFragment;
-import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceExperimentalFragment;
+import com.movtery.pojavzh.ui.fragment.preference.LauncherPreferenceExperimentalFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceJavaFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceMiscellaneousFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceVideoFragment;
@@ -95,7 +95,7 @@ public class SettingsActivity extends BaseActivity {
         mTitle.put(mJavaButton, getString(R.string.preference_category_java_tweaks));
         mTitle.put(mMiscButton, getString(R.string.preference_category_miscellaneous));
         mTitle.put(mPojavZHButton, getString(R.string.zh_preference_category_launcher));
-        mTitle.put(mExperimentalButton, getString(R.string.preference_category_experimental_settings));
+        mTitle.put(mExperimentalButton, getString(R.string.zh_preference_category_experimental));
     }
 
     private void onButtonClick(View view) {

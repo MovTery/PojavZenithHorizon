@@ -180,6 +180,8 @@
     <string name="zh_main_notice_title">Notification Bar</string>
     <string name="zh_preference_category_language">Language</string>
     <string name="zh_preference_category_launcher">Launcher</string>
+    <string name="zh_preference_category_experimental">Experimental</string>
+    <string name="zh_preference_category_experimental_patches">Experimental Patches</string>
     <string name="zh_setting_java_memory_desc">Control how much memory is allocated to Minecraft</string>
     <string name="zh_setting_java_memory_info">Current memory usage: %s / %s, Free memory size: %s</string>
     <string name="zh_setting_java_memory_max">Maximum allowable memory size: %s</string>

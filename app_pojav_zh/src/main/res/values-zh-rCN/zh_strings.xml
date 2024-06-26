@@ -180,6 +180,8 @@
     <string name="zh_main_notice_title">通知栏</string>
     <string name="zh_preference_category_language">语言</string>
     <string name="zh_preference_category_launcher">启动器</string>
+    <string name="zh_preference_category_experimental">实验性</string>
+    <string name="zh_preference_category_experimental_patches">实验性的补丁</string>
     <string name="zh_setting_java_memory_desc">控制给 Minecraft 分配多少内存</string>
     <string name="zh_setting_java_memory_info">当前内存使用信息：%s / %s ，空闲内存大小：%s</string>
     <string name="zh_setting_java_memory_max">最大可设置的内存大小：%s</string>
