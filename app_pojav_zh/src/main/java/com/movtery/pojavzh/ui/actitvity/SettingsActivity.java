@@ -15,7 +15,7 @@ import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.BaseActivity;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceControlFragment;
-import com.movtery.pojavzh.ui.fragment.preference.LauncherPreferenceExperimentalFragment;
+import com.movtery.pojavzh.ui.fragment.preference.PreferenceExperimentalFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceJavaFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceMiscellaneousFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceVideoFragment;
@@ -64,7 +64,7 @@ public class SettingsActivity extends BaseActivity {
         });
         mExperimentalButton.setOnClickListener(v -> {
             onButtonClick(v);
-            swapFragment(LauncherPreferenceExperimentalFragment.class, LauncherPreferenceExperimentalFragment.TAG);
+            swapFragment(PreferenceExperimentalFragment.class, PreferenceExperimentalFragment.TAG);
         });
 
         ProgressKeeper.addTaskCountListener((mProgressServiceKeeper = new ProgressServiceKeeper(this)));
