@@ -64,12 +64,17 @@ public class OperationFile {
                     }
                 }, 0, 80);
 
+                runOnUiThread(dialog::show);
+
                 List<File> preDeleteFiles = new ArrayList<>();
                 selectedFiles.forEach(selectedFile -> {
+                    if (currentTask.isCancelled()) {
+                        return;
+                    }
+
+                    fileSize.addAndGet(FileUtils.sizeOf(selectedFile));
+
                     if (selectedFile.isDirectory()) {
-                        if (currentTask.isCancelled()) {
-                            return;
-                        }
                         Collection<File> allFiles = FileUtils.listFiles(selectedFile, null, true);
                         allFiles.forEach(file1 -> {
                             if (currentTask.isCancelled()) {
@@ -77,19 +82,13 @@ public class OperationFile {
                             }
                             fileCount.addAndGet(1);
                             preDeleteFiles.add(file1);
-                            fileSize.addAndGet(FileUtils.sizeOf(file1));
                         });
-                    } else {
-                        fileSize.addAndGet(FileUtils.sizeOf(selectedFile));
                     }
+
                     fileCount.addAndGet(1);
                     preDeleteFiles.add(selectedFile);
                 });
                 totalFileSize.set(fileSize.get());
-
-                if (totalFileSize.get() > 10 * 1024 * 1024) {
-                    runOnUiThread(dialog::show); //如果预处理文件总大小大于10MB，则显示弹窗，避免处理过快，弹窗一瞬间消失的问题
-                }
 
                 preDeleteFiles.forEach(file -> {
                     if (currentTask.isCancelled()) {
