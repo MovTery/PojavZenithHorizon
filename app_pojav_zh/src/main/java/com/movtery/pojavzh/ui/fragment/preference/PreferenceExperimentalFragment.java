@@ -5,7 +5,7 @@ import android.os.Bundle;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceFragment;
 
-public class LauncherPreferenceExperimentalFragment extends LauncherPreferenceFragment {
+public class PreferenceExperimentalFragment extends LauncherPreferenceFragment {
     public static final String TAG = "LauncherPreferenceExperimentalFragment";
 
     @Override
