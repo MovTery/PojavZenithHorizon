@@ -1,18 +1,17 @@
 name: Android CI
 
 on:
-  pull_request:
-    branches-ignore:
-      - 'l10n_v3_openjdk2'
-    types: [ opened, reopened ]
   push:
-    branches-ignore:
-      - 'l10n_v3_openjdk2'
+  pull_request:
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        arch: [ "all", "arm", "arm64", "x86", "x86_64" ]
+      fail-fast: false
     env:
       CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
       MOVTERY_KEYSTORE_PASSWORD: ${{ secrets.MOVTERY_KEYSTORE_PASSWORD }}
@@ -55,6 +54,16 @@ jobs:
           branch: buildjre17-21
           name: jre21-pojav
 
+      - name: Get LWJGL3
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          workflow: main.yml
+          path: app_pojavlauncher/src/main/assets/components/lwjgl3
+          workflow_conclusion: success
+          repo: Vera-Firefly/lwjgl3-build
+          branch: main
+          name: lwjgl
+
       - uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 8.4
@@ -65,37 +74,37 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Build JRE JAR files
-        run: |
-          # Build JRE JAR files (security manager, etc...)
-          gradle :jre_lwjgl3glfw:build --no-daemon
-
       - name: Build Release.apk
         if: github.repository_owner == 'HopiHopy' && github.ref_name == 'main'
         run: |
-          gradle :app_pojav_zh:assemblerelease
+          chmod +x gradlew
+          ./gradlew app_pojav_zh:assemblerelease -Darch=${{matrix.arch}}
 
       - name: Build Debug.apk
         run: |
-          # Build the launcher
-          gradle :app_pojav_zh:assembleDebug
+          chmod +x gradlew
+          ./gradlew app_pojav_zh:assembleDebug -Darch=${{matrix.arch}}
 
       - name: Upload Release
         continue-on-error: true
         if: github.repository_owner == 'HopiHopy' && github.ref_name == 'main'
         uses: actions/upload-artifact@v4
         with:
-          name: PojavZenithHorizon(Release)
+          name: PojavZenithHorizon(Release)-${{matrix.arch}}
           path: app_pojav_zh/build/outputs/apk/release/*
 
       - name: Upload Debug
         uses: actions/upload-artifact@v4
         with:
-          name: PojavZenithHorizon(Debug)
+          name: PojavZenithHorizon(Debug)-${{matrix.arch}}
           path: app_pojav_zh/build/outputs/apk/debug/*
 
   build-noruntime:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: [ "all", "arm", "arm64", "x86", "x86_64" ]
+      fail-fast: false
     env:
       CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
       MOVTERY_KEYSTORE_PASSWORD: ${{ secrets.MOVTERY_KEYSTORE_PASSWORD }}
@@ -108,10 +117,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build JRE JAR files
-        run: |
-          # Build JRE JAR files (security manager, etc...)
-          gradle :jre_lwjgl3glfw:build --no-daemon
+      - name: Get LWJGL3
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          workflow: main.yml
+          path: app_pojavlauncher/src/main/assets/components/lwjgl3
+          workflow_conclusion: success
+          repo: Vera-Firefly/lwjgl3-build
+          branch: main
+          name: lwjgl
 
       - uses: gradle/actions/setup-gradle@v3
         with:
@@ -122,13 +136,14 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+
       - name: Build Debug-noruntime.apk
         run: |
-          # Build the launcher
-          gradle :app_pojav_zh:assembleDebug
+          chmod +x gradlew
+          ./gradlew app_pojavlauncher:assembleDebug -Darch=${{matrix.arch}}
 
       - name: Upload Debug
         uses: actions/upload-artifact@v4
         with:
-          name: PojavZenithHorizon(Debug - No Runtime)
+          name: PojavZenithHorizon(Debug - No Runtime)-${{matrix.arch}}
           path: app_pojav_zh/build/outputs/apk/debug/*
