@@ -24,7 +24,7 @@ import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 // Experimental Settings for Mesa renderer
-public class PreferenceRendererConfigFragment extends LauncherPreferenceFragment {
+public class PreferenceRendererConfigFragment extends LauncherPreference {
     public static final String TAG = "PreferenceRendererConfigFragment";
 
     private EditText mMesaGLVersion;
