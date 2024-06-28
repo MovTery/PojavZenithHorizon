@@ -69,6 +69,7 @@
         android:title="@string/preference_exp_custommv">
 
         <SwitchPreference
+            android:defaultValue="true"
             android:key="ebSystem"
             android:title="@string/preference_exp_ebsystem"/>
         <SwitchPreference
