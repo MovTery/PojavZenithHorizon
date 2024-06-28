@@ -1,6 +1,5 @@
 package net.kdt.pojavlaunch.prefs.screens;
 
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_NOTCH_SIZE;
 
 import android.content.SharedPreferences;
@@ -46,13 +45,11 @@ public class LauncherPreferenceVideoFragment extends LauncherPreferenceFragment 
                 SwitchPreference.class);
         sustainedPerfSwitch.setVisible(true);
 
-        final ListPreference rendererListPreference = requirePreference("renderer", ListPreference.class);
-        setListPreference(rendererListPreference, "renderer");
-
-        rendererListPreference.setOnPreferenceChangeListener((pre, obj) -> {
-            Tools.LOCAL_RENDERER = (String)obj;
-            return true;
-        });
+        ListPreference rendererListPreference = requirePreference("renderer",
+                ListPreference.class);
+        Tools.RenderersList renderersList = Tools.getCompatibleRenderers(getContext());
+        rendererListPreference.setEntries(renderersList.rendererDisplayNames);
+        rendererListPreference.setEntryValues(renderersList.rendererIds.toArray(new String[0]));
 
         computeVisibility();
     }
@@ -67,16 +64,4 @@ public class LauncherPreferenceVideoFragment extends LauncherPreferenceFragment 
         requirePreference("force_vsync", SwitchPreferenceCompat.class)
                 .setVisible(LauncherPreferences.PREF_USE_ALTERNATE_SURFACE);
     }
-
-    private void setListPreference(ListPreference listPreference, String preferenceKey) {
-        Tools.IListAndArry array = null;
-        String value = listPreference.getValue();
-        if (preferenceKey.equals("renderer")) {
-            array = Tools.getCompatibleRenderers(getContext());
-            Tools.LOCAL_RENDERER = value;
-        }
-        listPreference.setEntries(array.getArray());
-        listPreference.setEntryValues(array.getList().toArray(new String[0]));
-    }
-
 }
