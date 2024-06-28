@@ -22,9 +22,10 @@ import java.util.regex.Matcher;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
+import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceFragment;
 
 // Experimental Settings for Mesa renderer
-public class PreferenceRendererConfigFragment extends LauncherPreference {
+public class PreferenceRendererConfigFragment extends LauncherPreferenceFragment {
     public static final String TAG = "PreferenceRendererConfigFragment";
 
     private EditText mMesaGLVersion;
