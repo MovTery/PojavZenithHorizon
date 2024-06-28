@@ -282,7 +282,7 @@
     <string name="preference_renderer_setup_extra">渲染器 (擴展)</string>
     <string name="preference_renderer_extra_default">Mesa 24.1.2 (預設)</string>
     <string name="preference_extra_mesa_version">Mesa 版本</string>
-    <string name="preference_extra_driver_modle">驅動模型</string>
+    <string name="preference_extra_driver_model">驅動模型</string>
     <!-- Dialog box prompt -->
     <string name="preference_rendererexp_alertdialog_message">你已打開實驗性設置，此功能可能會產生意想不到的問題，是否繼續使用?</string>
     <string name="alertdialog_tipa">警告！在使用自定義 GL/GLSL 之前你必須了解什麼是 GL/GLSL</string>

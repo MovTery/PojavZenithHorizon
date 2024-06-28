@@ -121,10 +121,10 @@ public final class Tools {
     public static String CTRLDEF_FILE;
     public static DisplayMetrics currentDisplayMetrics;
 
-    public static String DRIVER_MODLE = null;
+    public static String DRIVER_MODEL = null;
     public static String MESA_LIBS = null;
 
-    private static CDriverModleList sCompatibleCDriverModle;
+    private static CDriverModelList sCompatibleCDriverModel;
     private static CMesaLibList sCompatibleCMesaLibs;
     private static RenderersList sCompatibleRenderers;
 
@@ -1160,42 +1160,42 @@ public final class Tools {
         return sCompatibleCMesaLibs;
     }
 
-    public static CDriverModleList getCompatibleCDriverModel(Context context) {
+    public static CDriverModelList getCompatibleCDriverModel(Context context) {
         Resources resources = context.getResources();
-        String[] defaultCDriverModle = resources.getStringArray(R.array.driver_models_values);
-        String[] defaultCDriverModleNames = resources.getStringArray(R.array.driver_models);
-        List<String> CDriverModleIds = new ArrayList<>(defaultCDriverModle.length);
-        List<String> CDriverModleNames = new ArrayList<>(defaultCDriverModleNames.length);
-        for(int i = 0; i < defaultCDriverModle.length; i++) {
-            String driverModle = defaultCDriverModle[i];
+        String[] defaultCDriverModel = resources.getStringArray(R.array.driver_models_values);
+        String[] defaultCDriverModelNames = resources.getStringArray(R.array.driver_models);
+        List<String> CDriverModelIds = new ArrayList<>(defaultCDriverModel.length);
+        List<String> CDriverModelNames = new ArrayList<>(defaultCDriverModelNames.length);
+        for(int i = 0; i < defaultCDriverModel.length; i++) {
+            String driverModel = defaultCDriverModel[i];
             switch (MESA_LIBS) {
                 case "default":{
-                    if(driverModle.contains("virgl")) continue;
-                    if(driverModle.contains("panfrost")) continue;
-                    if(driverModle.contains("softpipe")) continue;
-                    if(driverModle.contains("llvmpipe")) continue;
+                    if(driverModel.contains("virgl")) continue;
+                    if(driverModel.contains("panfrost")) continue;
+                    if(driverModel.contains("softpipe")) continue;
+                    if(driverModel.contains("llvmpipe")) continue;
                 } break;
                 case "mesa2304":{
-                    if(driverModle.contains("virgl")) continue;
+                    if(driverModel.contains("virgl")) continue;
                 } break;
                 case "mesa2300d":{
-                    if(driverModle.contains("virgl")) continue;
-                    if(driverModle.contains("freedreno")) continue;
+                    if(driverModel.contains("virgl")) continue;
+                    if(driverModel.contains("freedreno")) continue;
                 } break;
                 case "mesa2205":{
-                    if(driverModle.contains("panfrost")) continue;
-                    if(driverModle.contains("freedreno")) continue;
-                    if(driverModle.contains("softpipe")) continue;
-                    if(driverModle.contains("llvmpipe")) continue;
+                    if(driverModel.contains("panfrost")) continue;
+                    if(driverModel.contains("freedreno")) continue;
+                    if(driverModel.contains("softpipe")) continue;
+                    if(driverModel.contains("llvmpipe")) continue;
                 } break;
             }
-            CDriverModleIds.add(driverModle);
-            CDriverModleNames.add(defaultCDriverModleNames[i]);
+            CDriverModelIds.add(driverModel);
+            CDriverModelNames.add(defaultCDriverModelNames[i]);
         }
-        sCompatibleCDriverModle = new CDriverModleList(CDriverModleIds,
-                CDriverModleNames.toArray(new String[0]));
+        sCompatibleCDriverModel = new CDriverModelList(CDriverModelIds,
+                CDriverModelNames.toArray(new String[0]));
 
-        return sCompatibleCDriverModle;
+        return sCompatibleCDriverModel;
     }
 
     /**
@@ -1216,12 +1216,12 @@ public final class Tools {
         void updateProgress(int curr, int max);
     }
 
-    public static interface IListAndArry {
+    public interface IListAndArray {
         List<String> getList();
         String[] getArray();
     }
 
-    public static class RenderersList implements IListAndArry {
+    public static class RenderersList implements IListAndArray {
         public final List<String> rendererIds;
         public final String[] rendererDisplayNames;
 
@@ -1241,7 +1241,7 @@ public final class Tools {
         }
     }
 
-    public static class CMesaLibList implements IListAndArry {
+    public static class CMesaLibList implements IListAndArray {
         public final List<String> CMesaLibIds;
         public final String[] CMesaLibs;
 
@@ -1261,23 +1261,23 @@ public final class Tools {
         }
     }
 
-    public static class CDriverModleList implements IListAndArry {
-        public final List<String> CDriverModleIds;
-        public final String[] CDriverModles;
+    public static class CDriverModelList implements IListAndArray {
+        public final List<String> CDriverModelIds;
+        public final String[] CDriverModels;
 
-        public CDriverModleList(List<String> CDriverModleIds, String[] CDriverModles) {
-            this.CDriverModleIds = CDriverModleIds;
-            this.CDriverModles = CDriverModles;
+        public CDriverModelList(List<String> CDriverModelIds, String[] CDriverModels) {
+            this.CDriverModelIds = CDriverModelIds;
+            this.CDriverModels = CDriverModels;
         }
 
         @Override
         public List<String> getList() {
-            return CDriverModleIds;
+            return CDriverModelIds;
         }
 
         @Override
         public String[] getArray() {
-            return CDriverModles;
+            return CDriverModels;
         }
     }
 

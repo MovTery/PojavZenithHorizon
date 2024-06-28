@@ -375,8 +375,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         if(Tools.MESA_LIBS == null) {
             Tools.MESA_LIBS = LauncherPreferences.PREF_MESA_LIB;
         }
-        if(Tools.DRIVER_MODLE == null) {
-            Tools.DRIVER_MODLE = LauncherPreferences.PREF_DRIVER_MODLE;
+        if(Tools.DRIVER_MODEL == null) {
+            Tools.DRIVER_MODEL = LauncherPreferences.PREF_DRIVER_MODEL;
         }
         if(!Tools.checkRendererCompatible(this, Tools.LOCAL_RENDERER)) {
             Tools.RenderersList renderersList = Tools.getCompatibleRenderers(this);

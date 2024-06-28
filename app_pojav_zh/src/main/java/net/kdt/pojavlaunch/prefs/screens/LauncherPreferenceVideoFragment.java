@@ -68,10 +68,10 @@ public class LauncherPreferenceVideoFragment extends LauncherPreferenceFragment 
     }
 
     private void setListPreference(ListPreference listPreference, String preferenceKey) {
-        Tools.IListAndArry array = null;
+        Tools.IListAndArray array = null;
         String value = listPreference.getValue();
         if (preferenceKey.equals("renderer")) {
-            array = Tools.getCompatibleRenderers(getContext());
+            array = Tools.getCompatibleRenderers(requireContext());
             Tools.LOCAL_RENDERER = value;
         }
         listPreference.setEntries(array.getArray());

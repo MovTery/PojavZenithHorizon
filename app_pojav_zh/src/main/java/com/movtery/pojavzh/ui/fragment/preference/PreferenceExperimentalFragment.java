@@ -41,7 +41,7 @@ public class PreferenceExperimentalFragment extends LauncherPreferenceFragment {
         });
 
         CDriverModel.setOnPreferenceChangeListener((pre, obj) -> {
-            Tools.DRIVER_MODLE = (String) obj;
+            Tools.DRIVER_MODEL = (String) obj;
             return true;
         });
 
@@ -115,14 +115,14 @@ public class PreferenceExperimentalFragment extends LauncherPreferenceFragment {
     }
 
     private void setListPreference(ListPreference listPreference, String preferenceKey) {
-        Tools.IListAndArry array = null;
+        Tools.IListAndArray array;
         String value = listPreference.getValue();
         if (preferenceKey.equals("CMesaLibrary")) {
-            array = Tools.getCompatibleCMesaLib(getContext());
+            array = Tools.getCompatibleCMesaLib(requireContext());
             Tools.MESA_LIBS = value;
-        } else if (preferenceKey.equals("CDriverModels")) {
+        } else {
             array = Tools.getCompatibleCDriverModel(requireContext());
-            Tools.DRIVER_MODLE = value;
+            Tools.DRIVER_MODEL = value;
         }
         listPreference.setEntries(array.getArray());
         listPreference.setEntryValues(array.getList().toArray(new String[0]));

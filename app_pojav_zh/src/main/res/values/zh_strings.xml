@@ -282,7 +282,7 @@
     <string name="preference_renderer_setup_extra">Renderer (Extra)</string>
     <string name="preference_renderer_extra_default">Mesa 24.1.2 (Default)</string>
     <string name="preference_extra_mesa_version">Mesa Version</string>
-    <string name="preference_extra_driver_modle">Driver Model</string>
+    <string name="preference_extra_driver_model">Driver Model</string>
     <!-- Dialog box prompt -->
     <string name="preference_rendererexp_alertdialog_message">You have enabled experimental settings. This feature may cause unexpected issues. Do you want to continue?</string>
     <string name="alertdialog_tipa">Warning! You must understand what GL/GLSL is before using custom GL/GLSL.</string>

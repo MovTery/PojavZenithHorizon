@@ -25,7 +25,7 @@ public class LauncherPreferences {
     public static SharedPreferences DEFAULT_PREF;
     public static String PREF_RENDERER = "opengles2";
     public static String PREF_MESA_LIB = "default";
-    public static String PREF_DRIVER_MODLE = "driver_zink";
+    public static String PREF_DRIVER_MODEL = "driver_zink";
 
 	public static boolean PREF_VERTYPE_RELEASE = true;
 	public static boolean PREF_VERTYPE_SNAPSHOT = false;
@@ -149,8 +149,8 @@ public class LauncherPreferences {
         PREF_EXP_ENABLE_CUSTOM = DEFAULT_PREF.getBoolean("ebCustom", false);
 
         PREF_EXP_SETUP = DEFAULT_PREF.getBoolean("ExperimentalSetup", false);
-        PREF_MESA_LIB = DEFAULT_PREF.getString("CMesaLibrarys", "default");
-        PREF_DRIVER_MODLE = DEFAULT_PREF.getString("CDriverModles", "driver_zink");
+        PREF_MESA_LIB = DEFAULT_PREF.getString("CMesaLibrary", "default");
+        PREF_DRIVER_MODEL = DEFAULT_PREF.getString("CDriverModels", "driver_zink");
 
         PREF_MESA_GL_VERSION = DEFAULT_PREF.getString("mesaGLVersion", "4.6");
         PREF_MESA_GLSL_VERSION = DEFAULT_PREF.getString("mesaGLSLVersion", "460");

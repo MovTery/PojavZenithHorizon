@@ -4,7 +4,7 @@ import static net.kdt.pojavlaunch.Architecture.ARCH_X86;
 import static net.kdt.pojavlaunch.Architecture.is64BitsDevice;
 import static net.kdt.pojavlaunch.Tools.LOCAL_RENDERER;
 import static net.kdt.pojavlaunch.Tools.MESA_LIBS;
-import static net.kdt.pojavlaunch.Tools.DRIVER_MODLE;
+import static net.kdt.pojavlaunch.Tools.DRIVER_MODEL;
 import static net.kdt.pojavlaunch.Tools.NATIVE_LIB_DIR;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.*;
@@ -240,23 +240,23 @@ public class JREUtils {
                 switch (LOCAL_RENDERER) {
                     case "vulkan_zink":{
                         envMap.put("POJAV_BETA_RENDERER", "mesa_3d");
-                        envMap.put("LOCAL_DRIVER_MODLE", "driver_zink");
+                        envMap.put("LOCAL_DRIVER_MODEL", "driver_zink");
                         envMap.put("MESA_LIBRARY", localMesaLibrary);
                     } break;
                     case "opengles3_virgl":{
                         envMap.put("POJAV_BETA_RENDERER", "mesa_3d");
-                        envMap.put("LOCAL_DRIVER_MODLE", "driver_virgl");
+                        envMap.put("LOCAL_DRIVER_MODEL", "driver_virgl");
                         envMap.put("VTEST_SOCKET_NAME", new File(Tools.DIR_CACHE, ".virgl_test").getAbsolutePath());
                         envMap.put("MESA_LIBRARY", localMesaLibrary);
                     } break;
                     case "freedreno":{
                         envMap.put("POJAV_BETA_RENDERER", "mesa_3d");
-                        envMap.put("LOCAL_DRIVER_MODLE", "driver_freedreno");
+                        envMap.put("LOCAL_DRIVER_MODEL", "driver_freedreno");
                         envMap.put("MESA_LIBRARY", localMesaLibrary);
                     } break;
                     case "panfrost":{
                         envMap.put("POJAV_BETA_RENDERER", "mesa_3d");
-                        envMap.put("LOCAL_DRIVER_MODLE", "driver_panfrost");
+                        envMap.put("LOCAL_DRIVER_MODEL", "driver_panfrost");
                         envMap.put("MESA_DISK_CACHE_SINGLE_FILE", "1");
                         envMap.put("MESA_DISK_CACHE_SINGLE_FILE", "true");
                         envMap.put("MESA_LIBRARY", localMesaLibrary);
@@ -270,9 +270,9 @@ public class JREUtils {
             }
             if (LOCAL_RENDERER.equals("mesa_3d")) {
                 envMap.put("MESA_LIBRARY", localMesaLibrary);
-                envMap.put("LOCAL_DRIVER_MODLE", DRIVER_MODLE);
+                envMap.put("LOCAL_DRIVER_MODEL", DRIVER_MODEL);
                 if (PREF_EXP_ENABLE_SPECIFIC) {
-                    switch (DRIVER_MODLE) {
+                    switch (DRIVER_MODEL) {
                         case "driver_zink":
                         case "driver_freedreno":
                         case "driver_softpipe":
@@ -295,12 +295,12 @@ public class JREUtils {
                 }
                 if (MESA_LIBS.equals("mesa2205")) {
                     envMap.put("DCLAT_FRAMEBUFFER", "1");
-                    if(DRIVER_MODLE.equals("driver_zink"))
+                    if(DRIVER_MODEL.equals("driver_zink"))
                         envMap.put("POJAV_LEGACY_ZINK_ALLOW", "1");
                 }
-                if (DRIVER_MODLE.equals("driver_virgl"))
+                if (DRIVER_MODEL.equals("driver_virgl"))
                     envMap.put("VTEST_SOCKET_NAME", new File(Tools.DIR_CACHE, ".virgl_test").getAbsolutePath());
-                if (DRIVER_MODLE.equals("driver_panfrost")) {
+                if (DRIVER_MODEL.equals("driver_panfrost")) {
                     envMap.put("MESA_DISK_CACHE_SINGLE_FILE", "1");
                     envMap.put("MESA_DISK_CACHE_SINGLE_FILE", "true");
                 }
