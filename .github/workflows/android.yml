@@ -8,10 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
-    strategy:
-      matrix:
-        arch: [ "all", "arm", "arm64", "x86", "x86_64" ]
-      fail-fast: false
     env:
       CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
       MOVTERY_KEYSTORE_PASSWORD: ${{ secrets.MOVTERY_KEYSTORE_PASSWORD }}
@@ -73,34 +69,29 @@ jobs:
       - name: Build Release.apk
         if: github.repository_owner == 'HopiHopy' && github.ref_name == 'main'
         run: |
-          chmod +x gradlew
-          ./gradlew app_pojav_zh:assemblerelease -Darch=${{matrix.arch}}
+          gradle :app_pojav_zh:assemblerelease
 
       - name: Build Debug.apk
         run: |
-          chmod +x gradlew
-          ./gradlew app_pojav_zh:assembleDebug -Darch=${{matrix.arch}}
+          # Build the launcher
+          gradle :app_pojav_zh:assembleDebug
 
       - name: Upload Release
         continue-on-error: true
         if: github.repository_owner == 'HopiHopy' && github.ref_name == 'main'
         uses: actions/upload-artifact@v4
         with:
-          name: PojavZenithHorizon(Release)-${{matrix.arch}}
+          name: PojavZenithHorizon(Release)
           path: app_pojav_zh/build/outputs/apk/release/*
 
       - name: Upload Debug
         uses: actions/upload-artifact@v4
         with:
-          name: PojavZenithHorizon(Debug)-${{matrix.arch}}
+          name: PojavZenithHorizon(Debug)
           path: app_pojav_zh/build/outputs/apk/debug/*
 
   build-noruntime:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        arch: [ "all", "arm", "arm64", "x86", "x86_64" ]
-      fail-fast: false
     env:
       CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
       MOVTERY_KEYSTORE_PASSWORD: ${{ secrets.MOVTERY_KEYSTORE_PASSWORD }}
@@ -131,11 +122,11 @@ jobs:
 
       - name: Build Debug-noruntime.apk
         run: |
-          chmod +x gradlew
-          ./gradlew app_pojav_zh:assembleDebug -Darch=${{matrix.arch}}
+          # Build the launcher
+          gradle :app_pojav_zh:assembleDebug
 
       - name: Upload Debug
         uses: actions/upload-artifact@v4
         with:
-          name: PojavZenithHorizon(Debug - No Runtime)-${{matrix.arch}}
+          name: PojavZenithHorizon(Debug - No Runtime)
           path: app_pojav_zh/build/outputs/apk/debug/*
