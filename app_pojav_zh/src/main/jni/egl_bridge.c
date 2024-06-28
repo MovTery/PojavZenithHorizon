@@ -223,21 +223,21 @@ int pojavInitOpenGL() {
 
     // NOTE: Override for now.
     const char *renderer = getenv("POJAV_BETA_RENDERER");
-    const char *ldrivermodle = getenv("LOCAL_DRIVER_MODEL");
+    const char *ldrivermodel = getenv("LOCAL_DRIVER_MODEL");
     if (strncmp("opengles", renderer, 8) == 0) {
         pojav_environ->config_renderer = RENDERER_GL4ES;
         if(getenv("POJAV_SPARE_BRIDGE") == NULL) {
             set_gl_bridge_tbl();
         }
     } else if (strcmp(renderer, "mesa_3d") == 0) {
-        if(strcmp(ldrivermodle, "driver_zink") == 0) {
+        if(strcmp(ldrivermodel, "driver_zink") == 0) {
             setenv("GALLIUM_DRIVER","zink",1);
             printf("Bridge: Use Zink Renderer\n");
             renderer_load_config();
             if(getenv("POJAV_LEGACY_ZINK_ALLOW") == NULL)
                 load_vulkan();
         }
-        if(strcmp(ldrivermodle, "driver_virgl") == 0) {
+        if(strcmp(ldrivermodel, "driver_virgl") == 0) {
             printf("Bridge: Use VirglRenderer\n");
             pojav_environ->config_renderer = RENDERER_VIRGL;
             setenv("GALLIUM_DRIVER","virpipe",1);
@@ -247,25 +247,25 @@ int pojavInitOpenGL() {
             }
             loadSymbolsVirGL();
         }
-        if(strcmp(ldrivermodle, "driver_panfrost") == 0) {
+        if(strcmp(ldrivermodel, "driver_panfrost") == 0) {
             printf("Bridge: Use Panfrost Renderer\n");
             setenv("GALLIUM_DRIVER", "panfrost", 1);
             setenv("PAN_DEBUG","gofaster", 0);
             renderer_load_config();
         }
-        if(strcmp(ldrivermodle, "driver_freedreno") == 0) {
+        if(strcmp(ldrivermodel, "driver_freedreno") == 0) {
             setenv("GALLIUM_DRIVER", "freedreno", 1);
             setenv("MESA_LOADER_DRIVER_OVERRIDE", "kgsl", 1);
             printf("Bridge: Use Freedreno renderer\n");
             renderer_load_config();
         }
-        if(strcmp(ldrivermodle, "driver_softpipe") == 0) {
+        if(strcmp(ldrivermodel, "driver_softpipe") == 0) {
             setenv("GALLIUM_DRIVER", "softpipe", 1);
             setenv("LIBGL_ALWAYS_SOFTWARE", "1", 1);
             printf("Bridge: Use Softpipe renderer\n");
             renderer_load_config();
         }
-        if(strcmp(ldrivermodle, "driver_llvmpipe") == 0) {
+        if(strcmp(ldrivermodel, "driver_llvmpipe") == 0) {
             setenv("GALLIUM_DRIVER", "llvmpipe", 1);
             setenv("LIBGL_ALWAYS_SOFTWARE", "1", 1);
             printf("Bridge: Use LLVMpipe renderer\n");
