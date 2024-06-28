@@ -270,4 +270,44 @@
     <string name="zh_about_version_status_other_branch">Other Branch</string>
     <string name="zh_about_version_status_debug">Debug</string>
     <string name="zh_about_version_status_release">Release</string>
+
+    <!-- From Pojav Glow·Worm -->
+    <!-- Renderer Experimental Setup -->
+    <string name="preference_rendererexp_title">Renderer Experimental Settings</string>
+    <string name="preference_rendererexp_description">Non-professionals should not use it</string>
+    <string name="preference_category_renderer_experimental_settings">Renderer exp setup</string>
+    <string name="preference_renderer_setup_title">Enable Renderer Exp Setup</string>
+    <string name="preference_renderer_setup">Use more renderer-specific settings</string>
+    <string name="preference_spare_bridge_title">Spare Bridge</string>
+    <string name="preference_spare_bridge">Use the second scheme bridge,close if launch failed</string>
+    <string name="preference_exp_framebuffer_title">Spare frame buffer</string>
+    <string name="preference_exp_framebuffer">Use the frame buffer of the second scheme, close it if launch failed</string>
+    <string name="preference_renderer_setup_extra">Renderer (Extra)</string>
+    <string name="preference_renderer_extra_default">Mesa24.1.2 (Default)</string>
+    <string name="preference_extra_mesa_version">Mesa Version</string>
+    <string name="preference_extra_driver_modle">Driver Modle</string>
+    <!-- Dialog box prompt -->
+    <string name="preference_rendererexp_alertdialog_warning">Warning</string>
+    <string name="preference_rendererexp_alertdialog_message">You have turned on experimental settings.This feature may generate unexpected bugs.Continue to use?</string>
+    <string name="preference_rendererexp_alertdialog_done">Fuck</string>
+    <string name="preference_rendererexp_alertdialog_cancel">Fear</string>
+    <string name="preference_alertdialog_know">already know</string>
+    <string name="alertdialog_tipa">Don\'t forget to select the Mesa renderer</string>
+    <string name="alertdialog_tipb">This experimental setting only works for the Mesa renderer</string>
+    <string name="alertdialog_tipc">Remember to check if your device supports these features before using them</string>
+    <string name="alertdialog_done">Done</string>
+    <string name="alertdialog_cancel">Cancel</string>
+    <string name="customglglsl_alertdialog_error_gl">GL version must be between 2.8 and 4.6</string>
+    <string name="customglglsl_alertdialog_error_glsl">GLSL version must be between 280 and 460</string>
+    <!-- Custom GL/GLSL Version -->
+    <string name="preference_exp_alertdialog_glmessage">Before you do this, you must know what you are doing\nAre you sure you want to open it?</string>
+    <string name="preference_exp_custommv">GL/GLSL Version</string>
+    <string name="preference_exp_ebsystem">Select according to system</string>
+    <string name="preference_exp_ebspecific">Use specific version</string>
+    <string name="preference_exp_ebcustom">Custom</string>
+    <string name="preference_rendererexp_custom_glversion_title">Custom GL/GLSL</string>
+    <string name="preference_rendererexp_custom_glversion">Allow custom Mesa GL/GLSL version</string>
+    <string name="custom_gl_version">Mesa GL version:</string>
+    <string name="custom_glsl_version">Mesa GLSL version:</string>
+
 </resources>
