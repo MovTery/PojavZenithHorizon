@@ -6,6 +6,7 @@ import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
 import static com.movtery.pojavzh.utils.ZHTools.shareFile;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_IGNORE_NOTCH;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_EXP_SETUP;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_NOTCH_SIZE;
 
 import android.annotation.SuppressLint;
@@ -119,6 +120,12 @@ public final class Tools {
     public static String CTRLMAP_PATH;
     public static String CTRLDEF_FILE;
     public static DisplayMetrics currentDisplayMetrics;
+
+    public static String DRIVER_MODLE = null;
+    public static String MESA_LIBS = null;
+
+    private static CDriverModleList sCompatibleCDriverModle;
+    private static CMesaLibList sCompatibleCMesaLibs;
     private static RenderersList sCompatibleRenderers;
 
     private static File getPojavStorageRoot(Context ctx) {
@@ -1115,26 +1122,80 @@ public final class Tools {
      * Return the renderers that are compatible with this device
      */
     public static RenderersList getCompatibleRenderers(Context context) {
-        if (sCompatibleRenderers != null) return sCompatibleRenderers;
         Resources resources = context.getResources();
         String[] defaultRenderers = resources.getStringArray(R.array.renderer_values);
         String[] defaultRendererNames = resources.getStringArray(R.array.renderer);
-        boolean deviceHasVulkan = checkVulkanSupport(context.getPackageManager());
-        // Currently, only 32-bit x86 does not have the Zink binary
-        boolean deviceHasZinkBinary = !(Architecture.is32BitsDevice() && Architecture.isx86Device());
         List<String> rendererIds = new ArrayList<>(defaultRenderers.length);
         List<String> rendererNames = new ArrayList<>(defaultRendererNames.length);
-        for (int i = 0; i < defaultRenderers.length; i++) {
-            String rendererId = defaultRenderers[i];
-            if (rendererId.contains("vulkan") && !deviceHasVulkan) continue;
-            if (rendererId.contains("zink") && !deviceHasZinkBinary) continue;
-            rendererIds.add(rendererId);
+        for(int i = 0; i < defaultRenderers.length; i++) {
+            String rendererlist = defaultRenderers[i];
+            if (rendererlist.contains("mesa_3d") && !PREF_EXP_SETUP) continue;
+            if (rendererlist.contains("zink") && PREF_EXP_SETUP) continue;
+            if (rendererlist.contains("virgl") && PREF_EXP_SETUP) continue;
+            if (rendererlist.contains("freedreno") && PREF_EXP_SETUP) continue;
+            if (rendererlist.contains("panfrost") && PREF_EXP_SETUP) continue;
+            rendererIds.add(rendererlist);
             rendererNames.add(defaultRendererNames[i]);
         }
         sCompatibleRenderers = new RenderersList(rendererIds,
                 rendererNames.toArray(new String[0]));
 
         return sCompatibleRenderers;
+    }
+
+    public static CMesaLibList getCompatibleCMesaLib(Context context) {
+        if(sCompatibleCMesaLibs != null) return sCompatibleCMesaLibs;
+        Resources resources = context.getResources();
+        String[] defaultCMesaLib = resources.getStringArray(R.array.osmesa_values);
+        String[] defaultCMesaLibNames = resources.getStringArray(R.array.osmesa_library);
+        List<String> CMesaLibIds = new ArrayList<>(defaultCMesaLib.length);
+        List<String> CMesaLibNames = new ArrayList<>(defaultCMesaLibNames.length);
+        for(int i = 0; i < defaultCMesaLib.length; i++) {
+            CMesaLibIds.add(defaultCMesaLib[i]);
+            CMesaLibNames.add(defaultCMesaLibNames[i]);
+        }
+        sCompatibleCMesaLibs = new CMesaLibList(CMesaLibIds,
+                CMesaLibNames.toArray(new String[0]));
+
+        return sCompatibleCMesaLibs;
+    }
+
+    public static CDriverModleList getCompatibleCDriverModle(Context context) {
+        Resources resources = context.getResources();
+        String[] defaultCDriverModle = resources.getStringArray(R.array.driver_models_values);
+        String[] defaultCDriverModleNames = resources.getStringArray(R.array.driver_models);
+        List<String> CDriverModleIds = new ArrayList<>(defaultCDriverModle.length);
+        List<String> CDriverModleNames = new ArrayList<>(defaultCDriverModleNames.length);
+        for(int i = 0; i < defaultCDriverModle.length; i++) {
+            String driverModle = defaultCDriverModle[i];
+            switch (MESA_LIBS) {
+                case "default":{
+                    if(driverModle.contains("virgl")) continue;
+                    if(driverModle.contains("panfrost")) continue;
+                    if(driverModle.contains("softpipe")) continue;
+                    if(driverModle.contains("llvmpipe")) continue;
+                } break;
+                case "mesa2304":{
+                    if(driverModle.contains("virgl")) continue;
+                } break;
+                case "mesa2300d":{
+                    if(driverModle.contains("virgl")) continue;
+                    if(driverModle.contains("freedreno")) continue;
+                } break;
+                case "mesa2205":{
+                    if(driverModle.contains("panfrost")) continue;
+                    if(driverModle.contains("freedreno")) continue;
+                    if(driverModle.contains("softpipe")) continue;
+                    if(driverModle.contains("llvmpipe")) continue;
+                } break;
+            }
+            CDriverModleIds.add(driverModle);
+            CDriverModleNames.add(defaultCDriverModleNames[i]);
+        }
+        sCompatibleCDriverModle = new CDriverModleList(CDriverModleIds,
+                CDriverModleNames.toArray(new String[0]));
+
+        return sCompatibleCDriverModle;
     }
 
     /**
@@ -1148,7 +1209,6 @@ public final class Tools {
      * Releases the cache of compatible renderers.
      */
     public static void releaseRenderersCache() {
-        sCompatibleRenderers = null;
         System.gc();
     }
 
@@ -1156,7 +1216,12 @@ public final class Tools {
         void updateProgress(int curr, int max);
     }
 
-    public static class RenderersList {
+    public interface IListAndArry {
+        List<String> getList();
+        String[] getArray();
+    }
+
+    public static class RenderersList implements IListAndArry {
         public final List<String> rendererIds;
         public final String[] rendererDisplayNames;
 
@@ -1164,5 +1229,56 @@ public final class Tools {
             this.rendererIds = rendererIds;
             this.rendererDisplayNames = rendererDisplayNames;
         }
+
+        @Override
+        public List<String> getList() {
+            return rendererIds;
+        }
+
+        @Override
+        public String[] getArray() {
+            return rendererDisplayNames;
+        }
     }
+
+    public static class CMesaLibList implements IListAndArry {
+        public final List<String> CMesaLibIds;
+        public final String[] CMesaLibs;
+
+        public CMesaLibList(List<String> CMesaLibIds, String[] CMesaLibs) {
+            this.CMesaLibIds = CMesaLibIds;
+            this.CMesaLibs = CMesaLibs;
+        }
+
+        @Override
+        public List<String> getList() {
+            return CMesaLibIds;
+        }
+
+        @Override
+        public String[] getArray() {
+            return CMesaLibs;
+        }
+    }
+
+    public static class CDriverModleList implements IListAndArry {
+        public final List<String> CDriverModleIds;
+        public final String[] CDriverModles;
+
+        public CDriverModleList(List<String> CDriverModleIds, String[] CDriverModles) {
+            this.CDriverModleIds = CDriverModleIds;
+            this.CDriverModles = CDriverModles;
+        }
+
+        @Override
+        public List<String> getList() {
+            return CDriverModleIds;
+        }
+
+        @Override
+        public String[] getArray() {
+            return CDriverModles;
+        }
+    }
+
 }

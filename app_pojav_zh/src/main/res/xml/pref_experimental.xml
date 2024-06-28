@@ -20,4 +20,80 @@
             app2:iconSpaceReserved="false" />
 
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/preference_category_renderer_experimental_settings"
+        app2:iconSpaceReserved="false" >
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="ExperimentalSetup"
+            android:title="@string/preference_renderer_setup_title"
+            android:summary="@string/preference_renderer_setup"
+            app2:iconSpaceReserved="false" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="spareBridge"
+            android:title="@string/preference_spare_bridge_title"
+            android:summary="@string/preference_spare_bridge"
+            app2:iconSpaceReserved="false" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="ExpFrameBuffer"
+            android:title="@string/preference_exp_framebuffer_title"
+            android:summary="@string/preference_exp_framebuffer"
+            app2:iconSpaceReserved="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="MesaRendererChoose"
+        android:title="@string/preference_renderer_setup_extra"
+        app2:iconSpaceReserved="false" >
+
+        <androidx.preference.ListPreference
+            android:defaultValue="default"
+            android:key="CMesaLibrary"
+            android:entries="@array/osmesa_library"
+            android:entryValues="@array/osmesa_values"
+            android:title="@string/preference_extra_mesa_version"
+            app2:useSimpleSummaryProvider="true"
+            app2:iconSpaceReserved="false" />
+
+        <androidx.preference.ListPreference
+            android:defaultValue="driver_zink"
+            android:key="CDriverModels"
+            android:entries="@array/driver_models"
+            android:entryValues="@array/driver_models_values"
+            android:title="@string/preference_extra_driver_modle"
+            app2:useSimpleSummaryProvider="true"
+            app2:iconSpaceReserved="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="customMesaVersionPref"
+        android:title="@string/preference_exp_custommv"
+        app2:iconSpaceReserved="false" >
+
+        <SwitchPreference
+            android:key="ebSystem"
+            android:title="@string/preference_exp_ebsystem"
+            android:defaultValue="true"
+            app2:iconSpaceReserved="false" />
+
+        <SwitchPreference
+            android:key="ebSpecific"
+            android:title="@string/preference_exp_ebspecific"
+            app2:iconSpaceReserved="false" />
+
+        <Preference
+            android:key="SetGLVersion"
+            android:title="@string/preference_rendererexp_custom_glversion_title"
+            android:summary="@string/preference_rendererexp_custom_glversion"
+            app2:iconSpaceReserved="false" />
+
+    </PreferenceCategory>
 </PreferenceScreen>

@@ -9,13 +9,13 @@ import androidx.fragment.app.Fragment;
 
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.ui.fragment.preference.PreferenceLauncherFragment;
+import com.movtery.pojavzh.ui.fragment.preference.PreferenceExperimentalFragment;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
 import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.BaseActivity;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceControlFragment;
-import com.movtery.pojavzh.ui.fragment.preference.PreferenceExperimentalFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceJavaFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceMiscellaneousFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceVideoFragment;
@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class SettingsActivity extends BaseActivity {
     private View mBackgroundView;
-    private ImageButton mReturnButton, mVideoButton, mControlsButton, mJavaButton, mMiscButton, mPojavZHButton, mExperimentalButton;
+    private ImageButton mReturnButton, mVideoButton, mControlsButton, mJavaButton, mMiscButton, mLauncherButton, mExperimentalButton;
     private TextView mTitleView;
     private ProgressLayout mProgressLayout;
     private ProgressServiceKeeper mProgressServiceKeeper;
@@ -58,7 +58,7 @@ public class SettingsActivity extends BaseActivity {
             onButtonClick(v);
             swapFragment(LauncherPreferenceMiscellaneousFragment.class, LauncherPreferenceMiscellaneousFragment.TAG);
         });
-        mPojavZHButton.setOnClickListener(v -> {
+        mLauncherButton.setOnClickListener(v -> {
             onButtonClick(v);
             swapFragment(PreferenceLauncherFragment.class, PreferenceLauncherFragment.TAG);
         });
@@ -94,7 +94,7 @@ public class SettingsActivity extends BaseActivity {
         mTitle.put(mControlsButton, getString(R.string.preference_category_buttons));
         mTitle.put(mJavaButton, getString(R.string.preference_category_java_tweaks));
         mTitle.put(mMiscButton, getString(R.string.preference_category_miscellaneous));
-        mTitle.put(mPojavZHButton, getString(R.string.zh_preference_category_launcher));
+        mTitle.put(mLauncherButton, getString(R.string.zh_preference_category_launcher));
         mTitle.put(mExperimentalButton, getString(R.string.zh_preference_category_experimental));
     }
 
@@ -103,14 +103,14 @@ public class SettingsActivity extends BaseActivity {
         mControlsButton.setClickable(view != mControlsButton);
         mJavaButton.setClickable(view != mJavaButton);
         mMiscButton.setClickable(view != mMiscButton);
-        mPojavZHButton.setClickable(view != mPojavZHButton);
+        mLauncherButton.setClickable(view != mLauncherButton);
         mExperimentalButton.setClickable(view != mExperimentalButton);
 
         setAlpha(mVideoButton, mVideoButton.isClickable());
         setAlpha(mControlsButton, mControlsButton.isClickable());
         setAlpha(mJavaButton, mJavaButton.isClickable());
         setAlpha(mMiscButton, mMiscButton.isClickable());
-        setAlpha(mPojavZHButton, mPojavZHButton.isClickable());
+        setAlpha(mLauncherButton, mLauncherButton.isClickable());
         setAlpha(mExperimentalButton, mExperimentalButton.isClickable());
 
         //每次切换页面都会更新标题
@@ -137,7 +137,7 @@ public class SettingsActivity extends BaseActivity {
         mControlsButton = findViewById(R.id.controls_settings);
         mJavaButton = findViewById(R.id.java_settings);
         mMiscButton = findViewById(R.id.misc_settings);
-        mPojavZHButton = findViewById(R.id.pojav_zh_settings);
+        mLauncherButton = findViewById(R.id.launcher_settings);
         mExperimentalButton = findViewById(R.id.experimental_settings);
 
         mTitleView = findViewById(R.id.zh_settings_title);

@@ -270,4 +270,30 @@
     <string name="zh_about_version_status_other_branch">Other Branch</string>
     <string name="zh_about_version_status_debug">Debug</string>
     <string name="zh_about_version_status_release">Release</string>
+    <!-- From Pojav Glow·Worm -->
+    <!-- Renderer Experimental Setup -->
+    <string name="preference_category_renderer_experimental_settings">Renderer Experimental Settings</string>
+    <string name="preference_renderer_setup_title">Enable Renderer Experimental Settings</string>
+    <string name="preference_renderer_setup">More Renderer Specific Settings</string>
+    <string name="preference_spare_bridge_title">Spare Bridge</string>
+    <string name="preference_spare_bridge">Use the second bridge option. If it fails to start, please disable it.</string>
+    <string name="preference_exp_framebuffer_title">Spare Framebuffer</string>
+    <string name="preference_exp_framebuffer">Use the second framebuffer option. If it fails to start, please disable it.</string>
+    <string name="preference_renderer_setup_extra">Renderer (Extra)</string>
+    <string name="preference_renderer_extra_default">Mesa 24.1.2 (Default)</string>
+    <string name="preference_extra_mesa_version">Mesa Version</string>
+    <string name="preference_extra_driver_modle">Driver Model</string>
+    <!-- Dialog box prompt -->
+    <string name="preference_rendererexp_alertdialog_message">You have enabled experimental settings. This feature may cause unexpected issues. Do you want to continue?</string>
+    <string name="alertdialog_tipa">Warning! You must understand what GL/GLSL is before using custom GL/GLSL.</string>
+    <string name="customglglsl_alertdialog_error_gl">GL version must be between 2.8 and 4.6.</string>
+    <string name="customglglsl_alertdialog_error_glsl">GLSL version must be between 280 and 460.</string>
+    <!-- Custom GL/GLSL Version -->
+    <string name="preference_exp_custommv">GL/GLSL Version</string>
+    <string name="preference_exp_ebsystem">Follow System</string>
+    <string name="preference_exp_ebspecific">Use Fixed Version</string>
+    <string name="preference_rendererexp_custom_glversion_title">Custom GL/GLSL</string>
+    <string name="preference_rendererexp_custom_glversion">Allows you to customize the Mesa GL/GLSL version</string>
+    <string name="custom_gl_version">Mesa GL Version:</string>
+    <string name="custom_glsl_version">Mesa GLSL Version:</string>
 </resources>

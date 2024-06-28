@@ -270,4 +270,30 @@
     <string name="zh_about_version_status_other_branch">其他分支</string>
     <string name="zh_about_version_status_debug">测试版</string>
     <string name="zh_about_version_status_release">正式版</string>
+    <!-- From Pojav Glow·Worm -->
+    <!-- Renderer Experimental Setup -->
+    <string name="preference_category_renderer_experimental_settings">渲染器实验性设置</string>
+    <string name="preference_renderer_setup_title">启用渲染器实验性设置</string>
+    <string name="preference_renderer_setup">更多的渲染器特定设置</string>
+    <string name="preference_spare_bridge_title">备用桥接</string>
+    <string name="preference_spare_bridge">使用第二方案桥接，如果启动失败，请关闭</string>
+    <string name="preference_exp_framebuffer_title">备用帧缓冲区</string>
+    <string name="preference_exp_framebuffer">使用第二方案帧缓冲区，如果启动失败，请关闭</string>
+    <string name="preference_renderer_setup_extra">渲染器 (拓展)</string>
+    <string name="preference_renderer_extra_default">Mesa 24.1.2 (默认)</string>
+    <string name="preference_extra_mesa_version">Mesa 版本</string>
+    <string name="preference_extra_driver_modle">驱动模型</string>
+    <!-- Dialog box prompt -->
+    <string name="preference_rendererexp_alertdialog_message">你已打开实验性设置，此功能可能会产生意想不到的问题，是否继续使用?</string>
+    <string name="alertdialog_tipa">警告！在使用自定义 GL/GLSL 之前你必须了解什么是 GL/GLSL</string>
+    <string name="customglglsl_alertdialog_error_gl">GL版本必须在 2.8 和 4.6 之间</string>
+    <string name="customglglsl_alertdialog_error_glsl">GLSL版本必须在 280 和 460 之间</string>
+    <!-- Custom GL/GLSL Version -->
+    <string name="preference_exp_custommv">GL/GLSL 版本</string>
+    <string name="preference_exp_ebsystem">跟随系统</string>
+    <string name="preference_exp_ebspecific">使用固定版本</string>
+    <string name="preference_rendererexp_custom_glversion_title">自定义 GL/GLSL</string>
+    <string name="preference_rendererexp_custom_glversion">允许你自定义 Mesa GL/GLSL 版本</string>
+    <string name="custom_gl_version">Mesa GL 版本:</string>
+    <string name="custom_glsl_version">Mesa GLSL 版本:</string>
 </resources>
