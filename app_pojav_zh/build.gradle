@@ -102,6 +102,56 @@ android {
         }
     }
 
+    applicationVariants.configureEach { variant ->
+        variant.outputs.configureEach { output ->
+            def abi = output.getFilter(ABI)
+            if (abi == null) {
+            abi = "all"
+        }
+        variant.mergeAssetsProvider.get().doLast {
+            def arch = System.getProperty("arch", "all")
+            def assetsDir = mergeAssetsProvider.get().outputDir.get()
+            def java = ['jre-8', 'jre-11', 'jre-17', 'jre-21']
+            println(arch)
+            java.forEach { String str ->
+                def runtimeDir = new File([assetsDir, "components/" + str].join(File.separator))
+                println(runtimeDir)
+                def files = fileTree(dir: runtimeDir, include: ['*.tar.xz'])
+                files.forEach { File file ->
+                    if (arch != 'all' && !file.getName().contains(arch) && !file.getName().contains("universal")) {
+                        print("delete:${file} :")
+                        println(delete(file))
+                    }
+                }
+            }
+        }
+        outputFileName = "app_pojav_zh-${variant.buildType.name}-${abi}.apk"
+        }
+    }
+    splits {
+        def arch = System.getProperty("arch", "all")
+        if (arch != 'all') {
+            abi {
+                enable true
+                reset()
+                switch (arch) {
+                    case 'arm':
+                        include 'armeabi-v7a'
+                        break
+                    case 'arm64':
+                        include 'arm64-v8a'
+                        break
+                    case 'x86':
+                        include 'x86'
+                        break
+                    case 'x86_64':
+                        include 'x86_64'
+                        break
+                }
+            }
+        }
+    }
+
     ndkVersion = "25.2.9519653"
 
     externalNativeBuild {
