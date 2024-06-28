@@ -140,7 +140,7 @@ jobs:
       - name: Build Debug-noruntime.apk
         run: |
           chmod +x gradlew
-          ./gradlew app_pojavlauncher:assembleDebug -Darch=${{matrix.arch}}
+          ./gradlew app_pojav_zh:assembleDebug -Darch=${{matrix.arch}}
 
       - name: Upload Debug
         uses: actions/upload-artifact@v4
