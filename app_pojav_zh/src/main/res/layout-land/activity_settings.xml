@@ -122,7 +122,7 @@
                 app:srcCompat="@drawable/ic_setting_misc" />
 
             <ImageButton
-                android:id="@+id/pojav_zh_settings"
+                android:id="@+id/launcher_settings"
                 android:layout_width="35dp"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginTop="14dp"
@@ -145,9 +145,9 @@
                 android:scaleX="0.92"
                 android:scaleY="0.92"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/pojav_zh_settings"
-                app:layout_constraintStart_toStartOf="@+id/pojav_zh_settings"
-                app:layout_constraintTop_toBottomOf="@+id/pojav_zh_settings"
+                app:layout_constraintEnd_toEndOf="@+id/launcher_settings"
+                app:layout_constraintStart_toStartOf="@+id/launcher_settings"
+                app:layout_constraintTop_toBottomOf="@+id/launcher_settings"
                 app:srcCompat="@drawable/ic_setting_experimental" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
