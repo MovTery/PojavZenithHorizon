@@ -84,6 +84,6 @@
             android:key="SetGLVersion"
             android:title="@string/preference_rendererexp_custom_glversion_title"
             android:summary="@string/preference_rendererexp_custom_glversion"
-            android:icon="@drawable/ic_mesa_gl"/>
+            />
 
 </PreferenceScreen>
