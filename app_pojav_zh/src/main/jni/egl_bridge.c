@@ -1,3 +1,6 @@
+//
+// Modifiled by Vera-Firefly on 23.04.2024.
+//
 #include <jni.h>
 #include <assert.h>
 #include <dlfcn.h>
@@ -13,7 +16,6 @@
 #include <GL/osmesa.h>
 #include "ctxbridges/egl_loader.h"
 #include "ctxbridges/osmesa_loader.h"
-#include "driver_helper/nsbypass.h"
 
 #ifdef GLES_TEST
 #include <GLES2/gl2.h>
@@ -26,6 +28,7 @@
 #include <environ/environ.h>
 #include <android/dlext.h>
 #include "utils.h"
+#include "ctxbridges/gl_bridge.h"
 #include "ctxbridges/bridge_tbl.h"
 #include "ctxbridges/osm_bridge.h"
 #include "ctxbridges/renderer_config.h"
@@ -34,6 +37,7 @@
 /* Consider GLFW_NO_API as Vulkan API */
 #define GLFW_NO_API 0
 #define GLFW_OPENGL_API 0x30001
+// region OSMESA internals
 
 // This means that the function is an external API and that it will be used
 #define EXTERNAL_API __attribute__((used))
@@ -48,6 +52,17 @@ void* load_turnip_vulkan();
 
 #endif
 
+// If you do not want to use a framebuffer
+// delete the following definition
+// After that, it will be stored in normal memory
+#ifndef FRAME_BUFFER_SUPPOST
+#define FRAME_BUFFER_SUPPOST
+
+void* gbuffer;
+
+#endif
+
+// endregion OSMESA internals
 struct PotatoBridge {
 
     /* EGLContext */ void* eglContext;
@@ -64,7 +79,10 @@ struct PotatoBridge potatoBridge;
 int (*vtest_main_p) (int argc, char** argv);
 void (*vtest_swap_buffers_p) (void);
 void bigcore_set_affinity();
+
 void* egl_make_current(void* window);
+
+
 
 EXTERNAL_API void pojavTerminate() {
     printf("EGLBridge: Terminating\n");
@@ -86,34 +104,60 @@ EXTERNAL_API void pojavTerminate() {
         case RENDERER_VK_ZINK: {
             // Nothing to do here
         } break;
+        case RENDERER_VK_ZINK_PREF: {
+            // Nothing to do here
+        } break;
     }
 }
 
-JNIEXPORT void JNICALL Java_net_kdt_pojavlaunch_utils_JREUtils_setupBridgeWindow(JNIEnv* env, ABI_COMPAT jclass clazz, jobject surface) {
+JNIEXPORT void JNICALL
+Java_net_kdt_pojavlaunch_utils_JREUtils_setupBridgeWindow(JNIEnv* env, ABI_COMPAT jclass clazz, jobject surface) {
     pojav_environ->pojavWindow = ANativeWindow_fromSurface(env, surface);
-    if(pojav_environ->config_renderer == RENDERER_VK_ZINK || pojav_environ->config_renderer == RENDERER_GL4ES) {
+    if(pojav_environ->config_renderer == RENDERER_VK_ZINK) {
         if(br_setup_window != NULL) br_setup_window();
+    } else if(pojav_environ->config_renderer == RENDERER_GL4ES) {
+        if(getenv("POJAV_SPARE_BRIDGE") != NULL) {
+            gl_setup_window();
+        } else {
+            if(br_setup_window != NULL) br_setup_window();
+        }
     }
 }
-
 
 JNIEXPORT void JNICALL
 Java_net_kdt_pojavlaunch_utils_JREUtils_releaseBridgeWindow(ABI_COMPAT JNIEnv *env, ABI_COMPAT jclass clazz) {
     ANativeWindow_release(pojav_environ->pojavWindow);
 }
 
+/*If you don't want your renderer for
+the Mesa class to crash in your launcher
+don't touch the code here
+*/
 EXTERNAL_API void* pojavGetCurrentContext() {
-    if(pojav_environ->config_renderer == RENDERER_VK_ZINK || pojav_environ->config_renderer == RENDERER_GL4ES) {
+    if(pojav_environ->config_renderer == RENDERER_VK_ZINK) {
         return br_get_current();
-    } else if(pojav_environ->config_renderer == RENDERER_VIRGL) {
+    } else if(pojav_environ->config_renderer == RENDERER_GL4ES){
+        if(getenv("POJAV_SPARE_BRIDGE") != NULL) {
+            return (void *)eglGetCurrentContext_p();
+        } else {
+            return br_get_current();
+        }
+    } else if(pojav_environ->config_renderer == RENDERER_VK_ZINK_PREF
+        || pojav_environ->config_renderer == RENDERER_VIRGL) {
         return (void *)OSMesaGetCurrentContext_p();
     }
 }
 
+//Switches specifically provided for other renderers
 void loadSymbols() {
-    if(pojav_environ->config_renderer == RENDERER_VIRGL) {
-        dlsym_OSMesa();
-        dlsym_EGL();
+    switch (pojav_environ->config_renderer) {
+        case RENDERER_VIRGL:
+            dlsym_OSMesa();
+            dlsym_EGL();
+            break;
+        case RENDERER_VK_ZINK_PREF:
+            dlsym_OSMesa();
+            break;
     }
 }
 
@@ -142,8 +186,8 @@ static void set_vulkan_ptr(void* ptr) {
 }
 
 void load_vulkan() {
-    if(getenv("POJAV_ZINK_PREFER_SYSTEM_DRIVER") == NULL &&
-        android_get_device_api_level() >= 28) { // the loader does not support below that
+    if(getenv("POJAV_ZINK_PREFER_SYSTEM_DRIVER") == NULL && android_get_device_api_level() >= 28) {
+    // the loader does not support below that
 #ifdef ADRENO_POSSIBLE
         void* result = load_turnip_vulkan();
         if(result != NULL) {
@@ -159,6 +203,18 @@ void load_vulkan() {
     set_vulkan_ptr(vulkan_ptr);
 }
 
+void renderer_load_config() {
+    if(getenv("POJAV_SPARE_BRIDGE") == NULL) {
+        pojav_environ->config_renderer = RENDERER_VK_ZINK;
+        set_osm_bridge_tbl();
+        printf("Bridge: Set osm bridge tbl\n");
+    } else {
+         pojav_environ->config_renderer = RENDERER_VK_ZINK_PREF;
+         loadSymbols();
+         printf("Bridge: Use old bridge\n");
+    }
+}
+
 int pojavInitOpenGL() {
     // Only affects GL4ES as of now
     const char *forceVsync = getenv("FORCE_VSYNC");
@@ -166,32 +222,71 @@ int pojavInitOpenGL() {
         pojav_environ->force_vsync = true;
 
     // NOTE: Override for now.
-    const char *renderer = getenv("POJAV_RENDERER");
+    const char *renderer = getenv("POJAV_BETA_RENDERER");
+    const char *ldrivermodle = getenv("LOCAL_DRIVER_MODLE");
     if (strncmp("opengles", renderer, 8) == 0) {
         pojav_environ->config_renderer = RENDERER_GL4ES;
-        set_gl_bridge_tbl();
-    } else if (strcmp(renderer, "vulkan_zink") == 0) {
-        pojav_environ->config_renderer = RENDERER_VK_ZINK;
-        load_vulkan();
-        setenv("GALLIUM_DRIVER","zink",1);
-        set_osm_bridge_tbl();
-    } else if (strcmp(renderer, "virgl") == 0) {
-        pojav_environ->config_renderer = RENDERER_VIRGL;
-        setenv("GALLIUM_DRIVER","virpipe",1);
-        setenv("OSMESA_NO_FLUSH_FRONTBUFFER","1",false);
-        if(strcmp(getenv("OSMESA_NO_FLUSH_FRONTBUFFER"),"1") == 0) {
-            printf("VirGL: OSMesa buffer flush is DISABLED!\n");
+        if(getenv("POJAV_SPARE_BRIDGE") == NULL) {
+            set_gl_bridge_tbl();
         }
-        loadSymbolsVirGL();
-    } else if (strcmp(renderer, "vulkan_freedreno") == 0) {
-        pojav_environ->config_renderer = RENDERER_VK_ZINK;
-        setenv("GALLIUM_DRIVER", "freedreno", 1);
-        setenv("MESA_LOADER_DRIVER_OVERRIDE", "kgsl", 1);
-        set_osm_bridge_tbl();
+    } else if (strcmp(renderer, "mesa_3d") == 0) {
+        if(strcmp(ldrivermodle, "driver_zink") == 0) {
+            setenv("GALLIUM_DRIVER","zink",1);
+            printf("Bridge: Use Zink Renderer\n");
+            renderer_load_config();
+            if(getenv("POJAV_LEGACY_ZINK_ALLOW") == NULL)
+                load_vulkan();
+        }
+        if(strcmp(ldrivermodle, "driver_virgl") == 0) {
+            printf("Bridge: Use VirglRenderer\n");
+            pojav_environ->config_renderer = RENDERER_VIRGL;
+            setenv("GALLIUM_DRIVER","virpipe",1);
+            setenv("OSMESA_NO_FLUSH_FRONTBUFFER","1",false);
+            if(strcmp(getenv("OSMESA_NO_FLUSH_FRONTBUFFER"),"1") == 0) {
+                printf("VirGL: OSMesa buffer flush is DISABLED!\n");
+            }
+            loadSymbolsVirGL();
+        }
+        if(strcmp(ldrivermodle, "driver_panfrost") == 0) {
+            printf("Bridge: Use Panfrost Renderer\n");
+            setenv("GALLIUM_DRIVER", "panfrost", 1);
+            setenv("PAN_DEBUG","gofaster", 0);
+            renderer_load_config();
+        }
+        if(strcmp(ldrivermodle, "driver_freedreno") == 0) {
+            setenv("GALLIUM_DRIVER", "freedreno", 1);
+            setenv("MESA_LOADER_DRIVER_OVERRIDE", "kgsl", 1);
+            printf("Bridge: Use Freedreno renderer\n");
+            renderer_load_config();
+        }
+        if(strcmp(ldrivermodle, "driver_softpipe") == 0) {
+            setenv("GALLIUM_DRIVER", "softpipe", 1);
+            setenv("LIBGL_ALWAYS_SOFTWARE", "1", 1);
+            printf("Bridge: Use Softpipe renderer\n");
+            renderer_load_config();
+        }
+        if(strcmp(ldrivermodle, "driver_llvmpipe") == 0) {
+            setenv("GALLIUM_DRIVER", "llvmpipe", 1);
+            setenv("LIBGL_ALWAYS_SOFTWARE", "1", 1);
+            printf("Bridge: Use LLVMpipe renderer\n");
+            renderer_load_config();
+        }
     }
-    if(pojav_environ->config_renderer == RENDERER_VK_ZINK || pojav_environ->config_renderer == RENDERER_GL4ES) {
+    if(pojav_environ->config_renderer == RENDERER_VK_ZINK) {
         if(br_init()) {
             br_setup_window();
+        }
+    } else if(pojav_environ->config_renderer == RENDERER_GL4ES) {
+        if(getenv("POJAV_SPARE_BRIDGE") != NULL) {
+            if(gl_init()) {
+                gl_setup_window();
+                return 1;
+            }
+            return 0;
+        } else {
+            if(br_init()) {
+                br_setup_window();
+            }
         }
     }
     if (pojav_environ->config_renderer == RENDERER_VIRGL) {
@@ -260,9 +355,9 @@ int pojavInitOpenGL() {
         printf("EGLBridge: Initialized!\n");
         printf("EGLBridge: ThreadID=%d\n", gettid());
         printf("EGLBridge: EGLDisplay=%p, EGLSurface=%p\n",
-            /* window==0 ? EGL_NO_CONTEXT : */
-            potatoBridge.eglDisplay,
-            potatoBridge.eglSurface
+/* window==0 ? EGL_NO_CONTEXT : */
+               potatoBridge.eglDisplay,
+               potatoBridge.eglSurface
         );
         if (pojav_environ->config_renderer != RENDERER_VIRGL) {
             return 1;
@@ -283,10 +378,30 @@ int pojavInitOpenGL() {
         usleep(100*1000); // need enough time for the server to init
     }
 
-    if (pojav_environ->config_renderer == RENDERER_VIRGL) {
+    if (pojav_environ->config_renderer == RENDERER_VK_ZINK_PREF
+        || pojav_environ->config_renderer == RENDERER_VIRGL) {
         if(OSMesaCreateContext_p == NULL) {
             printf("OSMDroid: %s\n",dlerror());
             return 0;
+        }
+        if (getenv("POJAV_EXP_FRAME_BUFFER") != NULL) {
+#ifdef FRAME_BUFFER_SUPPOST
+            printf("OSMDroid: width=%i;height=%i, reserving %i bytes for frame buffer\n",
+               pojav_environ->savedWidth, pojav_environ->savedHeight,
+               pojav_environ->savedWidth * 4 * pojav_environ->savedHeight);
+            gbuffer = calloc(pojav_environ->savedWidth *4, pojav_environ->savedHeight +1);
+            if (gbuffer) {
+                printf("OSMDroid: created frame buffer\n");
+                return 1;
+            } else {
+                printf("OSMDroid: can't generate frame buffer\n");
+                return 0;
+            }
+#else
+            printf("[WORNING]: Macro FRAME_BUFFER_SUPPOST is undefined,defult to close\n");
+#endif
+        } else {
+            printf("OSMDroid: do not set frame buffer\n");
         }
     }
 
@@ -327,11 +442,27 @@ EXTERNAL_API void pojavSwapBuffers() {
     if (stopSwapBuffers) {
         return;
     }
-    if (pojav_environ->config_renderer == RENDERER_VK_ZINK || pojav_environ->config_renderer == RENDERER_GL4ES) {
+    if(pojav_environ->config_renderer == RENDERER_VK_ZINK) {
         br_swap_buffers();
-    } else if (pojav_environ->config_renderer == RENDERER_VIRGL) {
+    } else if(pojav_environ->config_renderer == RENDERER_GL4ES) {
+        if(getenv("POJAV_SPARE_BRIDGE") != NULL) {
+            gl_swap_buffers();
+        } else {
+            br_swap_buffers();
+        }
+    } else if(pojav_environ->config_renderer == RENDERER_VIRGL) {
         glFinish_p();
         vtest_swap_buffers_p();
+    } else if(pojav_environ->config_renderer == RENDERER_VK_ZINK_PREF) {
+        OSMesaContext ctx = OSMesaGetCurrentContext_p();
+        if(ctx == NULL) {
+            printf("Zink: attempted to swap buffers without context!");
+        }
+        OSMesaMakeCurrent_p(ctx,buf.bits,GL_UNSIGNED_BYTE,pojav_environ->savedWidth,pojav_environ->savedHeight);
+        // OSMesaMakeCurrent_p(ctx,gbuffer,GL_UNSIGNED_BYTE,pojav_environ->savedWidth,pojav_environ->savedHeight);
+        glFinish_p();
+        ANativeWindow_unlockAndPost(pojav_environ->pojavWindow);
+        ANativeWindow_lock(pojav_environ->pojavWindow,&buf,NULL);
     }
 }
 
@@ -357,11 +488,34 @@ void* egl_make_current(void* window) {
 }
 
 EXTERNAL_API void pojavMakeCurrent(void* window) {
-    if (pojav_environ->config_renderer == RENDERER_VK_ZINK || pojav_environ->config_renderer == RENDERER_GL4ES) {
+    if(getenv("POJAV_BIG_CORE_AFFINITY") != NULL) bigcore_set_affinity();
+    if(pojav_environ->config_renderer == RENDERER_VK_ZINK) {
         br_make_current((basic_render_window_t*)window);
-    } else if (pojav_environ->config_renderer == RENDERER_VIRGL) {
+    } else if(pojav_environ->config_renderer == RENDERER_GL4ES) {
+        if(getenv("POJAV_SPARE_BRIDGE") != NULL) {
+            gl_make_current((gl_render_window_t*)window);
+        } else {
+            br_make_current((basic_render_window_t*)window);
+        }
+    } else if(pojav_environ->config_renderer == RENDERER_VIRGL
+        || pojav_environ->config_renderer == RENDERER_VK_ZINK_PREF) {
         printf("OSMDroid: making current\n");
-        OSMesaMakeCurrent_p((OSMesaContext)window,setbuffer,GL_UNSIGNED_BYTE,pojav_environ->savedWidth,pojav_environ->savedHeight);
+        if (getenv("POJAV_EXP_FRAME_BUFFER") != NULL) {
+#ifdef FRAME_BUFFER_SUPPOST
+            OSMesaMakeCurrent_p((OSMesaContext)window,gbuffer,GL_UNSIGNED_BYTE,pojav_environ->savedWidth,pojav_environ->savedHeight);
+#else
+            printf("[ERROR]: Macro FRAME_BUFFER_SUPPOST is undefined\n");
+#endif
+        } else {
+            OSMesaMakeCurrent_p((OSMesaContext)window,setbuffer,GL_UNSIGNED_BYTE,pojav_environ->savedWidth,pojav_environ->savedHeight);
+        }
+        if (pojav_environ->config_renderer == RENDERER_VK_ZINK_PREF) {
+            ANativeWindow_lock(pojav_environ->pojavWindow,&buf,NULL);
+            OSMesaPixelStore_p(OSMESA_ROW_LENGTH,buf.stride);
+            stride = buf.stride;
+            //ANativeWindow_unlockAndPost(pojav_environ->pojavWindow);
+            OSMesaPixelStore_p(OSMESA_Y_UP,0);
+        }
         printf("OSMDroid: vendor: %s\n",glGetString_p(GL_VENDOR));
         printf("OSMDroid: renderer: %s\n",glGetString_p(GL_RENDERER));
         glClear_p(GL_COLOR_BUFFER_BIT);
@@ -380,9 +534,17 @@ EXTERNAL_API void* pojavCreateContext(void* contextSrc) {
     if (pojav_environ->config_renderer == RENDERER_VULKAN) {
         return (void *) pojav_environ->pojavWindow;
     }
-    if (pojav_environ->config_renderer == RENDERER_VK_ZINK || pojav_environ->config_renderer == RENDERER_GL4ES) {
+
+    if (pojav_environ->config_renderer == RENDERER_VK_ZINK) {
         return br_init_context((basic_render_window_t*)contextSrc);
-    } else if (pojav_environ->config_renderer == RENDERER_VIRGL) {
+    } else if (pojav_environ->config_renderer == RENDERER_GL4ES) {
+        if(getenv("POJAV_SPARE_BRIDGE") != NULL) {
+            return gl_init_context(contextSrc);
+        } else {
+            return br_init_context((basic_render_window_t*)contextSrc);
+        }
+    } else if (pojav_environ->config_renderer == RENDERER_VK_ZINK_PREF
+        || pojav_environ->config_renderer == RENDERER_VIRGL) {
         printf("OSMDroid: generating context\n");
         void* ctx = OSMesaCreateContext_p(OSMESA_RGBA,contextSrc);
         printf("OSMDroid: context=%p\n",ctx);
@@ -400,11 +562,52 @@ Java_org_lwjgl_vulkan_VK_getVulkanDriverHandle(ABI_COMPAT JNIEnv *env, ABI_COMPA
     return strtoul(getenv("VULKAN_PTR"), NULL, 0x10);
 }
 
+#ifdef FRAME_BUFFER_SUPPOST
+EXTERNAL_API JNIEXPORT void JNICALL
+Java_org_lwjgl_opengl_GL_nativeRegalMakeCurrent(JNIEnv *env, jclass clazz) {
+    if (getenv("POJAV_EXP_FRAME_BUFFER") != NULL && pojav_environ->config_renderer != RENDERER_VK_ZINK) {
+        /*printf("Regal: making current");
+    
+        RegalMakeCurrent_func *RegalMakeCurrent = (RegalMakeCurrent_func *) dlsym(RTLD_DEFAULT, "RegalMakeCurrent");
+        RegalMakeCurrent(potatoBridge.eglContext);*/
+
+        printf("regal removed\n");
+        abort();
+    }
+}
+
+EXTERNAL_API JNIEXPORT jlong JNICALL
+Java_org_lwjgl_opengl_GL_getGraphicsBufferAddr(JNIEnv *env, jobject thiz) {
+    if (getenv("POJAV_EXP_FRAME_BUFFER") != NULL && pojav_environ->config_renderer != RENDERER_VK_ZINK) {
+        return &gbuffer;
+    }
+}
+
+EXTERNAL_API JNIEXPORT jintArray JNICALL
+Java_org_lwjgl_opengl_GL_getNativeWidthHeight(JNIEnv *env, jobject thiz) {
+    if (getenv("POJAV_EXP_FRAME_BUFFER") != NULL && pojav_environ->config_renderer != RENDERER_VK_ZINK) {
+        jintArray ret = (*env)->NewIntArray(env,2);
+        jint arr[] = {pojav_environ->savedWidth, pojav_environ->savedHeight};
+        (*env)->SetIntArrayRegion(env,ret,0,2,arr);
+        return ret;
+    }
+}
+#endif
+
 EXTERNAL_API void pojavSwapInterval(int interval) {
-    if (pojav_environ->config_renderer == RENDERER_VK_ZINK || pojav_environ->config_renderer == RENDERER_GL4ES) {
+    if(pojav_environ->config_renderer == RENDERER_VK_ZINK) {
         br_swap_interval(interval);
-    } else if (pojav_environ->config_renderer == RENDERER_VIRGL) {
+    } else if(pojav_environ->config_renderer == RENDERER_GL4ES) {
+        if(getenv("POJAV_SPARE_BRIDGE") != NULL) {
+            gl_swap_interval(interval);
+        } else {
+            br_swap_interval(interval);
+        }
+    } else if(pojav_environ->config_renderer == RENDERER_VIRGL) {
         eglSwapInterval_p(potatoBridge.eglDisplay, interval);
+    } else if(pojav_environ->config_renderer == RENDERER_VK_ZINK_PREF) {
+        printf("eglSwapInterval: NOT IMPLEMENTED YET!\n");
+        // Nothing to do here
     }
 }
 
