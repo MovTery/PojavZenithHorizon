@@ -115,13 +115,13 @@ public class PreferenceExperimentalFragment extends LauncherPreferenceFragment {
     }
 
     private void setListPreference(ListPreference listPreference, String preferenceKey) {
-        Tools.IListAndArry array = null;
+        Tools.IListAndArry array;
         String value = listPreference.getValue();
         if (preferenceKey.equals("CMesaLibrary")) {
-            array = Tools.getCompatibleCMesaLib(getContext());
+            array = Tools.getCompatibleCMesaLib(requireContext());
             Tools.MESA_LIBS = value;
-        } else if (preferenceKey.equals("CDriverModels")) {
-            array = Tools.getCompatibleCDriverModle(requireContext());
+        } else {
+            array = Tools.getCompatibleCDriverModel(requireContext());
             Tools.DRIVER_MODLE = value;
         }
         listPreference.setEntries(array.getArray());

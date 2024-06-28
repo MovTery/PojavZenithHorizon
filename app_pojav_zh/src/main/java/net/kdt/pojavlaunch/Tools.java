@@ -1160,7 +1160,7 @@ public final class Tools {
         return sCompatibleCMesaLibs;
     }
 
-    public static CDriverModleList getCompatibleCDriverModle(Context context) {
+    public static CDriverModleList getCompatibleCDriverModel(Context context) {
         Resources resources = context.getResources();
         String[] defaultCDriverModle = resources.getStringArray(R.array.driver_models_values);
         String[] defaultCDriverModleNames = resources.getStringArray(R.array.driver_models);
@@ -1216,7 +1216,7 @@ public final class Tools {
         void updateProgress(int curr, int max);
     }
 
-    public interface IListAndArry {
+    public static interface IListAndArry {
         List<String> getList();
         String[] getArray();
     }

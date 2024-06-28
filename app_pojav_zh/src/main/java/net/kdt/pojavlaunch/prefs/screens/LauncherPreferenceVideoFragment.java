@@ -1,6 +1,5 @@
 package net.kdt.pojavlaunch.prefs.screens;
 
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_NOTCH_SIZE;
 
 import android.content.SharedPreferences;
@@ -72,7 +71,7 @@ public class LauncherPreferenceVideoFragment extends LauncherPreferenceFragment 
         Tools.IListAndArry array = null;
         String value = listPreference.getValue();
         if (preferenceKey.equals("renderer")) {
-            array = Tools.getCompatibleRenderers(requireContext());
+            array = Tools.getCompatibleRenderers(getContext());
             Tools.LOCAL_RENDERER = value;
         }
         listPreference.setEntries(array.getArray());
