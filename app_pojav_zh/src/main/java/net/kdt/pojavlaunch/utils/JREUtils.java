@@ -246,6 +246,8 @@ public class JREUtils {
                     case "opengles3_virgl":{
                         envMap.put("POJAV_BETA_RENDERER", "mesa_3d");
                         envMap.put("LOCAL_DRIVER_MODEL", "driver_virgl");
+                        envMap.put("MESA_GL_VERSION_OVERRIDE", "4.3");
+                        envMap.put("MESA_GLSL_VERSION_OVERRIDE", "430");
                         envMap.put("VTEST_SOCKET_NAME", new File(Tools.DIR_CACHE, ".virgl_test").getAbsolutePath());
                         envMap.put("MESA_LIBRARY", localMesaLibrary);
                     } break;
@@ -257,6 +259,8 @@ public class JREUtils {
                     case "panfrost":{
                         envMap.put("POJAV_BETA_RENDERER", "mesa_3d");
                         envMap.put("LOCAL_DRIVER_MODEL", "driver_panfrost");
+                        envMap.put("MESA_GL_VERSION_OVERRIDE", "3.3");
+                        envMap.put("MESA_GLSL_VERSION_OVERRIDE", "330");
                         envMap.put("MESA_DISK_CACHE_SINGLE_FILE", "1");
                         envMap.put("MESA_DISK_CACHE_SINGLE_FILE", "true");
                         envMap.put("MESA_LIBRARY", localMesaLibrary);
