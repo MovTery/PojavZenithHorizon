@@ -45,6 +45,8 @@ import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.kdt.LoggerView;
+import com.movtery.pojavzh.feature.renderer.RendererManager;
+import com.movtery.pojavzh.feature.renderer.RenderersList;
 import com.movtery.pojavzh.ui.dialog.KeyboardDialog;
 import com.movtery.pojavzh.ui.dialog.MouseSettingsDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
@@ -372,18 +374,18 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         if(Tools.LOCAL_RENDERER == null) {
             Tools.LOCAL_RENDERER = LauncherPreferences.PREF_RENDERER;
         }
-        if(Tools.MESA_LIBS == null) {
-            Tools.MESA_LIBS = LauncherPreferences.PREF_MESA_LIB;
+        if(RendererManager.MESA_LIBS == null) {
+            RendererManager.MESA_LIBS = LauncherPreferences.PREF_MESA_LIB;
         }
-        if(Tools.DRIVER_MODEL == null) {
-            Tools.DRIVER_MODEL = LauncherPreferences.PREF_DRIVER_MODEL;
+        if(RendererManager.DRIVER_MODEL == null) {
+            RendererManager.DRIVER_MODEL = LauncherPreferences.PREF_DRIVER_MODEL;
         }
-        if(!Tools.checkRendererCompatible(this, Tools.LOCAL_RENDERER)) {
-            Tools.RenderersList renderersList = Tools.getCompatibleRenderers(this);
+        if(!RendererManager.checkRendererCompatible(this, Tools.LOCAL_RENDERER)) {
+            RenderersList renderersList = RendererManager.getCompatibleRenderers(this);
             String firstCompatibleRenderer = renderersList.rendererIds.get(0);
             Log.w("runCraft","Incompatible renderer "+Tools.LOCAL_RENDERER+ " will be replaced with "+firstCompatibleRenderer);
             Tools.LOCAL_RENDERER = firstCompatibleRenderer;
-            Tools.releaseRenderersCache();
+            Tools.releaseCache();
         }
         MinecraftAccount minecraftAccount = PojavProfile.getCurrentProfileContent(this, null);
         Logger.appendToLog("--------- beginning with launcher debug");

@@ -10,6 +10,9 @@ import androidx.preference.ListPreference;
 import androidx.preference.SwitchPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
+import com.movtery.pojavzh.feature.renderer.RendererManager;
+import com.movtery.pojavzh.utils.ListAndArray;
+
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.prefs.CustomSeekBarPreference;
@@ -68,10 +71,10 @@ public class LauncherPreferenceVideoFragment extends LauncherPreferenceFragment 
     }
 
     private void setListPreference(ListPreference listPreference, String preferenceKey) {
-        Tools.IListAndArray array = null;
+        ListAndArray array = null;
         String value = listPreference.getValue();
         if (preferenceKey.equals("renderer")) {
-            array = Tools.getCompatibleRenderers(requireContext());
+            array = RendererManager.getCompatibleRenderers(requireContext());
             Tools.LOCAL_RENDERER = value;
         }
         listPreference.setEntries(array.getArray());
