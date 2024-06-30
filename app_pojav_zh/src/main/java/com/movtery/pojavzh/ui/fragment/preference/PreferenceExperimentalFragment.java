@@ -62,13 +62,13 @@ public class PreferenceExperimentalFragment extends LauncherPreferenceFragment {
 
         SwitchPreference setGLVersion = requirePreference("SetGLVersion", SwitchPreference.class);
         setGLVersion.setOnPreferenceChangeListener((preference, value) -> {
-            if ((Boolean) value) {
+            boolean value1 = (boolean) value;
+            if (value1) {
                 closeOtherCustomMesaPref(customMesaVersionPref);
-                LauncherPreferences.PREF_EXP_ENABLE_CUSTOM = true;
-                LauncherPreferences.DEFAULT_PREF.edit().putBoolean("ebCustom", false).apply();
-                return true;
             }
-            return false;
+            LauncherPreferences.PREF_EXP_ENABLE_CUSTOM = value1;
+            LauncherPreferences.DEFAULT_PREF.edit().putBoolean("ebCustom", value1).apply();
+            return value1;
         });
         setGLVersion.setOnPreferenceClickListener(preference -> {
             new EditMesaVersionDialog(requireContext()).show();
