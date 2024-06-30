@@ -1,6 +1,5 @@
 package com.movtery.pojavzh.ui.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +11,7 @@ import androidx.annotation.NonNull;
 
 import net.kdt.pojavlaunch.R;
 
-public class EditTextDialog extends Dialog {
+public class EditTextDialog extends FullScreenDialog {
     private final String title, message, editText, hintText;
     private View.OnClickListener confirm, cancel;
     private TextView mTitle, mMessage;

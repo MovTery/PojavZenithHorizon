@@ -1,6 +1,5 @@
 package com.movtery.pojavzh.ui.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -17,11 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class KeyboardDialog extends Dialog {
+public class KeyboardDialog extends FullScreenDialog {
     private OnKeycodeSelectListener mOnKeycodeSelectListener;
 
     public KeyboardDialog(@NonNull Context context, boolean showSpecialButtons) {
-        super(context, R.style.FullScreenDialog);
+        super(context);
 
         setContentView(R.layout.dialog_keyboard);
         init(showSpecialButtons);
@@ -35,15 +34,6 @@ public class KeyboardDialog extends Dialog {
         if (window != null) {
             window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
             window.setGravity(Gravity.CENTER);
-
-            //隐藏状态栏
-            window.getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_FULLSCREEN |
-                            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-                            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-                            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-            );
-            window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
     }
 

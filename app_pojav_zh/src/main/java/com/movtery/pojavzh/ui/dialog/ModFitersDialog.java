@@ -1,6 +1,5 @@
 package com.movtery.pojavzh.ui.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,7 +22,7 @@ import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchFilters;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModFitersDialog extends Dialog {
+public class ModFitersDialog extends FullScreenDialog {
     private final SearchFilters mSearchFilters;
     private OnApplyButtonClickListener mOnApplyButtonClickListener;
 

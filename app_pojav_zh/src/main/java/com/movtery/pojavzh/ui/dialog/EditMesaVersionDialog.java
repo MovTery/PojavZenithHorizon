@@ -1,6 +1,5 @@
 package com.movtery.pojavzh.ui.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,7 +9,7 @@ import androidx.annotation.NonNull;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
-public class EditMesaVersionDialog extends Dialog {
+public class EditMesaVersionDialog extends FullScreenDialog {
     public EditMesaVersionDialog(@NonNull Context context, OnConfirmClickListener listener) {
         super(context);
 

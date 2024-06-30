@@ -1,6 +1,5 @@
 package com.movtery.pojavzh.ui.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -18,7 +17,7 @@ import net.kdt.pojavlaunch.customcontrols.CustomControls;
 
 import java.io.File;
 
-public class ControlInfoDialog extends Dialog {
+public class ControlInfoDialog extends FullScreenDialog {
     private final ControlInfoData controlInfoData;
     private final Runnable runnable;
 

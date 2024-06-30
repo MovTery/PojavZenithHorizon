@@ -3,7 +3,6 @@ package com.movtery.pojavzh.ui.dialog;
 import static com.movtery.pojavzh.utils.ZHTools.renameFileListener;
 import static com.movtery.pojavzh.utils.ZHTools.shareFile;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -19,7 +18,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilesDialog extends Dialog {
+public class FilesDialog extends FullScreenDialog {
     private final Runnable runnable;
     private TextView mTitle, mMessage, moreText;
     private String mFileSuffix;

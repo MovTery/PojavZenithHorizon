@@ -1,6 +1,5 @@
 package com.movtery.pojavzh.ui.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
@@ -12,7 +11,7 @@ import com.movtery.pojavzh.ui.subassembly.versionlist.VersionType;
 
 import net.kdt.pojavlaunch.R;
 
-public class SelectVersionDialog extends Dialog {
+public class SelectVersionDialog extends FullScreenDialog {
     private TabLayout mTabLayout;
     private TabLayout.Tab releaseTab, snapshotTab, betaTab, alphaTab, returnTab;
     private VersionType versionType;

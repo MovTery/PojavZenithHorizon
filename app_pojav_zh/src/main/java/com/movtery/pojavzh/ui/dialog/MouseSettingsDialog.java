@@ -3,7 +3,6 @@ package com.movtery.pojavzh.ui.dialog;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +13,7 @@ import androidx.annotation.NonNull;
 
 import net.kdt.pojavlaunch.R;
 
-public class MouseSettingsDialog extends Dialog {
+public class MouseSettingsDialog extends FullScreenDialog {
     public MouseSettingsDialog(@NonNull Context context, OnConfirmListener confirmListener, SelectMouseDialog.MouseSelectedListener mouseSelectedListener) {
         super(context);
 

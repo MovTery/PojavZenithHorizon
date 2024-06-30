@@ -1,6 +1,5 @@
 package com.movtery.pojavzh.ui.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.widget.Button;
 import android.widget.TextView;
@@ -9,7 +8,7 @@ import androidx.annotation.NonNull;
 
 import net.kdt.pojavlaunch.R;
 
-public class DownloadDialog extends Dialog {
+public class DownloadDialog extends FullScreenDialog {
     private TextView textView;
     private Button cancelButton;
 

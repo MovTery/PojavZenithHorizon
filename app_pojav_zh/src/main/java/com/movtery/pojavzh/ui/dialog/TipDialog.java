@@ -1,6 +1,5 @@
 package com.movtery.pojavzh.ui.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
@@ -10,7 +9,7 @@ import androidx.annotation.NonNull;
 
 import net.kdt.pojavlaunch.R;
 
-public class TipDialog extends Dialog {
+public class TipDialog extends FullScreenDialog {
     private final String title, message, confirm, cancel;
     private final boolean showCancel, showConfirm;
     private final OnCancelClickListener cancelListener;

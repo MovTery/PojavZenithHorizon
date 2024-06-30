@@ -2,7 +2,6 @@ package com.movtery.pojavzh.ui.dialog;
 
 import static net.kdt.pojavlaunch.Tools.shareLog;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +13,7 @@ import net.kdt.pojavlaunch.R;
 
 import java.io.File;
 
-public class ShareLogDialog extends Dialog {
+public class ShareLogDialog extends FullScreenDialog {
     private final File logFile;
     private final String message;
 
