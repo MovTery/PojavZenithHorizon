@@ -10,15 +10,15 @@ import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 public class EditMesaVersionDialog extends FullScreenDialog {
-    public EditMesaVersionDialog(@NonNull Context context, OnConfirmClickListener listener) {
+    public EditMesaVersionDialog(@NonNull Context context) {
         super(context);
 
         setCancelable(false);
         setContentView(R.layout.dialog_edit_mesa_version);
-        init(context, listener);
+        init(context);
     }
 
-    private void init(Context context, OnConfirmClickListener listener) {
+    private void init(Context context) {
         EditText mMesaGLVersion = findViewById(R.id.zh_edit_mesa_version_gl_version);
         EditText mMesaGLSLVersion = findViewById(R.id.zh_edit_mesa_version_glsl_version);
         Button mCancelButton = findViewById(R.id.zh_edit_mesa_version_cancel_button);
@@ -63,7 +63,6 @@ public class EditMesaVersionDialog extends FullScreenDialog {
                     .putBoolean("ebCustom", true)
                     .apply();
 
-            listener.onClick();
             dismiss();
         });
     }
@@ -79,9 +78,5 @@ public class EditMesaVersionDialog extends FullScreenDialog {
         } catch (NumberFormatException e) {
             return true;
         }
-    }
-
-    public interface OnConfirmClickListener {
-        void onClick();
     }
 }
