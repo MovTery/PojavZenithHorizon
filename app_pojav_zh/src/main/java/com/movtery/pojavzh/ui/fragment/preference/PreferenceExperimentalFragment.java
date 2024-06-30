@@ -1,7 +1,5 @@
 package com.movtery.pojavzh.ui.fragment.preference;
 
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -47,29 +45,27 @@ public class PreferenceExperimentalFragment extends LauncherPreferenceFragment {
         });
 
         // Custom GL/GLSL
-        SwitchPreference switchPreference = requirePreference("ebSystem", SwitchPreference.class);
-        if (switchPreference.isChecked() && DEFAULT_PREF.getBoolean("ebCustom", false)) {
-            switchPreference.setChecked(false);
-        }
-
         final PreferenceCategory customMesaVersionPref = requirePreference("customMesaVersionPref", PreferenceCategory.class);
-        for (int i = 0; i < customMesaVersionPref.getPreferenceCount(); i++) {
-            Preference preference = customMesaVersionPref.getPreference(i);
-            if (preference instanceof SwitchPreference) {
-                preference.setOnPreferenceClickListener(preference1 -> {
-                    closeOtherCustomMesaPref(customMesaVersionPref);
-                    ((SwitchPreference) preference).setChecked(true);
-                    LauncherPreferences.PREF_EXP_ENABLE_CUSTOM = true;
-                    LauncherPreferences.DEFAULT_PREF.edit().putBoolean("ebCustom", false).apply();
-                    return true;
-                });
-            }
-        }
+        SwitchPreference setSystemVersion = requirePreference("ebSystem", SwitchPreference.class);
+        setSystemVersion.setOnPreferenceChangeListener((p, v) -> {
+            closeOtherCustomMesaPref(customMesaVersionPref);
+            LauncherPreferences.PREF_EXP_ENABLE_SYSTEM = (boolean) v;
+            return true;
+        });
+
+        SwitchPreference setSpecificVersion = requirePreference("ebSpecific", SwitchPreference.class);
+        setSpecificVersion.setOnPreferenceChangeListener((p, v) -> {
+            closeOtherCustomMesaPref(customMesaVersionPref);
+            LauncherPreferences.PREF_EXP_ENABLE_SPECIFIC = (boolean) v;
+            return true;
+        });
 
         SwitchPreference setGLVersion = requirePreference("SetGLVersion", SwitchPreference.class);
         setGLVersion.setOnPreferenceChangeListener((preference, value) -> {
             if ((Boolean) value) {
                 closeOtherCustomMesaPref(customMesaVersionPref);
+                LauncherPreferences.PREF_EXP_ENABLE_CUSTOM = true;
+                LauncherPreferences.DEFAULT_PREF.edit().putBoolean("ebCustom", false).apply();
                 return true;
             }
             return false;
