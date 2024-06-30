@@ -6,7 +6,6 @@ import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
 import static com.movtery.pojavzh.utils.ZHTools.shareFile;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_IGNORE_NOTCH;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_EXP_SETUP;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_NOTCH_SIZE;
 
 import android.annotation.SuppressLint;
@@ -21,7 +20,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -120,13 +118,6 @@ public final class Tools {
     public static String CTRLMAP_PATH;
     public static String CTRLDEF_FILE;
     public static DisplayMetrics currentDisplayMetrics;
-
-    public static String DRIVER_MODEL = null;
-    public static String MESA_LIBS = null;
-
-    private static CDriverModelList sCompatibleCDriverModel;
-    private static CMesaLibList sCompatibleCMesaLibs;
-    private static RenderersList sCompatibleRenderers;
 
     private static File getPojavStorageRoot(Context ctx) {
         if (SDK_INT >= 29) {
@@ -1118,167 +1109,11 @@ public final class Tools {
         return weakReference.get();
     }
 
-    /**
-     * Return the renderers that are compatible with this device
-     */
-    public static RenderersList getCompatibleRenderers(Context context) {
-        Resources resources = context.getResources();
-        String[] defaultRenderers = resources.getStringArray(R.array.renderer_values);
-        String[] defaultRendererNames = resources.getStringArray(R.array.renderer);
-        List<String> rendererIds = new ArrayList<>(defaultRenderers.length);
-        List<String> rendererNames = new ArrayList<>(defaultRendererNames.length);
-        for(int i = 0; i < defaultRenderers.length; i++) {
-            String rendererlist = defaultRenderers[i];
-            if (rendererlist.contains("mesa_3d") && !PREF_EXP_SETUP) continue;
-            if (rendererlist.contains("zink") && PREF_EXP_SETUP) continue;
-            if (rendererlist.contains("virgl") && PREF_EXP_SETUP) continue;
-            if (rendererlist.contains("freedreno") && PREF_EXP_SETUP) continue;
-            if (rendererlist.contains("panfrost") && PREF_EXP_SETUP) continue;
-            rendererIds.add(rendererlist);
-            rendererNames.add(defaultRendererNames[i]);
-        }
-        sCompatibleRenderers = new RenderersList(rendererIds,
-                rendererNames.toArray(new String[0]));
-
-        return sCompatibleRenderers;
-    }
-
-    public static CMesaLibList getCompatibleCMesaLib(Context context) {
-        if(sCompatibleCMesaLibs != null) return sCompatibleCMesaLibs;
-        Resources resources = context.getResources();
-        String[] defaultCMesaLib = resources.getStringArray(R.array.osmesa_values);
-        String[] defaultCMesaLibNames = resources.getStringArray(R.array.osmesa_library);
-        List<String> CMesaLibIds = new ArrayList<>(defaultCMesaLib.length);
-        List<String> CMesaLibNames = new ArrayList<>(defaultCMesaLibNames.length);
-        for(int i = 0; i < defaultCMesaLib.length; i++) {
-            CMesaLibIds.add(defaultCMesaLib[i]);
-            CMesaLibNames.add(defaultCMesaLibNames[i]);
-        }
-        sCompatibleCMesaLibs = new CMesaLibList(CMesaLibIds,
-                CMesaLibNames.toArray(new String[0]));
-
-        return sCompatibleCMesaLibs;
-    }
-
-    public static CDriverModelList getCompatibleCDriverModel(Context context) {
-        Resources resources = context.getResources();
-        String[] defaultCDriverModel = resources.getStringArray(R.array.driver_models_values);
-        String[] defaultCDriverModelNames = resources.getStringArray(R.array.driver_models);
-        List<String> CDriverModelIds = new ArrayList<>(defaultCDriverModel.length);
-        List<String> CDriverModelNames = new ArrayList<>(defaultCDriverModelNames.length);
-        for(int i = 0; i < defaultCDriverModel.length; i++) {
-            String driverModel = defaultCDriverModel[i];
-            switch (MESA_LIBS) {
-                case "default":{
-                    if(driverModel.contains("virgl")) continue;
-                    if(driverModel.contains("panfrost")) continue;
-                    if(driverModel.contains("softpipe")) continue;
-                    if(driverModel.contains("llvmpipe")) continue;
-                } break;
-                case "mesa2304":{
-                    if(driverModel.contains("virgl")) continue;
-                } break;
-                case "mesa2300d":{
-                    if(driverModel.contains("virgl")) continue;
-                    if(driverModel.contains("freedreno")) continue;
-                } break;
-                case "mesa2205":{
-                    if(driverModel.contains("panfrost")) continue;
-                    if(driverModel.contains("freedreno")) continue;
-                    if(driverModel.contains("softpipe")) continue;
-                    if(driverModel.contains("llvmpipe")) continue;
-                } break;
-            }
-            CDriverModelIds.add(driverModel);
-            CDriverModelNames.add(defaultCDriverModelNames[i]);
-        }
-        sCompatibleCDriverModel = new CDriverModelList(CDriverModelIds,
-                CDriverModelNames.toArray(new String[0]));
-
-        return sCompatibleCDriverModel;
-    }
-
-    /**
-     * Checks if the renderer Id is compatible with the current device
-     */
-    public static boolean checkRendererCompatible(Context context, String rendererName) {
-        return getCompatibleRenderers(context).rendererIds.contains(rendererName);
-    }
-
-    /**
-     * Releases the cache of compatible renderers.
-     */
-    public static void releaseRenderersCache() {
+    public static void releaseCache() {
         System.gc();
     }
 
     public interface DownloaderFeedback {
         void updateProgress(int curr, int max);
     }
-
-    public interface IListAndArray {
-        List<String> getList();
-        String[] getArray();
-    }
-
-    public static class RenderersList implements IListAndArray {
-        public final List<String> rendererIds;
-        public final String[] rendererDisplayNames;
-
-        public RenderersList(List<String> rendererIds, String[] rendererDisplayNames) {
-            this.rendererIds = rendererIds;
-            this.rendererDisplayNames = rendererDisplayNames;
-        }
-
-        @Override
-        public List<String> getList() {
-            return rendererIds;
-        }
-
-        @Override
-        public String[] getArray() {
-            return rendererDisplayNames;
-        }
-    }
-
-    public static class CMesaLibList implements IListAndArray {
-        public final List<String> CMesaLibIds;
-        public final String[] CMesaLibs;
-
-        public CMesaLibList(List<String> CMesaLibIds, String[] CMesaLibs) {
-            this.CMesaLibIds = CMesaLibIds;
-            this.CMesaLibs = CMesaLibs;
-        }
-
-        @Override
-        public List<String> getList() {
-            return CMesaLibIds;
-        }
-
-        @Override
-        public String[] getArray() {
-            return CMesaLibs;
-        }
-    }
-
-    public static class CDriverModelList implements IListAndArray {
-        public final List<String> CDriverModelIds;
-        public final String[] CDriverModels;
-
-        public CDriverModelList(List<String> CDriverModelIds, String[] CDriverModels) {
-            this.CDriverModelIds = CDriverModelIds;
-            this.CDriverModels = CDriverModels;
-        }
-
-        @Override
-        public List<String> getList() {
-            return CDriverModelIds;
-        }
-
-        @Override
-        public String[] getArray() {
-            return CDriverModels;
-        }
-    }
-
 }

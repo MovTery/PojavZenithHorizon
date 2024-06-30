@@ -10,11 +10,12 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.SwitchPreference;
 
+import com.movtery.pojavzh.feature.renderer.RendererManager;
 import com.movtery.pojavzh.ui.dialog.EditMesaVersionDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
+import com.movtery.pojavzh.utils.ListAndArray;
 
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceFragment;
 
@@ -34,14 +35,14 @@ public class PreferenceExperimentalFragment extends LauncherPreferenceFragment {
         setListPreference(CDriverModel, "CDriverModels");
 
         CMesaLib.setOnPreferenceChangeListener((pre, obj) -> {
-            Tools.MESA_LIBS = (String) obj;
+            RendererManager.MESA_LIBS = (String) obj;
             setListPreference(CDriverModel, "CDriverModels");
             CDriverModel.setValueIndex(0);
             return true;
         });
 
         CDriverModel.setOnPreferenceChangeListener((pre, obj) -> {
-            Tools.DRIVER_MODEL = (String) obj;
+            RendererManager.DRIVER_MODEL = (String) obj;
             return true;
         });
 
@@ -115,14 +116,14 @@ public class PreferenceExperimentalFragment extends LauncherPreferenceFragment {
     }
 
     private void setListPreference(ListPreference listPreference, String preferenceKey) {
-        Tools.IListAndArray array;
+        ListAndArray array;
         String value = listPreference.getValue();
         if (preferenceKey.equals("CMesaLibrary")) {
-            array = Tools.getCompatibleCMesaLib(requireContext());
-            Tools.MESA_LIBS = value;
+            array = RendererManager.getCompatibleCMesaLib(requireContext());
+            RendererManager.MESA_LIBS = value;
         } else {
-            array = Tools.getCompatibleCDriverModel(requireContext());
-            Tools.DRIVER_MODEL = value;
+            array = RendererManager.getCompatibleCDriverModel(requireContext());
+            RendererManager.DRIVER_MODEL = value;
         }
         listPreference.setEntries(array.getArray());
         listPreference.setEntryValues(array.getList().toArray(new String[0]));
