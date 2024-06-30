@@ -28,6 +28,7 @@
 
         <Button
             android:id="@+id/zh_update_github_release"
+            style="@style/CustomButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -37,6 +38,7 @@
 
         <Button
             android:id="@+id/zh_update_ghproxy"
+            style="@style/CustomButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"

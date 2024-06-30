@@ -33,6 +33,7 @@
 
     <Button
         android:id="@+id/zh_download_cancel_button"
+        style="@style/CustomButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"

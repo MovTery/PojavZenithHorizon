@@ -8,6 +8,7 @@
     <color name="background_bottom_bar">#232323</color>
 
     <color name="button_background">#3C3C3C</color>
+    <color name="button_background_selected">#5B5B5B</color>
     <color name="dialog_background">#232323</color>
     <color name="scrollbar_color">#3C3C3C</color>
 

@@ -150,6 +150,7 @@
 
     <Button
         android:id="@+id/zh_mouse_settings_confirm_button"
+        style="@style/CustomButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="4dp"

@@ -83,14 +83,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@android:string/cancel" />
+            android:text="@android:string/cancel"
+            style="@style/CustomButtonStyle" />
 
         <Button
             android:id="@+id/zh_edit_mesa_version_confirm_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/zh_confirm" />
+            android:text="@string/zh_confirm"
+            style="@style/CustomButtonStyle" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
