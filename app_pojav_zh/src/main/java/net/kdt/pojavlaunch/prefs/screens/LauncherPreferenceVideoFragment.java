@@ -49,12 +49,9 @@ public class LauncherPreferenceVideoFragment extends LauncherPreferenceFragment 
         sustainedPerfSwitch.setVisible(true);
 
         final ListPreference rendererListPreference = requirePreference("renderer", ListPreference.class);
+        final ListPreference expRendererListPreference = requirePreference("renderer_exp", ListPreference.class);
         setListPreference(rendererListPreference, "renderer");
-
-        rendererListPreference.setOnPreferenceChangeListener((pre, obj) -> {
-            Tools.LOCAL_RENDERER = (String)obj;
-            return true;
-        });
+        setListPreference(expRendererListPreference, "renderer_exp");
 
         computeVisibility();
     }
@@ -70,15 +67,21 @@ public class LauncherPreferenceVideoFragment extends LauncherPreferenceFragment 
                 .setVisible(LauncherPreferences.PREF_USE_ALTERNATE_SURFACE);
     }
 
-    private void setListPreference(ListPreference listPreference, String preferenceKey) {
-        ListAndArray array = null;
-        String value = listPreference.getValue();
-        if (preferenceKey.equals("renderer")) {
-            array = RendererManager.getCompatibleRenderers(requireContext());
-            Tools.LOCAL_RENDERER = value;
-        }
+    private void setListPreference(ListPreference listPreference, String key) {
+        boolean prefExpSetup = key.equals("renderer_exp") == LauncherPreferences.PREF_EXP_SETUP;
+        listPreference.setVisible(prefExpSetup);
+        if (!prefExpSetup) return;
+
+        ListAndArray array = RendererManager.getCompatibleRenderers(requireContext());
+        Tools.LOCAL_RENDERER = listPreference.getValue();
         listPreference.setEntries(array.getArray());
         listPreference.setEntryValues(array.getList().toArray(new String[0]));
+
+        listPreference.setOnPreferenceChangeListener((pre, obj) -> updateRendererPref((String) obj));
     }
 
+    private boolean updateRendererPref(String name) {
+        Tools.LOCAL_RENDERER = name;
+        return true;
+    }
 }
