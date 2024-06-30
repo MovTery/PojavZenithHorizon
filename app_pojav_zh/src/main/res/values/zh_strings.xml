@@ -19,8 +19,8 @@
     <string name="zh_loading">Loading</string>
     <string name="zh_optional">Optional</string>
     <string name="zh_required">Required</string>
-    <string name="zh_wan">万</string>
-    <string name="zh_yi">亿</string>
+    <string name="zh_wan">Ten thousand</string>
+    <string name="zh_yi">A Hundred million</string>
     <string name="zh_wrong_tip">Something went wrong</string>
     <!-- Dialog -->
     <string name="zh_dialog_select_jar">Select Jar file</string>
