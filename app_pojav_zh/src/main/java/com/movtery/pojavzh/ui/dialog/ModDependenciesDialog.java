@@ -2,7 +2,6 @@ package com.movtery.pojavzh.ui.dialog;
 
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -27,7 +26,7 @@ import net.kdt.pojavlaunch.R;
 import java.util.Collections;
 import java.util.List;
 
-public class ModDependenciesDialog extends Dialog {
+public class ModDependenciesDialog extends FullScreenDialog {
 
     public ModDependenciesDialog(@NonNull Context context, ModDependencies.SelectedMod mod, List<ModDependencies> mData, Runnable downloadRunnable) {
         super(context);

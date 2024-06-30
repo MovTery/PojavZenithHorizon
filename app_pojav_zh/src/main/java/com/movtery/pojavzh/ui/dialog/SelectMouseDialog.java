@@ -6,7 +6,6 @@ import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -25,7 +24,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectMouseDialog extends Dialog {
+public class SelectMouseDialog extends FullScreenDialog {
     private final List<FileItemBean> mData = new ArrayList<>();
     private MouseSelectedListener mouseSelectedListener;
 

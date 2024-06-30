@@ -5,7 +5,6 @@
         <item name="windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:dialogTheme">@style/CustomDialogStyle</item>
         <item name="android:statusBarColor">@color/background_status_bar</item>
         <item name="android:navigationBarColor">@color/background_app</item>
         <item name="android:buttonStyle">@style/CustomButtonStyle</item>
@@ -23,13 +22,6 @@
 
     <style name="CustomDialogStyle" parent="Theme.AppCompat.Dialog">
         <item name="android:windowBackground">@drawable/dialog_background</item>
-    </style>
-
-    <style name="FullScreenDialog" parent="Theme.AppCompat.Dialog">
-        <item name="android:windowBackground">@drawable/dialog_background</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowIsFloating">false</item>
     </style>
 
     <style name="RoundedCornersImageView">

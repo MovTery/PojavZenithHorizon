@@ -3,7 +3,6 @@ package com.movtery.pojavzh.ui.dialog;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.widget.Button;
 import android.widget.Toast;
@@ -14,7 +13,7 @@ import com.movtery.pojavzh.feature.UpdateLauncher;
 
 import net.kdt.pojavlaunch.R;
 
-public class UpdateSourceDialog extends Dialog {
+public class UpdateSourceDialog extends FullScreenDialog {
     private final String tagName, fileSize;
 
     public UpdateSourceDialog(@NonNull Context context, String tagName, String fileSize) {

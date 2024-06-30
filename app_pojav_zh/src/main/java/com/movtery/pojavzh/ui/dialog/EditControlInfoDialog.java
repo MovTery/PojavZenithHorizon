@@ -1,6 +1,5 @@
 package com.movtery.pojavzh.ui.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,7 +11,7 @@ import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlInfoData;
 
 import net.kdt.pojavlaunch.R;
 
-public class EditControlInfoDialog extends Dialog {
+public class EditControlInfoDialog extends FullScreenDialog {
     private final ControlInfoData controlInfoData;
     private final String mFileName;
     private final boolean editFileName;

@@ -6,7 +6,6 @@ import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -19,7 +18,7 @@ import com.movtery.pojavzh.feature.UpdateLauncher;
 import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 
-public class UpdateDialog extends Dialog {
+public class UpdateDialog extends FullScreenDialog {
     private final String versionName;
     private final String tagName;
     private final String createdTime;

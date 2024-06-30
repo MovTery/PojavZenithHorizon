@@ -1,7 +1,6 @@
 package com.movtery.pojavzh.ui.dialog;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.widget.ImageButton;
 
@@ -14,7 +13,7 @@ import net.kdt.pojavlaunch.R;
 
 import java.io.File;
 
-public class SelectControlsDialog extends Dialog {
+public class SelectControlsDialog extends FullScreenDialog {
     private ControlsListViewCreator controlsListViewCreator;
 
     public SelectControlsDialog(@NonNull Context context) {

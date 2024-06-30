@@ -3,7 +3,6 @@ package com.movtery.pojavzh.ui.dialog;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -14,7 +13,7 @@ import androidx.annotation.NonNull;
 
 import net.kdt.pojavlaunch.R;
 
-public class ControlSettingsDialog extends Dialog {
+public class ControlSettingsDialog extends FullScreenDialog {
     public ControlSettingsDialog(@NonNull Context context) {
         super(context);
 
