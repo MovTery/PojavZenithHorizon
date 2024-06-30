@@ -66,13 +66,18 @@ public class PreferenceExperimentalFragment extends LauncherPreferenceFragment {
             }
         }
 
-        Preference setGLVersion = findPreference("SetGLVersion");
-        if (setGLVersion != null) {
-            setGLVersion.setOnPreferenceClickListener((preference) -> {
-                new EditMesaVersionDialog(requireContext(), () -> closeOtherCustomMesaPref(customMesaVersionPref)).show();
+        SwitchPreference setGLVersion = requirePreference("SetGLVersion", SwitchPreference.class);
+        setGLVersion.setOnPreferenceChangeListener((preference, value) -> {
+            if ((Boolean) value) {
+                closeOtherCustomMesaPref(customMesaVersionPref);
                 return true;
-            });
-        }
+            }
+            return false;
+        });
+        setGLVersion.setOnPreferenceClickListener(preference -> {
+            new EditMesaVersionDialog(requireContext()).show();
+            return true;
+        });
     }
 
     @Override
