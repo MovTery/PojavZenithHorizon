@@ -13,6 +13,13 @@
             app2:useSimpleSummaryProvider="true"
             app2:iconSpaceReserved="false" />
 
+        <androidx.preference.ListPreference
+            android:title="@string/mcl_setting_category_renderer"
+            android:key="renderer_exp"
+            android:defaultValue="opengles2"
+            app2:useSimpleSummaryProvider="true"
+            app2:iconSpaceReserved="false" />
+
         <androidx.preference.SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="ignoreNotch"

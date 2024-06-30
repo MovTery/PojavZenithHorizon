@@ -372,7 +372,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
     private void runCraft(String versionId, JMinecraftVersionList.Version version) throws Throwable {
         if(Tools.LOCAL_RENDERER == null) {
-            Tools.LOCAL_RENDERER = LauncherPreferences.PREF_RENDERER;
+            Tools.LOCAL_RENDERER = LauncherPreferences.PREF_EXP_SETUP ? LauncherPreferences.PREF_EXP_RENDERER : LauncherPreferences.PREF_RENDERER;
         }
         if(RendererManager.MESA_LIBS == null) {
             RendererManager.MESA_LIBS = LauncherPreferences.PREF_MESA_LIB;

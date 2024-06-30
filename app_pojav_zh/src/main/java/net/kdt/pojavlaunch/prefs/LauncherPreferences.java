@@ -24,6 +24,7 @@ public class LauncherPreferences {
 
     public static SharedPreferences DEFAULT_PREF;
     public static String PREF_RENDERER = "opengles2";
+    public static String PREF_EXP_RENDERER = "opengles2";
     public static String PREF_MESA_LIB = "default";
     public static String PREF_DRIVER_MODEL = "driver_zink";
 
@@ -96,6 +97,7 @@ public class LauncherPreferences {
         ZHTools.initContextConstants(ctx);
 
         PREF_RENDERER = DEFAULT_PREF.getString("renderer", "opengles2");
+        PREF_EXP_RENDERER = DEFAULT_PREF.getString("renderer_exp", "opengles2");
         PREF_BUTTONSIZE = DEFAULT_PREF.getInt("buttonscale", 100);
         PREF_HIDE_SIDEBAR = DEFAULT_PREF.getBoolean("hideSidebar", false);
         PREF_IGNORE_NOTCH = DEFAULT_PREF.getBoolean("ignoreNotch", true);
