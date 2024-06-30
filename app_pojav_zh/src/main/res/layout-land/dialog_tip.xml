@@ -46,6 +46,7 @@
 
         <Button
             android:id="@+id/zh_tip_cancel"
+            style="@style/CustomButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -53,6 +54,7 @@
 
         <Button
             android:id="@+id/zh_tip_confirm"
+            style="@style/CustomButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

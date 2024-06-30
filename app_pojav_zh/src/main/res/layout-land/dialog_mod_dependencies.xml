@@ -74,6 +74,7 @@
 
         <Button
             android:id="@+id/zh_mod_dependencies_close_button"
+            style="@style/CustomButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -83,6 +84,7 @@
 
         <Button
             android:id="@+id/zh_mod_dependencies_download_button"
+            style="@style/CustomButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

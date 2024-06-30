@@ -99,6 +99,7 @@
 
     <Button
         android:id="@+id/zh_control_info_close"
+        style="@style/CustomButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

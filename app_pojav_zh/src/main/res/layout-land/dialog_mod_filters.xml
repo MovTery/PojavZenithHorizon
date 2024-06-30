@@ -33,6 +33,7 @@
 
     <Button
         android:id="@+id/search_mod_mc_version_button"
+        style="@style/CustomButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:paddingHorizontal="@dimen/padding_large"
@@ -190,6 +191,7 @@
 
         <Button
             android:id="@+id/search_mod_reset"
+            style="@style/CustomButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -199,6 +201,7 @@
         <!-- Apply -->
         <Button
             android:id="@+id/search_mod_apply_filters"
+            style="@style/CustomButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
