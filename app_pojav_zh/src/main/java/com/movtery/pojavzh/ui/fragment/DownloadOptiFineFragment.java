@@ -3,7 +3,6 @@ package com.movtery.pojavzh.ui.fragment;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
-import android.content.Context;
 import android.content.Intent;
 
 import androidx.core.content.ContextCompat;
@@ -42,7 +41,7 @@ public class DownloadOptiFineFragment extends TwoLevelListFragment implements Mo
 
     @Override
     protected void init() {
-        setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_optifine));
+        setIcon(ContextCompat.getDrawable(activity, R.drawable.ic_optifine));
         setNameText("OptiFine");
         setReleaseCheckBoxGone();
         super.init();
@@ -87,7 +86,7 @@ public class DownloadOptiFineFragment extends TwoLevelListFragment implements Mo
                 .forEach(entry -> {
                     if (currentTask.isCancelled()) return;
 
-                    BaseModVersionListAdapter adapter = new BaseModVersionListAdapter(requireContext(), modloaderListenerProxy, this, R.drawable.ic_optifine, entry.getValue());
+                    BaseModVersionListAdapter adapter = new BaseModVersionListAdapter(activity, modloaderListenerProxy, this, R.drawable.ic_optifine, entry.getValue());
                     adapter.setOnItemClickListener(version -> new Thread(new OptiFineDownloadTask((OptiFineUtils.OptiFineVersion) version, modloaderListenerProxy)).start());
 
                     mData.add(new TwoLevelListItemBean(entry.getKey(), adapter));
@@ -101,7 +100,7 @@ public class DownloadOptiFineFragment extends TwoLevelListFragment implements Mo
                 TwoLevelListAdapter mModAdapter = (TwoLevelListAdapter) recyclerView.getAdapter();
                 if (mModAdapter == null) {
                     mModAdapter = new TwoLevelListAdapter(this, mData);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+                    recyclerView.setLayoutManager(new LinearLayoutManager(activity));
                     recyclerView.setAdapter(mModAdapter);
                 } else {
                     mModAdapter.updateData(mData);
@@ -117,33 +116,30 @@ public class DownloadOptiFineFragment extends TwoLevelListFragment implements Mo
     @Override
     public void onDownloadFinished(File downloadedFile) {
         Tools.runOnUiThread(() -> {
-            Context context = requireContext();
             modloaderListenerProxy.detachListener();
 
-            Intent modInstallerStartIntent = new Intent(context, JavaGUILauncherActivity.class);
+            Intent modInstallerStartIntent = new Intent(activity, JavaGUILauncherActivity.class);
             OptiFineUtils.addAutoInstallArgs(modInstallerStartIntent, downloadedFile);
-            Tools.backToMainMenu(requireActivity());
-            context.startActivity(modInstallerStartIntent);
+            Tools.backToMainMenu(activity);
+            activity.startActivity(modInstallerStartIntent);
         });
     }
 
     @Override
     public void onDataNotAvailable() {
         Tools.runOnUiThread(() -> {
-            Context context = requireContext();
             modloaderListenerProxy.detachListener();
-            Tools.dialog(context,
-                    context.getString(R.string.global_error),
-                    context.getString(R.string.of_dl_failed_to_scrape));
+            Tools.dialog(activity,
+                    activity.getString(R.string.global_error),
+                    activity.getString(R.string.of_dl_failed_to_scrape));
         });
     }
 
     @Override
     public void onDownloadError(Exception e) {
         Tools.runOnUiThread(() -> {
-            Context context = requireContext();
             modloaderListenerProxy.detachListener();
-            Tools.showError(context, e);
+            Tools.showError(activity, e);
         });
     }
 }

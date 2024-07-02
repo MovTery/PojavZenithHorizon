@@ -2,6 +2,7 @@ package com.movtery.pojavzh.ui.subassembly.twolevellist;
 
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +28,7 @@ import net.kdt.pojavlaunch.R;
 import java.util.concurrent.Future;
 
 public abstract class TwoLevelListFragment extends Fragment {
+    protected FragmentActivity activity;
     private RecyclerView.Adapter<?> parentAdapter = null;
     private RecyclerView mRecyclerView;
     private View mLoadeingView;
@@ -71,6 +74,12 @@ public abstract class TwoLevelListFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.activity = requireActivity();
+    }
+
+    @Override
     public void onDestroy() {
         cancelTask();
         super.onDestroy();
@@ -98,7 +107,6 @@ public abstract class TwoLevelListFragment extends Fragment {
             }
         }
     }
-
 
     private void cancelTask() {
         if (currentTask != null && !currentTask.isDone()) {

@@ -3,7 +3,6 @@ package com.movtery.pojavzh.ui.fragment;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
-import android.content.Context;
 import android.content.Intent;
 
 import androidx.core.content.ContextCompat;
@@ -44,7 +43,7 @@ public class DownloadNeoForgeFragment extends TwoLevelListFragment implements Mo
 
     @Override
     protected void init() {
-        setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_neoforge));
+        setIcon(ContextCompat.getDrawable(activity, R.drawable.ic_neoforge));
         setNameText("NeoForge");
         setReleaseCheckBoxGone(); //隐藏“仅展示正式版”选择框，在这里没有用处
         super.init();
@@ -109,7 +108,7 @@ public class DownloadNeoForgeFragment extends TwoLevelListFragment implements Mo
                 .forEach(entry -> {
                     if (currentTask.isCancelled()) return;
 
-                    BaseModVersionListAdapter adapter = new BaseModVersionListAdapter(requireContext(), modloaderListenerProxy, this, R.drawable.ic_neoforge, entry.getValue());
+                    BaseModVersionListAdapter adapter = new BaseModVersionListAdapter(activity, modloaderListenerProxy, this, R.drawable.ic_neoforge, entry.getValue());
                     adapter.setOnItemClickListener(version -> new Thread(new NeoForgeDownloadTask(modloaderListenerProxy, (String) version)).start());
 
                     mData.add(new TwoLevelListItemBean("Minecraft " + entry.getKey(), adapter));
@@ -123,7 +122,7 @@ public class DownloadNeoForgeFragment extends TwoLevelListFragment implements Mo
                 TwoLevelListAdapter mModAdapter = (TwoLevelListAdapter) recyclerView.getAdapter();
                 if (mModAdapter == null) {
                     mModAdapter = new TwoLevelListAdapter(this, mData);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+                    recyclerView.setLayoutManager(new LinearLayoutManager(activity));
                     recyclerView.setAdapter(mModAdapter);
                 } else {
                     mModAdapter.updateData(mData);
@@ -139,33 +138,30 @@ public class DownloadNeoForgeFragment extends TwoLevelListFragment implements Mo
     @Override
     public void onDownloadFinished(File downloadedFile) {
         Tools.runOnUiThread(() -> {
-            Context context = requireContext();
             modloaderListenerProxy.detachListener();
 
-            Intent modInstallerStartIntent = new Intent(context, JavaGUILauncherActivity.class);
+            Intent modInstallerStartIntent = new Intent(activity, JavaGUILauncherActivity.class);
             NeoForgeUtils.addAutoInstallArgs(modInstallerStartIntent, downloadedFile);
-            Tools.backToMainMenu(requireActivity());
-            context.startActivity(modInstallerStartIntent);
+            Tools.backToMainMenu(activity);
+            activity.startActivity(modInstallerStartIntent);
         });
     }
 
     @Override
     public void onDataNotAvailable() {
         Tools.runOnUiThread(() -> {
-            Context context = requireContext();
             modloaderListenerProxy.detachListener();
-            Tools.dialog(context,
-                    context.getString(R.string.global_error),
-                    context.getString(R.string.forge_dl_no_installer));
+            Tools.dialog(activity,
+                    activity.getString(R.string.global_error),
+                    activity.getString(R.string.forge_dl_no_installer));
         });
     }
 
     @Override
     public void onDownloadError(Exception e) {
         Tools.runOnUiThread(() -> {
-            Context context = requireContext();
             modloaderListenerProxy.detachListener();
-            Tools.showError(context, e);
+            Tools.showError(activity, e);
         });
     }
 }
