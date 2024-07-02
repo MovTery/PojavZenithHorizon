@@ -62,7 +62,7 @@
     <string name="control_secondary">副</string>
     <string name="control_mouse">滑鼠</string>
     <string name="control_mouseoff">滑鼠：關</string>
-    <string name="control_mouseon">滑鼠：開 </string>
+    <string name="control_mouseon">滑鼠：開</string>
     <!-- MainActivity: Menu advanced controls -->
     <string name="control_forceclose">強制關閉</string>
     <string name="control_viewout">日誌輸出</string>

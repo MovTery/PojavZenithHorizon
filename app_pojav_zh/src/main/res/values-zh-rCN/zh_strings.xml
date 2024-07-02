@@ -95,7 +95,7 @@
     <string name="zh_account_login_local_name">用户名</string>
     <string name="zh_account_login_start">开始登陆！</string>
     <!-- Activity -->
-    <string name="zh_activity_import_control">控制布局名称：</string>
+    <string name="zh_activity_import_control">控制布局名称:</string>
     <string name="zh_activity_java_gui_keyboard">输入法</string>
     <!-- Custom Controls -->
     <string name="zh_controls_add_control_button">按键</string>
@@ -115,11 +115,11 @@
     <string name="zh_controls_settings_title">控制布局编辑器设置</string>
     <string name="zh_controls_settings_button_snapping">按键吸附功能</string>
     <string name="zh_controls_settings_button_snapping_distance">按键吸附距离</string>
-    <string name="zh_controls_info_file_name">文件名称：</string>
-    <string name="zh_controls_info_name">布局名称：</string>
-    <string name="zh_controls_info_version">布局版本：</string>
-    <string name="zh_controls_info_author">作者：</string>
-    <string name="zh_controls_info_desc">描述说明：</string>
+    <string name="zh_controls_info_file_name">文件名称:</string>
+    <string name="zh_controls_info_name">布局名称:</string>
+    <string name="zh_controls_info_version">布局版本:</string>
+    <string name="zh_controls_info_author">作者:</string>
+    <string name="zh_controls_info_desc">描述说明:</string>
     <string name="zh_controls_info_more">详细信息</string>
     <string name="zh_controls_info_view">查看信息</string>
     <string name="zh_controls_info_no_info">此控制布局没有描述说明…</string>
@@ -130,7 +130,7 @@
     <string name="zh_mouse_settings_speed_name">虚拟鼠标速度</string>
     <string name="zh_mouse_settings_scale_name">虚拟鼠标缩放</string>
     <string name="zh_custom_mouse_add">添加虚拟鼠标</string>
-    <string name="zh_custom_mouse_added">成功设置虚拟鼠标：</string>
+    <string name="zh_custom_mouse_added">成功设置虚拟鼠标:</string>
     <string name="zh_custom_mouse_default">默认虚拟鼠标</string>
     <string name="zh_custom_mouse_title">自定义虚拟鼠标</string>
     <string name="zh_custom_mouse_desc">打开虚拟鼠标管理界面，你能够自行添加你喜欢的虚拟鼠标贴图，并使用它们</string>
@@ -143,7 +143,7 @@
     <string name="zh_custom_background_controls">控制布局</string>
     <string name="zh_custom_background_in_game">游戏内</string>
     <string name="zh_custom_background_dialog_message">点击 “选择” 按钮，将此图片设置为 %s 的背景图片</string>
-    <string name="zh_custom_background_selected">成功为 %s 设置背景图片：</string>
+    <string name="zh_custom_background_selected">成功为 %s 设置背景图片:</string>
     <string name="zh_custom_background_reset">已重置 %s 的背景图片</string>
     <!-- File -->
     <string name="zh_file_add_file">添加文件</string>
@@ -176,7 +176,7 @@
     <!-- Main Page & Preferce Settings -->
     <string name="zh_main_open_main_dir">打开主目录</string>
     <string name="zh_main_share_crash_report">分享崩溃报告</string>
-    <string name="zh_main_share_log_tip">你确定要分享启动器的运行日志吗？\n日志文件位置：</string>
+    <string name="zh_main_share_log_tip">你确定要分享启动器的运行日志吗？\n日志文件位置:</string>
     <string name="zh_main_notice_title">通知栏</string>
     <string name="zh_preference_category_language">语言</string>
     <string name="zh_preference_category_launcher">启动器</string>
@@ -207,7 +207,7 @@
     <string name="zh_game_exit_message">应用程序/游戏以代码 %d 退出，具体错误原因请查看日志文件或崩溃报告。如果你无法亲自解决此问题，请将日志文件或崩溃报告发送给有能力解决的人帮助你解决问题！\n\n请不要只是截图当前应用界面，否则没人知道究竟发生了什么事，请分享你的日志文件或崩溃报告！</string>
     <string name="zh_game_autopick_runtime_failed">未找到合适的运行环境，已设置为当前实例选择的运行环境</string>
     <string name="zh_game_tip">游戏正在运行中，可以通过菜单开启日志输出，查看游戏运行状况</string>
-    <string name="zh_game_tip_version">当前启动的游戏版本：</string>
+    <string name="zh_game_tip_version">当前启动的游戏版本:</string>
     <!-- ModPack -->
     <string name="zh_select_modpack_search">搜索整合包</string>
     <string name="zh_select_modpack_local">本地整合包</string>
@@ -222,15 +222,15 @@
     <!-- Check Update -->
     <string name="zh_update">检查更新</string>
     <string name="zh_update_dialog_title">检测到新版本</string>
-    <string name="zh_update_dialog_version">版本：</string>
-    <string name="zh_update_dialog_time">日期：</string>
-    <string name="zh_update_dialog_file_size">安装包大小：</string>
+    <string name="zh_update_dialog_version">版本:</string>
+    <string name="zh_update_dialog_time">日期:</string>
+    <string name="zh_update_dialog_file_size">安装包大小:</string>
     <string name="zh_update_dialog_yes">更新</string>
     <string name="zh_update_dialog_ignore">忽略此次更新</string>
     <string name="zh_update_summary">获取并更新到最新的版本</string>
     <string name="zh_update_without">当前已是最新版本</string>
     <string name="zh_update_fail">网络异常，暂时无法获取更新！</string>
-    <string name="zh_update_success">最新的安装包已经下载完成，是否安装？\n安装包位置：</string>
+    <string name="zh_update_success">最新的安装包已经下载完成，是否安装？\n安装包位置:</string>
     <string name="zh_update_update_source">选择更新源</string>
     <string name="zh_update_update_source_ghproxy">Ghproxy 加速源</string>
     <string name="zh_update_downloading">正在下载安装包… (%s / %s)</string>
@@ -250,22 +250,22 @@
     <string name="zh_other_login_no_server">无认证服务器</string>
     <string name="zh_other_login_baseurl_not_set">未设置基础URL</string>
     <string name="zh_other_login_client">客户端</string>
-    <string name="zh_other_login_error_code">错误代码：</string>
+    <string name="zh_other_login_error_code">错误代码:</string>
     <string name="zh_other_login_server_not_empty">服务器不能为空，请检查身份验证服务器设置！</string>
     <!-- About -->
     <string name="zh_about_tab">关于 Pojav Zenith Horizon</string>
     <string name="zh_about_dec1">Pojav Zenith Horizon 是一款基于 PojavLauncher 魔改的 Minecraft 启动器，它能够在 Android 设备上运行 Minecraft: Java Edition。\nPojav Zenith Horizon 致力于优化用户体验，重新设计了应用界面，新增了更多实用的功能，旨在最大程度地降低游玩门槛，让更多人能够轻松体验 Minecraft 的乐趣。</string>
     <string name="zh_about_dec2">Pojav Zenith Horizon 由 墨北MovTery 个人精心制作，在 PojavLauncher 的基础上进行了深入的魔改工作。</string>
     <string name="zh_about_dec3">由于 PojavLauncher 使用的是 GPL 3.0 开源协议，这一协议具有 “传染性”，任何使用、修改或衍生自 GPL 类库或软件的代码也必须采用 GPL 协议进行开源。因此，Pojav Zenith Horizon 也只能遵循 GPL 3.0 开源协议。如果你打算传播或分发本软件，请务必遵守 GPL 3.0 开源协议的相关规定。</string>
-    <string name="zh_about_dec4">贡献者与鸣谢：</string>
+    <string name="zh_about_dec4">贡献者与鸣谢:</string>
     <string name="zh_about_movtery_desc">Pojav Zenith Horizon 的作者</string>
     <string name="zh_about_verafirefly_desc">Pojav Zenith Horizon 项目协助者，为 Pojav Zenith Horizon 提供渲染方面的技术支持</string>
     <string name="zh_about_lingmuqiuzhu_desc">为 Pojav Zenith Horizon 提供了技术支持</string>
     <string name="zh_about_access_space">访问空间</string>
-    <string name="zh_about_version_name">软件版本名：</string>
-    <string name="zh_about_version_code">软件版本码：</string>
-    <string name="zh_about_last_update_time">上一次更新时间：</string>
-    <string name="zh_about_version_status">版本状态：</string>
+    <string name="zh_about_version_name">软件版本名:</string>
+    <string name="zh_about_version_code">软件版本码:</string>
+    <string name="zh_about_last_update_time">上一次更新时间:</string>
+    <string name="zh_about_version_status">版本状态:</string>
     <string name="zh_about_version_status_main_branch">主要分支</string>
     <string name="zh_about_version_status_other_branch">其他分支</string>
     <string name="zh_about_version_status_debug">测试版</string>

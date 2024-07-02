@@ -233,7 +233,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
                     runOnUiThread(() -> {
                         // 淡入游戏内提示
-                        String tipString = mGameTipView.getText() + "\n" + getString(R.string.zh_game_tip_version) + minecraftProfile.lastVersionId;
+                        String tipString = mGameTipView.getText() + "\n" + getString(R.string.zh_game_tip_version) + " " + minecraftProfile.lastVersionId;
                         mGameTipView.setText(tipString);
                         mGameTipView.setVisibility(View.VISIBLE);
                         ZHTools.fadeAnim(mGameTipView, 1000, 0f, 1f, 300,

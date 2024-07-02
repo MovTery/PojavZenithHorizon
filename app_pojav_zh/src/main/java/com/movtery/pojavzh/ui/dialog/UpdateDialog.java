@@ -44,9 +44,9 @@ public class UpdateDialog extends FullScreenDialog {
         TextView mFileSize = findViewById(R.id.zh_update_file_size);
         WebView mDescription = findViewById(R.id.zh_update_description);
 
-        String version = getContext().getString(R.string.zh_update_dialog_version) + this.versionName;
-        String time = getContext().getString(R.string.zh_update_dialog_time) + this.createdTime;
-        String size = getContext().getString(R.string.zh_update_dialog_file_size) + this.fileSize;
+        String version = getContext().getString(R.string.zh_update_dialog_version) + " " + this.versionName;
+        String time = getContext().getString(R.string.zh_update_dialog_time) + " " + this.createdTime;
+        String size = getContext().getString(R.string.zh_update_dialog_file_size) + " " + this.fileSize;
 
         mVersionName.setText(version);
         mCreatedTime.setText(time);
