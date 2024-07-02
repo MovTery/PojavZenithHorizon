@@ -3,7 +3,6 @@ package com.movtery.pojavzh.ui.fragment;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
-import android.content.Context;
 import android.content.Intent;
 
 import androidx.core.content.ContextCompat;
@@ -42,7 +41,7 @@ public class DownloadForgeFragment extends TwoLevelListFragment implements Modlo
 
     @Override
     protected void init() {
-        setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_anvil));
+        setIcon(ContextCompat.getDrawable(activity, R.drawable.ic_anvil));
         setNameText("Forge");
         setReleaseCheckBoxGone(); //隐藏“仅展示正式版”选择框，在这里没有用处
         super.init();
@@ -96,7 +95,7 @@ public class DownloadForgeFragment extends TwoLevelListFragment implements Modlo
                     if (currentTask.isCancelled()) return;
 
                     //为整理好的Forge版本设置Adapter
-                    BaseModVersionListAdapter adapter = new BaseModVersionListAdapter(requireContext(), modloaderListenerProxy, this, R.drawable.ic_anvil, entry.getValue());
+                    BaseModVersionListAdapter adapter = new BaseModVersionListAdapter(activity, modloaderListenerProxy, this, R.drawable.ic_anvil, entry.getValue());
                     adapter.setOnItemClickListener(version -> new Thread(new ForgeDownloadTask(modloaderListenerProxy, (String) version)).start());
 
                     mData.add(new TwoLevelListItemBean("Minecraft " + entry.getKey(), adapter));
@@ -110,7 +109,7 @@ public class DownloadForgeFragment extends TwoLevelListFragment implements Modlo
                 TwoLevelListAdapter mModAdapter = (TwoLevelListAdapter) recyclerView.getAdapter();
                 if (mModAdapter == null) {
                     mModAdapter = new TwoLevelListAdapter(this, mData);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+                    recyclerView.setLayoutManager(new LinearLayoutManager(activity));
                     recyclerView.setAdapter(mModAdapter);
                 } else {
                     mModAdapter.updateData(mData);
@@ -126,33 +125,30 @@ public class DownloadForgeFragment extends TwoLevelListFragment implements Modlo
     @Override
     public void onDownloadFinished(File downloadedFile) {
         Tools.runOnUiThread(() -> {
-            Context context = requireContext();
             modloaderListenerProxy.detachListener();
 
-            Intent modInstallerStartIntent = new Intent(context, JavaGUILauncherActivity.class);
+            Intent modInstallerStartIntent = new Intent(activity, JavaGUILauncherActivity.class);
             ForgeUtils.addAutoInstallArgs(modInstallerStartIntent, downloadedFile, true);
-            Tools.backToMainMenu(requireActivity());
-            context.startActivity(modInstallerStartIntent);
+            Tools.backToMainMenu(activity);
+            activity.startActivity(modInstallerStartIntent);
         });
     }
 
     @Override
     public void onDataNotAvailable() {
         Tools.runOnUiThread(() -> {
-            Context context = requireContext();
             modloaderListenerProxy.detachListener();
-            Tools.dialog(context,
-                    context.getString(R.string.global_error),
-                    context.getString(R.string.forge_dl_no_installer));
+            Tools.dialog(activity,
+                    activity.getString(R.string.global_error),
+                    activity.getString(R.string.forge_dl_no_installer));
         });
     }
 
     @Override
     public void onDownloadError(Exception e) {
         Tools.runOnUiThread(() -> {
-            Context context = requireContext();
             modloaderListenerProxy.detachListener();
-            Tools.showError(context, e);
+            Tools.showError(activity, e);
         });
     }
 }
