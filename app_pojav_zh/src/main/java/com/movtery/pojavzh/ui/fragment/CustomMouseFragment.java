@@ -139,7 +139,7 @@ public class CustomMouseFragment extends Fragment {
             filesDialog.setMoreButtonClick(() -> {
                 DEFAULT_PREF.edit().putString("custom_mouse", fileName).apply();
                 refreshIcon();
-                Toast.makeText(requireContext(), getString(R.string.zh_custom_mouse_added) + (fileName == null ? getString(R.string.zh_custom_mouse_default) : fileName), Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), getString(R.string.zh_custom_mouse_added) + " " + (fileName == null ? getString(R.string.zh_custom_mouse_default) : fileName), Toast.LENGTH_SHORT).show();
                 filesDialog.dismiss();
             });
             filesDialog.show();

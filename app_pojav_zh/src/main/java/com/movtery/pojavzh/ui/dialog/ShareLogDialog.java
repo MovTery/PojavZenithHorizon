@@ -20,7 +20,7 @@ public class ShareLogDialog extends FullScreenDialog {
     public ShareLogDialog(@NonNull Context context, @NonNull File log) {
         super(context);
 
-        this.message = context.getString(R.string.zh_main_share_log_tip) + (
+        this.message = context.getString(R.string.zh_main_share_log_tip) + " " + (
                 log.exists() ? log.getAbsolutePath() : context.getString(R.string.zh_file_does_not_exist));
         this.logFile = log;
 

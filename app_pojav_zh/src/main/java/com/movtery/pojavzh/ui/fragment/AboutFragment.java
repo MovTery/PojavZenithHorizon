@@ -68,13 +68,13 @@ public class AboutFragment extends Fragment {
         TextView mVersionStatus = view.findViewById(R.id.zh_about_version_status);
 
         //软件信息
-        String versionName = getString(R.string.zh_about_version_name) + getVersionName(requireContext());
+        String versionName = getString(R.string.zh_about_version_name) + " " + getVersionName(requireContext());
         mVersionName.setText(versionName);
-        String versionCode = getString(R.string.zh_about_version_code) + getVersionCode(requireContext());
+        String versionCode = getString(R.string.zh_about_version_code) + " " + getVersionCode(requireContext());
         mVersionCode.setText(versionCode);
-        String lastUpdateTime = getString(R.string.zh_about_last_update_time) + getLastUpdateTime(requireContext());
+        String lastUpdateTime = getString(R.string.zh_about_last_update_time) + " " + getLastUpdateTime(requireContext());
         mLastUpdateTime.setText(lastUpdateTime);
-        String versionStatus = getString(R.string.zh_about_version_status) + getVersionStatus(requireContext());
+        String versionStatus = getString(R.string.zh_about_version_status) + " " + getVersionStatus(requireContext());
         mVersionStatus.setText(versionStatus);
     }
 

@@ -72,6 +72,7 @@ public class ControlInfoDialog extends FullScreenDialog {
     private void setTextOrDefault(int textViewId, int stringId, String value) {
         TextView textView = findViewById(textViewId);
         String text = getContext().getString(stringId);
+        text += " ";
         if (value != null && !value.isEmpty() && !value.equals("null")) {
             text += value;
         } else {

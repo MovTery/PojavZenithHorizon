@@ -190,7 +190,7 @@ public class UpdateLauncher {
     private static void installApk(Context context, File outputFile) {
         runOnUiThread(() -> {
             new TipDialog.Builder(context)
-                    .setMessage(context.getString(R.string.zh_update_success) + outputFile.getAbsolutePath())
+                    .setMessage(context.getString(R.string.zh_update_success) + " " + outputFile.getAbsolutePath())
                     .setCancelable(false)
                     .setConfirmClickListener(() -> { //安装
                         Intent intent = new Intent(Intent.ACTION_VIEW);

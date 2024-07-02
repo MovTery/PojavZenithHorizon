@@ -60,7 +60,7 @@ public class OtherLoginApi {
             AuthResult result=new Gson().fromJson(res,AuthResult.class);
             listener.onSuccess(result);
         } else {
-            listener.onFailed(context.getString(R.string.zh_other_login_error_code) + response.code() + "\n" + res);
+            listener.onFailed(context.getString(R.string.zh_other_login_error_code) + " " + response.code() + "\n" + res);
         }
     }
 

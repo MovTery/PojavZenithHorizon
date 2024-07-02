@@ -107,7 +107,7 @@ public class CustomBackgroundFragment extends Fragment {
                     backgroundMap.put(backgroundType, fileName);
                     BackgroundManager.saveProperties(backgroundMap);
 
-                    Toast.makeText(requireContext(), getString(R.string.zh_custom_background_selected, getCurrentStatusName()) + fileName, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), getString(R.string.zh_custom_background_selected, getCurrentStatusName()) + " " + fileName, Toast.LENGTH_SHORT).show();
                     filesDialog.dismiss();
                 });
                 filesDialog.show();
