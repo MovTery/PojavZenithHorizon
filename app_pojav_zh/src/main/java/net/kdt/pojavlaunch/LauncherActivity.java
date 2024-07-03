@@ -28,6 +28,7 @@ import com.kdt.mcgui.ProgressLayout;
 import com.kdt.mcgui.mcAccountSpinner;
 import com.movtery.pojavzh.extra.ZHExtraConstants;
 import com.movtery.pojavzh.feature.UpdateLauncher;
+import com.movtery.pojavzh.feature.accounts.AccountsManager;
 import com.movtery.pojavzh.feature.mod.modpack.install.InstallExtra;
 import com.movtery.pojavzh.feature.mod.modpack.install.InstallLocalModPack;
 import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
@@ -64,8 +65,6 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class LauncherActivity extends BaseActivity {
     public final ActivityResultLauncher<Object> modInstallerLauncher =
@@ -82,7 +81,6 @@ public class LauncherActivity extends BaseActivity {
     private ProgressServiceKeeper mProgressServiceKeeper;
     private ModloaderInstallTracker mInstallTracker;
     private NotificationManager mNotificationManager;
-    private Timer mAccountDeleteButtonVisibility;
 
     /* Allows to switch from one button "type" to another */
     private final FragmentManager.FragmentLifecycleCallbacks mFragmentCallbackListener = new FragmentManager.FragmentLifecycleCallbacks() {
@@ -168,6 +166,11 @@ public class LauncherActivity extends BaseActivity {
             .setConfirmClickListener(() -> mAccountSpinner.removeCurrentAccount())
             .buildDialog();
 
+    private final ExtraListener<Boolean> mAccountChangeListener = (key, value) -> {
+        runOnUiThread(() -> refreshDeleteAccountButton(true));
+        return false;
+    };
+
     private final ExtraListener<Boolean> mLaunchGameListener = (key, value) -> {
         if(mProgressLayout.hasProcesses()){
             Toast.makeText(this, R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
@@ -247,6 +250,7 @@ public class LauncherActivity extends BaseActivity {
         );
         bindViews();
         ZHTools.setBackgroundImage(this, BackgroundType.MAIN_MENU, mBackgroundView);
+        refreshDeleteAccountButton(false);
 
         checkNotificationPermission();
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -261,6 +265,7 @@ public class LauncherActivity extends BaseActivity {
 
         ExtraCore.addExtraListener(ExtraConstants.LAUNCH_GAME, mLaunchGameListener);
 
+        ExtraCore.addExtraListener(ZHExtraConstants.ACCOUNT_CHANGE, mAccountChangeListener);
         ExtraCore.addExtraListener(ZHExtraConstants.INSTALL_LOCAL_MODPACK, mInstallLocalModpack);
 
         new AsyncVersionList().getVersionList(versions -> ExtraCore.setValue(ExtraConstants.RELEASE_TABLE, versions), false);
@@ -272,17 +277,6 @@ public class LauncherActivity extends BaseActivity {
         mProgressLayout.observe(ProgressLayout.INSTALL_MODPACK);
         mProgressLayout.observe(ProgressLayout.AUTHENTICATE_MICROSOFT);
         mProgressLayout.observe(ProgressLayout.DOWNLOAD_VERSION_LIST);
-
-        mAccountDeleteButtonVisibility = new Timer();
-        mAccountDeleteButtonVisibility.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(() -> {
-                    boolean shouldShow = mAccountSpinner.getSelectedAccount() != null;
-                    setVisibilityAnim(mDeleteAccountButton, shouldShow);
-                });
-            }
-        }, 0, 1000); //每一秒钟检测一次是否需要隐藏或者显示 移除账号按钮
 
         // 愚人节彩蛋
         if (ZHTools.checkDate(4, 1)) mHair.setVisibility(View.VISIBLE);
@@ -321,13 +315,10 @@ public class LauncherActivity extends BaseActivity {
         ExtraCore.removeExtraListenerFromValue(ExtraConstants.BACK_PREFERENCE, mBackPreferenceListener);
         ExtraCore.removeExtraListenerFromValue(ExtraConstants.SELECT_AUTH_METHOD, mSelectAuthMethod);
         ExtraCore.removeExtraListenerFromValue(ExtraConstants.LAUNCH_GAME, mLaunchGameListener);
+        ExtraCore.removeExtraListenerFromValue(ZHExtraConstants.ACCOUNT_CHANGE, mAccountChangeListener);
         ExtraCore.removeExtraListenerFromValue(ZHExtraConstants.INSTALL_LOCAL_MODPACK, mInstallLocalModpack);
 
         getSupportFragmentManager().unregisterFragmentLifecycleCallbacks(mFragmentCallbackListener);
-
-        if (mAccountDeleteButtonVisibility != null) {
-            mAccountDeleteButtonVisibility.cancel();
-        }
     }
 
     /** Custom implementation to feel more natural when a backstack isn't present */
@@ -416,6 +407,15 @@ public class LauncherActivity extends BaseActivity {
             mRequestNotificationPermissionRunnable = new WeakReference<>(onSuccessRunnable);
         }
         mRequestNotificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+    }
+
+    private void refreshDeleteAccountButton(boolean anim) {
+        boolean shouldShow = !AccountsManager.getAllAccount().isEmpty();
+        if (anim) {
+            setVisibilityAnim(mDeleteAccountButton, shouldShow);
+        } else {
+            mDeleteAccountButton.setVisibility(shouldShow ? View.VISIBLE : View.GONE);
+        }
     }
 
     /** Stuff all the view boilerplate here */

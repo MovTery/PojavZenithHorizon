@@ -95,6 +95,10 @@
     <string name="zh_account_local_account_illegal">Username contains illegal characters! Only English letters (both uppercase and lowercase), numbers, and underscores are allowed in the username.</string>
     <string name="zh_account_login_local_name">Username</string>
     <string name="zh_account_login_start">Login started !</string>
+    <string name="zh_account_no_microsoft_account_local">It seems you are not logged into a legitimate account! Offline accounts are a fallback option for players when they cannot connect to the internet, not for those without a legitimate account. If you do not have a legitimate Minecraft account, please purchase one on the official Minecraft website!</string>
+    <string name="zh_account_no_microsoft_account_local_confirm">Continue using offline account</string>
+    <string name="zh_account_no_microsoft_account_other">It seems you are not logged into a legitimate account! Are you sure you want to use an external login without a legitimate account? If you do not have a legitimate Minecraft account, please purchase one on the official Minecraft website!</string>
+    <string name="zh_account_no_microsoft_account_other_confirm">Continue using external login</string>
     <!-- Activity -->
     <string name="zh_activity_import_control">Layout Name Control:</string>
     <string name="zh_activity_java_gui_keyboard">Keyboard</string>

@@ -42,6 +42,7 @@ import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.extra.ExtraListener;
 
 import com.movtery.pojavzh.extra.ZHExtraConstants;
+import com.movtery.pojavzh.feature.accounts.AccountsManager;
 import com.movtery.pojavzh.feature.login.AuthResult;
 import com.movtery.pojavzh.feature.login.OtherLoginApi;
 import com.movtery.pojavzh.utils.ZHTools;
@@ -70,6 +71,7 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
 
     private final List<String> mAccountList = new ArrayList<>(2);
     private MinecraftAccount mSelectecAccount = null;
+    private AccountsManager accountsManager;
 
     /* Display the head of the current profile, here just to allow bitmap recycling */
     private BitmapDrawable mHeadDrawable;
@@ -112,6 +114,7 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
         invalidate();
         mAccountList.add(account.username);
         reloadAccounts(false, mAccountList.size() -1);
+        accountsManager.add(account);
     };
 
     private final ErrorListener mErrorListener = errorMessage -> {
@@ -172,6 +175,8 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
         mLoginBarPaint.setColor(getResources().getColor(R.color.background_bottom_bar, getContext().getTheme()));
         mLoginBarPaint.setStrokeWidth(getResources().getDimensionPixelOffset(R.dimen._1sdp));
 
+        accountsManager = new AccountsManager();
+
         // Set behavior
         reloadAccounts(true, 0);
         setOnItemSelectedListener(this);
@@ -208,16 +213,18 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
         canvas.drawLine(0, bottom, mLoginBarWidth, bottom, mLoginBarPaint);
     }
 
-    public void removeCurrentAccount(){
+    public void removeCurrentAccount() {
         int position = getSelectedItemPosition();
-        if(position == 0) return;
-        File accountFile = new File(Tools.DIR_ACCOUNT_NEW, mAccountList.get(position)+".json");
-        File userIconFile = new File(ZHTools.DIR_USER_ICON, mAccountList.get(position)+".png");
-        if(accountFile.exists()) FileUtils.deleteQuietly(accountFile);
-        if(userIconFile.exists()) FileUtils.deleteQuietly(userIconFile);
+        if (position == 0) return;
+        String userName = mAccountList.get(position);
+        File accountFile = new File(Tools.DIR_ACCOUNT_NEW, userName + ".json");
+        File userIconFile = new File(ZHTools.DIR_USER_ICON, userName + ".png");
+        if (accountFile.exists()) FileUtils.deleteQuietly(accountFile);
+        if (userIconFile.exists()) FileUtils.deleteQuietly(userIconFile);
         mAccountList.remove(position);
 
         reloadAccounts(false, 0);
+        accountsManager.remove(userName);
     }
 
     @Keep
@@ -266,16 +273,14 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
      * @param fromFiles Whether we use files as the source of truth
      * @param overridePosition Force the spinner to be at this position, if not 0
      */
-    private void reloadAccounts(boolean fromFiles, int overridePosition){
-        if(fromFiles){
+    private void reloadAccounts(boolean fromFiles, int overridePosition) {
+        if (fromFiles) {
             mAccountList.clear();
-
             mAccountList.add(getContext().getString(R.string.main_add_account));
-            File accountFolder = new File(Tools.DIR_ACCOUNT_NEW);
-            if(accountFolder.exists()){
-                for (String fileName : accountFolder.list()) {
-                    mAccountList.add(fileName.substring(0, fileName.length() - 5));
-                }
+
+            accountsManager.reload();
+            for (MinecraftAccount minecraftAccount : AccountsManager.getAllAccount()) {
+                mAccountList.add(minecraftAccount.username);
             }
         }
 

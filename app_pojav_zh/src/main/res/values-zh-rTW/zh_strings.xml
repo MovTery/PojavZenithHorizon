@@ -94,6 +94,10 @@
     <string name="zh_account_local_account_illegal">用戶名包含非法字符！僅支持英文字母（大小寫均可）、數字以及下劃線作為用戶名</string>
     <string name="zh_account_login_local_name">用戶名</string>
     <string name="zh_account_login_start">開始登入！</string>
+    <string name="zh_account_no_microsoft_account_local">你似乎沒有登入正版帳號！離線帳號是為玩家在無法連線時提供的一種備用方案，而不是給沒有正版帳號的玩家使用的。如果你沒有 Minecraft 正版帳號，請先在 Minecraft 官網購買正版帳號！</string>
+    <string name="zh_account_no_microsoft_account_local_confirm">仍然使用離線帳號</string>
+    <string name="zh_account_no_microsoft_account_other">你似乎沒有登入正版帳號！你確定要在沒有登入正版帳號的情況下使用外置登入嗎？如果你沒有 Minecraft 正版帳號，請先在 Minecraft 官網購買正版帳號！</string>
+    <string name="zh_account_no_microsoft_account_other_confirm">仍然使用外置登入</string>
     <!-- Activity -->
     <string name="zh_activity_import_control">控制佈局名稱:</string>
     <string name="zh_activity_java_gui_keyboard">輸入法</string>
