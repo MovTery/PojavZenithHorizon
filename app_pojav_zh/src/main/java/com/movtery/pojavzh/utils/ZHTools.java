@@ -468,32 +468,6 @@ public class ZHTools {
         return "[" + branch + "] " + status;
     }
 
-    public static void setVisibilityAnim(View view, boolean shouldShow) {
-        setVisibilityAnim(view, shouldShow, 300);
-    }
-
-    public static void setVisibilityAnim(View view, boolean shouldShow, int duration) {
-        if (shouldShow && view.getVisibility() != View.VISIBLE) {
-            fadeAnim(view, 0, 0f, 1f, duration, () -> view.setVisibility(View.VISIBLE));
-        } else if (!shouldShow && view.getVisibility() != View.GONE) {
-            fadeAnim(view, 0, view.getAlpha(), 0f, duration, () -> view.setVisibility(View.GONE));
-        }
-    }
-
-    public static void fadeAnim(View view, long startDelay, float begin, float end, int duration, Runnable endAction) {
-        if ((view.getVisibility() != View.VISIBLE && end == 0) || (view.getVisibility() == View.VISIBLE && end == 1)) {
-            if (endAction != null) PojavApplication.sExecutorService.execute(endAction);
-            return;
-        }
-        view.setVisibility(View.VISIBLE);
-        view.setAlpha(begin);
-        view.animate()
-                .alpha(end)
-                .setStartDelay(startDelay)
-                .setDuration(duration)
-                .withEndAction(endAction);
-    }
-
     public static boolean checkDate(int month, int day) {
         LocalDate currentDate;
         currentDate = LocalDate.now();

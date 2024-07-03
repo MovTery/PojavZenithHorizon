@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.pojavzh.utils.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.R;
@@ -95,10 +96,10 @@ public abstract class TwoLevelListFragment extends Fragment {
         mReleaseCheckBox.setClickable(!visible);
 
         if (PREF_ANIMATION) {
-            ZHTools.setVisibilityAnim(mSelectTitle, visible);
-            ZHTools.setVisibilityAnim(mRefreshButton, !visible);
+            AnimUtils.setVisibilityAnim(mSelectTitle, visible);
+            AnimUtils.setVisibilityAnim(mRefreshButton, !visible);
 
-            if (releaseCheckBoxVisible) ZHTools.setVisibilityAnim(mReleaseCheckBox, !visible);
+            if (releaseCheckBoxVisible) AnimUtils.setVisibilityAnim(mReleaseCheckBox, !visible);
         } else {
             mSelectTitle.setVisibility(titleVisibility);
             mRefreshButton.setVisibility(refreshVisibility);
@@ -151,7 +152,7 @@ public abstract class TwoLevelListFragment extends Fragment {
                     int firstPosition = layoutManager.findFirstVisibleItemPosition();
                     boolean b = firstPosition >= adapter.getItemCount() / 3;
 
-                    ZHTools.setVisibilityAnim(mBackToTop, b);
+                    AnimUtils.setVisibilityAnim(mBackToTop, b);
                 }
             }
         });
@@ -184,7 +185,7 @@ public abstract class TwoLevelListFragment extends Fragment {
 
     protected void setFailedToLoad(boolean failed) {
         if (PREF_ANIMATION) {
-            ZHTools.setVisibilityAnim(mFailedToLoad, failed);
+            AnimUtils.setVisibilityAnim(mFailedToLoad, failed);
         } else {
             mFailedToLoad.setVisibility(failed ? View.VISIBLE : View.GONE);
         }

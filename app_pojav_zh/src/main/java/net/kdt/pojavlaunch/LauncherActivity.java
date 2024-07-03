@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch;
 
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
-import static com.movtery.pojavzh.utils.ZHTools.setVisibilityAnim;
 
 import android.Manifest;
 import android.content.Intent;
@@ -35,6 +34,7 @@ import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
 import com.movtery.pojavzh.ui.activity.SettingsActivity;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
+import com.movtery.pojavzh.utils.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
@@ -89,12 +89,6 @@ public class LauncherActivity extends BaseActivity {
             mSettingsButton.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), f instanceof MainMenuFragment
                     ? R.drawable.ic_menu_settings : R.drawable.ic_menu_home));
         }
-    };
-
-    /* Listener for the back button in settings */
-    private final ExtraListener<String> mBackPreferenceListener = (key, value) -> {
-        if(value.equals("true")) onBackPressed();
-        return false;
     };
 
     /* Listener for the auth method selection screen */
@@ -260,7 +254,6 @@ public class LauncherActivity extends BaseActivity {
         mSettingsButton.setOnClickListener(mSettingButtonListener);
         mDeleteAccountButton.setOnClickListener(mAccountDeleteButtonListener);
         ProgressKeeper.addTaskCountListener(mProgressLayout);
-        ExtraCore.addExtraListener(ExtraConstants.BACK_PREFERENCE, mBackPreferenceListener);
         ExtraCore.addExtraListener(ExtraConstants.SELECT_AUTH_METHOD, mSelectAuthMethod);
 
         ExtraCore.addExtraListener(ExtraConstants.LAUNCH_GAME, mLaunchGameListener);
@@ -312,7 +305,6 @@ public class LauncherActivity extends BaseActivity {
         mProgressLayout.cleanUpObservers();
         ProgressKeeper.removeTaskCountListener(mProgressLayout);
         ProgressKeeper.removeTaskCountListener(mProgressServiceKeeper);
-        ExtraCore.removeExtraListenerFromValue(ExtraConstants.BACK_PREFERENCE, mBackPreferenceListener);
         ExtraCore.removeExtraListenerFromValue(ExtraConstants.SELECT_AUTH_METHOD, mSelectAuthMethod);
         ExtraCore.removeExtraListenerFromValue(ExtraConstants.LAUNCH_GAME, mLaunchGameListener);
         ExtraCore.removeExtraListenerFromValue(ZHExtraConstants.ACCOUNT_CHANGE, mAccountChangeListener);
@@ -412,7 +404,16 @@ public class LauncherActivity extends BaseActivity {
     private void refreshDeleteAccountButton(boolean anim) {
         boolean shouldShow = !AccountsManager.getAllAccount().isEmpty();
         if (anim) {
-            setVisibilityAnim(mDeleteAccountButton, shouldShow);
+            AnimUtils.setVisibilityAnim(mDeleteAccountButton, shouldShow, new AnimUtils.AnimationListener() {
+                @Override
+                public void onStart() {
+                    mDeleteAccountButton.setClickable(false);
+                }
+                @Override
+                public void onEnd() {
+                    mDeleteAccountButton.setClickable(true);
+                }
+            });
         } else {
             mDeleteAccountButton.setVisibility(shouldShow ? View.VISIBLE : View.GONE);
         }

@@ -6,7 +6,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.AnimUtils;
 
 import net.kdt.pojavlaunch.R;
 
@@ -63,12 +63,12 @@ public class SearchView {
 
     public void setVisibility() {
         boolean isVisible = view.getVisibility() == View.VISIBLE;
-        ZHTools.setVisibilityAnim(view, !isVisible, 150);
+        AnimUtils.setVisibilityAnim(view, !isVisible, 150);
     }
 
     public void close() {
         if (view.getVisibility() != View.GONE) {
-            ZHTools.setVisibilityAnim(view, false, 150);
+            AnimUtils.setVisibilityAnim(view, false, 150);
         }
     }
 

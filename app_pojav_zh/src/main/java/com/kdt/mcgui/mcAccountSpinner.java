@@ -143,7 +143,7 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
     };
 
     /* Triggered when we need to perform mojang login */
-    private final ExtraListener<String[]> mMojangLoginListener = (key, value) -> {
+    private final ExtraListener<String[]> mLocalLoginListener = (key, value) -> {
         if(value[1].isEmpty()){ // Test mode
             MinecraftAccount account = new MinecraftAccount();
             account.username = value[0];
@@ -181,8 +181,8 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
         reloadAccounts(true, 0);
         setOnItemSelectedListener(this);
 
-        ExtraCore.addExtraListener(ExtraConstants.MOJANG_LOGIN_TODO, mMojangLoginListener);
         ExtraCore.addExtraListener(ExtraConstants.MICROSOFT_LOGIN_TODO, mMicrosoftLoginListener);
+        ExtraCore.addExtraListener(ZHExtraConstants.LOCAL_LOGIN_TODO, mLocalLoginListener);
         ExtraCore.addExtraListener(ZHExtraConstants.OTHER_LOGIN_TODO, mOtherLoginListener);
     }
 

@@ -8,9 +8,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.movtery.pojavzh.extra.ZHExtraConstants;
+
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 
 import java.io.File;
@@ -32,7 +33,7 @@ public class LocalLoginFragment extends Fragment {
         view.findViewById(R.id.login_button).setOnClickListener(v -> {
             if(!checkEditText()) return;
 
-            ExtraCore.setValue(ExtraConstants.MOJANG_LOGIN_TODO, new String[]{
+            ExtraCore.setValue(ZHExtraConstants.LOCAL_LOGIN_TODO, new String[]{
                     mUsernameEditText.getText().toString(), "" });
 
             Tools.backToMainMenu(requireActivity());
