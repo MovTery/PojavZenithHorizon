@@ -60,7 +60,9 @@ public class LauncherPreferenceJavaFragment extends LauncherPreferenceFragment {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                runOnUiThread(() -> updateMemoryInfo(requireContext(), allocationSeek));
+                if (!allocationSeek.isUserSeeking()) {
+                    updateMemoryInfo(requireContext(), allocationSeek);
+                }
             }
         }, 0, 500);
 
@@ -125,8 +127,7 @@ public class LauncherPreferenceJavaFragment extends LauncherPreferenceFragment {
 
         boolean isMemorySizeExceeded = seekValue > freeDeviceMemory;
 
-        String summary = getString(R.string.zh_setting_java_memory_desc);
-        summary += "\r\n" + getMemoryInfoText(context, freeDeviceMemory);
+        String summary = getString(R.string.zh_setting_java_memory_desc) + "\r\n" + getMemoryInfoText(context, freeDeviceMemory);
         if (isMemorySizeExceeded) summary += "\r\n" + getString(R.string.zh_setting_java_memory_exceeded);
 
         String finalSummary = summary;
