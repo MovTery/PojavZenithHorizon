@@ -5,6 +5,9 @@
         <shape android:shape="rectangle">
             <corners android:radius="@dimen/_4sdp" />
             <solid android:color="@color/background_item_selected" />
+            <padding
+                android:bottom="@dimen/padding_input_bottom"
+                android:top="@dimen/padding_input_top" />
         </shape>
     </item>
 </layer-list>
