@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.util.Base64;
 
 import androidx.annotation.Keep;
+import androidx.annotation.NonNull;
 
 import org.apache.commons.io.FileUtils;
 
@@ -151,5 +152,14 @@ public class MinecraftAccount {
 
     public void setBaseUrl(String baseUrl) {
         this.baseUrl = baseUrl;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "MinecraftAccount{" +
+                "username='" + username + '\'' +
+                ", isMicrosoft=" + isMicrosoft +
+                '}';
     }
 }
