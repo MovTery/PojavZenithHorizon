@@ -167,6 +167,7 @@
     <string name="zh_file_multi_select_mode_title">多選項目</string>
     <string name="zh_file_multi_select_mode_message">目前共選擇了 %d 個項目</string>
     <string name="zh_file_operation_file">正在操作檔案中… (%s / %s, %d)</string>
+    <string name="zh_file_jump_to_path">跳至路徑</string>
     <!-- Search View -->
     <string name="zh_search_case_sensitive">大小寫區分</string>
     <string name="zh_search_count">%d 個搜尋結果</string>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
     <!-- Pojav Zenith Horizon -->
     <string name="zh_close">Close</string>
     <string name="zh_return">Return</string>
@@ -162,11 +163,12 @@
     <string name="zh_file_rename_empty">The file name cannot be empty!</string>
     <string name="zh_file_rename_exitis">File name conflicts with an existing file!</string>
     <string name="zh_file_external_storage">External Storage Directory</string>
-    <string name="zh_file_software_private">Software Private Directory</string>
+    <string name="zh_file_software_private" tools:ignore="MissingTranslation">Software Private Directory</string>
     <string name="zh_file_multi_select_mode">Enable Multi-Select Mode</string>
     <string name="zh_file_multi_select_mode_title">Multi-Select Mode</string>
     <string name="zh_file_multi_select_mode_message">Currently, a total of %d items are selected</string>
     <string name="zh_file_operation_file">Operating on file… (%s / %s, %d)</string>
+    <string name="zh_file_jump_to_path">Jump to Path</string>
     <!-- Search View -->
     <string name="zh_search_case_sensitive">Case Sensitive</string>
     <string name="zh_search_count">%d search results</string>

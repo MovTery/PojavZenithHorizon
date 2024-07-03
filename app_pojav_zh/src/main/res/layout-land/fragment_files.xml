@@ -46,13 +46,15 @@
 
             <TextView
                 android:id="@+id/zh_files_current_path"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginHorizontal="8dp"
                 android:layout_marginTop="8dp"
                 android:text="."
                 android:textColor="@color/primary_text"
+                android:background="?android:attr/selectableItemBackground"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/zh_file_select_all"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="HardcodedText" />
 

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -93,6 +94,30 @@ public class FilesFragment extends Fragment {
         mFileRecyclerView.setShowFiles(mShowFiles);
         mFileRecyclerView.setShowFolders(mShowFolders);
         mFileRecyclerView.setTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
+
+        mFilePathView.setOnClickListener(v -> {
+            EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(R.string.zh_file_jump_to_path), null, mFileRecyclerView.getFullPath().getAbsolutePath(), null);
+            editTextDialog.setConfirm(v1 -> {
+                EditText editBox = editTextDialog.getEditBox();
+                String path = editBox.getText().toString();
+
+                if (path.isEmpty()) {
+                    editBox.setError(getString(R.string.global_error_field_empty));
+                    return;
+                }
+
+                File file = new File(path);
+                //检查路径是否符合要求：最少为最顶部路径、路径是一个文件夹、这个路径存在
+                if (!path.contains(mLockPath) || !file.isDirectory() || !file.exists()) {
+                    editBox.setError(getString(R.string.zh_file_does_not_exist));
+                    return;
+                }
+
+                mFileRecyclerView.listFileAt(file);
+                editTextDialog.dismiss();
+            });
+            editTextDialog.show();
+        });
 
         if (mListPath != null) {
             mFileRecyclerView.lockAndListAt(new File(mLockPath), new File(mListPath));
