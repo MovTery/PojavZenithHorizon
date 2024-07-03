@@ -34,7 +34,8 @@
         android:resizeableActivity="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme"
-        tools:targetApi="r">
+        tools:targetApi="r"
+        tools:ignore="DiscouragedApi" >
         <activity
             android:name=".MissingStorageActivity"
             android:exported="false"
@@ -64,11 +65,11 @@
             android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name="com.movtery.pojavzh.ui.actitvity.SettingsActivity"
+            android:name="com.movtery.pojavzh.ui.activity.SettingsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name="com.movtery.pojavzh.ui.actitvity.ErrorActivity"
+            android:name="com.movtery.pojavzh.ui.activity.ErrorActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
             android:screenOrientation="sensorLandscape" />
         <activity
