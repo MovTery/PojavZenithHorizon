@@ -66,6 +66,7 @@ import net.kdt.pojavlaunch.customcontrols.mouse.Touchpad;
 import com.movtery.pojavzh.ui.dialog.ControlSettingsDialog;
 import com.movtery.pojavzh.ui.dialog.SelectControlsDialog;
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.utils.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
@@ -235,10 +236,17 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                         // 淡入游戏内提示
                         String tipString = mGameTipView.getText() + "\n" + getString(R.string.zh_game_tip_version) + " " + minecraftProfile.lastVersionId;
                         mGameTipView.setText(tipString);
-                        mGameTipView.setVisibility(View.VISIBLE);
-                        ZHTools.fadeAnim(mGameTipView, 1000, 0f, 1f, 300,
-                                () -> ZHTools.fadeAnim(mGameTipView, 15000, 1f, 0f, 300,
-                                        () -> mGameTipView.setVisibility(View.GONE))); //隐藏此提示文本
+                        //显示动画
+                        AnimUtils.setVisibilityAnim(mGameTipView, 1000, true, 300, new AnimUtils.AnimationListener() {
+                            @Override
+                            public void onStart() {
+                            }
+                            @Override
+                            public void onEnd() {
+                                //隐藏此提示文本
+                                AnimUtils.setVisibilityAnim(mGameTipView, 15000, false, 300, null);
+                            }
+                        });
                     });
 
                     runCraft(finalVersion, mVersionInfo);
@@ -289,8 +297,6 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         touchCharInput = findViewById(R.id.mainTouchCharInput);
         mDrawerPullButton = findViewById(R.id.drawer_button);
         mGameTipView = findViewById(R.id.zh_game_tip);
-
-        mGameTipView.setVisibility(View.GONE);
     }
 
     @Override
