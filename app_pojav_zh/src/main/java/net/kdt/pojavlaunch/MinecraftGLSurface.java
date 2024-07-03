@@ -99,7 +99,7 @@ public class MinecraftGLSurface extends View implements GrabListener {
      *                 when the cursor is not grabbed
      */
     public void start(boolean isAlreadyRunning, AbstractTouchpad touchpad){
-        if(MainActivity.isAndroid8OrHigher()) setUpPointerCapture(touchpad);
+        setUpPointerCapture(touchpad);
         mInGUIProcessor.setAbstractTouchpad(touchpad);
         if(LauncherPreferences.PREF_USE_ALTERNATE_SURFACE){
             SurfaceView surfaceView = new SurfaceView(getContext());
@@ -183,8 +183,7 @@ public class MinecraftGLSurface extends View implements GrabListener {
         for (int i = 0; i < e.getPointerCount(); i++) {
             int toolType = e.getToolType(i);
             if(toolType == MotionEvent.TOOL_TYPE_MOUSE) {
-                if(MainActivity.isAndroid8OrHigher() &&
-                        mPointerCapture != null) {
+                if(mPointerCapture != null) {
                     mPointerCapture.handleAutomaticCapture();
                     return true;
                 }
