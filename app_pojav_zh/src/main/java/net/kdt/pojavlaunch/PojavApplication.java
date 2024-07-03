@@ -18,7 +18,7 @@ import android.util.*;
 
 import com.movtery.pojavzh.feature.CheckNewNotice;
 import com.movtery.pojavzh.feature.ResourceManager;
-import com.movtery.pojavzh.ui.actitvity.ErrorActivity;
+import com.movtery.pojavzh.ui.activity.ErrorActivity;
 import com.movtery.pojavzh.utils.UnpackJRE;
 
 import java.io.*;

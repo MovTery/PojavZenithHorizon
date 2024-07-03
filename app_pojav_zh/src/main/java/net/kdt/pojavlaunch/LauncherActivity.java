@@ -32,7 +32,7 @@ import com.movtery.pojavzh.feature.accounts.AccountsManager;
 import com.movtery.pojavzh.feature.mod.modpack.install.InstallExtra;
 import com.movtery.pojavzh.feature.mod.modpack.install.InstallLocalModPack;
 import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
-import com.movtery.pojavzh.ui.actitvity.SettingsActivity;
+import com.movtery.pojavzh.ui.activity.SettingsActivity;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
 import com.movtery.pojavzh.utils.ZHTools;

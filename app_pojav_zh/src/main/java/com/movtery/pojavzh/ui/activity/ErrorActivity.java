@@ -1,4 +1,4 @@
-package com.movtery.pojavzh.ui.actitvity;
+package com.movtery.pojavzh.ui.activity;
 
 import static net.kdt.pojavlaunch.Tools.shareLog;
 import static net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles.getCurrentProfile;

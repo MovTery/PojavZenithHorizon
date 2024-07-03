@@ -1,4 +1,4 @@
-package com.movtery.pojavzh.ui.actitvity;
+package com.movtery.pojavzh.ui.activity;
 
 import android.os.Bundle;
 import android.view.View;

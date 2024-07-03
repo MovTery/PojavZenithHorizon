@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -20,13 +19,12 @@ import com.movtery.pojavzh.ui.dialog.TipDialog;
 
 import net.kdt.pojavlaunch.tasks.AsyncAssetManager;
 
-public class TestStorageActivity extends Activity {
+public class TestStorageActivity extends BaseActivity {
     private static final int REQUEST_CODE_PERMISSIONS = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Tools.setFullscreen(this, true);
         checkPermissions();
     }
 
