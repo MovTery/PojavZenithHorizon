@@ -11,7 +11,7 @@
 
     app:drawableStartIntegerScaling="true"
     app:drawableStartSize="@dimen/_36sdp"
-    tools:drawableStart="@drawable/ic_gamepad_pointer"
+    tools:drawableStart="@drawable/ic_mouse_pointer"
     tools:ignore="RtlSymmetry"
     tools:text="FORGE - Forge-1.7.10-1664">
 

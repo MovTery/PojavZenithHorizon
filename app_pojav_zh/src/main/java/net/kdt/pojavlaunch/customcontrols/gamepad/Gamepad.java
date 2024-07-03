@@ -1,6 +1,5 @@
 package net.kdt.pojavlaunch.customcontrols.gamepad;
 
-
 import static android.view.MotionEvent.AXIS_HAT_X;
 import static android.view.MotionEvent.AXIS_HAT_Y;
 import static android.view.MotionEvent.AXIS_LTRIGGER;
@@ -20,12 +19,10 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import androidx.core.content.res.ResourcesCompat;
 import androidx.core.math.MathUtils;
 
 import net.kdt.pojavlaunch.GrabListener;
 import net.kdt.pojavlaunch.LwjglGlfwKeycode;
-import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.utils.MCOptionUtils;
 
@@ -46,6 +43,8 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_DEADZONE_SCALE;
 import static net.kdt.pojavlaunch.utils.MCOptionUtils.getMcScale;
 import static org.lwjgl.glfw.CallbackBridge.sendKeyPress;
 import static org.lwjgl.glfw.CallbackBridge.sendMouseButton;
+
+import com.movtery.pojavzh.utils.ZHTools;
 
 import fr.spse.gamepad_remapper.GamepadHandler;
 import fr.spse.gamepad_remapper.Settings;
@@ -111,8 +110,8 @@ public class Gamepad implements GrabListener, GamepadHandler {
 
 
         Context ctx = contextView.getContext();
-        mPointerImageView = new ImageView(contextView.getContext());
-        mPointerImageView.setImageDrawable(ResourcesCompat.getDrawable(ctx.getResources(), R.drawable.ic_gamepad_pointer, ctx.getTheme()));
+        mPointerImageView = new ImageView(ctx);
+        mPointerImageView.setImageDrawable(ZHTools.customMouse(ctx));
         mPointerImageView.getDrawable().setFilterBitmap(false);
 
         int size = (int) ((22 * getMcScale()) / mScaleFactor);
