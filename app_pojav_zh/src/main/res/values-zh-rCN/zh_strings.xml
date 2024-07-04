@@ -94,10 +94,14 @@
     <string name="zh_account_local_account_illegal">用户名包含非法字符！仅支持英文字母（大小写均可）、数字以及下划线作为用户名</string>
     <string name="zh_account_login_local_name">用户名</string>
     <string name="zh_account_login_start">开始登陆！</string>
-    <string name="zh_account_no_microsoft_account_local">你似乎没有登录正版账号！离线账号是为玩家在无法联网时提供的一种备用方案，而不是给没有正版账号的玩家使用的。如果你没有 Minecraft 正版账号，请先在 Minecraft 官网购买正版账号！</string>
+    <string name="zh_account_no_microsoft_account">请至少登录一个 Minecraft 正版账号，我们不提倡用户在没有正版账号的情况下启动 Minecraft。</string>
+    <string name="zh_account_no_microsoft_account_local">你似乎没有登录正版账号！离线账号是为玩家在无法联网时提供的一种备用方案，而不是给没有正版账号的玩家使用的。</string>
     <string name="zh_account_no_microsoft_account_local_confirm">仍然使用离线账号</string>
-    <string name="zh_account_no_microsoft_account_other">你似乎没有登录正版账号！你确定要在没有登录正版账号的情况下使用外置登录吗？如果你没有 Minecraft 正版账号，请先在 Minecraft 官网购买正版账号！</string>
+    <string name="zh_account_no_microsoft_account_other">你似乎没有登录正版账号！你确定要在没有登录正版账号的情况下使用外置登录吗？</string>
     <string name="zh_account_no_microsoft_account_other_confirm">仍然使用外置登录</string>
+    <string name="zh_account_continue_to_launch_the_game">仍然启动游戏</string>
+    <string name="zh_account_purchase_minecraft_account">购买 Minecraft 正版账号</string>
+    <string name="zh_account_purchase_minecraft_account_tip">如果你没有 Minecraft 正版账号，请先在 Minecraft 官网购买正版账号！</string>
     <!-- Activity -->
     <string name="zh_activity_import_control">控制布局名称:</string>
     <string name="zh_activity_java_gui_keyboard">输入法</string>

@@ -7,9 +7,9 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
-import com.movtery.pojavzh.feature.accounts.AccountsManager;
-import com.movtery.pojavzh.ui.dialog.TipDialog;
+import com.movtery.pojavzh.feature.accounts.LocalAccountUtils;
 import com.movtery.pojavzh.ui.fragment.OtherLoginFragment;
 import com.movtery.pojavzh.utils.ZHTools;
 
@@ -29,33 +29,54 @@ public class SelectAuthFragment extends Fragment {
         Button mLocalButton = view.findViewById(R.id.button_local_authentication);
         Button mOtherButton = view.findViewById(R.id.button_other_authentication);
 
-        boolean areaChecks = ZHTools.areaChecks();
-        if (!areaChecks) mOtherButton.setVisibility(View.GONE);
+        if (!ZHTools.areaChecks()) mOtherButton.setVisibility(View.GONE);
 
-        mMicrosoftButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), MicrosoftLoginFragment.class, MicrosoftLoginFragment.TAG, null));
-        mOtherButton.setOnClickListener(v -> {
-            if (AccountsManager.haveMicrosoftAccount()) {
-                Tools.swapFragment(requireActivity(), OtherLoginFragment.class, OtherLoginFragment.TAG, null);
-            } else {
-                new TipDialog.Builder(requireContext())
-                        .setTitle(R.string.zh_warning)
-                        .setMessage(R.string.zh_account_no_microsoft_account_other)
-                        .setConfirmClickListener(() -> Tools.swapFragment(requireActivity(), OtherLoginFragment.class, OtherLoginFragment.TAG, null))
-                        .setConfirm(R.string.zh_account_no_microsoft_account_other_confirm)
-                        .buildDialog();
+        FragmentActivity fragmentActivity = requireActivity();
+        mMicrosoftButton.setOnClickListener(v -> Tools.swapFragment(fragmentActivity, MicrosoftLoginFragment.class, MicrosoftLoginFragment.TAG, null));
+        mOtherButton.setOnClickListener(v -> LocalAccountUtils.checkUsageAllowed(new LocalAccountUtils.CheckResultListener() {
+            @Override
+            public void onUsageAllowed(boolean b) {
+                Tools.swapFragment(fragmentActivity, OtherLoginFragment.class, OtherLoginFragment.TAG, null);
             }
-        });
-        mLocalButton.setOnClickListener(v -> {
-            if (AccountsManager.haveMicrosoftAccount()) {
-                Tools.swapFragment(requireActivity(), LocalLoginFragment.class, LocalLoginFragment.TAG, null);
-            } else {
-                new TipDialog.Builder(requireContext())
-                        .setTitle(R.string.zh_warning)
-                        .setMessage(R.string.zh_account_no_microsoft_account_local)
-                        .setConfirmClickListener(() -> Tools.swapFragment(requireActivity(), LocalLoginFragment.class, LocalLoginFragment.TAG, null))
-                        .setConfirm(R.string.zh_account_no_microsoft_account_local_confirm)
-                        .buildDialog();
+
+            @Override
+            public void onUsageDenied(boolean b) {
+                LocalAccountUtils.openDialog(fragmentActivity, () -> {
+                            if (b) {
+                                Tools.swapFragment(fragmentActivity, OtherLoginFragment.class, OtherLoginFragment.TAG, null);
+                            } else {
+                                Tools.openURL(fragmentActivity, ZHTools.URL_MINECRAFT);
+                            }
+                        }, () -> {
+                            if (b) {
+                                Tools.openURL(fragmentActivity, ZHTools.URL_MINECRAFT);
+                            }
+                        }, getString(R.string.zh_account_no_microsoft_account_other) + getString(R.string.zh_account_purchase_minecraft_account_tip),
+                        b ? R.string.zh_account_no_microsoft_account_other_confirm : R.string.zh_confirm, b ? getString(R.string.zh_account_purchase_minecraft_account) : null);
             }
-        });
+        }));
+
+        mLocalButton.setOnClickListener(v -> LocalAccountUtils.checkUsageAllowed(new LocalAccountUtils.CheckResultListener() {
+            @Override
+            public void onUsageAllowed(boolean b) {
+                Tools.swapFragment(fragmentActivity, LocalLoginFragment.class, LocalLoginFragment.TAG, null);
+            }
+
+            @Override
+            public void onUsageDenied(boolean b) {
+                LocalAccountUtils.openDialog(fragmentActivity, () -> {
+                            if (b) {
+                                Tools.swapFragment(fragmentActivity, LocalLoginFragment.class, LocalLoginFragment.TAG, null);
+                            } else {
+                                Tools.openURL(fragmentActivity, ZHTools.URL_MINECRAFT);
+                            }
+                        }, () -> {
+                            if (b) {
+                                Tools.openURL(fragmentActivity, ZHTools.URL_MINECRAFT);
+                            }
+                        }, getString(R.string.zh_account_no_microsoft_account_local) + getString(R.string.zh_account_purchase_minecraft_account_tip),
+                        b ? R.string.zh_account_no_microsoft_account_local_confirm : R.string.zh_account_purchase_minecraft_account, b ? getString(R.string.zh_account_purchase_minecraft_account) : null);
+            }
+        }));
     }
 }
