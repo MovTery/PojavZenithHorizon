@@ -28,6 +28,7 @@ import com.kdt.mcgui.mcAccountSpinner;
 import com.movtery.pojavzh.extra.ZHExtraConstants;
 import com.movtery.pojavzh.feature.UpdateLauncher;
 import com.movtery.pojavzh.feature.accounts.AccountsManager;
+import com.movtery.pojavzh.feature.accounts.LocalAccountUtils;
 import com.movtery.pojavzh.feature.mod.modpack.install.InstallExtra;
 import com.movtery.pojavzh.feature.mod.modpack.install.InstallLocalModPack;
 import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
@@ -187,13 +188,30 @@ public class LauncherActivity extends BaseActivity {
             ExtraCore.setValue(ExtraConstants.SELECT_AUTH_METHOD, true);
             return false;
         }
-        String normalizedVersionId = AsyncMinecraftDownloader.normalizeVersionId(prof.lastVersionId);
-        JMinecraftVersionList.Version mcVersion = AsyncMinecraftDownloader.getListedVersion(normalizedVersionId);
-        new MinecraftDownloader().start(
-                mcVersion,
-                normalizedVersionId,
-                new ContextAwareDoneListener(this, normalizedVersionId)
-        );
+
+        LocalAccountUtils.checkUsageAllowed(new LocalAccountUtils.CheckResultListener() {
+            @Override
+            public void onUsageAllowed(boolean areaChecks) {
+                launchGame(prof);
+            }
+
+            @Override
+            public void onUsageDenied(boolean areaChecks) {
+                LocalAccountUtils.openDialog(LauncherActivity.this, () -> {
+                            if (areaChecks) {
+                                launchGame(prof);
+                            } else {
+                                Tools.openURL(LauncherActivity.this, ZHTools.URL_MINECRAFT);
+                            }
+                        }, () -> {
+                            if (areaChecks) {
+                                Tools.openURL(LauncherActivity.this, ZHTools.URL_MINECRAFT);
+                            }
+                        }, getString(R.string.zh_account_no_microsoft_account) + getString(R.string.zh_account_purchase_minecraft_account_tip),
+                        areaChecks ? R.string.zh_account_continue_to_launch_the_game : R.string.zh_account_purchase_minecraft_account, areaChecks ? getString(R.string.zh_account_purchase_minecraft_account) : null);
+            }
+        });
+
         return false;
     };
 
@@ -335,6 +353,16 @@ public class LauncherActivity extends BaseActivity {
     @Override
     public void onAttachedToWindow() {
         LauncherPreferences.computeNotchSize(this);
+    }
+
+    private void launchGame(MinecraftProfile prof) {
+        String normalizedVersionId = AsyncMinecraftDownloader.normalizeVersionId(prof.lastVersionId);
+        JMinecraftVersionList.Version mcVersion = AsyncMinecraftDownloader.getListedVersion(normalizedVersionId);
+        new MinecraftDownloader().start(
+                mcVersion,
+                normalizedVersionId,
+                new ContextAwareDoneListener(this, normalizedVersionId)
+        );
     }
 
     @SuppressWarnings("SameParameterValue")
