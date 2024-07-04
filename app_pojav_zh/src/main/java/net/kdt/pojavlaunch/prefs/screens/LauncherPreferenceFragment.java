@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch.prefs.screens;
 
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -16,8 +18,7 @@ import net.kdt.pojavlaunch.prefs.LauncherPreferences;
  * Preference for the main screen, any sub-screen should inherit this class for consistent behavior,
  * overriding only onCreatePreferences
  */
-public class LauncherPreferenceFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
-
+public abstract class LauncherPreferenceFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         view.setBackgroundResource(R.drawable.background_card);
@@ -25,21 +26,14 @@ public class LauncherPreferenceFragment extends PreferenceFragmentCompat impleme
     }
 
     @Override
-    public void onCreatePreferences(Bundle b, String str) {
-        addPreferencesFromResource(R.xml.pref_main);
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
-        SharedPreferences sharedPreferences = getPreferenceManager().getSharedPreferences();
-        if(sharedPreferences != null) sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+        DEFAULT_PREF.registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
     public void onPause() {
-        SharedPreferences sharedPreferences = getPreferenceManager().getSharedPreferences();
-        if(sharedPreferences != null) sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+        DEFAULT_PREF.unregisterOnSharedPreferenceChangeListener(this);
         super.onPause();
     }
 
