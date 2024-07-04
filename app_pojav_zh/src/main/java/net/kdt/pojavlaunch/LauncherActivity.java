@@ -191,24 +191,15 @@ public class LauncherActivity extends BaseActivity {
 
         LocalAccountUtils.checkUsageAllowed(new LocalAccountUtils.CheckResultListener() {
             @Override
-            public void onUsageAllowed(boolean areaChecks) {
+            public void onUsageAllowed() {
                 launchGame(prof);
             }
 
             @Override
-            public void onUsageDenied(boolean areaChecks) {
-                LocalAccountUtils.openDialog(LauncherActivity.this, () -> {
-                            if (areaChecks) {
-                                launchGame(prof);
-                            } else {
-                                Tools.openURL(LauncherActivity.this, ZHTools.URL_MINECRAFT);
-                            }
-                        }, () -> {
-                            if (areaChecks) {
-                                Tools.openURL(LauncherActivity.this, ZHTools.URL_MINECRAFT);
-                            }
-                        }, getString(R.string.zh_account_no_microsoft_account) + getString(R.string.zh_account_purchase_minecraft_account_tip),
-                        areaChecks ? R.string.zh_account_continue_to_launch_the_game : R.string.zh_account_purchase_minecraft_account, areaChecks ? getString(R.string.zh_account_purchase_minecraft_account) : null);
+            public void onUsageDenied() {
+                LocalAccountUtils.openDialog(LauncherActivity.this, () -> launchGame(prof),
+                        getString(R.string.zh_account_no_microsoft_account) + getString(R.string.zh_account_purchase_minecraft_account_tip),
+                        R.string.zh_account_continue_to_launch_the_game);
             }
         });
 
