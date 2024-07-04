@@ -14,9 +14,10 @@ import com.movtery.pojavzh.feature.UpdateLauncher;
 import net.kdt.pojavlaunch.R;
 
 public class UpdateSourceDialog extends FullScreenDialog {
-    private final String tagName, fileSize;
+    private final String tagName;
+    private final long fileSize;
 
-    public UpdateSourceDialog(@NonNull Context context, String tagName, String fileSize) {
+    public UpdateSourceDialog(@NonNull Context context, String tagName, long fileSize) {
         super(context);
 
         this.tagName = tagName;

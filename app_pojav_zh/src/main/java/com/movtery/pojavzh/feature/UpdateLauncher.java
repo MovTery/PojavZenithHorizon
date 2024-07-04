@@ -9,12 +9,11 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
 
-import com.movtery.pojavzh.ui.dialog.DownloadDialog;
+import com.movtery.pojavzh.ui.dialog.ProgressDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.dialog.UpdateDialog;
 import com.movtery.pojavzh.utils.ZHTools;
@@ -44,19 +43,20 @@ import okhttp3.Response;
 public class UpdateLauncher {
     private final Context context;
     private final UpdateSource updateSource;
-    private DownloadDialog downloadDialog;
-    private TextView downloadTipTextView;
+    private ProgressDialog dialog;
     private final File apkFile;
-    private final String tagName, fileSize;
+    private final String tagName, fileSizeString;
+    private final long fileSize;
     private String destinationFilePath;
     private Call call;
     private Timer timer;
 
-    public UpdateLauncher(Context context, String tagName, String fileSize, UpdateSource updateSource) {
+    public UpdateLauncher(Context context, String tagName, long fileSize, UpdateSource updateSource) {
         this.context = context;
         this.updateSource = updateSource;
-        this.apkFile = new File(ZHTools.DIR_APP_CACHE, "PojavZH.apk");
+        this.apkFile = new File(ZHTools.DIR_APP_CACHE, "cache.apk");
         this.tagName = tagName;
+        this.fileSizeString = formatFileSize(fileSize);
         this.fileSize = fileSize;
         init();
     }
@@ -105,14 +105,11 @@ public class UpdateLauncher {
                         int bytesRead;
 
                         runOnUiThread(() -> {
-                            UpdateLauncher.this.downloadDialog = new DownloadDialog(UpdateLauncher.this.context);
-                            UpdateLauncher.this.downloadTipTextView = UpdateLauncher.this.downloadDialog.getTextView();
-
-                            UpdateLauncher.this.downloadDialog.getCancelButton().setOnClickListener(view -> {
+                            UpdateLauncher.this.dialog = new ProgressDialog(UpdateLauncher.this.context, () -> {
                                 UpdateLauncher.this.stop();
-                                UpdateLauncher.this.downloadDialog.dismiss();
+                                return true;
                             });
-                            UpdateLauncher.this.downloadDialog.show();
+                            UpdateLauncher.this.dialog.show();
                         });
 
                         final long[] downloadedSize = new long[1];
@@ -122,13 +119,14 @@ public class UpdateLauncher {
                         timer.schedule(new TimerTask() {
                             @Override
                             public void run() {
+                                long size = downloadedSize[0];
                                 runOnUiThread(() -> {
-                                    String formattedDownloaded = formatFileSize(downloadedSize[0]);
-                                    TextView textView = UpdateLauncher.this.downloadTipTextView.findViewById(R.id.zh_download_upload_textView);
-                                    textView.setText(String.format(context.getString(R.string.zh_update_downloading), formattedDownloaded, fileSize));
+                                    String formattedDownloaded = formatFileSize(size);
+                                    UpdateLauncher.this.dialog.updateProgress(size, fileSize);
+                                    UpdateLauncher.this.dialog.updateText(String.format(context.getString(R.string.zh_update_downloading), formattedDownloaded, fileSizeString));
                                 });
                             }
-                        }, 0, 80);
+                        }, 0, 120);
 
                         while ((bytesRead = inputStream.read(buffer)) != -1) {
                             outputStream.write(buffer, 0, bytesRead);
@@ -142,7 +140,7 @@ public class UpdateLauncher {
     }
 
     private void finish(File outputFile) {
-        runOnUiThread(UpdateLauncher.this.downloadDialog::dismiss);
+        runOnUiThread(UpdateLauncher.this.dialog::dismiss);
         timer.cancel();
 
         installApk(context, outputFile);
@@ -160,7 +158,7 @@ public class UpdateLauncher {
     }
 
     public static void CheckDownloadedPackage(Context context, boolean ignore) {
-        File downloadedFile = new File(ZHTools.DIR_APP_CACHE, "PojavZH.apk");
+        File downloadedFile = new File(ZHTools.DIR_APP_CACHE, "cache.apk");
 
         if (downloadedFile.exists()) {
             PackageManager packageManager = context.getPackageManager();
@@ -254,7 +252,7 @@ public class UpdateLauncher {
                                         updateInformation.information(versionName,
                                                 tagName,
                                                 ZHTools.formattingTime(jsonObject.getString("created_at")),
-                                                formatFileSize(fileSize),
+                                                fileSize,
                                                 jsonObject.getString("body"));
                                     } catch (Exception ignored) {
                                     }

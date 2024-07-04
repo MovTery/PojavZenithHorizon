@@ -4,12 +4,11 @@ import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.movtery.pojavzh.feature.mod.models.MCBBSPackMeta;
 import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
 import com.movtery.pojavzh.feature.mod.modpack.install.OnInstallStartListener;
-import com.movtery.pojavzh.ui.dialog.DownloadDialog;
+import com.movtery.pojavzh.ui.dialog.ProgressDialog;
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.utils.file.FileUtils;
 
@@ -36,8 +35,7 @@ import java.util.zip.ZipFile;
 public class MCBBSModPack {
     private final Context context;
     private final File zipFile;
-    private DownloadDialog installDialog;
-    private TextView installTextView;
+    private ProgressDialog installDialog;
     private boolean isCanceled = false;
 
     public MCBBSModPack(Context context, File zipFile) {
@@ -63,6 +61,7 @@ public class MCBBSModPack {
                 int dirNameLen = overridesDir.length();
 
                 AtomicInteger fileCounters = new AtomicInteger(); //文件数量计数
+                int length = mcbbsPackMeta.files.length;
 
                 for (MCBBSPackMeta.MCBBSFile file : mcbbsPackMeta.files) {
                     if (isCanceled) {
@@ -91,8 +90,8 @@ public class MCBBSModPack {
 
                                 int fileCount = fileCounters.getAndIncrement();
                                 runOnUiThread(() -> {
-                                    TextView textView = installTextView.findViewById(R.id.zh_download_upload_textView);
-                                    textView.setText(context.getString(R.string.zh_select_modpack_local_installing_files, fileCount));
+                                    installDialog.updateText(context.getString(R.string.zh_select_modpack_local_installing_files, fileCount, length));
+                                    installDialog.updateProgress(fileCount, length);
                                 });
                             }
                         }
@@ -107,12 +106,9 @@ public class MCBBSModPack {
 
     private void initDialog() {
         runOnUiThread(() -> {
-            installDialog = new DownloadDialog(context);
-            installTextView = installDialog.getTextView();
-
-            installDialog.getCancelButton().setOnClickListener(view -> {
+            installDialog = new ProgressDialog(context, () -> {
                 isCanceled = true;
-                installDialog.dismiss();
+                return true;
             });
             installDialog.show();
         });
