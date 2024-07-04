@@ -218,7 +218,7 @@
     <string name="zh_select_modpack_local">本地整合包</string>
     <string name="zh_select_modpack_local_tip">请选择一个启动器支持导入的整合包文件！</string>
     <string name="zh_select_modpack_local_not_supported">此文件不受启动器支持！</string>
-    <string name="zh_select_modpack_local_installing_files">安装游戏文件中… (%d)</string>
+    <string name="zh_select_modpack_local_installing_files">安装游戏文件中… (%d / %d)</string>
     <!-- Clear Up -->
     <string name="zh_clear_up_cache">清理缓存</string>
     <string name="zh_clear_up_cache_desc">检查并清理应用的缓存文件，清除缓存文件不影响应用正常使用</string>

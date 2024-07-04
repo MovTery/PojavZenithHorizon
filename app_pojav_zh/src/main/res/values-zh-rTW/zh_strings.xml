@@ -218,7 +218,7 @@
     <string name="zh_select_modpack_local">本地模組包</string>
     <string name="zh_select_modpack_local_tip">請選擇一個啟動器支持導入的模組包文件！</string>
     <string name="zh_select_modpack_local_not_supported">此檔案不受啟動器支援！</string>
-    <string name="zh_select_modpack_local_installing_files">安裝遊戲檔案中… (%d)</string>
+    <string name="zh_select_modpack_local_installing_files">安裝遊戲檔案中… (%d / %d)</string>
     <!-- Clear Up -->
     <string name="zh_clear_up_cache">清理快取</string>
     <string name="zh_clear_up_cache_desc">檢查並清理應用的快取檔案，清除快取檔案不影響應用正常使用</string>

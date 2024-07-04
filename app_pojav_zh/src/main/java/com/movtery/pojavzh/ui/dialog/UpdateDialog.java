@@ -1,6 +1,5 @@
 package com.movtery.pojavzh.ui.dialog;
 
-
 import static com.movtery.pojavzh.utils.ZHTools.markdownToHtml;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
@@ -22,7 +21,7 @@ public class UpdateDialog extends FullScreenDialog {
     private final String versionName;
     private final String tagName;
     private final String createdTime;
-    private final String fileSize;
+    private final long fileSize;
     private final String description;
 
     public UpdateDialog(@NonNull Context context, UpdateInformation updateInformation) {
@@ -87,9 +86,9 @@ public class UpdateDialog extends FullScreenDialog {
         public String versionName;
         public String tagName;
         public String createdTime;
-        public String fileSize;
+        public long fileSize;
         public String description;
-        public void information(@NonNull String versionName, @NonNull String tagName, @NonNull String createdTime, @NonNull String fileSize, @NonNull String description) {
+        public void information(@NonNull String versionName, @NonNull String tagName, @NonNull String createdTime, long fileSize, @NonNull String description) {
             this.versionName = versionName;
             this.tagName = tagName;
             this.createdTime = createdTime;

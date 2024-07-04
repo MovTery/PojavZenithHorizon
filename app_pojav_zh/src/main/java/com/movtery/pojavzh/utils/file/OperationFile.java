@@ -3,9 +3,8 @@ package com.movtery.pojavzh.utils.file;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.content.Context;
-import android.widget.TextView;
 
-import com.movtery.pojavzh.ui.dialog.DownloadDialog;
+import com.movtery.pojavzh.ui.dialog.ProgressDialog;
 import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.PojavApplication;
@@ -37,15 +36,11 @@ public class OperationFile {
 
     public void operationFile(List<File> selectedFiles) {
         runOnUiThread(() -> {
-            DownloadDialog dialog = new DownloadDialog(context);
-            TextView textView = dialog.getTextView();
-            textView.setText(context.getString(
-                    R.string.zh_file_operation_file, "0B", "0B", 0));
-
-            dialog.getCancelButton().setOnClickListener(view -> {
+            ProgressDialog dialog = new ProgressDialog(context, () -> {
                 cancelTask();
-                dialog.dismiss();
+                return true;
             });
+            dialog.updateText(context.getString(R.string.zh_file_operation_file, "0B", "0B", 0));
 
             AtomicLong totalFileSize = new AtomicLong(0);
             AtomicLong fileSize = new AtomicLong(0);
@@ -56,7 +51,7 @@ public class OperationFile {
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        runOnUiThread(() -> textView.setText(context.getString(
+                        runOnUiThread(() -> dialog.updateText(context.getString(
                                 R.string.zh_file_operation_file,
                                 ZHTools.formatFileSize(fileSize.get()),
                                 ZHTools.formatFileSize(totalFileSize.get()),
