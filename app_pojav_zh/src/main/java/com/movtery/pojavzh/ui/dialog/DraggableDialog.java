@@ -3,6 +3,7 @@ package com.movtery.pojavzh.ui.dialog;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public abstract class DraggableDialog extends Dialog {
+    private long lastUpdateTime = 0;
     private float initialX;
     private float initialY;
     private float touchX;
@@ -36,24 +38,41 @@ public abstract class DraggableDialog extends Dialog {
     private void init() {
         Window window = getWindow();
         if (window != null) {
-            View decorView = getWindow().getDecorView();
-            decorView.setOnTouchListener((v, event) -> {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        initialX = window.getAttributes().x;
-                        initialY = window.getAttributes().y;
-                        touchX = event.getRawX();
-                        touchY = event.getRawY();
-                        return true;
-                    case MotionEvent.ACTION_MOVE:
-                        WindowManager.LayoutParams params = window.getAttributes();
-                        params.x = (int) (initialX + (event.getRawX() - touchX));
-                        params.y = (int) (initialY + (event.getRawY() - touchY));
-                        window.setAttributes(params);
-                        return true;
-                }
-                return false;
-            });
+            View contentView = window.findViewById(android.R.id.content);
+            if (contentView != null) {
+                contentView.setOnTouchListener((v, event) -> {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            if (updateRateLimits()) return false;
+
+                            initialX = window.getAttributes().x;
+                            initialY = window.getAttributes().y;
+                            touchX = event.getRawX();
+                            touchY = event.getRawY();
+                            return true;
+                        case MotionEvent.ACTION_MOVE:
+                            if (updateRateLimits()) return false;
+
+                            WindowManager.LayoutParams params = window.getAttributes();
+                            params.x = (int) (initialX + (event.getRawX() - touchX));
+                            params.y = (int) (initialY + (event.getRawY() - touchY));
+                            window.setAttributes(params);
+                            return true;
+                    }
+                    return false;
+                });
+            } else {
+                Log.w("DraggableDialog", "The content view does not exist!");
+            }
         }
+    }
+
+    //避免过于频繁的更新导致的性能开销
+    private boolean updateRateLimits() {
+        boolean limit = false;
+        long millis = System.currentTimeMillis();
+        if (millis - lastUpdateTime < 5) limit = true;
+        lastUpdateTime = millis;
+        return limit;
     }
 }
