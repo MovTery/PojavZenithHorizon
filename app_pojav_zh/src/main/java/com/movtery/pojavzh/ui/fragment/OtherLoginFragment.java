@@ -1,8 +1,10 @@
 package com.movtery.pojavzh.ui.fragment;
 
+import static android.content.Context.CLIPBOARD_SERVICE;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
-import android.app.ProgressDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,6 +30,7 @@ import com.movtery.pojavzh.feature.login.AuthResult;
 import com.movtery.pojavzh.feature.login.OtherLoginApi;
 import com.movtery.pojavzh.feature.login.Servers;
 import com.movtery.pojavzh.ui.dialog.EditTextDialog;
+import com.movtery.pojavzh.ui.dialog.ProgressDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 
 import net.kdt.pojavlaunch.PojavApplication;
@@ -69,9 +72,8 @@ public class OtherLoginFragment extends Fragment {
         bindViews(view);
 
         mServersFile = new File(Tools.DIR_GAME_HOME, "servers.json");
-        mProgressDialog = new ProgressDialog(requireContext());
-        mProgressDialog.setCancelable(false);
-        mProgressDialog.setCanceledOnTouchOutside(false);
+        mProgressDialog = new ProgressDialog(requireContext(), () -> true);
+        mProgressDialog.updateText(getString(R.string.zh_account_login_start));
 
         refreshServer();
         showRegisterButton(); //刷新注册按钮
@@ -173,7 +175,11 @@ public class OtherLoginFragment extends Fragment {
                                 new TipDialog.Builder(requireContext())
                                         .setTitle(R.string.zh_warning)
                                         .setMessage(getString(R.string.zh_other_login_error) + error)
-                                        .setShowCancel(false)
+                                        .setCancel(android.R.string.copy)
+                                        .setCancelClickListener(() -> {
+                                            ClipboardManager mgr = (ClipboardManager) requireActivity().getSystemService(CLIPBOARD_SERVICE);
+                                            mgr.setPrimaryClip(ClipData.newPlainText("error", error));
+                                        })
                                         .buildDialog();
                             });
                         }
