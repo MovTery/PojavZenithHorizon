@@ -1,5 +1,7 @@
 package com.movtery.pojavzh.ui.dialog;
 
+import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
@@ -54,8 +56,10 @@ public abstract class DraggableDialog extends Dialog {
                             if (updateRateLimits()) return false;
 
                             WindowManager.LayoutParams params = window.getAttributes();
-                            params.x = (int) (initialX + (event.getRawX() - touchX));
-                            params.y = (int) (initialY + (event.getRawY() - touchY));
+                            int screenWidth = (currentDisplayMetrics.widthPixels - contentView.getWidth()) / 2;
+                            int screenHeight = (currentDisplayMetrics.heightPixels - contentView.getHeight()) / 2;
+                            params.x = (int) Math.max(-screenWidth, Math.min(screenWidth, initialX + (event.getRawX() - touchX)));
+                            params.y = (int) Math.max(-screenHeight, Math.min(screenHeight, initialY + (event.getRawY() - touchY)));
                             window.setAttributes(params);
                             return true;
                     }
