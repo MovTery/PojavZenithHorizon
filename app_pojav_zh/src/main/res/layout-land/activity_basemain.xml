@@ -32,7 +32,9 @@
             <net.kdt.pojavlaunch.MinecraftGLSurface
                 android:id="@+id/main_game_render_view"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
+                android:layout_height="fill_parent"
+                android:defaultFocusHighlightEnabled="false"
+                tools:ignore="UnusedAttribute" />
 
             <net.kdt.pojavlaunch.customcontrols.mouse.Touchpad
                 android:id="@+id/main_touchpad"
