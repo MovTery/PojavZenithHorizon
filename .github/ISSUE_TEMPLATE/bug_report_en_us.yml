@@ -45,7 +45,7 @@ body:
       description: |
         Briefly describe what you expected to happen.
     validations:
-      required: true
+      required: false
 
   - type: dropdown
     attributes:
