@@ -178,6 +178,7 @@
     <string name="zh_file_jump_to_path">跳转至路径</string>
     <!-- Search View -->
     <string name="zh_search_case_sensitive">区分大小写</string>
+    <string name="zh_search_only_show_results">仅展示搜索结果</string>
     <string name="zh_search_count">%d 个搜索结果</string>
     <!-- Modloader -->
     <string name="zh_neoforge_dl_searching">正在搜索 NeoForge 版本号</string>

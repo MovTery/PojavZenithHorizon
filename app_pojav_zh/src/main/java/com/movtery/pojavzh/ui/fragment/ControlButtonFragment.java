@@ -20,7 +20,7 @@ import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlsListViewCreator
 import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlInfoData;
 import com.movtery.pojavzh.ui.subassembly.customcontrols.EditControlData;
 import com.movtery.pojavzh.ui.dialog.EditControlInfoDialog;
-import com.movtery.pojavzh.ui.subassembly.filelist.SearchView;
+import com.movtery.pojavzh.ui.subassembly.view.SearchView;
 import com.movtery.pojavzh.utils.file.PasteFile;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
 

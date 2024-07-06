@@ -19,7 +19,7 @@ import com.movtery.pojavzh.ui.subassembly.filelist.FileIcon;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerAdapter;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerView;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
-import com.movtery.pojavzh.ui.subassembly.filelist.SearchView;
+import com.movtery.pojavzh.ui.subassembly.view.SearchView;
 import com.movtery.pojavzh.utils.file.OperationFile;
 import com.movtery.pojavzh.utils.file.PasteFile;
 

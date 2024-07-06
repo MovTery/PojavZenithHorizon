@@ -21,7 +21,7 @@ import androidx.fragment.app.Fragment;
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerView;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerAdapter;
-import com.movtery.pojavzh.ui.subassembly.filelist.SearchView;
+import com.movtery.pojavzh.ui.subassembly.view.SearchView;
 import com.movtery.pojavzh.utils.file.PasteFile;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
 

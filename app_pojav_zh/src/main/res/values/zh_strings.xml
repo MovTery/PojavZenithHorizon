@@ -179,7 +179,8 @@
     <string name="zh_file_jump_to_path">Jump to Path</string>
     <!-- Search View -->
     <string name="zh_search_case_sensitive">Case Sensitive</string>
-    <string name="zh_search_count">%d search results</string>
+    <string name="zh_search_only_show_results">Show Only Search Results</string>
+    <string name="zh_search_count">%d Search Results</string>
     <!-- Modloader -->
     <string name="zh_neoforge_dl_searching">Searching for NeoForge version number</string>
     <string name="zh_modloader_dl_install_neoforge">Create NeoForge profile</string>
