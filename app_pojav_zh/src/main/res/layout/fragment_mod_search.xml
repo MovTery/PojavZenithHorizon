@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:paddingHorizontal="@dimen/fragment_padding_medium">
+    <!--
+        Cosmetic layout to have a better scrolling separation
+     -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/search_mod_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/fragment_padding_medium"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/background_overlay"
+        android:paddingHorizontal="@dimen/padding_medium"
+        android:paddingVertical="@dimen/padding_medium"
+        android:translationZ="10dp"
+        app:layout_constraintTop_toTopOf="parent">
+        <!-- Search text -->
+        <ImageButton
+            android:id="@+id/search_mod_back"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:minWidth="@dimen/_38sdp"
+            android:paddingHorizontal="@dimen/padding_medium"
+            android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="@id/search_mod_edittext"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/search_mod_edittext" />
+
+        <EditText
+            android:id="@+id/search_mod_edittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/background_item"
+
+            android:ems="10"
+            android:hint="@string/hint_search_modpack"
+            android:inputType="textPersonName"
+            android:paddingHorizontal="@dimen/padding_heavy"
+            android:textSize="@dimen/_13ssp"
+            android:translationZ="2dp"
+            app:layout_constraintEnd_toStartOf="@id/search_mod_filter"
+            app:layout_constraintStart_toEndOf="@+id/search_mod_back"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/search_mod_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="4dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:minWidth="@dimen/_38sdp"
+            android:paddingHorizontal="@dimen/padding_medium"
+            android:src="@drawable/ic_filter"
+            app:layout_constraintBottom_toBottomOf="@id/search_mod_edittext"
+            app:layout_constraintEnd_toStartOf="@id/zh_search_mod_search"
+            app:layout_constraintTop_toTopOf="@id/search_mod_edittext" />
+
+        <ImageButton
+            android:id="@+id/zh_search_mod_search"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:minWidth="@dimen/_38sdp"
+            android:paddingHorizontal="@dimen/padding_medium"
+            android:src="@drawable/ic_mod_search"
+            app:layout_constraintBottom_toBottomOf="@id/search_mod_edittext"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/search_mod_edittext" />
+
+        <ProgressBar
+            android:id="@+id/search_mod_progressbar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/search_mod_edittext"
+            tools:layout_editor_absoluteX="13dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_mod_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:scrollbars="vertical"
+        android:scrollbarThumbVertical="@color/scrollbar_color"
+        android:background="@drawable/background_card"
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/_15sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/search_mod_status_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/search_mod_list"
+        app:layout_constraintEnd_toEndOf="@+id/search_mod_list"
+        app:layout_constraintStart_toStartOf="@+id/search_mod_list"
+        app:layout_constraintTop_toTopOf="@+id/search_mod_list" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

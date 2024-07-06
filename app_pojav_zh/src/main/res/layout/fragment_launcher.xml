@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_menu_main"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/transparent"
+    android:gravity="top"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/constraintLayout2"
+        app:layout_constraintHorizontal_weight="7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/zh_menu_notice"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/background_card"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/dividing_line"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/zh_menu_notice_title"
+                style="@style/TextAppearance.AppCompat.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_horizontal"
+                android:text="@string/zh_main_notice_title"
+                android:textColor="@color/primary_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ScrollView
+                android:id="@+id/zh_menu_notice_view_substance"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/zh_menu_notice_close_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/zh_menu_notice_title">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/zh_menu_notice_substance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/zh_unknown"
+                        android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold"
+                        android:textIsSelectable="true"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/zh_menu_notice_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="end"
+                        android:text="@string/zh_unknown"
+                        android:textSize="@dimen/_14sdp"
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
+                </LinearLayout>
+
+            </ScrollView>
+
+            <Button
+                android:id="@+id/zh_menu_notice_close_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/zh_ok"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/dividing_line"
+            android:layout_width="8dp"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/launcher_menu"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/dividing_line"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.kdt.mcgui.LauncherMenuButton
+                        android:id="@+id/about_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:textAllCaps="false"
+                        android:background="@drawable/background_item"
+                        android:drawableStart="@drawable/ic_about"
+                        android:text="@string/zh_about_tab"
+                        android:textColor="@color/primary_text" />
+
+                    <com.kdt.mcgui.LauncherMenuButton
+                        android:id="@+id/custom_control_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:textAllCaps="false"
+                        android:background="@drawable/background_item"
+                        android:drawableStart="@drawable/ic_menu_custom_controls"
+                        android:text="@string/zh_custom_control_title"
+                        android:textColor="@color/primary_text" />
+
+                    <com.kdt.mcgui.LauncherMenuButton
+                        android:id="@+id/zh_open_main_dir_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:textAllCaps="false"
+                        android:background="@drawable/background_item"
+                        android:drawableStart="@drawable/ic_folder"
+                        android:text="@string/zh_main_open_main_dir"
+                        android:textColor="@color/primary_text" />
+
+                    <com.kdt.mcgui.LauncherMenuButton
+                        android:id="@+id/install_jar_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:textAllCaps="false"
+                        android:background="@drawable/background_item"
+                        android:drawableStart="@drawable/ic_java"
+                        android:text="@string/main_install_jar_file"
+                        android:textColor="@color/primary_text" />
+
+                    <com.kdt.mcgui.LauncherMenuButton
+                        android:id="@+id/share_logs_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginBottom="8dp"
+                        android:textAllCaps="false"
+                        android:background="@drawable/background_item"
+                        android:drawableStart="@drawable/ic_share"
+                        android:text="@string/main_share_logs"
+                        android:textColor="@color/primary_text" />
+                </LinearLayout>
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/shadowView"
+        android:layout_width="4dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="-4dp"
+        android:background="@drawable/shadow_gradient_right"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/constraintLayout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="@color/menu_overlay"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.kdt.mcgui.mcVersionSpinner
+            android:id="@+id/mc_version_spinner"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_38sdp"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="8dp"
+            android:background="?attr/selectableItemBackground"
+            android:drawableEnd="@drawable/spinner_arrow"
+            app:drawableEndPadding="@dimen/_1sdp"
+            app:drawableEndSize="@dimen/_12sdp"
+            app:drawableStartIntegerScaling="true"
+            app:drawableStartSize="@dimen/_36sdp"
+            app:layout_constraintBottom_toTopOf="@+id/play_button"
+            app:layout_constraintEnd_toStartOf="@+id/path_manager_button"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout2" />
+
+        <ImageButton
+            android:id="@+id/path_manager_button"
+            android:layout_width="@dimen/_38sdp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:scaleType="fitCenter"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:src="@drawable/ic_list"
+            app:layout_constraintBottom_toTopOf="@+id/play_button"
+            app:layout_constraintEnd_toStartOf="@+id/manager_profile_button"
+            app:layout_constraintTop_toTopOf="@+id/mc_version_spinner" />
+
+        <ImageButton
+            android:id="@+id/manager_profile_button"
+            android:layout_width="@dimen/_38sdp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="8dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:scaleType="fitCenter"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:src="@drawable/ic_setting"
+            app:layout_constraintBottom_toTopOf="@+id/play_button"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
+            app:layout_constraintTop_toTopOf="@+id/mc_version_spinner" />
+
+        <Button
+            android:id="@+id/play_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/main_play"
+            android:textAllCaps="true"
+            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
+            tools:ignore="MissingConstraints" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

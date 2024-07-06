@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minWidth="450dp"
+    android:minHeight="150dp"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/zh_edit_mesa_version_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:singleLine="true"
+        android:text="@string/preference_rendererexp_custom_glversion_title"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:singleLine="true"
+        android:text="@string/custom_gl_version" />
+
+    <EditText
+        android:id="@+id/zh_edit_mesa_version_gl_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/background_edit_box"
+        android:inputType="number|numberDecimal"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        tools:ignore="Autofill,LabelFor" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:singleLine="true"
+        android:text="@string/custom_glsl_version" />
+
+    <EditText
+        android:id="@+id/zh_edit_mesa_version_glsl_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/background_edit_box"
+        android:inputType="number|numberDecimal"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        tools:ignore="Autofill,LabelFor" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/alertdialog_tipa" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/zh_edit_mesa_version_cancel_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@android:string/cancel"
+            style="@style/CustomButtonStyle" />
+
+        <Button
+            android:id="@+id/zh_edit_mesa_version_confirm_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/zh_confirm"
+            style="@style/CustomButtonStyle" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
