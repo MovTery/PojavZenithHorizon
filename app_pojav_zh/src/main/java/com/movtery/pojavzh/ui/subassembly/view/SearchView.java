@@ -1,4 +1,6 @@
-package com.movtery.pojavzh.ui.subassembly.filelist;
+package com.movtery.pojavzh.ui.subassembly.view;
+
+import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
 
 import android.view.View;
 import android.widget.CheckBox;
@@ -35,6 +37,26 @@ public class SearchView {
             if (showSearchResultsListener != null) showSearchResultsListener.onSearch(isChecked);
             if (!mSearchEditText.getText().toString().isEmpty()) search(searchCountText, mCaseSensitive.isChecked());
         });
+
+        DraggableView draggableView = new DraggableView(view, new DraggableView.AttributesFetcher() {
+            @Override
+            public int[] getScreenPixels() {
+                return new int[]{currentDisplayMetrics.widthPixels - view.getWidth(),
+                        currentDisplayMetrics.heightPixels - view.getHeight()};
+            }
+
+            @Override
+            public int[] get() {
+                return new int[]{(int) view.getX(), (int) view.getY()};
+            }
+
+            @Override
+            public void set(int x, int y) {
+                view.setX(x);
+                view.setY(y);
+            }
+        });
+        draggableView.init();
     }
 
     private void search(TextView searchCountText, boolean caseSensitive) {
