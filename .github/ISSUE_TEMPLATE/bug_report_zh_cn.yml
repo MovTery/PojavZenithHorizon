@@ -13,11 +13,19 @@ body:
 
   - type: textarea
     attributes:
-      label: 日志/截图或视频
+      label: 日志文件
       description: |
-        你需要在这里上传最近一次遇到此问题的日志/截图或者视频
+        你需要在这里上传最近一次遇到此问题的日志，直接帮助我们快速定位问题
     validations:
       required: true
+
+  - type: textarea
+    attributes:
+      label: 截图或视频
+      description: |
+        上传最近一次遇到此问题的截图或者视频，可能会帮助我们更快的确定问题
+    validations:
+      required: false
 
   - type: textarea
     attributes:
