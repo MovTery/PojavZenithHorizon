@@ -45,7 +45,7 @@ body:
       description: |
         请对预期发生的情况的简明描述
     validations:
-      required: true
+      required: false
 
   - type: dropdown
     attributes:
