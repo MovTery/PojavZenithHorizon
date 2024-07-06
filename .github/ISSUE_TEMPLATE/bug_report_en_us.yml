@@ -13,11 +13,19 @@ body:
 
   - type: textarea
     attributes:
-      label: Logs/Screenshots or Videos
+      label: Log Files
       description: |
-        Upload logs/screenshots or videos from the most recent occurrence of this issue.
+        You need to upload the log from the most recent occurrence of the issue here to help us quickly locate the problem
     validations:
       required: true
+
+  - type: textarea
+    attributes:
+      label: Screenshots or Videos
+      description: |
+        Upload screenshots or videos from the most recent occurrence of the issue, which may help us identify the problem more quickly
+    validations:
+      required: false
 
   - type: textarea
     attributes:
