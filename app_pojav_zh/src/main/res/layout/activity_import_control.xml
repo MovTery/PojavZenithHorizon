@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="-10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_setting_sign_in_background" />
+
+    <View
+        android:id="@+id/_background_display_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_200sdp"
+
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+
+        android:background="@drawable/background_card"
+        android:translationZ="-1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/zh_activity_import_control"
+        android:textSize="@dimen/_16sdp"
+
+        app:layout_constraintBottom_toTopOf="@+id/editText_import_control_file_name"
+        app:layout_constraintStart_toStartOf="@+id/editText_import_control_file_name" />
+
+    <EditText
+        android:id="@+id/editText_import_control_file_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:background="@drawable/background_edit_box"
+        android:autofillHints="name"
+        android:hint="@string/zh_activity_import_control"
+        android:imeOptions="flagForceAscii"
+        android:inputType="text"
+        android:textColorHint="@color/primary_text"
+        android:textSize="@dimen/_16ssp"
+        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintBottom_toBottomOf="@+id/_background_display_view"
+        app:layout_constraintEnd_toStartOf="@+id/mineButton_import_control"
+        app:layout_constraintStart_toStartOf="@+id/_background_display_view"
+        app:layout_constraintTop_toTopOf="@+id/_background_display_view" />
+
+    <Button
+        android:id="@+id/mineButton_import_control"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_42sdp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:onClick="startImport"
+        android:text="@string/import_control_import_button"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/editText_import_control_file_name"
+        app:layout_constraintBottom_toBottomOf="@+id/_background_display_view"
+        app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
+        app:layout_constraintTop_toTopOf="@+id/_background_display_view" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

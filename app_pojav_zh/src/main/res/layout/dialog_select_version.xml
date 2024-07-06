@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minWidth="480dp"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/zh_version_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/background_edit_box"
+        android:padding="4dp"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/menu_progress"
+        app:tabIndicatorHeight="@dimen/_3sdp"
+        app:tabMode="fixed" />
+
+    <com.movtery.pojavzh.ui.subassembly.versionlist.VersionListView
+        android:id="@+id/zh_version"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/background_edit_box"
+        android:padding="8dp" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

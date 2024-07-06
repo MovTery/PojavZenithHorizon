@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/background_item">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/zh_about_image"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="15dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_help"
+        android:padding="2.2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@android:color/white"
+        app:strokeWidth="2.2dp"
+        app:shapeAppearanceOverlay="@style/RoundImageView" />
+
+    <TextView
+        android:id="@+id/zh_about_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:singleLine="true"
+        android:text="About Title"
+        android:textSize="@dimen/_14sdp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/zh_about_button"
+        app:layout_constraintStart_toEndOf="@+id/zh_about_image"
+        app:layout_constraintTop_toTopOf="@+id/zh_about_image"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/zh_about_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="15dp"
+        android:text="About Desc"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/zh_about_button"
+        app:layout_constraintStart_toStartOf="@+id/zh_about_title"
+        app:layout_constraintTop_toBottomOf="@+id/zh_about_title"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/zh_about_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:text="About Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
