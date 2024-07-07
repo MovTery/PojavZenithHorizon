@@ -1,7 +1,10 @@
 package net.kdt.pojavlaunch;
 
 import android.content.*;
+import android.content.res.Configuration;
 import android.os.*;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.*;
 import net.kdt.pojavlaunch.utils.*;
 
@@ -48,6 +51,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onPostResume();
         Tools.setFullscreen(this, setFullscreen());
         Tools.ignoreNotch(shouldIgnoreNotch(),this);
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Tools.getDisplayMetrics(this);
     }
 
     /** @return Whether or not the notch should be ignored */
