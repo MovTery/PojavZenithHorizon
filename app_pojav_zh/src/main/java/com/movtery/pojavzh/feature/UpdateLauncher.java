@@ -26,10 +26,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -65,20 +65,21 @@ public class UpdateLauncher {
         this.destinationFilePath = this.apkFile.getAbsolutePath();
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(getFileUrl())
+                .url(getDownloadUrl())
                 .build();
         this.call = client.newCall(request); //获取请求对象
     }
 
-    private String getFileUrl() {
+    private String getDownloadUrl() {
         String fileUrl;
+        String githubUrl = "github.com/MovTery/PojavZenithHorizon/releases/download/";
         switch (updateSource) {
             case GHPROXY:
-                fileUrl = "https://mirror.ghproxy.com/github.com/MovTery/PojavZenithHorizon/releases/download/" + tagName + "/PojavZH.apk";
+                fileUrl = "https://mirror.ghproxy.com/" + githubUrl + tagName + "/" + "PojavZenithHorizon-" + tagName + ".apk";
                 break;
             case GITHUB_RELEASE:
             default:
-                fileUrl = "https://github.com/MovTery/PojavZenithHorizon/releases/download/" + tagName + "/PojavZH.apk";
+                fileUrl = "https://" + githubUrl + tagName + "/" + "PojavZenithHorizon-" + tagName + ".apk";
                 break;
         }
         return fileUrl;
@@ -99,7 +100,7 @@ public class UpdateLauncher {
                     File outputFile = new File(UpdateLauncher.this.destinationFilePath);
                     Objects.requireNonNull(response.body());
                     try (InputStream inputStream = response.body().byteStream();
-                         OutputStream outputStream = new FileOutputStream(outputFile)
+                         OutputStream outputStream = Files.newOutputStream(outputFile.toPath())
                     ) {
                         byte[] buffer = new byte[1024 * 1024];
                         int bytesRead;
@@ -186,19 +187,17 @@ public class UpdateLauncher {
     }
 
     private static void installApk(Context context, File outputFile) {
-        runOnUiThread(() -> {
-            new TipDialog.Builder(context)
-                    .setMessage(context.getString(R.string.zh_update_success) + " " + outputFile.getAbsolutePath())
-                    .setCancelable(false)
-                    .setConfirmClickListener(() -> { //安装
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", outputFile);
-                        intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        context.startActivity(intent);
-                    }).buildDialog();
-        });
+        runOnUiThread(() -> new TipDialog.Builder(context)
+                .setMessage(context.getString(R.string.zh_update_success) + " " + outputFile.getAbsolutePath())
+                .setCancelable(false)
+                .setConfirmClickListener(() -> { //安装
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", outputFile);
+                    intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    context.startActivity(intent);
+                }).buildDialog());
     }
 
     public static synchronized void updateCheckerMainProgram(Context context, boolean ignore) {
