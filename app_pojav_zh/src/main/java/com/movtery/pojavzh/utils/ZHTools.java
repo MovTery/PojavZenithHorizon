@@ -74,8 +74,8 @@ public class ZHTools {
     public static File DIR_USER_ICON;
     public static File FILE_CUSTOM_MOUSE;
     public static File FILE_PROFILE_PATH;
-    public static final String URL_GITHUB_RELEASE = "https://api.github.com/repos/HopiHopy/PojavZenithHorizon/releases/latest";
-    public static final String URL_GITHUB_HOME = "https://api.github.com/repos/HopiHopy/PojavZenithHorizon/contents/";
+    public static final String URL_GITHUB_RELEASE = "https://api.github.com/repos/MovTery/PojavZenithHorizon/releases/latest";
+    public static final String URL_GITHUB_HOME = "https://api.github.com/repos/MovTery/PojavZenithHorizon/contents/";
     public static final String URL_MINECRAFT = "https://www.minecraft.net/";
     public static long LAST_UPDATE_CHECK_TIME = 0;
 

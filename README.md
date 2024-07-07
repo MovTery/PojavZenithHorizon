@@ -2,7 +2,7 @@
     <img width="256" src="app_pojav_zh/src/main/res/drawable/app_name_title.png"></img>
 </div>
 
-[![Android CI](https://github.com/HopiHopy/PojavZenithHorizon/actions/workflows/android.yml/badge.svg)](https://github.com/HopiHopy/PojavZenithHorizon/actions/workflows/android.yml)
+[![Android CI](https://github.com/MovTery/PojavZenithHorizon/actions/workflows/android.yml/badge.svg)](https://github.com/MovTery/PojavZenithHorizon/actions/workflows/android.yml)
 [![Crowdin](https://badges.crowdin.net/pojav-zenith-horizon/localized.svg)](https://crowdin.com/project/pojav-zenith-horizon)
 
 - <a href="/README-EN_US.md">English</a>丨<a href="/README-ZH_TW.md">繁體中文</a>
@@ -34,6 +34,6 @@
 
 <h2 align="center">下载</h2>  
 
-- 前往 [Release](https://github.com/HopiHopy/PojavZenithHorizon/releases) 查看最新且经过测试的稳定版本（更新并不频繁）。  
-- (并不推荐) 前往 [Actions](https://github.com/HopiHopy/PojavZenithHorizon/actions) 查看最新的版本 ( 主线：main，其他任何支线均可忽略！)
+- 前往 [Release](https://github.com/MovTery/PojavZenithHorizon/releases) 查看最新且经过测试的稳定版本（更新并不频繁）。  
+- (并不推荐) 前往 [Actions](https://github.com/MovTery/PojavZenithHorizon/actions) 查看最新的版本 ( 主线：main，其他任何支线均可忽略！)
 ，进入后，点击 **PojavZenithHorizon** 下载 (Debug 为测试构建版本，Release 为发行构建版本)。

@@ -2,7 +2,7 @@
     <img width="256" src="app_pojav_zh/src/main/res/drawable/app_name_title.png"></img>
 </div>
 
-[![Android CI](https://github.com/HopiHopy/PojavZenithHorizon/actions/workflows/android.yml/badge.svg)](https://github.com/HopiHopy/PojavZenithHorizon/actions/workflows/android.yml)
+[![Android CI](https://github.com/MovTery/PojavZenithHorizon/actions/workflows/android.yml/badge.svg)](https://github.com/MovTery/PojavZenithHorizon/actions/workflows/android.yml)
 [![Crowdin](https://badges.crowdin.net/pojav-zenith-horizon/localized.svg)](https://crowdin.com/project/pojav-zenith-horizon)
 
 - <a href="/README.md">简体中文</a>丨<a href="/README-ZH_TW.md">繁體中文</a>
@@ -34,6 +34,6 @@
 
 <h2 align="center">Download</h2>  
 
-- Go to [Release](https://github.com/HopiHopy/PojavZenithHorizon/releases) to see the latest stable versions that have been tested (updates are infrequent).  
-- (Not recommended) Go to [Actions](https://github.com/HopiHopy/PojavZenithHorizon/actions) to see the latest versions (main branch only, other branches can be ignored!)
+- Go to [Release](https://github.com/MovTery/PojavZenithHorizon/releases) to see the latest stable versions that have been tested (updates are infrequent).  
+- (Not recommended) Go to [Actions](https://github.com/MovTery/PojavZenithHorizon/actions) to see the latest versions (main branch only, other branches can be ignored!)
 , then click **PojavZenithHorizon** to download (Debug is a test build, Release is a release build; both have the same content but different package names and can be installed independently).

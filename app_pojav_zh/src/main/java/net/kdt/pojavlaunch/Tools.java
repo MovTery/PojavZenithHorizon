@@ -100,7 +100,7 @@ public final class Tools {
     public static final float BYTE_TO_MB = 1024 * 1024;
     public static final Handler MAIN_HANDLER = new Handler(Looper.getMainLooper());
     public static final Gson GLOBAL_GSON = new GsonBuilder().setPrettyPrinting().create();
-    public static final String URL_HOME = "https://github.com/HopiHopy/PojavZenithHorizon";
+    public static final String URL_HOME = "https://github.com/MovTery/PojavZenithHorizon";
     public static final String LAUNCHERPROFILES_RTPREFIX = "pojav://";
     private final static boolean isClientFirst = false;
     public static final String APP_NAME = "Pojav Zenith Horizon";

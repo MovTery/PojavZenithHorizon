@@ -74,11 +74,11 @@ public class UpdateLauncher {
         String fileUrl;
         switch (updateSource) {
             case GHPROXY:
-                fileUrl = "https://mirror.ghproxy.com/github.com/HopiHopy/PojavZenithHorizon/releases/download/" + tagName + "/PojavZH.apk";
+                fileUrl = "https://mirror.ghproxy.com/github.com/MovTery/PojavZenithHorizon/releases/download/" + tagName + "/PojavZH.apk";
                 break;
             case GITHUB_RELEASE:
             default:
-                fileUrl = "https://github.com/HopiHopy/PojavZenithHorizon/releases/download/" + tagName + "/PojavZH.apk";
+                fileUrl = "https://github.com/MovTery/PojavZenithHorizon/releases/download/" + tagName + "/PojavZH.apk";
                 break;
         }
         return fileUrl;
