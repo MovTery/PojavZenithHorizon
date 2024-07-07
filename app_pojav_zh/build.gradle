@@ -136,6 +136,18 @@ android {
     lint {
         abortOnError false
     }
+
+    applicationVariants.configureEach { variant ->
+        variant.outputs.configureEach { output ->
+            def newName
+            if (variant.buildType.name == 'release') {
+                newName = "PojavZenithHorizon-${variant.versionName}.apk"
+            } else {
+                newName = "PojavZenithHorizon-Debug-${variant.versionName}.apk"
+            }
+            outputFileName = newName
+        }
+    }
 }
 
 dependencies {
