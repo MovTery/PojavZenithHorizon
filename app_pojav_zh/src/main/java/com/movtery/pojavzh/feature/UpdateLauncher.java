@@ -45,16 +45,17 @@ public class UpdateLauncher {
     private final UpdateSource updateSource;
     private ProgressDialog dialog;
     private final File apkFile;
-    private final String tagName, fileSizeString;
+    private final String versionName, tagName, fileSizeString;
     private final long fileSize;
     private String destinationFilePath;
     private Call call;
     private Timer timer;
 
-    public UpdateLauncher(Context context, String tagName, long fileSize, UpdateSource updateSource) {
+    public UpdateLauncher(Context context, String versionName, String tagName, long fileSize, UpdateSource updateSource) {
         this.context = context;
         this.updateSource = updateSource;
         this.apkFile = new File(ZHTools.DIR_APP_CACHE, "cache.apk");
+        this.versionName = versionName;
         this.tagName = tagName;
         this.fileSizeString = formatFileSize(fileSize);
         this.fileSize = fileSize;
@@ -72,14 +73,14 @@ public class UpdateLauncher {
 
     private String getDownloadUrl() {
         String fileUrl;
-        String githubUrl = "github.com/MovTery/PojavZenithHorizon/releases/download/";
+        String githubUrl = "github.com/MovTery/PojavZenithHorizon/releases/download/" + tagName + "/" + "PojavZenithHorizon-" + versionName + ".apk";
         switch (updateSource) {
             case GHPROXY:
-                fileUrl = "https://mirror.ghproxy.com/" + githubUrl + tagName + "/" + "PojavZenithHorizon-" + tagName + ".apk";
+                fileUrl = "https://mirror.ghproxy.com/" + githubUrl;
                 break;
             case GITHUB_RELEASE:
             default:
-                fileUrl = "https://" + githubUrl + tagName + "/" + "PojavZenithHorizon-" + tagName + ".apk";
+                fileUrl = "https://" + githubUrl;
                 break;
         }
         return fileUrl;
