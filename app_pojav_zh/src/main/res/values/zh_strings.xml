@@ -291,7 +291,7 @@
     <string name="preference_exp_framebuffer_title">Spare Framebuffer</string>
     <string name="preference_exp_framebuffer">Use the second framebuffer option. If it fails to start, please disable it.</string>
     <string name="preference_renderer_setup_extra">Renderer (Extra)</string>
-    <string name="preference_renderer_extra_default">Mesa 24.1.2 (Default)</string>
+    <string name="preference_renderer_extra_default">Mesa 24.1.3 (Default)</string>
     <string name="preference_extra_mesa_version">Mesa Version</string>
     <string name="preference_extra_driver_model">Driver Model</string>
     <!-- Dialog box prompt -->
