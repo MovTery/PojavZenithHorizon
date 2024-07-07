@@ -39,10 +39,10 @@ public abstract class DraggableDialog extends Dialog {
             if (contentView != null) {
                 DraggableView draggableView = new DraggableView(contentView, new DraggableView.AttributesFetcher() {
                     @Override
-                    public int[] getScreenPixels() {
+                    public DraggableView.ScreenPixels getScreenPixels() {
                         int width = (currentDisplayMetrics.widthPixels - contentView.getWidth()) / 2;
                         int height = (currentDisplayMetrics.heightPixels - contentView.getHeight()) / 2;
-                        return new int[]{width, height};
+                        return new DraggableView.ScreenPixels(-width, -height, width, height);
                     }
 
                     @Override

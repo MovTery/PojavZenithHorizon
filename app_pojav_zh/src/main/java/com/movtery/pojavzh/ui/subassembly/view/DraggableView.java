@@ -35,8 +35,8 @@ public class DraggableView {
                 case MotionEvent.ACTION_MOVE:
                     if (updateRateLimits()) return false;
 
-                    int x = (int) Math.max(-fetcher.getScreenPixels()[0], Math.min(fetcher.getScreenPixels()[0], initialX + (event.getRawX() - touchX)));
-                    int y = (int) Math.max(-fetcher.getScreenPixels()[1], Math.min(fetcher.getScreenPixels()[1], initialY + (event.getRawY() - touchY)));
+                    int x = (int) Math.max(fetcher.getScreenPixels().minX, Math.min(fetcher.getScreenPixels().maxX, initialX + (event.getRawX() - touchX)));
+                    int y = (int) Math.max(fetcher.getScreenPixels().minY, Math.min(fetcher.getScreenPixels().maxY, initialY + (event.getRawY() - touchY)));
                     fetcher.set(x, y);
                     return true;
             }
@@ -54,8 +54,22 @@ public class DraggableView {
     }
 
     public interface AttributesFetcher {
-        int[] getScreenPixels(); //获取对应的屏幕的高宽限制值
+        ScreenPixels getScreenPixels(); //获取对应的屏幕的高宽限制值
         int[] get(); //获取x, y值
         void set(int x, int y);
+    }
+
+    public static class ScreenPixels {
+        int minX;
+        int minY;
+        int maxX;
+        int maxY;
+
+        public ScreenPixels(int minX, int minY, int maxX, int maxY) {
+            this.minX = minX;
+            this.minY = minY;
+            this.maxX = maxX;
+            this.maxY = maxY;
+        }
     }
 }
