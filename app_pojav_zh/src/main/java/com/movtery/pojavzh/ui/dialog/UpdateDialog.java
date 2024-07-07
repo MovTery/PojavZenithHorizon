@@ -45,7 +45,7 @@ public class UpdateDialog extends FullScreenDialog {
 
         String version = getContext().getString(R.string.zh_update_dialog_version) + " " + this.versionName;
         String time = getContext().getString(R.string.zh_update_dialog_time) + " " + this.createdTime;
-        String size = getContext().getString(R.string.zh_update_dialog_file_size) + " " + this.fileSize;
+        String size = getContext().getString(R.string.zh_update_dialog_file_size) + " " + ZHTools.formatFileSize(this.fileSize);
 
         mVersionName.setText(version);
         mCreatedTime.setText(time);
