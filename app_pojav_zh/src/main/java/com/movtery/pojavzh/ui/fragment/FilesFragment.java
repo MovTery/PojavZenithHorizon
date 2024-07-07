@@ -283,7 +283,7 @@ public class FilesFragment extends Fragment {
         mMultiSelectCheck = view.findViewById(R.id.zh_file_multi_select_files);
         mSelectAllCheck = view.findViewById(R.id.zh_file_select_all);
 
-        mSearchView = new SearchView(view.findViewById(R.id.zh_search_view));
+        mSearchView = new SearchView(view, view.findViewById(R.id.zh_search_view));
         mSearchView.setSearchListener(mFileRecyclerView::searchFiles);
         mSearchView.setShowSearchResultsListener(mFileRecyclerView::setShowSearchResultsOnly);
 

@@ -270,7 +270,7 @@ public class ModsFragment extends Fragment {
         mSelectAllCheck = view.findViewById(R.id.zh_mods_select_all);
         mFileRecyclerView = view.findViewById(R.id.zh_mods);
 
-        mSearchView = new SearchView(view.findViewById(R.id.zh_search_view));
+        mSearchView = new SearchView(view, view.findViewById(R.id.zh_search_view));
         mSearchView.setSearchListener(mFileRecyclerView::searchFiles);
         mSearchView.setShowSearchResultsListener(mFileRecyclerView::setShowSearchResultsOnly);
         mFileRecyclerView.setFileIcon(FileIcon.MOD);

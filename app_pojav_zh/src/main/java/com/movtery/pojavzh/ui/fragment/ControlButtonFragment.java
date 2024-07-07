@@ -181,7 +181,7 @@ public class ControlButtonFragment extends Fragment {
 
         controlsListViewCreator = new ControlsListViewCreator(requireContext(), view.findViewById(R.id.zh_controls_list));
 
-        mSearchView = new SearchView(view.findViewById(R.id.zh_search_view));
+        mSearchView = new SearchView(view, view.findViewById(R.id.zh_search_view));
         mSearchView.setAsynchronousUpdatesListener(controlsListViewCreator::searchControls);
         mSearchView.setShowSearchResultsListener(controlsListViewCreator::setShowSearchResultsOnly);
 

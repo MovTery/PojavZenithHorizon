@@ -1,7 +1,5 @@
 package com.movtery.pojavzh.ui.subassembly.view;
 
-import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
-
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -13,24 +11,25 @@ import com.movtery.pojavzh.utils.AnimUtils;
 import net.kdt.pojavlaunch.R;
 
 public class SearchView {
-    private final View view;
+    private final View parentView, mainView;
     private EditText mSearchEditText;
     private SearchListener searchListener;
     private ShowSearchResultsListener showSearchResultsListener;
     private SearchAsynchronousUpdatesListener searchAsynchronousUpdatesListener;
 
-    public SearchView(View view) {
-        this.view = view;
+    public SearchView(View parentView, View mainView) {
+        this.parentView = parentView;
+        this.mainView = mainView;
 
         init();
     }
 
     private void init() {
-        mSearchEditText = view.findViewById(R.id.zh_search_edit_text);
-        ImageButton mSearchButton = view.findViewById(R.id.zh_search_search_button);
-        CheckBox mShowSearchResultsOnly = view.findViewById(R.id.zh_search_show_search_results_only);
-        CheckBox mCaseSensitive = view.findViewById(R.id.zh_search_case_sensitive);
-        TextView searchCountText = view.findViewById(R.id.zh_search_text);
+        mSearchEditText = mainView.findViewById(R.id.zh_search_edit_text);
+        ImageButton mSearchButton = mainView.findViewById(R.id.zh_search_search_button);
+        CheckBox mShowSearchResultsOnly = mainView.findViewById(R.id.zh_search_show_search_results_only);
+        CheckBox mCaseSensitive = mainView.findViewById(R.id.zh_search_case_sensitive);
+        TextView searchCountText = mainView.findViewById(R.id.zh_search_text);
 
         mSearchButton.setOnClickListener(v -> search(searchCountText, mCaseSensitive.isChecked()));
         mShowSearchResultsOnly.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -38,22 +37,22 @@ public class SearchView {
             if (!mSearchEditText.getText().toString().isEmpty()) search(searchCountText, mCaseSensitive.isChecked());
         });
 
-        DraggableView draggableView = new DraggableView(view, new DraggableView.AttributesFetcher() {
+        DraggableView draggableView = new DraggableView(mainView, new DraggableView.AttributesFetcher() {
             @Override
-            public int[] getScreenPixels() {
-                return new int[]{currentDisplayMetrics.widthPixels - view.getWidth(),
-                        currentDisplayMetrics.heightPixels - view.getHeight()};
+            public DraggableView.ScreenPixels getScreenPixels() {
+                return new DraggableView.ScreenPixels(0, 0, parentView.getWidth() - mainView.getWidth(),
+                        parentView.getHeight() - mainView.getHeight());
             }
 
             @Override
             public int[] get() {
-                return new int[]{(int) view.getX(), (int) view.getY()};
+                return new int[]{(int) mainView.getX(), (int) mainView.getY()};
             }
 
             @Override
             public void set(int x, int y) {
-                view.setX(x);
-                view.setY(y);
+                mainView.setX(x);
+                mainView.setY(y);
             }
         });
         draggableView.init();
@@ -84,13 +83,13 @@ public class SearchView {
     }
 
     public void setVisibility() {
-        boolean isVisible = view.getVisibility() == View.VISIBLE;
-        AnimUtils.setVisibilityAnim(view, !isVisible, 150);
+        boolean isVisible = mainView.getVisibility() == View.VISIBLE;
+        AnimUtils.setVisibilityAnim(mainView, !isVisible, 150);
     }
 
     public void close() {
-        if (view.getVisibility() != View.GONE) {
-            AnimUtils.setVisibilityAnim(view, false, 150);
+        if (mainView.getVisibility() != View.GONE) {
+            AnimUtils.setVisibilityAnim(mainView, false, 150);
         }
     }
 
