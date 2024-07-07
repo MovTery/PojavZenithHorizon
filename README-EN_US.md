@@ -21,7 +21,10 @@
 - [x] Automatically sets the game language on the first launch.
 - [x] Choice of light and dark themes.
 - [x] Does not exit the launcher when closing the game.
-- [x] And more features!
+- [x] More Renderer
+- [x] More Mesa versions to choose from
+- [x] Custom GL/GLSL
+- [ ] And more features!
 
 <h2 align="center">Screenshots</h2>
 
