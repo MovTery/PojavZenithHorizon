@@ -66,12 +66,12 @@ public class UpdateDialog extends FullScreenDialog {
             this.dismiss();
             if (ZHTools.areaChecks()) {
                 runOnUiThread(() -> {
-                    UpdateSourceDialog updateSourceDialog = new UpdateSourceDialog(getContext(), tagName, fileSize);
+                    UpdateSourceDialog updateSourceDialog = new UpdateSourceDialog(getContext(), versionName, tagName, fileSize);
                     updateSourceDialog.show();
                 });
             } else {
                 runOnUiThread(() -> Toast.makeText(getContext(), getContext().getString(R.string.zh_update_downloading_tip, "Github Release"), Toast.LENGTH_SHORT).show());
-                UpdateLauncher updateLauncher = new UpdateLauncher(getContext(), tagName, fileSize, UpdateLauncher.UpdateSource.GITHUB_RELEASE);
+                UpdateLauncher updateLauncher = new UpdateLauncher(getContext(), versionName, tagName, fileSize, UpdateLauncher.UpdateSource.GITHUB_RELEASE);
                 updateLauncher.start();
             }
         });
