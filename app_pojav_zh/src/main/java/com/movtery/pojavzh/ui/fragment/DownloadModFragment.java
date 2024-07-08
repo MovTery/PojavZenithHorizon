@@ -9,10 +9,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.movtery.pojavzh.ui.subassembly.downloadmod.ModApiViewModel;
+import com.movtery.pojavzh.ui.subassembly.viewmodel.ModApiViewModel;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionAdapter;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
+import com.movtery.pojavzh.ui.subassembly.viewmodel.RecyclerViewModel;
 import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListAdapter;
 import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListFragment;
 import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListItemBean;
@@ -38,6 +39,7 @@ import java.util.regex.Pattern;
 public class DownloadModFragment extends TwoLevelListFragment {
     public static final String TAG = "DownloadModFragment";
     private final ModIconCache mIconCache = new ModIconCache();
+    private RecyclerView mParentUIRecyclerView;
     private ModItem mModItem;
     private ModpackApi mModApi;
     private ImageReceiver mImageReceiver;
@@ -65,6 +67,12 @@ public class DownloadModFragment extends TwoLevelListFragment {
                 runOnUiThread(() -> componentProcessing(false));
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        mParentUIRecyclerView.setEnabled(true);
+        super.onDestroy();
     }
 
     private void processModDetails(ModDetail mModDetail) {
@@ -129,10 +137,12 @@ public class DownloadModFragment extends TwoLevelListFragment {
 
     private void parseViewModel() {
         ModApiViewModel viewModel = new ViewModelProvider(requireActivity()).get(ModApiViewModel.class);
+        RecyclerViewModel recyclerViewModel = new ViewModelProvider(requireActivity()).get(RecyclerViewModel.class);
         mModApi = viewModel.getModApi();
         mModItem = viewModel.getModItem();
         mIsModpack = viewModel.isModpack();
         mModsPath = viewModel.getModsPath();
+        mParentUIRecyclerView = recyclerViewModel.getView();
 
         setNameText(mModItem.title);
 

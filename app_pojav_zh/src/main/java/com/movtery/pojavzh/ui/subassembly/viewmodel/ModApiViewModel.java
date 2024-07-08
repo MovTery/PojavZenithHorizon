@@ -1,4 +1,4 @@
-package com.movtery.pojavzh.ui.subassembly.downloadmod;
+package com.movtery.pojavzh.ui.subassembly.viewmodel;
 
 import androidx.lifecycle.ViewModel;
 

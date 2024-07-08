@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.pojavzh.feature.ResourceManager;
 import com.movtery.pojavzh.ui.fragment.DownloadModFragment;
+import com.movtery.pojavzh.ui.subassembly.viewmodel.ModApiViewModel;
 import com.movtery.pojavzh.utils.NumberWithUnits;
 import com.movtery.pojavzh.utils.ZHTools;
 
