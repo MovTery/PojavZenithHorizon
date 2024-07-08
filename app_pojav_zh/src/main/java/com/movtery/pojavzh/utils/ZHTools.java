@@ -76,6 +76,7 @@ public class ZHTools {
     public static File FILE_PROFILE_PATH;
     public static final String URL_GITHUB_RELEASE = "https://api.github.com/repos/MovTery/PojavZenithHorizon/releases/latest";
     public static final String URL_GITHUB_HOME = "https://api.github.com/repos/MovTery/PojavZenithHorizon/contents/";
+    public static final String URL_GITHUB_POJAVLAUNCHER = "https://github.com/PojavLauncherTeam/PojavLauncher";
     public static final String URL_MINECRAFT = "https://www.minecraft.net/";
     public static long LAST_UPDATE_CHECK_TIME = 0;
 

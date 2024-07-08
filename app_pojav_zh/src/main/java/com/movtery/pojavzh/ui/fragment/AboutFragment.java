@@ -44,8 +44,7 @@ public class AboutFragment extends Fragment {
 
         mReturnButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
         mGithubButton.setOnClickListener(v -> Tools.openURL(requireActivity(), Tools.URL_HOME));
-
-        mPojavLauncherButton.setOnClickListener(v -> Tools.openURL(requireActivity(), "https://github.com/PojavLauncherTeam/PojavLauncher"));
+        mPojavLauncherButton.setOnClickListener(v -> Tools.openURL(requireActivity(), ZHTools.URL_GITHUB_POJAVLAUNCHER));
         mLicenseButton.setOnClickListener(v -> Tools.openURL(requireActivity(), "https://www.gnu.org/licenses/gpl-3.0.html"));
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
@@ -80,6 +79,12 @@ public class AboutFragment extends Fragment {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void loadAboutData(Resources resources) {
+        this.mData.add(new AboutItemBean(
+                resources.getDrawable(R.drawable.ic_pojav_full, requireContext().getTheme()),
+                "PojavLauncherTeam",
+                getString(R.string.zh_about_pojavlauncher_desc),
+                new AboutItemBean.AboutItemButtonBean(requireActivity(), "Github", ZHTools.URL_GITHUB_POJAVLAUNCHER)));
+
         this.mData.add(new AboutItemBean(
                 resources.getDrawable(R.drawable.image_about_movtery, requireContext().getTheme()),
                 "墨北MovTery",
