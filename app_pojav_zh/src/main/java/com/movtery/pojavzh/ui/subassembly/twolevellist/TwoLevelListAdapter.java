@@ -22,7 +22,6 @@ public class TwoLevelListAdapter extends RecyclerView.Adapter<TwoLevelListAdapte
         this.mData = mData;
     }
 
-
     @NonNull
     @Override
     public TwoLevelListAdapter.InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

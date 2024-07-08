@@ -14,12 +14,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.pojavzh.ui.fragment.DownloadModFragment;
-import com.movtery.pojavzh.ui.subassembly.downloadmod.ModApiViewModel;
+import com.movtery.pojavzh.ui.subassembly.viewmodel.ModApiViewModel;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
+import com.movtery.pojavzh.ui.subassembly.viewmodel.RecyclerViewModel;
 import com.movtery.pojavzh.utils.NumberWithUnits;
 
 import net.kdt.pojavlaunch.PojavApplication;
@@ -159,11 +161,19 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         /** Display basic info about the moditem */
         public void setStateLimited(ModItem item) {
             this.view.setOnClickListener(v -> {
-                ModApiViewModel viewModel = new ViewModelProvider(mod.fragment.requireActivity()).get(ModApiViewModel.class);
+                //防止用户同时点击多个Item
+                if (!modsRecyclerView.isEnabled()) return;
+                modsRecyclerView.setEnabled(false);
+                //设置额外的数据传递
+                FragmentActivity fragmentActivity = mod.fragment.requireActivity();
+                ModApiViewModel viewModel = new ViewModelProvider(fragmentActivity).get(ModApiViewModel.class);
+                RecyclerViewModel recyclerViewModel = new ViewModelProvider(fragmentActivity).get(RecyclerViewModel.class);
                 viewModel.setModApi(mod.api);
                 viewModel.setModItem(item);
                 viewModel.setModpack(mod.isModpack);
                 viewModel.setModsPath(mod.modsPath);
+                recyclerViewModel.setView(modsRecyclerView);
+
                 ZHTools.addFragment(mod.fragment, DownloadModFragment.class, DownloadModFragment.TAG, null);
             });
 
