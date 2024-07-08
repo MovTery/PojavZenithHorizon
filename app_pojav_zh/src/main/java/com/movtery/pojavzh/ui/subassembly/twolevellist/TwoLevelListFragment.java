@@ -81,6 +81,12 @@ public abstract class TwoLevelListFragment extends Fragment {
     }
 
     @Override
+    public void onPause() {
+        cancelTask();
+        super.onPause();
+    }
+
+    @Override
     public void onDestroy() {
         cancelTask();
         super.onDestroy();
