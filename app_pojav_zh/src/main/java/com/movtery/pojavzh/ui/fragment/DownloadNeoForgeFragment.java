@@ -27,10 +27,10 @@ import net.kdt.pojavlaunch.modloaders.ModloaderListenerProxy;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Collections;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import java.util.Map;
 import java.util.concurrent.Future;
 
 public class DownloadNeoForgeFragment extends TwoLevelListFragment implements ModloaderDownloadListener {
@@ -82,7 +82,7 @@ public class DownloadNeoForgeFragment extends TwoLevelListFragment implements Mo
         }
         Future<?> currentTask = getCurrentTask();
 
-        ConcurrentMap<String, List<String>> mNeoForgeVersions = new ConcurrentHashMap<>();
+        Map<String, List<String>> mNeoForgeVersions = new HashMap<>();
         neoForgeVersions.forEach(neoForgeVersion -> {
             if (currentTask.isCancelled()) return;
 

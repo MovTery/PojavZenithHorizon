@@ -26,9 +26,9 @@ import net.kdt.pojavlaunch.modloaders.ModloaderListenerProxy;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import java.util.Map;
 import java.util.concurrent.Future;
 
 public class DownloadForgeFragment extends TwoLevelListFragment implements ModloaderDownloadListener {
@@ -76,7 +76,7 @@ public class DownloadForgeFragment extends TwoLevelListFragment implements Modlo
         }
         Future<?> currentTask = getCurrentTask();
 
-        ConcurrentMap<String, List<String>> mForgeVersions = new ConcurrentHashMap<>();
+        Map<String, List<String>> mForgeVersions = new HashMap<>();
         forgeVersions.forEach(forgeVersion -> {
             if (currentTask.isCancelled()) return;
 

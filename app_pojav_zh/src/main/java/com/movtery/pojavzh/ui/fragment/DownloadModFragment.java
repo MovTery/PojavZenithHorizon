@@ -28,9 +28,9 @@ import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import java.util.Map;
 import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -73,7 +73,7 @@ public class DownloadModFragment extends TwoLevelListFragment {
         Pattern pattern = Pattern.compile(regex);
 
         boolean releaseCheckBoxChecked = getReleaseCheckBox().isChecked();
-        ConcurrentMap<String, List<ModVersionItem>> mModVersionsByMinecraftVersion = new ConcurrentHashMap<>();
+        Map<String, List<ModVersionItem>> mModVersionsByMinecraftVersion = new HashMap<>();
         mModDetail.modVersionItems.forEach(modVersionItem -> {
             if (currentTask.isCancelled()) return;
 

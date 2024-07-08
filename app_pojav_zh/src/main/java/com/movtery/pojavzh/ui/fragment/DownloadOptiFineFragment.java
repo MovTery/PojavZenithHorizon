@@ -26,9 +26,9 @@ import net.kdt.pojavlaunch.modloaders.OptiFineUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import java.util.Map;
 import java.util.concurrent.Future;
 
 public class DownloadOptiFineFragment extends TwoLevelListFragment implements ModloaderDownloadListener {
@@ -67,7 +67,7 @@ public class DownloadOptiFineFragment extends TwoLevelListFragment implements Mo
         }
         Future<?> currentTask = getCurrentTask();
 
-        ConcurrentMap<String, List<OptiFineUtils.OptiFineVersion>> mOptiFineVersions = new ConcurrentHashMap<>();
+        Map<String, List<OptiFineUtils.OptiFineVersion>> mOptiFineVersions = new HashMap<>();
         optiFineVersions.optifineVersions.forEach(optiFineVersionList -> { //通过版本列表一层层遍历并合成为 Minecraft版本 + Optifine版本的Map集合
             if (currentTask.isCancelled()) return;
 
