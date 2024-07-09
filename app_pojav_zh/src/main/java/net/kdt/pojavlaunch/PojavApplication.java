@@ -11,6 +11,7 @@ import android.content.pm.*;
 import android.content.res.*;
 import android.os.*;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.*;
 
@@ -18,7 +19,6 @@ import android.util.*;
 
 import com.movtery.pojavzh.feature.ResourceManager;
 import com.movtery.pojavzh.ui.activity.ErrorActivity;
-import com.movtery.pojavzh.utils.UnpackJRE;
 
 import java.io.*;
 import java.text.*;
@@ -77,7 +77,6 @@ public class PojavApplication extends Application {
 												originalJNIDirectory.lastIndexOf("/"))
 												.concat("/x86");
 			}
-			sExecutorService.execute(() -> UnpackJRE.unpackAllJre(getAssets())); //解压JRE8、JRE17、JRE21
 		} catch (Throwable throwable) {
 			Intent ferrorIntent = new Intent(this, ErrorActivity.class);
 			ferrorIntent.putExtra("throwable", throwable);
@@ -112,7 +111,7 @@ public class PojavApplication extends Application {
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         LocaleUtils.setLocale(this);
     }

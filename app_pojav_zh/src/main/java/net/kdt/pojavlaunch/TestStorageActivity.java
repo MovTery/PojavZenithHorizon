@@ -16,6 +16,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.movtery.pojavzh.ui.dialog.TipDialog;
+import com.movtery.pojavzh.utils.UnpackJRE;
 
 import net.kdt.pojavlaunch.tasks.AsyncAssetManager;
 
@@ -114,6 +115,7 @@ public class TestStorageActivity extends BaseActivity {
         //Only run them once we get a definitive green light to use storage
         AsyncAssetManager.unpackComponents(this);
         AsyncAssetManager.unpackSingleFiles(this);
+        UnpackJRE.unpackAllJre(getAssets()); //解压JRE8、JRE17、JRE21
 
         Intent intent = new Intent(this, LauncherActivity.class);
         startActivity(intent);

@@ -1,6 +1,7 @@
 package com.movtery.pojavzh.utils;
 
 import static net.kdt.pojavlaunch.Architecture.archAsString;
+import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
 
 import android.content.res.AssetManager;
 import android.util.Log;
@@ -13,9 +14,11 @@ import java.io.IOException;
 
 public class UnpackJRE {
     public static void unpackAllJre(AssetManager assetManager) {
-        checkInternalRuntime(assetManager, InternalRuntime.JRE_8);
-        checkInternalRuntime(assetManager, InternalRuntime.JRE_17);
-        checkInternalRuntime(assetManager, InternalRuntime.JRE_21);
+        sExecutorService.execute(() -> {
+            checkInternalRuntime(assetManager, InternalRuntime.JRE_8);
+            checkInternalRuntime(assetManager, InternalRuntime.JRE_17);
+            checkInternalRuntime(assetManager, InternalRuntime.JRE_21);
+        });
     }
 
     private static void checkInternalRuntime(AssetManager assetManager, InternalRuntime internalRuntime) {
