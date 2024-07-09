@@ -1,6 +1,7 @@
 package com.movtery.pojavzh.ui.dialog;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -25,7 +26,10 @@ public class SelectRuntimeDialog extends FullScreenDialog {
     private void init(Context context) {
         recyclerView = findViewById(R.id.zh_select_view);
         TextView mTitleText = findViewById(R.id.zh_select_item_title);
-        mTitleText.setText(R.string.multirt_config_title);
+        TextView mMessageText = findViewById(R.id.zh_select_item_message);
+        mTitleText.setText(R.string.zh_install_select_jre_environment);
+        mMessageText.setText(R.string.zh_install_recommend_use_jre8);
+        mMessageText.setVisibility(View.VISIBLE);
         ImageButton mCloseButton = findViewById(R.id.zh_select_item_close_button);
 
         mCloseButton.setOnClickListener(v -> this.dismiss());
