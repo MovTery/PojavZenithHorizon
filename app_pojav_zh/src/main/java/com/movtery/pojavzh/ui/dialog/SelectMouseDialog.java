@@ -1,7 +1,7 @@
 package com.movtery.pojavzh.ui.dialog;
 
 import static com.movtery.pojavzh.utils.ZHTools.DIR_CUSTOM_MOUSE;
-import static com.movtery.pojavzh.utils.ZHTools.isImage;
+import static com.movtery.pojavzh.utils.image.ImageUtils.isImage;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 

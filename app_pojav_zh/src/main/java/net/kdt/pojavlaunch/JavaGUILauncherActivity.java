@@ -5,6 +5,7 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ClipboardManager;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +21,8 @@ import androidx.activity.OnBackPressedCallback;
 
 import com.kdt.LoggerView;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.image.Dimension;
+import com.movtery.pojavzh.utils.image.ImageUtils;
 
 import net.kdt.pojavlaunch.customcontrols.keyboard.AwtCharSender;
 import net.kdt.pojavlaunch.customcontrols.keyboard.TouchCharInput;
@@ -93,9 +96,11 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
 
         mMousePointerImageView.post(() -> {
             ViewGroup.LayoutParams params = mMousePointerImageView.getLayoutParams();
-            int mousescale = DEFAULT_PREF.getInt("mousescale", 100);
-            params.width = (int) (36 / 100f * mousescale);
-            params.height = (int) (54 / 100f * mousescale);
+            Drawable drawable = mMousePointerImageView.getDrawable();
+            Dimension mousescale = ImageUtils.resizeWithRatio(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
+                    DEFAULT_PREF.getInt("mousescale", 100));
+            params.width = (int) (mousescale.getWidth() * 0.5);
+            params.height = (int) (mousescale.getHeight() * 0.5);
         });
 
         mTouchPad.setOnTouchListener(new View.OnTouchListener() {
