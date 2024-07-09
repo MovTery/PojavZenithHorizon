@@ -48,7 +48,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouchListener {
-
+    public static final String EXTRAS_JRE_NAME = "jre_name";
     private AWTCanvasView mTextureView;
     private LoggerView mLoggerView;
     private TouchCharInput mTouchCharInput;
@@ -168,14 +168,15 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
                 return;
             }
             final String javaArgs = extras.getString("javaArgs");
-            final Uri resourceUri = (Uri) extras.getParcelable("modUri");
+            final Uri resourceUri = extras.getParcelable("modUri");
+            final String jreName = extras.getString(EXTRAS_JRE_NAME, null);
             if(extras.getBoolean("openLogOutput", false)) openLogOutput(null);
             if (javaArgs != null) {
-                startModInstaller(null, javaArgs);
+                startModInstaller(null, javaArgs, jreName);
             }else if(resourceUri != null) {
                 ProgressDialog barrierDialog = Tools.getWaitingDialog(this, R.string.multirt_progress_caching);
                 PojavApplication.sExecutorService.execute(()->{
-                    startModInstallerWithUri(resourceUri);
+                    startModInstallerWithUri(resourceUri, jreName);
                     runOnUiThread(barrierDialog::dismiss);
                 });
             }
@@ -192,7 +193,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
         });
     }
 
-    private void startModInstallerWithUri(Uri uri) {
+    private void startModInstallerWithUri(Uri uri, String jreName) {
         try {
             File cacheFile = new File(getCacheDir(), "mod-installer-temp");
             InputStream contentStream = getContentResolver().openInputStream(uri);
@@ -200,21 +201,23 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
                 IOUtils.copy(contentStream, fileOutputStream);
             }
             contentStream.close();
-            startModInstaller(cacheFile, null);
+            startModInstaller(cacheFile, null, jreName);
         }catch (IOException e) {
             Tools.showError(this, e, true);
         }
     }
 
-    private void startModInstaller(File modFile, String javaArgs) {
+    private void startModInstaller(File modFile, String javaArgs, String jreName) {
         new Thread(() -> {
-            Runtime runtime = pickJreForMod(modFile);
+            Runtime runtime = pickJreForMod(modFile, jreName);
             launchJavaRuntime(runtime, modFile, javaArgs);
         }, "JREMainThread").start();
     }
 
-    private Runtime pickJreForMod(File modFile) {
-        String jreName = LauncherPreferences.PREF_DEFAULT_RUNTIME;
+    private Runtime pickJreForMod(File modFile, String jreName) {
+        if (jreName == null) {
+            jreName = LauncherPreferences.PREF_DEFAULT_RUNTIME;
+        }
         if(modFile != null) {
             int javaVersion = getJavaVersion(modFile);
             if(javaVersion != -1) {

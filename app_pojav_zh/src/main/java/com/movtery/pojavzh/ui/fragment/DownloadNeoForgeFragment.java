@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.movtery.pojavzh.feature.mod.modloader.BaseModVersionListAdapter;
 import com.movtery.pojavzh.feature.mod.modloader.NeoForgeDownloadTask;
 import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils;
+import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog;
 import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListAdapter;
 import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListItemBean;
 import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListFragment;
@@ -142,8 +143,14 @@ public class DownloadNeoForgeFragment extends TwoLevelListFragment implements Mo
 
             Intent modInstallerStartIntent = new Intent(activity, JavaGUILauncherActivity.class);
             NeoForgeUtils.addAutoInstallArgs(modInstallerStartIntent, downloadedFile);
-            Tools.backToMainMenu(activity);
-            activity.startActivity(modInstallerStartIntent);
+            SelectRuntimeDialog selectRuntimeDialog = new SelectRuntimeDialog(requireContext());
+            selectRuntimeDialog.setListener(jreName -> {
+                modInstallerStartIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName);
+                selectRuntimeDialog.dismiss();
+                Tools.backToMainMenu(activity);
+                activity.startActivity(modInstallerStartIntent);
+            });
+            selectRuntimeDialog.show();
         });
     }
 
