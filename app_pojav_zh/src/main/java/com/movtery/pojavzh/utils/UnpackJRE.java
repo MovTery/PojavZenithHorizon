@@ -24,9 +24,8 @@ public class UnpackJRE {
         } catch (IOException exc) {
             return;
         }
-        // this implicitly checks for null, so it will unpack the runtime even if we don't have one installed
         if (!launcherRuntimeVersion.equals(installedRuntimeVersion)) {
-            unpackInternalRuntime(assetManager, internalRuntime, installedRuntimeVersion);
+            unpackInternalRuntime(assetManager, internalRuntime, launcherRuntimeVersion);
         }
     }
 
