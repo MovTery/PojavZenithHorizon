@@ -97,7 +97,6 @@ public class MicrosoftBackgroundLogin {
                     acc.isMicrosoft = true;
                     acc.msaRefreshToken = msRefreshToken;
                     acc.expiresAt = expiresAt;
-                    acc.updateSkinFace();
                 }
                 acc.save();
 

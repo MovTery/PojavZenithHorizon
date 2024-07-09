@@ -299,18 +299,18 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
 
     }
 
-    private void performLogin(MinecraftAccount minecraftAccount){
-        if(minecraftAccount.isLocal()) return;
-        if (!Objects.isNull(minecraftAccount.baseUrl)&&!minecraftAccount.baseUrl.equals("0")&&System.currentTimeMillis() > minecraftAccount.expiresAt){
+    private void performLogin(MinecraftAccount minecraftAccount) {
+        if (minecraftAccount.isLocal()) return;
+        if (!Objects.isNull(minecraftAccount.baseUrl) && !minecraftAccount.baseUrl.equals("0") && System.currentTimeMillis() > minecraftAccount.expiresAt) {
             OtherLoginApi.getINSTANCE().setBaseUrl(minecraftAccount.baseUrl);
-            PojavApplication.sExecutorService.execute(()->{
+            PojavApplication.sExecutorService.execute(() -> {
                 try {
                     OtherLoginApi.getINSTANCE().login(getContext(), minecraftAccount.account, minecraftAccount.password, new OtherLoginApi.Listener() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-                            minecraftAccount.expiresAt=System.currentTimeMillis()+30*60*1000;
-                            minecraftAccount.accessToken=authResult.getAccessToken();
-                            ((Activity)getContext()).runOnUiThread(()-> ExtraCore.setValue(ZHExtraConstants.OTHER_LOGIN_TODO, minecraftAccount));
+                            minecraftAccount.expiresAt = System.currentTimeMillis() + 30 * 60 * 1000;
+                            minecraftAccount.accessToken = authResult.getAccessToken();
+                            ((Activity) getContext()).runOnUiThread(() -> ExtraCore.setValue(ZHExtraConstants.OTHER_LOGIN_TODO, minecraftAccount));
                         }
 
                         @Override
@@ -326,8 +326,9 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
         }
 
         mLoginBarPaint.setColor(getResources().getColor(R.color.background_bottom_bar, getContext().getTheme()));
-        if(minecraftAccount.isMicrosoft){
-            if(System.currentTimeMillis() > minecraftAccount.expiresAt){
+        if (minecraftAccount.isMicrosoft) {
+            minecraftAccount.updateSkinFace(); //强制更新头像
+            if (System.currentTimeMillis() > minecraftAccount.expiresAt) {
                 // Perform login only if needed
                 new MicrosoftBackgroundLogin(true, minecraftAccount.msaRefreshToken)
                         .performLogin(mProgressListener, mDoneListener, mErrorListener);
