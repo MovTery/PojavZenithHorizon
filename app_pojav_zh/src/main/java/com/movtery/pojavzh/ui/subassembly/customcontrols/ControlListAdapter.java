@@ -2,15 +2,18 @@ package com.movtery.pojavzh.ui.subassembly.customcontrols;
 
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
-import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.kdt.pojavlaunch.R;
@@ -18,7 +21,9 @@ import com.movtery.pojavzh.ui.dialog.ControlInfoDialog;
 
 import java.util.List;
 
-public class ControlListAdapter extends RecyclerView.Adapter<ControlListAdapter.InnerHolder> {
+public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final int VIEW_TYPE_VALID = 0;
+    private static final int VIEW_TYPE_INVALID = 1;
     private final List<ControlItemBean> mData;
     private OnItemClickListener mOnItemClickListener;
 
@@ -28,22 +33,46 @@ public class ControlListAdapter extends RecyclerView.Adapter<ControlListAdapter.
 
     @NonNull
     @Override
-    public ControlListAdapter.InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_control_list_view, parent, false);
-        return new InnerHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
+        View view;
+        if (viewType == VIEW_TYPE_VALID) {
+            view = layoutInflater.inflate(R.layout.item_control_list_view, viewGroup, false);
+            return new ValidViewHolder(view);
+        } else {
+            view = layoutInflater.inflate(R.layout.item_file_list_view, viewGroup, false);
+            return new InvalidViewHolder(view);
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ControlListAdapter.InnerHolder holder, int position) {
-        holder.setData(this.mData.get(position), position);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        ControlItemBean controlItemBean = this.mData.get(position);
+        if (getItemViewType(position) == VIEW_TYPE_VALID) {
+            ((ValidViewHolder) holder).setData(controlItemBean);
+            holder.itemView.setOnClickListener(v -> {
+                if (mOnItemClickListener != null) {
+                    mOnItemClickListener.onItemClick(controlItemBean.getControlInfoData().fileName);
+                }
+            });
+        } else {
+            ((InvalidViewHolder) holder).setData(controlItemBean);
+            holder.itemView.setOnClickListener(v -> {
+                if (mOnItemClickListener != null) {
+                    mOnItemClickListener.onInvalidItemClick(controlItemBean.getControlInfoData().fileName);
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
-        if (this.mData != null) {
-            return this.mData.size();
-        }
-        return 0;
+        return (this.mData != null) ? this.mData.size() : 0;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return (this.mData.get(position).isInvalid()) ? VIEW_TYPE_INVALID : VIEW_TYPE_VALID;
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -51,15 +80,15 @@ public class ControlListAdapter extends RecyclerView.Adapter<ControlListAdapter.
     }
 
     public interface OnItemClickListener {
-        void onItemClick(int position, String name);
+        void onItemClick(String name);
+        void onInvalidItemClick(String name);
     }
 
-    public class InnerHolder extends RecyclerView.ViewHolder {
-        private int mPosition;
-        private String mName;
+    public class ValidViewHolder extends RecyclerView.ViewHolder {
         private final TextView mTitle, mAuthor, mVersion, mFileName, mDesc;
         private final Button mInfo;
-        public InnerHolder(@NonNull View itemView) {
+
+        public ValidViewHolder(@NonNull View itemView) {
             super(itemView);
             mTitle = itemView.findViewById(R.id.zh_control_title);
             mAuthor = itemView.findViewById(R.id.zh_control_author);
@@ -67,20 +96,12 @@ public class ControlListAdapter extends RecyclerView.Adapter<ControlListAdapter.
             mFileName = itemView.findViewById(R.id.zh_control_file_name);
             mDesc = itemView.findViewById(R.id.zh_control_desc);
             mInfo = itemView.findViewById(R.id.zh_control_info_button);
-
-            if (mOnItemClickListener != null) {
-                itemView.setOnClickListener(v -> mOnItemClickListener.onItemClick(mPosition, mName));
-            }
         }
 
-        @SuppressLint("UseCompatLoadingForDrawables")
-        public void setData(ControlItemBean controlItemBean, int position) {
-            this.mPosition = position;
+        public void setData(ControlItemBean controlItemBean) {
             ControlInfoData controlInfoData = controlItemBean.getControlInfoData();
-            this.mName = controlInfoData.fileName;
 
             mInfo.setOnClickListener(v -> {
-                @SuppressLint("NotifyDataSetChanged")
                 ControlInfoDialog controlInfoDialog = new ControlInfoDialog(mInfo.getContext(), () -> runOnUiThread(ControlListAdapter.this::notifyDataSetChanged), controlInfoData);
                 controlInfoDialog.show();
             });
@@ -97,12 +118,7 @@ public class ControlListAdapter extends RecyclerView.Adapter<ControlListAdapter.
             }
 
             //设置高亮
-            int color;
-            if (controlItemBean.isHighlighted()) {
-                color = Color.rgb(69, 179, 162);
-            } else {
-                color = mTitle.getResources().getColor(R.color.primary_text, mTitle.getContext().getTheme());
-            }
+            int color = controlItemBean.isHighlighted() ? Color.rgb(69, 179, 162) : mTitle.getResources().getColor(R.color.primary_text, mTitle.getContext().getTheme());
             mTitle.setTextColor(color);
 
             //初始化作者名，如果没有填写，那么就隐藏它
@@ -116,9 +132,9 @@ public class ControlListAdapter extends RecyclerView.Adapter<ControlListAdapter.
 
             //初始化版本
             if (controlInfoData.version != null && !controlInfoData.version.isEmpty() && !controlInfoData.version.equals("null")) {
-                String authorString = mVersion.getContext().getString(R.string.zh_controls_info_version) + controlInfoData.version;
+                String versionString = mVersion.getContext().getString(R.string.zh_controls_info_version) + controlInfoData.version;
                 mVersion.setVisibility(View.VISIBLE);
-                mVersion.setText(authorString);
+                mVersion.setText(versionString);
             } else {
                 mVersion.setVisibility(View.GONE);
             }
@@ -129,6 +145,30 @@ public class ControlListAdapter extends RecyclerView.Adapter<ControlListAdapter.
             } else {
                 mDesc.setText(R.string.zh_controls_info_no_info);
             }
+        }
+    }
+
+    public static class InvalidViewHolder extends RecyclerView.ViewHolder {
+        private final Context context;
+        private final TextView title;
+
+        public InvalidViewHolder(@NonNull View itemView) {
+            super(itemView);
+            context = itemView.getContext();
+            itemView.findViewById(R.id.zh_file_check).setVisibility(View.GONE);
+            ImageView imageView = itemView.findViewById(R.id.zh_file_image);
+            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_disabled));
+            title = itemView.findViewById(R.id.zh_file_name);
+        }
+
+        public void setData(ControlItemBean controlItemBean) {
+            String text = context.getString(R.string.zh_controls_info_invalid) + " " + controlItemBean.getControlInfoData().fileName;
+            title.setText(text);
+
+            //设置文本字体
+            title.setTextColor(Color.rgb(255, 60, 60));
+            title.setTypeface(null, Typeface.BOLD);
+            title.setTextSize(14);
         }
     }
 }

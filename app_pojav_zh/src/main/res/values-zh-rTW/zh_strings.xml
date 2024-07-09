@@ -131,6 +131,7 @@
     <string name="zh_controls_info_more">詳細資訊</string>
     <string name="zh_controls_info_view">查看資訊</string>
     <string name="zh_controls_info_no_info">此控制佈局沒有描述說明…</string>
+    <string name="zh_controls_info_invalid">無效的檔案:</string>
     <string name="zh_replacement_customcontrol">更換控制佈局</string>
     <string name="zh_custom_control_title">管理控制佈局</string>
     <!-- Custom Mouse -->

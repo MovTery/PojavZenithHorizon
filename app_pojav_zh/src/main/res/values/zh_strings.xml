@@ -132,6 +132,7 @@
     <string name="zh_controls_info_more">More Information</string>
     <string name="zh_controls_info_view">View information</string>
     <string name="zh_controls_info_no_info">There is no description available for this layout…</string>
+    <string name="zh_controls_info_invalid">Invalid file:</string>
     <string name="zh_replacement_customcontrol">Change Control Layout</string>
     <string name="zh_custom_control_title">Control Layout Management</string>
     <!-- Custom Mouse -->
