@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/_60sdp"
-    android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"
-    android:paddingHorizontal="@dimen/padding_medium">
+    android:background="?android:attr/selectableItemBackground"
+    android:paddingHorizontal="8dp">
 
     <TextView
         android:id="@+id/multirt_view_java_version"

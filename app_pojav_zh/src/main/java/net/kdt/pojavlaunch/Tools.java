@@ -49,6 +49,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import com.movtery.pojavzh.ui.dialog.EditTextDialog;
+import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog;
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.utils.ZHTools;
@@ -984,7 +985,13 @@ public final class Tools {
 
             Intent intent = new Intent(activity, JavaGUILauncherActivity.class);
             intent.putExtra("javaArgs", editTextDialog.getEditBox().getText().toString());
-            activity.startActivity(intent);
+            SelectRuntimeDialog selectRuntimeDialog = new SelectRuntimeDialog(activity);
+            selectRuntimeDialog.setListener(jreName -> {
+                intent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName);
+                selectRuntimeDialog.dismiss();
+                activity.startActivity(intent);
+            });
+            selectRuntimeDialog.show();
 
             editTextDialog.dismiss();
         });
@@ -1012,7 +1019,13 @@ public final class Tools {
     public static void launchModInstaller(Activity activity, @NonNull Uri uri) {
         Intent intent = new Intent(activity, JavaGUILauncherActivity.class);
         intent.putExtra("modUri", uri);
-        activity.startActivity(intent);
+        SelectRuntimeDialog selectRuntimeDialog = new SelectRuntimeDialog(activity);
+        selectRuntimeDialog.setListener(jreName -> {
+            intent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName);
+            selectRuntimeDialog.dismiss();
+            activity.startActivity(intent);
+        });
+        selectRuntimeDialog.show();
     }
 
     public static void installRuntimeFromUri(Context context, Uri uri) {

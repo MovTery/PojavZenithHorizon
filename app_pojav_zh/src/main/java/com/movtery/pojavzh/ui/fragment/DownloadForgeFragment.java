@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.pojavzh.feature.mod.modloader.BaseModVersionListAdapter;
+import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog;
 import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListAdapter;
 import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListItemBean;
 import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListFragment;
@@ -129,8 +130,14 @@ public class DownloadForgeFragment extends TwoLevelListFragment implements Modlo
 
             Intent modInstallerStartIntent = new Intent(activity, JavaGUILauncherActivity.class);
             ForgeUtils.addAutoInstallArgs(modInstallerStartIntent, downloadedFile, true);
-            Tools.backToMainMenu(activity);
-            activity.startActivity(modInstallerStartIntent);
+            SelectRuntimeDialog selectRuntimeDialog = new SelectRuntimeDialog(requireContext());
+            selectRuntimeDialog.setListener(jreName -> {
+                modInstallerStartIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName);
+                selectRuntimeDialog.dismiss();
+                Tools.backToMainMenu(activity);
+                activity.startActivity(modInstallerStartIntent);
+            });
+            selectRuntimeDialog.show();
         });
     }
 

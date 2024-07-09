@@ -7,6 +7,9 @@ import android.content.SharedPreferences;
 
 import androidx.fragment.app.FragmentActivity;
 
+import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog;
+
+import net.kdt.pojavlaunch.JavaGUILauncherActivity;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModLoader;
 
@@ -67,8 +70,14 @@ public class ModloaderInstallTracker implements SharedPreferences.OnSharedPrefer
 
     private void startModInstallation(ModLoader modLoader, File modInstallFile) {
         Intent installIntent = modLoader.getInstallationIntent(mActivity, modInstallFile);
-        Tools.backToMainMenu(mActivity);
-        mActivity.startActivity(installIntent);
+        SelectRuntimeDialog selectRuntimeDialog = new SelectRuntimeDialog(mActivity);
+        selectRuntimeDialog.setListener(jreName -> {
+            installIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName);
+            selectRuntimeDialog.dismiss();
+            Tools.backToMainMenu(mActivity);
+            mActivity.startActivity(installIntent);
+        });
+        selectRuntimeDialog.show();
     }
 
     private static SharedPreferences getPreferences(Context context) {

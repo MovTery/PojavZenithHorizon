@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 
 import net.kdt.pojavlaunch.Architecture;
@@ -27,8 +28,18 @@ import java.io.IOException;
 import java.util.List;
 
 public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RTRecyclerViewAdapter.RTViewHolder> {
+    private SelectRuntimeDialog.RuntimeSelectedListener mSelectedListener;
+    private boolean mIsSelectMode = false;
 
     private boolean mIsDeleting = false;
+
+    public RTRecyclerViewAdapter() {
+    }
+
+    public RTRecyclerViewAdapter(SelectRuntimeDialog.RuntimeSelectedListener listener) {
+        this.mIsSelectMode = true;
+        this.mSelectedListener = listener;
+    }
 
     @NonNull
     @Override
@@ -71,6 +82,7 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RTRecyclerViewAd
 
 
     public class RTViewHolder extends RecyclerView.ViewHolder {
+        final View mainItemView;
         final TextView mJavaVersionTextView;
         final TextView mFullJavaVersionTextView;
         final ColorStateList mDefaultColors;
@@ -82,6 +94,7 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RTRecyclerViewAd
 
         public RTViewHolder(View itemView) {
             super(itemView);
+            mainItemView = itemView;
             mJavaVersionTextView = itemView.findViewById(R.id.multirt_view_java_version);
             mFullJavaVersionTextView = itemView.findViewById(R.id.multirt_view_java_version_full);
             mSetDefaultButton = itemView.findViewById(R.id.multirt_view_setdefaultbtn);
@@ -94,7 +107,7 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RTRecyclerViewAd
         }
 
         @SuppressLint("NotifyDataSetChanged") // same as all the other ones
-        private void setupOnClickListeners(){
+        private void setupOnClickListeners() {
             mSetDefaultButton.setOnClickListener(v -> {
                 if(mCurrentRuntime != null) {
                     setDefault(mCurrentRuntime);
@@ -131,6 +144,8 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RTRecyclerViewAd
         }
 
         public void bindRuntime(Runtime runtime, int pos) {
+            if (mSelectedListener != null) mainItemView.setOnClickListener(v -> mSelectedListener.onSelected(runtime.name));
+
             mCurrentRuntime = runtime;
             mCurrentPosition = pos;
             if(runtime.versionString != null && Tools.DEVICE_ARCHITECTURE == Architecture.archAsInt(runtime.arch)) {
@@ -161,7 +176,7 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RTRecyclerViewAd
         }
 
         private void updateButtonsVisibility(){
-            mSetDefaultButton.setVisibility(mIsDeleting ? View.GONE : View.VISIBLE);
+            mSetDefaultButton.setVisibility(mIsSelectMode || mIsDeleting ? View.GONE : View.VISIBLE);
             mDeleteButton.setVisibility(mIsDeleting ? View.VISIBLE : View.GONE);
         }
     }
