@@ -131,6 +131,7 @@
     <string name="zh_controls_info_more">详细信息</string>
     <string name="zh_controls_info_view">查看信息</string>
     <string name="zh_controls_info_no_info">此控制布局没有描述说明…</string>
+    <string name="zh_controls_info_invalid">无效的文件:</string>
     <string name="zh_replacement_customcontrol">更换控制布局</string>
     <string name="zh_custom_control_title">管理控制布局</string>
     <!-- Custom Mouse -->

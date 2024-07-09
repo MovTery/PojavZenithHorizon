@@ -1,8 +1,9 @@
 package com.movtery.pojavzh.ui.subassembly.customcontrols;
 
 public class ControlItemBean {
-    private ControlInfoData controlInfoData;
+    private final ControlInfoData controlInfoData;
     private boolean isHighlighted = false;
+    private boolean isInvalid = false;
 
     public ControlItemBean(ControlInfoData controlInfoData) {
         this.controlInfoData = controlInfoData;
@@ -12,15 +13,19 @@ public class ControlItemBean {
         return controlInfoData;
     }
 
-    public void setControlInfoData(ControlInfoData controlInfoData) {
-        this.controlInfoData = controlInfoData;
-    }
-
     public boolean isHighlighted() {
         return isHighlighted;
     }
 
     public void setHighlighted(boolean highlighted) {
         isHighlighted = highlighted;
+    }
+
+    public boolean isInvalid() {
+        return isInvalid;
+    }
+
+    public void setInvalid(boolean invalid) {
+        isInvalid = invalid;
     }
 }

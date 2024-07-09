@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.pojavzh.ui.dialog.DeleteDialog;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
 import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.stringutils.StringFilter;
@@ -49,9 +50,20 @@ public class ControlsListViewCreator {
 
     public void init() {
         controlListAdapter = new ControlListAdapter(this.mData);
-        controlListAdapter.setOnItemClickListener((position, name) -> {
-            File file = new File(fullPath, name);
-            if (this.fileSelectedListener != null) fileSelectedListener.onFileSelected(file, file.getAbsolutePath());
+        controlListAdapter.setOnItemClickListener(new ControlListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(String name) {
+                File file = new File(fullPath, name);
+                if (ControlsListViewCreator.this.fileSelectedListener != null) fileSelectedListener.onFileSelected(file, file.getAbsolutePath());
+            }
+
+            @Override
+            public void onInvalidItemClick(String name) {
+                File file = new File(fullPath, name);
+                List<File> files = new ArrayList<>();
+                files.add(file);
+                new DeleteDialog(context, () -> runOnUiThread(ControlsListViewCreator.this::refresh), files).show();
+            }
         });
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
@@ -70,18 +82,28 @@ public class ControlsListViewCreator {
         File[] files = path.listFiles();
         if (files != null) {
             for (File file : files) {
-                if (file.isFile() && file.getName().endsWith(".json")) {
-                    ControlInfoData controlInfoData = EditControlData.loadFormFile(context, file);
-                    if (controlInfoData == null) continue;
-
-                    ControlItemBean controlItemBean = new ControlItemBean(controlInfoData);
-
-                    if (shouldHighlight(controlInfoData, file)) {
-                        controlItemBean.setHighlighted(true);
-                        searchCount.addAndGet(1);
-                    } else if (showSearchResultsOnly) {
-                        continue;
+                if (file.isFile()) {
+                    ControlInfoData controlInfoData = null;
+                    if (file.getName().endsWith(".json")) { //只有.json文件会被尝试识别
+                        controlInfoData = EditControlData.loadFormFile(context, file);
                     }
+
+                    ControlItemBean controlItemBean;
+                    if (controlInfoData == null) {
+                        ControlInfoData invalidInfoData = new ControlInfoData();
+                        invalidInfoData.fileName = file.getName();
+                        controlItemBean = new ControlItemBean(invalidInfoData);
+                        controlItemBean.setInvalid(true);
+                    } else {
+                        controlItemBean = new ControlItemBean(controlInfoData);
+                        if (shouldHighlight(controlInfoData, file)) {
+                            controlItemBean.setHighlighted(true);
+                            searchCount.addAndGet(1);
+                        } else if (showSearchResultsOnly) {
+                            continue;
+                        }
+                    }
+
                     data.add(controlItemBean);
                 }
             }
