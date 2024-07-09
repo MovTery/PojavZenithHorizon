@@ -106,6 +106,9 @@
     <!-- Activity -->
     <string name="zh_activity_import_control">Layout Name Control:</string>
     <string name="zh_activity_java_gui_keyboard">Keyboard</string>
+    <!-- Install -->
+    <string name="zh_install_select_jre_environment">Select JRE Environment</string>
+    <string name="zh_install_recommend_use_jre8">Recommend Using JRE 8</string>
     <!-- Custom Controls -->
     <string name="zh_controls_add_control_button">Button</string>
     <string name="zh_controls_add_control_drawer">Drawer</string>
