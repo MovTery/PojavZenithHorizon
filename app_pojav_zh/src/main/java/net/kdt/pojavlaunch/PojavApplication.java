@@ -16,7 +16,6 @@ import androidx.core.app.*;
 
 import android.util.*;
 
-import com.movtery.pojavzh.feature.CheckNewNotice;
 import com.movtery.pojavzh.feature.ResourceManager;
 import com.movtery.pojavzh.ui.activity.ErrorActivity;
 import com.movtery.pojavzh.utils.UnpackJRE;
@@ -99,8 +98,6 @@ public class PojavApplication extends Application {
 					break;
 			}
 		}
-
-		CheckNewNotice.checkNewNotice(this);
 
 		ResourceManager.setResources(this);
 	}

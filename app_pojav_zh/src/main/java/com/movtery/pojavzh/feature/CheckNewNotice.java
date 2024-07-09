@@ -23,26 +23,24 @@ import okhttp3.Response;
 
 public class CheckNewNotice {
     private static NoticeInfo noticeInfo = null;
-    private static boolean isFailure = false;
-    private static boolean isFirstImpressionNotice = true;
+    private static boolean isChecking = false;
 
-
-    public static boolean isFailure() {
-        return isFailure;
-    }
     public static NoticeInfo getNoticeInfo() {
         return noticeInfo;
     }
 
-    public static boolean isFirstImpressionNotice() {
-        return isFirstImpressionNotice;
-    }
+    public static void checkNewNotice(Context context, CheckListener listener) {
+        if (isChecking) {
+            return;
+        }
+        isChecking = true;
 
-    public static void setFirstImpressionNotice(boolean isFirstImpressionNotice) {
-        CheckNewNotice.isFirstImpressionNotice = isFirstImpressionNotice;
-    }
+        if (noticeInfo != null) {
+            listener.onSuccessful(noticeInfo);
+            isChecking = false;
+            return;
+        }
 
-    public static void checkNewNotice(Context context) {
         OkHttpClient client = new OkHttpClient();
         Request.Builder url = new Request.Builder()
                 .url(ZHTools.URL_GITHUB_HOME + "notice.json");
@@ -50,12 +48,12 @@ public class CheckNewNotice {
             url.header("Authorization", "token " + context.getString(R.string.zh_api_token));
         }
         Request request = url.build();
+        System.out.println("checking");
 
         client.newCall(request).enqueue(new Callback() {
-
             @Override
             public void onFailure(Call call, IOException e) {
-                isFailure = true;
+                isChecking = false;
             }
 
             @SuppressLint("SetJavaScriptEnabled")
@@ -96,12 +94,18 @@ public class CheckNewNotice {
                         int numbering = noticeJson.getInt("numbering");
 
                         noticeInfo = new NoticeInfo(rawTitle, rawSubstance, rawDate, numbering);
+                        listener.onSuccessful(noticeInfo);
                     } catch (Exception e) {
                         Log.e("Check New Notice", e.toString());
                     }
                 }
+                isChecking = false;
             }
         });
+    }
+
+    public interface CheckListener {
+        void onSuccessful(NoticeInfo noticeInfo);
     }
 
     public static class NoticeInfo {
