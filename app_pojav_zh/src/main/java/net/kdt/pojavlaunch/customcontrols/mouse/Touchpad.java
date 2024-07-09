@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import net.kdt.pojavlaunch.GrabListener;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.image.Dimension;
+import com.movtery.pojavzh.utils.image.ImageUtils;
 
 import org.lwjgl.glfw.CallbackBridge;
 
@@ -99,11 +101,9 @@ public class Touchpad extends View implements GrabListener, AbstractTouchpad {
     }
 
     public void updateMouseScale() {
-        mMousePointerDrawable.setBounds(
-                0, 0,
-                (int) (36 / 100f * DEFAULT_PREF.getInt("mousescale", 100)),
-                (int) (54 / 100f * DEFAULT_PREF.getInt("mousescale", 100))
-        );
+        Dimension mousescale = ImageUtils.resizeWithRatio(mMousePointerDrawable.getIntrinsicWidth(), mMousePointerDrawable.getIntrinsicHeight(),
+                DEFAULT_PREF.getInt("mousescale", 100));
+        mMousePointerDrawable.setBounds(0, 0, (int) (mousescale.getWidth() * 0.5), (int) (mousescale.getHeight() * 0.5));
     }
 
     public void updateMouseDrawable() {

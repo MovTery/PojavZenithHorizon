@@ -13,9 +13,9 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 import com.movtery.pojavzh.ui.fragment.ModsFragment;
+import com.movtery.pojavzh.utils.image.ImageUtils;
 import com.movtery.pojavzh.utils.stringutils.StringFilter;
 
 import java.io.File;
@@ -101,7 +101,7 @@ public class FileRecyclerViewCreator {
         if (file.isFile()) {
             switch (fileIcon) {
                 case IMAGE:
-                    if (ZHTools.isImage(file)) {
+                    if (ImageUtils.isImage(file)) {
                         return Drawable.createFromPath(file.getAbsolutePath());
                     } else {
                         return getFileIcon(file, resources);
