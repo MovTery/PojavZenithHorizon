@@ -33,6 +33,8 @@
     <string name="mcl_setting_category_renderer">عارض الرسوميات</string>
     <string name="mcl_setting_renderer_gles2_4">Holy Gl4es - (جميع الإصدارات، بسرعة)</string>
     <string name="mcl_setting_renderer_vulkan_zink">Zink (Vulkan) - (جميع الإصدارات، متوسط)</string>
+    <string name="mcl_setting_renderer_virgl">Virgl - (متاح لجميع النسخ، سرعة متوسطة)</string>
+    <string name="mcl_setting_renderer_freedreno">Freedreno (Adreno) - (متاح لجميع النسخ، سرعة متوسطة)</string>
     <string name="mcl_setting_renderer_angle">ANGLE (Vulkan) - (1.17+ فقط، متوسط)</string>
     <string name="mcl_setting_veroption_release">إصدار نهائي</string>
     <string name="mcl_setting_veroption_snapshot">اللمحات (سنابشوت)</string>
@@ -61,6 +63,7 @@
     <string name="control_secondary">Sec</string>
     <string name="control_mouse">الفأرة</string>
     <string name="control_mouseoff">وضع الفأرة: موقفة</string>
+    <string name="control_mouseon">ماوس: مفتوح</string>
     <!-- MainActivity: Menu advanced controls -->
     <string name="control_forceclose">فرض الإغلاق</string>
     <string name="control_viewout">سجل الإخراج</string>
@@ -105,6 +108,7 @@
     <string name="customctrl_passthru">سماح تحريك أزرار الشاشة</string>
     <string name="customctrl_swipeable">قابل للسحب</string>
     <string name="customctrl_forward_lock">قفل إلى الأمام</string>
+    <string name="customctrl_absolute_tracking">تتبع الأصابع بشكل مطلق</string>
     <string name="memory_warning_msg">الكمية الحالية من ذاكرة الوصول العشوائي المجانية (%d) أقل من ذاكرة الوصول العشوائي المحددة (%d)، مما قد يؤدي إلى حدوث أعطال. قم بتغيير التخصيص إذا تحطمت اللعبة.</string>
     <string name="mcl_memory_allocation">تخصيص الذاكرة.</string>
     <string name="multirt_runtime_corrupt">مشغل جافا فاسد</string>
@@ -145,6 +149,7 @@
     <string name="global_delete">حذف</string>
     <string name="pedit_java_runtime">Java Runtime</string>
     <string name="pedit_renderer">عارض الرسوميات</string>
+    <string name="arc_capes_title">المعاطف من Cosmetica</string>
     <string name="arc_capes_desc">يفعل أوشحه من Cosmetica, (المعروفة مسبقًا ب Arc). لمزيد من المعلومات، يرجى زيارة https://cosmetica.cc, يتطلب Optifine لكي يعمل.</string>
     <string name="notif_channel_name">عام</string>
     <string name="lazy_service_default_title">خدمة Pojav في المقدمة</string>
@@ -225,7 +230,9 @@
     <string name="modpack_download_downloading_mods">تحميل المودات (%.2f MB / %.2f MB)</string>
     <string name="modpack_download_downloading_mods_fc">تحميل المودات (الملف %d من %d)</string>
     <string name="modpack_download_applying_overrides">تطبيق التجاوزات (%d/%d)</string>
+    <string name="modpack_install_notification_title">مثبت حزمة الوحدات Pojav</string>
     <string name="modpack_install_notification_success">انقر هنا لإنهاء تثبيت modpack</string>
+    <string name="modpack_install_notification_data_not_available">فشل تنزيل معلومات محمل الوحدات</string>
     <string name="modpack_install_modloader_download_failed">فشل تنزيل ملفات محمل المودات</string>
     <string name="modpack_install_download_failed">فشل تنزيل ملفات المودباك</string>
     <string name="modpack_install_button">إنشاء ملف شخصي جديد لModpack</string>
@@ -247,9 +254,23 @@
     <string name="preference_category_miscellaneous">أعدادات متنوعة</string>
     <string name="preference_category_video">إعدادات الفيديو</string>
     <string name="notification_permission_dialog_title">طلب السماح</string>
+    <string name="notification_permission_dialog_text">يحتاج Pojav Zenith Horizon إلى إذن نشر الإشعارات لمنع إيقاف تنزيل اللعبة/حزمة الوحدات عندما تغادر التطبيق. بدون هذا الإذن، قد يقوم نظام Android بإيقاف تقدم التنزيل عندما تضع Pojav Zenith Horizon في الخلفية</string>
     <string name="notification_permission_toast">O</string>
     <string name="preference_ask_for_notification_title">السماح بالإشعارات</string>
     <string name="preference_ask_for_notification_description">.</string>
+    <string name="preference_vsync_in_zink_title">السماح بالمزامنة العمودية مع Zink</string>
+    <string name="preference_vsync_in_zink_description">السماح للمشغل باستخدام واجهة برمجة تطبيقات النظام الداخلية لتمكين المزامنة العمودية لـ Zink. إذا كان المشغل يستخدم Zink وتحديث النظام الخاص بك تسبب في تعطل المشغل، يرجى إغلاق هذه الميزة</string>
     <string name="newdl_starting">قراءة بيانات تعريف اللعبة…</string>
     <string name="newdl_downloading_metadata">تحميل بيانات تعريف اللعبة (%s)</string>
+    <string name="newdl_downloading_game_files">تنزيل ملفات اللعبة… (%d/%d, %.2f MB)</string>
+    <string name="cropper_title">اختيار منطقة الصورة</string>
+    <string name="cropper_lock_vertical">تأمين المحور العمودي</string>
+    <string name="cropper_lock_horizontal">تأمين المحور الأفقي</string>
+    <string name="cropper_reset">إعادة تعيين</string>
+    <string name="cropper_select_cancelled">الاختيار تم إلغاؤه</string>
+    <string name="log_view_button_scroll_off">التمرير التلقائي: مغلق</string>
+    <string name="log_view_button_scroll_on">التمرير التلقائي: مفتوح</string>
+    <string name="log_view_button_output_off">الإخراج: مغلق</string>
+    <string name="log_view_button_output_on">الإخراج: مفتوح</string>
+    <string name="log_view_label_log_output">إخراج السجل:</string>
 </resources>
