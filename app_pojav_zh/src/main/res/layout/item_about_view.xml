@@ -15,11 +15,10 @@
         android:scaleType="fitCenter"
         android:src="@drawable/ic_help"
         android:padding="2.2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="@android:color/white"
-        app:strokeWidth="2.2dp"
+        app:strokeWidth="2dp"
         app:shapeAppearanceOverlay="@style/RoundImageView" />
 
     <TextView
