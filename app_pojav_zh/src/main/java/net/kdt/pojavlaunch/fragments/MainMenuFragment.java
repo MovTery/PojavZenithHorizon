@@ -165,12 +165,13 @@ public class MainMenuFragment extends Fragment implements TaskCountListener {
     }
 
     private void setNotice(boolean show, boolean anim, View view) {
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) mDividingLineView.getLayoutParams();
+        if ((params.horizontalBias == 0 && !show) || ((params.horizontalBias > 0 && params.horizontalBias <= 0.5) && show)) return;
         mNoticeCloseButton.setClickable(false);
 
         if (PREF_ANIMATION && anim) {
             //通过分割线来设置通知栏划出动画
             mLauncherNoticeView.setVisibility(View.VISIBLE);
-            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) mDividingLineView.getLayoutParams();
 
             @SuppressLint("ObjectAnimatorBinding")
             ObjectAnimator animator = ObjectAnimator.ofFloat(params, "horizontalBias", show ? 0f : 0.5f, show ? 0.5f : 0f);
@@ -199,7 +200,6 @@ public class MainMenuFragment extends Fragment implements TaskCountListener {
             mLauncherNoticeView.setVisibility(show ? View.VISIBLE : View.GONE);
             mNoticeCloseButton.setClickable(show);
             //设置分割线位置
-            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) mDividingLineView.getLayoutParams();
             params.horizontalBias = show ? 0.5f : 0f;
             mDividingLineView.setLayoutParams(params);
             checkNewNotice(view);
