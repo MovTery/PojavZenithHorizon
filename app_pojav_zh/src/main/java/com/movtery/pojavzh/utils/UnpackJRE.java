@@ -5,7 +5,6 @@ import static net.kdt.pojavlaunch.Architecture.archAsString;
 import android.content.res.AssetManager;
 import android.util.Log;
 
-import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 
@@ -13,35 +12,47 @@ import java.io.IOException;
 
 public class UnpackJRE {
     public static void unpackAllJre(AssetManager assetManager) {
-        checkInternalJre(assetManager, 17);
-        checkInternalJre(assetManager, 21);
+        checkInternalRuntime(assetManager, InternalRuntime.JRE_17);
+        checkInternalRuntime(assetManager, InternalRuntime.JRE_21);
     }
 
-    public static void checkInternalJre(AssetManager assetManager, int jreVersion) {
-        String jreName = "Internal-" + jreVersion;
-        String launcherJreVersion;
-        String installedJreVersion = MultiRTUtils.readInternalRuntimeVersion(jreName);
+    private static void checkInternalRuntime(AssetManager assetManager, InternalRuntime internalRuntime) {
+        String launcherRuntimeVersion;
+        String installedRuntimeVersion = MultiRTUtils.readInternalRuntimeVersion(internalRuntime.name);
         try {
-            launcherJreVersion = Tools.read(assetManager.open("components/jre-" + jreVersion + "/version"));
+            launcherRuntimeVersion = Tools.read(assetManager.open(internalRuntime.path + "/version"));
         } catch (IOException exc) {
             return;
         }
-        if(!launcherJreVersion.equals(installedJreVersion)) {
-            unpackJre(assetManager, jreName, jreVersion, launcherJreVersion);
+        // this implicitly checks for null, so it will unpack the runtime even if we don't have one installed
+        if (!launcherRuntimeVersion.equals(installedRuntimeVersion)) {
+            unpackInternalRuntime(assetManager, internalRuntime, installedRuntimeVersion);
         }
     }
 
-    private static void unpackJre(AssetManager assetManager, String jreName, int jreVersion, String rtVersion) {
-        PojavApplication.sExecutorService.execute(() -> {
-            try {
-                MultiRTUtils.installRuntimeNamedBinpack(
-                        assetManager.open("components/jre-" + jreVersion + "/universal.tar.xz"),
-                        assetManager.open("components/jre-" + jreVersion + "/bin-" + archAsString(Tools.DEVICE_ARCHITECTURE) + ".tar.xz"),
-                        jreName, rtVersion);
-                MultiRTUtils.postPrepare(jreName);
-            }catch (IOException e) {
-                Log.e("JRE" + jreVersion + "Auto", "Internal JRE unpack failed", e);
-            }
-        });
+    private static void unpackInternalRuntime(AssetManager assetManager, InternalRuntime internalRuntime, String version) {
+        try {
+            MultiRTUtils.installRuntimeNamedBinpack(
+                    assetManager.open(internalRuntime.path + "/universal.tar.xz"),
+                    assetManager.open(internalRuntime.path + "/bin-" + archAsString(Tools.DEVICE_ARCHITECTURE) + ".tar.xz"),
+                    internalRuntime.name, version);
+            MultiRTUtils.postPrepare(internalRuntime.name);
+        } catch (IOException e) {
+            Log.e("UnpackJREAuto", "Internal JRE unpack failed", e);
+        }
+    }
+
+    private enum InternalRuntime {
+        JRE_17(17, "Internal-17", "components/jre-17"),
+        JRE_21(21, "Internal-21", "components/jre-21");
+        public final int majorVersion;
+        public final String name;
+        public final String path;
+
+        InternalRuntime(int majorVersion, String name, String path) {
+            this.majorVersion = majorVersion;
+            this.name = name;
+            this.path = path;
+        }
     }
 }
