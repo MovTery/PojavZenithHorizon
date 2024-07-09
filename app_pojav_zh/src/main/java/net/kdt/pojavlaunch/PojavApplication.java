@@ -77,7 +77,7 @@ public class PojavApplication extends Application {
 												originalJNIDirectory.lastIndexOf("/"))
 												.concat("/x86");
 			}
-			UnpackJRE.unpackAllJre(getAssets()); //解压JRE8、JRE17、JRE21
+			sExecutorService.execute(() -> UnpackJRE.unpackAllJre(getAssets())); //解压JRE8、JRE17、JRE21
 		} catch (Throwable throwable) {
 			Intent ferrorIntent = new Intent(this, ErrorActivity.class);
 			ferrorIntent.putExtra("throwable", throwable);
