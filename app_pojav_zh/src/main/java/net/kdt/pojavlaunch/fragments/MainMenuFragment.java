@@ -30,6 +30,8 @@ import com.movtery.pojavzh.ui.fragment.FilesFragment;
 
 import com.movtery.pojavzh.feature.CheckNewNotice;
 import com.movtery.pojavzh.ui.fragment.ProfileManagerFragment;
+
+import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import com.movtery.pojavzh.ui.dialog.ShareLogDialog;
@@ -41,17 +43,16 @@ import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
 
 import java.io.File;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.Future;
 
 public class MainMenuFragment extends Fragment implements TaskCountListener {
     public static final String TAG = "MainMenuFragment";
-    private CheckNewNotice.NoticeInfo noticeInfo;
+    private CheckNewNotice.NoticeInfo noticeInfo = null;
     private mcVersionSpinner mVersionSpinner;
     private View mLauncherNoticeView, mDividingLineView;
     private Button mNoticeCloseButton;
-    private Timer mCheckNoticeTimer;
     private boolean mTasksRunning;
+    private Future<?> future;
 
     public MainMenuFragment() {
         super(R.layout.fragment_launcher);
@@ -74,6 +75,13 @@ public class MainMenuFragment extends Fragment implements TaskCountListener {
         mVersionSpinner = view.findViewById(R.id.mc_version_spinner);
 
         mAboutButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), AboutFragment.class, AboutFragment.TAG, null));
+        mAboutButton.setOnLongClickListener(v -> {
+            setNotice(true, true, view);
+            SharedPreferences.Editor editor = DEFAULT_PREF.edit();
+            editor.putBoolean("noticeDefault", true);
+            editor.apply();
+            return true;
+        });
         mCustomControlButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ControlButtonFragment.class, ControlButtonFragment.TAG, null));
         mInstallJarButton.setOnClickListener(v -> runInstallerWithConfirmation(false));
         mInstallJarButton.setOnLongClickListener(v -> {
@@ -114,31 +122,21 @@ public class MainMenuFragment extends Fragment implements TaskCountListener {
 
         setNotice(false, false, view);
 
-        mCheckNoticeTimer = new Timer();
-        mCheckNoticeTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                if (CheckNewNotice.isFailure()) { //如果访问失败了，那么取消计时器
-                    mCheckNoticeTimer.cancel();
-                    return;
-                }
-
-                noticeInfo = CheckNewNotice.getNoticeInfo();
-                if (noticeInfo == null) return;
-
-                //当偏好设置内是开启通知栏 或者 检测到通知编号不为偏好设置里保存的值时，显示通知栏
-                if (DEFAULT_PREF.getBoolean("noticeDefault", false) ||
-                        (noticeInfo.getNumbering() != DEFAULT_PREF.getInt("noticeNumbering", 0))) {
-                    runOnUiThread(() -> setNotice(true, CheckNewNotice.isFirstImpressionNotice(), view));
-                    CheckNewNotice.setFirstImpressionNotice(false);
-                    SharedPreferences.Editor editor = DEFAULT_PREF.edit();
-                    editor.putBoolean("noticeDefault", true);
-                    editor.putInt("noticeNumbering", noticeInfo.getNumbering());
-                    editor.apply();
-                    mCheckNoticeTimer.cancel();
-                }
+        future = PojavApplication.sExecutorService.submit(() -> CheckNewNotice.checkNewNotice(requireContext(), noticeInfo -> {
+            if (future.isCancelled()) {
+                return;
             }
-        }, 0, 500); // 0.5秒钟检查一次
+
+            //当偏好设置内是开启通知栏 或者 检测到通知编号不为偏好设置里保存的值时，显示通知栏
+            if (DEFAULT_PREF.getBoolean("noticeDefault", false) ||
+                    (noticeInfo.getNumbering() != DEFAULT_PREF.getInt("noticeNumbering", 0))) {
+                runOnUiThread(() -> setNotice(true, false, view));
+                SharedPreferences.Editor editor = DEFAULT_PREF.edit();
+                editor.putBoolean("noticeDefault", true);
+                editor.putInt("noticeNumbering", noticeInfo.getNumbering());
+                editor.apply();
+            }
+        }));
     }
 
     private void bindValues(View view) {
@@ -155,11 +153,8 @@ public class MainMenuFragment extends Fragment implements TaskCountListener {
 
     @Override
     public void onDestroy() {
+        future.cancel(true);
         super.onDestroy();
-
-        if (mCheckNoticeTimer != null) {
-            mCheckNoticeTimer.cancel();
-        }
     }
 
     private void runInstallerWithConfirmation(boolean isCustomArgs) {
