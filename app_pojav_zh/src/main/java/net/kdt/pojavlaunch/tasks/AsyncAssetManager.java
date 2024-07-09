@@ -1,7 +1,5 @@
 package net.kdt.pojavlaunch.tasks;
 
-
-import static net.kdt.pojavlaunch.Architecture.archAsString;
 import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
 
 import android.content.Context;
@@ -14,8 +12,6 @@ import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.utils.CopyDefaultFromAssets;
 import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.multirt.MultiRTUtils;
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import org.apache.commons.io.FileUtils;
 
@@ -27,46 +23,6 @@ import java.io.InputStream;
 public class AsyncAssetManager {
 
     private AsyncAssetManager(){}
-
-    /**
-     * Attempt to install the java 8 runtime, if necessary
-     * @param am App context
-     */
-    public static void unpackRuntime(AssetManager am) {
-        /* Check if JRE is included */
-        String jreName = "Internal-8";
-        String rt_version = null;
-        String current_rt_version = MultiRTUtils.readInternalRuntimeVersion(jreName);
-        try {
-            rt_version = Tools.read(am.open("components/jre-8/version"));
-        } catch (IOException e) {
-            Log.e("JREAuto", "JRE was not included on this APK.", e);
-        }
-        String exactJREName = MultiRTUtils.getExactJreName(8);
-        if(current_rt_version == null && exactJREName != null && !exactJREName.equals(jreName)/*this clause is for when the internal runtime is goofed*/) return;
-        if(rt_version == null) return;
-        if(rt_version.equals(current_rt_version)) return;
-
-        // Install the runtime in an async manner, hope for the best
-        String finalRt_version = rt_version;
-        sExecutorService.execute(() -> {
-
-            try {
-                MultiRTUtils.installRuntimeNamedBinpack(
-                        am.open("components/jre-8/universal.tar.xz"),
-                        am.open("components/jre-8/bin-" + archAsString(Tools.DEVICE_ARCHITECTURE) + ".tar.xz"),
-                        jreName, finalRt_version);
-                //设置默认运行环境
-                if (LauncherPreferences.PREF_DEFAULT_RUNTIME.isEmpty()) {
-                    LauncherPreferences.PREF_DEFAULT_RUNTIME = jreName;
-                    LauncherPreferences.DEFAULT_PREF.edit().putString("defaultRuntime", LauncherPreferences.PREF_DEFAULT_RUNTIME).apply();
-                }
-                MultiRTUtils.postPrepare(jreName);
-            }catch (IOException e) {
-                Log.e("JRE8Auto", "Internal 8 JRE unpack failed", e);
-            }
-        });
-    }
 
     /** Unpack single files, with no regard to version tracking */
     public static void unpackSingleFiles(Context ctx){

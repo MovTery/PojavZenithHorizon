@@ -29,7 +29,6 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
-import net.kdt.pojavlaunch.tasks.AsyncAssetManager;
 import net.kdt.pojavlaunch.utils.*;
 import net.kdt.pojavlaunch.utils.FileUtils;
 
@@ -78,8 +77,7 @@ public class PojavApplication extends Application {
 												originalJNIDirectory.lastIndexOf("/"))
 												.concat("/x86");
 			}
-			AsyncAssetManager.unpackRuntime(getAssets());
-			UnpackJRE.unpackAllJre(getAssets()); //解压JRE17、JRE21
+			UnpackJRE.unpackAllJre(getAssets()); //解压JRE8、JRE17、JRE21
 		} catch (Throwable throwable) {
 			Intent ferrorIntent = new Intent(this, ErrorActivity.class);
 			ferrorIntent.putExtra("throwable", throwable);
