@@ -75,19 +75,16 @@ public class CheckNewNotice {
 
                         //获取通知消息
                         String language = ZHTools.getSystemLanguage();
-                        String rawTitle;
+                        String rawTitle = noticeJson.getString("title");;
                         String rawSubstance;
                         switch (language) {
                             case "zh_cn":
-                                rawTitle = noticeJson.getString("title_zh_cn");
                                 rawSubstance = noticeJson.getString("substance_zh_cn");
                                 break;
                             case "zh_tw":
-                                rawTitle = noticeJson.getString("title_zh_tw");
                                 rawSubstance = noticeJson.getString("substance_zh_tw");
                                 break;
                             default:
-                                rawTitle = noticeJson.getString("title_en_us");
                                 rawSubstance = noticeJson.getString("substance_en_us");
                         }
                         String rawDate = noticeJson.getString("date");
