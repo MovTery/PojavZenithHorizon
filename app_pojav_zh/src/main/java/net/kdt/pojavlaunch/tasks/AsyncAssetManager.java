@@ -31,9 +31,6 @@ public class AsyncAssetManager {
             try {
                 CopyDefaultFromAssets.copyFromAssets(ctx);
 
-                Tools.copyAssetFile(ctx, "authlib-injector.jar", ZHTools.DIR_LOGIN, true);
-                Tools.copyAssetFile(ctx, "nide8auth.jar", ZHTools.DIR_LOGIN, true);
-
                 Tools.copyAssetFile(ctx, "launcher_profiles.json", ProfilePathHome.getGameHome(), false);
                 Tools.copyAssetFile(ctx,"resolv.conf",Tools.DIR_DATA, false);
             } catch (IOException e) {
@@ -47,6 +44,8 @@ public class AsyncAssetManager {
         ProgressLayout.setProgress(ProgressLayout.EXTRACT_COMPONENTS, 0);
         sExecutorService.execute(() -> {
             try {
+                unpackComponent(ctx, "other_login", false);
+
                 unpackComponent(ctx, "caciocavallo", false);
                 unpackComponent(ctx, "caciocavallo11", false);
                 unpackComponent(ctx, "caciocavallo17", false);
