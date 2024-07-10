@@ -4,6 +4,7 @@ import static net.kdt.pojavlaunch.Tools.shareLog;
 
 import android.content.Context;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -13,7 +14,7 @@ import net.kdt.pojavlaunch.R;
 
 import java.io.File;
 
-public class ShareLogDialog extends FullScreenDialog {
+public class ShareLogDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final File logFile;
     private final String message;
 
@@ -27,6 +28,7 @@ public class ShareLogDialog extends FullScreenDialog {
         setContentView(R.layout.dialog_share_log);
         setCancelable(false);
         init(context);
+        DraggableDialog.initDialog(this);
     }
 
     private void init(Context context) {
@@ -43,5 +45,10 @@ public class ShareLogDialog extends FullScreenDialog {
             shareLog(context);
             ShareLogDialog.this.dismiss();
         });
+    }
+
+    @Override
+    public Window onInit() {
+        return getWindow();
     }
 }

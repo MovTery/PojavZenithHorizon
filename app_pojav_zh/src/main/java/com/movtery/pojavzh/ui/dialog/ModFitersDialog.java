@@ -2,6 +2,7 @@ package com.movtery.pojavzh.ui.dialog;
 
 import android.content.Context;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,7 +23,7 @@ import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchFilters;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModFitersDialog extends FullScreenDialog {
+public class ModFitersDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final SearchFilters mSearchFilters;
     private OnApplyButtonClickListener mOnApplyButtonClickListener;
 
@@ -33,6 +34,7 @@ public class ModFitersDialog extends FullScreenDialog {
         setContentView(R.layout.dialog_mod_filters);
         setCancelable(true);
         init();
+        DraggableDialog.initDialog(this);
     }
 
     private void init() {
@@ -159,6 +161,11 @@ public class ModFitersDialog extends FullScreenDialog {
 
     public void setOnApplyButtonClickListener(OnApplyButtonClickListener listener) {
         this.mOnApplyButtonClickListener = listener;
+    }
+
+    @Override
+    public Window onInit() {
+        return getWindow();
     }
 
     public interface OnApplyButtonClickListener {

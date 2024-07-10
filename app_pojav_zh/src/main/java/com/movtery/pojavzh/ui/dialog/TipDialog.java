@@ -2,6 +2,7 @@ package com.movtery.pojavzh.ui.dialog;
 
 import android.content.Context;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -9,7 +10,7 @@ import androidx.annotation.NonNull;
 
 import net.kdt.pojavlaunch.R;
 
-public class TipDialog extends FullScreenDialog {
+public class TipDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final String title, message, confirm, cancel;
     private final boolean showCancel, showConfirm;
     private final OnCancelClickListener cancelListener;
@@ -32,6 +33,7 @@ public class TipDialog extends FullScreenDialog {
         this.confirmListener = confirmListener;
 
         init();
+        DraggableDialog.initDialog(this);
     }
 
     private void init() {
@@ -66,6 +68,11 @@ public class TipDialog extends FullScreenDialog {
 
         cancelButton.setVisibility(showCancel ? View.VISIBLE : View.GONE);
         confirmButton.setVisibility(showConfirm ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public Window onInit() {
+        return getWindow();
     }
 
     public static class Builder {

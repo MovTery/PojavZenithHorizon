@@ -2,6 +2,7 @@ package com.movtery.pojavzh.ui.dialog;
 
 import android.content.Context;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
@@ -11,7 +12,7 @@ import androidx.annotation.NonNull;
 
 import net.kdt.pojavlaunch.R;
 
-public class EditTextDialog extends FullScreenDialog {
+public class EditTextDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final String title, message, editText, hintText;
     private View.OnClickListener confirm, cancel;
     private TextView mTitle, mMessage;
@@ -29,6 +30,7 @@ public class EditTextDialog extends FullScreenDialog {
         this.editText = editText;
         this.hintText = hintText;
         init();
+        DraggableDialog.initDialog(this);
     }
 
     private void init() {
@@ -76,5 +78,10 @@ public class EditTextDialog extends FullScreenDialog {
         }
 
         super.show();
+    }
+
+    @Override
+    public Window onInit() {
+        return getWindow();
     }
 }

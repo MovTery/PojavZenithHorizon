@@ -6,6 +6,7 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.view.Window;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,7 +18,7 @@ import com.movtery.pojavzh.feature.UpdateLauncher;
 import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 
-public class UpdateDialog extends FullScreenDialog {
+public class UpdateDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final String versionName;
     private final String tagName;
     private final String createdTime;
@@ -35,6 +36,7 @@ public class UpdateDialog extends FullScreenDialog {
         this.setCancelable(false);
         this.setContentView(R.layout.dialog_update);
         init();
+        DraggableDialog.initDialog(this);
     }
     @SuppressLint("SetJavaScriptEnabled")
     private void init() {
@@ -80,6 +82,11 @@ public class UpdateDialog extends FullScreenDialog {
             DEFAULT_PREF.edit().putString("ignoreUpdate", this.versionName).apply();
             this.dismiss();
         });
+    }
+
+    @Override
+    public Window onInit() {
+        return getWindow();
     }
 
     public static class UpdateInformation {

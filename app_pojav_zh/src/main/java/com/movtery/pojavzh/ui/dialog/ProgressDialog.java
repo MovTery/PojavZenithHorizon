@@ -4,6 +4,7 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
 import android.content.Context;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -12,7 +13,7 @@ import androidx.annotation.NonNull;
 
 import net.kdt.pojavlaunch.R;
 
-public class ProgressDialog extends FullScreenDialog {
+public class ProgressDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private TextView textView;
     private ProgressBar progressBar;
 
@@ -22,6 +23,7 @@ public class ProgressDialog extends FullScreenDialog {
         this.setCancelable(false);
 
         init(listener);
+        DraggableDialog.initDialog(this);
     }
 
     private void init(OnCancelListener listener) {
@@ -49,6 +51,11 @@ public class ProgressDialog extends FullScreenDialog {
         if (doubleValue > 0) this.progressBar.setVisibility(View.VISIBLE);
         else this.progressBar.setVisibility(View.GONE);
         this.progressBar.setProgress(intValue, PREF_ANIMATION);
+    }
+
+    @Override
+    public Window onInit() {
+        return getWindow();
     }
 
     public interface OnCancelListener {

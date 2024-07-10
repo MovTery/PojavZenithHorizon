@@ -5,6 +5,7 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -13,13 +14,14 @@ import androidx.annotation.NonNull;
 
 import net.kdt.pojavlaunch.R;
 
-public class MouseSettingsDialog extends FullScreenDialog {
+public class MouseSettingsDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     public MouseSettingsDialog(@NonNull Context context, OnConfirmListener confirmListener, SelectMouseDialog.MouseSelectedListener mouseSelectedListener) {
         super(context);
 
         this.setCancelable(false);
         setContentView(R.layout.dialog_mouse_settings);
         init(confirmListener, mouseSelectedListener);
+        DraggableDialog.initDialog(this);
     }
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
@@ -88,6 +90,11 @@ public class MouseSettingsDialog extends FullScreenDialog {
             if (listener != null) listener.onConfirm(mouseSpeed[0], mouseScale[0]);
             this.dismiss();
         });
+    }
+
+    @Override
+    public Window onInit() {
+        return getWindow();
     }
 
     public interface OnConfirmListener {

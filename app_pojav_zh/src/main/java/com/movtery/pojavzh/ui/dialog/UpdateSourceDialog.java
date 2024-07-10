@@ -4,6 +4,7 @@ import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -13,7 +14,7 @@ import com.movtery.pojavzh.feature.UpdateLauncher;
 
 import net.kdt.pojavlaunch.R;
 
-public class UpdateSourceDialog extends FullScreenDialog {
+public class UpdateSourceDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final String versionName, tagName;
     private final long fileSize;
 
@@ -28,6 +29,7 @@ public class UpdateSourceDialog extends FullScreenDialog {
         this.setContentView(R.layout.dialog_update_source);
 
         init();
+        DraggableDialog.initDialog(this);
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -47,5 +49,10 @@ public class UpdateSourceDialog extends FullScreenDialog {
             updateLauncher.start();
             UpdateSourceDialog.this.dismiss();
         });
+    }
+
+    @Override
+    public Window onInit() {
+        return getWindow();
     }
 }

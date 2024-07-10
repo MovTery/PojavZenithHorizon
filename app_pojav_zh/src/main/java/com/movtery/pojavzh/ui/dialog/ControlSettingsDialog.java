@@ -4,6 +4,7 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Switch;
@@ -13,13 +14,14 @@ import androidx.annotation.NonNull;
 
 import net.kdt.pojavlaunch.R;
 
-public class ControlSettingsDialog extends FullScreenDialog {
+public class ControlSettingsDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     public ControlSettingsDialog(@NonNull Context context) {
         super(context);
 
         this.setCancelable(false);
         setContentView(R.layout.dialog_control_settings);
         init();
+        DraggableDialog.initDialog(this);
     }
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
@@ -53,5 +55,10 @@ public class ControlSettingsDialog extends FullScreenDialog {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+    }
+
+    @Override
+    public Window onInit() {
+        return getWindow();
     }
 }

@@ -1,6 +1,7 @@
 package com.movtery.pojavzh.ui.dialog;
 
 import android.content.Context;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -17,7 +18,7 @@ import net.kdt.pojavlaunch.customcontrols.CustomControls;
 
 import java.io.File;
 
-public class ControlInfoDialog extends FullScreenDialog {
+public class ControlInfoDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final ControlInfoData controlInfoData;
     private final Runnable runnable;
 
@@ -30,6 +31,7 @@ public class ControlInfoDialog extends FullScreenDialog {
         setContentView(R.layout.dialog_control_info);
 
         init(context);
+        DraggableDialog.initDialog(this);
     }
 
     private void init(Context context) {
@@ -79,5 +81,10 @@ public class ControlInfoDialog extends FullScreenDialog {
             text += getContext().getString(R.string.zh_unknown);
         }
         textView.setText(text);
+    }
+
+    @Override
+    public Window onInit() {
+        return getWindow();
     }
 }

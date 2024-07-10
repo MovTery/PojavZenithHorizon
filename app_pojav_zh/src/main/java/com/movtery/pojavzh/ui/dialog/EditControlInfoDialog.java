@@ -1,6 +1,7 @@
 package com.movtery.pojavzh.ui.dialog;
 
 import android.content.Context;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -11,7 +12,7 @@ import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlInfoData;
 
 import net.kdt.pojavlaunch.R;
 
-public class EditControlInfoDialog extends FullScreenDialog {
+public class EditControlInfoDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final ControlInfoData controlInfoData;
     private final String mFileName;
     private final boolean editFileName;
@@ -32,6 +33,7 @@ public class EditControlInfoDialog extends FullScreenDialog {
         initViews();
         initButtons();
         initData();
+        DraggableDialog.initDialog(this);
     }
 
     private void initViews() {
@@ -111,6 +113,11 @@ public class EditControlInfoDialog extends FullScreenDialog {
         TextView titleView = findViewById(R.id.zh_edit_control_info_title);
         if (title != null && !title.isEmpty()) titleView.setText(title);
         super.show();
+    }
+
+    @Override
+    public Window onInit() {
+        return getWindow();
     }
 
     public interface OnConfirmClickListener {
