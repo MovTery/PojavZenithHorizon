@@ -190,10 +190,10 @@ public final class Tools {
 
         if (!Objects.isNull(minecraftAccount.baseUrl) && !minecraftAccount.baseUrl.equals("0")) {
             if (minecraftAccount.baseUrl.contains("auth.mc-user.com")) {
-                javaArgList.add("-javaagent:" + DIR_GAME_HOME + "/login/nide8auth.jar=" + minecraftAccount.baseUrl.replace("https://auth.mc-user.com:233/", ""));
+                javaArgList.add("-javaagent:" + DIR_GAME_HOME + "/other_login/nide8auth.jar=" + minecraftAccount.baseUrl.replace("https://auth.mc-user.com:233/", ""));
                 javaArgList.add("-Dnide8auth.client=true");
             } else {
-                javaArgList.add("-javaagent:" + DIR_GAME_HOME + "/login/authlib-injector.jar=" + minecraftAccount.baseUrl);
+                javaArgList.add("-javaagent:" + DIR_GAME_HOME + "/other_login/authlib-injector.jar=" + minecraftAccount.baseUrl);
             }
         }
 
