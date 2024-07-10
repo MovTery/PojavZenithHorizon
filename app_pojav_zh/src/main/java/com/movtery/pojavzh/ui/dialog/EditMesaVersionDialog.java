@@ -1,6 +1,7 @@
 package com.movtery.pojavzh.ui.dialog;
 
 import android.content.Context;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -9,13 +10,14 @@ import androidx.annotation.NonNull;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
-public class EditMesaVersionDialog extends FullScreenDialog {
+public class EditMesaVersionDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     public EditMesaVersionDialog(@NonNull Context context) {
         super(context);
 
         setCancelable(false);
         setContentView(R.layout.dialog_edit_mesa_version);
         init(context);
+        DraggableDialog.initDialog(this);
     }
 
     private void init(Context context) {
@@ -78,5 +80,10 @@ public class EditMesaVersionDialog extends FullScreenDialog {
         } catch (NumberFormatException e) {
             return true;
         }
+    }
+
+    @Override
+    public Window onInit() {
+        return getWindow();
     }
 }

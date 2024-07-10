@@ -2,38 +2,17 @@ package com.movtery.pojavzh.ui.dialog;
 
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
 
-import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.movtery.pojavzh.ui.subassembly.view.DraggableView;
 
-public abstract class DraggableDialog extends Dialog {
-    public DraggableDialog(@NonNull Context context) {
-        super(context);
-        init();
-    }
-
-    public DraggableDialog(@NonNull Context context, int themeResId) {
-        super(context, themeResId);
-        init();
-    }
-
-    public DraggableDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
-        super(context, cancelable, cancelListener);
-        init();
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    private void init() {
-        Window window = getWindow();
+public abstract class DraggableDialog {
+    
+    public static void initDialog(DialogInitializationListener listener) {
+        Window window = listener.onInit();
         if (window != null) {
             View contentView = window.findViewById(android.R.id.content);
             if (contentView != null) {
@@ -65,5 +44,9 @@ public abstract class DraggableDialog extends Dialog {
                 Log.w("DraggableDialog", "The content view does not exist!");
             }
         }
+    }
+
+    public interface DialogInitializationListener {
+        Window onInit();
     }
 }

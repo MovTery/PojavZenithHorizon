@@ -4,6 +4,7 @@ import static com.movtery.pojavzh.utils.ZHTools.renameFileListener;
 import static com.movtery.pojavzh.utils.ZHTools.shareFile;
 
 import android.content.Context;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,7 +19,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilesDialog extends FullScreenDialog {
+public class FilesDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final Runnable runnable;
     private TextView mTitle, mMessage, moreText;
     private String mFileSuffix;
@@ -67,6 +68,7 @@ public class FilesDialog extends FullScreenDialog {
                 closeDialog();
             });
         }
+        DraggableDialog.initDialog(this);
     }
 
     private void handleButtons(FilesButton filesButton, List<File> selectedFiles) {
@@ -150,6 +152,11 @@ public class FilesDialog extends FullScreenDialog {
 
     public void setFileSuffix(String suffixes) {
         this.mFileSuffix = suffixes;
+    }
+
+    @Override
+    public Window onInit() {
+        return getWindow();
     }
 
     public interface OnCopyButtonClickListener {

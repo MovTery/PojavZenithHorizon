@@ -8,6 +8,7 @@ import android.graphics.BitmapRegionDecoder;
 import android.net.Uri;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ToggleButton;
@@ -26,7 +27,7 @@ import net.kdt.pojavlaunch.utils.CropperUtils;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class CropperDialog extends FullScreenDialog {
+public class CropperDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final Context context;
     private final Uri selectedUri;
     private final CropperUtils.CropperListener cropperListener;
@@ -43,6 +44,7 @@ public class CropperDialog extends FullScreenDialog {
         setContentView(R.layout.dialog_cropper);
 
         init();
+        DraggableDialog.initDialog(this);
     }
 
     private void init() {
@@ -120,5 +122,10 @@ public class CropperDialog extends FullScreenDialog {
         progressBar.setVisibility(View.GONE);
         cropImageView.setCropperBehaviour(cropperBehaviour);
         cropperBehaviour.applyImage();
+    }
+
+    @Override
+    public Window onInit() {
+        return getWindow();
     }
 }

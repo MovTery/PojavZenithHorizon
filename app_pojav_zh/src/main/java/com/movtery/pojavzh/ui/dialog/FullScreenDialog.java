@@ -1,5 +1,6 @@
 package com.movtery.pojavzh.ui.dialog;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Build;
 import android.view.View;
@@ -10,7 +11,7 @@ import androidx.annotation.NonNull;
 
 import net.kdt.pojavlaunch.R;
 
-public abstract class FullScreenDialog extends DraggableDialog {
+public abstract class FullScreenDialog extends Dialog {
 
     public FullScreenDialog(@NonNull Context context) {
         super(context, R.style.CustomDialogStyle);
