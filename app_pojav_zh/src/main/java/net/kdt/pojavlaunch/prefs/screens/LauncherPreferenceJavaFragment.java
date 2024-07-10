@@ -10,7 +10,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.InputType;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.preference.Preference;
@@ -78,11 +77,11 @@ public class LauncherPreferenceJavaFragment extends LauncherPreferenceFragment {
                 int value = Integer.parseInt(editBox.getText().toString());
 
                 if (value < 256) {
-                    Toast.makeText(requireContext(), getString(R.string.zh_setting_java_memory_too_small, 256), Toast.LENGTH_SHORT).show();
+                    editBox.setError(getString(R.string.zh_setting_java_memory_too_small, 256));
                     return;
                 }
                 if (value > maxRAM) {
-                    Toast.makeText(requireContext(), getString(R.string.zh_setting_java_memory_too_big, maxRAM), Toast.LENGTH_SHORT).show();
+                    editBox.setError(getString(R.string.zh_setting_java_memory_too_big, maxRAM));
                     return;
                 }
 
