@@ -72,7 +72,6 @@ android {
         versionName "1.2.5.1"
         multiDexEnabled true //important
         resValue 'string', 'curseforge_api_key', getCFApiKey()
-        resValue 'string', 'curseforge_api_key', getCFApiKey()
         resValue 'string', 'zh_branch_info', getBranchName()
         resValue 'string', 'zh_api_token', getApiToken()
     }
