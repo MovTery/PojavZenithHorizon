@@ -2,6 +2,8 @@ package net.kdt.pojavlaunch;
 
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
+
 import android.Manifest;
 import android.content.Intent;
 import android.app.NotificationManager;
@@ -197,9 +199,13 @@ public class LauncherActivity extends BaseActivity {
 
             @Override
             public void onUsageDenied() {
-                LocalAccountUtils.openDialog(LauncherActivity.this, () -> launchGame(prof),
-                        getString(R.string.zh_account_no_microsoft_account) + getString(R.string.zh_account_purchase_minecraft_account_tip),
-                        R.string.zh_account_continue_to_launch_the_game);
+                if (!DEFAULT_PREF.getBoolean("localAccountReminders", true)) {
+                    launchGame(prof);
+                } else {
+                    LocalAccountUtils.openDialog(LauncherActivity.this, () -> launchGame(prof),
+                            getString(R.string.zh_account_no_microsoft_account) + getString(R.string.zh_account_purchase_minecraft_account_tip),
+                            R.string.zh_account_continue_to_launch_the_game);
+                }
             }
         });
 

@@ -22,6 +22,7 @@
     <string name="zh_wan">Vạn</string>
     <string name="zh_yi">Tỷ</string>
     <string name="zh_wrong_tip">Đã xảy ra sự cố</string>
+    <string name="zh_no_more_reminders">Không nhắc lại nữa</string>
     <!-- Dialog -->
     <string name="zh_dialog_select_jar">Chọn tệp Jar</string>
     <!-- Profiles Path -->

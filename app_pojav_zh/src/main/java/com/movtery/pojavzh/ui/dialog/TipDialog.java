@@ -7,17 +7,23 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.LinearLayoutCompat;
 
 import net.kdt.pojavlaunch.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TipDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final String title, message, confirm, cancel;
+    private final View[] moreView;
     private final boolean showCancel, showConfirm;
     private final OnCancelClickListener cancelListener;
     private final OnConfirmClickListener confirmListener;
 
-    public TipDialog(@NonNull Context context,
+    private TipDialog(@NonNull Context context,
                      String title, String message, String confirm, String cancel,
+                     View[] moreView,
                      boolean showCancel, boolean showConfirm,
                      OnCancelClickListener cancelListener, OnConfirmClickListener confirmListener) {
         super(context);
@@ -25,6 +31,8 @@ public class TipDialog extends FullScreenDialog implements DraggableDialog.Dialo
         this.message = message;
         this.confirm = confirm;
         this.cancel = cancel;
+
+        this.moreView = moreView;
 
         this.showCancel = showCancel;
         this.showConfirm = showConfirm;
@@ -41,11 +49,17 @@ public class TipDialog extends FullScreenDialog implements DraggableDialog.Dialo
 
         TextView titleView = findViewById(R.id.zh_tip_title);
         TextView messageView = findViewById(R.id.zh_tip_message);
+        LinearLayoutCompat moreViewLayout = findViewById(R.id.zh_tip_more);
         Button cancelButton = findViewById(R.id.zh_tip_cancel);
         Button confirmButton = findViewById(R.id.zh_tip_confirm);
 
         if (title != null) titleView.setText(title);
         if (message != null) messageView.setText(message);
+        if (moreView.length >= 1) {
+            for (View view : moreView) {
+                moreViewLayout.addView(view);
+            }
+        }
         if (cancel != null) cancelButton.setText(cancel);
         if (confirm != null) confirmButton.setText(confirm);
 
@@ -77,6 +91,7 @@ public class TipDialog extends FullScreenDialog implements DraggableDialog.Dialo
 
     public static class Builder {
         private final Context context;
+        private final List<View> moreView = new ArrayList<>();
         private String title, message, cancel, confirm;
         private OnCancelClickListener cancelClickListener;
         private OnConfirmClickListener confirmClickListener;
@@ -91,6 +106,7 @@ public class TipDialog extends FullScreenDialog implements DraggableDialog.Dialo
         public void buildDialog() {
             TipDialog tipDialog = new TipDialog(this.context,
                     title, message, confirm, cancel,
+                    moreView.toArray(new View[0]),
                     showCancel, showConfirm,
                     cancelClickListener, confirmClickListener);
             tipDialog.setCancelable(cancelable);
@@ -134,6 +150,11 @@ public class TipDialog extends FullScreenDialog implements DraggableDialog.Dialo
 
         public Builder setConfirm(int confirm) {
             this.confirm = this.context.getString(confirm);
+            return this;
+        }
+
+        public Builder addView(View view) {
+            this.moreView.add(view);
             return this;
         }
 
