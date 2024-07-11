@@ -61,8 +61,7 @@ public class TwoLevelListAdapter extends RecyclerView.Adapter<TwoLevelListAdapte
         }
 
         public void setData(TwoLevelListItemBean twoLevelListItemBean) {
-            mainView.setOnClickListener(v ->
-                    fragment.switchToChild(twoLevelListItemBean.getAdapter(), twoLevelListItemBean.getTitle()));
+            mainView.setOnClickListener(v -> fragment.switchToChild(twoLevelListItemBean.getAdapter(), twoLevelListItemBean.getTitle()));
 
             versionId.setText(twoLevelListItemBean.getTitle());
         }

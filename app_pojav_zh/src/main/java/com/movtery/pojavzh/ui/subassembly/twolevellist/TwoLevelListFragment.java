@@ -198,7 +198,7 @@ public abstract class TwoLevelListFragment extends Fragment {
     }
 
     protected void switchToChild(RecyclerView.Adapter<?> adapter, String title) {
-        if (adapter != null) {
+        if (currentTask.isDone() && adapter != null) {
             //保存父级，设置选中的标题文本，切换至子级
             parentAdapter = mRecyclerView.getAdapter();
             mSelectTitle.setText(title);
