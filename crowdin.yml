@@ -1,3 +1,0 @@
-files:
-  - source: /app_pojav_zh/src/main/res/values/strings.xml
-    translation: /app_pojav_zh/src/main/res/values-%android_code%/%original_file_name%
