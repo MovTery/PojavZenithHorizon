@@ -1,11 +1,14 @@
 package net.kdt.pojavlaunch.customcontrols;
 
-import static net.kdt.pojavlaunch.LwjglGlfwKeycode.GLFW_KEY_UNKNOWN;
 import static com.movtery.pojavzh.feature.ResourceManager.getString;
+import static net.kdt.pojavlaunch.LwjglGlfwKeycode.GLFW_KEY_UNKNOWN;
 
+import android.content.Context;
 import android.util.ArrayMap;
 
 import androidx.annotation.Keep;
+
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -154,30 +157,30 @@ public class ControlData {
         );
     }
 
-    public static ControlData[] getSpecialButtons() {
+    public static ControlData[] getSpecialButtons(Context context) {
         if (SPECIAL_BUTTONS == null) {
             SPECIAL_BUTTONS = new ControlData[]{
-                    new ControlData(getString(R.string.zh_keycode_special_keyboard), new int[]{SPECIALBTN_KEYBOARD}, "${margin} * 3 + ${width} * 2", "${margin}", false),
+                    new ControlData(context.getString(R.string.zh_keycode_special_keyboard), new int[]{SPECIALBTN_KEYBOARD}, "${margin} * 3 + ${width} * 2", "${margin}", false),
                     new ControlData("GUI", new int[]{SPECIALBTN_TOGGLECTRL}, "${margin}", "${bottom} - ${margin}"),
-                    new ControlData(getString(R.string.zh_keycode_special_pri), new int[]{SPECIALBTN_MOUSEPRI}, "${margin}", "${screen_height} - ${margin} * 3 - ${height} * 3"),
-                    new ControlData(getString(R.string.zh_keycode_special_sec), new int[]{SPECIALBTN_MOUSESEC}, "${margin} * 3 + ${width} * 2", "${screen_height} - ${margin} * 3 - ${height} * 3"),
-                    new ControlData(getString(R.string.zh_keycode_special_mouse), new int[]{SPECIALBTN_VIRTUALMOUSE}, "${right}", "${margin}", false),
+                    new ControlData(context.getString(R.string.zh_keycode_special_pri), new int[]{SPECIALBTN_MOUSEPRI}, "${margin}", "${screen_height} - ${margin} * 3 - ${height} * 3"),
+                    new ControlData(context.getString(R.string.zh_keycode_special_sec), new int[]{SPECIALBTN_MOUSESEC}, "${margin} * 3 + ${width} * 2", "${screen_height} - ${margin} * 3 - ${height} * 3"),
+                    new ControlData(context.getString(R.string.zh_keycode_special_mouse), new int[]{SPECIALBTN_VIRTUALMOUSE}, "${right}", "${margin}", false),
 
-                    new ControlData(getString(R.string.zh_keycode_special_mid), new int[]{SPECIALBTN_MOUSEMID}, "${margin}", "${margin}"),
-                    new ControlData(getString(R.string.zh_keycode_special_scrollup), new int[]{SPECIALBTN_SCROLLUP}, "${margin}", "${margin}"),
-                    new ControlData(getString(R.string.zh_keycode_special_scrolldown), new int[]{SPECIALBTN_SCROLLDOWN}, "${margin}", "${margin}"),
-                    new ControlData(getString(R.string.zh_keycode_special_menu), new int[]{SPECIALBTN_MENU}, "${margin}", "${margin}")
+                    new ControlData(context.getString(R.string.zh_keycode_special_mid), new int[]{SPECIALBTN_MOUSEMID}, "${margin}", "${margin}"),
+                    new ControlData(context.getString(R.string.zh_keycode_special_scrollup), new int[]{SPECIALBTN_SCROLLUP}, "${margin}", "${margin}"),
+                    new ControlData(context.getString(R.string.zh_keycode_special_scrolldown), new int[]{SPECIALBTN_SCROLLDOWN}, "${margin}", "${margin}"),
+                    new ControlData(context.getString(R.string.zh_keycode_special_menu), new int[]{SPECIALBTN_MENU}, "${margin}", "${margin}")
             };
         }
 
         return SPECIAL_BUTTONS;
     }
 
-    public static List<String> buildSpecialButtonArray() {
+    public static List<String> buildSpecialButtonArray(Context context) {
         if (SPECIAL_BUTTON_NAME_ARRAY == null) {
             List<String> nameList = new ArrayList<>();
-            for (ControlData btn : getSpecialButtons()) {
-                nameList.add(getString(R.string.zh_keycode_special) + " " + btn.name);
+            for (ControlData btn : getSpecialButtons(context)) {
+                nameList.add(StringUtils.insertSpace(context.getString(R.string.zh_keycode_special), btn.name));
             }
             SPECIAL_BUTTON_NAME_ARRAY = nameList;
             Collections.reverse(SPECIAL_BUTTON_NAME_ARRAY);

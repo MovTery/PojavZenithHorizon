@@ -236,8 +236,8 @@ public class EditControlPopup {
 
     private void loadAdapter() {
         //Initialize adapter for keycodes
-        mAdapter = new ArrayAdapter<>(mRootView.getContext(), R.layout.item_centered_textview);
-        mSpecialArray = ControlData.buildSpecialButtonArray();
+        mAdapter = new ArrayAdapter<>(context, R.layout.item_centered_textview);
+        mSpecialArray = ControlData.buildSpecialButtonArray(context);
 
         mAdapter.addAll(mSpecialArray);
         mAdapter.addAll(EfficientAndroidLWJGLKeycode.generateKeyName());
@@ -248,7 +248,7 @@ public class EditControlPopup {
         }
 
         // Orientation spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(mScrollView.getContext(), android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item);
         adapter.addAll(ControlDrawerData.getOrientations(context));
         adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
 

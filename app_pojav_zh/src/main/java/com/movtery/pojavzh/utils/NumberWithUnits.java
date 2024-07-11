@@ -2,6 +2,7 @@ package com.movtery.pojavzh.utils;
 
 import net.kdt.pojavlaunch.R;
 import com.movtery.pojavzh.feature.ResourceManager;
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -42,7 +43,7 @@ public class NumberWithUnits {
         } else {
             DecimalFormat df = new DecimalFormat("#.00");
             String formattedNumber = df.format(bigDecimal.setScale(2, RoundingMode.DOWN).doubleValue());
-            return formattedNumber + " " + units[unitIndex];
+            return StringUtils.insertSpace(formattedNumber, units[unitIndex]);
         }
     }
 }

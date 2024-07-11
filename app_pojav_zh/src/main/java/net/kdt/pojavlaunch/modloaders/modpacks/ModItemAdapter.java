@@ -3,6 +3,7 @@ package net.kdt.pojavlaunch.modloaders.modpacks;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
@@ -26,8 +27,9 @@ import com.movtery.pojavzh.utils.NumberWithUnits;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
+
 import net.kdt.pojavlaunch.R;
-import com.movtery.pojavzh.feature.ResourceManager;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ImageReceiver;
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ModIconCache;
@@ -137,6 +139,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      * Basic viewholder with expension capabilities
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
+        private final Context context;
         private final View view;
         private final TextView mTitle, mDescription, mDownloadCount, mModloader;
         private final ImageView mIconView, mSourceView;
@@ -146,6 +149,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public ViewHolder(View view) {
             super(view);
+            this.context = view.getContext();
             this.view = view;
             mViewHolderSet.add(this);
 
@@ -206,17 +210,17 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             mTitle.setText(item.title);
             mDescription.setText(item.description);
 
-            String downloaderCount = ResourceManager.getString(R.string.zh_profile_mods_information_download_count) + " " + NumberWithUnits.formatNumberWithUnit(item.downloadCount,
+            String downloaderCount = StringUtils.insertSpace(context.getString(R.string.zh_profile_mods_information_download_count), NumberWithUnits.formatNumberWithUnit(item.downloadCount,
                     //判断当前系统语言是否为英文
-                    ZHTools.isEnglish());
+                    ZHTools.isEnglish(context)));
             mDownloadCount.setText(downloaderCount);
-            String modloaderText = ResourceManager.getString(R.string.zh_profile_mods_information_modloader) + " ";
+            String modloaderText;
             if (item.modloader != null && !item.modloader.isEmpty()) {
-                modloaderText += item.modloader;
+                modloaderText = item.modloader;
             } else {
-                modloaderText += ResourceManager.getString(R.string.zh_unknown);
+                modloaderText = context.getString(R.string.zh_unknown);
             }
-            mModloader.setText(modloaderText);
+            mModloader.setText(StringUtils.insertSpace(context.getString(R.string.zh_profile_mods_information_modloader), modloaderText));
         }
 
         private int getSourceDrawable(int apiSource) {

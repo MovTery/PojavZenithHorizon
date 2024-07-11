@@ -11,6 +11,7 @@ import com.movtery.pojavzh.feature.mod.modpack.install.OnInstallStartListener;
 import com.movtery.pojavzh.ui.dialog.ProgressDialog;
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.utils.file.FileUtils;
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -27,7 +28,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.util.Objects;
-import java.util.StringJoiner;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -152,11 +152,7 @@ public class MCBBSModPack {
         profile.gameDir = "./custom_instances/" + modpackName;
         profile.name = mcbbsPackMeta.name;
         profile.lastVersionId = versionId;
-        StringJoiner stringJoiner = new StringJoiner(" ");
-        for (String string : mcbbsPackMeta.launchInfo.javaArgument) {
-            stringJoiner.add(string);
-        }
-        profile.javaArgs = stringJoiner.toString();
+        profile.javaArgs = StringUtils.insertSpace(null, mcbbsPackMeta.launchInfo.javaArgument);;
 
         LauncherProfiles.mainProfileJson.profiles.put(modpackName, profile);
         LauncherProfiles.write(ProfilePathManager.getCurrentProfile());

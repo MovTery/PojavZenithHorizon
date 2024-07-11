@@ -21,6 +21,8 @@ import com.movtery.pojavzh.ui.subassembly.about.AboutItemBean;
 import com.movtery.pojavzh.ui.subassembly.about.AboutRecyclerAdapter;
 
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
+
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 
@@ -67,13 +69,13 @@ public class AboutFragment extends Fragment {
         TextView mVersionStatus = view.findViewById(R.id.zh_about_version_status);
 
         //软件信息
-        String versionName = getString(R.string.zh_about_version_name) + " " + getVersionName(requireContext());
+        String versionName = StringUtils.insertSpace(getString(R.string.zh_about_version_name), getVersionName(requireContext()));
         mVersionName.setText(versionName);
-        String versionCode = getString(R.string.zh_about_version_code) + " " + getVersionCode(requireContext());
+        String versionCode = StringUtils.insertSpace(getString(R.string.zh_about_version_code), getVersionCode(requireContext()));
         mVersionCode.setText(versionCode);
-        String lastUpdateTime = getString(R.string.zh_about_last_update_time) + " " + getLastUpdateTime(requireContext());
+        String lastUpdateTime = StringUtils.insertSpace(getString(R.string.zh_about_last_update_time), getLastUpdateTime(requireContext()));
         mLastUpdateTime.setText(lastUpdateTime);
-        String versionStatus = getString(R.string.zh_about_version_status) + " " + getVersionStatus(requireContext());
+        String versionStatus = StringUtils.insertSpace(getString(R.string.zh_about_version_status), getVersionStatus(requireContext()));
         mVersionStatus.setText(versionStatus);
     }
 

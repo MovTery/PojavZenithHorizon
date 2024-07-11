@@ -69,7 +69,7 @@ public class ModFitersDialog extends FullScreenDialog implements DraggableDialog
 
         mSelectedVersion.setText(mSearchFilters.mcVersion);
 
-        List<String> platfromList = SearchModPlatform.getIndexList();
+        List<String> platfromList = SearchModPlatform.getIndexList(getContext());
         if (mPlatform != null) {
             mPlatform.setAdapter(new ArrayAdapter<>(getContext(), R.layout.item_simple_list_1, platfromList));
             mPlatform.setSelection(SearchModPlatform.getIndex(mSearchFilters.platform));
@@ -86,7 +86,7 @@ public class ModFitersDialog extends FullScreenDialog implements DraggableDialog
             });
         }
 
-        List<String> sortList = new ArrayList<>(SearchModSort.getIndexList());
+        List<String> sortList = new ArrayList<>(SearchModSort.getIndexList(getContext()));
         if (mSortBy != null) {
             mSortBy.setAdapter(new ArrayAdapter<>(getContext(), R.layout.item_simple_list_1, sortList));
             //默认选中筛选器设置的排序索引

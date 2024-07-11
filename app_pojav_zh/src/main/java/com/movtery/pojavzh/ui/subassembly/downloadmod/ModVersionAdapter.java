@@ -1,5 +1,6 @@
 package com.movtery.pojavzh.ui.subassembly.downloadmod;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.movtery.pojavzh.ui.dialog.ModDependenciesDialog;
 import com.movtery.pojavzh.utils.NumberWithUnits;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
@@ -57,12 +59,14 @@ public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.In
     }
 
     public class InnerHolder extends RecyclerView.ViewHolder {
+        private final Context context;
         private final View mainView;
         private final ImageView mImageView;
         private final TextView mTitle, mDownloadCount, mModloaders, mReleaseType;
 
         public InnerHolder(@NonNull View itemView) {
             super(itemView);
+            context = itemView.getContext();
             mainView = itemView;
             mImageView = itemView.findViewById(R.id.mod_download_imageview);
             mTitle = itemView.findViewById(R.id.mod_title_textview);
@@ -76,37 +80,37 @@ public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.In
 
             mTitle.setText(modVersionItem.getTitle());
 
-            String downloadCountText = mainView.getContext().getString(R.string.zh_profile_mods_information_download_count) + " " +
-                    NumberWithUnits.formatNumberWithUnit(modVersionItem.getDownload(), ZHTools.isEnglish());
+            String downloadCountText = StringUtils.insertSpace(context.getString(R.string.zh_profile_mods_information_download_count),
+                    NumberWithUnits.formatNumberWithUnit(modVersionItem.getDownload(), ZHTools.isEnglish(context)));
             mDownloadCount.setText(downloadCountText);
 
-            String modloaderText = mainView.getContext().getString(R.string.zh_profile_mods_information_modloader) + " ";
+            String modloaderText;
             if (modVersionItem.getModloaders() != null && !modVersionItem.getModloaders().isEmpty()) {
-                modloaderText += modVersionItem.getModloaders();
+                modloaderText = modVersionItem.getModloaders();
             } else {
-                modloaderText += mainView.getContext().getString(R.string.zh_unknown);
+                modloaderText = context.getString(R.string.zh_unknown);
             }
-            mModloaders.setText(modloaderText);
+            mModloaders.setText(StringUtils.insertSpace(context.getString(R.string.zh_profile_mods_information_modloader), modloaderText));
 
             mReleaseType.setText(getDownloadTypeText(modVersionItem.getVersionType()));
 
             mainView.setOnClickListener(v -> {
                 if (mTasksRunning) {
-                    Toast.makeText(mainView.getContext(), mainView.getContext().getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, context.getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (!modVersionItem.getModDependencies().isEmpty()) {
                     ModDependenciesDialog dependenciesDialog = new ModDependenciesDialog(
-                            mainView.getContext(),
+                            context,
                             mod,
                             modVersionItem.getModDependencies(),
-                            () -> mod.api.handleInstallation(mainView.getContext(), mod.isModpack, mod.modsPath, modDetail, modVersionItem));
+                            () -> mod.api.handleInstallation(context, mod.isModpack, mod.modsPath, modDetail, modVersionItem));
                     dependenciesDialog.show();
                     return;
                 }
 
-                mod.api.handleInstallation(mainView.getContext(), mod.isModpack, mod.modsPath, modDetail, modVersionItem);
+                mod.api.handleInstallation(context, mod.isModpack, mod.modsPath, modDetail, modVersionItem);
             });
         }
 
@@ -123,22 +127,22 @@ public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.In
         }
 
         private String getDownloadTypeText(VersionType.VersionTypeEnum versionType) {
-            String text = mainView.getContext().getString(R.string.zh_profile_mods_information_release_type) + " ";
+            String text;
             switch (versionType) {
                 case RELEASE:
-                    text += mainView.getContext().getString(R.string.zh_profile_mods_information_release_type_release);
+                    text = mainView.getContext().getString(R.string.zh_profile_mods_information_release_type_release);
                     break;
                 case BETA:
-                    text += mainView.getContext().getString(R.string.zh_profile_mods_information_release_type_beta);
+                    text = mainView.getContext().getString(R.string.zh_profile_mods_information_release_type_beta);
                     break;
                 case ALPHA:
-                    text += mainView.getContext().getString(R.string.zh_profile_mods_information_release_type_alpha);
+                    text = mainView.getContext().getString(R.string.zh_profile_mods_information_release_type_alpha);
                     break;
                 default:
-                    text += mainView.getContext().getString(R.string.zh_unknown);
+                    text = mainView.getContext().getString(R.string.zh_unknown);
                     break;
             }
-            return text;
+            return StringUtils.insertSpace(mainView.getContext().getString(R.string.zh_profile_mods_information_release_type), text);
         }
     }
 }

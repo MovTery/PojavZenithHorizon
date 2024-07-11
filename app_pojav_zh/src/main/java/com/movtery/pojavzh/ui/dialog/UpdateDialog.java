@@ -16,6 +16,8 @@ import androidx.annotation.NonNull;
 
 import com.movtery.pojavzh.feature.UpdateLauncher;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
+
 import net.kdt.pojavlaunch.R;
 
 public class UpdateDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
@@ -45,9 +47,9 @@ public class UpdateDialog extends FullScreenDialog implements DraggableDialog.Di
         TextView mFileSize = findViewById(R.id.zh_update_file_size);
         WebView mDescription = findViewById(R.id.zh_update_description);
 
-        String version = getContext().getString(R.string.zh_update_dialog_version) + " " + this.versionName;
-        String time = getContext().getString(R.string.zh_update_dialog_time) + " " + this.createdTime;
-        String size = getContext().getString(R.string.zh_update_dialog_file_size) + " " + ZHTools.formatFileSize(this.fileSize);
+        String version = StringUtils.insertSpace(getContext().getString(R.string.zh_update_dialog_version), this.versionName);
+        String time = StringUtils.insertSpace(getContext().getString(R.string.zh_update_dialog_time), this.createdTime);
+        String size = StringUtils.insertSpace(getContext().getString(R.string.zh_update_dialog_file_size), ZHTools.formatFileSize(this.fileSize));
 
         mVersionName.setText(version);
         mCreatedTime.setText(time);

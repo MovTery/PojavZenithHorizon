@@ -29,6 +29,7 @@ import net.kdt.pojavlaunch.PojavApplication;
 import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 import com.movtery.pojavzh.ui.dialog.FilesDialog;
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -139,7 +140,9 @@ public class CustomMouseFragment extends Fragment {
             filesDialog.setMoreButtonClick(() -> {
                 DEFAULT_PREF.edit().putString("custom_mouse", fileName).apply();
                 refreshIcon();
-                Toast.makeText(requireContext(), getString(R.string.zh_custom_mouse_added) + " " + (fileName == null ? getString(R.string.zh_custom_mouse_default) : fileName), Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(),
+                        StringUtils.insertSpace(getString(R.string.zh_custom_mouse_added), (fileName == null ? getString(R.string.zh_custom_mouse_default) : fileName)),
+                        Toast.LENGTH_SHORT).show();
                 filesDialog.dismiss();
             });
             filesDialog.show();

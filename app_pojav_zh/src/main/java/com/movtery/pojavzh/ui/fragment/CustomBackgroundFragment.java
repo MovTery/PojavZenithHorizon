@@ -29,6 +29,7 @@ import net.kdt.pojavlaunch.PojavApplication;
 import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 import com.movtery.pojavzh.ui.dialog.FilesDialog;
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import java.io.File;
 import java.util.HashMap;
@@ -107,7 +108,9 @@ public class CustomBackgroundFragment extends Fragment {
                     backgroundMap.put(backgroundType, fileName);
                     BackgroundManager.saveProperties(backgroundMap);
 
-                    Toast.makeText(requireContext(), getString(R.string.zh_custom_background_selected, getCurrentStatusName()) + " " + fileName, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(),
+                            StringUtils.insertSpace(getString(R.string.zh_custom_background_selected, getCurrentStatusName()), fileName),
+                            Toast.LENGTH_SHORT).show();
                     filesDialog.dismiss();
                 });
                 filesDialog.show();

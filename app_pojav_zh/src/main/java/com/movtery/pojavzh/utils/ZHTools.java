@@ -36,11 +36,11 @@ import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
-import com.movtery.pojavzh.feature.ResourceManager;
 import net.kdt.pojavlaunch.Tools;
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.utils.image.ImageUtils;
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
@@ -108,8 +108,8 @@ public class ZHTools {
         fragmentActivity.getOnBackPressedDispatcher().onBackPressed();
     }
 
-    public static boolean isEnglish() {
-        LocaleList locales = ResourceManager.getResources().getConfiguration().getLocales();
+    public static boolean isEnglish(Context context) {
+        LocaleList locales = context.getResources().getConfiguration().getLocales();
         return locales.get(0).getLanguage().equals("en");
     }
 
@@ -380,7 +380,7 @@ public class ZHTools {
         int T = time.indexOf('T');
         int Z = time.indexOf('Z');
         if (T == -1 || Z == -1) return time;
-        return time.substring(0, T) + " " + time.substring(T + 1, Z);
+        return StringUtils.insertSpace(time.substring(0, T), time.substring(T + 1, Z));
     }
 
     @SuppressLint("DefaultLocale")

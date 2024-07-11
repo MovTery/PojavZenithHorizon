@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import net.kdt.pojavlaunch.R;
 import com.movtery.pojavzh.ui.dialog.ControlInfoDialog;
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import java.util.List;
 
@@ -109,7 +110,7 @@ public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             //初始化控制布局名称，如果为空，那么将设置为文件名
             if (controlInfoData.name != null && !controlInfoData.name.isEmpty() && !controlInfoData.name.equals("null")) {
                 mTitle.setText(controlInfoData.name);
-                String fileNameString = mFileName.getContext().getString(R.string.zh_controls_info_file_name) + controlInfoData.fileName;
+                String fileNameString = StringUtils.insertSpace(mFileName.getContext().getString(R.string.zh_controls_info_file_name), controlInfoData.fileName);
                 mFileName.setVisibility(View.VISIBLE);
                 mFileName.setText(fileNameString);
             } else {
@@ -123,7 +124,7 @@ public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             //初始化作者名，如果没有填写，那么就隐藏它
             if (controlInfoData.author != null && !controlInfoData.author.isEmpty() && !controlInfoData.author.equals("null")) {
-                String authorString = mAuthor.getContext().getString(R.string.zh_controls_info_author) + controlInfoData.author;
+                String authorString = StringUtils.insertSpace(mAuthor.getContext().getString(R.string.zh_controls_info_author), controlInfoData.author);
                 mAuthor.setVisibility(View.VISIBLE);
                 mAuthor.setText(authorString);
             } else {
@@ -132,7 +133,7 @@ public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             //初始化版本
             if (controlInfoData.version != null && !controlInfoData.version.isEmpty() && !controlInfoData.version.equals("null")) {
-                String versionString = mVersion.getContext().getString(R.string.zh_controls_info_version) + controlInfoData.version;
+                String versionString = StringUtils.insertSpace(mVersion.getContext().getString(R.string.zh_controls_info_version), controlInfoData.version);
                 mVersion.setVisibility(View.VISIBLE);
                 mVersion.setText(versionString);
             } else {
@@ -162,7 +163,7 @@ public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
 
         public void setData(ControlItemBean controlItemBean) {
-            String text = context.getString(R.string.zh_controls_info_invalid) + " " + controlItemBean.getControlInfoData().fileName;
+            String text = StringUtils.insertSpace(context.getString(R.string.zh_controls_info_invalid), controlItemBean.getControlInfoData().fileName);
             title.setText(text);
 
             //设置文本字体

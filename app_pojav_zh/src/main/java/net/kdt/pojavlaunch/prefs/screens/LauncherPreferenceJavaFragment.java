@@ -20,6 +20,7 @@ import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.platform.MemoryUtils;
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.multirt.MultiRTConfigDialog;
 import net.kdt.pojavlaunch.prefs.CustomSeekBarPreference;
@@ -69,7 +70,7 @@ public class LauncherPreferenceJavaFragment extends LauncherPreferenceFragment {
         allocationSeek.setOnPreferenceClickListener(preference -> {
             //点击此项将弹出输入框以手动输入内存值
             EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(R.string.mcl_memory_allocation),
-                    getMemoryInfoText(requireContext()) + "\r\n" + getString(R.string.zh_setting_java_memory_max, String.format("%s MB", maxRAM)),
+                    StringUtils.insertNewline(getMemoryInfoText(requireContext()), getString(R.string.zh_setting_java_memory_max, String.format("%s MB", maxRAM))),
                     String.valueOf(allocationSeek.getValue()), null);
             editTextDialog.getEditBox().setInputType(InputType.TYPE_CLASS_NUMBER);
             editTextDialog.setConfirm(view -> {
@@ -127,8 +128,8 @@ public class LauncherPreferenceJavaFragment extends LauncherPreferenceFragment {
 
         boolean isMemorySizeExceeded = seekValue > freeDeviceMemory;
 
-        String summary = getString(R.string.zh_setting_java_memory_desc) + "\r\n" + getMemoryInfoText(context, freeDeviceMemory);
-        if (isMemorySizeExceeded) summary += "\r\n" + getString(R.string.zh_setting_java_memory_exceeded);
+        String summary = StringUtils.insertNewline(getString(R.string.zh_setting_java_memory_desc), getMemoryInfoText(context, freeDeviceMemory));
+        if (isMemorySizeExceeded) summary = StringUtils.insertNewline(summary, getString(R.string.zh_setting_java_memory_exceeded));
 
         String finalSummary = summary;
         runOnUiThread(() -> seek.setSummary(finalSummary));
