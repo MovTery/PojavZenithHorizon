@@ -117,12 +117,12 @@ public class DownloadOptiFineFragment extends TwoLevelListFragment implements Mo
     @Override
     public void onDownloadFinished(File downloadedFile) {
         Tools.runOnUiThread(() -> {
-            modloaderListenerProxy.detachListener();
-
             Intent modInstallerStartIntent = new Intent(activity, JavaGUILauncherActivity.class);
             OptiFineUtils.addAutoInstallArgs(modInstallerStartIntent, downloadedFile);
             SelectRuntimeDialog selectRuntimeDialog = new SelectRuntimeDialog(requireContext());
             selectRuntimeDialog.setListener(jreName -> {
+                modloaderListenerProxy.detachListener();
+
                 modInstallerStartIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName);
                 selectRuntimeDialog.dismiss();
                 Tools.backToMainMenu(activity);
