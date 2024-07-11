@@ -12,6 +12,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -218,14 +220,18 @@ public class MainMenuFragment extends Fragment implements TaskCountListener {
             //初始化
             TextView noticeTitleView = view.findViewById(R.id.zh_menu_notice_title);
             TextView noticeDateView = view.findViewById(R.id.zh_menu_notice_date);
-            TextView noticeSubstanceWebView = view.findViewById(R.id.zh_menu_notice_substance);
+            TextView noticeSubstanceTextView = view.findViewById(R.id.zh_menu_notice_substance);
 
             if (!noticeInfo.getRawTitle().equals("NONE")) {
                 noticeTitleView.setText(noticeInfo.getRawTitle());
             }
 
             noticeDateView.setText(noticeInfo.getRawDate());
-            noticeSubstanceWebView.setText(noticeInfo.getSubstance());
+            noticeSubstanceTextView.setText(noticeInfo.getSubstance());
+
+            //文本内的网址可以被点击
+            Linkify.addLinks(noticeSubstanceTextView, Linkify.WEB_URLS);
+            noticeSubstanceTextView.setMovementMethod(LinkMovementMethod.getInstance());
         });
     }
 
