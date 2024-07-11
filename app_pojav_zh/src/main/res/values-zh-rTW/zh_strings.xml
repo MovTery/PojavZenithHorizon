@@ -22,6 +22,7 @@
     <string name="zh_wan">萬</string>
     <string name="zh_yi">億</string>
     <string name="zh_wrong_tip">出現了一些問題</string>
+    <string name="zh_no_more_reminders">不再提醒我</string>
     <!-- Dialog -->
     <string name="zh_dialog_select_jar">選擇 Jar 檔案</string>
     <!-- Profiles Path -->

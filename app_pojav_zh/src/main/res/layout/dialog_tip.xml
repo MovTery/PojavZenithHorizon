@@ -32,6 +32,14 @@
         app:layout_constraintTop_toBottomOf="@+id/zh_tip_title" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/zh_tip_more"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/zh_tip_message" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearLayoutCompat4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -40,7 +48,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zh_tip_message">
+        app:layout_constraintTop_toBottomOf="@+id/zh_tip_more">
 
         <Button
             android:id="@+id/zh_tip_cancel"

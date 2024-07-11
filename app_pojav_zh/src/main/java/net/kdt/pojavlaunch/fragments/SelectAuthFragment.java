@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch.fragments;
 
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -41,9 +43,13 @@ public class SelectAuthFragment extends Fragment {
 
             @Override
             public void onUsageDenied() {
-                LocalAccountUtils.openDialog(fragmentActivity, () -> Tools.swapFragment(fragmentActivity, OtherLoginFragment.class, OtherLoginFragment.TAG, null),
-                        getString(R.string.zh_account_no_microsoft_account_other) + getString(R.string.zh_account_purchase_minecraft_account_tip),
-                        R.string.zh_account_no_microsoft_account_other_confirm);
+                if (!DEFAULT_PREF.getBoolean("localAccountReminders", true)) {
+                    Tools.swapFragment(fragmentActivity, OtherLoginFragment.class, OtherLoginFragment.TAG, null);
+                } else {
+                    LocalAccountUtils.openDialog(fragmentActivity, () -> Tools.swapFragment(fragmentActivity, OtherLoginFragment.class, OtherLoginFragment.TAG, null),
+                            getString(R.string.zh_account_no_microsoft_account_other) + getString(R.string.zh_account_purchase_minecraft_account_tip),
+                            R.string.zh_account_no_microsoft_account_other_confirm);
+                }
             }
         }));
 
@@ -55,9 +61,13 @@ public class SelectAuthFragment extends Fragment {
 
             @Override
             public void onUsageDenied() {
-                LocalAccountUtils.openDialog(fragmentActivity, () -> Tools.swapFragment(fragmentActivity, LocalLoginFragment.class, LocalLoginFragment.TAG, null),
-                        getString(R.string.zh_account_no_microsoft_account_local) + getString(R.string.zh_account_purchase_minecraft_account_tip),
-                        R.string.zh_account_no_microsoft_account_local_confirm);
+                if (!DEFAULT_PREF.getBoolean("localAccountReminders", true)) {
+                    Tools.swapFragment(fragmentActivity, LocalLoginFragment.class, LocalLoginFragment.TAG, null);
+                } else {
+                    LocalAccountUtils.openDialog(fragmentActivity, () -> Tools.swapFragment(fragmentActivity, LocalLoginFragment.class, LocalLoginFragment.TAG, null),
+                            getString(R.string.zh_account_no_microsoft_account_local) + getString(R.string.zh_account_purchase_minecraft_account_tip),
+                            R.string.zh_account_no_microsoft_account_local_confirm);
+                }
             }
         }));
     }
