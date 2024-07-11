@@ -101,7 +101,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     private DrawerLayout drawerLayout;
     private ListView navDrawer;
     private View mDrawerPullButton;
-    private TextView mGameTipView;
+    private View mGameTipView;
+    private TextView mGameTipTextView;
     private GyroControl mGyroControl = null;
     private KeyboardDialog keyboardDialog;
     public static ControlLayout mControlLayout;
@@ -238,8 +239,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
                     runOnUiThread(() -> {
                         // 淡入游戏内提示
-                        String tipString = StringUtils.insertNewline(mGameTipView.getText(), StringUtils.insertSpace(getString(R.string.zh_game_tip_version), minecraftProfile.lastVersionId));
-                        mGameTipView.setText(tipString);
+                        String tipString = StringUtils.insertNewline(mGameTipTextView.getText(), StringUtils.insertSpace(getString(R.string.zh_game_tip_version), minecraftProfile.lastVersionId));
+                        mGameTipTextView.setText(tipString);
                         //显示动画
                         AnimUtils.setVisibilityAnim(mGameTipView, 1000, true, 300, new AnimUtils.AnimationListener() {
                             @Override
@@ -300,7 +301,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         loggerView = findViewById(R.id.mainLoggerView);
         touchCharInput = findViewById(R.id.mainTouchCharInput);
         mDrawerPullButton = findViewById(R.id.drawer_button);
-        mGameTipView = findViewById(R.id.zh_game_tip);
+        mGameTipView = findViewById(R.id.zh_game_tip_view);
+        mGameTipTextView = findViewById(R.id.zh_game_tip);
     }
 
     @Override
