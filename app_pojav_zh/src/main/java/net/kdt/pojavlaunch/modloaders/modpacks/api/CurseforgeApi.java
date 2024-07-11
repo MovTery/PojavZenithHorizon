@@ -16,6 +16,7 @@ import com.movtery.pojavzh.feature.mod.modpack.install.OnInstallStartListener;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.VersionType;
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -287,32 +288,32 @@ public class CurseforgeApi implements ModpackApi{
     }
 
     public ModLoader installCurseforgeZip(File zipFile, File instanceDestination, OnInstallStartListener onInstallStartListener) throws IOException {
-        try (ZipFile modpackZipFile = new ZipFile(zipFile)){
+        try (ZipFile modpackZipFile = new ZipFile(zipFile)) {
             CurseManifest curseManifest = Tools.GLOBAL_GSON.fromJson(
                     Tools.read(ZipUtils.getEntryStream(modpackZipFile, "manifest.json")),
                     CurseManifest.class);
-            if(!verifyManifest(curseManifest)) {
-                Log.i("CurseforgeApi","manifest verification failed");
+            if (!verifyManifest(curseManifest)) {
+                Log.i("CurseforgeApi", "manifest verification failed");
                 return null;
             }
             if (onInstallStartListener != null) onInstallStartListener.onStart();
-            ModDownloader modDownloader = new ModDownloader(new File(instanceDestination,"mods"), true);
+            ModDownloader modDownloader = new ModDownloader(new File(instanceDestination, "mods"), true);
             int fileCount = curseManifest.files.length;
-            for(int i = 0; i < fileCount; i++) {
+            for (int i = 0; i < fileCount; i++) {
                 final CurseManifest.CurseFile curseFile = curseManifest.files[i];
-                modDownloader.submitDownload(()->{
+                modDownloader.submitDownload(() -> {
                     String url = getDownloadUrl(curseFile.projectID, curseFile.fileID);
-                    if(url == null && curseFile.required)
-                        throw new IOException("Failed to obtain download URL for "+curseFile.projectID+" "+curseFile.fileID);
-                    else if(url == null) return null;
+                    if (url == null && curseFile.required)
+                        throw new IOException("Failed to obtain download URL for " + StringUtils.insertSpace(curseFile.projectID, curseFile.fileID));
+                    else if (url == null) return null;
                     return new ModDownloader.FileInfo(url, FileUtils.getFileName(url), getDownloadSha1(curseFile.projectID, curseFile.fileID));
                 });
             }
-            modDownloader.awaitFinish((c,m)->
-                    ProgressKeeper.submitProgress(ProgressLayout.INSTALL_MODPACK, (int) Math.max((float)c/m*100,0), R.string.modpack_download_downloading_mods_fc, c, m)
+            modDownloader.awaitFinish((c, m) ->
+                    ProgressKeeper.submitProgress(ProgressLayout.INSTALL_MODPACK, (int) Math.max((float) c / m * 100, 0), R.string.modpack_download_downloading_mods_fc, c, m)
             );
             String overridesDir = "overrides";
-            if(curseManifest.overrides != null) overridesDir = curseManifest.overrides;
+            if (curseManifest.overrides != null) overridesDir = curseManifest.overrides;
             ZipUtils.zipExtract(modpackZipFile, overridesDir, instanceDestination);
             return createInfo(curseManifest.minecraft);
         }
@@ -331,7 +332,7 @@ public class CurseforgeApi implements ModpackApi{
         int dashIndex = modLoaderId.indexOf('-');
         String modLoaderName = modLoaderId.substring(0, dashIndex);
         String modLoaderVersion = modLoaderId.substring(dashIndex+1);
-        Log.i("CurseforgeApi", modLoaderId + " " + modLoaderName + " "+modLoaderVersion);
+        Log.i("CurseforgeApi", StringUtils.insertSpace(modLoaderId, modLoaderName, modLoaderVersion));
         int modLoaderTypeInt;
         switch (modLoaderName) {
             case "forge":

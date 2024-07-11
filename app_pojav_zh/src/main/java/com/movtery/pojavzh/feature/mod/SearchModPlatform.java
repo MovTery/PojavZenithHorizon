@@ -1,6 +1,6 @@
 package com.movtery.pojavzh.feature.mod;
 
-import com.movtery.pojavzh.feature.ResourceManager;
+import android.content.Context;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchFilters;
@@ -11,9 +11,9 @@ import java.util.List;
 public class SearchModPlatform {
     public static final List<String> indexList = new ArrayList<>();
 
-    public static List<String> getIndexList() {
+    public static List<String> getIndexList(Context context) {
         if (indexList.isEmpty()) {
-            indexList.add(ResourceManager.getString(R.string.zh_profile_mods_search_platform_both));
+            indexList.add(context.getString(R.string.zh_profile_mods_search_platform_both));
             indexList.add("Modrinth");
             indexList.add("CurseForge");
         }

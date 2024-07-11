@@ -1,7 +1,8 @@
 package com.movtery.pojavzh.feature.mod;
 
+import android.content.Context;
+
 import net.kdt.pojavlaunch.R;
-import com.movtery.pojavzh.feature.ResourceManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +15,13 @@ public class SearchModSort {
     public static final int CURSEFORGE_SORT_INDEX_RECENTLY_UPDATED = 3;
     public static final List<String> indexList = new ArrayList<>();
 
-    public static List<String> getIndexList() {
+    public static List<String> getIndexList(Context context) {
         if (indexList.isEmpty()) {
-            indexList.add(ResourceManager.getString(R.string.zh_profile_mods_search_sort_by_relevant)); //相关 0
-            indexList.add(ResourceManager.getString(R.string.zh_profile_mods_search_sort_by_total_downloads)); //总下载 1
-            indexList.add(ResourceManager.getString(R.string.zh_profile_mods_search_sort_by_popularity)); //人气 2
-            indexList.add(ResourceManager.getString(R.string.zh_profile_mods_search_sort_by_recently_created)); //最近创建 3
-            indexList.add(ResourceManager.getString(R.string.zh_profile_mods_search_sort_by_recently_updated)); //最近更新 4
+            indexList.add(context.getString(R.string.zh_profile_mods_search_sort_by_relevant)); //相关 0
+            indexList.add(context.getString(R.string.zh_profile_mods_search_sort_by_total_downloads)); //总下载 1
+            indexList.add(context.getString(R.string.zh_profile_mods_search_sort_by_popularity)); //人气 2
+            indexList.add(context.getString(R.string.zh_profile_mods_search_sort_by_recently_created)); //最近创建 3
+            indexList.add(context.getString(R.string.zh_profile_mods_search_sort_by_recently_updated)); //最近更新 4
         }
         return indexList;
     }

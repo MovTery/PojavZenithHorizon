@@ -1,9 +1,11 @@
 package com.movtery.pojavzh.feature;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 
 public class ResourceManager {
+    @SuppressLint("StaticFieldLeak")
     private static Context context;
     private static Resources resources;
 

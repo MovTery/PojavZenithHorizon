@@ -17,6 +17,7 @@ import com.movtery.pojavzh.ui.dialog.ProgressDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.dialog.UpdateDialog;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
@@ -189,7 +190,7 @@ public class UpdateLauncher {
 
     private static void installApk(Context context, File outputFile) {
         runOnUiThread(() -> new TipDialog.Builder(context)
-                .setMessage(context.getString(R.string.zh_update_success) + " " + outputFile.getAbsolutePath())
+                .setMessage(StringUtils.insertSpace(context.getString(R.string.zh_update_success), outputFile.getAbsolutePath()))
                 .setCancelable(false)
                 .setConfirmClickListener(() -> { //安装
                     Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -263,7 +264,9 @@ public class UpdateLauncher {
                             } else if (!ignore) {
                                 runOnUiThread(() -> {
                                     String nowVersionName = ZHTools.getVersionName(context);
-                                    runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_without) + " " + nowVersionName, Toast.LENGTH_SHORT).show());
+                                    runOnUiThread(() -> Toast.makeText(context,
+                                            StringUtils.insertSpace(context.getString(R.string.zh_update_without), nowVersionName),
+                                            Toast.LENGTH_SHORT).show());
                                 });
                             }
                         } catch (Exception ignored) {

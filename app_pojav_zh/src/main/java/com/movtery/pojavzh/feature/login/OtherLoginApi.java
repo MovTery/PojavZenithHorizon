@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
 
@@ -60,7 +61,7 @@ public class OtherLoginApi {
             AuthResult result=new Gson().fromJson(res,AuthResult.class);
             listener.onSuccess(result);
         } else {
-            listener.onFailed(context.getString(R.string.zh_other_login_error_code) + " " + response.code() + "\n" + res);
+            listener.onFailed(StringUtils.insertSpace(context.getString(R.string.zh_other_login_error_code), StringUtils.insertNewline(response.code(), res)));
         }
     }
 

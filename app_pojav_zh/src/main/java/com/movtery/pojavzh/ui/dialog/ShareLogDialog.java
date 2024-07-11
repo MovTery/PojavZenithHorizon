@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
+
 import net.kdt.pojavlaunch.R;
 
 import java.io.File;
@@ -21,8 +23,7 @@ public class ShareLogDialog extends FullScreenDialog implements DraggableDialog.
     public ShareLogDialog(@NonNull Context context, @NonNull File log) {
         super(context);
 
-        this.message = context.getString(R.string.zh_main_share_log_tip) + " " + (
-                log.exists() ? log.getAbsolutePath() : context.getString(R.string.zh_file_does_not_exist));
+        this.message = StringUtils.insertSpace(context.getString(R.string.zh_main_share_log_tip), (log.exists() ? log.getAbsolutePath() : context.getString(R.string.zh_file_does_not_exist)));
         this.logFile = log;
 
         setContentView(R.layout.dialog_share_log);

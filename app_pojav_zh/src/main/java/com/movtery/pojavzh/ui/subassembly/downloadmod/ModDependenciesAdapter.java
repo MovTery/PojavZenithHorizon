@@ -10,14 +10,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.movtery.pojavzh.feature.ResourceManager;
 import com.movtery.pojavzh.ui.fragment.DownloadModFragment;
 import com.movtery.pojavzh.ui.subassembly.viewmodel.ModApiViewModel;
 import com.movtery.pojavzh.utils.NumberWithUnits;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ImageReceiver;
@@ -107,25 +108,27 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
             mIconCache.getImage(mImageReceiver, item.getIconCacheTag(), item.imageUrl);
             mSourceImage.setImageResource(getSourceDrawable(item.apiSource));
             mTitle.setText(item.title);
-            String dependencies = mod.fragment.requireActivity().getString(R.string.zh_profile_mods_information_dependencies) + " " +
-                    ModDependencies.getTextFromType(mod.fragment.requireContext(), modVersionItem.dependencyType);
+
+            FragmentActivity fragmentActivity = mod.fragment.requireActivity();
+            String dependencies = StringUtils.insertSpace(fragmentActivity.getString(R.string.zh_profile_mods_information_dependencies),
+                    ModDependencies.getTextFromType(fragmentActivity, modVersionItem.dependencyType));
             mDependencies.setText(dependencies);
             mDesc.setText(item.description);
 
-            String downloaderCount = ResourceManager.getString(R.string.zh_profile_mods_information_download_count) + " " + NumberWithUnits.formatNumberWithUnit(item.downloadCount,
+            String downloaderCount = StringUtils.insertSpace(fragmentActivity.getString(R.string.zh_profile_mods_information_download_count), NumberWithUnits.formatNumberWithUnit(item.downloadCount,
                     //判断当前系统语言是否为英文
-                    ZHTools.isEnglish());
+                    ZHTools.isEnglish(fragmentActivity)));
             mDownloadCount.setText(downloaderCount);
-            String modloaderText = ResourceManager.getString(R.string.zh_profile_mods_information_modloader) + " ";
+            String modloaderText;
             if (item.modloader != null && !item.modloader.isEmpty()) {
-                modloaderText += item.modloader;
+                modloaderText = item.modloader;
             } else {
-                modloaderText += ResourceManager.getString(R.string.zh_unknown);
+                modloaderText = fragmentActivity.getString(R.string.zh_unknown);
             }
-            mModloaders.setText(modloaderText);
+            mModloaders.setText(StringUtils.insertSpace(fragmentActivity.getString(R.string.zh_profile_mods_information_modloader), modloaderText));
 
             mainView.setOnClickListener(v -> {
-                ModApiViewModel viewModel = new ViewModelProvider(mod.fragment.requireActivity()).get(ModApiViewModel.class);
+                ModApiViewModel viewModel = new ViewModelProvider(fragmentActivity).get(ModApiViewModel.class);
                 viewModel.setModApi(mod.api);
                 viewModel.setModItem(item);
                 viewModel.setModpack(mod.isModpack);

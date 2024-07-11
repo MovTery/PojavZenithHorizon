@@ -74,6 +74,8 @@ import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import com.movtery.pojavzh.feature.ProfileLanguageSelector;
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
+
 import net.kdt.pojavlaunch.services.GameService;
 import net.kdt.pojavlaunch.utils.JREUtils;
 import net.kdt.pojavlaunch.utils.MCOptionUtils;
@@ -236,7 +238,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
                     runOnUiThread(() -> {
                         // 淡入游戏内提示
-                        String tipString = mGameTipView.getText() + "\n" + getString(R.string.zh_game_tip_version) + " " + minecraftProfile.lastVersionId;
+                        String tipString = StringUtils.insertNewline(mGameTipView.getText(), StringUtils.insertSpace(getString(R.string.zh_game_tip_version), minecraftProfile.lastVersionId));
                         mGameTipView.setText(tipString);
                         //显示动画
                         AnimUtils.setVisibilityAnim(mGameTipView, 1000, true, 300, new AnimUtils.AnimationListener() {
@@ -407,7 +409,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     private void printLauncherInfo(String gameVersion, String javaArguments, String javaRuntime) {
         Logger.appendToLog("Info: Launcher version: " + getVersionName(this) + " (" + getVersionCode(this) + ")");
         Logger.appendToLog("Info: Architecture: " + Architecture.archAsString(Tools.DEVICE_ARCHITECTURE));
-        Logger.appendToLog("Info: Device model: " + Build.MANUFACTURER + " " +Build.MODEL);
+        Logger.appendToLog("Info: Device model: " + StringUtils.insertSpace(Build.MANUFACTURER, Build.MODEL));
         Logger.appendToLog("Info: API version: " + Build.VERSION.SDK_INT);
         Logger.appendToLog("Info: Selected Minecraft version: " + gameVersion);
         Logger.appendToLog("Info: Custom Java arguments: \"" + javaArguments + "\"");
