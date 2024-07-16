@@ -12,6 +12,7 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.util.Log;
 
+import com.movtery.pojavzh.utils.UnpackJRE;
 import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.*;
@@ -165,16 +166,23 @@ public class LauncherPreferences {
                     PREF_CUSTOM_JAVA_ARGS.replace(arg, "")).apply();
             }
         }
-        if(DEFAULT_PREF.contains("defaultRuntime")) {
-            PREF_DEFAULT_RUNTIME = DEFAULT_PREF.getString("defaultRuntime","");
-        }else{
-            if(MultiRTUtils.getRuntimes().isEmpty()) {
-                PREF_DEFAULT_RUNTIME = "";
-                return;
-            }
-            PREF_DEFAULT_RUNTIME = MultiRTUtils.getRuntimes().get(0).name;
-            LauncherPreferences.DEFAULT_PREF.edit().putString("defaultRuntime",LauncherPreferences.PREF_DEFAULT_RUNTIME).apply();
+
+        reloadRuntime();
+    }
+
+    public static void reloadRuntime() {
+        if (DEFAULT_PREF.contains("defaultRuntime")) {
+            PREF_DEFAULT_RUNTIME = DEFAULT_PREF.getString("defaultRuntime", "");
+            return;
+        } else if (MultiRTUtils.getRuntimes().isEmpty()) {
+            PREF_DEFAULT_RUNTIME = "";
+            LauncherPreferences.DEFAULT_PREF.edit().putString("defaultRuntime", PREF_DEFAULT_RUNTIME).apply();
+            return;
         }
+
+        //设置默认运行环境
+        PREF_DEFAULT_RUNTIME = UnpackJRE.InternalRuntime.JRE_8.name;
+        LauncherPreferences.DEFAULT_PREF.edit().putString("defaultRuntime", PREF_DEFAULT_RUNTIME).apply();
     }
 
     /**
