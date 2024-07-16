@@ -30,13 +30,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         return true;
     }
 
-
-    @Override
-    public void startActivity(Intent i) {
-        super.startActivity(i);
-        //new Throwable("StartActivity").printStackTrace();
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
