@@ -192,7 +192,7 @@ public class LauncherActivity extends BaseActivity {
             return false;
         }
         onStartLaunchGame = true;
-        return true;
+        return false;
     };
 
     private final ExtraListener<Boolean> mStartDownloadMinecraft = (key, value) -> {
@@ -200,7 +200,7 @@ public class LauncherActivity extends BaseActivity {
             return false;
         }
         onCheckAccount(true);
-        return true;
+        return false;
     };
 
     private final ExtraListener<Boolean> mSkipDownloadMinecraft = (key, value) -> {
@@ -208,7 +208,7 @@ public class LauncherActivity extends BaseActivity {
             return false;
         }
         onCheckAccount(false);
-        return true;
+        return false;
     };
 
     private final TaskCountListener mDoubleLaunchPreventionListener = taskCount -> {
