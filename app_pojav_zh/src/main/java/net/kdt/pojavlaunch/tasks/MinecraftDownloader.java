@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch.tasks;
 
 import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_SKIP_DOWNLOADER;
 
 import android.util.Log;
 
