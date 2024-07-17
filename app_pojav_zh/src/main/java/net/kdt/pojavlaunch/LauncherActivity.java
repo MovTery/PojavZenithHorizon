@@ -84,6 +84,7 @@ public class LauncherActivity extends BaseActivity {
     private ProgressServiceKeeper mProgressServiceKeeper;
     private ModloaderInstallTracker mInstallTracker;
     private NotificationManager mNotificationManager;
+    private static volatile boolean onStartLaunchGame = false;
 
     /* Allows to switch from one button "type" to another */
     private final FragmentManager.FragmentLifecycleCallbacks mFragmentCallbackListener = new FragmentManager.FragmentLifecycleCallbacks() {
@@ -190,27 +191,25 @@ public class LauncherActivity extends BaseActivity {
             ExtraCore.setValue(ExtraConstants.SELECT_AUTH_METHOD, true);
             return false;
         }
-
-        LocalAccountUtils.checkUsageAllowed(new LocalAccountUtils.CheckResultListener() {
-            @Override
-            public void onUsageAllowed() {
-                launchGame(prof);
-            }
-
-            @Override
-            public void onUsageDenied() {
-                if (!DEFAULT_PREF.getBoolean("localAccountReminders", true)) {
-                    launchGame(prof);
-                } else {
-                    LocalAccountUtils.openDialog(LauncherActivity.this, () -> launchGame(prof),
-                            getString(R.string.zh_account_no_microsoft_account) + getString(R.string.zh_account_purchase_minecraft_account_tip),
-                            R.string.zh_account_continue_to_launch_the_game);
-                }
-            }
-        });
-
-        return false;
+        onStartLaunchGame = true;
+        return true;
     };
+
+    private final ExtraListener<Boolean> mStartDownloadMinecraft = (key, value) -> {
+        if (!onStartLaunchGame) {
+            return false;
+        }
+        onCheckAccount(true);
+        return true;
+    }
+
+    private final ExtraListener<Boolean> mSkipDownloadMinecraft = (key, value) -> {
+        if (!onStartLaunchGame) {
+            return false;
+        }
+        onCheckAccount(false);
+        return true;
+    }
 
     private final TaskCountListener mDoubleLaunchPreventionListener = taskCount -> {
         // Hide the notification that starts the game if there are tasks executing.
@@ -272,6 +271,8 @@ public class LauncherActivity extends BaseActivity {
         ExtraCore.addExtraListener(ExtraConstants.SELECT_AUTH_METHOD, mSelectAuthMethod);
 
         ExtraCore.addExtraListener(ExtraConstants.LAUNCH_GAME, mLaunchGameListener);
+        ExtraCore.addExtraListener(ExtraConstants.START_DOWNLOADER, mStartDownloadMinecraft);
+        ExtraCore.addExtraListener(ExtraConstants.SKIP_DOWNLOADER, mSkipDownloadMinecraft);
 
         ExtraCore.addExtraListener(ZHExtraConstants.ACCOUNT_CHANGE, mAccountChangeListener);
         ExtraCore.addExtraListener(ZHExtraConstants.INSTALL_LOCAL_MODPACK, mInstallLocalModpack);
@@ -324,6 +325,8 @@ public class LauncherActivity extends BaseActivity {
         ExtraCore.removeExtraListenerFromValue(ExtraConstants.LAUNCH_GAME, mLaunchGameListener);
         ExtraCore.removeExtraListenerFromValue(ZHExtraConstants.ACCOUNT_CHANGE, mAccountChangeListener);
         ExtraCore.removeExtraListenerFromValue(ZHExtraConstants.INSTALL_LOCAL_MODPACK, mInstallLocalModpack);
+        ExtraCore.removeExtraListenerFromValue(ExtraConstants.START_DOWNLOADER, mStartDownloadMinecraft);
+        ExtraCore.removeExtraListenerFromValue(ExtraConstants.SKIP_DOWNLOADER, mSkipDownloadMinecraft);
 
         getSupportFragmentManager().unregisterFragmentLifecycleCallbacks(mFragmentCallbackListener);
     }
@@ -352,10 +355,33 @@ public class LauncherActivity extends BaseActivity {
         LauncherPreferences.computeNotchSize(this);
     }
 
-    private void launchGame(MinecraftProfile prof) {
+    private void onCheckAccount(boolean download) {
+        LocalAccountUtils.checkUsageAllowed(new LocalAccountUtils.CheckResultListener() {
+            @Override
+            public void onUsageAllowed() {
+                launchGame(download);
+            }
+
+            @Override
+            public void onUsageDenied() {
+                if (!DEFAULT_PREF.getBoolean("localAccountReminders", true)) {
+                    launchGame(download);
+                } else {
+                    LocalAccountUtils.openDialog(LauncherActivity.this, () -> launchGame(download),
+                            getString(R.string.zh_account_no_microsoft_account) + getString(R.string.zh_account_purchase_minecraft_account_tip),
+                            R.string.zh_account_continue_to_launch_the_game);
+                }
+            }
+        });
+    }
+
+    private void launchGame(boolean downloader) {
+        String selectedProfile = LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE,"");
+        MinecraftProfile prof = LauncherProfiles.mainProfileJson.profiles.get(selectedProfile);
         String normalizedVersionId = AsyncMinecraftDownloader.normalizeVersionId(prof.lastVersionId);
         JMinecraftVersionList.Version mcVersion = AsyncMinecraftDownloader.getListedVersion(normalizedVersionId);
         new MinecraftDownloader().start(
+                downloader,
                 mcVersion,
                 normalizedVersionId,
                 new ContextAwareDoneListener(this, normalizedVersionId)
