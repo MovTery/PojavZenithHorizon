@@ -218,8 +218,6 @@
     <string name="zh_setting_animation_title">Enable Animation</string>
     <string name="zh_setting_quit_launcher_desc">Should the launcher exit when the game officially begins running?</string>
     <string name="zh_setting_quit_launcher_title">Exit Launcher</string>
-    <string name="zh_setting_skip_download_desc">Launch the game without checking the integrity of the game</string>
-    <string name="zh_setting_skip_download_title">Don\'t check game integrity</string>
     <string name="zh_setting_reboot_tip">This setting has been changed, but requires the app to be restarted to take effect!</string>
     <!-- Game -->
     <string name="zh_game_exit_message">The application/game exited with code %d. Please refer to the log file or crash report for specific error details. If you are unable to resolve this issue yourself, please send the log file or crash report to someone who can help you!\n\nDo not just screenshot the current application interface, as no one will know what happened. Please share your log file or crash report!</string>
