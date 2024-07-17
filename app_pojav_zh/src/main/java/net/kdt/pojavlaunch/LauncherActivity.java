@@ -201,7 +201,7 @@ public class LauncherActivity extends BaseActivity {
         }
         onCheckAccount(true);
         return true;
-    }
+    };
 
     private final ExtraListener<Boolean> mSkipDownloadMinecraft = (key, value) -> {
         if (!onStartLaunchGame) {
@@ -209,7 +209,7 @@ public class LauncherActivity extends BaseActivity {
         }
         onCheckAccount(false);
         return true;
-    }
+    };
 
     private final TaskCountListener mDoubleLaunchPreventionListener = taskCount -> {
         // Hide the notification that starts the game if there are tasks executing.
