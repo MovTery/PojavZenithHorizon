@@ -99,7 +99,15 @@ public class MainMenuFragment extends Fragment implements TaskCountListener {
         });
         mManagerProfileButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ProfileManagerFragment.class, ProfileManagerFragment.TAG, null));
 
-        mPlayButton.setOnClickListener(v -> ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true));
+        mPlayButton.setOnClickListener(v -> {
+            ExtraCore.setValue(ExtraConstants.START_DOWNLOADER, true);
+            ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true);
+        });
+        mPlayButton.setOnLongClickListener(v -> {
+            ExtraCore.setValue(ExtraConstants.SKIP_DOWNLOADER, true);
+            ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true);
+            return true;
+        });
 
         mShareLogsButton.setOnClickListener(v -> {
             ShareLogDialog shareLogDialog = new ShareLogDialog(requireContext(), new File(Tools.DIR_GAME_HOME + "/latestlog.txt"));
