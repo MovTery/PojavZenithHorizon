@@ -47,24 +47,6 @@ public class MinecraftDownloader {
     private File mTargetJarFile; // The destination client JAR to which the source will be copied to.
 
     private static final ThreadLocal<byte[]> sThreadLocalDownloadBuffer = new ThreadLocal<>();
-    private static volatile boolean shouldContinueDownloading = false;
-    private static volatile boolean shouldDownloadOptifine = false;
-
-    /**
-     * Check if the user needs to terminate the download
-     * Check before starting the game
-     * If downloading optifine, do not skip the download
-     */
-    public static void onDownloadOptifine() {
-        shouldDownloadOptifine = true;
-    }
-    private void onSkipDownloadtask() {
-        if (PREF_SKIP_DOWNLOADER && !shouldDownloadOptifine) {
-            shouldContinueDownloading = true;
-        } else {
-            shouldContinueDownloading = false;
-        }
-    }
 
     /**
      * Start the game version download process on the global executor service.
@@ -72,19 +54,19 @@ public class MinecraftDownloader {
      * @param realVersion The version ID (necessary)
      * @param listener The download status listener
      */
-    public void start(@Nullable JMinecraftVersionList.Version version,
+    public void start(boolean downloader,
+                      @Nullable JMinecraftVersionList.Version version,
                       @NonNull String realVersion, // this was there for a reason
                       @NonNull AsyncMinecraftDownloader.DoneListener listener) {
         sExecutorService.execute(() -> {
             try {
-                onSkipDownloadtask();
-                if (!shouldContinueDownloading) {
+                if (downloader) {
                     // Terminate the download proces
                     downloadGame(version, realVersion);
                 }
                 listener.onDownloadDone();
             } catch (Exception e) {
-                if (!shouldContinueDownloading) {
+                if (downloader) {
                     // A possible exception is thrown when the user does not terminate the download.
                     listener.onDownloadFailed(e);
                 }
