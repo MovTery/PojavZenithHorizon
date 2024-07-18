@@ -296,7 +296,7 @@
     <string name="preference_exp_framebuffer_title">Bộ đệm khung hình dự phòng</string>
     <string name="preference_exp_framebuffer">Sử dụng phương án bộ đệm khung hình thứ hai, nếu khởi động thất bại, vui lòng tắt</string>
     <string name="preference_renderer_setup_extra">Trình kết xuất (Mở rộng)</string>
-    <string name="preference_renderer_extra_default">Mesa 24.1.3 (mặc định)</string>
+    <string name="preference_renderer_extra_default">Mesa 24.1.4 (mặc định)</string>
     <string name="preference_extra_mesa_version">Phiên bản Mesa</string>
     <string name="preference_extra_driver_model">Mô hình trình điều khiển</string>
     <!-- Dialog box prompt -->
