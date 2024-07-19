@@ -1,5 +1,6 @@
 package com.movtery.pojavzh.ui.subassembly.about;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,22 +40,28 @@ public class SponsorRecyclerAdapter extends RecyclerView.Adapter<SponsorRecycler
         return 0;
     }
 
-
     public static class Holder extends RecyclerView.ViewHolder {
+        private final View mainView;
         private final TextView name, time, amount;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
+            this.mainView = itemView;
 
             this.name = itemView.findViewById(R.id.zh_sponsor_name);
             this.time = itemView.findViewById(R.id.zh_sponsor_time);
             this.amount = itemView.findViewById(R.id.zh_sponsor_amount);
         }
 
+        @SuppressLint("UseCompatLoadingForDrawables")
         public void setData(SponsorItemBean itemBean) {
             this.name.setText(itemBean.getName());
             this.time.setText(itemBean.getTime());
-            this.amount.setText(String.valueOf(itemBean.getAmount()));
+            this.amount.setText(String.format("￥%s", itemBean.getAmount()));
+
+            if (itemBean.getAmount() >= 12.0f) {
+                mainView.setBackground(mainView.getContext().getDrawable(R.drawable.background_sponsor_advanced));
+            }
         }
     }
 }
