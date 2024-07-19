@@ -47,7 +47,7 @@ public class AboutFragment extends Fragment {
     public static final String TAG = "AboutFragment";
     private final List<AboutItemBean> mAboutData = new ArrayList<>();
     private final List<SponsorItemBean> mSponsorData = new ArrayList<>();
-    private Button mReturnButton, mGithubButton, mPojavLauncherButton, mLicenseButton;
+    private Button mReturnButton, mGithubButton, mPojavLauncherButton, mLicenseButton, mSupportButton;
     private RecyclerView mAboutRecyclerView, mSponsorRecyclerView;
     private View mSponsorView;
 
@@ -65,16 +65,12 @@ public class AboutFragment extends Fragment {
         mGithubButton.setOnClickListener(v -> Tools.openURL(requireActivity(), Tools.URL_HOME));
         mPojavLauncherButton.setOnClickListener(v -> Tools.openURL(requireActivity(), ZHTools.URL_GITHUB_POJAVLAUNCHER));
         mLicenseButton.setOnClickListener(v -> Tools.openURL(requireActivity(), "https://www.gnu.org/licenses/gpl-3.0.html"));
+        mSupportButton.setOnClickListener(v -> Tools.openURL(requireActivity(), "https://afdian.net/a/MovTery"));
 
         AboutRecyclerAdapter aboutAdapter = new AboutRecyclerAdapter(this.mAboutData);
         mAboutRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         mAboutRecyclerView.setNestedScrollingEnabled(false); //禁止滑动
         mAboutRecyclerView.setAdapter(aboutAdapter);
-
-        SponsorRecyclerAdapter sponsorAdapter = new SponsorRecyclerAdapter(this.mSponsorData);
-        mSponsorRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        mAboutRecyclerView.setNestedScrollingEnabled(false); //禁止滑动
-        mAboutRecyclerView.setAdapter(sponsorAdapter);
     }
 
     private void bindViews(@NonNull View view) {
@@ -82,6 +78,7 @@ public class AboutFragment extends Fragment {
         mGithubButton = view.findViewById(R.id.zh_about_github_button);
         mPojavLauncherButton = view.findViewById(R.id.zh_about_pojavlauncher_button);
         mLicenseButton = view.findViewById(R.id.zh_about_license_button);
+        mSupportButton = view.findViewById(R.id.zh_about_support_development);
         mAboutRecyclerView = view.findViewById(R.id.zh_about_about_recycler);
         mSponsorRecyclerView = view.findViewById(R.id.zh_about_sponsor_recycler);
         mSponsorView = view.findViewById(R.id.constraintLayout5);
@@ -158,7 +155,7 @@ public class AboutFragment extends Fragment {
 
                         SponsorMeta sponsorMeta = Tools.GLOBAL_GSON.fromJson(rawJson, SponsorMeta.class);
                         if (sponsorMeta.sponsors.length == 0) {
-                            setSponsorVisible(true);
+                            setSponsorVisible(false);
                             return;
                         }
                         for (SponsorMeta.Sponsor sponsor : sponsorMeta.sponsors) {
@@ -175,7 +172,16 @@ public class AboutFragment extends Fragment {
     }
 
     private void setSponsorVisible(boolean visible) {
-        mSponsorView.setVisibility(visible ? View.VISIBLE : View.GONE);
+        Tools.runOnUiThread(() -> {
+            mSponsorView.setVisibility(visible ? View.VISIBLE : View.GONE);
+
+            if (visible) {
+                SponsorRecyclerAdapter sponsorAdapter = new SponsorRecyclerAdapter(this.mSponsorData);
+                mSponsorRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+                mSponsorRecyclerView.setNestedScrollingEnabled(false); //禁止滑动
+                mSponsorRecyclerView.setAdapter(sponsorAdapter);
+            }
+        });
     }
 }
 
