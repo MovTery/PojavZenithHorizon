@@ -8,8 +8,6 @@ import static com.movtery.pojavzh.utils.ZHTools.getVersionStatus;
 import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,34 +17,24 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.pojavzh.feature.CheckSponsor;
 import com.movtery.pojavzh.ui.subassembly.about.AboutItemBean;
 import com.movtery.pojavzh.ui.subassembly.about.AboutRecyclerAdapter;
 
 import com.movtery.pojavzh.ui.subassembly.about.SponsorItemBean;
-import com.movtery.pojavzh.ui.subassembly.about.SponsorMeta;
 import com.movtery.pojavzh.ui.subassembly.about.SponsorRecyclerAdapter;
 import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.http.CallUtils;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import okhttp3.Call;
-import okhttp3.Response;
 
 public class AboutFragment extends Fragment {
     public static final String TAG = "AboutFragment";
     private final List<AboutItemBean> mAboutData = new ArrayList<>();
-    private final List<SponsorItemBean> mSponsorData = new ArrayList<>();
     private Button mReturnButton, mGithubButton, mPojavLauncherButton, mLicenseButton, mSupportButton;
     private RecyclerView mAboutRecyclerView, mSponsorRecyclerView;
     private View mSponsorView;
@@ -129,46 +117,17 @@ public class AboutFragment extends Fragment {
     }
 
     private void loadSponsorData() {
-        this.mSponsorData.clear();
-
-        String token = getString(R.string.zh_api_token);
-        new CallUtils(new CallUtils.CallbackListener() {
+        CheckSponsor.check(requireContext(), new CheckSponsor.CheckListener() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure() {
                 setSponsorVisible(false);
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
-                } else {
-                    try {
-                        Objects.requireNonNull(response.body());
-                        String responseBody = response.body().string();
-
-                        JSONObject originJson = new JSONObject(responseBody);
-                        String rawBase64 = originJson.getString("content");
-                        //base64解码，因为这里读取的是一个经过Base64加密后的文本
-                        byte[] decodedBytes = Base64.decode(rawBase64, Base64.DEFAULT);
-                        String rawJson = new String(decodedBytes, StandardCharsets.UTF_8);
-
-                        SponsorMeta sponsorMeta = Tools.GLOBAL_GSON.fromJson(rawJson, SponsorMeta.class);
-                        if (sponsorMeta.sponsors.length == 0) {
-                            setSponsorVisible(false);
-                            return;
-                        }
-                        for (SponsorMeta.Sponsor sponsor : sponsorMeta.sponsors) {
-                            mSponsorData.add(new SponsorItemBean(sponsor.name, sponsor.time, sponsor.amount));
-                        }
-                        setSponsorVisible(true);
-                    } catch (Exception e) {
-                        Log.e("Load Sponsor Data", e.toString());
-                        setSponsorVisible(false);
-                    }
-                }
+            public void onSuccessful(List<SponsorItemBean> data) {
+                setSponsorVisible(true);
             }
-        }, ZHTools.URL_GITHUB_HOME + "sponsor.json", token.equals("DUMMY") ? null : token).start();
+        });
     }
 
     private void setSponsorVisible(boolean visible) {
@@ -176,7 +135,7 @@ public class AboutFragment extends Fragment {
             mSponsorView.setVisibility(visible ? View.VISIBLE : View.GONE);
 
             if (visible) {
-                SponsorRecyclerAdapter sponsorAdapter = new SponsorRecyclerAdapter(this.mSponsorData);
+                SponsorRecyclerAdapter sponsorAdapter = new SponsorRecyclerAdapter(CheckSponsor.getSponsorData());
                 mSponsorRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
                 mSponsorRecyclerView.setNestedScrollingEnabled(false); //禁止滑动
                 mSponsorRecyclerView.setAdapter(sponsorAdapter);
