@@ -273,6 +273,7 @@
     <string name="zh_about_dec2">Pojav Zenith Horizon 由墨北MovTery 個人精心製作，在 PojavLauncher 的基礎上進行了深入的魔改工作。</string>
     <string name="zh_about_dec3">由於 PojavLauncher 使用的是 GPL 3.0 開源協議，這一協議具有 “傳染性”，任何使用、修改或衍生自 GPL 類庫或軟體的代碼也必須採用 GPL 協議進行開源。因此，Pojav Zenith Horizon 也只能遵循 GPL 3.0 開源協議。如果你打算傳播或分發本軟體，請務必遵守 GPL 3.0 開源協議的相關規定。</string>
     <string name="zh_about_dec4">貢獻者與鳴謝:</string>
+    <string name="zh_about_dec5">贊助者鳴謝:</string>
     <string name="zh_about_movtery_desc">Pojav Zenith Horizon 的作者</string>
     <string name="zh_about_pojavlauncher_desc">PojavLauncher 的開發團隊，開發並開源了 PojavLauncher</string>
     <string name="zh_about_verafirefly_desc">Pojav Zenith Horizon 專案協助者，為 Pojav Zenith Horizon 提供渲染方面的技術支援</string>

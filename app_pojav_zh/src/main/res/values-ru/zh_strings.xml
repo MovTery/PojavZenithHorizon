@@ -273,6 +273,7 @@
     <string name="zh_about_dec2">Pojav Zenith Horizon создан индивидуально MovTery на основе PojavLauncher.</string>
     <string name="zh_about_dec3">Поскольку PojavLauncher использует GPL 3.0 открытую лицензию, эта лицензия имеет \"заразительность\", любой код, который использует, модифицирует или является производным от библиотек или программного обеспечения GPL, также должен использовать GPL лицензию для открытого исходного кода. Таким образом, Pojav Zenith Horizon также должен следовать GPL 3.0 открытой лицензии. Если вы планируете распространять или распространять это программное обеспечение, пожалуйста, соблюдайте соответствующие положения GPL 3.0 открытой лицензии.</string>
     <string name="zh_about_dec4">Участники и благодарности:</string>
+    <string name="zh_about_dec5">Благодарность спонсорам:</string>
     <string name="zh_about_movtery_desc">Автор Pojav Zenith Horizon</string>
     <string name="zh_about_pojavlauncher_desc">Команда разработчиков PojavLauncher, разработала и открыла исходный код PojavLauncher</string>
     <string name="zh_about_verafirefly_desc">Помощник проекта Pojav Zenith Horizon, обеспечивает техническую поддержку в области рендеринга для Pojav Zenith Horizon</string>
