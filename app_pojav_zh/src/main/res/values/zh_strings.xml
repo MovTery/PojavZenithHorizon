@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingTranslation">
+<resources>
     <!-- Pojav Zenith Horizon -->
     <string name="zh_close">Close</string>
     <string name="zh_return">Return</string>
@@ -275,7 +274,7 @@
     <string name="zh_about_dec3">Since PojavLauncher uses the GPL 3.0 open source license, this license is \"infectious,\" and any code that uses, modifies, or derives from GPL libraries or software must also adopt the GPL license for open source. Therefore, Pojav Zenith Horizon must also follow the GPL 3.0 open source license. If you intend to spread or distribute this software, please be sure to comply with the relevant provisions of the GPL 3.0 open source license.</string>
     <string name="zh_about_dec4">Contributors and Acknowledgements:</string>
     <string name="zh_about_dec5">Sponsor Acknowledgements:</string>
-    <string name="zh_about_dec6">Below are all the sponsors who support the development. Many thanks! (Sorted by date)</string>
+    <string name="zh_about_dec6">The following are all the sponsors supporting the development. Thank you so much!</string>
     <string name="zh_about_dec7">Date and Total Amount</string>
     <string name="zh_about_button_support_development">Support Development</string>
     <string name="zh_about_movtery_desc">Author of Pojav Zenith Horizon</string>

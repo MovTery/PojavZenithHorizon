@@ -274,7 +274,7 @@
     <string name="zh_about_dec3">由于 PojavLauncher 使用的是 GPL 3.0 开源协议，这一协议具有 “传染性”，任何使用、修改或衍生自 GPL 类库或软件的代码也必须采用 GPL 协议进行开源。因此，Pojav Zenith Horizon 也只能遵循 GPL 3.0 开源协议。如果你打算传播或分发本软件，请务必遵守 GPL 3.0 开源协议的相关规定。</string>
     <string name="zh_about_dec4">贡献者与鸣谢:</string>
     <string name="zh_about_dec5">赞助者鸣谢:</string>
-    <string name="zh_about_dec6">以下是所有支持开发的赞助者们，万分感谢！（按时间排序）</string>
+    <string name="zh_about_dec6">以下是所有支持开发的赞助者们，万分感谢！</string>
     <string name="zh_about_dec7">时间与总金额</string>
     <string name="zh_about_button_support_development">赞助开发</string>
     <string name="zh_about_movtery_desc">Pojav Zenith Horizon 的作者</string>
