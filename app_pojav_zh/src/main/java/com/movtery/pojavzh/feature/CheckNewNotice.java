@@ -1,11 +1,11 @@
 package com.movtery.pojavzh.feature;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Base64;
 import android.util.Log;
 
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.http.CallUtils;
 
 import net.kdt.pojavlaunch.R;
 
@@ -16,9 +16,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.Response;
 
 public class CheckNewNotice {
@@ -41,30 +38,22 @@ public class CheckNewNotice {
             return;
         }
 
-        OkHttpClient client = new OkHttpClient();
-        Request.Builder url = new Request.Builder()
-                .url(ZHTools.URL_GITHUB_HOME + "notice.json");
-        if (!context.getString(R.string.zh_api_token).equals("DUMMY")) {
-            url.header("Authorization", "token " + context.getString(R.string.zh_api_token));
-        }
-        Request request = url.build();
-        System.out.println("checking");
-
-        client.newCall(request).enqueue(new Callback() {
+        String token = context.getString(R.string.zh_api_token);
+        new CallUtils(new CallUtils.CallbackListener() {
             @Override
             public void onFailure(Call call, IOException e) {
                 isChecking = false;
             }
 
-            @SuppressLint("SetJavaScriptEnabled")
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response);
                 } else {
-                    Objects.requireNonNull(response.body());
-                    String responseBody = response.body().string();
                     try {
+                        Objects.requireNonNull(response.body());
+                        String responseBody = response.body().string();
+
                         JSONObject originJson = new JSONObject(responseBody);
                         String rawBase64 = originJson.getString("content");
                         //base64解码，因为这里读取的是一个经过Base64加密后的文本
@@ -101,7 +90,7 @@ public class CheckNewNotice {
                 }
                 isChecking = false;
             }
-        });
+        }, ZHTools.URL_GITHUB_HOME + "notice.json", token.equals("DUMMY") ? null : token).start();
     }
 
     public interface CheckListener {
