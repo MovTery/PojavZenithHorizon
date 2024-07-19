@@ -976,27 +976,27 @@ public final class Tools {
         }
 
         // install mods with custom arguments
-        EditTextDialog editTextDialog = new EditTextDialog(activity, activity.getString(R.string.zh_dialog_select_jar), null, null, "-jar/-cp /path/to/file.jar ...");
-        editTextDialog.setConfirm(view -> {
-            if (editTextDialog.getEditBox().getText().toString().isEmpty()) {
-                editTextDialog.getEditBox().setError(activity.getString(R.string.global_error_field_empty));
-                return;
-            }
+        new EditTextDialog.Builder(activity)
+                .setTitle(R.string.zh_dialog_select_jar)
+                .setHintText("-jar/-cp /path/to/file.jar ...")
+                .setConfirmListener(editBox -> {
+                    if (editBox.getText().toString().isEmpty()) {
+                        editBox.setError(activity.getString(R.string.global_error_field_empty));
+                        return false;
+                    }
 
-            Intent intent = new Intent(activity, JavaGUILauncherActivity.class);
-            intent.putExtra("javaArgs", editTextDialog.getEditBox().getText().toString());
-            SelectRuntimeDialog selectRuntimeDialog = new SelectRuntimeDialog(activity);
-            selectRuntimeDialog.setListener(jreName -> {
-                intent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName);
-                selectRuntimeDialog.dismiss();
-                activity.startActivity(intent);
-            });
-            selectRuntimeDialog.show();
+                    Intent intent = new Intent(activity, JavaGUILauncherActivity.class);
+                    intent.putExtra("javaArgs", editBox.getText().toString());
+                    SelectRuntimeDialog selectRuntimeDialog = new SelectRuntimeDialog(activity);
+                    selectRuntimeDialog.setListener(jreName -> {
+                        intent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName);
+                        selectRuntimeDialog.dismiss();
+                        activity.startActivity(intent);
+                    });
+                    selectRuntimeDialog.show();
 
-            editTextDialog.dismiss();
-        });
-
-        editTextDialog.show();
+                    return true;
+                }).buildDialog();
     }
 
     /**

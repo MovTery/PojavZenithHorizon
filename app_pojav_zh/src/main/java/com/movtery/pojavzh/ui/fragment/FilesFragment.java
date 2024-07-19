@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -96,27 +95,28 @@ public class FilesFragment extends Fragment {
         mFileRecyclerView.setTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
 
         mFilePathView.setOnClickListener(v -> {
-            EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(R.string.zh_file_jump_to_path), null, mFileRecyclerView.getFullPath().getAbsolutePath(), null);
-            editTextDialog.setConfirm(v1 -> {
-                EditText editBox = editTextDialog.getEditBox();
+            EditTextDialog.Builder builder = new EditTextDialog.Builder(requireContext());
+            builder.setTitle(R.string.zh_file_jump_to_path);
+            builder.setEditText(mFileRecyclerView.getFullPath().getAbsolutePath());
+            builder.setConfirmListener(editBox -> {
                 String path = editBox.getText().toString();
 
                 if (path.isEmpty()) {
                     editBox.setError(getString(R.string.global_error_field_empty));
-                    return;
+                    return false;
                 }
 
                 File file = new File(path);
                 //检查路径是否符合要求：最少为最顶部路径、路径是一个文件夹、这个路径存在
                 if (!path.contains(mLockPath) || !file.isDirectory() || !file.exists()) {
                     editBox.setError(getString(R.string.zh_file_does_not_exist));
-                    return;
+                    return false;
                 }
 
                 mFileRecyclerView.listFileAt(file);
-                editTextDialog.dismiss();
+                return true;
             });
-            editTextDialog.show();
+            builder.buildDialog();
         });
 
         if (mListPath != null) {
@@ -196,31 +196,31 @@ public class FilesFragment extends Fragment {
         }); //不限制文件类型
         mCreateFolderButton.setOnClickListener(v -> {
             closeMultiSelect();
-            EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(R.string.folder_dialog_insert_name), null, null, null);
-            editTextDialog.setConfirm(view1 -> {
-                String name = editTextDialog.getEditBox().getText().toString().replace("/", "");
-                if (name.isEmpty()) {
-                    editTextDialog.getEditBox().setError(getString(R.string.zh_file_rename_empty));
-                    return;
-                }
+            new EditTextDialog.Builder(requireContext())
+                    .setTitle(R.string.folder_dialog_insert_name)
+                    .setConfirmListener(editBox -> {
+                        String name = editBox.getText().toString().replace("/", "");
+                        if (name.isEmpty()) {
+                            editBox.setError(getString(R.string.zh_file_rename_empty));
+                            return false;
+                        }
 
-                File folder = new File(mFileRecyclerView.getFullPath(), name);
+                        File folder = new File(mFileRecyclerView.getFullPath(), name);
 
-                if (folder.exists()) {
-                    editTextDialog.getEditBox().setError(getString(R.string.zh_file_rename_exitis));
-                    return;
-                }
+                        if (folder.exists()) {
+                            editBox.setError(getString(R.string.zh_file_rename_exitis));
+                            return false;
+                        }
 
-                boolean success = folder.mkdir();
-                if (success) {
-                    mFileRecyclerView.listFileAt(new File(mFileRecyclerView.getFullPath(), name));
-                } else {
-                    mFileRecyclerView.refreshPath();
-                }
+                        boolean success = folder.mkdir();
+                        if (success) {
+                            mFileRecyclerView.listFileAt(new File(mFileRecyclerView.getFullPath(), name));
+                        } else {
+                            mFileRecyclerView.refreshPath();
+                        }
 
-                editTextDialog.dismiss();
-            });
-            editTextDialog.show();
+                        return true;
+                    }).buildDialog();
         });
         mPasteButton.setOnClickListener(v -> PasteFile.getInstance().pasteFiles(requireActivity(), mFileRecyclerView.getFullPath(), null, () -> runOnUiThread(() -> {
             closeMultiSelect();

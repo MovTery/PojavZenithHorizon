@@ -8,8 +8,6 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.text.InputType;
-import android.widget.EditText;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.preference.Preference;
@@ -69,41 +67,40 @@ public class LauncherPreferenceJavaFragment extends LauncherPreferenceFragment {
 
         allocationSeek.setOnPreferenceClickListener(preference -> {
             //点击此项将弹出输入框以手动输入内存值
-            EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(R.string.mcl_memory_allocation),
-                    StringUtils.insertNewline(getMemoryInfoText(requireContext()), getString(R.string.zh_setting_java_memory_max, String.format("%s MB", maxRAM))),
-                    String.valueOf(allocationSeek.getValue()), null);
-            editTextDialog.getEditBox().setInputType(InputType.TYPE_CLASS_NUMBER);
-            editTextDialog.setConfirm(view -> {
-                EditText editBox = editTextDialog.getEditBox();
-                int value = Integer.parseInt(editBox.getText().toString());
+            new EditTextDialog.Builder(requireContext())
+                    .setTitle(R.string.mcl_memory_allocation)
+                    .setMessage(StringUtils.insertNewline(getMemoryInfoText(requireContext()), getString(R.string.zh_setting_java_memory_max, String.format("%s MB", maxRAM))))
+                    .setEditText(String.valueOf(allocationSeek.getValue()))
+                    .setConfirmListener(editBox -> {
+                        int value = Integer.parseInt(editBox.getText().toString());
 
-                if (value < 256) {
-                    editBox.setError(getString(R.string.zh_setting_java_memory_too_small, 256));
-                    return;
-                }
-                if (value > maxRAM) {
-                    editBox.setError(getString(R.string.zh_setting_java_memory_too_big, maxRAM));
-                    return;
-                }
+                        if (value < 256) {
+                            editBox.setError(getString(R.string.zh_setting_java_memory_too_small, 256));
+                            return false;
+                        }
+                        if (value > maxRAM) {
+                            editBox.setError(getString(R.string.zh_setting_java_memory_too_big, maxRAM));
+                            return false;
+                        }
 
-                allocationSeek.setValue(value);
-                editTextDialog.dismiss();
-            });
-            editTextDialog.show();
+                        allocationSeek.setValue(value);
+
+                        return true;
+                    }).buildDialog();
             return true;
         });
 
         Preference editJVMArgs = findPreference("javaArgs");
         if (editJVMArgs != null) {
             editJVMArgs.setOnPreferenceClickListener(preference -> {
-                EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(R.string.mcl_setting_title_javaargs),
-                        getString(R.string.mcl_setting_subtitle_javaargs),
-                        DEFAULT_PREF.getString("javaArgs", ""), null);
-                editTextDialog.setConfirm(view -> {
-                    DEFAULT_PREF.edit().putString("javaArgs", editTextDialog.getEditBox().getText().toString()).apply();
-                    editTextDialog.dismiss();
-                });
-                editTextDialog.show();
+                new EditTextDialog.Builder(requireContext())
+                        .setTitle(R.string.mcl_setting_title_javaargs)
+                        .setMessage(R.string.mcl_setting_subtitle_javaargs)
+                        .setEditText(DEFAULT_PREF.getString("javaArgs", ""))
+                        .setConfirmListener(editBox -> {
+                            DEFAULT_PREF.edit().putString("javaArgs", editBox.getText().toString()).apply();
+                            return true;
+                        }).buildDialog();
                 return true;
             });
         }

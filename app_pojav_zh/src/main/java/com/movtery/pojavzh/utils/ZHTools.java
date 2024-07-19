@@ -295,35 +295,34 @@ public class ZHTools {
         String fileParent = file.getParent();
         String fileName = file.getName();
 
-        EditTextDialog editTextDialog = new EditTextDialog(context, context.getString(R.string.zh_rename), null, getFileNameWithoutExtension(fileName, suffix), null);
-        editTextDialog.setConfirm(v -> {
-            String newName = editTextDialog.getEditBox().getText().toString().replace("/", "");
+        new EditTextDialog.Builder(context)
+                .setTitle(R.string.zh_rename)
+                .setEditText(getFileNameWithoutExtension(fileName, suffix))
+                .setConfirmListener(editBox -> {
+                    String newName = editBox.getText().toString().replace("/", "");
 
-            if (Objects.equals(fileName, newName)) {
-                editTextDialog.dismiss();
-                return;
-            }
+                    if (Objects.equals(fileName, newName)) {
+                        return true;
+                    }
 
-            if (newName.isEmpty()) {
-                editTextDialog.getEditBox().setError(context.getString(R.string.zh_file_rename_empty));
-                return;
-            }
+                    if (newName.isEmpty()) {
+                        editBox.setError(context.getString(R.string.zh_file_rename_empty));
+                        return false;
+                    }
 
-            File newFile = new File(fileParent, newName + suffix);
-            if (newFile.exists()) {
-                editTextDialog.getEditBox().setError(context.getString(R.string.zh_file_rename_exitis));
-                return;
-            }
+                    File newFile = new File(fileParent, newName + suffix);
+                    if (newFile.exists()) {
+                        editBox.setError(context.getString(R.string.zh_file_rename_exitis));
+                        return false;
+                    }
 
-            boolean renamed = file.renameTo(newFile);
-            if (renamed) {
-                if (runnable != null) PojavApplication.sExecutorService.execute(runnable);
-            }
+                    boolean renamed = file.renameTo(newFile);
+                    if (renamed) {
+                        if (runnable != null) PojavApplication.sExecutorService.execute(runnable);
+                    }
 
-            editTextDialog.dismiss();
-        });
-
-        editTextDialog.show();
+                    return true;
+                }).buildDialog();
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -331,35 +330,34 @@ public class ZHTools {
         String fileParent = file.getParent();
         String fileName = file.getName();
 
-        EditTextDialog editTextDialog = new EditTextDialog(context, context.getString(R.string.zh_rename), null, fileName, null);
-        editTextDialog.setConfirm(v -> {
-            String newName = editTextDialog.getEditBox().getText().toString().replace("/", "");
+        new EditTextDialog.Builder(context)
+                .setTitle(R.string.zh_rename)
+                .setEditText(fileName)
+                .setConfirmListener(editBox -> {
+                    String newName = editBox.getText().toString().replace("/", "");
 
-            if (Objects.equals(fileName, newName)) {
-                editTextDialog.dismiss();
-                return;
-            }
+                    if (Objects.equals(fileName, newName)) {
+                        return true;
+                    }
 
-            if (newName.isEmpty()) {
-                editTextDialog.getEditBox().setError(context.getString(R.string.zh_file_rename_empty));
-                return;
-            }
+                    if (newName.isEmpty()) {
+                        editBox.setError(context.getString(R.string.zh_file_rename_empty));
+                        return false;
+                    }
 
-            File newFile = new File(fileParent, newName);
-            if (newFile.exists()) {
-                editTextDialog.getEditBox().setError(context.getString(R.string.zh_file_rename_exitis));
-                return;
-            }
+                    File newFile = new File(fileParent, newName);
+                    if (newFile.exists()) {
+                        editBox.setError(context.getString(R.string.zh_file_rename_exitis));
+                        return false;
+                    }
 
-            boolean renamed = renameFile(file, newFile);
-            if (renamed) {
-                if (runnable != null) PojavApplication.sExecutorService.execute(runnable);
-            }
+                    boolean renamed = renameFile(file, newFile);
+                    if (renamed) {
+                        if (runnable != null) PojavApplication.sExecutorService.execute(runnable);
+                    }
 
-            editTextDialog.dismiss();
-        });
-
-        editTextDialog.show();
+                    return true;
+                }).buildDialog();
     }
 
     public static boolean renameFile(File origin, File target) {

@@ -116,19 +116,20 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
                 if (!profileItem.id.equals("default")) {
                     Context context = mRenameButton.getContext();
 
-                    EditTextDialog editTextDialog = new EditTextDialog(context, context.getString(R.string.zh_rename), null, profileItem.title, null);
-                    editTextDialog.setConfirm(v1 -> {
-                        String string = editTextDialog.getEditBox().getText().toString();
-                        if (string.isEmpty()) {
-                            editTextDialog.getEditBox().setError(context.getString(R.string.global_error_field_empty));
-                            return;
-                        }
+                    new EditTextDialog.Builder(context)
+                            .setTitle(R.string.zh_rename)
+                            .setEditText(profileItem.title)
+                            .setConfirmListener(editBox -> {
+                                String string = editBox.getText().toString();
+                                if (string.isEmpty()) {
+                                    editBox.setError(context.getString(R.string.global_error_field_empty));
+                                    return false;
+                                }
 
-                        mData.get(position).title = string;
-                        updateData(mData);
-                        editTextDialog.dismiss();
-                    });
-                    editTextDialog.show();
+                                mData.get(position).title = string;
+                                updateData(mData);
+                                return true;
+                            }).buildDialog();
                 }
             });
 

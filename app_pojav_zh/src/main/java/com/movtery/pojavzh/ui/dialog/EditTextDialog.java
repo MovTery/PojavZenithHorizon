@@ -14,12 +14,12 @@ import net.kdt.pojavlaunch.R;
 
 public class EditTextDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final String title, message, editText, hintText;
-    private View.OnClickListener confirm, cancel;
-    private TextView mTitle, mMessage;
+    private final View.OnClickListener cancelListener;
+    private final ConfirmListener confirmListener;
     private EditText mEditBox;
-    private ScrollView mScrollTextView;
 
-    public EditTextDialog(@NonNull Context context, String title, String message, String editText, String hintText) {
+    private EditTextDialog(@NonNull Context context, String title, String message, String editText, String hintText,
+                           View.OnClickListener cancelListener, ConfirmListener confirmListener) {
         super(context);
 
         this.setCancelable(false);
@@ -29,59 +29,114 @@ public class EditTextDialog extends FullScreenDialog implements DraggableDialog.
         this.message = message;
         this.editText = editText;
         this.hintText = hintText;
+
+        this.cancelListener = cancelListener;
+        this.confirmListener = confirmListener;
         init();
         DraggableDialog.initDialog(this);
     }
 
     private void init() {
-        mTitle = findViewById(R.id.zh_edit_text_title);
-        mMessage = findViewById(R.id.zh_edit_text_message);
-        mScrollTextView = findViewById(R.id.zh_edit_text_scroll);
+        TextView mTitle = findViewById(R.id.zh_edit_text_title);
+        TextView mMessage = findViewById(R.id.zh_edit_text_message);
+        ScrollView mScrollTextView = findViewById(R.id.zh_edit_text_scroll);
         mEditBox = findViewById(R.id.zh_edit_text_edit);
-    }
 
-    public void setCancel(View.OnClickListener cancel) {
-        this.cancel = cancel;
-    }
+        Button mConfirmButton = findViewById(R.id.zh_edit_text_confirm_button);
+        Button mCancelButton = findViewById(R.id.zh_edit_text_cancel_button);
 
-    public void setConfirm(View.OnClickListener confirm) {
-        this.confirm = confirm;
-    }
-
-    public EditText getEditBox() {
-        return mEditBox;
-    }
-
-    @Override
-    public void show() {
         if (this.title != null) {
-            this.mTitle.setText(this.title);
+            mTitle.setText(this.title);
         }
         if (this.message != null) {
-            this.mMessage.setText(this.message);
+            mMessage.setText(this.message);
         } else {
-            this.mScrollTextView.setVisibility(View.GONE);
+            mScrollTextView.setVisibility(View.GONE);
         }
 
         if (editText != null) mEditBox.setText(editText);
         if (hintText != null) mEditBox.setHint(hintText);
 
-        //初始化按钮
-        Button mConfirmButton = findViewById(R.id.zh_edit_text_confirm_button);
-        Button mCancelButton = findViewById(R.id.zh_edit_text_cancel_button);
-
-        mConfirmButton.setOnClickListener(this.confirm);
-        if (this.cancel != null) {
-            mCancelButton.setOnClickListener(this.cancel);
+        if (this.confirmListener != null) {
+            mConfirmButton.setOnClickListener(v -> {
+                boolean dismissDialog = confirmListener.onConfirm(mEditBox);
+                if (dismissDialog) this.dismiss();
+            });
+        }
+        if (this.cancelListener != null) {
+            mCancelButton.setOnClickListener(this.cancelListener);
         } else {
             mCancelButton.setOnClickListener(view -> this.dismiss());
         }
-
-        super.show();
     }
 
     @Override
     public Window onInit() {
         return getWindow();
+    }
+
+    public static class Builder {
+        private final Context context;
+        private String title, message, editText, hintText;
+        private View.OnClickListener cancelListener;
+        private ConfirmListener confirmListener;
+
+        public Builder(Context context) {
+            this.context = context;
+        }
+
+        public Builder setTitle(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder setTitle(int title) {
+            this.title = context.getString(title);
+            return this;
+        }
+
+        public Builder setMessage(String message) {
+            this.message = message;
+            return this;
+        }
+
+        public Builder setMessage(int message) {
+            this.message = context.getString(message);
+            return this;
+        }
+
+        public Builder setEditText(String editText) {
+            this.editText = editText;
+            return this;
+        }
+
+        public Builder setHintText(String hintText) {
+            this.hintText = hintText;
+            return this;
+        }
+
+        public Builder setHintText(int hintText) {
+            this.hintText = context.getString(hintText);
+            return this;
+        }
+
+        public Builder setCancel(View.OnClickListener cancel) {
+            this.cancelListener = cancel;
+            return this;
+        }
+
+        public Builder setConfirmListener(ConfirmListener confirmListener) {
+            this.confirmListener = confirmListener;
+            return this;
+        }
+
+        public void buildDialog() {
+            new EditTextDialog(this.context, this.title, this.message, this.editText, this.hintText,
+                    this.cancelListener, this.confirmListener).show();
+        }
+    }
+
+    public interface ConfirmListener {
+        boolean onConfirm(EditText editText);
     }
 }
