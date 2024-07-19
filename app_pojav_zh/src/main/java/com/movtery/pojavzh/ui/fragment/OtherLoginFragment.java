@@ -204,19 +204,17 @@ public class OtherLoginFragment extends Fragment {
     }
 
     private void showServerTypeSelectDialog(int stringId, int type) {
-        EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(stringId), null, null, null);
-        editTextDialog.setConfirm(view1 -> {
-            EditText editBox = editTextDialog.getEditBox();
+        new EditTextDialog.Builder(requireContext())
+                .setTitle(stringId)
+                .setConfirmListener(editBox -> {
+                    if (editBox.getText().toString().isEmpty()) {
+                        editBox.setError(getString(R.string.global_error_field_empty));
+                        return false;
+                    }
 
-            if (editBox.getText().toString().isEmpty()) {
-                editBox.setError(getString(R.string.global_error_field_empty));
-                return;
-            }
-
-            addServer(editBox, type);
-            editTextDialog.dismiss();
-        });
-        editTextDialog.show();
+                    addServer(editBox, type);
+                    return true;
+                }).buildDialog();
     }
 
     private boolean checkAccountInformation(String user, String pass) {

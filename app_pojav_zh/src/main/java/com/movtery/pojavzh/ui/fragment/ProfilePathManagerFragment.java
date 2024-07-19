@@ -52,20 +52,21 @@ public class ProfilePathManagerFragment extends Fragment {
         String value = (String) ExtraCore.consumeValue(ExtraConstants.FILE_SELECTOR);
 
         if (value != null && !value.isEmpty() && !isAddedPath(value)) {
-            EditTextDialog editTextDialog = new EditTextDialog(requireContext(), getString(R.string.zh_profiles_path_create_new_title), null, null, null);
-            editTextDialog.setConfirm(v -> {
-                String string = editTextDialog.getEditBox().getText().toString();
-                if (string.isEmpty()) {
-                    editTextDialog.getEditBox().setError(getString(R.string.global_error_field_empty));
-                    return;
-                }
+            new EditTextDialog.Builder(requireContext())
+                    .setTitle(R.string.zh_profiles_path_create_new_title)
+                    .setConfirmListener(editBox -> {
+                        String string = editBox.getText().toString();
+                        if (string.isEmpty()) {
+                            editBox.setError(getString(R.string.global_error_field_empty));
+                            return false;
+                        }
 
-                this.mData.add(new ProfileItem(UUID.randomUUID().toString(), string, value));
-                ProfilePathManager.save(this.mData);
-                refresh();
-                editTextDialog.dismiss();
-            });
-            editTextDialog.show();
+                        this.mData.add(new ProfileItem(UUID.randomUUID().toString(), string, value));
+                        ProfilePathManager.save(this.mData);
+                        refresh();
+
+                        return true;
+                    }).buildDialog();
         }
 
         return super.onCreateView(inflater, container, savedInstanceState);
