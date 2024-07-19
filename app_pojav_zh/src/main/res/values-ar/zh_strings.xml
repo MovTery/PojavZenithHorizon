@@ -274,6 +274,9 @@
     <string name="zh_about_dec3">نظرًا لأن PojavLauncher يستخدم براءة اختراع مفتوحة المصدر GPL 3.0، وهذه الاتفاقية ذات \"تأثير معدي\"، فأي رمز يستخدم أو يعدل أو يشتق من مكتبات أو برامج GPL يجب أن يتبع براءة اختراع GPL. لذا، يجب أن يتبع Pojav Zenith Horizon براءة اختراع مفتوحة المصدر GPL 3.0. إذا كنت تنوي نشر أو توزيع هذا البرنامج، يرجى الالتزام بالقواعد ذات الصلة باتفاقية GPL 3.0.</string>
     <string name="zh_about_dec4">المساهمون والشكر:</string>
     <string name="zh_about_dec5">شكرًا للرعاة:</string>
+    <string name="zh_about_dec6">فيما يلي جميع الرعاة الذين يدعمون التطوير، شكراً جزيلاً! (مرتبة حسب الوقت)</string>
+    <string name="zh_about_dec7">التاريخ والمبلغ الإجمالي</string>
+    <string name="zh_about_button_support_development">دعم التطوير</string>
     <string name="zh_about_movtery_desc">مؤلف Pojav Zenith Horizon</string>
     <string name="zh_about_pojavlauncher_desc">فريق تطوير PojavLauncher، قاموا بتطوير ونشر PojavLauncher مفتوح المصدر</string>
     <string name="zh_about_verafirefly_desc">مساعد في مشروع Pojav Zenith Horizon، يوفر دعمًا فنيًا في العرض</string>
