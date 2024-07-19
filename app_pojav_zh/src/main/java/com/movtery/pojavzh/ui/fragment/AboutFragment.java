@@ -157,12 +157,17 @@ public class AboutFragment extends Fragment {
                         String rawJson = new String(decodedBytes, StandardCharsets.UTF_8);
 
                         SponsorMeta sponsorMeta = Tools.GLOBAL_GSON.fromJson(rawJson, SponsorMeta.class);
+                        if (sponsorMeta.sponsors.length == 0) {
+                            setSponsorVisible(true);
+                            return;
+                        }
                         for (SponsorMeta.Sponsor sponsor : sponsorMeta.sponsors) {
                             mSponsorData.add(new SponsorItemBean(sponsor.name, sponsor.time, sponsor.amount));
                         }
                         setSponsorVisible(true);
                     } catch (Exception e) {
                         Log.e("Load Sponsor Data", e.toString());
+                        setSponsorVisible(false);
                     }
                 }
             }
