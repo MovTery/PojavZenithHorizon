@@ -25,13 +25,13 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 public class InstallLocalModPack {
-    public static ModLoader installModPack(Context context, int type, File zipFile, OnInstallStartListener onInstallStartListener) throws Exception {
+    public static ModLoader installModPack(Context context, ModPackUtils.ModPackEnum type, File zipFile, OnInstallStartListener onInstallStartListener) throws Exception {
         try (ZipFile modpackZipFile = new ZipFile(zipFile)) {
             String zipName = zipFile.getName();
             String packName = zipName.substring(0, zipName.lastIndexOf('.'));
             ModLoader modLoader;
             switch (type) {
-                case 1: //curseforge
+                case CURSEFORGE: //curseforge
                     ZipEntry curseforgeEntry = modpackZipFile.getEntry("manifest.json");
                     CurseManifest curseManifest = Tools.GLOBAL_GSON.fromJson(
                             Tools.read(modpackZipFile.getInputStream(curseforgeEntry)),
@@ -41,7 +41,7 @@ public class InstallLocalModPack {
                     ModPackUtils.createModPackProfiles(packName, curseManifest.name, modLoader.getVersionId());
 
                     return modLoader;
-                case 2: //mcbbs
+                case MCBBS: //mcbbs
                     ZipEntry mcbbsEntry = modpackZipFile.getEntry("mcbbs.packmeta");
 
                     MCBBSPackMeta mcbbsPackMeta = Tools.GLOBAL_GSON.fromJson(
@@ -53,7 +53,7 @@ public class InstallLocalModPack {
                         MCBBSModPack.createModPackProfiles(packName, mcbbsPackMeta, modLoader.getVersionId());
 
                     return modLoader;
-                case 3: // modrinth
+                case MODRINTH: // modrinth
                     ModrinthIndex modrinthIndex = Tools.GLOBAL_GSON.fromJson(
                             Tools.read(ZipUtils.getEntryStream(modpackZipFile, "modrinth.index.json")),
                             ModrinthIndex.class); // 用于获取创建实例所需的数据

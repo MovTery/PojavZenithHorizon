@@ -112,14 +112,10 @@ public class LauncherActivity extends BaseActivity {
         }
 
         File dirGameModpackFile = new File(value.modpackPath);
-        int type;
-        try {
-            type = ModPackUtils.determineModpack(dirGameModpackFile);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        ModPackUtils.ModPackEnum type;
+        type = ModPackUtils.determineModpack(dirGameModpackFile);
 
-        if (type != 0) {
+        if (type != ModPackUtils.ModPackEnum.UNKNOWN) {
             ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.global_waiting);
             PojavApplication.sExecutorService.execute(() -> {
                 try {

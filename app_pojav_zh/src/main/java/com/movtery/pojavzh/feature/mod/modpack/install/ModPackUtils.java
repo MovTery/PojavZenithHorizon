@@ -1,5 +1,7 @@
 package com.movtery.pojavzh.feature.mod.modpack.install;
 
+import android.util.Log;
+
 import com.movtery.pojavzh.feature.mod.models.MCBBSPackMeta;
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
 
@@ -14,7 +16,20 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 public class ModPackUtils {
-    public static int determineModpack(File modpack) throws Exception {
+    public enum ModPackEnum {
+        UNKNOWN("unknown"),
+        CURSEFORGE("curseforge"),
+        MCBBS("mcbbs"),
+        MODRINTH("modrinth");
+
+        public final String name;
+
+        ModPackEnum(String name) {
+            this.name = name;
+        }
+    }
+
+    public static ModPackEnum determineModpack(File modpack) {
         String zipName = modpack.getName();
         String suffix = zipName.substring(zipName.lastIndexOf('.'));
         try (ZipFile modpackZipFile = new ZipFile(modpack)) {
@@ -25,12 +40,12 @@ public class ModPackUtils {
                     CurseManifest curseManifest = Tools.GLOBAL_GSON.fromJson(
                             Tools.read(modpackZipFile.getInputStream(curseforgeEntry)),
                             CurseManifest.class);
-                    if (verifyManifest(curseManifest)) return 1; //curseforge
+                    if (verifyManifest(curseManifest)) return ModPackEnum.CURSEFORGE; //curseforge
                 } else if (mcbbsEntry != null) {
                     MCBBSPackMeta mcbbsPackMeta = Tools.GLOBAL_GSON.fromJson(
                             Tools.read(modpackZipFile.getInputStream(mcbbsEntry)),
                             MCBBSPackMeta.class);
-                    if (verifyMCBBSPackMeta(mcbbsPackMeta)) return 2; // mcbbs
+                    if (verifyMCBBSPackMeta(mcbbsPackMeta)) return ModPackEnum.MCBBS; // mcbbs
                 }
             } else if (suffix.equals(".mrpack")) {
                 ZipEntry entry = modpackZipFile.getEntry("modrinth.index.json");
@@ -38,11 +53,14 @@ public class ModPackUtils {
                     ModrinthIndex modrinthIndex = Tools.GLOBAL_GSON.fromJson(
                             Tools.read(modpackZipFile.getInputStream(entry)),
                             ModrinthIndex.class);
-                    if (verifyModrinthIndex(modrinthIndex)) return 3; //modrinth
+                    if (verifyModrinthIndex(modrinthIndex)) return ModPackEnum.MODRINTH; //modrinth
                 }
             }
-            return 0;
+        } catch (Exception e) {
+            Log.e("determineModpack", e.toString());
         }
+
+        return ModPackEnum.UNKNOWN;
     }
 
     public static void createModPackProfiles(String modpackName, String profileName, String versionId) {
