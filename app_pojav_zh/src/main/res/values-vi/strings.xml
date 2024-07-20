@@ -32,8 +32,6 @@
     <string name="mcl_setting_category_renderer">Bộ kết xuất</string>
     <string name="mcl_setting_renderer_gles2_4">Holy GL4ES - (Khả dụng cho tất cả các phiên bản, tốc độ nhanh)</string>
     <string name="mcl_setting_renderer_vulkan_zink">Zink (Vulkan) - (Khả dụng cho tất cả các phiên bản, tốc độ trung bình)</string>
-    <string name="mcl_setting_renderer_virgl">Virgl - (Khả dụng cho tất cả các phiên bản, tốc độ trung bình)</string>
-    <string name="mcl_setting_renderer_freedreno">Freedreno (Adreno) - (Khả dụng cho tất cả các phiên bản, tốc độ trung bình)</string>
     <string name="mcl_setting_renderer_angle">ANGLE (Vulkan) - (1.17+, tốc độ trung bình)</string>
     <string name="mcl_setting_veroption_release">Phiên bản chính thức</string>
     <string name="mcl_setting_veroption_snapshot">Phiên bản ảnh chụp nhanh</string>
@@ -109,6 +107,7 @@
     <string name="customctrl_forward_lock">Khóa tiến lên</string>
     <string name="customctrl_absolute_tracking">Theo dõi ngón tay tuyệt đối</string>
     <string name="memory_warning_msg">Bộ nhớ có sẵn hiện tại (%d) thấp hơn bộ nhớ được phân bổ (%d), điều này có thể gây ra sự cố vỡ trò chơi, nếu trò chơi bị vỡ hãy thay đổi cấu hình!</string>
+    <string name="address_memory_warning_msg">Dung lượng bộ nhớ trống hiện tại (%d) thấp hơn bộ nhớ đã phân bổ (%d), điều này có thể gây ra sự cố. Nếu trò chơi bị treo, vui lòng điều chỉnh việc phân bổ bộ nhớ.</string>
     <string name="mcl_memory_allocation">Phân bổ bộ nhớ</string>
     <string name="multirt_runtime_corrupt">Môi trường chạy Java bị hỏng</string>
     <string name="multirt_runtime_incompatiblearch">Kiến trúc không tương thích: %s</string>

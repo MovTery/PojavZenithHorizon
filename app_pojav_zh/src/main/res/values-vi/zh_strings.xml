@@ -290,30 +290,4 @@
     <string name="zh_about_version_status_other_branch">Nhánh khác</string>
     <string name="zh_about_version_status_debug">Phiên bản thử nghiệm</string>
     <string name="zh_about_version_status_release">Phiên bản chính thức</string>
-    <!-- From Pojav Glow·Worm -->
-    <!-- Renderer Experimental Setup -->
-    <string name="preference_category_renderer_experimental_settings">Cài đặt thử nghiệm trình kết xuất</string>
-    <string name="preference_renderer_setup_title">Kích hoạt cài đặt thử nghiệm trình kết xuất</string>
-    <string name="preference_renderer_setup">Cài đặt cụ thể hơn cho trình kết xuất</string>
-    <string name="preference_spare_bridge_title">Cầu nối dự phòng</string>
-    <string name="preference_spare_bridge">Sử dụng phương án cầu nối thứ hai, nếu khởi động thất bại, vui lòng tắt</string>
-    <string name="preference_exp_framebuffer_title">Bộ đệm khung hình dự phòng</string>
-    <string name="preference_exp_framebuffer">Sử dụng phương án bộ đệm khung hình thứ hai, nếu khởi động thất bại, vui lòng tắt</string>
-    <string name="preference_renderer_setup_extra">Trình kết xuất (Mở rộng)</string>
-    <string name="preference_renderer_extra_default">Mesa 24.1.4 (mặc định)</string>
-    <string name="preference_extra_mesa_version">Phiên bản Mesa</string>
-    <string name="preference_extra_driver_model">Mô hình trình điều khiển</string>
-    <!-- Dialog box prompt -->
-    <string name="preference_rendererexp_alertdialog_message">Bạn đã bật cài đặt thử nghiệm, tính năng này có thể gây ra những vấn đề không mong muốn, bạn có muốn tiếp tục sử dụng?</string>
-    <string name="alertdialog_tipa">Cảnh báo! Trước khi sử dụng GL/GLSL tùy chỉnh, bạn phải hiểu GL/GLSL là gì</string>
-    <string name="customglglsl_alertdialog_error_gl">Phiên bản GL phải nằm trong khoảng từ 2.8 đến 4.6</string>
-    <string name="customglglsl_alertdialog_error_glsl">Phiên bản GLSL phải nằm trong khoảng từ 280 đến 460</string>
-    <!-- Custom GL/GLSL Version -->
-    <string name="preference_exp_custommv">Phiên bản GL/GLSL</string>
-    <string name="preference_exp_ebsystem">Theo hệ thống</string>
-    <string name="preference_exp_ebspecific">Sử dụng phiên bản cố định</string>
-    <string name="preference_rendererexp_custom_glversion_title">GL/GLSL tùy chỉnh</string>
-    <string name="preference_rendererexp_custom_glversion">Cho phép bạn tùy chỉnh phiên bản Mesa GL/GLSL</string>
-    <string name="custom_gl_version">Phiên bản Mesa GL:</string>
-    <string name="custom_glsl_version">Phiên bản Mesa GLSL:</string>
 </resources>

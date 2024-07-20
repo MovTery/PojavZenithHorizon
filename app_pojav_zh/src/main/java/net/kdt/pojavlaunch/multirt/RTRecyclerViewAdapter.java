@@ -30,7 +30,6 @@ import java.util.List;
 public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RTRecyclerViewAdapter.RTViewHolder> {
     private SelectRuntimeDialog.RuntimeSelectedListener mSelectedListener;
     private boolean mIsSelectMode = false;
-
     private boolean mIsDeleting = false;
 
     public RTRecyclerViewAdapter() {

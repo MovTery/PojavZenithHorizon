@@ -168,7 +168,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
                 return;
             }
             final String javaArgs = extras.getString("javaArgs");
-            final Uri resourceUri = extras.getParcelable("modUri");
+            final Uri resourceUri = (Uri) extras.getParcelable("modUri");
             final String jreName = extras.getString(EXTRAS_JRE_NAME, null);
             if(extras.getBoolean("openLogOutput", false)) openLogOutput(null);
             if (javaArgs != null) {
@@ -321,7 +321,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
             List<String> javaArgList = new ArrayList<>();
 
             // Enable Caciocavallo
-            Tools.getCacioJavaArgs(javaArgList, runtime.javaVersion == 8, runtime.javaVersion == 11);
+            Tools.getCacioJavaArgs(javaArgList,runtime.javaVersion == 8);
             
             if (javaArgs != null) {
                 javaArgList.addAll(Arrays.asList(javaArgs.split(" ")));
