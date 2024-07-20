@@ -1,6 +1,5 @@
 package net.kdt.pojavlaunch.scoped;
 
-import android.annotation.TargetApi;
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.database.MatrixCursor;
@@ -317,7 +316,6 @@ public class FolderProvider extends DocumentsProvider {
     }
 
     @Override
-    @TargetApi(26)
     public DocumentsContract.Path findDocumentPath(@Nullable String parentDocumentId, String childDocumentId) throws FileNotFoundException {
         File source = BASE_DIR;
         if(parentDocumentId != null) source = getFileForDocId(parentDocumentId);

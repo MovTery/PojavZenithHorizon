@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch.fragments;
 
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -120,12 +119,6 @@ public class MicrosoftLoginFragment extends Fragment {
 
             return super.shouldOverrideUrlLoading(view, url);
         }
-
-        @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {}
-
-        @Override
-        public void onPageFinished(WebView view, String url) {}
     }
 
 

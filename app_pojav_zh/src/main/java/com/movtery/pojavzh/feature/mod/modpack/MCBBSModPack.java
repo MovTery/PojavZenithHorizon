@@ -152,7 +152,7 @@ public class MCBBSModPack {
         profile.gameDir = "./custom_instances/" + modpackName;
         profile.name = mcbbsPackMeta.name;
         profile.lastVersionId = versionId;
-        profile.javaArgs = StringUtils.insertSpace(null, mcbbsPackMeta.launchInfo.javaArgument);;
+        profile.javaArgs = StringUtils.insertSpace(null, mcbbsPackMeta.launchInfo.javaArgument);
 
         LauncherProfiles.mainProfileJson.profiles.put(modpackName, profile);
         LauncherProfiles.write(ProfilePathManager.getCurrentProfile());

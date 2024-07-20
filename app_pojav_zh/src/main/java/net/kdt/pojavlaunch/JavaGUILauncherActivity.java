@@ -238,7 +238,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
 
 
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
     @Override
     public boolean onTouch(View v, MotionEvent e) {
         boolean isDown;
@@ -388,7 +388,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
             Log.i("JavaGUILauncher", majorVersion+","+minorVersion);
             return classVersionToJavaVersion(majorVersion);
         }catch (Exception e) {
-            e.printStackTrace();
+            Log.e("JavaGUILauncher", e.toString());
             return -1;
         }
     }

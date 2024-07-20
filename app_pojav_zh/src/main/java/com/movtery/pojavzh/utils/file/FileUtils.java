@@ -24,7 +24,6 @@ public class FileUtils {
 
             return hexString.toString();
         } catch (Exception e) {
-            System.out.println(e.toString());
             return null;
         }
     }
@@ -48,7 +47,6 @@ public class FileUtils {
 
             return hexString.toString();
         } catch (Exception e) {
-            System.out.println(e.toString());
             return null;
         }
     }
