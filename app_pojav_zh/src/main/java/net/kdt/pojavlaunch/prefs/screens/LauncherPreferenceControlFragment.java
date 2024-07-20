@@ -11,9 +11,10 @@ import android.os.Bundle;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 
-import com.movtery.pojavzh.utils.ZHTools;
-import net.kdt.pojavlaunch.R;
 import com.movtery.pojavzh.ui.fragment.CustomMouseFragment;
+import com.movtery.pojavzh.utils.ZHTools;
+
+import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.prefs.CustomSeekBarPreference;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 

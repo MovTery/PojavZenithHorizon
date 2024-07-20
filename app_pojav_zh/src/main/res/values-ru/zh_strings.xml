@@ -290,30 +290,4 @@
     <string name="zh_about_version_status_other_branch">Другая ветка</string>
     <string name="zh_about_version_status_debug">Тестовая версия</string>
     <string name="zh_about_version_status_release">Релизная версия</string>
-    <!-- From Pojav Glow·Worm -->
-    <!-- Renderer Experimental Setup -->
-    <string name="preference_category_renderer_experimental_settings">Экспериментальные настройки рендерера</string>
-    <string name="preference_renderer_setup_title">Включить экспериментальные настройки рендерера</string>
-    <string name="preference_renderer_setup">Больше настроек, специфичных для рендерера</string>
-    <string name="preference_spare_bridge_title">Резервное мостовое соединение</string>
-    <string name="preference_spare_bridge">Использовать второй вариант мостового соединения, если запуск не удался, пожалуйста, отключите</string>
-    <string name="preference_exp_framebuffer_title">Резервный буфер кадра</string>
-    <string name="preference_exp_framebuffer">Использовать второй вариант буфера кадра, если запуск не удался, пожалуйста, отключите</string>
-    <string name="preference_renderer_setup_extra">Рендерер (расширение)</string>
-    <string name="preference_renderer_extra_default">Mesa 24.1.4 (по умолчанию)</string>
-    <string name="preference_extra_mesa_version">Версия Mesa</string>
-    <string name="preference_extra_driver_model">Модель драйвера</string>
-    <!-- Dialog box prompt -->
-    <string name="preference_rendererexp_alertdialog_message">Вы включили экспериментальные настройки, эта функция может вызвать непредвиденные проблемы, продолжить использование?</string>
-    <string name="alertdialog_tipa">Внимание! Перед использованием пользовательских GL/GLSL вы должны понимать, что такое GL/GLSL</string>
-    <string name="customglglsl_alertdialog_error_gl">Версия GL должна быть между 2.8 и 4.6</string>
-    <string name="customglglsl_alertdialog_error_glsl">Версия GLSL должна быть между 280 и 460</string>
-    <!-- Custom GL/GLSL Version -->
-    <string name="preference_exp_custommv">Версия GL/GLSL</string>
-    <string name="preference_exp_ebsystem">Следовать системе</string>
-    <string name="preference_exp_ebspecific">Использовать фиксированную версию</string>
-    <string name="preference_rendererexp_custom_glversion_title">Пользовательский GL/GLSL</string>
-    <string name="preference_rendererexp_custom_glversion">Позволяет вам настроить версию Mesa GL/GLSL</string>
-    <string name="custom_gl_version">Версия Mesa GL:</string>
-    <string name="custom_glsl_version">Версия Mesa GLSL:</string>
 </resources>
