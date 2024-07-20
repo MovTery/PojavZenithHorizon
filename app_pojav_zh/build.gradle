@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application' version '8.3.1'
 }
 
-static def getVersionCode() {
+def getVersionCode = {
     def isMainBranch = System.getenv('IS_MAIN_BRANCH') == 'true'
 
     def baseDateSeconds = 9939458
