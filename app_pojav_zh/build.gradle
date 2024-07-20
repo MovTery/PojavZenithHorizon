@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application' version '8.3.1'
 }
 
-static def getDateSeconds() {
+static def getVersionCode() {
     def isMainBranch = System.getenv('IS_MAIN_BRANCH') == 'true'
 
     def baseDateSeconds = 9939458
@@ -48,6 +48,10 @@ android {
 
     compileSdk = 34
 
+    lintOptions {
+        abortOnError false
+    }
+
     signingConfigs {
         releaseBuild {
             def pwd = System.getenv("MOVTERY_KEYSTORE_PASSWORD")
@@ -68,7 +72,7 @@ android {
         applicationId "net.kdt.pojavlaunch.zh"
         minSdkVersion 26
         targetSdkVersion 34
-        versionCode getDateSeconds()
+        versionCode getVersionCode()
         versionName "1.2.5.2"
         multiDexEnabled true //important
         resValue 'string', 'curseforge_api_key', getCFApiKey()
@@ -87,6 +91,12 @@ android {
             resValue 'string', 'storageProviderAuthorities', 'net.kdt.pojavlaunch.scoped.gamefolder.zh.debug'
             resValue 'string', 'zh_version_status', 'debug'
         }
+        proguard {
+            initWith debug
+            minifyEnabled true
+            shrinkResources true
+        }
+
         release {
             // Don't set to true or java.awt will be a.a or something similar.
             minifyEnabled false
@@ -123,8 +133,8 @@ android {
     packagingOptions {
         jniLibs {
             useLegacyPackaging = true
-            pickFirsts += ['**/libbytehook.so']
         }
+        pickFirst '**/libbytehook.so'
     }
 
     buildFeatures {
@@ -132,9 +142,6 @@ android {
     }
 
     buildToolsVersion = '34.0.0'
-    lint {
-        abortOnError false
-    }
 
     applicationVariants.configureEach { variant ->
         variant.outputs.configureEach { output ->
@@ -172,6 +179,8 @@ dependencies {
     // implementation 'com.intuit.ssp:ssp-android:1.0.5'
 
     implementation 'org.tukaani:xz:1.9'
+    // Our version of exp4j can be built from source at
+    // https://github.com/PojavLauncherTeam/exp4j
     implementation 'net.sourceforge.htmlcleaner:htmlcleaner:2.6.1'
     implementation 'com.bytedance:bytehook:1.0.9'
 
@@ -180,8 +189,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-
     implementation 'org.commonmark:commonmark:0.19.0'
-
     implementation 'com.google.android.material:material:1.12.0'
 }
