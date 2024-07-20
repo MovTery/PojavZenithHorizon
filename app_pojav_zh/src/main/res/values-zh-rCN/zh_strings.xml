@@ -23,6 +23,7 @@
     <string name="zh_yi">亿</string>
     <string name="zh_wrong_tip">出现了一些问题</string>
     <string name="zh_no_more_reminders">不再提醒</string>
+    <string name="zh_input_invalid">填写的内容不符合要求，请重新输入</string>
     <!-- Dialog -->
     <string name="zh_dialog_select_jar">选择 Jar 文件</string>
     <!-- Profiles Path -->

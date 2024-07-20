@@ -23,6 +23,7 @@
     <string name="zh_yi">Миллиард</string>
     <string name="zh_wrong_tip">Произошла ошибка</string>
     <string name="zh_no_more_reminders">Больше не напоминать</string>
+    <string name="zh_input_invalid">Введенное содержимое не соответствует требованиям, пожалуйста, введите снова</string>
     <!-- Dialog -->
     <string name="zh_dialog_select_jar">Выбрать файл Jar</string>
     <!-- Profiles Path -->

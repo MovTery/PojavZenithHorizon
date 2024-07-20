@@ -23,6 +23,7 @@
     <string name="zh_yi">A Hundred million</string>
     <string name="zh_wrong_tip">Something went wrong</string>
     <string name="zh_no_more_reminders">No more reminders</string>
+    <string name="zh_input_invalid">The content entered does not meet the requirements, please re-enter</string>
     <!-- Dialog -->
     <string name="zh_dialog_select_jar">Select Jar file</string>
     <!-- Profiles Path -->
