@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-
 import static com.movtery.pojavzh.utils.ZHTools.getVersionName;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_LAUNCHER_THEME;
 
@@ -65,7 +64,7 @@ public class PojavApplication extends Application {
 		
 		try {
 			super.onCreate();
-
+			
 			Tools.DIR_DATA = getDir("files", MODE_PRIVATE).getParent();
 			Tools.DIR_CACHE = getCacheDir();
 			Tools.DIR_ACCOUNT_NEW = Tools.DIR_DATA + "/accounts";

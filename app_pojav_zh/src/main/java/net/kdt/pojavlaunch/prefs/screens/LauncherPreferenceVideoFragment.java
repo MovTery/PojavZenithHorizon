@@ -10,9 +10,6 @@ import androidx.preference.ListPreference;
 import androidx.preference.SwitchPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
-import com.movtery.pojavzh.feature.renderer.RendererManager;
-import com.movtery.pojavzh.utils.ListAndArray;
-
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.prefs.CustomSeekBarPreference;
@@ -48,10 +45,11 @@ public class LauncherPreferenceVideoFragment extends LauncherPreferenceFragment 
                 SwitchPreference.class);
         sustainedPerfSwitch.setVisible(true);
 
-        final ListPreference rendererListPreference = requirePreference("renderer", ListPreference.class);
-        final ListPreference expRendererListPreference = requirePreference("renderer_exp", ListPreference.class);
-        setListPreference(rendererListPreference, "renderer");
-        setListPreference(expRendererListPreference, "renderer_exp");
+        ListPreference rendererListPreference = requirePreference("renderer",
+                ListPreference.class);
+        Tools.RenderersList renderersList = Tools.getCompatibleRenderers(getContext());
+        rendererListPreference.setEntries(renderersList.rendererDisplayNames);
+        rendererListPreference.setEntryValues(renderersList.rendererIds.toArray(new String[0]));
 
         computeVisibility();
     }
@@ -65,23 +63,5 @@ public class LauncherPreferenceVideoFragment extends LauncherPreferenceFragment 
     private void computeVisibility(){
         requirePreference("force_vsync", SwitchPreferenceCompat.class)
                 .setVisible(LauncherPreferences.PREF_USE_ALTERNATE_SURFACE);
-    }
-
-    private void setListPreference(ListPreference listPreference, String key) {
-        boolean prefExpSetup = key.equals("renderer_exp") == LauncherPreferences.PREF_EXP_SETUP;
-        listPreference.setVisible(prefExpSetup);
-        if (!prefExpSetup) return;
-
-        ListAndArray array = RendererManager.getCompatibleRenderers(requireContext());
-        Tools.LOCAL_RENDERER = listPreference.getValue();
-        listPreference.setEntries(array.getArray());
-        listPreference.setEntryValues(array.getList().toArray(new String[0]));
-
-        listPreference.setOnPreferenceChangeListener((pre, obj) -> updateRendererPref((String) obj));
-    }
-
-    private boolean updateRendererPref(String name) {
-        Tools.LOCAL_RENDERER = name;
-        return true;
     }
 }

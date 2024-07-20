@@ -66,6 +66,7 @@ public class MinecraftGLSurface extends View implements GrabListener {
     private final float mScaleFactor = LauncherPreferences.PREF_SCALE_FACTOR/100f;
     /* Sensitivity, adjusted according to screen size */
     private final double mSensitivityFactor = (1.4 * (1080f/ Tools.getDisplayMetrics((Activity) getContext()).heightPixels));
+
     /* Surface ready listener, used by the activity to launch minecraft */
     SurfaceReadyListener mSurfaceReadyListener = null;
     final Object mSurfaceReadyListenerLock = new Object();
@@ -167,7 +168,6 @@ public class MinecraftGLSurface extends View implements GrabListener {
 
 
     }
-
 
     /**
      * The touch event for both grabbed an non-grabbed mouse state on the touch screen
@@ -319,6 +319,10 @@ public class MinecraftGLSurface extends View implements GrabListener {
         sendMouseButton(glfwButton, status);
         return true;
     }
+
+
+
+
 
     /** Called when the size need to be set at any point during the surface lifecycle **/
     public void refreshSize(){

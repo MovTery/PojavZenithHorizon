@@ -23,14 +23,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.movtery.pojavzh.extra.ZHExtraConstants;
-import com.movtery.pojavzh.feature.renderer.RendererManager;
-import com.movtery.pojavzh.feature.renderer.RenderersList;
 import com.movtery.pojavzh.ui.fragment.ControlButtonFragment;
 import com.movtery.pojavzh.ui.fragment.FilesFragment;
 import com.movtery.pojavzh.ui.fragment.VersionSelectorFragment;
-
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.utils.ZHTools;
+
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
@@ -97,7 +95,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         bindViews(view);
 
-        RenderersList renderersList = RendererManager.getCompatibleRenderers(view.getContext());
+        Tools.RenderersList renderersList = Tools.getCompatibleRenderers(view.getContext());
         mRenderNames = renderersList.rendererIds;
         List<String> renderList = new ArrayList<>(renderersList.rendererDisplayNames.length + 1);
         renderList.addAll(Arrays.asList(renderersList.rendererDisplayNames));
@@ -155,7 +153,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
 
         // Runtime spinner
         List<Runtime> runtimes = MultiRTUtils.getRuntimes();
-        int jvmIndex = runtimes.indexOf(new Runtime(requireContext().getString(R.string.global_default)));
+        int jvmIndex = runtimes.indexOf(new Runtime(getString(R.string.global_default)));
         if (mTempProfile.javaDir != null) {
             String selectedRuntime = mTempProfile.javaDir.substring(Tools.LAUNCHERPROFILES_RTPREFIX.length());
             int nindex = runtimes.indexOf(new Runtime(selectedRuntime));
@@ -223,7 +221,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         if(mTempProfile.gameDir.isEmpty()) mTempProfile.gameDir = null;
 
         Runtime selectedRuntime = (Runtime) mDefaultRuntime.getSelectedItem();
-        mTempProfile.javaDir = (selectedRuntime.name.equals(requireContext().getString(R.string.global_default)) || selectedRuntime.versionString == null)
+        mTempProfile.javaDir = (selectedRuntime.name.equals(getString(R.string.global_default)) || selectedRuntime.versionString == null)
                 ? null : Tools.LAUNCHERPROFILES_RTPREFIX + selectedRuntime.name;
 
         if(mDefaultRenderer.getSelectedItemPosition() == mRenderNames.size()) mTempProfile.pojavRendererName = null;

@@ -32,8 +32,6 @@
     <string name="mcl_setting_category_renderer">Визуализатор</string>
     <string name="mcl_setting_renderer_gles2_4">Holy GL4ES (все версии, быстрый)</string>
     <string name="mcl_setting_renderer_vulkan_zink">Zink (Vulkan; все версии, средний)</string>
-    <string name="mcl_setting_renderer_virgl">Virgl - (доступен для всех версий, средняя скорость)</string>
-    <string name="mcl_setting_renderer_freedreno">Freedreno (Adreno) - (доступен для всех версий, средняя скорость)</string>
     <string name="mcl_setting_renderer_angle">ANGLE (Vulkan; 1.17 и новее, средний)</string>
     <string name="mcl_setting_veroption_release">Релизы</string>
     <string name="mcl_setting_veroption_snapshot">Снапшоты</string>
@@ -109,6 +107,7 @@
     <string name="customctrl_forward_lock">Фиксатор движения</string>
     <string name="customctrl_absolute_tracking">Динамический центр</string>
     <string name="memory_warning_msg">Текущий объем свободной оперативной памяти (%d) меньше, чем выделенная (%d), что может привести к сбоям. Измените количество выделенной памяти при сбое игры.</string>
+    <string name="address_memory_warning_msg">Текущий доступный объем свободной памяти (%d) ниже выделенной памяти (%d), это может привести к сбоям. Если игра вылетает, пожалуйста, измените выделение памяти.</string>
     <string name="mcl_memory_allocation">Выделение памяти</string>
     <string name="multirt_runtime_corrupt">Среда выполнения Java повреждена</string>
     <string name="multirt_runtime_incompatiblearch">Несовместимая архитектура: %s</string>
