@@ -4,6 +4,7 @@ import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.P;
 import static com.movtery.pojavzh.utils.ZHTools.shareFile;
 import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_IGNORE_NOTCH;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_NOTCH_SIZE;
 
@@ -44,6 +45,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -96,6 +98,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 @SuppressWarnings("IOStreamConstructor")
 public final class Tools {
@@ -198,6 +201,15 @@ public final class Tools {
         String launchClassPath = generateLaunchClassPath(versionInfo, versionId);
 
         List<String> javaArgList = new ArrayList<>();
+
+        if (!Objects.isNull(minecraftAccount.baseUrl) && !minecraftAccount.baseUrl.equals("0")) {
+            if (minecraftAccount.baseUrl.contains("auth.mc-user.com")) {
+                javaArgList.add("-javaagent:" + DIR_GAME_HOME + "/other_login/nide8auth.jar=" + minecraftAccount.baseUrl.replace("https://auth.mc-user.com:233/", ""));
+                javaArgList.add("-Dnide8auth.client=true");
+            } else {
+                javaArgList.add("-javaagent:" + DIR_GAME_HOME + "/other_login/authlib-injector.jar=" + minecraftAccount.baseUrl);
+            }
+        }
 
         getCacioJavaArgs(javaArgList, runtime.javaVersion == 8);
 
@@ -956,14 +968,18 @@ public final class Tools {
     }
 
     /** Swap the main fragment with another */
-    public static void swapFragment(FragmentActivity fragmentActivity , Class<? extends Fragment> fragmentClass,
+    public static void swapFragment(FragmentActivity fragmentActivity, Class<? extends Fragment> fragmentClass,
                                     @Nullable String fragmentTag, @Nullable Bundle bundle) {
         // When people tab out, it might happen
         //TODO handle custom animations
-        fragmentActivity.getSupportFragmentManager().beginTransaction()
-                .setReorderingAllowed(true)
+        FragmentTransaction transaction = fragmentActivity.getSupportFragmentManager().beginTransaction();
+
+        if (PREF_ANIMATION)
+            transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
+        transaction.setReorderingAllowed(true)
                 .addToBackStack(fragmentClass.getName())
-                .replace(R.id.container_fragment, fragmentClass, bundle, fragmentTag).commit();
+                .replace(R.id.container_fragment, fragmentClass, bundle, fragmentTag)
+                .commit();
     }
 
     public static void backToMainMenu(FragmentActivity fragmentActivity) {
