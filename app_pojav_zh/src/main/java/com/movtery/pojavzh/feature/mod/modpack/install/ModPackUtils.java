@@ -40,12 +40,12 @@ public class ModPackUtils {
                     CurseManifest curseManifest = Tools.GLOBAL_GSON.fromJson(
                             Tools.read(modpackZipFile.getInputStream(curseforgeEntry)),
                             CurseManifest.class);
-                    if (verifyManifest(curseManifest)) return ModPackEnum.CURSEFORGE; //curseforge
+                    if (verifyManifest(curseManifest)) return ModPackEnum.CURSEFORGE;
                 } else if (mcbbsEntry != null) {
                     MCBBSPackMeta mcbbsPackMeta = Tools.GLOBAL_GSON.fromJson(
                             Tools.read(modpackZipFile.getInputStream(mcbbsEntry)),
                             MCBBSPackMeta.class);
-                    if (verifyMCBBSPackMeta(mcbbsPackMeta)) return ModPackEnum.MCBBS; // mcbbs
+                    if (verifyMCBBSPackMeta(mcbbsPackMeta)) return ModPackEnum.MCBBS;
                 }
             } else if (suffix.equals(".mrpack")) {
                 ZipEntry entry = modpackZipFile.getEntry("modrinth.index.json");
@@ -53,7 +53,7 @@ public class ModPackUtils {
                     ModrinthIndex modrinthIndex = Tools.GLOBAL_GSON.fromJson(
                             Tools.read(modpackZipFile.getInputStream(entry)),
                             ModrinthIndex.class);
-                    if (verifyModrinthIndex(modrinthIndex)) return ModPackEnum.MODRINTH; //modrinth
+                    if (verifyModrinthIndex(modrinthIndex)) return ModPackEnum.MODRINTH;
                 }
             }
         } catch (Exception e) {
