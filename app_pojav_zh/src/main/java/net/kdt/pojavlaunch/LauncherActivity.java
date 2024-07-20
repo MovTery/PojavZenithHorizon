@@ -63,8 +63,6 @@ import net.kdt.pojavlaunch.utils.NotificationUtils;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
-import org.apache.commons.io.FileUtils;
-
 import java.io.File;
 import java.lang.ref.WeakReference;
 
@@ -115,27 +113,19 @@ public class LauncherActivity extends BaseActivity {
         ModPackUtils.ModPackEnum type;
         type = ModPackUtils.determineModpack(dirGameModpackFile);
 
-        if (type != ModPackUtils.ModPackEnum.UNKNOWN) {
-            ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.global_waiting);
-            PojavApplication.sExecutorService.execute(() -> {
-                try {
-                    ModLoader loaderInfo = InstallLocalModPack.installModPack(this, type, dirGameModpackFile, () -> runOnUiThread(value.dialog::dismiss));
-                    if (loaderInfo == null) return;
-                    loaderInfo.getDownloadTask(new NotificationDownloadListener(this, loaderInfo)).run();
-                }catch (Exception e) {
-                    Tools.showErrorRemote(this, R.string.modpack_install_download_failed, e);
-                }finally {
-                    ProgressLayout.clearProgress(ProgressLayout.INSTALL_MODPACK);
-                }
-            });
-        } else {
-            FileUtils.deleteQuietly(dirGameModpackFile);
-            runOnUiThread(() -> new TipDialog.Builder(this)
-                    .setMessage(R.string.zh_select_modpack_local_not_supported) //弹窗提醒
-                    .setShowCancel(true)
-                    .setShowConfirm(false)
-                    .buildDialog());
-        }
+        ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.global_waiting);
+        PojavApplication.sExecutorService.execute(() -> {
+            try {
+                ModLoader loaderInfo = InstallLocalModPack.installModPack(this, type, dirGameModpackFile, () -> runOnUiThread(value.dialog::dismiss));
+                if (loaderInfo == null) return;
+                loaderInfo.getDownloadTask(new NotificationDownloadListener(this, loaderInfo)).run();
+            }catch (Exception e) {
+                value.dialog.dismiss();
+                Tools.showErrorRemote(this, R.string.modpack_install_download_failed, e);
+            }finally {
+                ProgressLayout.clearProgress(ProgressLayout.INSTALL_MODPACK);
+            }
+        });
 
         return false;
     };
