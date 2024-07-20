@@ -72,7 +72,13 @@ public class LauncherPreferenceJavaFragment extends LauncherPreferenceFragment {
                     .setMessage(StringUtils.insertNewline(getMemoryInfoText(requireContext()), getString(R.string.zh_setting_java_memory_max, String.format("%s MB", maxRAM))))
                     .setEditText(String.valueOf(allocationSeek.getValue()))
                     .setConfirmListener(editBox -> {
-                        int value = Integer.parseInt(editBox.getText().toString());
+                        String string = editBox.getText().toString();
+                        if (string.isEmpty()) {
+                            editBox.setError(getString(R.string.global_error_field_empty));
+                            return false;
+                        }
+
+                        int value = Integer.parseInt(string);
 
                         if (value < 256) {
                             editBox.setError(getString(R.string.zh_setting_java_memory_too_small, 256));
