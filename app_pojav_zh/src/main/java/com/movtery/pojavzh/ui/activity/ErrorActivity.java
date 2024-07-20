@@ -58,7 +58,11 @@ public class ErrorActivity extends BaseActivity {
         findViewById(R.id.zh_error_buttons).setVisibility(View.GONE);
 
         mTitleText.setText(R.string.zh_wrong_tip);
-        int code = extras.getInt(BUNDLE_CODE,-1);
+        int code = extras.getInt(BUNDLE_CODE,0);
+        if (code == 0) {
+            finish();
+            return;
+        }
         File crashReportFile = ZHTools.getLatestFile(extras.getString(BUNDLE_CRASH_REPORTS_PATH), 15);
         File logFile = new File(Tools.DIR_GAME_HOME, "latestlog.txt");
 
