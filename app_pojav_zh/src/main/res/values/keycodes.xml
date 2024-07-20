@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingTranslation">
+<resources>
     <string name="zh_keycode_special">Special</string>
     <string name="zh_keycode_special_keyboard">Keyboard</string>
     <string name="zh_keycode_special_pri">Left Click</string>
