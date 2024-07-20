@@ -290,30 +290,4 @@
     <string name="zh_about_version_status_other_branch">فروع أخرى</string>
     <string name="zh_about_version_status_debug">نسخة تجريبية</string>
     <string name="zh_about_version_status_release">نسخة رسمية</string>
-    <!-- From Pojav Glow·Worm -->
-    <!-- Renderer Experimental Setup -->
-    <string name="preference_category_renderer_experimental_settings">إعدادات العارض التجريبية</string>
-    <string name="preference_renderer_setup_title">تمكين إعدادات العارض التجريبية</string>
-    <string name="preference_renderer_setup">المزيد من إعدادات محددة للعارض</string>
-    <string name="preference_spare_bridge_title">جسر احتياطي</string>
-    <string name="preference_spare_bridge">استخدام المخطط الثاني للجسر، إذا فشل التشغيل، يرجى إغلاقه</string>
-    <string name="preference_exp_framebuffer_title">إطار التخزين الاحتياطي</string>
-    <string name="preference_exp_framebuffer">استخدام المخطط الثاني لإطار التخزين، إذا فشل التشغيل، يرجى إغلاقه</string>
-    <string name="preference_renderer_setup_extra">العارض (توسعة)</string>
-    <string name="preference_renderer_extra_default">Mesa 24.1.4 (الافتراضي)</string>
-    <string name="preference_extra_mesa_version">إصدار Mesa</string>
-    <string name="preference_extra_driver_model">نموذج السائق</string>
-    <!-- Dialog box prompt -->
-    <string name="preference_rendererexp_alertdialog_message">لقد قمت بتشغيل الإعدادات التجريبية، قد تسبب هذه الميزة مشاكل غير متوقعة، هل تريد الاستمرار في الاستخدام؟</string>
-    <string name="alertdialog_tipa">تحذير! يجب أن تعرف ما هو GL/GLSL قبل استخدام GL/GLSL المخصص</string>
-    <string name="customglglsl_alertdialog_error_gl">يجب أن يكون إصدار GL بين 2.8 و 4.6</string>
-    <string name="customglglsl_alertdialog_error_glsl">يجب أن يكون إصدار GLSL بين 280 و 460</string>
-    <!-- Custom GL/GLSL Version -->
-    <string name="preference_exp_custommv">إصدار GL/GLSL</string>
-    <string name="preference_exp_ebsystem">اتبع النظام</string>
-    <string name="preference_exp_ebspecific">استخدام إصدار ثابت</string>
-    <string name="preference_rendererexp_custom_glversion_title">GL/GLSL المخصص</string>
-    <string name="preference_rendererexp_custom_glversion">يسمح لك بتخصيص إصدار Mesa GL/GLSL</string>
-    <string name="custom_gl_version">إصدار Mesa GL:</string>
-    <string name="custom_glsl_version">إصدار Mesa GLSL:</string>
 </resources>

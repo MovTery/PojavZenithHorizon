@@ -1,13 +1,13 @@
 package net.kdt.pojavlaunch.utils;
 
-import static com.movtery.pojavzh.feature.renderer.RendererManager.DRIVER_MODEL;
-import static com.movtery.pojavzh.feature.renderer.RendererManager.MESA_LIBS;
 import static net.kdt.pojavlaunch.Architecture.ARCH_X86;
 import static net.kdt.pojavlaunch.Architecture.is64BitsDevice;
 import static net.kdt.pojavlaunch.Tools.LOCAL_RENDERER;
 import static net.kdt.pojavlaunch.Tools.NATIVE_LIB_DIR;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.*;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_DUMP_SHADERS;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_VSYNC_IN_ZINK;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ZINK_PREFER_SYSTEM_DRIVER;
 
 import android.app.*;
 import android.content.*;
@@ -117,7 +117,7 @@ public class JREUtils {
                     Log.i("jrelog-logcat","Clearing logcat");
                     new ProcessBuilder().command("logcat", "-c").redirectErrorStream(true).start();
                     Log.i("jrelog-logcat","Starting logcat");
-                    java.lang.Process p = logcatPb.start();
+                    Process p = logcatPb.start();
 
                     byte[] buf = new byte[1024];
                     int len;
@@ -176,14 +176,10 @@ public class JREUtils {
     }
 
     public static void setJavaEnvironment(Activity activity, String jreHome) throws Throwable {
-        String glVersion = PREF_MESA_GL_VERSION;
-        String glslVersion = PREF_MESA_GLSL_VERSION;
-        final String localMesaLibrary = loadGraphicsLibrary();
-
         Map<String, String> envMap = new ArrayMap<>();
         envMap.put("POJAV_NATIVEDIR", NATIVE_LIB_DIR);
         envMap.put("JAVA_HOME", jreHome);
-        envMap.put("HOME", ProfilePathManager.getCurrentPath());
+        envMap.put("HOME", Tools.DIR_GAME_HOME);
         envMap.put("TMPDIR", Tools.DIR_CACHE.getAbsolutePath());
         envMap.put("LIBGL_MIPMAP", "3");
 
@@ -196,6 +192,14 @@ public class JREUtils {
         // Fix white color on banner and sheep, since GL4ES 1.1.5
         envMap.put("LIBGL_NORMALIZE", "1");
 
+        if(PREF_DUMP_SHADERS)
+            envMap.put("LIBGL_VGPU_DUMP", "1");
+        if(PREF_ZINK_PREFER_SYSTEM_DRIVER)
+            envMap.put("POJAV_ZINK_PREFER_SYSTEM_DRIVER", "1");
+        if(PREF_VSYNC_IN_ZINK)
+            envMap.put("POJAV_VSYNC_IN_ZINK", "1");
+
+
         // The OPEN GL version is changed according
         envMap.put("LIBGL_ES", (String) ExtraCore.getValue(ExtraConstants.OPEN_GL_VERSION));
 
@@ -206,116 +210,26 @@ public class JREUtils {
         envMap.put("allow_higher_compat_version", "true");
         envMap.put("allow_glsl_extension_directive_midshader", "true");
         envMap.put("MESA_LOADER_DRIVER_OVERRIDE", "zink");
+        envMap.put("VTEST_SOCKET_NAME", new File(Tools.DIR_CACHE, ".virgl_test").getAbsolutePath());
 
         envMap.put("LD_LIBRARY_PATH", LD_LIBRARY_PATH);
         envMap.put("PATH", jreHome + "/bin:" + Os.getenv("PATH"));
-
         if(FFmpegPlugin.isAvailable) {
             envMap.put("PATH", FFmpegPlugin.libraryPath+":"+envMap.get("PATH"));
         }
 
-        if(Build.MANUFACTURER.toLowerCase(Locale.ROOT).contains("huawei"))
-            envMap.put("POJAV_EMUI_ITERATOR_MITIGATE", "1");
-
-        if(LauncherPreferences.PREF_BIG_CORE_AFFINITY) envMap.put("POJAV_BIG_CORE_AFFINITY", "1");
-        envMap.put("AWTSTUB_WIDTH", Integer.toString(CallbackBridge.windowWidth > 0 ? CallbackBridge.windowWidth : CallbackBridge.physicalWidth));
-        envMap.put("AWTSTUB_HEIGHT", Integer.toString(CallbackBridge.windowHeight > 0 ? CallbackBridge.windowHeight : CallbackBridge.physicalHeight));
-
-        if(PREF_DUMP_SHADERS)
-            envMap.put("LIBGL_VGPU_DUMP", "1");
-        if(PREF_ZINK_PREFER_SYSTEM_DRIVER)
-            envMap.put("POJAV_ZINK_PREFER_SYSTEM_DRIVER", "1");
-        if(PREF_VSYNC_IN_ZINK)
-            envMap.put("POJAV_VSYNC_IN_ZINK", "1");
-
-        if(PREF_SPARE_BRIDGE)
-            envMap.put("POJAV_SPARE_BRIDGE", "1");
-        if(PREF_EXP_SETUP)
-            envMap.put("POJAV_EXP_SETUP", "1");
-        if(PREF_EXP_FRAME_BUFFER)
-            envMap.put("POJAV_EXP_FRAME_BUFFER", "1");
-
-        if (LOCAL_RENDERER != null) {
-            if (!PREF_EXP_SETUP) {
-                switch (LOCAL_RENDERER) {
-                    case "vulkan_zink":{
-                        envMap.put("POJAV_BETA_RENDERER", "mesa_3d");
-                        envMap.put("LOCAL_DRIVER_MODEL", "driver_zink");
-                        envMap.put("MESA_LIBRARY", localMesaLibrary);
-                    } break;
-                    case "opengles3_virgl":{
-                        envMap.put("POJAV_BETA_RENDERER", "mesa_3d");
-                        envMap.put("LOCAL_DRIVER_MODEL", "driver_virgl");
-                        envMap.put("MESA_GL_VERSION_OVERRIDE", "4.3");
-                        envMap.put("MESA_GLSL_VERSION_OVERRIDE", "430");
-                        envMap.put("VTEST_SOCKET_NAME", new File(Tools.DIR_CACHE, ".virgl_test").getAbsolutePath());
-                        envMap.put("MESA_LIBRARY", localMesaLibrary);
-                    } break;
-                    case "freedreno":{
-                        envMap.put("POJAV_BETA_RENDERER", "mesa_3d");
-                        envMap.put("LOCAL_DRIVER_MODEL", "driver_freedreno");
-                        envMap.put("MESA_LIBRARY", localMesaLibrary);
-                    } break;
-                    case "panfrost":{
-                        envMap.put("POJAV_BETA_RENDERER", "mesa_3d");
-                        envMap.put("LOCAL_DRIVER_MODEL", "driver_panfrost");
-                        envMap.put("MESA_GL_VERSION_OVERRIDE", "3.3");
-                        envMap.put("MESA_GLSL_VERSION_OVERRIDE", "330");
-                        envMap.put("MESA_DISK_CACHE_SINGLE_FILE", "1");
-                        envMap.put("MESA_DISK_CACHE_SINGLE_FILE", "true");
-                        envMap.put("MESA_LIBRARY", localMesaLibrary);
-                    } break;
-                    default:{
-                        envMap.put("POJAV_BETA_RENDERER", LOCAL_RENDERER);
-                    } break;
-                }
-            } else {
-                envMap.put("POJAV_BETA_RENDERER", LOCAL_RENDERER);
-            }
-            if (LOCAL_RENDERER.equals("mesa_3d")) {
-                envMap.put("MESA_LIBRARY", localMesaLibrary);
-                envMap.put("LOCAL_DRIVER_MODEL", DRIVER_MODEL);
-                if (PREF_EXP_ENABLE_SPECIFIC) {
-                    switch (DRIVER_MODEL) {
-                        case "driver_zink":
-                        case "driver_freedreno":
-                        case "driver_softpipe":
-                        case "driver_llvmpipe":{
-                            envMap.put("MESA_GL_VERSION_OVERRIDE", "4.6");
-                            envMap.put("MESA_GLSL_VERSION_OVERRIDE", "460");
-                        } break;
-                        case "driver_virgl":{
-                            envMap.put("MESA_GL_VERSION_OVERRIDE", "4.3");
-                            envMap.put("MESA_GLSL_VERSION_OVERRIDE", "430");
-                        } break;
-                        case "driver_panfrost":{
-                            envMap.put("MESA_GL_VERSION_OVERRIDE", "3.3");
-                            envMap.put("MESA_GLSL_VERSION_OVERRIDE", "330");
-                        } break;
-                    }
-                } else if (PREF_EXP_ENABLE_CUSTOM) {
-                    envMap.put("MESA_GL_VERSION_OVERRIDE", glVersion);
-                    envMap.put("MESA_GLSL_VERSION_OVERRIDE", glslVersion);
-                }
-                if (MESA_LIBS.equals("mesa2205")) {
-                    envMap.put("DCLAT_FRAMEBUFFER", "1");
-                    if(DRIVER_MODEL.equals("driver_zink"))
-                        envMap.put("POJAV_LEGACY_ZINK_ALLOW", "1");
-                }
-                if (DRIVER_MODEL.equals("driver_virgl"))
-                    envMap.put("VTEST_SOCKET_NAME", new File(Tools.DIR_CACHE, ".virgl_test").getAbsolutePath());
-                if (DRIVER_MODEL.equals("driver_panfrost")) {
-                    envMap.put("MESA_DISK_CACHE_SINGLE_FILE", "1");
-                    envMap.put("MESA_DISK_CACHE_SINGLE_FILE", "true");
-                }
-            }
-            if (LOCAL_RENDERER.equals("opengles3_desktopgl_angle_vulkan")) {
+        if(LOCAL_RENDERER != null) {
+            envMap.put("POJAV_RENDERER", LOCAL_RENDERER);
+            if(LOCAL_RENDERER.equals("opengles3_desktopgl_angle_vulkan")) {
                 envMap.put("LIBGL_ES", "3");
                 envMap.put("POJAVEXEC_EGL","libEGL_angle.so"); // Use ANGLE EGL
             }
         }
+        if(LauncherPreferences.PREF_BIG_CORE_AFFINITY) envMap.put("POJAV_BIG_CORE_AFFINITY", "1");
+        envMap.put("AWTSTUB_WIDTH", Integer.toString(CallbackBridge.windowWidth > 0 ? CallbackBridge.windowWidth : CallbackBridge.physicalWidth));
+        envMap.put("AWTSTUB_HEIGHT", Integer.toString(CallbackBridge.windowHeight > 0 ? CallbackBridge.windowHeight : CallbackBridge.physicalHeight));
 
-        File customEnvFile = new File(ProfilePathManager.getCurrentPath(), "custom_env.txt");
+        File customEnvFile = new File(Tools.DIR_GAME_HOME, "custom_env.txt");
         if (customEnvFile.exists() && customEnvFile.isFile()) {
             BufferedReader reader = new BufferedReader(new FileReader(customEnvFile));
             String line;
@@ -379,11 +293,17 @@ public class JREUtils {
         purgeArg(userArgs, "-XX:+UseLargePagesInMetaspace");
         purgeArg(userArgs, "-XX:+UseLargePages");
         purgeArg(userArgs, "-Dorg.lwjgl.opengl.libname");
+        // Don't let the user specify a custom Freetype library (as the user is unlikely to specify a version compiled for Android)
+        purgeArg(userArgs, "-Dorg.lwjgl.freetype.libname");
 
         //Add automatically generated args
         userArgs.add("-Xms" + LauncherPreferences.PREF_RAM_ALLOCATION + "M");
         userArgs.add("-Xmx" + LauncherPreferences.PREF_RAM_ALLOCATION + "M");
         if(LOCAL_RENDERER != null) userArgs.add("-Dorg.lwjgl.opengl.libname=" + graphicsLib);
+
+        // Force LWJGL to use the Freetype library intended for it, instead of using the one
+        // that we ship with Java (since it may be older than what's needed)
+        userArgs.add("-Dorg.lwjgl.freetype.libname="+ NATIVE_LIB_DIR+"/libfreetype.so");
 
         userArgs.addAll(JVMArgs);
         activity.runOnUiThread(() -> Toast.makeText(activity, activity.getString(R.string.autoram_info_msg,LauncherPreferences.PREF_RAM_ALLOCATION), Toast.LENGTH_SHORT).show());
@@ -524,52 +444,20 @@ public class JREUtils {
      * It will fallback if it fails to load the library.
      * @return The name of the loaded library
      */
-     public static String loadGraphicsLibrary(){
+    public static String loadGraphicsLibrary(){
         if(LOCAL_RENDERER == null) return null;
-        String renderLibrary = null;
-        if (LOCAL_RENDERER.equals("mesa_3d")) {
-            switch (MESA_LIBS) {
-                case "default":
-                    renderLibrary = "libOSMesa_8.so";
-                    break;
-                case "mesa2304":
-                    renderLibrary = "libOSMesa_2304.so";
-                    break;
-                case "mesa2300d":
-                    renderLibrary = "libOSMesa_2300d.so";
-                    break;
-                case "mesa2205":
-                    renderLibrary = "libOSMesa_2205.so";
-                    break;
-            }
-        } else {
-            switch (LOCAL_RENDERER) {
-                case "opengles2":
-                case "opengles2_5":
-                case "opengles3":
-                    renderLibrary = "libgl4es_114.so";
-                    break;
-                case "opengles2_vgpu":
-                    renderLibrary = "libvgpu.so";
-                    break;
-                case "vulkan_zink":
-                case "freedreno":
-                    renderLibrary = "libOSMesa_8.so";
-                    break;
-                case "opengles3_virgl":
-                    renderLibrary = "libOSMesa_2205.so";
-                    break;
-                case "panfrost":
-                    renderLibrary = "libOSMesa_2300d.so";
-                    break;
-                case "opengles3_desktopgl_angle_vulkan":
-                    renderLibrary = "libtinywrapper.so";
-                    break;
-                default:
-                    Log.w("RENDER_LIBRARY", "No renderer selected, defaulting to opengles2");
-                    renderLibrary = "libgl4es_114.so";
-                    break;
-            }
+        String renderLibrary;
+        switch (LOCAL_RENDERER){
+            case "opengles2":
+            case "opengles2_5":
+            case "opengles3":
+                renderLibrary = "libgl4es_114.so"; break;
+            case "vulkan_zink": renderLibrary = "libOSMesa.so"; break;
+            case "opengles3_desktopgl_angle_vulkan" : renderLibrary = "libtinywrapper.so"; break;
+            default:
+                Log.w("RENDER_LIBRARY", "No renderer selected, defaulting to opengles2");
+                renderLibrary = "libgl4es_114.so";
+                break;
         }
 
         if (!dlopen(renderLibrary) && !dlopen(findInLdLibPath(renderLibrary))) {
@@ -679,7 +567,6 @@ public class JREUtils {
     static {
         System.loadLibrary("pojavexec");
         System.loadLibrary("pojavexec_awt");
-        dlopen("libxhook.so");
         System.loadLibrary("istdio");
     }
 }

@@ -32,8 +32,6 @@
     <string name="mcl_setting_category_renderer">渲染器</string>
     <string name="mcl_setting_renderer_gles2_4">Holy GL4ES - (全版本可用，速度較快)</string>
     <string name="mcl_setting_renderer_vulkan_zink">Zink (Vulkan) - (全版本可用，速度中等)</string>
-    <string name="mcl_setting_renderer_virgl">Virgl - (全版本可用，速度中等)</string>
-    <string name="mcl_setting_renderer_freedreno">Freedreno (Adreno) - (全版本可用，速度中等)</string>
     <string name="mcl_setting_renderer_angle">ANGLE (Vulkan) - (1.17+，速度中等)</string>
     <string name="mcl_setting_veroption_release">正式版</string>
     <string name="mcl_setting_veroption_snapshot">快照版</string>
@@ -109,6 +107,7 @@
     <string name="customctrl_forward_lock">鎖定前進</string>
     <string name="customctrl_absolute_tracking">絕對手指追踪</string>
     <string name="memory_warning_msg">當前可用記憶體（%d）低於所分配的記憶體（%d），這可能會導致遊戲崩潰，如果遊戲崩潰請更改配置！</string>
+    <string name="address_memory_warning_msg">目前可用的空閒記憶體空間 (%d) 低於分配的記憶體 (%d)，這會導致崩潰，如果遊戲崩潰，請調整記憶體分配。</string>
     <string name="mcl_memory_allocation">記憶體分配</string>
     <string name="multirt_runtime_corrupt">Java 執行環境損壞</string>
     <string name="multirt_runtime_incompatiblearch">不相容的架構：%s</string>

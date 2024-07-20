@@ -7,10 +7,10 @@ import android.content.res.AssetManager;
 import android.util.Log;
 
 import com.kdt.mcgui.ProgressLayout;
-
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.utils.CopyDefaultFromAssets;
 import com.movtery.pojavzh.utils.ZHTools;
+
 import net.kdt.pojavlaunch.Tools;
 
 import org.apache.commons.io.FileUtils;
@@ -47,7 +47,6 @@ public class AsyncAssetManager {
                 unpackComponent(ctx, "other_login", false);
 
                 unpackComponent(ctx, "caciocavallo", false);
-                unpackComponent(ctx, "caciocavallo11", false);
                 unpackComponent(ctx, "caciocavallo17", false);
                 // Since the Java module system doesn't allow multiple JARs to declare the same module,
                 // we repack them to a single file here
