@@ -539,8 +539,8 @@ public class ControlLayout extends FrameLayout {
 		dialog.setOnSelectedListener(file -> {
             String absolutePath = file.getAbsolutePath();
             try {
-                LauncherPreferences.DEFAULT_PREF.edit().putString("defaultCtrl", absolutePath).apply();
-                LauncherPreferences.PREF_DEFAULTCTRL_PATH = absolutePath;
+				LauncherPreferences.DEFAULT_PREF.edit().putString("defaultCtrl", absolutePath).apply();
+				LauncherPreferences.PREF_DEFAULTCTRL_PATH = absolutePath;
 				loadLayout(absolutePath);
             }catch (IOException|JsonSyntaxException e) {
                 Tools.showError(getContext(), e);

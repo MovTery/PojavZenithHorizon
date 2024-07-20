@@ -51,8 +51,7 @@ public class ProgressKeeper {
         }else{
             listener.onProgressEnded();
         }
-        List<ProgressListener> listenerWeakReferenceList = sProgressListeners.get(progressRecord);
-        if(listenerWeakReferenceList == null) sProgressListeners.put(progressRecord, (listenerWeakReferenceList = new ArrayList<>()));
+        List<ProgressListener> listenerWeakReferenceList = sProgressListeners.computeIfAbsent(progressRecord, k -> new ArrayList<>());
         listenerWeakReferenceList.add(listener);
     }
 

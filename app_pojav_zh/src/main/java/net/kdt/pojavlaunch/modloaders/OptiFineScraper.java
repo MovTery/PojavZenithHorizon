@@ -25,8 +25,7 @@ public class OptiFineScraper implements DownloadUtils.ParseCallback<OptiFineUtil
         TagNode tagNode = htmlCleaner.clean(input);
         traverseTagNode(tagNode);
         insertVersionContent(null);
-        if(mOptiFineVersions.optifineVersions.size() < 1 ||
-            mOptiFineVersions.minecraftVersions.size() < 1) throw new DownloadUtils.ParseException(null);
+        if(mOptiFineVersions.optifineVersions.isEmpty() || mOptiFineVersions.minecraftVersions.isEmpty()) throw new DownloadUtils.ParseException(null);
         return mOptiFineVersions;
     }
 

@@ -476,11 +476,7 @@ public class JREUtils {
      * @param argStart The argument to purge from the list.
      */
     private static void purgeArg(List<String> argList, String argStart) {
-        Iterator<String> args = argList.iterator();
-        while(args.hasNext()) {
-            String arg = args.next();
-            if(arg.startsWith(argStart)) args.remove();
-        }
+        argList.removeIf(arg -> arg.startsWith(argStart));
     }
     private static final int EGL_OPENGL_ES_BIT = 0x0001;
     private static final int EGL_OPENGL_ES2_BIT = 0x0004;

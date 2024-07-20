@@ -27,14 +27,12 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
-import android.provider.DocumentsContract;
 import android.provider.OpenableColumns;
 import android.util.ArrayMap;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -96,7 +94,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -687,13 +684,13 @@ public final class Tools {
     }
 
     public static void preProcessLibraries(DependentLibrary[] libraries) {
-        for (int i = 0; i < libraries.length; i++) {
-            DependentLibrary libItem = libraries[i];
+        for (DependentLibrary libItem : libraries) {
             String[] version = libItem.name.split(":")[2].split("\\.");
             if (libItem.name.startsWith("net.java.dev.jna:jna:")) {
                 // Special handling for LabyMod 1.8.9, Forge 1.12.2(?) and oshi
                 // we have libjnidispatch 5.13.0 in jniLibs directory
-                if (Integer.parseInt(version[0]) >= 5 && Integer.parseInt(version[1]) >= 13) continue;
+                if (Integer.parseInt(version[0]) >= 5 && Integer.parseInt(version[1]) >= 13)
+                    continue;
                 Log.d(APP_NAME, "Library " + libItem.name + " has been changed to version 5.13.0");
                 createLibraryInfo(libItem);
                 libItem.name = "net.java.dev.jna:jna:5.13.0";
@@ -704,7 +701,8 @@ public final class Tools {
                 //if (Integer.parseInt(version[0]) >= 6 && Integer.parseInt(version[1]) >= 3) return;
                 // FIXME: ensure compatibility
 
-                if (Integer.parseInt(version[0]) != 6 || Integer.parseInt(version[1]) != 2) continue;
+                if (Integer.parseInt(version[0]) != 6 || Integer.parseInt(version[1]) != 2)
+                    continue;
                 Log.d(APP_NAME, "Library " + libItem.name + " has been changed to version 6.3.0");
                 createLibraryInfo(libItem);
                 libItem.name = "com.github.oshi:oshi-core:6.3.0";
@@ -715,7 +713,7 @@ public final class Tools {
                 // Early versions of the ASM library get repalced with 5.0.4 because Pojav's LWJGL is compiled for
                 // Java 8, which is not supported by old ASM versions. Mod loaders like Forge, which depend on this
                 // library, often include lwjgl in their class transformations, which causes errors with old ASM versions.
-                if(Integer.parseInt(version[0]) >= 5) continue;
+                if (Integer.parseInt(version[0]) >= 5) continue;
                 Log.d(APP_NAME, "Library " + libItem.name + " has been changed to version 5.0.4");
                 createLibraryInfo(libItem);
                 libItem.name = "org.ow2.asm:asm-all:5.0.4";
@@ -1087,7 +1085,7 @@ public final class Tools {
     }
 
     public static String getRuntimeName(String prefixedName) {
-        if(prefixedName == null) return prefixedName;
+        if(prefixedName == null) return null;
         if(!prefixedName.startsWith(Tools.LAUNCHERPROFILES_RTPREFIX)) return null;
         return prefixedName.substring(Tools.LAUNCHERPROFILES_RTPREFIX.length());
     }

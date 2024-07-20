@@ -17,12 +17,11 @@ import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -112,7 +111,7 @@ public class ProfileLanguageSelector {
         boolean foundMatch = false;
         String language = getLanguage(minecraftProfile.lastVersionId, LauncherPreferences.PREF_GAME_LANGUAGE);
 
-        try (BufferedReader optionFileReader = new BufferedReader(new InputStreamReader(new FileInputStream(optionFile), StandardCharsets.UTF_8))) {
+        try (BufferedReader optionFileReader = new BufferedReader(new InputStreamReader(Files.newInputStream(optionFile.toPath()), StandardCharsets.UTF_8))) {
             String line;
             while ((line = optionFileReader.readLine()) != null) {
                 //使用正则表达式匹配“lang: xxx”格式
@@ -132,7 +131,7 @@ public class ProfileLanguageSelector {
 
         if (!foundMatch) {
             options.add("lang:" + language);
-            try (BufferedWriter optionFileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(optionFile), StandardCharsets.UTF_8))) {
+            try (BufferedWriter optionFileWriter = new BufferedWriter(new OutputStreamWriter(Files.newOutputStream(optionFile.toPath()), StandardCharsets.UTF_8))) {
                 for (String option : options) {
                     optionFileWriter.write(option);
                     optionFileWriter.newLine();
