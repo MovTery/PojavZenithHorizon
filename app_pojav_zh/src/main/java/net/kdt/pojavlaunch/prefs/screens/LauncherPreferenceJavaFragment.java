@@ -8,6 +8,8 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.Log;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.preference.Preference;
@@ -58,9 +60,12 @@ public class LauncherPreferenceJavaFragment extends LauncherPreferenceFragment {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                Context context = getContext();
-                if (context != null && !allocationSeek.isUserSeeking()) {
-                    updateMemoryInfo(context, allocationSeek);
+                try {
+                    if (!allocationSeek.isUserSeeking()) {
+                        updateMemoryInfo(getContext(), allocationSeek);
+                    }
+                } catch (Exception e) {
+                    Log.e("updateMemoryInfo", e.toString());
                 }
             }
         }, 0, 500);
@@ -71,6 +76,7 @@ public class LauncherPreferenceJavaFragment extends LauncherPreferenceFragment {
                     .setTitle(R.string.mcl_memory_allocation)
                     .setMessage(StringUtils.insertNewline(getMemoryInfoText(requireContext()), getString(R.string.zh_setting_java_memory_max, String.format("%s MB", maxRAM))))
                     .setEditText(String.valueOf(allocationSeek.getValue()))
+                    .setInputType(InputType.TYPE_CLASS_NUMBER)
                     .setConfirmListener(editBox -> {
                         String string = editBox.getText().toString();
                         if (string.isEmpty()) {
@@ -78,7 +84,15 @@ public class LauncherPreferenceJavaFragment extends LauncherPreferenceFragment {
                             return false;
                         }
 
-                        int value = Integer.parseInt(string);
+                        int value;
+                        try {
+                            value = Integer.parseInt(string);
+                        } catch (NumberFormatException e) {
+                            Log.e("allocationSeek", e.toString());
+
+                            editBox.setError(getString(R.string.zh_input_invalid));
+                            return false;
+                        }
 
                         if (value < 256) {
                             editBox.setError(getString(R.string.zh_setting_java_memory_too_small, 256));
