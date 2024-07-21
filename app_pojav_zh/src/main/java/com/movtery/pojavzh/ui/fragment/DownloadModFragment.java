@@ -1,7 +1,6 @@
 package com.movtery.pojavzh.ui.fragment;
 
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
@@ -131,7 +130,7 @@ public class DownloadModFragment extends TwoLevelListFragment {
             }
 
             componentProcessing(false);
-            if (PREF_ANIMATION) modVersionView.scheduleLayoutAnimation();
+            modVersionView.scheduleLayoutAnimation();
         });
     }
 

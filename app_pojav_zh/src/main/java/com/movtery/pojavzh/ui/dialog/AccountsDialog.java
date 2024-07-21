@@ -1,7 +1,5 @@
 package com.movtery.pojavzh.ui.dialog;
 
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.animation.AnimationUtils;
@@ -106,7 +104,7 @@ public class AccountsDialog extends FullScreenDialog {
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        if (PREF_ANIMATION) recyclerView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(getContext(), R.anim.fade_downwards)));
+        recyclerView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(getContext(), R.anim.fade_downwards)));
         recyclerView.setAdapter(accountAdapter);
 
         refresh();

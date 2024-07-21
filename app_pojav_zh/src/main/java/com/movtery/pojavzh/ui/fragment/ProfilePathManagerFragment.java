@@ -1,7 +1,5 @@
 package com.movtery.pojavzh.ui.fragment;
 
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
-
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
@@ -86,7 +84,7 @@ public class ProfilePathManagerFragment extends Fragment {
         ZHTools.setTooltipText(returnButton, returnButton.getContentDescription());
 
         adapter = new ProfilePathAdapter(requireActivity(), pathList, this.mData);
-        if (PREF_ANIMATION) pathList.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(view.getContext(), R.anim.fade_downwards)));
+        pathList.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(view.getContext(), R.anim.fade_downwards)));
         pathList.setLayoutManager(new LinearLayoutManager(requireContext()));
         pathList.setAdapter(adapter);
 

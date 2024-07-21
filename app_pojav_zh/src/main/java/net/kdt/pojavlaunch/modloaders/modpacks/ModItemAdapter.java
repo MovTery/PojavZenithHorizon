@@ -1,7 +1,5 @@
 package net.kdt.pojavlaunch.modloaders.modpacks;
 
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
@@ -296,7 +294,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     mModItems = finalModItems;
                     notifyDataSetChanged();
                 }
-                if (PREF_ANIMATION) modsRecyclerView.scheduleLayoutAnimation();
+                modsRecyclerView.scheduleLayoutAnimation();
             });
         }
     }

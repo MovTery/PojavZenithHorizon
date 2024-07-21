@@ -1,7 +1,6 @@
 package com.movtery.pojavzh.ui.subassembly.customcontrols;
 
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -68,7 +67,7 @@ public class ControlsListViewCreator {
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         mainListView.setLayoutManager(layoutManager);
-        if (PREF_ANIMATION) mainListView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(context, R.anim.fade_downwards)));
+        mainListView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(context, R.anim.fade_downwards)));
         mainListView.setAdapter(controlListAdapter);
     }
 
@@ -168,7 +167,7 @@ public class ControlsListViewCreator {
             filterString = "";
             runOnUiThread(() -> {
                 controlListAdapter.notifyDataSetChanged();
-                if (PREF_ANIMATION) mainListView.scheduleLayoutAnimation();
+                mainListView.scheduleLayoutAnimation();
             });
         });
     }

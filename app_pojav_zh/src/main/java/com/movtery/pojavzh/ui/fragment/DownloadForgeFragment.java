@@ -1,7 +1,6 @@
 package com.movtery.pojavzh.ui.fragment;
 
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
 import android.content.Intent;
 
@@ -119,7 +118,7 @@ public class DownloadForgeFragment extends TwoLevelListFragment implements Modlo
             }
 
             componentProcessing(false);
-            if (PREF_ANIMATION) recyclerView.scheduleLayoutAnimation();
+            recyclerView.scheduleLayoutAnimation();
         });
     }
 
