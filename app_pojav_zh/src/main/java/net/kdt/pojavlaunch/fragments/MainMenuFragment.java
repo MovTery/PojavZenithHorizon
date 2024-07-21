@@ -2,7 +2,6 @@ package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -177,7 +176,7 @@ public class MainMenuFragment extends Fragment implements TaskCountListener, Acc
         if ((params.horizontalBias == 0 && !show) || ((params.horizontalBias > 0 && params.horizontalBias <= 0.5) && show)) return;
         mNoticeCloseButton.setClickable(false);
 
-        if (PREF_ANIMATION && anim) {
+        if (anim) {
             //通过分割线来设置通知栏划出动画
             mLauncherNoticeView.setVisibility(View.VISIBLE);
 

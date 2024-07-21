@@ -24,7 +24,7 @@ import java.util.List;
 
 public class AccountsManager {
     @SuppressLint("StaticFieldLeak")
-    private static AccountsManager accountManager;
+    private static volatile AccountsManager accountManager;
     private final Context context;
     private final List<MinecraftAccount> accounts = new ArrayList<>();
     private ObjectAnimator mLoginBarAnimator;
@@ -37,7 +37,9 @@ public class AccountsManager {
     public static AccountsManager getInstance() {
         if (accountManager == null) {
             synchronized (AccountsManager.class) {
-                accountManager = new AccountsManager(ResourceManager.getContext());
+                if (accountManager == null) {
+                    accountManager = new AccountsManager(ResourceManager.getContext());
+                }
             }
         }
         return accountManager;

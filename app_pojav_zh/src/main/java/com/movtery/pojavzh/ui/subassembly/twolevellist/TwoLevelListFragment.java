@@ -1,7 +1,5 @@
 package com.movtery.pojavzh.ui.subassembly.twolevellist;
 
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -53,7 +51,7 @@ public abstract class TwoLevelListFragment extends Fragment {
 
     protected void init() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
-        if (PREF_ANIMATION) mRecyclerView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.fade_downwards)));
+        mRecyclerView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.fade_downwards)));
         mRecyclerView.setLayoutManager(layoutManager);
 
         mRefreshButton.setOnClickListener(v -> refreshTask());
@@ -95,24 +93,13 @@ public abstract class TwoLevelListFragment extends Fragment {
     private void hideParentElement(boolean visible) {
         cancelTask(); //中断当前正在执行的任务
 
-        int titleVisibility = visible ? View.VISIBLE : View.GONE;
-        int refreshVisibility = visible ? View.GONE : View.VISIBLE;
-
         mRefreshButton.setClickable(!visible);
         mReleaseCheckBox.setClickable(!visible);
 
-        if (PREF_ANIMATION) {
-            AnimUtils.setVisibilityAnim(mSelectTitle, visible);
-            AnimUtils.setVisibilityAnim(mRefreshButton, !visible);
+        AnimUtils.setVisibilityAnim(mSelectTitle, visible);
+        AnimUtils.setVisibilityAnim(mRefreshButton, !visible);
 
-            if (releaseCheckBoxVisible) AnimUtils.setVisibilityAnim(mReleaseCheckBox, !visible);
-        } else {
-            mSelectTitle.setVisibility(titleVisibility);
-            mRefreshButton.setVisibility(refreshVisibility);
-            if (releaseCheckBoxVisible) {
-                mReleaseCheckBox.setVisibility(refreshVisibility);
-            }
-        }
+        if (releaseCheckBoxVisible) AnimUtils.setVisibilityAnim(mReleaseCheckBox, !visible);
     }
 
     private void cancelTask() {
@@ -190,11 +177,7 @@ public abstract class TwoLevelListFragment extends Fragment {
     }
 
     protected void setFailedToLoad(boolean failed) {
-        if (PREF_ANIMATION) {
-            AnimUtils.setVisibilityAnim(mFailedToLoad, failed);
-        } else {
-            mFailedToLoad.setVisibility(failed ? View.VISIBLE : View.GONE);
-        }
+        AnimUtils.setVisibilityAnim(mFailedToLoad, failed);
     }
 
     protected void switchToChild(RecyclerView.Adapter<?> adapter, String title) {

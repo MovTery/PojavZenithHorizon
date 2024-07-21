@@ -112,7 +112,7 @@ public class AboutFragment extends Fragment {
 
         this.mAboutData.add(new AboutItemBean(
                 resources.getDrawable(R.drawable.image_about_lingmuqiuzhu, requireContext().getTheme()),
-                "柃木秋竹",
+                "柃木湫竹",
                 getString(R.string.zh_about_lingmuqiuzhu_desc),
                 null));
     }
