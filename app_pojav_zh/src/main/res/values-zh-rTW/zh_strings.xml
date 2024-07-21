@@ -85,6 +85,7 @@
     <string name="zh_profile_manager_delete">刪除實例</string>
     <string name="zh_profile_manager_delete_message">此操作將會刪除此實例，但並不會刪除實例關聯的遊戲檔案</string>
     <!-- Account -->
+    <string name="zh_account_manager">帳號管理</string>
     <string name="zh_account_text">請選擇一種登錄方式</string>
     <string name="zh_account_microsoft_account">微軟帳號</string>
     <string name="zh_account_microsoft_xerr_unauthorized">你的微軟帳號登入資訊似乎已經過期，這種情況常出現在帳號密碼被修改之後，請移除目前帳號並重新登入你的帳號，以重置你的登入資訊。</string>

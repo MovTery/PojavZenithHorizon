@@ -26,6 +26,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.kdt.mcgui.mcVersionSpinner;
+import com.movtery.pojavzh.feature.accounts.AccountUpdateListener;
 import com.movtery.pojavzh.ui.fragment.AboutFragment;
 import com.movtery.pojavzh.ui.fragment.ControlButtonFragment;
 import com.movtery.pojavzh.ui.fragment.FilesFragment;
@@ -38,6 +39,7 @@ import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import com.movtery.pojavzh.ui.dialog.ShareLogDialog;
 import com.movtery.pojavzh.ui.fragment.ProfilePathManagerFragment;
+import com.movtery.pojavzh.ui.subassembly.account.AccountView;
 
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
@@ -47,8 +49,9 @@ import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
 import java.io.File;
 import java.util.concurrent.Future;
 
-public class MainMenuFragment extends Fragment implements TaskCountListener {
+public class MainMenuFragment extends Fragment implements TaskCountListener, AccountUpdateListener {
     public static final String TAG = "MainMenuFragment";
+    private AccountView accountView;
     private CheckNewNotice.NoticeInfo noticeInfo = null;
     private mcVersionSpinner mVersionSpinner;
     private View mLauncherNoticeView, mDividingLineView;
@@ -112,6 +115,9 @@ public class MainMenuFragment extends Fragment implements TaskCountListener {
             bundle.putString(FilesFragment.BUNDLE_LIST_PATH, Tools.DIR_GAME_HOME);
             Tools.swapFragment(requireActivity(), FilesFragment.class, FilesFragment.TAG, bundle);
         });
+
+        accountView = new AccountView(view.findViewById(R.id.view_account));
+        accountView.refreshAccountInfo();
 
         initNotice(view);
     }
@@ -238,5 +244,10 @@ public class MainMenuFragment extends Fragment implements TaskCountListener {
     @Override
     public void onUpdateTaskCount(int taskCount) {
         mTasksRunning = taskCount != 0;
+    }
+
+    @Override
+    public void onUpdate() {
+        accountView.refreshAccountInfo();
     }
 }

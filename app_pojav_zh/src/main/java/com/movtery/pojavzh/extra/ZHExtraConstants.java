@@ -9,6 +9,6 @@ public class ZHExtraConstants {
     public static final String INSTALL_LOCAL_MODPACK = "install_local_modpack";
     //用于监听版本选择的事件
     public static final String VERSION_SELECTOR = "version_selector";
-    //用于监听账号列表更改的事件
-    public static final String ACCOUNT_CHANGE = "account_change";
+    //用于监听账号更新事件
+    public static final String ACCOUNT_UPDATE = "account_update";
 }
