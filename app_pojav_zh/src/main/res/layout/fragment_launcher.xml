@@ -288,6 +288,16 @@
             app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
             tools:ignore="MissingConstraints" />
 
+        <include
+            android:id="@+id/view_account"
+            layout="@layout/view_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/mc_version_spinner"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout2" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

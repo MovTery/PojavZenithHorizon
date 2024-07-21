@@ -85,6 +85,7 @@
     <string name="zh_profile_manager_delete">Delete Instance</string>
     <string name="zh_profile_manager_delete_message">This operation will delete this instance, but it will not delete the game files associated with the instance</string>
     <!-- Account -->
+    <string name="zh_account_manager">Account Management</string>
     <string name="zh_account_text">Please select a login method</string>
     <string name="zh_account_microsoft_account">Microsoft Account</string>
     <string name="zh_account_microsoft_xerr_unauthorized">Your Microsoft account login information seems to have expired. This often happens after the account password has been changed. Please remove the current account and log in again to reset your login information.</string>

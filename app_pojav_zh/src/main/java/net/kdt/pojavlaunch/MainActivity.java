@@ -48,6 +48,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.kdt.LoggerView;
 import com.movtery.pojavzh.feature.ProfileLanguageSelector;
+import com.movtery.pojavzh.feature.accounts.AccountsManager;
 import com.movtery.pojavzh.ui.dialog.ControlSettingsDialog;
 import com.movtery.pojavzh.ui.dialog.KeyboardDialog;
 import com.movtery.pojavzh.ui.dialog.MouseSettingsDialog;
@@ -385,7 +386,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             Tools.LOCAL_RENDERER = firstCompatibleRenderer;
             Tools.releaseCache();
         }
-        MinecraftAccount minecraftAccount = PojavProfile.getCurrentProfileContent(this, null);
+        MinecraftAccount minecraftAccount = AccountsManager.getInstance().getCurrentAccount();
         Logger.appendToLog("--------- beginning with launcher debug");
         printLauncherInfo(versionId, Tools.isValidString(minecraftProfile.javaArgs) ? minecraftProfile.javaArgs : LauncherPreferences.PREF_CUSTOM_JAVA_ARGS, minecraftProfile.javaDir == null ? "Default" : minecraftProfile.javaDir);
         JREUtils.redirectAndPrintJRELog();

@@ -85,6 +85,7 @@
     <string name="zh_profile_manager_delete">Удалить экземпляр</string>
     <string name="zh_profile_manager_delete_message">Это действие удалит этот экземпляр, но не удалит связанные с ним файлы игры</string>
     <!-- Account -->
+    <string name="zh_account_manager">Управление учетной записью</string>
     <string name="zh_account_text">Пожалуйста, выберите способ входа</string>
     <string name="zh_account_microsoft_account">Аккаунт Microsoft</string>
     <string name="zh_account_microsoft_xerr_unauthorized">Ваши данные входа в аккаунт Microsoft, похоже, устарели, это часто происходит после изменения пароля. Пожалуйста, удалите текущий аккаунт и войдите снова, чтобы обновить ваши данные входа.</string>

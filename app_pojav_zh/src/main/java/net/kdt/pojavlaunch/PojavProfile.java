@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.movtery.pojavzh.extra.ZHExtraConstants;
+
+import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
 
 public class PojavProfile {
@@ -23,26 +26,28 @@ public class PojavProfile {
     public static String getCurrentProfileName(Context ctx) {
         String name = getPrefs(ctx).getString(PROFILE_PREF_FILE, "");
         // A dirty fix
-        if (!name.isEmpty() && name.startsWith(Tools.DIR_ACCOUNT_NEW) && name.endsWith(".json")) {
+        if (name.startsWith(Tools.DIR_ACCOUNT_NEW) && name.endsWith(".json")) {
             name = name.substring(0, name.length() - 5).replace(Tools.DIR_ACCOUNT_NEW, "").replace(".json", "");
             setCurrentProfile(ctx, name);
         }
         return name;
     }
-	
-	public static void setCurrentProfile(@NonNull Context ctx, @Nullable  Object obj) {
+
+	public static void setCurrentProfile(@NonNull Context ctx, @Nullable Object obj) {
 		SharedPreferences.Editor pref = getPrefs(ctx).edit();
-		
-		try { if (obj instanceof String) {
-                String acc = (String) obj;
+
+		try {
+			if (obj instanceof String) {
+				String acc = (String) obj;
 				pref.putString(PROFILE_PREF_FILE, acc);
-                //MinecraftAccount.clearTempAccount();
+				//MinecraftAccount.clearTempAccount();
 			} else if (obj == null) {
 				pref.putString(PROFILE_PREF_FILE, "");
 			} else {
 				throw new IllegalArgumentException("Profile must be String.class or null");
 			}
 		} finally {
+			ExtraCore.setValue(ZHExtraConstants.ACCOUNT_UPDATE, true);
 			pref.apply();
 		}
 	}
