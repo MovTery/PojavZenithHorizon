@@ -14,6 +14,7 @@
         android:padding="2.2dp"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_help"
+        app:strokeColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
