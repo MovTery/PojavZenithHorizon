@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -50,6 +51,8 @@ public class ErrorActivity extends BaseActivity {
         if (extras.getBoolean(BUNDLE_IS_ERROR, true)) {
             showError(extras);
         } else {
+            //如果不是应用崩溃，那么这个页面就不允许截图
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
             showCrash(extras);
         }
     }

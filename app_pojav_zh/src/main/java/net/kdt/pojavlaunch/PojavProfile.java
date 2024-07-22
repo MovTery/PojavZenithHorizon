@@ -47,8 +47,8 @@ public class PojavProfile {
 				throw new IllegalArgumentException("Profile must be String.class or null");
 			}
 		} finally {
-			ExtraCore.setValue(ZHExtraConstants.ACCOUNT_UPDATE, true);
 			pref.apply();
+			ExtraCore.setValue(ZHExtraConstants.ACCOUNT_UPDATE, true);
 		}
 	}
 }

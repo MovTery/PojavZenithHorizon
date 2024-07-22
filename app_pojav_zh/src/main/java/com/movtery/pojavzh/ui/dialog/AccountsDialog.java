@@ -32,17 +32,17 @@ import java.util.List;
 public class AccountsDialog extends FullScreenDialog {
     private final AccountsManager accountsManager = AccountsManager.getInstance();
     private final List<MinecraftAccount> mData = new ArrayList<>();
-    private final SelectAccountListener refreshViewListener;
+    private final DialogDismissListener dismissListener;
     private AccountAdapter accountAdapter;
     private RecyclerView recyclerView;
 
-    public AccountsDialog(@NonNull Context context, SelectAccountListener refreshViewListener) {
+    public AccountsDialog(@NonNull Context context, DialogDismissListener dismissListener) {
         super(context);
 
         this.setCancelable(false);
         this.setContentView(R.layout.dialog_select_item);
 
-        this.refreshViewListener = refreshViewListener;
+        this.dismissListener = dismissListener;
 
         init();
     }
@@ -60,15 +60,14 @@ public class AccountsDialog extends FullScreenDialog {
 
     @Override
     public void dismiss() {
-        if (refreshViewListener != null) refreshViewListener.onSelect(null);
         super.dismiss();
+        if (dismissListener != null) dismissListener.onDismiss();
     }
 
     private void initView() {
         SelectAccountListener selectAccountListener = account -> {
             if (account != null) {
                 PojavProfile.setCurrentProfile(getContext(), account.username);
-                if (refreshViewListener != null) refreshViewListener.onSelect(account);
             } else {
                 ExtraCore.setValue(ExtraConstants.SELECT_AUTH_METHOD, true);
             }
@@ -124,5 +123,9 @@ public class AccountsDialog extends FullScreenDialog {
 
         accountAdapter.notifyDataSetChanged();
         recyclerView.scheduleLayoutAnimation();
+    }
+
+    public interface DialogDismissListener {
+        void onDismiss();
     }
 }

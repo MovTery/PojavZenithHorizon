@@ -21,40 +21,44 @@ import java.io.File;
 
 public class AccountView {
     private final Context mContext;
-    private final View mMainView;
     private final ImageView mUserIconView;
     private final TextView mUserNameView;
 
     public AccountView(View view) {
         this.mContext = view.getContext();
 
-        mMainView = view;
         mUserIconView = view.findViewById(R.id.user_icon);
         mUserNameView = view.findViewById(R.id.user_name);
+
+        view.setOnClickListener(v -> {
+            if (getCurrentAccount() == null) {
+                ExtraCore.setValue(ExtraConstants.SELECT_AUTH_METHOD, true);
+            } else {
+                new AccountsDialog(mContext, this::refreshAccountInfo).show();
+            }
+        });
     }
 
     public void refreshAccountInfo() {
-        MinecraftAccount account = AccountsManager.getInstance().getCurrentAccount();
-        if (mMainView != null && mUserIconView != null && mUserNameView != null) {
-            if (account == null) {
-                mUserIconView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_add));
-                mUserNameView.setText(R.string.main_add_account);
-                mMainView.setOnClickListener(v -> ExtraCore.setValue(ExtraConstants.SELECT_AUTH_METHOD, true));
-                return;
-            }
-
-            SelectAccountListener refreshListener = selectAccount -> refreshAccountInfo();
-            mMainView.setOnClickListener(v -> new AccountsDialog(mContext, refreshListener).show());
-
-            Drawable drawable = null;
-            if (account.isMicrosoft) {
-                File iconFile = new File(ZHTools.DIR_USER_ICON, account.username + ".png");
-                if (iconFile.exists()) {
-                    drawable = Drawable.createFromPath(iconFile.getAbsolutePath());
-                }
-            }
-            mUserIconView.setImageDrawable(drawable == null ? ContextCompat.getDrawable(mContext, R.drawable.ic_head_steve) : drawable);
-            mUserNameView.setText(account.username);
+        MinecraftAccount account = getCurrentAccount();
+        if (account == null) {
+            mUserIconView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_add));
+            mUserNameView.setText(R.string.main_add_account);
+            return;
         }
+
+        Drawable drawable = null;
+        if (account.isMicrosoft) {
+            File iconFile = new File(ZHTools.DIR_USER_ICON, account.username + ".png");
+            if (iconFile.exists()) {
+                drawable = Drawable.createFromPath(iconFile.getAbsolutePath());
+            }
+        }
+        mUserIconView.setImageDrawable(drawable == null ? ContextCompat.getDrawable(mContext, R.drawable.ic_head_steve) : drawable);
+        mUserNameView.setText(account.username);
+    }
+
+    private MinecraftAccount getCurrentAccount() {
+        return AccountsManager.getInstance().getCurrentAccount();
     }
 }
