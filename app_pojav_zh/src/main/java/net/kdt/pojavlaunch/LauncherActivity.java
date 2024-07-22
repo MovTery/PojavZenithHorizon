@@ -314,9 +314,6 @@ public class LauncherActivity extends BaseActivity {
 
         //检查已经下载后的包，或者检查更新
         UpdateLauncher.CheckDownloadedPackage(this, true);
-
-        accountsManager.reload();
-        accountsManager.performLogin(accountsManager.getCurrentAccount());
     }
 
     @Override
