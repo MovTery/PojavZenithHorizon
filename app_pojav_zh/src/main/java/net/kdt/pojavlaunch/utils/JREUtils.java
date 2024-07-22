@@ -21,7 +21,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.movtery.pojavzh.ui.activity.ErrorActivity;
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
-import com.movtery.pojavzh.utils.ZHTools;
 import com.oracle.dalvik.*;
 import java.io.*;
 import java.util.*;
@@ -317,8 +316,8 @@ public class JREUtils {
         final int exitCode = VMLauncher.launchJVM(userArgs.toArray(new String[0]));
         Logger.appendToLog("Java Exit code: " + exitCode);
         if (exitCode != 0) {
-            File crashReportFile = ZHTools.getLatestFile(new File(gameDirectory, "crash-reports"), 30);
-            ErrorActivity.showExitMessage(activity, exitCode, crashReportFile.getAbsolutePath());
+            File crashReportPath = new File(gameDirectory, "crash-reports");
+            ErrorActivity.showExitMessage(activity, exitCode, crashReportPath.getAbsolutePath());
         }
     }
 
