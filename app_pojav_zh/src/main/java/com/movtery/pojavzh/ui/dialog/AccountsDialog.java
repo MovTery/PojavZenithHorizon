@@ -6,6 +6,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,6 +22,8 @@ import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
+import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
+import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
 
 import org.apache.commons.io.FileUtils;
@@ -29,15 +32,18 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountsDialog extends FullScreenDialog {
+public class AccountsDialog extends FullScreenDialog implements TaskCountListener {
     private final AccountsManager accountsManager = AccountsManager.getInstance();
     private final List<MinecraftAccount> mData = new ArrayList<>();
     private final DialogDismissListener dismissListener;
     private AccountAdapter accountAdapter;
     private RecyclerView recyclerView;
+    private boolean isTaskRunning = false;
 
     public AccountsDialog(@NonNull Context context, DialogDismissListener dismissListener) {
         super(context);
+
+        ProgressKeeper.addTaskCountListener(this);
 
         this.setCancelable(false);
         this.setContentView(R.layout.dialog_select_item);
@@ -62,6 +68,7 @@ public class AccountsDialog extends FullScreenDialog {
     public void dismiss() {
         super.dismiss();
         if (dismissListener != null) dismissListener.onDismiss();
+        ProgressKeeper.removeTaskCountListener(this);
     }
 
     private void initView() {
@@ -84,7 +91,11 @@ public class AccountsDialog extends FullScreenDialog {
 
             @Override
             public void onRefresh(MinecraftAccount account) {
-                accountsManager.forcedLogin(account);
+                if (!isTaskRunning) {
+                    accountsManager.forcedLogin(account);
+                } else {
+                    Toast.makeText(getContext(), R.string.tasks_ongoing, Toast.LENGTH_SHORT).show();
+                }
                 dismiss();
             }
 
@@ -123,6 +134,11 @@ public class AccountsDialog extends FullScreenDialog {
 
         accountAdapter.notifyDataSetChanged();
         recyclerView.scheduleLayoutAnimation();
+    }
+
+    @Override
+    public void onUpdateTaskCount(int taskCount) {
+        isTaskRunning = taskCount != 0;
     }
 
     public interface DialogDismissListener {
