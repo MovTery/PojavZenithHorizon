@@ -46,4 +46,26 @@ public class StringUtils {
 
         return stringJoiner.toString();
     }
+
+    public static String shiftString(String input, ShiftDirection direction, int shiftCount) {
+        if (input == null || input.isEmpty()) {
+            return input;
+        }
+
+        //确保位移个数在字符串长度范围内
+        int length = input.length();
+        shiftCount = shiftCount % length;
+        if (shiftCount == 0) {
+            return input;
+        }
+
+        switch (direction) {
+            case LEFT:
+                return input.substring(shiftCount) + input.substring(0, shiftCount);
+            case RIGHT:
+                return input.substring(length - shiftCount) + input.substring(0, length - shiftCount);
+            default:
+                throw new IllegalArgumentException("Invalid shift direction: " + direction);
+        }
+    }
 }
