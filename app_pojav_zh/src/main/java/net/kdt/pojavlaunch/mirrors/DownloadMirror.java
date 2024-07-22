@@ -41,7 +41,7 @@ public class DownloadMirror {
             DownloadUtils.downloadFileMonitored(getMirrorMapping(downloadClass, urlInput),
                     outputFile, buffer, monitor);
             return;
-        }catch (FileNotFoundException e) {
+        }catch (Exception e) {
             Log.w("DownloadMirror", "Cannot find the file on the mirror", e);
             Log.i("DownloadMirror", "Failling back to default source");
         }
@@ -61,7 +61,7 @@ public class DownloadMirror {
             DownloadUtils.downloadFile(getMirrorMapping(downloadClass, urlInput),
                     outputFile);
             return;
-        }catch (FileNotFoundException e) {
+        }catch (Exception e) {
             Log.w("DownloadMirror", "Cannot find the file on the mirror", e);
             Log.i("DownloadMirror", "Failling back to default source");
         }
