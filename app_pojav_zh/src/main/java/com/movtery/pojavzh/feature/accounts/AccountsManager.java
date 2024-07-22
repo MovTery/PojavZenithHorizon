@@ -49,9 +49,6 @@ public class AccountsManager {
     public AccountsManager(Context context) {
         this.context = context;
         initListener();
-
-        reload();
-        performLogin(getCurrentAccount());
     }
 
     @SuppressLint("ObjectAnimatorBinding")
