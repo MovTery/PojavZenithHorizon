@@ -48,9 +48,6 @@ public class AccountsManager {
     public AccountsManager(Context context) {
         this.context = context;
         initListener();
-
-        reload();
-        performLogin(getCurrentAccount());
     }
 
     @SuppressLint("ObjectAnimatorBinding")
@@ -149,8 +146,9 @@ public class AccountsManager {
         MinecraftAccount account = PojavProfile.getCurrentProfileContent(context, null);
         if (account == null) {
             if (getAllAccount().isEmpty()) return null;
-            PojavProfile.setCurrentProfile(context, getAllAccount().get(0).username);
-            return getCurrentAccount();
+            MinecraftAccount account1 = getAllAccount().get(0);
+            PojavProfile.setCurrentProfile(context, account1.username);
+            return account1;
         }
         return account;
     }
