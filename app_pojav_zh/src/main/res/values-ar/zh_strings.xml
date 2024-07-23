@@ -138,6 +138,7 @@
     <string name="zh_controls_info_view">عرض المعلومات</string>
     <string name="zh_controls_info_no_info">لا يوجد وصف لتخطيط التحكم هذا…</string>
     <string name="zh_controls_info_invalid">ملف غير صالح:</string>
+    <string name="zh_controls_set_default_message">هل أنت متأكد أنك تريد تعيين هذا التخطيط الافتراضي للتحكم؟</string>
     <string name="zh_replacement_customcontrol">استبدال تخطيط التحكم</string>
     <string name="zh_custom_control_title">إدارة تخطيط التحكم</string>
     <!-- Custom Mouse -->

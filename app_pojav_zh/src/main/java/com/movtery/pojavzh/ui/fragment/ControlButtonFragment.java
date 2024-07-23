@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlsListViewCreator;
 import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlInfoData;
 import com.movtery.pojavzh.ui.subassembly.customcontrols.EditControlData;
@@ -34,6 +35,7 @@ import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import com.movtery.pojavzh.ui.dialog.FilesDialog;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
+import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import java.io.File;
 
@@ -91,6 +93,14 @@ public class ControlButtonFragment extends Fragment {
 
             @Override
             public void onItemLongClick(File file, String path) {
+                new TipDialog.Builder(requireContext())
+                        .setTitle(R.string.default_control)
+                        .setMessage(R.string.zh_controls_set_default_message)
+                        .setConfirmClickListener(() -> {
+                            String absolutePath = file.getAbsolutePath();
+                            LauncherPreferences.DEFAULT_PREF.edit().putString("defaultCtrl", absolutePath).apply();
+                            LauncherPreferences.PREF_DEFAULTCTRL_PATH = absolutePath;
+                        }).buildDialog();
             }
         });
 

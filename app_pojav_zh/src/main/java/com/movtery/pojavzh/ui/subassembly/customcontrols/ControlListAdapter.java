@@ -56,6 +56,13 @@ public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     mOnItemClickListener.onItemClick(controlItemBean.getControlInfoData().fileName);
                 }
             });
+            holder.itemView.setOnLongClickListener(v -> {
+                if (mOnItemClickListener != null) {
+                    mOnItemClickListener.onLongClick(controlItemBean.getControlInfoData().fileName);
+                    return true;
+                }
+                return false;
+            });
         } else {
             ((InvalidViewHolder) holder).setData(controlItemBean);
             holder.itemView.setOnClickListener(v -> {
@@ -82,6 +89,7 @@ public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public interface OnItemClickListener {
         void onItemClick(String name);
+        void onLongClick(String name);
         void onInvalidItemClick(String name);
     }
 

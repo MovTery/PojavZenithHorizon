@@ -138,6 +138,7 @@
     <string name="zh_controls_info_view">Xem thông tin</string>
     <string name="zh_controls_info_no_info">Bố cục điều khiển này không có mô tả…</string>
     <string name="zh_controls_info_invalid">Tệp không hợp lệ:</string>
+    <string name="zh_controls_set_default_message">Bạn có chắc chắn muốn đặt bố cục điều khiển này làm bố cục điều khiển mặc định không?</string>
     <string name="zh_replacement_customcontrol">Thay đổi bố cục điều khiển</string>
     <string name="zh_custom_control_title">Quản lý bố cục điều khiển</string>
     <!-- Custom Mouse -->

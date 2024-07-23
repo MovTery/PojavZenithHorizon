@@ -138,6 +138,7 @@
     <string name="zh_controls_info_view">Просмотр информации</string>
     <string name="zh_controls_info_no_info">Для этой схемы управления нет описания…</string>
     <string name="zh_controls_info_invalid">Неверный файл:</string>
+    <string name="zh_controls_set_default_message">Вы уверены, что хотите установить этот макет управления по умолчанию?</string>
     <string name="zh_replacement_customcontrol">Замена схемы управления</string>
     <string name="zh_custom_control_title">Управление схемами управления</string>
     <!-- Custom Mouse -->
