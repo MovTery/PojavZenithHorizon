@@ -1,5 +1,7 @@
 package com.movtery.pojavzh.utils.http;
 
+import androidx.annotation.NonNull;
+
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -13,7 +15,7 @@ public class CallUtils {
     private final String url;
     private final String token;
 
-    public CallUtils(CallbackListener listener, String url, String token) {
+    public CallUtils(CallbackListener listener, @NonNull String url, String token) {
         this.listener = listener;
         this.url = url;
         this.token = token;
@@ -23,7 +25,7 @@ public class CallUtils {
         OkHttpClient client = new OkHttpClient();
         Request.Builder url = new Request.Builder().url(this.url);
         if (token != null) {
-            url.header("Authorization", "token " + token);
+            url.addHeader("Token", token);
         }
         Request request = url.build();
 
