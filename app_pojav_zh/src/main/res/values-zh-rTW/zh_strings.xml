@@ -138,6 +138,7 @@
     <string name="zh_controls_info_view">查看資訊</string>
     <string name="zh_controls_info_no_info">此控制佈局沒有描述說明…</string>
     <string name="zh_controls_info_invalid">無效的檔案:</string>
+    <string name="zh_controls_set_default_message">你確定要將此控制佈局設置為預設控制佈局嗎？</string>
     <string name="zh_replacement_customcontrol">更換控制佈局</string>
     <string name="zh_custom_control_title">管理控制佈局</string>
     <!-- Custom Mouse -->
