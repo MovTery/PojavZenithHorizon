@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
@@ -17,9 +18,9 @@ import com.movtery.pojavzh.ui.dialog.ProgressDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.dialog.UpdateDialog;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.http.CallUtils;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
-import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 
 import org.apache.commons.io.FileUtils;
@@ -205,75 +206,68 @@ public class UpdateLauncher {
     public static synchronized void updateCheckerMainProgram(Context context, boolean ignore) {
         if (System.currentTimeMillis() - ZHTools.LAST_UPDATE_CHECK_TIME <= 5000) return;
         ZHTools.LAST_UPDATE_CHECK_TIME = System.currentTimeMillis();
-        PojavApplication.sExecutorService.execute(() -> {
-            int versionCode = ZHTools.getVersionCode(context);
-            OkHttpClient client = new OkHttpClient();
-            Request.Builder url = new Request.Builder()
-                    .url(ZHTools.URL_GITHUB_RELEASE);
-            if (!context.getString(R.string.zh_api_token).equals("DUMMY")) {
-                url.header("Authorization", "token " + context.getString(R.string.zh_api_token));
+
+        String token = context.getString(R.string.zh_api_token);
+        new CallUtils(new CallUtils.CallbackListener() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_fail), Toast.LENGTH_SHORT).show());
             }
-            Request request = url.build();
 
-            client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response);
+                } else {
+                    Objects.requireNonNull(response.body());
+                    String responseBody = response.body().string(); //解析响应体
+                    try {
+                        JSONObject jsonObject = new JSONObject(responseBody);
+                        String versionName = jsonObject.getString("name");
 
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_fail), Toast.LENGTH_SHORT).show());
-                }
+                        if (ignore && versionName.equals(DEFAULT_PREF.getString("ignoreUpdate", null)))
+                            return; //忽略此版本
 
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    if (!response.isSuccessful()) {
-                        throw new IOException("Unexpected code " + response);
-                    } else {
-                        Objects.requireNonNull(response.body());
-                        String responseBody = response.body().string(); //解析响应体
+                        String tagName = jsonObject.getString("tag_name");
+                        JSONArray assetsJson = jsonObject.getJSONArray("assets");
+                        JSONObject firstAsset = assetsJson.getJSONObject(0);
+                        long fileSize = firstAsset.getLong("size");
+                        int githubVersion = 0;
                         try {
-                            JSONObject jsonObject = new JSONObject(responseBody);
-                            String versionName = jsonObject.getString("name");
-
-                            if (ignore && versionName.equals(DEFAULT_PREF.getString("ignoreUpdate", null)))
-                                return; //忽略此版本
-
-                            String tagName = jsonObject.getString("tag_name");
-                            JSONArray assetsJson = jsonObject.getJSONArray("assets");
-                            JSONObject firstAsset = assetsJson.getJSONObject(0);
-                            long fileSize = firstAsset.getLong("size");
-                            int githubVersion = 0;
-                            try {
-                                githubVersion = Integer.parseInt(tagName);
-                            } catch (Exception ignored) {
-                            }
-
-                            if (versionCode < githubVersion) {
-                                runOnUiThread(() -> {
-                                    UpdateDialog.UpdateInformation updateInformation = new UpdateDialog.UpdateInformation();
-                                    try {
-                                        updateInformation.information(versionName,
-                                                tagName,
-                                                ZHTools.formattingTime(jsonObject.getString("created_at")),
-                                                fileSize,
-                                                jsonObject.getString("body"));
-                                    } catch (Exception ignored) {
-                                    }
-                                    UpdateDialog updateDialog = new UpdateDialog(context, updateInformation);
-
-                                    updateDialog.show();
-                                });
-                            } else if (!ignore) {
-                                runOnUiThread(() -> {
-                                    String nowVersionName = ZHTools.getVersionName(context);
-                                    runOnUiThread(() -> Toast.makeText(context,
-                                            StringUtils.insertSpace(context.getString(R.string.zh_update_without), nowVersionName),
-                                            Toast.LENGTH_SHORT).show());
-                                });
-                            }
-                        } catch (Exception ignored) {
+                            githubVersion = Integer.parseInt(tagName);
+                        } catch (Exception e) {
+                            Log.e("Parse github version", e.toString());
                         }
+
+                        if (ZHTools.getVersionCode(context) < githubVersion) {
+                            runOnUiThread(() -> {
+                                UpdateDialog.UpdateInformation updateInformation = new UpdateDialog.UpdateInformation();
+                                try {
+                                    updateInformation.information(versionName,
+                                            tagName,
+                                            ZHTools.formattingTime(jsonObject.getString("created_at")),
+                                            fileSize,
+                                            jsonObject.getString("body"));
+                                } catch (Exception e) {
+                                    Log.e("Init update information", e.toString());
+                                }
+                                UpdateDialog updateDialog = new UpdateDialog(context, updateInformation);
+
+                                updateDialog.show();
+                            });
+                        } else if (!ignore) {
+                            runOnUiThread(() -> {
+                                String nowVersionName = ZHTools.getVersionName(context);
+                                runOnUiThread(() -> Toast.makeText(context,
+                                        StringUtils.insertSpace(context.getString(R.string.zh_update_without), nowVersionName),
+                                        Toast.LENGTH_SHORT).show());
+                            });
+                        }
+                    } catch (Exception e) {
+                        Log.e("Check Update", e.toString());
                     }
                 }
-            });
-        });
+            }
+        }, ZHTools.URL_GITHUB_RELEASE, token.equals("DUMMY") ? null : token).start();
     }
 }
