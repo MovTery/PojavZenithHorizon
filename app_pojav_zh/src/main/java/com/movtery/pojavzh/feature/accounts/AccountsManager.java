@@ -2,10 +2,12 @@ package com.movtery.pojavzh.feature.accounts;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import net.kdt.pojavlaunch.LauncherActivity;
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.PojavProfile;
 import net.kdt.pojavlaunch.R;
@@ -78,16 +80,19 @@ public class AccountsManager {
         };
 
         mErrorListener = errorMessage -> {
-            if (errorMessage instanceof PresentedException) {
-                PresentedException exception = (PresentedException) errorMessage;
-                Throwable cause = exception.getCause();
-                if (cause == null) {
-                    Tools.dialog(context, context.getString(R.string.global_error), exception.toString(context));
+            Activity activity = LauncherActivity.getActivity();
+            if (activity != null) {
+                if (errorMessage instanceof PresentedException) {
+                    PresentedException exception = (PresentedException) errorMessage;
+                    Throwable cause = exception.getCause();
+                    if (cause == null) {
+                        Tools.dialog(activity, activity.getString(R.string.global_error), exception.toString(activity));
+                    } else {
+                        Tools.showError(activity, exception.toString(activity), exception.getCause());
+                    }
                 } else {
-                    Tools.showError(context, exception.toString(context), exception.getCause());
+                    Tools.showError(activity, errorMessage);
                 }
-            } else {
-                Tools.showError(context, errorMessage);
             }
         };
     }
