@@ -1,7 +1,7 @@
 package com.movtery.pojavzh.utils;
 
+import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
-import com.movtery.pojavzh.feature.ResourceManager;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import java.math.BigDecimal;
@@ -10,7 +10,7 @@ import java.text.DecimalFormat;
 
 public class NumberWithUnits {
     private static final String[] UNITS_EN = {"", "K", "M"}; //英文单位：千、百万
-    private static final String[] UNITS_ZH = {"", ResourceManager.getString(R.string.zh_wan), ResourceManager.getString(R.string.zh_yi)}; //中文单位:万、亿
+    private static final String[] UNITS_ZH = {"", PojavApplication.getResString(R.string.zh_wan), PojavApplication.getResString(R.string.zh_yi)}; //中文单位:万、亿
 
     public static String formatNumberWithUnit(long number, boolean isEnglish) {
         if (isEnglish) {

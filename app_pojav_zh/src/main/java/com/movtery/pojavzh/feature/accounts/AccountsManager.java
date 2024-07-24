@@ -6,8 +6,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.movtery.pojavzh.feature.ResourceManager;
-
+import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.PojavProfile;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -24,7 +23,7 @@ import java.util.List;
 
 public class AccountsManager {
     @SuppressLint("StaticFieldLeak")
-    private static volatile AccountsManager accountManager;
+    private static volatile AccountsManager accountsManager;
     private final Context context;
     private final List<MinecraftAccount> accounts = new ArrayList<>();
     private ObjectAnimator mLoginBarAnimator;
@@ -35,20 +34,23 @@ public class AccountsManager {
     private ErrorListener mErrorListener;
 
     public static AccountsManager getInstance() {
-        if (accountManager == null) {
+        if (accountsManager == null) {
             synchronized (AccountsManager.class) {
-                if (accountManager == null) {
-                    accountManager = new AccountsManager(ResourceManager.getContext());
+                if (accountsManager == null) {
+                    accountsManager = new AccountsManager(PojavApplication.getContext());
+                    //确保完全初始化，初始化完成之后，初始化监听器，然后执行刷新与登录操作
+                    accountsManager.initListener();
+                    accountsManager.reload();
+                    accountsManager.performLogin(accountsManager.getCurrentAccount());
                 }
-                return accountManager;
+                return accountsManager;
             }
         }
-        return accountManager;
+        return accountsManager;
     }
 
     public AccountsManager(Context context) {
         this.context = context;
-        initListener();
     }
 
     @SuppressLint("ObjectAnimatorBinding")
