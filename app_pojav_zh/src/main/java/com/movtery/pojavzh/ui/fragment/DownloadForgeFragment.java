@@ -127,7 +127,7 @@ public class DownloadForgeFragment extends TwoLevelListFragment implements Modlo
         Tools.runOnUiThread(() -> {
             Intent modInstallerStartIntent = new Intent(activity, JavaGUILauncherActivity.class);
             ForgeUtils.addAutoInstallArgs(modInstallerStartIntent, downloadedFile, true);
-            SelectRuntimeDialog selectRuntimeDialog = new SelectRuntimeDialog(requireContext());
+            SelectRuntimeDialog selectRuntimeDialog = new SelectRuntimeDialog(activity);
             selectRuntimeDialog.setListener(jreName -> {
                 modloaderListenerProxy.detachListener();
 

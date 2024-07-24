@@ -140,7 +140,7 @@ public class DownloadNeoForgeFragment extends TwoLevelListFragment implements Mo
         Tools.runOnUiThread(() -> {
             Intent modInstallerStartIntent = new Intent(activity, JavaGUILauncherActivity.class);
             NeoForgeUtils.addAutoInstallArgs(modInstallerStartIntent, downloadedFile);
-            SelectRuntimeDialog selectRuntimeDialog = new SelectRuntimeDialog(requireContext());
+            SelectRuntimeDialog selectRuntimeDialog = new SelectRuntimeDialog(activity);
             selectRuntimeDialog.setListener(jreName -> {
                 modloaderListenerProxy.detachListener();
 
