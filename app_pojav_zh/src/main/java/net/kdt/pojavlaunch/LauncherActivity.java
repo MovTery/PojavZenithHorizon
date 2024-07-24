@@ -4,10 +4,13 @@ import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -74,6 +77,7 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 
 public class LauncherActivity extends BaseActivity {
+    @SuppressLint("StaticFieldLeak") private static Activity activity;
     private final AccountsManager accountsManager = AccountsManager.getInstance();
     public final ActivityResultLauncher<Object> modInstallerLauncher =
             registerForActivityResult(new OpenDocumentWithExtension("jar"), (data)->{
@@ -89,6 +93,10 @@ public class LauncherActivity extends BaseActivity {
     private ProgressServiceKeeper mProgressServiceKeeper;
     private ModloaderInstallTracker mInstallTracker;
     private NotificationManager mNotificationManager;
+
+    public static Activity getActivity() {
+        return LauncherActivity.activity;
+    }
 
     /* Allows to switch from one button "type" to another */
     private final FragmentManager.FragmentLifecycleCallbacks mFragmentCallbackListener = new FragmentManager.FragmentLifecycleCallbacks() {
@@ -320,6 +328,8 @@ public class LauncherActivity extends BaseActivity {
 
         //检查已经下载后的包，或者检查更新
         UpdateLauncher.CheckDownloadedPackage(this, true);
+
+        LauncherActivity.activity = this;
     }
 
     @Override
@@ -381,6 +391,12 @@ public class LauncherActivity extends BaseActivity {
     @Override
     public void onAttachedToWindow() {
         LauncherPreferences.computeNotchSize(this);
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        LauncherActivity.activity = this;
     }
 
     private void launchGame(MinecraftProfile prof) {

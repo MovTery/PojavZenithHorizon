@@ -49,6 +49,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog;
+import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.utils.ZHTools;
@@ -661,11 +662,12 @@ public final class Tools {
     }
 
     public static void dialog(final Context context, final CharSequence title, final CharSequence message) {
-        new AlertDialog.Builder(context)
-                .setTitle(title)
-                .setMessage(message)
-                .setPositiveButton(android.R.string.ok, null)
-                .show();
+        new TipDialog.Builder(context)
+                .setTitle(title.toString())
+                .setMessage(message.toString())
+                .setConfirm(android.R.string.ok)
+                .setShowCancel(false)
+                .buildDialog();
     }
 
     public static void openURL(Activity act, String url) {
