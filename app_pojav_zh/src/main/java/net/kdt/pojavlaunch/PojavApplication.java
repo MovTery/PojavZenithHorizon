@@ -4,6 +4,7 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.movtery.pojavzh.utils.ZHTools.getVersionName;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_LAUNCHER_THEME;
 
+import android.annotation.SuppressLint;
 import android.app.*;
 import android.content.*;
 import android.content.pm.*;
@@ -16,7 +17,6 @@ import androidx.core.app.*;
 
 import android.util.*;
 
-import com.movtery.pojavzh.feature.ResourceManager;
 import com.movtery.pojavzh.ui.activity.ErrorActivity;
 
 import java.io.*;
@@ -34,7 +34,8 @@ import net.kdt.pojavlaunch.utils.FileUtils;
 public class PojavApplication extends Application {
 	public static final String CRASH_REPORT_TAG = "PojavCrashReport";
 	public static final ExecutorService sExecutorService = new ThreadPoolExecutor(4, 4, 500, TimeUnit.MILLISECONDS,  new LinkedBlockingQueue<>());
-	
+	@SuppressLint("StaticFieldLeak") private static Context context;
+
 	@Override
 	public void onCreate() {
 		ContextExecutor.setApplication(this);
@@ -94,8 +95,6 @@ public class PojavApplication extends Application {
 					break;
 			}
 		}
-
-		ResourceManager.setResources(this);
 	}
 
 	@Override
@@ -107,11 +106,21 @@ public class PojavApplication extends Application {
 	@Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(LocaleUtils.setLocale(base));
+		PojavApplication.context = base;
     }
 
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         LocaleUtils.setLocale(this);
+		PojavApplication.context = this;
     }
+
+	public static Context getContext() {
+		return PojavApplication.context;
+	}
+
+	public static String getResString(int resId) {
+		return PojavApplication.context.getString(resId);
+	}
 }

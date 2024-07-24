@@ -1,6 +1,6 @@
 package net.kdt.pojavlaunch;
 
-import static com.movtery.pojavzh.feature.ResourceManager.getString;
+import static net.kdt.pojavlaunch.PojavApplication.getResString;
 import static org.lwjgl.glfw.CallbackBridge.sendKeyPress;
 
 import android.view.KeyEvent;
@@ -28,7 +28,7 @@ public class EfficientAndroidLWJGLKeycode {
         /*  BINARY SEARCH IS PERFORMED ON THE androidKeycodes ARRAY !
             WHEN ADDING A MAPPING, ADD IT SO THE androidKeycodes ARRAY STAYS SORTED ! */
         // Mapping Android Keycodes to LWJGL Keycodes
-        add(KeyEvent.KEYCODE_UNKNOWN, LwjglGlfwKeycode.GLFW_KEY_UNKNOWN, getString(R.string.zh_unknown));
+        add(KeyEvent.KEYCODE_UNKNOWN, LwjglGlfwKeycode.GLFW_KEY_UNKNOWN, getResString(R.string.zh_unknown));
         add(KeyEvent.KEYCODE_HOME, LwjglGlfwKeycode.GLFW_KEY_HOME, "Home");
         // Escape key
         add(KeyEvent.KEYCODE_BACK, LwjglGlfwKeycode.GLFW_KEY_ESCAPE, "Back (Esc)");
@@ -86,15 +86,15 @@ public class EfficientAndroidLWJGLKeycode {
         add(KeyEvent.KEYCODE_PERIOD, LwjglGlfwKeycode.GLFW_KEY_PERIOD, ".");
 
         // Alt keys
-        add(KeyEvent.KEYCODE_ALT_LEFT, LwjglGlfwKeycode.GLFW_KEY_LEFT_ALT, getString(R.string.zh_keycode_left_alt));
-        add(KeyEvent.KEYCODE_ALT_RIGHT, LwjglGlfwKeycode.GLFW_KEY_RIGHT_ALT, getString(R.string.zh_keycode_right_alt));
+        add(KeyEvent.KEYCODE_ALT_LEFT, LwjglGlfwKeycode.GLFW_KEY_LEFT_ALT, getResString(R.string.zh_keycode_left_alt));
+        add(KeyEvent.KEYCODE_ALT_RIGHT, LwjglGlfwKeycode.GLFW_KEY_RIGHT_ALT, getResString(R.string.zh_keycode_right_alt));
 
         // Shift keys
-        add(KeyEvent.KEYCODE_SHIFT_LEFT, LwjglGlfwKeycode.GLFW_KEY_LEFT_SHIFT, getString(R.string.zh_keycode_left_shift));
-        add(KeyEvent.KEYCODE_SHIFT_RIGHT, LwjglGlfwKeycode.GLFW_KEY_RIGHT_SHIFT, getString(R.string.zh_keycode_right_shift));
+        add(KeyEvent.KEYCODE_SHIFT_LEFT, LwjglGlfwKeycode.GLFW_KEY_LEFT_SHIFT, getResString(R.string.zh_keycode_left_shift));
+        add(KeyEvent.KEYCODE_SHIFT_RIGHT, LwjglGlfwKeycode.GLFW_KEY_RIGHT_SHIFT, getResString(R.string.zh_keycode_right_shift));
 
         add(KeyEvent.KEYCODE_TAB, LwjglGlfwKeycode.GLFW_KEY_TAB, "Tab ⇄");
-        add(KeyEvent.KEYCODE_SPACE, LwjglGlfwKeycode.GLFW_KEY_SPACE, getString(R.string.zh_keycode_space));
+        add(KeyEvent.KEYCODE_SPACE, LwjglGlfwKeycode.GLFW_KEY_SPACE, getResString(R.string.zh_keycode_space));
         add(KeyEvent.KEYCODE_ENTER, LwjglGlfwKeycode.GLFW_KEY_ENTER, "Enter ↲"); //66
         add(KeyEvent.KEYCODE_DEL, LwjglGlfwKeycode.GLFW_KEY_BACKSPACE, "← Backspace"); // Backspace
         add(KeyEvent.KEYCODE_GRAVE, LwjglGlfwKeycode.GLFW_KEY_GRAVE_ACCENT, "`");
@@ -108,7 +108,7 @@ public class EfficientAndroidLWJGLKeycode {
         add(KeyEvent.KEYCODE_SLASH, LwjglGlfwKeycode.GLFW_KEY_SLASH, "/"); //76
         add(KeyEvent.KEYCODE_AT, LwjglGlfwKeycode.GLFW_KEY_2, "@ (2)");
 
-        add(KeyEvent.KEYCODE_PLUS, LwjglGlfwKeycode.GLFW_KEY_KP_ADD, getString(R.string.zh_keycode_kp_plus));
+        add(KeyEvent.KEYCODE_PLUS, LwjglGlfwKeycode.GLFW_KEY_KP_ADD, getResString(R.string.zh_keycode_kp_plus));
 
         // Page keys
         add(KeyEvent.KEYCODE_PAGE_UP, LwjglGlfwKeycode.GLFW_KEY_PAGE_UP, "PGUp +"); //92
@@ -117,8 +117,8 @@ public class EfficientAndroidLWJGLKeycode {
         add(KeyEvent.KEYCODE_ESCAPE, LwjglGlfwKeycode.GLFW_KEY_ESCAPE, "Esc");
 
         // Control keys
-        add(KeyEvent.KEYCODE_CTRL_LEFT, LwjglGlfwKeycode.GLFW_KEY_LEFT_CONTROL, getString(R.string.zh_keycode_left_ctrl));
-        add(KeyEvent.KEYCODE_CTRL_RIGHT, LwjglGlfwKeycode.GLFW_KEY_RIGHT_CONTROL, getString(R.string.zh_keycode_right_ctrl));
+        add(KeyEvent.KEYCODE_CTRL_LEFT, LwjglGlfwKeycode.GLFW_KEY_LEFT_CONTROL, getResString(R.string.zh_keycode_left_ctrl));
+        add(KeyEvent.KEYCODE_CTRL_RIGHT, LwjglGlfwKeycode.GLFW_KEY_RIGHT_CONTROL, getResString(R.string.zh_keycode_right_ctrl));
 
         add(KeyEvent.KEYCODE_CAPS_LOCK, LwjglGlfwKeycode.GLFW_KEY_CAPS_LOCK, "Caps Lock");
         add(KeyEvent.KEYCODE_BREAK, LwjglGlfwKeycode.GLFW_KEY_PAUSE, "Pause/Break");
@@ -143,24 +143,24 @@ public class EfficientAndroidLWJGLKeycode {
 
         // Num keys
         add(KeyEvent.KEYCODE_NUM_LOCK, LwjglGlfwKeycode.GLFW_KEY_NUM_LOCK, "Num Lock"); //143
-        add(KeyEvent.KEYCODE_NUMPAD_0, LwjglGlfwKeycode.GLFW_KEY_KP_0, getString(R.string.zh_keycode_kp_0));
-        add(KeyEvent.KEYCODE_NUMPAD_1, LwjglGlfwKeycode.GLFW_KEY_KP_1, getString(R.string.zh_keycode_kp_1));
-        add(KeyEvent.KEYCODE_NUMPAD_2, LwjglGlfwKeycode.GLFW_KEY_KP_2, getString(R.string.zh_keycode_kp_2));
-        add(KeyEvent.KEYCODE_NUMPAD_3, LwjglGlfwKeycode.GLFW_KEY_KP_3, getString(R.string.zh_keycode_kp_3));
-        add(KeyEvent.KEYCODE_NUMPAD_4, LwjglGlfwKeycode.GLFW_KEY_KP_4, getString(R.string.zh_keycode_kp_4));
-        add(KeyEvent.KEYCODE_NUMPAD_5, LwjglGlfwKeycode.GLFW_KEY_KP_5, getString(R.string.zh_keycode_kp_5));
-        add(KeyEvent.KEYCODE_NUMPAD_6, LwjglGlfwKeycode.GLFW_KEY_KP_6, getString(R.string.zh_keycode_kp_6));
-        add(KeyEvent.KEYCODE_NUMPAD_7, LwjglGlfwKeycode.GLFW_KEY_KP_7, getString(R.string.zh_keycode_kp_7));
-        add(KeyEvent.KEYCODE_NUMPAD_8, LwjglGlfwKeycode.GLFW_KEY_KP_8, getString(R.string.zh_keycode_kp_8));
-        add(KeyEvent.KEYCODE_NUMPAD_9, LwjglGlfwKeycode.GLFW_KEY_KP_9, getString(R.string.zh_keycode_kp_9));
-        add(KeyEvent.KEYCODE_NUMPAD_DIVIDE, LwjglGlfwKeycode.GLFW_KEY_KP_DIVIDE, getString(R.string.zh_keycode_kp_divide));
-        add(KeyEvent.KEYCODE_NUMPAD_MULTIPLY, LwjglGlfwKeycode.GLFW_KEY_KP_MULTIPLY, getString(R.string.zh_keycode_kp_multiply));
-        add(KeyEvent.KEYCODE_NUMPAD_SUBTRACT, LwjglGlfwKeycode.GLFW_KEY_KP_SUBTRACT, getString(R.string.zh_keycode_kp_subtract));
-        add(KeyEvent.KEYCODE_NUMPAD_ADD, LwjglGlfwKeycode.GLFW_KEY_KP_ADD, getString(R.string.zh_keycode_kp_plus));
-        add(KeyEvent.KEYCODE_NUMPAD_DOT, LwjglGlfwKeycode.GLFW_KEY_KP_DECIMAL, getString(R.string.zh_keycode_kp_decimal));
-        add(KeyEvent.KEYCODE_NUMPAD_COMMA, LwjglGlfwKeycode.GLFW_KEY_COMMA, getString(R.string.zh_keycode_kp_comma));
-        add(KeyEvent.KEYCODE_NUMPAD_ENTER, LwjglGlfwKeycode.GLFW_KEY_KP_ENTER, getString(R.string.zh_keycode_kp_enter));
-        add(KeyEvent.KEYCODE_NUMPAD_EQUALS, LwjglGlfwKeycode.GLFW_KEY_EQUAL, getString(R.string.zh_keycode_kp_equal)); //161
+        add(KeyEvent.KEYCODE_NUMPAD_0, LwjglGlfwKeycode.GLFW_KEY_KP_0, getResString(R.string.zh_keycode_kp_0));
+        add(KeyEvent.KEYCODE_NUMPAD_1, LwjglGlfwKeycode.GLFW_KEY_KP_1, getResString(R.string.zh_keycode_kp_1));
+        add(KeyEvent.KEYCODE_NUMPAD_2, LwjglGlfwKeycode.GLFW_KEY_KP_2, getResString(R.string.zh_keycode_kp_2));
+        add(KeyEvent.KEYCODE_NUMPAD_3, LwjglGlfwKeycode.GLFW_KEY_KP_3, getResString(R.string.zh_keycode_kp_3));
+        add(KeyEvent.KEYCODE_NUMPAD_4, LwjglGlfwKeycode.GLFW_KEY_KP_4, getResString(R.string.zh_keycode_kp_4));
+        add(KeyEvent.KEYCODE_NUMPAD_5, LwjglGlfwKeycode.GLFW_KEY_KP_5, getResString(R.string.zh_keycode_kp_5));
+        add(KeyEvent.KEYCODE_NUMPAD_6, LwjglGlfwKeycode.GLFW_KEY_KP_6, getResString(R.string.zh_keycode_kp_6));
+        add(KeyEvent.KEYCODE_NUMPAD_7, LwjglGlfwKeycode.GLFW_KEY_KP_7, getResString(R.string.zh_keycode_kp_7));
+        add(KeyEvent.KEYCODE_NUMPAD_8, LwjglGlfwKeycode.GLFW_KEY_KP_8, getResString(R.string.zh_keycode_kp_8));
+        add(KeyEvent.KEYCODE_NUMPAD_9, LwjglGlfwKeycode.GLFW_KEY_KP_9, getResString(R.string.zh_keycode_kp_9));
+        add(KeyEvent.KEYCODE_NUMPAD_DIVIDE, LwjglGlfwKeycode.GLFW_KEY_KP_DIVIDE, getResString(R.string.zh_keycode_kp_divide));
+        add(KeyEvent.KEYCODE_NUMPAD_MULTIPLY, LwjglGlfwKeycode.GLFW_KEY_KP_MULTIPLY, getResString(R.string.zh_keycode_kp_multiply));
+        add(KeyEvent.KEYCODE_NUMPAD_SUBTRACT, LwjglGlfwKeycode.GLFW_KEY_KP_SUBTRACT, getResString(R.string.zh_keycode_kp_subtract));
+        add(KeyEvent.KEYCODE_NUMPAD_ADD, LwjglGlfwKeycode.GLFW_KEY_KP_ADD, getResString(R.string.zh_keycode_kp_plus));
+        add(KeyEvent.KEYCODE_NUMPAD_DOT, LwjglGlfwKeycode.GLFW_KEY_KP_DECIMAL, getResString(R.string.zh_keycode_kp_decimal));
+        add(KeyEvent.KEYCODE_NUMPAD_COMMA, LwjglGlfwKeycode.GLFW_KEY_COMMA, getResString(R.string.zh_keycode_kp_comma));
+        add(KeyEvent.KEYCODE_NUMPAD_ENTER, LwjglGlfwKeycode.GLFW_KEY_KP_ENTER, getResString(R.string.zh_keycode_kp_enter));
+        add(KeyEvent.KEYCODE_NUMPAD_EQUALS, LwjglGlfwKeycode.GLFW_KEY_EQUAL, getResString(R.string.zh_keycode_kp_equal)); //161
 
 
     }

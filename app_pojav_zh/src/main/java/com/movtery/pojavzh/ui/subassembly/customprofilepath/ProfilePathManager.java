@@ -2,12 +2,14 @@ package com.movtery.pojavzh.ui.subassembly.customprofilepath;
 
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.movtery.pojavzh.feature.ResourceManager;
 import com.movtery.pojavzh.utils.ZHTools;
 
+import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.Tools;
 
 import java.io.File;
@@ -38,7 +40,7 @@ public class ProfilePathManager {
                     return profilePathJsonObject.path;
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e("Read Profile", e.toString());
             }
         }
         return defaultPath;
@@ -48,7 +50,7 @@ public class ProfilePathManager {
         File file = new File(ProfilePathHome.getGameHome(), "launcher_profiles.json");
         if (!file.exists()) {
             try {
-                Tools.copyAssetFile(ResourceManager.getContext(), "launcher_profiles.json", ProfilePathHome.getGameHome(), false);
+                Tools.copyAssetFile(PojavApplication.getContext(), "launcher_profiles.json", ProfilePathHome.getGameHome(), false);
             } catch (IOException e) {
                 return new File(defaultPath, "launcher_profiles.json");
             }
@@ -71,7 +73,7 @@ public class ProfilePathManager {
         try (FileWriter fileWriter = new FileWriter(ZHTools.FILE_PROFILE_PATH)) {
             new Gson().toJson(jsonObject, fileWriter);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e("Write Profile", e.toString());
         }
     }
 }
