@@ -139,6 +139,7 @@
     <string name="zh_controls_info_no_info">Bố cục điều khiển này không có mô tả…</string>
     <string name="zh_controls_info_invalid">Tệp không hợp lệ:</string>
     <string name="zh_controls_set_default_message">Bạn có chắc chắn muốn đặt bố cục điều khiển này làm bố cục điều khiển mặc định không?</string>
+    <string name="zh_controls_nothing">Không có bố cục điều khiển nào ở đây, khởi động lại ứng dụng sẽ tạo bố cục điều khiển mặc định mới</string>
     <string name="zh_replacement_customcontrol">Thay đổi bố cục điều khiển</string>
     <string name="zh_custom_control_title">Quản lý bố cục điều khiển</string>
     <!-- Custom Mouse -->
@@ -161,6 +162,7 @@
     <string name="zh_custom_background_dialog_message">Nhấn nút \"Chọn\" để đặt hình ảnh này làm hình nền cho %s</string>
     <string name="zh_custom_background_selected">Thiết lập hình nền thành công cho %s:</string>
     <string name="zh_custom_background_reset">Đã đặt lại hình nền cho %s</string>
+    <string name="zh_custom_background_nothing">Không có hình nền nào ở đây, vui lòng thêm một số hình ảnh trước!</string>
     <!-- File -->
     <string name="zh_file_add_file">Thêm tệp</string>
     <string name="zh_file_add_file_tip">Vui lòng chọn một tệp có phần mở rộng %s</string>
@@ -184,6 +186,7 @@
     <string name="zh_file_multi_select_mode_message">Hiện tại đã chọn tổng cộng %d mục</string>
     <string name="zh_file_operation_file">Đang thao tác trên tệp tin… (%s / %s, %d)</string>
     <string name="zh_file_jump_to_path">Nhảy đến đường dẫn</string>
+    <string name="zh_file_nothing">Không tìm thấy tệp nào!</string>
     <!-- Search View -->
     <string name="zh_search_case_sensitive">Phân biệt chữ hoa chữ thường</string>
     <string name="zh_search_only_show_results">Chỉ hiển thị kết quả tìm kiếm</string>

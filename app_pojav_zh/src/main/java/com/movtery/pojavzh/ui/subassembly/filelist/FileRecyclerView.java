@@ -27,6 +27,7 @@ public class FileRecyclerView extends LinearLayout {
     private FileIcon fileIcon = FileIcon.FILE;
     private SetTitleListener mSetTitleListener;
     private FileSelectedListener fileSelectedListener;
+    private RefreshListener mRefreshListener;
     private File fullPath;
     private File lockPath = new File("/");
     private boolean showFiles = true;
@@ -94,6 +95,10 @@ public class FileRecyclerView extends LinearLayout {
         this.mSetTitleListener = setTitleListener;
     }
 
+    public void setRefreshListener(RefreshListener listener) {
+        this.mRefreshListener = listener;
+    }
+
     public void setShowFiles(boolean showFiles) {
         this.showFiles = showFiles;
     }
@@ -120,6 +125,10 @@ public class FileRecyclerView extends LinearLayout {
 
     public FileRecyclerAdapter getAdapter() {
         return fileRecyclerViewCreator.getFileRecyclerAdapter();
+    }
+
+    public int getItemCount() {
+        return fileRecyclerViewCreator.getFileRecyclerAdapter().getItemCount();
     }
 
     public void lockAndListAt(File lockPath, File listPath) {
@@ -149,7 +158,10 @@ public class FileRecyclerView extends LinearLayout {
                     mSetTitleListener.setTitle(path.getAbsolutePath());
                 }
 
-                runOnUiThread(() -> fileRecyclerViewCreator.loadData(itemBeans));
+                runOnUiThread(() -> {
+                    fileRecyclerViewCreator.loadData(itemBeans);
+                    if (mRefreshListener != null) mRefreshListener.onRefresh();
+                });
             } else {
                 fileSelectedListener.onFileSelected(path, path.getAbsolutePath());
             }

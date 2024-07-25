@@ -139,6 +139,7 @@
     <string name="zh_controls_info_no_info">Для этой схемы управления нет описания…</string>
     <string name="zh_controls_info_invalid">Неверный файл:</string>
     <string name="zh_controls_set_default_message">Вы уверены, что хотите установить этот макет управления по умолчанию?</string>
+    <string name="zh_controls_nothing">Здесь нет макетов управления, перезапуск приложения создаст новый макет управления по умолчанию</string>
     <string name="zh_replacement_customcontrol">Замена схемы управления</string>
     <string name="zh_custom_control_title">Управление схемами управления</string>
     <!-- Custom Mouse -->
@@ -161,6 +162,7 @@
     <string name="zh_custom_background_dialog_message">Нажмите кнопку \"Выбрать\", чтобы установить это изображение в качестве фонового изображения для %s</string>
     <string name="zh_custom_background_selected">Успешно установлено фоновое изображение для %s:</string>
     <string name="zh_custom_background_reset">Сброшен фон для %s</string>
+    <string name="zh_custom_background_nothing">Здесь нет фоновых изображений, сначала добавьте несколько изображений!</string>
     <!-- File -->
     <string name="zh_file_add_file">Добавить файл</string>
     <string name="zh_file_add_file_tip">Пожалуйста, выберите файл с расширением %s</string>
@@ -184,6 +186,7 @@
     <string name="zh_file_multi_select_mode_message">Выбрано всего %d элементов</string>
     <string name="zh_file_operation_file">Операция с файлом… (%s / %s, %d)</string>
     <string name="zh_file_jump_to_path">Перейти к пути</string>
+    <string name="zh_file_nothing">Файлы не найдены!</string>
     <!-- Search View -->
     <string name="zh_search_case_sensitive">Учитывать регистр</string>
     <string name="zh_search_only_show_results">Показывать только результаты поиска</string>

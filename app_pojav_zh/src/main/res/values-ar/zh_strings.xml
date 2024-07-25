@@ -139,6 +139,7 @@
     <string name="zh_controls_info_no_info">لا يوجد وصف لتخطيط التحكم هذا…</string>
     <string name="zh_controls_info_invalid">ملف غير صالح:</string>
     <string name="zh_controls_set_default_message">هل أنت متأكد أنك تريد تعيين هذا التخطيط الافتراضي للتحكم؟</string>
+    <string name="zh_controls_nothing">لا توجد تخطيطات تحكم هنا، إعادة تشغيل التطبيق ستولد تخطيط تحكم افتراضي جديد.</string>
     <string name="zh_replacement_customcontrol">استبدال تخطيط التحكم</string>
     <string name="zh_custom_control_title">إدارة تخطيط التحكم</string>
     <!-- Custom Mouse -->
@@ -161,6 +162,7 @@
     <string name="zh_custom_background_dialog_message">انقر فوق زر \"تحديد\" لتعيين هذه الصورة كخلفية لـ %s</string>
     <string name="zh_custom_background_selected">تم تعيين صورة الخلفية لـ %s بنجاح:</string>
     <string name="zh_custom_background_reset">تمت إعادة تعيين صورة الخلفية لـ %s</string>
+    <string name="zh_custom_background_nothing">لا توجد صور خلفية هنا، يرجى إضافة بعض الصور أولاً!</string>
     <!-- File -->
     <string name="zh_file_add_file">إضافة ملف</string>
     <string name="zh_file_add_file_tip">يرجى اختيار ملف بامتداد %s</string>
@@ -184,6 +186,7 @@
     <string name="zh_file_multi_select_mode_message">تم اختيار إجمالي %d عنصر</string>
     <string name="zh_file_operation_file">جاري العمل على الملف… (%s / %s, %d)</string>
     <string name="zh_file_jump_to_path">الانتقال إلى المسار</string>
+    <string name="zh_file_nothing">لم يتم العثور على أي ملفات!</string>
     <!-- Search View -->
     <string name="zh_search_case_sensitive">حساسية الأحرف</string>
     <string name="zh_search_only_show_results">عرض نتائج البحث فقط</string>

@@ -21,6 +21,7 @@ import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerView;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerAdapter;
 import com.movtery.pojavzh.ui.subassembly.view.SearchView;
+import com.movtery.pojavzh.utils.AnimUtils;
 import com.movtery.pojavzh.utils.file.PasteFile;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
 
@@ -52,6 +53,7 @@ public class FilesFragment extends Fragment {
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private boolean mShowFiles, mShowFolders, mQuickAccessPaths, mMultiSelectMode, mSelectFolderMode, mRemoveLockPath;
     private ImageButton mReturnButton, mAddFileButton, mCreateFolderButton, mPasteButton, mSearchSummonButton, mRefreshButton;
+    private TextView mNothingTip;
     private SearchView mSearchView;
     private CheckBox mMultiSelectCheck, mSelectAllCheck;
     private View mExternalStorage, mSoftwarePrivate;
@@ -164,6 +166,11 @@ public class FilesFragment extends Fragment {
                     });
                 });
             }
+        });
+        mFileRecyclerView.setRefreshListener(() -> {
+            int itemCount = mFileRecyclerView.getItemCount();
+            boolean show = itemCount == 1;
+            AnimUtils.setVisibilityAnim(mNothingTip, show);
         });
         mExternalStorage.setOnClickListener(v -> {
             closeMultiSelect();
@@ -282,6 +289,7 @@ public class FilesFragment extends Fragment {
         mSoftwarePrivate = view.findViewById(R.id.zh_files_software_private);
         mMultiSelectCheck = view.findViewById(R.id.zh_file_multi_select_files);
         mSelectAllCheck = view.findViewById(R.id.zh_file_select_all);
+        mNothingTip = view.findViewById(R.id.zh_files_nothing);
 
         mSearchView = new SearchView(view, view.findViewById(R.id.zh_search_view));
         mSearchView.setSearchListener(mFileRecyclerView::searchFiles);

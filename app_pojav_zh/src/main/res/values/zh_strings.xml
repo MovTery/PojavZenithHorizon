@@ -139,6 +139,7 @@
     <string name="zh_controls_info_no_info">There is no description available for this layout…</string>
     <string name="zh_controls_info_invalid">Invalid file:</string>
     <string name="zh_controls_set_default_message">Are you sure you want to set this control layout as the default control layout?</string>
+    <string name="zh_controls_nothing">There are no control layouts here, restarting the app will generate a new default control layout</string>
     <string name="zh_replacement_customcontrol">Change Control Layout</string>
     <string name="zh_custom_control_title">Control Layout Management</string>
     <!-- Custom Mouse -->
@@ -161,6 +162,7 @@
     <string name="zh_custom_background_dialog_message">Click the \"Select\" button to set this image as the background for %s.</string>
     <string name="zh_custom_background_selected">Successfully set the background image for %s:</string>
     <string name="zh_custom_background_reset">The background image for %s has been reset.</string>
+    <string name="zh_custom_background_nothing">There are no background images here, please add some images first!</string>
     <!-- File -->
     <string name="zh_file_add_file">Add file</string>
     <string name="zh_file_add_file_tip">Please select a file with the suffix %s</string>
@@ -184,6 +186,7 @@
     <string name="zh_file_multi_select_mode_message">Currently, a total of %d items are selected</string>
     <string name="zh_file_operation_file">Operating on file… (%s / %s, %d)</string>
     <string name="zh_file_jump_to_path">Jump to Path</string>
+    <string name="zh_file_nothing">No files found!</string>
     <!-- Search View -->
     <string name="zh_search_case_sensitive">Case Sensitive</string>
     <string name="zh_search_only_show_results">Show Only Search Results</string>
