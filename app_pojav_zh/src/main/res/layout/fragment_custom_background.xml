@@ -57,6 +57,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/zh_custom_background_tab" />
 
+            <TextView
+                android:id="@+id/zh_custom_background_nothing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zh_custom_background_nothing"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/zh_custom_background"
+                app:layout_constraintEnd_toEndOf="@+id/zh_custom_background"
+                app:layout_constraintStart_toStartOf="@+id/zh_custom_background"
+                app:layout_constraintTop_toTopOf="@+id/zh_custom_background" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

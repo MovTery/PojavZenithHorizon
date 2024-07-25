@@ -42,6 +42,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/zh_controls_title" />
 
             <TextView
+                android:id="@+id/zh_controls_nothing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:text="@string/zh_controls_nothing"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/zh_controls_list"
+                app:layout_constraintEnd_toEndOf="@+id/zh_controls_list"
+                app:layout_constraintStart_toStartOf="@+id/zh_controls_list"
+                app:layout_constraintTop_toTopOf="@+id/zh_controls_list" />
+
+            <TextView
                 android:id="@+id/zh_controls_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

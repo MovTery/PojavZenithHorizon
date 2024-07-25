@@ -139,6 +139,7 @@
     <string name="zh_controls_info_no_info">此控制佈局沒有描述說明…</string>
     <string name="zh_controls_info_invalid">無效的檔案:</string>
     <string name="zh_controls_set_default_message">你確定要將此控制佈局設置為預設控制佈局嗎？</string>
+    <string name="zh_controls_nothing">這裡沒有任何控制佈局，重新啟動應用程式將生成一份新的默認控制佈局</string>
     <string name="zh_replacement_customcontrol">更換控制佈局</string>
     <string name="zh_custom_control_title">管理控制佈局</string>
     <!-- Custom Mouse -->
@@ -161,6 +162,7 @@
     <string name="zh_custom_background_dialog_message">點擊 “選擇” 按鈕，將此圖片設置為 %s 的背景圖片</string>
     <string name="zh_custom_background_selected">成功為 %s 設置背景圖片:</string>
     <string name="zh_custom_background_reset">已重置 %s 的背景圖片</string>
+    <string name="zh_custom_background_nothing">這裡沒有任何背景圖片，請先添加一些圖片！</string>
     <!-- File -->
     <string name="zh_file_add_file">新增檔案</string>
     <string name="zh_file_add_file_tip">請選擇一個後綴名為 %s 的檔案</string>
@@ -184,6 +186,7 @@
     <string name="zh_file_multi_select_mode_message">目前共選擇了 %d 個項目</string>
     <string name="zh_file_operation_file">正在操作檔案中… (%s / %s, %d)</string>
     <string name="zh_file_jump_to_path">跳至路徑</string>
+    <string name="zh_file_nothing">沒有找到任何文件哦！</string>
     <!-- Search View -->
     <string name="zh_search_case_sensitive">大小寫區分</string>
     <string name="zh_search_only_show_results">僅顯示搜尋結果</string>

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -20,6 +21,7 @@ import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerAdapter;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerView;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
 import com.movtery.pojavzh.ui.subassembly.view.SearchView;
+import com.movtery.pojavzh.utils.AnimUtils;
 import com.movtery.pojavzh.utils.file.OperationFile;
 import com.movtery.pojavzh.utils.file.PasteFile;
 
@@ -42,6 +44,7 @@ public class ModsFragment extends Fragment {
     public static final String disableJarFileSuffix = ".jar.disabled";
     private ActivityResultLauncher<Object> openDocumentLauncher;
     private ImageButton mReturnButton, mAddModButton, mPasteButton, mDownloadButton, mSearchSummonButton, mRefreshButton;
+    private TextView mNothingTip;
     private SearchView mSearchView;
     private CheckBox mMultiSelectCheck, mSelectAllCheck;
     private FileRecyclerView mFileRecyclerView;
@@ -132,6 +135,11 @@ public class ModsFragment extends Fragment {
                     filesDialog.show();
                 });
             }
+        });
+        mFileRecyclerView.setRefreshListener(() -> {
+            int itemCount = mFileRecyclerView.getItemCount();
+            boolean show = itemCount == 0;
+            AnimUtils.setVisibilityAnim(mNothingTip, show);
         });
         FileRecyclerAdapter adapter = mFileRecyclerView.getAdapter();
         mMultiSelectCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -261,6 +269,7 @@ public class ModsFragment extends Fragment {
         mDownloadButton = view.findViewById(R.id.zh_create_folder_button);
         mSearchSummonButton = view.findViewById(R.id.zh_search_button);
         mRefreshButton = view.findViewById(R.id.zh_refresh_button);
+        mNothingTip = view.findViewById(R.id.zh_mods_nothing);
 
         mAddModButton.setContentDescription(getString(R.string.zh_profile_mods_add_mod));
         mDownloadButton.setContentDescription(getString(R.string.zh_profile_mods_download_mod));

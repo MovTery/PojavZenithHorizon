@@ -8,6 +8,7 @@ import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -26,6 +27,7 @@ import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
 
 import net.kdt.pojavlaunch.PojavApplication;
 
+import com.movtery.pojavzh.utils.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 import com.movtery.pojavzh.ui.dialog.FilesDialog;
@@ -42,6 +44,7 @@ public class CustomBackgroundFragment extends Fragment {
     private final Map<BackgroundType, String> backgroundMap = new HashMap<>();
     private ActivityResultLauncher<String[]> openDocumentLauncher;
     private ImageButton mReturnButton, mAddFileButton, mResetButton, mRefreshButton;
+    private TextView mNothingTip;
     private TabLayout mTabLayout;
     private FileRecyclerView mFileRecyclerView;
     private BackgroundType backgroundType;
@@ -121,6 +124,12 @@ public class CustomBackgroundFragment extends Fragment {
             }
         });
 
+        mFileRecyclerView.setRefreshListener(() -> {
+            int itemCount = mFileRecyclerView.getItemCount();
+            boolean show = itemCount == 0;
+            AnimUtils.setVisibilityAnim(mNothingTip, show);
+        });
+
         mResetButton.setOnClickListener(v -> {
             refreshType(mTabLayout.getSelectedTabPosition());
 
@@ -191,6 +200,7 @@ public class CustomBackgroundFragment extends Fragment {
         mAddFileButton = view.findViewById(R.id.zh_add_file_button);
         mResetButton = view.findViewById(R.id.zh_paste_button);
         mRefreshButton = view.findViewById(R.id.zh_refresh_button);
+        mNothingTip = view.findViewById(R.id.zh_custom_background_nothing);
 
         mResetButton.setContentDescription(getString(R.string.cropper_reset));
         mAddFileButton.setContentDescription(getString(R.string.zh_custom_background_add));

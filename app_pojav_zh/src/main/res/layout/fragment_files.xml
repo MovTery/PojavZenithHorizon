@@ -44,6 +44,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/zh_files_current_path" />
 
             <TextView
+                android:id="@+id/zh_files_nothing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zh_file_nothing"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/zh_files"
+                app:layout_constraintEnd_toEndOf="@+id/zh_files"
+                app:layout_constraintStart_toStartOf="@+id/zh_files"
+                app:layout_constraintTop_toTopOf="@+id/zh_files" />
+
+            <TextView
                 android:id="@+id/zh_files_current_path"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

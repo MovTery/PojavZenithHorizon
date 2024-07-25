@@ -139,6 +139,7 @@
     <string name="zh_controls_info_no_info">此控制布局没有描述说明…</string>
     <string name="zh_controls_info_invalid">无效的文件:</string>
     <string name="zh_controls_set_default_message">你确定要将此控制布局设置为默认控制布局吗？</string>
+    <string name="zh_controls_nothing">这里没有任何控制布局，重启应用将生成一份新的默认控制布局</string>
     <string name="zh_replacement_customcontrol">更换控制布局</string>
     <string name="zh_custom_control_title">管理控制布局</string>
     <!-- Custom Mouse -->
@@ -161,6 +162,7 @@
     <string name="zh_custom_background_dialog_message">点击 “选择” 按钮，将此图片设置为 %s 的背景图片</string>
     <string name="zh_custom_background_selected">成功为 %s 设置背景图片:</string>
     <string name="zh_custom_background_reset">已重置 %s 的背景图片</string>
+    <string name="zh_custom_background_nothing">这里没有任何背景图片，请先添加一些图片！</string>
     <!-- File -->
     <string name="zh_file_add_file">添加文件</string>
     <string name="zh_file_add_file_tip">请选择一个后缀名为 %s 的文件</string>
@@ -184,6 +186,7 @@
     <string name="zh_file_multi_select_mode_message">当前总共选择了 %d 个项目</string>
     <string name="zh_file_operation_file">正在操作文件中… (%s / %s, %d)</string>
     <string name="zh_file_jump_to_path">跳转至路径</string>
+    <string name="zh_file_nothing">没有找到任何文件哦！</string>
     <!-- Search View -->
     <string name="zh_search_case_sensitive">区分大小写</string>
     <string name="zh_search_only_show_results">仅展示搜索结果</string>
