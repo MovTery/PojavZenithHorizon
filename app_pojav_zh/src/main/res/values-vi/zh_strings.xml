@@ -24,6 +24,8 @@
     <string name="zh_wrong_tip">Đã xảy ra sự cố</string>
     <string name="zh_no_more_reminders">Không nhắc lại nữa</string>
     <string name="zh_input_invalid">Nội dung đã nhập không đáp ứng yêu cầu, vui lòng nhập lại</string>
+    <string name="zh_input_too_small">Giá trị nhập vào quá nhỏ, phải ít nhất là %s</string>
+    <string name="zh_input_too_big">Giá trị nhập vào quá lớn, tối đa chỉ có thể là %s</string>
     <!-- Dialog -->
     <string name="zh_dialog_select_jar">Chọn tệp Jar</string>
     <!-- Profiles Path -->
@@ -207,8 +209,6 @@
     <string name="zh_setting_java_memory_info">Thông tin sử dụng bộ nhớ hiện tại: %s / %s, kích thước bộ nhớ trống: %s</string>
     <string name="zh_setting_java_memory_max">Kích thước bộ nhớ tối đa có thể đặt: %s</string>
     <string name="zh_setting_java_memory_exceeded">Kích thước bộ nhớ được đặt hiện vượt quá kích thước bộ nhớ có sẵn</string>
-    <string name="zh_setting_java_memory_too_big">Kích thước bộ nhớ được đặt hiện quá lớn, chỉ có thể đặt tối đa là %d MB</string>
-    <string name="zh_setting_java_memory_too_small">Kích thước bộ nhớ được đặt hiện quá nhỏ, cần đặt ít nhất là %d MB</string>
     <string name="zh_setting_set_game_language_desc">Tự động đặt ngôn ngữ trò chơi thành ngôn ngữ đã chọn khi trò chơi khởi chạy lần đầu</string>
     <string name="zh_setting_set_game_language_title">Tự động đặt ngôn ngữ trò chơi</string>
     <string name="zh_setting_set_game_language_list">Đặt ngôn ngữ trò chơi</string>
