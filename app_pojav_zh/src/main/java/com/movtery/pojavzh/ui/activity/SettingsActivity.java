@@ -15,6 +15,7 @@ import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.BaseActivity;
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceControlFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceJavaFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceMiscellaneousFragment;
@@ -76,6 +77,18 @@ public class SettingsActivity extends BaseActivity {
         mProgressLayout.observe(ProgressLayout.DOWNLOAD_VERSION_LIST);
 
         initialize();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ContextExecutor.setActivity(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        ContextExecutor.clearActivity();
     }
 
     @Override
