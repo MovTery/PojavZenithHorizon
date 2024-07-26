@@ -6,6 +6,8 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
+import com.movtery.pojavzh.utils.ZHTools;
+
 public class DraggableView {
     private final View mainView;
     private final AttributesFetcher fetcher;
@@ -47,7 +49,7 @@ public class DraggableView {
     //避免过于频繁的更新导致的性能开销
     private boolean updateRateLimits() {
         boolean limit = false;
-        long millis = System.currentTimeMillis();
+        long millis = ZHTools.getCurrentTimeMillis();
         if (millis - lastUpdateTime < 5) limit = true;
         lastUpdateTime = millis;
         return limit;

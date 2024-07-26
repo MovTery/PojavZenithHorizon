@@ -7,6 +7,8 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.movtery.pojavzh.utils.ZHTools;
+
 import net.kdt.pojavlaunch.LauncherActivity;
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.PojavProfile;
@@ -117,13 +119,13 @@ public class AccountsManager {
             return;
         }
 
-        if (AccountUtils.isOtherLoginAccount(minecraftAccount) && System.currentTimeMillis() > minecraftAccount.expiresAt) {
+        if (AccountUtils.isOtherLoginAccount(minecraftAccount) && ZHTools.getCurrentTimeMillis() > minecraftAccount.expiresAt) {
             AccountUtils.otherLogin(context, minecraftAccount);
             return;
         }
 
         if (minecraftAccount.isMicrosoft) {
-            if (System.currentTimeMillis() > minecraftAccount.expiresAt) {
+            if (ZHTools.getCurrentTimeMillis() > minecraftAccount.expiresAt) {
                 AccountUtils.microsoftLogin(minecraftAccount);
             }
         }

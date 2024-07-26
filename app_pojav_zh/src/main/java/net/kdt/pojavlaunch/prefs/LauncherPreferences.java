@@ -78,6 +78,7 @@ public class LauncherPreferences {
     public static boolean PREF_QUILT_LAUNCHER = true;
     public static boolean PREF_BUTTON_SNAPPING = true;
     public static int PREF_BUTTON_SNAPPING_DISTANCE = 8;
+    public static long PREF_FIRST_LAUNCH_TIME = 0;
 
 
     public static void loadPreferences(Context ctx) {
@@ -140,6 +141,12 @@ public class LauncherPreferences {
                     PREF_CUSTOM_JAVA_ARGS.replace(arg, "")).apply();
             }
         }
+
+        if (!DEFAULT_PREF.contains("firstLaunchTime")) {
+            long currentTimeMillis = ZHTools.getCurrentTimeMillis();
+            DEFAULT_PREF.edit().putLong("firstLaunchTime", currentTimeMillis).apply();
+        }
+        PREF_FIRST_LAUNCH_TIME = DEFAULT_PREF.getLong("firstLaunchTime", 0);
 
         reloadRuntime();
     }

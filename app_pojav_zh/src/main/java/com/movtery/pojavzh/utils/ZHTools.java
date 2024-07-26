@@ -233,7 +233,7 @@ public class ZHTools {
         PendingIntent restartIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + 1000, restartIntent);
+        alarmManager.set(AlarmManager.RTC, getCurrentTimeMillis() + 1000, restartIntent);
 
         android.os.Process.killProcess(android.os.Process.myPid());
     }
@@ -267,7 +267,7 @@ public class ZHTools {
         fileList.sort(Comparator.comparingLong(File::lastModified).reversed());
 
         if (modifyTime > 0) {
-            long difference = (System.currentTimeMillis() - fileList.get(0).lastModified()) / 1000; //转换为秒
+            long difference = (getCurrentTimeMillis() - fileList.get(0).lastModified()) / 1000; //转换为秒
             if (difference >= modifyTime) {
                 return null;
             }
@@ -446,8 +446,7 @@ public class ZHTools {
     }
 
     public static boolean checkDate(int month, int day) {
-        LocalDate currentDate;
-        currentDate = LocalDate.now();
+        LocalDate currentDate = LocalDate.now();
         return currentDate.getMonthValue() == month && currentDate.getDayOfMonth() == day;
     }
 
@@ -504,5 +503,9 @@ public class ZHTools {
                 view.evaluateJavascript(js, null);
             }
         });
+    }
+
+    public static long getCurrentTimeMillis() {
+        return System.currentTimeMillis();
     }
 }

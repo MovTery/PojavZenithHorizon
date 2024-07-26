@@ -327,8 +327,8 @@ public class LauncherActivity extends BaseActivity {
         else mHair.setVisibility(View.GONE);
 
         //检查已经下载后的包，或者检查更新
-        UpdateLauncher.CheckDownloadedPackage(this, true);
-
+        PojavApplication.sExecutorService.execute(() -> UpdateLauncher.CheckDownloadedPackage(this, true));
+        
         LauncherActivity.activity = this;
     }
 

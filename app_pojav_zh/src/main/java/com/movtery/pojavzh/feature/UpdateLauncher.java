@@ -204,8 +204,8 @@ public class UpdateLauncher {
     }
 
     public static synchronized void updateCheckerMainProgram(Context context, boolean ignore) {
-        if (System.currentTimeMillis() - ZHTools.LAST_UPDATE_CHECK_TIME <= 5000) return;
-        ZHTools.LAST_UPDATE_CHECK_TIME = System.currentTimeMillis();
+        if (ZHTools.getCurrentTimeMillis() - ZHTools.LAST_UPDATE_CHECK_TIME <= 5000) return;
+        ZHTools.LAST_UPDATE_CHECK_TIME = ZHTools.getCurrentTimeMillis();
 
         String token = context.getString(R.string.zh_api_token);
         new CallUtils(new CallUtils.CallbackListener() {
