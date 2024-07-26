@@ -24,6 +24,8 @@
     <string name="zh_wrong_tip">حدثت بعض المشاكل</string>
     <string name="zh_no_more_reminders">لا مزيد من التذكيرات</string>
     <string name="zh_input_invalid">المحتوى المدخل لا يتوافق مع المتطلبات، يرجى إعادة الإدخال</string>
+    <string name="zh_input_too_small">القيمة المدخلة صغيرة جدًا، يجب أن تكون على الأقل s%</string>
+    <string name="zh_input_too_big">القيمة المدخلة كبيرة جدًا، يجب أن تكون أقصى حد s%</string>
     <!-- Dialog -->
     <string name="zh_dialog_select_jar">اختر ملف Jar</string>
     <!-- Profiles Path -->
@@ -207,8 +209,6 @@
     <string name="zh_setting_java_memory_info">معلومات استخدام الذاكرة الحالية: %s / %s ، حجم الذاكرة الحرة: %s</string>
     <string name="zh_setting_java_memory_max">الحد الأقصى لحجم الذاكرة القابل للضبط: %s</string>
     <string name="zh_setting_java_memory_exceeded">حجم الذاكرة المعين حاليًا يتجاوز حجم الذاكرة المتاحة</string>
-    <string name="zh_setting_java_memory_too_big">حجم الذاكرة المعين حاليًا كبير جدًا، يمكن ضبطه إلى %d ميغابايت كحد أقصى</string>
-    <string name="zh_setting_java_memory_too_small">حجم الذاكرة المعين حاليًا صغير جدًا، يجب ضبطه إلى %d ميغابايت على الأقل</string>
     <string name="zh_setting_set_game_language_desc">تعيين لغة اللعبة تلقائيًا عند بدء تشغيل اللعبة لأول مرة</string>
     <string name="zh_setting_set_game_language_title">تعيين لغة اللعبة تلقائيًا</string>
     <string name="zh_setting_set_game_language_list">تعيين لغة اللعبة</string>

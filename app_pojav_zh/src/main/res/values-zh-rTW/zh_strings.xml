@@ -24,6 +24,8 @@
     <string name="zh_wrong_tip">出現了一些問題</string>
     <string name="zh_no_more_reminders">不再提醒我</string>
     <string name="zh_input_invalid">填寫的內容不符合要求，請重新輸入</string>
+    <string name="zh_input_too_small">填寫的值過小，至少需要為 %s</string>
+    <string name="zh_input_too_big">填寫的值過大，最大只能為 %s</string>
     <!-- Dialog -->
     <string name="zh_dialog_select_jar">選擇 Jar 檔案</string>
     <!-- Profiles Path -->
@@ -207,8 +209,6 @@
     <string name="zh_setting_java_memory_info">目前記憶體使用：%s / %s ，空閒記憶體大小：%s</string>
     <string name="zh_setting_java_memory_max">可設定的最大記憶體大小：%s</string>
     <string name="zh_setting_java_memory_exceeded">目前設定的記憶體大小超過了可用的記憶體大小</string>
-    <string name="zh_setting_java_memory_too_big">目前設定的記憶體空間過大，最多只能設定為 %d MB</string>
-    <string name="zh_setting_java_memory_too_small">目前設定的記憶體空間過小，至少需要設定為 %d MB</string>
     <string name="zh_setting_set_game_language_desc">在遊戲首次啟動時，自動設定遊戲語言為選定的語言</string>
     <string name="zh_setting_set_game_language_title">自動設定遊戲語言</string>
     <string name="zh_setting_set_game_language_list">設定遊戲語言</string>

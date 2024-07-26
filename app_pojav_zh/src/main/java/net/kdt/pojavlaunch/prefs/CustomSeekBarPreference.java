@@ -3,7 +3,9 @@ package net.kdt.pojavlaunch.prefs;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.InputType;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -11,6 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceViewHolder;
 import androidx.preference.SeekBarPreference;
+
+import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 
 import net.kdt.pojavlaunch.R;
 
@@ -23,15 +27,75 @@ public class CustomSeekBarPreference extends SeekBarPreference {
     /** The textview associated by default to the preference */
     private TextView mTextView;
     private boolean isUserSeeking = false;
+    private OnPreferenceClickDialog onPreferenceClickDialog;
 
 
-    @SuppressLint("PrivateResource")
+    @SuppressLint({"PrivateResource", "StringFormatInvalid"})
     public CustomSeekBarPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        TypedArray a = context.obtainStyledAttributes(
-                attrs, R.styleable.SeekBarPreference, defStyleAttr, defStyleRes);
-        mMin = a.getInt(R.styleable.SeekBarPreference_min, 0);
-        a.recycle();
+        try (TypedArray typedArray = context.obtainStyledAttributes(
+                attrs,
+                R.styleable.SeekBarPreference,
+                defStyleAttr, defStyleRes)
+        ) {
+            mMin = typedArray.getInt(R.styleable.SeekBarPreference_min, 0);
+        }
+
+        super.setOnPreferenceClickListener(preference -> {
+            boolean listenerExist = onPreferenceClickDialog != null;
+            EditTextDialog.Builder builder = new EditTextDialog.Builder(context)
+                    .setEditText(String.valueOf(getValue()))
+                    .setInputType(InputType.TYPE_CLASS_NUMBER);
+
+            CharSequence seekTitle = getTitle();
+            CharSequence seekSummary = getSummary();
+            if (listenerExist) {
+                String title = onPreferenceClickDialog.getTitle();
+                String message = onPreferenceClickDialog.getMessage();
+
+                if (title != null) builder.setTitle(title);
+                else if (seekTitle != null) builder.setTitle(seekTitle.toString());
+                if (message != null) builder.setMessage(message);
+                else if (seekSummary != null) builder.setMessage(seekSummary.toString());
+            } else {
+                if (seekTitle != null) builder.setTitle(seekTitle.toString());
+                if (seekSummary != null) builder.setMessage(seekSummary.toString());
+            }
+
+            builder.setConfirmListener(editBox -> {
+                String string = editBox.getText().toString();
+                if (string.isEmpty()) {
+                    editBox.setError(context.getString(R.string.global_error_field_empty));
+                    return false;
+                }
+
+                int value;
+                try {
+                    value = Integer.parseInt(string);
+                } catch (NumberFormatException e) {
+                    Log.e("Custom Seek Bar", e.toString());
+
+                    editBox.setError(context.getString(R.string.zh_input_invalid));
+                    return false;
+                }
+
+                if (value < mMin) {
+                    String minValue = String.format("%s%s", mMin, mSuffix);
+                    editBox.setError(context.getString(R.string.zh_input_too_small, minValue));
+                    return false;
+                }
+                if (value > getMax()) {
+                    String maxValue = String.format("%s%s", getMax(), mSuffix);
+                    editBox.setError(context.getString(R.string.zh_input_too_big, maxValue));
+                    return false;
+                }
+
+                setValue(value);
+
+                return true;
+            }).buildDialog();
+            return true;
+        });
     }
 
     public CustomSeekBarPreference(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -52,7 +116,6 @@ public class CustomSeekBarPreference extends SeekBarPreference {
         super.setMin(min);
         if (min != mMin) mMin = min;
     }
-
 
     @Override
     public void onBindViewHolder(@NonNull PreferenceViewHolder view) {
@@ -117,6 +180,10 @@ public class CustomSeekBarPreference extends SeekBarPreference {
         setMax(max);
     }
 
+    public void setOnDialogInitListener(OnPreferenceClickDialog listener) {
+        this.onPreferenceClickDialog = listener;
+    }
+
     public boolean isUserSeeking() {
         return isUserSeeking;
     }
@@ -125,5 +192,10 @@ public class CustomSeekBarPreference extends SeekBarPreference {
         if(!mTextView.getText().toString().endsWith(mSuffix)){
             mTextView.setText(String.format("%s%s", mTextView.getText(), mSuffix));
         }
+    }
+
+    public interface OnPreferenceClickDialog {
+        String getTitle();
+        String getMessage();
     }
 }

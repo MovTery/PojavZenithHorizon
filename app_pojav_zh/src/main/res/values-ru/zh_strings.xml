@@ -24,6 +24,8 @@
     <string name="zh_wrong_tip">Произошла ошибка</string>
     <string name="zh_no_more_reminders">Больше не напоминать</string>
     <string name="zh_input_invalid">Введенное содержимое не соответствует требованиям, пожалуйста, введите снова</string>
+    <string name="zh_input_too_small">Введенное значение слишком мало, оно должно быть не менее %s</string>
+    <string name="zh_input_too_big">Введенное значение слишком велико, оно должно быть не более %s</string>
     <!-- Dialog -->
     <string name="zh_dialog_select_jar">Выбрать файл Jar</string>
     <!-- Profiles Path -->
@@ -207,8 +209,6 @@
     <string name="zh_setting_java_memory_info">Текущая информация о памяти: %s / %s, свободной памяти: %s</string>
     <string name="zh_setting_java_memory_max">Максимальный доступный объем памяти: %s</string>
     <string name="zh_setting_java_memory_exceeded">Установленный объем памяти превышает доступный</string>
-    <string name="zh_setting_java_memory_too_big">Установленный объем памяти слишком большой, максимум %d МБ</string>
-    <string name="zh_setting_java_memory_too_small">Установленный объем памяти слишком мал, минимум %d МБ</string>
     <string name="zh_setting_set_game_language_desc">Автоматически устанавливать язык игры при первом запуске</string>
     <string name="zh_setting_set_game_language_title">Автоматическая установка языка игры</string>
     <string name="zh_setting_set_game_language_list">Установить язык игры</string>

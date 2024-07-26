@@ -25,7 +25,6 @@
             android:summary="@string/mcl_setting_subtitle_longpresstrigger"
             android:title="@string/mcl_setting_title_longpresstrigger"
             app2:showSeekBarValue="true"
-            app2:selectable="false"
             app2:seekBarIncrement="10"
             app2:iconSpaceReserved="false" />
 
@@ -40,7 +39,6 @@
             android:title="@string/mcl_setting_title_buttonscale"
             android:summary="@string/mcl_setting_subtitle_buttonscale"
             app2:showSeekBarValue="true"
-            app2:selectable="false"
             app2:seekBarIncrement="5"
             app2:iconSpaceReserved="false" />
 
@@ -61,7 +59,6 @@
             android:key="mousescale"
             android:summary="@string/mcl_setting_subtitle_mousescale"
             android:title="@string/zh_mouse_settings_scale_name"
-            app2:selectable="false"
             app2:seekBarIncrement="5"
             app2:showSeekBarValue="true"
             app2:iconSpaceReserved="false" />
@@ -70,7 +67,6 @@
             android:key="mousespeed"
             android:summary="@string/mcl_setting_subtitle_mousespeed"
             android:title="@string/zh_mouse_settings_speed_name"
-            app2:selectable="false"
             app2:seekBarIncrement="5"
             app2:showSeekBarValue="true"
             app2:iconSpaceReserved="false" />
@@ -105,7 +101,6 @@
             android:key="gyroSensitivity"
             android:title="@string/preference_gyro_sensitivity_title"
             android:summary="@string/preference_gyro_sensitivity_description"
-            app2:selectable="false"
             app2:seekBarIncrement="5"
             app2:showSeekBarValue="true"
             app2:iconSpaceReserved="false" />
@@ -114,7 +109,6 @@
             android:key="gyroSampleRate"
             android:title="@string/preference_gyro_sample_rate_title"
             android:summary="@string/preference_gyro_sample_rate_description"
-            app2:selectable="false"
             app2:showSeekBarValue="true"
             app2:iconSpaceReserved="false" />
 
