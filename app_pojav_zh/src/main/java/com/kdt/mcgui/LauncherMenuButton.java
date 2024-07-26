@@ -32,7 +32,7 @@ public class LauncherMenuButton extends ExtendedButton {
 
         int padding = resources.getDimensionPixelSize(R.dimen._22sdp);
         setCompoundDrawablePadding(padding);
-        setPaddingRelative(padding, 0, 0, 0);
+        setPaddingRelative(padding, 0, padding, 0);
         setGravity(Gravity.CENTER_VERTICAL);
 
         setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen._12ssp));

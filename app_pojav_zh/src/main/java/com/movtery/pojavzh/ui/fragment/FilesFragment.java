@@ -169,7 +169,7 @@ public class FilesFragment extends Fragment {
         });
         mFileRecyclerView.setRefreshListener(() -> {
             int itemCount = mFileRecyclerView.getItemCount();
-            boolean show = itemCount == 1;
+            boolean show = itemCount <= 1;
             AnimUtils.setVisibilityAnim(mNothingTip, show);
         });
         mExternalStorage.setOnClickListener(v -> {
