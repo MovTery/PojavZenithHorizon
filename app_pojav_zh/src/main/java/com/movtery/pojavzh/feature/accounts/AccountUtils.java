@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import com.movtery.pojavzh.extra.ZHExtraConstants;
 import com.movtery.pojavzh.feature.login.AuthResult;
 import com.movtery.pojavzh.feature.login.OtherLoginApi;
+import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.authenticator.listener.ErrorListener;
@@ -37,7 +38,7 @@ public class AccountUtils {
                 OtherLoginApi.getINSTANCE().login(context, account.account, account.password, new OtherLoginApi.Listener() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        account.expiresAt = System.currentTimeMillis() + 30 * 60 * 1000;
+                        account.expiresAt = ZHTools.getCurrentTimeMillis() + 30 * 60 * 1000;
                         account.accessToken = authResult.getAccessToken();
                         runOnUiThread(() -> ExtraCore.setValue(ZHExtraConstants.OTHER_LOGIN_TODO, account));
                     }

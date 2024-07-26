@@ -4,6 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.movtery.pojavzh.utils.ZHTools;
+
 import java.io.*;
 import java.net.*;
 import java.nio.charset.*;
@@ -89,7 +91,7 @@ public class DownloadUtils {
         File cacheDestination = new File(Tools.DIR_CACHE, "string_cache/"+cacheName);
         if(cacheDestination.isFile() &&
                 cacheDestination.canRead() &&
-                System.currentTimeMillis() < (cacheDestination.lastModified() + 86400000)) {
+                ZHTools.getCurrentTimeMillis() < (cacheDestination.lastModified() + 86400000)) {
             try {
                 String cachedString = Tools.read(new FileInputStream(cacheDestination));
                 return parseCallback.process(cachedString);

@@ -32,6 +32,7 @@ import com.movtery.pojavzh.feature.login.Servers;
 import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 import com.movtery.pojavzh.ui.dialog.ProgressDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
+import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
@@ -138,7 +139,7 @@ public class OtherLoginFragment extends Fragment {
                                 account.baseUrl = mCurrentBaseUrl;
                                 account.account = mUserEditText.getText().toString();
                                 account.password = mPassEditText.getText().toString();
-                                account.expiresAt = System.currentTimeMillis() + 30 * 60 * 1000;
+                                account.expiresAt = ZHTools.getCurrentTimeMillis() + 30 * 60 * 1000;
                                 if (!Objects.isNull(authResult.getSelectedProfile())) {
                                     account.username = authResult.getSelectedProfile().getName();
                                     account.profileId = authResult.getSelectedProfile().getId();

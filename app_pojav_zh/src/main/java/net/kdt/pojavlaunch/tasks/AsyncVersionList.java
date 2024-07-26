@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
+import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.JMinecraftVersionList;
 import net.kdt.pojavlaunch.Tools;
@@ -29,7 +30,7 @@ public class AsyncVersionList {
             File versionFile = new File(Tools.DIR_DATA + "/version_list.json");
             JMinecraftVersionList versionList = null;
             try{
-                if(!versionFile.exists() || (System.currentTimeMillis() > versionFile.lastModified() + 86400000 )){
+                if(!versionFile.exists() || (ZHTools.getCurrentTimeMillis() > versionFile.lastModified() + 86400000 )){
                     versionList = downloadVersionList(LauncherPreferences.PREF_VERSION_REPOS);
                 }
             }catch (Exception e){
