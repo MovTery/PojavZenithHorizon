@@ -19,6 +19,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import net.kdt.pojavlaunch.PojavApplication;
+
+import com.movtery.pojavzh.utils.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -46,8 +48,8 @@ public abstract class FabriclikeInstallFragment extends Fragment implements Modl
     private Future<?> mLoaderVersionFuture;
     private String mSelectedLoaderVersion;
     private ProgressBar mProgressBar;
-    private Button mStartButton, mRetryButton;
-    private TextView mRetryText;
+    private Button mStartButton;
+    private View mFailedView;
     private CheckBox mOnlyStableCheckbox;
     protected FabriclikeInstallFragment(FabriclikeUtils mFabriclikeUtils) {
         super(R.layout.fragment_fabric_install);
@@ -70,11 +72,11 @@ public abstract class FabriclikeInstallFragment extends Fragment implements Modl
         mLoaderVersionSpinner = view.findViewById(R.id.fabric_installer_loader_ver_spinner);
         mLoaderVersionSpinner.setOnItemSelectedListener(new LoaderVersionSelectedListener());
         mProgressBar = view.findViewById(R.id.fabric_installer_progress_bar);
-        mRetryText = view.findViewById(R.id.fabric_installer_retry_tip);
-        mRetryButton = view.findViewById(R.id.fabric_installer_retry_button);
+        mFailedView = view.findViewById(R.id.fabric_installer_failed_tip_view);
+        Button mRetryButton = view.findViewById(R.id.fabric_installer_retry_button);
+        mRetryButton.setOnClickListener(this::onClickRetry);
         mOnlyStableCheckbox = view.findViewById(R.id.fabric_installer_only_stable_checkbox);
         mOnlyStableCheckbox.setOnCheckedChangeListener(this);
-        view.findViewById(R.id.fabric_installer_retry_button).setOnClickListener(this::onClickRetry);
         ((TextView)view.findViewById(R.id.fabric_installer_label_loader_ver)).setText(getString(R.string.fabric_dl_loader_version, mFabriclikeUtils.getName()));
         ModloaderListenerProxy proxy = getListenerProxy();
         if(proxy != null) {
@@ -111,8 +113,7 @@ public abstract class FabriclikeInstallFragment extends Fragment implements Modl
 
     private void onClickRetry(View v) {
         mStartButton.setEnabled(false);
-        mRetryText.setVisibility(View.GONE);
-        mRetryButton.setVisibility(View.GONE);
+        AnimUtils.setVisibilityAnim(mFailedView, false);
         mLoaderVersionSpinner.setAdapter(null);
         if(mGameVersionArray == null) {
             mGameVersionSpinner.setAdapter(null);
@@ -185,8 +186,7 @@ public abstract class FabriclikeInstallFragment extends Fragment implements Modl
             if(myFuture.isCancelled()) return;
             stopLoading();
             if(e != null) Tools.showError(requireContext(), e);
-            mRetryText.setVisibility(View.VISIBLE);
-            mRetryButton.setVisibility(View.VISIBLE);
+            AnimUtils.setVisibilityAnim(mFailedView, true);
         });
     }
 
