@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
+import com.movtery.pojavzh.utils.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -132,13 +133,13 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
     @Override
     public void onSearchFinished() {
         mSearchProgressBar.setVisibility(View.GONE);
-        mStatusTextView.setVisibility(View.GONE);
+        AnimUtils.setVisibilityAnim(mStatusTextView, false);
     }
 
     @Override
     public void onSearchError(int error) {
         mSearchProgressBar.setVisibility(View.GONE);
-        mStatusTextView.setVisibility(View.VISIBLE);
+        AnimUtils.setVisibilityAnim(mStatusTextView, true);
         switch (error) {
             case ERROR_INTERNAL:
                 mStatusTextView.setTextColor(Color.RED);
