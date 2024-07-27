@@ -86,6 +86,8 @@
                 android:text="@string/modloader_dl_failed_to_load_list"
                 android:textColor="#FF1E1E"
                 android:textStyle="bold"
+                android:background="@drawable/background_item"
+                android:paddingHorizontal="12dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -108,10 +108,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:background="@drawable/background_item"
+        android:paddingHorizontal="12dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/search_mod_list"
         app:layout_constraintEnd_toEndOf="@+id/search_mod_list"
         app:layout_constraintStart_toStartOf="@+id/search_mod_list"
-        app:layout_constraintTop_toTopOf="@+id/search_mod_list" />
+        app:layout_constraintTop_toTopOf="@+id/search_mod_list"
+        tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
