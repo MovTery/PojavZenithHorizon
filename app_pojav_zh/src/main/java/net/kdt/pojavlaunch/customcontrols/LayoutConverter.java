@@ -48,7 +48,7 @@ public class LayoutConverter {
         try {
             return loadAndConvertIfNecessary(ctx, layoutJobj, jsonString, jsonPath, showError);
         } catch (Exception e) {
-            Tools.showError(ctx, ctx.getString(R.string.zh_controls_load_failed), e);
+            if (showError) Tools.showError(ctx, ctx.getString(R.string.zh_controls_load_failed), e);
             return null;
         }
     }
