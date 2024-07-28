@@ -297,4 +297,7 @@
     <string name="zh_about_version_status_other_branch">Other Branch</string>
     <string name="zh_about_version_status_debug">Debug</string>
     <string name="zh_about_version_status_release">Release</string>
+    <!-- Sponsorship Related -->
+    <string name="zh_request_sponsorship_title">Support My Development</string>
+    <string name="zh_request_sponsorship_message">Most of this software is developed and maintained by me alone. If you find this software helpful and are in a position to do so, please consider sponsoring me to give me more motivation to continue developing and improving it. Thank you for your support!</string>
 </resources>

@@ -328,7 +328,10 @@ public class LauncherActivity extends BaseActivity {
 
         //检查已经下载后的包，或者检查更新
         PojavApplication.sExecutorService.execute(() -> UpdateLauncher.CheckDownloadedPackage(this, true));
-        
+
+        requestSponsorship();
+
+
         LauncherActivity.activity = this;
     }
 
@@ -471,6 +474,21 @@ public class LauncherActivity extends BaseActivity {
             mRequestNotificationPermissionRunnable = new WeakReference<>(onSuccessRunnable);
         }
         mRequestNotificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+    }
+
+    private void requestSponsorship() {
+        if ((ZHTools.getCurrentTimeMillis() - LauncherPreferences.PREF_FIRST_LAUNCH_TIME > 5 * 60 * 60 * 1000) && !DEFAULT_PREF.getBoolean("noLongerRequestingSponsorship", false)) {
+            new TipDialog.Builder(this)
+                    .setTitle(R.string.zh_request_sponsorship_title)
+                    .setMessage(R.string.zh_request_sponsorship_message)
+                    .setConfirm(R.string.zh_about_button_support_development)
+                    .setConfirmClickListener(() -> Tools.openURL(this, ZHTools.URL_SUPPORT))
+                    .setDialogDismissListener(() -> {
+                        DEFAULT_PREF.edit().putBoolean("noLongerRequestingSponsorship", true).apply();
+                        return true;
+                    })
+                    .buildDialog();
+        }
     }
 
     /** Stuff all the view boilerplate here */

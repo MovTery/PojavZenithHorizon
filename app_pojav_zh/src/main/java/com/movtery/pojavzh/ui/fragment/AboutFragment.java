@@ -54,7 +54,7 @@ public class AboutFragment extends Fragment {
         mGithubButton.setOnClickListener(v -> Tools.openURL(requireActivity(), Tools.URL_HOME));
         mPojavLauncherButton.setOnClickListener(v -> Tools.openURL(requireActivity(), ZHTools.URL_GITHUB_POJAVLAUNCHER));
         mLicenseButton.setOnClickListener(v -> Tools.openURL(requireActivity(), "https://www.gnu.org/licenses/gpl-3.0.html"));
-        mSupportButton.setOnClickListener(v -> Tools.openURL(requireActivity(), "https://afdian.com/a/MovTery"));
+        mSupportButton.setOnClickListener(v -> Tools.openURL(requireActivity(), ZHTools.URL_SUPPORT));
 
         AboutRecyclerAdapter aboutAdapter = new AboutRecyclerAdapter(this.mAboutData);
         mAboutRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));

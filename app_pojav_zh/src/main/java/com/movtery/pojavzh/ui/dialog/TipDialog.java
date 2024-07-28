@@ -20,12 +20,13 @@ public class TipDialog extends FullScreenDialog implements DraggableDialog.Dialo
     private final boolean showCancel, showConfirm;
     private final OnCancelClickListener cancelListener;
     private final OnConfirmClickListener confirmListener;
+    private final OnDialogDismissListener dismissListener;
 
     private TipDialog(@NonNull Context context,
                      String title, String message, String confirm, String cancel,
                      View[] moreView,
                      boolean showCancel, boolean showConfirm,
-                     OnCancelClickListener cancelListener, OnConfirmClickListener confirmListener) {
+                     OnCancelClickListener cancelListener, OnConfirmClickListener confirmListener, OnDialogDismissListener dismissListener) {
         super(context);
         this.title = title;
         this.message = message;
@@ -39,6 +40,7 @@ public class TipDialog extends FullScreenDialog implements DraggableDialog.Dialo
 
         this.cancelListener = cancelListener;
         this.confirmListener = confirmListener;
+        this.dismissListener = dismissListener;
 
         init();
         DraggableDialog.initDialog(this);
@@ -85,6 +87,14 @@ public class TipDialog extends FullScreenDialog implements DraggableDialog.Dialo
     }
 
     @Override
+    public void dismiss() {
+        if (dismissListener != null) {
+            if (!dismissListener.onDismiss()) return;
+        }
+        super.dismiss();
+    }
+
+    @Override
     public Window onInit() {
         return getWindow();
     }
@@ -95,6 +105,7 @@ public class TipDialog extends FullScreenDialog implements DraggableDialog.Dialo
         private String title, message, cancel, confirm;
         private OnCancelClickListener cancelClickListener;
         private OnConfirmClickListener confirmClickListener;
+        private OnDialogDismissListener dialogDismissListener;
         private boolean cancelable = true;
         private boolean showCancel = true;
         private boolean showConfirm = true;
@@ -108,7 +119,7 @@ public class TipDialog extends FullScreenDialog implements DraggableDialog.Dialo
                     title, message, confirm, cancel,
                     moreView.toArray(new View[0]),
                     showCancel, showConfirm,
-                    cancelClickListener, confirmClickListener);
+                    cancelClickListener, confirmClickListener, dialogDismissListener);
             tipDialog.setCancelable(cancelable);
             tipDialog.show();
         }
@@ -168,6 +179,11 @@ public class TipDialog extends FullScreenDialog implements DraggableDialog.Dialo
             return this;
         }
 
+        public Builder setDialogDismissListener(OnDialogDismissListener dialogDismissListener) {
+            this.dialogDismissListener = dialogDismissListener;
+            return this;
+        }
+
         public Builder setCancelable(boolean cancelable) {
             this.cancelable = cancelable;
             return this;
@@ -190,5 +206,9 @@ public class TipDialog extends FullScreenDialog implements DraggableDialog.Dialo
 
     public interface OnConfirmClickListener {
         void onConfirmClick();
+    }
+
+    public interface OnDialogDismissListener {
+        boolean onDismiss();
     }
 }
