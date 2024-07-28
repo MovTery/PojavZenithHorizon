@@ -31,7 +31,7 @@ public class MultiRTConfigDialog {
     public void prepare(Context activity, ActivityResultLauncher<Object> installJvmLauncher) {
         mDialogView = new RecyclerView(activity);
         mDialogView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
-        RTRecyclerViewAdapter adapter = new RTRecyclerViewAdapter();
+        RTRecyclerViewAdapter adapter = new RTRecyclerViewAdapter(MultiRTUtils.getRuntimes());
         mDialogView.setAdapter(adapter);
 
         mDialog = new AlertDialog.Builder(activity)
