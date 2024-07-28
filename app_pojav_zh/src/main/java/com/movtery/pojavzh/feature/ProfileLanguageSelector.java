@@ -2,27 +2,18 @@ package com.movtery.pojavzh.feature;
 
 import static com.movtery.pojavzh.utils.ZHTools.containsDot;
 import static com.movtery.pojavzh.utils.ZHTools.extractNumbers;
-import static com.movtery.pojavzh.utils.ZHTools.getGameDirPath;
 import static net.kdt.pojavlaunch.Tools.read;
 
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.JMinecraftVersionList;
-import net.kdt.pojavlaunch.Logger;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
+import net.kdt.pojavlaunch.utils.MCOptionUtils;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -105,40 +96,8 @@ public class ProfileLanguageSelector {
         return lang;
     }
 
-    public static void setToChinese(MinecraftProfile minecraftProfile) {
-        File optionFile = new File((getGameDirPath(minecraftProfile.gameDir)), "options.txt");
-        ArrayList<String> options = new ArrayList<>();
-        boolean foundMatch = false;
+    public static void setGameLanguage(MinecraftProfile minecraftProfile) {
         String language = getLanguage(minecraftProfile.lastVersionId, LauncherPreferences.PREF_GAME_LANGUAGE);
-
-        try (BufferedReader optionFileReader = new BufferedReader(new InputStreamReader(Files.newInputStream(optionFile.toPath()), StandardCharsets.UTF_8))) {
-            String line;
-            while ((line = optionFileReader.readLine()) != null) {
-                //使用正则表达式匹配“lang: xxx”格式
-                Pattern pattern = Pattern.compile("lang:(\\S+)");
-                Matcher matcher = pattern.matcher(line);
-
-                if (matcher.find()) {
-                    foundMatch = true;
-                }
-
-                options.add(line);
-            }
-        } catch (IOException e) {
-            Logger.appendToLog(e.toString());
-            return;
-        }
-
-        if (!foundMatch) {
-            options.add("lang:" + language);
-            try (BufferedWriter optionFileWriter = new BufferedWriter(new OutputStreamWriter(Files.newOutputStream(optionFile.toPath()), StandardCharsets.UTF_8))) {
-                for (String option : options) {
-                    optionFileWriter.write(option);
-                    optionFileWriter.newLine();
-                }
-            } catch (IOException e) {
-                Logger.appendToLog(e.toString());
-            }
-        }
+        MCOptionUtils.set("lang", language);
     }
 }
