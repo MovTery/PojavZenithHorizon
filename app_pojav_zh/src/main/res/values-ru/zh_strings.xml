@@ -113,6 +113,7 @@
     <!-- Install -->
     <string name="zh_install_select_jre_environment">Выбрать среду JRE</string>
     <string name="zh_install_recommend_use_jre8">Рекомендуется использовать JRE 8</string>
+    <string name="zh_install_auto_select">Автоматический выбор</string>
     <!-- Custom Controls -->
     <string name="zh_controls_add_control_button">Кнопка</string>
     <string name="zh_controls_add_control_drawer">Комбинация клавиш</string>
