@@ -115,7 +115,7 @@ public abstract class TwoLevelListFragment extends Fragment {
     protected abstract Future<?> refresh();
 
     protected void componentProcessing(boolean state) {
-        mLoadeingView.setVisibility(state ? View.VISIBLE : View.GONE);
+        AnimUtils.setVisibilityAnim(mLoadeingView, state);
         mRecyclerView.setVisibility(state ? View.GONE : View.VISIBLE);
 
         mRefreshButton.setClickable(!state);
