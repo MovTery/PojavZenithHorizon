@@ -26,18 +26,22 @@ import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private final List<Runtime> mData;
     private SelectRuntimeDialog.RuntimeSelectedListener mSelectedListener;
     private final int TYPE_MODE_SELECT = 0;
     private final int TYPE_MODE_EDIT = 1;
     private int mType = TYPE_MODE_EDIT;
     private boolean mIsDeleting = false;
 
-    public RTRecyclerViewAdapter() {
+    public RTRecyclerViewAdapter(List<Runtime> mData) {
+        this.mData = mData;
     }
 
-    public RTRecyclerViewAdapter(SelectRuntimeDialog.RuntimeSelectedListener listener) {
+    public RTRecyclerViewAdapter(List<Runtime> mData, SelectRuntimeDialog.RuntimeSelectedListener listener) {
+        this.mData = mData;
         this.mType = TYPE_MODE_SELECT;
         this.mSelectedListener = listener;
     }
@@ -58,17 +62,19 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        final List<Runtime> runtimes = MultiRTUtils.getRuntimes();
         if (getItemViewType(position) == TYPE_MODE_EDIT) {
-            ((RTEditViewHolder) holder).bindRuntime(runtimes.get(position), position);
+            ((RTEditViewHolder) holder).bindRuntime(mData.get(position), position);
         } else {
-            ((RTSelectViewHolder) holder).bindRuntime(runtimes.get(position));
+            ((RTSelectViewHolder) holder).bindRuntime(mData.get(position));
         }
     }
 
     @Override
     public int getItemCount() {
-        return MultiRTUtils.getRuntimes().size();
+        if (mData != null) {
+            return mData.size();
+        }
+        return 0;
     }
 
     public boolean isDefaultRuntime(Runtime rt) {
@@ -123,21 +129,28 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         }
 
         public void bindRuntime(Runtime runtime) {
-            if(runtime.versionString != null && Tools.DEVICE_ARCHITECTURE == Architecture.archAsInt(runtime.arch)) {
-                mJavaVersionTextView.setText(getJavaVersionName(runtime));
-                mFullJavaVersionTextView.setText(runtime.versionString);
+            if (runtime != null) {
+                if(runtime.versionString != null && Tools.DEVICE_ARCHITECTURE == Architecture.archAsInt(runtime.arch)) {
+                    mJavaVersionTextView.setText(getJavaVersionName(runtime));
+                    mFullJavaVersionTextView.setText(runtime.versionString);
 
-                mainView.setOnClickListener(v -> mSelectedListener.onSelected(runtime.name));
-                return;
-            }
+                    mainView.setOnClickListener(v -> mSelectedListener.onSelected(runtime.name));
+                    return;
+                }
 
-            if (runtime.versionString == null) {
-                mFullJavaVersionTextView.setText(R.string.multirt_runtime_corrupt);
+                if (runtime.versionString == null) {
+                    mFullJavaVersionTextView.setText(R.string.multirt_runtime_corrupt);
+                } else {
+                    mFullJavaVersionTextView.setText(mContext.getString(R.string.multirt_runtime_incompatiblearch, runtime.arch));
+                }
+                mJavaVersionTextView.setText(runtime.name);
+                mFullJavaVersionTextView.setTextColor(Color.RED);
             } else {
-                mFullJavaVersionTextView.setText(mContext.getString(R.string.multirt_runtime_incompatiblearch, runtime.arch));
+                //自动选择
+                mJavaVersionTextView.setText(R.string.zh_install_auto_select);
+                mFullJavaVersionTextView.setVisibility(View.GONE);
+                mainView.setOnClickListener(v -> mSelectedListener.onSelected(null));
             }
-            mJavaVersionTextView.setText(runtime.name);
-            mFullJavaVersionTextView.setTextColor(Color.RED);
         }
     }
 

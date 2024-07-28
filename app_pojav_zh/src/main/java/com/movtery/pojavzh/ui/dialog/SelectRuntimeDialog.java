@@ -10,7 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 import net.kdt.pojavlaunch.multirt.RTRecyclerViewAdapter;
+import net.kdt.pojavlaunch.multirt.Runtime;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SelectRuntimeDialog extends FullScreenDialog {
     private RecyclerView recyclerView;
@@ -37,7 +42,9 @@ public class SelectRuntimeDialog extends FullScreenDialog {
     }
 
     public void setListener(RuntimeSelectedListener listener) {
-        RTRecyclerViewAdapter adapter = new RTRecyclerViewAdapter(listener);
+        List<Runtime> runtimes = new ArrayList<>(MultiRTUtils.getRuntimes());
+        runtimes.add(null);
+        RTRecyclerViewAdapter adapter = new RTRecyclerViewAdapter(runtimes, listener);
         recyclerView.setAdapter(adapter);
     }
 
