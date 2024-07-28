@@ -119,6 +119,7 @@
     <string name="multirt_config_setdefault">Выбрать</string>
     <string name="multirt_config_setdefault_already">По умолчанию</string>
     <string name="multirt_config_removeerror_last">Должна быть установлена хотя бы одна среда выполнения Java.</string>
+    <string name="multirt_nocompatiblert">Не удается найти совместимую среду выполнения Java. Эта версия требует Java %d или новее.</string>
     <string name="multirt_nojava8rt">Не удалось найти Java 8. Чтобы использовать эту опцию, необходимо установить Java 8.</string>
     <string name="multirt_delete_runtime">Удалить</string>
     <string name="pvc_jvmArgs">Аргументы JVM</string>
@@ -274,4 +275,6 @@
     <string name="log_view_button_output_off">Вывод: выключен</string>
     <string name="log_view_button_output_on">Вывод: включен</string>
     <string name="log_view_label_log_output">Вывод журнала:</string>
+    <string name="execute_jar_failed_to_read_file">Не удалось прочитать файл .jar</string>
+    <string name="execute_jar_incompatible_runtime">Функция выполнения .jar несовместима с Java %d</string>
 </resources>
