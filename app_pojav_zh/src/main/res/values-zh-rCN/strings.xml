@@ -137,6 +137,7 @@
     <string name="multirt_config_setdefault">设为默认</string>
     <string name="multirt_config_setdefault_already">默认</string>
     <string name="multirt_config_removeerror_last">你必须至少安装一个 Java 运行环境</string>
+    <string name="multirt_nocompatiblert">找不到任何兼容的 Java 运行环境，此版本需要 Java %d 或更新版本</string>
     <string name="multirt_nojava8rt">无法找到 Java 8，要使用此选项，你必须安装 Java 8</string>
     <string name="multirt_delete_runtime">删除运行环境</string>
     <string name="pvc_jvmArgs">JVM 参数</string>
@@ -308,4 +309,6 @@
     <string name="log_view_button_output_off">输出: 关闭</string>
     <string name="log_view_button_output_on">输出: 开启</string>
     <string name="log_view_label_log_output">日志输出:</string>
+    <string name="execute_jar_failed_to_read_file">读取 .jar 文件失败</string>
+    <string name="execute_jar_incompatible_runtime">执行 .jar 功能与 Java %d 不兼容</string>
 </resources>

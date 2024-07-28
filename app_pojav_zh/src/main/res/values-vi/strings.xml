@@ -119,6 +119,7 @@
     <string name="multirt_config_setdefault">Đặt làm mặc định</string>
     <string name="multirt_config_setdefault_already">Mặc định</string>
     <string name="multirt_config_removeerror_last">Bạn phải cài đặt ít nhất một môi trường chạy Java</string>
+    <string name="multirt_nocompatiblert">Không thể tìm thấy Java Runtime tương thích. Phiên bản này yêu cầu Java %d hoặc mới hơn.</string>
     <string name="multirt_nojava8rt">Không tìm thấy Java 8, để sử dụng tùy chọn này, bạn phải cài đặt Java 8</string>
     <string name="multirt_delete_runtime">Xóa môi trường chạy</string>
     <string name="pvc_jvmArgs">Tham số JVM</string>
@@ -277,4 +278,6 @@ Nếu bạn muốn sử dụng nguồn tải xuống chính thức, nhấn vào 
     <string name="log_view_button_output_off">Đầu ra: Tắt</string>
     <string name="log_view_button_output_on">Đầu ra: Bật</string>
     <string name="log_view_label_log_output">Đầu ra nhật ký:</string>
+    <string name="execute_jar_failed_to_read_file">Không thể đọc tệp .jar</string>
+    <string name="execute_jar_incompatible_runtime">Tính năng thực thi .jar không tương thích với Java %d</string>
 </resources>

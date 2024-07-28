@@ -120,6 +120,7 @@
     <string name="multirt_config_setdefault">تعيين لإستخدام دائم</string>
     <string name="multirt_config_setdefault_already">مستخدم دائما</string>
     <string name="multirt_config_removeerror_last">يجب ان يكون هناك Java runtime واحد مثبت على الأقل.</string>
+    <string name="multirt_nocompatiblert">لا يمكن العثور على أي Java Runtime متوافق. يتطلب هذا الإصدار Java %d أو أحدث.</string>
     <string name="multirt_nojava8rt">لا يمكن العثور على Java 8. لاستخدام هذا الخيار، تحتاج إلى تثبيت Java 8.</string>
     <string name="multirt_delete_runtime">حذف Runtime</string>
     <string name="pvc_jvmArgs">مدخلات JVM</string>
@@ -272,4 +273,6 @@
     <string name="log_view_button_output_off">الإخراج: مغلق</string>
     <string name="log_view_button_output_on">الإخراج: مفتوح</string>
     <string name="log_view_label_log_output">إخراج السجل:</string>
+    <string name="execute_jar_failed_to_read_file">فشل في قراءة ملف .jar</string>
+    <string name="execute_jar_incompatible_runtime">ميزة تنفيذ .jar غير متوافقة مع Java %d</string>
 </resources>
