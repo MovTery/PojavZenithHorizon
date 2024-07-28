@@ -113,6 +113,7 @@
     <!-- Install -->
     <string name="zh_install_select_jre_environment">Select JRE Environment</string>
     <string name="zh_install_recommend_use_jre8">Recommend Using JRE 8</string>
+    <string name="zh_install_auto_select">Auto Select</string>
     <!-- Custom Controls -->
     <string name="zh_controls_add_control_button">Button</string>
     <string name="zh_controls_add_control_drawer">Drawer</string>
