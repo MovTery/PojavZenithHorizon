@@ -43,7 +43,7 @@ public class SelectRuntimeDialog extends FullScreenDialog {
 
     public void setListener(RuntimeSelectedListener listener) {
         List<Runtime> runtimes = new ArrayList<>(MultiRTUtils.getRuntimes());
-        runtimes.add(null);
+        if (!runtimes.isEmpty()) runtimes.add(new Runtime("auto"));
         RTRecyclerViewAdapter adapter = new RTRecyclerViewAdapter(runtimes, listener);
         recyclerView.setAdapter(adapter);
     }

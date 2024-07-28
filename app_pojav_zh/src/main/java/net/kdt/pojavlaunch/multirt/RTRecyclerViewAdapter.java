@@ -129,7 +129,7 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         }
 
         public void bindRuntime(Runtime runtime) {
-            if (runtime != null) {
+            if (!Objects.equals(runtime.name, "auto")) {
                 if(runtime.versionString != null && Tools.DEVICE_ARCHITECTURE == Architecture.archAsInt(runtime.arch)) {
                     mJavaVersionTextView.setText(getJavaVersionName(runtime));
                     mFullJavaVersionTextView.setText(runtime.versionString);
