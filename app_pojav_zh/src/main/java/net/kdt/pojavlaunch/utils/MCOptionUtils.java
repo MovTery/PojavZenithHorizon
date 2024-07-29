@@ -88,6 +88,10 @@ public class MCOptionUtils {
         return sParameterMap.get(key);
     }
 
+    public static boolean containsKey(String key) {
+        return sParameterMap.containsKey(key);
+    }
+
     /** @return A list of values from an array stored as a string */
     public static List<String> getAsList(String key){
         String value = get(key);

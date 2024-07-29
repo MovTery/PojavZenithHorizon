@@ -210,10 +210,12 @@
     <string name="zh_setting_java_memory_info">Current memory usage: %s / %s, Free memory size: %s</string>
     <string name="zh_setting_java_memory_max">Maximum allowable memory size: %s</string>
     <string name="zh_setting_java_memory_exceeded">The current memory allocation exceeds available memory size</string>
-    <string name="zh_setting_set_game_language_desc">Automatically set the game language to the selected language when the game is first launched</string>
+    <string name="zh_setting_set_game_language_desc">Automatically set the game language to the selected language when the game starts</string>
     <string name="zh_setting_set_game_language_title">Automatically Set Game Language</string>
     <string name="zh_setting_set_game_language_list">Set Game Language</string>
-    <string name="zh_setting_set_game_language_system">Follow System Language</string>
+    <string name="zh_setting_set_game_language_system">Based on System Language</string>
+    <string name="zh_setting_set_game_language_overridden_title">Override Game Language</string>
+    <string name="zh_setting_set_game_language_overridden_desc">Ignore the language set in the game and force it to the game language set in the launcher</string>
     <string name="zh_setting_launcher_theme">Launcher Theme</string>
     <string name="zh_setting_launcher_theme_system">Follow System Changes</string>
     <string name="zh_setting_launcher_theme_light">Light Mode</string>

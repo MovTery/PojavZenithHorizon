@@ -117,7 +117,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         super.onCreate(savedInstanceState);
         minecraftProfile = LauncherProfiles.getCurrentProfile();
         MCOptionUtils.load(Tools.getGameDirPath(minecraftProfile).getAbsolutePath());
-        if(LauncherPreferences.PREF_AUTOMATICALLY_SET_GAME_LANGUAGE) ProfileLanguageSelector.setGameLanguage(minecraftProfile);
+        if (LauncherPreferences.PREF_AUTOMATICALLY_SET_GAME_LANGUAGE)
+            ProfileLanguageSelector.setGameLanguage(minecraftProfile, LauncherPreferences.PREF_GAME_LANGUAGE_OVERRIDDEN);
 
         Intent gameServiceIntent = new Intent(this, GameService.class);
         // Start the service a bit early

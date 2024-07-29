@@ -210,10 +210,12 @@
     <string name="zh_setting_java_memory_info">Thông tin sử dụng bộ nhớ hiện tại: %s / %s, kích thước bộ nhớ trống: %s</string>
     <string name="zh_setting_java_memory_max">Kích thước bộ nhớ tối đa có thể đặt: %s</string>
     <string name="zh_setting_java_memory_exceeded">Kích thước bộ nhớ được đặt hiện vượt quá kích thước bộ nhớ có sẵn</string>
-    <string name="zh_setting_set_game_language_desc">Tự động đặt ngôn ngữ trò chơi thành ngôn ngữ đã chọn khi trò chơi khởi chạy lần đầu</string>
-    <string name="zh_setting_set_game_language_title">Tự động đặt ngôn ngữ trò chơi</string>
-    <string name="zh_setting_set_game_language_list">Đặt ngôn ngữ trò chơi</string>
-    <string name="zh_setting_set_game_language_system">Theo ngôn ngữ hệ thống</string>
+    <string name="zh_setting_set_game_language_desc">Tự động đặt ngôn ngữ trò chơi thành ngôn ngữ đã chọn khi khởi động trò chơi</string>
+    <string name="zh_setting_set_game_language_title">Tự động Đặt Ngôn ngữ Trò chơi</string>
+    <string name="zh_setting_set_game_language_list">Đặt Ngôn ngữ Trò chơi</string>
+    <string name="zh_setting_set_game_language_system">Theo Ngôn ngữ Hệ thống</string>
+    <string name="zh_setting_set_game_language_overridden_title">Ghi đè Ngôn ngữ Trò chơi</string>
+    <string name="zh_setting_set_game_language_overridden_desc">Bỏ qua ngôn ngữ đã thiết lập trong trò chơi và ép buộc thay đổi ngôn ngữ thành ngôn ngữ đã thiết lập trong trình khởi chạy</string>
     <string name="zh_setting_launcher_theme">Chủ đề trình khởi chạy</string>
     <string name="zh_setting_launcher_theme_system">Theo hệ thống</string>
     <string name="zh_setting_launcher_theme_light">Chế độ sáng</string>
