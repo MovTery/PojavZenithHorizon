@@ -210,10 +210,12 @@
     <string name="zh_setting_java_memory_info">当前内存使用信息：%s / %s ，空闲内存大小：%s</string>
     <string name="zh_setting_java_memory_max">最大可设置的内存大小：%s</string>
     <string name="zh_setting_java_memory_exceeded">当前设置的内存空间超出了可用内存大小</string>
-    <string name="zh_setting_set_game_language_desc">在游戏首次启动时，自动设置游戏语言为选定的语言</string>
+    <string name="zh_setting_set_game_language_desc">在游戏启动时，自动设置游戏语言为选定的语言</string>
     <string name="zh_setting_set_game_language_title">自动设置游戏语言</string>
     <string name="zh_setting_set_game_language_list">设置游戏语言</string>
     <string name="zh_setting_set_game_language_system">根据系统语言</string>
+    <string name="zh_setting_set_game_language_overridden_title">覆盖游戏语言</string>
+    <string name="zh_setting_set_game_language_overridden_desc">忽略游戏内已设置的语言，强制修改为启动器内设置的游戏语言</string>
     <string name="zh_setting_launcher_theme">启动器主题</string>
     <string name="zh_setting_launcher_theme_system">跟随系统变化</string>
     <string name="zh_setting_launcher_theme_light">浅色模式</string>

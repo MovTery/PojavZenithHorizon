@@ -210,10 +210,12 @@
     <string name="zh_setting_java_memory_info">معلومات استخدام الذاكرة الحالية: %s / %s ، حجم الذاكرة الحرة: %s</string>
     <string name="zh_setting_java_memory_max">الحد الأقصى لحجم الذاكرة القابل للضبط: %s</string>
     <string name="zh_setting_java_memory_exceeded">حجم الذاكرة المعين حاليًا يتجاوز حجم الذاكرة المتاحة</string>
-    <string name="zh_setting_set_game_language_desc">تعيين لغة اللعبة تلقائيًا عند بدء تشغيل اللعبة لأول مرة</string>
+    <string name="zh_setting_set_game_language_desc">تعيين لغة اللعبة تلقائيًا إلى اللغة المحددة عند بدء اللعبة</string>
     <string name="zh_setting_set_game_language_title">تعيين لغة اللعبة تلقائيًا</string>
     <string name="zh_setting_set_game_language_list">تعيين لغة اللعبة</string>
-    <string name="zh_setting_set_game_language_system">حسب لغة النظام</string>
+    <string name="zh_setting_set_game_language_system">بناءً على لغة النظام</string>
+    <string name="zh_setting_set_game_language_overridden_title">تجاوز لغة اللعبة</string>
+    <string name="zh_setting_set_game_language_overridden_desc">تجاهل اللغة المضبوطة في اللعبة وتغييرها بالقوة إلى اللغة المضبوطة في المشغل</string>
     <string name="zh_setting_launcher_theme">موضوع المشغل</string>
     <string name="zh_setting_launcher_theme_system">متبع للنظام</string>
     <string name="zh_setting_launcher_theme_light">وضع الإضاءة المنخفضة</string>

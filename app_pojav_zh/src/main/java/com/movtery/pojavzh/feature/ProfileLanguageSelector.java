@@ -96,7 +96,10 @@ public class ProfileLanguageSelector {
         return lang;
     }
 
-    public static void setGameLanguage(MinecraftProfile minecraftProfile) {
+    public static void setGameLanguage(MinecraftProfile minecraftProfile, boolean overridden) {
+        if (MCOptionUtils.containsKey("lang")) {
+            if (!overridden) return;
+        }
         String language = getLanguage(minecraftProfile.lastVersionId, LauncherPreferences.PREF_GAME_LANGUAGE);
         MCOptionUtils.set("lang", language);
     }

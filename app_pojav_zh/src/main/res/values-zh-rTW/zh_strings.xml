@@ -129,7 +129,7 @@
     <string name="zh_controls_unsupported_layout_version">不支援的控制佈局版本！</string>
     <string name="zh_controls_create_new">創建新的控制佈局</string>
     <string name="zh_controls_import_control">導入控制佈局</string>
-    <string name="zh_controls_settings_title">控制佈局編輯器設置</string>
+    <string name="zh_controls_settings_title">控制佈局編輯器設定</string>
     <string name="zh_controls_settings_button_snapping">按鍵吸附功能</string>
     <string name="zh_controls_settings_button_snapping_distance">按鍵吸附距離</string>
     <string name="zh_controls_info_file_name">檔案名稱:</string>
@@ -141,7 +141,7 @@
     <string name="zh_controls_info_view">查看資訊</string>
     <string name="zh_controls_info_no_info">此控制佈局沒有描述說明…</string>
     <string name="zh_controls_info_invalid">無效的檔案:</string>
-    <string name="zh_controls_set_default_message">你確定要將此控制佈局設置為預設控制佈局嗎？</string>
+    <string name="zh_controls_set_default_message">你確定要將此控制佈局設定為預設控制佈局嗎？</string>
     <string name="zh_controls_nothing">這裡沒有任何控制佈局，重新啟動應用程式將生成一份新的默認控制佈局</string>
     <string name="zh_replacement_customcontrol">更換控制佈局</string>
     <string name="zh_custom_control_title">管理控制佈局</string>
@@ -157,13 +157,13 @@
     <string name="zh_custom_mouse_message_default">當前選中的虛擬滑鼠為預設的虛擬滑鼠，不支持進行分享、重命名、刪除操作</string>
     <string name="zh_custom_background_add">添加背景圖片</string>
     <string name="zh_custom_background_title">自訂啟動器背景圖片</string>
-    <string name="zh_custom_background_desc">打開啟動器背景圖示管理界面，你可以自行添加你喜歡的背景圖片，並為各個不同的界面設置不同的背景</string>
+    <string name="zh_custom_background_desc">打開啟動器背景圖示管理界面，你可以自行添加你喜歡的背景圖片，並為各個不同的界面設定不同的背景</string>
     <string name="zh_custom_background_main_menu">主菜單</string>
-    <string name="zh_custom_background_settings">設置螢幕</string>
+    <string name="zh_custom_background_settings">設定螢幕</string>
     <string name="zh_custom_background_controls">控制佈局</string>
     <string name="zh_custom_background_in_game">遊戲內</string>
-    <string name="zh_custom_background_dialog_message">點擊 “選擇” 按鈕，將此圖片設置為 %s 的背景圖片</string>
-    <string name="zh_custom_background_selected">成功為 %s 設置背景圖片:</string>
+    <string name="zh_custom_background_dialog_message">點擊 “選擇” 按鈕，將此圖片設定為 %s 的背景圖片</string>
+    <string name="zh_custom_background_selected">成功為 %s 設定背景圖片:</string>
     <string name="zh_custom_background_reset">已重置 %s 的背景圖片</string>
     <string name="zh_custom_background_nothing">這裡沒有任何背景圖片，請先添加一些圖片！</string>
     <!-- File -->
@@ -209,11 +209,12 @@
     <string name="zh_setting_java_memory_desc">控制分配給 Minecraft 的記憶體大小</string>
     <string name="zh_setting_java_memory_info">目前記憶體使用：%s / %s ，空閒記憶體大小：%s</string>
     <string name="zh_setting_java_memory_max">可設定的最大記憶體大小：%s</string>
-    <string name="zh_setting_java_memory_exceeded">目前設定的記憶體大小超過了可用的記憶體大小</string>
-    <string name="zh_setting_set_game_language_desc">在遊戲首次啟動時，自動設定遊戲語言為選定的語言</string>
+    <string name="zh_setting_set_game_language_desc">在遊戲啟動時，自動設定遊戲語言為選定的語言</string>
     <string name="zh_setting_set_game_language_title">自動設定遊戲語言</string>
     <string name="zh_setting_set_game_language_list">設定遊戲語言</string>
     <string name="zh_setting_set_game_language_system">根據系統語言</string>
+    <string name="zh_setting_set_game_language_overridden_title">覆蓋遊戲語言</string>
+    <string name="zh_setting_set_game_language_overridden_desc">忽略遊戲內已設定的語言，強制修改為啟動器內設定的遊戲語言</string>
     <string name="zh_setting_launcher_theme">啟動器主題</string>
     <string name="zh_setting_launcher_theme_system">跟隨系統變化</string>
     <string name="zh_setting_launcher_theme_light">浅色模式</string>

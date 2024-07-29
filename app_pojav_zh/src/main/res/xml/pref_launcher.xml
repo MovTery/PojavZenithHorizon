@@ -9,9 +9,16 @@
 
         <SwitchPreference
             android:defaultValue="true"
-            android:key="setToChinese"
+            android:key="autoSetGameLanguage"
             android:summary="@string/zh_setting_set_game_language_desc"
             android:title="@string/zh_setting_set_game_language_title"
+            app2:iconSpaceReserved="false" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="gameLanguageOverridden"
+            android:summary="@string/zh_setting_set_game_language_overridden_desc"
+            android:title="@string/zh_setting_set_game_language_overridden_title"
             app2:iconSpaceReserved="false" />
 
         <androidx.preference.ListPreference
