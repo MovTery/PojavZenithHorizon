@@ -2,6 +2,7 @@ package com.movtery.pojavzh.feature
 
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome.versionsHome
 import com.movtery.pojavzh.utils.ZHTools
+import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.JMinecraftVersionList
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
@@ -57,7 +58,7 @@ object ProfileLanguageSelector {
         val pattern = Pattern.compile(regex)
         val matcher = pattern.matcher(versionId)
 
-        if (ZHTools.containsDot(versionId)) {
+        if (StringUtils.containsDot(versionId)) {
             try {
                 val ver = getVersion(versionId)
 
@@ -72,7 +73,7 @@ object ProfileLanguageSelector {
             }
         } else if (matcher.matches()) { // 快照版本 "24w09a" "16w20a"
             try {
-                val result = ZHTools.extractNumbers(versionId, 2)
+                val result = StringUtils.extractNumbers(versionId, 2)
 
                 if (result[0] < 16) {
                     return getOlderLanguage(lang)

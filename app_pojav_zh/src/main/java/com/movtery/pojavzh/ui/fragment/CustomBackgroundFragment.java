@@ -1,7 +1,7 @@
 package com.movtery.pojavzh.ui.fragment;
 
 import static com.movtery.pojavzh.utils.ZHTools.DIR_BACKGROUND;
-import static com.movtery.pojavzh.utils.ZHTools.copyFileInBackground;
+import static com.movtery.pojavzh.utils.file.FileTools.copyFileInBackground;
 import static com.movtery.pojavzh.utils.image.ImageUtils.isImage;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
@@ -27,6 +27,7 @@ import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerView;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
 import com.movtery.pojavzh.utils.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.file.FileTools;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.PojavApplication;
@@ -155,7 +156,7 @@ public class CustomBackgroundFragment extends Fragment {
     }
 
     private File backgroundPath() {
-        if (!DIR_BACKGROUND.exists()) ZHTools.mkdirs(DIR_BACKGROUND);
+        if (!DIR_BACKGROUND.exists()) FileTools.mkdirs(DIR_BACKGROUND);
         return DIR_BACKGROUND;
     }
 

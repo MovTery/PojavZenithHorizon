@@ -1,6 +1,6 @@
 package com.movtery.pojavzh.ui.fragment;
 
-import static com.movtery.pojavzh.utils.ZHTools.copyFileInBackground;
+import static com.movtery.pojavzh.utils.file.FileTools.copyFileInBackground;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.annotation.SuppressLint;

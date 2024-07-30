@@ -1,6 +1,6 @@
 package com.movtery.pojavzh.feature;
 
-import static com.movtery.pojavzh.utils.ZHTools.formatFileSize;
+import static com.movtery.pojavzh.utils.file.FileTools.formatFileSize;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
@@ -148,7 +148,7 @@ public class UpdateLauncher {
                                 try {
                                     updateInformation.information(versionName,
                                             tagName,
-                                            ZHTools.formattingTime(jsonObject.getString("created_at")),
+                                            StringUtils.formattingTime(jsonObject.getString("created_at")),
                                             fileSize,
                                             jsonObject.getString("body"));
                                 } catch (Exception e) {

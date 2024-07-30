@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.file.FileTools;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -58,7 +59,7 @@ public class ProfileManagerFragment extends Fragment {
         modsButton.setOnClickListener(v -> {
             File modsPath = new File(gameDirPath, "/mods");
             if (!modsPath.exists()) {
-                ZHTools.mkdirs(modsPath);
+                FileTools.mkdirs(modsPath);
             }
 
             Bundle bundle = new Bundle();
@@ -93,10 +94,10 @@ public class ProfileManagerFragment extends Fragment {
 
     private void swapFilesFragment(File lockPath, File listPath) {
         if (!lockPath.exists()) {
-            ZHTools.mkdirs(lockPath);
+            FileTools.mkdirs(lockPath);
         }
         if (!listPath.exists()) {
-            ZHTools.mkdirs(listPath);
+            FileTools.mkdirs(listPath);
         }
 
         Bundle bundle = new Bundle();

@@ -1,8 +1,5 @@
 package com.movtery.pojavzh.ui.dialog;
 
-import static com.movtery.pojavzh.utils.ZHTools.renameFileListener;
-import static com.movtery.pojavzh.utils.ZHTools.shareFile;
-
 import android.content.Context;
 import android.view.Window;
 import android.widget.ImageView;
@@ -11,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.movtery.pojavzh.utils.file.FileTools;
 import com.movtery.pojavzh.utils.file.PasteFile;
 
 import net.kdt.pojavlaunch.R;
@@ -97,14 +95,14 @@ public class FilesDialog extends FullScreenDialog implements DraggableDialog.Dia
         if (selectedFiles.size() == 1) { //单选模式
             File file = selectedFiles.get(0);
             mShareButton.setOnClickListener(view -> {
-                shareFile(getContext(), file.getName(), file.getAbsolutePath());
+                FileTools.shareFile(getContext(), file.getName(), file.getAbsolutePath());
                 closeDialog();
             });
             mRenameButton.setOnClickListener(view -> {
                 if (file.isFile()) {
-                    renameFileListener(getContext(), runnable, file, mFileSuffix == null ? file.getName().substring(file.getName().lastIndexOf('.')) : mFileSuffix);
+                    FileTools.renameFileListener(getContext(), runnable, file, mFileSuffix == null ? file.getName().substring(file.getName().lastIndexOf('.')) : mFileSuffix);
                 } else if (file.isDirectory()) {
-                    renameFileListener(getContext(), runnable, file);
+                    FileTools.renameFileListener(getContext(), runnable, file);
                 }
                 closeDialog();
             });

@@ -28,6 +28,7 @@ import com.movtery.pojavzh.ui.fragment.FilesFragment;
 import com.movtery.pojavzh.ui.fragment.VersionSelectorFragment;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.file.FileTools;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -111,7 +112,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
 
         mGameDirButton.setOnClickListener(v -> {
             File dir = new File(ZHTools.DIR_GAME_DEFAULT);
-            if (!dir.exists()) ZHTools.mkdirs(dir);
+            if (!dir.exists()) FileTools.mkdirs(dir);
             Bundle bundle = new Bundle();
             bundle.putBoolean(FilesFragment.BUNDLE_SELECT_FOLDER_MODE, true);
             bundle.putBoolean(FilesFragment.BUNDLE_SHOW_FILE, false);

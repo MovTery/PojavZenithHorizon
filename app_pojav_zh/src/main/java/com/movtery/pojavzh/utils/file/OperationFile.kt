@@ -2,7 +2,6 @@ package com.movtery.pojavzh.utils.file
 
 import android.content.Context
 import com.movtery.pojavzh.ui.dialog.ProgressDialog
-import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
@@ -43,8 +42,8 @@ class OperationFile(
                             dialog.updateText(
                                 context.getString(
                                     R.string.zh_file_operation_file,
-                                    ZHTools.formatFileSize(fileSize.get()),
-                                    ZHTools.formatFileSize(totalFileSize.get()),
+                                    FileTools.formatFileSize(fileSize.get()),
+                                    FileTools.formatFileSize(totalFileSize.get()),
                                     fileCount.get()
                                 )
                             )

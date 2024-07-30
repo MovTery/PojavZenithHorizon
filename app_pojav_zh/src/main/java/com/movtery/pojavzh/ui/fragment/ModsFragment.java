@@ -1,6 +1,6 @@
 package com.movtery.pojavzh.ui.fragment;
 
-import static com.movtery.pojavzh.utils.ZHTools.copyFileInBackground;
+import static com.movtery.pojavzh.utils.file.FileTools.copyFileInBackground;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.os.Bundle;
@@ -24,6 +24,7 @@ import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
 import com.movtery.pojavzh.ui.subassembly.view.SearchView;
 import com.movtery.pojavzh.utils.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.file.FileTools;
 import com.movtery.pojavzh.utils.file.OperationFile;
 import com.movtery.pojavzh.utils.file.PasteFile;
 
@@ -231,7 +232,7 @@ public class ModsFragment extends Fragment {
         String fileName = file.getName();
         String fileParent = file.getParent();
         File newFile = new File(fileParent, fileName + ".disabled");
-        ZHTools.renameFile(file, newFile);
+        FileTools.renameFile(file, newFile);
     }
 
     private void enableMod(File file) {
@@ -242,7 +243,7 @@ public class ModsFragment extends Fragment {
             newFileName += jarFileSuffix; //如果没有.jar结尾，那么默认加上.jar后缀
 
         File newFile = new File(fileParent, newFileName);
-        ZHTools.renameFile(file, newFile);
+        FileTools.renameFile(file, newFile);
     }
 
     private String getFileSuffix(File file) {

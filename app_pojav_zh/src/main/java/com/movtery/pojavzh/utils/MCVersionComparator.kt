@@ -1,12 +1,13 @@
 package com.movtery.pojavzh.utils
 
+import com.movtery.pojavzh.utils.stringutils.StringUtils
 import kotlin.math.max
 
 object MCVersionComparator {
     @JvmStatic
     fun versionCompare(v1: String?, v2: String?): Int {
-        val numbers1 = ZHTools.extractNumbers(v1)
-        val numbers2 = ZHTools.extractNumbers(v2)
+        val numbers1 = StringUtils.extractNumbers(v1)
+        val numbers2 = StringUtils.extractNumbers(v2)
 
         val length = max(numbers1.size.toDouble(), numbers2.size.toDouble())
             .toInt()

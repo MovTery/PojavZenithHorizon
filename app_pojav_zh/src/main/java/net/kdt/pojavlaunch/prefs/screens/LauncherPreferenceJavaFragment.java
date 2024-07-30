@@ -17,7 +17,7 @@ import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import com.movtery.pojavzh.ui.dialog.EditTextDialog;
-import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.file.FileTools;
 import com.movtery.pojavzh.utils.platform.MemoryUtils;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
@@ -130,9 +130,9 @@ public class LauncherPreferenceJavaFragment extends LauncherPreferenceFragment {
     private String getMemoryInfoText(Context context, long freeDeviceMemory) {
         return getString(
                 R.string.zh_setting_java_memory_info,
-                ZHTools.formatFileSize(MemoryUtils.getUsedDeviceMemory(context)),
-                ZHTools.formatFileSize(MemoryUtils.getTotalDeviceMemory(context)),
-                ZHTools.formatFileSize(freeDeviceMemory));
+                FileTools.formatFileSize(MemoryUtils.getUsedDeviceMemory(context)),
+                FileTools.formatFileSize(MemoryUtils.getTotalDeviceMemory(context)),
+                FileTools.formatFileSize(freeDeviceMemory));
     }
 
     private void openMultiRTDialog() {
