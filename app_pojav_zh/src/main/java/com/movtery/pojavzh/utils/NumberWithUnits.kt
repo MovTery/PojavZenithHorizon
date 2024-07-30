@@ -1,49 +1,53 @@
-package com.movtery.pojavzh.utils;
+package com.movtery.pojavzh.utils
 
-import net.kdt.pojavlaunch.PojavApplication;
-import net.kdt.pojavlaunch.R;
-import com.movtery.pojavzh.utils.stringutils.StringUtils;
+import com.movtery.pojavzh.utils.stringutils.StringUtils
+import net.kdt.pojavlaunch.PojavApplication
+import net.kdt.pojavlaunch.R
+import java.math.BigDecimal
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
+object NumberWithUnits {
+    private val UNITS_EN = arrayOf("", "K", "M") //英文单位：千、百万
+    private val UNITS_ZH = arrayOf(
+        "",
+        PojavApplication.getResString(R.string.zh_wan),
+        PojavApplication.getResString(R.string.zh_yi)
+    ) //中文单位:万、亿
 
-public class NumberWithUnits {
-    private static final String[] UNITS_EN = {"", "K", "M"}; //英文单位：千、百万
-    private static final String[] UNITS_ZH = {"", PojavApplication.getResString(R.string.zh_wan), PojavApplication.getResString(R.string.zh_yi)}; //中文单位:万、亿
-
-    public static String formatNumberWithUnit(long number, boolean isEnglish) {
-        if (isEnglish) {
-            return formatNumberWithUnitEnglish(number);
+    @JvmStatic
+    fun formatNumberWithUnit(number: Long, isEnglish: Boolean): String {
+        return if (isEnglish) {
+            formatNumberWithUnitEnglish(number)
         } else {
-            return formatNumberWithUnitChinese(number);
+            formatNumberWithUnitChinese(number)
         }
     }
 
-    private static String formatNumberWithUnitChinese(long number) {
-        return formatNumber(number, 10000, UNITS_ZH);
+    private fun formatNumberWithUnitChinese(number: Long): String {
+        return formatNumber(number, 10000, UNITS_ZH)
     }
 
-    private static String formatNumberWithUnitEnglish(long number) {
-        return formatNumber(number, 1000, UNITS_EN);
+    private fun formatNumberWithUnitEnglish(number: Long): String {
+        return formatNumber(number, 1000, UNITS_EN)
     }
 
-    private static String formatNumber(long number, int stage, String[] units) {
-        BigDecimal bigDecimal = new BigDecimal(number);
-        int unitIndex = 0;
+    private fun formatNumber(number: Long, stage: Int, units: Array<String>): String {
+        var bigDecimal = BigDecimal(number)
+        var unitIndex = 0
 
-        while (bigDecimal.compareTo(BigDecimal.valueOf(stage)) >= 0 && unitIndex < units.length - 1) {
-            bigDecimal = bigDecimal.divide(BigDecimal.valueOf(stage), 2, RoundingMode.DOWN);
-            unitIndex++;
+        while (bigDecimal >= BigDecimal.valueOf(stage.toLong()) && unitIndex < units.size - 1) {
+            bigDecimal = bigDecimal.divide(BigDecimal.valueOf(stage.toLong()), 2, RoundingMode.DOWN)
+            unitIndex++
         }
 
         //检查是否为空的单位，如果是，那么就不做格式化，直接返回原始值
         if (units[unitIndex].isEmpty()) {
-            return String.valueOf(number);
+            return number.toString()
         } else {
-            DecimalFormat df = new DecimalFormat("#.00");
-            String formattedNumber = df.format(bigDecimal.setScale(2, RoundingMode.DOWN).doubleValue());
-            return StringUtils.insertSpace(formattedNumber, units[unitIndex]);
+            val df = DecimalFormat("#.00")
+            val formattedNumber = df.format(bigDecimal.setScale(2, RoundingMode.DOWN).toDouble())
+            return StringUtils.insertSpace(formattedNumber, units[unitIndex])
         }
     }
 }

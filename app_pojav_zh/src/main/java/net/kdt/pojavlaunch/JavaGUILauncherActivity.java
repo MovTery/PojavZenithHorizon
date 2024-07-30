@@ -100,8 +100,8 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
             Drawable drawable = mMousePointerImageView.getDrawable();
             Dimension mousescale = ImageUtils.resizeWithRatio(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
                     DEFAULT_PREF.getInt("mousescale", 100));
-            params.width = (int) (mousescale.getWidth() * 0.5);
-            params.height = (int) (mousescale.getHeight() * 0.5);
+            params.width = (int) (mousescale.width * 0.5);
+            params.height = (int) (mousescale.height * 0.5);
         });
 
         mTouchPad.setOnTouchListener(new View.OnTouchListener() {

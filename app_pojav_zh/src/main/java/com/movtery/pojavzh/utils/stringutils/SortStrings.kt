@@ -1,21 +1,24 @@
-package com.movtery.pojavzh.utils.stringutils;
+package com.movtery.pojavzh.utils.stringutils
 
-public class SortStrings {
-    public static int compareChar(String thisName, String otherName) {
-        int firstLength = thisName.length();
-        int secondLength = otherName.length();
+import kotlin.math.min
+
+object SortStrings {
+    @JvmStatic
+    fun compareChar(thisName: String, otherName: String): Int {
+        val firstLength = thisName.length
+        val secondLength = otherName.length
 
         //遍历两个字符串的字符
-        for (int i = 0; i < Math.min(firstLength, secondLength); i++) {
-            char firstChar = Character.toLowerCase(thisName.charAt(i));
-            char secondChar = Character.toLowerCase(otherName.charAt(i));
+        for (i in 0 until min(firstLength.toDouble(), secondLength.toDouble()).toInt()) {
+            val firstChar = thisName[i].lowercaseChar()
+            val secondChar = otherName[i].lowercaseChar()
 
-            int compare = Character.compare(firstChar, secondChar);
+            val compare = firstChar.compareTo(secondChar)
             if (compare != 0) {
-                return compare;
+                return compare
             }
         }
 
-        return Integer.compare(firstLength, secondLength);
+        return firstLength.compareTo(secondLength)
     }
 }

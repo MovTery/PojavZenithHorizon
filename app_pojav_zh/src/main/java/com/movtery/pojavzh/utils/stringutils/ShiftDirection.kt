@@ -1,5 +1,5 @@
-package com.movtery.pojavzh.utils.stringutils;
+package com.movtery.pojavzh.utils.stringutils
 
-public enum ShiftDirection {
+enum class ShiftDirection {
     LEFT, RIGHT
 }

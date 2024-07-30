@@ -1,9 +1,9 @@
-package com.movtery.pojavzh.utils.stringutils;
+package com.movtery.pojavzh.utils.stringutils
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Locale
+import java.util.regex.Pattern
 
-public class StringFilter {
+object StringFilter {
     /**
      * 检查输入字符串是否包含指定的子字符串。
      * @param input 输入字符串
@@ -11,12 +11,13 @@ public class StringFilter {
      * @param caseSensitive 是否区分大小写
      * @return 如果输入字符串包含指定的子字符串，返回true；否则返回false
      */
-    public static boolean containsSubstring(String input, String substring, boolean caseSensitive) {
-        String adjustedInput = caseSensitive ? input : input.toLowerCase();
-        String adjustedSubstring = caseSensitive ? substring : substring.toLowerCase();
-        String regex = Pattern.quote(adjustedSubstring);
-        Pattern compiledPattern = Pattern.compile(regex);
-        Matcher matcher = compiledPattern.matcher(adjustedInput);
-        return matcher.find();
+    @JvmStatic
+    fun containsSubstring(input: String, substring: String, caseSensitive: Boolean): Boolean {
+        val adjustedInput = if (caseSensitive) input else input.lowercase(Locale.getDefault())
+        val adjustedSubstring = if (caseSensitive) substring else substring.lowercase(Locale.getDefault())
+        val regex = Pattern.quote(adjustedSubstring)
+        val compiledPattern = Pattern.compile(regex)
+        val matcher = compiledPattern.matcher(adjustedInput)
+        return matcher.find()
     }
 }

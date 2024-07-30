@@ -1,21 +1,23 @@
-package com.movtery.pojavzh.utils;
+package com.movtery.pojavzh.utils
 
-import java.util.List;
+import kotlin.math.max
 
-public class MCVersionComparator {
-    public static int versionCompare(String v1, String v2) {
-        List<Integer> numbers1 = ZHTools.extractNumbers(v1);
-        List<Integer> numbers2 = ZHTools.extractNumbers(v2);
+object MCVersionComparator {
+    @JvmStatic
+    fun versionCompare(v1: String?, v2: String?): Int {
+        val numbers1 = ZHTools.extractNumbers(v1)
+        val numbers2 = ZHTools.extractNumbers(v2)
 
-        int length = Math.max(numbers1.size(), numbers2.size());
-        for (int i = 0; i < length; i++) {
-            int num1 = i < numbers1.size() ? numbers1.get(i) : 0;
-            int num2 = i < numbers2.size() ? numbers2.get(i) : 0;
-            int cmp = Integer.compare(num1, num2);
+        val length = max(numbers1.size.toDouble(), numbers2.size.toDouble())
+            .toInt()
+        for (i in 0 until length) {
+            val num1 = if (i < numbers1.size) numbers1[i] else 0
+            val num2 = if (i < numbers2.size) numbers2[i] else 0
+            val cmp = num1.compareTo(num2)
             if (cmp != 0) {
-                return -cmp;
+                return -cmp
             }
         }
-        return 0;
+        return 0
     }
 }
