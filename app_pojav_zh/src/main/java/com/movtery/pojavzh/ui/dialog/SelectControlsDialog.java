@@ -35,7 +35,7 @@ public class SelectControlsDialog extends FullScreenDialog {
     }
 
     public void setOnSelectedListener(ControlSelectedListener controlSelectedListener) {
-        this.controlsListViewCreator.setFileSelectedListener(new FileSelectedListener(){
+        this.controlsListViewCreator.setFileSelectedListener(new FileSelectedListener() {
             @Override
             public void onFileSelected(File file, String path) {
                 controlSelectedListener.onSelectedListener(file);
@@ -43,7 +43,8 @@ public class SelectControlsDialog extends FullScreenDialog {
             }
 
             @Override
-            public void onItemLongClick(File file, String path) {}
+            public void onItemLongClick(File file, String path) {
+            }
         });
     }
 

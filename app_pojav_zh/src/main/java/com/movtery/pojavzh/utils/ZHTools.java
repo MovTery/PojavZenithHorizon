@@ -29,18 +29,17 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundManager;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
-
-import com.movtery.pojavzh.ui.dialog.EditTextDialog;
+import com.movtery.pojavzh.utils.image.ImageUtils;
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
-import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathHome;
-import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
-import com.movtery.pojavzh.utils.image.ImageUtils;
-import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
@@ -65,6 +64,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ZHTools {
+    public static final String URL_GITHUB_RELEASE = "https://api.github.com/repos/MovTery/PojavZenithHorizon/releases/latest";
+    public static final String URL_GITHUB_HOME = "https://api.github.com/repos/MovTery/PojavZenithHorizon/contents/";
+    public static final String URL_GITHUB_POJAVLAUNCHER = "https://github.com/PojavLauncherTeam/PojavLauncher";
+    public static final String URL_MINECRAFT = "https://www.minecraft.net/";
+    public static final String URL_SUPPORT = "https://afdian.com/a/MovTery";
     public static String DIR_GAME_DEFAULT;
     public static String DIR_CUSTOM_MOUSE;
     public static String DIR_LOGIN;
@@ -73,11 +77,6 @@ public class ZHTools {
     public static File DIR_USER_ICON;
     public static File FILE_CUSTOM_MOUSE;
     public static File FILE_PROFILE_PATH;
-    public static final String URL_GITHUB_RELEASE = "https://api.github.com/repos/MovTery/PojavZenithHorizon/releases/latest";
-    public static final String URL_GITHUB_HOME = "https://api.github.com/repos/MovTery/PojavZenithHorizon/contents/";
-    public static final String URL_GITHUB_POJAVLAUNCHER = "https://github.com/PojavLauncherTeam/PojavLauncher";
-    public static final String URL_MINECRAFT = "https://www.minecraft.net/";
-    public static final String URL_SUPPORT = "https://afdian.com/a/MovTery";
     public static long LAST_UPDATE_CHECK_TIME = 0;
 
     private ZHTools() {
@@ -216,7 +215,7 @@ public class ZHTools {
     }
 
     public static void addFragment(Fragment fragment, Class<? extends Fragment> fragmentClass,
-                                    @Nullable String fragmentTag, @Nullable Bundle bundle) {
+                                   @Nullable String fragmentTag, @Nullable Bundle bundle) {
         FragmentTransaction transaction = fragment.requireActivity().getSupportFragmentManager().beginTransaction();
 
         if (PREF_ANIMATION)

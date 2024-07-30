@@ -35,7 +35,11 @@ object UnpackJRE {
         }
     }
 
-    private fun unpackInternalRuntime(assetManager: AssetManager, internalRuntime: InternalRuntime, version: String) {
+    private fun unpackInternalRuntime(
+        assetManager: AssetManager,
+        internalRuntime: InternalRuntime,
+        version: String
+    ) {
         try {
             MultiRTUtils.installRuntimeNamedBinpack(
                 assetManager.open(internalRuntime.jrePath + "/universal.tar.xz"),

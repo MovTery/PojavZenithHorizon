@@ -34,6 +34,7 @@ class CallUtils(
 
     interface CallbackListener {
         fun onFailure(call: Call?, e: IOException?)
+
         @Throws(IOException::class)
         fun onResponse(call: Call?, response: Response?)
     }

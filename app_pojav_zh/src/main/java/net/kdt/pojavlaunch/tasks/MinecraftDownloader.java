@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.kdt.mcgui.ProgressLayout;
-import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathHome;
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
 
 import net.kdt.pojavlaunch.JAssetInfo;
 import net.kdt.pojavlaunch.JAssets;

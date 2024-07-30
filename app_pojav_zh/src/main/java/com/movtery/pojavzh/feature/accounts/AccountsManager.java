@@ -26,16 +26,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccountsManager {
+    private final static int MAX_LOGIN_STEP = 5;
     @SuppressLint("StaticFieldLeak")
     private static volatile AccountsManager accountsManager;
     private final Context context;
     private final List<MinecraftAccount> accounts = new ArrayList<>();
     private ObjectAnimator mLoginBarAnimator;
-    private final static int MAX_LOGIN_STEP = 5;
-
     private ProgressListener mProgressListener;
     private DoneListener mDoneListener;
     private ErrorListener mErrorListener;
+
+    public AccountsManager(Context context) {
+        this.context = context;
+    }
 
     public static AccountsManager getInstance() {
         if (accountsManager == null) {
@@ -51,10 +54,6 @@ public class AccountsManager {
             }
         }
         return accountsManager;
-    }
-
-    public AccountsManager(Context context) {
-        this.context = context;
     }
 
     @SuppressLint("ObjectAnimatorBinding")
@@ -77,7 +76,8 @@ public class AccountsManager {
             //检查账号是否已存在
             if (getAllAccount().contains(account)) return;
 
-            if (getAllAccount().isEmpty()) PojavProfile.setCurrentProfile(context, account.username);
+            if (getAllAccount().isEmpty())
+                PojavProfile.setCurrentProfile(context, account.username);
             reload();
         };
 

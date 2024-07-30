@@ -7,7 +7,7 @@ import android.content.res.AssetManager;
 import android.util.Log;
 
 import com.kdt.mcgui.ProgressLayout;
-import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathHome;
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.utils.CopyDefaultFromAssets;
 import com.movtery.pojavzh.utils.ZHTools;
 

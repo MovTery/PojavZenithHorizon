@@ -5,11 +5,11 @@ import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import android.content.Context;
 import android.util.Log;
 
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.feature.mod.models.MCBBSPackMeta;
 import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
 import com.movtery.pojavzh.feature.mod.modpack.install.OnInstallStartListener;
 import com.movtery.pojavzh.ui.dialog.ProgressDialog;
-import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.utils.file.FileUtils;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
@@ -43,6 +43,17 @@ public class MCBBSModPack {
         this.zipFile = zipFile;
     }
 
+    public static void createModPackProfiles(String modpackName, MCBBSPackMeta mcbbsPackMeta, String versionId) {
+        MinecraftProfile profile = new MinecraftProfile();
+        profile.gameDir = "./custom_instances/" + modpackName;
+        profile.name = mcbbsPackMeta.name;
+        profile.lastVersionId = versionId;
+        profile.javaArgs = StringUtils.insertSpace(null, mcbbsPackMeta.launchInfo.javaArgument);
+
+        LauncherProfiles.mainProfileJson.profiles.put(modpackName, profile);
+        LauncherProfiles.write(ProfilePathManager.getCurrentProfile());
+    }
+
     public ModLoader install(File instanceDestination, OnInstallStartListener onInstallStartListener) throws IOException {
         if (zipFile != null) {
             try (ZipFile modpackZipFile = new ZipFile(this.zipFile)) {
@@ -50,7 +61,7 @@ public class MCBBSModPack {
                         Tools.read(ZipUtils.getEntryStream(modpackZipFile, "mcbbs.packmeta")),
                         MCBBSPackMeta.class);
                 if (!ModPackUtils.verifyMCBBSPackMeta(mcbbsPackMeta)) {
-                    Log.i("MCBBSModPack","manifest verification failed");
+                    Log.i("MCBBSModPack", "manifest verification failed");
                     return null;
                 }
                 if (onInstallStartListener != null) onInstallStartListener.onStart();
@@ -126,12 +137,12 @@ public class MCBBSModPack {
         String version = "";
         String modLoader = "";
         String modLoaderVersion = "";
-        for(int i = 0; i <= addons.length; i++) {
-            if(addons[i].id.equals("game")) {
+        for (int i = 0; i <= addons.length; i++) {
+            if (addons[i].id.equals("game")) {
                 version = addons[i].version;
                 continue;
             }
-            if(addons[i] != null){
+            if (addons[i] != null) {
                 modLoader = addons[i].id;
                 modLoaderVersion = addons[i].version;
                 break;
@@ -139,22 +150,18 @@ public class MCBBSModPack {
         }
         int modLoaderTypeInt;
         switch (modLoader) {
-            case "forge": modLoaderTypeInt = ModLoader.MOD_LOADER_FORGE; break;
-            case "neoforge": modLoaderTypeInt = ModLoader.MOD_LOADER_NEOFORGE; break;
-            case "fabric": modLoaderTypeInt = ModLoader.MOD_LOADER_FABRIC; break;
-            default: return null;
+            case "forge":
+                modLoaderTypeInt = ModLoader.MOD_LOADER_FORGE;
+                break;
+            case "neoforge":
+                modLoaderTypeInt = ModLoader.MOD_LOADER_NEOFORGE;
+                break;
+            case "fabric":
+                modLoaderTypeInt = ModLoader.MOD_LOADER_FABRIC;
+                break;
+            default:
+                return null;
         }
         return new ModLoader(modLoaderTypeInt, modLoaderVersion, version);
-    }
-
-    public static void createModPackProfiles(String modpackName, MCBBSPackMeta mcbbsPackMeta, String versionId) {
-        MinecraftProfile profile = new MinecraftProfile();
-        profile.gameDir = "./custom_instances/" + modpackName;
-        profile.name = mcbbsPackMeta.name;
-        profile.lastVersionId = versionId;
-        profile.javaArgs = StringUtils.insertSpace(null, mcbbsPackMeta.launchInfo.javaArgument);
-
-        LauncherProfiles.mainProfileJson.profiles.put(modpackName, profile);
-        LauncherProfiles.write(ProfilePathManager.getCurrentProfile());
     }
 }

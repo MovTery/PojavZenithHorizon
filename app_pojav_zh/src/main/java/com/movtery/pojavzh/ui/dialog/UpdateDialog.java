@@ -40,6 +40,7 @@ public class UpdateDialog extends FullScreenDialog implements DraggableDialog.Di
         init();
         DraggableDialog.initDialog(this);
     }
+
     @SuppressLint("SetJavaScriptEnabled")
     private void init() {
         TextView mVersionName = findViewById(R.id.zh_update_version_name);
@@ -97,6 +98,7 @@ public class UpdateDialog extends FullScreenDialog implements DraggableDialog.Di
         public String createdTime;
         public long fileSize;
         public String description;
+
         public void information(@NonNull String versionName, @NonNull String tagName, @NonNull String createdTime, long fileSize, @NonNull String description) {
             this.versionName = versionName;
             this.tagName = tagName;

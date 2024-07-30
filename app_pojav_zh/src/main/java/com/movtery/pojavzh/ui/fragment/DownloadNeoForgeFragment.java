@@ -13,8 +13,8 @@ import com.movtery.pojavzh.feature.mod.modloader.NeoForgeDownloadTask;
 import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils;
 import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog;
 import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListAdapter;
-import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListItemBean;
 import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListFragment;
+import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListItemBean;
 import com.movtery.pojavzh.utils.MCVersionComparator;
 
 import net.kdt.pojavlaunch.JavaGUILauncherActivity;
@@ -27,9 +27,9 @@ import net.kdt.pojavlaunch.modloaders.ModloaderListenerProxy;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.Future;
 

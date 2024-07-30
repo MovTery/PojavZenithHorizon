@@ -14,7 +14,8 @@ object StringFilter {
     @JvmStatic
     fun containsSubstring(input: String, substring: String, caseSensitive: Boolean): Boolean {
         val adjustedInput = if (caseSensitive) input else input.lowercase(Locale.getDefault())
-        val adjustedSubstring = if (caseSensitive) substring else substring.lowercase(Locale.getDefault())
+        val adjustedSubstring =
+            if (caseSensitive) substring else substring.lowercase(Locale.getDefault())
         val regex = Pattern.quote(adjustedSubstring)
         val compiledPattern = Pattern.compile(regex)
         val matcher = compiledPattern.matcher(adjustedInput)

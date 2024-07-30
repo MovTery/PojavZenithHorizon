@@ -81,6 +81,10 @@ public class EditTextDialog extends FullScreenDialog implements DraggableDialog.
         return getWindow();
     }
 
+    public interface ConfirmListener {
+        boolean onConfirm(EditText editText);
+    }
+
     public static class Builder {
         private final Context context;
         private String title, message, editText, hintText;
@@ -147,9 +151,5 @@ public class EditTextDialog extends FullScreenDialog implements DraggableDialog.
                     inputType,
                     this.cancelListener, this.confirmListener).show();
         }
-    }
-
-    public interface ConfirmListener {
-        boolean onConfirm(EditText editText);
     }
 }

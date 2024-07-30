@@ -33,6 +33,30 @@ public class ErrorActivity extends BaseActivity {
     private Button mConfirmButton, mRestartButton, mCopyButton, mShareButton;
     private Button mShareLogButton, mShareCrashReportButton;
 
+    public static void showError(Context ctx, String savePath, Throwable th) {
+        Intent intent = new Intent(ctx, ErrorActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(BUNDLE_THROWABLE, th);
+        intent.putExtra(BUNDLE_SAVE_PATH, savePath);
+        intent.putExtra(BUNDLE_IS_ERROR, true);
+        ctx.startActivity(intent);
+    }
+
+    public static void showExitMessage(Context ctx, int code) {
+        showExitMessage(ctx, code, new File(ZHTools.getGameDirPath(getCurrentProfile().gameDir), "crash-reports").getAbsolutePath());
+    }
+
+    public static void showExitMessage(Context ctx, int code, String crashReportsPath) {
+        Intent intent = new Intent(ctx, ErrorActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(BUNDLE_CODE, code);
+        intent.putExtra(BUNDLE_IS_ERROR, false);
+        intent.putExtra(BUNDLE_CRASH_REPORTS_PATH, crashReportsPath);
+        ctx.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +64,7 @@ public class ErrorActivity extends BaseActivity {
         bindValues();
 
         Bundle extras = getIntent().getExtras();
-        if(extras == null) {
+        if (extras == null) {
             finish();
             return;
         }
@@ -58,14 +82,15 @@ public class ErrorActivity extends BaseActivity {
     }
 
     private void showCrash(Bundle extras) {
-        findViewById(R.id.zh_error_buttons).setVisibility(View.GONE);
-
-        mTitleText.setText(R.string.zh_wrong_tip);
-        int code = extras.getInt(BUNDLE_CODE,0);
+        int code = extras.getInt(BUNDLE_CODE, 0);
         if (code == 0) {
             finish();
             return;
         }
+
+        findViewById(R.id.zh_error_buttons).setVisibility(View.GONE);
+        mTitleText.setText(R.string.zh_wrong_tip);
+
         File crashReportFile = ZHTools.getLatestFile(extras.getString(BUNDLE_CRASH_REPORTS_PATH), 15);
         File logFile = new File(Tools.DIR_GAME_HOME, "latestlog.txt");
 
@@ -74,7 +99,8 @@ public class ErrorActivity extends BaseActivity {
         mShareCrashReportButton.setVisibility((crashReportFile != null && crashReportFile.exists()) ? View.VISIBLE : View.GONE);
         mShareLogButton.setVisibility(logFile.exists() ? View.VISIBLE : View.GONE);
 
-        if (crashReportFile != null) mShareCrashReportButton.setOnClickListener(view -> ZHTools.shareFile(this, crashReportFile.getName(), crashReportFile.getAbsolutePath()));
+        if (crashReportFile != null)
+            mShareCrashReportButton.setOnClickListener(view -> ZHTools.shareFile(this, crashReportFile.getName(), crashReportFile.getAbsolutePath()));
         mShareLogButton.setOnClickListener(view -> shareLog(this));
     }
 
@@ -105,29 +131,5 @@ public class ErrorActivity extends BaseActivity {
 
         mShareLogButton = findViewById(R.id.zh_crash_share_log);
         mShareCrashReportButton = findViewById(R.id.zh_crash_share_crash_report);
-    }
-
-    public static void showError(Context ctx, String savePath, Throwable th) {
-        Intent intent = new Intent(ctx, ErrorActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(BUNDLE_THROWABLE, th);
-        intent.putExtra(BUNDLE_SAVE_PATH, savePath);
-        intent.putExtra(BUNDLE_IS_ERROR, true);
-        ctx.startActivity(intent);
-    }
-
-    public static void showExitMessage(Context ctx, int code) {
-        showExitMessage(ctx, code, new File(ZHTools.getGameDirPath(getCurrentProfile().gameDir), "crash-reports").getAbsolutePath());
-    }
-
-    public static void showExitMessage(Context ctx, int code, String crashReportsPath) {
-        Intent intent = new Intent(ctx, ErrorActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(BUNDLE_CODE, code);
-        intent.putExtra(BUNDLE_IS_ERROR, false);
-        intent.putExtra(BUNDLE_CRASH_REPORTS_PATH, crashReportsPath);
-        ctx.startActivity(intent);
     }
 }

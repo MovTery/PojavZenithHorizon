@@ -8,8 +8,8 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.kdt.mcgui.ProgressLayout;
-import com.movtery.pojavzh.ui.fragment.preference.PreferenceLauncherFragment;
 import com.movtery.pojavzh.ui.fragment.preference.PreferenceExperimentalFragment;
+import com.movtery.pojavzh.ui.fragment.preference.PreferenceLauncherFragment;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
 import com.movtery.pojavzh.utils.ZHTools;
 
@@ -27,12 +27,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SettingsActivity extends BaseActivity {
+    private final Map<View, String> mTitle = new HashMap<>();
     private View mBackgroundView;
     private ImageButton mReturnButton, mVideoButton, mControlsButton, mJavaButton, mMiscButton, mLauncherButton, mExperimentalButton;
     private TextView mTitleView;
     private ProgressLayout mProgressLayout;
     private ProgressServiceKeeper mProgressServiceKeeper;
-    private final Map<View, String> mTitle = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

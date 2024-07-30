@@ -20,16 +20,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.pojavzh.ui.dialog.FilesDialog;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileIcon;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileItemBean;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerViewCreator;
+import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.PojavApplication;
-
-import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
-import com.movtery.pojavzh.ui.dialog.FilesDialog;
-import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import java.io.File;
 import java.util.ArrayList;

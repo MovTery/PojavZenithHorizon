@@ -1,7 +1,7 @@
 package com.movtery.pojavzh.ui.fragment;
 
-import static net.kdt.pojavlaunch.CustomControlsActivity.BUNDLE_CONTROL_PATH;
 import static com.movtery.pojavzh.utils.ZHTools.copyFileInBackground;
+import static net.kdt.pojavlaunch.CustomControlsActivity.BUNDLE_CONTROL_PATH;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.annotation.SuppressLint;
@@ -17,24 +17,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.movtery.pojavzh.ui.dialog.TipDialog;
-import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlsListViewCreator;
-import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlInfoData;
-import com.movtery.pojavzh.ui.subassembly.customcontrols.EditControlData;
 import com.movtery.pojavzh.ui.dialog.EditControlInfoDialog;
+import com.movtery.pojavzh.ui.dialog.FilesDialog;
+import com.movtery.pojavzh.ui.dialog.TipDialog;
+import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlInfoData;
+import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlsListViewCreator;
+import com.movtery.pojavzh.ui.subassembly.customcontrols.EditControlData;
+import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
 import com.movtery.pojavzh.ui.subassembly.view.SearchView;
 import com.movtery.pojavzh.utils.AnimUtils;
+import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.file.PasteFile;
-import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
 
 import net.kdt.pojavlaunch.CustomControlsActivity;
 import net.kdt.pojavlaunch.PojavApplication;
-import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
-
-import com.movtery.pojavzh.ui.dialog.FilesDialog;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;

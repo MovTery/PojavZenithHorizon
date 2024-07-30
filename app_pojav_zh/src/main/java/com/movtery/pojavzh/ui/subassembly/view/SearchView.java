@@ -34,7 +34,8 @@ public class SearchView {
         mSearchButton.setOnClickListener(v -> search(searchCountText, mCaseSensitive.isChecked()));
         mShowSearchResultsOnly.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (showSearchResultsListener != null) showSearchResultsListener.onSearch(isChecked);
-            if (!mSearchEditText.getText().toString().isEmpty()) search(searchCountText, mCaseSensitive.isChecked());
+            if (!mSearchEditText.getText().toString().isEmpty())
+                search(searchCountText, mCaseSensitive.isChecked());
         });
 
         DraggableView draggableView = new DraggableView(mainView, new DraggableView.AttributesFetcher() {

@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathHome;
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileItemBean;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerViewCreator;
 

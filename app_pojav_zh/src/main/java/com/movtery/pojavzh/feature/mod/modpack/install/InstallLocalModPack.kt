@@ -1,92 +1,156 @@
-package com.movtery.pojavzh.feature.mod.modpack.install;
+package com.movtery.pojavzh.feature.mod.modpack.install
 
-import static net.kdt.pojavlaunch.Tools.runOnUiThread;
+import android.content.Context
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager
+import com.movtery.pojavzh.feature.mod.models.MCBBSPackMeta
+import com.movtery.pojavzh.feature.mod.modpack.MCBBSModPack
+import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils.ModPackEnum
+import com.movtery.pojavzh.ui.dialog.TipDialog
+import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.modloaders.modpacks.api.CurseforgeApi
+import net.kdt.pojavlaunch.modloaders.modpacks.api.ModLoader
+import net.kdt.pojavlaunch.modloaders.modpacks.api.ModrinthApi
+import net.kdt.pojavlaunch.modloaders.modpacks.models.CurseManifest
+import net.kdt.pojavlaunch.modloaders.modpacks.models.ModrinthIndex
+import net.kdt.pojavlaunch.utils.ZipUtils
+import org.apache.commons.io.FileUtils
+import java.io.File
+import java.util.zip.ZipFile
 
-import android.content.Context;
+object InstallLocalModPack {
+    @JvmStatic
+    @Throws(Exception::class)
+    fun installModPack(
+        context: Context,
+        type: ModPackEnum?,
+        zipFile: File,
+        onInstallStartListener: OnInstallStartListener
+    ): ModLoader? {
+        try {
+            ZipFile(zipFile).use { modpackZipFile ->
+                val zipName = zipFile.name
+                val packName = zipName.substring(0, zipName.lastIndexOf('.'))
+                val modLoader: ModLoader
+                when (type) {
+                    ModPackEnum.CURSEFORGE -> {
+                        val curseforgeEntry = modpackZipFile.getEntry("manifest.json")
+                        val curseManifest = Tools.GLOBAL_GSON.fromJson(
+                            Tools.read(
+                                modpackZipFile.getInputStream(curseforgeEntry)
+                            ), CurseManifest::class.java
+                        )
 
-import com.movtery.pojavzh.feature.mod.models.MCBBSPackMeta;
-import com.movtery.pojavzh.feature.mod.modpack.MCBBSModPack;
-import com.movtery.pojavzh.ui.dialog.TipDialog;
-import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
+                        modLoader =
+                            curseforgeModPack(context, zipFile, packName, onInstallStartListener)
+                        ModPackUtils.createModPackProfiles(
+                            packName,
+                            curseManifest.name,
+                            modLoader.versionId
+                        )
 
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.modloaders.modpacks.api.CurseforgeApi;
-import net.kdt.pojavlaunch.modloaders.modpacks.api.ModLoader;
-import net.kdt.pojavlaunch.modloaders.modpacks.api.ModrinthApi;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.CurseManifest;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.ModrinthIndex;
-import net.kdt.pojavlaunch.utils.ZipUtils;
+                        return modLoader
+                    }
 
-import org.apache.commons.io.FileUtils;
+                    ModPackEnum.MCBBS -> {
+                        val mcbbsEntry = modpackZipFile.getEntry("mcbbs.packmeta")
 
-import java.io.File;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
+                        val mcbbsPackMeta = Tools.GLOBAL_GSON.fromJson(
+                            Tools.read(
+                                modpackZipFile.getInputStream(mcbbsEntry)
+                            ), MCBBSPackMeta::class.java
+                        )
 
-public class InstallLocalModPack {
-    public static ModLoader installModPack(Context context, ModPackUtils.ModPackEnum type, File zipFile, OnInstallStartListener onInstallStartListener) throws Exception {
-        try (ZipFile modpackZipFile = new ZipFile(zipFile)) {
-            String zipName = zipFile.getName();
-            String packName = zipName.substring(0, zipName.lastIndexOf('.'));
-            ModLoader modLoader;
-            switch (type) {
-                case CURSEFORGE:
-                    ZipEntry curseforgeEntry = modpackZipFile.getEntry("manifest.json");
-                    CurseManifest curseManifest = Tools.GLOBAL_GSON.fromJson(
-                            Tools.read(modpackZipFile.getInputStream(curseforgeEntry)),
-                            CurseManifest.class);
+                        modLoader = mcbbsModPack(context, zipFile, packName, onInstallStartListener)
+                        MCBBSModPack.createModPackProfiles(
+                            packName,
+                            mcbbsPackMeta,
+                            modLoader.versionId
+                        )
 
-                    modLoader = curseforgeModPack(context, zipFile, packName, onInstallStartListener);
-                    ModPackUtils.createModPackProfiles(packName, curseManifest.name, modLoader.getVersionId());
+                        return modLoader
+                    }
 
-                    return modLoader;
-                case MCBBS:
-                    ZipEntry mcbbsEntry = modpackZipFile.getEntry("mcbbs.packmeta");
+                    ModPackEnum.MODRINTH -> {
+                        val modrinthIndex = Tools.GLOBAL_GSON.fromJson(
+                            Tools.read(
+                                ZipUtils.getEntryStream(
+                                    modpackZipFile,
+                                    "modrinth.index.json"
+                                )
+                            ),
+                            ModrinthIndex::class.java
+                        ) // 用于获取创建实例所需的数据
 
-                    MCBBSPackMeta mcbbsPackMeta = Tools.GLOBAL_GSON.fromJson(
-                            Tools.read(modpackZipFile.getInputStream(mcbbsEntry)),
-                            MCBBSPackMeta.class);
+                        modLoader = modrinthModPack(zipFile, packName, onInstallStartListener)
+                        ModPackUtils.createModPackProfiles(
+                            packName,
+                            modrinthIndex.name,
+                            modLoader.versionId
+                        )
 
-                    modLoader = mcbbsModPack(context, zipFile, packName, onInstallStartListener);
-                    if (modLoader != null)
-                        MCBBSModPack.createModPackProfiles(packName, mcbbsPackMeta, modLoader.getVersionId());
+                        return modLoader
+                    }
 
-                    return modLoader;
-                case MODRINTH:
-                    ModrinthIndex modrinthIndex = Tools.GLOBAL_GSON.fromJson(
-                            Tools.read(ZipUtils.getEntryStream(modpackZipFile, "modrinth.index.json")),
-                            ModrinthIndex.class); // 用于获取创建实例所需的数据
-
-                    modLoader = modrinthModPack(zipFile, packName, onInstallStartListener);
-                    ModPackUtils.createModPackProfiles(packName, modrinthIndex.name, modLoader.getVersionId());
-
-                    return modLoader;
-                default:
-                    runOnUiThread(() -> new TipDialog.Builder(context)
-                            .setMessage(R.string.zh_select_modpack_local_not_supported) //弹窗提醒
-                            .setShowCancel(true)
-                            .setShowConfirm(false)
-                            .buildDialog());
-                    return null;
+                    else -> {
+                        Tools.runOnUiThread {
+                            TipDialog.Builder(context)
+                                .setMessage(R.string.zh_select_modpack_local_not_supported) //弹窗提醒
+                                .setShowCancel(true)
+                                .setShowConfirm(false)
+                                .buildDialog()
+                        }
+                        return null
+                    }
+                }
             }
         } finally {
-            FileUtils.deleteQuietly(zipFile); // 删除文件（虽然文件通常来说并不会很大）
+            FileUtils.deleteQuietly(zipFile) // 删除文件（虽然文件通常来说并不会很大）
         }
     }
 
-    private static ModLoader curseforgeModPack(Context context, File zipFile, String packName, OnInstallStartListener onInstallStartListener) throws Exception {
-        CurseforgeApi curseforgeApi = new CurseforgeApi(context.getString(R.string.curseforge_api_key));
-        return curseforgeApi.installCurseforgeZip(zipFile, new File(ProfilePathManager.getCurrentPath(), "custom_instances/" + packName), onInstallStartListener);
+    @Throws(Exception::class)
+    private fun curseforgeModPack(
+        context: Context,
+        zipFile: File,
+        packName: String,
+        onInstallStartListener: OnInstallStartListener
+    ): ModLoader {
+        val curseforgeApi = CurseforgeApi(context.getString(R.string.curseforge_api_key))
+        return curseforgeApi.installCurseforgeZip(
+            zipFile,
+            File(ProfilePathManager.currentPath, "custom_instances/$packName"),
+            onInstallStartListener
+        )
     }
 
-    private static ModLoader modrinthModPack(File zipFile, String packName, OnInstallStartListener onInstallStartListener) throws Exception {
-        ModrinthApi modrinthApi = new ModrinthApi();
-        return modrinthApi.installMrpack(zipFile, new File(ProfilePathManager.getCurrentPath(), "custom_instances/" + packName), onInstallStartListener);
+    @Throws(Exception::class)
+    private fun modrinthModPack(
+        zipFile: File,
+        packName: String,
+        onInstallStartListener: OnInstallStartListener
+    ): ModLoader {
+        val modrinthApi = ModrinthApi()
+        return modrinthApi.installMrpack(
+            zipFile,
+            File(ProfilePathManager.currentPath, "custom_instances/$packName"),
+            onInstallStartListener
+        )
     }
 
-    private static ModLoader mcbbsModPack(Context context, File zipFile, String packName, OnInstallStartListener onInstallStartListener) throws Exception {
-        MCBBSModPack mcbbsModPack = new MCBBSModPack(context, zipFile);
-        return mcbbsModPack.install(new File(ProfilePathManager.getCurrentPath(), "custom_instances/" + packName), onInstallStartListener);
+    @Throws(Exception::class)
+    private fun mcbbsModPack(
+        context: Context,
+        zipFile: File,
+        packName: String,
+        onInstallStartListener: OnInstallStartListener
+    ): ModLoader {
+        val mcbbsModPack = MCBBSModPack(context, zipFile)
+        return mcbbsModPack.install(
+            File(
+                ProfilePathManager.currentPath,
+                "custom_instances/$packName"
+            ), onInstallStartListener
+        )
     }
 }

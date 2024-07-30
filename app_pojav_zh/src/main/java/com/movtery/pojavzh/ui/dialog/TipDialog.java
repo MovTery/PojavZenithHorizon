@@ -23,10 +23,10 @@ public class TipDialog extends FullScreenDialog implements DraggableDialog.Dialo
     private final OnDialogDismissListener dismissListener;
 
     private TipDialog(@NonNull Context context,
-                     String title, String message, String confirm, String cancel,
-                     View[] moreView,
-                     boolean showCancel, boolean showConfirm,
-                     OnCancelClickListener cancelListener, OnConfirmClickListener confirmListener, OnDialogDismissListener dismissListener) {
+                      String title, String message, String confirm, String cancel,
+                      View[] moreView,
+                      boolean showCancel, boolean showConfirm,
+                      OnCancelClickListener cancelListener, OnConfirmClickListener confirmListener, OnDialogDismissListener dismissListener) {
         super(context);
         this.title = title;
         this.message = message;
@@ -97,6 +97,18 @@ public class TipDialog extends FullScreenDialog implements DraggableDialog.Dialo
     @Override
     public Window onInit() {
         return getWindow();
+    }
+
+    public interface OnCancelClickListener {
+        void onCancelClick();
+    }
+
+    public interface OnConfirmClickListener {
+        void onConfirmClick();
+    }
+
+    public interface OnDialogDismissListener {
+        boolean onDismiss();
     }
 
     public static class Builder {
@@ -198,17 +210,5 @@ public class TipDialog extends FullScreenDialog implements DraggableDialog.Dialo
             this.showConfirm = showConfirm;
             return this;
         }
-    }
-
-    public interface OnCancelClickListener {
-        void onCancelClick();
-    }
-
-    public interface OnConfirmClickListener {
-        void onConfirmClick();
-    }
-
-    public interface OnDialogDismissListener {
-        boolean onDismiss();
     }
 }

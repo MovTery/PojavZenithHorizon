@@ -54,6 +54,14 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.Holder> 
         this.accountUpdateListener = accountUpdateListener;
     }
 
+    public interface AccountUpdateListener {
+        void onViewClick(MinecraftAccount account);
+
+        void onRefresh(MinecraftAccount account);
+
+        void onDelete(MinecraftAccount account);
+    }
+
     public class Holder extends RecyclerView.ViewHolder {
         private final Context mContext;
         private final View mMainView;
@@ -118,11 +126,5 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.Holder> 
             button.setAlpha(clickable ? 1.0f : 0.5f);
             button.setClickable(clickable);
         }
-    }
-
-    public interface AccountUpdateListener {
-        void onViewClick(MinecraftAccount account);
-        void onRefresh(MinecraftAccount account);
-        void onDelete(MinecraftAccount account);
     }
 }

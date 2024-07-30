@@ -19,8 +19,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.movtery.pojavzh.ui.activity.ErrorActivity;
-import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathHome;
-import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.oracle.dalvik.*;
 import java.io.*;
 import java.util.*;

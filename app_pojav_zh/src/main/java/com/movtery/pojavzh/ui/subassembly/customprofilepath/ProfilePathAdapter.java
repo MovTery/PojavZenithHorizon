@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.fragment.FilesFragment;
@@ -31,9 +32,9 @@ import java.util.TreeMap;
 
 public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.ViewHolder> {
     private final FragmentActivity fragmentActivity;
-    private List<ProfileItem> mData;
     private final Map<String, RadioButton> radioButtonMap = new TreeMap<>();
     private final RecyclerView view;
+    private List<ProfileItem> mData;
     private String currentId;
 
     public ProfilePathAdapter(FragmentActivity fragmentActivity, RecyclerView view, List<ProfileItem> mData) {
@@ -91,6 +92,7 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
         private final TextView mTitle, mPath;
         private final ImageButton mRenameButton, mVisitButton, mDeleteButton;
         private final View itemView;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.itemView = itemView;

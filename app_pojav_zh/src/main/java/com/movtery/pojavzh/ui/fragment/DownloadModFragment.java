@@ -8,14 +8,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.movtery.pojavzh.ui.subassembly.viewmodel.ModApiViewModel;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionAdapter;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
-import com.movtery.pojavzh.ui.subassembly.viewmodel.RecyclerViewModel;
 import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListAdapter;
 import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListFragment;
 import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListItemBean;
+import com.movtery.pojavzh.ui.subassembly.viewmodel.ModApiViewModel;
+import com.movtery.pojavzh.ui.subassembly.viewmodel.RecyclerViewModel;
 import com.movtery.pojavzh.utils.MCVersionComparator;
 
 import net.kdt.pojavlaunch.PojavApplication;

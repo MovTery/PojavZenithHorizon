@@ -26,7 +26,7 @@ import com.movtery.pojavzh.extra.ZHExtraConstants;
 import com.movtery.pojavzh.ui.fragment.ControlButtonFragment;
 import com.movtery.pojavzh.ui.fragment.FilesFragment;
 import com.movtery.pojavzh.ui.fragment.VersionSelectorFragment;
-import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.R;

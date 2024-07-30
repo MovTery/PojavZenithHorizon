@@ -57,7 +57,9 @@ public class DraggableView {
 
     public interface AttributesFetcher {
         ScreenPixels getScreenPixels(); //获取对应的屏幕的高宽限制值
+
         int[] get(); //获取x, y值
+
         void set(int x, int y);
     }
 

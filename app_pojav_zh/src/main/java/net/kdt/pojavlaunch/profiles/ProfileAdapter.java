@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 
 import androidx.core.graphics.ColorUtils;
 
-import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;

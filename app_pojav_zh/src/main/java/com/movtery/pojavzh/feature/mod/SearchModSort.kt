@@ -1,60 +1,47 @@
-package com.movtery.pojavzh.feature.mod;
+package com.movtery.pojavzh.feature.mod
 
-import android.content.Context;
+import android.content.Context
+import net.kdt.pojavlaunch.R
 
-import net.kdt.pojavlaunch.R;
+object SearchModSort {
+    private const val CURSEFORGE_SORT_INDEX_RELEVANT: Int = 1
+    private const val CURSEFORGE_SORT_INDEX_DOWNLOADS: Int = 6
+    private const val CURSEFORGE_SORT_INDEX_POPULARITY: Int = 2
+    private const val CURSEFORGE_SORT_INDEX_RECENTLY_CREATED: Int = 11
+    private const val CURSEFORGE_SORT_INDEX_RECENTLY_UPDATED: Int = 3
+    private val indexList: MutableList<String> = ArrayList()
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class SearchModSort {
-    public static final int CURSEFORGE_SORT_INDEX_RELEVANT = 1;
-    public static final int CURSEFORGE_SORT_INDEX_DOWNLOADS = 6;
-    public static final int CURSEFORGE_SORT_INDEX_POPULARITY = 2;
-    public static final int CURSEFORGE_SORT_INDEX_RECENTLY_CREATED = 11;
-    public static final int CURSEFORGE_SORT_INDEX_RECENTLY_UPDATED = 3;
-    public static final List<String> indexList = new ArrayList<>();
-
-    public static List<String> getIndexList(Context context) {
+    @JvmStatic
+    fun getIndexList(context: Context): List<String> {
         if (indexList.isEmpty()) {
-            indexList.add(context.getString(R.string.zh_profile_mods_search_sort_by_relevant)); //相关 0
-            indexList.add(context.getString(R.string.zh_profile_mods_search_sort_by_total_downloads)); //总下载 1
-            indexList.add(context.getString(R.string.zh_profile_mods_search_sort_by_popularity)); //人气 2
-            indexList.add(context.getString(R.string.zh_profile_mods_search_sort_by_recently_created)); //最近创建 3
-            indexList.add(context.getString(R.string.zh_profile_mods_search_sort_by_recently_updated)); //最近更新 4
+            indexList.add(context.getString(R.string.zh_profile_mods_search_sort_by_relevant)) //相关 0
+            indexList.add(context.getString(R.string.zh_profile_mods_search_sort_by_total_downloads)) //总下载 1
+            indexList.add(context.getString(R.string.zh_profile_mods_search_sort_by_popularity)) //人气 2
+            indexList.add(context.getString(R.string.zh_profile_mods_search_sort_by_recently_created)) //最近创建 3
+            indexList.add(context.getString(R.string.zh_profile_mods_search_sort_by_recently_updated)) //最近更新 4
         }
-        return indexList;
+        return indexList
     }
 
-    public static String getModrinthIndexById(int id) {
-        switch (id) {
-            case 1:
-                return "downloads";
-            case 2:
-                return "follows";
-            case 3:
-                return "newest";
-            case 4:
-                return "updated";
-            case 0:
-            default:
-                return "relevance";
+    @JvmStatic
+    fun getModrinthIndexById(id: Int): String {
+        return when (id) {
+            1 -> "downloads"
+            2 -> "follows"
+            3 -> "newest"
+            4 -> "updated"
+            else -> "relevance"
         }
     }
 
-    public static int getCurseforgeIndexById(int id) {
-        switch (id) {
-            case 1:
-                return CURSEFORGE_SORT_INDEX_DOWNLOADS;
-            case 2:
-                return CURSEFORGE_SORT_INDEX_POPULARITY;
-            case 3:
-                return CURSEFORGE_SORT_INDEX_RECENTLY_CREATED;
-            case 4:
-                return CURSEFORGE_SORT_INDEX_RECENTLY_UPDATED;
-            case 0:
-            default:
-                return CURSEFORGE_SORT_INDEX_RELEVANT;
+    @JvmStatic
+    fun getCurseforgeIndexById(id: Int): Int {
+        return when (id) {
+            1 -> CURSEFORGE_SORT_INDEX_DOWNLOADS
+            2 -> CURSEFORGE_SORT_INDEX_POPULARITY
+            3 -> CURSEFORGE_SORT_INDEX_RECENTLY_CREATED
+            4 -> CURSEFORGE_SORT_INDEX_RECENTLY_UPDATED
+            else -> CURSEFORGE_SORT_INDEX_RELEVANT
         }
     }
 }

@@ -32,7 +32,7 @@ public class SelectModPackFragment extends Fragment implements TaskCountListener
     private File modPackFile;
     private boolean mTasksRunning;
 
-    public SelectModPackFragment(){
+    public SelectModPackFragment() {
         super(R.layout.fragment_select_modpack);
     }
 

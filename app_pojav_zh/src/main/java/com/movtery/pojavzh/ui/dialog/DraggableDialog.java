@@ -10,7 +10,7 @@ import android.view.WindowManager;
 import com.movtery.pojavzh.ui.subassembly.view.DraggableView;
 
 public abstract class DraggableDialog {
-    
+
     public static void initDialog(DialogInitializationListener listener) {
         Window window = listener.onInit();
         if (window != null) {

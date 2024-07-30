@@ -55,13 +55,15 @@ public class ControlsListViewCreator {
             @Override
             public void onItemClick(String name) {
                 File file = new File(fullPath, name);
-                if (ControlsListViewCreator.this.fileSelectedListener != null) fileSelectedListener.onFileSelected(file, file.getAbsolutePath());
+                if (ControlsListViewCreator.this.fileSelectedListener != null)
+                    fileSelectedListener.onFileSelected(file, file.getAbsolutePath());
             }
 
             @Override
             public void onLongClick(String name) {
                 File file = new File(fullPath, name);
-                if (ControlsListViewCreator.this.fileSelectedListener != null) fileSelectedListener.onItemLongClick(file, file.getAbsolutePath());
+                if (ControlsListViewCreator.this.fileSelectedListener != null)
+                    fileSelectedListener.onItemLongClick(file, file.getAbsolutePath());
             }
 
             @Override

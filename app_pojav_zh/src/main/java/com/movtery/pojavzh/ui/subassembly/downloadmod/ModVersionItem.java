@@ -31,27 +31,35 @@ public class ModVersionItem {
     public String getName() {
         return name;
     }
+
     public String[] getVersionId() {
         return versionId;
     }
+
     public String getTitle() {
         return title;
     }
+
     public String getModloaders() {
         return modloaders;
     }
+
     public String getVersionHash() {
         return versionHash;
     }
+
     public int getDownload() {
         return download;
     }
+
     public String getDownloadUrl() {
         return downloadUrl;
     }
+
     public List<ModDependencies> getModDependencies() {
         return modDependencies;
     }
+
     public VersionType.VersionTypeEnum getVersionType() {
         return versionType;
     }

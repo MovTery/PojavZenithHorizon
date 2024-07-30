@@ -2,8 +2,8 @@ package com.movtery.pojavzh.feature.mod.modpack.install;
 
 import android.util.Log;
 
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.feature.mod.models.MCBBSPackMeta;
-import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
 
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.CurseManifest;
@@ -16,19 +16,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 public class ModPackUtils {
-    public enum ModPackEnum {
-        UNKNOWN("unknown"),
-        CURSEFORGE("curseforge"),
-        MCBBS("mcbbs"),
-        MODRINTH("modrinth");
-
-        public final String name;
-
-        ModPackEnum(String name) {
-            this.name = name;
-        }
-    }
-
     public static ModPackEnum determineModpack(File modpack) {
         String zipName = modpack.getName();
         String suffix = zipName.substring(zipName.lastIndexOf('.'));
@@ -94,5 +81,18 @@ public class ModPackUtils {
         if (mcbbsPackMeta.addons == null) return false;
         if (mcbbsPackMeta.addons[0].id == null) return false;
         return (mcbbsPackMeta.addons[0].version != null);
+    }
+
+    public enum ModPackEnum {
+        UNKNOWN("unknown"),
+        CURSEFORGE("curseforge"),
+        MCBBS("mcbbs"),
+        MODRINTH("modrinth");
+
+        public final String name;
+
+        ModPackEnum(String name) {
+            this.name = name;
+        }
     }
 }
