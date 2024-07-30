@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application' version '8.3.1'
+    id 'org.jetbrains.kotlin.android' version '2.0.0'
 }
 
 def getVersionCode = {
@@ -142,6 +143,9 @@ android {
     }
 
     buildToolsVersion = '34.0.0'
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 
     applicationVariants.configureEach { variant ->
         variant.outputs.configureEach { output ->
@@ -191,4 +195,5 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'org.commonmark:commonmark:0.19.0'
     implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
 }
