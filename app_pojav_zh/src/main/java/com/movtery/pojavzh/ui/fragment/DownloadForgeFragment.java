@@ -52,7 +52,7 @@ public class DownloadForgeFragment extends TwoLevelListFragment implements Modlo
         return PojavApplication.sExecutorService.submit(() -> {
             try {
                 runOnUiThread(() -> {
-                    setFailedToLoad(false);
+                    cancelFailedToLoad();
                     componentProcessing(true);
                 });
                 List<String> forgeVersions = ForgeUtils.downloadForgeVersions();
@@ -60,7 +60,7 @@ public class DownloadForgeFragment extends TwoLevelListFragment implements Modlo
             } catch (Exception e) {
                 runOnUiThread(() -> {
                     componentProcessing(false);
-                    setFailedToLoad(true);
+                    setFailedToLoad(e.toString());
                 });
             }
         });
@@ -70,7 +70,7 @@ public class DownloadForgeFragment extends TwoLevelListFragment implements Modlo
         if (forgeVersions == null) {
             runOnUiThread(() -> {
                 componentProcessing(false);
-                setFailedToLoad(true);
+                setFailedToLoad("forgeVersions is Empty!");
             });
             return;
         }

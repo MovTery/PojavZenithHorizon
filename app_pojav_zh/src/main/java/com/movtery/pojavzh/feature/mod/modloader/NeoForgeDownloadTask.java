@@ -43,7 +43,7 @@ public class NeoForgeDownloadTask implements Runnable, Tools.DownloaderFeedback 
                 if (this.mFullVersion.contains("1.20.1") ? determineNeoForgedForgeDownloadUrl() : determineNeoForgeDownloadUrl()) {
                     downloadNeoForge();
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         } else {
@@ -51,7 +51,7 @@ public class NeoForgeDownloadTask implements Runnable, Tools.DownloaderFeedback 
                 if (this.mGameVersion.equals("1.20.1") ? determineNeoForgedForgeDownloadUrl() : determineNeoForgeDownloadUrl()) {
                     downloadNeoForge();
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
@@ -88,11 +88,11 @@ public class NeoForgeDownloadTask implements Runnable, Tools.DownloaderFeedback 
         return true;
     }
 
-    public boolean determineNeoForgeDownloadUrl() throws IOException {
+    public boolean determineNeoForgeDownloadUrl() throws Exception {
         return determineDownloadUrl(findNeoForgeVersion());
     }
 
-    public boolean determineNeoForgedForgeDownloadUrl() throws IOException {
+    public boolean determineNeoForgedForgeDownloadUrl() throws Exception {
         return determineDownloadUrl(findNeoForgedForgeVersion());
     }
 
@@ -108,11 +108,11 @@ public class NeoForgeDownloadTask implements Runnable, Tools.DownloaderFeedback 
         return false;
     }
 
-    public boolean findNeoForgeVersion() throws IOException {
+    public boolean findNeoForgeVersion() throws Exception {
         return findVersion(NeoForgeUtils.downloadNeoForgeVersions(), NeoForgeUtils.getNeoForgeInstallerUrl(mFullVersion));
     }
 
-    public boolean findNeoForgedForgeVersion() throws IOException {
+    public boolean findNeoForgedForgeVersion() throws Exception {
         return findVersion(NeoForgeUtils.downloadNeoForgedForgeVersions(), NeoForgeUtils.getNeoForgedForgeInstallerUrl(mFullVersion));
     }
 
