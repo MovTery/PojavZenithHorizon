@@ -51,18 +51,27 @@ public class DownloadOptiFineFragment extends TwoLevelListFragment implements Mo
     protected Future<?> refresh() {
         return PojavApplication.sExecutorService.submit(() -> {
             try {
-                runOnUiThread(() -> componentProcessing(true));
+                runOnUiThread(() -> {
+                    cancelFailedToLoad();
+                    componentProcessing(true);
+                });
                 OptiFineUtils.OptiFineVersions optiFineVersions = OptiFineUtils.downloadOptiFineVersions();
                 processModDetails(optiFineVersions);
             } catch (Exception e) {
-                runOnUiThread(() -> componentProcessing(false));
+                runOnUiThread(() -> {
+                    componentProcessing(false);
+                    setFailedToLoad(e.toString());
+                });
             }
         });
     }
 
     private void processModDetails(OptiFineUtils.OptiFineVersions optiFineVersions) {
         if (optiFineVersions == null) {
-            runOnUiThread(() -> componentProcessing(false));
+            runOnUiThread(() -> {
+                componentProcessing(false);
+                setFailedToLoad("optiFineVersions is Empty!");
+            });
             return;
         }
         Future<?> currentTask = getCurrentTask();

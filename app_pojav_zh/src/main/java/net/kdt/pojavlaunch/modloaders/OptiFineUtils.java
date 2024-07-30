@@ -6,19 +6,12 @@ import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.utils.DownloadUtils;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 public class OptiFineUtils {
 
-    public static OptiFineVersions downloadOptiFineVersions() throws IOException {
-        try {
-            return DownloadUtils.downloadStringCached("https://optifine.net/downloads",
-                    "of_downloads_page", new OptiFineScraper());
-        }catch (DownloadUtils.ParseException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public static OptiFineVersions downloadOptiFineVersions() throws Exception {
+        return DownloadUtils.downloadStringCached("https://optifine.net/downloads", "of_downloads_page", new OptiFineScraper());
     }
 
     public static void addAutoInstallArgs(Intent intent, File modInstallerJar) {

@@ -25,7 +25,6 @@ import net.kdt.pojavlaunch.modloaders.ModloaderDownloadListener;
 import net.kdt.pojavlaunch.modloaders.ModloaderListenerProxy;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -53,31 +52,36 @@ public class DownloadNeoForgeFragment extends TwoLevelListFragment implements Mo
     protected Future<?> refresh() {
         return PojavApplication.sExecutorService.submit(() -> {
             try {
-                runOnUiThread(() -> componentProcessing(true));
+                runOnUiThread(() -> {
+                    cancelFailedToLoad();
+                    componentProcessing(true);
+                });
                 processModDetails(loadVersionList());
             } catch (Exception e) {
-                runOnUiThread(() -> componentProcessing(false));
+                runOnUiThread(() -> {
+                    componentProcessing(false);
+                    setFailedToLoad(e.toString());
+                });
             }
         });
     }
 
-    public List<String> loadVersionList() {
-        try {
-            List<String> versions = new ArrayList<>();
-            versions.addAll(NeoForgeUtils.downloadNeoForgedForgeVersions());
-            versions.addAll(NeoForgeUtils.downloadNeoForgeVersions());
+    public List<String> loadVersionList() throws Exception {
+        List<String> versions = new ArrayList<>();
+        versions.addAll(NeoForgeUtils.downloadNeoForgedForgeVersions());
+        versions.addAll(NeoForgeUtils.downloadNeoForgeVersions());
 
-            Collections.reverse(versions);
+        Collections.reverse(versions);
 
-            return versions;
-        } catch (IOException e) {
-            return null;
-        }
+        return versions;
     }
 
     private void processModDetails(List<String> neoForgeVersions) {
         if (neoForgeVersions == null) {
-            runOnUiThread(() -> componentProcessing(false));
+            runOnUiThread(() -> {
+                componentProcessing(false);
+                setFailedToLoad("neoForgeVersions is Empty!");
+            });
             return;
         }
         Future<?> currentTask = getCurrentTask();

@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.pojavzh.utils.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
 
@@ -176,8 +177,14 @@ public abstract class TwoLevelListFragment extends Fragment {
         mReleaseCheckBox.setVisibility(View.GONE);
     }
 
-    protected void setFailedToLoad(boolean failed) {
-        AnimUtils.setVisibilityAnim(mFailedToLoad, failed);
+    protected void setFailedToLoad(String reasons) {
+        String text = getString(R.string.modloader_dl_failed_to_load_list);
+        mFailedToLoad.setText(reasons == null ? text : StringUtils.insertNewline(text, reasons));
+        AnimUtils.setVisibilityAnim(mFailedToLoad, true);
+    }
+
+    protected void cancelFailedToLoad() {
+        AnimUtils.setVisibilityAnim(mFailedToLoad, false);
     }
 
     protected void switchToChild(RecyclerView.Adapter<?> adapter, String title) {

@@ -59,11 +59,17 @@ public class DownloadModFragment extends TwoLevelListFragment {
     protected Future<?> refresh() {
         return PojavApplication.sExecutorService.submit(() -> {
             try {
-                runOnUiThread(() -> componentProcessing(true));
+                runOnUiThread(() -> {
+                    cancelFailedToLoad();
+                    componentProcessing(true);
+                });
                 ModDetail mModDetail = mModApi.getModDetails(mModItem);
                 processModDetails(mModDetail);
             } catch (Exception e) {
-                runOnUiThread(() -> componentProcessing(false));
+                runOnUiThread(() -> {
+                    componentProcessing(false);
+                    setFailedToLoad(e.toString());
+                });
             }
         });
     }
