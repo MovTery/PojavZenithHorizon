@@ -1,49 +1,49 @@
-package com.movtery.pojavzh.ui.subassembly.customcontrols;
+package com.movtery.pojavzh.ui.subassembly.customcontrols
 
-import android.content.Context;
+import android.content.Context
+import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.customcontrols.CustomControls
+import net.kdt.pojavlaunch.customcontrols.LayoutConverter
+import org.json.JSONObject
+import java.io.File
+import java.io.IOException
 
-import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.customcontrols.CustomControls;
-import net.kdt.pojavlaunch.customcontrols.LayoutConverter;
-
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-
-public class EditControlData {
-
-    public static ControlInfoData loadFormFile(Context context, File file) {
-        CustomControls customControls = loadCustomControlsFromFile(context, file);
+object EditControlData {
+    @JvmStatic
+    fun loadFormFile(context: Context?, file: File): ControlInfoData? {
+        val customControls = loadCustomControlsFromFile(context, file)
         if (customControls != null) {
-            ControlInfoData mControlInfoDataList = customControls.mControlInfoDataList;
-            mControlInfoDataList.fileName = file.getName();
-            return mControlInfoDataList;
+            val mControlInfoDataList = customControls.mControlInfoDataList
+            mControlInfoDataList.fileName = file.name
+            return mControlInfoDataList
         }
-        return null;
+        return null
     }
 
-    public static CustomControls loadCustomControlsFromFile(Context context, File file) {
+    @JvmStatic
+    fun loadCustomControlsFromFile(context: Context?, file: File): CustomControls? {
         try {
-            String jsonLayoutData = Tools.read(file);
-            JSONObject layoutJsonObject = new JSONObject(jsonLayoutData);
-            return LayoutConverter.loadFromJsonObject(context, layoutJsonObject, jsonLayoutData, file.getAbsolutePath(), false);
-        } catch (Exception ignored) {
-            return null;
+            val jsonLayoutData = Tools.read(file)
+            val layoutJsonObject = JSONObject(jsonLayoutData)
+            return LayoutConverter.loadFromJsonObject(context, layoutJsonObject, jsonLayoutData, file.absolutePath, false)
+        } catch (ignored: Exception) {
+            return null
         }
     }
 
-    public static void saveToFile(Context context, CustomControls customControls, File file) {
+    @JvmStatic
+    fun saveToFile(context: Context?, customControls: CustomControls?, file: File) {
         try {
-            Tools.write(file.getAbsolutePath(), Tools.GLOBAL_GSON.toJson(customControls));
-        } catch (IOException e) {
-            Tools.showError(context, e);
+            Tools.write(file.absolutePath, Tools.GLOBAL_GSON.toJson(customControls))
+        } catch (e: IOException) {
+            Tools.showError(context, e)
         }
     }
 
-    public static void createNewControlFile(Context context, File jsonFile, ControlInfoData mControlInfoDataList) {
-        CustomControls customControls = new CustomControls(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), mControlInfoDataList);
-        saveToFile(context, customControls, jsonFile);
+    @JvmStatic
+    fun createNewControlFile(context: Context?, jsonFile: File, mControlInfoDataList: ControlInfoData?) {
+        val customControls =
+            CustomControls(ArrayList(), ArrayList(), ArrayList(), mControlInfoDataList)
+        saveToFile(context, customControls, jsonFile)
     }
 }

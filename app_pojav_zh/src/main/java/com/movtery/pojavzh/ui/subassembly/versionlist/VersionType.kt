@@ -1,5 +1,5 @@
-package com.movtery.pojavzh.ui.subassembly.versionlist;
+package com.movtery.pojavzh.ui.subassembly.versionlist
 
-public enum VersionType {
+enum class VersionType {
     INSTALLED, RELEASE, SNAPSHOT, BETA, ALPHA
 }

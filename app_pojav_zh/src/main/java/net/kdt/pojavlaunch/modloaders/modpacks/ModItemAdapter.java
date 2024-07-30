@@ -170,11 +170,11 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 FragmentActivity fragmentActivity = mod.fragment.requireActivity();
                 ModApiViewModel viewModel = new ViewModelProvider(fragmentActivity).get(ModApiViewModel.class);
                 RecyclerViewModel recyclerViewModel = new ViewModelProvider(fragmentActivity).get(RecyclerViewModel.class);
-                viewModel.setModApi(mod.api);
-                viewModel.setModItem(item);
-                viewModel.setModpack(mod.isModpack);
-                viewModel.setModsPath(mod.modsPath);
-                recyclerViewModel.setView(modsRecyclerView);
+                viewModel.modApi = mod.api;
+                viewModel.modItem = item;
+                viewModel.isModpack = mod.isModpack;
+                viewModel.modsPath = mod.modsPath;
+                recyclerViewModel.view = modsRecyclerView;
 
                 ZHTools.addFragment(mod.fragment, DownloadModFragment.class, DownloadModFragment.TAG, null);
             });

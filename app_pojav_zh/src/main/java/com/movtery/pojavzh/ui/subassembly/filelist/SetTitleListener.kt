@@ -1,5 +1,5 @@
-package com.movtery.pojavzh.ui.subassembly.filelist;
+package com.movtery.pojavzh.ui.subassembly.filelist
 
-public interface SetTitleListener {
-    void setTitle(String string);
+interface SetTitleListener {
+    fun setTitle(string: String?)
 }

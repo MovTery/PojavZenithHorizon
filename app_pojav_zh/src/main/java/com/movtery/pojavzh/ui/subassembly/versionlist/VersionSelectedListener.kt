@@ -1,5 +1,5 @@
-package com.movtery.pojavzh.ui.subassembly.versionlist;
+package com.movtery.pojavzh.ui.subassembly.versionlist
 
-public abstract class VersionSelectedListener {
-    public abstract void onVersionSelected(String version);
+abstract class VersionSelectedListener {
+    abstract fun onVersionSelected(version: String?)
 }

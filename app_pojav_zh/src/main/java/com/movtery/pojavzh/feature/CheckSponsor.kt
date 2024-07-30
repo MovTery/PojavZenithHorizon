@@ -1,96 +1,97 @@
-package com.movtery.pojavzh.feature;
+package com.movtery.pojavzh.feature
 
-import android.content.Context;
-import android.util.Base64;
-import android.util.Log;
+import android.content.Context
+import android.util.Base64
+import android.util.Log
+import com.movtery.pojavzh.ui.subassembly.about.SponsorItemBean
+import com.movtery.pojavzh.ui.subassembly.about.SponsorMeta
+import com.movtery.pojavzh.utils.ZHTools
+import com.movtery.pojavzh.utils.http.CallUtils
+import com.movtery.pojavzh.utils.http.CallUtils.CallbackListener
+import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.Tools
+import okhttp3.Call
+import okhttp3.Response
+import org.json.JSONObject
+import java.io.IOException
+import java.nio.charset.StandardCharsets
+import java.util.Objects
 
-import com.movtery.pojavzh.ui.subassembly.about.SponsorItemBean;
-import com.movtery.pojavzh.ui.subassembly.about.SponsorMeta;
-import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.http.CallUtils;
+object CheckSponsor {
+    private var sponsorData: ArrayList<SponsorItemBean>? = null
+    private var isChecking = false
 
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
-
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
-import okhttp3.Call;
-import okhttp3.Response;
-
-public class CheckSponsor {
-    private static List<SponsorItemBean> sponsorData = null;
-    private static boolean isChecking = false;
-
-    public static List<SponsorItemBean> getSponsorData() {
-        return sponsorData;
+    @JvmStatic
+    fun getSponsorData(): List<SponsorItemBean>? {
+        return sponsorData
     }
 
-    public static void check(Context context, CheckListener listener) {
+    @JvmStatic
+    fun check(context: Context, listener: CheckListener) {
         if (isChecking) {
-            listener.onFailure();
-            return;
+            listener.onFailure()
+            return
         }
-        isChecking = true;
+        isChecking = true
 
-        if (sponsorData != null) {
-            listener.onSuccessful(sponsorData);
-            isChecking = false;
-            return;
+        sponsorData?.let {
+            listener.onSuccessful(sponsorData)
+            isChecking = false
+            return
         }
 
-        sponsorData = new ArrayList<>();
-
-        String token = context.getString(R.string.zh_api_token);
-        new CallUtils(new CallUtils.CallbackListener() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                listener.onFailure();
-                isChecking = false;
+        val token = context.getString(R.string.zh_api_token)
+        CallUtils(object : CallbackListener {
+            override fun onFailure(call: Call?, e: IOException?) {
+                listener.onFailure()
+                isChecking = false
             }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
+            @Throws(IOException::class)
+            override fun onResponse(call: Call?, response: Response?) {
+                if (!response!!.isSuccessful) {
+                    throw IOException("Unexpected code $response")
                 } else {
                     try {
-                        Objects.requireNonNull(response.body());
-                        String responseBody = response.body().string();
+                        Objects.requireNonNull(response.body())
+                        val responseBody = response.body()!!.string()
 
-                        JSONObject originJson = new JSONObject(responseBody);
-                        String rawBase64 = originJson.getString("content");
+                        val originJson = JSONObject(responseBody)
+                        val rawBase64 = originJson.getString("content")
                         //base64解码，因为这里读取的是一个经过Base64加密后的文本
-                        byte[] decodedBytes = Base64.decode(rawBase64, Base64.DEFAULT);
-                        String rawJson = new String(decodedBytes, StandardCharsets.UTF_8);
+                        val decodedBytes = Base64.decode(rawBase64, Base64.DEFAULT)
+                        val rawJson = String(decodedBytes, StandardCharsets.UTF_8)
 
-                        SponsorMeta sponsorMeta = Tools.GLOBAL_GSON.fromJson(rawJson, SponsorMeta.class);
-                        if (sponsorMeta.sponsors.length == 0) {
-                            listener.onFailure();
-                            return;
+                        val sponsorMeta =
+                            Tools.GLOBAL_GSON.fromJson(rawJson, SponsorMeta::class.java)
+                        if (sponsorMeta.sponsors.isEmpty()) {
+                            listener.onFailure()
+                            return
                         }
-                        for (SponsorMeta.Sponsor sponsor : sponsorMeta.sponsors) {
-                            sponsorData.add(new SponsorItemBean(sponsor.name, sponsor.time, sponsor.amount));
+                        sponsorData = ArrayList()
+                        for (sponsor in sponsorMeta.sponsors) {
+                            sponsorData!!.add(
+                                SponsorItemBean(
+                                    sponsor.name,
+                                    sponsor.time,
+                                    sponsor.amount
+                                )
+                            )
                         }
-                        listener.onSuccessful(sponsorData);
-                    } catch (Exception e) {
-                        Log.e("Load Sponsor Data", e.toString());
-                        listener.onFailure();
+                        listener.onSuccessful(sponsorData)
+                    } catch (e: Exception) {
+                        Log.e("Load Sponsor Data", e.toString())
+                        listener.onFailure()
                     }
                 }
-                isChecking = false;
+                isChecking = false
             }
-        }, ZHTools.URL_GITHUB_HOME + "sponsor.json", token.equals("DUMMY") ? null : token).start();
+        }, ZHTools.URL_GITHUB_HOME + "sponsor.json", if (token == "DUMMY") null else token).start()
     }
 
-    public interface CheckListener {
-        void onFailure();
+    interface CheckListener {
+        fun onFailure()
 
-        void onSuccessful(List<SponsorItemBean> data);
+        fun onSuccessful(data: List<SponsorItemBean>?)
     }
 }

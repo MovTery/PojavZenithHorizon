@@ -1,5 +1,5 @@
-package com.movtery.pojavzh.ui.subassembly.filelist;
+package com.movtery.pojavzh.ui.subassembly.filelist
 
-public interface RefreshListener {
-    void onRefresh();
+interface RefreshListener {
+    fun onRefresh()
 }

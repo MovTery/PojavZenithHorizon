@@ -1,74 +1,21 @@
-package com.movtery.pojavzh.ui.subassembly.downloadmod;
+package com.movtery.pojavzh.ui.subassembly.downloadmod
 
-import androidx.annotation.NonNull;
+import com.movtery.pojavzh.ui.subassembly.downloadmod.VersionType.VersionTypeEnum
 
-import java.util.Arrays;
-import java.util.List;
-
-public class ModVersionItem {
-    private final String[] versionId;
-    private final String name;
-    private final String title;
-    private final String modloaders;
-    private final String versionHash;
-    private final int download;
-    private final String downloadUrl;
-    private final List<ModDependencies> modDependencies;
-    private final VersionType.VersionTypeEnum versionType;
-
-    public ModVersionItem(String[] versionId, String name, String title, String modloaders, List<ModDependencies> modDependencies, VersionType.VersionTypeEnum versionType, String versionHash, int download, String downloadUrl) {
-        this.versionId = versionId;
-        this.name = name;
-        this.title = title;
-        this.modloaders = modloaders;
-        this.versionHash = versionHash;
-        this.download = download;
-        this.downloadUrl = downloadUrl;
-        this.modDependencies = modDependencies;
-        this.versionType = versionType;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String[] getVersionId() {
-        return versionId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getModloaders() {
-        return modloaders;
-    }
-
-    public String getVersionHash() {
-        return versionHash;
-    }
-
-    public int getDownload() {
-        return download;
-    }
-
-    public String getDownloadUrl() {
-        return downloadUrl;
-    }
-
-    public List<ModDependencies> getModDependencies() {
-        return modDependencies;
-    }
-
-    public VersionType.VersionTypeEnum getVersionType() {
-        return versionType;
-    }
-
-    @NonNull
-    @Override
-    public String toString() {
+class ModVersionItem(
+    @JvmField val versionId: Array<String>,
+    @JvmField val name: String,
+    @JvmField val title: String,
+    @JvmField val modloaders: String,
+    @JvmField val modDependencies: List<ModDependencies>,
+    @JvmField val versionType: VersionTypeEnum,
+    @JvmField val versionHash: String,
+    @JvmField val download: Int,
+    @JvmField val downloadUrl: String
+) {
+    override fun toString(): String {
         return "ModVersionItem{" +
-                "versionId=" + Arrays.toString(versionId) +
+                "versionId=" + versionId.contentToString() +
                 ", name='" + name + '\'' +
                 ", title='" + title + '\'' +
                 ", modloaders='" + modloaders + '\'' +
@@ -77,6 +24,6 @@ public class ModVersionItem {
                 ", downloadUrl='" + downloadUrl + '\'' +
                 ", modDependencies=" + modDependencies +
                 ", versionType=" + versionType +
-                '}';
+                '}'
     }
 }

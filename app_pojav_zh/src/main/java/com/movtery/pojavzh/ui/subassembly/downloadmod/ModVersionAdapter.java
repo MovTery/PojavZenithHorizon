@@ -76,23 +76,23 @@ public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.In
         }
 
         public void setData(ModVersionItem modVersionItem) {
-            mImageView.setImageResource(getDownloadType(modVersionItem.getVersionType()));
+            mImageView.setImageResource(getDownloadType(modVersionItem.versionType));
 
-            mTitle.setText(modVersionItem.getTitle());
+            mTitle.setText(modVersionItem.title);
 
             String downloadCountText = StringUtils.insertSpace(context.getString(R.string.zh_profile_mods_information_download_count),
-                    NumberWithUnits.formatNumberWithUnit(modVersionItem.getDownload(), ZHTools.isEnglish(context)));
+                    NumberWithUnits.formatNumberWithUnit(modVersionItem.download, ZHTools.isEnglish(context)));
             mDownloadCount.setText(downloadCountText);
 
             String modloaderText;
-            if (modVersionItem.getModloaders() != null && !modVersionItem.getModloaders().isEmpty()) {
-                modloaderText = modVersionItem.getModloaders();
+            if (!modVersionItem.modloaders.isEmpty()) {
+                modloaderText = modVersionItem.modloaders;
             } else {
                 modloaderText = context.getString(R.string.zh_unknown);
             }
             mModloaders.setText(StringUtils.insertSpace(context.getString(R.string.zh_profile_mods_information_modloader), modloaderText));
 
-            mReleaseType.setText(getDownloadTypeText(modVersionItem.getVersionType()));
+            mReleaseType.setText(getDownloadTypeText(modVersionItem.versionType));
 
             mainView.setOnClickListener(v -> {
                 if (mTasksRunning) {
@@ -100,11 +100,11 @@ public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.In
                     return;
                 }
 
-                if (!modVersionItem.getModDependencies().isEmpty()) {
+                if (!modVersionItem.modDependencies.isEmpty()) {
                     ModDependenciesDialog dependenciesDialog = new ModDependenciesDialog(
                             context,
                             mod,
-                            modVersionItem.getModDependencies(),
+                            modVersionItem.modDependencies,
                             () -> mod.api.handleInstallation(context, mod.isModpack, mod.modsPath, modDetail, modVersionItem));
                     dependenciesDialog.show();
                     return;

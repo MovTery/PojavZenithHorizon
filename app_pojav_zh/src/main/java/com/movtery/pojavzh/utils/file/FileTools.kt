@@ -12,13 +12,11 @@ import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
+import org.apache.commons.io.FileUtils
 import java.io.File
 import java.io.FilenameFilter
 import java.io.InputStream
-import java.nio.file.Files
-import java.nio.file.StandardCopyOption
 import java.security.MessageDigest
-import java.util.Objects
 
 object FileTools {
     @JvmStatic
@@ -37,8 +35,7 @@ object FileTools {
         val outputFile = File(rootPath, fileName)
         try {
             context.contentResolver.openInputStream(fileUri!!).use { inputStream ->
-                Objects.requireNonNull(inputStream)
-                Files.copy(inputStream, outputFile.toPath(), StandardCopyOption.REPLACE_EXISTING)
+                FileUtils.copyInputStreamToFile(inputStream, outputFile)
             }
         } catch (e: Exception) {
             throw RuntimeException(e)
@@ -170,7 +167,7 @@ object FileTools {
     }
 
     @JvmStatic
-    fun renameFile(origin: File, target: File?): Boolean {
+    fun renameFile(origin: File, target: File): Boolean {
         return origin.renameTo(target)
     }
 

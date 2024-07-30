@@ -1,35 +1,20 @@
-package com.movtery.pojavzh.ui.subassembly.twolevellist;
+package com.movtery.pojavzh.ui.subassembly.twolevellist
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView
+import java.util.concurrent.atomic.AtomicReference
 
-import java.util.concurrent.atomic.AtomicReference;
+class TwoLevelListItemBean(@JvmField val title: String, adapter: RecyclerView.Adapter<*>) {
+    private val adapter = AtomicReference(adapter)
 
-public class TwoLevelListItemBean {
-    private final String title;
-    private final AtomicReference<RecyclerView.Adapter<?>> adapter;
-
-    public TwoLevelListItemBean(String title, RecyclerView.Adapter<?> adapter) {
-        this.title = title;
-        this.adapter = new AtomicReference<>(adapter);
+    fun getAdapter(): RecyclerView.Adapter<*> {
+        return adapter.get()
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public RecyclerView.Adapter<?> getAdapter() {
-        return adapter.get();
-    }
-
-
-    @NonNull
-    @Override
-    public String toString() {
+    override fun toString(): String {
         return "CollapsibleExpandItemBean{" +
                 "title='" + title + '\'' +
                 ", adapter=" + adapter +
-                '}';
+                '}'
     }
 }
 

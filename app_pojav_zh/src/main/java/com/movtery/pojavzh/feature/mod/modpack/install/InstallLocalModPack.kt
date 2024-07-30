@@ -31,7 +31,7 @@ object InstallLocalModPack {
             ZipFile(zipFile).use { modpackZipFile ->
                 val zipName = zipFile.name
                 val packName = zipName.substring(0, zipName.lastIndexOf('.'))
-                val modLoader: ModLoader
+                val modLoader: ModLoader?
                 when (type) {
                     ModPackEnum.CURSEFORGE -> {
                         val curseforgeEntry = modpackZipFile.getEntry("manifest.json")
@@ -41,8 +41,7 @@ object InstallLocalModPack {
                             ), CurseManifest::class.java
                         )
 
-                        modLoader =
-                            curseforgeModPack(context, zipFile, packName, onInstallStartListener)
+                        modLoader = curseforgeModPack(context, zipFile, packName, onInstallStartListener)
                         ModPackUtils.createModPackProfiles(
                             packName,
                             curseManifest.name,
@@ -65,7 +64,7 @@ object InstallLocalModPack {
                         MCBBSModPack.createModPackProfiles(
                             packName,
                             mcbbsPackMeta,
-                            modLoader.versionId
+                            modLoader?.versionId
                         )
 
                         return modLoader
@@ -139,12 +138,7 @@ object InstallLocalModPack {
     }
 
     @Throws(Exception::class)
-    private fun mcbbsModPack(
-        context: Context,
-        zipFile: File,
-        packName: String,
-        onInstallStartListener: OnInstallStartListener
-    ): ModLoader {
+    private fun mcbbsModPack(context: Context, zipFile: File, packName: String, onInstallStartListener: OnInstallStartListener): ModLoader? {
         val mcbbsModPack = MCBBSModPack(context, zipFile)
         return mcbbsModPack.install(
             File(

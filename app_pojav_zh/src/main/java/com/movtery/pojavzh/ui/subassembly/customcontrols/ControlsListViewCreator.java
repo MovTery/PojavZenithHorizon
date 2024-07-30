@@ -114,11 +114,11 @@ public class ControlsListViewCreator {
                         ControlInfoData invalidInfoData = new ControlInfoData();
                         invalidInfoData.fileName = file.getName();
                         controlItemBean = new ControlItemBean(invalidInfoData);
-                        controlItemBean.setInvalid(true);
+                        controlItemBean.isInvalid = true;
                     } else {
                         controlItemBean = new ControlItemBean(controlInfoData);
                         if (shouldHighlight(controlInfoData, file)) {
-                            controlItemBean.setHighlighted(true);
+                            controlItemBean.isHighlighted = true;
                             searchCount.addAndGet(1);
                         } else if (showSearchResultsOnly) {
                             continue;
@@ -137,7 +137,7 @@ public class ControlsListViewCreator {
         if (filterString == null || filterString.isEmpty()) return false;
 
         String name = controlInfoData.name;
-        String searchString = (name != null && !name.isEmpty() && !name.equals("null")) ? name : file.getName();
+        String searchString = !name.isEmpty() && !name.equals("null") ? name : file.getName();
 
         //支持搜索文件名或布局名称
         return StringFilter.containsSubstring(searchString, filterString, caseSensitive) ||
