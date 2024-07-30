@@ -55,17 +55,17 @@ class OperationFile(
                 Tools.runOnUiThread { dialog.show() }
 
                 val preDeleteFiles: MutableList<File> = ArrayList()
-                selectedFiles.forEach(Consumer { selectedFile: File ->
+                selectedFiles.forEach(Consumer cancel_1@{ selectedFile: File ->
                     if (currentTask!!.isCancelled) {
-                        return@Consumer
+                        return@cancel_1
                     }
                     fileSize.addAndGet(FileUtils.sizeOf(selectedFile))
 
                     if (selectedFile.isDirectory) {
                         val allFiles = FileUtils.listFiles(selectedFile, null, true)
-                        allFiles.forEach(Consumer { file1: File ->
+                        allFiles.forEach(Consumer cancel_2@{ file1: File ->
                             if (currentTask!!.isCancelled) {
-                                return@Consumer
+                                return@cancel_2
                             }
                             fileCount.addAndGet(1)
                             preDeleteFiles.add(file1)
@@ -77,9 +77,9 @@ class OperationFile(
                 })
                 totalFileSize.set(fileSize.get())
 
-                preDeleteFiles.forEach(Consumer { file: File? ->
+                preDeleteFiles.forEach(Consumer cancel_3@{ file: File? ->
                     if (currentTask!!.isCancelled) {
-                        return@Consumer
+                        return@cancel_3
                     }
                     fileSize.addAndGet(-FileUtils.sizeOf(file))
                     fileCount.getAndDecrement()
