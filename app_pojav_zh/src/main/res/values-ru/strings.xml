@@ -115,7 +115,7 @@
     <string name="multirt_config_add">Добавить новую</string>
     <string name="multirt_title">Менеджер среды выполнения</string>
     <string name="multirt_subtitle">Управление установленными средами выполнения Java.</string>
-    <string name="multirt_progress_caching">Кэширование...</string>
+    <string name="multirt_progress_caching">Кэширование…</string>
     <string name="multirt_config_setdefault">Выбрать</string>
     <string name="multirt_config_setdefault_already">По умолчанию</string>
     <string name="multirt_config_removeerror_last">Должна быть установлена хотя бы одна среда выполнения Java.</string>

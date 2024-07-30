@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="zh_keycode_special">Especial</string>
+    <string name="zh_keycode_special_keyboard">Teclado Virtual</string>
+    <string name="zh_keycode_special_pri">Botão Esquerdo</string>
+    <string name="zh_keycode_special_sec">Botão Direito</string>
+    <string name="zh_keycode_special_mouse">Mouse</string>
+    <string name="zh_keycode_special_mid">Roda do Mouse - Botão do Meio</string>
+    <string name="zh_keycode_special_scrollup">Roda do Mouse - Descer</string>
+    <string name="zh_keycode_special_scrolldown">Roda do Mouse - Subir</string>
+    <string name="zh_keycode_special_menu">Menu Principal</string>
+    <string name="zh_keycode_left_alt">Alt Esquerdo</string>
+    <string name="zh_keycode_right_alt">Alt Direito</string>
+    <string name="zh_keycode_left_shift">Shift Esquerdo</string>
+    <string name="zh_keycode_right_shift">Shift Direito</string>
+    <string name="zh_keycode_space">Espaço</string>
+    <string name="zh_keycode_kp_plus">Teclado Numérico +</string>
+    <string name="zh_keycode_kp_divide">Teclado Numérico /</string>
+    <string name="zh_keycode_kp_multiply">Teclado Numérico *</string>
+    <string name="zh_keycode_kp_subtract">Teclado Numérico -</string>
+    <string name="zh_keycode_kp_decimal">Teclado Numérico .</string>
+    <string name="zh_keycode_kp_comma">Teclado Numérico ,</string>
+    <string name="zh_keycode_kp_enter">Teclado Numérico Enter</string>
+    <string name="zh_keycode_kp_equal">Teclado Numérico =</string>
+    <string name="zh_keycode_kp_0">Teclado Numérico 0</string>
+    <string name="zh_keycode_kp_1">Teclado Numérico 1</string>
+    <string name="zh_keycode_kp_2">Teclado Numérico 2</string>
+    <string name="zh_keycode_kp_3">Teclado Numérico 3</string>
+    <string name="zh_keycode_kp_4">Teclado Numérico 4</string>
+    <string name="zh_keycode_kp_5">Teclado Numérico 5</string>
+    <string name="zh_keycode_kp_6">Teclado Numérico 6</string>
+    <string name="zh_keycode_kp_7">Teclado Numérico 7</string>
+    <string name="zh_keycode_kp_8">Teclado Numérico 8</string>
+    <string name="zh_keycode_kp_9">Teclado Numérico 9</string>
+    <string name="zh_keycode_left_ctrl">Ctrl Esquerdo</string>
+    <string name="zh_keycode_right_ctrl">Ctrl Direito</string>
+</resources>
