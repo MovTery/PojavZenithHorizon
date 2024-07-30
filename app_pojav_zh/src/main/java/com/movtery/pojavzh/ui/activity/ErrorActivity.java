@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.file.FileTools;
 
 import net.kdt.pojavlaunch.BaseActivity;
 import net.kdt.pojavlaunch.LauncherActivity;
@@ -91,7 +92,7 @@ public class ErrorActivity extends BaseActivity {
         findViewById(R.id.zh_error_buttons).setVisibility(View.GONE);
         mTitleText.setText(R.string.zh_wrong_tip);
 
-        File crashReportFile = ZHTools.getLatestFile(extras.getString(BUNDLE_CRASH_REPORTS_PATH), 15);
+        File crashReportFile = FileTools.getLatestFile(extras.getString(BUNDLE_CRASH_REPORTS_PATH), 15);
         File logFile = new File(Tools.DIR_GAME_HOME, "latestlog.txt");
 
         mErrorText.setText(getString(R.string.zh_game_exit_message, code));
@@ -100,7 +101,7 @@ public class ErrorActivity extends BaseActivity {
         mShareLogButton.setVisibility(logFile.exists() ? View.VISIBLE : View.GONE);
 
         if (crashReportFile != null)
-            mShareCrashReportButton.setOnClickListener(view -> ZHTools.shareFile(this, crashReportFile.getName(), crashReportFile.getAbsolutePath()));
+            mShareCrashReportButton.setOnClickListener(view -> FileTools.shareFile(this, crashReportFile.getName(), crashReportFile.getAbsolutePath()));
         mShareLogButton.setOnClickListener(view -> shareLog(this));
     }
 
@@ -118,7 +119,7 @@ public class ErrorActivity extends BaseActivity {
             mgr.setPrimaryClip(ClipData.newPlainText("error", stackTrace));
         });
         File crashFile = new File(strSavePath);
-        mShareButton.setOnClickListener(v -> ZHTools.shareFile(this, crashFile.getName(), crashFile.getAbsolutePath()));
+        mShareButton.setOnClickListener(v -> FileTools.shareFile(this, crashFile.getName(), crashFile.getAbsolutePath()));
     }
 
     private void bindValues() {

@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileIcon;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileItemBean;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerViewCreator;
-import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.file.FileTools;
 
 import net.kdt.pojavlaunch.R;
 
@@ -74,7 +74,7 @@ public class SelectMouseDialog extends FullScreenDialog {
 
     private File mousePath() {
         File path = new File(DIR_CUSTOM_MOUSE);
-        if (!path.exists()) ZHTools.mkdirs(path);
+        if (!path.exists()) FileTools.mkdirs(path);
         return path;
     }
 

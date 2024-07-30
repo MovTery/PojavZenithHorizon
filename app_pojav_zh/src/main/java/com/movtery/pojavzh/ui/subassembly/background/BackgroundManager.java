@@ -3,6 +3,7 @@ package com.movtery.pojavzh.ui.subassembly.background;
 import android.graphics.drawable.Drawable;
 
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.file.FileTools;
 
 import net.kdt.pojavlaunch.Tools;
 
@@ -58,7 +59,7 @@ public class BackgroundManager {
     }
 
     private static void saveProperties(Properties properties) {
-        if (!ZHTools.DIR_BACKGROUND.exists()) ZHTools.mkdirs(ZHTools.DIR_BACKGROUND);
+        if (!ZHTools.DIR_BACKGROUND.exists()) FileTools.mkdirs(ZHTools.DIR_BACKGROUND);
 
         try {
             properties.store(new FileWriter(FILE_BACKGROUND_PROPERTIES), "Pojav Zenith Horizon Background Properties File");

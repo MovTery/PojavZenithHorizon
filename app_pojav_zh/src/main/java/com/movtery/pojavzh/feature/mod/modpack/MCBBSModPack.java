@@ -10,7 +10,7 @@ import com.movtery.pojavzh.feature.mod.models.MCBBSPackMeta;
 import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
 import com.movtery.pojavzh.feature.mod.modpack.install.OnInstallStartListener;
 import com.movtery.pojavzh.ui.dialog.ProgressDialog;
-import com.movtery.pojavzh.utils.file.FileUtils;
+import com.movtery.pojavzh.utils.file.FileTools;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
@@ -83,7 +83,7 @@ public class MCBBSModPack {
                     ZipEntry entry = modpackZipFile.getEntry(overridesDir + file.path);
                     if (entry != null) {
                         try (InputStream inputStream = modpackZipFile.getInputStream(entry)) {
-                            String fileHash = FileUtils.getFileHashSHA1(inputStream);
+                            String fileHash = FileTools.getFileHashSHA1(inputStream);
                             boolean equals = Objects.equals(file.hash, fileHash);
 //                            System.out.println(file.hash + " --- " + fileHash + " " + equals);
 

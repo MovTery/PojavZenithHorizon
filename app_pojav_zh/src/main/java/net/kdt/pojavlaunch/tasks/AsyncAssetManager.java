@@ -9,7 +9,7 @@ import android.util.Log;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.utils.CopyDefaultFromAssets;
-import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.file.FileTools;
 
 import net.kdt.pojavlaunch.Tools;
 
@@ -71,7 +71,7 @@ public class AsyncAssetManager {
             if (versionFile.getParentFile().exists() && versionFile.getParentFile().isDirectory()) {
                 FileUtils.deleteDirectory(versionFile.getParentFile());
             }
-            ZHTools.mkdir(versionFile.getParentFile());
+            FileTools.mkdir(versionFile.getParentFile());
 
             Log.i("UnpackPrep", component + ": Pack was installed manually, or does not exist, unpacking new...");
             String[] fileList = am.list("components/" + component);
@@ -86,7 +86,7 @@ public class AsyncAssetManager {
                 if (versionFile.getParentFile().exists() && versionFile.getParentFile().isDirectory()) {
                     FileUtils.deleteDirectory(versionFile.getParentFile());
                 }
-                ZHTools.mkdir(versionFile.getParentFile());
+                FileTools.mkdir(versionFile.getParentFile());
 
                 String[] fileList = am.list("components/" + component);
                 for (String fileName : fileList) {

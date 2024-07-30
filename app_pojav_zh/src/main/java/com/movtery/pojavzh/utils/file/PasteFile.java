@@ -5,8 +5,6 @@ import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import android.app.Activity;
 import android.widget.Toast;
 
-import com.movtery.pojavzh.utils.ZHTools;
-
 import net.kdt.pojavlaunch.R;
 
 import org.apache.commons.io.FileUtils;
@@ -95,7 +93,7 @@ public class PasteFile {
     private File getNewDestination(File sourceFile, File targetDir, String fileExtension) {
         File destFile = new File(targetDir, sourceFile.getName());
         if (destFile.exists()) {
-            String fileNameWithoutExt = ZHTools.getFileNameWithoutExtension(sourceFile.getName(), fileExtension);
+            String fileNameWithoutExt = FileTools.getFileNameWithoutExtension(sourceFile.getName(), fileExtension);
             if (fileExtension == null) {
                 int dotIndex = sourceFile.getName().lastIndexOf('.');
                 fileExtension = dotIndex == -1 ? "" : sourceFile.getName().substring(dotIndex);

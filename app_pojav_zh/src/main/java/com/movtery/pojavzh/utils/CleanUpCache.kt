@@ -2,6 +2,7 @@ package com.movtery.pojavzh.utils
 
 import android.content.Context
 import android.widget.Toast
+import com.movtery.pojavzh.utils.file.FileTools
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import org.apache.commons.io.FileUtils
@@ -48,7 +49,7 @@ object CleanUpCache {
                         context,
                         context.getString(
                             R.string.zh_clear_up_cache_clean_up,
-                            ZHTools.formatFileSize(finalTotalSize)
+                            FileTools.formatFileSize(finalTotalSize)
                         ),
                         Toast.LENGTH_SHORT
                     ).show()

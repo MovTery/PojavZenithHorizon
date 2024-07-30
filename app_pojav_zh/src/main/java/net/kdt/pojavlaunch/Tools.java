@@ -2,7 +2,6 @@ package net.kdt.pojavlaunch;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.P;
-import static com.movtery.pojavzh.utils.ZHTools.shareFile;
 import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_IGNORE_NOTCH;
@@ -53,6 +52,7 @@ import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.file.FileTools;
 
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutorTask;
@@ -1128,7 +1128,7 @@ public final class Tools {
      * Triggers the share intent chooser, with the latestlog file attached to it
      */
     public static void shareLog(Context context) {
-        shareFile(context, "latestlog.txt", Tools.DIR_GAME_HOME + "/latestlog.txt");
+        FileTools.shareFile(context, "latestlog.txt", Tools.DIR_GAME_HOME + "/latestlog.txt");
     }
 
     /** Mesure the textview height, given its current parameters */

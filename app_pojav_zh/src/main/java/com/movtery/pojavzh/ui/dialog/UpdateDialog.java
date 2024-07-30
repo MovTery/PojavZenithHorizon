@@ -1,6 +1,6 @@
 package com.movtery.pojavzh.ui.dialog;
 
-import static com.movtery.pojavzh.utils.ZHTools.markdownToHtml;
+import static com.movtery.pojavzh.utils.stringutils.StringUtils.markdownToHtml;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 
 import com.movtery.pojavzh.feature.UpdateLauncher;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.file.FileTools;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
@@ -50,7 +51,7 @@ public class UpdateDialog extends FullScreenDialog implements DraggableDialog.Di
 
         String version = StringUtils.insertSpace(getContext().getString(R.string.zh_update_dialog_version), this.versionName);
         String time = StringUtils.insertSpace(getContext().getString(R.string.zh_update_dialog_time), this.createdTime);
-        String size = StringUtils.insertSpace(getContext().getString(R.string.zh_update_dialog_file_size), ZHTools.formatFileSize(this.fileSize));
+        String size = StringUtils.insertSpace(getContext().getString(R.string.zh_update_dialog_file_size), FileTools.formatFileSize(this.fileSize));
 
         mVersionName.setText(version);
         mCreatedTime.setText(time);

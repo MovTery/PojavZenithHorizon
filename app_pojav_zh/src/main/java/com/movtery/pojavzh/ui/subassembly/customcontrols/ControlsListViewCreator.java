@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.movtery.pojavzh.ui.dialog.DeleteDialog;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
 import com.movtery.pojavzh.ui.subassembly.filelist.RefreshListener;
-import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.file.FileTools;
 import com.movtery.pojavzh.utils.stringutils.StringFilter;
 
 import net.kdt.pojavlaunch.PojavApplication;
@@ -174,7 +174,7 @@ public class ControlsListViewCreator {
 
     private File controlPath() {
         File ctrlPath = new File(Tools.CTRLMAP_PATH);
-        if (!ctrlPath.exists()) ZHTools.mkdirs(ctrlPath);
+        if (!ctrlPath.exists()) FileTools.mkdirs(ctrlPath);
         return ctrlPath;
     }
 
