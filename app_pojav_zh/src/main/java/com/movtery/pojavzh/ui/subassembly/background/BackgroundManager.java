@@ -3,6 +3,7 @@ package com.movtery.pojavzh.ui.subassembly.background;
 import android.graphics.drawable.Drawable;
 
 import com.movtery.pojavzh.utils.ZHTools;
+
 import net.kdt.pojavlaunch.Tools;
 
 import java.io.File;
@@ -13,8 +14,8 @@ import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class BackgroundManager {
-    private static final Map<String, Drawable> backgroundDrawable = new ConcurrentHashMap<>();
     public static final File FILE_BACKGROUND_PROPERTIES = new File(Tools.DIR_GAME_HOME, "background.properties");
+    private static final Map<String, Drawable> backgroundDrawable = new ConcurrentHashMap<>();
 
     public static Drawable getBackgroundDrawable(String name, File imageFile) {
         boolean hasDrawable = backgroundDrawable.containsKey(name);
@@ -55,7 +56,7 @@ public class BackgroundManager {
         saveProperties(properties);
         return properties;
     }
-    
+
     private static void saveProperties(Properties properties) {
         if (!ZHTools.DIR_BACKGROUND.exists()) ZHTools.mkdirs(ZHTools.DIR_BACKGROUND);
 

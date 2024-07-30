@@ -50,8 +50,8 @@ import com.google.gson.GsonBuilder;
 import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
-import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathHome;
-import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;

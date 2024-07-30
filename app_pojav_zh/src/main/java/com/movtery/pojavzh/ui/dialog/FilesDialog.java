@@ -129,7 +129,8 @@ public class FilesDialog extends FullScreenDialog implements DraggableDialog.Dia
         if (filesButton.titleText != null) mTitle.setText(filesButton.titleText);
         if (filesButton.messageText != null) mMessage.setText(filesButton.messageText);
         if (filesButton.moreButtonText != null) moreText.setText(filesButton.moreButtonText);
-        if (file != null && file.isDirectory()) mTitle.setText(getContext().getString(R.string.zh_file_folder_tips));
+        if (file != null && file.isDirectory())
+            mTitle.setText(getContext().getString(R.string.zh_file_folder_tips));
     }
 
     private void closeDialog() {

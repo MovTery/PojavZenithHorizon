@@ -22,6 +22,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @SuppressLint("ViewConstructor")
 public class FileRecyclerView extends LinearLayout {
     private final List<FileItemBean> mData = new ArrayList<>();
+    private final AtomicInteger searchCount = new AtomicInteger(0);
     private Context context;
     private FileRecyclerViewCreator fileRecyclerViewCreator;
     private FileIcon fileIcon = FileIcon.FILE;
@@ -35,7 +36,6 @@ public class FileRecyclerView extends LinearLayout {
     private String filterString = "";
     private boolean showSearchResultsOnly = false;
     private boolean caseSensitive = false;
-    private final AtomicInteger searchCount = new AtomicInteger(0);
 
     public FileRecyclerView(Context context) {
         this(context, null);
@@ -73,7 +73,7 @@ public class FileRecyclerView extends LinearLayout {
                     if (file != null) {
                         if (position == 0 && !lockPath.equals(fullPath)) {
                             parentDir();
-                        } else  {
+                        } else {
                             fileSelectedListener.onItemLongClick(file, file.getAbsolutePath());
                         }
                     }

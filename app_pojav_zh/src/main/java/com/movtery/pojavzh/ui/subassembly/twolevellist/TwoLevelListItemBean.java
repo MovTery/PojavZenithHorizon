@@ -2,6 +2,7 @@ package com.movtery.pojavzh.ui.subassembly.twolevellist;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.concurrent.atomic.AtomicReference;
 
 public class TwoLevelListItemBean {

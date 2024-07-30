@@ -11,10 +11,11 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import net.kdt.pojavlaunch.R;
 import com.movtery.pojavzh.ui.fragment.ModsFragment;
 import com.movtery.pojavzh.utils.image.ImageUtils;
 import com.movtery.pojavzh.utils.stringutils.StringFilter;
+
+import net.kdt.pojavlaunch.R;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -40,23 +41,6 @@ public class FileRecyclerViewCreator {
         this.mainRecyclerView.setLayoutManager(layoutManager);
         this.mainRecyclerView.setAdapter(this.fileRecyclerAdapter);
     }
-
-    @SuppressLint("NotifyDataSetChanged")
-    public void loadData(List<FileItemBean> itemBeans) {
-        this.mData.clear();
-        this.mData.addAll(itemBeans);
-        fileRecyclerAdapter.notifyDataSetChanged();
-        this.mainRecyclerView.scheduleLayoutAnimation();
-    }
-
-    public void setOnMultiSelectListener(FileRecyclerAdapter.OnMultiSelectListener listener) {
-        fileRecyclerAdapter.setOnMultiSelectListener(listener);
-    }
-
-    public FileRecyclerAdapter getFileRecyclerAdapter() {
-        return fileRecyclerAdapter;
-    }
-
 
     public static List<FileItemBean> loadItemBeansFromPath(Context context, File path, FileIcon fileIcon, boolean showFile, boolean showFolder) {
         return loadItemBeansFromPath(context, null, false, false, new AtomicInteger(), path, fileIcon, showFile, showFolder);
@@ -141,5 +125,21 @@ public class FileRecyclerViewCreator {
         } else {
             return resources.getDrawable(R.drawable.ic_file, resources.newTheme());
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void loadData(List<FileItemBean> itemBeans) {
+        this.mData.clear();
+        this.mData.addAll(itemBeans);
+        fileRecyclerAdapter.notifyDataSetChanged();
+        this.mainRecyclerView.scheduleLayoutAnimation();
+    }
+
+    public void setOnMultiSelectListener(FileRecyclerAdapter.OnMultiSelectListener listener) {
+        fileRecyclerAdapter.setOnMultiSelectListener(listener);
+    }
+
+    public FileRecyclerAdapter getFileRecyclerAdapter() {
+        return fileRecyclerAdapter;
     }
 }

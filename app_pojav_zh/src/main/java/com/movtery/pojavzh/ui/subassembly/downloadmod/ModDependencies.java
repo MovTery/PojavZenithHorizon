@@ -18,20 +18,6 @@ public class ModDependencies implements Comparable<ModDependencies> {
         this.dependencyType = dependencyType;
     }
 
-    @Override
-    public int compareTo(ModDependencies o) {
-        return this.dependencyType.compareTo(o.dependencyType);
-    }
-
-    @NonNull
-    @Override
-    public String toString() {
-        return "ModDependencies{" +
-                "item=" + item.title +
-                ", dependencyType=" + dependencyType +
-                '}';
-    }
-
     public static DependencyType getDependencyType(String type) {
         switch (type) {                               //1 = EmbeddedLibrary
             case "optional":                          //2 = OptionalDependency
@@ -71,6 +57,20 @@ public class ModDependencies implements Comparable<ModDependencies> {
             case REQUIRED:
                 return context.getString(R.string.zh_profile_mods_dependencies_required);
         }
+    }
+
+    @Override
+    public int compareTo(ModDependencies o) {
+        return this.dependencyType.compareTo(o.dependencyType);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "ModDependencies{" +
+                "item=" + item.title +
+                ", dependencyType=" + dependencyType +
+                '}';
     }
 
     public enum DependencyType {

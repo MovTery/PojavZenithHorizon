@@ -19,19 +19,18 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.tabs.TabLayout;
+import com.movtery.pojavzh.ui.dialog.FilesDialog;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundManager;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileIcon;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerView;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
-
-import net.kdt.pojavlaunch.PojavApplication;
-
 import com.movtery.pojavzh.utils.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
-import net.kdt.pojavlaunch.R;
-import com.movtery.pojavzh.ui.dialog.FilesDialog;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
+
+import net.kdt.pojavlaunch.PojavApplication;
+import net.kdt.pojavlaunch.R;
 
 import java.io.File;
 import java.util.HashMap;

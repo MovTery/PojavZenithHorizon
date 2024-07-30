@@ -188,12 +188,12 @@ public class KeyboardDialog extends FullScreenDialog {
 
             if (    //保证顺序正确
                     Objects.equals(button, findViewById(R.id.keyboard_9)) ||
-                    Objects.equals(button, findViewById(R.id.keyboard_slash)) ||
-                    Objects.equals(button, findViewById(R.id.keyboard_page_down)) ||
-                    Objects.equals(button, findViewById(R.id.keyboard_pause)) ||
-                    Objects.equals(button, findViewById(R.id.keyboard_kp_subract)) ||
-                    Objects.equals(button, findViewById(R.id.keyboard_kp_decimal)) ||
-                    Objects.equals(button, findViewById(R.id.keyboard_kp_enter))
+                            Objects.equals(button, findViewById(R.id.keyboard_slash)) ||
+                            Objects.equals(button, findViewById(R.id.keyboard_page_down)) ||
+                            Objects.equals(button, findViewById(R.id.keyboard_pause)) ||
+                            Objects.equals(button, findViewById(R.id.keyboard_kp_subract)) ||
+                            Objects.equals(button, findViewById(R.id.keyboard_kp_decimal)) ||
+                            Objects.equals(button, findViewById(R.id.keyboard_kp_enter))
             ) buttonCount += 1;
         }
 

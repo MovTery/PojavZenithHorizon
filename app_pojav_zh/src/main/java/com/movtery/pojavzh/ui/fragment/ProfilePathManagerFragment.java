@@ -18,11 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathJsonObject;
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfileItem;
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathAdapter;
-import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathJsonObject;
-import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
-import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.R;

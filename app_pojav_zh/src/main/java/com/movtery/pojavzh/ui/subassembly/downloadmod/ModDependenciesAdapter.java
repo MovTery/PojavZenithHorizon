@@ -29,7 +29,7 @@ import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
 import java.util.List;
 import java.util.concurrent.Future;
 
-public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependenciesAdapter.InnerHolder>{
+public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependenciesAdapter.InnerHolder> {
     private final ModDependencies.SelectedMod mod;
     private final List<ModDependencies> mData;
     private SetOnClickListener onClickListener;
@@ -68,8 +68,8 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
         private final View mainView;
         private final ImageView mSourceImage, mModIcon;
         private final TextView mTitle, mDesc, mDependencies, mDownloadCount, mModloaders;
-        private Future<?> mExtensionFuture;
         private final ModIconCache mIconCache = new ModIconCache();
+        private Future<?> mExtensionFuture;
         private ImageReceiver mImageReceiver;
         private Bitmap mThumbnailBitmap;
 

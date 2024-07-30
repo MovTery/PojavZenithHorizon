@@ -17,24 +17,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
-import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerView;
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.ui.dialog.EditTextDialog;
+import com.movtery.pojavzh.ui.dialog.FilesDialog;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerAdapter;
+import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerView;
+import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
 import com.movtery.pojavzh.ui.subassembly.view.SearchView;
 import com.movtery.pojavzh.utils.AnimUtils;
+import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.file.PasteFile;
-import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
 
 import net.kdt.pojavlaunch.PojavApplication;
-import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
-
-import com.movtery.pojavzh.ui.dialog.EditTextDialog;
-import com.movtery.pojavzh.ui.dialog.FilesDialog;
 
 import java.io.File;
 import java.util.ArrayList;

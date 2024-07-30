@@ -1,14 +1,18 @@
-package com.movtery.pojavzh.extra;
+package com.movtery.pojavzh.extra
 
-public class ZHExtraConstants {
+object ZHExtraConstants {
     //用于监听外置登录
-    public static final String OTHER_LOGIN_TODO = "other_login_todo";
+    const val OTHER_LOGIN_TODO: String = "other_login_todo"
+
     //用于监听离线登录
-    public static final String LOCAL_LOGIN_TODO = "local_login_todo";
+    const val LOCAL_LOGIN_TODO: String = "local_login_todo"
+
     //用于监听安装本地整合包事件
-    public static final String INSTALL_LOCAL_MODPACK = "install_local_modpack";
+    const val INSTALL_LOCAL_MODPACK: String = "install_local_modpack"
+
     //用于监听版本选择的事件
-    public static final String VERSION_SELECTOR = "version_selector";
+    const val VERSION_SELECTOR: String = "version_selector"
+
     //用于监听账号更新事件
-    public static final String ACCOUNT_UPDATE = "account_update";
+    const val ACCOUNT_UPDATE: String = "account_update"
 }

@@ -1,19 +1,22 @@
 package com.movtery.pojavzh.feature.mod.modloader;
 
 import android.content.Intent;
+import android.util.Log;
 
 import net.kdt.pojavlaunch.modloaders.ForgeVersionListHandler;
 import net.kdt.pojavlaunch.utils.DownloadUtils;
+
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 public class NeoForgeUtils {
     private static final String NEOFORGE_METADATA_URL = "https://maven.neoforged.net/releases/net/neoforged/neoforge/maven-metadata.xml";
@@ -26,8 +29,7 @@ public class NeoForgeUtils {
         try {
             SAXParserFactory parserFactory = SAXParserFactory.newInstance();
             saxParser = parserFactory.newSAXParser();
-        }catch (SAXException | ParserConfigurationException e) {
-            e.printStackTrace();
+        } catch (SAXException | ParserConfigurationException e) {
             // if we cant make a parser we might as well not even try to parse anything
             return null;
         }
@@ -40,12 +42,12 @@ public class NeoForgeUtils {
                     return handler.getVersions();
                     // IOException is present here StringReader throws it only if the parser called close()
                     // sooner than needed, which is a parser issue and not an I/O one
-                }catch (SAXException | IOException e) {
+                } catch (SAXException | IOException e) {
                     throw new DownloadUtils.ParseException(e);
                 }
             });
-        }catch (DownloadUtils.ParseException e) {
-            e.printStackTrace();
+        } catch (DownloadUtils.ParseException e) {
+            Log.e("NeoForgeUtils: downloadVersions", e.toString());
             return null;
         }
     }
@@ -67,7 +69,7 @@ public class NeoForgeUtils {
     }
 
     public static void addAutoInstallArgs(Intent intent, File modInstallerJar) {
-        intent.putExtra("javaArgs", "-jar "+modInstallerJar.getAbsolutePath());
+        intent.putExtra("javaArgs", "-jar " + modInstallerJar.getAbsolutePath());
     }
 
     public static String formatGameVersion(String neoForgeVersion) {

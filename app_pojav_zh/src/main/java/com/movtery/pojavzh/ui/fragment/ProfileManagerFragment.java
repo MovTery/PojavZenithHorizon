@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.utils.ZHTools;
 
@@ -79,7 +79,7 @@ public class ProfileManagerFragment extends Fragment {
                 .setTitle(R.string.zh_warning)
                 .setMessage(R.string.zh_profile_manager_delete_message)
                 .setConfirmClickListener(() -> {
-                    if(LauncherProfiles.mainProfileJson.profiles.size() > 1){
+                    if (LauncherProfiles.mainProfileJson.profiles.size() > 1) {
                         ProfileIconCache.dropIcon(mProfileKey);
                         LauncherProfiles.mainProfileJson.profiles.remove(mProfileKey);
                         LauncherProfiles.write(ProfilePathManager.getCurrentProfile());

@@ -17,17 +17,17 @@ import java.util.List;
 import java.util.Objects;
 
 public class PasteFile {
+    // 单例模式
+    private static final PasteFile instance = new PasteFile();
     private List<File> copyFiles = new ArrayList<>();
     private PasteType pasteType = null;
 
-    // 单例模式
-    private static final PasteFile instance = new PasteFile();
+    private PasteFile() {
+    }
 
     public static PasteFile getInstance() {
         return instance;
     }
-
-    private PasteFile() {}
 
     public void setCopyFiles(List<File> files) {
         this.copyFiles = new ArrayList<>(files);
@@ -50,10 +50,6 @@ public class PasteFile {
 
     public PasteType getPasteType() {
         return pasteType;
-    }
-
-    public interface FileExtensionGetter {
-        String onGet(File file);
     }
 
     public void pasteFiles(Activity activity, File target, FileExtensionGetter fileExtensionGetter, Runnable endRunnable) {
@@ -122,5 +118,9 @@ public class PasteFile {
 
     public enum PasteType {
         COPY, MOVE
+    }
+
+    public interface FileExtensionGetter {
+        String onGet(File file);
     }
 }

@@ -12,6 +12,7 @@ public class StringUtils {
 
     /**
      * 在字符串之间插入空格
+     *
      * @param prefixString 第一个字符串
      * @param suffixString 之后的多个字符串
      * @return 返回插入好空格的字符串 "string1 string2 string3"
@@ -27,6 +28,7 @@ public class StringUtils {
 
     /**
      * 在字符串之间插入换行符
+     *
      * @param prefixString 第一个字符串
      * @param suffixString 之后的多个字符串
      * @return 返回插入好换行符的字符串

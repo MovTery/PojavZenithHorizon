@@ -16,9 +16,10 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import net.kdt.pojavlaunch.R;
 import com.movtery.pojavzh.ui.dialog.ControlInfoDialog;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
+
+import net.kdt.pojavlaunch.R;
 
 import java.util.List;
 
@@ -89,8 +90,34 @@ public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public interface OnItemClickListener {
         void onItemClick(String name);
+
         void onLongClick(String name);
+
         void onInvalidItemClick(String name);
+    }
+
+    public static class InvalidViewHolder extends RecyclerView.ViewHolder {
+        private final Context context;
+        private final TextView title;
+
+        public InvalidViewHolder(@NonNull View itemView) {
+            super(itemView);
+            context = itemView.getContext();
+            itemView.findViewById(R.id.zh_file_check).setVisibility(View.GONE);
+            ImageView imageView = itemView.findViewById(R.id.zh_file_image);
+            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_disabled));
+            title = itemView.findViewById(R.id.zh_file_name);
+        }
+
+        public void setData(ControlItemBean controlItemBean) {
+            String text = StringUtils.insertSpace(context.getString(R.string.zh_controls_info_invalid), controlItemBean.getControlInfoData().fileName);
+            title.setText(text);
+
+            //设置文本字体
+            title.setTextColor(Color.rgb(255, 60, 60));
+            title.setTypeface(null, Typeface.BOLD);
+            title.setTextSize(14);
+        }
     }
 
     public class ValidViewHolder extends RecyclerView.ViewHolder {
@@ -154,30 +181,6 @@ public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             } else {
                 mDesc.setText(R.string.zh_controls_info_no_info);
             }
-        }
-    }
-
-    public static class InvalidViewHolder extends RecyclerView.ViewHolder {
-        private final Context context;
-        private final TextView title;
-
-        public InvalidViewHolder(@NonNull View itemView) {
-            super(itemView);
-            context = itemView.getContext();
-            itemView.findViewById(R.id.zh_file_check).setVisibility(View.GONE);
-            ImageView imageView = itemView.findViewById(R.id.zh_file_image);
-            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_disabled));
-            title = itemView.findViewById(R.id.zh_file_name);
-        }
-
-        public void setData(ControlItemBean controlItemBean) {
-            String text = StringUtils.insertSpace(context.getString(R.string.zh_controls_info_invalid), controlItemBean.getControlInfoData().fileName);
-            title.setText(text);
-
-            //设置文本字体
-            title.setTextColor(Color.rgb(255, 60, 60));
-            title.setTypeface(null, Typeface.BOLD);
-            title.setTextSize(14);
         }
     }
 }

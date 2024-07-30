@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.movtery.pojavzh.feature.mod.modloader.BaseModVersionListAdapter;
 import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog;
 import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListAdapter;
-import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListItemBean;
 import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListFragment;
+import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListItemBean;
 import com.movtery.pojavzh.utils.MCVersionComparator;
 
 import net.kdt.pojavlaunch.JavaGUILauncherActivity;

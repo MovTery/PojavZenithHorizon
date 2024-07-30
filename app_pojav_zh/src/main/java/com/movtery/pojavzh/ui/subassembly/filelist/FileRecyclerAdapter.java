@@ -141,9 +141,11 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
             }
             itemView.setOnLongClickListener(v -> {
                 if (isMultiSelectMode) {
-                    if (mOnMultiSelectListener != null) mOnMultiSelectListener.onMultiSelect(getSelectedFiles());
+                    if (mOnMultiSelectListener != null)
+                        mOnMultiSelectListener.onMultiSelect(getSelectedFiles());
                 } else {
-                    if (mOnItemLongClickListener != null) mOnItemLongClickListener.onItemLongClick(mPosition, mFileItemBean);
+                    if (mOnItemLongClickListener != null)
+                        mOnItemLongClickListener.onItemLongClick(mPosition, mFileItemBean);
                 }
                 return true;
             });

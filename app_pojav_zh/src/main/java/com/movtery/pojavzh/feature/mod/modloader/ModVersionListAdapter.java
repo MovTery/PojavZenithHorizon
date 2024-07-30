@@ -43,6 +43,18 @@ public class ModVersionListAdapter extends RecyclerView.Adapter<ModVersionListAd
         return 0;
     }
 
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
+
+    public void setIconDrawable(int iconDrawable) {
+        this.iconDrawable = iconDrawable;
+    }
+
+    public interface OnItemClickListener {
+        void onClick(Object version);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final View mainView;
         private final TextView versionName;
@@ -67,17 +79,5 @@ public class ModVersionListAdapter extends RecyclerView.Adapter<ModVersionListAd
                 if (onItemClickListener != null) onItemClickListener.onClick(version);
             });
         }
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.onItemClickListener = listener;
-    }
-
-    public void setIconDrawable(int iconDrawable) {
-        this.iconDrawable = iconDrawable;
-    }
-
-    public interface OnItemClickListener {
-        void onClick(Object version);
     }
 }

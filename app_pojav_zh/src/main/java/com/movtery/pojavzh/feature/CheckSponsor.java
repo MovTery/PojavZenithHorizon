@@ -90,6 +90,7 @@ public class CheckSponsor {
 
     public interface CheckListener {
         void onFailure();
+
         void onSuccessful(List<SponsorItemBean> data);
     }
 }

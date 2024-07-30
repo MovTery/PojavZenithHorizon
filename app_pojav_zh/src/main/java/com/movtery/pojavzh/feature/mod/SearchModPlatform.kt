@@ -1,46 +1,37 @@
-package com.movtery.pojavzh.feature.mod;
+package com.movtery.pojavzh.feature.mod
 
-import android.content.Context;
+import android.content.Context
+import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchFilters.ApiPlatform
 
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchFilters;
+object SearchModPlatform {
+    private val indexList: MutableList<String> = ArrayList()
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class SearchModPlatform {
-    public static final List<String> indexList = new ArrayList<>();
-
-    public static List<String> getIndexList(Context context) {
+    @JvmStatic
+    fun getIndexList(context: Context): List<String> {
         if (indexList.isEmpty()) {
-            indexList.add(context.getString(R.string.zh_profile_mods_search_platform_both));
-            indexList.add("Modrinth");
-            indexList.add("CurseForge");
+            indexList.add(context.getString(R.string.zh_profile_mods_search_platform_both))
+            indexList.add("Modrinth")
+            indexList.add("CurseForge")
         }
-        return indexList;
+        return indexList
     }
 
-    public static int getIndex(SearchFilters.ApiPlatform platform) {
-        switch (platform) {
-            case MODRINTH:
-                return 1;
-            case CURSEFORGE:
-                return 2;
-            case BOTH:
-            default:
-                return 0;
+    @JvmStatic
+    fun getIndex(platform: ApiPlatform?): Int {
+        return when (platform) {
+            ApiPlatform.MODRINTH -> 1
+            ApiPlatform.CURSEFORGE -> 2
+            else -> 0
         }
     }
 
-    public static SearchFilters.ApiPlatform getPlatform(int index) {
-        switch (index) {
-            case 1:
-                return SearchFilters.ApiPlatform.MODRINTH;
-            case 2:
-                return SearchFilters.ApiPlatform.CURSEFORGE;
-            case 0:
-            default:
-                return SearchFilters.ApiPlatform.BOTH;
+    @JvmStatic
+    fun getPlatform(index: Int): ApiPlatform {
+        return when (index) {
+            1 -> ApiPlatform.MODRINTH
+            2 -> ApiPlatform.CURSEFORGE
+            else -> ApiPlatform.BOTH
         }
     }
 }

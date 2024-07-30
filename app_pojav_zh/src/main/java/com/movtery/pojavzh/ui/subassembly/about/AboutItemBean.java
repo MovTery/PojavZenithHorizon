@@ -46,9 +46,11 @@ public class AboutItemBean {
         public Activity getActivity() {
             return activity;
         }
+
         public String getName() {
             return name;
         }
+
         public String getUrl() {
             return url;
         }

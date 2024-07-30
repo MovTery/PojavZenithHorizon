@@ -104,31 +104,31 @@ public class ModFitersDialog extends FullScreenDialog implements DraggableDialog
             });
         }
 
-        mModloaderForge.setChecked(mSearchFilters.modloaders.contains(ModLoaderList.getModloaderList().get(0)));
-        mModloaderFabric.setChecked(mSearchFilters.modloaders.contains(ModLoaderList.getModloaderList().get(1)));
-        mModloaderQuilt.setChecked(mSearchFilters.modloaders.contains(ModLoaderList.getModloaderList().get(2)));
-        mModloaderNeoForge.setChecked(mSearchFilters.modloaders.contains(ModLoaderList.getModloaderList().get(3)));
+        mModloaderForge.setChecked(mSearchFilters.modloaders.contains(ModLoaderList.modloaderList.get(0)));
+        mModloaderFabric.setChecked(mSearchFilters.modloaders.contains(ModLoaderList.modloaderList.get(1)));
+        mModloaderQuilt.setChecked(mSearchFilters.modloaders.contains(ModLoaderList.modloaderList.get(2)));
+        mModloaderNeoForge.setChecked(mSearchFilters.modloaders.contains(ModLoaderList.modloaderList.get(3)));
 
         mModloaderForge.setOnClickListener(v -> {
-            String forge = ModLoaderList.getModloaderList().get(0);
+            String forge = ModLoaderList.modloaderList.get(0);
             if (mModloaderForge.isChecked() && !mSearchFilters.modloaders.contains(forge)) {
                 mSearchFilters.modloaders.add(forge);
             } else mSearchFilters.modloaders.remove(forge);
         });
         mModloaderFabric.setOnClickListener(v -> {
-            String fabric = ModLoaderList.getModloaderList().get(1);
+            String fabric = ModLoaderList.modloaderList.get(1);
             if (mModloaderFabric.isChecked() && !mSearchFilters.modloaders.contains(fabric)) {
                 mSearchFilters.modloaders.add(fabric);
             } else mSearchFilters.modloaders.remove(fabric);
         });
         mModloaderQuilt.setOnClickListener(v -> {
-            String quilt = ModLoaderList.getModloaderList().get(2);
+            String quilt = ModLoaderList.modloaderList.get(2);
             if (mModloaderQuilt.isChecked() && !mSearchFilters.modloaders.contains(quilt)) {
                 mSearchFilters.modloaders.add(quilt);
             } else mSearchFilters.modloaders.remove(quilt);
         });
         mModloaderNeoForge.setOnClickListener(v -> {
-            String neoforge = ModLoaderList.getModloaderList().get(3);
+            String neoforge = ModLoaderList.modloaderList.get(3);
             if (mModloaderNeoForge.isChecked() && !mSearchFilters.modloaders.contains(neoforge)) {
                 mSearchFilters.modloaders.add(neoforge);
             } else mSearchFilters.modloaders.remove(neoforge);

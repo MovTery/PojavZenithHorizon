@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.movtery.pojavzh.feature.CheckSponsor;
 import com.movtery.pojavzh.ui.subassembly.about.AboutItemBean;
 import com.movtery.pojavzh.ui.subassembly.about.AboutRecyclerAdapter;
-
 import com.movtery.pojavzh.ui.subassembly.about.SponsorItemBean;
 import com.movtery.pojavzh.ui.subassembly.about.SponsorRecyclerAdapter;
 import com.movtery.pojavzh.utils.ZHTools;

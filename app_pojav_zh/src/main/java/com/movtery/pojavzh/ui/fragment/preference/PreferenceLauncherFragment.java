@@ -9,6 +9,7 @@ import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.fragment.CustomBackgroundFragment;
 import com.movtery.pojavzh.utils.CleanUpCache;
 import com.movtery.pojavzh.utils.ZHTools;
+
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceFragment;
 
