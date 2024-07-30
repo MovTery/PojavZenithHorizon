@@ -96,5 +96,6 @@ object ProfileLanguageSelector {
         }
         val language = getLanguage(minecraftProfile.lastVersionId, LauncherPreferences.PREF_GAME_LANGUAGE)
         MCOptionUtils.set("lang", language)
+        MCOptionUtils.save()
     }
 }
