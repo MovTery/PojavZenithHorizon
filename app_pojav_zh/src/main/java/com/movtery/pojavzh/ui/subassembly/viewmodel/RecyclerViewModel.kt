@@ -1,19 +1,11 @@
-package com.movtery.pojavzh.ui.subassembly.viewmodel;
+package com.movtery.pojavzh.ui.subassembly.viewmodel
 
-import android.annotation.SuppressLint;
+import android.annotation.SuppressLint
+import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.RecyclerView
 
-import androidx.lifecycle.ViewModel;
-import androidx.recyclerview.widget.RecyclerView;
-
-public class RecyclerViewModel extends ViewModel {
+class RecyclerViewModel : ViewModel() {
+    @JvmField
     @SuppressLint("StaticFieldLeak")
-    private RecyclerView view;
-
-    public RecyclerView getView() {
-        return view;
-    }
-
-    public void setView(RecyclerView view) {
-        this.view = view;
-    }
+    var view: RecyclerView? = null
 }

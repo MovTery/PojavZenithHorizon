@@ -1,5 +1,5 @@
-package com.movtery.pojavzh.ui.subassembly.filelist;
+package com.movtery.pojavzh.ui.subassembly.filelist
 
-public enum FileIcon {
+enum class FileIcon {
     IMAGE, FILE, MOD
 }

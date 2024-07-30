@@ -1,84 +1,98 @@
-package com.movtery.pojavzh.ui.subassembly.background;
+package com.movtery.pojavzh.ui.subassembly.background
 
-import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Drawable
+import com.movtery.pojavzh.utils.ZHTools
+import com.movtery.pojavzh.utils.file.FileTools.mkdirs
+import net.kdt.pojavlaunch.Tools
+import java.io.File
+import java.io.FileReader
+import java.io.FileWriter
+import java.util.Properties
+import java.util.concurrent.ConcurrentHashMap
 
-import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.file.FileTools;
+object BackgroundManager {
+    private val FILE_BACKGROUND_PROPERTIES: File = File(Tools.DIR_GAME_HOME, "background.properties")
+    private val backgroundDrawable: MutableMap<String, Drawable?> = ConcurrentHashMap()
 
-import net.kdt.pojavlaunch.Tools;
-
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.ConcurrentHashMap;
-
-public class BackgroundManager {
-    public static final File FILE_BACKGROUND_PROPERTIES = new File(Tools.DIR_GAME_HOME, "background.properties");
-    private static final Map<String, Drawable> backgroundDrawable = new ConcurrentHashMap<>();
-
-    public static Drawable getBackgroundDrawable(String name, File imageFile) {
-        boolean hasDrawable = backgroundDrawable.containsKey(name);
+    @JvmStatic
+    fun getBackgroundDrawable(name: String, imageFile: File): Drawable? {
+        val hasDrawable = backgroundDrawable.containsKey(name)
         if (hasDrawable) {
-            return backgroundDrawable.get(name);
+            return backgroundDrawable[name]
         } else {
             try {
-                Drawable drawable = Drawable.createFromPath(imageFile.getAbsolutePath());
-                backgroundDrawable.put(name, drawable);
-                return drawable;
-            } catch (Exception e) {
-                return null;
+                val drawable = Drawable.createFromPath(imageFile.absolutePath)
+                backgroundDrawable[name] = drawable
+                return drawable
+            } catch (e: Exception) {
+                return null
             }
         }
     }
 
-    public static Properties getProperties() {
-        if (!FILE_BACKGROUND_PROPERTIES.exists()) {
-            return getDefaultProperties();
+    @JvmStatic
+    val properties: Properties
+        get() {
+            if (!FILE_BACKGROUND_PROPERTIES.exists()) {
+                return defaultProperties
+            }
+            val properties = Properties()
+            try {
+                FileReader(FILE_BACKGROUND_PROPERTIES).use { fileReader ->
+                    properties.load(fileReader)
+                }
+            } catch (e: Exception) {
+                throw RuntimeException(e)
+            }
+
+            return properties
         }
-        Properties properties = new Properties();
-        try (FileReader fileReader = new FileReader(FILE_BACKGROUND_PROPERTIES)) {
-            properties.load(fileReader);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+
+    private val defaultProperties: Properties
+        get() {
+            val properties = Properties()
+            properties.setProperty(BackgroundType.MAIN_MENU.name, "null")
+            properties.setProperty(BackgroundType.SETTINGS.name, "null")
+            properties.setProperty(BackgroundType.CUSTOM_CONTROLS.name, "null")
+            properties.setProperty(BackgroundType.IN_GAME.name, "null")
+
+            saveProperties(properties)
+            return properties
         }
 
-        return properties;
-    }
-
-    private static Properties getDefaultProperties() {
-        Properties properties = new Properties();
-        properties.setProperty(BackgroundType.MAIN_MENU.name(), "null");
-        properties.setProperty(BackgroundType.SETTINGS.name(), "null");
-        properties.setProperty(BackgroundType.CUSTOM_CONTROLS.name(), "null");
-        properties.setProperty(BackgroundType.IN_GAME.name(), "null");
-
-        saveProperties(properties);
-        return properties;
-    }
-
-    private static void saveProperties(Properties properties) {
-        if (!ZHTools.DIR_BACKGROUND.exists()) FileTools.mkdirs(ZHTools.DIR_BACKGROUND);
+    private fun saveProperties(properties: Properties) {
+        if (!ZHTools.DIR_BACKGROUND.exists()) mkdirs(ZHTools.DIR_BACKGROUND)
 
         try {
-            properties.store(new FileWriter(FILE_BACKGROUND_PROPERTIES), "Pojav Zenith Horizon Background Properties File");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            properties.store(
+                FileWriter(FILE_BACKGROUND_PROPERTIES),
+                "Pojav Zenith Horizon Background Properties File"
+            )
+        } catch (e: Exception) {
+            throw RuntimeException(e)
         }
     }
 
-    public static void saveProperties(Map<BackgroundType, String> map) {
-        Properties properties = new Properties();
-        properties.setProperty(BackgroundType.MAIN_MENU.name(),
-                (map.get(BackgroundType.MAIN_MENU) == null ? "null" : map.get(BackgroundType.MAIN_MENU)));
-        properties.setProperty(BackgroundType.SETTINGS.name(),
-                (map.get(BackgroundType.SETTINGS) == null ? "null" : map.get(BackgroundType.SETTINGS)));
-        properties.setProperty(BackgroundType.CUSTOM_CONTROLS.name(),
-                (map.get(BackgroundType.CUSTOM_CONTROLS) == null ? "null" : map.get(BackgroundType.CUSTOM_CONTROLS)));
-        properties.setProperty(BackgroundType.IN_GAME.name(),
-                (map.get(BackgroundType.IN_GAME) == null ? "null" : map.get(BackgroundType.IN_GAME)));
+    @JvmStatic
+    fun saveProperties(map: Map<BackgroundType?, String?>) {
+        val properties = Properties()
+        properties.setProperty(
+            BackgroundType.MAIN_MENU.name,
+            (if (map[BackgroundType.MAIN_MENU] == null) "null" else map[BackgroundType.MAIN_MENU])
+        )
+        properties.setProperty(
+            BackgroundType.SETTINGS.name,
+            (if (map[BackgroundType.SETTINGS] == null) "null" else map[BackgroundType.SETTINGS])
+        )
+        properties.setProperty(
+            BackgroundType.CUSTOM_CONTROLS.name,
+            (if (map[BackgroundType.CUSTOM_CONTROLS] == null) "null" else map[BackgroundType.CUSTOM_CONTROLS])
+        )
+        properties.setProperty(
+            BackgroundType.IN_GAME.name,
+            (if (map[BackgroundType.IN_GAME] == null) "null" else map[BackgroundType.IN_GAME])
+        )
 
-        saveProperties(properties);
+        saveProperties(properties)
     }
 }

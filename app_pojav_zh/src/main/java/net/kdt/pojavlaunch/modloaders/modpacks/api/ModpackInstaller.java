@@ -13,6 +13,8 @@ import net.kdt.pojavlaunch.utils.DownloadUtils;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
@@ -20,14 +22,14 @@ import java.util.concurrent.Callable;
 
 public class ModpackInstaller {
     public static ModLoader installMod(ModDetail modDetail, String path, ModVersionItem modVersionItem) throws IOException {
-        String modFileName = "[" + modDetail.title + "] " + modVersionItem.getName();
+        String modFileName = "[" + modDetail.title + "] " + modVersionItem.name;
 
         File modFile = new File(path, modFileName.replace("/", "-"));
 
         try {
             byte[] downloadBuffer = new byte[8192];
-            DownloadUtils.ensureSha1(modFile, modVersionItem.getVersionHash(), (Callable<Void>) () -> {
-                DownloadUtils.downloadFileMonitored(modVersionItem.getDownloadUrl(), modFile, downloadBuffer,
+            DownloadUtils.ensureSha1(modFile, modVersionItem.versionHash, (Callable<Void>) () -> {
+                DownloadUtils.downloadFileMonitored(modVersionItem.downloadUrl, modFile, downloadBuffer,
                         new DownloaderProgressWrapper(R.string.modpack_download_downloading_mods,
                                 ProgressLayout.INSTALL_MODPACK));
                 return null;
@@ -40,7 +42,7 @@ public class ModpackInstaller {
     }
 
 
-    public static ModLoader installModpack(ModDetail modDetail, ModVersionItem modVersionItem, InstallFunction installFunction) throws IOException {
+    public static ModLoader installModpack(ModDetail modDetail, ModVersionItem modVersionItem, ModpackInstaller. InstallFunction installFunction) throws IOException {
         String modpackName = modDetail.title.toLowerCase(Locale.ROOT).trim().replace(" ", "_" );
 
         // Build a new minecraft instance, folder first
@@ -50,8 +52,8 @@ public class ModpackInstaller {
         ModLoader modLoaderInfo;
         try {
             byte[] downloadBuffer = new byte[8192];
-            DownloadUtils.ensureSha1(modpackFile, modVersionItem.getVersionHash(), (Callable<Void>) () -> {
-                DownloadUtils.downloadFileMonitored(modVersionItem.getDownloadUrl(), modpackFile, downloadBuffer,
+            DownloadUtils.ensureSha1(modpackFile, modVersionItem.versionHash, (Callable<Void>) () -> {
+                DownloadUtils.downloadFileMonitored(modVersionItem.downloadUrl, modpackFile, downloadBuffer,
                         new DownloaderProgressWrapper(R.string.modpack_download_downloading_metadata,
                                 ProgressLayout.INSTALL_MODPACK));
                 return null;
@@ -61,7 +63,7 @@ public class ModpackInstaller {
             modLoaderInfo = installFunction.installModpack(modpackFile, new File(ProfilePathManager.getCurrentPath(), "custom_instances/"+modpackName));
 
         } finally {
-            modpackFile.delete();
+            FileUtils.deleteQuietly(modpackFile);
             ProgressLayout.clearProgress(ProgressLayout.INSTALL_MODPACK);
         }
         if(modLoaderInfo == null) {

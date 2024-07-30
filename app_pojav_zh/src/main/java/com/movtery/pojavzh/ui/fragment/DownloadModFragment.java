@@ -90,7 +90,7 @@ public class DownloadModFragment extends TwoLevelListFragment {
         mModDetail.modVersionItems.forEach(modVersionItem -> {
             if (currentTask.isCancelled()) return;
 
-            String[] versionId = modVersionItem.getVersionId();
+            String[] versionId = modVersionItem.versionId;
             for (String mcVersion : versionId) {
                 if (currentTask.isCancelled()) return;
 
@@ -143,11 +143,11 @@ public class DownloadModFragment extends TwoLevelListFragment {
     private void parseViewModel() {
         ModApiViewModel viewModel = new ViewModelProvider(requireActivity()).get(ModApiViewModel.class);
         RecyclerViewModel recyclerViewModel = new ViewModelProvider(requireActivity()).get(RecyclerViewModel.class);
-        mModApi = viewModel.getModApi();
-        mModItem = viewModel.getModItem();
-        mIsModpack = viewModel.isModpack();
-        mModsPath = viewModel.getModsPath();
-        mParentUIRecyclerView = recyclerViewModel.getView();
+        mModApi = viewModel.modApi;
+        mModItem = viewModel.modItem;
+        mIsModpack = viewModel.isModpack;
+        mModsPath = viewModel.modsPath;
+        mParentUIRecyclerView = recyclerViewModel.view;
 
         setNameText(mModItem.title);
 

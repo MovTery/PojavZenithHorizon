@@ -1,127 +1,102 @@
-package com.movtery.pojavzh.feature;
+package com.movtery.pojavzh.feature
 
-import android.content.Context;
-import android.util.Base64;
-import android.util.Log;
+import android.content.Context
+import android.util.Base64
+import android.util.Log
+import com.movtery.pojavzh.utils.ZHTools
+import com.movtery.pojavzh.utils.http.CallUtils
+import com.movtery.pojavzh.utils.http.CallUtils.CallbackListener
+import net.kdt.pojavlaunch.R
+import okhttp3.Call
+import okhttp3.Response
+import org.json.JSONObject
+import java.io.IOException
+import java.nio.charset.StandardCharsets
+import java.util.Objects
 
-import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.http.CallUtils;
+object CheckNewNotice {
+    @JvmStatic
+    var noticeInfo: NoticeInfo? = null
+    private var isChecking = false
 
-import net.kdt.pojavlaunch.R;
-
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Objects;
-
-import okhttp3.Call;
-import okhttp3.Response;
-
-public class CheckNewNotice {
-    private static NoticeInfo noticeInfo = null;
-    private static boolean isChecking = false;
-
-    public static NoticeInfo getNoticeInfo() {
-        return noticeInfo;
-    }
-
-    public static void checkNewNotice(Context context, CheckListener listener) {
+    @JvmStatic
+    fun checkNewNotice(context: Context, listener: CheckListener) {
         if (isChecking) {
-            return;
+            return
         }
-        isChecking = true;
+        isChecking = true
 
-        if (noticeInfo != null) {
-            listener.onSuccessful(noticeInfo);
-            isChecking = false;
-            return;
+        noticeInfo?.let {
+            listener.onSuccessful(noticeInfo)
+            isChecking = false
+            return
         }
 
-        String token = context.getString(R.string.zh_api_token);
-        new CallUtils(new CallUtils.CallbackListener() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                isChecking = false;
+        val token = context.getString(R.string.zh_api_token)
+        CallUtils(object : CallbackListener {
+            override fun onFailure(call: Call?, e: IOException?) {
+                isChecking = false
             }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
+            @Throws(IOException::class)
+            override fun onResponse(call: Call?, response: Response?) {
+                if (!response!!.isSuccessful) {
+                    throw IOException("Unexpected code $response")
                 } else {
                     try {
-                        Objects.requireNonNull(response.body());
-                        String responseBody = response.body().string();
+                        Objects.requireNonNull(response.body())
+                        val responseBody = response.body()!!.string()
 
-                        JSONObject originJson = new JSONObject(responseBody);
-                        String rawBase64 = originJson.getString("content");
+                        val originJson = JSONObject(responseBody)
+                        val rawBase64 = originJson.getString("content")
                         //base64解码，因为这里读取的是一个经过Base64加密后的文本
-                        byte[] decodedBytes = Base64.decode(rawBase64, Base64.DEFAULT);
-                        String rawJson = new String(decodedBytes, StandardCharsets.UTF_8);
+                        val decodedBytes = Base64.decode(rawBase64, Base64.DEFAULT)
+                        val rawJson = String(decodedBytes, StandardCharsets.UTF_8)
 
-                        JSONObject noticeJson = new JSONObject(rawJson);
+                        val noticeJson = JSONObject(rawJson)
 
                         //获取通知消息
-                        String language = ZHTools.getSystemLanguage();
-                        String rawTitle;
-                        String rawSubstance;
-                        switch (language) {
-                            case "zh_cn":
-                                rawTitle = noticeJson.getString("title_zh_cn");
-                                rawSubstance = noticeJson.getString("substance_zh_cn");
-                                break;
-                            case "zh_tw":
-                                rawTitle = noticeJson.getString("title_zh_tw");
-                                rawSubstance = noticeJson.getString("substance_zh_tw");
-                                break;
-                            default:
-                                rawTitle = noticeJson.getString("title_en_us");
-                                rawSubstance = noticeJson.getString("substance_en_us");
-                        }
-                        String rawDate = noticeJson.getString("date");
-                        int numbering = noticeJson.getInt("numbering");
+                        val language = ZHTools.getSystemLanguage()
+                        val rawTitle: String
+                        val rawSubstance: String
+                        when (language) {
+                            "zh_cn" -> {
+                                rawTitle = noticeJson.getString("title_zh_cn")
+                                rawSubstance = noticeJson.getString("substance_zh_cn")
+                            }
 
-                        noticeInfo = new NoticeInfo(rawTitle, rawSubstance, rawDate, numbering);
-                        listener.onSuccessful(noticeInfo);
-                    } catch (Exception e) {
-                        Log.e("Check New Notice", e.toString());
+                            "zh_tw" -> {
+                                rawTitle = noticeJson.getString("title_zh_tw")
+                                rawSubstance = noticeJson.getString("substance_zh_tw")
+                            }
+
+                            else -> {
+                                rawTitle = noticeJson.getString("title_en_us")
+                                rawSubstance = noticeJson.getString("substance_en_us")
+                            }
+                        }
+                        val rawDate = noticeJson.getString("date")
+                        val numbering = noticeJson.getInt("numbering")
+
+                        noticeInfo = NoticeInfo(rawTitle, rawSubstance, rawDate, numbering)
+                        listener.onSuccessful(noticeInfo)
+                    } catch (e: Exception) {
+                        Log.e("Check New Notice", e.toString())
                     }
                 }
-                isChecking = false;
+                isChecking = false
             }
-        }, ZHTools.URL_GITHUB_HOME + "notice.json", token.equals("DUMMY") ? null : token).start();
+        }, ZHTools.URL_GITHUB_HOME + "notice.json", if (token == "DUMMY") null else token).start()
     }
 
-    public interface CheckListener {
-        void onSuccessful(NoticeInfo noticeInfo);
+    interface CheckListener {
+        fun onSuccessful(noticeInfo: NoticeInfo?)
     }
 
-    public static class NoticeInfo {
-        private final String rawTitle, substance, rawDate;
-        private final int numbering;
-
-        public NoticeInfo(String rawTitle, String substance, String rawDate, int numbering) {
-            this.rawTitle = rawTitle;
-            this.substance = substance;
-            this.rawDate = rawDate;
-            this.numbering = numbering;
-        }
-
-        public String getRawTitle() {
-            return rawTitle;
-        }
-
-        public String getSubstance() {
-            return substance;
-        }
-
-        public String getRawDate() {
-            return rawDate;
-        }
-
-        public int getNumbering() {
-            return numbering;
-        }
-    }
+    class NoticeInfo(
+        @JvmField val rawTitle: String,
+        @JvmField val substance: String,
+        @JvmField val rawDate: String,
+        @JvmField val numbering: Int
+    )
 }

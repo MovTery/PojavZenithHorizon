@@ -1,7 +1,7 @@
-package com.movtery.pojavzh.ui.subassembly.account;
+package com.movtery.pojavzh.ui.subassembly.account
 
-import net.kdt.pojavlaunch.value.MinecraftAccount;
+import net.kdt.pojavlaunch.value.MinecraftAccount
 
-public interface SelectAccountListener {
-    void onSelect(MinecraftAccount account);
+interface SelectAccountListener {
+    fun onSelect(account: MinecraftAccount?)
 }

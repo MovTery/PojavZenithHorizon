@@ -1,22 +1,17 @@
-package com.movtery.pojavzh.ui.subassembly.downloadmod;
+package com.movtery.pojavzh.ui.subassembly.downloadmod
 
-public class VersionType {
-    public static VersionTypeEnum getVersionType(String typeString) {
-        switch (typeString) {
-            case "beta":
-            case "2":
-                return VersionTypeEnum.BETA;
-            case "alpha":
-            case "3":
-                return VersionTypeEnum.ALPHA;
-            default:
-            case "release":
-            case "1":
-                return VersionTypeEnum.RELEASE;
+object VersionType {
+    @JvmStatic
+    fun getVersionType(typeString: String?): VersionTypeEnum {
+        return when (typeString) {
+            "beta", "2" -> VersionTypeEnum.BETA
+            "alpha", "3" -> VersionTypeEnum.ALPHA
+            "release", "1" -> VersionTypeEnum.RELEASE
+            else -> VersionTypeEnum.RELEASE
         }
     }
 
-    public enum VersionTypeEnum {
+    enum class VersionTypeEnum {
         RELEASE, BETA, ALPHA
     }
 }

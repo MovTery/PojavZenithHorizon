@@ -1,45 +1,16 @@
-package com.movtery.pojavzh.ui.subassembly.viewmodel;
+package com.movtery.pojavzh.ui.subassembly.viewmodel
 
-import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModel
+import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi
+import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem
 
-import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
-
-public class ModApiViewModel extends ViewModel {
-    private ModpackApi modApi;
-    private ModItem modItem;
-    private boolean isModpack;
-    private String modsPath;
-
-    public ModpackApi getModApi() {
-        return modApi;
-    }
-
-    public void setModApi(ModpackApi modApi) {
-        this.modApi = modApi;
-    }
-
-    public ModItem getModItem() {
-        return modItem;
-    }
-
-    public void setModItem(ModItem modItem) {
-        this.modItem = modItem;
-    }
-
-    public boolean isModpack() {
-        return isModpack;
-    }
-
-    public void setModpack(boolean modpack) {
-        isModpack = modpack;
-    }
-
-    public String getModsPath() {
-        return modsPath;
-    }
-
-    public void setModsPath(String modsPath) {
-        this.modsPath = modsPath;
-    }
+class ModApiViewModel : ViewModel() {
+    @JvmField
+    var modApi: ModpackApi? = null
+    @JvmField
+    var modItem: ModItem? = null
+    @JvmField
+    var isModpack: Boolean = false
+    @JvmField
+    var modsPath: String? = null
 }

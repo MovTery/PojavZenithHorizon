@@ -1,42 +1,45 @@
-package com.movtery.pojavzh.ui.subassembly.customcontrols;
+package com.movtery.pojavzh.ui.subassembly.customcontrols
 
-public class ControlInfoData implements Comparable<ControlInfoData> {
-    public String fileName;
-    public String name = "null";
-    public String version = "null";
-    public String author = "null";
-    public String desc = "null";
+import kotlin.math.min
 
-    public ControlInfoData() {
-    }
+class ControlInfoData : Comparable<ControlInfoData?> {
+    @JvmField
+    var fileName: String? = null
+    @JvmField
+    var name: String = "null"
+    @JvmField
+    var version: String = "null"
+    @JvmField
+    var author: String = "null"
+    @JvmField
+    var desc: String = "null"
 
-    @Override
-    public int compareTo(ControlInfoData o) {
-        if (o == null) {
-            throw new NullPointerException("Cannot compare to null.");
+    override fun compareTo(other: ControlInfoData?): Int {
+        if (other == null) {
+            throw NullPointerException("Cannot compare to null.")
         }
 
-        String thisName = (this.fileName != null) ? this.fileName : this.name;
-        String otherName = (o.fileName != null) ? o.fileName : o.name;
+        val thisName = if ((this.fileName != null)) this.fileName else this.name
+        val otherName = if ((other.fileName != null)) other.fileName else other.name
 
-        return compareChar(thisName, otherName);
+        return compareChar(thisName, otherName)
     }
 
-    private int compareChar(String first, String second) {
-        int firstLength = first.length();
-        int secondLength = second.length();
+    private fun compareChar(first: String?, second: String?): Int {
+        val firstLength = first!!.length
+        val secondLength = second!!.length
 
         //遍历两个字符串的字符
-        for (int i = 0; i < Math.min(firstLength, secondLength); i++) {
-            char firstChar = Character.toLowerCase(first.charAt(i));
-            char secondChar = Character.toLowerCase(second.charAt(i));
+        for (i in 0 until min(firstLength.toDouble(), secondLength.toDouble()).toInt()) {
+            val firstChar = first[i].lowercaseChar()
+            val secondChar = second[i].lowercaseChar()
 
-            int compare = Character.compare(firstChar, secondChar);
+            val compare = firstChar.compareTo(secondChar)
             if (compare != 0) {
-                return compare;
+                return compare
             }
         }
 
-        return Integer.compare(firstLength, secondLength);
+        return firstLength.compareTo(secondLength)
     }
 }

@@ -1,9 +1,9 @@
-package com.movtery.pojavzh.ui.subassembly.filelist;
+package com.movtery.pojavzh.ui.subassembly.filelist
 
-import java.io.File;
+import java.io.File
 
-public abstract class FileSelectedListener {
-    public abstract void onFileSelected(File file, String path);
+abstract class FileSelectedListener {
+    abstract fun onFileSelected(file: File?, path: String?)
 
-    public abstract void onItemLongClick(File file, String path);
+    abstract fun onItemLongClick(file: File?, path: String?)
 }

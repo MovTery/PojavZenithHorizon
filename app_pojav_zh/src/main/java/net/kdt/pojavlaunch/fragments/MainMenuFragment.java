@@ -130,17 +130,17 @@ public class MainMenuFragment extends Fragment implements TaskCountListener, Acc
         setNotice(false, false, view);
 
         future = PojavApplication.sExecutorService.submit(() -> CheckNewNotice.checkNewNotice(requireContext(), noticeInfo -> {
-            if (future.isCancelled()) {
+            if (future.isCancelled() || noticeInfo == null) {
                 return;
             }
 
             //当偏好设置内是开启通知栏 或者 检测到通知编号不为偏好设置里保存的值时，显示通知栏
             if (DEFAULT_PREF.getBoolean("noticeDefault", false) ||
-                    (noticeInfo.getNumbering() != DEFAULT_PREF.getInt("noticeNumbering", 0))) {
+                    (noticeInfo.numbering != DEFAULT_PREF.getInt("noticeNumbering", 0))) {
                 runOnUiThread(() -> setNotice(true, false, view));
                 SharedPreferences.Editor editor = DEFAULT_PREF.edit();
                 editor.putBoolean("noticeDefault", true);
-                editor.putInt("noticeNumbering", noticeInfo.getNumbering());
+                editor.putInt("noticeNumbering", noticeInfo.numbering);
                 editor.apply();
             }
         }));
@@ -227,12 +227,12 @@ public class MainMenuFragment extends Fragment implements TaskCountListener, Acc
             TextView noticeDateView = view.findViewById(R.id.zh_menu_notice_date);
             TextView noticeSubstanceTextView = view.findViewById(R.id.zh_menu_notice_substance);
 
-            if (!noticeInfo.getRawTitle().equals("NONE")) {
-                noticeTitleView.setText(noticeInfo.getRawTitle());
+            if (!noticeInfo.rawTitle.equals("NONE")) {
+                noticeTitleView.setText(noticeInfo.rawTitle);
             }
 
-            noticeDateView.setText(noticeInfo.getRawDate());
-            noticeSubstanceTextView.setText(noticeInfo.getSubstance());
+            noticeDateView.setText(noticeInfo.rawDate);
+            noticeSubstanceTextView.setText(noticeInfo.substance);
 
             //文本内的网址可以被点击
             Linkify.addLinks(noticeSubstanceTextView, Linkify.WEB_URLS);
