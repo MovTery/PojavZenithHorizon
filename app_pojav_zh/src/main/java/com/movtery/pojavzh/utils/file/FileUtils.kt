@@ -1,53 +1,54 @@
-package com.movtery.pojavzh.utils.file;
+package com.movtery.pojavzh.utils.file
 
-import java.io.InputStream;
-import java.security.MessageDigest;
+import java.io.InputStream
+import java.security.MessageDigest
 
-public class FileUtils {
-    public static String getFileHashMD5(InputStream inputStream) {
+object FileUtils {
+    fun getFileHashMD5(inputStream: InputStream): String? {
         try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] buffer = new byte[8192];
-            int bytesRead;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                md.update(buffer, 0, bytesRead);
+            val md = MessageDigest.getInstance("MD5")
+            val buffer = ByteArray(8192)
+            var bytesRead: Int
+            while ((inputStream.read(buffer).also { bytesRead = it }) != -1) {
+                md.update(buffer, 0, bytesRead)
             }
-            byte[] hash = md.digest();
+            val hash = md.digest()
 
             //将哈希值转换为十六进制字符串
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : hash) {
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) hexString.append('0');
-                hexString.append(hex);
+            val hexString = StringBuilder()
+            for (b in hash) {
+                val hex = Integer.toHexString(0xff and b.toInt())
+                if (hex.length == 1) hexString.append('0')
+                hexString.append(hex)
             }
 
-            return hexString.toString();
-        } catch (Exception e) {
-            return null;
+            return hexString.toString()
+        } catch (e: Exception) {
+            return null
         }
     }
 
-    public static String getFileHashSHA1(InputStream inputStream) {
+    @JvmStatic
+    fun getFileHashSHA1(inputStream: InputStream): String? {
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-1");
-            byte[] buffer = new byte[8192];
-            int bytesRead;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                md.update(buffer, 0, bytesRead);
+            val md = MessageDigest.getInstance("SHA-1")
+            val buffer = ByteArray(8192)
+            var bytesRead: Int
+            while ((inputStream.read(buffer).also { bytesRead = it }) != -1) {
+                md.update(buffer, 0, bytesRead)
             }
-            byte[] hash = md.digest();
+            val hash = md.digest()
 
             //将哈希值转换为十六进制字符串
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : hash) {
-                String hex = String.format("%02x", b);
-                hexString.append(hex);
+            val hexString = StringBuilder()
+            for (b in hash) {
+                val hex = String.format("%02x", b)
+                hexString.append(hex)
             }
 
-            return hexString.toString();
-        } catch (Exception e) {
-            return null;
+            return hexString.toString()
+        } catch (e: Exception) {
+            return null
         }
     }
 }

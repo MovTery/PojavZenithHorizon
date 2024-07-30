@@ -1,24 +1,32 @@
-package com.movtery.pojavzh.utils;
+package com.movtery.pojavzh.utils
 
-import android.view.View;
+import android.view.View
+import net.kdt.pojavlaunch.PojavApplication
 
-import net.kdt.pojavlaunch.PojavApplication;
-
-public class AnimUtils {
-    public static void setVisibilityAnim(View view, boolean shouldShow) {
-        setVisibilityAnim(view, shouldShow, 300, null);
+object AnimUtils {
+    @JvmStatic
+    fun setVisibilityAnim(view: View, shouldShow: Boolean) {
+        setVisibilityAnim(view, shouldShow, 300, null)
     }
 
-    public static void setVisibilityAnim(View view, boolean shouldShow, AnimationListener listener) {
-        setVisibilityAnim(view, shouldShow, 300, listener);
+    @JvmStatic
+    fun setVisibilityAnim(view: View, shouldShow: Boolean, listener: AnimationListener?) {
+        setVisibilityAnim(view, shouldShow, 300, listener)
     }
 
-    public static void setVisibilityAnim(View view, boolean shouldShow, int duration) {
-        setVisibilityAnim(view, shouldShow, duration, null);
+    @JvmStatic
+    fun setVisibilityAnim(view: View, shouldShow: Boolean, duration: Int) {
+        setVisibilityAnim(view, shouldShow, duration, null)
     }
 
-    public static void setVisibilityAnim(View view, boolean shouldShow, int duration, AnimationListener listener) {
-        setVisibilityAnim(view, 0, shouldShow, duration, listener);
+    @JvmStatic
+    fun setVisibilityAnim(
+        view: View,
+        shouldShow: Boolean,
+        duration: Int,
+        listener: AnimationListener?
+    ) {
+        setVisibilityAnim(view, 0, shouldShow, duration, listener)
     }
 
     /**
@@ -29,19 +37,26 @@ public class AnimUtils {
      * @param duration 持续时间
      * @param listener 动画监听器，用于调用动画开始前和结束的回调
      */
-    public static void setVisibilityAnim(View view, int startDelay, boolean shouldShow, int duration, AnimationListener listener) {
-        if (listener != null) listener.onStart();
+    @JvmStatic
+    fun setVisibilityAnim(
+        view: View,
+        startDelay: Int,
+        shouldShow: Boolean,
+        duration: Int,
+        listener: AnimationListener?
+    ) {
+        listener?.onStart()
 
-        if (shouldShow && view.getVisibility() != View.VISIBLE) {
-            fadeAnim(view, startDelay, 0f, 1f, duration, () -> {
-                view.setVisibility(View.VISIBLE);
-                if (listener != null) listener.onEnd();
-            });
-        } else if (!shouldShow && view.getVisibility() != View.GONE) {
-            fadeAnim(view, startDelay, view.getAlpha(), 0f, duration, () -> {
-                view.setVisibility(View.GONE);
-                if (listener != null) listener.onEnd();
-            });
+        if (shouldShow && view.visibility != View.VISIBLE) {
+            fadeAnim(view, startDelay.toLong(), 0f, 1f, duration) {
+                view.visibility = View.VISIBLE
+                listener?.onEnd()
+            }
+        } else if (!shouldShow && view.visibility != View.GONE) {
+            fadeAnim(view, startDelay.toLong(), view.alpha, 0f, duration) {
+                view.visibility = View.GONE
+                listener?.onEnd()
+            }
         }
     }
 
@@ -54,22 +69,30 @@ public class AnimUtils {
      * @param duration 持续时间
      * @param endAction 动画结束时执行的任务
      */
-    public static void fadeAnim(View view, long startDelay, float begin, float end, int duration, Runnable endAction) {
-        if ((view.getVisibility() != View.VISIBLE && end == 0) || (view.getVisibility() == View.VISIBLE && end == 1)) {
-            if (endAction != null) PojavApplication.sExecutorService.execute(endAction);
-            return;
+    @JvmStatic
+    fun fadeAnim(
+        view: View,
+        startDelay: Long,
+        begin: Float,
+        end: Float,
+        duration: Int,
+        endAction: Runnable?
+    ) {
+        if ((view.visibility != View.VISIBLE && end == 0f) || (view.visibility == View.VISIBLE && end == 1f)) {
+            if (endAction != null) PojavApplication.sExecutorService.execute(endAction)
+            return
         }
-        view.setVisibility(View.VISIBLE);
-        view.setAlpha(begin);
+        view.visibility = View.VISIBLE
+        view.alpha = begin
         view.animate()
-                .alpha(end)
-                .setStartDelay(startDelay)
-                .setDuration(duration)
-                .withEndAction(endAction);
+            .alpha(end)
+            .setStartDelay(startDelay)
+            .setDuration(duration.toLong())
+            .withEndAction(endAction)
     }
 
-    public interface AnimationListener {
-        void onStart();
-        void onEnd();
+    interface AnimationListener {
+        fun onStart()
+        fun onEnd()
     }
 }
