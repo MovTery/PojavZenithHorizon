@@ -116,7 +116,7 @@
     <string name="multirt_config_add">أضف واحدًا جديدا</string>
     <string name="multirt_title">مدير مشغلات الجافا</string>
     <string name="multirt_subtitle">تحكم بالJava Runtimes المثبتة.</string>
-    <string name="multirt_progress_caching">تخزين المعلومات...</string>
+    <string name="multirt_progress_caching">تخزين المعلومات…</string>
     <string name="multirt_config_setdefault">تعيين لإستخدام دائم</string>
     <string name="multirt_config_setdefault_already">مستخدم دائما</string>
     <string name="multirt_config_removeerror_last">يجب ان يكون هناك Java runtime واحد مثبت على الأقل.</string>
