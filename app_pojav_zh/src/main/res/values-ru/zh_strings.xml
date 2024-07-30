@@ -113,7 +113,7 @@
     <!-- Install -->
     <string name="zh_install_select_jre_environment">Выбрать среду JRE</string>
     <string name="zh_install_recommend_use_jre8">Рекомендуется использовать JRE 8</string>
-    <string name="zh_install_auto_select">Автоматический выбор</string>
+    <string name="zh_install_auto_select">Пусть лаунчер решит</string>
     <!-- Custom Controls -->
     <string name="zh_controls_add_control_button">Кнопка</string>
     <string name="zh_controls_add_control_drawer">Комбинация клавиш</string>
@@ -211,9 +211,9 @@
     <string name="zh_setting_java_memory_max">Максимальный доступный объем памяти: %s</string>
     <string name="zh_setting_java_memory_exceeded">Установленный объем памяти превышает доступный</string>
     <string name="zh_setting_set_game_language_desc">Автоматически устанавливать язык игры на выбранный язык при запуске игры</string>
-    <string name="zh_setting_set_game_language_title">Автоматическая настройка языка игры</string>
-    <string name="zh_setting_set_game_language_list">Настроить язык игры</string>
-    <string name="zh_setting_set_game_language_system">Системный язык</string>
+    <string name="zh_setting_set_game_language_title">Автоматическая установка языка игры</string>
+    <string name="zh_setting_set_game_language_list">Установить язык игры</string>
+    <string name="zh_setting_set_game_language_system">В соответствии с системным языком</string>
     <string name="zh_setting_set_game_language_overridden_title">Переопределить язык игры</string>
     <string name="zh_setting_set_game_language_overridden_desc">Игнорировать язык, установленный в игре, и принудительно изменить его на язык, установленный в лаунчере</string>
     <string name="zh_setting_launcher_theme">Тема лаунчера</string>

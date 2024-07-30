@@ -113,7 +113,7 @@
     <!-- Install -->
     <string name="zh_install_select_jre_environment">Select JRE Environment</string>
     <string name="zh_install_recommend_use_jre8">Recommend Using JRE 8</string>
-    <string name="zh_install_auto_select">Auto Select</string>
+    <string name="zh_install_auto_select">Let the launcher decide</string>
     <!-- Custom Controls -->
     <string name="zh_controls_add_control_button">Button</string>
     <string name="zh_controls_add_control_drawer">Drawer</string>
@@ -137,7 +137,7 @@
     <string name="zh_controls_info_version">Layout Version:</string>
     <string name="zh_controls_info_author">Author:</string>
     <string name="zh_controls_info_desc">Description:</string>
-    <string name="zh_controls_info_more">More Information</string>
+    <string name="zh_controls_info_more">Details</string>
     <string name="zh_controls_info_view">View information</string>
     <string name="zh_controls_info_no_info">There is no description available for this layout…</string>
     <string name="zh_controls_info_invalid">Invalid file:</string>
@@ -213,7 +213,7 @@
     <string name="zh_setting_set_game_language_desc">Automatically set the game language to the selected language when the game starts</string>
     <string name="zh_setting_set_game_language_title">Automatically Set Game Language</string>
     <string name="zh_setting_set_game_language_list">Set Game Language</string>
-    <string name="zh_setting_set_game_language_system">Based on System Language</string>
+    <string name="zh_setting_set_game_language_system">Follow System Language</string>
     <string name="zh_setting_set_game_language_overridden_title">Override Game Language</string>
     <string name="zh_setting_set_game_language_overridden_desc">Ignore the language set in the game and force it to the game language set in the launcher</string>
     <string name="zh_setting_launcher_theme">Launcher Theme</string>
@@ -242,7 +242,7 @@
     <string name="zh_clear_up_cache">Clear Cache</string>
     <string name="zh_clear_up_cache_desc">Check and clean up the cache files of the application, clearing the cache files does not affect the normal use of the application</string>
     <string name="zh_clear_up_cache_not_found">No cache files found</string>
-    <string name="zh_clear_up_cache_clean_up">Cleaning complete, a total of %s cache files have been cleared this time.</string>
+    <string name="zh_clear_up_cache_clean_up">Cleaning completed, a total of %s cache files have been cleared this time.</string>
     <!-- Check Update -->
     <string name="zh_update">Check for updates</string>
     <string name="zh_update_dialog_title">New Version Detected</string>
@@ -274,7 +274,7 @@
     <string name="zh_other_login_no_server">No authentication server</string>
     <string name="zh_other_login_baseurl_not_set">BaseUrl is not set</string>
     <string name="zh_other_login_client">Client</string>
-    <string name="zh_other_login_error_code">error code：</string>
+    <string name="zh_other_login_error_code">Error code：</string>
     <string name="zh_other_login_server_not_empty">Server can not be empty, please check the authentication server settings!</string>
     <!-- About -->
     <string name="zh_about_tab">About Pojav Zenith Horizon</string>

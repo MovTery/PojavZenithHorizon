@@ -113,7 +113,7 @@
     <!-- Install -->
     <string name="zh_install_select_jre_environment">اختر بيئة JRE</string>
     <string name="zh_install_recommend_use_jre8">يوصى باستخدام JRE 8</string>
-    <string name="zh_install_auto_select">تحديد تلقائي</string>
+    <string name="zh_install_auto_select">دع المشغل يقرر</string>
     <!-- Custom Controls -->
     <string name="zh_controls_add_control_button">زر</string>
     <string name="zh_controls_add_control_drawer">مجموعة أزرار</string>
@@ -213,7 +213,7 @@
     <string name="zh_setting_set_game_language_desc">تعيين لغة اللعبة تلقائيًا إلى اللغة المحددة عند بدء اللعبة</string>
     <string name="zh_setting_set_game_language_title">تعيين لغة اللعبة تلقائيًا</string>
     <string name="zh_setting_set_game_language_list">تعيين لغة اللعبة</string>
-    <string name="zh_setting_set_game_language_system">بناءً على لغة النظام</string>
+    <string name="zh_setting_set_game_language_system">حسب لغة النظام</string>
     <string name="zh_setting_set_game_language_overridden_title">تجاوز لغة اللعبة</string>
     <string name="zh_setting_set_game_language_overridden_desc">تجاهل اللغة المضبوطة في اللعبة وتغييرها بالقوة إلى اللغة المضبوطة في المشغل</string>
     <string name="zh_setting_launcher_theme">موضوع المشغل</string>
