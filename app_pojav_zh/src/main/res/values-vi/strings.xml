@@ -29,7 +29,7 @@
     <string name="mcl_setting_subtitle_mousescale">Thay đổi kích thước của chuột ảo</string>
     <string name="mcl_setting_title_javaargs">Tham số khởi động JVM</string>
     <string name="mcl_setting_subtitle_javaargs">Chú ý, việc sửa đổi giá trị này bởi người không chuyên có thể gây ra sự cố trò chơi</string>
-    <string name="mcl_setting_category_renderer">Bộ kết xuất</string>
+    <string name="mcl_setting_category_renderer">Trình kết xuất</string>
     <string name="mcl_setting_renderer_gles2_4">Holy GL4ES - (Khả dụng cho tất cả các phiên bản, tốc độ nhanh)</string>
     <string name="mcl_setting_renderer_vulkan_zink">Zink (Vulkan) - (Khả dụng cho tất cả các phiên bản, tốc độ trung bình)</string>
     <string name="mcl_setting_renderer_angle">ANGLE (Vulkan) - (1.17+, tốc độ trung bình)</string>
@@ -54,7 +54,7 @@
     <string name="global_retry">Thử lại</string>
     <string name="global_default">Mặc định</string>
     <!-- MainActivity: strings -->
-    <string name="mcn_exit_confirm">Bạn có chắc muốn tắt bằng lực không?</string>
+    <string name="mcn_exit_confirm">Bạn có chắc chắn buộc đóng không?</string>
     <!-- MainActivity: Control buttons -->
     <string name="control_primary">Chính</string>
     <string name="control_secondary">Phụ</string>

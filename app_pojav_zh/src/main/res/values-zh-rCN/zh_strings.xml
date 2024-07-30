@@ -113,7 +113,7 @@
     <!-- Install -->
     <string name="zh_install_select_jre_environment">选择 JRE 环境</string>
     <string name="zh_install_recommend_use_jre8">推荐使用 JRE 8</string>
-    <string name="zh_install_auto_select">自动选择</string>
+    <string name="zh_install_auto_select">让启动器决定</string>
     <!-- Custom Controls -->
     <string name="zh_controls_add_control_button">按键</string>
     <string name="zh_controls_add_control_drawer">组合键</string>

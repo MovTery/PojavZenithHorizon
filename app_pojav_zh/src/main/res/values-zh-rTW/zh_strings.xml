@@ -113,7 +113,7 @@
     <!-- Install -->
     <string name="zh_install_select_jre_environment">選擇 JRE 環境</string>
     <string name="zh_install_recommend_use_jre8">推薦使用 JRE 8</string>
-    <string name="zh_install_auto_select">自動選擇</string>
+    <string name="zh_install_auto_select">讓啟動器決定</string>
     <!-- Custom Controls -->
     <string name="zh_controls_add_control_button">按鍵</string>
     <string name="zh_controls_add_control_drawer">組合鍵</string>
@@ -209,6 +209,7 @@
     <string name="zh_setting_java_memory_desc">控制分配給 Minecraft 的記憶體大小</string>
     <string name="zh_setting_java_memory_info">目前記憶體使用：%s / %s ，空閒記憶體大小：%s</string>
     <string name="zh_setting_java_memory_max">可設定的最大記憶體大小：%s</string>
+    <string name="zh_setting_java_memory_exceeded">目前設定的記憶體大小超過了可用的記憶體大小</string>
     <string name="zh_setting_set_game_language_desc">在遊戲啟動時，自動設定遊戲語言為選定的語言</string>
     <string name="zh_setting_set_game_language_title">自動設定遊戲語言</string>
     <string name="zh_setting_set_game_language_list">設定遊戲語言</string>

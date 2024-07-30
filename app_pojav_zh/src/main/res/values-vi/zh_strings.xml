@@ -113,7 +113,7 @@
     <!-- Install -->
     <string name="zh_install_select_jre_environment">Chọn môi trường JRE</string>
     <string name="zh_install_recommend_use_jre8">Khuyến nghị sử dụng JRE 8</string>
-    <string name="zh_install_auto_select">Chọn Tự Động</string>
+    <string name="zh_install_auto_select">Để trình khởi chạy quyết định</string>
     <!-- Custom Controls -->
     <string name="zh_controls_add_control_button">Nút</string>
     <string name="zh_controls_add_control_drawer">Phím tắt</string>
@@ -211,9 +211,9 @@
     <string name="zh_setting_java_memory_max">Kích thước bộ nhớ tối đa có thể đặt: %s</string>
     <string name="zh_setting_java_memory_exceeded">Kích thước bộ nhớ được đặt hiện vượt quá kích thước bộ nhớ có sẵn</string>
     <string name="zh_setting_set_game_language_desc">Tự động đặt ngôn ngữ trò chơi thành ngôn ngữ đã chọn khi khởi động trò chơi</string>
-    <string name="zh_setting_set_game_language_title">Tự động Đặt Ngôn ngữ Trò chơi</string>
-    <string name="zh_setting_set_game_language_list">Đặt Ngôn ngữ Trò chơi</string>
-    <string name="zh_setting_set_game_language_system">Theo Ngôn ngữ Hệ thống</string>
+    <string name="zh_setting_set_game_language_title">Tự động đặt ngôn ngữ trò chơi</string>
+    <string name="zh_setting_set_game_language_list">Đặt ngôn ngữ trò chơi</string>
+    <string name="zh_setting_set_game_language_system">Theo ngôn ngữ hệ thống</string>
     <string name="zh_setting_set_game_language_overridden_title">Ghi đè Ngôn ngữ Trò chơi</string>
     <string name="zh_setting_set_game_language_overridden_desc">Bỏ qua ngôn ngữ đã thiết lập trong trò chơi và ép buộc thay đổi ngôn ngữ thành ngôn ngữ đã thiết lập trong trình khởi chạy</string>
     <string name="zh_setting_launcher_theme">Chủ đề trình khởi chạy</string>

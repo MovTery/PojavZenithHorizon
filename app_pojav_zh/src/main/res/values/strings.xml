@@ -8,7 +8,7 @@
     <!-- Login strings -->
     <string name="login_online_login_label">Login</string>
     <!-- Hint -->
-    <string name="hint_control_mapping">Tap the top center cog icon to open the context menu ⚙\nTap a button to customize: edit, resize, delete, or customize it\'s keybind.</string>
+    <string name="hint_control_mapping">Tap the top center cog icon to open the context menu ⚙\nTap a button to customize: edit, resize, delete, or customize its key bind.</string>
     <!-- Warnings -->
     <string name="warning_remove_account">This account will be removed!</string>
     <!-- Error messages -->
@@ -72,7 +72,7 @@
     <string name="import_control_label">Import controls</string>
     <string name="import_control_invalid_file">Invalid or corrupted file</string>
     <string name="import_control_import_button">import controls</string>
-    <string name="import_control_verifying_file">File is being verified, please wait and try again…</string>
+    <string name="import_control_verifying_file">File is being verified, please try again later...</string>
     <string name="import_control_invalid_name">Invalid name or file already exists</string>
     <string name="import_control_done">Importation done</string>
     <!--
@@ -115,7 +115,7 @@
     <string name="multirt_runtime_corrupt">Corrupted Java Runtime</string>
     <string name="multirt_runtime_incompatiblearch">Incompatible architecture: %s</string>
     <string name="multirt_config_title">Java Runtimes</string>
-    <string name="multirt_config_add">Add new</string>
+    <string name="multirt_config_add">Add</string>
     <string name="multirt_title">Runtime Manager</string>
     <string name="multirt_subtitle">Manage installed Java Runtimes.</string>
     <string name="multirt_progress_caching">Caching…</string>
@@ -170,11 +170,11 @@
     <string name="no_saved_accounts">No saved accounts</string>
     <string name="mc_download_failed">Failed to download Minecraft! This could be due to bad network connection, incorrectly placed files, etc..</string>
     <string name="xerr_unknown">Unknown Xbox Live API error %d</string>
-    <string name="xerr_no_account">You don\'t seem to have an Xbox Live account. Please log in once on https://minecraft.net/ and try again.</string>
+    <string name="xerr_no_account">You don\'t seem to have an Xbox Live account. Please log in once on https://minecraft.net/ and try again. (Failure to log in to the official website for a long time may prevent the launcher from obtaining the Minecraft configuration file. Logging in again may help.)</string>
     <string name="xerr_adult_verification">An adult needs to verify your account.</string>
     <string name="xerr_child">Your account is a child account, and needs to be added into a Family in order to log in.</string>
     <string name="minecraft_not_owned">It seems like this account does not have a Minecraft profile. If you have Xbox Game Pass, please log in on https://minecraft.net/ and set it up.</string>
-    <string name="xerr_not_available">Xbox Live is not available in your country</string>
+    <string name="xerr_not_available">Xbox Live is not available in your country/region</string>
     <string name="preference_enable_gyro_title">Enable gyroscope controls</string>
     <string name="preference_enable_gyro_description">Enabling this will allow you to turn in-game by turning your phone.</string>
     <string name="preference_gyro_sensitivity_title">Gyroscope controls sensitivity</string>
