@@ -72,6 +72,13 @@
             android:defaultValue="true"
             app2:iconSpaceReserved="false" />
 
+        <net.kdt.pojavlaunch.prefs.CustomSeekBarPreference
+            android:key="animationSpeed"
+            android:title="@string/zh_setting_animation_speed_title"
+            android:summary="@string/zh_setting_animation_speed_desc"
+            app2:showSeekBarValue="true"
+            app2:iconSpaceReserved="false" />
+
         <Preference
             android:title="@string/zh_clear_up_cache"
             android:summary="@string/zh_clear_up_cache_desc"

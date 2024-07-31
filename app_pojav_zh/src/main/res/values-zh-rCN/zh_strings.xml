@@ -224,6 +224,8 @@
     <string name="zh_setting_enable_log_output_title">启动游戏时打开日志输出</string>
     <string name="zh_setting_animation_desc">设置启动器切换界面时是否播放动画</string>
     <string name="zh_setting_animation_title">启用动画</string>
+    <string name="zh_setting_animation_speed_desc">设置启动器动画播放的速度</string>
+    <string name="zh_setting_animation_speed_title">动画速率</string>
     <string name="zh_setting_quit_launcher_desc">在应用正式开始运行游戏时，是否退出启动器</string>
     <string name="zh_setting_quit_launcher_title">退出启动器</string>
     <string name="zh_setting_reboot_tip">此项设置已被更改，但是需要重启应用才能生效！</string>

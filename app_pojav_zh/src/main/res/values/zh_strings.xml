@@ -224,6 +224,8 @@
     <string name="zh_setting_enable_log_output_title">Enable log output on game startup</string>
     <string name="zh_setting_animation_desc">Set whether to play animation when switching launcher interface</string>
     <string name="zh_setting_animation_title">Enable Animation</string>
+    <string name="zh_setting_animation_speed_desc">Set the speed of the launcher animation playback</string>
+    <string name="zh_setting_animation_speed_title">Animation Speed</string>
     <string name="zh_setting_quit_launcher_desc">Should the launcher exit when the game officially begins running?</string>
     <string name="zh_setting_quit_launcher_title">Exit Launcher</string>
     <string name="zh_setting_reboot_tip">This setting has been changed, but requires the app to be restarted to take effect!</string>

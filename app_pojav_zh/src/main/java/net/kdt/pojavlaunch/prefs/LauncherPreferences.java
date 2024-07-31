@@ -76,7 +76,7 @@ public class LauncherPreferences {
     public static String PREF_LAUNCHER_THEME = "system";
     public static boolean PREF_ENABLE_LOG_OUTPUT = false;
     public static boolean PREF_ANIMATION = true;
-    public static int PREF_ANIMATION_SPEED = 300;
+    public static int PREF_ANIMATION_SPEED = 500;
     public static boolean PREF_QUILT_LAUNCHER = true;
     public static boolean PREF_BUTTON_SNAPPING = true;
     public static int PREF_BUTTON_SNAPPING_DISTANCE = 8;
@@ -131,7 +131,7 @@ public class LauncherPreferences {
         PREF_LAUNCHER_THEME = DEFAULT_PREF.getString("launcherTheme", "system");
         PREF_ENABLE_LOG_OUTPUT = DEFAULT_PREF.getBoolean("enableLogOutput", false);
         PREF_ANIMATION = DEFAULT_PREF.getBoolean("animation", true);
-        PREF_ANIMATION_SPEED = DEFAULT_PREF.getInt("animationSpeed", 300);
+        PREF_ANIMATION_SPEED = DEFAULT_PREF.getInt("animationSpeed", 500);
         PREF_QUILT_LAUNCHER = DEFAULT_PREF.getBoolean("quitLauncher", true);
         PREF_BUTTON_SNAPPING = DEFAULT_PREF.getBoolean("buttonSnapping", true);
         PREF_BUTTON_SNAPPING_DISTANCE = DEFAULT_PREF.getInt("buttonSnappingDistance", 8);

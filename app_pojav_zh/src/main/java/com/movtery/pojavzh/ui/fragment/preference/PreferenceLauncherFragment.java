@@ -11,6 +11,8 @@ import com.movtery.pojavzh.utils.CleanUpCache;
 import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.prefs.CustomSeekBarPreference;
+import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceFragment;
 
 public class PreferenceLauncherFragment extends LauncherPreferenceFragment {
@@ -19,6 +21,8 @@ public class PreferenceLauncherFragment extends LauncherPreferenceFragment {
     @Override
     public void onCreatePreferences(Bundle b, String str) {
         addPreferencesFromResource(R.xml.pref_launcher);
+        int animationSpeedValue = LauncherPreferences.PREF_ANIMATION_SPEED;
+
         Preference launcherTheme = requirePreference("launcherTheme");
         launcherTheme.setOnPreferenceChangeListener((preference, newValue) -> {
             new TipDialog.Builder(requireContext())
@@ -27,6 +31,11 @@ public class PreferenceLauncherFragment extends LauncherPreferenceFragment {
                     .buildDialog();
             return true;
         });
+
+        CustomSeekBarPreference animationSpeed = requirePreference("animationSpeed", CustomSeekBarPreference.class);
+        animationSpeed.setRange(100, 1000);
+        animationSpeed.setValue(animationSpeedValue);
+        animationSpeed.setSuffix(" MS");
 
         Preference customBackgroundPreference = requirePreference("zh_custom_background");
         customBackgroundPreference.setOnPreferenceClickListener(preference -> {
