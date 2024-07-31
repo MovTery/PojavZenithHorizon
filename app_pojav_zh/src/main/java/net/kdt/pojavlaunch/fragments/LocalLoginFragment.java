@@ -6,9 +6,12 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
+import com.daimajia.androidanimations.library.Techniques;
 import com.movtery.pojavzh.extra.ZHExtraConstants;
+import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
+import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -18,9 +21,9 @@ import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LocalLoginFragment extends Fragment {
+public class LocalLoginFragment extends FragmentWithAnim {
     public static final String TAG = "LOCAL_LOGIN_FRAGMENT";
-
+    private View mMainMenu;
     private EditText mUsernameEditText;
 
     public LocalLoginFragment(){
@@ -29,6 +32,7 @@ public class LocalLoginFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        mMainMenu = view;
         mUsernameEditText = view.findViewById(R.id.login_edit_name);
         view.findViewById(R.id.login_button).setOnClickListener(v -> {
             if(!checkEditText()) return;
@@ -38,6 +42,8 @@ public class LocalLoginFragment extends Fragment {
 
             Tools.backToMainMenu(requireActivity());
         });
+
+        ViewAnimUtils.slideInAnim(this);
     }
 
 
@@ -68,5 +74,16 @@ public class LocalLoginFragment extends Fragment {
             mUsernameEditText.setError(getString(R.string.zh_account_local_account_exists));
         }
         return !(exists);
+    }
+
+    @Override
+    public void slideIn() {
+        ViewAnimUtils.setViewAnim(mMainMenu, Techniques.BounceInDown);
+    }
+
+    @Override
+    public void slideOut(@NonNull OnSlideOutListener listener) {
+        ViewAnimUtils.setViewAnim(mMainMenu, Techniques.FadeOutUp);
+        super.slideOut(listener);
     }
 }

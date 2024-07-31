@@ -6,7 +6,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.movtery.pojavzh.utils.AnimUtils;
+import com.movtery.pojavzh.utils.anim.AnimUtils;
 
 import net.kdt.pojavlaunch.R;
 

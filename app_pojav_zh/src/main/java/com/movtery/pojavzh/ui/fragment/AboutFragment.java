@@ -15,16 +15,18 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.daimajia.androidanimations.library.Techniques;
 import com.movtery.pojavzh.feature.CheckSponsor;
 import com.movtery.pojavzh.ui.subassembly.about.AboutItemBean;
 import com.movtery.pojavzh.ui.subassembly.about.AboutRecyclerAdapter;
 import com.movtery.pojavzh.ui.subassembly.about.SponsorItemBean;
 import com.movtery.pojavzh.ui.subassembly.about.SponsorRecyclerAdapter;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
@@ -33,12 +35,12 @@ import net.kdt.pojavlaunch.Tools;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AboutFragment extends Fragment {
+public class AboutFragment extends FragmentWithAnim {
     public static final String TAG = "AboutFragment";
     private final List<AboutItemBean> mAboutData = new ArrayList<>();
     private Button mReturnButton, mGithubButton, mPojavLauncherButton, mLicenseButton, mSupportButton;
     private RecyclerView mAboutRecyclerView, mSponsorRecyclerView;
-    private View mSponsorView;
+    private View mInfoLayout, mOperateLayout, mShadowView, mSponsorView;
 
     public AboutFragment() {
         super(R.layout.fragment_about);
@@ -60,9 +62,15 @@ public class AboutFragment extends Fragment {
         mAboutRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         mAboutRecyclerView.setNestedScrollingEnabled(false); //禁止滑动
         mAboutRecyclerView.setAdapter(aboutAdapter);
+
+        ViewAnimUtils.slideInAnim(this);
     }
 
     private void bindViews(@NonNull View view) {
+        mInfoLayout = view.findViewById(R.id.info_layout);
+        mOperateLayout = view.findViewById(R.id.operate_layout);
+        mShadowView = view.findViewById(R.id.shadowView);
+
         mReturnButton = view.findViewById(R.id.zh_about_return_button);
         mGithubButton = view.findViewById(R.id.zh_about_github_button);
         mPojavLauncherButton = view.findViewById(R.id.zh_about_pojavlauncher_button);
@@ -146,6 +154,25 @@ public class AboutFragment extends Fragment {
                 Log.e("setSponsorVisible", e.toString());
             }
         });
+    }
+
+    @Override
+    public void slideIn() {
+        ViewAnimUtils.setViewAnim(mInfoLayout, Techniques.BounceInDown);
+        ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft);
+        ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft);
+
+        ViewAnimUtils.setViewAnim(mReturnButton, Techniques.BounceInLeft);
+        ViewAnimUtils.setViewAnim(mGithubButton, Techniques.BounceInLeft);
+        ViewAnimUtils.setViewAnim(mSupportButton, Techniques.BounceInLeft);
+    }
+
+    @Override
+    public void slideOut(@NonNull OnSlideOutListener listener) {
+        ViewAnimUtils.setViewAnim(mInfoLayout, Techniques.FadeOutUp);
+        ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight);
+        ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutRight);
+        super.slideOut(listener);
     }
 }
 

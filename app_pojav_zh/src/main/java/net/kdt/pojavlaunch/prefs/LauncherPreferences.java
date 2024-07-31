@@ -65,7 +65,7 @@ public class LauncherPreferences {
     public static float PREF_DEADZONE_SCALE = 1f;
     public static boolean PREF_BIG_CORE_AFFINITY = false;
     public static boolean PREF_ZINK_PREFER_SYSTEM_DRIVER = false;
-    
+
     public static boolean PREF_VERIFY_MANIFEST = true;
     public static String PREF_DOWNLOAD_SOURCE = "default";
     public static boolean PREF_SKIP_NOTIFICATION_PERMISSION_CHECK = false;
@@ -76,11 +76,11 @@ public class LauncherPreferences {
     public static String PREF_LAUNCHER_THEME = "system";
     public static boolean PREF_ENABLE_LOG_OUTPUT = false;
     public static boolean PREF_ANIMATION = true;
+    public static int PREF_ANIMATION_SPEED = 300;
     public static boolean PREF_QUILT_LAUNCHER = true;
     public static boolean PREF_BUTTON_SNAPPING = true;
     public static int PREF_BUTTON_SNAPPING_DISTANCE = 8;
     public static long PREF_FIRST_LAUNCH_TIME = 0;
-
 
     public static void loadPreferences(Context ctx) {
         //Required for the data folder.
@@ -131,6 +131,7 @@ public class LauncherPreferences {
         PREF_LAUNCHER_THEME = DEFAULT_PREF.getString("launcherTheme", "system");
         PREF_ENABLE_LOG_OUTPUT = DEFAULT_PREF.getBoolean("enableLogOutput", false);
         PREF_ANIMATION = DEFAULT_PREF.getBoolean("animation", true);
+        PREF_ANIMATION_SPEED = DEFAULT_PREF.getInt("animationSpeed", 300);
         PREF_QUILT_LAUNCHER = DEFAULT_PREF.getBoolean("quitLauncher", true);
         PREF_BUTTON_SNAPPING = DEFAULT_PREF.getBoolean("buttonSnapping", true);
         PREF_BUTTON_SNAPPING_DISTANCE = DEFAULT_PREF.getInt("buttonSnappingDistance", 8);

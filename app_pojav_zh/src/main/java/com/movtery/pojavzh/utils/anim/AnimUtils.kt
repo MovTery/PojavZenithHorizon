@@ -1,4 +1,4 @@
-package com.movtery.pojavzh.utils
+package com.movtery.pojavzh.utils.anim
 
 import android.view.View
 import net.kdt.pojavlaunch.PojavApplication

@@ -23,7 +23,7 @@ object ProfilePathManager {
     }
 
     @JvmStatic
-    val currentPath: String?
+    val currentPath: String
         get() {
             //通过选中的id来获取当前路径
             val id = LauncherPreferences.DEFAULT_PREF.getString("launcherProfile", "default")
@@ -68,9 +68,7 @@ object ProfilePathManager {
         for (item in items) {
             if (item.id == "default") continue
 
-            val profilePathJsonObject = ProfilePathJsonObject()
-            profilePathJsonObject.title = item.title
-            profilePathJsonObject.path = item.path
+            val profilePathJsonObject = ProfilePathJsonObject(item.title, item.path)
             jsonObject.add(item.id, Gson().toJsonTree(profilePathJsonObject))
         }
 

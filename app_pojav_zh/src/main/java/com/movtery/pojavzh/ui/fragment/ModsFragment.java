@@ -14,23 +14,24 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
+import com.daimajia.androidanimations.library.Techniques;
 import com.movtery.pojavzh.ui.dialog.FilesDialog;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileIcon;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerAdapter;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerView;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
 import com.movtery.pojavzh.ui.subassembly.view.SearchView;
-import com.movtery.pojavzh.utils.AnimUtils;
+import com.movtery.pojavzh.utils.anim.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 import com.movtery.pojavzh.utils.file.FileTools;
 import com.movtery.pojavzh.utils.file.OperationFile;
 import com.movtery.pojavzh.utils.file.PasteFile;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import net.kdt.pojavlaunch.fragments.SearchModFragment;
 
@@ -38,12 +39,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModsFragment extends Fragment {
+public class ModsFragment extends FragmentWithAnim {
     public static final String TAG = "ModsFragment";
     public static final String BUNDLE_ROOT_PATH = "root_path";
     public static final String jarFileSuffix = ".jar";
     public static final String disableJarFileSuffix = ".jar.disabled";
     private ActivityResultLauncher<Object> openDocumentLauncher;
+    private View mModsLayout, mOperateLayout, mShadowView;
     private ImageButton mReturnButton, mAddModButton, mPasteButton, mDownloadButton, mSearchSummonButton, mRefreshButton;
     private TextView mNothingTip;
     private SearchView mSearchView;
@@ -81,6 +83,7 @@ public class ModsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         bindViews(view);
         parseBundle();
+
         mFileRecyclerView.setShowFiles(true);
         mFileRecyclerView.setShowFolders(false);
         mFileRecyclerView.lockAndListAt(new File(mRootPath), new File(mRootPath));
@@ -171,7 +174,7 @@ public class ModsFragment extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putBoolean(SearchModFragment.BUNDLE_SEARCH_MODPACK, false);
             bundle.putString(SearchModFragment.BUNDLE_MOD_PATH, mRootPath);
-            Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, bundle);
+            ZHTools.swapFragmentWithAnim(this, SearchModFragment.class, SearchModFragment.TAG, bundle);
         });
         mSearchSummonButton.setOnClickListener(v -> {
             closeMultiSelect();
@@ -181,6 +184,8 @@ public class ModsFragment extends Fragment {
             closeMultiSelect();
             mFileRecyclerView.refreshPath();
         });
+
+        ViewAnimUtils.slideInAnim(this);
     }
 
     private void closeMultiSelect() {
@@ -265,6 +270,10 @@ public class ModsFragment extends Fragment {
     }
 
     private void bindViews(@NonNull View view) {
+        mModsLayout = view.findViewById(R.id.mods_layout);
+        mOperateLayout = view.findViewById(R.id.operate_layout);
+        mShadowView = view.findViewById(R.id.shadowView);
+
         mReturnButton = view.findViewById(R.id.zh_return_button);
         mAddModButton = view.findViewById(R.id.zh_add_file_button);
         mPasteButton = view.findViewById(R.id.zh_paste_button);
@@ -294,6 +303,21 @@ public class ModsFragment extends Fragment {
         ZHTools.setTooltipText(mDownloadButton, mDownloadButton.getContentDescription());
         ZHTools.setTooltipText(mSearchSummonButton, mSearchSummonButton.getContentDescription());
         ZHTools.setTooltipText(mRefreshButton, mRefreshButton.getContentDescription());
+    }
+
+    @Override
+    public void slideIn() {
+        ViewAnimUtils.setViewAnim(mModsLayout, Techniques.BounceInDown);
+        ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft);
+        ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft);
+    }
+
+    @Override
+    public void slideOut(@NonNull OnSlideOutListener listener) {
+        ViewAnimUtils.setViewAnim(mModsLayout, Techniques.FadeOutUp);
+        ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight);
+        ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutRight);
+        super.slideOut(listener);
     }
 }
 

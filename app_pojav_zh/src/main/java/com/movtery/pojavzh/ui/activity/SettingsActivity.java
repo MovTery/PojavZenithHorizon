@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.ui.fragment.preference.PreferenceExperimentalFragment;
 import com.movtery.pojavzh.ui.fragment.preference.PreferenceLauncherFragment;
@@ -16,6 +18,7 @@ import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.BaseActivity;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
+import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceControlFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceJavaFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceMiscellaneousFragment;
@@ -119,18 +122,21 @@ public class SettingsActivity extends BaseActivity {
         mLauncherButton.setClickable(view != mLauncherButton);
         mExperimentalButton.setClickable(view != mExperimentalButton);
 
-        setAlpha(mVideoButton, mVideoButton.isClickable());
-        setAlpha(mControlsButton, mControlsButton.isClickable());
-        setAlpha(mJavaButton, mJavaButton.isClickable());
-        setAlpha(mMiscButton, mMiscButton.isClickable());
-        setAlpha(mLauncherButton, mLauncherButton.isClickable());
-        setAlpha(mExperimentalButton, mExperimentalButton.isClickable());
+        setAnim(mVideoButton, mVideoButton.isClickable());
+        setAnim(mControlsButton, mControlsButton.isClickable());
+        setAnim(mJavaButton, mJavaButton.isClickable());
+        setAnim(mMiscButton, mMiscButton.isClickable());
+        setAnim(mLauncherButton, mLauncherButton.isClickable());
+        setAnim(mExperimentalButton, mExperimentalButton.isClickable());
 
-        //每次切换页面都会更新标题
         mTitleView.setText(mTitle.get(view) != null ? mTitle.get(view) : getString(R.string.preference_category_video));
+
+        YoYo.with(Techniques.Wobble)
+                .duration((long) (LauncherPreferences.PREF_ANIMATION_SPEED * 1.2))
+                .playOn(view);
     }
 
-    private void setAlpha(View button, boolean clickable) {
+    private void setAnim(View button, boolean clickable) {
         if (clickable && button.getAlpha() < 1f) {
             button.animate()
                     .alpha(1f)

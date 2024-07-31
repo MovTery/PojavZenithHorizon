@@ -27,6 +27,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundManager;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
 import com.movtery.pojavzh.utils.file.FileTools;
@@ -133,12 +134,27 @@ public class ZHTools {
                                             @Nullable String fragmentTag, @Nullable Bundle bundle, boolean addToBackStack) {
         FragmentTransaction transaction = fragmentActivity.getSupportFragmentManager().beginTransaction();
 
-        if (PREF_ANIMATION)
-            transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
+        if (PREF_ANIMATION) transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
+
         if (addToBackStack) transaction.addToBackStack(fragmentClass.getName());
         transaction.setReorderingAllowed(true)
                 .replace(R.id.zh_settings_fragment, fragmentClass, bundle, fragmentTag)
                 .commit();
+    }
+
+    public static void swapFragmentWithAnim(Fragment fragment, Class<? extends Fragment> fragmentClass,
+                                            @Nullable String fragmentTag, @Nullable Bundle bundle) {
+        FragmentTransaction transaction = fragment.requireActivity().getSupportFragmentManager().beginTransaction();
+
+        if (PREF_ANIMATION) transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
+
+        transaction.setReorderingAllowed(true).replace(R.id.container_fragment, fragmentClass, bundle, fragmentTag);
+        transaction.addToBackStack(fragmentClass.getName());
+        if (fragment instanceof FragmentWithAnim) {
+            ((FragmentWithAnim) fragment).slideOut(transaction::commit);
+        } else {
+            transaction.commit();
+        }
     }
 
     public static void addFragment(Fragment fragment, Class<? extends Fragment> fragmentClass,

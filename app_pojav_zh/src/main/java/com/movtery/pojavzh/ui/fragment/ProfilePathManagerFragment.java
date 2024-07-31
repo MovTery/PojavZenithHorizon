@@ -11,10 +11,10 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.daimajia.androidanimations.library.Techniques;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -24,6 +24,8 @@ import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfileItem;
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathAdapter;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -35,9 +37,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-public class ProfilePathManagerFragment extends Fragment {
+public class ProfilePathManagerFragment extends FragmentWithAnim {
     public static final String TAG = "ProfilePathManagerFragment";
     private final List<ProfileItem> mData = new ArrayList<>();
+    private View mPathLayout, mOperateLayout, mShadowView;
     private ProfilePathAdapter adapter;
 
     public ProfilePathManagerFragment() {
@@ -74,6 +77,10 @@ public class ProfilePathManagerFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         refreshData();
 
+        mPathLayout = view.findViewById(R.id.path_layout);
+        mOperateLayout = view.findViewById(R.id.operate_layout);
+        mShadowView = view.findViewById(R.id.shadowView);
+
         RecyclerView pathList = view.findViewById(R.id.zh_profile_path);
         ImageButton refreshButton = view.findViewById(R.id.zh_profile_path_refresh_button);
         ImageButton createNewButton = view.findViewById(R.id.zh_profile_path_create_new_button);
@@ -83,7 +90,7 @@ public class ProfilePathManagerFragment extends Fragment {
         ZHTools.setTooltipText(createNewButton, createNewButton.getContentDescription());
         ZHTools.setTooltipText(returnButton, returnButton.getContentDescription());
 
-        adapter = new ProfilePathAdapter(requireActivity(), pathList, this.mData);
+        adapter = new ProfilePathAdapter(this, pathList, this.mData);
         pathList.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(view.getContext(), R.anim.fade_downwards)));
         pathList.setLayoutManager(new LinearLayoutManager(requireContext()));
         pathList.setAdapter(adapter);
@@ -96,10 +103,11 @@ public class ProfilePathManagerFragment extends Fragment {
             bundle.putBoolean(FilesFragment.BUNDLE_REMOVE_LOCK_PATH, false);
             bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, Environment.getExternalStorageDirectory().getAbsolutePath());
 
-            Tools.swapFragment(requireActivity(),
-                    FilesFragment.class, FilesFragment.TAG, bundle);
+            ZHTools.swapFragmentWithAnim(this, FilesFragment.class, FilesFragment.TAG, bundle);
         });
         returnButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
+
+        ViewAnimUtils.slideInAnim(this);
     }
 
     private void refresh() {
@@ -140,5 +148,20 @@ public class ProfilePathManagerFragment extends Fragment {
             }
         }
         return false;
+    }
+
+    @Override
+    public void slideIn() {
+        ViewAnimUtils.setViewAnim(mPathLayout, Techniques.BounceInDown);
+        ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft);
+        ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft);
+    }
+
+    @Override
+    public void slideOut(@NonNull OnSlideOutListener listener) {
+        ViewAnimUtils.setViewAnim(mPathLayout, Techniques.FadeOutUp);
+        ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight);
+        ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutRight);
+        super.slideOut(listener);
     }
 }

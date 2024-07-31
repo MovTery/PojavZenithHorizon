@@ -13,24 +13,24 @@ import net.kdt.pojavlaunch.R;
 
 import java.util.List;
 
-public class TwoLevelListAdapter extends RecyclerView.Adapter<TwoLevelListAdapter.InnerHolder> {
-    private final TwoLevelListFragment fragment;
-    private final List<TwoLevelListItemBean> mData;
+public class ModListAdapter extends RecyclerView.Adapter<ModListAdapter.InnerHolder> {
+    private final ModListFragment fragment;
+    private final List<ModListItemBean> mData;
 
-    public TwoLevelListAdapter(TwoLevelListFragment fragment, List<TwoLevelListItemBean> mData) {
+    public ModListAdapter(ModListFragment fragment, List<ModListItemBean> mData) {
         this.fragment = fragment;
         this.mData = mData;
     }
 
     @NonNull
     @Override
-    public TwoLevelListAdapter.InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ModListAdapter.InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_mod_download, parent, false);
         return new InnerHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TwoLevelListAdapter.InnerHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ModListAdapter.InnerHolder holder, int position) {
         holder.setData(mData.get(position));
     }
 
@@ -40,13 +40,13 @@ public class TwoLevelListAdapter extends RecyclerView.Adapter<TwoLevelListAdapte
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void updateData(List<TwoLevelListItemBean> newData) {
+    public void updateData(List<ModListItemBean> newData) {
         mData.clear();
         mData.addAll(newData);
         super.notifyDataSetChanged();
     }
 
-    public List<TwoLevelListItemBean> getData() {
+    public List<ModListItemBean> getData() {
         return mData;
     }
 
@@ -60,10 +60,10 @@ public class TwoLevelListAdapter extends RecyclerView.Adapter<TwoLevelListAdapte
             versionId = itemView.findViewById(R.id.mod_version_id);
         }
 
-        public void setData(TwoLevelListItemBean twoLevelListItemBean) {
-            mainView.setOnClickListener(v -> fragment.switchToChild(twoLevelListItemBean.getAdapter(), twoLevelListItemBean.title));
+        public void setData(ModListItemBean modListItemBean) {
+            mainView.setOnClickListener(v -> fragment.switchToChild(modListItemBean.getAdapter(), modListItemBean.title));
 
-            versionId.setText(twoLevelListItemBean.title);
+            versionId.setText(modListItemBean.title);
         }
     }
 }

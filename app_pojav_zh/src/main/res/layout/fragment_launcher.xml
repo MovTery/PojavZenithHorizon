@@ -14,7 +14,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/constraintLayout2"
+        app:layout_constraintEnd_toStartOf="@+id/play_layout"
         app:layout_constraintHorizontal_weight="7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -217,7 +217,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
+        android:id="@+id/play_layout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:background="@color/menu_overlay"
@@ -242,8 +242,8 @@
             app:layout_constraintBottom_toTopOf="@+id/play_button"
             app:layout_constraintEnd_toStartOf="@+id/path_manager_button"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout2" />
+            app:layout_constraintStart_toEndOf="@+id/play_layout"
+            app:layout_constraintStart_toStartOf="@+id/play_layout" />
 
         <ImageButton
             android:id="@+id/path_manager_button"
@@ -251,9 +251,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:scaleType="fitCenter"
-            android:scaleX="0.7"
-            android:scaleY="0.7"
+            android:scaleType="centerInside"
             android:src="@drawable/ic_list"
             app:layout_constraintBottom_toTopOf="@+id/play_button"
             app:layout_constraintEnd_toStartOf="@+id/manager_profile_button"
@@ -266,12 +264,10 @@
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="8dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:scaleType="fitCenter"
-            android:scaleX="0.7"
-            android:scaleY="0.7"
+            android:scaleType="centerInside"
             android:src="@drawable/ic_setting"
             app:layout_constraintBottom_toTopOf="@+id/play_button"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
+            app:layout_constraintEnd_toEndOf="@+id/play_layout"
             app:layout_constraintTop_toTopOf="@+id/mc_version_spinner" />
 
         <Button
@@ -283,9 +279,9 @@
             android:layout_marginBottom="8dp"
             android:text="@string/main_play"
             android:textAllCaps="true"
-            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
+            app:layout_constraintBottom_toBottomOf="@+id/play_layout"
+            app:layout_constraintEnd_toEndOf="@+id/play_layout"
+            app:layout_constraintStart_toStartOf="@+id/play_layout"
             tools:ignore="MissingConstraints" />
 
         <include
@@ -294,9 +290,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/mc_version_spinner"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
-            app:layout_constraintTop_toTopOf="@+id/constraintLayout2" />
+            app:layout_constraintEnd_toEndOf="@+id/play_layout"
+            app:layout_constraintStart_toStartOf="@+id/play_layout"
+            app:layout_constraintTop_toTopOf="@+id/play_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

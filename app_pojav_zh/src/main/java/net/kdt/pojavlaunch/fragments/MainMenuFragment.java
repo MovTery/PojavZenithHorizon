@@ -22,11 +22,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
 
+import com.daimajia.androidanimations.library.Techniques;
 import com.kdt.mcgui.mcVersionSpinner;
 import com.movtery.pojavzh.feature.accounts.AccountUpdateListener;
 import com.movtery.pojavzh.ui.fragment.AboutFragment;
+import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
 import com.movtery.pojavzh.ui.fragment.ControlButtonFragment;
 import com.movtery.pojavzh.ui.fragment.FilesFragment;
 
@@ -39,6 +40,9 @@ import net.kdt.pojavlaunch.Tools;
 import com.movtery.pojavzh.ui.dialog.ShareLogDialog;
 import com.movtery.pojavzh.ui.fragment.ProfilePathManagerFragment;
 import com.movtery.pojavzh.ui.subassembly.account.AccountView;
+import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
@@ -48,11 +52,14 @@ import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
 import java.io.File;
 import java.util.concurrent.Future;
 
-public class MainMenuFragment extends Fragment implements TaskCountListener, AccountUpdateListener {
+public class MainMenuFragment extends FragmentWithAnim implements TaskCountListener, AccountUpdateListener {
     public static final String TAG = "MainMenuFragment";
     private AccountView accountView;
     private CheckNewNotice.NoticeInfo noticeInfo = null;
+    private ImageButton mPathManagerButton, mManagerProfileButton;
+    private Button mPlayButton;
     private mcVersionSpinner mVersionSpinner;
+    private View mMenuLayout, mPlayLayout, mShadowView;
     private View mLauncherNoticeView, mDividingLineView;
     private Button mNoticeCloseButton;
     private boolean mTasksRunning;
@@ -73,12 +80,7 @@ public class MainMenuFragment extends Fragment implements TaskCountListener, Acc
         Button mShareLogsButton = view.findViewById(R.id.share_logs_button);
         Button mOpenMainDirButton = view.findViewById(R.id.zh_open_main_dir_button);
 
-        ImageButton mPathManagerButton = view.findViewById(R.id.path_manager_button);
-        ImageButton mManagerProfileButton = view.findViewById(R.id.manager_profile_button);
-        Button mPlayButton = view.findViewById(R.id.play_button);
-        mVersionSpinner = view.findViewById(R.id.mc_version_spinner);
-
-        mAboutButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), AboutFragment.class, AboutFragment.TAG, null));
+        mAboutButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, AboutFragment.class, AboutFragment.TAG, null));
         mAboutButton.setOnLongClickListener(v -> {
             setNotice(true, true, view);
             SharedPreferences.Editor editor = DEFAULT_PREF.edit();
@@ -86,7 +88,7 @@ public class MainMenuFragment extends Fragment implements TaskCountListener, Acc
             editor.apply();
             return true;
         });
-        mCustomControlButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ControlButtonFragment.class, ControlButtonFragment.TAG, null));
+        mCustomControlButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, ControlButtonFragment.class, ControlButtonFragment.TAG, null));
         mInstallJarButton.setOnClickListener(v -> runInstallerWithConfirmation(false));
         mInstallJarButton.setOnLongClickListener(v -> {
             runInstallerWithConfirmation(true);
@@ -94,12 +96,12 @@ public class MainMenuFragment extends Fragment implements TaskCountListener, Acc
         });
         mPathManagerButton.setOnClickListener(v -> {
             if (!mTasksRunning) {
-                Tools.swapFragment(requireActivity(), ProfilePathManagerFragment.class, ProfilePathManagerFragment.TAG, null);
+                ZHTools.swapFragmentWithAnim(this, ProfilePathManagerFragment.class, ProfilePathManagerFragment.TAG, null);
             } else {
                 runOnUiThread(() -> Toast.makeText(requireContext(), R.string.zh_profiles_path_task_in_progress, Toast.LENGTH_SHORT).show());
             }
         });
-        mManagerProfileButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ProfileManagerFragment.class, ProfileManagerFragment.TAG, null));
+        mManagerProfileButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, ProfileManagerFragment.class, ProfileManagerFragment.TAG, null));
 
         mPlayButton.setOnClickListener(v -> ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true));
 
@@ -112,13 +114,12 @@ public class MainMenuFragment extends Fragment implements TaskCountListener, Acc
             Bundle bundle = new Bundle();
             bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, Environment.getExternalStorageDirectory().getAbsolutePath());
             bundle.putString(FilesFragment.BUNDLE_LIST_PATH, Tools.DIR_GAME_HOME);
-            Tools.swapFragment(requireActivity(), FilesFragment.class, FilesFragment.TAG, bundle);
+            ZHTools.swapFragmentWithAnim(this, FilesFragment.class, FilesFragment.TAG, bundle);
         });
 
-        accountView = new AccountView(view.findViewById(R.id.view_account));
-        accountView.refreshAccountInfo();
-
         initNotice(view);
+
+        ViewAnimUtils.slideInAnim(this);
     }
 
     private void initNotice(View view) {
@@ -147,9 +148,21 @@ public class MainMenuFragment extends Fragment implements TaskCountListener, Acc
     }
 
     private void bindValues(View view) {
+        mMenuLayout = view.findViewById(R.id.launcher_menu);
+        mPlayLayout = view.findViewById(R.id.play_layout);
+        mShadowView = view.findViewById(R.id.shadowView);
+        mPathManagerButton = view.findViewById(R.id.path_manager_button);
+        mManagerProfileButton = view.findViewById(R.id.manager_profile_button);
+        mPlayButton = view.findViewById(R.id.play_button);
+        mVersionSpinner = view.findViewById(R.id.mc_version_spinner);
+        accountView = new AccountView(view.findViewById(R.id.view_account));
+        accountView.refreshAccountInfo();
+
         mLauncherNoticeView = view.findViewById(R.id.zh_menu_notice);
         mDividingLineView = view.findViewById(R.id.dividing_line);
         mNoticeCloseButton = view.findViewById(R.id.zh_menu_notice_close_button);
+
+        mVersionSpinner.setParentFragment(this);
     }
 
     @Override
@@ -248,5 +261,26 @@ public class MainMenuFragment extends Fragment implements TaskCountListener, Acc
     @Override
     public void onUpdate() {
         accountView.refreshAccountInfo();
+    }
+
+    @Override
+    public void slideIn() {
+        ViewAnimUtils.setViewAnim(mMenuLayout, Techniques.BounceInDown);
+        ViewAnimUtils.setViewAnim(mPlayLayout, Techniques.BounceInLeft);
+        ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft);
+
+        ViewAnimUtils.setViewAnim(accountView.getMainView(), Techniques.FlipInY);
+        ViewAnimUtils.setViewAnim(mPathManagerButton, Techniques.BounceInLeft);
+        ViewAnimUtils.setViewAnim(mManagerProfileButton, Techniques.BounceInLeft);
+        ViewAnimUtils.setViewAnim(mVersionSpinner, Techniques.BounceInLeft);
+        ViewAnimUtils.setViewAnim(mPlayButton, Techniques.BounceInLeft);
+    }
+
+    @Override
+    public void slideOut(@NonNull OnSlideOutListener listener) {
+        ViewAnimUtils.setViewAnim(mMenuLayout, Techniques.FadeOutUp);
+        ViewAnimUtils.setViewAnim(mPlayLayout, Techniques.FadeOutRight);
+        ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutRight);
+        super.slideOut(listener);
     }
 }

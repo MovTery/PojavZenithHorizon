@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.pojavzh.feature.mod.modloader.BaseModVersionListAdapter;
 import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog;
-import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListAdapter;
-import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListFragment;
-import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListItemBean;
+import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListAdapter;
+import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListFragment;
+import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListItemBean;
 import com.movtery.pojavzh.utils.MCVersionComparator;
 
 import net.kdt.pojavlaunch.JavaGUILauncherActivity;
@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
 
-public class DownloadForgeFragment extends TwoLevelListFragment implements ModloaderDownloadListener {
+public class DownloadForgeFragment extends ModListFragment implements ModloaderDownloadListener {
     public static final String TAG = "DownloadForgeFragment";
     private final ModloaderListenerProxy modloaderListenerProxy = new ModloaderListenerProxy();
 
@@ -88,7 +88,7 @@ public class DownloadForgeFragment extends TwoLevelListFragment implements Modlo
 
         if (currentTask.isCancelled()) return;
 
-        List<TwoLevelListItemBean> mData = new ArrayList<>();
+        List<ModListItemBean> mData = new ArrayList<>();
         mForgeVersions.entrySet().stream()
                 .sorted(java.util.Map.Entry.comparingByKey(MCVersionComparator::versionCompare))
                 .forEach(entry -> {
@@ -98,7 +98,7 @@ public class DownloadForgeFragment extends TwoLevelListFragment implements Modlo
                     BaseModVersionListAdapter adapter = new BaseModVersionListAdapter(activity, modloaderListenerProxy, this, R.drawable.ic_anvil, entry.getValue());
                     adapter.setOnItemClickListener(version -> new Thread(new ForgeDownloadTask(modloaderListenerProxy, (String) version)).start());
 
-                    mData.add(new TwoLevelListItemBean("Minecraft " + entry.getKey(), adapter));
+                    mData.add(new ModListItemBean("Minecraft " + entry.getKey(), adapter));
                 });
 
         if (currentTask.isCancelled()) return;
@@ -106,9 +106,9 @@ public class DownloadForgeFragment extends TwoLevelListFragment implements Modlo
         runOnUiThread(() -> {
             RecyclerView recyclerView = getRecyclerView();
             try {
-                TwoLevelListAdapter mModAdapter = (TwoLevelListAdapter) recyclerView.getAdapter();
+                ModListAdapter mModAdapter = (ModListAdapter) recyclerView.getAdapter();
                 if (mModAdapter == null) {
-                    mModAdapter = new TwoLevelListAdapter(this, mData);
+                    mModAdapter = new ModListAdapter(this, mData);
                     recyclerView.setLayoutManager(new LinearLayoutManager(activity));
                     recyclerView.setAdapter(mModAdapter);
                 } else {

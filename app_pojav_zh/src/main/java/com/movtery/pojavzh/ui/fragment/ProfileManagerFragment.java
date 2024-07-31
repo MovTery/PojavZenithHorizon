@@ -8,11 +8,13 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
+import com.daimajia.androidanimations.library.Techniques;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 import com.movtery.pojavzh.utils.file.FileTools;
 
 import net.kdt.pojavlaunch.R;
@@ -26,9 +28,10 @@ import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 
 import java.io.File;
 
-public class ProfileManagerFragment extends Fragment {
+public class ProfileManagerFragment extends FragmentWithAnim {
     public static final String TAG = "ProfileManagerFragment";
     public static final String DELETED_PROFILE = "deleted_profile";
+    private View mShortcutsLayout, mModdedLayout;
     private String mProfileKey;
 
     public ProfileManagerFragment() {
@@ -38,13 +41,17 @@ public class ProfileManagerFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         init(view);
+
+        ViewAnimUtils.slideInAnim(this);
     }
 
     private void init(View view) {
         File gameDirPath = ZHTools.getGameDirPath(getCurrentProfile().gameDir);
         mProfileKey = LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, "");
+
+        mShortcutsLayout = view.findViewById(R.id.shortcuts_layout);
+        mModdedLayout = view.findViewById(R.id.modded_layout);
 
         Button modsButton = view.findViewById(R.id.zh_shortcuts_mods);
         Button instanceButton = view.findViewById(R.id.zh_instance_path);
@@ -65,8 +72,7 @@ public class ProfileManagerFragment extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putString(ModsFragment.BUNDLE_ROOT_PATH, modsPath.getAbsolutePath());
 
-            Tools.swapFragment(requireActivity(),
-                    ModsFragment.class, ModsFragment.TAG, bundle);
+            ZHTools.swapFragmentWithAnim(this, ModsFragment.class, ModsFragment.TAG, bundle);
         });
 
         instanceButton.setOnClickListener(v -> swapFilesFragment(gameDirPath, gameDirPath));
@@ -75,7 +81,7 @@ public class ProfileManagerFragment extends Fragment {
         logsButton.setOnClickListener(v -> swapFilesFragment(gameDirPath, new File(gameDirPath, "/logs")));
         crashReportButton.setOnClickListener(v -> swapFilesFragment(gameDirPath, new File(gameDirPath, "/crash-reports")));
 
-        editButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ProfileEditorFragment.class, ProfileEditorFragment.TAG, null));
+        editButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, ProfileEditorFragment.class, ProfileEditorFragment.TAG, null));
         deleteButton.setOnClickListener(v -> new TipDialog.Builder(requireContext())
                 .setTitle(R.string.zh_warning)
                 .setMessage(R.string.zh_profile_manager_delete_message)
@@ -105,7 +111,19 @@ public class ProfileManagerFragment extends Fragment {
         bundle.putString(FilesFragment.BUNDLE_LIST_PATH, listPath.getAbsolutePath());
         bundle.putBoolean(FilesFragment.BUNDLE_QUICK_ACCESS_PATHS, false);
 
-        Tools.swapFragment(requireActivity(),
-                FilesFragment.class, FilesFragment.TAG, bundle);
+        ZHTools.swapFragmentWithAnim(this, FilesFragment.class, FilesFragment.TAG, bundle);
+    }
+
+    @Override
+    public void slideIn() {
+        ViewAnimUtils.setViewAnim(mShortcutsLayout, Techniques.BounceInRight);
+        ViewAnimUtils.setViewAnim(mModdedLayout, Techniques.BounceInLeft);
+    }
+
+    @Override
+    public void slideOut(@NonNull OnSlideOutListener listener) {
+        ViewAnimUtils.setViewAnim(mShortcutsLayout, Techniques.FadeOutLeft);
+        ViewAnimUtils.setViewAnim(mModdedLayout, Techniques.FadeOutRight);
+        super.slideOut(listener);
     }
 }
