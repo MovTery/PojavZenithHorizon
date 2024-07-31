@@ -33,7 +33,7 @@ public class PreferenceLauncherFragment extends LauncherPreferenceFragment {
         });
 
         CustomSeekBarPreference animationSpeed = requirePreference("animationSpeed", CustomSeekBarPreference.class);
-        animationSpeed.setRange(100, 1000);
+        animationSpeed.setRange(300, 1500);
         animationSpeed.setValue(animationSpeedValue);
         animationSpeed.setSuffix(" MS");
 
