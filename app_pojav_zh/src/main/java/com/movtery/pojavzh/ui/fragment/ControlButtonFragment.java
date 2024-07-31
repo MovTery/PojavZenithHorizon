@@ -46,7 +46,7 @@ public class ControlButtonFragment extends FragmentWithAnim {
     public static final String TAG = "ControlButtonFragment";
     public static final String BUNDLE_SELECT_CONTROL = "bundle_select_control";
     private ActivityResultLauncher<Object> openDocumentLauncher;
-    private View mControlLayout, mOperateLayout, mShadowView;
+    private View mControlLayout, mOperateLayout, mShadowView, mOperateView;
     private ImageButton mReturnButton, mAddControlButton, mImportControlButton, mPasteButton, mSearchSummonButton, mRefreshButton;
     private TextView mNothingTip;
     private SearchView mSearchView;
@@ -196,6 +196,8 @@ public class ControlButtonFragment extends FragmentWithAnim {
         mOperateLayout = view.findViewById(R.id.operate_layout);
         mShadowView = view.findViewById(R.id.shadowView);
 
+        mOperateView = view.findViewById(R.id.operate_view);
+
         mReturnButton = view.findViewById(R.id.zh_return_button);
         mImportControlButton = view.findViewById(R.id.zh_add_file_button);
         mAddControlButton = view.findViewById(R.id.zh_create_folder_button);
@@ -228,6 +230,8 @@ public class ControlButtonFragment extends FragmentWithAnim {
         ViewAnimUtils.setViewAnim(mControlLayout, Techniques.BounceInDown);
         ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft);
         ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft);
+
+        ViewAnimUtils.setViewAnim(mOperateView, Techniques.FadeInLeft);
     }
 
     @Override

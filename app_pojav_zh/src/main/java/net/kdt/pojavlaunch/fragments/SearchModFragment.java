@@ -180,6 +180,7 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
     @Override
     public void slideIn() {
         ViewAnimUtils.setViewAnim(mMainView, Techniques.BounceInDown);
+        ViewAnimUtils.setViewAnim(mOverlay, Techniques.FadeInDown);
     }
 
     @Override

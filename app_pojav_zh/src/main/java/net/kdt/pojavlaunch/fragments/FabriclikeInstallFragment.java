@@ -53,7 +53,7 @@ public abstract class FabriclikeInstallFragment extends FragmentWithAnim impleme
     private Future<?> mLoaderVersionFuture;
     private String mSelectedLoaderVersion;
     private ProgressBar mProgressBar;
-    private Button mStartButton;
+    private Button mStartButton, mCloseButton, mRetryButton;
     private View mFailedView;
     private CheckBox mOnlyStableCheckbox;
     protected FabriclikeInstallFragment(FabriclikeUtils mFabriclikeUtils) {
@@ -75,14 +75,15 @@ public abstract class FabriclikeInstallFragment extends FragmentWithAnim impleme
 
         mStartButton = view.findViewById(R.id.fabric_installer_start_button);
         mStartButton.setOnClickListener(this::onClickStart);
-        view.findViewById(R.id.zh_fabric_installer_return_button).setOnClickListener(v -> ZHTools.onBackPressed(requireActivity())); //返回按钮
+        mCloseButton = view.findViewById(R.id.zh_fabric_installer_return_button);
+        mCloseButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
         mGameVersionSpinner = view.findViewById(R.id.fabric_installer_game_ver_spinner);
         mGameVersionSpinner.setOnItemSelectedListener(new GameVersionSelectedListener());
         mLoaderVersionSpinner = view.findViewById(R.id.fabric_installer_loader_ver_spinner);
         mLoaderVersionSpinner.setOnItemSelectedListener(new LoaderVersionSelectedListener());
         mProgressBar = view.findViewById(R.id.fabric_installer_progress_bar);
         mFailedView = view.findViewById(R.id.fabric_installer_failed_tip_view);
-        Button mRetryButton = view.findViewById(R.id.fabric_installer_retry_button);
+        mRetryButton = view.findViewById(R.id.fabric_installer_retry_button);
         mRetryButton.setOnClickListener(this::onClickRetry);
         mOnlyStableCheckbox = view.findViewById(R.id.fabric_installer_only_stable_checkbox);
         mOnlyStableCheckbox.setOnCheckedChangeListener(this);
@@ -303,6 +304,10 @@ public abstract class FabriclikeInstallFragment extends FragmentWithAnim impleme
         ViewAnimUtils.setViewAnim(mVersionLayout, Techniques.BounceInDown);
         ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft);
         ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft);
+
+        ViewAnimUtils.setViewAnim(mRetryButton, Techniques.FadeInLeft);
+        ViewAnimUtils.setViewAnim(mCloseButton, Techniques.FadeInLeft);
+        ViewAnimUtils.setViewAnim(mStartButton, Techniques.FadeInLeft);
     }
 
     @Override

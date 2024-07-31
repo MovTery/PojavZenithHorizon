@@ -140,7 +140,10 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
                 VersionSelectorFragment.class, VersionSelectorFragment.TAG, null));
 
         // Set up the icon change click listener
-        mProfileIcon.setOnClickListener(v -> CropperUtils.startCropper(mCropperLauncher));
+        mProfileIcon.setOnClickListener(v -> {
+            ViewAnimUtils.setViewAnim(mProfileIcon, Techniques.Bounce);
+            CropperUtils.startCropper(mCropperLauncher);
+        });
 
         loadValues(LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, ""), view.getContext());
 
@@ -279,6 +282,9 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
         ViewAnimUtils.setViewAnim(mEditorLayout, Techniques.BounceInDown);
         ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft);
         ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft);
+
+        ViewAnimUtils.setViewAnim(mProfileIcon, Techniques.FlipInY);
+        ViewAnimUtils.setViewAnim(mSaveButton, Techniques.FadeInLeft);
     }
 
     @Override

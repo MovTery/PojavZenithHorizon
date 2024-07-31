@@ -214,10 +214,10 @@ public abstract class ModListFragment extends FragmentWithAnim {
         ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft);
 
         ViewAnimUtils.setViewAnim(mIcon, Techniques.Wobble);
-        ViewAnimUtils.setViewAnim(mNameText, Techniques.Wobble);
-        ViewAnimUtils.setViewAnim(mReturnButton, Techniques.BounceInLeft);
-        ViewAnimUtils.setViewAnim(mRefreshButton, Techniques.BounceInLeft);
-        ViewAnimUtils.setViewAnim(mReleaseCheckBox, Techniques.BounceInLeft);
+        ViewAnimUtils.setViewAnim(mNameText, Techniques.FadeInLeft);
+        ViewAnimUtils.setViewAnim(mReturnButton, Techniques.FadeInLeft);
+        ViewAnimUtils.setViewAnim(mRefreshButton, Techniques.FadeInLeft);
+        ViewAnimUtils.setViewAnim(mReleaseCheckBox, Techniques.FadeInLeft);
     }
 
     @Override
