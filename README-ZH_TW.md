@@ -34,3 +34,26 @@
 - 前往 [Release](https://github.com/MovTery/PojavZenithHorizon/releases) 查看最新且經過測試的穩定版本（更新並不頻繁）。  
 - (並不推薦) 前往 [Actions](https://github.com/MovTery/PojavZenithHorizon/actions) 查看最新的版本 ( 主線：main，其他任何支線均可忽略！)
 ，進入後，點擊 **PojavZenithHorizon** 下載 (Debug 為測試構建版本，Release 為發行構建版本)。
+
+<h2 align="center">特別感謝</h2>
+
+這個項目使用到了一些非常好用的代碼庫，特此鳴謝！
+
+#### PojavLauncher 使用的代碼庫
+
+>- [Boardwalk](https://github.com/zhuowei/Boardwalk) (JVM Launcher): 未知協議 / [Apache License 2.0](https://github.com/zhuowei/Boardwalk/blob/master/LICENSE) 或 GNU GPLv2.
+>- Android 支援庫: [Apache License 2.0](https://android.googlesource.com/platform/prebuilts/maven_repo/android/+/master/NOTICE.txt).
+>- [GL4ES](https://github.com/PojavLauncherTeam/gl4es): [MIT License](https://github.com/ptitSeb/gl4es/blob/master/LICENSE).
+>- [OpenJDK](https://github.com/PojavLauncherTeam/openjdk-multiarch-jdk8u): [GNU GPLv2 License](https://openjdk.java.net/legal/gplv2+ce.html).
+>- [LWJGL3](https://github.com/PojavLauncherTeam/lwjgl3): [BSD-3 License](https://github.com/LWJGL/lwjgl3/blob/master/LICENSE.md).
+>- [LWJGLX](https://github.com/PojavLauncherTeam/lwjglx) (LWJGL3 的 LWJGL2 API 兼容層): 未知協議.
+>- [Mesa 3D Graphics Library](https://gitlab.freedesktop.org/mesa/mesa): [MIT License](https://docs.mesa3d.org/license.html).
+>- [pro-grade](https://github.com/pro-grade/pro-grade) (Java 沙箱安全管理器): [Apache License 2.0](https://github.com/pro-grade/pro-grade/blob/master/LICENSE.txt).
+>- [bhook](https://github.com/bytedance/bhook) (用於退出代碼捕獲): [MIT License](https://github.com/bytedance/bhook/blob/main/LICENSE).
+>- [libepoxy](https://github.com/anholt/libepoxy): [MIT License](https://github.com/anholt/libepoxy/blob/master/COPYING).
+>- [virglrenderer](https://github.com/PojavLauncherTeam/virglrenderer): [MIT License](https://gitlab.freedesktop.org/virgl/virglrenderer/-/blob/master/COPYING).
+
+#### Pojav Zenith Horizon 額外使用的代碼庫
+
+>- [CommonMark](https://github.com/thephpleague/commonmark) (用於渲染 Markdown 文本): [BSD-3-Clause License](https://github.com/thephpleague/commonmark/blob/2.5/LICENSE).
+>- [AndroidViewAnimations](https://github.com/daimajia/AndroidViewAnimations) (用於為應用添加豐富的動畫效果): [MIT License](https://github.com/daimajia/AndroidViewAnimations/blob/master/License).
