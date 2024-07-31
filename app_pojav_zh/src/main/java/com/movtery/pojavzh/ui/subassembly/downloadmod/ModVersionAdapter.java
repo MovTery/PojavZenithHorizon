@@ -11,9 +11,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.daimajia.androidanimations.library.Techniques;
 import com.movtery.pojavzh.ui.dialog.ModDependenciesDialog;
 import com.movtery.pojavzh.utils.NumberWithUnits;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
@@ -96,6 +98,7 @@ public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.In
 
             mainView.setOnClickListener(v -> {
                 if (mTasksRunning) {
+                    ViewAnimUtils.setViewAnim(mainView, Techniques.Shake);
                     Toast.makeText(context, context.getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
                     return;
                 }

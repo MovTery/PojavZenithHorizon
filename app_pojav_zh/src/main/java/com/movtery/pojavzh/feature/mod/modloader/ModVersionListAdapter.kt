@@ -1,16 +1,22 @@
 package com.movtery.pojavzh.feature.mod.modloader
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.daimajia.androidanimations.library.Techniques
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.modloaders.OptiFineUtils.OptiFineVersion
+import net.kdt.pojavlaunch.progresskeeper.TaskCountListener
 
 open class ModVersionListAdapter(private val mData: List<*>?) :
-    RecyclerView.Adapter<ModVersionListAdapter.ViewHolder>() {
+    RecyclerView.Adapter<ModVersionListAdapter.ViewHolder>(), TaskCountListener {
+    private var mTasksRunning = false
     private var onItemClickListener: OnItemClickListener? = null
     private var iconDrawable = 0
 
@@ -43,10 +49,12 @@ open class ModVersionListAdapter(private val mData: List<*>?) :
     }
 
     inner class ViewHolder(private val mainView: View) : RecyclerView.ViewHolder(mainView) {
+        private val context: Context
         private val versionName: TextView
 
         init {
             val icon = itemView.findViewById<ImageView>(R.id.zh_file_image)
+            context = itemView.context
             versionName = itemView.findViewById(R.id.zh_file_name)
 
             if (iconDrawable != 0) icon.setImageResource(iconDrawable)
@@ -60,8 +68,18 @@ open class ModVersionListAdapter(private val mData: List<*>?) :
                 versionName.text = version
             }
             mainView.setOnClickListener { _: View? ->
-                if (onItemClickListener != null) onItemClickListener!!.onClick(version)
+                if (mTasksRunning) {
+                    ViewAnimUtils.setViewAnim(mainView, Techniques.Shake)
+                    Toast.makeText(context, context.getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT)
+                        .show()
+                    return@setOnClickListener
+                }
+                onItemClickListener?.onClick(version)
             }
         }
+    }
+
+    override fun onUpdateTaskCount(taskCount: Int) {
+        mTasksRunning = taskCount != 0
     }
 }

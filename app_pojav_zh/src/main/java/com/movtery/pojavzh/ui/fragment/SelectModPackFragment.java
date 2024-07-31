@@ -5,6 +5,7 @@ import static com.movtery.pojavzh.utils.file.FileTools.copyFileInBackground;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -66,21 +67,25 @@ public class SelectModPackFragment extends FragmentWithAnim implements TaskCount
         mMainView = view;
         ProgressKeeper.addTaskCountListener(this);
 
-        view.findViewById(R.id.zh_modpack_button_search_modpack).setOnClickListener(v -> {
+        Button mSearch = view.findViewById(R.id.zh_modpack_button_search_modpack);
+        mSearch.setOnClickListener(v -> {
             if (!mTasksRunning) {
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(SearchModFragment.BUNDLE_SEARCH_MODPACK, true);
                 bundle.putString(SearchModFragment.BUNDLE_MOD_PATH, null);
                 ZHTools.swapFragmentWithAnim(this, SearchModFragment.class, SearchModFragment.TAG, bundle);
             } else {
+                ViewAnimUtils.setViewAnim(mSearch, Techniques.Shake);
                 Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
             }
         });
-        view.findViewById(R.id.zh_modpack_button_local_modpack).setOnClickListener(v -> {
+        Button mLocal = view.findViewById(R.id.zh_modpack_button_local_modpack);
+        mLocal.setOnClickListener(v -> {
             if (!mTasksRunning) {
                 Toast.makeText(requireActivity(), getString(R.string.zh_select_modpack_local_tip), Toast.LENGTH_SHORT).show();
                 openDocumentLauncher.launch(null);
             } else {
+                ViewAnimUtils.setViewAnim(mLocal, Techniques.Shake);
                 Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
             }
         });

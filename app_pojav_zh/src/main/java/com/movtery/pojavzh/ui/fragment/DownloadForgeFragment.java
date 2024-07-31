@@ -95,7 +95,7 @@ public class DownloadForgeFragment extends ModListFragment implements ModloaderD
                     if (currentTask.isCancelled()) return;
 
                     //为整理好的Forge版本设置Adapter
-                    BaseModVersionListAdapter adapter = new BaseModVersionListAdapter(activity, modloaderListenerProxy, this, R.drawable.ic_anvil, entry.getValue());
+                    BaseModVersionListAdapter adapter = new BaseModVersionListAdapter(modloaderListenerProxy, this, R.drawable.ic_anvil, entry.getValue());
                     adapter.setOnItemClickListener(version -> new Thread(new ForgeDownloadTask(modloaderListenerProxy, (String) version)).start());
 
                     mData.add(new ModListItemBean("Minecraft " + entry.getKey(), adapter));

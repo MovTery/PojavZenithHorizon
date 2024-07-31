@@ -96,12 +96,17 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
         });
         mPathManagerButton.setOnClickListener(v -> {
             if (!mTasksRunning) {
+                ViewAnimUtils.setViewAnim(mPathManagerButton, Techniques.Bounce);
                 ZHTools.swapFragmentWithAnim(this, ProfilePathManagerFragment.class, ProfilePathManagerFragment.TAG, null);
             } else {
+                ViewAnimUtils.setViewAnim(mPathManagerButton, Techniques.Shake);
                 runOnUiThread(() -> Toast.makeText(requireContext(), R.string.zh_profiles_path_task_in_progress, Toast.LENGTH_SHORT).show());
             }
         });
-        mManagerProfileButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, ProfileManagerFragment.class, ProfileManagerFragment.TAG, null));
+        mManagerProfileButton.setOnClickListener(v -> {
+            ViewAnimUtils.setViewAnim(mManagerProfileButton, Techniques.Bounce);
+            ZHTools.swapFragmentWithAnim(this, ProfileManagerFragment.class, ProfileManagerFragment.TAG, null);
+        });
 
         mPlayButton.setOnClickListener(v -> ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true));
 

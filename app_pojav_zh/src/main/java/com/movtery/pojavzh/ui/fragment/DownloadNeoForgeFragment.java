@@ -112,7 +112,7 @@ public class DownloadNeoForgeFragment extends ModListFragment implements Modload
                 .forEach(entry -> {
                     if (currentTask.isCancelled()) return;
 
-                    BaseModVersionListAdapter adapter = new BaseModVersionListAdapter(activity, modloaderListenerProxy, this, R.drawable.ic_neoforge, entry.getValue());
+                    BaseModVersionListAdapter adapter = new BaseModVersionListAdapter(modloaderListenerProxy, this, R.drawable.ic_neoforge, entry.getValue());
                     adapter.setOnItemClickListener(version -> new Thread(new NeoForgeDownloadTask(modloaderListenerProxy, (String) version)).start());
 
                     mData.add(new ModListItemBean("Minecraft " + entry.getKey(), adapter));

@@ -111,6 +111,7 @@ public abstract class FabriclikeInstallFragment extends FragmentWithAnim impleme
 
     private void onClickStart(View v) {
         if(ProgressKeeper.hasOngoingTasks()) {
+            ViewAnimUtils.setViewAnim(v, Techniques.Shake);
             Toast.makeText(v.getContext(), R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
             return;
         }

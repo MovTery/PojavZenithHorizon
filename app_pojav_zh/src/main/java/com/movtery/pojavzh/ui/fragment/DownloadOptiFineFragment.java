@@ -95,7 +95,7 @@ public class DownloadOptiFineFragment extends ModListFragment implements Modload
                 .forEach(entry -> {
                     if (currentTask.isCancelled()) return;
 
-                    BaseModVersionListAdapter adapter = new BaseModVersionListAdapter(activity, modloaderListenerProxy, this, R.drawable.ic_optifine, entry.getValue());
+                    BaseModVersionListAdapter adapter = new BaseModVersionListAdapter(modloaderListenerProxy, this, R.drawable.ic_optifine, entry.getValue());
                     adapter.setOnItemClickListener(version -> new Thread(new OptiFineDownloadTask((OptiFineUtils.OptiFineVersion) version, modloaderListenerProxy)).start());
 
                     mData.add(new ModListItemBean(entry.getKey(), adapter));
