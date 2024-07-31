@@ -22,8 +22,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
 
+import com.daimajia.androidanimations.library.Techniques;
 import com.google.gson.Gson;
 import com.movtery.pojavzh.extra.ZHExtraConstants;
 import com.movtery.pojavzh.feature.login.AuthResult;
@@ -33,6 +33,8 @@ import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 import com.movtery.pojavzh.ui.dialog.ProgressDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
@@ -48,9 +50,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class OtherLoginFragment extends Fragment {
+public class OtherLoginFragment extends FragmentWithAnim {
     public static final String TAG = "OtherLoginFragment";
     public String mCurrentBaseUrl;
+    private View mMainView;
     private ProgressDialog mProgressDialog;
     private Spinner mServerSpinner;
     private EditText mUserEditText, mPassEditText;
@@ -193,9 +196,12 @@ public class OtherLoginFragment extends Fragment {
                 runOnUiThread(() -> Toast.makeText(requireContext(), getString(R.string.zh_other_login_server_not_empty), Toast.LENGTH_SHORT).show());
             }
         }));
+
+        ViewAnimUtils.slideInAnim(this);
     }
 
     private void bindViews(@NonNull View view) {
+        mMainView = view;
         mServerSpinner = view.findViewById(R.id.server_spinner);
         mUserEditText = view.findViewById(R.id.login_edit_email);
         mPassEditText = view.findViewById(R.id.login_edit_password);
@@ -306,5 +312,16 @@ public class OtherLoginFragment extends Fragment {
         mRegister.setVisibility((mServerList == null ||
                 (mServerList.size() == 1 && mServerList.get(0).equals(getString(R.string.zh_other_login_no_server))))
                 ? View.GONE : View.VISIBLE);
+    }
+
+    @Override
+    public void slideIn() {
+        ViewAnimUtils.setViewAnim(mMainView, Techniques.BounceInDown);
+    }
+
+    @Override
+    public void slideOut(@NonNull OnSlideOutListener listener) {
+        ViewAnimUtils.setViewAnim(mMainView, Techniques.FadeOutUp);
+        super.slideOut(listener);
     }
 }

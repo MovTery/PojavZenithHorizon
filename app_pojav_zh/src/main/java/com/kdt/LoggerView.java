@@ -12,6 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
+
 import net.kdt.pojavlaunch.Logger;
 import net.kdt.pojavlaunch.R;
 
@@ -40,6 +43,11 @@ public class LoggerView extends ConstraintLayout {
         super.setVisibility(visibility);
         // Triggers the log view shown state by default when viewing it
         mLogToggle.setChecked(visibility == VISIBLE);
+    }
+
+    public void setVisibility(boolean visibility) {
+        ViewAnimUtils.setViewAnim(this, visibility ? Techniques.BounceInLeft : Techniques.FadeOutRight,
+                animator -> setVisibility(VISIBLE), animator -> setVisibility(visibility ? VISIBLE : GONE));
     }
 
     /**
@@ -71,7 +79,7 @@ public class LoggerView extends ConstraintLayout {
 
         // Remove the loggerView from the user View
         ImageButton cancelButton = findViewById(R.id.log_view_cancel);
-        cancelButton.setOnClickListener(view -> LoggerView.this.setVisibility(GONE));
+        cancelButton.setOnClickListener(view -> LoggerView.this.setVisibility(false));
 
         // Set the scroll view
         mScrollView = findViewById(R.id.content_log_scroll);
@@ -97,5 +105,4 @@ public class LoggerView extends ConstraintLayout {
 
         };
     }
-
 }

@@ -21,11 +21,13 @@ import java.io.File;
 
 public class AccountView {
     private final Context mContext;
+    private final View mMainView;
     private final ImageView mUserIconView;
     private final TextView mUserNameView;
 
     public AccountView(View view) {
         this.mContext = view.getContext();
+        this.mMainView = view;
 
         mUserIconView = view.findViewById(R.id.user_icon);
         mUserNameView = view.findViewById(R.id.user_name);
@@ -56,6 +58,10 @@ public class AccountView {
         }
         mUserIconView.setImageDrawable(drawable == null ? ContextCompat.getDrawable(mContext, R.drawable.ic_head_steve) : drawable);
         mUserNameView.setText(account.username);
+    }
+
+    public View getMainView() {
+        return mMainView;
     }
 
     private MinecraftAccount getCurrentAccount() {

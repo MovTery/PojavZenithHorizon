@@ -17,14 +17,16 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.daimajia.androidanimations.library.Techniques;
 import com.movtery.pojavzh.ui.dialog.FilesDialog;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileIcon;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileItemBean;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerViewCreator;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 import com.movtery.pojavzh.utils.file.FileTools;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
@@ -35,9 +37,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomMouseFragment extends Fragment {
+public class CustomMouseFragment extends FragmentWithAnim {
     public static final String TAG = "CustomMouseFragment";
     private final List<FileItemBean> mData = new ArrayList<>();
+    private View mMainView;
     private ActivityResultLauncher<String[]> openDocumentLauncher;
     private ImageButton mReturnButton, mAddFileButton, mRefreshButton;
     private ImageView mMouseView;
@@ -78,6 +81,8 @@ public class CustomMouseFragment extends Fragment {
         mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
 
         mRefreshButton.setOnClickListener(v -> loadData());
+
+        ViewAnimUtils.slideInAnim(this);
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -102,6 +107,8 @@ public class CustomMouseFragment extends Fragment {
     }
 
     private void bindViews(@NonNull View view) {
+        mMainView = view;
+
         mReturnButton = view.findViewById(R.id.zh_return_button);
         mAddFileButton = view.findViewById(R.id.zh_add_file_button);
         mRefreshButton = view.findViewById(R.id.zh_refresh_button);
@@ -147,5 +154,16 @@ public class CustomMouseFragment extends Fragment {
             });
             filesDialog.show();
         }, null, mData);
+    }
+
+    @Override
+    public void slideIn() {
+        ViewAnimUtils.setViewAnim(mMainView, Techniques.BounceInDown);
+    }
+
+    @Override
+    public void slideOut(@NonNull OnSlideOutListener listener) {
+        ViewAnimUtils.setViewAnim(mMainView, Techniques.FadeOutUp);
+        super.slideOut(listener);
     }
 }

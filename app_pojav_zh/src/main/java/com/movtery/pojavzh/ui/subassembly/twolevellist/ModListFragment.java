@@ -14,24 +14,27 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.movtery.pojavzh.utils.AnimUtils;
+import com.daimajia.androidanimations.library.Techniques;
+import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
+import com.movtery.pojavzh.utils.anim.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
 
 import java.util.concurrent.Future;
 
-public abstract class TwoLevelListFragment extends Fragment {
+public abstract class ModListFragment extends FragmentWithAnim {
     protected FragmentActivity activity;
     private RecyclerView.Adapter<?> parentAdapter = null;
     private RecyclerView mRecyclerView;
-    private View mLoadeingView;
+    private View mModsLayout, mOperateLayout, mShadowView, mLoadeingView;
     private TextView mNameText, mSelectTitle, mFailedToLoad;
     private ImageView mIcon;
     private ImageButton mBackToTop;
@@ -40,7 +43,7 @@ public abstract class TwoLevelListFragment extends Fragment {
     private Future<?> currentTask;
     private boolean releaseCheckBoxVisible = true;
 
-    public TwoLevelListFragment() {
+    public ModListFragment() {
         super(R.layout.fragment_mod_download);
     }
 
@@ -48,6 +51,8 @@ public abstract class TwoLevelListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         bindViews(view);
         init();
+
+        ViewAnimUtils.slideInAnim(this);
     }
 
     protected void init() {
@@ -124,6 +129,10 @@ public abstract class TwoLevelListFragment extends Fragment {
     }
 
     private void bindViews(View view) {
+        mModsLayout = view.findViewById(R.id.mods_layout);
+        mOperateLayout = view.findViewById(R.id.operate_layout);
+        mShadowView = view.findViewById(R.id.shadowView);
+
         mRecyclerView = view.findViewById(R.id.zh_mod);
         mBackToTop = view.findViewById(R.id.zh_mod_back_to_top);
         mLoadeingView = view.findViewById(R.id.zh_mod_loading);
@@ -178,7 +187,7 @@ public abstract class TwoLevelListFragment extends Fragment {
     }
 
     protected void setFailedToLoad(String reasons) {
-        String text = getString(R.string.modloader_dl_failed_to_load_list);
+        String text = activity.getString(R.string.modloader_dl_failed_to_load_list);
         mFailedToLoad.setText(reasons == null ? text : StringUtils.insertNewline(text, reasons));
         AnimUtils.setVisibilityAnim(mFailedToLoad, true);
     }
@@ -196,5 +205,26 @@ public abstract class TwoLevelListFragment extends Fragment {
             mRecyclerView.setAdapter(adapter);
             mRecyclerView.scheduleLayoutAnimation();
         }
+    }
+
+    @Override
+    public void slideIn() {
+        ViewAnimUtils.setViewAnim(mModsLayout, Techniques.BounceInDown);
+        ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft);
+        ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft);
+
+        ViewAnimUtils.setViewAnim(mIcon, Techniques.Wobble);
+        ViewAnimUtils.setViewAnim(mNameText, Techniques.Wobble);
+        ViewAnimUtils.setViewAnim(mReturnButton, Techniques.BounceInLeft);
+        ViewAnimUtils.setViewAnim(mRefreshButton, Techniques.BounceInLeft);
+        ViewAnimUtils.setViewAnim(mReleaseCheckBox, Techniques.BounceInLeft);
+    }
+
+    @Override
+    public void slideOut(@NonNull OnSlideOutListener listener) {
+        ViewAnimUtils.setViewAnim(mModsLayout, Techniques.FadeOutUp);
+        ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight);
+        ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutRight);
+        super.slideOut(listener);
     }
 }

@@ -16,8 +16,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
+import com.daimajia.androidanimations.library.Techniques;
 import com.google.android.material.tabs.TabLayout;
 import com.movtery.pojavzh.ui.dialog.FilesDialog;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundManager;
@@ -25,8 +25,10 @@ import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileIcon;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerView;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
-import com.movtery.pojavzh.utils.AnimUtils;
+import com.movtery.pojavzh.utils.anim.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 import com.movtery.pojavzh.utils.file.FileTools;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
@@ -38,11 +40,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-public class CustomBackgroundFragment extends Fragment {
-
+public class CustomBackgroundFragment extends FragmentWithAnim {
     public static final String TAG = "CustomBackgroundFragment";
     private final Map<BackgroundType, String> backgroundMap = new HashMap<>();
     private ActivityResultLauncher<String[]> openDocumentLauncher;
+    private View mMainView;
     private ImageButton mReturnButton, mAddFileButton, mResetButton, mRefreshButton;
     private TextView mNothingTip;
     private TabLayout mTabLayout;
@@ -145,6 +147,8 @@ public class CustomBackgroundFragment extends Fragment {
             refreshType(mTabLayout.getSelectedTabPosition());
             mFileRecyclerView.listFileAt(backgroundPath());
         });
+
+        ViewAnimUtils.slideInAnim(this);
     }
 
     private void initBackgroundMap() {
@@ -194,6 +198,7 @@ public class CustomBackgroundFragment extends Fragment {
     }
 
     private void bindViews(@NonNull View view) {
+        mMainView = view;
         mTabLayout = view.findViewById(R.id.zh_custom_background_tab);
 
         mReturnButton = view.findViewById(R.id.zh_return_button);
@@ -234,5 +239,16 @@ public class CustomBackgroundFragment extends Fragment {
         mTabLayout.addTab(inGame);
 
         mTabLayout.selectTab(mainMenu);
+    }
+
+    @Override
+    public void slideIn() {
+        ViewAnimUtils.setViewAnim(mMainView, Techniques.BounceInDown);
+    }
+
+    @Override
+    public void slideOut(@NonNull OnSlideOutListener listener) {
+        ViewAnimUtils.setViewAnim(mMainView, Techniques.FadeOutUp);
+        super.slideOut(listener);
     }
 }

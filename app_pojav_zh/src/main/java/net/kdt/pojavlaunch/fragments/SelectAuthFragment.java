@@ -8,18 +8,21 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.daimajia.androidanimations.library.Techniques;
 import com.movtery.pojavzh.feature.accounts.LocalAccountUtils;
+import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
 import com.movtery.pojavzh.ui.fragment.OtherLoginFragment;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
 
-public class SelectAuthFragment extends Fragment {
+public class SelectAuthFragment extends FragmentWithAnim {
     public static final String TAG = "AUTH_SELECT_FRAGMENT";
+    private View mMainView;
 
     public SelectAuthFragment(){
         super(R.layout.fragment_select_auth_method);
@@ -27,26 +30,28 @@ public class SelectAuthFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        mMainView = view;
         Button mMicrosoftButton = view.findViewById(R.id.button_microsoft_authentication);
         Button mLocalButton = view.findViewById(R.id.button_local_authentication);
         Button mOtherButton = view.findViewById(R.id.button_other_authentication);
 
         if (!ZHTools.areaChecks()) mOtherButton.setVisibility(View.GONE);
 
+        FragmentWithAnim fragment = this;
         FragmentActivity fragmentActivity = requireActivity();
-        mMicrosoftButton.setOnClickListener(v -> Tools.swapFragment(fragmentActivity, MicrosoftLoginFragment.class, MicrosoftLoginFragment.TAG, null));
+        mMicrosoftButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, MicrosoftLoginFragment.class, MicrosoftLoginFragment.TAG, null));
         mOtherButton.setOnClickListener(v -> LocalAccountUtils.checkUsageAllowed(new LocalAccountUtils.CheckResultListener() {
             @Override
             public void onUsageAllowed() {
-                Tools.swapFragment(fragmentActivity, OtherLoginFragment.class, OtherLoginFragment.TAG, null);
+                ZHTools.swapFragmentWithAnim(fragment, OtherLoginFragment.class, OtherLoginFragment.TAG, null);
             }
 
             @Override
             public void onUsageDenied() {
                 if (!DEFAULT_PREF.getBoolean("localAccountReminders", true)) {
-                    Tools.swapFragment(fragmentActivity, OtherLoginFragment.class, OtherLoginFragment.TAG, null);
+                    ZHTools.swapFragmentWithAnim(fragment, OtherLoginFragment.class, OtherLoginFragment.TAG, null);
                 } else {
-                    LocalAccountUtils.openDialog(fragmentActivity, () -> Tools.swapFragment(fragmentActivity, OtherLoginFragment.class, OtherLoginFragment.TAG, null),
+                    LocalAccountUtils.openDialog(fragmentActivity, () -> ZHTools.swapFragmentWithAnim(fragment, OtherLoginFragment.class, OtherLoginFragment.TAG, null),
                             getString(R.string.zh_account_no_microsoft_account_other) + getString(R.string.zh_account_purchase_minecraft_account_tip),
                             R.string.zh_account_no_microsoft_account_other_confirm);
                 }
@@ -56,19 +61,32 @@ public class SelectAuthFragment extends Fragment {
         mLocalButton.setOnClickListener(v -> LocalAccountUtils.checkUsageAllowed(new LocalAccountUtils.CheckResultListener() {
             @Override
             public void onUsageAllowed() {
-                Tools.swapFragment(fragmentActivity, LocalLoginFragment.class, LocalLoginFragment.TAG, null);
+                ZHTools.swapFragmentWithAnim(fragment, LocalLoginFragment.class, LocalLoginFragment.TAG, null);
             }
 
             @Override
             public void onUsageDenied() {
                 if (!DEFAULT_PREF.getBoolean("localAccountReminders", true)) {
-                    Tools.swapFragment(fragmentActivity, LocalLoginFragment.class, LocalLoginFragment.TAG, null);
+                    ZHTools.swapFragmentWithAnim(fragment, LocalLoginFragment.class, LocalLoginFragment.TAG, null);
                 } else {
-                    LocalAccountUtils.openDialog(fragmentActivity, () -> Tools.swapFragment(fragmentActivity, LocalLoginFragment.class, LocalLoginFragment.TAG, null),
+                    LocalAccountUtils.openDialog(fragmentActivity, () -> ZHTools.swapFragmentWithAnim(fragment, LocalLoginFragment.class, LocalLoginFragment.TAG, null),
                             getString(R.string.zh_account_no_microsoft_account_local) + getString(R.string.zh_account_purchase_minecraft_account_tip),
                             R.string.zh_account_no_microsoft_account_local_confirm);
                 }
             }
         }));
+
+        ViewAnimUtils.slideInAnim(this);
+    }
+
+    @Override
+    public void slideIn() {
+        ViewAnimUtils.setViewAnim(mMainView, Techniques.BounceInDown);
+    }
+
+    @Override
+    public void slideOut(@NonNull OnSlideOutListener listener) {
+        ViewAnimUtils.setViewAnim(mMainView, Techniques.FadeOutUp);
+        super.slideOut(listener);
     }
 }

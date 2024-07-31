@@ -15,8 +15,8 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
+import com.daimajia.androidanimations.library.Techniques;
 import com.movtery.pojavzh.ui.dialog.EditControlInfoDialog;
 import com.movtery.pojavzh.ui.dialog.FilesDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
@@ -25,8 +25,10 @@ import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlsListViewCreator
 import com.movtery.pojavzh.ui.subassembly.customcontrols.EditControlData;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
 import com.movtery.pojavzh.ui.subassembly.view.SearchView;
-import com.movtery.pojavzh.utils.AnimUtils;
+import com.movtery.pojavzh.utils.anim.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 import com.movtery.pojavzh.utils.file.PasteFile;
 
 import net.kdt.pojavlaunch.CustomControlsActivity;
@@ -40,10 +42,11 @@ import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import java.io.File;
 
-public class ControlButtonFragment extends Fragment {
+public class ControlButtonFragment extends FragmentWithAnim {
     public static final String TAG = "ControlButtonFragment";
     public static final String BUNDLE_SELECT_CONTROL = "bundle_select_control";
     private ActivityResultLauncher<Object> openDocumentLauncher;
+    private View mControlLayout, mOperateLayout, mShadowView;
     private ImageButton mReturnButton, mAddControlButton, mImportControlButton, mPasteButton, mSearchSummonButton, mRefreshButton;
     private TextView mNothingTip;
     private SearchView mSearchView;
@@ -146,6 +149,8 @@ public class ControlButtonFragment extends Fragment {
         mRefreshButton.setOnClickListener(v -> controlsListViewCreator.refresh());
 
         controlsListViewCreator.listAtPath();
+
+        ViewAnimUtils.slideInAnim(this);
     }
 
     private String removeLockPath(String path) {
@@ -187,6 +192,10 @@ public class ControlButtonFragment extends Fragment {
     }
 
     private void bindViews(@NonNull View view) {
+        mControlLayout = view.findViewById(R.id.control_layout);
+        mOperateLayout = view.findViewById(R.id.operate_layout);
+        mShadowView = view.findViewById(R.id.shadowView);
+
         mReturnButton = view.findViewById(R.id.zh_return_button);
         mImportControlButton = view.findViewById(R.id.zh_add_file_button);
         mAddControlButton = view.findViewById(R.id.zh_create_folder_button);
@@ -212,6 +221,21 @@ public class ControlButtonFragment extends Fragment {
         ZHTools.setTooltipText(mPasteButton, mPasteButton.getContentDescription());
         ZHTools.setTooltipText(mSearchSummonButton, mSearchSummonButton.getContentDescription());
         ZHTools.setTooltipText(mRefreshButton, mRefreshButton.getContentDescription());
+    }
+
+    @Override
+    public void slideIn() {
+        ViewAnimUtils.setViewAnim(mControlLayout, Techniques.BounceInDown);
+        ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft);
+        ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft);
+    }
+
+    @Override
+    public void slideOut(@NonNull OnSlideOutListener listener) {
+        ViewAnimUtils.setViewAnim(mControlLayout, Techniques.FadeOutUp);
+        ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight);
+        ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutRight);
+        super.slideOut(listener);
     }
 }
 

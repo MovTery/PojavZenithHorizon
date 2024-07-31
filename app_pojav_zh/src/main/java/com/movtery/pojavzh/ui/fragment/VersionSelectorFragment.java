@@ -7,8 +7,8 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
+import com.daimajia.androidanimations.library.Techniques;
 import com.google.android.material.tabs.TabLayout;
 import com.movtery.pojavzh.extra.ZHExtraConstants;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
@@ -16,15 +16,18 @@ import com.movtery.pojavzh.ui.subassembly.versionlist.VersionListView;
 import com.movtery.pojavzh.ui.subassembly.versionlist.VersionSelectedListener;
 import com.movtery.pojavzh.ui.subassembly.versionlist.VersionType;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 
 import java.io.File;
 
-public class VersionSelectorFragment extends Fragment {
+public class VersionSelectorFragment extends FragmentWithAnim {
     public static final String TAG = "FileSelectorFragment";
     private Button mRefreshButton, mReturnButton;
+    private View mVersionLayout, mOperateLayout, mShadowView;
     private VersionListView mVersionListView;
     private TabLayout mTabLayout;
     private TabLayout.Tab installed, release, snapshot, beta, alpha;
@@ -67,6 +70,8 @@ public class VersionSelectorFragment extends Fragment {
                 ZHTools.onBackPressed(requireActivity());
             }
         });
+
+        ViewAnimUtils.slideInAnim(this);
     }
 
     private void refresh(TabLayout.Tab tab) {
@@ -99,6 +104,10 @@ public class VersionSelectorFragment extends Fragment {
     }
 
     private void bindViews(@NonNull View view) {
+        mVersionLayout = view.findViewById(R.id.version_layout);
+        mOperateLayout = view.findViewById(R.id.operate_layout);
+        mShadowView = view.findViewById(R.id.shadowView);
+
         mRefreshButton = view.findViewById(R.id.zh_version_refresh_button);
         mReturnButton = view.findViewById(R.id.zh_version_return_button);
 
@@ -127,5 +136,20 @@ public class VersionSelectorFragment extends Fragment {
         mTabLayout.addTab(alpha);
 
         mTabLayout.selectTab(release);
+    }
+
+    @Override
+    public void slideIn() {
+        ViewAnimUtils.setViewAnim(mVersionLayout, Techniques.BounceInDown);
+        ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft);
+        ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft);
+    }
+
+    @Override
+    public void slideOut(@NonNull OnSlideOutListener listener) {
+        ViewAnimUtils.setViewAnim(mVersionLayout, Techniques.FadeOutUp);
+        ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight);
+        ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutRight);
+        super.slideOut(listener);
     }
 }

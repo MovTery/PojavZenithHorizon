@@ -20,10 +20,11 @@ import android.widget.PopupWindow;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.Fragment;
+
+import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.fragments.ProfileTypeSelectFragment;
@@ -38,6 +39,7 @@ import fr.spse.extended_view.ExtendedTextView;
  * dropdown popup view with a custom direction.
  */
 public class mcVersionSpinner extends ExtendedTextView {
+    private Fragment mParentFragment;
     private static final int VERSION_SPINNER_PROFILE_CREATE = 0;
     public mcVersionSpinner(@NonNull Context context) {
         super(context);
@@ -78,6 +80,10 @@ public class mcVersionSpinner extends ExtendedTextView {
         if(mListView != null) mListView.setSelection(position);
         mProfileAdapter.setView(this, mProfileAdapter.getItem(position), false);
         mSelectedIndex = position;
+    }
+
+    public void setParentFragment(Fragment mParentFragment) {
+        this.mParentFragment = mParentFragment;
     }
 
     /** Reload profiles from the file, forcing the spinner to consider the new data */
@@ -125,11 +131,10 @@ public class mcVersionSpinner extends ExtendedTextView {
 
     private void performExtraAction(ProfileAdapterExtra extra) {
         //Replace with switch-case if you want to add more extra actions
-        if (extra.id == VERSION_SPINNER_PROFILE_CREATE) {
-            Tools.swapFragment((FragmentActivity) getContext(), ProfileTypeSelectFragment.class, ProfileTypeSelectFragment.TAG, null);
+        if (extra.id == VERSION_SPINNER_PROFILE_CREATE && mParentFragment != null) {
+            ZHTools.swapFragmentWithAnim(mParentFragment, ProfileTypeSelectFragment.class, ProfileTypeSelectFragment.TAG, null);
         }
     }
-
 
     /** Create the listView and popup window for the interface, and set up the click behavior */
     @SuppressLint("ClickableViewAccessibility")

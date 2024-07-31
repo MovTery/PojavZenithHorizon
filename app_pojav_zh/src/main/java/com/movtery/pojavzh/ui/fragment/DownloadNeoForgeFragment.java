@@ -12,9 +12,9 @@ import com.movtery.pojavzh.feature.mod.modloader.BaseModVersionListAdapter;
 import com.movtery.pojavzh.feature.mod.modloader.NeoForgeDownloadTask;
 import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils;
 import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog;
-import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListAdapter;
-import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListFragment;
-import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListItemBean;
+import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListAdapter;
+import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListFragment;
+import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListItemBean;
 import com.movtery.pojavzh.utils.MCVersionComparator;
 
 import net.kdt.pojavlaunch.JavaGUILauncherActivity;
@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
 
-public class DownloadNeoForgeFragment extends TwoLevelListFragment implements ModloaderDownloadListener {
+public class DownloadNeoForgeFragment extends ModListFragment implements ModloaderDownloadListener {
     public static final String TAG = "DownloadNeoForgeFragment";
     private final ModloaderListenerProxy modloaderListenerProxy = new ModloaderListenerProxy();
 
@@ -106,7 +106,7 @@ public class DownloadNeoForgeFragment extends TwoLevelListFragment implements Mo
 
         if (currentTask.isCancelled()) return;
 
-        List<TwoLevelListItemBean> mData = new ArrayList<>();
+        List<ModListItemBean> mData = new ArrayList<>();
         mNeoForgeVersions.entrySet().stream()
                 .sorted(java.util.Map.Entry.comparingByKey(MCVersionComparator::versionCompare))
                 .forEach(entry -> {
@@ -115,7 +115,7 @@ public class DownloadNeoForgeFragment extends TwoLevelListFragment implements Mo
                     BaseModVersionListAdapter adapter = new BaseModVersionListAdapter(activity, modloaderListenerProxy, this, R.drawable.ic_neoforge, entry.getValue());
                     adapter.setOnItemClickListener(version -> new Thread(new NeoForgeDownloadTask(modloaderListenerProxy, (String) version)).start());
 
-                    mData.add(new TwoLevelListItemBean("Minecraft " + entry.getKey(), adapter));
+                    mData.add(new ModListItemBean("Minecraft " + entry.getKey(), adapter));
                 });
 
         if (currentTask.isCancelled()) return;
@@ -123,9 +123,9 @@ public class DownloadNeoForgeFragment extends TwoLevelListFragment implements Mo
         runOnUiThread(() -> {
             RecyclerView recyclerView = getRecyclerView();
             try {
-                TwoLevelListAdapter mModAdapter = (TwoLevelListAdapter) recyclerView.getAdapter();
+                ModListAdapter mModAdapter = (ModListAdapter) recyclerView.getAdapter();
                 if (mModAdapter == null) {
-                    mModAdapter = new TwoLevelListAdapter(this, mData);
+                    mModAdapter = new ModListAdapter(this, mData);
                     recyclerView.setLayoutManager(new LinearLayoutManager(activity));
                     recyclerView.setAdapter(mModAdapter);
                 } else {

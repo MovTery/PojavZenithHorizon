@@ -15,8 +15,8 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
+import com.daimajia.androidanimations.library.Techniques;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 import com.movtery.pojavzh.ui.dialog.FilesDialog;
@@ -24,8 +24,10 @@ import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerAdapter;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerView;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
 import com.movtery.pojavzh.ui.subassembly.view.SearchView;
-import com.movtery.pojavzh.utils.AnimUtils;
+import com.movtery.pojavzh.utils.anim.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 import com.movtery.pojavzh.utils.file.PasteFile;
 
 import net.kdt.pojavlaunch.PojavApplication;
@@ -39,7 +41,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilesFragment extends Fragment {
+public class FilesFragment extends FragmentWithAnim {
     public static final String TAG = "FilesFragment";
     public static final String BUNDLE_LOCK_PATH = "bundle_lock_path";
     public static final String BUNDLE_LIST_PATH = "bundle_list_path";
@@ -55,7 +57,7 @@ public class FilesFragment extends Fragment {
     private TextView mNothingTip;
     private SearchView mSearchView;
     private CheckBox mMultiSelectCheck, mSelectAllCheck;
-    private View mExternalStorage, mSoftwarePrivate;
+    private View mFilesLayout, mOperateLayout, mShadowView, mExternalStorage, mSoftwarePrivate;
     private FileRecyclerView mFileRecyclerView;
     private TextView mFilePathView;
     private String mLockPath, mListPath;
@@ -241,6 +243,8 @@ public class FilesFragment extends Fragment {
             closeMultiSelect();
             mFileRecyclerView.refreshPath();
         });
+
+        ViewAnimUtils.slideInAnim(this);
     }
 
     private void closeMultiSelect() {
@@ -276,6 +280,10 @@ public class FilesFragment extends Fragment {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void bindViews(@NonNull View view) {
+        mFilesLayout = view.findViewById(R.id.files_layout);
+        mOperateLayout = view.findViewById(R.id.operate_layout);
+        mShadowView = view.findViewById(R.id.shadowView);
+
         mReturnButton = view.findViewById(R.id.zh_return_button);
         mAddFileButton = view.findViewById(R.id.zh_add_file_button);
         mCreateFolderButton = view.findViewById(R.id.zh_create_folder_button);
@@ -330,6 +338,21 @@ public class FilesFragment extends Fragment {
         mMultiSelectMode = bundle.getBoolean(BUNDLE_MULTI_SELECT_MODE, true);
         mSelectFolderMode = bundle.getBoolean(BUNDLE_SELECT_FOLDER_MODE, false);
         mRemoveLockPath = bundle.getBoolean(BUNDLE_REMOVE_LOCK_PATH, true);
+    }
+
+    @Override
+    public void slideIn() {
+        ViewAnimUtils.setViewAnim(mFilesLayout, Techniques.BounceInDown);
+        ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft);
+        ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft);
+    }
+
+    @Override
+    public void slideOut(@NonNull OnSlideOutListener listener) {
+        ViewAnimUtils.setViewAnim(mFilesLayout, Techniques.FadeOutUp);
+        ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight);
+        ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutRight);
+        super.slideOut(listener);
     }
 }
 

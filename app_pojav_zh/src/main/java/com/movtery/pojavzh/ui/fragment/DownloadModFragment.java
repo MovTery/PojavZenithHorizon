@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionAdapter;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
-import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListAdapter;
-import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListFragment;
-import com.movtery.pojavzh.ui.subassembly.twolevellist.TwoLevelListItemBean;
+import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListAdapter;
+import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListFragment;
+import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListItemBean;
 import com.movtery.pojavzh.ui.subassembly.viewmodel.ModApiViewModel;
 import com.movtery.pojavzh.ui.subassembly.viewmodel.RecyclerViewModel;
 import com.movtery.pojavzh.utils.MCVersionComparator;
@@ -35,7 +35,7 @@ import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DownloadModFragment extends TwoLevelListFragment {
+public class DownloadModFragment extends ModListFragment {
     public static final String TAG = "DownloadModFragment";
     private final ModIconCache mIconCache = new ModIconCache();
     private RecyclerView mParentUIRecyclerView;
@@ -109,13 +109,13 @@ public class DownloadModFragment extends TwoLevelListFragment {
 
         if (currentTask.isCancelled()) return;
 
-        List<TwoLevelListItemBean> mData = new ArrayList<>();
+        List<ModListItemBean> mData = new ArrayList<>();
         mModVersionsByMinecraftVersion.entrySet().stream()
                 .sorted((o1, o2) -> MCVersionComparator.versionCompare(o1.getKey(), o2.getKey()))
                 .forEach(entry -> {
                     if (currentTask.isCancelled()) return;
 
-                    mData.add(new TwoLevelListItemBean("Minecraft " + entry.getKey(), new ModVersionAdapter(new ModDependencies.SelectedMod(DownloadModFragment.this,
+                    mData.add(new ModListItemBean("Minecraft " + entry.getKey(), new ModVersionAdapter(new ModDependencies.SelectedMod(DownloadModFragment.this,
                             mModItem.title, mModApi, mIsModpack, mModsPath), mModDetail, entry.getValue())));
                 });
 
@@ -124,9 +124,9 @@ public class DownloadModFragment extends TwoLevelListFragment {
         runOnUiThread(() -> {
             RecyclerView modVersionView = getRecyclerView();
             try {
-                TwoLevelListAdapter mModAdapter = (TwoLevelListAdapter) modVersionView.getAdapter();
+                ModListAdapter mModAdapter = (ModListAdapter) modVersionView.getAdapter();
                 if (mModAdapter == null) {
-                    mModAdapter = new TwoLevelListAdapter(this, mData);
+                    mModAdapter = new ModListAdapter(this, mData);
                     modVersionView.setLayoutManager(new LinearLayoutManager(requireContext()));
                     modVersionView.setAdapter(mModAdapter);
                 } else {

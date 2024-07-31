@@ -9,6 +9,7 @@
     android:orientation="horizontal">
 
     <ScrollView
+        android:id="@+id/vanilla_like_layout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginStart="12dp"
@@ -84,6 +85,7 @@
     </ScrollView>
 
     <ScrollView
+        android:id="@+id/modded_versions_layout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginStart="6dp"

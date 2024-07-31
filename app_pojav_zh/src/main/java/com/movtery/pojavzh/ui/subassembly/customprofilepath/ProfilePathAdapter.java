@@ -14,16 +14,16 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
+import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
 import com.movtery.pojavzh.ui.fragment.FilesFragment;
+import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
 
 import java.util.List;
 import java.util.Map;
@@ -31,14 +31,14 @@ import java.util.Objects;
 import java.util.TreeMap;
 
 public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.ViewHolder> {
-    private final FragmentActivity fragmentActivity;
+    private final FragmentWithAnim fragment;
     private final Map<String, RadioButton> radioButtonMap = new TreeMap<>();
     private final RecyclerView view;
     private List<ProfileItem> mData;
     private String currentId;
 
-    public ProfilePathAdapter(FragmentActivity fragmentActivity, RecyclerView view, List<ProfileItem> mData) {
-        this.fragmentActivity = fragmentActivity;
+    public ProfilePathAdapter(FragmentWithAnim fragment, RecyclerView view, List<ProfileItem> mData) {
+        this.fragment = fragment;
         this.mData = mData;
         this.view = view;
         this.currentId = DEFAULT_PREF.getString("launcherProfile", "default");
@@ -139,7 +139,7 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
                 Bundle bundle = new Bundle();
                 bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, Environment.getExternalStorageDirectory().getAbsolutePath());
                 bundle.putString(FilesFragment.BUNDLE_LIST_PATH, profileItem.path);
-                Tools.swapFragment(fragmentActivity, FilesFragment.class, FilesFragment.TAG, bundle);
+                ZHTools.swapFragmentWithAnim(fragment, FilesFragment.class, FilesFragment.TAG, bundle);
             });
 
             mDeleteButton.setOnClickListener(v -> {

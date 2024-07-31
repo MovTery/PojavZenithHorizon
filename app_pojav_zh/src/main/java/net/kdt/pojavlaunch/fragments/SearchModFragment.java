@@ -17,30 +17,33 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.math.MathUtils;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
-import com.movtery.pojavzh.utils.AnimUtils;
+import com.movtery.pojavzh.utils.anim.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import com.movtery.pojavzh.ui.dialog.ModFitersDialog;
+import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
+
 import net.kdt.pojavlaunch.modloaders.modpacks.ModItemAdapter;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.CommonApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchFilters;
 
-public class SearchModFragment extends Fragment implements ModItemAdapter.SearchResultCallback {
-
+public class SearchModFragment extends FragmentWithAnim implements ModItemAdapter.SearchResultCallback {
     public static final String TAG = "SearchModFragment";
     public static final String BUNDLE_SEARCH_MODPACK = "BundleSearchModPack";
     public static final String BUNDLE_MOD_PATH = "BundleModPath";
     private SearchFilters mSearchFilters;
     private boolean isModpack;
     private String mModsPath;
-    private View mOverlay;
+    private View mMainView, mOverlay;
     private float mOverlayTopCache; // Padding cache reduce resource lookup
     private final RecyclerView.OnScrollListener mOverlayPositionListener = new RecyclerView.OnScrollListener() {
         @Override
@@ -75,6 +78,7 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         parseBundle();
+        mMainView = view;
         mSearchFilters = new SearchFilters();
         mSearchFilters.isModpack = this.isModpack;
 
@@ -122,6 +126,8 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         mSearchButton.setOnClickListener(v -> searchMods(mSearchEditText.getText().toString()));
 
         searchMods(null); //自动搜索一次
+
+        ViewAnimUtils.slideInAnim(this);
     }
 
     @Override
@@ -169,5 +175,16 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         ModFitersDialog modFitersDialog = new ModFitersDialog(requireContext(), mSearchFilters);
         modFitersDialog.setOnApplyButtonClickListener(() -> searchMods(mSearchEditText.getText().toString()));
         modFitersDialog.show();
+    }
+
+    @Override
+    public void slideIn() {
+        ViewAnimUtils.setViewAnim(mMainView, Techniques.BounceInDown);
+    }
+
+    @Override
+    public void slideOut(@NonNull OnSlideOutListener listener) {
+        ViewAnimUtils.setViewAnim(mMainView, Techniques.FadeOutUp);
+        super.slideOut(listener);
     }
 }
