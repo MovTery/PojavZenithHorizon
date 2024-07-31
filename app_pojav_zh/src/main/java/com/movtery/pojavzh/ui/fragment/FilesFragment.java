@@ -57,7 +57,7 @@ public class FilesFragment extends FragmentWithAnim {
     private TextView mNothingTip;
     private SearchView mSearchView;
     private CheckBox mMultiSelectCheck, mSelectAllCheck;
-    private View mFilesLayout, mOperateLayout, mShadowView, mExternalStorage, mSoftwarePrivate;
+    private View mFilesLayout, mOperateLayout, mShadowView, mOperateView, mExternalStorage, mSoftwarePrivate;
     private FileRecyclerView mFileRecyclerView;
     private TextView mFilePathView;
     private String mLockPath, mListPath;
@@ -284,6 +284,8 @@ public class FilesFragment extends FragmentWithAnim {
         mOperateLayout = view.findViewById(R.id.operate_layout);
         mShadowView = view.findViewById(R.id.shadowView);
 
+        mOperateView = view.findViewById(R.id.operate_view);
+
         mReturnButton = view.findViewById(R.id.zh_return_button);
         mAddFileButton = view.findViewById(R.id.zh_add_file_button);
         mCreateFolderButton = view.findViewById(R.id.zh_create_folder_button);
@@ -345,6 +347,7 @@ public class FilesFragment extends FragmentWithAnim {
         ViewAnimUtils.setViewAnim(mFilesLayout, Techniques.BounceInDown);
         ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft);
         ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft);
+        ViewAnimUtils.setViewAnim(mOperateView, Techniques.FadeInLeft);
     }
 
     @Override

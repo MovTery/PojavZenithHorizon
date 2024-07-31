@@ -4,13 +4,13 @@ import androidx.lifecycle.ViewModel
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem
 
-class ModApiViewModel(
+class ModApiViewModel : ViewModel() {
     @JvmField
-    var modApi: ModpackApi,
+    var modApi: ModpackApi? = null
     @JvmField
-    var modItem: ModItem,
+    var modItem: ModItem? = null
     @JvmField
-    var isModpack: Boolean,
+    var isModpack: Boolean = false
     @JvmField
-    var modsPath: String
-): ViewModel()
+    var modsPath: String? = null
+}

@@ -105,17 +105,17 @@
             android:id="@+id/zh_mods_multi_select_files"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginBottom="8dp"
             android:paddingStart="8dp"
             android:text="@string/zh_file_multi_select_mode"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayoutCompat6"
+            app:layout_constraintBottom_toTopOf="@+id/operate_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="RtlSymmetry" />
 
         <include
-            android:id="@+id/linearLayoutCompat6"
+            android:id="@+id/operate_view"
             layout="@layout/view_file_action_bar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

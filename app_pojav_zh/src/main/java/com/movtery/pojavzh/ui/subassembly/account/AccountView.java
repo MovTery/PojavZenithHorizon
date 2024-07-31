@@ -8,9 +8,11 @@ import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
+import com.daimajia.androidanimations.library.Techniques;
 import com.movtery.pojavzh.feature.accounts.AccountsManager;
 import com.movtery.pojavzh.ui.dialog.AccountsDialog;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
@@ -33,6 +35,7 @@ public class AccountView {
         mUserNameView = view.findViewById(R.id.user_name);
 
         view.setOnClickListener(v -> {
+            ViewAnimUtils.setViewAnim(view, Techniques.Bounce);
             if (getCurrentAccount() == null) {
                 ExtraCore.setValue(ExtraConstants.SELECT_AUTH_METHOD, true);
             } else {

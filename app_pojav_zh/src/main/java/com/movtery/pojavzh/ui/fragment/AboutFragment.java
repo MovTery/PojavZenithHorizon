@@ -162,9 +162,9 @@ public class AboutFragment extends FragmentWithAnim {
         ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft);
         ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft);
 
-        ViewAnimUtils.setViewAnim(mReturnButton, Techniques.BounceInLeft);
-        ViewAnimUtils.setViewAnim(mGithubButton, Techniques.BounceInLeft);
-        ViewAnimUtils.setViewAnim(mSupportButton, Techniques.BounceInLeft);
+        ViewAnimUtils.setViewAnim(mReturnButton, Techniques.FadeInLeft);
+        ViewAnimUtils.setViewAnim(mGithubButton, Techniques.FadeInLeft);
+        ViewAnimUtils.setViewAnim(mSupportButton, Techniques.FadeInLeft);
     }
 
     @Override

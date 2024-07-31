@@ -275,10 +275,10 @@
             android:id="@+id/vprof_editor_profile_icon"
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_50sdp"
-
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="45dp"
             android:paddingHorizontal="@dimen/profile_editor_image_padding"
             android:paddingVertical="@dimen/profile_editor_image_padding"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
             app:layout_constraintEnd_toEndOf="@+id/operate_layout"
             app:layout_constraintStart_toEndOf="@+id/operate_layout"
             app:layout_constraintStart_toStartOf="@+id/operate_layout"

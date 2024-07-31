@@ -40,7 +40,7 @@ import java.util.UUID;
 public class ProfilePathManagerFragment extends FragmentWithAnim {
     public static final String TAG = "ProfilePathManagerFragment";
     private final List<ProfileItem> mData = new ArrayList<>();
-    private View mPathLayout, mOperateLayout, mShadowView;
+    private View mPathLayout, mOperateLayout, mShadowView, mOperateView;
     private ProfilePathAdapter adapter;
 
     public ProfilePathManagerFragment() {
@@ -80,6 +80,8 @@ public class ProfilePathManagerFragment extends FragmentWithAnim {
         mPathLayout = view.findViewById(R.id.path_layout);
         mOperateLayout = view.findViewById(R.id.operate_layout);
         mShadowView = view.findViewById(R.id.shadowView);
+
+        mOperateView = view.findViewById(R.id.operate_view);
 
         RecyclerView pathList = view.findViewById(R.id.zh_profile_path);
         ImageButton refreshButton = view.findViewById(R.id.zh_profile_path_refresh_button);
@@ -155,6 +157,7 @@ public class ProfilePathManagerFragment extends FragmentWithAnim {
         ViewAnimUtils.setViewAnim(mPathLayout, Techniques.BounceInDown);
         ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft);
         ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft);
+        ViewAnimUtils.setViewAnim(mOperateView, Techniques.FadeInLeft);
     }
 
     @Override

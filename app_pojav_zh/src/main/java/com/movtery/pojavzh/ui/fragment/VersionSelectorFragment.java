@@ -143,6 +143,8 @@ public class VersionSelectorFragment extends FragmentWithAnim {
         ViewAnimUtils.setViewAnim(mVersionLayout, Techniques.BounceInDown);
         ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft);
         ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft);
+        ViewAnimUtils.setViewAnim(mRefreshButton, Techniques.FadeInLeft);
+        ViewAnimUtils.setViewAnim(mReturnButton, Techniques.FadeInLeft);
     }
 
     @Override

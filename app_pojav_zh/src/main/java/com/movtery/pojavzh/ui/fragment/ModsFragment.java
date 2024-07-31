@@ -45,7 +45,7 @@ public class ModsFragment extends FragmentWithAnim {
     public static final String jarFileSuffix = ".jar";
     public static final String disableJarFileSuffix = ".jar.disabled";
     private ActivityResultLauncher<Object> openDocumentLauncher;
-    private View mModsLayout, mOperateLayout, mShadowView;
+    private View mModsLayout, mOperateLayout, mShadowView, mOperateView;
     private ImageButton mReturnButton, mAddModButton, mPasteButton, mDownloadButton, mSearchSummonButton, mRefreshButton;
     private TextView mNothingTip;
     private SearchView mSearchView;
@@ -274,6 +274,8 @@ public class ModsFragment extends FragmentWithAnim {
         mOperateLayout = view.findViewById(R.id.operate_layout);
         mShadowView = view.findViewById(R.id.shadowView);
 
+        mOperateView = view.findViewById(R.id.operate_view);
+
         mReturnButton = view.findViewById(R.id.zh_return_button);
         mAddModButton = view.findViewById(R.id.zh_add_file_button);
         mPasteButton = view.findViewById(R.id.zh_paste_button);
@@ -310,6 +312,7 @@ public class ModsFragment extends FragmentWithAnim {
         ViewAnimUtils.setViewAnim(mModsLayout, Techniques.BounceInDown);
         ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft);
         ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft);
+        ViewAnimUtils.setViewAnim(mOperateView, Techniques.FadeInLeft);
     }
 
     @Override
