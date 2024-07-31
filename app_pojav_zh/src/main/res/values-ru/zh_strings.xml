@@ -224,6 +224,8 @@
     <string name="zh_setting_enable_log_output_title">Открыть вывод журнала при запуске игры</string>
     <string name="zh_setting_animation_desc">Установить, воспроизводить ли анимацию при переключении интерфейса лаунчера</string>
     <string name="zh_setting_animation_title">Включить анимацию</string>
+    <string name="zh_setting_animation_speed_desc">Установите скорость воспроизведения анимации в лаунчере</string>
+    <string name="zh_setting_animation_speed_title">Скорость анимации</string>
     <string name="zh_setting_quit_launcher_desc">Выйти из лаунчера при запуске игры</string>
     <string name="zh_setting_quit_launcher_title">Выход из лаунчера</string>
     <string name="zh_setting_reboot_tip">Этот параметр был изменен, но для его применения необходимо перезапустить приложение!</string>

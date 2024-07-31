@@ -224,6 +224,8 @@
     <string name="zh_setting_enable_log_output_title">فتح إخراج السجل عند بدء اللعبة</string>
     <string name="zh_setting_animation_desc">تعيين ما إذا كان سيتم تشغيل الرسوم المتحركة عند التبديل بين الواجهات</string>
     <string name="zh_setting_animation_title">تمكين الرسوم المتحركة</string>
+    <string name="zh_setting_animation_speed_desc">تعيين سرعة تشغيل الرسوم المتحركة في المشغل</string>
+    <string name="zh_setting_animation_speed_title">سرعة الرسوم المتحركة</string>
     <string name="zh_setting_quit_launcher_desc">ما إذا كان سيتم إغلاق المشغل عند بدء تشغيل اللعبة الرسمي</string>
     <string name="zh_setting_quit_launcher_title">إغلاق المشغل</string>
     <string name="zh_setting_reboot_tip">تم تغيير هذا الإعداد، ولكن يلزم إعادة تشغيل التطبيق ليتم تفعيله!</string>

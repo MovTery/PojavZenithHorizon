@@ -224,6 +224,8 @@
     <string name="zh_setting_enable_log_output_title">Mở nhật ký xuất khi khởi chạy trò chơi</string>
     <string name="zh_setting_animation_desc">Đặt xem có phát hoạt ảnh khi chuyển giao diện của trình khởi chạy không</string>
     <string name="zh_setting_animation_title">Bật hoạt ảnh</string>
+    <string name="zh_setting_animation_speed_desc">Đặt tốc độ phát lại hoạt ảnh của trình khởi chạy</string>
+    <string name="zh_setting_animation_speed_title">Tốc Độ Hoạt Ảnh</string>
     <string name="zh_setting_quit_launcher_desc">Có thoát trình khởi chạy khi ứng dụng bắt đầu chạy trò chơi chính thức không</string>
     <string name="zh_setting_quit_launcher_title">Thoát khỏi trình khởi động</string>
     <string name="zh_setting_reboot_tip">Cài đặt này đã được thay đổi, nhưng cần khởi động lại ứng dụng để có hiệu lực!</string>

@@ -224,6 +224,8 @@
     <string name="zh_setting_enable_log_output_title">Abrir saída de log ao iniciar o jogo</string>
     <string name="zh_setting_animation_desc">Configurar se deve reproduzir animações ao alternar interfaces no launcher</string>
     <string name="zh_setting_animation_title">Habilitar Animações</string>
+    <string name="zh_setting_animation_speed_desc">Defina a velocidade da reprodução da animação do lançador</string>
+    <string name="zh_setting_animation_speed_title">Velocidade da Animação</string>
     <string name="zh_setting_quit_launcher_desc">Sair do launcher quando o aplicativo começar a executar o jogo</string>
     <string name="zh_setting_quit_launcher_title">Sair do Launcher</string>
     <string name="zh_setting_reboot_tip">Esta configuração foi alterada, mas requer um reinício do aplicativo para entrar em vigor!</string>
