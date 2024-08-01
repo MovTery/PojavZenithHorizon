@@ -175,20 +175,6 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
     @Override
     public void onResume() {
         super.onResume();
-        YoYo.YoYoString[] yoYos = super.getYoYos();
-        //如果恢复视图时结束动画仍在运行，则停止它们，并重新调用slideIn方法
-        if (yoYos != null) {
-            boolean isRunning = false;
-            for (YoYo.YoYoString yoYo : yoYos) {
-                if (yoYo.isRunning()) {
-                    isRunning = true;
-                    yoYo.stop();
-                }
-                if (isRunning) {
-                    slideIn();
-                }
-            }
-        }
         mVersionSpinner.reloadProfiles();
     }
 
