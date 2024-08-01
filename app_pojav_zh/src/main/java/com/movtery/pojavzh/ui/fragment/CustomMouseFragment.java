@@ -40,7 +40,7 @@ import java.util.List;
 public class CustomMouseFragment extends FragmentWithAnim {
     public static final String TAG = "CustomMouseFragment";
     private final List<FileItemBean> mData = new ArrayList<>();
-    private View mMainView;
+    private View mMouseLayout, mOperateLayout;
     private ActivityResultLauncher<String[]> openDocumentLauncher;
     private ImageButton mReturnButton, mAddFileButton, mRefreshButton;
     private ImageView mMouseView;
@@ -107,7 +107,8 @@ public class CustomMouseFragment extends FragmentWithAnim {
     }
 
     private void bindViews(@NonNull View view) {
-        mMainView = view;
+        mMouseLayout = view.findViewById(R.id.mouse_layout);
+        mOperateLayout = view.findViewById(R.id.operate_layout);
 
         mReturnButton = view.findViewById(R.id.zh_return_button);
         mAddFileButton = view.findViewById(R.id.zh_add_file_button);
@@ -158,16 +159,20 @@ public class CustomMouseFragment extends FragmentWithAnim {
 
     @Override
     public YoYo.YoYoString[] slideIn() {
-        YoYo.YoYoString yoYoString = ViewAnimUtils.setViewAnim(mMainView, Techniques.BounceInDown);
-        YoYo.YoYoString[] array = {yoYoString};
+        List<YoYo.YoYoString> yoYos = new ArrayList<>();
+        yoYos.add(ViewAnimUtils.setViewAnim(mMouseLayout, Techniques.BounceInDown));
+        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
+        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
         super.setYoYos(array);
         return array;
     }
 
     @Override
     public YoYo.YoYoString[] slideOut() {
-        YoYo.YoYoString yoYoString = ViewAnimUtils.setViewAnim(mMainView, Techniques.FadeOutUp);
-        YoYo.YoYoString[] array = {yoYoString};
+        List<YoYo.YoYoString> yoYos = new ArrayList<>();
+        yoYos.add(ViewAnimUtils.setViewAnim(mMouseLayout, Techniques.FadeOutUp));
+        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight));
+        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
         super.setYoYos(array);
         return array;
     }

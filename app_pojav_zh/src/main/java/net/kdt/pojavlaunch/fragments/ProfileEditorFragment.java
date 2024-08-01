@@ -284,7 +284,7 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
         yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
         yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft));
 
-        yoYos.add(ViewAnimUtils.setViewAnim(mProfileIcon, Techniques.FlipInY));
+        yoYos.add(ViewAnimUtils.setViewAnim(mProfileIcon, Techniques.Wobble));
         yoYos.add(ViewAnimUtils.setViewAnim(mSaveButton, Techniques.FadeInLeft));
         YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
         super.setYoYos(array);

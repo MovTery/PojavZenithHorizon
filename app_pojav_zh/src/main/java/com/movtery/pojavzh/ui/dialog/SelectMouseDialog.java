@@ -31,7 +31,6 @@ public class SelectMouseDialog extends FullScreenDialog {
     public SelectMouseDialog(@NonNull Context context) {
         super(context);
 
-        this.setCancelable(false);
         this.setContentView(R.layout.dialog_select_item);
         init();
     }
