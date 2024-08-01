@@ -36,7 +36,9 @@ import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -44,7 +46,7 @@ public class CustomBackgroundFragment extends FragmentWithAnim {
     public static final String TAG = "CustomBackgroundFragment";
     private final Map<BackgroundType, String> backgroundMap = new HashMap<>();
     private ActivityResultLauncher<String[]> openDocumentLauncher;
-    private View mMainView;
+    private View mBackgroundLayout, mOperateLayout;
     private ImageButton mReturnButton, mAddFileButton, mResetButton, mRefreshButton;
     private TextView mNothingTip;
     private TabLayout mTabLayout;
@@ -198,7 +200,8 @@ public class CustomBackgroundFragment extends FragmentWithAnim {
     }
 
     private void bindViews(@NonNull View view) {
-        mMainView = view;
+        mBackgroundLayout = view.findViewById(R.id.background_layout);
+        mOperateLayout = view.findViewById(R.id.operate_layout);
         mTabLayout = view.findViewById(R.id.zh_custom_background_tab);
 
         mReturnButton = view.findViewById(R.id.zh_return_button);
@@ -243,16 +246,20 @@ public class CustomBackgroundFragment extends FragmentWithAnim {
 
     @Override
     public YoYo.YoYoString[] slideIn() {
-        YoYo.YoYoString yoYoString = ViewAnimUtils.setViewAnim(mMainView, Techniques.BounceInDown);
-        YoYo.YoYoString[] array = {yoYoString};
+        List<YoYo.YoYoString> yoYos = new ArrayList<>();
+        yoYos.add(ViewAnimUtils.setViewAnim(mBackgroundLayout, Techniques.BounceInDown));
+        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
+        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
         super.setYoYos(array);
         return array;
     }
 
     @Override
     public YoYo.YoYoString[] slideOut() {
-        YoYo.YoYoString yoYoString = ViewAnimUtils.setViewAnim(mMainView, Techniques.FadeOutUp);
-        YoYo.YoYoString[] array = {yoYoString};
+        List<YoYo.YoYoString> yoYos = new ArrayList<>();
+        yoYos.add(ViewAnimUtils.setViewAnim(mBackgroundLayout, Techniques.FadeOutUp));
+        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight));
+        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
         super.setYoYos(array);
         return array;
     }

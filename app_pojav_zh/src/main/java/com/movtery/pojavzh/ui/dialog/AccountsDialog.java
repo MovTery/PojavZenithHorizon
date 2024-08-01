@@ -45,7 +45,6 @@ public class AccountsDialog extends FullScreenDialog implements TaskCountListene
 
         ProgressKeeper.addTaskCountListener(this);
 
-        this.setCancelable(false);
         this.setContentView(R.layout.dialog_select_item);
 
         this.dismissListener = dismissListener;
