@@ -18,6 +18,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/_35sdp"
         android:background="?attr/selectableItemBackground"
+        android:contentDescription="@string/zh_return"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_setting_back"
         app:layout_constraintEnd_toEndOf="@+id/scrollSettings"
@@ -65,10 +66,11 @@
 
             <ImageButton
                 android:id="@+id/video_settings"
-                android:layout_width="35dp"
-                android:layout_height="@dimen/_35sdp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_marginTop="18dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/preference_category_video"
                 android:scaleType="fitCenter"
                 android:scaleX="0.92"
                 android:scaleY="0.92"
@@ -79,10 +81,11 @@
 
             <ImageButton
                 android:id="@+id/controls_settings"
-                android:layout_width="35dp"
-                android:layout_height="@dimen/_35sdp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_marginTop="14dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/preference_category_buttons"
                 android:scaleType="fitCenter"
                 android:scaleX="0.92"
                 android:scaleY="0.92"
@@ -93,10 +96,11 @@
 
             <ImageButton
                 android:id="@+id/java_settings"
-                android:layout_width="35dp"
-                android:layout_height="@dimen/_35sdp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_marginTop="14dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/preference_category_java_tweaks"
                 android:scaleType="fitCenter"
                 android:scaleX="0.92"
                 android:scaleY="0.92"
@@ -107,10 +111,11 @@
 
             <ImageButton
                 android:id="@+id/misc_settings"
-                android:layout_width="35dp"
-                android:layout_height="@dimen/_35sdp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_marginTop="14dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/preference_category_miscellaneous"
                 android:scaleType="fitCenter"
                 android:scaleX="0.92"
                 android:scaleY="0.92"
@@ -121,10 +126,11 @@
 
             <ImageButton
                 android:id="@+id/launcher_settings"
-                android:layout_width="35dp"
-                android:layout_height="@dimen/_35sdp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_marginTop="14dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/zh_preference_category_launcher"
                 android:scaleType="fitCenter"
                 android:scaleX="0.92"
                 android:scaleY="0.92"
@@ -135,10 +141,11 @@
 
             <ImageButton
                 android:id="@+id/experimental_settings"
-                android:layout_width="35dp"
-                android:layout_height="@dimen/_35sdp"
-                android:layout_marginTop="14dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginVertical="14dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/zh_preference_category_experimental"
                 android:scaleType="fitCenter"
                 android:scaleX="0.92"
                 android:scaleY="0.92"
