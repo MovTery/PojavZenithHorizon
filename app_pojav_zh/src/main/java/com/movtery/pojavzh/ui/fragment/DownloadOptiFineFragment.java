@@ -3,12 +3,14 @@ package com.movtery.pojavzh.ui.fragment;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.content.Intent;
+import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.pojavzh.feature.mod.modloader.BaseModVersionListAdapter;
+import com.movtery.pojavzh.feature.mod.modloader.OptiFineDownloadType;
 import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog;
 import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListAdapter;
 import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListFragment;
@@ -33,7 +35,9 @@ import java.util.concurrent.Future;
 
 public class DownloadOptiFineFragment extends ModListFragment implements ModloaderDownloadListener {
     public static final String TAG = "DownloadOptiFineFragment";
+    public static final String BUNDLE_DOWNLOAD_MOD = "bundle_download_mod";
     private final ModloaderListenerProxy modloaderListenerProxy = new ModloaderListenerProxy();
+    private boolean mIsDownloadMod = false;
 
     public DownloadOptiFineFragment() {
         super();
@@ -44,6 +48,7 @@ public class DownloadOptiFineFragment extends ModListFragment implements Modload
         setIcon(ContextCompat.getDrawable(activity, R.drawable.ic_optifine));
         setNameText("OptiFine");
         setReleaseCheckBoxGone();
+        parseBundle();
         super.init();
     }
 
@@ -64,6 +69,12 @@ public class DownloadOptiFineFragment extends ModListFragment implements Modload
                 });
             }
         });
+    }
+
+    private void parseBundle() {
+        Bundle bundle = getArguments();
+        if (bundle == null) return;
+        mIsDownloadMod = bundle.getBoolean(BUNDLE_DOWNLOAD_MOD, false);
     }
 
     private void processModDetails(OptiFineUtils.OptiFineVersions optiFineVersions) {
@@ -96,7 +107,8 @@ public class DownloadOptiFineFragment extends ModListFragment implements Modload
                     if (currentTask.isCancelled()) return;
 
                     BaseModVersionListAdapter adapter = new BaseModVersionListAdapter(modloaderListenerProxy, this, R.drawable.ic_optifine, entry.getValue());
-                    adapter.setOnItemClickListener(version -> new Thread(new OptiFineDownloadTask((OptiFineUtils.OptiFineVersion) version, modloaderListenerProxy)).start());
+                    adapter.setOnItemClickListener(version -> new Thread(new OptiFineDownloadTask((OptiFineUtils.OptiFineVersion) version, modloaderListenerProxy,
+                            mIsDownloadMod ? OptiFineDownloadType.DOWNLOAD_MOD : OptiFineDownloadType.DOWNLOAD_GAME)).start());
 
                     mData.add(new ModListItemBean(entry.getKey(), adapter));
                 });
@@ -124,20 +136,22 @@ public class DownloadOptiFineFragment extends ModListFragment implements Modload
 
     @Override
     public void onDownloadFinished(File downloadedFile) {
-        Tools.runOnUiThread(() -> {
-            Intent modInstallerStartIntent = new Intent(activity, JavaGUILauncherActivity.class);
-            OptiFineUtils.addAutoInstallArgs(modInstallerStartIntent, downloadedFile);
-            SelectRuntimeDialog selectRuntimeDialog = new SelectRuntimeDialog(activity);
-            selectRuntimeDialog.setListener(jreName -> {
-                modloaderListenerProxy.detachListener();
+        if (!mIsDownloadMod) {
+            Tools.runOnUiThread(() -> {
+                Intent modInstallerStartIntent = new Intent(activity, JavaGUILauncherActivity.class);
+                OptiFineUtils.addAutoInstallArgs(modInstallerStartIntent, downloadedFile);
+                SelectRuntimeDialog selectRuntimeDialog = new SelectRuntimeDialog(activity);
+                selectRuntimeDialog.setListener(jreName -> {
+                    modloaderListenerProxy.detachListener();
 
-                modInstallerStartIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName);
-                selectRuntimeDialog.dismiss();
-                Tools.backToMainMenu(activity);
-                activity.startActivity(modInstallerStartIntent);
+                    modInstallerStartIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName);
+                    selectRuntimeDialog.dismiss();
+                    Tools.backToMainMenu(activity);
+                    activity.startActivity(modInstallerStartIntent);
+                });
+                selectRuntimeDialog.show();
             });
-            selectRuntimeDialog.show();
-        });
+        }
     }
 
     @Override

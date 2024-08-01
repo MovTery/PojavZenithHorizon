@@ -1,6 +1,10 @@
 package net.kdt.pojavlaunch.modloaders;
 
+import static net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles.getCurrentProfile;
+
 import com.kdt.mcgui.ProgressLayout;
+import com.movtery.pojavzh.feature.mod.modloader.OptiFineDownloadType;
+import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.JMinecraftVersionList;
 import net.kdt.pojavlaunch.R;
@@ -20,13 +24,22 @@ public class OptiFineDownloadTask implements Runnable, Tools.DownloaderFeedback,
     private final OptiFineUtils.OptiFineVersion mOptiFineVersion;
     private final File mDestinationFile;
     private final ModloaderDownloadListener mListener;
+    private final OptiFineDownloadType mDownloadType;
     private final Object mMinecraftDownloadLock = new Object();
     private Throwable mDownloaderThrowable;
 
-    public OptiFineDownloadTask(OptiFineUtils.OptiFineVersion mOptiFineVersion, ModloaderDownloadListener mListener) {
+    public OptiFineDownloadTask(OptiFineUtils.OptiFineVersion mOptiFineVersion, ModloaderDownloadListener mListener, OptiFineDownloadType downloadType) {
         this.mOptiFineVersion = mOptiFineVersion;
-        this.mDestinationFile = new File(Tools.DIR_CACHE, "optifine-installer.jar");
         this.mListener = mListener;
+        this.mDownloadType = downloadType;
+        switch (downloadType) {
+            case DOWNLOAD_GAME:
+                this.mDestinationFile = new File(Tools.DIR_CACHE, "optifine-installer.jar");
+                break;
+            case DOWNLOAD_MOD:
+            default:
+                this.mDestinationFile = new File(new File(ZHTools.getGameDirPath(getCurrentProfile().gameDir), "/mods"), "[OptiFine] " + mOptiFineVersion.versionName + ".jar");
+        }
     }
 
     @Override
@@ -43,16 +56,18 @@ public class OptiFineDownloadTask implements Runnable, Tools.DownloaderFeedback,
     public boolean runCatching() throws IOException {
         String downloadUrl = scrapeDownloadsPage();
         if(downloadUrl == null) return false;
-        String minecraftVersion = determineMinecraftVersion();
-        if(minecraftVersion == null) return false;
-        if(!downloadMinecraft(minecraftVersion)) {
-            if(mDownloaderThrowable instanceof Exception) {
-                mListener.onDownloadError((Exception) mDownloaderThrowable);
-            }else {
-                Exception exception = new Exception(mDownloaderThrowable);
-                mListener.onDownloadError(exception);
+        if (mDownloadType == OptiFineDownloadType.DOWNLOAD_GAME) {
+            String minecraftVersion = determineMinecraftVersion();
+            if(minecraftVersion == null) return false;
+            if(!downloadMinecraft(minecraftVersion)) {
+                if(mDownloaderThrowable instanceof Exception) {
+                    mListener.onDownloadError((Exception) mDownloaderThrowable);
+                }else {
+                    Exception exception = new Exception(mDownloaderThrowable);
+                    mListener.onDownloadError(exception);
+                }
+                return false;
             }
-            return false;
         }
         DownloadUtils.downloadFileMonitored(downloadUrl, mDestinationFile, new byte[8192], this);
         return true;

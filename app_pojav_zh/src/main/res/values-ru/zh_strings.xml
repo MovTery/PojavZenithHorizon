@@ -86,6 +86,8 @@
     <string name="zh_profile_manager_edit">Редактировать экземпляр</string>
     <string name="zh_profile_manager_delete">Удалить экземпляр</string>
     <string name="zh_profile_manager_delete_message">Это действие удалит этот экземпляр, но не удалит связанные с ним файлы игры</string>
+    <string name="zh_profile_manager_download_optifine">Установить Mod OptiFine</string>
+    <string name="zh_profile_manager_download_optifine_message">Загрузите и установите OptiFine только как мод. Пожалуйста, убедитесь, что выбранный экземпляр поддерживает работу OptiFine Mod</string>
     <!-- Account -->
     <string name="zh_account_manager">Управление учетной записью</string>
     <string name="zh_account_text">Пожалуйста, выберите способ входа</string>

@@ -86,6 +86,8 @@
     <string name="zh_profile_manager_edit">تعديل المثيل</string>
     <string name="zh_profile_manager_delete">حذف المثيل</string>
     <string name="zh_profile_manager_delete_message">سيؤدي هذا الإجراء إلى حذف هذا المثيل، ولكن لن يحذف ملفات اللعبة المرتبطة بالمثيل</string>
+    <string name="zh_profile_manager_download_optifine">تثبيت OptiFine Mod</string>
+    <string name="zh_profile_manager_download_optifine_message">قم فقط بتنزيل وتثبيت OptiFine كـ Mod. يرجى التأكد من أن المثيل المحدد يدعم تشغيل OptiFine Mod</string>
     <!-- Account -->
     <string name="zh_account_manager">إدارة الحساب</string>
     <string name="zh_account_text">يرجى اختيار طريقة تسجيل الدخول</string>
