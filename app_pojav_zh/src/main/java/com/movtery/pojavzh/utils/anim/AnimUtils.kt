@@ -79,7 +79,7 @@ object AnimUtils {
         endAction: Runnable?
     ) {
         if ((view.visibility != View.VISIBLE && end == 0f) || (view.visibility == View.VISIBLE && end == 1f)) {
-            if (endAction != null) PojavApplication.sExecutorService.execute(endAction)
+            endAction?.let { PojavApplication.sExecutorService.execute(endAction) }
             return
         }
         view.visibility = View.VISIBLE

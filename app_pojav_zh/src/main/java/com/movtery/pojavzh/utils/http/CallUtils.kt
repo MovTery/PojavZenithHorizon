@@ -15,9 +15,7 @@ class CallUtils(
     fun start() {
         val client = OkHttpClient()
         val url = Request.Builder().url(this.url)
-        if (token != null) {
-            url.addHeader("Token", token)
-        }
+        token?.let { url.addHeader("Token", token) }
         val request = url.build()
 
         client.newCall(request).enqueue(object : Callback {
