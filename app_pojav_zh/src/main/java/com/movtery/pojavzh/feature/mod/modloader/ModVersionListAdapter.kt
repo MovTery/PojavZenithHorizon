@@ -30,10 +30,7 @@ open class ModVersionListAdapter(private val mData: List<*>?) :
     }
 
     override fun getItemCount(): Int {
-        mData?.let {
-            return mData.size
-        }
-        return 0
+        return mData?.size ?: 0
     }
 
     open fun setOnItemClickListener(listener: OnItemClickListener?) {

@@ -25,18 +25,13 @@ object CleanUpCache {
                 }
             }
 
-            if (list != null) {
+            list?.let{
                 for (file in list) {
                     if (file.name == "user_icon") continue
 
                     ++fileCount
 
-                    totalSize += if (file.isDirectory) {
-                        FileUtils.sizeOfDirectory(file)
-                    } else {
-                        FileUtils.sizeOf(file)
-                    }
-
+                    totalSize += FileUtils.sizeOf(file)
                     FileUtils.deleteQuietly(file)
                 }
             }

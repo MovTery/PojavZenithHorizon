@@ -12,7 +12,7 @@ object EditControlData {
     @JvmStatic
     fun loadFormFile(context: Context?, file: File): ControlInfoData? {
         val customControls = loadCustomControlsFromFile(context, file)
-        if (customControls != null) {
+        customControls?.let {
             val mControlInfoDataList = customControls.mControlInfoDataList
             mControlInfoDataList.fileName = file.name
             return mControlInfoDataList
