@@ -274,7 +274,7 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
         ViewAnimUtils.setViewAnim(mPlayLayout, Techniques.BounceInLeft);
         ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft);
 
-        ViewAnimUtils.setViewAnim(accountView.getMainView(), Techniques.FlipInY);
+        ViewAnimUtils.setViewAnim(accountView.getMainView(), Techniques.Wobble);
         ViewAnimUtils.setViewAnim(mPathManagerButton, Techniques.FadeInLeft);
         ViewAnimUtils.setViewAnim(mManagerProfileButton, Techniques.FadeInLeft);
         ViewAnimUtils.setViewAnim(mVersionSpinner, Techniques.FadeInLeft);
