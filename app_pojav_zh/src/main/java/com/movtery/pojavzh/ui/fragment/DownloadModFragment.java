@@ -17,6 +17,7 @@ import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListItemBean;
 import com.movtery.pojavzh.ui.subassembly.viewmodel.ModApiViewModel;
 import com.movtery.pojavzh.ui.subassembly.viewmodel.RecyclerViewModel;
 import com.movtery.pojavzh.utils.MCVersionComparator;
+import com.movtery.pojavzh.utils.MCVersionRegex;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
@@ -82,8 +83,7 @@ public class DownloadModFragment extends ModListFragment {
 
     private void processModDetails(ModDetail mModDetail) {
         Future<?> currentTask = getCurrentTask();
-        String regex = "^\\d+\\.\\d+\\.\\d+$|^\\d+\\.\\d+$";
-        Pattern pattern = Pattern.compile(regex);
+        Pattern pattern = MCVersionRegex.getRELEASE_REGEX();
 
         boolean releaseCheckBoxChecked = getReleaseCheckBox().isChecked();
         Map<String, List<ModVersionItem>> mModVersionsByMinecraftVersion = new HashMap<>();

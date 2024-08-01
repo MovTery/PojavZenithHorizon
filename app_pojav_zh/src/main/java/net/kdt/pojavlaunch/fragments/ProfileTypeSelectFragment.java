@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.movtery.pojavzh.ui.fragment.DownloadFabricFragment;
+import com.movtery.pojavzh.ui.fragment.DownloadQuiltFragment;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
 import com.movtery.pojavzh.ui.fragment.DownloadForgeFragment;
 import com.movtery.pojavzh.ui.fragment.DownloadNeoForgeFragment;
@@ -44,7 +46,7 @@ public class ProfileTypeSelectFragment extends FragmentWithAnim {
         view.findViewById(R.id.optifine_profile).setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, DownloadOptiFineFragment.class,
                 DownloadOptiFineFragment.TAG, null));
         view.findViewById(R.id.modded_profile_fabric).setOnClickListener((v)->
-                ZHTools.swapFragmentWithAnim(this, FabricInstallFragment.class, FabricInstallFragment.TAG, null));
+                ZHTools.swapFragmentWithAnim(this, DownloadFabricFragment.class, DownloadFabricFragment.TAG, null));
         view.findViewById(R.id.modded_profile_forge).setOnClickListener((v)->
                 ZHTools.swapFragmentWithAnim(this, DownloadForgeFragment.class, DownloadForgeFragment.TAG, null));
         view.findViewById(R.id.zh_modded_profile_neoforge).setOnClickListener((v)->
@@ -52,7 +54,7 @@ public class ProfileTypeSelectFragment extends FragmentWithAnim {
         view.findViewById(R.id.modded_profile_modpack).setOnClickListener((v)->
                 ZHTools.swapFragmentWithAnim(this, SelectModPackFragment.class, SelectModPackFragment.TAG, null));
         view.findViewById(R.id.modded_profile_quilt).setOnClickListener((v)->
-                ZHTools.swapFragmentWithAnim(this, QuiltInstallFragment.class, QuiltInstallFragment.TAG, null));
+                ZHTools.swapFragmentWithAnim(this, DownloadQuiltFragment.class, DownloadQuiltFragment.TAG, null));
 
         ViewAnimUtils.slideInAnim(this);
     }
