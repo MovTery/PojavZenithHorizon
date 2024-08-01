@@ -149,7 +149,7 @@ class SettingsActivity : BaseActivity() {
         mTitleView?.let { setViewAnim(it, Techniques.Pulse) }
         mTitleView!!.text = if (mTitle[view] != null) mTitle[view] else getString(R.string.preference_category_video)
 
-        YoYo.with(Techniques.Wobble)
+        YoYo.with(Techniques.Pulse)
             .duration((LauncherPreferences.PREF_ANIMATION_SPEED * 1.2).toLong())
             .playOn(view)
     }
