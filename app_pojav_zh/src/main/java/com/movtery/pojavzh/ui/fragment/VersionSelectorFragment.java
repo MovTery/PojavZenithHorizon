@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.tabs.TabLayout;
 import com.movtery.pojavzh.extra.ZHExtraConstants;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
@@ -16,13 +17,14 @@ import com.movtery.pojavzh.ui.subassembly.versionlist.VersionListView;
 import com.movtery.pojavzh.ui.subassembly.versionlist.VersionSelectedListener;
 import com.movtery.pojavzh.ui.subassembly.versionlist.VersionType;
 import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VersionSelectorFragment extends FragmentWithAnim {
     public static final String TAG = "FileSelectorFragment";
@@ -139,19 +141,26 @@ public class VersionSelectorFragment extends FragmentWithAnim {
     }
 
     @Override
-    public void slideIn() {
-        ViewAnimUtils.setViewAnim(mVersionLayout, Techniques.BounceInDown);
-        ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft);
-        ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft);
-        ViewAnimUtils.setViewAnim(mRefreshButton, Techniques.FadeInLeft);
-        ViewAnimUtils.setViewAnim(mReturnButton, Techniques.FadeInLeft);
+    public YoYo.YoYoString[] slideIn() {
+        List<YoYo.YoYoString> yoYos = new ArrayList<>();
+        yoYos.add(ViewAnimUtils.setViewAnim(mVersionLayout, Techniques.BounceInDown));
+        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
+        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft));
+        yoYos.add(ViewAnimUtils.setViewAnim(mRefreshButton, Techniques.FadeInLeft));
+        yoYos.add(ViewAnimUtils.setViewAnim(mReturnButton, Techniques.FadeInLeft));
+        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
+        super.setYoYos(array);
+        return array;
     }
 
     @Override
-    public void slideOut(@NonNull OnSlideOutListener listener) {
-        ViewAnimUtils.setViewAnim(mVersionLayout, Techniques.FadeOutUp);
-        ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight);
-        ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutRight);
-        super.slideOut(listener);
+    public YoYo.YoYoString[] slideOut() {
+        List<YoYo.YoYoString> yoYos = new ArrayList<>();
+        yoYos.add(ViewAnimUtils.setViewAnim(mVersionLayout, Techniques.FadeOutUp));
+        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight));
+        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutRight));
+        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
+        super.setYoYos(array);
+        return array;
     }
 }

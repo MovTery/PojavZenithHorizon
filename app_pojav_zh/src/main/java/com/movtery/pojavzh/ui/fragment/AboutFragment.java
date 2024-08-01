@@ -19,13 +19,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.movtery.pojavzh.feature.CheckSponsor;
 import com.movtery.pojavzh.ui.subassembly.about.AboutItemBean;
 import com.movtery.pojavzh.ui.subassembly.about.AboutRecyclerAdapter;
 import com.movtery.pojavzh.ui.subassembly.about.SponsorItemBean;
 import com.movtery.pojavzh.ui.subassembly.about.SponsorRecyclerAdapter;
 import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
@@ -157,22 +157,29 @@ public class AboutFragment extends FragmentWithAnim {
     }
 
     @Override
-    public void slideIn() {
-        ViewAnimUtils.setViewAnim(mInfoLayout, Techniques.BounceInDown);
-        ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft);
-        ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft);
+    public YoYo.YoYoString[] slideIn() {
+        List<YoYo.YoYoString> yoYos = new ArrayList<>();
+        yoYos.add(ViewAnimUtils.setViewAnim(mInfoLayout, Techniques.BounceInDown));
+        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
+        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft));
 
-        ViewAnimUtils.setViewAnim(mReturnButton, Techniques.FadeInLeft);
-        ViewAnimUtils.setViewAnim(mGithubButton, Techniques.FadeInLeft);
-        ViewAnimUtils.setViewAnim(mSupportButton, Techniques.FadeInLeft);
+        yoYos.add(ViewAnimUtils.setViewAnim(mReturnButton, Techniques.FadeInLeft));
+        yoYos.add(ViewAnimUtils.setViewAnim(mGithubButton, Techniques.FadeInLeft));
+        yoYos.add(ViewAnimUtils.setViewAnim(mSupportButton, Techniques.FadeInLeft));
+        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
+        super.setYoYos(array);
+        return array;
     }
 
     @Override
-    public void slideOut(@NonNull OnSlideOutListener listener) {
-        ViewAnimUtils.setViewAnim(mInfoLayout, Techniques.FadeOutUp);
-        ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight);
-        ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutRight);
-        super.slideOut(listener);
+    public YoYo.YoYoString[] slideOut() {
+        List<YoYo.YoYoString> yoYos = new ArrayList<>();
+        yoYos.add(ViewAnimUtils.setViewAnim(mInfoLayout, Techniques.FadeOutUp));
+        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight));
+        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutRight));
+        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
+        super.setYoYos(array);
+        return array;
     }
 }
 

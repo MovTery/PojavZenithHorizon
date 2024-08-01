@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.pojavzh.utils.anim.AnimUtils;
@@ -28,13 +29,15 @@ import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import com.movtery.pojavzh.ui.dialog.ModFitersDialog;
-import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
 import net.kdt.pojavlaunch.modloaders.modpacks.ModItemAdapter;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.CommonApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchFilters;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchModFragment extends FragmentWithAnim implements ModItemAdapter.SearchResultCallback {
     public static final String TAG = "SearchModFragment";
@@ -178,14 +181,20 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
     }
 
     @Override
-    public void slideIn() {
-        ViewAnimUtils.setViewAnim(mMainView, Techniques.BounceInDown);
-        ViewAnimUtils.setViewAnim(mOverlay, Techniques.FadeInDown);
+    public YoYo.YoYoString[] slideIn() {
+        List<YoYo.YoYoString> yoYos = new ArrayList<>();
+        yoYos.add(ViewAnimUtils.setViewAnim(mMainView, Techniques.BounceInDown));
+        yoYos.add(ViewAnimUtils.setViewAnim(mOverlay, Techniques.FadeInDown));
+        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
+        super.setYoYos(array);
+        return array;
     }
 
     @Override
-    public void slideOut(@NonNull OnSlideOutListener listener) {
-        ViewAnimUtils.setViewAnim(mMainView, Techniques.FadeOutUp);
-        super.slideOut(listener);
+    public YoYo.YoYoString[] slideOut() {
+        YoYo.YoYoString yoYoString = ViewAnimUtils.setViewAnim(mMainView, Techniques.FadeOutUp);
+        YoYo.YoYoString[] array = {yoYoString};
+        super.setYoYos(array);
+        return array;
     }
 }

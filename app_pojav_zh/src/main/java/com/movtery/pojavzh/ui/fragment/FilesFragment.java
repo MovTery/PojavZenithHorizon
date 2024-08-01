@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 import com.movtery.pojavzh.ui.dialog.FilesDialog;
@@ -26,7 +27,6 @@ import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
 import com.movtery.pojavzh.ui.subassembly.view.SearchView;
 import com.movtery.pojavzh.utils.anim.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 import com.movtery.pojavzh.utils.file.PasteFile;
 
@@ -343,19 +343,26 @@ public class FilesFragment extends FragmentWithAnim {
     }
 
     @Override
-    public void slideIn() {
-        ViewAnimUtils.setViewAnim(mFilesLayout, Techniques.BounceInDown);
-        ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft);
-        ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft);
-        ViewAnimUtils.setViewAnim(mOperateView, Techniques.FadeInLeft);
+    public YoYo.YoYoString[] slideIn() {
+        List<YoYo.YoYoString> yoYos = new ArrayList<>();
+        yoYos.add(ViewAnimUtils.setViewAnim(mFilesLayout, Techniques.BounceInDown));
+        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
+        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft));
+        yoYos.add(ViewAnimUtils.setViewAnim(mOperateView, Techniques.FadeInLeft));
+        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
+        super.setYoYos(array);
+        return array;
     }
 
     @Override
-    public void slideOut(@NonNull OnSlideOutListener listener) {
-        ViewAnimUtils.setViewAnim(mFilesLayout, Techniques.FadeOutUp);
-        ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight);
-        ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutRight);
-        super.slideOut(listener);
+    public YoYo.YoYoString[] slideOut() {
+        List<YoYo.YoYoString> yoYos = new ArrayList<>();
+        yoYos.add(ViewAnimUtils.setViewAnim(mFilesLayout, Techniques.FadeOutUp));
+        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight));
+        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutRight));
+        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
+        super.setYoYos(array);
+        return array;
     }
 }
 

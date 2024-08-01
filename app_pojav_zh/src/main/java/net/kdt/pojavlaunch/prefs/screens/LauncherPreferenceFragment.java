@@ -12,7 +12,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.daimajia.androidanimations.library.Techniques;
-import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
+import com.daimajia.androidanimations.library.YoYo;
 import com.movtery.pojavzh.utils.anim.SlideAnimation;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
@@ -32,7 +32,7 @@ public abstract class LauncherPreferenceFragment extends PreferenceFragmentCompa
         mMainView = view;
         view.setBackgroundResource(R.drawable.background_card);
 
-        ViewAnimUtils.slideInAnim(this);
+        slideIn();
     }
 
     @Override
@@ -65,12 +65,14 @@ public abstract class LauncherPreferenceFragment extends PreferenceFragmentCompa
     }
 
     @Override
-    public void slideIn() {
-        ViewAnimUtils.setViewAnim(mMainView, Techniques.BounceInDown);
+    public YoYo.YoYoString[] slideIn() {
+        YoYo.YoYoString yoYoString = ViewAnimUtils.setViewAnim(mMainView, Techniques.BounceInDown);
+        return new YoYo.YoYoString[]{yoYoString};
     }
 
     @Override
-    public void slideOut(@NonNull OnSlideOutListener listener) {
-        ViewAnimUtils.setViewAnim(mMainView, Techniques.FadeOutUp);
+    public YoYo.YoYoString[] slideOut() {
+        YoYo.YoYoString yoYoString = ViewAnimUtils.setViewAnim(mMainView, Techniques.FadeOutUp);
+        return new YoYo.YoYoString[]{yoYoString};
     }
 }
