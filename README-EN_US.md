@@ -37,12 +37,12 @@
 
 <h2 align="center">Special Thanks</h2>
 
-This project utilizes several useful code libraries, and we would like to express our gratitude!
+This project utilizes some very useful libraries, and we would like to express our gratitude!
 
-#### Code Libraries Used by PojavLauncher
+#### Libraries used by PojavLauncher
 
 >- [Boardwalk](https://github.com/zhuowei/Boardwalk) (JVM Launcher): Unknown License / [Apache License 2.0](https://github.com/zhuowei/Boardwalk/blob/master/LICENSE) or GNU GPLv2.
->- Android Support Libraries: [Apache License 2.0](https://android.googlesource.com/platform/prebuilts/maven_repo/android/+/master/NOTICE.txt).
+>- Android Support Library: [Apache License 2.0](https://android.googlesource.com/platform/prebuilts/maven_repo/android/+/master/NOTICE.txt).
 >- [GL4ES](https://github.com/PojavLauncherTeam/gl4es): [MIT License](https://github.com/ptitSeb/gl4es/blob/master/LICENSE).
 >- [OpenJDK](https://github.com/PojavLauncherTeam/openjdk-multiarch-jdk8u): [GNU GPLv2 License](https://openjdk.java.net/legal/gplv2+ce.html).
 >- [LWJGL3](https://github.com/PojavLauncherTeam/lwjgl3): [BSD-3 License](https://github.com/LWJGL/lwjgl3/blob/master/LICENSE.md).
@@ -53,7 +53,8 @@ This project utilizes several useful code libraries, and we would like to expres
 >- [libepoxy](https://github.com/anholt/libepoxy): [MIT License](https://github.com/anholt/libepoxy/blob/master/COPYING).
 >- [virglrenderer](https://github.com/PojavLauncherTeam/virglrenderer): [MIT License](https://gitlab.freedesktop.org/virgl/virglrenderer/-/blob/master/COPYING).
 
-#### Additional Code Libraries Used by Pojav Zenith Horizon
+#### Additional Libraries used by Pojav Zenith Horizon
 
->- [CommonMark](https://github.com/thephpleague/commonmark) (For Rendering Markdown Text): [BSD-3-Clause License](https://github.com/thephpleague/commonmark/blob/2.5/LICENSE).
->- [AndroidViewAnimations](https://github.com/daimajia/AndroidViewAnimations) (For Adding Rich Animation Effects to the App): [MIT License](https://github.com/daimajia/AndroidViewAnimations/blob/master/License).
+>- [CommonMark](https://github.com/thephpleague/commonmark) (For rendering Markdown text): [BSD-3-Clause License](https://github.com/thephpleague/commonmark/blob/2.5/LICENSE).
+>- [AndroidViewAnimations](https://github.com/daimajia/AndroidViewAnimations) (For adding rich animations to the app): [MIT License](https://github.com/daimajia/AndroidViewAnimations/blob/master/License).
+>- Thanks to [Crafthead](https://crafthead.net/) for providing Minecraft avatars.
