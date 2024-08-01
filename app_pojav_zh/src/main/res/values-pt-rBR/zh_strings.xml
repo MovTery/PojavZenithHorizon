@@ -86,6 +86,8 @@
     <string name="zh_profile_manager_edit">Editar Instância</string>
     <string name="zh_profile_manager_delete">Deletar Instância</string>
     <string name="zh_profile_manager_delete_message">Esta ação irá deletar esta instância, mas não deletará os arquivos de jogo associados</string>
+    <string name="zh_profile_manager_download_optifine">Instalar Mod OptiFine</string>
+    <string name="zh_profile_manager_download_optifine_message">Apenas faça o download e instale o OptiFine como um Mod. Certifique-se de que a instância selecionada suporta a execução do OptiFine Mod</string>
     <!-- Account -->
     <string name="zh_account_manager">Gerenciamento de Conta</string>
     <string name="zh_account_text">Por favor, selecione um método de login</string>

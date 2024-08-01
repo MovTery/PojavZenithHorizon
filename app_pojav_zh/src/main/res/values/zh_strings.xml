@@ -86,6 +86,8 @@
     <string name="zh_profile_manager_edit">Edit Instance</string>
     <string name="zh_profile_manager_delete">Delete Instance</string>
     <string name="zh_profile_manager_delete_message">This operation will delete this instance, but it will not delete the game files associated with the instance</string>
+    <string name="zh_profile_manager_download_optifine">Install OptiFine Mod</string>
+    <string name="zh_profile_manager_download_optifine_message">Only download and install OptiFine as a Mod. Please ensure the selected instance supports running OptiFine Mod</string>
     <!-- Account -->
     <string name="zh_account_manager">Account Management</string>
     <string name="zh_account_text">Please select a login method</string>

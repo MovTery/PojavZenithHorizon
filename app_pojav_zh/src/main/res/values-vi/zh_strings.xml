@@ -86,6 +86,8 @@
     <string name="zh_profile_manager_edit">Chỉnh sửa thể hiện</string>
     <string name="zh_profile_manager_delete">Xóa thể hiện</string>
     <string name="zh_profile_manager_delete_message">Thao tác này sẽ xóa thể hiện này, nhưng sẽ không xóa các tệp trò chơi liên quan đến thể hiện</string>
+    <string name="zh_profile_manager_download_optifine">Cài Đặt Mod OptiFine</string>
+    <string name="zh_profile_manager_download_optifine_message">Chỉ tải xuống và cài đặt OptiFine dưới dạng Mod. Vui lòng đảm bảo rằng phiên bản đã chọn hỗ trợ chạy OptiFine Mod</string>
     <!-- Account -->
     <string name="zh_account_manager">Quản lý tài khoản</string>
     <string name="zh_account_text">Vui lòng chọn một phương thức đăng nhập</string>

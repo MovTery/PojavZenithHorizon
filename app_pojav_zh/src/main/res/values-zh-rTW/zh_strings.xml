@@ -86,6 +86,8 @@
     <string name="zh_profile_manager_edit">編輯實例</string>
     <string name="zh_profile_manager_delete">刪除實例</string>
     <string name="zh_profile_manager_delete_message">此操作將會刪除此實例，但並不會刪除實例關聯的遊戲檔案</string>
+    <string name="zh_profile_manager_download_optifine">安裝 OptiFine Mod</string>
+    <string name="zh_profile_manager_download_optifine_message">僅將 OptiFine 作為 Mod 下載並安裝，請確保所選實例支持運行 OptiFine Mod</string>
     <!-- Account -->
     <string name="zh_account_manager">帳號管理</string>
     <string name="zh_account_text">請選擇一種登錄方式</string>
