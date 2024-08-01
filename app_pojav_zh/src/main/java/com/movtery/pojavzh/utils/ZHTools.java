@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.daimajia.androidanimations.library.YoYo;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
@@ -151,10 +152,16 @@ public class ZHTools {
         transaction.setReorderingAllowed(true).replace(R.id.container_fragment, fragmentClass, bundle, fragmentTag);
         transaction.addToBackStack(fragmentClass.getName());
         if (fragment instanceof FragmentWithAnim) {
-            ((FragmentWithAnim) fragment).slideOut(transaction::commit);
-        } else {
-            transaction.commit();
+            FragmentWithAnim fragmentWithAnim = (FragmentWithAnim) fragment;
+            YoYo.YoYoString[] yoYos = fragmentWithAnim.getYoYos();
+            if (yoYos != null) {
+                for (YoYo.YoYoString yoYo : yoYos) {
+                    if (yoYo.isStarted() && yoYo.isRunning()) yoYo.stop();
+                }
+            }
+            fragmentWithAnim.slideOut();
         }
+        transaction.commit();
     }
 
     public static void addFragment(Fragment fragment, Class<? extends Fragment> fragmentClass,

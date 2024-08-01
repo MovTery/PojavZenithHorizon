@@ -20,12 +20,12 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.movtery.pojavzh.ui.dialog.FilesDialog;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileIcon;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileItemBean;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerViewCreator;
 import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 import com.movtery.pojavzh.utils.file.FileTools;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
@@ -157,13 +157,18 @@ public class CustomMouseFragment extends FragmentWithAnim {
     }
 
     @Override
-    public void slideIn() {
-        ViewAnimUtils.setViewAnim(mMainView, Techniques.BounceInDown);
+    public YoYo.YoYoString[] slideIn() {
+        YoYo.YoYoString yoYoString = ViewAnimUtils.setViewAnim(mMainView, Techniques.BounceInDown);
+        YoYo.YoYoString[] array = {yoYoString};
+        super.setYoYos(array);
+        return array;
     }
 
     @Override
-    public void slideOut(@NonNull OnSlideOutListener listener) {
-        ViewAnimUtils.setViewAnim(mMainView, Techniques.FadeOutUp);
-        super.slideOut(listener);
+    public YoYo.YoYoString[] slideOut() {
+        YoYo.YoYoString yoYoString = ViewAnimUtils.setViewAnim(mMainView, Techniques.FadeOutUp);
+        YoYo.YoYoString[] array = {yoYoString};
+        super.setYoYos(array);
+        return array;
     }
 }

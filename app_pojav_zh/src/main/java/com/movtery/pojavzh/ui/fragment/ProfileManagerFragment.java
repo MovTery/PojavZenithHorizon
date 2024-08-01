@@ -10,10 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 import com.movtery.pojavzh.utils.file.FileTools;
 
@@ -27,6 +27,8 @@ import net.kdt.pojavlaunch.profiles.ProfileIconCache;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProfileManagerFragment extends FragmentWithAnim {
     public static final String TAG = "ProfileManagerFragment";
@@ -115,15 +117,22 @@ public class ProfileManagerFragment extends FragmentWithAnim {
     }
 
     @Override
-    public void slideIn() {
-        ViewAnimUtils.setViewAnim(mShortcutsLayout, Techniques.BounceInRight);
-        ViewAnimUtils.setViewAnim(mModdedLayout, Techniques.BounceInLeft);
+    public YoYo.YoYoString[] slideIn() {
+        List<YoYo.YoYoString> yoYos = new ArrayList<>();
+        yoYos.add(ViewAnimUtils.setViewAnim(mShortcutsLayout, Techniques.BounceInRight));
+        yoYos.add(ViewAnimUtils.setViewAnim(mModdedLayout, Techniques.BounceInLeft));
+        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
+        super.setYoYos(array);
+        return array;
     }
 
     @Override
-    public void slideOut(@NonNull OnSlideOutListener listener) {
-        ViewAnimUtils.setViewAnim(mShortcutsLayout, Techniques.FadeOutLeft);
-        ViewAnimUtils.setViewAnim(mModdedLayout, Techniques.FadeOutRight);
-        super.slideOut(listener);
+    public YoYo.YoYoString[] slideOut() {
+        List<YoYo.YoYoString> yoYos = new ArrayList<>();
+        yoYos.add(ViewAnimUtils.setViewAnim(mShortcutsLayout, Techniques.FadeOutLeft));
+        yoYos.add(ViewAnimUtils.setViewAnim(mModdedLayout, Techniques.FadeOutRight));
+        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
+        super.setYoYos(array);
+        return array;
     }
 }

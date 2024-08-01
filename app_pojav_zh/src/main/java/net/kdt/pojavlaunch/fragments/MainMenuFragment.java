@@ -24,6 +24,7 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.kdt.mcgui.mcVersionSpinner;
 import com.movtery.pojavzh.feature.accounts.AccountUpdateListener;
 import com.movtery.pojavzh.ui.fragment.AboutFragment;
@@ -41,7 +42,6 @@ import com.movtery.pojavzh.ui.dialog.ShareLogDialog;
 import com.movtery.pojavzh.ui.fragment.ProfilePathManagerFragment;
 import com.movtery.pojavzh.ui.subassembly.account.AccountView;
 import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
 import net.kdt.pojavlaunch.extra.ExtraConstants;
@@ -50,6 +50,8 @@ import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Future;
 
 public class MainMenuFragment extends FragmentWithAnim implements TaskCountListener, AccountUpdateListener {
@@ -173,6 +175,20 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
     @Override
     public void onResume() {
         super.onResume();
+        YoYo.YoYoString[] yoYos = super.getYoYos();
+        //如果恢复视图时结束动画仍在运行，则停止它们，并重新调用slideIn方法
+        if (yoYos != null) {
+            boolean isRunning = false;
+            for (YoYo.YoYoString yoYo : yoYos) {
+                if (yoYo.isRunning()) {
+                    isRunning = true;
+                    yoYo.stop();
+                }
+                if (isRunning) {
+                    slideIn();
+                }
+            }
+        }
         mVersionSpinner.reloadProfiles();
     }
 
@@ -269,23 +285,30 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
     }
 
     @Override
-    public void slideIn() {
-        ViewAnimUtils.setViewAnim(mMenuLayout, Techniques.BounceInDown);
-        ViewAnimUtils.setViewAnim(mPlayLayout, Techniques.BounceInLeft);
-        ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft);
+    public YoYo.YoYoString[] slideIn() {
+        List<YoYo.YoYoString> yoYos = new ArrayList<>();
+        yoYos.add(ViewAnimUtils.setViewAnim(mMenuLayout, Techniques.BounceInDown));
+        yoYos.add(ViewAnimUtils.setViewAnim(mPlayLayout, Techniques.BounceInLeft));
+        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft));
 
-        ViewAnimUtils.setViewAnim(accountView.getMainView(), Techniques.Wobble);
-        ViewAnimUtils.setViewAnim(mPathManagerButton, Techniques.FadeInLeft);
-        ViewAnimUtils.setViewAnim(mManagerProfileButton, Techniques.FadeInLeft);
-        ViewAnimUtils.setViewAnim(mVersionSpinner, Techniques.FadeInLeft);
-        ViewAnimUtils.setViewAnim(mPlayButton, Techniques.FadeInLeft);
+        yoYos.add(ViewAnimUtils.setViewAnim(accountView.getMainView(), Techniques.Wobble));
+        yoYos.add(ViewAnimUtils.setViewAnim(mPathManagerButton, Techniques.FadeInLeft));
+        yoYos.add(ViewAnimUtils.setViewAnim(mManagerProfileButton, Techniques.FadeInLeft));
+        yoYos.add(ViewAnimUtils.setViewAnim(mVersionSpinner, Techniques.FadeInLeft));
+        yoYos.add(ViewAnimUtils.setViewAnim(mPlayButton, Techniques.FadeInLeft));
+        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
+        super.setYoYos(array);
+        return array;
     }
 
     @Override
-    public void slideOut(@NonNull OnSlideOutListener listener) {
-        ViewAnimUtils.setViewAnim(mMenuLayout, Techniques.FadeOutUp);
-        ViewAnimUtils.setViewAnim(mPlayLayout, Techniques.FadeOutRight);
-        ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutRight);
-        super.slideOut(listener);
+    public YoYo.YoYoString[] slideOut() {
+        List<YoYo.YoYoString> yoYos = new ArrayList<>();
+        yoYos.add(ViewAnimUtils.setViewAnim(mMenuLayout, Techniques.FadeOutUp));
+        yoYos.add(ViewAnimUtils.setViewAnim(mPlayLayout, Techniques.FadeOutRight));
+        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutRight));
+        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
+        super.setYoYos(array);
+        return array;
     }
 }

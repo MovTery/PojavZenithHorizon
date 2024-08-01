@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.tabs.TabLayout;
 import com.movtery.pojavzh.ui.dialog.FilesDialog;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundManager;
@@ -27,7 +28,6 @@ import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerView;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
 import com.movtery.pojavzh.utils.anim.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 import com.movtery.pojavzh.utils.file.FileTools;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
@@ -242,13 +242,18 @@ public class CustomBackgroundFragment extends FragmentWithAnim {
     }
 
     @Override
-    public void slideIn() {
-        ViewAnimUtils.setViewAnim(mMainView, Techniques.BounceInDown);
+    public YoYo.YoYoString[] slideIn() {
+        YoYo.YoYoString yoYoString = ViewAnimUtils.setViewAnim(mMainView, Techniques.BounceInDown);
+        YoYo.YoYoString[] array = {yoYoString};
+        super.setYoYos(array);
+        return array;
     }
 
     @Override
-    public void slideOut(@NonNull OnSlideOutListener listener) {
-        ViewAnimUtils.setViewAnim(mMainView, Techniques.FadeOutUp);
-        super.slideOut(listener);
+    public YoYo.YoYoString[] slideOut() {
+        YoYo.YoYoString yoYoString = ViewAnimUtils.setViewAnim(mMainView, Techniques.FadeOutUp);
+        YoYo.YoYoString[] array = {yoYoString};
+        super.setYoYos(array);
+        return array;
     }
 }

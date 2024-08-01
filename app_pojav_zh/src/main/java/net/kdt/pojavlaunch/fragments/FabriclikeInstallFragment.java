@@ -20,10 +20,10 @@ import androidx.annotation.Nullable;
 import net.kdt.pojavlaunch.PojavApplication;
 
 import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
 import com.movtery.pojavzh.utils.anim.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.anim.OnSlideOutListener;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
 import net.kdt.pojavlaunch.R;
@@ -39,6 +39,7 @@ import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Future;
 
 public abstract class FabriclikeInstallFragment extends FragmentWithAnim implements ModloaderDownloadListener, CompoundButton.OnCheckedChangeListener {
@@ -301,22 +302,29 @@ public abstract class FabriclikeInstallFragment extends FragmentWithAnim impleme
     }
 
     @Override
-    public void slideIn() {
-        ViewAnimUtils.setViewAnim(mVersionLayout, Techniques.BounceInDown);
-        ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft);
-        ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft);
+    public YoYo.YoYoString[] slideIn() {
+        List<YoYo.YoYoString> yoYos = new ArrayList<>();
+        yoYos.add(ViewAnimUtils.setViewAnim(mVersionLayout, Techniques.BounceInDown));
+        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
+        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft));
 
-        ViewAnimUtils.setViewAnim(mRetryButton, Techniques.FadeInLeft);
-        ViewAnimUtils.setViewAnim(mCloseButton, Techniques.FadeInLeft);
-        ViewAnimUtils.setViewAnim(mStartButton, Techniques.FadeInLeft);
+        yoYos.add(ViewAnimUtils.setViewAnim(mRetryButton, Techniques.FadeInLeft));
+        yoYos.add(ViewAnimUtils.setViewAnim(mCloseButton, Techniques.FadeInLeft));
+        yoYos.add(ViewAnimUtils.setViewAnim(mStartButton, Techniques.FadeInLeft));
+        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
+        super.setYoYos(array);
+        return array;
     }
 
     @Override
-    public void slideOut(@NonNull OnSlideOutListener listener) {
-        ViewAnimUtils.setViewAnim(mVersionLayout, Techniques.FadeOutDown);
-        ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutLeft);
-        ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutLeft);
-        super.slideOut(listener);
+    public YoYo.YoYoString[] slideOut() {
+        List<YoYo.YoYoString> yoYos = new ArrayList<>();
+        yoYos.add(ViewAnimUtils.setViewAnim(mVersionLayout, Techniques.FadeOutDown));
+        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutLeft));
+        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutLeft));
+        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
+        super.setYoYos(array);
+        return array;
     }
 
     protected abstract ModloaderListenerProxy getListenerProxy();
