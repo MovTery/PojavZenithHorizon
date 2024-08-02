@@ -9,69 +9,80 @@
     android:orientation="vertical"
     android:paddingHorizontal="@dimen/fragment_padding_medium">
 
-    <View
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/login_menu"
         android:layout_width="0dp"
         android:layout_height="@dimen/_200sdp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginHorizontal="50dp"
         android:background="@drawable/background_card"
-        android:translationZ="-1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/textView"
-        style="@style/TextAppearance.AppCompat.Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="@string/zh_account_text"
-        android:textColor="@color/primary_text"
-        app:layout_constraintEnd_toEndOf="@+id/login_menu"
-        app:layout_constraintStart_toStartOf="@+id/login_menu"
-        app:layout_constraintTop_toTopOf="@+id/login_menu" />
+        <ImageView
+            android:id="@+id/zh_login_return"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button_microsoft_authentication"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="28dp"
-        android:text="@string/zh_account_microsoft_account"
-        android:textSize="@dimen/_12ssp"
-        app:layout_constraintEnd_toStartOf="@+id/button_other_authentication"
-        app:layout_constraintHorizontal_weight="0.3"
-        app:layout_constraintStart_toStartOf="@id/login_menu"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <TextView
+            android:id="@+id/textView"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:text="@string/zh_account_text"
+            android:textColor="@color/primary_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button_other_authentication"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="28dp"
-        android:text="@string/zh_other_login_api"
-        android:textSize="@dimen/_12ssp"
-        app:layout_constraintEnd_toStartOf="@+id/button_local_authentication"
-        app:layout_constraintHorizontal_weight="0.3"
-        app:layout_constraintStart_toEndOf="@+id/button_microsoft_authentication"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <Button
+            android:id="@+id/button_microsoft_authentication"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="28dp"
+            android:text="@string/zh_account_microsoft_account"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toStartOf="@+id/button_other_authentication"
+            app:layout_constraintHorizontal_weight="0.3"
+            app:layout_constraintStart_toStartOf="@id/login_menu"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <Button
-        android:id="@+id/button_local_authentication"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginTop="28dp"
-        android:text="@string/zh_account_local_account"
-        android:textSize="@dimen/_12ssp"
-        app:layout_constraintEnd_toEndOf="@+id/login_menu"
-        app:layout_constraintHorizontal_weight="0.3"
-        app:layout_constraintStart_toEndOf="@+id/button_other_authentication"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <Button
+            android:id="@+id/button_other_authentication"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="28dp"
+            android:text="@string/zh_other_login_api"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toStartOf="@+id/button_local_authentication"
+            app:layout_constraintHorizontal_weight="0.3"
+            app:layout_constraintStart_toEndOf="@+id/button_microsoft_authentication"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <Button
+            android:id="@+id/button_local_authentication"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="28dp"
+            android:text="@string/zh_account_local_account"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="0.3"
+            app:layout_constraintStart_toEndOf="@+id/button_other_authentication"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

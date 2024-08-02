@@ -4,17 +4,19 @@ import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.CookieManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -27,13 +29,19 @@ public class MicrosoftLoginFragment extends Fragment {
     // Technically the client is blank (or there is none) when the fragment is initialized
     private boolean mBlankClient = true;
 
+    public MicrosoftLoginFragment() {
+        super(R.layout.fragment_microsoft_login);
+    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mWebview = (WebView) inflater.inflate(R.layout.fragment_microsoft_login, container, false);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        ImageView mReturnButton = view.findViewById(R.id.zh_login_return);
+        mReturnButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
+        mWebview = view.findViewById(R.id.zh_login_web_view);
+
         setWebViewSettings();
         if(savedInstanceState == null) startNewSession();
         else restoreWebViewState(savedInstanceState);
-        return mWebview;
     }
 
     // WebView.restoreState() does not restore the WebSettings or the client, so set them there
