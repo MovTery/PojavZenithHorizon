@@ -5,7 +5,7 @@ import com.daimajia.androidanimations.library.YoYo.YoYoString
 import com.movtery.pojavzh.utils.anim.SlideAnimation
 
 abstract class FragmentWithAnim : Fragment, SlideAnimation {
-    var yoYos: Array<YoYoString>? = null
+    var yoYos: Array<YoYoString?>? = null
 
     constructor()
 
@@ -17,9 +17,11 @@ abstract class FragmentWithAnim : Fragment, SlideAnimation {
         yoYos?.let {
             var isRunning = false
             for (yoYo in yoYos!!) {
-                if (yoYo.isStarted && yoYo.isRunning) {
-                    if (!isRunning) isRunning = true
-                    yoYo.stop(true)
+                yoYo?.let {
+                    if (yoYo.isStarted && yoYo.isRunning) {
+                        if (!isRunning) isRunning = true
+                        yoYo.stop(true)
+                    }
                 }
             }
             if (isRunning) {

@@ -36,7 +36,9 @@ object ViewAnimUtils {
 
     @JvmStatic
     fun slideInAnim(fragmentWithAnim: FragmentWithAnim) {
-        fragmentWithAnim.yoYos?.forEach { if (it.isStarted && it.isRunning) it.stop() }
+        fragmentWithAnim.yoYos?.forEach {
+            it?.let { if (it.isStarted && it.isRunning) it.stop() }
+        }
         fragmentWithAnim.slideIn()
     }
 }
