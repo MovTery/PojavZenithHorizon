@@ -143,10 +143,10 @@ public class DownloadModFragment extends ModListFragment {
     private void parseViewModel() {
         ModApiViewModel viewModel = new ViewModelProvider(requireActivity()).get(ModApiViewModel.class);
         RecyclerViewModel recyclerViewModel = new ViewModelProvider(requireActivity()).get(RecyclerViewModel.class);
-        mModApi = viewModel.modApi;
-        mModItem = viewModel.modItem;
-        mIsModpack = viewModel.isModpack;
-        mModsPath = viewModel.modsPath;
+        mModApi = viewModel.getModApi();
+        mModItem = viewModel.getModItem();
+        mIsModpack = viewModel.isModpack();
+        mModsPath = viewModel.getModsPath();
         mParentUIRecyclerView = recyclerViewModel.view;
 
         setNameText(mModItem.title);

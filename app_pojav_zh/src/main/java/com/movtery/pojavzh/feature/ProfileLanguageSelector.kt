@@ -1,6 +1,7 @@
 package com.movtery.pojavzh.feature
 
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome.versionsHome
+import com.movtery.pojavzh.utils.MCVersionRegex
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.JMinecraftVersionList
@@ -9,7 +10,6 @@ import net.kdt.pojavlaunch.prefs.LauncherPreferences
 import net.kdt.pojavlaunch.utils.MCOptionUtils
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile
 import java.io.IOException
-import java.util.regex.Pattern
 
 object ProfileLanguageSelector {
     private fun getOlderLanguage(lang: String): String {
@@ -54,8 +54,7 @@ object ProfileLanguageSelector {
 
         val versionId = version.id
 
-        val regex = "^\\d+[a-zA-Z]\\d+[a-zA-Z]$"
-        val pattern = Pattern.compile(regex)
+        val pattern = MCVersionRegex.SNAPSHOT_REGEX
         val matcher = pattern.matcher(versionId)
 
         if (StringUtils.containsDot(versionId)) {

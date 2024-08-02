@@ -15,7 +15,6 @@
     <string name="error_show_more">اظهر المزيد</string>
     <string name="error_show_less">أظهِر أقل</string>
     <!-- MCLauncherActivity: Strings -->
-    <string name="mcl_options">الخيارات</string>
     <string name="mcl_option_customcontrol">تخصيص التحكم</string>
     <string name="mcl_setting_title_use_surface_view">استخدام عرض الأسطح البديل</string>
     <string name="mcl_setting_subtitle_use_surface_view">قد يساعد الأداء في سيناريوهات المعتمدة على GPU.</string>
@@ -52,7 +51,6 @@
     <string name="global_error_field_empty">لا يمكن لهذه الخانة ان تكون فارغة</string>
     <string name="global_waiting">انتظر</string>
     <string name="global_select">اختر</string>
-    <string name="global_retry">أعد المحاولة</string>
     <string name="global_default">مستخدم دائما</string>
     <!-- MainActivity: strings -->
     <string name="mcn_exit_confirm">هل أنت متأكد من أنك تريد الإغلاق؟</string>
@@ -206,9 +204,6 @@
     <string name="modloader_dl_failed_to_load_list">فشل تحميل قائمة الإصدارات!</string>
     <string name="forge_dl_no_installer">عذراً، لكن هذا الإصدار من Forge لا يحتوي على مثبت، الذي لم يتم دعمه بعد.</string>
     <string name="fabric_dl_progress">تنزيل البيانات التعريفية لمحمل %s</string>
-    <string name="fabric_dl_loader_version">%s إصدار المحمل</string>
-    <string name="fabric_dl_game_version">إصدار Minecraft</string>
-    <string name="fabric_dl_install">تثبيت</string>
     <string name="fabric_dl_cant_read_meta">فشل قراءة البيانات التعريفية ل%s. الرجاء المحاولة في وقت لاحق.</string>
     <string name="modloader_dl_install_fabric">إنشاء ملف شخصي جديد لFabric</string>
     <string name="modloader_dl_install_quilt">إنشاء ملف شخصي جديد لQuilt</string>
@@ -216,7 +211,6 @@
     <string name="create_profile_vanilla">إنشاء ملف شخصي جديد لVanilla</string>
     <string name="create_profile_vanilla_like_versions">الإصدارات الشبيهة بالVanilla</string>
     <string name="create_profile_modded_versions">الإصدارات المعدلة</string>
-    <string name="fabric_dl_loader_title">حدد إصدارات</string>
     <string name="of_dl_failed_to_scrape">فشل في جمع البيانات لتثبيت OptiFine</string>
     <string name="of_dl_progress">التحميل جارٍ %s</string>
     <string name="create_profile_optifine">إنشاء ملف شخصي لـ OptiFine</string>
@@ -238,7 +232,6 @@
     <string name="modpack_install_button">إنشاء ملف شخصي جديد لModpack</string>
     <string name="notif_error_occured">لقد حدث خطأ</string>
     <string name="notif_error_occured_desc">انقر لمشاهدة المزيد من التفاصيل</string>
-    <string name="fabric_dl_only_stable">اظهر الإصدارات المستقرة فقط</string>
     <string name="dl_tampered_manifest_title">تحذير التحقق من الملف</string>
     <string name="dl_tampered_manifest"><![CDATA[إصدار اللعبة الظاهر على النسخة لا يطابق إصدار اللعبة الرسمي من Mojang، مما يعني انه تم العبث به.<br/><b> هذا ليس آمن، قد تكون معلوماتك الشخصية في خطر اذا استمريت،</b><br/>         اذا لا زلت تريد استخدام النسخة، اضغط \"عطل التحقق من النسخة\" و ابدأ التحميل مرة اخرى.<br/>        اذا ما كنت تريد إستخدام المصدر الرسمي اضغط \"بدل للمصدر الرسمي\" و إبدأ التحميل مرة اخرى.<br/>]]></string>
     <string name="dl_turn_off_manifest_checks">اقف فحص البيانات</string>
@@ -263,7 +256,6 @@
     <string name="newdl_starting">قراءة بيانات تعريف اللعبة…</string>
     <string name="newdl_downloading_metadata">تحميل بيانات تعريف اللعبة (%s)</string>
     <string name="newdl_downloading_game_files">تنزيل ملفات اللعبة… (%d/%d, %.2f MB)</string>
-    <string name="cropper_title">اختيار منطقة الصورة</string>
     <string name="cropper_lock_vertical">تأمين المحور العمودي</string>
     <string name="cropper_lock_horizontal">تأمين المحور الأفقي</string>
     <string name="cropper_reset">إعادة تعيين</string>

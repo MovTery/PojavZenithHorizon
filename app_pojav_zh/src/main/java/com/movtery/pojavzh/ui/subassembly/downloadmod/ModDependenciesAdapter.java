@@ -129,10 +129,10 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
 
             mainView.setOnClickListener(v -> {
                 ModApiViewModel viewModel = new ViewModelProvider(fragmentActivity).get(ModApiViewModel.class);
-                viewModel.modApi = mod.api;
-                viewModel.modItem = item;
-                viewModel.isModpack = mod.isModpack;
-                viewModel.modsPath = mod.modsPath;
+                viewModel.setModApi(mod.api);
+                viewModel.setModItem(item);
+                viewModel.setModpack(mod.isModpack);
+                viewModel.setModsPath(mod.modsPath);
                 ZHTools.addFragment(mod.fragment, DownloadModFragment.class, DownloadModFragment.TAG, null);
 
                 if (onClickListener != null) onClickListener.onItemClick();
