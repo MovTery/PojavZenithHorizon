@@ -20,9 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginVertical="12dp"
             android:background="@drawable/background_card"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -56,70 +55,80 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <View
-        android:id="@+id/shadowView"
-        android:layout_width="4dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="-4dp"
-        android:background="@drawable/shadow_gradient_right"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/path_layout"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/operate_layout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:background="@color/menu_overlay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toEndOf="@+id/path_layout"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/operate_view"
+        <View
+            android:id="@+id/shadowView"
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/shadow_gradient_right"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/operate_layout"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/operate_main_layout"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="26dp"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal"
+            android:layout_height="match_parent"
+            android:background="@color/menu_overlay"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toEndOf="@+id/shadowView">
 
-            <ImageButton
-                android:id="@+id/zh_profile_path_refresh_button"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/operate_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:scaleType="fitCenter"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/zh_refresh"
-                android:src="@drawable/ic_refresh" />
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="26dp"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
-            <ImageButton
-                android:id="@+id/zh_profile_path_create_new_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:scaleType="fitCenter"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/zh_profiles_path_create_new"
-                android:src="@drawable/ic_add" />
+                <ImageButton
+                    android:id="@+id/zh_profile_path_refresh_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/zh_refresh"
+                    android:src="@drawable/ic_refresh" />
 
-            <ImageButton
-                android:id="@+id/zh_profile_path_return_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:scaleType="fitCenter"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/zh_return"
-                android:src="@drawable/ic_close" />
+                <ImageButton
+                    android:id="@+id/zh_profile_path_create_new_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/zh_profiles_path_create_new"
+                    android:src="@drawable/ic_add" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                <ImageButton
+                    android:id="@+id/zh_profile_path_return_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/zh_return"
+                    android:src="@drawable/ic_close" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

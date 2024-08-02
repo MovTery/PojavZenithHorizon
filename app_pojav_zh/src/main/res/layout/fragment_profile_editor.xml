@@ -22,10 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="12dp"
-            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:layout_marginVertical="12dp"
             android:background="@drawable/background_card"
             android:fadeScrollbars="true"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -250,63 +248,73 @@
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <View
-        android:id="@+id/shadowView"
-        android:layout_width="4dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="-4dp"
-        android:background="@drawable/shadow_gradient_right"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/editor_layout"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/operate_layout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:background="@color/menu_overlay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toEndOf="@+id/editor_layout"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/vprof_editor_profile_icon"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_50sdp"
-            android:layout_marginTop="45dp"
-            android:paddingHorizontal="@dimen/profile_editor_image_padding"
-            android:paddingVertical="@dimen/profile_editor_image_padding"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            app:layout_constraintEnd_toEndOf="@+id/operate_layout"
-            app:layout_constraintStart_toEndOf="@+id/operate_layout"
-            app:layout_constraintStart_toStartOf="@+id/operate_layout"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="@dimen/_14sdp"
-            android:layout_height="@dimen/_14sdp"
-            android:background="@drawable/background_icon_edit"
-            android:src="@drawable/ic_edit"
-            app:layout_constraintBottom_toBottomOf="@+id/vprof_editor_profile_icon"
-            app:layout_constraintEnd_toEndOf="@+id/vprof_editor_profile_icon" />
-
-        <Button
-            android:id="@+id/vprof_editor_save_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_weight="1"
-            android:text="@string/global_save"
+        <View
+            android:id="@+id/shadowView"
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/shadow_gradient_right"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/operate_layout"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/operate_layout" />
+            app:layout_constraintStart_toStartOf="@id/operate_layout"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/operate_main_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/menu_overlay"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/shadowView">
+
+            <ImageView
+                android:id="@+id/vprof_editor_profile_icon"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_marginTop="45dp"
+                android:paddingHorizontal="@dimen/profile_editor_image_padding"
+                android:paddingVertical="@dimen/profile_editor_image_padding"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="@dimen/_14sdp"
+                android:layout_height="@dimen/_14sdp"
+                android:background="@drawable/background_icon_edit"
+                android:src="@drawable/ic_edit"
+                app:layout_constraintBottom_toBottomOf="@+id/vprof_editor_profile_icon"
+                app:layout_constraintEnd_toEndOf="@+id/vprof_editor_profile_icon" />
+
+            <Button
+                android:id="@+id/vprof_editor_save_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                android:text="@string/global_save"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

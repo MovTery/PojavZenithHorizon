@@ -20,9 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginVertical="12dp"
             android:background="@drawable/background_card"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -70,38 +69,48 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <View
-        android:id="@+id/shadowView"
-        android:layout_width="4dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="-4dp"
-        android:background="@drawable/shadow_gradient_right"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/control_layout"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/operate_layout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:background="@color/menu_overlay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toEndOf="@+id/control_layout"
         app:layout_constraintTop_toTopOf="parent">
 
-        <include
-            android:id="@+id/operate_view"
-            layout="@layout/view_file_action_bar"
+        <View
+            android:id="@+id/shadowView"
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/shadow_gradient_right"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/operate_layout"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/operate_main_layout"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="26dp"
+            android:layout_height="match_parent"
+            android:background="@color/menu_overlay"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toEndOf="@+id/shadowView">
+
+            <include
+                android:id="@+id/operate_view"
+                layout="@layout/view_file_action_bar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="26dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include

@@ -61,7 +61,7 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
     private String mProfileKey;
     private MinecraftProfile mTempProfile = null;
     private String mValueToConsume = "";
-    private View mEditorLayout, mOperateLayout, mShadowView;
+    private View mEditorLayout, mOperateLayout;
     private Button mSaveButton, mControlSelectButton, mGameDirButton, mVersionSelectButton;
     private Spinner mDefaultRuntime, mDefaultRenderer;
     private EditText mDefaultName, mDefaultJvmArgument;
@@ -202,7 +202,6 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
     private void bindViews(@NonNull View view){
         mEditorLayout = view.findViewById(R.id.editor_layout);
         mOperateLayout = view.findViewById(R.id.operate_layout);
-        mShadowView = view.findViewById(R.id.shadowView);
 
         mDefaultControl = view.findViewById(R.id.vprof_editor_ctrl_spinner);
         mDefaultRuntime = view.findViewById(R.id.vprof_editor_spinner_runtime);
@@ -282,7 +281,6 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
         List<YoYo.YoYoString> yoYos = new ArrayList<>();
         yoYos.add(ViewAnimUtils.setViewAnim(mEditorLayout, Techniques.BounceInDown));
         yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
-        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft));
 
         yoYos.add(ViewAnimUtils.setViewAnim(mProfileIcon, Techniques.Wobble));
         yoYos.add(ViewAnimUtils.setViewAnim(mSaveButton, Techniques.FadeInLeft));
@@ -296,7 +294,6 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
         List<YoYo.YoYoString> yoYos = new ArrayList<>();
         yoYos.add(ViewAnimUtils.setViewAnim(mEditorLayout, Techniques.FadeOutUp));
         yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight));
-        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutRight));
         YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
         super.setYoYos(array);
         return array;

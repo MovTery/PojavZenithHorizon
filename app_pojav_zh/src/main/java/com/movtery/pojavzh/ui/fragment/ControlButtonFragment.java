@@ -48,7 +48,7 @@ public class ControlButtonFragment extends FragmentWithAnim {
     public static final String TAG = "ControlButtonFragment";
     public static final String BUNDLE_SELECT_CONTROL = "bundle_select_control";
     private ActivityResultLauncher<Object> openDocumentLauncher;
-    private View mControlLayout, mOperateLayout, mShadowView, mOperateView;
+    private View mControlLayout, mOperateLayout, mOperateView;
     private ImageButton mReturnButton, mAddControlButton, mImportControlButton, mPasteButton, mSearchSummonButton, mRefreshButton;
     private TextView mNothingTip;
     private SearchView mSearchView;
@@ -196,7 +196,6 @@ public class ControlButtonFragment extends FragmentWithAnim {
     private void bindViews(@NonNull View view) {
         mControlLayout = view.findViewById(R.id.control_layout);
         mOperateLayout = view.findViewById(R.id.operate_layout);
-        mShadowView = view.findViewById(R.id.shadowView);
 
         mOperateView = view.findViewById(R.id.operate_view);
 
@@ -232,7 +231,6 @@ public class ControlButtonFragment extends FragmentWithAnim {
         List<YoYo.YoYoString> yoYos = new ArrayList<>();
         yoYos.add(ViewAnimUtils.setViewAnim(mControlLayout, Techniques.BounceInDown));
         yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
-        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft));
 
         yoYos.add(ViewAnimUtils.setViewAnim(mOperateView, Techniques.FadeInLeft));
         YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
@@ -245,7 +243,6 @@ public class ControlButtonFragment extends FragmentWithAnim {
         List<YoYo.YoYoString> yoYos = new ArrayList<>();
         yoYos.add(ViewAnimUtils.setViewAnim(mControlLayout, Techniques.FadeOutUp));
         yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight));
-        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutRight));
         YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
         super.setYoYos(array);
         return array;
