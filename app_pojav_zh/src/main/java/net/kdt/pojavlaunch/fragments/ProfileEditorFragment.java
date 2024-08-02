@@ -62,7 +62,7 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
     private MinecraftProfile mTempProfile = null;
     private String mValueToConsume = "";
     private View mEditorLayout, mOperateLayout;
-    private Button mSaveButton, mControlSelectButton, mGameDirButton, mVersionSelectButton;
+    private Button mCancelButton, mSaveButton, mControlSelectButton, mGameDirButton, mVersionSelectButton;
     private Spinner mDefaultRuntime, mDefaultRenderer;
     private EditText mDefaultName, mDefaultJvmArgument;
     private TextView mDefaultPath, mDefaultVersion, mDefaultControl;
@@ -108,6 +108,8 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
         mDefaultRenderer.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.item_simple_list_1, renderList));
 
         // Set up behaviors
+        mCancelButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
+
         mSaveButton.setOnClickListener(v -> {
             ProfileIconCache.dropIcon(mProfileKey);
             save();
@@ -212,6 +214,7 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
         mDefaultName = view.findViewById(R.id.vprof_editor_profile_name);
         mDefaultJvmArgument = view.findViewById(R.id.vprof_editor_jre_args);
 
+        mCancelButton = view.findViewById(R.id.vprof_editor_cancel_button);
         mSaveButton = view.findViewById(R.id.vprof_editor_save_button);
         mControlSelectButton = view.findViewById(R.id.vprof_editor_ctrl_button);
         mVersionSelectButton = view.findViewById(R.id.vprof_editor_version_button);
@@ -283,6 +286,7 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
         yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
 
         yoYos.add(ViewAnimUtils.setViewAnim(mProfileIcon, Techniques.Wobble));
+        yoYos.add(ViewAnimUtils.setViewAnim(mCancelButton, Techniques.FadeInLeft));
         yoYos.add(ViewAnimUtils.setViewAnim(mSaveButton, Techniques.FadeInLeft));
         YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
         super.setYoYos(array);
