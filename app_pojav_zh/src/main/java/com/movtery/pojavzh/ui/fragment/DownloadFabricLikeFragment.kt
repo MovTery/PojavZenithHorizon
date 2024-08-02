@@ -20,12 +20,12 @@ import net.kdt.pojavlaunch.modloaders.ModloaderListenerProxy
 import java.io.File
 import java.util.concurrent.Future
 
-abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val name: String, val icon: Int) : ModListFragment(), ModloaderDownloadListener {
+abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: Int) : ModListFragment(), ModloaderDownloadListener {
     private val modloaderListenerProxy = ModloaderListenerProxy()
 
     override fun init() {
         setIcon(ContextCompat.getDrawable(activity, icon))
-        setNameText(name)
+        setNameText(utils.name)
         super.init()
     }
 
