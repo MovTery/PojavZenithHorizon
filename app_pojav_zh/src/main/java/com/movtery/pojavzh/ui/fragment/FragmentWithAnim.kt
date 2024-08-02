@@ -12,10 +12,9 @@ abstract class FragmentWithAnim : Fragment, SlideAnimation {
     constructor(contentLayoutId: Int) : super(contentLayoutId)
 
     override fun onResume() {
-        super.onResume()
-        //如果恢复视图时结束动画仍在运行，则停止它们，并重新调用slideIn方法
+        //如果恢复视图时结束动画仍在运行，则停止它们
+        var isRunning = false
         yoYos?.let {
-            var isRunning = false
             for (yoYo in yoYos!!) {
                 yoYo?.let {
                     if (yoYo.isStarted && yoYo.isRunning) {
@@ -24,9 +23,8 @@ abstract class FragmentWithAnim : Fragment, SlideAnimation {
                     }
                 }
             }
-            if (isRunning) {
-                slideIn()
-            }
         }
+        if (isRunning) slideIn()
+        super.onResume()
     }
 }
