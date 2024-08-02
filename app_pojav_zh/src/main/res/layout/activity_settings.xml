@@ -21,8 +21,8 @@
         android:contentDescription="@string/zh_return"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_setting_back"
-        app:layout_constraintEnd_toEndOf="@+id/scrollSettings"
-        app:layout_constraintStart_toStartOf="@+id/scrollSettings"
+        app:layout_constraintEnd_toEndOf="@+id/scroll_settings_layout"
+        app:layout_constraintStart_toStartOf="@+id/scroll_settings_layout"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.fragment.app.FragmentContainerView
@@ -38,124 +38,135 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/zh_settings_progress_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/scrollSettings"
+        app:layout_constraintStart_toEndOf="@+id/scroll_settings_layout"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
-    <View
-        android:id="@+id/shadowView1"
-        android:layout_width="4dp"
-        android:layout_height="0dp"
-        android:background="@drawable/shadow_gradient_left"
-        app:layout_constraintBottom_toTopOf="@+id/zh_settings_progress_layout"
-        app:layout_constraintStart_toEndOf="@+id/scrollSettings"
-        app:layout_constraintTop_toTopOf="@+id/scrollSettings" />
-
-    <ScrollView
-        android:id="@+id/scrollSettings"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/scroll_settings_layout"
         android:layout_width="@dimen/_60sdp"
         android:layout_height="0dp"
-        android:background="@color/menu_overlay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/zh_settings_progress_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <View
+            android:id="@+id/shadowView1"
+            android:layout_width="4dp"
+            android:layout_height="0dp"
+            android:background="@drawable/shadow_gradient_left"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
-                android:id="@+id/video_settings"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginTop="18dp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/preference_category_video"
-                android:scaleType="fitCenter"
-                android:scaleX="0.92"
-                android:scaleY="0.92"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_setting_video" />
+        <ScrollView
+            android:id="@+id/scrollSettings"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/menu_overlay"
+            app:layout_constraintEnd_toStartOf="@+id/shadowView1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-            <ImageButton
-                android:id="@+id/controls_settings"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginTop="14dp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/preference_category_buttons"
-                android:scaleType="fitCenter"
-                android:scaleX="0.92"
-                android:scaleY="0.92"
-                app:layout_constraintEnd_toEndOf="@+id/video_settings"
-                app:layout_constraintStart_toStartOf="@+id/video_settings"
-                app:layout_constraintTop_toBottomOf="@+id/video_settings"
-                app:srcCompat="@drawable/ic_menu_custom_controls" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <ImageButton
-                android:id="@+id/java_settings"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginTop="14dp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/preference_category_java_tweaks"
-                android:scaleType="fitCenter"
-                android:scaleX="0.92"
-                android:scaleY="0.92"
-                app:layout_constraintEnd_toEndOf="@+id/controls_settings"
-                app:layout_constraintStart_toStartOf="@+id/controls_settings"
-                app:layout_constraintTop_toBottomOf="@+id/controls_settings"
-                app:srcCompat="@drawable/ic_java" />
+                <ImageButton
+                    android:id="@+id/video_settings"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="18dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/preference_category_video"
+                    android:scaleType="fitCenter"
+                    android:scaleX="0.92"
+                    android:scaleY="0.92"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_setting_video" />
 
-            <ImageButton
-                android:id="@+id/misc_settings"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginTop="14dp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/preference_category_miscellaneous"
-                android:scaleType="fitCenter"
-                android:scaleX="0.92"
-                android:scaleY="0.92"
-                app:layout_constraintEnd_toEndOf="@+id/java_settings"
-                app:layout_constraintStart_toStartOf="@+id/java_settings"
-                app:layout_constraintTop_toBottomOf="@+id/java_settings"
-                app:srcCompat="@drawable/ic_setting_misc" />
+                <ImageButton
+                    android:id="@+id/controls_settings"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="14dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/preference_category_buttons"
+                    android:scaleType="fitCenter"
+                    android:scaleX="0.92"
+                    android:scaleY="0.92"
+                    app:layout_constraintEnd_toEndOf="@+id/video_settings"
+                    app:layout_constraintStart_toStartOf="@+id/video_settings"
+                    app:layout_constraintTop_toBottomOf="@+id/video_settings"
+                    app:srcCompat="@drawable/ic_menu_custom_controls" />
 
-            <ImageButton
-                android:id="@+id/launcher_settings"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginTop="14dp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/zh_preference_category_launcher"
-                android:scaleType="fitCenter"
-                android:scaleX="0.92"
-                android:scaleY="0.92"
-                app:layout_constraintEnd_toEndOf="@+id/misc_settings"
-                app:layout_constraintStart_toStartOf="@+id/misc_settings"
-                app:layout_constraintTop_toBottomOf="@+id/misc_settings"
-                app:srcCompat="@drawable/ic_setting_launcher" />
+                <ImageButton
+                    android:id="@+id/java_settings"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="14dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/preference_category_java_tweaks"
+                    android:scaleType="fitCenter"
+                    android:scaleX="0.92"
+                    android:scaleY="0.92"
+                    app:layout_constraintEnd_toEndOf="@+id/controls_settings"
+                    app:layout_constraintStart_toStartOf="@+id/controls_settings"
+                    app:layout_constraintTop_toBottomOf="@+id/controls_settings"
+                    app:srcCompat="@drawable/ic_java" />
 
-            <ImageButton
-                android:id="@+id/experimental_settings"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginVertical="14dp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/zh_preference_category_experimental"
-                android:scaleType="fitCenter"
-                android:scaleX="0.92"
-                android:scaleY="0.92"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/launcher_settings"
-                app:layout_constraintStart_toStartOf="@+id/launcher_settings"
-                app:layout_constraintTop_toBottomOf="@+id/launcher_settings"
-                app:srcCompat="@drawable/ic_setting_experimental" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+                <ImageButton
+                    android:id="@+id/misc_settings"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="14dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/preference_category_miscellaneous"
+                    android:scaleType="fitCenter"
+                    android:scaleX="0.92"
+                    android:scaleY="0.92"
+                    app:layout_constraintEnd_toEndOf="@+id/java_settings"
+                    app:layout_constraintStart_toStartOf="@+id/java_settings"
+                    app:layout_constraintTop_toBottomOf="@+id/java_settings"
+                    app:srcCompat="@drawable/ic_setting_misc" />
+
+                <ImageButton
+                    android:id="@+id/launcher_settings"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="14dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/zh_preference_category_launcher"
+                    android:scaleType="fitCenter"
+                    android:scaleX="0.92"
+                    android:scaleY="0.92"
+                    app:layout_constraintEnd_toEndOf="@+id/misc_settings"
+                    app:layout_constraintStart_toStartOf="@+id/misc_settings"
+                    app:layout_constraintTop_toBottomOf="@+id/misc_settings"
+                    app:srcCompat="@drawable/ic_setting_launcher" />
+
+                <ImageButton
+                    android:id="@+id/experimental_settings"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginVertical="14dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/zh_preference_category_experimental"
+                    android:scaleType="fitCenter"
+                    android:scaleX="0.92"
+                    android:scaleY="0.92"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/launcher_settings"
+                    app:layout_constraintStart_toStartOf="@+id/launcher_settings"
+                    app:layout_constraintTop_toBottomOf="@+id/launcher_settings"
+                    app:srcCompat="@drawable/ic_setting_experimental" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:id="@+id/shadowView2"

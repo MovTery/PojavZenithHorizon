@@ -27,7 +27,6 @@ import net.kdt.pojavlaunch.services.ProgressServiceKeeper
 class SettingsActivity : BaseActivity() {
     private val mTitle: MutableMap<View?, String?> = HashMap()
     private var mSettingsLayout: View? = null
-    private var mShadowView: View? = null
     private var mBackgroundView: View? = null
     private var mReturnButton: ImageButton? = null
     private var mVideoButton: ImageButton? = null
@@ -104,7 +103,6 @@ class SettingsActivity : BaseActivity() {
         initialize()
 
         setViewAnim(mSettingsLayout!!, Techniques.BounceInRight)
-        setViewAnim(mShadowView!!, Techniques.BounceInRight)
     }
 
     override fun onResume() {
@@ -172,8 +170,7 @@ class SettingsActivity : BaseActivity() {
     }
 
     private fun bindViews() {
-        mSettingsLayout = findViewById(R.id.scrollSettings)
-        mShadowView = findViewById(R.id.shadowView1)
+        mSettingsLayout = findViewById(R.id.scroll_settings_layout)
         mBackgroundView = findViewById(R.id.background_view)
 
         mReturnButton = findViewById(R.id.settings_return_button)

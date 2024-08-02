@@ -29,7 +29,7 @@ import java.util.List;
 public class VersionSelectorFragment extends FragmentWithAnim {
     public static final String TAG = "FileSelectorFragment";
     private Button mRefreshButton, mReturnButton;
-    private View mVersionLayout, mOperateLayout, mShadowView;
+    private View mVersionLayout, mOperateLayout;
     private VersionListView mVersionListView;
     private TabLayout mTabLayout;
     private TabLayout.Tab installed, release, snapshot, beta, alpha;
@@ -108,7 +108,6 @@ public class VersionSelectorFragment extends FragmentWithAnim {
     private void bindViews(@NonNull View view) {
         mVersionLayout = view.findViewById(R.id.version_layout);
         mOperateLayout = view.findViewById(R.id.operate_layout);
-        mShadowView = view.findViewById(R.id.shadowView);
 
         mRefreshButton = view.findViewById(R.id.zh_version_refresh_button);
         mReturnButton = view.findViewById(R.id.zh_version_return_button);
@@ -145,7 +144,6 @@ public class VersionSelectorFragment extends FragmentWithAnim {
         List<YoYo.YoYoString> yoYos = new ArrayList<>();
         yoYos.add(ViewAnimUtils.setViewAnim(mVersionLayout, Techniques.BounceInDown));
         yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
-        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft));
         yoYos.add(ViewAnimUtils.setViewAnim(mRefreshButton, Techniques.FadeInLeft));
         yoYos.add(ViewAnimUtils.setViewAnim(mReturnButton, Techniques.FadeInLeft));
         YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
@@ -158,7 +156,6 @@ public class VersionSelectorFragment extends FragmentWithAnim {
         List<YoYo.YoYoString> yoYos = new ArrayList<>();
         yoYos.add(ViewAnimUtils.setViewAnim(mVersionLayout, Techniques.FadeOutUp));
         yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight));
-        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutRight));
         YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
         super.setYoYos(array);
         return array;
