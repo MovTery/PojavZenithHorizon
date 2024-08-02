@@ -40,7 +40,7 @@ import java.util.UUID;
 public class ProfilePathManagerFragment extends FragmentWithAnim {
     public static final String TAG = "ProfilePathManagerFragment";
     private final List<ProfileItem> mData = new ArrayList<>();
-    private View mPathLayout, mOperateLayout, mShadowView, mOperateView;
+    private View mPathLayout, mOperateLayout, mOperateView;
     private ProfilePathAdapter adapter;
 
     public ProfilePathManagerFragment() {
@@ -79,7 +79,6 @@ public class ProfilePathManagerFragment extends FragmentWithAnim {
 
         mPathLayout = view.findViewById(R.id.path_layout);
         mOperateLayout = view.findViewById(R.id.operate_layout);
-        mShadowView = view.findViewById(R.id.shadowView);
 
         mOperateView = view.findViewById(R.id.operate_view);
 
@@ -157,7 +156,6 @@ public class ProfilePathManagerFragment extends FragmentWithAnim {
         List<YoYo.YoYoString> yoYos = new ArrayList<>();
         yoYos.add(ViewAnimUtils.setViewAnim(mPathLayout, Techniques.BounceInDown));
         yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
-        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft));
         yoYos.add(ViewAnimUtils.setViewAnim(mOperateView, Techniques.FadeInLeft));
         YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
         super.setYoYos(array);
@@ -169,7 +167,6 @@ public class ProfilePathManagerFragment extends FragmentWithAnim {
         List<YoYo.YoYoString> yoYos = new ArrayList<>();
         yoYos.add(ViewAnimUtils.setViewAnim(mPathLayout, Techniques.FadeOutUp));
         yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight));
-        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutRight));
         YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
         super.setYoYos(array);
         return array;

@@ -46,7 +46,7 @@ public class ModsFragment extends FragmentWithAnim {
     public static final String jarFileSuffix = ".jar";
     public static final String disableJarFileSuffix = ".jar.disabled";
     private ActivityResultLauncher<Object> openDocumentLauncher;
-    private View mModsLayout, mOperateLayout, mShadowView, mSownloadOptiFine, mOperateView;
+    private View mModsLayout, mOperateLayout, mSownloadOptiFine, mOperateView;
     private ImageButton mReturnButton, mAddModButton, mPasteButton, mDownloadButton, mSearchSummonButton, mRefreshButton;
     private TextView mNothingTip;
     private SearchView mSearchView;
@@ -280,7 +280,6 @@ public class ModsFragment extends FragmentWithAnim {
     private void bindViews(@NonNull View view) {
         mModsLayout = view.findViewById(R.id.mods_layout);
         mOperateLayout = view.findViewById(R.id.operate_layout);
-        mShadowView = view.findViewById(R.id.shadowView);
 
         mOperateView = view.findViewById(R.id.operate_view);
 
@@ -322,7 +321,6 @@ public class ModsFragment extends FragmentWithAnim {
         List<YoYo.YoYoString> yoYos = new ArrayList<>();
         yoYos.add(ViewAnimUtils.setViewAnim(mModsLayout, Techniques.BounceInDown));
         yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
-        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft));
         yoYos.add(ViewAnimUtils.setViewAnim(mOperateView, Techniques.FadeInLeft));
         YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
         super.setYoYos(array);
@@ -334,7 +332,6 @@ public class ModsFragment extends FragmentWithAnim {
         List<YoYo.YoYoString> yoYos = new ArrayList<>();
         yoYos.add(ViewAnimUtils.setViewAnim(mModsLayout, Techniques.FadeOutUp));
         yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight));
-        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutRight));
         YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
         super.setYoYos(array);
         return array;

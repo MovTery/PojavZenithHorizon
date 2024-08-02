@@ -23,9 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginVertical="12dp"
             android:background="@drawable/background_card"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -112,111 +111,120 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <View
-        android:id="@+id/shadowView"
-        android:layout_width="4dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="-4dp"
-        android:background="@drawable/shadow_gradient_right"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/mods_layout"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/operate_layout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:background="@color/menu_overlay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toEndOf="@+id/mods_layout"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/zh_mod_return_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/zh_return"
+        <View
+            android:id="@+id/shadowView"
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/shadow_gradient_right"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/operate_layout"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/operate_layout" />
+            app:layout_constraintStart_toStartOf="@id/operate_layout"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/zh_mod_refresh_button"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/operate_main_layout"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="@string/zh_refresh"
-            app:layout_constraintBottom_toTopOf="@+id/zh_mod_return_button"
-            app:layout_constraintEnd_toEndOf="@+id/operate_layout"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/operate_layout" />
-
-        <CheckBox
-            android:id="@+id/zh_mod_release_version"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:checked="true"
-            android:singleLine="true"
-            android:text="@string/zh_profile_mods_download_mod_release_version"
-            app:layout_constraintBottom_toTopOf="@+id/zh_mod_refresh_button"
+            android:layout_height="match_parent"
+            android:background="@color/menu_overlay"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/shadowView">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/zh_mod_icon"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginTop="45dp"
-            app:layout_constraintEnd_toEndOf="@+id/operate_layout"
-            app:layout_constraintStart_toStartOf="@+id/operate_layout"
-            app:layout_constraintTop_toTopOf="@+id/operate_layout"
-            app:strokeColor="@android:color/transparent"
-            app:shapeAppearanceOverlay="@style/RoundedCornersImageView"
-            tools:srcCompat="@tools:sample/avatars"
-            tools:ignore="ContentDescription" />
+            <Button
+                android:id="@+id/zh_mod_return_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/zh_return"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/zh_mod_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:singleLine="true"
-            android:text="Mod Name"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/zh_mod_icon"
-            tools:ignore="HardcodedText" />
+            <Button
+                android:id="@+id/zh_mod_refresh_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/zh_refresh"
+                app:layout_constraintBottom_toTopOf="@+id/zh_mod_return_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/zh_select_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:singleLine="true"
-            android:text="Select Title"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/zh_mod_name"
-            tools:ignore="HardcodedText" />
+            <CheckBox
+                android:id="@+id/zh_mod_release_version"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:checked="true"
+                android:singleLine="true"
+                android:text="@string/zh_profile_mods_download_mod_release_version"
+                app:layout_constraintBottom_toTopOf="@+id/zh_mod_refresh_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/zh_mod_icon"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="45dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@android:color/transparent"
+                app:shapeAppearanceOverlay="@style/RoundedCornersImageView"
+                tools:srcCompat="@tools:sample/avatars"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/zh_mod_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:singleLine="true"
+                android:text="Mod Name"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/zh_mod_icon"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/zh_select_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:singleLine="true"
+                android:text="Select Title"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/zh_mod_name"
+                tools:ignore="HardcodedText" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

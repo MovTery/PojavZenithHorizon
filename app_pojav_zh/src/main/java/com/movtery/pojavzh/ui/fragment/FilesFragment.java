@@ -57,7 +57,7 @@ public class FilesFragment extends FragmentWithAnim {
     private TextView mNothingTip;
     private SearchView mSearchView;
     private CheckBox mMultiSelectCheck, mSelectAllCheck;
-    private View mFilesLayout, mOperateLayout, mShadowView, mOperateView, mExternalStorage, mSoftwarePrivate;
+    private View mFilesLayout, mOperateLayout, mOperateView, mExternalStorage, mSoftwarePrivate;
     private FileRecyclerView mFileRecyclerView;
     private TextView mFilePathView;
     private String mLockPath, mListPath;
@@ -282,7 +282,6 @@ public class FilesFragment extends FragmentWithAnim {
     private void bindViews(@NonNull View view) {
         mFilesLayout = view.findViewById(R.id.files_layout);
         mOperateLayout = view.findViewById(R.id.operate_layout);
-        mShadowView = view.findViewById(R.id.shadowView);
 
         mOperateView = view.findViewById(R.id.operate_view);
 
@@ -347,7 +346,6 @@ public class FilesFragment extends FragmentWithAnim {
         List<YoYo.YoYoString> yoYos = new ArrayList<>();
         yoYos.add(ViewAnimUtils.setViewAnim(mFilesLayout, Techniques.BounceInDown));
         yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
-        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft));
         yoYos.add(ViewAnimUtils.setViewAnim(mOperateView, Techniques.FadeInLeft));
         YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
         super.setYoYos(array);
@@ -359,7 +357,6 @@ public class FilesFragment extends FragmentWithAnim {
         List<YoYo.YoYoString> yoYos = new ArrayList<>();
         yoYos.add(ViewAnimUtils.setViewAnim(mFilesLayout, Techniques.FadeOutUp));
         yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight));
-        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutRight));
         YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
         super.setYoYos(array);
         return array;

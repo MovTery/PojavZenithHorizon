@@ -36,7 +36,7 @@ public abstract class ModListFragment extends FragmentWithAnim {
     protected FragmentActivity activity;
     private RecyclerView.Adapter<?> parentAdapter = null;
     private RecyclerView mRecyclerView;
-    private View mModsLayout, mOperateLayout, mShadowView, mLoadeingView;
+    private View mModsLayout, mOperateLayout, mLoadeingView;
     private TextView mNameText, mSelectTitle, mFailedToLoad;
     private ImageView mIcon;
     private ImageButton mBackToTop;
@@ -133,7 +133,6 @@ public abstract class ModListFragment extends FragmentWithAnim {
     private void bindViews(View view) {
         mModsLayout = view.findViewById(R.id.mods_layout);
         mOperateLayout = view.findViewById(R.id.operate_layout);
-        mShadowView = view.findViewById(R.id.shadowView);
 
         mRecyclerView = view.findViewById(R.id.zh_mod);
         mBackToTop = view.findViewById(R.id.zh_mod_back_to_top);
@@ -214,7 +213,6 @@ public abstract class ModListFragment extends FragmentWithAnim {
         List<YoYo.YoYoString> yoYos = new ArrayList<>();
         yoYos.add(ViewAnimUtils.setViewAnim(mModsLayout, Techniques.BounceInDown));
         yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
-        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.BounceInLeft));
 
         yoYos.add(ViewAnimUtils.setViewAnim(mIcon, Techniques.Wobble));
         yoYos.add(ViewAnimUtils.setViewAnim(mNameText, Techniques.FadeInLeft));
@@ -231,7 +229,6 @@ public abstract class ModListFragment extends FragmentWithAnim {
         List<YoYo.YoYoString> yoYos = new ArrayList<>();
         yoYos.add(ViewAnimUtils.setViewAnim(mModsLayout, Techniques.FadeOutUp));
         yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight));
-        yoYos.add(ViewAnimUtils.setViewAnim(mShadowView, Techniques.FadeOutRight));
         YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
         super.setYoYos(array);
         return array;
