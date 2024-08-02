@@ -60,7 +60,7 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val name: 
         val pattern = MCVersionRegex.RELEASE_REGEX
 
         val mFabricVersions: MutableMap<String, List<FabricVersion>> = HashMap()
-        var loaderVersions: Array<FabricVersion>? = null
+        val loaderVersions: Array<FabricVersion>? = utils.downloadLoaderVersions()
         gameVersions.forEach {
             if (currentTask.isCancelled) return
             val version = it.version
@@ -72,8 +72,6 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val name: 
                     return@forEach
                 }
             }
-
-            loaderVersions = loaderVersions ?: utils.downloadLoaderVersions(version)
 
             mFabricVersions[version] = loaderVersions!!.toList()
         }

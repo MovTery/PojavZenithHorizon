@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch.modloaders;
 
+import android.util.Log;
+
 import com.google.gson.JsonSyntaxException;
 
 import net.kdt.pojavlaunch.Tools;
@@ -12,13 +14,15 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FabriclikeUtils {
 
     public static final FabriclikeUtils FABRIC_UTILS = new FabriclikeUtils("https://meta.fabricmc.net/v2", "fabric", "Fabric", "fabric");
     public static final FabriclikeUtils QUILT_UTILS = new FabriclikeUtils("https://meta.quiltmc.org/v3", "quilt", "Quilt", "quilt");
 
-    private static final String LOADER_METADATA_URL = "%s/versions/loader/%s";
+    private static final String LOADER_METADATA_URL = "%s/versions/loader";
     private static final String GAME_METADATA_URL = "%s/versions/game";
 
     private static final String JSON_DOWNLOAD_URL = "%s/versions/loader/%s/%s/profile/json";
@@ -44,19 +48,19 @@ public class FabriclikeUtils {
         return null;
     }
 
-    public FabricVersion[] downloadLoaderVersions(String gameVersion) throws IOException{
+    public FabricVersion[] downloadLoaderVersions() throws IOException {
         try {
-            String urlEncodedGameVersion = URLEncoder.encode(gameVersion, "UTF-8");
-            return DownloadUtils.downloadStringCached(String.format(LOADER_METADATA_URL, mApiUrl, urlEncodedGameVersion),
-                    mCachePrefix+"_loader_versions."+urlEncodedGameVersion,
-                    (input)->{ try {
-                        return deserializeLoaderVersions(input);
-                    }catch (JSONException e) {
-                        throw new DownloadUtils.ParseException(e);
-                    }});
-
-        }catch (DownloadUtils.ParseException e) {
-            e.printStackTrace();
+            return DownloadUtils.downloadStringCached(String.format(LOADER_METADATA_URL, mApiUrl),
+                    mCachePrefix + "_loader_versions",
+                    (input) -> {
+                        try {
+                            return deserializeLoaderVersions(input);
+                        } catch (JSONException e) {
+                            throw new DownloadUtils.ParseException(e);
+                        }
+                    });
+        } catch (DownloadUtils.ParseException e) {
+            Log.e("Download Fabric Meta", e.toString());
         }
         return null;
     }
@@ -80,20 +84,17 @@ public class FabriclikeUtils {
 
     private static FabricVersion[] deserializeLoaderVersions(String input) throws JSONException {
         JSONArray jsonArray = new JSONArray(input);
-        FabricVersion[] fabricVersions = new FabricVersion[jsonArray.length()];
+        List<FabricVersion> fabricVersions = new ArrayList<>();
         for(int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(i).getJSONObject("loader");
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+
             FabricVersion fabricVersion = new FabricVersion();
+            if (jsonObject.has("stable")) fabricVersion.stable = jsonObject.getBoolean("stable");
             fabricVersion.version = jsonObject.getString("version");
-            //Quilt has a skill issue and does not say which versions are stable or not
-            if(jsonObject.has("stable")) {
-                fabricVersion.stable = jsonObject.getBoolean("stable");
-            } else {
-                fabricVersion.stable = !fabricVersion.version.contains("beta");
-            }
-            fabricVersions[i] = fabricVersion;
+
+            fabricVersions.add(fabricVersion);
         }
-        return fabricVersions;
+        return fabricVersions.toArray(new FabricVersion[]{});
     }
 
     private static FabricVersion[] deserializeRawVersions(String jsonArrayIn) throws DownloadUtils.ParseException {
