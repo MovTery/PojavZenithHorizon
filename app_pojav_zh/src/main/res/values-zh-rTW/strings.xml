@@ -14,7 +14,6 @@
     <string name="error_show_more">顯示更多信息</string>
     <string name="error_show_less">顯示更少信息</string>
     <!-- MCLauncherActivity: Strings -->
-    <string name="mcl_options">選項</string>
     <string name="mcl_option_customcontrol">自訂控制佈局</string>
     <string name="mcl_setting_title_use_surface_view">使用替代表面渲染</string>
     <string name="mcl_setting_subtitle_use_surface_view">可能有助於提升受 GPU 機能限制的性能</string>
@@ -51,7 +50,6 @@
     <string name="global_error_field_empty">這個欄位不能為空</string>
     <string name="global_waiting">請稍等</string>
     <string name="global_select">選擇</string>
-    <string name="global_retry">重試</string>
     <string name="global_default">預設</string>
     <!-- MainActivity: strings -->
     <string name="mcn_exit_confirm">你確定要強制關閉嗎？</string>
@@ -205,9 +203,6 @@
     <string name="modloader_dl_failed_to_load_list">載入版本清單失敗！</string>
     <string name="forge_dl_no_installer">抱歉，此版本的 Forge 沒有安裝程式，尚不支持</string>
     <string name="fabric_dl_progress">正在下載%s載入器元數據</string>
-    <string name="fabric_dl_loader_version">%s載入器版本</string>
-    <string name="fabric_dl_game_version">Minecraft 版本</string>
-    <string name="fabric_dl_install">安裝</string>
     <string name="fabric_dl_cant_read_meta">讀取%s 載入器元數據失敗，請稍後再試</string>
     <string name="modloader_dl_install_fabric">創建 Fabric 實例</string>
     <string name="modloader_dl_install_quilt">創建 Quilt 實例</string>
@@ -215,7 +210,6 @@
     <string name="create_profile_vanilla">創建原版實例</string>
     <string name="create_profile_vanilla_like_versions">類原版版本</string>
     <string name="create_profile_modded_versions">已修改版本</string>
-    <string name="fabric_dl_loader_title">選擇版本</string>
     <string name="of_dl_failed_to_scrape">無法收集 OptiFine 安裝數據</string>
     <string name="of_dl_progress">正在下載%s</string>
     <string name="create_profile_optifine">創建 OptiFine 實例</string>
@@ -237,7 +231,6 @@
     <string name="modpack_install_button">創建模組包實例</string>
     <string name="notif_error_occured">發生了一個錯誤</string>
     <string name="notif_error_occured_desc">點擊查看詳細資訊</string>
-    <string name="fabric_dl_only_stable">僅顯示穩定版本</string>
     <string name="dl_tampered_manifest_title">文件校驗警告</string>
     <string name="dl_tampered_manifest"><![CDATA[鏡像源上的遊戲版本清單與Mojang官方版本清單並不一致，這意味著它可能被篡改了<br/>
             <b>這樣做並不安全。如果你繼續，你的個人信息可能面臨風險！</b><br/>
@@ -265,7 +258,6 @@
     <string name="newdl_starting">讀取遊戲元數據中…</string>
     <string name="newdl_downloading_metadata">下載遊戲元數據中 (%s)</string>
     <string name="newdl_downloading_game_files">下載遊戲文件中… (%d/%d, %.2f MB)</string>
-    <string name="cropper_title">選擇圖像區域</string>
     <string name="cropper_lock_vertical">鎖定縱軸</string>
     <string name="cropper_lock_horizontal">鎖定橫軸</string>
     <string name="cropper_reset">重置</string>

@@ -17,7 +17,6 @@
     <string name="error_show_more">Show more</string>
     <string name="error_show_less">Show less</string>
     <!-- MCLauncherActivity: Strings -->
-    <string name="mcl_options">Options</string>
     <string name="mcl_option_customcontrol">Custom controls</string>
     <string name="mcl_setting_title_use_surface_view">Use alternate surface rendering</string>
     <string name="mcl_setting_subtitle_use_surface_view">May help performance in GPU bound scenarios.</string>
@@ -54,7 +53,6 @@
     <string name="global_error_field_empty">This field can\'t be empty</string>
     <string name="global_waiting">Wait</string>
     <string name="global_select">Select</string>
-    <string name="global_retry">Retry</string>
     <string name="global_default">Default</string>
     <!-- MainActivity: strings -->
     <string name="mcn_exit_confirm">Are you sure want to force close?</string>
@@ -208,9 +206,6 @@
     <string name="modloader_dl_failed_to_load_list">Failed to load the version list!</string>
     <string name="forge_dl_no_installer">Sorry, but this version of Forge does not have an installer, which is not yet supported.</string>
     <string name="fabric_dl_progress">Downloading %s loader metadata</string>
-    <string name="fabric_dl_loader_version">%s loader version</string>
-    <string name="fabric_dl_game_version">Minecraft version</string>
-    <string name="fabric_dl_install">Install</string>
     <string name="fabric_dl_cant_read_meta">Failed to read %s loader metadata. Please try again later.</string>
     <string name="modloader_dl_install_fabric">Create Fabric profile</string>
     <string name="modloader_dl_install_quilt">Create Quilt profile</string>
@@ -218,7 +213,6 @@
     <string name="create_profile_vanilla">Create vanilla profile</string>
     <string name="create_profile_vanilla_like_versions">Vanilla-like versions</string>
     <string name="create_profile_modded_versions">Modded versions</string>
-    <string name="fabric_dl_loader_title">Select versions</string>
     <string name="of_dl_failed_to_scrape">Failed to collect data for OptiFine installation</string>
     <string name="of_dl_progress">Downloading %s</string>
     <string name="create_profile_optifine">Create OptiFine profile</string>
@@ -240,7 +234,6 @@
     <string name="modpack_install_button">Create modpack profile</string>
     <string name="notif_error_occured">An error has occurred</string>
     <string name="notif_error_occured_desc">Click to see more details</string>
-    <string name="fabric_dl_only_stable">Show only stable versions</string>
     <string name="dl_tampered_manifest_title">File verification warning</string>
     <string name="dl_tampered_manifest"><![CDATA[The game version manifest on the mirror does not match the official Mojang version manifest, which means it may have been tampered with.<br/>
         <b>This is not safe. Your personal information may be at risk if you continue.</b><br/>
@@ -268,7 +261,6 @@
     <string name="newdl_starting">Reading game metadata…</string>
     <string name="newdl_downloading_metadata">Downloading game metadata (%s)</string>
     <string name="newdl_downloading_game_files">Downloading game files… (%d/%d, %.2f MB)</string>
-    <string name="cropper_title">Select image region</string>
     <string name="cropper_lock_vertical">V. lock</string>
     <string name="cropper_lock_horizontal">H. lock</string>
     <string name="cropper_reset">Reset</string>

@@ -20,7 +20,6 @@
     <string name="error_show_less">显示更少信息</string>
     
     <!-- MCLauncherActivity: Strings -->
-    <string name="mcl_options">选项</string>
     <string name="mcl_option_customcontrol">自定义控制布局</string>
     
     <string name="mcl_setting_title_use_surface_view">使用备用表面渲染</string>
@@ -59,7 +58,6 @@
     <string name="global_error_field_empty">这个字段不能为空</string>
     <string name="global_waiting">请稍等</string>
     <string name="global_select">选择</string>
-    <string name="global_retry">重试</string>
     <string name="global_default">默认</string>
     
     <!-- MainActivity: strings -->
@@ -232,9 +230,6 @@
     <string name="modloader_dl_failed_to_load_list">加载版本列表失败！</string>
     <string name="forge_dl_no_installer">抱歉，此版本的 Forge 没有安装程序，尚不支持</string>
     <string name="fabric_dl_progress">正在下载 %s 加载器元数据</string>
-    <string name="fabric_dl_loader_version">%s 加载器版本</string>
-    <string name="fabric_dl_game_version">Minecraft 版本</string>
-    <string name="fabric_dl_install">安装</string>
     <string name="fabric_dl_cant_read_meta">读取 %s 加载器元数据失败，请稍后再试</string>
     <string name="modloader_dl_install_fabric">创建 Fabric 实例</string>
     <string name="modloader_dl_install_quilt">创建 Quilt 实例</string>
@@ -242,7 +237,6 @@
     <string name="create_profile_vanilla">创建原版实例</string>
     <string name="create_profile_vanilla_like_versions">类原版版本</string>
     <string name="create_profile_modded_versions">已修改版本</string>
-    <string name="fabric_dl_loader_title">选择版本</string>
     <string name="of_dl_failed_to_scrape">无法收集 OptiFine 安装数据</string>
     <string name="of_dl_progress">正在下载 %s</string>
     <string name="create_profile_optifine">创建 OptiFine 实例</string>
@@ -271,7 +265,6 @@
     
     <string name="notif_error_occured">发生了一个错误</string>
     <string name="notif_error_occured_desc">点击查看详细信息</string>
-    <string name="fabric_dl_only_stable">仅显示稳定版本</string>
     <string name="dl_tampered_manifest_title">文件校验警告</string>
     <string name="dl_tampered_manifest"><![CDATA[镜像源上的游戏版本列表与Mojang官方版本列表并不一致，这意味着它可能被篡改了<br/>
         <b>这样做并不安全。如果你继续，你的个人信息可能面临风险！</b><br/>
@@ -299,7 +292,6 @@
     <string name="newdl_starting">读取游戏元数据中…</string>
     <string name="newdl_downloading_metadata">下载游戏元数据中 (%s)</string>
     <string name="newdl_downloading_game_files">下载游戏文件中… (%d/%d, %.2f MB)</string>
-    <string name="cropper_title">选择图像区域</string>
     <string name="cropper_lock_vertical">锁定纵轴</string>
     <string name="cropper_lock_horizontal">锁定横轴</string>
     <string name="cropper_reset">重置</string>
