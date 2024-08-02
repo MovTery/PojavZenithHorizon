@@ -98,7 +98,7 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
         });
         mPathManagerButton.setOnClickListener(v -> {
             if (!mTasksRunning) {
-                ViewAnimUtils.setViewAnim(mPathManagerButton, Techniques.Bounce);
+                ViewAnimUtils.setViewAnim(mPathManagerButton, Techniques.Pulse);
                 ZHTools.swapFragmentWithAnim(this, ProfilePathManagerFragment.class, ProfilePathManagerFragment.TAG, null);
             } else {
                 ViewAnimUtils.setViewAnim(mPathManagerButton, Techniques.Shake);
@@ -106,7 +106,7 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
             }
         });
         mManagerProfileButton.setOnClickListener(v -> {
-            ViewAnimUtils.setViewAnim(mManagerProfileButton, Techniques.Bounce);
+            ViewAnimUtils.setViewAnim(mManagerProfileButton, Techniques.Pulse);
             ZHTools.swapFragmentWithAnim(this, ProfileManagerFragment.class, ProfileManagerFragment.TAG, null);
         });
 

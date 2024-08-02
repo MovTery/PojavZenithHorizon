@@ -40,7 +40,7 @@ public class AboutFragment extends FragmentWithAnim {
     private final List<AboutItemBean> mAboutData = new ArrayList<>();
     private Button mReturnButton, mGithubButton, mPojavLauncherButton, mLicenseButton, mSupportButton;
     private RecyclerView mAboutRecyclerView, mSponsorRecyclerView;
-    private View mInfoLayout, mOperateLayout, mShadowView, mSponsorView;
+    private View mInfoLayout, mOperateLayout, mShadowView, mAppTitleView, mSponsorView;
 
     public AboutFragment() {
         super(R.layout.fragment_about);
@@ -52,6 +52,7 @@ public class AboutFragment extends FragmentWithAnim {
         loadSponsorData();
         loadAboutData(requireContext().getResources());
 
+        mAppTitleView.setOnClickListener(v -> ViewAnimUtils.setViewAnim(mAppTitleView, Techniques.Pulse));
         mReturnButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
         mGithubButton.setOnClickListener(v -> Tools.openURL(requireActivity(), Tools.URL_HOME));
         mPojavLauncherButton.setOnClickListener(v -> Tools.openURL(requireActivity(), ZHTools.URL_GITHUB_POJAVLAUNCHER));
@@ -70,6 +71,7 @@ public class AboutFragment extends FragmentWithAnim {
         mInfoLayout = view.findViewById(R.id.info_layout);
         mOperateLayout = view.findViewById(R.id.operate_layout);
         mShadowView = view.findViewById(R.id.shadowView);
+        mAppTitleView = view.findViewById(R.id.zh_about_title);
 
         mReturnButton = view.findViewById(R.id.zh_about_return_button);
         mGithubButton = view.findViewById(R.id.zh_about_github_button);

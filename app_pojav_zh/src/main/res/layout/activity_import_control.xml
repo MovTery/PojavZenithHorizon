@@ -36,7 +36,7 @@
         app:layout_constraintBottom_toTopOf="@+id/editText_import_control_file_name"
         app:layout_constraintStart_toStartOf="@+id/editText_import_control_file_name" />
 
-    <EditText
+    <com.movtery.pojavzh.ui.view.MovEditText
         android:id="@+id/editText_import_control_file_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

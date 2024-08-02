@@ -31,7 +31,7 @@
         app:layout_constraintBottom_toTopOf="@+id/login_edit_name"
         app:layout_constraintStart_toStartOf="@+id/login_edit_name" />
 
-    <EditText
+    <com.movtery.pojavzh.ui.view.MovEditText
         android:id="@+id/login_edit_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

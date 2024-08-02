@@ -17,13 +17,13 @@ abstract class FragmentWithAnim : Fragment, SlideAnimation {
         yoYos?.let {
             var isRunning = false
             for (yoYo in yoYos!!) {
-                if (yoYo.isRunning) {
-                    isRunning = true
-                    yoYo.stop()
+                if (yoYo.isStarted && yoYo.isRunning) {
+                    if (!isRunning) isRunning = true
+                    yoYo.stop(true)
                 }
-                if (isRunning) {
-                    slideIn()
-                }
+            }
+            if (isRunning) {
+                slideIn()
             }
         }
     }
