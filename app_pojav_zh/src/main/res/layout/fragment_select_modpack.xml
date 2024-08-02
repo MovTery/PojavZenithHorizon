@@ -9,56 +9,66 @@
     android:orientation="vertical"
     android:paddingHorizontal="@dimen/fragment_padding_medium">
 
-    <View
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/modpack_menu"
         android:layout_width="0dp"
         android:layout_height="@dimen/_200sdp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginHorizontal="50dp"
         android:background="@drawable/background_card"
-        android:translationZ="-1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/textView"
-        style="@style/TextAppearance.AppCompat.Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="@string/modpack_install_button"
-        android:textColor="@color/primary_text"
-        app:layout_constraintEnd_toEndOf="@+id/modpack_menu"
-        app:layout_constraintStart_toStartOf="@+id/modpack_menu"
-        app:layout_constraintTop_toTopOf="@+id/modpack_menu" />
+        <ImageView
+            android:id="@+id/zh_modpack_return"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/zh_modpack_button_search_modpack"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="28dp"
-        android:text="@string/zh_select_modpack_search"
-        android:textSize="@dimen/_12ssp"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintEnd_toStartOf="@+id/zh_modpack_button_local_modpack"
-        app:layout_constraintStart_toStartOf="@id/modpack_menu"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <TextView
+            android:id="@+id/textView"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:text="@string/modpack_install_button"
+            android:textColor="@color/primary_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/zh_modpack_button_local_modpack"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginTop="28dp"
-        android:text="@string/zh_select_modpack_local"
-        android:textSize="@dimen/_12ssp"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintEnd_toEndOf="@+id/modpack_menu"
-        app:layout_constraintStart_toEndOf="@+id/zh_modpack_button_search_modpack"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <Button
+            android:id="@+id/zh_modpack_button_search_modpack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="28dp"
+            android:text="@string/zh_select_modpack_search"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toStartOf="@+id/zh_modpack_button_local_modpack"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="@id/modpack_menu"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+        <Button
+            android:id="@+id/zh_modpack_button_local_modpack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="12dp"
+            android:text="@string/zh_select_modpack_local"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/zh_modpack_button_search_modpack"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +32,7 @@ public class SelectAuthFragment extends FragmentWithAnim {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         mMainView = view;
+        ImageView mReturnButton = view.findViewById(R.id.zh_login_return);
         Button mMicrosoftButton = view.findViewById(R.id.button_microsoft_authentication);
         Button mLocalButton = view.findViewById(R.id.button_local_authentication);
         Button mOtherButton = view.findViewById(R.id.button_other_authentication);
@@ -39,6 +41,7 @@ public class SelectAuthFragment extends FragmentWithAnim {
 
         FragmentWithAnim fragment = this;
         FragmentActivity fragmentActivity = requireActivity();
+        mReturnButton.setOnClickListener(v -> ZHTools.onBackPressed(fragmentActivity));
         mMicrosoftButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, MicrosoftLoginFragment.class, MicrosoftLoginFragment.TAG, null));
         mOtherButton.setOnClickListener(v -> LocalAccountUtils.checkUsageAllowed(new LocalAccountUtils.CheckResultListener() {
             @Override

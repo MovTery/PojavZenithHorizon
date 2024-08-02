@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +61,7 @@ public class OtherLoginFragment extends FragmentWithAnim {
     private Button mLoginButton;
     private TextView mRegister;
     private ImageButton mAddServer;
+    private ImageView mReturnButton;
     private File mServersFile;
     private Servers mServers;
     private List<String> mServerList;
@@ -82,6 +84,7 @@ public class OtherLoginFragment extends FragmentWithAnim {
         refreshServer();
         showRegisterButton(); //刷新注册按钮
 
+        mReturnButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
         mServerSpinner.setAdapter(mServerSpinnerAdapter);
         mServerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -208,6 +211,7 @@ public class OtherLoginFragment extends FragmentWithAnim {
         mLoginButton = view.findViewById(R.id.other_login_button);
         mRegister = view.findViewById(R.id.register);
         mAddServer = view.findViewById(R.id.add_server);
+        mReturnButton = view.findViewById(R.id.zh_login_return);
     }
 
     private void showServerTypeSelectDialog(int stringId, int type) {

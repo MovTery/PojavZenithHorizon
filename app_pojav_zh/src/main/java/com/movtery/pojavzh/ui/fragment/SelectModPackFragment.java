@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -67,6 +68,8 @@ public class SelectModPackFragment extends FragmentWithAnim implements TaskCount
         mMainView = view;
         ProgressKeeper.addTaskCountListener(this);
 
+        ImageView mReturnButton = view.findViewById(R.id.zh_modpack_return);
+        mReturnButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
         Button mSearch = view.findViewById(R.id.zh_modpack_button_search_modpack);
         mSearch.setOnClickListener(v -> {
             if (!mTasksRunning) {

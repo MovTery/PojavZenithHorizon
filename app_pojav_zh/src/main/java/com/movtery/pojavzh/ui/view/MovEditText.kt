@@ -7,21 +7,20 @@ import androidx.appcompat.widget.AppCompatEditText
 import com.daimajia.androidanimations.library.Techniques
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.setViewAnim
 
-class MovEditText : AppCompatEditText {
-    constructor(context: Context) : super(context)
+class MovEditText @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = android.R.attr.editTextStyle
+) : AppCompatEditText(context, attrs, defStyleAttr) {
 
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
-
-    override fun setError(error: CharSequence) {
-        setErrorAnim()
+    override fun setError(error: CharSequence?) {
         super.setError(error)
+        error?.let { setErrorAnim() }
     }
 
-    override fun setError(error: CharSequence, icon: Drawable) {
-        setErrorAnim()
+    override fun setError(error: CharSequence?, icon: Drawable?) {
         super.setError(error, icon)
+        error?.let { setErrorAnim() }
     }
 
     private fun setErrorAnim() {
