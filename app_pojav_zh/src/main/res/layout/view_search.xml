@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/background_item">
 
-    <EditText
+    <com.movtery.pojavzh.ui.view.MovEditText
         android:id="@+id/zh_search_edit_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

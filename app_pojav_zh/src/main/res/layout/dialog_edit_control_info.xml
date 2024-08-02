@@ -35,7 +35,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <com.movtery.pojavzh.ui.view.MovEditText
             android:id="@+id/zh_edit_control_info_file_name_edit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
             app:layout_constraintStart_toStartOf="@+id/zh_edit_control_info_name_edit"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <com.movtery.pojavzh.ui.view.MovEditText
             android:id="@+id/zh_edit_control_info_name_edit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <com.movtery.pojavzh.ui.view.MovEditText
             android:id="@+id/zh_edit_control_info_version_edit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
             app:layout_constraintStart_toStartOf="@+id/zh_edit_control_info_author_edit"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <com.movtery.pojavzh.ui.view.MovEditText
             android:id="@+id/zh_edit_control_info_author_edit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
         android:layout_height="wrap_content"
         android:text="@string/zh_controls_info_desc"/>
 
-    <EditText
+    <com.movtery.pojavzh.ui.view.MovEditText
         android:id="@+id/zh_edit_control_info_desc_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -33,7 +33,7 @@
         app:layout_constraintStart_toStartOf="@+id/color_selector_rectangle_view"
         app:layout_constraintTop_toBottomOf="@+id/color_selector_rectangle_view" />
 
-    <EditText
+    <com.movtery.pojavzh.ui.view.MovEditText
         android:id="@+id/color_selector_hex_edit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

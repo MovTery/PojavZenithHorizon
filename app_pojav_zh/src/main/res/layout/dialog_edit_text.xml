@@ -44,7 +44,7 @@
 
     </ScrollView>
 
-    <EditText
+    <com.movtery.pojavzh.ui.view.MovEditText
         android:id="@+id/zh_edit_text_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

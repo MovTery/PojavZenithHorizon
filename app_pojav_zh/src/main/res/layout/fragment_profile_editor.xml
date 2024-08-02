@@ -49,7 +49,7 @@
                     app:layout_constraintStart_toStartOf="@+id/vprof_editor_profile_name"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
+                <com.movtery.pojavzh.ui.view.MovEditText
                     android:id="@+id/vprof_editor_profile_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -138,7 +138,7 @@
                     app:layout_constraintStart_toStartOf="@+id/vprof_editor_jre_args"
                     app:layout_constraintTop_toBottomOf="@+id/vprof_editor_ctrl_spinner" />
 
-                <EditText
+                <com.movtery.pojavzh.ui.view.MovEditText
                     android:id="@+id/vprof_editor_jre_args"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

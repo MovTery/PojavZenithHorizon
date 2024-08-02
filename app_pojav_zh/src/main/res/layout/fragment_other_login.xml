@@ -73,7 +73,7 @@
             app:layout_constraintStart_toStartOf="@+id/login_edit_email" />
 
 
-        <EditText
+        <com.movtery.pojavzh.ui.view.MovEditText
             android:id="@+id/login_edit_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
             app:layout_constraintBottom_toTopOf="@+id/login_edit_password"
             app:layout_constraintStart_toStartOf="@+id/login_edit_password" />
 
-        <EditText
+        <com.movtery.pojavzh.ui.view.MovEditText
             android:id="@+id/login_edit_password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
