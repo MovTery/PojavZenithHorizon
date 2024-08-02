@@ -64,7 +64,6 @@ public class ProfileManagerFragment extends FragmentWithAnim {
 
         Button editButton = view.findViewById(R.id.zh_profile_edit);
         Button deleteButton = view.findViewById(R.id.zh_profile_delete);
-        Button downloadOptiFineButton = view.findViewById(R.id.zh_profile_download_optifine);
 
         modsButton.setOnClickListener(v -> {
             File modsPath = new File(gameDirPath, "/mods");
@@ -99,13 +98,6 @@ public class ProfileManagerFragment extends FragmentWithAnim {
                     Tools.removeCurrentFragment(requireActivity());
                 })
                 .buildDialog());
-        downloadOptiFineButton.setOnClickListener(v -> new TipDialog.Builder(requireContext())
-                .setMessage(R.string.zh_profile_manager_download_optifine_message)
-                .setConfirmClickListener(() -> {
-                    Bundle bundle = new Bundle();
-                    bundle.putBoolean(DownloadOptiFineFragment.BUNDLE_DOWNLOAD_MOD, true);
-                    ZHTools.swapFragmentWithAnim(this, DownloadOptiFineFragment.class, DownloadOptiFineFragment.TAG, bundle);
-                }).buildDialog());
     }
 
     private void swapFilesFragment(File lockPath, File listPath) {

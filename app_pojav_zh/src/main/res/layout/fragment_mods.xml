@@ -109,10 +109,39 @@
             android:layout_marginBottom="8dp"
             android:paddingStart="8dp"
             android:text="@string/zh_file_multi_select_mode"
-            app:layout_constraintBottom_toTopOf="@+id/operate_view"
+            app:layout_constraintBottom_toTopOf="@+id/zh_mods_download_optifine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="RtlSymmetry" />
+
+        <RelativeLayout
+            android:id="@+id/zh_mods_download_optifine"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_marginBottom="16dp"
+            android:background="?android:attr/selectableItemBackground"
+            app:layout_constraintBottom_toTopOf="@+id/operate_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/zh_profile_manager_download_optifine"
+                android:src="@drawable/ic_download" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
+                android:layout_toEndOf="@+id/imageView"
+                android:singleLine="true"
+                android:textColor="@color/black_or_white"
+                android:text="@string/zh_profile_manager_download_optifine" />
+        </RelativeLayout>
 
         <include
             android:id="@+id/operate_view"

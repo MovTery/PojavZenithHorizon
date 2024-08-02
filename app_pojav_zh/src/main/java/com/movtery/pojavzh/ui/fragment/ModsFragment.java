@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.movtery.pojavzh.ui.dialog.FilesDialog;
+import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileIcon;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerAdapter;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerView;
@@ -45,7 +46,7 @@ public class ModsFragment extends FragmentWithAnim {
     public static final String jarFileSuffix = ".jar";
     public static final String disableJarFileSuffix = ".jar.disabled";
     private ActivityResultLauncher<Object> openDocumentLauncher;
-    private View mModsLayout, mOperateLayout, mShadowView, mOperateView;
+    private View mModsLayout, mOperateLayout, mShadowView, mSownloadOptiFine, mOperateView;
     private ImageButton mReturnButton, mAddModButton, mPasteButton, mDownloadButton, mSearchSummonButton, mRefreshButton;
     private TextView mNothingTip;
     private SearchView mSearchView;
@@ -176,6 +177,13 @@ public class ModsFragment extends FragmentWithAnim {
             bundle.putString(SearchModFragment.BUNDLE_MOD_PATH, mRootPath);
             ZHTools.swapFragmentWithAnim(this, SearchModFragment.class, SearchModFragment.TAG, bundle);
         });
+        mSownloadOptiFine.setOnClickListener(v -> new TipDialog.Builder(requireContext())
+                .setMessage(R.string.zh_profile_manager_download_optifine_message)
+                .setConfirmClickListener(() -> {
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean(DownloadOptiFineFragment.BUNDLE_DOWNLOAD_MOD, true);
+                    ZHTools.swapFragmentWithAnim(this, DownloadOptiFineFragment.class, DownloadOptiFineFragment.TAG, bundle);
+                }).buildDialog());
         mSearchSummonButton.setOnClickListener(v -> {
             closeMultiSelect();
             mSearchView.setVisibility();
@@ -291,6 +299,8 @@ public class ModsFragment extends FragmentWithAnim {
         mMultiSelectCheck = view.findViewById(R.id.zh_mods_multi_select_files);
         mSelectAllCheck = view.findViewById(R.id.zh_mods_select_all);
         mFileRecyclerView = view.findViewById(R.id.zh_mods);
+
+        mSownloadOptiFine = view.findViewById(R.id.zh_mods_download_optifine);
 
         mSearchView = new SearchView(view, view.findViewById(R.id.zh_search_view));
         mSearchView.setSearchListener(mFileRecyclerView::searchFiles);
