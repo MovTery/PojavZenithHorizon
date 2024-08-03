@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.movtery.pojavzh.feature.mod.modloader.BaseModVersionListAdapter
 import com.movtery.pojavzh.feature.mod.modloader.OptiFineDownloadType
 import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog
-import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListAdapter
-import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListFragment
-import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListItemBean
+import com.movtery.pojavzh.ui.subassembly.modlist.ModListAdapter
+import com.movtery.pojavzh.ui.subassembly.modlist.ModListFragment
+import com.movtery.pojavzh.ui.subassembly.modlist.ModListItemBean
 import com.movtery.pojavzh.utils.MCVersionComparator.versionCompare
 import net.kdt.pojavlaunch.JavaGUILauncherActivity
 import net.kdt.pojavlaunch.PojavApplication
@@ -34,7 +34,7 @@ class DownloadOptiFineFragment : ModListFragment(), ModloaderDownloadListener {
     private var mIsDownloadMod = false
 
     override fun init() {
-        setIcon(ContextCompat.getDrawable(activity, R.drawable.ic_optifine))
+        setIcon(ContextCompat.getDrawable(fragmentActivity!!, R.drawable.ic_optifine))
         setNameText("OptiFine")
         setReleaseCheckBoxGone()
         parseBundle()
@@ -76,7 +76,7 @@ class DownloadOptiFineFragment : ModListFragment(), ModloaderDownloadListener {
 
         val mOptiFineVersions: MutableMap<String, MutableList<OptiFineVersion?>> = HashMap()
         optiFineVersions.optifineVersions.forEach(Consumer<List<OptiFineVersion>> { optiFineVersionList: List<OptiFineVersion> ->  //通过版本列表一层层遍历并合成为 Minecraft版本 + Optifine版本的Map集合
-            if (currentTask.isCancelled) return@Consumer
+            if (currentTask!!.isCancelled) return@Consumer
 
             optiFineVersionList.forEach(Consumer Consumer2@{ optiFineVersion: OptiFineVersion ->
                 if (currentTask.isCancelled) return@Consumer2
@@ -85,7 +85,7 @@ class DownloadOptiFineFragment : ModListFragment(), ModloaderDownloadListener {
             })
         })
 
-        if (currentTask.isCancelled) return
+        if (currentTask!!.isCancelled) return
 
         val mData: MutableList<ModListItemBean> = ArrayList()
         mOptiFineVersions.entries
@@ -110,10 +110,10 @@ class DownloadOptiFineFragment : ModListFragment(), ModloaderDownloadListener {
         Tools.runOnUiThread {
             val recyclerView = recyclerView
             try {
-                var mModAdapter = recyclerView.adapter as ModListAdapter?
+                var mModAdapter = recyclerView!!.adapter as ModListAdapter?
                 if (mModAdapter == null) {
                     mModAdapter = ModListAdapter(this, mData)
-                    recyclerView.layoutManager = LinearLayoutManager(activity)
+                    recyclerView.layoutManager = LinearLayoutManager(fragmentActivity!!)
                     recyclerView.adapter = mModAdapter
                 } else {
                     mModAdapter.updateData(mData)
@@ -122,22 +122,22 @@ class DownloadOptiFineFragment : ModListFragment(), ModloaderDownloadListener {
             }
 
             componentProcessing(false)
-            recyclerView.scheduleLayoutAnimation()
+            recyclerView!!.scheduleLayoutAnimation()
         }
     }
 
     override fun onDownloadFinished(downloadedFile: File) {
         if (!mIsDownloadMod) {
             Tools.runOnUiThread {
-                val modInstallerStartIntent = Intent(activity, JavaGUILauncherActivity::class.java)
+                val modInstallerStartIntent = Intent(fragmentActivity!!, JavaGUILauncherActivity::class.java)
                 OptiFineUtils.addAutoInstallArgs(modInstallerStartIntent, downloadedFile)
-                val selectRuntimeDialog = SelectRuntimeDialog(activity)
+                val selectRuntimeDialog = SelectRuntimeDialog(fragmentActivity!!)
                 selectRuntimeDialog.setListener { jreName: String? ->
                     modloaderListenerProxy.detachListener()
                     modInstallerStartIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
                     selectRuntimeDialog.dismiss()
-                    Tools.backToMainMenu(activity)
-                    activity.startActivity(modInstallerStartIntent)
+                    Tools.backToMainMenu(fragmentActivity!!)
+                    fragmentActivity!!.startActivity(modInstallerStartIntent)
                 }
                 selectRuntimeDialog.show()
             }
@@ -147,14 +147,14 @@ class DownloadOptiFineFragment : ModListFragment(), ModloaderDownloadListener {
     override fun onDataNotAvailable() {
         Tools.runOnUiThread {
             modloaderListenerProxy.detachListener()
-            Tools.dialog(activity, activity.getString(R.string.global_error), activity.getString(R.string.of_dl_failed_to_scrape))
+            Tools.dialog(fragmentActivity!!, fragmentActivity!!.getString(R.string.global_error), fragmentActivity!!.getString(R.string.of_dl_failed_to_scrape))
         }
     }
 
     override fun onDownloadError(e: Exception) {
         Tools.runOnUiThread {
             modloaderListenerProxy.detachListener()
-            Tools.showError(activity, e)
+            Tools.showError(fragmentActivity!!, e)
         }
     }
 }

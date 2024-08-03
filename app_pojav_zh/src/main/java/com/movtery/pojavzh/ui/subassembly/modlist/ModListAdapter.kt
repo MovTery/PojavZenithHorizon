@@ -1,4 +1,4 @@
-package com.movtery.pojavzh.ui.subassembly.twolevellist
+package com.movtery.pojavzh.ui.subassembly.modlist
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
