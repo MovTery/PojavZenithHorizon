@@ -440,7 +440,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     }
 
     private void openLogOutput() {
-        loggerView.setVisibility(true);
+        loggerView.setVisibilityWithAnim(true);
     }
 
     public static void toggleMouse(Context ctx) {

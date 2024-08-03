@@ -356,7 +356,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
     }
 
     public void openLogOutput(View v) {
-        mLoggerView.setVisibility(View.VISIBLE);
+        mLoggerView.setVisibilityWithAnim(true);
     }
 
     public void toggleVirtualMouse(View v) {
