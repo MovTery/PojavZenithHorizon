@@ -165,12 +165,8 @@ public class ZHTools {
         transaction.setReorderingAllowed(true)
                 .addToBackStack(fragmentClass.getName())
                 .add(R.id.container_fragment, fragmentClass, bundle, fragmentTag)
-                .hide(fragment);
-
-        if (PREF_ANIMATION && fragment instanceof FragmentWithAnim) {
-            ((FragmentWithAnim) fragment).slideOut();
-        }
-        transaction.commit();
+                .hide(fragment)
+                .commit();
     }
 
     public static void restartApp(Context context) {
