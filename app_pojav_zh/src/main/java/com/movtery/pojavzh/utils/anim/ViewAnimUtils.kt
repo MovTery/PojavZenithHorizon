@@ -21,8 +21,13 @@ object ViewAnimUtils {
 
     @JvmStatic
     fun setViewAnim(view: View, techniques: Techniques, onStart: YoYo.AnimatorCallback, onEnd: YoYo.AnimatorCallback): YoYo.YoYoString? {
+        return setViewAnim(view, techniques, LauncherPreferences.PREF_ANIMATION_SPEED.toLong(), onStart, onEnd)
+    }
+
+    @JvmStatic
+    fun setViewAnim(view: View, techniques: Techniques, duration: Long, onStart: YoYo.AnimatorCallback, onEnd: YoYo.AnimatorCallback): YoYo.YoYoString? {
         return YoYo.with(techniques)
-            .duration(LauncherPreferences.PREF_ANIMATION_SPEED.toLong())
+            .duration(duration)
             .onStart(onStart)
             .onEnd(onEnd)
             .playOn(view)

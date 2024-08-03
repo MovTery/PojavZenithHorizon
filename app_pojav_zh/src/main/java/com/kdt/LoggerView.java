@@ -17,6 +17,7 @@ import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
 import net.kdt.pojavlaunch.Logger;
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 /**
  * A class able to display logs to the user.
@@ -45,8 +46,8 @@ public class LoggerView extends ConstraintLayout {
         mLogToggle.setChecked(visibility == VISIBLE);
     }
 
-    public void setVisibility(boolean visibility) {
-        ViewAnimUtils.setViewAnim(this, visibility ? Techniques.BounceInLeft : Techniques.FadeOutRight,
+    public void setVisibilityWithAnim(boolean visibility) {
+        ViewAnimUtils.setViewAnim(this, visibility ? Techniques.BounceInUp : Techniques.SlideOutDown, (long) (LauncherPreferences.PREF_ANIMATION_SPEED * 0.6),
                 animator -> setVisibility(VISIBLE), animator -> setVisibility(visibility ? VISIBLE : GONE));
     }
 
@@ -79,7 +80,7 @@ public class LoggerView extends ConstraintLayout {
 
         // Remove the loggerView from the user View
         ImageButton cancelButton = findViewById(R.id.log_view_cancel);
-        cancelButton.setOnClickListener(view -> LoggerView.this.setVisibility(false));
+        cancelButton.setOnClickListener(view -> LoggerView.this.setVisibilityWithAnim(false));
 
         // Set the scroll view
         mScrollView = findViewById(R.id.content_log_scroll);
