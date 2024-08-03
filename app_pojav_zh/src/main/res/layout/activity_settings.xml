@@ -28,10 +28,9 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/zh_settings_fragment"
         android:name="net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceVideoFragment"
-
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="8dp"
