@@ -209,12 +209,16 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
             ControlsListViewCreator(requireContext(), view.findViewById(R.id.zh_controls_list))
 
         mSearchView = SearchView(view, view.findViewById(R.id.zh_search_view))
-        mSearchView!!.setAsynchronousUpdatesListener { searchCountText: TextView?, filterString: String?, caseSensitive: Boolean ->
-            controlsListViewCreator!!.searchControls(searchCountText, filterString, caseSensitive)
-        }
-        mSearchView!!.setShowSearchResultsListener { showSearchResultsOnly: Boolean ->
-            controlsListViewCreator!!.setShowSearchResultsOnly(showSearchResultsOnly)
-        }
+        mSearchView!!.setAsynchronousUpdatesListener(object : SearchView.SearchAsynchronousUpdatesListener {
+            override fun onSearch(searchCount: TextView?, string: String?, caseSensitive: Boolean) {
+                controlsListViewCreator!!.searchControls(searchCount, string, caseSensitive)
+            }
+        })
+        mSearchView!!.setShowSearchResultsListener(object : SearchView.ShowSearchResultsListener {
+            override fun onSearch(show: Boolean) {
+                controlsListViewCreator!!.setShowSearchResultsOnly(show)
+            }
+        })
 
         mPasteButton!!.setVisibility(if (PasteFile.getInstance().pasteType != null) View.VISIBLE else View.GONE)
 

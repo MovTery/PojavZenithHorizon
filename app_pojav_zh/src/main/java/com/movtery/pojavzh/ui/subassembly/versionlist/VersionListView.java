@@ -73,7 +73,7 @@ public class VersionListView extends LinearLayout {
         fileRecyclerViewCreator = new FileRecyclerViewCreator(
                 context,
                 mainListView,
-                (position, fileItemBean) -> versionSelectedListener.onVersionSelected(fileItemBean.getName()),
+                (position, fileItemBean) -> versionSelectedListener.onVersionSelected(fileItemBean.name),
                 null,
                 showVersions(VersionType.RELEASE)
         );

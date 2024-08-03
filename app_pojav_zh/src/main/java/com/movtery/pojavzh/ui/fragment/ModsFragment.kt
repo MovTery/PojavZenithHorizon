@@ -333,17 +333,16 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
         mSownloadOptiFine = view.findViewById(R.id.zh_mods_download_optifine)
 
         mSearchView = SearchView(view, view.findViewById(R.id.zh_search_view))
-        mSearchView!!.setSearchListener { filterString: String?, caseSensitive: Boolean ->
-            mFileRecyclerView!!.searchFiles(
-                filterString,
-                caseSensitive
-            )
-        }
-        mSearchView!!.setShowSearchResultsListener { showSearchResultsOnly: Boolean ->
-            mFileRecyclerView!!.setShowSearchResultsOnly(
-                showSearchResultsOnly
-            )
-        }
+        mSearchView!!.setSearchListener(object : SearchView.SearchListener {
+            override fun onSearch(string: String?, caseSensitive: Boolean): Int {
+                return mFileRecyclerView!!.searchFiles(string, caseSensitive)
+            }
+        })
+        mSearchView!!.setShowSearchResultsListener(object : SearchView.ShowSearchResultsListener {
+            override fun onSearch(show: Boolean) {
+                mFileRecyclerView!!.setShowSearchResultsOnly(show)
+            }
+        })
         mFileRecyclerView!!.setFileIcon(FileIcon.MOD)
 
         mPasteButton!!.setVisibility(if (PasteFile.getInstance().pasteType != null) View.VISIBLE else View.GONE)

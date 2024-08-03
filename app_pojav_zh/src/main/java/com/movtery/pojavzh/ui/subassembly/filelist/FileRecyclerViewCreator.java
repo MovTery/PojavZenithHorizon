@@ -58,15 +58,15 @@ public class FileRecyclerViewCreator {
                 FileItemBean itemBean = new FileItemBean();
                 if (filterString != null && !filterString.isEmpty()) {
                     if (StringFilter.containsSubstring(file.getName(), filterString, caseSensitive)) {
-                        itemBean.setHighlighted(true);
+                        itemBean.isHighlighted = true;
                         searchCount.addAndGet(1);
                     } else if (showSearchResultsOnly) {
                         continue;
                     }
                 }
-                itemBean.setFile(file);
-                itemBean.setName(null);
-                itemBean.setImage(getIcon(context, file, fileIcon, resources));
+                itemBean.file = file;
+                itemBean.name = null;
+                itemBean.image = getIcon(context, file, fileIcon, resources);
                 itemBeans.add(itemBean);
             }
         }
@@ -110,8 +110,8 @@ public class FileRecyclerViewCreator {
         if (names != null) {
             for (String name : names) {
                 FileItemBean fileItemBean = new FileItemBean();
-                fileItemBean.setImage(drawable);
-                fileItemBean.setName(name);
+                fileItemBean.image = drawable;
+                fileItemBean.name = name;
                 itemBeans.add(fileItemBean);
             }
         }
