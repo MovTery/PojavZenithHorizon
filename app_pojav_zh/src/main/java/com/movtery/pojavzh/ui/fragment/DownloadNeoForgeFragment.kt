@@ -1,177 +1,164 @@
-package com.movtery.pojavzh.ui.fragment;
+package com.movtery.pojavzh.ui.fragment
 
-import static net.kdt.pojavlaunch.Tools.runOnUiThread;
+import android.content.Intent
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.movtery.pojavzh.feature.mod.modloader.BaseModVersionListAdapter
+import com.movtery.pojavzh.feature.mod.modloader.NeoForgeDownloadTask
+import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils.addAutoInstallArgs
+import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils.downloadNeoForgeVersions
+import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils.downloadNeoForgedForgeVersions
+import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils.formatGameVersion
+import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog
+import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListAdapter
+import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListFragment
+import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListItemBean
+import com.movtery.pojavzh.utils.MCVersionComparator.versionCompare
+import net.kdt.pojavlaunch.JavaGUILauncherActivity
+import net.kdt.pojavlaunch.PojavApplication
+import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.modloaders.ModloaderDownloadListener
+import net.kdt.pojavlaunch.modloaders.ModloaderListenerProxy
+import java.io.File
+import java.util.concurrent.Future
+import java.util.function.Consumer
 
-import android.content.Intent;
-
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.movtery.pojavzh.feature.mod.modloader.BaseModVersionListAdapter;
-import com.movtery.pojavzh.feature.mod.modloader.NeoForgeDownloadTask;
-import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils;
-import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog;
-import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListAdapter;
-import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListFragment;
-import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListItemBean;
-import com.movtery.pojavzh.utils.MCVersionComparator;
-
-import net.kdt.pojavlaunch.JavaGUILauncherActivity;
-import net.kdt.pojavlaunch.PojavApplication;
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.modloaders.ModloaderDownloadListener;
-import net.kdt.pojavlaunch.modloaders.ModloaderListenerProxy;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Future;
-
-public class DownloadNeoForgeFragment extends ModListFragment implements ModloaderDownloadListener {
-    public static final String TAG = "DownloadNeoForgeFragment";
-    private final ModloaderListenerProxy modloaderListenerProxy = new ModloaderListenerProxy();
-
-    public DownloadNeoForgeFragment() {
-        super();
+class DownloadNeoForgeFragment : ModListFragment(), ModloaderDownloadListener {
+    companion object {
+        const val TAG: String = "DownloadNeoForgeFragment"
     }
 
-    @Override
-    protected void init() {
-        setIcon(ContextCompat.getDrawable(activity, R.drawable.ic_neoforge));
-        setNameText("NeoForge");
-        setReleaseCheckBoxGone(); //隐藏“仅展示正式版”选择框，在这里没有用处
-        super.init();
+    private val modloaderListenerProxy = ModloaderListenerProxy()
+
+    override fun init() {
+        setIcon(ContextCompat.getDrawable(activity, R.drawable.ic_neoforge))
+        setNameText("NeoForge")
+        setReleaseCheckBoxGone() //隐藏“仅展示正式版”选择框，在这里没有用处
+        super.init()
     }
 
-    @Override
-    protected Future<?> refresh() {
-        return PojavApplication.sExecutorService.submit(() -> {
+    override fun refresh(): Future<*> {
+        return PojavApplication.sExecutorService.submit {
             try {
-                runOnUiThread(() -> {
-                    cancelFailedToLoad();
-                    componentProcessing(true);
-                });
-                processModDetails(loadVersionList());
-            } catch (Exception e) {
-                runOnUiThread(() -> {
-                    componentProcessing(false);
-                    setFailedToLoad(e.toString());
-                });
-            }
-        });
-    }
-
-    public List<String> loadVersionList() throws Exception {
-        List<String> versions = new ArrayList<>();
-        versions.addAll(NeoForgeUtils.downloadNeoForgedForgeVersions());
-        versions.addAll(NeoForgeUtils.downloadNeoForgeVersions());
-
-        Collections.reverse(versions);
-
-        return versions;
-    }
-
-    private void processModDetails(List<String> neoForgeVersions) {
-        if (neoForgeVersions == null) {
-            runOnUiThread(() -> {
-                componentProcessing(false);
-                setFailedToLoad("neoForgeVersions is Empty!");
-            });
-            return;
-        }
-        Future<?> currentTask = getCurrentTask();
-
-        Map<String, List<String>> mNeoForgeVersions = new HashMap<>();
-        neoForgeVersions.forEach(neoForgeVersion -> {
-            if (currentTask.isCancelled()) return;
-
-            //查找并分组Minecraft版本与NeoForge版本
-            String gameVersion;
-
-            boolean is1_20_1 = neoForgeVersion.contains("1.20.1");
-            if (is1_20_1) {
-                gameVersion = "1.20.1";
-            } else if (neoForgeVersion.equals("47.1.82")) {
-                return;
-            } else { //1.20.2+
-                gameVersion = NeoForgeUtils.formatGameVersion(neoForgeVersion);
-            }
-            mNeoForgeVersions.computeIfAbsent(gameVersion, k -> new ArrayList<>()).add(neoForgeVersion);
-        });
-
-        if (currentTask.isCancelled()) return;
-
-        List<ModListItemBean> mData = new ArrayList<>();
-        mNeoForgeVersions.entrySet().stream()
-                .sorted(java.util.Map.Entry.comparingByKey(MCVersionComparator::versionCompare))
-                .forEach(entry -> {
-                    if (currentTask.isCancelled()) return;
-
-                    BaseModVersionListAdapter adapter = new BaseModVersionListAdapter(modloaderListenerProxy, this, R.drawable.ic_neoforge, entry.getValue());
-                    adapter.setOnItemClickListener(version -> new Thread(new NeoForgeDownloadTask(modloaderListenerProxy, (String) version)).start());
-
-                    mData.add(new ModListItemBean("Minecraft " + entry.getKey(), adapter));
-                });
-
-        if (currentTask.isCancelled()) return;
-
-        runOnUiThread(() -> {
-            RecyclerView recyclerView = getRecyclerView();
-            try {
-                ModListAdapter mModAdapter = (ModListAdapter) recyclerView.getAdapter();
-                if (mModAdapter == null) {
-                    mModAdapter = new ModListAdapter(this, mData);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-                    recyclerView.setAdapter(mModAdapter);
-                } else {
-                    mModAdapter.updateData(mData);
+                Tools.runOnUiThread {
+                    cancelFailedToLoad()
+                    componentProcessing(true)
                 }
-            } catch (Exception ignored) {
+                processModDetails(loadVersionList())
+            } catch (e: Exception) {
+                Tools.runOnUiThread {
+                    componentProcessing(false)
+                    setFailedToLoad(e.toString())
+                }
+            }
+        }
+    }
+
+    @Throws(Exception::class)
+    fun loadVersionList(): List<String?> {
+        val versions: MutableList<String?> = ArrayList()
+        versions.addAll(downloadNeoForgedForgeVersions())
+        versions.addAll(downloadNeoForgeVersions())
+
+        versions.reverse()
+
+        return versions
+    }
+
+    private fun processModDetails(neoForgeVersions: List<String?>?) {
+        if (neoForgeVersions == null) {
+            Tools.runOnUiThread {
+                componentProcessing(false)
+                setFailedToLoad("neoForgeVersions is Empty!")
+            }
+            return
+        }
+        val currentTask = currentTask
+
+        val mNeoForgeVersions: MutableMap<String, MutableList<String?>> = HashMap()
+        neoForgeVersions.forEach(Consumer<String?> { neoForgeVersion: String? ->
+            if (currentTask.isCancelled) return@Consumer
+            //查找并分组Minecraft版本与NeoForge版本
+            val gameVersion: String
+
+            val isOldVersion = neoForgeVersion!!.contains("1.20.1")
+            gameVersion = if (isOldVersion) {
+                "1.20.1"
+            } else if (neoForgeVersion == "47.1.82") {
+                return@Consumer
+            } else { //1.20.2+
+                formatGameVersion(neoForgeVersion)
+            }
+            mNeoForgeVersions.computeIfAbsent(gameVersion) { ArrayList() }
+                .add(neoForgeVersion)
+        })
+
+        if (currentTask.isCancelled) return
+
+        val mData: MutableList<ModListItemBean> = ArrayList()
+        mNeoForgeVersions.entries
+            .sortedWith { entry1, entry2 ->
+                versionCompare(entry1.key, entry2.key)
+            }
+            .forEach { entry: Map.Entry<String, List<String?>> ->
+                if (currentTask.isCancelled) return@forEach
+                val adapter = BaseModVersionListAdapter(modloaderListenerProxy, this, R.drawable.ic_neoforge, entry.value)
+
+                adapter.setOnItemClickListener { version: Any? ->
+                    Thread(NeoForgeDownloadTask(modloaderListenerProxy, (version as String?)!!)).start()
+                }
+                mData.add(ModListItemBean("Minecraft " + entry.key, adapter))
             }
 
-            componentProcessing(false);
-            recyclerView.scheduleLayoutAnimation();
-        });
+        if (currentTask.isCancelled) return
+
+        Tools.runOnUiThread {
+            val recyclerView = recyclerView
+            try {
+                var mModAdapter = recyclerView.adapter as ModListAdapter?
+                if (mModAdapter == null) {
+                    mModAdapter = ModListAdapter(this, mData)
+                    recyclerView.layoutManager = LinearLayoutManager(activity)
+                    recyclerView.adapter = mModAdapter
+                } else {
+                    mModAdapter.updateData(mData)
+                }
+            } catch (ignored: Exception) {
+            }
+
+            componentProcessing(false)
+            recyclerView.scheduleLayoutAnimation()
+        }
     }
 
-    @Override
-    public void onDownloadFinished(File downloadedFile) {
-        Tools.runOnUiThread(() -> {
-            Intent modInstallerStartIntent = new Intent(activity, JavaGUILauncherActivity.class);
-            NeoForgeUtils.addAutoInstallArgs(modInstallerStartIntent, downloadedFile);
-            SelectRuntimeDialog selectRuntimeDialog = new SelectRuntimeDialog(activity);
-            selectRuntimeDialog.setListener(jreName -> {
-                modloaderListenerProxy.detachListener();
-
-                modInstallerStartIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName);
-                selectRuntimeDialog.dismiss();
-                Tools.backToMainMenu(activity);
-                activity.startActivity(modInstallerStartIntent);
-            });
-            selectRuntimeDialog.show();
-        });
+    override fun onDownloadFinished(downloadedFile: File) {
+        Tools.runOnUiThread {
+            val modInstallerStartIntent = Intent(activity, JavaGUILauncherActivity::class.java)
+            addAutoInstallArgs(modInstallerStartIntent, downloadedFile)
+            val selectRuntimeDialog = SelectRuntimeDialog(activity)
+            selectRuntimeDialog.setListener { jreName: String? ->
+                modloaderListenerProxy.detachListener()
+                modInstallerStartIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
+                selectRuntimeDialog.dismiss()
+                Tools.backToMainMenu(activity)
+                activity.startActivity(modInstallerStartIntent)
+            }
+            selectRuntimeDialog.show()
+        }
     }
 
-    @Override
-    public void onDataNotAvailable() {
-        Tools.runOnUiThread(() -> {
-            modloaderListenerProxy.detachListener();
-            Tools.dialog(activity,
-                    activity.getString(R.string.global_error),
-                    activity.getString(R.string.forge_dl_no_installer));
-        });
+    override fun onDataNotAvailable() {
+        Tools.runOnUiThread {
+            modloaderListenerProxy.detachListener()
+            Tools.dialog(activity, activity.getString(R.string.global_error), activity.getString(R.string.forge_dl_no_installer))
+        }
     }
 
-    @Override
-    public void onDownloadError(Exception e) {
-        Tools.runOnUiThread(() -> {
-            modloaderListenerProxy.detachListener();
-            Tools.showError(activity, e);
-        });
+    override fun onDownloadError(e: Exception) {
+        Tools.runOnUiThread {
+            modloaderListenerProxy.detachListener()
+            Tools.showError(activity, e)
+        }
     }
 }

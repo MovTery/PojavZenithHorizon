@@ -42,7 +42,7 @@ open class ModVersionListAdapter(private val mData: List<*>?) :
         this.iconDrawable = iconDrawable
     }
 
-    interface OnItemClickListener {
+    fun interface OnItemClickListener {
         fun onClick(version: Any?)
     }
 

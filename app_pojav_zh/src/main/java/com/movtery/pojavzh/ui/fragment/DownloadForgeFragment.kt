@@ -1,160 +1,145 @@
-package com.movtery.pojavzh.ui.fragment;
+package com.movtery.pojavzh.ui.fragment
 
-import static net.kdt.pojavlaunch.Tools.runOnUiThread;
+import android.content.Intent
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.movtery.pojavzh.feature.mod.modloader.BaseModVersionListAdapter
+import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog
+import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListAdapter
+import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListFragment
+import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListItemBean
+import com.movtery.pojavzh.utils.MCVersionComparator.versionCompare
+import net.kdt.pojavlaunch.JavaGUILauncherActivity
+import net.kdt.pojavlaunch.PojavApplication
+import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.modloaders.ForgeDownloadTask
+import net.kdt.pojavlaunch.modloaders.ForgeUtils
+import net.kdt.pojavlaunch.modloaders.ModloaderDownloadListener
+import net.kdt.pojavlaunch.modloaders.ModloaderListenerProxy
+import java.io.File
+import java.util.concurrent.Future
+import java.util.function.Consumer
 
-import android.content.Intent;
-
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.movtery.pojavzh.feature.mod.modloader.BaseModVersionListAdapter;
-import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog;
-import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListAdapter;
-import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListFragment;
-import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListItemBean;
-import com.movtery.pojavzh.utils.MCVersionComparator;
-
-import net.kdt.pojavlaunch.JavaGUILauncherActivity;
-import net.kdt.pojavlaunch.PojavApplication;
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.modloaders.ForgeDownloadTask;
-import net.kdt.pojavlaunch.modloaders.ForgeUtils;
-import net.kdt.pojavlaunch.modloaders.ModloaderDownloadListener;
-import net.kdt.pojavlaunch.modloaders.ModloaderListenerProxy;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Future;
-
-public class DownloadForgeFragment extends ModListFragment implements ModloaderDownloadListener {
-    public static final String TAG = "DownloadForgeFragment";
-    private final ModloaderListenerProxy modloaderListenerProxy = new ModloaderListenerProxy();
-
-    public DownloadForgeFragment() {
-        super();
+class DownloadForgeFragment : ModListFragment(), ModloaderDownloadListener {
+    companion object {
+        const val TAG: String = "DownloadForgeFragment"
     }
 
-    @Override
-    protected void init() {
-        setIcon(ContextCompat.getDrawable(activity, R.drawable.ic_anvil));
-        setNameText("Forge");
-        setReleaseCheckBoxGone(); //隐藏“仅展示正式版”选择框，在这里没有用处
-        super.init();
+    private val modloaderListenerProxy = ModloaderListenerProxy()
+
+    override fun init() {
+        setIcon(ContextCompat.getDrawable(activity, R.drawable.ic_anvil))
+        setNameText("Forge")
+        setReleaseCheckBoxGone() //隐藏“仅展示正式版”选择框，在这里没有用处
+        super.init()
     }
 
-    @Override
-    protected Future<?> refresh() {
-        return PojavApplication.sExecutorService.submit(() -> {
+    override fun refresh(): Future<*> {
+        return PojavApplication.sExecutorService.submit {
             try {
-                runOnUiThread(() -> {
-                    cancelFailedToLoad();
-                    componentProcessing(true);
-                });
-                List<String> forgeVersions = ForgeUtils.downloadForgeVersions();
-                processModDetails(forgeVersions);
-            } catch (Exception e) {
-                runOnUiThread(() -> {
-                    componentProcessing(false);
-                    setFailedToLoad(e.toString());
-                });
+                Tools.runOnUiThread {
+                    cancelFailedToLoad()
+                    componentProcessing(true)
+                }
+                val forgeVersions = ForgeUtils.downloadForgeVersions()
+                processModDetails(forgeVersions)
+            } catch (e: Exception) {
+                Tools.runOnUiThread {
+                    componentProcessing(false)
+                    setFailedToLoad(e.toString())
+                }
             }
-        });
+        }
     }
 
-    private void processModDetails(List<String> forgeVersions) {
+    private fun processModDetails(forgeVersions: List<String>?) {
         if (forgeVersions == null) {
-            runOnUiThread(() -> {
-                componentProcessing(false);
-                setFailedToLoad("forgeVersions is Empty!");
-            });
-            return;
+            Tools.runOnUiThread {
+                componentProcessing(false)
+                setFailedToLoad("forgeVersions is Empty!")
+            }
+            return
         }
-        Future<?> currentTask = getCurrentTask();
+        val currentTask = currentTask
 
-        Map<String, List<String>> mForgeVersions = new HashMap<>();
-        forgeVersions.forEach(forgeVersion -> {
-            if (currentTask.isCancelled()) return;
+        val mForgeVersions: MutableMap<String, MutableList<String?>> = HashMap()
+        forgeVersions.forEach(Consumer { forgeVersion: String ->
+            if (currentTask.isCancelled) return@Consumer
 
             //查找并分组Minecraft版本与Forge版本
-            int dashIndex = forgeVersion.indexOf("-");
-            String gameVersion = forgeVersion.substring(0, dashIndex);
-            mForgeVersions.computeIfAbsent(gameVersion, k -> new ArrayList<>()).add(forgeVersion);
-        });
+            val dashIndex = forgeVersion.indexOf("-")
+            val gameVersion = forgeVersion.substring(0, dashIndex)
+            mForgeVersions.computeIfAbsent(gameVersion) { ArrayList() }
+                .add(forgeVersion)
+        })
 
-        if (currentTask.isCancelled()) return;
+        if (currentTask.isCancelled) return
 
-        List<ModListItemBean> mData = new ArrayList<>();
-        mForgeVersions.entrySet().stream()
-                .sorted(java.util.Map.Entry.comparingByKey(MCVersionComparator::versionCompare))
-                .forEach(entry -> {
-                    if (currentTask.isCancelled()) return;
+        val mData: MutableList<ModListItemBean> = ArrayList()
+        mForgeVersions.entries
+            .sortedWith { entry1, entry2 ->
+                versionCompare(entry1.key, entry2.key)
+            }
+            .forEach { entry: Map.Entry<String, List<String?>> ->
+                if (currentTask.isCancelled) return
 
-                    //为整理好的Forge版本设置Adapter
-                    BaseModVersionListAdapter adapter = new BaseModVersionListAdapter(modloaderListenerProxy, this, R.drawable.ic_anvil, entry.getValue());
-                    adapter.setOnItemClickListener(version -> new Thread(new ForgeDownloadTask(modloaderListenerProxy, (String) version)).start());
-
-                    mData.add(new ModListItemBean("Minecraft " + entry.getKey(), adapter));
-                });
-
-        if (currentTask.isCancelled()) return;
-
-        runOnUiThread(() -> {
-            RecyclerView recyclerView = getRecyclerView();
-            try {
-                ModListAdapter mModAdapter = (ModListAdapter) recyclerView.getAdapter();
-                if (mModAdapter == null) {
-                    mModAdapter = new ModListAdapter(this, mData);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-                    recyclerView.setAdapter(mModAdapter);
-                } else {
-                    mModAdapter.updateData(mData);
+                //为整理好的Forge版本设置Adapter
+                val adapter = BaseModVersionListAdapter(modloaderListenerProxy, this, R.drawable.ic_anvil, entry.value)
+                adapter.setOnItemClickListener { version: Any? ->
+                    Thread(ForgeDownloadTask(modloaderListenerProxy, version as String?)).start()
                 }
-            } catch (Exception ignored) {
+                mData.add(ModListItemBean("Minecraft " + entry.key, adapter))
             }
 
-            componentProcessing(false);
-            recyclerView.scheduleLayoutAnimation();
-        });
+        if (currentTask.isCancelled) return
+
+        Tools.runOnUiThread {
+            val recyclerView = recyclerView
+            try {
+                var mModAdapter = recyclerView.adapter as ModListAdapter?
+                if (mModAdapter == null) {
+                    mModAdapter = ModListAdapter(this, mData)
+                    recyclerView.layoutManager = LinearLayoutManager(activity)
+                    recyclerView.adapter = mModAdapter
+                } else {
+                    mModAdapter.updateData(mData)
+                }
+            } catch (ignored: Exception) {
+            }
+
+            componentProcessing(false)
+            recyclerView.scheduleLayoutAnimation()
+        }
     }
 
-    @Override
-    public void onDownloadFinished(File downloadedFile) {
-        Tools.runOnUiThread(() -> {
-            Intent modInstallerStartIntent = new Intent(activity, JavaGUILauncherActivity.class);
-            ForgeUtils.addAutoInstallArgs(modInstallerStartIntent, downloadedFile, true);
-            SelectRuntimeDialog selectRuntimeDialog = new SelectRuntimeDialog(activity);
-            selectRuntimeDialog.setListener(jreName -> {
-                modloaderListenerProxy.detachListener();
-
-                modInstallerStartIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName);
-                selectRuntimeDialog.dismiss();
-                Tools.backToMainMenu(activity);
-                activity.startActivity(modInstallerStartIntent);
-            });
-            selectRuntimeDialog.show();
-        });
+    override fun onDownloadFinished(downloadedFile: File) {
+        Tools.runOnUiThread {
+            val modInstallerStartIntent = Intent(activity, JavaGUILauncherActivity::class.java)
+            ForgeUtils.addAutoInstallArgs(modInstallerStartIntent, downloadedFile, true)
+            val selectRuntimeDialog = SelectRuntimeDialog(activity)
+            selectRuntimeDialog.setListener { jreName: String? ->
+                modloaderListenerProxy.detachListener()
+                modInstallerStartIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
+                selectRuntimeDialog.dismiss()
+                Tools.backToMainMenu(activity)
+                activity.startActivity(modInstallerStartIntent)
+            }
+            selectRuntimeDialog.show()
+        }
     }
 
-    @Override
-    public void onDataNotAvailable() {
-        Tools.runOnUiThread(() -> {
-            modloaderListenerProxy.detachListener();
-            Tools.dialog(activity,
-                    activity.getString(R.string.global_error),
-                    activity.getString(R.string.forge_dl_no_installer));
-        });
+    override fun onDataNotAvailable() {
+        Tools.runOnUiThread {
+            modloaderListenerProxy.detachListener()
+            Tools.dialog(activity, activity.getString(R.string.global_error), activity.getString(R.string.forge_dl_no_installer))
+        }
     }
 
-    @Override
-    public void onDownloadError(Exception e) {
-        Tools.runOnUiThread(() -> {
-            modloaderListenerProxy.detachListener();
-            Tools.showError(activity, e);
-        });
+    override fun onDownloadError(e: Exception) {
+        Tools.runOnUiThread {
+            modloaderListenerProxy.detachListener()
+            Tools.showError(activity, e)
+        }
     }
 }

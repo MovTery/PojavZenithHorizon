@@ -1,174 +1,161 @@
-package com.movtery.pojavzh.ui.fragment;
+package com.movtery.pojavzh.ui.fragment
 
-import android.os.Bundle;
-import android.os.Environment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
-import android.widget.ImageButton;
+import android.os.Bundle
+import android.os.Environment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
+import android.widget.EditText
+import android.widget.ImageButton
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo.YoYoString
+import com.google.gson.Gson
+import com.google.gson.JsonParser
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathJsonObject
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager.save
+import com.movtery.pojavzh.ui.dialog.EditTextDialog
+import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfileItem
+import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathAdapter
+import com.movtery.pojavzh.utils.ZHTools
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.setViewAnim
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.slideInAnim
+import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.extra.ExtraConstants
+import net.kdt.pojavlaunch.extra.ExtraCore
+import java.util.UUID
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.movtery.pojavzh.feature.customprofilepath.ProfilePathJsonObject;
-import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
-import com.movtery.pojavzh.ui.dialog.EditTextDialog;
-import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfileItem;
-import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathAdapter;
-import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
-
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.extra.ExtraConstants;
-import net.kdt.pojavlaunch.extra.ExtraCore;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
-
-public class ProfilePathManagerFragment extends FragmentWithAnim {
-    public static final String TAG = "ProfilePathManagerFragment";
-    private final List<ProfileItem> mData = new ArrayList<>();
-    private View mPathLayout, mOperateLayout, mOperateView;
-    private ProfilePathAdapter adapter;
-
-    public ProfilePathManagerFragment() {
-        super(R.layout.fragment_profile_path_manager);
+class ProfilePathManagerFragment : FragmentWithAnim(R.layout.fragment_profile_path_manager) {
+    companion object {
+        const val TAG: String = "ProfilePathManagerFragment"
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        String value = (String) ExtraCore.consumeValue(ExtraConstants.FILE_SELECTOR);
+    private val mData: MutableList<ProfileItem> = ArrayList()
+    private var mPathLayout: View? = null
+    private var mOperateLayout: View? = null
+    private var mOperateView: View? = null
+    private var adapter: ProfilePathAdapter? = null
 
-        if (value != null && !value.isEmpty() && !isAddedPath(value)) {
-            new EditTextDialog.Builder(requireContext())
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val value = ExtraCore.consumeValue(ExtraConstants.FILE_SELECTOR) as String?
+
+        value?.let {
+            if (value.isNotEmpty() && !isAddedPath(value)) {
+                EditTextDialog.Builder(requireContext())
                     .setTitle(R.string.zh_profiles_path_create_new_title)
-                    .setConfirmListener(editBox -> {
-                        String string = editBox.getText().toString();
+                    .setConfirmListener { editBox: EditText ->
+                        val string = editBox.text.toString()
                         if (string.isEmpty()) {
-                            editBox.setError(getString(R.string.global_error_field_empty));
-                            return false;
+                            editBox.error = getString(R.string.global_error_field_empty)
+                            return@setConfirmListener false
                         }
 
-                        this.mData.add(new ProfileItem(UUID.randomUUID().toString(), string, value));
-                        ProfilePathManager.save(this.mData);
-                        refresh();
-
-                        return true;
-                    }).buildDialog();
+                        mData.add(ProfileItem(UUID.randomUUID().toString(), string, value))
+                        save(this.mData)
+                        refresh()
+                        true
+                    }.buildDialog()
+            }
         }
 
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        refreshData();
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        refreshData()
 
-        mPathLayout = view.findViewById(R.id.path_layout);
-        mOperateLayout = view.findViewById(R.id.operate_layout);
+        mPathLayout = view.findViewById(R.id.path_layout)
+        mOperateLayout = view.findViewById(R.id.operate_layout)
+        mOperateView = view.findViewById(R.id.operate_view)
 
-        mOperateView = view.findViewById(R.id.operate_view);
+        val pathList = view.findViewById<RecyclerView>(R.id.zh_profile_path)
+        val refreshButton = view.findViewById<ImageButton>(R.id.zh_profile_path_refresh_button)
+        val createNewButton = view.findViewById<ImageButton>(R.id.zh_profile_path_create_new_button)
+        val returnButton = view.findViewById<ImageButton>(R.id.zh_profile_path_return_button)
 
-        RecyclerView pathList = view.findViewById(R.id.zh_profile_path);
-        ImageButton refreshButton = view.findViewById(R.id.zh_profile_path_refresh_button);
-        ImageButton createNewButton = view.findViewById(R.id.zh_profile_path_create_new_button);
-        ImageButton returnButton = view.findViewById(R.id.zh_profile_path_return_button);
+        ZHTools.setTooltipText(refreshButton, refreshButton.contentDescription)
+        ZHTools.setTooltipText(createNewButton, createNewButton.contentDescription)
+        ZHTools.setTooltipText(returnButton, returnButton.contentDescription)
 
-        ZHTools.setTooltipText(refreshButton, refreshButton.getContentDescription());
-        ZHTools.setTooltipText(createNewButton, createNewButton.getContentDescription());
-        ZHTools.setTooltipText(returnButton, returnButton.getContentDescription());
+        adapter = ProfilePathAdapter(this, pathList, this.mData)
+        pathList.layoutAnimation = LayoutAnimationController(
+            AnimationUtils.loadAnimation(view.context, R.anim.fade_downwards)
+        )
+        pathList.layoutManager = LinearLayoutManager(requireContext())
+        pathList.adapter = adapter
 
-        adapter = new ProfilePathAdapter(this, pathList, this.mData);
-        pathList.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(view.getContext(), R.anim.fade_downwards)));
-        pathList.setLayoutManager(new LinearLayoutManager(requireContext()));
-        pathList.setAdapter(adapter);
+        refreshButton.setOnClickListener { refresh() }
+        createNewButton.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putBoolean(FilesFragment.BUNDLE_SELECT_FOLDER_MODE, true)
+            bundle.putBoolean(FilesFragment.BUNDLE_SHOW_FILE, false)
+            bundle.putBoolean(FilesFragment.BUNDLE_REMOVE_LOCK_PATH, false)
+            bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, Environment.getExternalStorageDirectory().absolutePath)
+            ZHTools.swapFragmentWithAnim(this, FilesFragment::class.java, FilesFragment.TAG, bundle)
+        }
+        returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
 
-        refreshButton.setOnClickListener(v -> refresh());
-        createNewButton.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putBoolean(FilesFragment.BUNDLE_SELECT_FOLDER_MODE, true);
-            bundle.putBoolean(FilesFragment.BUNDLE_SHOW_FILE, false);
-            bundle.putBoolean(FilesFragment.BUNDLE_REMOVE_LOCK_PATH, false);
-            bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, Environment.getExternalStorageDirectory().getAbsolutePath());
-
-            ZHTools.swapFragmentWithAnim(this, FilesFragment.class, FilesFragment.TAG, bundle);
-        });
-        returnButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
-
-        ViewAnimUtils.slideInAnim(this);
+        slideInAnim(this)
     }
 
-    private void refresh() {
-        refreshData();
-        adapter.updateData(this.mData);
+    private fun refresh() {
+        refreshData()
+        adapter!!.updateData(this.mData)
     }
 
-    private void refreshData() {
-        this.mData.clear();
-        this.mData.add(new ProfileItem("default", getString(R.string.zh_profiles_path_default), Tools.DIR_GAME_HOME));
+    private fun refreshData() {
+        mData.clear()
+        mData.add(ProfileItem("default", getString(R.string.zh_profiles_path_default), Tools.DIR_GAME_HOME))
 
         try {
-            String json;
+            val json: String
             if (ZHTools.FILE_PROFILE_PATH.exists()) {
-                json = Tools.read(ZHTools.FILE_PROFILE_PATH);
-                if (json.isEmpty()) {
-                    return;
-                }
-            } else {
-                return;
-            }
+                json = Tools.read(ZHTools.FILE_PROFILE_PATH)
+                if (json.isEmpty()) return
+            } else return
 
-            JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
+            val jsonObject = JsonParser.parseString(json).asJsonObject
 
-            for (String key : jsonObject.keySet()) {
-                ProfilePathJsonObject profilePathId = new Gson().fromJson(jsonObject.get(key), ProfilePathJsonObject.class);
-                ProfileItem item = new ProfileItem(key, profilePathId.title, profilePathId.path);
-                this.mData.add(item);
+            for (key in jsonObject.keySet()) {
+                val profilePathId = Gson().fromJson(jsonObject[key], ProfilePathJsonObject::class.java)
+                val item = ProfileItem(key, profilePathId.title, profilePathId.path)
+                mData.add(item)
             }
-        } catch (Exception ignored) {
+        } catch (ignored: Exception) {
         }
     }
 
-    private boolean isAddedPath(String path) {
-        for (ProfileItem mDatum : this.mData) {
-            if (Objects.equals(mDatum.path, path)) {
-                return true;
-            }
+    private fun isAddedPath(path: String): Boolean {
+        for (mDatum in this.mData) {
+            if (mDatum.path == path) return true
         }
-        return false;
+        return false
     }
 
-    @Override
-    public YoYo.YoYoString[] slideIn() {
-        List<YoYo.YoYoString> yoYos = new ArrayList<>();
-        yoYos.add(ViewAnimUtils.setViewAnim(mPathLayout, Techniques.BounceInDown));
-        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
-        yoYos.add(ViewAnimUtils.setViewAnim(mOperateView, Techniques.FadeInLeft));
-        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
-        super.setYoYos(array);
-        return array;
+    override fun slideIn(): Array<YoYoString?> {
+        val yoYos: MutableList<YoYoString?> = ArrayList()
+        yoYos.add(setViewAnim(mPathLayout!!, Techniques.BounceInDown))
+        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.BounceInLeft))
+        yoYos.add(setViewAnim(mOperateView!!, Techniques.FadeInLeft))
+        val array = yoYos.toTypedArray()
+        super.yoYos = array
+        return array
     }
 
-    @Override
-    public YoYo.YoYoString[] slideOut() {
-        List<YoYo.YoYoString> yoYos = new ArrayList<>();
-        yoYos.add(ViewAnimUtils.setViewAnim(mPathLayout, Techniques.FadeOutUp));
-        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight));
-        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
-        super.setYoYos(array);
-        return array;
+    override fun slideOut(): Array<YoYoString?> {
+        val yoYos: MutableList<YoYoString?> = ArrayList()
+        yoYos.add(setViewAnim(mPathLayout!!, Techniques.FadeOutUp))
+        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.FadeOutRight))
+        val array = yoYos.toTypedArray()
+        super.yoYos = array
+        return array
     }
 }

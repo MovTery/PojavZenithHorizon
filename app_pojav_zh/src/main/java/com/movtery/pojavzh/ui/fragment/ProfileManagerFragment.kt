@@ -1,138 +1,126 @@
-package com.movtery.pojavzh.ui.fragment;
+package com.movtery.pojavzh.ui.fragment
 
-import static net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles.getCurrentProfile;
+import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo.YoYoString
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager.currentProfile
+import com.movtery.pojavzh.ui.dialog.TipDialog
+import com.movtery.pojavzh.utils.ZHTools
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.setViewAnim
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.slideInAnim
+import com.movtery.pojavzh.utils.file.FileTools.mkdirs
+import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.extra.ExtraConstants
+import net.kdt.pojavlaunch.extra.ExtraCore
+import net.kdt.pojavlaunch.fragments.ProfileEditorFragment
+import net.kdt.pojavlaunch.prefs.LauncherPreferences
+import net.kdt.pojavlaunch.profiles.ProfileIconCache
+import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles
+import java.io.File
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
-import com.movtery.pojavzh.ui.dialog.TipDialog;
-import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
-import com.movtery.pojavzh.utils.file.FileTools;
-
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.extra.ExtraConstants;
-import net.kdt.pojavlaunch.extra.ExtraCore;
-import net.kdt.pojavlaunch.fragments.ProfileEditorFragment;
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
-import net.kdt.pojavlaunch.profiles.ProfileIconCache;
-import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-public class ProfileManagerFragment extends FragmentWithAnim {
-    public static final String TAG = "ProfileManagerFragment";
-    public static final String DELETED_PROFILE = "deleted_profile";
-    private View mShortcutsLayout, mModdedLayout;
-    private String mProfileKey;
-
-    public ProfileManagerFragment() {
-        super(R.layout.fragment_profile_manager);
+class ProfileManagerFragment : FragmentWithAnim(R.layout.fragment_profile_manager) {
+    companion object {
+        const val TAG: String = "ProfileManagerFragment"
+        const val DELETED_PROFILE: String = "deleted_profile"
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        init(view);
+    private var mShortcutsLayout: View? = null
+    private var mModdedLayout: View? = null
+    private var mProfileKey: String? = null
 
-        ViewAnimUtils.slideInAnim(this);
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        init(view)
+
+        slideInAnim(this)
     }
 
-    private void init(View view) {
-        File gameDirPath = ZHTools.getGameDirPath(getCurrentProfile().gameDir);
-        mProfileKey = LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, "");
+    private fun init(view: View) {
+        val gameDirPath = ZHTools.getGameDirPath(LauncherProfiles.getCurrentProfile().gameDir)
+        mProfileKey = LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, "")
 
-        mShortcutsLayout = view.findViewById(R.id.shortcuts_layout);
-        mModdedLayout = view.findViewById(R.id.modded_layout);
+        mShortcutsLayout = view.findViewById(R.id.shortcuts_layout)
+        mModdedLayout = view.findViewById(R.id.modded_layout)
 
-        Button modsButton = view.findViewById(R.id.zh_shortcuts_mods);
-        Button instanceButton = view.findViewById(R.id.zh_instance_path);
-        Button resourceButton = view.findViewById(R.id.zh_resource_path);
-        Button worldButton = view.findViewById(R.id.zh_world_path);
-        Button logsButton = view.findViewById(R.id.zh_logs_path);
-        Button crashReportButton = view.findViewById(R.id.zh_crash_report_path);
+        val modsButton = view.findViewById<Button>(R.id.zh_shortcuts_mods)
+        val instanceButton = view.findViewById<Button>(R.id.zh_instance_path)
+        val resourceButton = view.findViewById<Button>(R.id.zh_resource_path)
+        val worldButton = view.findViewById<Button>(R.id.zh_world_path)
+        val logsButton = view.findViewById<Button>(R.id.zh_logs_path)
+        val crashReportButton = view.findViewById<Button>(R.id.zh_crash_report_path)
 
-        Button editButton = view.findViewById(R.id.zh_profile_edit);
-        Button deleteButton = view.findViewById(R.id.zh_profile_delete);
+        val editButton = view.findViewById<Button>(R.id.zh_profile_edit)
+        val deleteButton = view.findViewById<Button>(R.id.zh_profile_delete)
 
-        modsButton.setOnClickListener(v -> {
-            File modsPath = new File(gameDirPath, "/mods");
+        modsButton.setOnClickListener {
+            val modsPath = File(gameDirPath, "/mods")
             if (!modsPath.exists()) {
-                FileTools.mkdirs(modsPath);
+                mkdirs(modsPath)
             }
 
-            Bundle bundle = new Bundle();
-            bundle.putString(ModsFragment.BUNDLE_ROOT_PATH, modsPath.getAbsolutePath());
+            val bundle = Bundle()
+            bundle.putString(ModsFragment.BUNDLE_ROOT_PATH, modsPath.absolutePath)
+            ZHTools.swapFragmentWithAnim(this, ModsFragment::class.java, ModsFragment.TAG, bundle)
+        }
 
-            ZHTools.swapFragmentWithAnim(this, ModsFragment.class, ModsFragment.TAG, bundle);
-        });
+        instanceButton.setOnClickListener { swapFilesFragment(gameDirPath, gameDirPath) }
+        resourceButton.setOnClickListener { swapFilesFragment(gameDirPath, File(gameDirPath, "/resourcepacks")) }
+        worldButton.setOnClickListener { swapFilesFragment(gameDirPath, File(gameDirPath, "/saves")) }
+        logsButton.setOnClickListener { swapFilesFragment(gameDirPath, File(gameDirPath, "/logs")) }
+        crashReportButton.setOnClickListener { swapFilesFragment(gameDirPath, File(gameDirPath, "/crash-reports")) }
 
-        instanceButton.setOnClickListener(v -> swapFilesFragment(gameDirPath, gameDirPath));
-        resourceButton.setOnClickListener(v -> swapFilesFragment(gameDirPath, new File(gameDirPath, "/resourcepacks")));
-        worldButton.setOnClickListener(v -> swapFilesFragment(gameDirPath, new File(gameDirPath, "/saves")));
-        logsButton.setOnClickListener(v -> swapFilesFragment(gameDirPath, new File(gameDirPath, "/logs")));
-        crashReportButton.setOnClickListener(v -> swapFilesFragment(gameDirPath, new File(gameDirPath, "/crash-reports")));
-
-        editButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, ProfileEditorFragment.class, ProfileEditorFragment.TAG, null));
-        deleteButton.setOnClickListener(v -> new TipDialog.Builder(requireContext())
+        editButton.setOnClickListener { ZHTools.swapFragmentWithAnim(this, ProfileEditorFragment::class.java, ProfileEditorFragment.TAG, null) }
+        deleteButton.setOnClickListener {
+            TipDialog.Builder(requireContext())
                 .setTitle(R.string.zh_warning)
                 .setMessage(R.string.zh_profile_manager_delete_message)
-                .setConfirmClickListener(() -> {
-                    if (LauncherProfiles.mainProfileJson.profiles.size() > 1) {
-                        ProfileIconCache.dropIcon(mProfileKey);
-                        LauncherProfiles.mainProfileJson.profiles.remove(mProfileKey);
-                        LauncherProfiles.write(ProfilePathManager.getCurrentProfile());
-                        ExtraCore.setValue(ExtraConstants.REFRESH_VERSION_SPINNER, DELETED_PROFILE);
+                .setConfirmClickListener {
+                    if (LauncherProfiles.mainProfileJson.profiles.size > 1) {
+                        ProfileIconCache.dropIcon(mProfileKey!!)
+                        LauncherProfiles.mainProfileJson.profiles.remove(mProfileKey)
+                        LauncherProfiles.write(currentProfile)
+                        ExtraCore.setValue(ExtraConstants.REFRESH_VERSION_SPINNER, DELETED_PROFILE)
                     }
-
-                    Tools.removeCurrentFragment(requireActivity());
-                })
-                .buildDialog());
+                    Tools.removeCurrentFragment(requireActivity())
+                }
+                .buildDialog()
+        }
     }
 
-    private void swapFilesFragment(File lockPath, File listPath) {
+    private fun swapFilesFragment(lockPath: File, listPath: File) {
         if (!lockPath.exists()) {
-            FileTools.mkdirs(lockPath);
+            mkdirs(lockPath)
         }
         if (!listPath.exists()) {
-            FileTools.mkdirs(listPath);
+            mkdirs(listPath)
         }
 
-        Bundle bundle = new Bundle();
-        bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, lockPath.getAbsolutePath());
-        bundle.putString(FilesFragment.BUNDLE_LIST_PATH, listPath.getAbsolutePath());
-        bundle.putBoolean(FilesFragment.BUNDLE_QUICK_ACCESS_PATHS, false);
+        val bundle = Bundle()
+        bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, lockPath.absolutePath)
+        bundle.putString(FilesFragment.BUNDLE_LIST_PATH, listPath.absolutePath)
+        bundle.putBoolean(FilesFragment.BUNDLE_QUICK_ACCESS_PATHS, false)
 
-        ZHTools.swapFragmentWithAnim(this, FilesFragment.class, FilesFragment.TAG, bundle);
+        ZHTools.swapFragmentWithAnim(this, FilesFragment::class.java, FilesFragment.TAG, bundle)
     }
 
-    @Override
-    public YoYo.YoYoString[] slideIn() {
-        List<YoYo.YoYoString> yoYos = new ArrayList<>();
-        yoYos.add(ViewAnimUtils.setViewAnim(mShortcutsLayout, Techniques.BounceInRight));
-        yoYos.add(ViewAnimUtils.setViewAnim(mModdedLayout, Techniques.BounceInLeft));
-        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
-        super.setYoYos(array);
-        return array;
+    override fun slideIn(): Array<YoYoString?> {
+        val yoYos: MutableList<YoYoString?> = ArrayList()
+        yoYos.add(setViewAnim(mShortcutsLayout!!, Techniques.BounceInRight))
+        yoYos.add(setViewAnim(mModdedLayout!!, Techniques.BounceInLeft))
+        val array = yoYos.toTypedArray()
+        super.yoYos = array
+        return array
     }
 
-    @Override
-    public YoYo.YoYoString[] slideOut() {
-        List<YoYo.YoYoString> yoYos = new ArrayList<>();
-        yoYos.add(ViewAnimUtils.setViewAnim(mShortcutsLayout, Techniques.FadeOutLeft));
-        yoYos.add(ViewAnimUtils.setViewAnim(mModdedLayout, Techniques.FadeOutRight));
-        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
-        super.setYoYos(array);
-        return array;
+    override fun slideOut(): Array<YoYoString?> {
+        val yoYos: MutableList<YoYoString?> = ArrayList()
+        yoYos.add(setViewAnim(mShortcutsLayout!!, Techniques.FadeOutLeft))
+        yoYos.add(setViewAnim(mModdedLayout!!, Techniques.FadeOutRight))
+        val array = yoYos.toTypedArray()
+        super.yoYos = array
+        return array
     }
 }

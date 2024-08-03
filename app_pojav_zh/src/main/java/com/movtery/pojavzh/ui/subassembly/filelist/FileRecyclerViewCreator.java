@@ -89,9 +89,9 @@ public class FileRecyclerViewCreator {
                         return getFileIcon(file, resources);
                     }
                 case MOD:
-                    if (file.getName().endsWith(ModsFragment.jarFileSuffix)) {
+                    if (file.getName().endsWith(ModsFragment.JAR_FILE_SUFFIX)) {
                         return ContextCompat.getDrawable(context, R.drawable.ic_java);
-                    } else if (file.getName().endsWith(ModsFragment.disableJarFileSuffix)) {
+                    } else if (file.getName().endsWith(ModsFragment.DISABLE_JAR_FILE_SUFFIX)) {
                         return ContextCompat.getDrawable(context, R.drawable.ic_disabled);
                     } else {
                         return getFileIcon(file, resources);

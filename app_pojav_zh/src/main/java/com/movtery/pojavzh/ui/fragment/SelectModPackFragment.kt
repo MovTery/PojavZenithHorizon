@@ -1,119 +1,108 @@
-package com.movtery.pojavzh.ui.fragment;
+package com.movtery.pojavzh.ui.fragment
 
-import static com.movtery.pojavzh.utils.file.FileTools.copyFileInBackground;
+import android.app.AlertDialog
+import android.net.Uri
+import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo.YoYoString
+import com.movtery.pojavzh.extra.ZHExtraConstants
+import com.movtery.pojavzh.feature.mod.modpack.install.InstallExtra
+import com.movtery.pojavzh.utils.ZHTools
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.setViewAnim
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.slideInAnim
+import com.movtery.pojavzh.utils.file.FileTools.copyFileInBackground
+import net.kdt.pojavlaunch.PojavApplication
+import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
+import net.kdt.pojavlaunch.extra.ExtraCore
+import net.kdt.pojavlaunch.fragments.SearchModFragment
+import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper
+import net.kdt.pojavlaunch.progresskeeper.TaskCountListener
+import java.io.File
 
-import android.app.AlertDialog;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Toast;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-import com.movtery.pojavzh.extra.ZHExtraConstants;
-import com.movtery.pojavzh.feature.mod.modpack.install.InstallExtra;
-import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
-
-import net.kdt.pojavlaunch.PojavApplication;
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
-import net.kdt.pojavlaunch.extra.ExtraCore;
-import net.kdt.pojavlaunch.fragments.SearchModFragment;
-import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
-import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
-
-import java.io.File;
-
-public class SelectModPackFragment extends FragmentWithAnim implements TaskCountListener {
-    public static final String TAG = "SelectModPackFragment";
-    private View mMainView;
-    private ActivityResultLauncher<Object> openDocumentLauncher;
-    private File modPackFile;
-    private boolean mTasksRunning;
-
-    public SelectModPackFragment() {
-        super(R.layout.fragment_select_modpack);
+class SelectModPackFragment : FragmentWithAnim(R.layout.fragment_select_modpack), TaskCountListener {
+    companion object {
+        const val TAG: String = "SelectModPackFragment"
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        openDocumentLauncher = registerForActivityResult(
-                new OpenDocumentWithExtension(null),
-                result -> {
-                    if (result != null && !mTasksRunning) {
-                        AlertDialog dialog = new AlertDialog.Builder(requireContext())
-                                .setView(R.layout.view_task_running)
-                                .setCancelable(false)
-                                .show();
-                        PojavApplication.sExecutorService.execute(() -> {
-                            modPackFile = copyFileInBackground(requireContext(), result, Tools.DIR_CACHE.getAbsolutePath());
-                            ExtraCore.setValue(ZHExtraConstants.INSTALL_LOCAL_MODPACK, new InstallExtra(true, modPackFile.getAbsolutePath(), dialog));
-                        });
+    private var mMainView: View? = null
+    private var openDocumentLauncher: ActivityResultLauncher<Any?>? = null
+    private var modPackFile: File? = null
+    private var mTasksRunning = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension(null)) { result: Uri? ->
+            result?.let{
+                if (!mTasksRunning) {
+                    val dialog = AlertDialog.Builder(requireContext())
+                        .setView(R.layout.view_task_running)
+                        .setCancelable(false)
+                        .show()
+                    PojavApplication.sExecutorService.execute {
+                        modPackFile = copyFileInBackground(requireContext(), result, Tools.DIR_CACHE.absolutePath)
+                        ExtraCore.setValue(ZHExtraConstants.INSTALL_LOCAL_MODPACK,
+                            InstallExtra(true, modPackFile!!.absolutePath, dialog))
                     }
                 }
-        );
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mMainView = view;
-        ProgressKeeper.addTaskCountListener(this);
-
-        ImageView mReturnButton = view.findViewById(R.id.zh_modpack_return);
-        mReturnButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
-        Button mSearch = view.findViewById(R.id.zh_modpack_button_search_modpack);
-        mSearch.setOnClickListener(v -> {
-            if (!mTasksRunning) {
-                Bundle bundle = new Bundle();
-                bundle.putBoolean(SearchModFragment.BUNDLE_SEARCH_MODPACK, true);
-                bundle.putString(SearchModFragment.BUNDLE_MOD_PATH, null);
-                ZHTools.swapFragmentWithAnim(this, SearchModFragment.class, SearchModFragment.TAG, bundle);
-            } else {
-                ViewAnimUtils.setViewAnim(mSearch, Techniques.Shake);
-                Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
             }
-        });
-        Button mLocal = view.findViewById(R.id.zh_modpack_button_local_modpack);
-        mLocal.setOnClickListener(v -> {
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mMainView = view
+        ProgressKeeper.addTaskCountListener(this)
+
+        val mReturnButton = view.findViewById<ImageView>(R.id.zh_modpack_return)
+        mReturnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
+        val mSearch = view.findViewById<Button>(R.id.zh_modpack_button_search_modpack)
+        mSearch.setOnClickListener {
             if (!mTasksRunning) {
-                Toast.makeText(requireActivity(), getString(R.string.zh_select_modpack_local_tip), Toast.LENGTH_SHORT).show();
-                openDocumentLauncher.launch(null);
+                val bundle = Bundle()
+                bundle.putBoolean(SearchModFragment.BUNDLE_SEARCH_MODPACK, true)
+                bundle.putString(SearchModFragment.BUNDLE_MOD_PATH, null)
+                ZHTools.swapFragmentWithAnim(this, SearchModFragment::class.java, SearchModFragment.TAG, bundle)
             } else {
-                ViewAnimUtils.setViewAnim(mLocal, Techniques.Shake);
-                Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
+                setViewAnim(mSearch, Techniques.Shake)
+                Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
             }
-        });
+        }
+        val mLocal = view.findViewById<Button>(R.id.zh_modpack_button_local_modpack)
+        mLocal.setOnClickListener {
+            if (!mTasksRunning) {
+                Toast.makeText(requireActivity(), getString(R.string.zh_select_modpack_local_tip), Toast.LENGTH_SHORT).show()
+                openDocumentLauncher!!.launch(null)
+            } else {
+                setViewAnim(mLocal, Techniques.Shake)
+                Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
+            }
+        }
 
-        ViewAnimUtils.slideInAnim(this);
+        slideInAnim(this)
     }
 
-    @Override
-    public void onUpdateTaskCount(int taskCount) {
-        mTasksRunning = !(taskCount == 0);
+    override fun onUpdateTaskCount(taskCount: Int) {
+        mTasksRunning = taskCount != 0
     }
 
-    @Override
-    public YoYo.YoYoString[] slideIn() {
-        YoYo.YoYoString yoYoString = ViewAnimUtils.setViewAnim(mMainView, Techniques.BounceInDown);
-        YoYo.YoYoString[] array = {yoYoString};
-        super.setYoYos(array);
-        return array;
+    override fun slideIn(): Array<YoYoString?> {
+        val yoYoString = setViewAnim(mMainView!!, Techniques.BounceInDown)
+        val array = arrayOf(yoYoString)
+        super.yoYos = array
+        return array
     }
 
-    @Override
-    public YoYo.YoYoString[] slideOut() {
-        YoYo.YoYoString yoYoString = ViewAnimUtils.setViewAnim(mMainView, Techniques.FadeOutUp);
-        YoYo.YoYoString[] array = {yoYoString};
-        super.setYoYos(array);
-        return array;
+    override fun slideOut(): Array<YoYoString?> {
+        val yoYoString = setViewAnim(mMainView!!, Techniques.FadeOutUp)
+        val array = arrayOf(yoYoString)
+        super.yoYos = array
+        return array
     }
 }

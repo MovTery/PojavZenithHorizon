@@ -1,184 +1,189 @@
-package com.movtery.pojavzh.ui.fragment;
+package com.movtery.pojavzh.ui.fragment
 
-import static com.movtery.pojavzh.utils.ZHTools.getLastUpdateTime;
-import static com.movtery.pojavzh.utils.ZHTools.getVersionCode;
-import static com.movtery.pojavzh.utils.ZHTools.getVersionName;
-import static com.movtery.pojavzh.utils.ZHTools.getVersionStatus;
+import android.annotation.SuppressLint
+import android.content.res.Resources
+import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo.YoYoString
+import com.movtery.pojavzh.feature.CheckSponsor
+import com.movtery.pojavzh.feature.CheckSponsor.check
+import com.movtery.pojavzh.feature.CheckSponsor.getSponsorData
+import com.movtery.pojavzh.ui.subassembly.about.AboutItemBean
+import com.movtery.pojavzh.ui.subassembly.about.AboutItemBean.AboutItemButtonBean
+import com.movtery.pojavzh.ui.subassembly.about.AboutRecyclerAdapter
+import com.movtery.pojavzh.ui.subassembly.about.SponsorItemBean
+import com.movtery.pojavzh.ui.subassembly.about.SponsorRecyclerAdapter
+import com.movtery.pojavzh.utils.ZHTools
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.setViewAnim
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.slideInAnim
+import com.movtery.pojavzh.utils.stringutils.StringUtils
+import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.Tools
 
-import android.annotation.SuppressLint;
-import android.content.res.Resources;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-import com.movtery.pojavzh.feature.CheckSponsor;
-import com.movtery.pojavzh.ui.subassembly.about.AboutItemBean;
-import com.movtery.pojavzh.ui.subassembly.about.AboutRecyclerAdapter;
-import com.movtery.pojavzh.ui.subassembly.about.SponsorItemBean;
-import com.movtery.pojavzh.ui.subassembly.about.SponsorRecyclerAdapter;
-import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
-import com.movtery.pojavzh.utils.stringutils.StringUtils;
-
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class AboutFragment extends FragmentWithAnim {
-    public static final String TAG = "AboutFragment";
-    private final List<AboutItemBean> mAboutData = new ArrayList<>();
-    private Button mReturnButton, mGithubButton, mPojavLauncherButton, mLicenseButton, mSupportButton;
-    private RecyclerView mAboutRecyclerView, mSponsorRecyclerView;
-    private View mInfoLayout, mOperateLayout, mAppTitleView, mSponsorView;
-
-    public AboutFragment() {
-        super(R.layout.fragment_about);
+class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
+    companion object {
+        const val TAG: String = "AboutFragment"
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        bindViews(view);
-        loadSponsorData();
-        loadAboutData(requireContext().getResources());
+    private val mAboutData: MutableList<AboutItemBean> = ArrayList()
+    private var mReturnButton: Button? = null
+    private var mGithubButton: Button? = null
+    private var mPojavLauncherButton: Button? = null
+    private var mLicenseButton: Button? = null
+    private var mSupportButton: Button? = null
+    private var mAboutRecyclerView: RecyclerView? = null
+    private var mSponsorRecyclerView: RecyclerView? = null
+    private var mInfoLayout: View? = null
+    private var mOperateLayout: View? = null
+    private var mAppTitleView: View? = null
+    private var mSponsorView: View? = null
 
-        mAppTitleView.setOnClickListener(v -> ViewAnimUtils.setViewAnim(mAppTitleView, Techniques.Pulse));
-        mReturnButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
-        mGithubButton.setOnClickListener(v -> Tools.openURL(requireActivity(), Tools.URL_HOME));
-        mPojavLauncherButton.setOnClickListener(v -> Tools.openURL(requireActivity(), ZHTools.URL_GITHUB_POJAVLAUNCHER));
-        mLicenseButton.setOnClickListener(v -> Tools.openURL(requireActivity(), "https://www.gnu.org/licenses/gpl-3.0.html"));
-        mSupportButton.setOnClickListener(v -> Tools.openURL(requireActivity(), ZHTools.URL_SUPPORT));
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        bindViews(view)
+        loadSponsorData()
+        loadAboutData(requireContext().resources)
 
-        AboutRecyclerAdapter aboutAdapter = new AboutRecyclerAdapter(this.mAboutData);
-        mAboutRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        mAboutRecyclerView.setNestedScrollingEnabled(false); //禁止滑动
-        mAboutRecyclerView.setAdapter(aboutAdapter);
+        mAppTitleView!!.setOnClickListener { setViewAnim(mAppTitleView!!, Techniques.Pulse) }
+        mReturnButton!!.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
+        mGithubButton!!.setOnClickListener { Tools.openURL(requireActivity(), Tools.URL_HOME) }
+        mPojavLauncherButton!!.setOnClickListener { Tools.openURL(requireActivity(), ZHTools.URL_GITHUB_POJAVLAUNCHER) }
+        mLicenseButton!!.setOnClickListener { Tools.openURL(requireActivity(), "https://www.gnu.org/licenses/gpl-3.0.html") }
+        mSupportButton!!.setOnClickListener { Tools.openURL(requireActivity(), ZHTools.URL_SUPPORT) }
 
-        ViewAnimUtils.slideInAnim(this);
+        val aboutAdapter = AboutRecyclerAdapter(this.mAboutData)
+        mAboutRecyclerView!!.layoutManager = LinearLayoutManager(requireContext())
+        mAboutRecyclerView!!.isNestedScrollingEnabled = false //禁止滑动
+        mAboutRecyclerView!!.adapter = aboutAdapter
+
+        slideInAnim(this)
     }
 
-    private void bindViews(@NonNull View view) {
-        mInfoLayout = view.findViewById(R.id.info_layout);
-        mOperateLayout = view.findViewById(R.id.operate_layout);
-        mAppTitleView = view.findViewById(R.id.zh_about_title);
+    private fun bindViews(view: View) {
+        mInfoLayout = view.findViewById(R.id.info_layout)
+        mOperateLayout = view.findViewById(R.id.operate_layout)
+        mAppTitleView = view.findViewById(R.id.zh_about_title)
 
-        mReturnButton = view.findViewById(R.id.zh_about_return_button);
-        mGithubButton = view.findViewById(R.id.zh_about_github_button);
-        mPojavLauncherButton = view.findViewById(R.id.zh_about_pojavlauncher_button);
-        mLicenseButton = view.findViewById(R.id.zh_about_license_button);
-        mSupportButton = view.findViewById(R.id.zh_about_support_development);
-        mAboutRecyclerView = view.findViewById(R.id.zh_about_about_recycler);
-        mSponsorRecyclerView = view.findViewById(R.id.zh_about_sponsor_recycler);
-        mSponsorView = view.findViewById(R.id.constraintLayout5);
+        mReturnButton = view.findViewById(R.id.zh_about_return_button)
+        mGithubButton = view.findViewById(R.id.zh_about_github_button)
+        mPojavLauncherButton = view.findViewById(R.id.zh_about_pojavlauncher_button)
+        mLicenseButton = view.findViewById(R.id.zh_about_license_button)
+        mSupportButton = view.findViewById(R.id.zh_about_support_development)
+        mAboutRecyclerView = view.findViewById(R.id.zh_about_about_recycler)
+        mSponsorRecyclerView = view.findViewById(R.id.zh_about_sponsor_recycler)
+        mSponsorView = view.findViewById(R.id.constraintLayout5)
 
-        TextView mVersionName = view.findViewById(R.id.zh_about_version_name);
-        TextView mVersionCode = view.findViewById(R.id.zh_about_version_code);
-        TextView mLastUpdateTime = view.findViewById(R.id.zh_about_last_update_time);
-        TextView mVersionStatus = view.findViewById(R.id.zh_about_version_status);
+        val mVersionName = view.findViewById<TextView>(R.id.zh_about_version_name)
+        val mVersionCode = view.findViewById<TextView>(R.id.zh_about_version_code)
+        val mLastUpdateTime = view.findViewById<TextView>(R.id.zh_about_last_update_time)
+        val mVersionStatus = view.findViewById<TextView>(R.id.zh_about_version_status)
 
         //软件信息
-        String versionName = StringUtils.insertSpace(getString(R.string.zh_about_version_name), getVersionName(requireContext()));
-        mVersionName.setText(versionName);
-        String versionCode = StringUtils.insertSpace(getString(R.string.zh_about_version_code), getVersionCode(requireContext()));
-        mVersionCode.setText(versionCode);
-        String lastUpdateTime = StringUtils.insertSpace(getString(R.string.zh_about_last_update_time), getLastUpdateTime(requireContext()));
-        mLastUpdateTime.setText(lastUpdateTime);
-        String versionStatus = StringUtils.insertSpace(getString(R.string.zh_about_version_status), getVersionStatus(requireContext()));
-        mVersionStatus.setText(versionStatus);
+        mVersionName.text = StringUtils.insertSpace(getString(R.string.zh_about_version_name), ZHTools.getVersionName(requireContext()))
+        mVersionCode.text = StringUtils.insertSpace(getString(R.string.zh_about_version_code), ZHTools.getVersionCode(requireContext()))
+        mLastUpdateTime.text = StringUtils.insertSpace(getString(R.string.zh_about_last_update_time), ZHTools.getLastUpdateTime(requireContext()))
+        mVersionStatus.text = StringUtils.insertSpace(getString(R.string.zh_about_version_status), ZHTools.getVersionStatus(requireContext()))
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void loadAboutData(Resources resources) {
-        this.mAboutData.clear();
+    private fun loadAboutData(resources: Resources) {
+        mAboutData.clear()
 
-        this.mAboutData.add(new AboutItemBean(
-                resources.getDrawable(R.drawable.ic_pojav_full, requireContext().getTheme()),
+        mAboutData.add(
+            AboutItemBean(
+                resources.getDrawable(R.drawable.ic_pojav_full, requireContext().theme),
                 "PojavLauncherTeam",
                 getString(R.string.zh_about_pojavlauncher_desc),
-                new AboutItemBean.AboutItemButtonBean(requireActivity(), "Github", ZHTools.URL_GITHUB_POJAVLAUNCHER)));
-
-        this.mAboutData.add(new AboutItemBean(
-                resources.getDrawable(R.drawable.image_about_movtery, requireContext().getTheme()),
+                AboutItemButtonBean(requireActivity(), "Github", ZHTools.URL_GITHUB_POJAVLAUNCHER)
+            )
+        )
+        mAboutData.add(
+            AboutItemBean(
+                resources.getDrawable(R.drawable.image_about_movtery, requireContext().theme),
                 "墨北MovTery",
                 getString(R.string.zh_about_movtery_desc),
-                new AboutItemBean.AboutItemButtonBean(requireActivity(), getString(R.string.zh_about_access_space), "https://space.bilibili.com/2008204513")));
-
-        this.mAboutData.add(new AboutItemBean(
-                resources.getDrawable(R.drawable.image_about_verafirefly, requireContext().getTheme()),
+                AboutItemButtonBean(
+                    requireActivity(),
+                    getString(R.string.zh_about_access_space),
+                    "https://space.bilibili.com/2008204513"
+                )
+            )
+        )
+        mAboutData.add(
+            AboutItemBean(
+                resources.getDrawable(R.drawable.image_about_verafirefly, requireContext().theme),
                 "Vera-Firefly",
                 getString(R.string.zh_about_verafirefly_desc),
-                new AboutItemBean.AboutItemButtonBean(requireActivity(), getString(R.string.zh_about_access_space), "https://space.bilibili.com/1412062866")));
-
-        this.mAboutData.add(new AboutItemBean(
-                resources.getDrawable(R.drawable.image_about_lingmuqiuzhu, requireContext().getTheme()),
+                AboutItemButtonBean(
+                    requireActivity(),
+                    getString(R.string.zh_about_access_space),
+                    "https://space.bilibili.com/1412062866"
+                )
+            )
+        )
+        mAboutData.add(
+            AboutItemBean(
+                resources.getDrawable(R.drawable.image_about_lingmuqiuzhu, requireContext().theme),
                 "柃木湫竹",
                 getString(R.string.zh_about_lingmuqiuzhu_desc),
-                null));
+                AboutItemButtonBean(
+                    requireActivity(),
+                    getString(R.string.zh_about_access_space),
+                    "https://space.bilibili.com/515165764"
+                )
+            )
+        )
     }
 
-    private void loadSponsorData() {
-        CheckSponsor.check(requireContext(), new CheckSponsor.CheckListener() {
-            @Override
-            public void onFailure() {
-                setSponsorVisible(false);
-            }
-
-            @Override
-            public void onSuccessful(@Nullable List<? extends SponsorItemBean> data) {
-                setSponsorVisible(true);
-            }
-        });
+    private fun loadSponsorData() {
+        check(requireContext(), object : CheckSponsor.CheckListener {
+            override fun onFailure() { setSponsorVisible(false) }
+            override fun onSuccessful(data: List<SponsorItemBean>?) { setSponsorVisible(true) }
+        })
     }
 
-    private void setSponsorVisible(boolean visible) {
-        Tools.runOnUiThread(() -> {
+    private fun setSponsorVisible(visible: Boolean) {
+        Tools.runOnUiThread {
             try {
-                mSponsorView.setVisibility(visible ? View.VISIBLE : View.GONE);
+                mSponsorView!!.visibility = if (visible) View.VISIBLE else View.GONE
 
                 if (visible) {
-                    SponsorRecyclerAdapter sponsorAdapter = new SponsorRecyclerAdapter(CheckSponsor.getSponsorData());
-                    mSponsorRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-                    mSponsorRecyclerView.setNestedScrollingEnabled(false); //禁止滑动
-                    mSponsorRecyclerView.setAdapter(sponsorAdapter);
+                    val sponsorAdapter = SponsorRecyclerAdapter(getSponsorData())
+                    mSponsorRecyclerView!!.layoutManager = LinearLayoutManager(requireContext())
+                    mSponsorRecyclerView!!.isNestedScrollingEnabled = false //禁止滑动
+                    mSponsorRecyclerView!!.adapter = sponsorAdapter
                 }
-            } catch (Exception e) {
-                Log.e("setSponsorVisible", e.toString());
+            } catch (e: Exception) {
+                Log.e("setSponsorVisible", e.toString())
             }
-        });
+        }
     }
 
-    @Override
-    public YoYo.YoYoString[] slideIn() {
-        List<YoYo.YoYoString> yoYos = new ArrayList<>();
-        yoYos.add(ViewAnimUtils.setViewAnim(mInfoLayout, Techniques.BounceInDown));
-        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
+    override fun slideIn(): Array<YoYoString?> {
+        val yoYos: MutableList<YoYoString?> = ArrayList()
+        yoYos.add(setViewAnim(mInfoLayout!!, Techniques.BounceInDown))
+        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.BounceInLeft))
 
-        yoYos.add(ViewAnimUtils.setViewAnim(mReturnButton, Techniques.FadeInLeft));
-        yoYos.add(ViewAnimUtils.setViewAnim(mGithubButton, Techniques.FadeInLeft));
-        yoYos.add(ViewAnimUtils.setViewAnim(mSupportButton, Techniques.FadeInLeft));
-        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
-        super.setYoYos(array);
-        return array;
+        yoYos.add(setViewAnim(mReturnButton!!, Techniques.FadeInLeft))
+        yoYos.add(setViewAnim(mGithubButton!!, Techniques.FadeInLeft))
+        yoYos.add(setViewAnim(mSupportButton!!, Techniques.FadeInLeft))
+        val array = yoYos.toTypedArray()
+        super.yoYos = array
+        return array
     }
 
-    @Override
-    public YoYo.YoYoString[] slideOut() {
-        List<YoYo.YoYoString> yoYos = new ArrayList<>();
-        yoYos.add(ViewAnimUtils.setViewAnim(mInfoLayout, Techniques.FadeOutUp));
-        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight));
-        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
-        super.setYoYos(array);
-        return array;
+    override fun slideOut(): Array<YoYoString?> {
+        val yoYos: MutableList<YoYoString?> = ArrayList()
+        yoYos.add(setViewAnim(mInfoLayout!!, Techniques.FadeOutUp))
+        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.FadeOutRight))
+        val array = yoYos.toTypedArray()
+        super.yoYos = array
+        return array
     }
 }
 
