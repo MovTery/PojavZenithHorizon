@@ -1,365 +1,382 @@
-package com.movtery.pojavzh.ui.fragment;
+package com.movtery.pojavzh.ui.fragment
 
-import static com.movtery.pojavzh.utils.file.FileTools.copyFileInBackground;
-import static net.kdt.pojavlaunch.Tools.runOnUiThread;
+import android.annotation.SuppressLint
+import android.net.Uri
+import android.os.Bundle
+import android.os.Environment
+import android.view.View
+import android.widget.CheckBox
+import android.widget.CompoundButton
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo.YoYoString
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager.currentPath
+import com.movtery.pojavzh.ui.dialog.EditTextDialog
+import com.movtery.pojavzh.ui.dialog.FilesDialog
+import com.movtery.pojavzh.ui.dialog.FilesDialog.FilesButton
+import com.movtery.pojavzh.ui.subassembly.filelist.FileItemBean
+import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerView
+import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener
+import com.movtery.pojavzh.ui.subassembly.view.SearchView
+import com.movtery.pojavzh.utils.ZHTools
+import com.movtery.pojavzh.utils.anim.AnimUtils.setVisibilityAnim
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.setViewAnim
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.slideInAnim
+import com.movtery.pojavzh.utils.file.FileTools.copyFileInBackground
+import com.movtery.pojavzh.utils.file.PasteFile
+import net.kdt.pojavlaunch.PojavApplication
+import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
+import net.kdt.pojavlaunch.extra.ExtraConstants
+import net.kdt.pojavlaunch.extra.ExtraCore
+import java.io.File
+import java.util.function.Consumer
 
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.os.Environment;
-import android.view.View;
-import android.widget.CheckBox;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
-import com.movtery.pojavzh.ui.dialog.EditTextDialog;
-import com.movtery.pojavzh.ui.dialog.FilesDialog;
-import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerAdapter;
-import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerView;
-import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
-import com.movtery.pojavzh.ui.subassembly.view.SearchView;
-import com.movtery.pojavzh.utils.anim.AnimUtils;
-import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
-import com.movtery.pojavzh.utils.file.PasteFile;
-
-import net.kdt.pojavlaunch.PojavApplication;
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
-import net.kdt.pojavlaunch.extra.ExtraConstants;
-import net.kdt.pojavlaunch.extra.ExtraCore;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-public class FilesFragment extends FragmentWithAnim {
-    public static final String TAG = "FilesFragment";
-    public static final String BUNDLE_LOCK_PATH = "bundle_lock_path";
-    public static final String BUNDLE_LIST_PATH = "bundle_list_path";
-    public static final String BUNDLE_SHOW_FILE = "show_file";
-    public static final String BUNDLE_SHOW_FOLDER = "show_folder";
-    public static final String BUNDLE_QUICK_ACCESS_PATHS = "quick_access_paths";
-    public static final String BUNDLE_MULTI_SELECT_MODE = "multi_select_mode";
-    public static final String BUNDLE_SELECT_FOLDER_MODE = "select_folder_mode";
-    public static final String BUNDLE_REMOVE_LOCK_PATH = "remove_lock_path";
-    private ActivityResultLauncher<Object> openDocumentLauncher;
-    private boolean mShowFiles, mShowFolders, mQuickAccessPaths, mMultiSelectMode, mSelectFolderMode, mRemoveLockPath;
-    private ImageButton mReturnButton, mAddFileButton, mCreateFolderButton, mPasteButton, mSearchSummonButton, mRefreshButton;
-    private TextView mNothingTip;
-    private SearchView mSearchView;
-    private CheckBox mMultiSelectCheck, mSelectAllCheck;
-    private View mFilesLayout, mOperateLayout, mOperateView, mExternalStorage, mSoftwarePrivate;
-    private FileRecyclerView mFileRecyclerView;
-    private TextView mFilePathView;
-    private String mLockPath, mListPath;
-
-    public FilesFragment() {
-        super(R.layout.fragment_files);
+class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
+    companion object {
+        const val TAG: String = "FilesFragment"
+        const val BUNDLE_LOCK_PATH: String = "bundle_lock_path"
+        const val BUNDLE_LIST_PATH: String = "bundle_list_path"
+        const val BUNDLE_SHOW_FILE: String = "show_file"
+        const val BUNDLE_SHOW_FOLDER: String = "show_folder"
+        const val BUNDLE_QUICK_ACCESS_PATHS: String = "quick_access_paths"
+        const val BUNDLE_MULTI_SELECT_MODE: String = "multi_select_mode"
+        const val BUNDLE_SELECT_FOLDER_MODE: String = "select_folder_mode"
+        const val BUNDLE_REMOVE_LOCK_PATH: String = "remove_lock_path"
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        openDocumentLauncher = registerForActivityResult(
-                new OpenDocumentWithExtension(null),
-                result -> {
-                    if (result != null) {
-                        Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
-                        PojavApplication.sExecutorService.execute(() -> {
-                            copyFileInBackground(requireContext(), result, mFileRecyclerView.getFullPath().getAbsolutePath());
+    private var openDocumentLauncher: ActivityResultLauncher<Any?>? = null
+    private var mShowFiles = false
+    private var mShowFolders = false
+    private var mQuickAccessPaths = false
+    private var mMultiSelectMode = false
+    private var mSelectFolderMode = false
+    private var mRemoveLockPath = false
+    private var mReturnButton: ImageButton? = null
+    private var mAddFileButton: ImageButton? = null
+    private var mCreateFolderButton: ImageButton? = null
+    private var mPasteButton: ImageButton? = null
+    private var mSearchSummonButton: ImageButton? = null
+    private var mRefreshButton: ImageButton? = null
+    private var mNothingTip: TextView? = null
+    private var mSearchView: SearchView? = null
+    private var mMultiSelectCheck: CheckBox? = null
+    private var mSelectAllCheck: CheckBox? = null
+    private var mFilesLayout: View? = null
+    private var mOperateLayout: View? = null
+    private var mOperateView: View? = null
+    private var mExternalStorage: View? = null
+    private var mSoftwarePrivate: View? = null
+    private var mFileRecyclerView: FileRecyclerView? = null
+    private var mFilePathView: TextView? = null
+    private var mLockPath: String? = null
+    private var mListPath: String? = null
 
-                            runOnUiThread(() -> {
-                                Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show();
-                                mFileRecyclerView.refreshPath();
-                            });
-                        });
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension(null)) { result: Uri? ->
+            result?.let {
+                Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
+                PojavApplication.sExecutorService.execute {
+                    copyFileInBackground(requireContext(), result, mFileRecyclerView!!.fullPath.absolutePath)
+                    Tools.runOnUiThread {
+                        Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show()
+                        mFileRecyclerView!!.refreshPath()
                     }
                 }
-        );
+            }
+        }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        parseBundle();
-        bindViews(view);
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        parseBundle()
+        bindViews(view)
 
-        mFileRecyclerView.setShowFiles(mShowFiles);
-        mFileRecyclerView.setShowFolders(mShowFolders);
-        mFileRecyclerView.setTitleListener((title) -> mFilePathView.setText(removeLockPath(title)));
+        mFileRecyclerView!!.setShowFiles(mShowFiles)
+        mFileRecyclerView!!.setShowFolders(mShowFolders)
+        mFileRecyclerView!!.setTitleListener { title: String? -> mFilePathView!!.text = removeLockPath(title!!) }
 
-        mFilePathView.setOnClickListener(v -> {
-            EditTextDialog.Builder builder = new EditTextDialog.Builder(requireContext());
-            builder.setTitle(R.string.zh_file_jump_to_path);
-            builder.setEditText(mFileRecyclerView.getFullPath().getAbsolutePath());
-            builder.setConfirmListener(editBox -> {
-                String path = editBox.getText().toString();
-
+        mFilePathView!!.setOnClickListener {
+            val builder = EditTextDialog.Builder(requireContext())
+            builder.setTitle(R.string.zh_file_jump_to_path)
+            builder.setEditText(mFileRecyclerView!!.fullPath.absolutePath)
+            builder.setConfirmListener { editBox: EditText ->
+                val path = editBox.text.toString()
                 if (path.isEmpty()) {
-                    editBox.setError(getString(R.string.global_error_field_empty));
-                    return false;
+                    editBox.error = getString(R.string.global_error_field_empty)
+                    return@setConfirmListener false
                 }
 
-                File file = new File(path);
+                val file = File(path)
                 //检查路径是否符合要求：最少为最顶部路径、路径是一个文件夹、这个路径存在
-                if (!path.contains(mLockPath) || !file.isDirectory() || !file.exists()) {
-                    editBox.setError(getString(R.string.zh_file_does_not_exist));
-                    return false;
+                if (!path.contains(mLockPath!!) || !file.isDirectory || !file.exists()) {
+                    editBox.error = getString(R.string.zh_file_does_not_exist)
+                    return@setConfirmListener false
                 }
 
-                mFileRecyclerView.listFileAt(file);
-                return true;
-            });
-            builder.buildDialog();
-        });
-
-        if (mListPath != null) {
-            mFileRecyclerView.lockAndListAt(new File(mLockPath), new File(mListPath));
-        } else {
-            mFileRecyclerView.lockAndListAt(new File(mLockPath), new File(mLockPath));
+                mFileRecyclerView!!.listFileAt(file)
+                true
+            }
+            builder.buildDialog()
         }
 
-        mFileRecyclerView.setFileSelectedListener(new FileSelectedListener() {
-            @Override
-            public void onFileSelected(File file, String path) {
-                showDialog(file);
+        mFileRecyclerView?.apply {
+            lockAndListAt(mLockPath?.let { File(it) }, mListPath?.let { File(it) } ?: mLockPath?.let { File(it) })
+        }
+
+        mFileRecyclerView!!.setFileSelectedListener(object : FileSelectedListener() {
+            override fun onFileSelected(file: File?, path: String?) {
+                showDialog(file)
             }
 
-            @Override
-            public void onItemLongClick(File file, String path) {
-                if (file.isDirectory()) {
-                    showDialog(file);
-                }
+            override fun onItemLongClick(file: File?, path: String?) {
+                if (file!!.isDirectory) showDialog(file)
             }
-        });
+        })
 
-        mFileRecyclerView.setOnMultiSelectListener(itemBeans -> {
-            if (!itemBeans.isEmpty()) {
-                PojavApplication.sExecutorService.execute(() -> {
+        mFileRecyclerView!!.setOnMultiSelectListener { itemBeans: List<FileItemBean> ->
+            if (itemBeans.isNotEmpty()) {
+                PojavApplication.sExecutorService.execute {
                     //取出全部文件
-                    List<File> selectedFiles = new ArrayList<>();
-                    itemBeans.forEach(value -> {
-                        File file = value.getFile();
-                        if (file != null) {
-                            selectedFiles.add(file);
-                        }
-                    });
-                    FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-                    filesButton.setButtonVisibility(true, true, false, false, true, false);
-                    filesButton.setDialogText(getString(R.string.zh_file_multi_select_mode_title),
-                            getString(R.string.zh_file_multi_select_mode_message, itemBeans.size()), null);
-                    runOnUiThread(() -> {
-                        FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> {
-                            closeMultiSelect();
-                            mFileRecyclerView.refreshPath();
-                        }), selectedFiles);
-                        filesDialog.setCopyButtonClick(() -> mPasteButton.setVisibility(View.VISIBLE));
-                        filesDialog.show();
-                    });
-                });
+                    val selectedFiles: MutableList<File> = ArrayList()
+                    itemBeans.forEach(Consumer { value: FileItemBean ->
+                        val file = value.file
+                        if (file != null) selectedFiles.add(file)
+                    })
+                    val filesButton = FilesButton()
+                    filesButton.setButtonVisibility(true, true, false, false, true, false)
+                    filesButton.setDialogText(
+                        getString(R.string.zh_file_multi_select_mode_title),
+                        getString(R.string.zh_file_multi_select_mode_message, itemBeans.size), null
+                    )
+                    Tools.runOnUiThread {
+                        val filesDialog = FilesDialog(requireContext(), filesButton, {
+                            Tools.runOnUiThread {
+                                closeMultiSelect()
+                                mFileRecyclerView!!.refreshPath()
+                            }
+                        }, selectedFiles)
+                        filesDialog.setCopyButtonClick { mPasteButton!!.visibility = View.VISIBLE }
+                        filesDialog.show()
+                    }
+                }
             }
-        });
-        mFileRecyclerView.setRefreshListener(() -> {
-            int itemCount = mFileRecyclerView.getItemCount();
-            boolean show = itemCount <= 1;
-            AnimUtils.setVisibilityAnim(mNothingTip, show);
-        });
-        mExternalStorage.setOnClickListener(v -> {
-            closeMultiSelect();
-            mFileRecyclerView.listFileAt(Environment.getExternalStorageDirectory());
-        });
-        mSoftwarePrivate.setOnClickListener(v -> {
-            closeMultiSelect();
-            mFileRecyclerView.listFileAt(requireContext().getExternalFilesDir(null));
-        });
-        FileRecyclerAdapter adapter = mFileRecyclerView.getAdapter();
-        mMultiSelectCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            mSelectAllCheck.setChecked(false);
-            mSelectAllCheck.setVisibility(isChecked ? View.VISIBLE : View.GONE);
-            adapter.setMultiSelectMode(isChecked);
-        });
-        mSelectAllCheck.setOnCheckedChangeListener((buttonView, isChecked) -> adapter.selectAllFiles(isChecked));
+        }
+        mFileRecyclerView!!.setRefreshListener {
+            val itemCount = mFileRecyclerView!!.itemCount
+            val show = itemCount <= 1
+            setVisibilityAnim(mNothingTip!!, show)
+        }
+        mExternalStorage!!.setOnClickListener {
+            closeMultiSelect()
+            mFileRecyclerView!!.listFileAt(Environment.getExternalStorageDirectory())
+        }
+        mSoftwarePrivate!!.setOnClickListener {
+            closeMultiSelect()
+            mFileRecyclerView!!.listFileAt(requireContext().getExternalFilesDir(null))
+        }
+        val adapter = mFileRecyclerView!!.adapter
+        mMultiSelectCheck!!.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
+            mSelectAllCheck!!.isChecked = false
+            mSelectAllCheck!!.visibility = if (isChecked) View.VISIBLE else View.GONE
+            adapter.setMultiSelectMode(isChecked)
+        }
+        mSelectAllCheck!!.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
+            adapter.selectAllFiles(
+                isChecked
+            )
+        }
 
-        mReturnButton.setOnClickListener(v -> {
+        mReturnButton!!.setOnClickListener {
             if (!mSelectFolderMode) {
-                closeMultiSelect();
-                Tools.removeCurrentFragment(requireActivity());
+                closeMultiSelect()
+                Tools.removeCurrentFragment(requireActivity())
             } else {
-                ExtraCore.setValue(ExtraConstants.FILE_SELECTOR, removeLockPath(mFileRecyclerView.getFullPath().getAbsolutePath()));
-                Tools.removeCurrentFragment(requireActivity());
+                ExtraCore.setValue(
+                    ExtraConstants.FILE_SELECTOR,
+                    removeLockPath(mFileRecyclerView!!.fullPath.absolutePath)
+                )
+                Tools.removeCurrentFragment(requireActivity())
             }
-        });
-        mAddFileButton.setOnClickListener(v -> {
-            closeMultiSelect();
-            openDocumentLauncher.launch(null);
-        }); //不限制文件类型
-        mCreateFolderButton.setOnClickListener(v -> {
-            closeMultiSelect();
-            new EditTextDialog.Builder(requireContext())
-                    .setTitle(R.string.folder_dialog_insert_name)
-                    .setConfirmListener(editBox -> {
-                        String name = editBox.getText().toString().replace("/", "");
-                        if (name.isEmpty()) {
-                            editBox.setError(getString(R.string.zh_file_rename_empty));
-                            return false;
-                        }
+        }
+        mAddFileButton!!.setOnClickListener {
+            closeMultiSelect()
+            openDocumentLauncher!!.launch(null)
+        } //不限制文件类型
+        mCreateFolderButton!!.setOnClickListener {
+            closeMultiSelect()
+            EditTextDialog.Builder(requireContext())
+                .setTitle(R.string.folder_dialog_insert_name)
+                .setConfirmListener { editBox: EditText ->
+                    val name = editBox.text.toString().replace("/", "")
+                    if (name.isEmpty()) {
+                        editBox.error = getString(R.string.zh_file_rename_empty)
+                        return@setConfirmListener false
+                    }
 
-                        File folder = new File(mFileRecyclerView.getFullPath(), name);
+                    val folder = File(mFileRecyclerView!!.fullPath, name)
 
-                        if (folder.exists()) {
-                            editBox.setError(getString(R.string.zh_file_rename_exitis));
-                            return false;
-                        }
+                    if (folder.exists()) {
+                        editBox.error = getString(R.string.zh_file_rename_exitis)
+                        return@setConfirmListener false
+                    }
 
-                        boolean success = folder.mkdir();
-                        if (success) {
-                            mFileRecyclerView.listFileAt(new File(mFileRecyclerView.getFullPath(), name));
-                        } else {
-                            mFileRecyclerView.refreshPath();
-                        }
+                    val success = folder.mkdir()
+                    if (success) {
+                        mFileRecyclerView!!.listFileAt(File(mFileRecyclerView!!.fullPath, name))
+                    } else {
+                        mFileRecyclerView!!.refreshPath()
+                    }
+                    true
+                }.buildDialog()
+        }
+        mPasteButton!!.setOnClickListener {
+            PasteFile.getInstance()
+                .pasteFiles(requireActivity(), mFileRecyclerView!!.fullPath, null) {
+                    Tools.runOnUiThread {
+                        closeMultiSelect()
+                        mPasteButton!!.visibility = View.GONE
+                        mFileRecyclerView!!.refreshPath()
+                    }
+                }
+        }
+        mSearchSummonButton!!.setOnClickListener {
+            closeMultiSelect()
+            mSearchView!!.setVisibility()
+        }
+        mRefreshButton!!.setOnClickListener {
+            closeMultiSelect()
+            mFileRecyclerView!!.refreshPath()
+        }
 
-                        return true;
-                    }).buildDialog();
-        });
-        mPasteButton.setOnClickListener(v -> PasteFile.getInstance().pasteFiles(requireActivity(), mFileRecyclerView.getFullPath(), null, () -> runOnUiThread(() -> {
-            closeMultiSelect();
-            mPasteButton.setVisibility(View.GONE);
-            mFileRecyclerView.refreshPath();
-        })));
-        mSearchSummonButton.setOnClickListener(v -> {
-            closeMultiSelect();
-            mSearchView.setVisibility();
-        });
-        mRefreshButton.setOnClickListener(v -> {
-            closeMultiSelect();
-            mFileRecyclerView.refreshPath();
-        });
-
-        ViewAnimUtils.slideInAnim(this);
+        slideInAnim(this)
     }
 
-    private void closeMultiSelect() {
+    private fun closeMultiSelect() {
         //点击其它控件时关闭多选模式
-        mMultiSelectCheck.setChecked(false);
-        mSelectAllCheck.setVisibility(View.GONE);
+        mMultiSelectCheck!!.isChecked = false
+        mSelectAllCheck!!.visibility = View.GONE
     }
 
-    private void showDialog(File file) {
-        FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-        filesButton.setButtonVisibility(true, true, !file.isDirectory(), true, true, false);
-
-        String message;
-        if (file.isDirectory()) {
-            message = getString(R.string.zh_file_folder_message);
+    private fun showDialog(file: File?) {
+        val filesButton = FilesButton()
+        filesButton.setButtonVisibility(true, true, !file!!.isDirectory, true, true, false)
+        val message = if (file.isDirectory) {
+            getString(R.string.zh_file_folder_message)
         } else {
-            message = getString(R.string.zh_file_message);
+            getString(R.string.zh_file_message)
         }
-        filesButton.setMessageText(message);
+        filesButton.setMessageText(message)
 
-        FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileRecyclerView.refreshPath()), file);
-        filesDialog.setCopyButtonClick(() -> mPasteButton.setVisibility(View.VISIBLE));
-        filesDialog.show();
+        val filesDialog = FilesDialog(requireContext(), filesButton,
+            { Tools.runOnUiThread { mFileRecyclerView!!.refreshPath() } },
+            file
+        )
+        filesDialog.setCopyButtonClick { mPasteButton!!.visibility = View.VISIBLE }
+        filesDialog.show()
     }
 
-    private String removeLockPath(String path) {
-        String string = path;
+    private fun removeLockPath(path: String): String {
+        var string = path
         if (mRemoveLockPath) {
-            string = path.replace(mLockPath, ".");
+            string = path.replace(mLockPath!!, ".")
         }
-        return string;
+        return string
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void bindViews(@NonNull View view) {
-        mFilesLayout = view.findViewById(R.id.files_layout);
-        mOperateLayout = view.findViewById(R.id.operate_layout);
+    private fun bindViews(view: View) {
+        mFilesLayout = view.findViewById(R.id.files_layout)
+        mOperateLayout = view.findViewById(R.id.operate_layout)
 
-        mOperateView = view.findViewById(R.id.operate_view);
+        mOperateView = view.findViewById(R.id.operate_view)
 
-        mReturnButton = view.findViewById(R.id.zh_return_button);
-        mAddFileButton = view.findViewById(R.id.zh_add_file_button);
-        mCreateFolderButton = view.findViewById(R.id.zh_create_folder_button);
-        mPasteButton = view.findViewById(R.id.zh_paste_button);
-        mRefreshButton = view.findViewById(R.id.zh_refresh_button);
-        mSearchSummonButton = view.findViewById(R.id.zh_search_button);
-        mFileRecyclerView = view.findViewById(R.id.zh_files);
-        mFilePathView = view.findViewById(R.id.zh_files_current_path);
-        mExternalStorage = view.findViewById(R.id.zh_files_external_storage);
-        mSoftwarePrivate = view.findViewById(R.id.zh_files_software_private);
-        mMultiSelectCheck = view.findViewById(R.id.zh_file_multi_select_files);
-        mSelectAllCheck = view.findViewById(R.id.zh_file_select_all);
-        mNothingTip = view.findViewById(R.id.zh_files_nothing);
+        mReturnButton = view.findViewById(R.id.zh_return_button)
+        mAddFileButton = view.findViewById(R.id.zh_add_file_button)
+        mCreateFolderButton = view.findViewById(R.id.zh_create_folder_button)
+        mPasteButton = view.findViewById(R.id.zh_paste_button)
+        mRefreshButton = view.findViewById(R.id.zh_refresh_button)
+        mSearchSummonButton = view.findViewById(R.id.zh_search_button)
+        mFileRecyclerView = view.findViewById(R.id.zh_files)
+        mFilePathView = view.findViewById(R.id.zh_files_current_path)
+        mExternalStorage = view.findViewById(R.id.zh_files_external_storage)
+        mSoftwarePrivate = view.findViewById(R.id.zh_files_software_private)
+        mMultiSelectCheck = view.findViewById(R.id.zh_file_multi_select_files)
+        mSelectAllCheck = view.findViewById(R.id.zh_file_select_all)
+        mNothingTip = view.findViewById(R.id.zh_files_nothing)
 
-        mSearchView = new SearchView(view, view.findViewById(R.id.zh_search_view));
-        mSearchView.setSearchListener(mFileRecyclerView::searchFiles);
-        mSearchView.setShowSearchResultsListener(mFileRecyclerView::setShowSearchResultsOnly);
+        mSearchView = SearchView(view, view.findViewById(R.id.zh_search_view))
+        mSearchView!!.setSearchListener(object : SearchView.SearchListener {
+            override fun onSearch(string: String?, caseSensitive: Boolean): Int {
+                return mFileRecyclerView!!.searchFiles(string, caseSensitive)
+            }
+        })
+        mSearchView!!.setShowSearchResultsListener(object : SearchView.ShowSearchResultsListener {
+            override fun onSearch(show: Boolean) {
+                mFileRecyclerView!!.setShowSearchResultsOnly(show)
+            }
+        })
 
         if (!mQuickAccessPaths) {
-            mExternalStorage.setVisibility(View.GONE);
-            mSoftwarePrivate.setVisibility(View.GONE);
+            mExternalStorage!!.visibility = View.GONE
+            mSoftwarePrivate!!.visibility = View.GONE
         }
         if (mSelectFolderMode || !mMultiSelectMode) {
-            mMultiSelectCheck.setVisibility(View.GONE);
-            mSelectAllCheck.setVisibility(View.GONE);
+            mMultiSelectCheck!!.visibility = View.GONE
+            mSelectAllCheck!!.visibility = View.GONE
         }
 
         if (mSelectFolderMode) {
-            mAddFileButton.setVisibility(View.GONE);
-            mReturnButton.setContentDescription(getString(R.string.folder_fragment_select));
-            mReturnButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_check, requireActivity().getTheme()));
+            mAddFileButton!!.visibility = View.GONE
+            mReturnButton!!.contentDescription = getString(R.string.folder_fragment_select)
+            mReturnButton!!.setImageDrawable(resources.getDrawable(R.drawable.ic_check, requireActivity().theme))
         }
 
-        mPasteButton.setVisibility(PasteFile.getInstance().getPasteType() != null ? View.VISIBLE : View.GONE);
+        mPasteButton!!.setVisibility(if (PasteFile.getInstance().pasteType != null) View.VISIBLE else View.GONE)
 
-        ZHTools.setTooltipText(mReturnButton, mReturnButton.getContentDescription());
-        ZHTools.setTooltipText(mAddFileButton, mAddFileButton.getContentDescription());
-        ZHTools.setTooltipText(mCreateFolderButton, mCreateFolderButton.getContentDescription());
-        ZHTools.setTooltipText(mPasteButton, mPasteButton.getContentDescription());
-        ZHTools.setTooltipText(mSearchSummonButton, mSearchSummonButton.getContentDescription());
-        ZHTools.setTooltipText(mRefreshButton, mRefreshButton.getContentDescription());
+        ZHTools.setTooltipText(mReturnButton, mReturnButton!!.contentDescription)
+        ZHTools.setTooltipText(mAddFileButton, mAddFileButton!!.contentDescription)
+        ZHTools.setTooltipText(mCreateFolderButton, mCreateFolderButton!!.contentDescription)
+        ZHTools.setTooltipText(mPasteButton, mPasteButton!!.contentDescription)
+        ZHTools.setTooltipText(mSearchSummonButton, mSearchSummonButton!!.contentDescription)
+        ZHTools.setTooltipText(mRefreshButton, mRefreshButton!!.contentDescription)
     }
 
-    private void parseBundle() {
-        Bundle bundle = getArguments();
-        if (bundle == null) return;
-        mLockPath = bundle.getString(BUNDLE_LOCK_PATH, ProfilePathManager.getCurrentPath());
-        mListPath = bundle.getString(BUNDLE_LIST_PATH, null);
-        mShowFiles = bundle.getBoolean(BUNDLE_SHOW_FILE, true);
-        mShowFolders = bundle.getBoolean(BUNDLE_SHOW_FOLDER, true);
-        mQuickAccessPaths = bundle.getBoolean(BUNDLE_QUICK_ACCESS_PATHS, true);
-        mMultiSelectMode = bundle.getBoolean(BUNDLE_MULTI_SELECT_MODE, true);
-        mSelectFolderMode = bundle.getBoolean(BUNDLE_SELECT_FOLDER_MODE, false);
-        mRemoveLockPath = bundle.getBoolean(BUNDLE_REMOVE_LOCK_PATH, true);
+    private fun parseBundle() {
+        val bundle = arguments ?: return
+        mLockPath = bundle.getString(BUNDLE_LOCK_PATH, currentPath)
+        mListPath = bundle.getString(BUNDLE_LIST_PATH, null)
+        mShowFiles = bundle.getBoolean(BUNDLE_SHOW_FILE, true)
+        mShowFolders = bundle.getBoolean(BUNDLE_SHOW_FOLDER, true)
+        mQuickAccessPaths = bundle.getBoolean(BUNDLE_QUICK_ACCESS_PATHS, true)
+        mMultiSelectMode = bundle.getBoolean(BUNDLE_MULTI_SELECT_MODE, true)
+        mSelectFolderMode = bundle.getBoolean(BUNDLE_SELECT_FOLDER_MODE, false)
+        mRemoveLockPath = bundle.getBoolean(BUNDLE_REMOVE_LOCK_PATH, true)
     }
 
-    @Override
-    public YoYo.YoYoString[] slideIn() {
-        List<YoYo.YoYoString> yoYos = new ArrayList<>();
-        yoYos.add(ViewAnimUtils.setViewAnim(mFilesLayout, Techniques.BounceInDown));
-        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
-        yoYos.add(ViewAnimUtils.setViewAnim(mOperateView, Techniques.FadeInLeft));
-        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
-        super.setYoYos(array);
-        return array;
+    override fun slideIn(): Array<YoYoString?> {
+        val yoYos: MutableList<YoYoString?> = ArrayList()
+        yoYos.add(setViewAnim(mFilesLayout!!, Techniques.BounceInDown))
+        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.BounceInLeft))
+        yoYos.add(setViewAnim(mOperateView!!, Techniques.FadeInLeft))
+        val array = yoYos.toTypedArray()
+        super.yoYos = array
+        return array
     }
 
-    @Override
-    public YoYo.YoYoString[] slideOut() {
-        List<YoYo.YoYoString> yoYos = new ArrayList<>();
-        yoYos.add(ViewAnimUtils.setViewAnim(mFilesLayout, Techniques.FadeOutUp));
-        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight));
-        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
-        super.setYoYos(array);
-        return array;
+    override fun slideOut(): Array<YoYoString?> {
+        val yoYos: MutableList<YoYoString?> = ArrayList()
+        yoYos.add(setViewAnim(mFilesLayout!!, Techniques.FadeOutUp))
+        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.FadeOutRight))
+        val array = yoYos.toTypedArray()
+        super.yoYos = array
+        return array
     }
 }
 

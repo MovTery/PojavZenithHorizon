@@ -1,79 +1,65 @@
-package com.movtery.pojavzh.ui.subassembly.view;
+package com.movtery.pojavzh.ui.subassembly.view
 
-import android.annotation.SuppressLint;
-import android.view.MotionEvent;
-import android.view.View;
+import android.annotation.SuppressLint
+import android.view.MotionEvent
+import android.view.View
+import com.movtery.pojavzh.utils.ZHTools
+import kotlin.math.max
+import kotlin.math.min
 
-import androidx.annotation.NonNull;
-
-import com.movtery.pojavzh.utils.ZHTools;
-
-public class DraggableView {
-    private final View mainView;
-    private final AttributesFetcher fetcher;
-    private long lastUpdateTime = 0;
-    private float initialX;
-    private float initialY;
-    private float touchX;
-    private float touchY;
-
-    public DraggableView(View mainView, @NonNull AttributesFetcher fetcher) {
-        this.mainView = mainView;
-        this.fetcher = fetcher;
-    }
+class DraggableView(private val mainView: View, private val fetcher: AttributesFetcher) {
+    private var lastUpdateTime: Long = 0
+    private var initialX = 0f
+    private var initialY = 0f
+    private var touchX = 0f
+    private var touchY = 0f
 
     @SuppressLint("ClickableViewAccessibility")
-    public void init() {
-        mainView.setOnTouchListener((v, event) -> {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    if (updateRateLimits()) return false;
+    fun init() {
+        mainView.setOnTouchListener { _: View?, event: MotionEvent ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    if (updateRateLimits()) return@setOnTouchListener false
 
-                    initialX = fetcher.get()[0];
-                    initialY = fetcher.get()[1];
-                    touchX = event.getRawX();
-                    touchY = event.getRawY();
-                    return true;
-                case MotionEvent.ACTION_MOVE:
-                    if (updateRateLimits()) return false;
+                    initialX = fetcher.get()[0].toFloat()
+                    initialY = fetcher.get()[1].toFloat()
+                    touchX = event.rawX
+                    touchY = event.rawY
+                    return@setOnTouchListener true
+                }
 
-                    int x = (int) Math.max(fetcher.getScreenPixels().minX, Math.min(fetcher.getScreenPixels().maxX, initialX + (event.getRawX() - touchX)));
-                    int y = (int) Math.max(fetcher.getScreenPixels().minY, Math.min(fetcher.getScreenPixels().maxY, initialY + (event.getRawY() - touchY)));
-                    fetcher.set(x, y);
-                    return true;
+                MotionEvent.ACTION_MOVE -> {
+                    if (updateRateLimits()) return@setOnTouchListener false
+
+                    val x = max(fetcher.screenPixels.minX.toDouble(), min(fetcher.screenPixels.maxX.toDouble(),
+                            (initialX + (event.rawX - touchX)).toDouble())
+                    ).toInt()
+                    val y = max(fetcher.screenPixels.minY.toDouble(), min(fetcher.screenPixels.maxY.toDouble(),
+                            (initialY + (event.rawY - touchY)).toDouble())
+                    ).toInt()
+                    fetcher.set(x, y)
+                    return@setOnTouchListener true
+                }
             }
-            return false;
-        });
+            false
+        }
     }
 
     //避免过于频繁的更新导致的性能开销
-    private boolean updateRateLimits() {
-        boolean limit = false;
-        long millis = ZHTools.getCurrentTimeMillis();
-        if (millis - lastUpdateTime < 5) limit = true;
-        lastUpdateTime = millis;
-        return limit;
+    private fun updateRateLimits(): Boolean {
+        var limit = false
+        val millis = ZHTools.getCurrentTimeMillis()
+        if (millis - lastUpdateTime < 5) limit = true
+        lastUpdateTime = millis
+        return limit
     }
 
-    public interface AttributesFetcher {
-        ScreenPixels getScreenPixels(); //获取对应的屏幕的高宽限制值
-
-        int[] get(); //获取x, y值
-
-        void set(int x, int y);
+    interface AttributesFetcher {
+        //获取对应的屏幕的高宽限制值
+        val screenPixels: ScreenPixels
+        fun get(): IntArray //获取x, y值
+        fun set(x: Int, y: Int)
     }
 
-    public static class ScreenPixels {
-        int minX;
-        int minY;
-        int maxX;
-        int maxY;
-
-        public ScreenPixels(int minX, int minY, int maxX, int maxY) {
-            this.minX = minX;
-            this.minY = minY;
-            this.maxX = maxX;
-            this.maxY = maxY;
-        }
-    }
+    class ScreenPixels(var minX: Int, var minY: Int, var maxX: Int, var maxY: Int)
 }

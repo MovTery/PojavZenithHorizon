@@ -51,7 +51,7 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
     }
 
     private void toggleSelection(FileItemBean itemBean, CheckBox checkBox) {
-        if (itemBean.isCanCheck()) {
+        if (itemBean.isCanCheck) {
             if (selectedFiles.contains(itemBean)) {
                 selectedFiles.remove(itemBean);
                 checkBox.setChecked(false);
@@ -76,7 +76,7 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
         selectedFiles.clear();
         if (selectAll) { //全选时遍历全部item设置选择状态
             for (FileItemBean item : mData) {
-                if (item.isCanCheck()) {
+                if (item.isCanCheck) {
                     selectedFiles.add(item);
                 }
             }
@@ -154,18 +154,18 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
         public void setData(FileItemBean fileItemBean, int position) {
             this.mPosition = position;
             this.mFileItemBean = fileItemBean;
-            this.icon.setImageDrawable(fileItemBean.getImage());
-            this.name.setText(fileItemBean.getName() == null ? fileItemBean.getFile().getName() : fileItemBean.getName());
+            this.icon.setImageDrawable(fileItemBean.image);
+            this.name.setText(fileItemBean.name == null ? fileItemBean.file.getName() : fileItemBean.name);
 
             int color;
-            if (fileItemBean.isHighlighted()) {
+            if (fileItemBean.isHighlighted) {
                 color = textColor; //设置高亮
             } else {
                 color = this.name.getResources().getColor(R.color.black_or_white, this.name.getContext().getTheme());
             }
             this.name.setTextColor(color);
 
-            if (fileItemBean.isCanCheck()) {
+            if (fileItemBean.isCanCheck) {
                 checkBox.setVisibility(isMultiSelectMode ? View.VISIBLE : View.GONE);
                 checkBox.setChecked(selectedFiles.contains(fileItemBean));
             } else {

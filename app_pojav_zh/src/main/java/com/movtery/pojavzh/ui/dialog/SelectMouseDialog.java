@@ -48,7 +48,7 @@ public class SelectMouseDialog extends FullScreenDialog {
 
     private void initView(RecyclerView mMouseListView) {
         FileRecyclerViewCreator fileRecyclerViewCreator = new FileRecyclerViewCreator(getContext(), mMouseListView, (position, fileItemBean) -> {
-            File file = fileItemBean.getFile();
+            File file = fileItemBean.file;
             if (file != null && file.exists() && isImage(file)) {
                 DEFAULT_PREF.edit().putString("custom_mouse", file.getName()).apply();
                 mouseSelectedListener.onSelectedListener();

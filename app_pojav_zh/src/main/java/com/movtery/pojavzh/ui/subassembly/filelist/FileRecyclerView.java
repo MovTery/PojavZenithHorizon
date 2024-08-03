@@ -65,11 +65,11 @@ public class FileRecyclerView extends LinearLayout {
                     if (position == 0 && !lockPath.equals(fullPath)) {
                         parentDir();
                     } else {
-                        listFileAt(fileItemBean.getFile());
+                        listFileAt(fileItemBean.file);
                     }
                 },
                 (position, fileItemBean) -> {
-                    File file = fileItemBean.getFile();
+                    File file = fileItemBean.file;
                     if (file != null) {
                         if (position == 0 && !lockPath.equals(fullPath)) {
                             parentDir();
@@ -148,9 +148,9 @@ public class FileRecyclerView extends LinearLayout {
 
                 if (!path.equals(lockPath)) {
                     FileItemBean itemBean = new FileItemBean();
-                    itemBean.setImage(context.getResources().getDrawable(R.drawable.ic_folder, context.getTheme()));
-                    itemBean.setName("..");
-                    itemBean.setCanCheck(false);
+                    itemBean.image = context.getResources().getDrawable(R.drawable.ic_folder, context.getTheme());
+                    itemBean.name = "..";
+                    itemBean.isCanCheck = false;
                     itemBeans.add(0, itemBean);
                 }
 
