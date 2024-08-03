@@ -32,7 +32,7 @@ public abstract class LauncherPreferenceFragment extends PreferenceFragmentCompa
         mMainView = view;
         view.setBackgroundResource(R.drawable.background_card);
 
-        slideIn();
+        if (LauncherPreferences.PREF_ANIMATION) slideIn();
     }
 
     @Override
