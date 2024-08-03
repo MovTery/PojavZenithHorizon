@@ -5,9 +5,9 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.movtery.pojavzh.feature.mod.modloader.BaseModVersionListAdapter
 import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog
-import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListAdapter
-import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListFragment
-import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListItemBean
+import com.movtery.pojavzh.ui.subassembly.modlist.ModListAdapter
+import com.movtery.pojavzh.ui.subassembly.modlist.ModListFragment
+import com.movtery.pojavzh.ui.subassembly.modlist.ModListItemBean
 import com.movtery.pojavzh.utils.MCVersionComparator.versionCompare
 import net.kdt.pojavlaunch.JavaGUILauncherActivity
 import net.kdt.pojavlaunch.PojavApplication
@@ -29,7 +29,7 @@ class DownloadForgeFragment : ModListFragment(), ModloaderDownloadListener {
     private val modloaderListenerProxy = ModloaderListenerProxy()
 
     override fun init() {
-        setIcon(ContextCompat.getDrawable(activity, R.drawable.ic_anvil))
+        setIcon(ContextCompat.getDrawable(fragmentActivity!!, R.drawable.ic_anvil))
         setNameText("Forge")
         setReleaseCheckBoxGone() //隐藏“仅展示正式版”选择框，在这里没有用处
         super.init()
@@ -65,7 +65,7 @@ class DownloadForgeFragment : ModListFragment(), ModloaderDownloadListener {
 
         val mForgeVersions: MutableMap<String, MutableList<String?>> = HashMap()
         forgeVersions.forEach(Consumer { forgeVersion: String ->
-            if (currentTask.isCancelled) return@Consumer
+            if (currentTask!!.isCancelled) return@Consumer
 
             //查找并分组Minecraft版本与Forge版本
             val dashIndex = forgeVersion.indexOf("-")
@@ -74,7 +74,7 @@ class DownloadForgeFragment : ModListFragment(), ModloaderDownloadListener {
                 .add(forgeVersion)
         })
 
-        if (currentTask.isCancelled) return
+        if (currentTask!!.isCancelled) return
 
         val mData: MutableList<ModListItemBean> = ArrayList()
         mForgeVersions.entries
@@ -97,10 +97,10 @@ class DownloadForgeFragment : ModListFragment(), ModloaderDownloadListener {
         Tools.runOnUiThread {
             val recyclerView = recyclerView
             try {
-                var mModAdapter = recyclerView.adapter as ModListAdapter?
+                var mModAdapter = recyclerView!!.adapter as ModListAdapter?
                 if (mModAdapter == null) {
                     mModAdapter = ModListAdapter(this, mData)
-                    recyclerView.layoutManager = LinearLayoutManager(activity)
+                    recyclerView.layoutManager = LinearLayoutManager(fragmentActivity!!)
                     recyclerView.adapter = mModAdapter
                 } else {
                     mModAdapter.updateData(mData)
@@ -109,21 +109,21 @@ class DownloadForgeFragment : ModListFragment(), ModloaderDownloadListener {
             }
 
             componentProcessing(false)
-            recyclerView.scheduleLayoutAnimation()
+            recyclerView!!.scheduleLayoutAnimation()
         }
     }
 
     override fun onDownloadFinished(downloadedFile: File) {
         Tools.runOnUiThread {
-            val modInstallerStartIntent = Intent(activity, JavaGUILauncherActivity::class.java)
+            val modInstallerStartIntent = Intent(fragmentActivity!!, JavaGUILauncherActivity::class.java)
             ForgeUtils.addAutoInstallArgs(modInstallerStartIntent, downloadedFile, true)
-            val selectRuntimeDialog = SelectRuntimeDialog(activity)
+            val selectRuntimeDialog = SelectRuntimeDialog(fragmentActivity!!)
             selectRuntimeDialog.setListener { jreName: String? ->
                 modloaderListenerProxy.detachListener()
                 modInstallerStartIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
                 selectRuntimeDialog.dismiss()
-                Tools.backToMainMenu(activity)
-                activity.startActivity(modInstallerStartIntent)
+                Tools.backToMainMenu(fragmentActivity!!)
+                fragmentActivity!!.startActivity(modInstallerStartIntent)
             }
             selectRuntimeDialog.show()
         }
@@ -132,14 +132,14 @@ class DownloadForgeFragment : ModListFragment(), ModloaderDownloadListener {
     override fun onDataNotAvailable() {
         Tools.runOnUiThread {
             modloaderListenerProxy.detachListener()
-            Tools.dialog(activity, activity.getString(R.string.global_error), activity.getString(R.string.forge_dl_no_installer))
+            Tools.dialog(fragmentActivity!!, fragmentActivity!!.getString(R.string.global_error), fragmentActivity!!.getString(R.string.forge_dl_no_installer))
         }
     }
 
     override fun onDownloadError(e: Exception) {
         Tools.runOnUiThread {
             modloaderListenerProxy.detachListener()
-            Tools.showError(activity, e)
+            Tools.showError(fragmentActivity!!, e)
         }
     }
 }

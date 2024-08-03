@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies.SelectedMod
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionAdapter
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem
-import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListAdapter
-import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListFragment
-import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListItemBean
+import com.movtery.pojavzh.ui.subassembly.modlist.ModListAdapter
+import com.movtery.pojavzh.ui.subassembly.modlist.ModListFragment
+import com.movtery.pojavzh.ui.subassembly.modlist.ModListItemBean
 import com.movtery.pojavzh.ui.subassembly.viewmodel.ModApiViewModel
 import com.movtery.pojavzh.ui.subassembly.viewmodel.RecyclerViewModel
 import com.movtery.pojavzh.utils.MCVersionComparator.versionCompare
@@ -72,11 +72,11 @@ class DownloadModFragment : ModListFragment() {
         val currentTask = currentTask
         val pattern = RELEASE_REGEX
 
-        val releaseCheckBoxChecked = releaseCheckBox.isChecked
+        val releaseCheckBoxChecked = releaseCheckBox!!.isChecked
         val mModVersionsByMinecraftVersion: MutableMap<String, MutableList<ModVersionItem>> = HashMap()
 
         mModDetail.modVersionItems.forEach(Consumer { modVersionItem: ModVersionItem ->
-            if (currentTask.isCancelled) return@Consumer
+            if (currentTask!!.isCancelled) return@Consumer
 
             val versionId = modVersionItem.versionId
             for (mcVersion in versionId) {
@@ -95,7 +95,7 @@ class DownloadModFragment : ModListFragment() {
             }
         })
 
-        if (currentTask.isCancelled) return
+        if (currentTask!!.isCancelled) return
 
         val mData: MutableList<ModListItemBean> = ArrayList()
         mModVersionsByMinecraftVersion.entries
@@ -117,10 +117,10 @@ class DownloadModFragment : ModListFragment() {
         Tools.runOnUiThread {
             val modVersionView = recyclerView
             try {
-                var mModAdapter = modVersionView.adapter as ModListAdapter?
+                var mModAdapter = modVersionView!!.adapter as ModListAdapter?
                 if (mModAdapter == null) {
                     mModAdapter = ModListAdapter(this, mData)
-                    modVersionView.layoutManager = LinearLayoutManager(requireContext())
+                    modVersionView.layoutManager = LinearLayoutManager(fragmentActivity!!)
                     modVersionView.adapter = mModAdapter
                 } else {
                     mModAdapter.updateData(mData)
@@ -129,13 +129,13 @@ class DownloadModFragment : ModListFragment() {
             }
 
             componentProcessing(false)
-            modVersionView.scheduleLayoutAnimation()
+            modVersionView!!.scheduleLayoutAnimation()
         }
     }
 
     private fun parseViewModel() {
-        val viewModel = ViewModelProvider(requireActivity())[ModApiViewModel::class.java]
-        val recyclerViewModel = ViewModelProvider(requireActivity())[RecyclerViewModel::class.java]
+        val viewModel = ViewModelProvider(fragmentActivity!!)[ModApiViewModel::class.java]
+        val recyclerViewModel = ViewModelProvider(fragmentActivity!!)[RecyclerViewModel::class.java]
         mModApi = viewModel.modApi
         mModItem = viewModel.modItem
         mIsModpack = viewModel.isModpack

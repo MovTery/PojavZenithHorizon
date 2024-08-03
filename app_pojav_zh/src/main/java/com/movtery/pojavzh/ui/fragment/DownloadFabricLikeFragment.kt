@@ -3,9 +3,9 @@ package com.movtery.pojavzh.ui.fragment
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.movtery.pojavzh.feature.mod.modloader.BaseModVersionListAdapter
-import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListAdapter
-import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListFragment
-import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListItemBean
+import com.movtery.pojavzh.ui.subassembly.modlist.ModListAdapter
+import com.movtery.pojavzh.ui.subassembly.modlist.ModListFragment
+import com.movtery.pojavzh.ui.subassembly.modlist.ModListItemBean
 import com.movtery.pojavzh.utils.MCVersionComparator
 import com.movtery.pojavzh.utils.MCVersionRegex
 import net.kdt.pojavlaunch.PojavApplication
@@ -23,7 +23,7 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
     private val modloaderListenerProxy = ModloaderListenerProxy()
 
     override fun init() {
-        setIcon(ContextCompat.getDrawable(activity, icon))
+        setIcon(ContextCompat.getDrawable(fragmentActivity!!, icon))
         setNameText(utils.name)
         super.init()
     }
@@ -55,13 +55,13 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
             return
         }
 
-        val releaseCheckBoxChecked = releaseCheckBox.isChecked
+        val releaseCheckBoxChecked = releaseCheckBox!!.isChecked
         val pattern = MCVersionRegex.RELEASE_REGEX
 
         val mFabricVersions: MutableMap<String, List<FabricVersion>> = HashMap()
         val loaderVersions: Array<FabricVersion>? = utils.downloadLoaderVersions()
         gameVersions.forEach {
-            if (currentTask.isCancelled) return
+            if (currentTask!!.isCancelled) return
             val version = it.version
 
             if (releaseCheckBoxChecked) {
@@ -75,7 +75,7 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
             mFabricVersions[version] = loaderVersions!!.toList()
         }
 
-        if (currentTask.isCancelled) return
+        if (currentTask!!.isCancelled) return
 
         val mData: MutableList<ModListItemBean> = ArrayList()
         mFabricVersions.entries
@@ -83,7 +83,7 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
                 MCVersionComparator.versionCompare(entry1.key, entry2.key)
             }
             .forEach { (gameVersion, loaderVersions) ->
-                if (currentTask.isCancelled) return
+                if (currentTask!!.isCancelled) return
 
                 //为整理好的Fabric版本设置Adapter
                 val adapter = BaseModVersionListAdapter(modloaderListenerProxy, this, icon, loaderVersions)
@@ -98,15 +98,15 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
                 mData.add(ModListItemBean("Minecraft $gameVersion", adapter))
             }
 
-        if (currentTask.isCancelled) return
+        if (currentTask!!.isCancelled) return
 
         Tools.runOnUiThread {
             val recyclerView = recyclerView
             try {
-                var mModAdapter = recyclerView.adapter as ModListAdapter?
+                var mModAdapter = recyclerView!!.adapter as ModListAdapter?
                 if (mModAdapter == null) {
                     mModAdapter = ModListAdapter(this, mData)
-                    recyclerView.layoutManager = LinearLayoutManager(activity)
+                    recyclerView.layoutManager = LinearLayoutManager(fragmentActivity!!)
                     recyclerView.adapter = mModAdapter
                 } else {
                     mModAdapter.updateData(mData)
@@ -115,20 +115,20 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
             }
 
             componentProcessing(false)
-            recyclerView.scheduleLayoutAnimation()
+            recyclerView!!.scheduleLayoutAnimation()
         }
     }
 
     override fun onDownloadFinished(downloadedFile: File?) {
         Tools.runOnUiThread {
             modloaderListenerProxy.detachListener()
-            Tools.backToMainMenu(requireActivity())
+            Tools.backToMainMenu(fragmentActivity!!)
         }
     }
 
     override fun onDataNotAvailable() {
         Tools.runOnUiThread {
-            val context = requireContext()
+            val context = fragmentActivity!!
             modloaderListenerProxy.detachListener()
             Tools.dialog(context, context.getString(R.string.global_error),
                 context.getString(R.string.fabric_dl_cant_read_meta, utils.name)
@@ -138,7 +138,7 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
 
     override fun onDownloadError(e: java.lang.Exception?) {
         Tools.runOnUiThread {
-            val context = requireContext()
+            val context = fragmentActivity!!
             modloaderListenerProxy.detachListener()
             Tools.showError(context, e)
         }
