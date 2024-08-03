@@ -102,7 +102,7 @@ class SettingsActivity : BaseActivity() {
 
         initialize()
 
-        setViewAnim(mSettingsLayout!!, Techniques.BounceInRight)
+        if (LauncherPreferences.PREF_ANIMATION) setViewAnim(mSettingsLayout!!, Techniques.BounceInRight)
     }
 
     override fun onResume() {

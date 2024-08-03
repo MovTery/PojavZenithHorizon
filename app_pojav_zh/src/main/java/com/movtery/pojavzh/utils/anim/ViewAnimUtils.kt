@@ -14,28 +14,22 @@ object ViewAnimUtils {
 
     @JvmStatic
     fun setViewAnim(view: View, techniques: Techniques, duration: Long): YoYo.YoYoString? {
-        if (LauncherPreferences.PREF_ANIMATION) {
-            return YoYo.with(techniques)
-                .duration(duration)
-                .playOn(view)
-        }
-        return null
+        return YoYo.with(techniques)
+            .duration(duration)
+            .playOn(view)
     }
 
     @JvmStatic
     fun setViewAnim(view: View, techniques: Techniques, onStart: YoYo.AnimatorCallback, onEnd: YoYo.AnimatorCallback): YoYo.YoYoString? {
-        if (LauncherPreferences.PREF_ANIMATION) {
-            return YoYo.with(techniques)
-                .duration(LauncherPreferences.PREF_ANIMATION_SPEED.toLong())
-                .onStart(onStart)
-                .onEnd(onEnd)
-                .playOn(view)
-        }
-        return null
+        return YoYo.with(techniques)
+            .duration(LauncherPreferences.PREF_ANIMATION_SPEED.toLong())
+            .onStart(onStart)
+            .onEnd(onEnd)
+            .playOn(view)
     }
 
     @JvmStatic
     fun slideInAnim(fragmentWithAnim: FragmentWithAnim) {
-        fragmentWithAnim.slideIn()
+        if (LauncherPreferences.PREF_ANIMATION) fragmentWithAnim.slideIn()
     }
 }
