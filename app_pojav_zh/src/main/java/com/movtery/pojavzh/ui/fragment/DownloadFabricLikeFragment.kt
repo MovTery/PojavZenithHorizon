@@ -3,7 +3,6 @@ package com.movtery.pojavzh.ui.fragment
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.movtery.pojavzh.feature.mod.modloader.BaseModVersionListAdapter
-import com.movtery.pojavzh.feature.mod.modloader.ModVersionListAdapter
 import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListAdapter
 import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListFragment
 import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListItemBean
@@ -88,15 +87,13 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
 
                 //为整理好的Fabric版本设置Adapter
                 val adapter = BaseModVersionListAdapter(modloaderListenerProxy, this, icon, loaderVersions)
-                adapter.setOnItemClickListener(object : ModVersionListAdapter.OnItemClickListener {
-                    override fun onClick(version: Any?) {
-                        val fabricVersion = version as FabricVersion
-                        Thread(
-                            FabriclikeDownloadTask(modloaderListenerProxy, utils,
+                adapter.setOnItemClickListener { version ->
+                    val fabricVersion = version as FabricVersion
+                    Thread(
+                        FabriclikeDownloadTask(modloaderListenerProxy, utils,
                             gameVersion, fabricVersion.version, true)
-                        ).start()
-                    }
-                })
+                    ).start()
+                }
 
                 mData.add(ModListItemBean("Minecraft $gameVersion", adapter))
             }

@@ -1,174 +1,160 @@
-package com.movtery.pojavzh.ui.fragment;
+package com.movtery.pojavzh.ui.fragment
 
-import static net.kdt.pojavlaunch.Tools.runOnUiThread;
+import android.content.Intent
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.movtery.pojavzh.feature.mod.modloader.BaseModVersionListAdapter
+import com.movtery.pojavzh.feature.mod.modloader.OptiFineDownloadType
+import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog
+import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListAdapter
+import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListFragment
+import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListItemBean
+import com.movtery.pojavzh.utils.MCVersionComparator.versionCompare
+import net.kdt.pojavlaunch.JavaGUILauncherActivity
+import net.kdt.pojavlaunch.PojavApplication
+import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.modloaders.ModloaderDownloadListener
+import net.kdt.pojavlaunch.modloaders.ModloaderListenerProxy
+import net.kdt.pojavlaunch.modloaders.OptiFineDownloadTask
+import net.kdt.pojavlaunch.modloaders.OptiFineUtils
+import net.kdt.pojavlaunch.modloaders.OptiFineUtils.OptiFineVersion
+import net.kdt.pojavlaunch.modloaders.OptiFineUtils.OptiFineVersions
+import java.io.File
+import java.util.concurrent.Future
+import java.util.function.Consumer
 
-import android.content.Intent;
-import android.os.Bundle;
-
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.movtery.pojavzh.feature.mod.modloader.BaseModVersionListAdapter;
-import com.movtery.pojavzh.feature.mod.modloader.OptiFineDownloadType;
-import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog;
-import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListAdapter;
-import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListFragment;
-import com.movtery.pojavzh.ui.subassembly.twolevellist.ModListItemBean;
-import com.movtery.pojavzh.utils.MCVersionComparator;
-
-import net.kdt.pojavlaunch.JavaGUILauncherActivity;
-import net.kdt.pojavlaunch.PojavApplication;
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.modloaders.ModloaderDownloadListener;
-import net.kdt.pojavlaunch.modloaders.ModloaderListenerProxy;
-import net.kdt.pojavlaunch.modloaders.OptiFineDownloadTask;
-import net.kdt.pojavlaunch.modloaders.OptiFineUtils;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Future;
-
-public class DownloadOptiFineFragment extends ModListFragment implements ModloaderDownloadListener {
-    public static final String TAG = "DownloadOptiFineFragment";
-    public static final String BUNDLE_DOWNLOAD_MOD = "bundle_download_mod";
-    private final ModloaderListenerProxy modloaderListenerProxy = new ModloaderListenerProxy();
-    private boolean mIsDownloadMod = false;
-
-    public DownloadOptiFineFragment() {
-        super();
+class DownloadOptiFineFragment : ModListFragment(), ModloaderDownloadListener {
+    companion object {
+        const val TAG: String = "DownloadOptiFineFragment"
+        const val BUNDLE_DOWNLOAD_MOD: String = "bundle_download_mod"
     }
 
-    @Override
-    protected void init() {
-        setIcon(ContextCompat.getDrawable(activity, R.drawable.ic_optifine));
-        setNameText("OptiFine");
-        setReleaseCheckBoxGone();
-        parseBundle();
-        super.init();
+    private val modloaderListenerProxy = ModloaderListenerProxy()
+    private var mIsDownloadMod = false
+
+    override fun init() {
+        setIcon(ContextCompat.getDrawable(activity, R.drawable.ic_optifine))
+        setNameText("OptiFine")
+        setReleaseCheckBoxGone()
+        parseBundle()
+        super.init()
     }
 
-    @Override
-    protected Future<?> refresh() {
-        return PojavApplication.sExecutorService.submit(() -> {
+    override fun refresh(): Future<*> {
+        return PojavApplication.sExecutorService.submit {
             try {
-                runOnUiThread(() -> {
-                    cancelFailedToLoad();
-                    componentProcessing(true);
-                });
-                OptiFineUtils.OptiFineVersions optiFineVersions = OptiFineUtils.downloadOptiFineVersions();
-                processModDetails(optiFineVersions);
-            } catch (Exception e) {
-                runOnUiThread(() -> {
-                    componentProcessing(false);
-                    setFailedToLoad(e.toString());
-                });
-            }
-        });
-    }
-
-    private void parseBundle() {
-        Bundle bundle = getArguments();
-        if (bundle == null) return;
-        mIsDownloadMod = bundle.getBoolean(BUNDLE_DOWNLOAD_MOD, false);
-    }
-
-    private void processModDetails(OptiFineUtils.OptiFineVersions optiFineVersions) {
-        if (optiFineVersions == null) {
-            runOnUiThread(() -> {
-                componentProcessing(false);
-                setFailedToLoad("optiFineVersions is Empty!");
-            });
-            return;
-        }
-        Future<?> currentTask = getCurrentTask();
-
-        Map<String, List<OptiFineUtils.OptiFineVersion>> mOptiFineVersions = new HashMap<>();
-        optiFineVersions.optifineVersions.forEach(optiFineVersionList -> { //通过版本列表一层层遍历并合成为 Minecraft版本 + Optifine版本的Map集合
-            if (currentTask.isCancelled()) return;
-
-            optiFineVersionList.forEach(optiFineVersion -> {
-                if (currentTask.isCancelled()) return;
-
-                mOptiFineVersions.computeIfAbsent(optiFineVersion.minecraftVersion, k -> new ArrayList<>()).add(optiFineVersion);
-            });
-        });
-
-        if (currentTask.isCancelled()) return;
-
-        List<ModListItemBean> mData = new ArrayList<>();
-        mOptiFineVersions.entrySet().stream()
-                .sorted(java.util.Map.Entry.comparingByKey(MCVersionComparator::versionCompare))
-                .forEach(entry -> {
-                    if (currentTask.isCancelled()) return;
-
-                    BaseModVersionListAdapter adapter = new BaseModVersionListAdapter(modloaderListenerProxy, this, R.drawable.ic_optifine, entry.getValue());
-                    adapter.setOnItemClickListener(version -> new Thread(new OptiFineDownloadTask((OptiFineUtils.OptiFineVersion) version, modloaderListenerProxy,
-                            mIsDownloadMod ? OptiFineDownloadType.DOWNLOAD_MOD : OptiFineDownloadType.DOWNLOAD_GAME)).start());
-
-                    mData.add(new ModListItemBean(entry.getKey(), adapter));
-                });
-
-        if (currentTask.isCancelled()) return;
-
-        runOnUiThread(() -> {
-            RecyclerView recyclerView = getRecyclerView();
-            try {
-                ModListAdapter mModAdapter = (ModListAdapter) recyclerView.getAdapter();
-                if (mModAdapter == null) {
-                    mModAdapter = new ModListAdapter(this, mData);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-                    recyclerView.setAdapter(mModAdapter);
-                } else {
-                    mModAdapter.updateData(mData);
+                Tools.runOnUiThread {
+                    cancelFailedToLoad()
+                    componentProcessing(true)
                 }
-            } catch (Exception ignored) {
+                val optiFineVersions = OptiFineUtils.downloadOptiFineVersions()
+                processModDetails(optiFineVersions)
+            } catch (e: Exception) {
+                Tools.runOnUiThread {
+                    componentProcessing(false)
+                    setFailedToLoad(e.toString())
+                }
             }
-
-            componentProcessing(false);
-            recyclerView.scheduleLayoutAnimation();
-        });
-    }
-
-    @Override
-    public void onDownloadFinished(File downloadedFile) {
-        if (!mIsDownloadMod) {
-            Tools.runOnUiThread(() -> {
-                Intent modInstallerStartIntent = new Intent(activity, JavaGUILauncherActivity.class);
-                OptiFineUtils.addAutoInstallArgs(modInstallerStartIntent, downloadedFile);
-                SelectRuntimeDialog selectRuntimeDialog = new SelectRuntimeDialog(activity);
-                selectRuntimeDialog.setListener(jreName -> {
-                    modloaderListenerProxy.detachListener();
-
-                    modInstallerStartIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName);
-                    selectRuntimeDialog.dismiss();
-                    Tools.backToMainMenu(activity);
-                    activity.startActivity(modInstallerStartIntent);
-                });
-                selectRuntimeDialog.show();
-            });
         }
     }
 
-    @Override
-    public void onDataNotAvailable() {
-        Tools.runOnUiThread(() -> {
-            modloaderListenerProxy.detachListener();
-            Tools.dialog(activity,
-                    activity.getString(R.string.global_error),
-                    activity.getString(R.string.of_dl_failed_to_scrape));
-        });
+    private fun parseBundle() {
+        val bundle = arguments ?: return
+        mIsDownloadMod = bundle.getBoolean(BUNDLE_DOWNLOAD_MOD, false)
     }
 
-    @Override
-    public void onDownloadError(Exception e) {
-        Tools.runOnUiThread(() -> {
-            modloaderListenerProxy.detachListener();
-            Tools.showError(activity, e);
-        });
+    private fun processModDetails(optiFineVersions: OptiFineVersions?) {
+        if (optiFineVersions == null) {
+            Tools.runOnUiThread {
+                componentProcessing(false)
+                setFailedToLoad("optiFineVersions is Empty!")
+            }
+            return
+        }
+        val currentTask = currentTask
+
+        val mOptiFineVersions: MutableMap<String, MutableList<OptiFineVersion?>> = HashMap()
+        optiFineVersions.optifineVersions.forEach(Consumer<List<OptiFineVersion>> { optiFineVersionList: List<OptiFineVersion> ->  //通过版本列表一层层遍历并合成为 Minecraft版本 + Optifine版本的Map集合
+            if (currentTask.isCancelled) return@Consumer
+
+            optiFineVersionList.forEach(Consumer Consumer2@{ optiFineVersion: OptiFineVersion ->
+                if (currentTask.isCancelled) return@Consumer2
+                mOptiFineVersions.computeIfAbsent(optiFineVersion.minecraftVersion) { ArrayList() }
+                    .add(optiFineVersion)
+            })
+        })
+
+        if (currentTask.isCancelled) return
+
+        val mData: MutableList<ModListItemBean> = ArrayList()
+        mOptiFineVersions.entries
+            .sortedWith { entry1, entry2 ->
+                versionCompare(entry1.key, entry2.key)
+            }
+            .forEach { entry: Map.Entry<String, List<OptiFineVersion?>> ->
+                if (currentTask.isCancelled) return@forEach
+
+                val adapter = BaseModVersionListAdapter(modloaderListenerProxy, this, R.drawable.ic_optifine, entry.value)
+
+                adapter.setOnItemClickListener { version: Any? ->
+                    Thread(OptiFineDownloadTask(version as OptiFineVersion?, modloaderListenerProxy,
+                            if (mIsDownloadMod) OptiFineDownloadType.DOWNLOAD_MOD else OptiFineDownloadType.DOWNLOAD_GAME)
+                    ).start()
+                }
+                mData.add(ModListItemBean(entry.key, adapter))
+            }
+
+        if (currentTask.isCancelled) return
+
+        Tools.runOnUiThread {
+            val recyclerView = recyclerView
+            try {
+                var mModAdapter = recyclerView.adapter as ModListAdapter?
+                if (mModAdapter == null) {
+                    mModAdapter = ModListAdapter(this, mData)
+                    recyclerView.layoutManager = LinearLayoutManager(activity)
+                    recyclerView.adapter = mModAdapter
+                } else {
+                    mModAdapter.updateData(mData)
+                }
+            } catch (ignored: Exception) {
+            }
+
+            componentProcessing(false)
+            recyclerView.scheduleLayoutAnimation()
+        }
+    }
+
+    override fun onDownloadFinished(downloadedFile: File) {
+        if (!mIsDownloadMod) {
+            Tools.runOnUiThread {
+                val modInstallerStartIntent = Intent(activity, JavaGUILauncherActivity::class.java)
+                OptiFineUtils.addAutoInstallArgs(modInstallerStartIntent, downloadedFile)
+                val selectRuntimeDialog = SelectRuntimeDialog(activity)
+                selectRuntimeDialog.setListener { jreName: String? ->
+                    modloaderListenerProxy.detachListener()
+                    modInstallerStartIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
+                    selectRuntimeDialog.dismiss()
+                    Tools.backToMainMenu(activity)
+                    activity.startActivity(modInstallerStartIntent)
+                }
+                selectRuntimeDialog.show()
+            }
+        }
+    }
+
+    override fun onDataNotAvailable() {
+        Tools.runOnUiThread {
+            modloaderListenerProxy.detachListener()
+            Tools.dialog(activity, activity.getString(R.string.global_error), activity.getString(R.string.of_dl_failed_to_scrape))
+        }
+    }
+
+    override fun onDownloadError(e: Exception) {
+        Tools.runOnUiThread {
+            modloaderListenerProxy.detachListener()
+            Tools.showError(activity, e)
+        }
     }
 }

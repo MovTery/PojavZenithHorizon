@@ -1,179 +1,174 @@
-package com.movtery.pojavzh.ui.fragment;
+package com.movtery.pojavzh.ui.fragment
 
-import static com.movtery.pojavzh.utils.ZHTools.DIR_CUSTOM_MOUSE;
-import static com.movtery.pojavzh.utils.file.FileTools.copyFileInBackground;
-import static com.movtery.pojavzh.utils.image.ImageUtils.isImage;
-import static net.kdt.pojavlaunch.Tools.runOnUiThread;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
+import android.annotation.SuppressLint
+import android.net.Uri
+import android.os.Bundle
+import android.view.View
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.recyclerview.widget.RecyclerView
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo.YoYoString
+import com.movtery.pojavzh.ui.dialog.FilesDialog
+import com.movtery.pojavzh.ui.dialog.FilesDialog.FilesButton
+import com.movtery.pojavzh.ui.subassembly.filelist.FileIcon
+import com.movtery.pojavzh.ui.subassembly.filelist.FileItemBean
+import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerViewCreator
+import com.movtery.pojavzh.utils.ZHTools
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.setViewAnim
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.slideInAnim
+import com.movtery.pojavzh.utils.file.FileTools.copyFileInBackground
+import com.movtery.pojavzh.utils.file.FileTools.mkdirs
+import com.movtery.pojavzh.utils.image.ImageUtils.isImage
+import com.movtery.pojavzh.utils.stringutils.StringUtils
+import net.kdt.pojavlaunch.PojavApplication
+import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.prefs.LauncherPreferences
+import java.io.File
 
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.Toast;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-import com.movtery.pojavzh.ui.dialog.FilesDialog;
-import com.movtery.pojavzh.ui.subassembly.filelist.FileIcon;
-import com.movtery.pojavzh.ui.subassembly.filelist.FileItemBean;
-import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerViewCreator;
-import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
-import com.movtery.pojavzh.utils.file.FileTools;
-import com.movtery.pojavzh.utils.stringutils.StringUtils;
-
-import net.kdt.pojavlaunch.PojavApplication;
-import net.kdt.pojavlaunch.R;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-public class CustomMouseFragment extends FragmentWithAnim {
-    public static final String TAG = "CustomMouseFragment";
-    private final List<FileItemBean> mData = new ArrayList<>();
-    private View mMouseLayout, mOperateLayout;
-    private ActivityResultLauncher<String[]> openDocumentLauncher;
-    private ImageButton mReturnButton, mAddFileButton, mRefreshButton;
-    private ImageView mMouseView;
-    private FileRecyclerViewCreator fileRecyclerViewCreator;
-
-    public CustomMouseFragment() {
-        super(R.layout.fragment_custom_mouse);
+class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
+    companion object {
+        const val TAG: String = "CustomMouseFragment"
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        openDocumentLauncher = registerForActivityResult(
-                new ActivityResultContracts.OpenDocument(),
-                result -> {
-                    if (result != null) {
-                        Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
+    private val mData: List<FileItemBean> = ArrayList()
+    private var mMouseLayout: View? = null
+    private var mOperateLayout: View? = null
+    private var openDocumentLauncher: ActivityResultLauncher<Array<String>>? = null
+    private var mReturnButton: ImageButton? = null
+    private var mAddFileButton: ImageButton? = null
+    private var mRefreshButton: ImageButton? = null
+    private var mMouseView: ImageView? = null
+    private var fileRecyclerViewCreator: FileRecyclerViewCreator? = null
 
-                        PojavApplication.sExecutorService.execute(() -> {
-                            copyFileInBackground(requireContext(), result, mousePath().getAbsolutePath());
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        openDocumentLauncher = registerForActivityResult<Array<String>, Uri>(ActivityResultContracts.OpenDocument()) { result: Uri? ->
+            result?.let{
+                Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
 
-                            runOnUiThread(() -> {
-                                Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show();
-                                loadData();
-                            });
-                        });
+                PojavApplication.sExecutorService.execute {
+                    copyFileInBackground(requireContext(), result, mousePath().absolutePath)
+                    Tools.runOnUiThread {
+                        Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show()
+                        loadData()
                     }
                 }
-        );
+            }
+        }
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        bindViews(view);
-        loadData();
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        bindViews(view)
+        loadData()
 
-        mReturnButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
-        mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
+        mReturnButton!!.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
+        mAddFileButton!!.setOnClickListener { openDocumentLauncher!!.launch(arrayOf("image/*")) }
+        mRefreshButton!!.setOnClickListener { loadData() }
 
-        mRefreshButton.setOnClickListener(v -> loadData());
-
-        ViewAnimUtils.slideInAnim(this);
+        slideInAnim(this)
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void loadData() {
-        List<FileItemBean> fileItemBeans = FileRecyclerViewCreator.loadItemBeansFromPath(requireContext(), mousePath(), FileIcon.IMAGE, true, false);
-        fileItemBeans.add(0, new FileItemBean(requireContext().getDrawable(R.drawable.ic_mouse_pointer), null, getString(R.string.zh_custom_mouse_default)));
-        runOnUiThread(() -> {
-            fileRecyclerViewCreator.loadData(fileItemBeans);
+    private fun loadData() {
+        val fileItemBeans = FileRecyclerViewCreator.loadItemBeansFromPath(requireContext(),
+            mousePath(), FileIcon.IMAGE, true, false)
+        fileItemBeans.add(
+            0, FileItemBean(requireContext().getDrawable(R.drawable.ic_mouse_pointer), null, getString(R.string.zh_custom_mouse_default)))
+        Tools.runOnUiThread {
+            fileRecyclerViewCreator!!.loadData(fileItemBeans)
             //默认显示当前选中的鼠标
-            refreshIcon();
-        });
+            refreshIcon()
+        }
     }
 
-    private File mousePath() {
-        File path = new File(DIR_CUSTOM_MOUSE);
-        if (!path.exists()) FileTools.mkdirs(path);
-        return path;
+    private fun mousePath(): File {
+        val path = File(ZHTools.DIR_CUSTOM_MOUSE)
+        if (!path.exists()) mkdirs(path)
+        return path
     }
 
-    private void refreshIcon() {
-        PojavApplication.sExecutorService.execute(() -> runOnUiThread(() -> mMouseView.setImageDrawable(ZHTools.customMouse(requireContext()))));
+    private fun refreshIcon() {
+        PojavApplication.sExecutorService.execute {
+            Tools.runOnUiThread {
+                mMouseView!!.setImageDrawable(ZHTools.customMouse(requireContext()))
+            }
+        }
     }
 
-    private void bindViews(@NonNull View view) {
-        mMouseLayout = view.findViewById(R.id.mouse_layout);
-        mOperateLayout = view.findViewById(R.id.operate_layout);
+    private fun bindViews(view: View) {
+        mMouseLayout = view.findViewById(R.id.mouse_layout)
+        mOperateLayout = view.findViewById(R.id.operate_layout)
 
-        mReturnButton = view.findViewById(R.id.zh_return_button);
-        mAddFileButton = view.findViewById(R.id.zh_add_file_button);
-        mRefreshButton = view.findViewById(R.id.zh_refresh_button);
+        mReturnButton = view.findViewById(R.id.zh_return_button)
+        mAddFileButton = view.findViewById(R.id.zh_add_file_button)
+        mRefreshButton = view.findViewById(R.id.zh_refresh_button)
 
-        mAddFileButton.setContentDescription(getString(R.string.zh_custom_mouse_add));
-        view.findViewById(R.id.zh_search_button).setVisibility(View.GONE);
-        view.findViewById(R.id.zh_paste_button).setVisibility(View.GONE);
-        view.findViewById(R.id.zh_create_folder_button).setVisibility(View.GONE);
+        mAddFileButton!!.setContentDescription(getString(R.string.zh_custom_mouse_add))
+        view.findViewById<View>(R.id.zh_search_button).visibility = View.GONE
+        view.findViewById<View>(R.id.zh_paste_button).visibility = View.GONE
+        view.findViewById<View>(R.id.zh_create_folder_button).visibility = View.GONE
 
-        mMouseView = view.findViewById(R.id.zh_custom_mouse_icon);
+        mMouseView = view.findViewById(R.id.zh_custom_mouse_icon)
 
-        ZHTools.setTooltipText(mReturnButton, mReturnButton.getContentDescription());
-        ZHTools.setTooltipText(mAddFileButton, mAddFileButton.getContentDescription());
-        ZHTools.setTooltipText(mRefreshButton, mRefreshButton.getContentDescription());
+        ZHTools.setTooltipText(mReturnButton, mReturnButton!!.contentDescription)
+        ZHTools.setTooltipText(mAddFileButton, mAddFileButton!!.contentDescription)
+        ZHTools.setTooltipText(mRefreshButton, mRefreshButton!!.contentDescription)
 
-        RecyclerView mMouseListView = view.findViewById(R.id.zh_custom_mouse);
-        fileRecyclerViewCreator = new FileRecyclerViewCreator(requireContext(), mMouseListView, (position, fileItemBean) -> {
-            File file = fileItemBean.getFile();
-            String fileName = file == null ? null : file.getName();
-            boolean isDefaultMouse = position == 0;
+        val mMouseListView = view.findViewById<RecyclerView>(R.id.zh_custom_mouse)
+        fileRecyclerViewCreator = FileRecyclerViewCreator(requireContext(), mMouseListView, { position: Int, fileItemBean: FileItemBean ->
+                val file = fileItemBean.file
+                val fileName = file?.name
+                val isDefaultMouse = position == 0
 
-            FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-            filesButton.setButtonVisibility(false, false,
-                    !isDefaultMouse, !isDefaultMouse, !isDefaultMouse,
-                    (isDefaultMouse || isImage(file))); //默认虚拟鼠标不支持分享、重命名、删除操作
+                val filesButton = FilesButton()
+                filesButton.setButtonVisibility(false, false,
+                    !isDefaultMouse, !isDefaultMouse, !isDefaultMouse, (isDefaultMouse || isImage(file))) //默认虚拟鼠标不支持分享、重命名、删除操作
 
-            //如果选中的虚拟鼠标是默认的虚拟鼠标，那么将加上额外的提醒
-            String message = getString(R.string.zh_file_message);
-            if (isDefaultMouse)
-                message += "\n" + getString(R.string.zh_custom_mouse_message_default);
+                //如果选中的虚拟鼠标是默认的虚拟鼠标，那么将加上额外的提醒
+                var message = getString(R.string.zh_file_message)
+                if (isDefaultMouse) message += """
+     
+     ${getString(R.string.zh_custom_mouse_message_default)}
+     """.trimIndent()
+                filesButton.setMessageText(message)
+                filesButton.setMoreButtonText(getString(R.string.global_select))
 
-            filesButton.setMessageText(message);
-            filesButton.setMoreButtonText(getString(R.string.global_select));
-
-            FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, this::loadData, file);
-            filesDialog.setMoreButtonClick(() -> {
-                DEFAULT_PREF.edit().putString("custom_mouse", fileName).apply();
-                refreshIcon();
-                Toast.makeText(requireContext(),
-                        StringUtils.insertSpace(getString(R.string.zh_custom_mouse_added), (fileName == null ? getString(R.string.zh_custom_mouse_default) : fileName)),
-                        Toast.LENGTH_SHORT).show();
-                filesDialog.dismiss();
-            });
-            filesDialog.show();
-        }, null, mData);
+                val filesDialog = FilesDialog(requireContext(), filesButton, { this.loadData() }, file)
+                filesDialog.setMoreButtonClick {
+                    LauncherPreferences.DEFAULT_PREF.edit().putString("custom_mouse", fileName).apply()
+                    refreshIcon()
+                    Toast.makeText(requireContext(),
+                        StringUtils.insertSpace(getString(R.string.zh_custom_mouse_added), (fileName ?: getString(R.string.zh_custom_mouse_default))),
+                        Toast.LENGTH_SHORT).show()
+                    filesDialog.dismiss()
+                }
+                filesDialog.show()
+            },
+            null,
+            mData
+        )
     }
 
-    @Override
-    public YoYo.YoYoString[] slideIn() {
-        List<YoYo.YoYoString> yoYos = new ArrayList<>();
-        yoYos.add(ViewAnimUtils.setViewAnim(mMouseLayout, Techniques.BounceInDown));
-        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
-        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
-        super.setYoYos(array);
-        return array;
+    override fun slideIn(): Array<YoYoString?> {
+        val yoYos: MutableList<YoYoString?> = ArrayList()
+        yoYos.add(setViewAnim(mMouseLayout!!, Techniques.BounceInDown))
+        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.BounceInLeft))
+        val array = yoYos.toTypedArray()
+        super.yoYos = array
+        return array
     }
 
-    @Override
-    public YoYo.YoYoString[] slideOut() {
-        List<YoYo.YoYoString> yoYos = new ArrayList<>();
-        yoYos.add(ViewAnimUtils.setViewAnim(mMouseLayout, Techniques.FadeOutUp));
-        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight));
-        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
-        super.setYoYos(array);
-        return array;
+    override fun slideOut(): Array<YoYoString?> {
+        val yoYos: MutableList<YoYoString?> = ArrayList()
+        yoYos.add(setViewAnim(mMouseLayout!!, Techniques.FadeOutUp))
+        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.FadeOutRight))
+        val array = yoYos.toTypedArray()
+        super.yoYos = array
+        return array
     }
 }

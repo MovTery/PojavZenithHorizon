@@ -1,5 +1,5 @@
 package com.movtery.pojavzh.ui.subassembly.filelist
 
-interface RefreshListener {
+fun interface RefreshListener {
     fun onRefresh()
 }

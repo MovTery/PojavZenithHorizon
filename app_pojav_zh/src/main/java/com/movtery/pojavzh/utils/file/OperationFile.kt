@@ -105,7 +105,7 @@ class OperationFile(
         runnable?.let { PojavApplication.sExecutorService.execute(runnable) }
     }
 
-    interface OperationFileFunction {
+    fun interface OperationFileFunction {
         fun operationFile(file: File?)
     }
 }

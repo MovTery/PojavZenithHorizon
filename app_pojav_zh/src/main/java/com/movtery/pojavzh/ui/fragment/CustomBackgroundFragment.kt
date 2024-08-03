@@ -1,266 +1,238 @@
-package com.movtery.pojavzh.ui.fragment;
+package com.movtery.pojavzh.ui.fragment
 
-import static com.movtery.pojavzh.utils.ZHTools.DIR_BACKGROUND;
-import static com.movtery.pojavzh.utils.file.FileTools.copyFileInBackground;
-import static com.movtery.pojavzh.utils.image.ImageUtils.isImage;
-import static net.kdt.pojavlaunch.Tools.runOnUiThread;
+import android.net.Uri
+import android.os.Bundle
+import android.view.View
+import android.widget.ImageButton
+import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo.YoYoString
+import com.google.android.material.tabs.TabLayout
+import com.movtery.pojavzh.ui.dialog.FilesDialog
+import com.movtery.pojavzh.ui.dialog.FilesDialog.FilesButton
+import com.movtery.pojavzh.ui.subassembly.background.BackgroundManager.properties
+import com.movtery.pojavzh.ui.subassembly.background.BackgroundManager.saveProperties
+import com.movtery.pojavzh.ui.subassembly.background.BackgroundType
+import com.movtery.pojavzh.ui.subassembly.filelist.FileIcon
+import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerView
+import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener
+import com.movtery.pojavzh.utils.ZHTools
+import com.movtery.pojavzh.utils.anim.AnimUtils.setVisibilityAnim
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.setViewAnim
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.slideInAnim
+import com.movtery.pojavzh.utils.file.FileTools.copyFileInBackground
+import com.movtery.pojavzh.utils.file.FileTools.mkdirs
+import com.movtery.pojavzh.utils.image.ImageUtils.isImage
+import com.movtery.pojavzh.utils.stringutils.StringUtils
+import net.kdt.pojavlaunch.PojavApplication
+import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.Tools
+import java.io.File
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-import com.google.android.material.tabs.TabLayout;
-import com.movtery.pojavzh.ui.dialog.FilesDialog;
-import com.movtery.pojavzh.ui.subassembly.background.BackgroundManager;
-import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
-import com.movtery.pojavzh.ui.subassembly.filelist.FileIcon;
-import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerView;
-import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
-import com.movtery.pojavzh.utils.anim.AnimUtils;
-import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
-import com.movtery.pojavzh.utils.file.FileTools;
-import com.movtery.pojavzh.utils.stringutils.StringUtils;
-
-import net.kdt.pojavlaunch.PojavApplication;
-import net.kdt.pojavlaunch.R;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
-public class CustomBackgroundFragment extends FragmentWithAnim {
-    public static final String TAG = "CustomBackgroundFragment";
-    private final Map<BackgroundType, String> backgroundMap = new HashMap<>();
-    private ActivityResultLauncher<String[]> openDocumentLauncher;
-    private View mBackgroundLayout, mOperateLayout;
-    private ImageButton mReturnButton, mAddFileButton, mResetButton, mRefreshButton;
-    private TextView mNothingTip;
-    private TabLayout mTabLayout;
-    private FileRecyclerView mFileRecyclerView;
-    private BackgroundType backgroundType;
-
-    public CustomBackgroundFragment() {
-        super(R.layout.fragment_custom_background);
+class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_background) {
+    companion object {
+        const val TAG: String = "CustomBackgroundFragment"
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        openDocumentLauncher = registerForActivityResult(
-                new ActivityResultContracts.OpenDocument(),
-                result -> {
-                    if (result != null) {
-                        Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show();
+    private val backgroundMap: MutableMap<BackgroundType?, String?> = HashMap()
+    private var openDocumentLauncher: ActivityResultLauncher<Array<String>>? = null
+    private var mBackgroundLayout: View? = null
+    private var mOperateLayout: View? = null
+    private var mReturnButton: ImageButton? = null
+    private var mAddFileButton: ImageButton? = null
+    private var mResetButton: ImageButton? = null
+    private var mRefreshButton: ImageButton? = null
+    private var mNothingTip: TextView? = null
+    private var mTabLayout: TabLayout? = null
+    private var mFileRecyclerView: FileRecyclerView? = null
+    private var backgroundType: BackgroundType? = null
 
-                        PojavApplication.sExecutorService.execute(() -> {
-                            copyFileInBackground(requireContext(), result, mFileRecyclerView.getFullPath().getAbsolutePath());
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        openDocumentLauncher = registerForActivityResult<Array<String>, Uri>(ActivityResultContracts.OpenDocument()) { result: Uri? ->
+            result?.let {
+                Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
 
-                            runOnUiThread(() -> {
-                                Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show();
-                                mFileRecyclerView.listFileAt(backgroundPath());
-                            });
-                        });
+                PojavApplication.sExecutorService.execute {
+                    copyFileInBackground(requireContext(), result, mFileRecyclerView!!.fullPath.absolutePath)
+                    Tools.runOnUiThread {
+                        Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show()
+                        mFileRecyclerView!!.listFileAt(backgroundPath())
                     }
                 }
-        );
+            }
+        }
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        bindViews(view);
-        initBackgroundMap();
-        bindTabs();
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        bindViews(view)
+        initBackgroundMap()
+        bindTabs()
 
-        mFileRecyclerView.lockAndListAt(backgroundPath(), backgroundPath());
-        mFileRecyclerView.setShowFiles(true);
-        mFileRecyclerView.setShowFolders(false);
+        mFileRecyclerView!!.lockAndListAt(backgroundPath(), backgroundPath())
+        mFileRecyclerView!!.setShowFiles(true)
+        mFileRecyclerView!!.setShowFolders(false)
 
-        mFileRecyclerView.setFileSelectedListener(new FileSelectedListener() {
-            @Override
-            public void onFileSelected(File file, String path) {
-                refreshType(mTabLayout.getSelectedTabPosition());
+        mFileRecyclerView!!.setFileSelectedListener(object : FileSelectedListener() {
+            override fun onFileSelected(file: File?, path: String?) {
+                refreshType(mTabLayout!!.selectedTabPosition)
 
-                String fileName = file.getName();
+                val fileName = file!!.name
 
-                boolean image = isImage(file);
-                FilesDialog.FilesButton filesButton = new FilesDialog.FilesButton();
-                filesButton.setButtonVisibility(false, false, true, true, true, image); //默认虚拟鼠标不支持分享、重命名、删除操作
-
-                String message;
-                if (image) { //如果选中的不是一个图片，那么将显示默认的文件选择提示信息
-                    message = getString(R.string.zh_custom_background_dialog_message, getCurrentStatusName());
+                val image = isImage(file)
+                val filesButton = FilesButton()
+                filesButton.setButtonVisibility(false, false, true, true, true, image)
+                //默认虚拟鼠标不支持分享、重命名、删除操作
+                val message = if (image) { //如果选中的不是一个图片，那么将显示默认的文件选择提示信息
+                    getString(R.string.zh_custom_background_dialog_message, currentStatusName)
                 } else {
-                    message = getString(R.string.zh_file_message);
+                    getString(R.string.zh_file_message)
                 }
 
-                filesButton.setMessageText(message);
-                filesButton.setMoreButtonText(getString(R.string.global_select));
+                filesButton.setMessageText(message)
+                filesButton.setMoreButtonText(getString(R.string.global_select))
 
-                FilesDialog filesDialog = new FilesDialog(requireContext(), filesButton, () -> runOnUiThread(() -> mFileRecyclerView.refreshPath()), file);
-                filesDialog.setMoreButtonClick(() -> {
-                    backgroundMap.put(backgroundType, fileName);
-                    BackgroundManager.saveProperties(backgroundMap);
+                val filesDialog = FilesDialog(requireContext(), filesButton,
+                    { Tools.runOnUiThread { mFileRecyclerView!!.refreshPath() } },
+                    file
+                )
+                filesDialog.setMoreButtonClick {
+                    backgroundMap[backgroundType] = fileName
+                    saveProperties(backgroundMap)
 
                     Toast.makeText(requireContext(),
-                            StringUtils.insertSpace(getString(R.string.zh_custom_background_selected, getCurrentStatusName()), fileName),
-                            Toast.LENGTH_SHORT).show();
-                    filesDialog.dismiss();
-                });
-                filesDialog.show();
+                        StringUtils.insertSpace(getString(R.string.zh_custom_background_selected, currentStatusName), fileName),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    filesDialog.dismiss()
+                }
+                filesDialog.show()
             }
 
-            @Override
-            public void onItemLongClick(File file, String path) {
+            override fun onItemLongClick(file: File?, path: String?) {
             }
-        });
+        })
 
-        mFileRecyclerView.setRefreshListener(() -> {
-            int itemCount = mFileRecyclerView.getItemCount();
-            boolean show = itemCount == 0;
-            AnimUtils.setVisibilityAnim(mNothingTip, show);
-        });
+        mFileRecyclerView!!.setRefreshListener {
+            val itemCount = mFileRecyclerView!!.itemCount
+            val show = itemCount == 0
+            setVisibilityAnim(mNothingTip!!, show)
+        }
 
-        mResetButton.setOnClickListener(v -> {
-            refreshType(mTabLayout.getSelectedTabPosition());
+        mResetButton!!.setOnClickListener { v: View? ->
+            refreshType(mTabLayout!!.selectedTabPosition)
+            backgroundMap[backgroundType] = "null"
+            saveProperties(backgroundMap)
+            Toast.makeText(requireContext(), getString(R.string.zh_custom_background_reset, currentStatusName), Toast.LENGTH_SHORT).show()
+        }
 
-            backgroundMap.put(backgroundType, "null");
-            BackgroundManager.saveProperties(backgroundMap);
+        mReturnButton!!.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
+        mAddFileButton!!.setOnClickListener { openDocumentLauncher!!.launch(arrayOf("image/*")) }
+        mRefreshButton!!.setOnClickListener {
+            refreshType(mTabLayout!!.selectedTabPosition)
+            mFileRecyclerView!!.listFileAt(backgroundPath())
+        }
 
-            Toast.makeText(requireContext(), getString(R.string.zh_custom_background_reset, getCurrentStatusName()), Toast.LENGTH_SHORT).show();
-        });
-
-        mReturnButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
-        mAddFileButton.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
-        mRefreshButton.setOnClickListener(v -> {
-            refreshType(mTabLayout.getSelectedTabPosition());
-            mFileRecyclerView.listFileAt(backgroundPath());
-        });
-
-        ViewAnimUtils.slideInAnim(this);
+        slideInAnim(this)
     }
 
-    private void initBackgroundMap() {
-        Properties properties = BackgroundManager.getProperties();
-        backgroundMap.put(BackgroundType.MAIN_MENU, (String) properties.get(BackgroundType.MAIN_MENU.name()));
-        backgroundMap.put(BackgroundType.SETTINGS, (String) properties.get(BackgroundType.SETTINGS.name()));
-        backgroundMap.put(BackgroundType.CUSTOM_CONTROLS, (String) properties.get(BackgroundType.CUSTOM_CONTROLS.name()));
-        backgroundMap.put(BackgroundType.IN_GAME, (String) properties.get(BackgroundType.IN_GAME.name()));
+    private fun initBackgroundMap() {
+        val properties = properties
+        backgroundMap[BackgroundType.MAIN_MENU] = properties[BackgroundType.MAIN_MENU.name] as String?
+        backgroundMap[BackgroundType.SETTINGS] = properties[BackgroundType.SETTINGS.name] as String?
+        backgroundMap[BackgroundType.CUSTOM_CONTROLS] = properties[BackgroundType.CUSTOM_CONTROLS.name] as String?
+        backgroundMap[BackgroundType.IN_GAME] = properties[BackgroundType.IN_GAME.name] as String?
     }
 
-    private File backgroundPath() {
-        if (!DIR_BACKGROUND.exists()) FileTools.mkdirs(DIR_BACKGROUND);
-        return DIR_BACKGROUND;
+    private fun backgroundPath(): File {
+        if (!ZHTools.DIR_BACKGROUND.exists()) mkdirs(ZHTools.DIR_BACKGROUND)
+        return ZHTools.DIR_BACKGROUND
     }
 
-    private String getCurrentStatusName() {
-        switch (this.backgroundType) {
-            case MAIN_MENU:
-                return getString(R.string.zh_custom_background_main_menu);
-            case SETTINGS:
-                return getString(R.string.zh_custom_background_settings);
-            case CUSTOM_CONTROLS:
-                return getString(R.string.zh_custom_background_controls);
-            case IN_GAME:
-                return getString(R.string.zh_custom_background_in_game);
-            default:
-                return getString(R.string.zh_unknown);
+    private val currentStatusName: String
+        get() = when (this.backgroundType) {
+            BackgroundType.MAIN_MENU -> getString(R.string.zh_custom_background_main_menu)
+            BackgroundType.SETTINGS -> getString(R.string.zh_custom_background_settings)
+            BackgroundType.CUSTOM_CONTROLS -> getString(R.string.zh_custom_background_controls)
+            BackgroundType.IN_GAME -> getString(R.string.zh_custom_background_in_game)
+            else -> getString(R.string.zh_unknown)
+        }
+
+    private fun refreshType(index: Int) {
+        when (index) {
+            1 -> this.backgroundType = BackgroundType.SETTINGS
+            2 -> this.backgroundType = BackgroundType.CUSTOM_CONTROLS
+            3 -> this.backgroundType = BackgroundType.IN_GAME
+            0 -> this.backgroundType = BackgroundType.MAIN_MENU
+            else -> this.backgroundType = BackgroundType.MAIN_MENU
         }
     }
 
-    private void refreshType(int index) {
-        switch (index) {
-            case 1:
-                this.backgroundType = BackgroundType.SETTINGS;
-                break;
-            case 2:
-                this.backgroundType = BackgroundType.CUSTOM_CONTROLS;
-                break;
-            case 3:
-                this.backgroundType = BackgroundType.IN_GAME;
-                break;
-            case 0:
-            default:
-                this.backgroundType = BackgroundType.MAIN_MENU;
-                break;
-        }
+    private fun bindViews(view: View) {
+        mBackgroundLayout = view.findViewById(R.id.background_layout)
+        mOperateLayout = view.findViewById(R.id.operate_layout)
+        mTabLayout = view.findViewById(R.id.zh_custom_background_tab)
+
+        mReturnButton = view.findViewById(R.id.zh_return_button)
+        mAddFileButton = view.findViewById(R.id.zh_add_file_button)
+        mResetButton = view.findViewById(R.id.zh_paste_button)
+        mRefreshButton = view.findViewById(R.id.zh_refresh_button)
+        mNothingTip = view.findViewById(R.id.zh_custom_background_nothing)
+
+        mResetButton!!.setContentDescription(getString(R.string.cropper_reset))
+        mAddFileButton!!.setContentDescription(getString(R.string.zh_custom_background_add))
+        mResetButton!!.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_reset))
+
+        view.findViewById<View>(R.id.zh_create_folder_button).visibility = View.GONE
+        view.findViewById<View>(R.id.zh_search_button).visibility = View.GONE
+
+        mFileRecyclerView = view.findViewById(R.id.zh_custom_background)
+        mFileRecyclerView!!.setFileIcon(FileIcon.FILE)
+
+        ZHTools.setTooltipText(mReturnButton, mReturnButton!!.contentDescription)
+        ZHTools.setTooltipText(mAddFileButton, mAddFileButton!!.contentDescription)
+        ZHTools.setTooltipText(mResetButton, mResetButton!!.contentDescription)
+        ZHTools.setTooltipText(mRefreshButton, mRefreshButton!!.contentDescription)
     }
 
-    private void bindViews(@NonNull View view) {
-        mBackgroundLayout = view.findViewById(R.id.background_layout);
-        mOperateLayout = view.findViewById(R.id.operate_layout);
-        mTabLayout = view.findViewById(R.id.zh_custom_background_tab);
+    private fun bindTabs() {
+        val mainMenu = mTabLayout!!.newTab()
+        val settings = mTabLayout!!.newTab()
+        val controls = mTabLayout!!.newTab()
+        val inGame = mTabLayout!!.newTab()
 
-        mReturnButton = view.findViewById(R.id.zh_return_button);
-        mAddFileButton = view.findViewById(R.id.zh_add_file_button);
-        mResetButton = view.findViewById(R.id.zh_paste_button);
-        mRefreshButton = view.findViewById(R.id.zh_refresh_button);
-        mNothingTip = view.findViewById(R.id.zh_custom_background_nothing);
+        mainMenu.setText(resources.getText(R.string.zh_custom_background_main_menu))
+        settings.setText(resources.getText(R.string.zh_custom_background_settings))
+        controls.setText(resources.getText(R.string.zh_custom_background_controls))
+        inGame.setText(resources.getText(R.string.zh_custom_background_in_game))
 
-        mResetButton.setContentDescription(getString(R.string.cropper_reset));
-        mAddFileButton.setContentDescription(getString(R.string.zh_custom_background_add));
-        mResetButton.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_reset));
-        view.findViewById(R.id.zh_create_folder_button).setVisibility(View.GONE);
-        view.findViewById(R.id.zh_search_button).setVisibility(View.GONE);
+        mTabLayout!!.addTab(mainMenu)
+        mTabLayout!!.addTab(settings)
+        mTabLayout!!.addTab(controls)
+        mTabLayout!!.addTab(inGame)
 
-        mFileRecyclerView = view.findViewById(R.id.zh_custom_background);
-        mFileRecyclerView.setFileIcon(FileIcon.FILE);
-
-        ZHTools.setTooltipText(mReturnButton, mReturnButton.getContentDescription());
-        ZHTools.setTooltipText(mAddFileButton, mAddFileButton.getContentDescription());
-        ZHTools.setTooltipText(mResetButton, mResetButton.getContentDescription());
-        ZHTools.setTooltipText(mRefreshButton, mRefreshButton.getContentDescription());
+        mTabLayout!!.selectTab(mainMenu)
     }
 
-    private void bindTabs() {
-        TabLayout.Tab mainMenu = mTabLayout.newTab();
-        TabLayout.Tab settings = mTabLayout.newTab();
-        TabLayout.Tab controls = mTabLayout.newTab();
-        TabLayout.Tab inGame = mTabLayout.newTab();
-
-        mainMenu.setText(getResources().getText(R.string.zh_custom_background_main_menu));
-        settings.setText(getResources().getText(R.string.zh_custom_background_settings));
-        controls.setText(getResources().getText(R.string.zh_custom_background_controls));
-        inGame.setText(getResources().getText(R.string.zh_custom_background_in_game));
-
-        mTabLayout.addTab(mainMenu);
-        mTabLayout.addTab(settings);
-        mTabLayout.addTab(controls);
-        mTabLayout.addTab(inGame);
-
-        mTabLayout.selectTab(mainMenu);
+    override fun slideIn(): Array<YoYoString?> {
+        val yoYos: MutableList<YoYoString?> = ArrayList()
+        yoYos.add(setViewAnim(mBackgroundLayout!!, Techniques.BounceInDown))
+        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.BounceInLeft))
+        val array = yoYos.toTypedArray()
+        super.yoYos = array
+        return array
     }
 
-    @Override
-    public YoYo.YoYoString[] slideIn() {
-        List<YoYo.YoYoString> yoYos = new ArrayList<>();
-        yoYos.add(ViewAnimUtils.setViewAnim(mBackgroundLayout, Techniques.BounceInDown));
-        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
-        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
-        super.setYoYos(array);
-        return array;
-    }
-
-    @Override
-    public YoYo.YoYoString[] slideOut() {
-        List<YoYo.YoYoString> yoYos = new ArrayList<>();
-        yoYos.add(ViewAnimUtils.setViewAnim(mBackgroundLayout, Techniques.FadeOutUp));
-        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight));
-        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
-        super.setYoYos(array);
-        return array;
+    override fun slideOut(): Array<YoYoString?> {
+        val yoYos: MutableList<YoYoString?> = ArrayList()
+        yoYos.add(setViewAnim(mBackgroundLayout!!, Techniques.FadeOutUp))
+        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.FadeOutRight))
+        val array = yoYos.toTypedArray()
+        super.yoYos = array
+        return array
     }
 }
