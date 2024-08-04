@@ -1,13 +1,13 @@
-name: Feature Suggestion
-description: 'If you have some new ideas, please use this template to let us know!'
-title: "[Suggestion] Brief Description"
-labels: [suggestion]
+name: Feature Request
+description: 'If you have any new ideas, please let me know using this template!'
+title: "[Request] Brief Description"
+labels: [feature request]
 body:
   - type: textarea
     attributes:
       label: Feature Description
       description: |
-        Please describe your great idea in detail here.
+        Please describe your idea in detail here.
     validations:
       required: true
 
@@ -15,13 +15,13 @@ body:
     attributes:
       label: Additional Information
       description: |
-        If possible, you can also provide images to help us better understand your idea.
+        If possible, you can also provide images to help me better understand your idea.
     validations:
       required: false
 
   - type: checkboxes
     attributes:
-      label: No one else has suggested this feature yet
+      label: This feature request has not been proposed before
       options:
-        - label: I have checked the issues and have not found any similar feature suggestions
+        - label: I have checked the Issues and found no similar feature request
           required: true
