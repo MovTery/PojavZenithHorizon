@@ -14,6 +14,7 @@ import com.daimajia.androidanimations.library.YoYo.YoYoString
 import com.movtery.pojavzh.feature.CheckSponsor
 import com.movtery.pojavzh.feature.CheckSponsor.check
 import com.movtery.pojavzh.feature.CheckSponsor.getSponsorData
+import com.movtery.pojavzh.ui.dialog.MoreSponsorDialog
 import com.movtery.pojavzh.ui.subassembly.about.AboutItemBean
 import com.movtery.pojavzh.ui.subassembly.about.AboutItemBean.AboutItemButtonBean
 import com.movtery.pojavzh.ui.subassembly.about.AboutRecyclerAdapter
@@ -37,6 +38,7 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
     private var mPojavLauncherButton: Button? = null
     private var mLicenseButton: Button? = null
     private var mSupportButton: Button? = null
+    private var mSupportMoreButton: Button? = null
     private var mAboutRecyclerView: RecyclerView? = null
     private var mSponsorRecyclerView: RecyclerView? = null
     private var mInfoLayout: View? = null
@@ -74,6 +76,7 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
         mPojavLauncherButton = view.findViewById(R.id.zh_about_pojavlauncher_button)
         mLicenseButton = view.findViewById(R.id.zh_about_license_button)
         mSupportButton = view.findViewById(R.id.zh_about_support_development)
+        mSupportMoreButton = view.findViewById(R.id.zh_about_sponsor_more)
         mAboutRecyclerView = view.findViewById(R.id.zh_about_about_recycler)
         mSponsorRecyclerView = view.findViewById(R.id.zh_about_sponsor_recycler)
         mSponsorView = view.findViewById(R.id.constraintLayout5)
@@ -150,17 +153,30 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
     private fun setSponsorVisible(visible: Boolean) {
         Tools.runOnUiThread {
             try {
-                mSponsorView!!.visibility = if (visible) View.VISIBLE else View.GONE
+                mSponsorView?.visibility = if (visible) View.VISIBLE else View.GONE
 
                 if (visible) {
-                    val sponsorAdapter = SponsorRecyclerAdapter(getSponsorData())
-                    mSponsorRecyclerView!!.layoutManager = LinearLayoutManager(requireContext())
-                    mSponsorRecyclerView!!.isNestedScrollingEnabled = false //禁止滑动
-                    mSponsorRecyclerView!!.adapter = sponsorAdapter
+                    setupSponsorRecyclerView()
+                    mSupportMoreButton?.setOnClickListener {
+                        getSponsorData()?.let { data ->
+                            MoreSponsorDialog(requireContext(), data).show()
+                        }
+                    }
                 }
             } catch (e: Exception) {
                 Log.e("setSponsorVisible", e.toString())
             }
+        }
+    }
+
+    private fun setupSponsorRecyclerView() {
+        val sponsorData = getSponsorData()?.take(6) ?: return
+        val sponsorAdapter = SponsorRecyclerAdapter(sponsorData)
+
+        mSponsorRecyclerView?.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            isNestedScrollingEnabled = false
+            adapter = sponsorAdapter
         }
     }
 
