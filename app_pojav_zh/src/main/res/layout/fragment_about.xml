@@ -164,6 +164,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:background="@drawable/background_card"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
@@ -208,7 +209,9 @@
                         android:id="@+id/zh_about_sponsor_recycler"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:paddingVertical="4dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/zh_about_sponsor_desc" />
@@ -217,7 +220,7 @@
                         android:id="@+id/zh_about_sponsor_more"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="8dp"
+                        android:layout_marginHorizontal="4dp"
                         android:text="@string/zh_more"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
