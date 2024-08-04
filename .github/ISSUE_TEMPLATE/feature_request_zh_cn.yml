@@ -1,5 +1,5 @@
 name: 功能建议
-description: '如果你有一些新的点子，请通过此模板告诉我们哦！'
+description: '如果你有一些新的点子，请通过此模板告诉我哦！'
 title: "[建议] 简短的被描述"
 labels: [建议]
 body:
@@ -15,7 +15,7 @@ body:
     attributes:
       label: 其他信息
       description: |
-        如果可以的话，你也可以提供图片，帮助我们更好的理解你的好想法
+        如果可以的话，你也可以提供图片，帮助我更好的理解你的好想法
     validations:
       required: false
 

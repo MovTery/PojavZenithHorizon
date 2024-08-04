@@ -1,5 +1,5 @@
 name: BUG 反馈
-description: '创建一个 BUG 反馈，帮助我们改进 Pojav Zenith Horizon'
+description: '创建一个 BUG 反馈，帮助我改进 Pojav Zenith Horizon'
 title: "[BUG] 简短的描述"
 labels: [bug]
 body:
@@ -15,7 +15,7 @@ body:
     attributes:
       label: 日志文件
       description: |
-        你需要在这里上传最近一次遇到此问题的日志，直接帮助我们快速定位问题
+        你需要在这里上传最近一次遇到此问题的日志，直接帮助我快速定位问题
     validations:
       required: true
 
@@ -23,7 +23,7 @@ body:
     attributes:
       label: 截图或视频
       description: |
-        上传最近一次遇到此问题的截图或者视频，可能会帮助我们更快的确定问题
+        上传最近一次遇到此问题的截图或者视频，可能会帮助我更快的确定问题
     validations:
       required: false
 
@@ -31,7 +31,7 @@ body:
     attributes:
       label: 复现步骤
       description: |
-        复现问题的步骤，请尽量详细一些，方便我们快速定位问题
+        复现问题的步骤，请尽量详细一些，方便我快速定位问题
       placeholder: |
         1. 打开启动器
         ... *(复现问题的一些操作)*
@@ -75,7 +75,7 @@ body:
     attributes:
       label: 其他信息
       description: |
-        提供更多信息，帮助我们复现并修复问题
+        提供更多信息，帮助我复现并修复问题
       value: |
         - 设备型号：
         - CPU 架构：
