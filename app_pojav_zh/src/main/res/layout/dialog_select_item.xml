@@ -35,13 +35,13 @@
         android:id="@+id/zh_select_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:background="@drawable/background_edit_box"
         android:paddingHorizontal="8dp"
         android:paddingVertical="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zh_select_item_message" />
+        app:layout_constraintTop_toBottomOf="@+id/zh_select_item_message"
+        app:layout_constraintHeight_max="240dp" />
 
     <ImageButton
         android:id="@+id/zh_select_item_close_button"
