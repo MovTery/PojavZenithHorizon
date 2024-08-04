@@ -15,9 +15,11 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo.AnimatorCallback
 import com.daimajia.androidanimations.library.YoYo.YoYoString
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim
 import com.movtery.pojavzh.utils.ZHTools
+import com.movtery.pojavzh.utils.anim.AnimUtils
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.setViewAnim
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.slideInAnim
 import com.movtery.pojavzh.utils.stringutils.StringUtils
@@ -144,7 +146,7 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
                     val firstPosition = layoutManager.findFirstVisibleItemPosition()
                     val b = firstPosition >= adapter.itemCount / 3
 
-                    setVisibilityAnim(mBackToTop!!, b)
+                    AnimUtils.setVisibilityAnim(mBackToTop!!, b)
                 }
             }
         })
@@ -174,7 +176,9 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
     }
 
     private fun setVisibilityAnim(view: View, visible: Boolean) {
-        setViewAnim(view, if (visible) Techniques.FadeIn else Techniques.FadeOut)
+        setViewAnim(view, if (visible) Techniques.FadeIn else Techniques.FadeOut,
+            AnimatorCallback { view.visibility = View.VISIBLE },
+            AnimatorCallback { view.visibility = if (visible) View.VISIBLE else View.GONE })
     }
 
     fun switchToChild(adapter: RecyclerView.Adapter<*>?, title: String?) {
