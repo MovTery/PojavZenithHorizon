@@ -67,7 +67,7 @@ body:
       label: Pojav Zenith Horizon 版本
       description: |
         遇到此问题的版本是？你可以在“关于 Pojav Zenith Horizon”页面内查看
-      placeholder: 1.2.5.9
+      placeholder: 1.2.6
     validations:
       required: true
 
