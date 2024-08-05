@@ -64,7 +64,7 @@ class DownloadModFragment : ModListFragment() {
     }
 
     override fun onDestroy() {
-        mParentUIRecyclerView!!.isEnabled = true
+        mParentUIRecyclerView?.isEnabled = true
         super.onDestroy()
     }
 
@@ -129,7 +129,7 @@ class DownloadModFragment : ModListFragment() {
             }
 
             componentProcessing(false)
-            modVersionView!!.scheduleLayoutAnimation()
+            modVersionView?.scheduleLayoutAnimation()
         }
     }
 

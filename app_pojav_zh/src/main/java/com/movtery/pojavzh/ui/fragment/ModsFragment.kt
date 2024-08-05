@@ -71,7 +71,7 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
                 PojavApplication.sExecutorService.execute {
                     copyFileInBackground(requireContext(), result, mRootPath)
                     Tools.runOnUiThread { Toast.makeText(requireContext(), getString(R.string.zh_profile_mods_added_mod), Toast.LENGTH_SHORT).show()
-                        mFileRecyclerView!!.refreshPath()
+                        mFileRecyclerView?.refreshPath()
                     }
                 }
             }
@@ -82,10 +82,10 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
         bindViews(view)
         parseBundle()
 
-        mFileRecyclerView!!.setShowFiles(true)
-        mFileRecyclerView!!.setShowFolders(false)
+        mFileRecyclerView?.setShowFiles(true)
+        mFileRecyclerView?.setShowFolders(false)
 
-        mFileRecyclerView!!.setFileSelectedListener(object : FileSelectedListener() {
+        mFileRecyclerView?.setFileSelectedListener(object : FileSelectedListener() {
             override fun onFileSelected(file: File?, path: String?) {
                 showDialog(file)
             }
@@ -96,7 +96,7 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
                 }
             }
         })
-        mFileRecyclerView!!.setOnMultiSelectListener { itemBeans: List<FileItemBean> ->
+        mFileRecyclerView?.setOnMultiSelectListener { itemBeans: List<FileItemBean> ->
             if (itemBeans.isNotEmpty()) {
                 PojavApplication.sExecutorService.execute {}
                 //取出全部文件
@@ -116,15 +116,15 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
                     val filesDialog = FilesDialog(requireContext(), filesButton, {
                         Tools.runOnUiThread {
                             closeMultiSelect()
-                            mFileRecyclerView!!.refreshPath()
+                            mFileRecyclerView?.refreshPath()
                         }
                     }, selectedFiles)
-                    filesDialog.setCopyButtonClick { mPasteButton!!.visibility = View.VISIBLE }
+                    filesDialog.setCopyButtonClick { mPasteButton?.visibility = View.VISIBLE }
                     filesDialog.setMoreButtonClick {
                         OperationFile(requireContext(), {
                             Tools.runOnUiThread {
                                 closeMultiSelect()
-                                mFileRecyclerView!!.refreshPath()
+                                mFileRecyclerView?.refreshPath()
                             }
                         }, { file: File? ->
                             file?.let{ if (file.exists()) {
@@ -141,26 +141,26 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
                 }
             }
         }
-        mFileRecyclerView!!.setRefreshListener {
+        mFileRecyclerView?.setRefreshListener {
             val itemCount = mFileRecyclerView!!.itemCount
             val show = itemCount == 0
             setVisibilityAnim(mNothingTip!!, show)
         }
         val adapter = mFileRecyclerView!!.adapter
-        mMultiSelectCheck!!.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
-            mSelectAllCheck!!.isChecked = false
-            mSelectAllCheck!!.visibility = if (isChecked) View.VISIBLE else View.GONE
+        mMultiSelectCheck?.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
+            mSelectAllCheck?.isChecked = false
+            mSelectAllCheck?.visibility = if (isChecked) View.VISIBLE else View.GONE
             adapter.setMultiSelectMode(isChecked)
         }
-        mSelectAllCheck!!.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
+        mSelectAllCheck?.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
             adapter.selectAllFiles(isChecked)
         }
 
-        mReturnButton!!.setOnClickListener {
+        mReturnButton?.setOnClickListener {
             closeMultiSelect()
             ZHTools.onBackPressed(requireActivity())
         }
-        mAddModButton!!.setOnClickListener {
+        mAddModButton?.setOnClickListener {
             closeMultiSelect()
             val suffix = ".jar"
             Toast.makeText(
@@ -168,9 +168,9 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
                 String.format(getString(R.string.zh_file_add_file_tip), suffix),
                 Toast.LENGTH_SHORT
             ).show()
-            openDocumentLauncher!!.launch(suffix)
+            openDocumentLauncher?.launch(suffix)
         }
-        mPasteButton!!.setOnClickListener {
+        mPasteButton?.setOnClickListener {
             PasteFile.getInstance().pasteFiles(
                 requireActivity(),
                 mFileRecyclerView!!.fullPath,
@@ -178,12 +178,12 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
                 {
                     Tools.runOnUiThread {
                         closeMultiSelect()
-                        mPasteButton!!.visibility = View.GONE
-                        mFileRecyclerView!!.refreshPath()
+                        mPasteButton?.visibility = View.GONE
+                        mFileRecyclerView?.refreshPath()
                     }
                 })
         }
-        mDownloadButton!!.setOnClickListener {
+        mDownloadButton?.setOnClickListener {
             closeMultiSelect()
             val bundle = Bundle()
             bundle.putBoolean(SearchModFragment.BUNDLE_SEARCH_MODPACK, false)
@@ -195,7 +195,7 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
                 bundle
             )
         }
-        mSownloadOptiFine!!.setOnClickListener {
+        mSownloadOptiFine?.setOnClickListener {
             TipDialog.Builder(requireContext())
                 .setMessage(R.string.zh_profile_manager_download_optifine_message)
                 .setConfirmClickListener {
@@ -209,24 +209,24 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
                     )
                 }.buildDialog()
         }
-        mSearchSummonButton!!.setOnClickListener {
+        mSearchSummonButton?.setOnClickListener {
             closeMultiSelect()
-            mSearchView!!.setVisibility()
+            mSearchView?.setVisibility()
         }
-        mRefreshButton!!.setOnClickListener {
+        mRefreshButton?.setOnClickListener {
             closeMultiSelect()
-            mFileRecyclerView!!.refreshPath()
+            mFileRecyclerView?.refreshPath()
         }
 
-        mFileRecyclerView!!.lockAndListAt(mRootPath?.let { File(it) }, mRootPath?.let { File(it) })
+        mFileRecyclerView?.lockAndListAt(mRootPath?.let { File(it) }, mRootPath?.let { File(it) })
 
         slideInAnim(this)
     }
 
     private fun closeMultiSelect() {
         //点击其它控件时关闭多选模式
-        mMultiSelectCheck!!.isChecked = false
-        mSelectAllCheck!!.visibility = View.GONE
+        mMultiSelectCheck?.isChecked = false
+        mSelectAllCheck?.visibility = View.GONE
     }
 
     private fun showDialog(file: File?) {
@@ -243,25 +243,25 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
         val filesDialog = FilesDialog(
             requireContext(),
             filesButton,
-            { Tools.runOnUiThread { mFileRecyclerView!!.refreshPath() } },
+            { Tools.runOnUiThread { mFileRecyclerView?.refreshPath() } },
             file
         )
 
-        filesDialog.setCopyButtonClick { mPasteButton!!.visibility = View.VISIBLE }
+        filesDialog.setCopyButtonClick { mPasteButton?.visibility = View.VISIBLE }
 
         //检测后缀名，以设置正确的按钮
         if (fileName.endsWith(JAR_FILE_SUFFIX)) {
             filesDialog.setFileSuffix(JAR_FILE_SUFFIX)
             filesDialog.setMoreButtonClick {
                 disableMod(file)
-                mFileRecyclerView!!.refreshPath()
+                mFileRecyclerView?.refreshPath()
                 filesDialog.dismiss()
             }
         } else if (fileName.endsWith(DISABLE_JAR_FILE_SUFFIX)) {
             filesDialog.setFileSuffix(DISABLE_JAR_FILE_SUFFIX)
             filesDialog.setMoreButtonClick {
                 enableMod(file)
-                mFileRecyclerView!!.refreshPath()
+                mFileRecyclerView?.refreshPath()
                 filesDialog.dismiss()
             }
         }
@@ -318,9 +318,9 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
         mRefreshButton = view.findViewById(R.id.zh_refresh_button)
         mNothingTip = view.findViewById(R.id.zh_mods_nothing)
 
-        mAddModButton!!.setContentDescription(getString(R.string.zh_profile_mods_add_mod))
-        mDownloadButton!!.setContentDescription(getString(R.string.zh_profile_mods_download_mod))
-        mDownloadButton!!.setImageDrawable(
+        mAddModButton?.setContentDescription(getString(R.string.zh_profile_mods_add_mod))
+        mDownloadButton?.setContentDescription(getString(R.string.zh_profile_mods_download_mod))
+        mDownloadButton?.setImageDrawable(
             ContextCompat.getDrawable(
                 requireContext(),
                 R.drawable.ic_download
@@ -334,26 +334,26 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
         mSownloadOptiFine = view.findViewById(R.id.zh_mods_download_optifine)
 
         mSearchView = SearchView(view, view.findViewById(R.id.zh_search_view))
-        mSearchView!!.setSearchListener(object : SearchView.SearchListener {
+        mSearchView?.setSearchListener(object : SearchView.SearchListener {
             override fun onSearch(string: String?, caseSensitive: Boolean): Int {
                 return mFileRecyclerView!!.searchFiles(string, caseSensitive)
             }
         })
-        mSearchView!!.setShowSearchResultsListener(object : SearchView.ShowSearchResultsListener {
+        mSearchView?.setShowSearchResultsListener(object : SearchView.ShowSearchResultsListener {
             override fun onSearch(show: Boolean) {
-                mFileRecyclerView!!.setShowSearchResultsOnly(show)
+                mFileRecyclerView?.setShowSearchResultsOnly(show)
             }
         })
-        mFileRecyclerView!!.setFileIcon(FileIcon.MOD)
+        mFileRecyclerView?.setFileIcon(FileIcon.MOD)
 
-        mPasteButton!!.setVisibility(if (PasteFile.getInstance().pasteType != null) View.VISIBLE else View.GONE)
+        mPasteButton?.setVisibility(if (PasteFile.getInstance().pasteType != null) View.VISIBLE else View.GONE)
 
-        ZHTools.setTooltipText(mReturnButton, mReturnButton!!.contentDescription)
-        ZHTools.setTooltipText(mAddModButton, mAddModButton!!.contentDescription)
-        ZHTools.setTooltipText(mPasteButton, mPasteButton!!.contentDescription)
-        ZHTools.setTooltipText(mDownloadButton, mDownloadButton!!.contentDescription)
-        ZHTools.setTooltipText(mSearchSummonButton, mSearchSummonButton!!.contentDescription)
-        ZHTools.setTooltipText(mRefreshButton, mRefreshButton!!.contentDescription)
+        ZHTools.setTooltipText(mReturnButton, mReturnButton?.contentDescription)
+        ZHTools.setTooltipText(mAddModButton, mAddModButton?.contentDescription)
+        ZHTools.setTooltipText(mPasteButton, mPasteButton?.contentDescription)
+        ZHTools.setTooltipText(mDownloadButton, mDownloadButton?.contentDescription)
+        ZHTools.setTooltipText(mSearchSummonButton, mSearchSummonButton?.contentDescription)
+        ZHTools.setTooltipText(mRefreshButton, mRefreshButton?.contentDescription)
     }
 
     override fun slideIn(): Array<YoYoString?> {

@@ -40,8 +40,8 @@ class ErrorActivity : BaseActivity() {
             return
         }
 
-        mConfirmButton!!.setOnClickListener { finish() }
-        mRestartButton!!.setOnClickListener {
+        mConfirmButton?.setOnClickListener { finish() }
+        mRestartButton?.setOnClickListener {
             startActivity(Intent(this@ErrorActivity, LauncherActivity::class.java))
         }
 
@@ -62,23 +62,23 @@ class ErrorActivity : BaseActivity() {
         }
 
         findViewById<View>(R.id.zh_error_buttons).visibility = View.GONE
-        mTitleText!!.setText(R.string.zh_wrong_tip)
+        mTitleText?.setText(R.string.zh_wrong_tip)
 
         val crashReportFile = getLatestFile(extras.getString(BUNDLE_CRASH_REPORTS_PATH), 15)
         val logFile = File(Tools.DIR_GAME_HOME, "latestlog.txt")
 
-        mErrorText!!.text = getString(R.string.zh_game_exit_message, code)
-        mErrorText!!.textSize = 14f
-        mShareCrashReportButton!!.visibility =
+        mErrorText?.text = getString(R.string.zh_game_exit_message, code)
+        mErrorText?.textSize = 14f
+        mShareCrashReportButton?.visibility =
             if ((crashReportFile != null && crashReportFile.exists())) View.VISIBLE else View.GONE
-        mShareLogButton!!.visibility = if (logFile.exists()) View.VISIBLE else View.GONE
+        mShareLogButton?.visibility = if (logFile.exists()) View.VISIBLE else View.GONE
 
-        if (crashReportFile != null) mShareCrashReportButton!!.setOnClickListener {
+        if (crashReportFile != null) mShareCrashReportButton?.setOnClickListener {
             shareFile(
                 this, crashReportFile.name, crashReportFile.absolutePath
             )
         }
-        mShareLogButton!!.setOnClickListener { Tools.shareLog(this) }
+        mShareLogButton?.setOnClickListener { Tools.shareLog(this) }
     }
 
     private fun showError(extras: Bundle) {
@@ -89,14 +89,14 @@ class ErrorActivity : BaseActivity() {
         val strSavePath = extras.getString(BUNDLE_SAVE_PATH)
         val errorText = "$strSavePath :\r\n\r\n$stackTrace"
 
-        mErrorText!!.text = errorText
-        mCopyButton!!.setOnClickListener {
+        mErrorText?.text = errorText
+        mCopyButton?.setOnClickListener {
             val mgr = this@ErrorActivity.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
             mgr.setPrimaryClip(ClipData.newPlainText("error", stackTrace))
         }
         strSavePath?.let{
             val crashFile = File(strSavePath)
-            mShareButton!!.setOnClickListener {
+            mShareButton?.setOnClickListener {
                 shareFile(this, crashFile.name, crashFile.absolutePath)
             }
         }

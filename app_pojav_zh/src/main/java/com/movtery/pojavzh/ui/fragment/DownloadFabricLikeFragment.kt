@@ -115,7 +115,7 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
             }
 
             componentProcessing(false)
-            recyclerView!!.scheduleLayoutAnimation()
+            recyclerView?.scheduleLayoutAnimation()
         }
     }
 

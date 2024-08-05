@@ -78,14 +78,14 @@ class MCBBSModPack(private val context: Context, private val zipFile: File?) {
                                 }
                                 val fileCount = fileCounters.getAndIncrement()
                                 Tools.runOnUiThread {
-                                    installDialog!!.updateText(
+                                    installDialog?.updateText(
                                         context.getString(
                                             R.string.zh_select_modpack_local_installing_files,
                                             fileCount,
                                             length
                                         )
                                     )
-                                    installDialog!!.updateProgress(
+                                    installDialog?.updateProgress(
                                         fileCount.toDouble(),
                                         length.toDouble()
                                     )
@@ -108,12 +108,12 @@ class MCBBSModPack(private val context: Context, private val zipFile: File?) {
                 isCanceled = true
                 true
             }
-            installDialog!!.show()
+            installDialog?.show()
         }
     }
 
     private fun closeDialog() {
-        Tools.runOnUiThread { installDialog!!.dismiss() }
+        Tools.runOnUiThread { installDialog?.dismiss() }
     }
 
     private fun cancel(instanceDestination: File) {

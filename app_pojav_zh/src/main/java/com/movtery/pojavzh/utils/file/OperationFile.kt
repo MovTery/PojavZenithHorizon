@@ -36,7 +36,7 @@ class OperationFile(
             val fileCount = AtomicLong(0)
             currentTask = PojavApplication.sExecutorService.submit {
                 timer = Timer()
-                timer!!.schedule(object : TimerTask() {
+                timer?.schedule(object : TimerTask() {
                     override fun run() {
                         Tools.runOnUiThread {
                             dialog.updateText(
@@ -85,7 +85,7 @@ class OperationFile(
                     operationFileFunction.operationFile(file)
                 })
                 Tools.runOnUiThread { dialog.dismiss() }
-                timer!!.cancel()
+                timer?.cancel()
                 finish()
             }
         }
@@ -94,8 +94,8 @@ class OperationFile(
     private fun cancelTask() {
         currentTask?.let {
             if (!currentTask!!.isDone) {
-                currentTask!!.cancel(true)
-                timer?.let { timer!!.cancel() }
+                currentTask?.cancel(true)
+                timer?.let { timer?.cancel() }
                 finish()
             }
         }

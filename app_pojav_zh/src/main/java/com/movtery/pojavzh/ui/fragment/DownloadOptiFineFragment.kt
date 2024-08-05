@@ -122,7 +122,7 @@ class DownloadOptiFineFragment : ModListFragment(), ModloaderDownloadListener {
             }
 
             componentProcessing(false)
-            recyclerView!!.scheduleLayoutAnimation()
+            recyclerView?.scheduleLayoutAnimation()
         }
     }
 
@@ -137,7 +137,7 @@ class DownloadOptiFineFragment : ModListFragment(), ModloaderDownloadListener {
                     modInstallerStartIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
                     selectRuntimeDialog.dismiss()
                     Tools.backToMainMenu(fragmentActivity!!)
-                    fragmentActivity!!.startActivity(modInstallerStartIntent)
+                    fragmentActivity?.startActivity(modInstallerStartIntent)
                 }
                 selectRuntimeDialog.show()
             }

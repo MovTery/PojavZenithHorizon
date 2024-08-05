@@ -70,7 +70,7 @@ object CheckSponsor {
                         }
                         sponsorData = ArrayList()
                         for (sponsor in sponsorMeta.sponsors) {
-                            sponsorData!!.add(
+                            sponsorData?.add(
                                 SponsorItemBean(
                                     sponsor.name,
                                     sponsor.time,

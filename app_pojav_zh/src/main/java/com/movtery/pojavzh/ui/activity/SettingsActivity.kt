@@ -45,44 +45,44 @@ class SettingsActivity : BaseActivity() {
         bindViews()
         ZHTools.setBackgroundImage(this, BackgroundType.SETTINGS, mBackgroundView)
 
-        mReturnButton!!.setOnClickListener {
+        mReturnButton?.setOnClickListener {
             setViewAnim(mReturnButton!!, Techniques.Bounce)
             finish()
         }
 
-        mVideoButton!!.setOnClickListener { v: View ->
+        mVideoButton?.setOnClickListener { v: View ->
             onButtonClick(v)
             swapFragment(
                 LauncherPreferenceVideoFragment::class.java,
                 LauncherPreferenceVideoFragment.TAG
             )
         }
-        mControlsButton!!.setOnClickListener { v: View ->
+        mControlsButton?.setOnClickListener { v: View ->
             onButtonClick(v)
             swapFragment(
                 LauncherPreferenceControlFragment::class.java,
                 LauncherPreferenceControlFragment.TAG
             )
         }
-        mJavaButton!!.setOnClickListener { v: View ->
+        mJavaButton?.setOnClickListener { v: View ->
             onButtonClick(v)
             swapFragment(
                 LauncherPreferenceJavaFragment::class.java,
                 LauncherPreferenceJavaFragment.TAG
             )
         }
-        mMiscButton!!.setOnClickListener { v: View ->
+        mMiscButton?.setOnClickListener { v: View ->
             onButtonClick(v)
             swapFragment(
                 LauncherPreferenceMiscellaneousFragment::class.java,
                 LauncherPreferenceMiscellaneousFragment.TAG
             )
         }
-        mLauncherButton!!.setOnClickListener { v: View ->
+        mLauncherButton?.setOnClickListener { v: View ->
             onButtonClick(v)
             swapFragment(PreferenceLauncherFragment::class.java, PreferenceLauncherFragment.TAG)
         }
-        mExperimentalButton!!.setOnClickListener { v: View ->
+        mExperimentalButton?.setOnClickListener { v: View ->
             onButtonClick(v)
             swapFragment(
                 PreferenceExperimentalFragment::class.java,
@@ -94,11 +94,11 @@ class SettingsActivity : BaseActivity() {
             mProgressServiceKeeper = it
         }))
         ProgressKeeper.addTaskCountListener(mProgressLayout)
-        mProgressLayout!!.observe(ProgressLayout.DOWNLOAD_MINECRAFT)
-        mProgressLayout!!.observe(ProgressLayout.UNPACK_RUNTIME)
-        mProgressLayout!!.observe(ProgressLayout.INSTALL_MODPACK)
-        mProgressLayout!!.observe(ProgressLayout.AUTHENTICATE_MICROSOFT)
-        mProgressLayout!!.observe(ProgressLayout.DOWNLOAD_VERSION_LIST)
+        mProgressLayout?.observe(ProgressLayout.DOWNLOAD_MINECRAFT)
+        mProgressLayout?.observe(ProgressLayout.UNPACK_RUNTIME)
+        mProgressLayout?.observe(ProgressLayout.INSTALL_MODPACK)
+        mProgressLayout?.observe(ProgressLayout.AUTHENTICATE_MICROSOFT)
+        mProgressLayout?.observe(ProgressLayout.DOWNLOAD_VERSION_LIST)
 
         initialize()
 
@@ -117,14 +117,14 @@ class SettingsActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        mProgressLayout!!.cleanUpObservers()
+        mProgressLayout?.cleanUpObservers()
         ProgressKeeper.removeTaskCountListener(mProgressLayout)
         ProgressKeeper.removeTaskCountListener(mProgressServiceKeeper)
     }
 
     private fun initialize() {
-        mVideoButton!!.isClickable = false
-        mVideoButton!!.alpha = 0.4f
+        mVideoButton?.isClickable = false
+        mVideoButton?.alpha = 0.4f
 
         mTitle[mVideoButton] = getString(R.string.preference_category_video)
         mTitle[mControlsButton] = getString(R.string.preference_category_buttons)
@@ -135,30 +135,30 @@ class SettingsActivity : BaseActivity() {
     }
 
     private fun onButtonClick(view: View) {
-        mVideoButton!!.isClickable = view !== mVideoButton
-        mControlsButton!!.isClickable = view !== mControlsButton
-        mJavaButton!!.isClickable = view !== mJavaButton
-        mMiscButton!!.isClickable = view !== mMiscButton
-        mLauncherButton!!.isClickable = view !== mLauncherButton
-        mExperimentalButton!!.isClickable = view !== mExperimentalButton
+        mVideoButton?.isClickable = view !== mVideoButton
+        mControlsButton?.isClickable = view !== mControlsButton
+        mJavaButton?.isClickable = view !== mJavaButton
+        mMiscButton?.isClickable = view !== mMiscButton
+        mLauncherButton?.isClickable = view !== mLauncherButton
+        mExperimentalButton?.isClickable = view !== mExperimentalButton
 
-        setAnim(mVideoButton, mVideoButton!!.isClickable)
-        setAnim(mControlsButton, mControlsButton!!.isClickable)
-        setAnim(mJavaButton, mJavaButton!!.isClickable)
-        setAnim(mMiscButton, mMiscButton!!.isClickable)
-        setAnim(mLauncherButton, mLauncherButton!!.isClickable)
-        setAnim(mExperimentalButton, mExperimentalButton!!.isClickable)
+        setAnim(mVideoButton, mVideoButton?.isClickable)
+        setAnim(mControlsButton, mControlsButton?.isClickable)
+        setAnim(mJavaButton, mJavaButton?.isClickable)
+        setAnim(mMiscButton, mMiscButton?.isClickable)
+        setAnim(mLauncherButton, mLauncherButton?.isClickable)
+        setAnim(mExperimentalButton, mExperimentalButton?.isClickable)
 
         mTitleView?.let { setViewAnim(it, Techniques.Pulse) }
-        mTitleView!!.text = if (mTitle[view] != null) mTitle[view] else getString(R.string.preference_category_video)
+        mTitleView?.text = if (mTitle[view] != null) mTitle[view] else getString(R.string.preference_category_video)
 
         YoYo.with(Techniques.Pulse)
             .duration((LauncherPreferences.PREF_ANIMATION_SPEED * 1.2).toLong())
             .playOn(view)
     }
 
-    private fun setAnim(button: View?, clickable: Boolean) {
-        if (clickable && button!!.alpha < 1f) {
+    private fun setAnim(button: View?, clickable: Boolean?) {
+        if (clickable!! && button!!.alpha < 1f) {
             button.animate()
                 .alpha(1f)
                 .setDuration(250)

@@ -106,7 +106,7 @@ class ProfilePathManagerFragment : FragmentWithAnim(R.layout.fragment_profile_pa
 
     private fun refresh() {
         refreshData()
-        adapter!!.updateData(this.mData)
+        adapter?.updateData(this.mData)
     }
 
     private fun refreshData() {

@@ -78,7 +78,7 @@ class SelectModPackFragment : FragmentWithAnim(R.layout.fragment_select_modpack)
         mLocal.setOnClickListener {
             if (!mTasksRunning) {
                 Toast.makeText(requireActivity(), getString(R.string.zh_select_modpack_local_tip), Toast.LENGTH_SHORT).show()
-                openDocumentLauncher!!.launch(null)
+                openDocumentLauncher?.launch(null)
             } else {
                 setViewAnim(mLocal, Techniques.Shake)
                 Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
