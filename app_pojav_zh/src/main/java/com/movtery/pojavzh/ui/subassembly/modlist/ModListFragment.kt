@@ -176,6 +176,9 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
     }
 
     private fun setVisibilityAnim(view: View, visible: Boolean) {
+        val targetVisibility = if (visible) View.VISIBLE else View.GONE
+        if (view.visibility == targetVisibility) return
+
         setViewAnim(view, if (visible) Techniques.FadeIn else Techniques.FadeOut,
             AnimatorCallback { view.visibility = View.VISIBLE },
             AnimatorCallback { view.visibility = if (visible) View.VISIBLE else View.GONE })
