@@ -64,11 +64,12 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         bindViews(view)
-        loadData()
 
         mReturnButton!!.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
         mAddFileButton!!.setOnClickListener { openDocumentLauncher!!.launch(arrayOf("image/*")) }
         mRefreshButton!!.setOnClickListener { loadData() }
+
+        loadData()
 
         slideInAnim(this)
     }
