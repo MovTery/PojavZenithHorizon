@@ -40,7 +40,7 @@ object CheckSponsor {
             return
         }
 
-        val token = context.getString(R.string.zh_api_token)
+        val token = context.getString(R.string.zh_private_api_token)
         CallUtils(object : CallbackListener {
             override fun onFailure(call: Call?, e: IOException?) {
                 listener.onFailure()
