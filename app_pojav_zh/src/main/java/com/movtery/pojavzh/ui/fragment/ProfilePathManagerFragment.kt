@@ -1,7 +1,6 @@
 package com.movtery.pojavzh.ui.fragment
 
 import android.os.Bundle
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -98,7 +97,6 @@ class ProfilePathManagerFragment : FragmentWithAnim(R.layout.fragment_profile_pa
             bundle.putBoolean(FilesFragment.BUNDLE_SELECT_FOLDER_MODE, true)
             bundle.putBoolean(FilesFragment.BUNDLE_SHOW_FILE, false)
             bundle.putBoolean(FilesFragment.BUNDLE_REMOVE_LOCK_PATH, false)
-            bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, Environment.getExternalStorageDirectory().absolutePath)
             ZHTools.swapFragmentWithAnim(this, FilesFragment::class.java, FilesFragment.TAG, bundle)
         }
         returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }

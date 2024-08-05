@@ -84,7 +84,6 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
 
         mFileRecyclerView!!.setShowFiles(true)
         mFileRecyclerView!!.setShowFolders(false)
-        mFileRecyclerView!!.lockAndListAt(mRootPath?.let { File(it) }, mRootPath?.let { File(it) })
 
         mFileRecyclerView!!.setFileSelectedListener(object : FileSelectedListener() {
             override fun onFileSelected(file: File?, path: String?) {
@@ -218,6 +217,8 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
             closeMultiSelect()
             mFileRecyclerView!!.refreshPath()
         }
+
+        mFileRecyclerView!!.lockAndListAt(mRootPath?.let { File(it) }, mRootPath?.let { File(it) })
 
         slideInAnim(this)
     }

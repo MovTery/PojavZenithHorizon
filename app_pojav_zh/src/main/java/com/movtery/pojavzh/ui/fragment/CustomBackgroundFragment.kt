@@ -73,7 +73,6 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
         initBackgroundMap()
         bindTabs()
 
-        mFileRecyclerView!!.lockAndListAt(backgroundPath(), backgroundPath())
         mFileRecyclerView!!.setShowFiles(true)
         mFileRecyclerView!!.setShowFolders(false)
 
@@ -136,6 +135,8 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
             refreshType(mTabLayout!!.selectedTabPosition)
             mFileRecyclerView!!.listFileAt(backgroundPath())
         }
+
+        mFileRecyclerView!!.lockAndListAt(backgroundPath(), backgroundPath())
 
         slideInAnim(this)
     }
