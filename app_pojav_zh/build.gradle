@@ -3,6 +3,11 @@ plugins {
     id 'org.jetbrains.kotlin.android' version '2.0.0'
 }
 
+static def getEnvOrDefault(String envVar, String defaultValue) {
+    def value = System.getenv(envVar)
+    return value ?: defaultValue
+}
+
 def getVersionCode = {
     def isMainBranch = System.getenv('IS_MAIN_BRANCH') == 'true'
 
@@ -26,15 +31,15 @@ def getCFApiKey = {
 }
 
 def getBranchName = {
-    def isMainBranch = System.getenv('IS_MAIN_BRANCH') == 'true'
-    if(isMainBranch) return 'main'
-    return 'other'
+    getEnvOrDefault('IS_MAIN_BRANCH', 'false') == 'true' ? 'main' : 'other'
 }
 
 def getApiToken = {
-    String api = System.getenv('MY_API_TOKEN')
-    if(api != null) return api
-    return "DUMMY"
+    getEnvOrDefault('MY_API_TOKEN', 'DUMMY')
+}
+
+def getPrivateApiToken = {
+    getEnvOrDefault('MY_PRIVATE_API_TOKEN', 'DUMMY')
 }
 
 configurations {
@@ -79,6 +84,7 @@ android {
         resValue 'string', 'curseforge_api_key', getCFApiKey()
         resValue 'string', 'zh_branch_info', getBranchName()
         resValue 'string', 'zh_api_token', getApiToken()
+        resValue 'string', 'zh_private_api_token', getPrivateApiToken()
     }
 
     buildTypes {
