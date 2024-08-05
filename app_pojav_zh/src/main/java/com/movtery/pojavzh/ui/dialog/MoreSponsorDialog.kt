@@ -13,7 +13,6 @@ import net.kdt.pojavlaunch.R
 class MoreSponsorDialog(private val mContext: Context, private val mData: List<SponsorItemBean>) :
     FullScreenDialog(mContext) {
     init {
-        this.setCancelable(false)
         this.setContentView(R.layout.dialog_select_item)
         init()
     }
