@@ -37,14 +37,10 @@ public class ProfileTypeSelectFragment extends FragmentWithAnim {
         mVanillaLayout = view.findViewById(R.id.vanilla_like_layout);
         mModdedLayout = view.findViewById(R.id.modded_versions_layout);
 
-        view.findViewById(R.id.vanilla_profile).setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, ProfileEditorFragment.class,
-                ProfileEditorFragment.TAG, new Bundle(1)));
-
-        // NOTE: Special care needed! If you wll decide to add these to the back stack, please read
-        // the comment in FabricInstallFragment.onDownloadFinished() and amend the code
-        // in FabricInstallFragment.onDownloadFinished() and ModVersionListFragment.onDownloadFinished()
-        view.findViewById(R.id.optifine_profile).setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, DownloadOptiFineFragment.class,
-                DownloadOptiFineFragment.TAG, null));
+        view.findViewById(R.id.vanilla_profile).setOnClickListener(v ->
+                ZHTools.swapFragmentWithAnim(this, ProfileEditorFragment.class, ProfileEditorFragment.TAG, new Bundle(1)));
+        view.findViewById(R.id.optifine_profile).setOnClickListener(v ->
+                ZHTools.swapFragmentWithAnim(this, DownloadOptiFineFragment.class, DownloadOptiFineFragment.TAG, null));
         view.findViewById(R.id.modded_profile_fabric).setOnClickListener((v)->
                 ZHTools.swapFragmentWithAnim(this, DownloadFabricFragment.class, DownloadFabricFragment.TAG, null));
         view.findViewById(R.id.modded_profile_forge).setOnClickListener((v)->
