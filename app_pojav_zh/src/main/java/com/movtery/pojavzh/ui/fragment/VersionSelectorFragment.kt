@@ -43,9 +43,9 @@ class VersionSelectorFragment : FragmentWithAnim(R.layout.fragment_version) {
         bindViews(view)
         bindTab()
 
-        refresh(mTabLayout!!.getTabAt(mTabLayout!!.selectedTabPosition))
+        refresh(mTabLayout?.getTabAt(mTabLayout!!.selectedTabPosition))
 
-        mTabLayout!!.addOnTabSelectedListener(object : OnTabSelectedListener {
+        mTabLayout?.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 refresh(tab)
             }
@@ -57,12 +57,12 @@ class VersionSelectorFragment : FragmentWithAnim(R.layout.fragment_version) {
             }
         })
 
-        mRefreshButton!!.setOnClickListener {
-            refresh(mTabLayout!!.getTabAt(mTabLayout!!.selectedTabPosition))
+        mRefreshButton?.setOnClickListener {
+            refresh(mTabLayout?.getTabAt(mTabLayout!!.selectedTabPosition))
         }
-        mReturnButton!!.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
+        mReturnButton?.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
 
-        mVersionListView!!.setVersionSelectedListener(object : VersionSelectedListener() {
+        mVersionListView?.setVersionSelectedListener(object : VersionSelectedListener() {
             override fun onVersionSelected(version: String?) {
                 ExtraCore.setValue(ZHExtraConstants.VERSION_SELECTOR, version)
                 ZHTools.onBackPressed(requireActivity())
@@ -79,12 +79,12 @@ class VersionSelectorFragment : FragmentWithAnim(R.layout.fragment_version) {
         //如果安装的版本列表为空，那么隐藏 已安装 按钮
         val hasInstalled = !(installedVersionsList == null || installedVersionsList.isEmpty())
         if (hasInstalled) {
-            if (mTabLayout!!.getTabAt(0) !== installed) mTabLayout!!.addTab(installed!!, 0)
+            if (mTabLayout?.getTabAt(0) !== installed) mTabLayout?.addTab(installed!!, 0)
         } else {
-            if (mTabLayout!!.getTabAt(0) === installed) mTabLayout!!.removeTab(installed!!)
+            if (mTabLayout?.getTabAt(0) === installed) mTabLayout?.removeTab(installed!!)
         }
 
-        mVersionListView!!.setVersionType(versionType)
+        mVersionListView?.setVersionType(versionType)
     }
 
     private fun setVersionType(tab: TabLayout.Tab?) {
@@ -111,25 +111,25 @@ class VersionSelectorFragment : FragmentWithAnim(R.layout.fragment_version) {
     }
 
     private fun bindTab() {
-        installed = mTabLayout!!.newTab()
-        release = mTabLayout!!.newTab()
-        snapshot = mTabLayout!!.newTab()
-        beta = mTabLayout!!.newTab()
-        alpha = mTabLayout!!.newTab()
+        installed = mTabLayout?.newTab()
+        release = mTabLayout?.newTab()
+        snapshot = mTabLayout?.newTab()
+        beta = mTabLayout?.newTab()
+        alpha = mTabLayout?.newTab()
 
-        installed!!.setText(getString(R.string.mcl_setting_veroption_installed))
-        release!!.setText(getString(R.string.mcl_setting_veroption_release))
-        snapshot!!.setText(getString(R.string.mcl_setting_veroption_snapshot))
-        beta!!.setText(getString(R.string.mcl_setting_veroption_oldbeta))
-        alpha!!.setText(getString(R.string.mcl_setting_veroption_oldalpha))
+        installed?.setText(getString(R.string.mcl_setting_veroption_installed))
+        release?.setText(getString(R.string.mcl_setting_veroption_release))
+        snapshot?.setText(getString(R.string.mcl_setting_veroption_snapshot))
+        beta?.setText(getString(R.string.mcl_setting_veroption_oldbeta))
+        alpha?.setText(getString(R.string.mcl_setting_veroption_oldalpha))
 
-        mTabLayout!!.addTab(installed!!)
-        mTabLayout!!.addTab(release!!)
-        mTabLayout!!.addTab(snapshot!!)
-        mTabLayout!!.addTab(beta!!)
-        mTabLayout!!.addTab(alpha!!)
+        mTabLayout?.addTab(installed!!)
+        mTabLayout?.addTab(release!!)
+        mTabLayout?.addTab(snapshot!!)
+        mTabLayout?.addTab(beta!!)
+        mTabLayout?.addTab(alpha!!)
 
-        mTabLayout!!.selectTab(release)
+        mTabLayout?.selectTab(release)
     }
 
     override fun slideIn(): Array<YoYoString?> {

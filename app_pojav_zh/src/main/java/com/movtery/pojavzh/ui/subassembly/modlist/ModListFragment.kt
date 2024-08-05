@@ -53,23 +53,23 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
 
     protected open fun init() {
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
-        recyclerView!!.layoutAnimation = LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.fade_downwards))
-        recyclerView!!.layoutManager = layoutManager
+        recyclerView?.layoutAnimation = LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.fade_downwards))
+        recyclerView?.layoutManager = layoutManager
 
-        mRefreshButton!!.setOnClickListener { refreshTask() }
-        releaseCheckBox!!.setOnClickListener { refreshTask() }
-        mReturnButton!!.setOnClickListener {
+        mRefreshButton?.setOnClickListener { refreshTask() }
+        releaseCheckBox?.setOnClickListener { refreshTask() }
+        mReturnButton?.setOnClickListener {
             if (parentAdapter != null) {
                 hideParentElement(false)
-                recyclerView!!.adapter = parentAdapter
-                recyclerView!!.scheduleLayoutAnimation()
+                recyclerView?.adapter = parentAdapter
+                recyclerView?.scheduleLayoutAnimation()
                 parentAdapter = null
             } else {
                 ZHTools.onBackPressed(requireActivity())
             }
         }
 
-        mBackToTop!!.setOnClickListener { recyclerView!!.smoothScrollToPosition(0) }
+        mBackToTop?.setOnClickListener { recyclerView?.smoothScrollToPosition(0) }
 
         refreshTask()
     }
@@ -92,8 +92,8 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
     private fun hideParentElement(visible: Boolean) {
         cancelTask() //中断当前正在执行的任务
 
-        mRefreshButton!!.isClickable = !visible
-        releaseCheckBox!!.isClickable = !visible
+        mRefreshButton?.isClickable = !visible
+        releaseCheckBox?.isClickable = !visible
 
         setVisibilityAnim(mSelectTitle!!, visible)
         setVisibilityAnim(mRefreshButton!!, !visible)
@@ -103,7 +103,7 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
 
     private fun cancelTask() {
         if (currentTask != null && !currentTask!!.isDone) {
-            currentTask!!.cancel(true)
+            currentTask?.cancel(true)
         }
     }
 
@@ -115,10 +115,10 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
 
     protected fun componentProcessing(state: Boolean) {
         setVisibilityAnim(mLoadingView!!, state)
-        recyclerView!!.visibility = if (state) View.GONE else View.VISIBLE
+        recyclerView?.visibility = if (state) View.GONE else View.VISIBLE
 
-        mRefreshButton!!.isClickable = !state
-        releaseCheckBox!!.isClickable = !state
+        mRefreshButton?.isClickable = !state
+        releaseCheckBox?.isClickable = !state
     }
 
     private fun bindViews(view: View) {
@@ -137,7 +137,7 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
         mRefreshButton = view.findViewById(R.id.zh_mod_refresh_button)
         releaseCheckBox = view.findViewById(R.id.zh_mod_release_version)
 
-        recyclerView!!.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        recyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager?
@@ -153,21 +153,21 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
     }
 
     protected fun setNameText(nameText: String?) {
-        mNameText!!.text = nameText
+        mNameText?.text = nameText
     }
 
     protected fun setIcon(icon: Drawable?) {
-        mIcon!!.setImageDrawable(icon)
+        mIcon?.setImageDrawable(icon)
     }
 
     protected fun setReleaseCheckBoxGone() {
         releaseCheckBoxVisible = false
-        releaseCheckBox!!.visibility = View.GONE
+        releaseCheckBox?.visibility = View.GONE
     }
 
     protected fun setFailedToLoad(reasons: String?) {
         val text = fragmentActivity!!.getString(R.string.modloader_dl_failed_to_load_list)
-        mFailedToLoad!!.text = if (reasons == null) text else StringUtils.insertNewline(text, reasons)
+        mFailedToLoad?.text = if (reasons == null) text else StringUtils.insertNewline(text, reasons)
         setVisibilityAnim(mFailedToLoad!!, true)
     }
 
@@ -185,10 +185,10 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
         if (currentTask!!.isDone && adapter != null) {
             //保存父级，设置选中的标题文本，切换至子级
             parentAdapter = recyclerView!!.adapter
-            mSelectTitle!!.text = title
+            mSelectTitle?.text = title
             hideParentElement(true)
-            recyclerView!!.adapter = adapter
-            recyclerView!!.scheduleLayoutAnimation()
+            recyclerView?.adapter = adapter
+            recyclerView?.scheduleLayoutAnimation()
         }
     }
 

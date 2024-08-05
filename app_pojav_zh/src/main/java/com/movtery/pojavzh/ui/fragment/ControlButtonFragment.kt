@@ -67,7 +67,7 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
                     copyFileInBackground(requireContext(), result, File(Tools.CTRLMAP_PATH).absolutePath)
                     Tools.runOnUiThread {
                         Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show()
-                        controlsListViewCreator!!.refresh()
+                        controlsListViewCreator?.refresh()
                     }
                 }
             }
@@ -79,7 +79,7 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
         bindViews(view)
         parseBundle()
 
-        controlsListViewCreator!!.setFileSelectedListener(object : FileSelectedListener() {
+        controlsListViewCreator?.setFileSelectedListener(object : FileSelectedListener() {
             override fun onFileSelected(file: File?, path: String?) {
                 if (mSelectControl) {
                     ExtraCore.setValue(ExtraConstants.FILE_SELECTOR, removeLockPath(path))
@@ -102,27 +102,27 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
             }
         })
 
-        controlsListViewCreator!!.setRefreshListener {
+        controlsListViewCreator?.setRefreshListener {
             val itemCount = controlsListViewCreator!!.itemCount
             val show = itemCount == 0
             setVisibilityAnim(mNothingTip!!, show)
         }
 
-        mReturnButton!!.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
-        mPasteButton!!.setOnClickListener {
+        mReturnButton?.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
+        mPasteButton?.setOnClickListener {
             PasteFile.getInstance().pasteFiles(requireActivity(), File(Tools.CTRLMAP_PATH), null) {
                 Tools.runOnUiThread {
-                    mPasteButton!!.visibility = View.GONE
-                    controlsListViewCreator!!.refresh()
+                    mPasteButton?.visibility = View.GONE
+                    controlsListViewCreator?.refresh()
                 }
             }
         }
-        mImportControlButton!!.setOnClickListener {
+        mImportControlButton?.setOnClickListener {
             val suffix = ".json"
             Toast.makeText(requireActivity(), String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show()
-            openDocumentLauncher!!.launch(suffix)
+            openDocumentLauncher?.launch(suffix)
         } //限制.json文件
-        mAddControlButton!!.setOnClickListener {
+        mAddControlButton?.setOnClickListener {
             val editControlInfoDialog = EditControlInfoDialog(requireContext(), true, null, ControlInfoData())
             editControlInfoDialog.setTitle(getString(R.string.zh_controls_create_new))
             editControlInfoDialog.setOnConfirmClickListener { fileName: String, controlInfoData: ControlInfoData? ->
@@ -136,15 +136,15 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
                 //创建布局文件
                 createNewControlFile(requireContext(), file, controlInfoData)
 
-                controlsListViewCreator!!.refresh()
+                controlsListViewCreator?.refresh()
                 editControlInfoDialog.dismiss()
             }
             editControlInfoDialog.show()
         }
-        mSearchSummonButton!!.setOnClickListener { mSearchView!!.setVisibility() }
-        mRefreshButton!!.setOnClickListener { controlsListViewCreator!!.refresh() }
+        mSearchSummonButton?.setOnClickListener { mSearchView?.setVisibility() }
+        mRefreshButton?.setOnClickListener { controlsListViewCreator?.refresh() }
 
-        controlsListViewCreator!!.listAtPath()
+        controlsListViewCreator?.listAtPath()
 
         slideInAnim(this)
     }
@@ -165,11 +165,11 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
         filesButton.setMoreButtonText(getString(R.string.global_load))
 
         val filesDialog = FilesDialog(requireContext(), filesButton,
-            { Tools.runOnUiThread { controlsListViewCreator!!.refresh() } },
+            { Tools.runOnUiThread { controlsListViewCreator?.refresh() } },
             file
         )
 
-        filesDialog.setCopyButtonClick { mPasteButton!!.visibility = View.VISIBLE }
+        filesDialog.setCopyButtonClick { mPasteButton?.visibility = View.VISIBLE }
 
         filesDialog.setMoreButtonClick {
             val intent = Intent(requireContext(), CustomControlsActivity::class.java)
@@ -202,32 +202,32 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
         mSearchSummonButton = view.findViewById(R.id.zh_search_button)
         mNothingTip = view.findViewById(R.id.zh_controls_nothing)
 
-        mImportControlButton!!.setContentDescription(getString(R.string.zh_controls_import_control))
-        mAddControlButton!!.setContentDescription(getString(R.string.zh_controls_create_new))
+        mImportControlButton?.setContentDescription(getString(R.string.zh_controls_import_control))
+        mAddControlButton?.setContentDescription(getString(R.string.zh_controls_create_new))
 
         controlsListViewCreator =
             ControlsListViewCreator(requireContext(), view.findViewById(R.id.zh_controls_list))
 
         mSearchView = SearchView(view, view.findViewById(R.id.zh_search_view))
-        mSearchView!!.setAsynchronousUpdatesListener(object : SearchView.SearchAsynchronousUpdatesListener {
+        mSearchView?.setAsynchronousUpdatesListener(object : SearchView.SearchAsynchronousUpdatesListener {
             override fun onSearch(searchCount: TextView?, string: String?, caseSensitive: Boolean) {
-                controlsListViewCreator!!.searchControls(searchCount, string, caseSensitive)
+                controlsListViewCreator?.searchControls(searchCount, string, caseSensitive)
             }
         })
-        mSearchView!!.setShowSearchResultsListener(object : SearchView.ShowSearchResultsListener {
+        mSearchView?.setShowSearchResultsListener(object : SearchView.ShowSearchResultsListener {
             override fun onSearch(show: Boolean) {
-                controlsListViewCreator!!.setShowSearchResultsOnly(show)
+                controlsListViewCreator?.setShowSearchResultsOnly(show)
             }
         })
 
-        mPasteButton!!.setVisibility(if (PasteFile.getInstance().pasteType != null) View.VISIBLE else View.GONE)
+        mPasteButton?.setVisibility(if (PasteFile.getInstance().pasteType != null) View.VISIBLE else View.GONE)
 
-        ZHTools.setTooltipText(mReturnButton, mReturnButton!!.contentDescription)
-        ZHTools.setTooltipText(mImportControlButton, mImportControlButton!!.contentDescription)
-        ZHTools.setTooltipText(mAddControlButton, mAddControlButton!!.contentDescription)
-        ZHTools.setTooltipText(mPasteButton, mPasteButton!!.contentDescription)
-        ZHTools.setTooltipText(mSearchSummonButton, mSearchSummonButton!!.contentDescription)
-        ZHTools.setTooltipText(mRefreshButton, mRefreshButton!!.contentDescription)
+        ZHTools.setTooltipText(mReturnButton, mReturnButton?.contentDescription)
+        ZHTools.setTooltipText(mImportControlButton, mImportControlButton?.contentDescription)
+        ZHTools.setTooltipText(mAddControlButton, mAddControlButton?.contentDescription)
+        ZHTools.setTooltipText(mPasteButton, mPasteButton?.contentDescription)
+        ZHTools.setTooltipText(mSearchSummonButton, mSearchSummonButton?.contentDescription)
+        ZHTools.setTooltipText(mRefreshButton, mRefreshButton?.contentDescription)
     }
 
     override fun slideIn(): Array<YoYoString?> {

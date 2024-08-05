@@ -15,7 +15,7 @@ object MemoryUtils {
         if (activityManager == null) init(context)
 
         val memInfo = ActivityManager.MemoryInfo()
-        activityManager!!.getMemoryInfo(memInfo)
+        activityManager?.getMemoryInfo(memInfo)
         return memInfo.totalMem
     }
 
@@ -24,7 +24,7 @@ object MemoryUtils {
         if (activityManager == null) init(context)
 
         val memInfo = ActivityManager.MemoryInfo()
-        activityManager!!.getMemoryInfo(memInfo)
+        activityManager?.getMemoryInfo(memInfo)
         return memInfo.totalMem - memInfo.availMem
     }
 
@@ -33,7 +33,7 @@ object MemoryUtils {
         if (activityManager == null) init(context)
 
         val memInfo = ActivityManager.MemoryInfo()
-        activityManager!!.getMemoryInfo(memInfo)
+        activityManager?.getMemoryInfo(memInfo)
         return memInfo.availMem
     }
 }

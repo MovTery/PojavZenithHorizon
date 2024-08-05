@@ -65,9 +65,9 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         bindViews(view)
 
-        mReturnButton!!.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
-        mAddFileButton!!.setOnClickListener { openDocumentLauncher!!.launch(arrayOf("image/*")) }
-        mRefreshButton!!.setOnClickListener { loadData() }
+        mReturnButton?.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
+        mAddFileButton?.setOnClickListener { openDocumentLauncher?.launch(arrayOf("image/*")) }
+        mRefreshButton?.setOnClickListener { loadData() }
 
         loadData()
 
@@ -81,7 +81,7 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
         fileItemBeans.add(
             0, FileItemBean(requireContext().getDrawable(R.drawable.ic_mouse_pointer), null, getString(R.string.zh_custom_mouse_default)))
         Tools.runOnUiThread {
-            fileRecyclerViewCreator!!.loadData(fileItemBeans)
+            fileRecyclerViewCreator?.loadData(fileItemBeans)
             //默认显示当前选中的鼠标
             refreshIcon()
         }
@@ -96,7 +96,7 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
     private fun refreshIcon() {
         PojavApplication.sExecutorService.execute {
             Tools.runOnUiThread {
-                mMouseView!!.setImageDrawable(ZHTools.customMouse(requireContext()))
+                mMouseView?.setImageDrawable(ZHTools.customMouse(requireContext()))
             }
         }
     }
@@ -109,16 +109,16 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
         mAddFileButton = view.findViewById(R.id.zh_add_file_button)
         mRefreshButton = view.findViewById(R.id.zh_refresh_button)
 
-        mAddFileButton!!.setContentDescription(getString(R.string.zh_custom_mouse_add))
+        mAddFileButton?.setContentDescription(getString(R.string.zh_custom_mouse_add))
         view.findViewById<View>(R.id.zh_search_button).visibility = View.GONE
         view.findViewById<View>(R.id.zh_paste_button).visibility = View.GONE
         view.findViewById<View>(R.id.zh_create_folder_button).visibility = View.GONE
 
         mMouseView = view.findViewById(R.id.zh_custom_mouse_icon)
 
-        ZHTools.setTooltipText(mReturnButton, mReturnButton!!.contentDescription)
-        ZHTools.setTooltipText(mAddFileButton, mAddFileButton!!.contentDescription)
-        ZHTools.setTooltipText(mRefreshButton, mRefreshButton!!.contentDescription)
+        ZHTools.setTooltipText(mReturnButton, mReturnButton?.contentDescription)
+        ZHTools.setTooltipText(mAddFileButton, mAddFileButton?.contentDescription)
+        ZHTools.setTooltipText(mRefreshButton, mRefreshButton?.contentDescription)
 
         val mMouseListView = view.findViewById<RecyclerView>(R.id.zh_custom_mouse)
         fileRecyclerViewCreator = FileRecyclerViewCreator(requireContext(), mMouseListView, { position: Int, fileItemBean: FileItemBean ->

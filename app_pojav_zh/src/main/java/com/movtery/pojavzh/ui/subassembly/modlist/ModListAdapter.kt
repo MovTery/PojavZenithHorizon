@@ -28,8 +28,8 @@ class ModListAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(newData: List<ModListItemBean>?) {
-        mData!!.clear()
-        mData.addAll(newData!!)
+        mData?.clear()
+        mData?.addAll(newData!!)
         super.notifyDataSetChanged()
     }
 
