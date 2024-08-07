@@ -1,7 +1,7 @@
 name: Feature Request
 description: 'If you have any new ideas, please let me know using this template!'
 title: "[Request] Brief Description"
-labels: [feature request]
+labels: [建议]
 body:
   - type: textarea
     attributes:
