@@ -3,7 +3,6 @@ package com.movtery.pojavzh.ui.subassembly.background
 import android.graphics.drawable.Drawable
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.file.FileTools.mkdirs
-import net.kdt.pojavlaunch.Tools
 import java.io.File
 import java.io.FileReader
 import java.io.FileWriter
@@ -11,7 +10,7 @@ import java.util.Properties
 import java.util.concurrent.ConcurrentHashMap
 
 object BackgroundManager {
-    private val FILE_BACKGROUND_PROPERTIES: File = File(Tools.DIR_GAME_HOME, "background.properties")
+    private val FILE_BACKGROUND_PROPERTIES: File = File(PathAndUrlManager.DIR_GAME_HOME, "background.properties")
     private val backgroundDrawable: MutableMap<String, Drawable?> = ConcurrentHashMap()
 
     @JvmStatic

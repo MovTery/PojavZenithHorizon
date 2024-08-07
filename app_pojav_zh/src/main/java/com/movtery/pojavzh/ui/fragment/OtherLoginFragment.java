@@ -34,6 +34,7 @@ import com.movtery.pojavzh.feature.login.Servers;
 import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 import com.movtery.pojavzh.ui.dialog.ProgressDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
@@ -77,7 +78,7 @@ public class OtherLoginFragment extends FragmentWithAnim {
         super.onViewCreated(view, savedInstanceState);
         bindViews(view);
 
-        mServersFile = new File(Tools.DIR_GAME_HOME, "servers.json");
+        mServersFile = new File(PathAndUrlManager.DIR_GAME_HOME, "servers.json");
         mProgressDialog = new ProgressDialog(requireContext(), () -> true);
         mProgressDialog.updateText(getString(R.string.zh_account_login_start));
 

@@ -3,9 +3,9 @@ package net.kdt.pojavlaunch.modloaders.modpacks.api;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ModIconCache;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
 import net.kdt.pojavlaunch.progresskeeper.DownloaderProgressWrapper;
@@ -48,7 +48,7 @@ public class ModpackInstaller {
         // Build a new minecraft instance, folder first
 
         // Get the modpack file
-        File modpackFile = new File(Tools.DIR_CACHE, modpackName.replace("/", "-") + ".cf"); // Cache File
+        File modpackFile = new File(PathAndUrlManager.DIR_CACHE, modpackName.replace("/", "-") + ".cf"); // Cache File
         ModLoader modLoaderInfo;
         try {
             byte[] downloadBuffer = new byte[8192];

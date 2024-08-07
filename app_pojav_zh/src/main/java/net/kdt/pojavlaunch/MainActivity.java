@@ -56,6 +56,7 @@ import com.movtery.pojavzh.ui.dialog.SelectControlsDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.anim.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
@@ -176,7 +177,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
         try {
-            File latestLogFile = new File(Tools.DIR_GAME_HOME, "latestlog.txt");
+            File latestLogFile = new File(PathAndUrlManager.DIR_GAME_HOME, "latestlog.txt");
             if(!latestLogFile.exists() && !latestLogFile.createNewFile())
                 throw new IOException("Failed to create a new log file");
             Logger.begin(latestLogFile.getAbsolutePath());
@@ -269,7 +270,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             mControlLayout.loadLayout(
                     minecraftProfile.controlFile == null
                             ? LauncherPreferences.PREF_DEFAULTCTRL_PATH
-                            : Tools.CTRLMAP_PATH + "/" + minecraftProfile.controlFile);
+                            : PathAndUrlManager.CTRLMAP_PATH + "/" + minecraftProfile.controlFile);
         } catch(IOException e) {
             try {
                 Log.w("MainActivity", "Unable to load the control file, loading the default now", e);
@@ -634,7 +635,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             MainActivity.mControlLayout.loadLayout(
                     minecraftProfile.controlFile == null
                             ? LauncherPreferences.PREF_DEFAULTCTRL_PATH
-                            : Tools.CTRLMAP_PATH + "/" + minecraftProfile.controlFile);
+                            : PathAndUrlManager.CTRLMAP_PATH + "/" + minecraftProfile.controlFile);
             mDrawerPullButton.setVisibility(mControlLayout.hasMenuButton() ? View.GONE : View.VISIBLE);
         } catch (IOException e) {
             Tools.showError(this,e);

@@ -15,8 +15,9 @@ import android.webkit.MimeTypeMap;
 
 import androidx.annotation.Nullable;
 
+import com.movtery.pojavzh.utils.PathAndUrlManager;
+
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
 
 import org.apache.commons.io.FileUtils;
 
@@ -43,8 +44,7 @@ public class FolderProvider extends DocumentsProvider {
 
     private static final String ALL_MIME_TYPES = "*/*";
 
-    private static final File BASE_DIR = new File(Tools.DIR_GAME_HOME);
-
+    private static final File BASE_DIR = new File(PathAndUrlManager.DIR_GAME_HOME);
 
     // The default columns to return information about a root if no specific
     // columns are requested in a query.
@@ -217,7 +217,7 @@ public class FolderProvider extends DocumentsProvider {
             // through the whole SD card).
             boolean isInsideHome;
             try {
-                isInsideHome = file.getCanonicalPath().startsWith(Tools.DIR_GAME_HOME);
+                isInsideHome = file.getCanonicalPath().startsWith(PathAndUrlManager.DIR_GAME_HOME);
             } catch (IOException e) {
                 isInsideHome = true;
             }

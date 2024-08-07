@@ -21,6 +21,7 @@ import androidx.activity.OnBackPressedCallback;
 
 import com.kdt.LoggerView;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.image.Dimension;
 import com.movtery.pojavzh.utils.image.ImageUtils;
@@ -67,7 +68,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
         setContentView(R.layout.activity_java_gui_launcher);
 
         try {
-            File latestLogFile = new File(Tools.DIR_GAME_HOME, "latestlog.txt");
+            File latestLogFile = new File(PathAndUrlManager.DIR_GAME_HOME, "latestlog.txt");
             if (!latestLogFile.exists() && !latestLogFile.createNewFile())
                 throw new IOException("Failed to create a new log file");
             Logger.begin(latestLogFile.getAbsolutePath());
@@ -384,9 +385,9 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
             
             if (LauncherPreferences.PREF_JAVA_SANDBOX) {
                 Collections.reverse(javaArgList);
-                javaArgList.add("-Xbootclasspath/a:" + Tools.DIR_DATA + "/security/pro-grade.jar");
+                javaArgList.add("-Xbootclasspath/a:" + PathAndUrlManager.DIR_DATA + "/security/pro-grade.jar");
                 javaArgList.add("-Djava.security.manager=net.sourceforge.prograde.sm.ProGradeJSM");
-                javaArgList.add("-Djava.security.policy=" + Tools.DIR_DATA + "/security/java_sandbox.policy");
+                javaArgList.add("-Djava.security.policy=" + PathAndUrlManager.DIR_DATA + "/security/java_sandbox.policy");
                 Collections.reverse(javaArgList);
             }
 

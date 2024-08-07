@@ -9,6 +9,7 @@ import android.util.Log;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.utils.CopyDefaultFromAssets;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.file.FileTools;
 
 import net.kdt.pojavlaunch.Tools;
@@ -32,7 +33,7 @@ public class AsyncAssetManager {
                 CopyDefaultFromAssets.copyFromAssets(ctx);
 
                 Tools.copyAssetFile(ctx, "launcher_profiles.json", ProfilePathHome.getGameHome(), false);
-                Tools.copyAssetFile(ctx,"resolv.conf",Tools.DIR_DATA, false);
+                Tools.copyAssetFile(ctx,"resolv.conf", PathAndUrlManager.DIR_DATA, false);
             } catch (IOException e) {
                 Log.e("AsyncAssetManager", "Failed to unpack critical components !");
             }
@@ -63,7 +64,7 @@ public class AsyncAssetManager {
 
     private static void unpackComponent(Context ctx, String component, boolean privateDirectory) throws IOException {
         AssetManager am = ctx.getAssets();
-        String rootDir = privateDirectory ? Tools.DIR_DATA : Tools.DIR_GAME_HOME;
+        String rootDir = privateDirectory ? PathAndUrlManager.DIR_DATA : PathAndUrlManager.DIR_GAME_HOME;
 
         File versionFile = new File(rootDir + "/" + component + "/version");
         InputStream is = am.open("components/" + component + "/version");

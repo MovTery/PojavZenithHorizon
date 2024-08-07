@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.JMinecraftVersionList;
@@ -27,7 +28,7 @@ public class AsyncVersionList {
 
     public void getVersionList(@Nullable VersionDoneListener listener, boolean secondPass){
         sExecutorService.execute(() -> {
-            File versionFile = new File(Tools.DIR_DATA + "/version_list.json");
+            File versionFile = new File(PathAndUrlManager.DIR_DATA + "/version_list.json");
             JMinecraftVersionList versionList = null;
             try{
                 if(!versionFile.exists() || (ZHTools.getCurrentTimeMillis() > versionFile.lastModified() + 86400000 )){
@@ -69,7 +70,7 @@ public class AsyncVersionList {
 
             // Then save the version list
             //TODO make it not save at times ?
-            FileOutputStream fos = new FileOutputStream(Tools.DIR_DATA + "/version_list.json");
+            FileOutputStream fos = new FileOutputStream(PathAndUrlManager.DIR_DATA + "/version_list.json");
             fos.write(jsonString.getBytes());
             fos.close();
 

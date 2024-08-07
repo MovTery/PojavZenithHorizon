@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.JAssetInfo;
 import net.kdt.pojavlaunch.JAssets;
@@ -294,7 +295,7 @@ public class MinecraftDownloader {
     private void scheduleLoggingAssetDownloadIfNeeded(JMinecraftVersionList.LoggingConfig loggingConfig) throws IOException {
         if(loggingConfig.client == null || loggingConfig.client.file == null) return;
         JMinecraftVersionList.FileProperties loggingFileProperties = loggingConfig.client.file;
-        File internalLoggingConfig = new File(Tools.DIR_DATA + File.separator + "security",
+        File internalLoggingConfig = new File(PathAndUrlManager.DIR_DATA + File.separator + "security",
                 loggingFileProperties.id.replace("client", "log4j-rce-patch"));
         if(internalLoggingConfig.exists()) return;
         File destination = new File(ProfilePathHome.getGameHome(), loggingFileProperties.id);

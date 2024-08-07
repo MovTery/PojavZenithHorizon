@@ -34,6 +34,8 @@ import net.kdt.pojavlaunch.customcontrols.handleview.ControlHandleView;
 import net.kdt.pojavlaunch.customcontrols.handleview.EditControlPopup;
 import com.movtery.pojavzh.ui.dialog.EditControlInfoDialog;
 import com.movtery.pojavzh.ui.dialog.SelectControlsDialog;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
+
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import java.io.File;
@@ -484,13 +486,13 @@ public class ControlLayout extends FrameLayout {
 	}
 
 	public void updateLoadedFileName(String path) {
-		path = path.replace(Tools.CTRLMAP_PATH, ".");
+		path = path.replace(PathAndUrlManager.CTRLMAP_PATH, ".");
 		path = path.substring(0, path.length() - 5);
 		mLayoutFileName = path;
 	}
 
 	public String saveToDirectory(String name) throws Exception{
-		String jsonPath = Tools.CTRLMAP_PATH + "/" + name + ".json";
+		String jsonPath = PathAndUrlManager.CTRLMAP_PATH + "/" + name + ".json";
 		saveLayout(jsonPath);
 		return jsonPath;
 	}

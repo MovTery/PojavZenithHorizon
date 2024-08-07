@@ -15,12 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.movtery.pojavzh.ui.dialog.DeleteDialog;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
 import com.movtery.pojavzh.ui.subassembly.filelist.RefreshListener;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.file.FileTools;
 import com.movtery.pojavzh.utils.stringutils.StringFilter;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class ControlsListViewCreator {
     private ControlListAdapter controlListAdapter;
     private FileSelectedListener fileSelectedListener;
     private RefreshListener refreshListener;
-    private File fullPath = new File(Tools.CTRLMAP_PATH);
+    private File fullPath = new File(PathAndUrlManager.CTRLMAP_PATH);
     private String filterString = "";
     private boolean showSearchResultsOnly = false;
     private boolean caseSensitive = false;
@@ -173,7 +173,7 @@ public class ControlsListViewCreator {
     }
 
     private File controlPath() {
-        File ctrlPath = new File(Tools.CTRLMAP_PATH);
+        File ctrlPath = new File(PathAndUrlManager.CTRLMAP_PATH);
         if (!ctrlPath.exists()) FileTools.mkdirs(ctrlPath);
         return ctrlPath;
     }

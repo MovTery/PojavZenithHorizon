@@ -10,8 +10,8 @@ object CopyDefaultFromAssets {
     @Throws(IOException::class)
     fun copyFromAssets(context: Context?) {
         //默认控制布局
-        if (checkDirectoryEmpty(Tools.CTRLMAP_PATH)) {
-            Tools.copyAssetFile(context, "default.json", Tools.CTRLMAP_PATH, false)
+        if (checkDirectoryEmpty(PathAndUrlManager.CTRLMAP_PATH)) {
+            Tools.copyAssetFile(context, "default.json", PathAndUrlManager.CTRLMAP_PATH, false)
         }
     }
 

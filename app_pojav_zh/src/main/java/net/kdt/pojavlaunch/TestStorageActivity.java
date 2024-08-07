@@ -108,7 +108,7 @@ public class TestStorageActivity extends BaseActivity {
     }
 
     private void exit() {
-        if (!Tools.checkStorageRoot(this)) {
+        if (!Tools.checkStorageRoot()) {
             startActivity(new Intent(this, MissingStorageActivity.class));
             return;
         }
