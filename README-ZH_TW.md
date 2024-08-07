@@ -25,9 +25,9 @@
 
 <h2 align="center">截圖</h2>
 
-![Screenshot1](/.github/images/Screenshot_Light_ZH_CN.jpg)
-![Screenshot2](/.github/images/Screenshot_Dark_ZH_CN.jpg)
-![Screenshot3](/.github/images/Screenshot_Game_ZH_CN.jpg)
+![Screenshot1](/.github/images/Screenshot_Light_ZH_TW.jpg)
+![Screenshot2](/.github/images/Screenshot_Dark_ZH_TW.jpg)
+![Screenshot3](/.github/images/Screenshot_Game_ZH_TW.jpg)
 
 <h2 align="center">下載</h2>
 

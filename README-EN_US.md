@@ -25,9 +25,9 @@
 
 <h2 align="center">Screenshots</h2>
 
-![Screenshot1](/.github/images/Screenshot_Light_ZH_CN.jpg)
-![Screenshot2](/.github/images/Screenshot_Dark_ZH_CN.jpg)
-![Screenshot3](/.github/images/Screenshot_Game_ZH_CN.jpg)
+![Screenshot1](/.github/images/Screenshot_Light_EN_US.jpg)
+![Screenshot2](/.github/images/Screenshot_Dark_EN_US.jpg)
+![Screenshot3](/.github/images/Screenshot_Game_EN_US.jpg)
 
 <h2 align="center">Download</h2>
 
