@@ -4,6 +4,7 @@ title: "[BUG] 简短的描述"
 labels: [bug]
 body:
   - type: textarea
+    id: description
     attributes:
       label: 问题描述
       description: |
@@ -12,6 +13,7 @@ body:
       required: true
 
   - type: textarea
+    id: log
     attributes:
       label: 日志文件
       description: |
@@ -20,6 +22,7 @@ body:
       required: true
 
   - type: textarea
+    id: screenshots
     attributes:
       label: 截图或视频
       description: |
@@ -28,6 +31,7 @@ body:
       required: false
 
   - type: textarea
+    id: repetition
     attributes:
       label: 复现步骤
       description: |
@@ -37,9 +41,10 @@ body:
         ... *(复现问题的一些操作)*
       render: markdown
     validations:
-      required: true
+      required: false
 
   - type: textarea
+    id: expected-behavior
     attributes:
       label: 预期行为
       description: |
@@ -48,6 +53,7 @@ body:
       required: false
 
   - type: dropdown
+    id: android-version
     attributes:
       label: Android 版本
       options:
@@ -63,6 +69,7 @@ body:
       required: true
 
   - type: input
+    id: app-version
     attributes:
       label: Pojav Zenith Horizon 版本
       description: |
@@ -72,6 +79,7 @@ body:
       required: true
 
   - type: textarea
+    id: more-info
     attributes:
       label: 其他信息
       description: |
@@ -85,6 +93,7 @@ body:
       required: true
 
   - type: checkboxes
+    id: check-issue
     attributes:
       label: 这个问题还没有人反馈过
       options:
