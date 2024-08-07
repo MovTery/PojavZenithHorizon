@@ -24,6 +24,7 @@ import com.movtery.pojavzh.utils.anim.ViewAnimUtils.setViewAnim
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.slideInAnim
 import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.prefs.LauncherPreferences
 import java.util.concurrent.Future
 
 abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download) {
@@ -89,16 +90,15 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
         super.onDestroy()
     }
 
-    private fun hideParentElement(visible: Boolean) {
-        cancelTask() //中断当前正在执行的任务
+    private fun hideParentElement(hide: Boolean) {
+        cancelTask()
 
-        mRefreshButton?.isClickable = !visible
-        releaseCheckBox?.isClickable = !visible
+        mRefreshButton?.isClickable = !hide
+        releaseCheckBox?.isClickable = !hide
 
-        setVisibilityAnim(mSelectTitle!!, visible)
-        setVisibilityAnim(mRefreshButton!!, !visible)
-
-        if (releaseCheckBoxVisible) setVisibilityAnim(releaseCheckBox!!, !visible)
+        setViewAnim(mSelectTitle!!, if (hide) Techniques.FadeIn else Techniques.FadeOut, (LauncherPreferences.PREF_ANIMATION_SPEED * 0.7).toLong())
+        setViewAnim(mRefreshButton!!, if (hide) Techniques.FadeOut else Techniques.FadeIn, (LauncherPreferences.PREF_ANIMATION_SPEED * 0.7).toLong())
+        if (releaseCheckBoxVisible) setViewAnim(releaseCheckBox!!, if (hide) Techniques.FadeOut else Techniques.FadeIn, (LauncherPreferences.PREF_ANIMATION_SPEED * 0.7).toLong())
     }
 
     private fun cancelTask() {
@@ -180,6 +180,7 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
         if (view.visibility == targetVisibility) return
 
         setViewAnim(view, if (visible) Techniques.FadeIn else Techniques.FadeOut,
+            (LauncherPreferences.PREF_ANIMATION_SPEED * 0.7).toLong(),
             AnimatorCallback { view.visibility = View.VISIBLE },
             AnimatorCallback { view.visibility = if (visible) View.VISIBLE else View.GONE })
     }
