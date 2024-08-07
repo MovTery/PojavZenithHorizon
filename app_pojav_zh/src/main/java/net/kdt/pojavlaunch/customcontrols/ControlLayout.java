@@ -486,13 +486,13 @@ public class ControlLayout extends FrameLayout {
 	}
 
 	public void updateLoadedFileName(String path) {
-		path = path.replace(PathAndUrlManager.CTRLMAP_PATH, ".");
+		path = path.replace(PathAndUrlManager.DIR_CTRLMAP_PATH, ".");
 		path = path.substring(0, path.length() - 5);
 		mLayoutFileName = path;
 	}
 
 	public String saveToDirectory(String name) throws Exception{
-		String jsonPath = PathAndUrlManager.CTRLMAP_PATH + "/" + name + ".json";
+		String jsonPath = PathAndUrlManager.DIR_CTRLMAP_PATH + "/" + name + ".json";
 		saveLayout(jsonPath);
 		return jsonPath;
 	}

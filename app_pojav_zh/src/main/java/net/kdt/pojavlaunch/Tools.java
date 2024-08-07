@@ -302,7 +302,7 @@ public final class Tools {
         varArgMap.put("classpath_separator", ":");
         varArgMap.put("library_directory", ProfilePathHome.getLibrariesHome());
         varArgMap.put("version_name", versionInfo.id);
-        varArgMap.put("natives_directory", PathAndUrlManager.NATIVE_LIB_DIR);
+        varArgMap.put("natives_directory", PathAndUrlManager.DIR_NATIVE_LIB);
 
         List<String> minecraftArgs = new ArrayList<>();
         if (versionInfo.arguments != null) {
@@ -1018,7 +1018,7 @@ public final class Tools {
             try {
                 String name = getFileName(context, uri);
                 MultiRTUtils.installRuntimeNamed(
-                        PathAndUrlManager.NATIVE_LIB_DIR,
+                        PathAndUrlManager.DIR_NATIVE_LIB,
                         context.getContentResolver().openInputStream(uri),
                         name);
 

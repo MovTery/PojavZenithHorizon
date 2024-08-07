@@ -32,7 +32,7 @@ public class MultiRTUtils {
 
     private static final HashMap<String,Runtime> sCache = new HashMap<>();
 
-    private static final File RUNTIME_FOLDER = new File(PathAndUrlManager.MULTIRT_HOME);
+    private static final File RUNTIME_FOLDER = new File(PathAndUrlManager.DIR_MULTIRT_HOME);
     private static final String JAVA_VERSION_STR = "JAVA_VERSION=\"";
     private static final String OS_ARCH_STR = "OS_ARCH=\"";
 
@@ -100,7 +100,7 @@ public class MultiRTUtils {
         installRuntimeNamedNoRemove(universalFileInputStream,dest);
         installRuntimeNamedNoRemove(platformBinsInputStream,dest);
 
-        unpack200(PathAndUrlManager.NATIVE_LIB_DIR,RUNTIME_FOLDER + "/" + name);
+        unpack200(PathAndUrlManager.DIR_NATIVE_LIB,RUNTIME_FOLDER + "/" + name);
 
         File binpack_verfile = new File(RUNTIME_FOLDER,"/"+name+"/pojav_version");
         FileOutputStream fos = new FileOutputStream(binpack_verfile);
@@ -203,7 +203,7 @@ public class MultiRTUtils {
     @SuppressWarnings("SameParameterValue")
     private static void copyDummyNativeLib(String name, File dest, String libFolder) throws IOException {
         File fileLib = new File(dest, "/"+libFolder + "/" + name);
-        FileInputStream is = new FileInputStream(new File(PathAndUrlManager.NATIVE_LIB_DIR, name));
+        FileInputStream is = new FileInputStream(new File(PathAndUrlManager.DIR_NATIVE_LIB, name));
         FileOutputStream os = new FileOutputStream(fileLib);
         IOUtils.copy(is, os);
         is.close();

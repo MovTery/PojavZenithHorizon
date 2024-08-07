@@ -37,7 +37,7 @@ public class ControlsListViewCreator {
     private ControlListAdapter controlListAdapter;
     private FileSelectedListener fileSelectedListener;
     private RefreshListener refreshListener;
-    private File fullPath = new File(PathAndUrlManager.CTRLMAP_PATH);
+    private File fullPath = new File(PathAndUrlManager.DIR_CTRLMAP_PATH);
     private String filterString = "";
     private boolean showSearchResultsOnly = false;
     private boolean caseSensitive = false;
@@ -173,7 +173,7 @@ public class ControlsListViewCreator {
     }
 
     private File controlPath() {
-        File ctrlPath = new File(PathAndUrlManager.CTRLMAP_PATH);
+        File ctrlPath = new File(PathAndUrlManager.DIR_CTRLMAP_PATH);
         if (!ctrlPath.exists()) FileTools.mkdirs(ctrlPath);
         return ctrlPath;
     }
