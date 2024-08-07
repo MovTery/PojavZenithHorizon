@@ -4,6 +4,7 @@ title: "[建议] 简短的被描述"
 labels: [建议]
 body:
   - type: textarea
+    id: description
     attributes:
       label: 功能描述
       description: |
@@ -12,6 +13,7 @@ body:
       required: true
 
   - type: textarea
+    id: more-info
     attributes:
       label: 其他信息
       description: |
@@ -20,6 +22,7 @@ body:
       required: false
 
   - type: checkboxes
+    id: check-issue
     attributes:
       label: 这个功能建议还没有人提出过
       options:

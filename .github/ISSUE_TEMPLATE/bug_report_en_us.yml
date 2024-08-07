@@ -4,6 +4,7 @@ title: "[BUG] Brief Description"
 labels: [bug]
 body:
   - type: textarea
+    id: description
     attributes:
       label: Issue Description
       description: |
@@ -12,6 +13,7 @@ body:
       required: true
 
   - type: textarea
+    id: log
     attributes:
       label: Log File
       description: |
@@ -20,6 +22,7 @@ body:
       required: true
 
   - type: textarea
+    id: screenshots
     attributes:
       label: Screenshots or Videos
       description: |
@@ -28,6 +31,7 @@ body:
       required: false
 
   - type: textarea
+    id: repetition
     attributes:
       label: Reproduction Steps
       description: |
@@ -37,9 +41,10 @@ body:
         ... *(steps to reproduce the issue)*
       render: markdown
     validations:
-      required: true
+      required: false
 
   - type: textarea
+    id: expected-behavior
     attributes:
       label: Expected Behavior
       description: |
@@ -48,6 +53,7 @@ body:
       required: false
 
   - type: dropdown
+    id: android-version
     attributes:
       label: Android Version
       options:
@@ -63,6 +69,7 @@ body:
       required: true
 
   - type: input
+    id: app-version
     attributes:
       label: Pojav Zenith Horizon Version
       description: |
@@ -72,6 +79,7 @@ body:
       required: true
 
   - type: textarea
+    id: more-info
     attributes:
       label: Additional Information
       description: |
@@ -85,6 +93,7 @@ body:
       required: true
 
   - type: checkboxes
+    id: check-issue
     attributes:
       label: This issue has not been reported before
       options:

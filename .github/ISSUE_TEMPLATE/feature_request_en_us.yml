@@ -4,6 +4,7 @@ title: "[Request] Brief Description"
 labels: [建议]
 body:
   - type: textarea
+    id: description
     attributes:
       label: Feature Description
       description: |
@@ -12,6 +13,7 @@ body:
       required: true
 
   - type: textarea
+    id: more-info
     attributes:
       label: Additional Information
       description: |
@@ -20,6 +22,7 @@ body:
       required: false
 
   - type: checkboxes
+    id: check-issue
     attributes:
       label: This feature request has not been proposed before
       options:
