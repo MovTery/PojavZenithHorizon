@@ -1,6 +1,5 @@
 package com.movtery.pojavzh.ui.dialog;
 
-import static com.movtery.pojavzh.utils.ZHTools.DIR_CUSTOM_MOUSE;
 import static com.movtery.pojavzh.utils.image.ImageUtils.isImage;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
@@ -16,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileIcon;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileItemBean;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerViewCreator;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.file.FileTools;
 
 import net.kdt.pojavlaunch.R;
@@ -72,7 +72,7 @@ public class SelectMouseDialog extends FullScreenDialog {
     }
 
     private File mousePath() {
-        File path = new File(DIR_CUSTOM_MOUSE);
+        File path = new File(PathAndUrlManager.DIR_CUSTOM_MOUSE);
         if (!path.exists()) FileTools.mkdirs(path);
         return path;
     }

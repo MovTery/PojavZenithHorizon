@@ -17,6 +17,7 @@ import androidx.core.content.FileProvider;
 import com.movtery.pojavzh.ui.dialog.ProgressDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.dialog.UpdateDialog;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.http.CallUtils;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
@@ -56,7 +57,7 @@ public class UpdateLauncher {
     public UpdateLauncher(Context context, String versionName, String tagName, long fileSize, UpdateSource updateSource) {
         this.context = context;
         this.updateSource = updateSource;
-        this.apkFile = new File(ZHTools.DIR_APP_CACHE, "cache.apk");
+        this.apkFile = new File(PathAndUrlManager.DIR_APP_CACHE, "cache.apk");
         this.versionName = versionName;
         this.tagName = tagName;
         this.fileSizeString = formatFileSize(fileSize);
@@ -65,7 +66,7 @@ public class UpdateLauncher {
     }
 
     public static void CheckDownloadedPackage(Context context, boolean ignore) {
-        File downloadedFile = new File(ZHTools.DIR_APP_CACHE, "cache.apk");
+        File downloadedFile = new File(PathAndUrlManager.DIR_APP_CACHE, "cache.apk");
 
         if (downloadedFile.exists()) {
             PackageManager packageManager = context.getPackageManager();
@@ -171,7 +172,7 @@ public class UpdateLauncher {
                     }
                 }
             }
-        }, ZHTools.URL_GITHUB_RELEASE, token.equals("DUMMY") ? null : token).start();
+        }, PathAndUrlManager.URL_GITHUB_RELEASE, token.equals("DUMMY") ? null : token).start();
     }
 
     private void init() {

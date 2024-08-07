@@ -12,6 +12,7 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.util.Log;
 
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.UnpackJRE;
 import com.movtery.pojavzh.utils.ZHTools;
 
@@ -85,7 +86,7 @@ public class LauncherPreferences {
     public static void loadPreferences(Context ctx) {
         //Required for the data folder.
         Tools.initContextConstants(ctx);
-        ZHTools.initContextConstants(ctx);
+        PathAndUrlManager.initContextConstants(ctx);
 
         PREF_RENDERER = DEFAULT_PREF.getString("renderer", "opengles2");
         PREF_BUTTONSIZE = DEFAULT_PREF.getInt("buttonscale", 100);

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.movtery.pojavzh.feature.accounts.AccountsManager;
 import com.movtery.pojavzh.ui.subassembly.account.AccountAdapter;
 import com.movtery.pojavzh.ui.subassembly.account.SelectAccountListener;
-import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.PojavProfile;
 import net.kdt.pojavlaunch.R;
@@ -105,7 +105,7 @@ public class AccountsDialog extends FullScreenDialog implements TaskCountListene
                         .setConfirm(R.string.global_delete)
                         .setConfirmClickListener(() -> {
                             File accountFile = new File(Tools.DIR_ACCOUNT_NEW, account.username + ".json");
-                            File userIconFile = new File(ZHTools.DIR_USER_ICON, account.username + ".png");
+                            File userIconFile = new File(PathAndUrlManager.DIR_USER_ICON, account.username + ".png");
                             if (accountFile.exists()) FileUtils.deleteQuietly(accountFile);
                             if (userIconFile.exists()) FileUtils.deleteQuietly(userIconFile);
                             refresh();

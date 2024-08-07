@@ -46,7 +46,7 @@ import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
-import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.file.FileTools;
 
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
@@ -235,7 +235,7 @@ public final class Tools {
             else
                 return new File(ProfilePathManager.getCurrentPath(),minecraftProfile.gameDir);
         }
-        return new File(ZHTools.DIR_GAME_DEFAULT);
+        return new File(PathAndUrlManager.DIR_GAME_DEFAULT);
     }
 
     public static void buildNotificationChannel(Context context){

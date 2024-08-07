@@ -20,6 +20,7 @@ import com.movtery.pojavzh.ui.subassembly.background.BackgroundType
 import com.movtery.pojavzh.ui.subassembly.filelist.FileIcon
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerView
 import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener
+import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.anim.AnimUtils.setVisibilityAnim
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.setViewAnim
@@ -150,8 +151,9 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
     }
 
     private fun backgroundPath(): File {
-        if (!ZHTools.DIR_BACKGROUND.exists()) mkdirs(ZHTools.DIR_BACKGROUND)
-        return ZHTools.DIR_BACKGROUND
+        val dirBackground = PathAndUrlManager.DIR_BACKGROUND
+        if (!dirBackground!!.exists()) mkdirs(dirBackground)
+        return dirBackground
     }
 
     private val currentStatusName: String

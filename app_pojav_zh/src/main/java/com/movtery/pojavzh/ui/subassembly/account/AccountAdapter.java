@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
@@ -98,7 +98,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.Holder> 
                     setButtonClickable(mRefreshButton, true);
                     loginType = R.string.zh_account_microsoft_account;
 
-                    File iconFile = new File(ZHTools.DIR_USER_ICON, account.username + ".png");
+                    File iconFile = new File(PathAndUrlManager.DIR_USER_ICON, account.username + ".png");
                     if (iconFile.exists()) {
                         drawable = Drawable.createFromPath(iconFile.getAbsolutePath());
                     }

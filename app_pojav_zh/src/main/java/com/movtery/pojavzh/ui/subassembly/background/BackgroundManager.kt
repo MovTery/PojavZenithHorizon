@@ -1,7 +1,7 @@
 package com.movtery.pojavzh.ui.subassembly.background
 
 import android.graphics.drawable.Drawable
-import com.movtery.pojavzh.utils.ZHTools
+import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.file.FileTools.mkdirs
 import net.kdt.pojavlaunch.Tools
 import java.io.File
@@ -61,7 +61,8 @@ object BackgroundManager {
         }
 
     private fun saveProperties(properties: Properties) {
-        if (!ZHTools.DIR_BACKGROUND.exists()) mkdirs(ZHTools.DIR_BACKGROUND)
+        val dirBackground = PathAndUrlManager.DIR_BACKGROUND
+        if (!dirBackground!!.exists()) mkdirs(dirBackground)
 
         try {
             properties.store(

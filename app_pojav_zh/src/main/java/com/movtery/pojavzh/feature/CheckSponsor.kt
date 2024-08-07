@@ -5,7 +5,7 @@ import android.util.Base64
 import android.util.Log
 import com.movtery.pojavzh.ui.subassembly.about.SponsorItemBean
 import com.movtery.pojavzh.ui.subassembly.about.SponsorMeta
-import com.movtery.pojavzh.utils.ZHTools
+import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.http.CallUtils
 import com.movtery.pojavzh.utils.http.CallUtils.CallbackListener
 import net.kdt.pojavlaunch.R
@@ -86,7 +86,7 @@ object CheckSponsor {
                 }
                 isChecking = false
             }
-        }, ZHTools.URL_GITHUB_HOME + "sponsor.json", if (token == "DUMMY") null else token).start()
+        }, PathAndUrlManager.URL_GITHUB_HOME + "sponsor.json", if (token == "DUMMY") null else token).start()
     }
 
     interface CheckListener {
