@@ -45,6 +45,7 @@ import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
 import com.movtery.pojavzh.ui.subassembly.settingsbutton.ButtonType;
 import com.movtery.pojavzh.ui.subassembly.settingsbutton.SettingsButtonWrapper;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 import com.movtery.pojavzh.utils.stringutils.ShiftDirection;
@@ -494,7 +495,7 @@ public class LauncherActivity extends BaseActivity {
                     .setTitle(R.string.zh_request_sponsorship_title)
                     .setMessage(R.string.zh_request_sponsorship_message)
                     .setConfirm(R.string.zh_about_button_support_development)
-                    .setConfirmClickListener(() -> Tools.openURL(this, ZHTools.URL_SUPPORT))
+                    .setConfirmClickListener(() -> Tools.openURL(this, PathAndUrlManager.URL_SUPPORT))
                     .setDialogDismissListener(() -> {
                         DEFAULT_PREF.edit().putBoolean("noLongerRequestingSponsorship", true).apply();
                         return true;

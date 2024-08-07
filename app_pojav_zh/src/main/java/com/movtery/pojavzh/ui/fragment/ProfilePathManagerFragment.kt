@@ -19,6 +19,7 @@ import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager.save
 import com.movtery.pojavzh.ui.dialog.EditTextDialog
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfileItem
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathAdapter
+import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.setViewAnim
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.slideInAnim
@@ -115,8 +116,8 @@ class ProfilePathManagerFragment : FragmentWithAnim(R.layout.fragment_profile_pa
 
         try {
             val json: String
-            if (ZHTools.FILE_PROFILE_PATH.exists()) {
-                json = Tools.read(ZHTools.FILE_PROFILE_PATH)
+            if (PathAndUrlManager.FILE_PROFILE_PATH!!.exists()) {
+                json = Tools.read(PathAndUrlManager.FILE_PROFILE_PATH)
                 if (json.isEmpty()) return
             } else return
 

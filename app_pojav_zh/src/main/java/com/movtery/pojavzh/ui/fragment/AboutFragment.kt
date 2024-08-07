@@ -20,6 +20,7 @@ import com.movtery.pojavzh.ui.subassembly.about.AboutItemBean.AboutItemButtonBea
 import com.movtery.pojavzh.ui.subassembly.about.AboutRecyclerAdapter
 import com.movtery.pojavzh.ui.subassembly.about.SponsorItemBean
 import com.movtery.pojavzh.ui.subassembly.about.SponsorRecyclerAdapter
+import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.setViewAnim
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.slideInAnim
@@ -54,9 +55,9 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
         mAppTitleView?.setOnClickListener { setViewAnim(mAppTitleView!!, Techniques.Pulse) }
         mReturnButton?.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
         mGithubButton?.setOnClickListener { Tools.openURL(requireActivity(), Tools.URL_HOME) }
-        mPojavLauncherButton?.setOnClickListener { Tools.openURL(requireActivity(), ZHTools.URL_GITHUB_POJAVLAUNCHER) }
+        mPojavLauncherButton?.setOnClickListener { Tools.openURL(requireActivity(), PathAndUrlManager.URL_GITHUB_POJAVLAUNCHER) }
         mLicenseButton?.setOnClickListener { Tools.openURL(requireActivity(), "https://www.gnu.org/licenses/gpl-3.0.html") }
-        mSupportButton?.setOnClickListener { Tools.openURL(requireActivity(), ZHTools.URL_SUPPORT) }
+        mSupportButton?.setOnClickListener { Tools.openURL(requireActivity(), PathAndUrlManager.URL_SUPPORT) }
 
         val aboutAdapter = AboutRecyclerAdapter(this.mAboutData)
         mAboutRecyclerView?.layoutManager = LinearLayoutManager(requireContext())
@@ -102,7 +103,7 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
                 resources.getDrawable(R.drawable.ic_pojav_full, requireContext().theme),
                 "PojavLauncherTeam",
                 getString(R.string.zh_about_pojavlauncher_desc),
-                AboutItemButtonBean(requireActivity(), "Github", ZHTools.URL_GITHUB_POJAVLAUNCHER)
+                AboutItemButtonBean(requireActivity(), "Github", PathAndUrlManager.URL_GITHUB_POJAVLAUNCHER)
             )
         )
         mAboutData.add(

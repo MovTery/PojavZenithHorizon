@@ -5,7 +5,7 @@ import android.app.Activity
 import android.widget.Button
 import android.widget.CheckBox
 import com.movtery.pojavzh.ui.dialog.TipDialog
-import com.movtery.pojavzh.utils.ZHTools
+import com.movtery.pojavzh.utils.PathAndUrlManager
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
@@ -46,7 +46,7 @@ object LocalAccountUtils {
             .addView(checkBox)
             .setConfirmClickListener(confirmClickListener)
             .setConfirm(confirm)
-            .setCancelClickListener { Tools.openURL(activity, ZHTools.URL_MINECRAFT) }
+            .setCancelClickListener { Tools.openURL(activity, PathAndUrlManager.URL_MINECRAFT) }
             .setCancel(R.string.zh_account_purchase_minecraft_account)
             .buildDialog()
     }

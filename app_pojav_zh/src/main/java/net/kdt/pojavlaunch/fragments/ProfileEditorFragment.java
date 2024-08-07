@@ -29,6 +29,7 @@ import com.movtery.pojavzh.ui.fragment.ControlButtonFragment;
 import com.movtery.pojavzh.ui.fragment.FilesFragment;
 import com.movtery.pojavzh.ui.fragment.VersionSelectorFragment;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 import com.movtery.pojavzh.utils.file.FileTools;
@@ -117,7 +118,7 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
         });
 
         mGameDirButton.setOnClickListener(v -> {
-            File dir = new File(ZHTools.DIR_GAME_DEFAULT);
+            File dir = new File(PathAndUrlManager.DIR_GAME_DEFAULT);
             if (!dir.exists()) FileTools.mkdirs(dir);
             Bundle bundle = new Bundle();
             bundle.putBoolean(FilesFragment.BUNDLE_SELECT_FOLDER_MODE, true);

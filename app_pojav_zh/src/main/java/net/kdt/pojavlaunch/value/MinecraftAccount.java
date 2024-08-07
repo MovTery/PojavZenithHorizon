@@ -8,7 +8,7 @@ import net.kdt.pojavlaunch.*;
 
 import java.io.*;
 import com.google.gson.*;
-import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import android.graphics.Bitmap;
 import android.util.Base64;
@@ -123,7 +123,7 @@ public class MinecraftAccount {
     }
 
     private static File getSkinFaceFile(String username) {
-        return new File(ZHTools.DIR_USER_ICON, username + ".png");
+        return new File(PathAndUrlManager.DIR_USER_ICON, username + ".png");
     }
 
     private static boolean accountExists(String username){

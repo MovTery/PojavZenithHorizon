@@ -3,6 +3,7 @@ package com.movtery.pojavzh.feature
 import android.content.Context
 import android.util.Base64
 import android.util.Log
+import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.http.CallUtils
 import com.movtery.pojavzh.utils.http.CallUtils.CallbackListener
@@ -86,7 +87,7 @@ object CheckNewNotice {
                 }
                 isChecking = false
             }
-        }, ZHTools.URL_GITHUB_HOME + "notice.json", if (token == "DUMMY") null else token).start()
+        }, PathAndUrlManager.URL_GITHUB_HOME + "notice.json", if (token == "DUMMY") null else token).start()
     }
 
     interface CheckListener {

@@ -1,6 +1,5 @@
 package com.movtery.pojavzh.utils;
 
-import static net.kdt.pojavlaunch.Tools.DIR_GAME_HOME;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
@@ -25,12 +24,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundManager;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
-import com.movtery.pojavzh.utils.file.FileTools;
 import com.movtery.pojavzh.utils.image.ImageUtils;
 
 import net.kdt.pojavlaunch.R;
@@ -45,36 +42,9 @@ import java.util.Objects;
 import java.util.Properties;
 
 public class ZHTools {
-    public static final String URL_GITHUB_RELEASE = "https://api.github.com/repos/MovTery/PojavZenithHorizon/releases/latest";
-    public static final String URL_GITHUB_HOME = "https://api.github.com/repos/MovTery/PZH-InfoRetrieval/contents/";
-    public static final String URL_GITHUB_POJAVLAUNCHER = "https://github.com/PojavLauncherTeam/PojavLauncher";
-    public static final String URL_MINECRAFT = "https://www.minecraft.net/";
-    public static final String URL_SUPPORT = "https://afdian.com/a/MovTery";
-    public static String DIR_GAME_DEFAULT;
-    public static String DIR_CUSTOM_MOUSE;
-    public static String DIR_LOGIN;
-    public static File DIR_BACKGROUND;
-    public static File DIR_APP_CACHE;
-    public static File DIR_USER_ICON;
-    public static File FILE_CUSTOM_MOUSE;
-    public static File FILE_PROFILE_PATH;
     public static long LAST_UPDATE_CHECK_TIME = 0;
 
     private ZHTools() {
-    }
-
-    public static void initContextConstants(Context context) {
-        ZHTools.FILE_PROFILE_PATH = new File(Tools.DIR_DATA, "/profile_path.json");
-        ZHTools.DIR_GAME_DEFAULT = ProfilePathHome.getGameHome() + "/instance/default";
-        ZHTools.DIR_CUSTOM_MOUSE = DIR_GAME_HOME + "/mouse";
-        ZHTools.DIR_LOGIN = DIR_GAME_HOME + "/login";
-        ZHTools.DIR_BACKGROUND = new File(DIR_GAME_HOME + "/background");
-        ZHTools.DIR_APP_CACHE = context.getExternalCacheDir();
-        ZHTools.DIR_USER_ICON = new File(Tools.DIR_CACHE, "/user_icon");
-
-        if (!ZHTools.DIR_BACKGROUND.exists()) {
-            FileTools.mkdirs(ZHTools.DIR_BACKGROUND);
-        }
     }
 
     public static void onBackPressed(FragmentActivity fragmentActivity) {
@@ -93,14 +63,13 @@ public class ZHTools {
     public synchronized static Drawable customMouse(Context context) {
         String customMouse = DEFAULT_PREF.getString("custom_mouse", null);
         if (customMouse == null) {
-            FILE_CUSTOM_MOUSE = null;
             return ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_mouse_pointer, context.getTheme());
         }
-        FILE_CUSTOM_MOUSE = new File(DIR_CUSTOM_MOUSE, customMouse);
+        File mouseFile = new File(PathAndUrlManager.DIR_CUSTOM_MOUSE, customMouse);
 
         // 鼠标：自定义鼠标图片
-        if (FILE_CUSTOM_MOUSE.exists()) {
-            return Drawable.createFromPath(FILE_CUSTOM_MOUSE.getAbsolutePath());
+        if (mouseFile.exists()) {
+            return Drawable.createFromPath(mouseFile.getAbsolutePath());
         } else {
             return ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_mouse_pointer, context.getTheme());
         }
@@ -125,7 +94,7 @@ public class ZHTools {
         String pngName = (String) properties.get(backgroundType.name());
         if (pngName == null || pngName.equals("null")) return null;
 
-        File backgroundImage = new File(ZHTools.DIR_BACKGROUND, pngName);
+        File backgroundImage = new File(PathAndUrlManager.DIR_BACKGROUND, pngName);
         if (!backgroundImage.exists() || !ImageUtils.isImage(backgroundImage)) return null;
         return backgroundImage;
     }
@@ -187,7 +156,7 @@ public class ZHTools {
             else
                 return new File(ProfilePathManager.getCurrentPath(), gameDir);
         }
-        return new File(DIR_GAME_DEFAULT);
+        return new File(PathAndUrlManager.DIR_GAME_DEFAULT);
     }
 
     public static int getVersionCode(Context context) {

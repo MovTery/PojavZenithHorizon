@@ -6,7 +6,7 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome.gameHome
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfileItem
-import com.movtery.pojavzh.utils.ZHTools
+import com.movtery.pojavzh.utils.PathAndUrlManager
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
@@ -31,9 +31,9 @@ object ProfilePathManager {
                 return defaultPath
             }
 
-            if (ZHTools.FILE_PROFILE_PATH.exists()) {
+            if (PathAndUrlManager.FILE_PROFILE_PATH!!.exists()) {
                 try {
-                    val read = Tools.read(ZHTools.FILE_PROFILE_PATH)
+                    val read = Tools.read(PathAndUrlManager.FILE_PROFILE_PATH)
                     val jsonObject = JsonParser.parseString(read).asJsonObject
                     if (jsonObject.has(id)) {
                         val profilePathJsonObject =
@@ -73,7 +73,7 @@ object ProfilePathManager {
         }
 
         try {
-            FileWriter(ZHTools.FILE_PROFILE_PATH).use { fileWriter ->
+            FileWriter(PathAndUrlManager.FILE_PROFILE_PATH).use { fileWriter ->
                 Gson().toJson(jsonObject, fileWriter)
             }
         } catch (e: IOException) {
