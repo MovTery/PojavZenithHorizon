@@ -15,13 +15,13 @@ object PathAndUrlManager {
     const val URL_SUPPORT: String = "https://afdian.com/a/MovTery"
     const val URL_HOME: String = "https://github.com/MovTery/PojavZenithHorizon"
 
-    @JvmField var NATIVE_LIB_DIR: String? = null
+    //PojavLauncher
+    @JvmField var DIR_NATIVE_LIB: String? = null
     @JvmField var DIR_DATA: String? = null //Initialized later to get context
     @JvmField var DIR_CACHE: File? = null
-    @JvmField var MULTIRT_HOME: String? = null
+    @JvmField var DIR_MULTIRT_HOME: String? = null
     @JvmField var DIR_GAME_HOME: String = Environment.getExternalStorageDirectory().absolutePath + "/games/PojavZenithHorizon"
-    @JvmField var CTRLMAP_PATH: String? = null
-    @JvmField var CTRLDEF_FILE: String? = null
+    @JvmField var DIR_CTRLMAP_PATH: String? = null
 
     @JvmField var DIR_GAME_DEFAULT: String? = null
     @JvmField var DIR_CUSTOM_MOUSE: String? = null
@@ -31,6 +31,7 @@ object PathAndUrlManager {
     @JvmField var DIR_USER_ICON: File? = null
 
     @JvmField var FILE_PROFILE_PATH: File? = null
+    @JvmField var FILE_CTRLDEF_FILE: String? = null
 
     @JvmStatic
     fun initContextConstants(context: Context) {
@@ -41,13 +42,12 @@ object PathAndUrlManager {
     }
 
     private fun initDirectoryPath(context: Context) {
-        NATIVE_LIB_DIR = context.applicationInfo.nativeLibraryDir
+        DIR_NATIVE_LIB = context.applicationInfo.nativeLibraryDir
         DIR_DATA = context.filesDir.getParent()
         DIR_CACHE = context.cacheDir
-        MULTIRT_HOME = "$DIR_DATA/runtimes"
+        DIR_MULTIRT_HOME = "$DIR_DATA/runtimes"
         DIR_GAME_HOME = Tools.getPojavStorageRoot(context).absolutePath
-        CTRLMAP_PATH = "$DIR_GAME_HOME/controlmap"
-        CTRLDEF_FILE = "$DIR_GAME_HOME/controlmap/default.json"
+        DIR_CTRLMAP_PATH = "$DIR_GAME_HOME/controlmap"
 
         DIR_GAME_DEFAULT = "$gameHome/instance/default"
         DIR_CUSTOM_MOUSE = "$DIR_GAME_HOME/mouse"
@@ -59,6 +59,7 @@ object PathAndUrlManager {
 
     private fun initFilePath() {
         FILE_PROFILE_PATH = File(DIR_DATA, "/profile_path.json")
+        FILE_CTRLDEF_FILE = "$DIR_GAME_HOME/controlmap/default.json"
     }
 
     private fun createDefaultPath(path: File?) {

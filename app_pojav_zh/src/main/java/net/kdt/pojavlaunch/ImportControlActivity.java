@@ -112,7 +112,7 @@ public class ImportControlActivity extends Activity {
             return;
         }
 
-        new File(PathAndUrlManager.CTRLMAP_PATH + "/TMP_IMPORT_FILE.json").renameTo(new File(PathAndUrlManager.CTRLMAP_PATH + "/" + fileName + ".json"));
+        new File(PathAndUrlManager.DIR_CTRLMAP_PATH + "/TMP_IMPORT_FILE.json").renameTo(new File(PathAndUrlManager.DIR_CTRLMAP_PATH + "/" + fileName + ".json"));
         Toast.makeText(getApplicationContext(), getText(R.string.import_control_done), Toast.LENGTH_SHORT).show();
         finishAndRemoveTask();
     }
@@ -124,7 +124,7 @@ public class ImportControlActivity extends Activity {
         InputStream is;
         try {
             is = getContentResolver().openInputStream(mUriData);
-            OutputStream os = new FileOutputStream(PathAndUrlManager.CTRLMAP_PATH + "/" + "TMP_IMPORT_FILE" + ".json");
+            OutputStream os = new FileOutputStream(PathAndUrlManager.DIR_CTRLMAP_PATH + "/" + "TMP_IMPORT_FILE" + ".json");
             IOUtils.copy(is, os);
 
             os.close();
@@ -143,7 +143,7 @@ public class ImportControlActivity extends Activity {
         fileName = trimFileName(fileName);
 
         if(fileName.isEmpty()) return false;
-        return !FileUtils.exists(PathAndUrlManager.CTRLMAP_PATH + "/" + fileName + ".json");
+        return !FileUtils.exists(PathAndUrlManager.DIR_CTRLMAP_PATH + "/" + fileName + ".json");
     }
 
     /**
@@ -177,7 +177,7 @@ public class ImportControlActivity extends Activity {
      */
     private static boolean verify(){
         try{
-            String jsonLayoutData = Tools.read(PathAndUrlManager.CTRLMAP_PATH + "/TMP_IMPORT_FILE.json");
+            String jsonLayoutData = Tools.read(PathAndUrlManager.DIR_CTRLMAP_PATH + "/TMP_IMPORT_FILE.json");
             JSONObject layoutJobj = new JSONObject(jsonLayoutData);
             return layoutJobj.has("version") && layoutJobj.has("mControlDataList");
         }catch (JSONException | IOException e) {

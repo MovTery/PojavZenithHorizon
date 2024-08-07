@@ -270,7 +270,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             mControlLayout.loadLayout(
                     minecraftProfile.controlFile == null
                             ? LauncherPreferences.PREF_DEFAULTCTRL_PATH
-                            : PathAndUrlManager.CTRLMAP_PATH + "/" + minecraftProfile.controlFile);
+                            : PathAndUrlManager.DIR_CTRLMAP_PATH + "/" + minecraftProfile.controlFile);
         } catch(IOException e) {
             try {
                 Log.w("MainActivity", "Unable to load the control file, loading the default now", e);
@@ -635,7 +635,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             MainActivity.mControlLayout.loadLayout(
                     minecraftProfile.controlFile == null
                             ? LauncherPreferences.PREF_DEFAULTCTRL_PATH
-                            : PathAndUrlManager.CTRLMAP_PATH + "/" + minecraftProfile.controlFile);
+                            : PathAndUrlManager.DIR_CTRLMAP_PATH + "/" + minecraftProfile.controlFile);
             mDrawerPullButton.setVisibility(mControlLayout.hasMenuButton() ? View.GONE : View.VISIBLE);
         } catch (IOException e) {
             Tools.showError(this,e);
