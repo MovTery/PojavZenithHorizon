@@ -40,6 +40,7 @@ import net.kdt.pojavlaunch.Tools;
 import com.movtery.pojavzh.ui.dialog.ShareLogDialog;
 import com.movtery.pojavzh.ui.fragment.ProfilePathManagerFragment;
 import com.movtery.pojavzh.ui.subassembly.account.AccountView;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
@@ -112,13 +113,13 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
         mPlayButton.setOnClickListener(v -> ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true));
 
         mShareLogsButton.setOnClickListener(v -> {
-            ShareLogDialog shareLogDialog = new ShareLogDialog(requireContext(), new File(Tools.DIR_GAME_HOME + "/latestlog.txt"));
+            ShareLogDialog shareLogDialog = new ShareLogDialog(requireContext(), new File(PathAndUrlManager.DIR_GAME_HOME + "/latestlog.txt"));
             shareLogDialog.show();
         });
 
         mOpenMainDirButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putString(FilesFragment.BUNDLE_LIST_PATH, Tools.DIR_GAME_HOME);
+            bundle.putString(FilesFragment.BUNDLE_LIST_PATH, PathAndUrlManager.DIR_GAME_HOME);
             ZHTools.swapFragmentWithAnim(this, FilesFragment.class, FilesFragment.TAG, bundle);
         });
 

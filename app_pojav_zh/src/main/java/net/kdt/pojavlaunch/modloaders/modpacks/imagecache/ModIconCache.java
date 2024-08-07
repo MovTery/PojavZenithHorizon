@@ -3,7 +3,7 @@ package net.kdt.pojavlaunch.modloaders.modpacks.imagecache;
 import android.util.Base64;
 import android.util.Log;
 
-import net.kdt.pojavlaunch.Tools;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import org.apache.commons.io.IOUtils;
 
@@ -28,14 +28,14 @@ public class ModIconCache {
     private final List<WeakReference<ImageReceiver>> mCancelledReceivers = new ArrayList<>();
     public ModIconCache() {
         cachePath = getImageCachePath();
-        if(!cachePath.exists() && !cachePath.isFile() && Tools.DIR_CACHE.canWrite()) {
+        if(!cachePath.exists() && !cachePath.isFile() && PathAndUrlManager.DIR_CACHE.canWrite()) {
             if(!cachePath.mkdirs())
                 throw new RuntimeException("Failed to create icon cache directory");
         }
 
     }
     static File getImageCachePath() {
-        return new File(Tools.DIR_CACHE, "mod_icons");
+        return new File(PathAndUrlManager.DIR_CACHE, "mod_icons");
     }
 
     /**
@@ -88,7 +88,7 @@ public class ModIconCache {
      */
 
     public static String getBase64Image(String imageTag) {
-        File imagePath = new File(Tools.DIR_CACHE, "mod_icons/"+imageTag+".ca");
+        File imagePath = new File(PathAndUrlManager.DIR_CACHE, "mod_icons/"+imageTag+".ca");
         Log.i("IconCache", "Creating base64 version of icon "+imageTag);
         if(!imagePath.canRead() || !imagePath.isFile()) {
             Log.i("IconCache", "Icon does not exist");

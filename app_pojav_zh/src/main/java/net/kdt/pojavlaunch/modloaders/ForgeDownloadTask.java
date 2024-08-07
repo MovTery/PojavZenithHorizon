@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch.modloaders;
 
 import com.kdt.mcgui.ProgressLayout;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -46,7 +47,7 @@ public class ForgeDownloadTask implements Runnable, Tools.DownloaderFeedback {
     private void downloadForge() {
         ProgressKeeper.submitProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.forge_dl_progress, mFullVersion);
         try {
-            File destinationFile = new File(Tools.DIR_CACHE, "forge-installer.jar");
+            File destinationFile = new File(PathAndUrlManager.DIR_CACHE, "forge-installer.jar");
             byte[] buffer = new byte[8192];
             DownloadUtils.downloadFileMonitored(mDownloadUrl, destinationFile, buffer, this);
             mListener.onDownloadFinished(destinationFile);

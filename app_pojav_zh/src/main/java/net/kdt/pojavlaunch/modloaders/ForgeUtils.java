@@ -2,7 +2,8 @@ package net.kdt.pojavlaunch.modloaders;
 
 import android.content.Intent;
 
-import net.kdt.pojavlaunch.Tools;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
+
 import net.kdt.pojavlaunch.utils.DownloadUtils;
 
 import org.xml.sax.InputSource;
@@ -40,12 +41,12 @@ public class ForgeUtils {
     }
 
     public static void addAutoInstallArgs(Intent intent, File modInstallerJar, boolean createProfile) {
-        intent.putExtra("javaArgs", "-javaagent:"+ Tools.DIR_DATA+"/forge_installer/forge_installer.jar"
+        intent.putExtra("javaArgs", "-javaagent:"+ PathAndUrlManager.DIR_DATA+"/forge_installer/forge_installer.jar"
                 + (createProfile ? "=NPS" : "") + // No Profile Suppression
                 " -jar "+modInstallerJar.getAbsolutePath());
     }
     public static void addAutoInstallArgs(Intent intent, File modInstallerJar, String modpackFixupId) {
-        intent.putExtra("javaArgs", "-javaagent:"+ Tools.DIR_DATA+"/forge_installer/forge_installer.jar"
+        intent.putExtra("javaArgs", "-javaagent:"+ PathAndUrlManager.DIR_DATA+"/forge_installer/forge_installer.jar"
                 + "=\"" + modpackFixupId +"\"" +
                 " -jar "+modInstallerJar.getAbsolutePath());
     }

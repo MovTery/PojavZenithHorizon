@@ -15,7 +15,7 @@ import java.io.FileWriter
 import java.io.IOException
 
 object ProfilePathManager {
-    private val defaultPath: String = Tools.DIR_GAME_HOME
+    private val defaultPath: String = PathAndUrlManager.DIR_GAME_HOME
 
     @JvmStatic
     fun setCurrentPathId(id: String?) {

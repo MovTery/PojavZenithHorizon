@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.ZHTools;
 
 import java.io.*;
@@ -88,7 +89,7 @@ public class DownloadUtils {
     }
 
     public static <T> T downloadStringCached(String url, String cacheName, ParseCallback<T> parseCallback) throws IOException, ParseException{
-        File cacheDestination = new File(Tools.DIR_CACHE, "string_cache/"+cacheName);
+        File cacheDestination = new File(PathAndUrlManager.DIR_CACHE, "string_cache/"+cacheName);
         if(cacheDestination.isFile() &&
                 cacheDestination.canRead() &&
                 ZHTools.getCurrentTimeMillis() < (cacheDestination.lastModified() + 86400000)) {

@@ -12,13 +12,13 @@ import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo.YoYoString
 import com.movtery.pojavzh.extra.ZHExtraConstants
 import com.movtery.pojavzh.feature.mod.modpack.install.InstallExtra
+import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.setViewAnim
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.slideInAnim
 import com.movtery.pojavzh.utils.file.FileTools.copyFileInBackground
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
 import net.kdt.pojavlaunch.extra.ExtraCore
 import net.kdt.pojavlaunch.fragments.SearchModFragment
@@ -46,7 +46,7 @@ class SelectModPackFragment : FragmentWithAnim(R.layout.fragment_select_modpack)
                         .setCancelable(false)
                         .show()
                     PojavApplication.sExecutorService.execute {
-                        modPackFile = copyFileInBackground(requireContext(), result, Tools.DIR_CACHE.absolutePath)
+                        modPackFile = copyFileInBackground(requireContext(), result, PathAndUrlManager.DIR_CACHE!!.absolutePath)
                         ExtraCore.setValue(ZHExtraConstants.INSTALL_LOCAL_MODPACK,
                             InstallExtra(true, modPackFile!!.absolutePath, dialog))
                     }

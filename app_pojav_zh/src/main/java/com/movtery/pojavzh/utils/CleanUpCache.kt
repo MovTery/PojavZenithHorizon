@@ -19,7 +19,7 @@ object CleanUpCache {
         var totalSize: Long = 0
         var fileCount = 0
         try {
-            val list = Tools.DIR_CACHE.listFiles()?.let {
+            val list = PathAndUrlManager.DIR_CACHE!!.listFiles()?.let {
                 PathAndUrlManager.DIR_APP_CACHE!!.listFiles()?.let { it1 ->
                     getList(it, it1)
                 }

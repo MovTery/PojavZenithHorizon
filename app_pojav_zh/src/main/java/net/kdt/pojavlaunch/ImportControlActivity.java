@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.movtery.pojavzh.utils.PathAndUrlManager;
+
 import net.kdt.pojavlaunch.utils.FileUtils;
 
 import org.apache.commons.io.IOUtils;
@@ -39,7 +41,7 @@ public class ImportControlActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Tools.initContextConstants(getApplicationContext());
+        PathAndUrlManager.initContextConstants(getApplicationContext());
 
         setContentView(R.layout.activity_import_control);
         mEditText = findViewById(R.id.editText_import_control_file_name);
@@ -110,7 +112,7 @@ public class ImportControlActivity extends Activity {
             return;
         }
 
-        new File(Tools.CTRLMAP_PATH + "/TMP_IMPORT_FILE.json").renameTo(new File(Tools.CTRLMAP_PATH + "/" + fileName + ".json"));
+        new File(PathAndUrlManager.CTRLMAP_PATH + "/TMP_IMPORT_FILE.json").renameTo(new File(PathAndUrlManager.CTRLMAP_PATH + "/" + fileName + ".json"));
         Toast.makeText(getApplicationContext(), getText(R.string.import_control_done), Toast.LENGTH_SHORT).show();
         finishAndRemoveTask();
     }
@@ -122,7 +124,7 @@ public class ImportControlActivity extends Activity {
         InputStream is;
         try {
             is = getContentResolver().openInputStream(mUriData);
-            OutputStream os = new FileOutputStream(Tools.CTRLMAP_PATH + "/" + "TMP_IMPORT_FILE" + ".json");
+            OutputStream os = new FileOutputStream(PathAndUrlManager.CTRLMAP_PATH + "/" + "TMP_IMPORT_FILE" + ".json");
             IOUtils.copy(is, os);
 
             os.close();
@@ -141,7 +143,7 @@ public class ImportControlActivity extends Activity {
         fileName = trimFileName(fileName);
 
         if(fileName.isEmpty()) return false;
-        return !FileUtils.exists(Tools.CTRLMAP_PATH + "/" + fileName + ".json");
+        return !FileUtils.exists(PathAndUrlManager.CTRLMAP_PATH + "/" + fileName + ".json");
     }
 
     /**
@@ -175,7 +177,7 @@ public class ImportControlActivity extends Activity {
      */
     private static boolean verify(){
         try{
-            String jsonLayoutData = Tools.read(Tools.CTRLMAP_PATH + "/TMP_IMPORT_FILE.json");
+            String jsonLayoutData = Tools.read(PathAndUrlManager.CTRLMAP_PATH + "/TMP_IMPORT_FILE.json");
             JSONObject layoutJobj = new JSONObject(jsonLayoutData);
             return layoutJobj.has("version") && layoutJobj.has("mControlDataList");
         }catch (JSONException | IOException e) {

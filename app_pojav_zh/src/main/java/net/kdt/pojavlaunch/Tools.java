@@ -98,27 +98,19 @@ public final class Tools {
     public  static final float BYTE_TO_MB = 1024 * 1024;
     public static final Handler MAIN_HANDLER = new Handler(Looper.getMainLooper());
     public static final Gson GLOBAL_GSON = new GsonBuilder().setPrettyPrinting().create();
-    public static final String URL_HOME = "https://github.com/MovTery/PojavZenithHorizon";
     public static final String LAUNCHERPROFILES_RTPREFIX = "pojav://";
     private final static boolean isClientFirst = false;
     public static final String APP_NAME = "Pojav Zenith Horizon";
-    public static String NATIVE_LIB_DIR;
-    public static String DIR_DATA; //Initialized later to get context
-    public static File DIR_CACHE;
-    public static String MULTIRT_HOME;
     public static String LOCAL_RENDERER = null;
     public static int DEVICE_ARCHITECTURE;
     // New since 3.3.1
     public static String DIR_ACCOUNT_NEW;
-    public static String DIR_GAME_HOME = Environment.getExternalStorageDirectory().getAbsolutePath() + "/games/PojavZenithHorizon";
     // New since 3.0.0
     public static String DIRNAME_HOME_JRE = "lib";
-    public static String CTRLMAP_PATH;
-    public static String CTRLDEF_FILE;
     private static RenderersList sCompatibleRenderers;
 
 
-    private static File getPojavStorageRoot(Context ctx) {
+    public static File getPojavStorageRoot(Context ctx) {
         if(SDK_INT >= 29) {
             return ctx.getExternalFilesDir(null);
         }else{
@@ -128,28 +120,12 @@ public final class Tools {
 
     /**
      * Checks if the Pojav's storage root is accessible and read-writable
-     * @param context context to get the storage root if it's not set yet
      * @return true if storage is fine, false if storage is not accessible
      */
-    public static boolean checkStorageRoot(Context context) {
-        File externalFilesDir = DIR_GAME_HOME  == null ? Tools.getPojavStorageRoot(context) : new File(DIR_GAME_HOME);
+    public static boolean checkStorageRoot() {
+        File externalFilesDir = new File(PathAndUrlManager.DIR_GAME_HOME);
         //externalFilesDir == null when the storage is not mounted if it was obtained with the context call
-        return externalFilesDir != null && Environment.getExternalStorageState(externalFilesDir).equals(Environment.MEDIA_MOUNTED);
-    }
-
-    /**
-     * Since some constant requires the use of the Context object
-     * You can call this function to initialize them.
-     * Any value (in)directly dependant on DIR_DATA should be set only here.
-     */
-    public static void initContextConstants(Context ctx){
-        DIR_CACHE = ctx.getCacheDir();
-        DIR_DATA = ctx.getFilesDir().getParent();
-        MULTIRT_HOME = DIR_DATA+"/runtimes";
-        DIR_GAME_HOME = getPojavStorageRoot(ctx).getAbsolutePath();
-        CTRLMAP_PATH = DIR_GAME_HOME + "/controlmap";
-        CTRLDEF_FILE = DIR_GAME_HOME + "/controlmap/default.json";
-        NATIVE_LIB_DIR = ctx.getApplicationInfo().nativeLibraryDir;
+        return Environment.getExternalStorageState(externalFilesDir).equals(Environment.MEDIA_MOUNTED);
     }
 
     public static void launchMinecraft(final AppCompatActivity activity, MinecraftAccount minecraftAccount,
@@ -197,17 +173,17 @@ public final class Tools {
 
         if (!Objects.isNull(minecraftAccount.baseUrl) && !minecraftAccount.baseUrl.equals("0")) {
             if (minecraftAccount.baseUrl.contains("auth.mc-user.com")) {
-                javaArgList.add("-javaagent:" + DIR_GAME_HOME + "/other_login/nide8auth.jar=" + minecraftAccount.baseUrl.replace("https://auth.mc-user.com:233/", ""));
+                javaArgList.add("-javaagent:" + PathAndUrlManager.DIR_GAME_HOME + "/other_login/nide8auth.jar=" + minecraftAccount.baseUrl.replace("https://auth.mc-user.com:233/", ""));
                 javaArgList.add("-Dnide8auth.client=true");
             } else {
-                javaArgList.add("-javaagent:" + DIR_GAME_HOME + "/other_login/authlib-injector.jar=" + minecraftAccount.baseUrl);
+                javaArgList.add("-javaagent:" + PathAndUrlManager.DIR_GAME_HOME + "/other_login/authlib-injector.jar=" + minecraftAccount.baseUrl);
             }
         }
 
         getCacioJavaArgs(javaArgList, runtime.javaVersion == 8);
 
         if (versionInfo.logging != null) {
-            String configFile = Tools.DIR_DATA + "/security/" + versionInfo.logging.client.file.id.replace("client", "log4j-rce-patch");
+            String configFile = PathAndUrlManager.DIR_DATA + "/security/" + versionInfo.logging.client.file.id.replace("client", "log4j-rce-patch");
             if (!new File(configFile).exists()) {
                 configFile = ProfilePathHome.getGameHome() + "/" + versionInfo.logging.client.file.id;
             }
@@ -303,7 +279,7 @@ public final class Tools {
 
         StringBuilder cacioClasspath = new StringBuilder();
         cacioClasspath.append("-Xbootclasspath/").append(isJava8 ? "p" : "a");
-        File cacioDir = new File(DIR_GAME_HOME + "/caciocavallo" + (isJava8 ? "" : "17"));
+        File cacioDir = new File(PathAndUrlManager.DIR_GAME_HOME + "/caciocavallo" + (isJava8 ? "" : "17"));
         File[] cacioFiles = cacioDir.listFiles();
         if (cacioFiles != null) {
             for (File file : cacioFiles) {
@@ -326,7 +302,7 @@ public final class Tools {
         varArgMap.put("classpath_separator", ":");
         varArgMap.put("library_directory", ProfilePathHome.getLibrariesHome());
         varArgMap.put("version_name", versionInfo.id);
-        varArgMap.put("natives_directory", Tools.NATIVE_LIB_DIR);
+        varArgMap.put("natives_directory", PathAndUrlManager.NATIVE_LIB_DIR);
 
         List<String> minecraftArgs = new ArrayList<>();
         if (versionInfo.arguments != null) {
@@ -430,7 +406,7 @@ public final class Tools {
 
     private static String getLWJGL3ClassPath() {
         StringBuilder libStr = new StringBuilder();
-        File lwjgl3Folder = new File(Tools.DIR_GAME_HOME, "lwjgl3");
+        File lwjgl3Folder = new File(PathAndUrlManager.DIR_GAME_HOME, "lwjgl3");
         File[] lwjgl3Files = lwjgl3Folder.listFiles();
         if (lwjgl3Files != null) {
             for (File file: lwjgl3Files) {
@@ -1042,7 +1018,7 @@ public final class Tools {
             try {
                 String name = getFileName(context, uri);
                 MultiRTUtils.installRuntimeNamed(
-                        NATIVE_LIB_DIR,
+                        PathAndUrlManager.NATIVE_LIB_DIR,
                         context.getContentResolver().openInputStream(uri),
                         name);
 
@@ -1108,7 +1084,7 @@ public final class Tools {
      * Triggers the share intent chooser, with the latestlog file attached to it
      */
     public static void shareLog(Context context) {
-        FileTools.shareFile(context, "latestlog.txt", Tools.DIR_GAME_HOME + "/latestlog.txt");
+        FileTools.shareFile(context, "latestlog.txt", PathAndUrlManager.DIR_GAME_HOME + "/latestlog.txt");
     }
 
     /** Mesure the textview height, given its current parameters */

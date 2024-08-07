@@ -112,7 +112,7 @@ class ProfilePathManagerFragment : FragmentWithAnim(R.layout.fragment_profile_pa
 
     private fun refreshData() {
         mData.clear()
-        mData.add(ProfileItem("default", getString(R.string.zh_profiles_path_default), Tools.DIR_GAME_HOME))
+        mData.add(ProfileItem("default", getString(R.string.zh_profiles_path_default), PathAndUrlManager.DIR_GAME_HOME))
 
         try {
             val json: String

@@ -10,10 +10,10 @@ import androidx.annotation.NonNull;
 
 import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlInfoData;
 import com.movtery.pojavzh.ui.subassembly.customcontrols.EditControlData;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.customcontrols.CustomControls;
 
 import java.io.File;
@@ -49,7 +49,7 @@ public class ControlInfoDialog extends FullScreenDialog implements DraggableDial
             EditControlInfoDialog editControlInfoDialog = new EditControlInfoDialog(context, false, controlInfoData.fileName, controlInfoData);
             editControlInfoDialog.setTitle(context.getString(R.string.zh_edit));
             editControlInfoDialog.setOnConfirmClickListener((fileName, controlInfoData) -> {
-                File controlFile = new File(Tools.CTRLMAP_PATH, fileName);
+                File controlFile = new File(PathAndUrlManager.CTRLMAP_PATH, fileName);
 
                 CustomControls customControls = EditControlData.loadCustomControlsFromFile(context, controlFile);
 

@@ -33,7 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(!Tools.checkStorageRoot(this)) {
+        if(!Tools.checkStorageRoot()) {
             startActivity(new Intent(this, MissingStorageActivity.class));
             finish();
         }
