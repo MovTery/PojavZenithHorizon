@@ -47,8 +47,11 @@ public class LoggerView extends ConstraintLayout {
     }
 
     public void setVisibilityWithAnim(boolean visibility) {
-        ViewAnimUtils.setViewAnim(this, visibility ? Techniques.BounceInUp : Techniques.SlideOutDown, (long) (LauncherPreferences.PREF_ANIMATION_SPEED * 0.6),
-                animator -> setVisibility(VISIBLE), animator -> setVisibility(visibility ? VISIBLE : GONE));
+        ViewAnimUtils.setViewAnim(this,
+                visibility ? Techniques.BounceInUp : Techniques.SlideOutDown,
+                (long) (LauncherPreferences.PREF_ANIMATION_SPEED * 0.7),
+                animator -> setVisibility(VISIBLE),
+                animator -> setVisibility(visibility ? VISIBLE : GONE));
     }
 
     /**
@@ -80,7 +83,7 @@ public class LoggerView extends ConstraintLayout {
 
         // Remove the loggerView from the user View
         ImageButton cancelButton = findViewById(R.id.log_view_cancel);
-        cancelButton.setOnClickListener(view -> LoggerView.this.setVisibilityWithAnim(false));
+        cancelButton.setOnClickListener(view -> setVisibilityWithAnim(false));
 
         // Set the scroll view
         mScrollView = findViewById(R.id.content_log_scroll);
