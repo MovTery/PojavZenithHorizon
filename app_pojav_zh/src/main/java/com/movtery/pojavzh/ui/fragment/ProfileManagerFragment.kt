@@ -5,12 +5,12 @@ import android.view.View
 import android.widget.Button
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo.YoYoString
-import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager.currentProfile
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager.Companion.currentProfile
 import com.movtery.pojavzh.ui.dialog.TipDialog
 import com.movtery.pojavzh.utils.ZHTools
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.setViewAnim
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.slideInAnim
-import com.movtery.pojavzh.utils.file.FileTools.mkdirs
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
+import com.movtery.pojavzh.utils.file.FileTools.Companion.mkdirs
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.extra.ExtraConstants

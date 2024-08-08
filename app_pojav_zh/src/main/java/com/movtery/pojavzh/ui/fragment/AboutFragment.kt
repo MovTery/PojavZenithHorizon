@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo.YoYoString
 import com.movtery.pojavzh.feature.CheckSponsor
-import com.movtery.pojavzh.feature.CheckSponsor.check
-import com.movtery.pojavzh.feature.CheckSponsor.getSponsorData
+import com.movtery.pojavzh.feature.CheckSponsor.Companion.check
+import com.movtery.pojavzh.feature.CheckSponsor.Companion.getSponsorData
 import com.movtery.pojavzh.ui.dialog.MoreSponsorDialog
 import com.movtery.pojavzh.ui.subassembly.about.AboutItemBean
 import com.movtery.pojavzh.ui.subassembly.about.AboutItemBean.AboutItemButtonBean
@@ -22,8 +22,8 @@ import com.movtery.pojavzh.ui.subassembly.about.SponsorItemBean
 import com.movtery.pojavzh.ui.subassembly.about.SponsorRecyclerAdapter
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.setViewAnim
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.slideInAnim
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
 import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools

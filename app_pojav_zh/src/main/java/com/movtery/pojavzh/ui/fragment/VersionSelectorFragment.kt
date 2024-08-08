@@ -9,13 +9,13 @@ import com.daimajia.androidanimations.library.YoYo.YoYoString
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.movtery.pojavzh.extra.ZHExtraConstants
-import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome.gameHome
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome.Companion.gameHome
 import com.movtery.pojavzh.ui.subassembly.versionlist.VersionListView
 import com.movtery.pojavzh.ui.subassembly.versionlist.VersionSelectedListener
 import com.movtery.pojavzh.ui.subassembly.versionlist.VersionType
 import com.movtery.pojavzh.utils.ZHTools
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.setViewAnim
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.slideInAnim
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.extra.ExtraCore
 import java.io.File

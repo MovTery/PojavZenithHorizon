@@ -10,7 +10,7 @@ import com.daimajia.androidanimations.library.Techniques
 import com.movtery.pojavzh.feature.accounts.AccountsManager
 import com.movtery.pojavzh.ui.dialog.AccountsDialog
 import com.movtery.pojavzh.utils.PathAndUrlManager
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.setViewAnim
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.extra.ExtraConstants
 import net.kdt.pojavlaunch.extra.ExtraCore

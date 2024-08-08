@@ -1,10 +1,10 @@
 package com.movtery.pojavzh.feature.mod.modloader
 
 import com.kdt.mcgui.ProgressLayout
-import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils.downloadNeoForgeVersions
-import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils.downloadNeoForgedForgeVersions
-import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils.getNeoForgeInstallerUrl
-import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils.getNeoForgedForgeInstallerUrl
+import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils.Companion.downloadNeoForgeVersions
+import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils.Companion.downloadNeoForgedForgeVersions
+import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils.Companion.getNeoForgeInstallerUrl
+import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils.Companion.getNeoForgedForgeInstallerUrl
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools.DownloaderFeedback

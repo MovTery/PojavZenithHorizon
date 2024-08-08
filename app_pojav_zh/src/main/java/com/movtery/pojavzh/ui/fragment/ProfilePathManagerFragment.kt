@@ -15,14 +15,14 @@ import com.daimajia.androidanimations.library.YoYo.YoYoString
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathJsonObject
-import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager.save
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager.Companion.save
 import com.movtery.pojavzh.ui.dialog.EditTextDialog
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfileItem
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathAdapter
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.setViewAnim
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.slideInAnim
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.extra.ExtraConstants

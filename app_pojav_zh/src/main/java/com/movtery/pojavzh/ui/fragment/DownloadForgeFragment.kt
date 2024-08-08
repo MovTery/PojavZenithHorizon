@@ -8,7 +8,7 @@ import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog
 import com.movtery.pojavzh.ui.subassembly.modlist.ModListAdapter
 import com.movtery.pojavzh.ui.subassembly.modlist.ModListFragment
 import com.movtery.pojavzh.ui.subassembly.modlist.ModListItemBean
-import com.movtery.pojavzh.utils.MCVersionComparator.versionCompare
+import com.movtery.pojavzh.utils.MCVersionComparator.Companion.versionCompare
 import net.kdt.pojavlaunch.JavaGUILauncherActivity
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R

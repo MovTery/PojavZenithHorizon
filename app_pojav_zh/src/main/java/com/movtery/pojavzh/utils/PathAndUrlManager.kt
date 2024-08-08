@@ -2,8 +2,8 @@ package com.movtery.pojavzh.utils
 
 import android.content.Context
 import android.os.Environment
-import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome.gameHome
-import com.movtery.pojavzh.utils.file.FileTools.mkdirs
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome.Companion.gameHome
+import com.movtery.pojavzh.utils.file.FileTools.Companion.mkdirs
 import net.kdt.pojavlaunch.Tools
 import java.io.File
 

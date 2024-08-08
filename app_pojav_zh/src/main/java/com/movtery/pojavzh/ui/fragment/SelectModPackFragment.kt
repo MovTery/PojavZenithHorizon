@@ -14,9 +14,9 @@ import com.movtery.pojavzh.extra.ZHExtraConstants
 import com.movtery.pojavzh.feature.mod.modpack.install.InstallExtra
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.setViewAnim
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.slideInAnim
-import com.movtery.pojavzh.utils.file.FileTools.copyFileInBackground
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
+import com.movtery.pojavzh.utils.file.FileTools.Companion.copyFileInBackground
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension

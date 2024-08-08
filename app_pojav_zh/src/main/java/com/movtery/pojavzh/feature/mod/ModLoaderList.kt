@@ -3,53 +3,49 @@ package com.movtery.pojavzh.feature.mod
 import java.util.Collections
 import java.util.Locale
 
-object ModLoaderList {
-    // 不可变的 modloaderList
-    @JvmField
-    val modloaderList: MutableList<String> = Collections.unmodifiableList(
-        listOf(
-            ModLoader.FORGE.loaderName,
-            ModLoader.FABRIC.loaderName,
-            ModLoader.QUILT.loaderName,
-            ModLoader.NEO_FORGE.loaderName
+class ModLoaderList {
+    companion object {
+        // 不可变的 modloaderList
+        @JvmField
+        val modloaderList: MutableList<String> = Collections.unmodifiableList(
+            listOf(
+                ModLoader.FORGE.loaderName,
+                ModLoader.FABRIC.loaderName,
+                ModLoader.QUILT.loaderName,
+                ModLoader.NEO_FORGE.loaderName
+            )
         )
-    )
 
-    private var modloaderNameMap: Map<String, String>? = null
+        private var modloaderNameMap: Map<String, String>? = null
+        private var modloaderIdMap: Map<Int, String?>? = null
 
-    init {
-        val tempMap: MutableMap<String, String> = HashMap()
-        for (modLoader in ModLoader.entries) {
-            tempMap[modLoader.loaderName.lowercase(Locale.getDefault())] = modLoader.loaderName
+        init {
+            val tempNameMap: MutableMap<String, String> = HashMap()
+            val tempIdMap: MutableMap<Int, String?> = HashMap()
+            for (modLoader in ModLoader.entries) {
+                tempNameMap[modLoader.loaderName.lowercase(Locale.getDefault())] = modLoader.loaderName
+                tempIdMap[modLoader.id] = modLoader.loaderName
+            }
+            modloaderNameMap = Collections.unmodifiableMap(tempNameMap)
+            modloaderIdMap = Collections.unmodifiableMap(tempIdMap)
         }
-        modloaderNameMap = Collections.unmodifiableMap(tempMap)
-    }
 
-    private var modloaderIdMap: Map<Int, String?>? = null
-
-    init {
-        val tempMap: MutableMap<Int, String?> = HashMap()
-        for (modLoader in ModLoader.entries) {
-            tempMap[modLoader.id] = modLoader.loaderName
+        @JvmStatic
+        fun getModloaderName(modloader: String): String {
+            return modloaderNameMap!!.getOrDefault(modloader.lowercase(Locale.getDefault()), "none")
         }
-        modloaderIdMap = Collections.unmodifiableMap(tempMap)
-    }
 
-    @JvmStatic
-    fun getModloaderName(modloader: String): String {
-        return modloaderNameMap!!.getOrDefault(modloader.lowercase(Locale.getDefault()), "none")
-    }
+        @JvmStatic
+        fun getModloaderNameByCurseId(id: Int): String? {
+            return modloaderIdMap!!.getOrDefault(id, null)
+        }
 
-    @JvmStatic
-    fun getModloaderNameByCurseId(id: Int): String? {
-        return modloaderIdMap!!.getOrDefault(id, null)
-    }
-
-    @JvmStatic
-    fun notModloaderName(modloader: String?): Boolean {
-        return modloader.isNullOrEmpty() || !modloaderNameMap!!.containsKey(
-            modloader.lowercase(Locale.getDefault())
-        )
+        @JvmStatic
+        fun notModloaderName(modloader: String?): Boolean {
+            return modloader.isNullOrEmpty() || !modloaderNameMap!!.containsKey(
+                modloader.lowercase(Locale.getDefault())
+            )
+        }
     }
 
     private enum class ModLoader(val id: Int, val loaderName: String) {
