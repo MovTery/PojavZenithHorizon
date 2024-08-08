@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.movtery.pojavzh.ui.fragment.ModsFragment;
+import com.movtery.pojavzh.feature.mod.ModUtils;
 import com.movtery.pojavzh.utils.image.ImageUtils;
 import com.movtery.pojavzh.utils.stringutils.StringFilter;
 
@@ -89,9 +89,9 @@ public class FileRecyclerViewCreator {
                         return getFileIcon(file, resources);
                     }
                 case MOD:
-                    if (file.getName().endsWith(ModsFragment.JAR_FILE_SUFFIX)) {
+                    if (file.getName().endsWith(ModUtils.JAR_FILE_SUFFIX)) {
                         return ContextCompat.getDrawable(context, R.drawable.ic_java);
-                    } else if (file.getName().endsWith(ModsFragment.DISABLE_JAR_FILE_SUFFIX)) {
+                    } else if (file.getName().endsWith(ModUtils.DISABLE_JAR_FILE_SUFFIX)) {
                         return ContextCompat.getDrawable(context, R.drawable.ic_disabled);
                     } else {
                         return getFileIcon(file, resources);

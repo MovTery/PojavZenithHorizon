@@ -140,7 +140,7 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
                 filesButton.setMessageText(message)
                 filesButton.setMoreButtonText(getString(R.string.global_select))
 
-                val filesDialog = FilesDialog(requireContext(), filesButton, { this.loadData() }, file)
+                val filesDialog = FilesDialog(requireContext(), filesButton, { this.loadData() }, mousePath(), file)
                 filesDialog.setMoreButtonClick {
                     LauncherPreferences.DEFAULT_PREF.edit().putString("custom_mouse", fileName).apply()
                     refreshIcon()

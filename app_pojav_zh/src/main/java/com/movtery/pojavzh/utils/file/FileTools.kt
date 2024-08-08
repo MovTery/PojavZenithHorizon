@@ -172,6 +172,18 @@ object FileTools {
     }
 
     @JvmStatic
+    fun copyFile(file :File, target: File) {
+        if (file.isFile) FileUtils.copyFile(file, target)
+        else if (file.isDirectory) FileUtils.copyDirectory(file, target)
+    }
+
+    @JvmStatic
+    fun moveFile(file :File, target: File) {
+        if (file.isFile) FileUtils.moveFile(file, target)
+        else if (file.isDirectory) FileUtils.moveDirectory(file, target)
+    }
+
+    @JvmStatic
     fun getFileNameWithoutExtension(fileName: String, fileExtension: String?): String {
         val dotIndex = if (fileExtension == null) {
             fileName.lastIndexOf('.')

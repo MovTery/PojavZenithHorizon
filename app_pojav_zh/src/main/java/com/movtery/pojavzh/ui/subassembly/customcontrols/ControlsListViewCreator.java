@@ -164,6 +164,10 @@ public class ControlsListViewCreator {
         refresh();
     }
 
+    public File getFullPath() {
+        return this.fullPath;
+    }
+
     public void searchControls(TextView searchCountText, String filterString, boolean caseSensitive) {
         searchCount.set(0);
         this.filterString = filterString;

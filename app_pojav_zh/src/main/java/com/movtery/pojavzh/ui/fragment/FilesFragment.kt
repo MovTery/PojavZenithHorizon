@@ -156,7 +156,7 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
                                 closeMultiSelect()
                                 mFileRecyclerView?.refreshPath()
                             }
-                        }, selectedFiles)
+                        }, mFileRecyclerView!!.fullPath, selectedFiles)
                         filesDialog.setCopyButtonClick { mPasteButton?.visibility = View.VISIBLE }
                         filesDialog.show()
                     }
@@ -279,8 +279,7 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
 
         val filesDialog = FilesDialog(requireContext(), filesButton,
             { Tools.runOnUiThread { mFileRecyclerView?.refreshPath() } },
-            file
-        )
+            mFileRecyclerView!!.fullPath, file)
         filesDialog.setCopyButtonClick { mPasteButton?.visibility = View.VISIBLE }
         filesDialog.show()
     }
