@@ -84,14 +84,15 @@ class FileCopyHandler(
 
     override fun processFile() {
         foundFiles.entries.parallelStream().forEach { (currentFile, targetFile) ->
+            fileSize.addAndGet(-FileUtils.sizeOf(currentFile))
+            fileCount.decrementAndGet()
             targetFile.parentFile?.takeIf { !it.exists() }?.mkdirs()
             when (mPasteType) {
                 PasteFile.PasteType.COPY -> FileTools.copyFile(currentFile, targetFile)
                 else -> FileTools.moveFile(currentFile, targetFile)
             }
-            fileSize.addAndGet(-FileUtils.sizeOf(currentFile))
-            fileCount.decrementAndGet()
         }
+        if (mPasteType == PasteFile.PasteType.MOVE) mSelectedFiles.forEach { FileUtils.deleteQuietly(it) }
     }
 
     override fun getCurrentFileCount() = fileCount.get()
