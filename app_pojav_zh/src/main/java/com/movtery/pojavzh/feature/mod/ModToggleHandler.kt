@@ -13,7 +13,7 @@ class ModToggleHandler(
     private val mSelectedFiles: List<File>,
     private val onEndRunnable: Runnable?
 ) : FileHandler(mContext), FileSearchProgress {
-    private val foundFiles: MutableList<File> = ArrayList()
+    private val foundFiles = mutableListOf<File>()
     private val totalFileSize = AtomicLong(0)
     private val fileSize = AtomicLong(0)
     private val fileCount = AtomicLong(0)
@@ -36,7 +36,7 @@ class ModToggleHandler(
     }
 
     override fun processFile() {
-        foundFiles.forEach {
+        (foundFiles).forEach {
             fileSize.addAndGet(-FileUtils.sizeOf(it))
             fileCount.getAndDecrement()
 
@@ -49,17 +49,11 @@ class ModToggleHandler(
         }
     }
 
-    override fun getCurrentFileCount(): Long {
-        return fileCount.get()
-    }
+    override fun getCurrentFileCount() = fileCount.get()
 
-    override fun getTotalSize(): Long {
-        return totalFileSize.get()
-    }
+    override fun getTotalSize() = totalFileSize.get()
 
-    override fun getPendingSize(): Long {
-        return fileSize.get()
-    }
+    override fun getPendingSize() = fileSize.get()
 
     override fun onEnd() {
         PojavApplication.sExecutorService.execute(onEndRunnable)
