@@ -167,7 +167,7 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
 
         val filesDialog = FilesDialog(requireContext(), filesButton,
             { Tools.runOnUiThread { controlsListViewCreator?.refresh() } },
-            file
+            controlsListViewCreator!!.fullPath, file
         )
 
         filesDialog.setCopyButtonClick { mPasteButton?.visibility = View.VISIBLE }

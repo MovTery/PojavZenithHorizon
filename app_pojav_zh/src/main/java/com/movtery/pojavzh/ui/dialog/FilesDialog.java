@@ -19,28 +19,34 @@ import java.util.List;
 
 public class FilesDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final Runnable runnable;
+    private final File root;
+    private final List<File> selectedFiles;
     private TextView mTitle, mMessage, moreText;
     private String mFileSuffix;
     private OnCopyButtonClickListener mCopyClick;
     private OnMoreButtonClickListener mMoreClick;
     private RelativeLayout mShareButton, mRenameButton, mDeleteButton, mMoveButton, mCopyButton, mMoreButton;
 
-    public FilesDialog(@NonNull Context context, FilesButton filesButton, Runnable runnable, List<File> selectedFiles) {
+    public FilesDialog(@NonNull Context context, FilesButton filesButton, Runnable runnable, File root, List<File> selectedFiles) {
         super(context);
         this.runnable = runnable;
+        this.root = root;
+        this.selectedFiles = selectedFiles;
 
         init(filesButton);
-        handleButtons(filesButton, selectedFiles);
+        handleButtons(filesButton);
     }
 
-    public FilesDialog(@NonNull Context context, FilesButton filesButton, Runnable runnable, File file) {
+    public FilesDialog(@NonNull Context context, FilesButton filesButton, Runnable runnable, File root, File file) {
         super(context);
         this.runnable = runnable;
+        this.root = root;
         List<File> singleFileList = new ArrayList<>();
         singleFileList.add(file);
+        this.selectedFiles = singleFileList;
 
         init(filesButton);
-        handleButtons(filesButton, singleFileList);
+        handleButtons(filesButton);
     }
 
     private void init(FilesButton filesButton) {
@@ -69,7 +75,7 @@ public class FilesDialog extends FullScreenDialog implements DraggableDialog.Dia
         DraggableDialog.initDialog(this);
     }
 
-    private void handleButtons(FilesButton filesButton, List<File> selectedFiles) {
+    private void handleButtons(FilesButton filesButton) {
         mDeleteButton.setOnClickListener(view -> {
             DeleteDialog deleteDialog = new DeleteDialog(getContext(), this.runnable, selectedFiles);
             deleteDialog.show();
@@ -79,14 +85,14 @@ public class FilesDialog extends FullScreenDialog implements DraggableDialog.Dia
         PasteFile pasteFile = PasteFile.getInstance();
         mCopyButton.setOnClickListener(v -> {
             if (this.mCopyClick != null) {
-                pasteFile.setPaste(selectedFiles, PasteFile.PasteType.COPY); // 复制模式
+                pasteFile.setPaste(root, selectedFiles, PasteFile.PasteType.COPY); // 复制模式
                 this.mCopyClick.onButtonClick();
             }
             closeDialog();
         });
         mMoveButton.setOnClickListener(v -> {
             if (this.mCopyClick != null) {
-                pasteFile.setPaste(selectedFiles, PasteFile.PasteType.MOVE); // 移动模式
+                pasteFile.setPaste(root, selectedFiles, PasteFile.PasteType.MOVE); // 移动模式
                 this.mCopyClick.onButtonClick();
             }
             closeDialog();

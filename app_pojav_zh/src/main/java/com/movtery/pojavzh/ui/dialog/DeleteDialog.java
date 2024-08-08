@@ -4,11 +4,9 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import com.movtery.pojavzh.utils.file.OperationFile;
+import com.movtery.pojavzh.utils.file.FileDeletionHandler;
 
 import net.kdt.pojavlaunch.R;
-
-import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.util.List;
@@ -38,7 +36,7 @@ public class DeleteDialog extends TipDialog.Builder {
                 R.string.zh_file_delete) : R.string.zh_file_delete_multiple_items_message);
         setConfirm(R.string.global_delete);
 
-        setConfirmClickListener(() -> new OperationFile(context, runnable, FileUtils::deleteQuietly).operationFile(files));
+        setConfirmClickListener(() -> new FileDeletionHandler(context, files, runnable).start());
     }
 
     public void show() {

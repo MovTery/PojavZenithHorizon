@@ -98,8 +98,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
 
                 val filesDialog = FilesDialog(requireContext(), filesButton,
                     { Tools.runOnUiThread { mFileRecyclerView?.refreshPath() } },
-                    file
-                )
+                    backgroundPath(), file)
                 filesDialog.setMoreButtonClick {
                     backgroundMap[backgroundType] = fileName
                     saveProperties(backgroundMap)
