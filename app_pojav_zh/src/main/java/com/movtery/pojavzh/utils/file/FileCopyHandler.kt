@@ -16,7 +16,7 @@ class FileCopyHandler(
     private val mFileExtensionGetter: FileExtensionGetter?,
     private val onEndRunnable: Runnable?
 ) : FileHandler(mContext), FileSearchProgress {
-    private val foundFiles: MutableMap<File, File> = HashMap()
+    private val foundFiles = mutableMapOf<File, File>()
     private val totalFileSize = AtomicLong(0)
     private val fileSize = AtomicLong(0)
     private val fileCount = AtomicLong(0)
@@ -26,28 +26,31 @@ class FileCopyHandler(
     }
 
     private fun addFile(file: File) {
-        fileCount.addAndGet(1)
+        fileCount.incrementAndGet()
         fileSize.addAndGet(FileUtils.sizeOf(file))
         //当前文件 - 目标文件
         foundFiles [file] = getNewDestination(file, getTargetFile(file), mFileExtensionGetter?.onGet(file))
     }
 
-    private fun addDirectory(file: File) {
-        if (file.isFile) addFile(file)
-        else if (file.isDirectory) {
-            val files = file.listFiles()
-            files?.let {
-                if (files.isEmpty()) addFile(file)
-                else files.forEach {
-                    if (it.isFile) addFile(it)
-                    else if (it.isDirectory) addDirectory(it)
+    private fun addDirectory(directory: File) {
+        if (directory.isFile) {
+            addFile(directory)
+        } else {
+            directory.listFiles()?.let { files ->
+                if (files.isEmpty()) {
+                    addFile(directory)
+                } else {
+                    files.forEach { file ->
+                        if (file.isFile) addFile(file)
+                        else if (file.isDirectory) addDirectory(file)
+                    }
                 }
             }
         }
     }
 
     private fun getTargetFile(file: File): File {
-        return File(file.absolutePath.replace(mRoot.absolutePath, mTarget.absolutePath).replace(file.name, ""))
+        return File(file.absolutePath.replace(mRoot.absolutePath, mTarget.absolutePath).removeSuffix(file.name))
     }
 
     //如果目标地点已存在同名文件，就将目标文件的文件名加上数字标识，防止文件被覆盖
@@ -80,29 +83,22 @@ class FileCopyHandler(
     }
 
     override fun processFile() {
-        foundFiles.forEach { (currentFile, targetFile) ->
+        foundFiles.entries.parallelStream().forEach { (currentFile, targetFile) ->
             targetFile.parentFile?.takeIf { !it.exists() }?.mkdirs()
             when (mPasteType) {
                 PasteFile.PasteType.COPY -> FileTools.copyFile(currentFile, targetFile)
                 else -> FileTools.moveFile(currentFile, targetFile)
             }
-
             fileSize.addAndGet(-FileUtils.sizeOf(currentFile))
-            fileCount.getAndDecrement()
+            fileCount.decrementAndGet()
         }
     }
 
-    override fun getCurrentFileCount(): Long {
-        return fileCount.get()
-    }
+    override fun getCurrentFileCount() = fileCount.get()
 
-    override fun getTotalSize(): Long {
-        return totalFileSize.get()
-    }
+    override fun getTotalSize() = totalFileSize.get()
 
-    override fun getPendingSize(): Long {
-        return fileSize.get()
-    }
+    override fun getPendingSize() = fileSize.get()
 
     override fun onEnd() {
         PojavApplication.sExecutorService.execute(onEndRunnable)

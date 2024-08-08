@@ -11,7 +11,7 @@ class FileDeletionHandler(
     private val mSelectedFiles: List<File>,
     private val onEndRunnable: Runnable?
 ) : FileHandler(mContext), FileSearchProgress {
-    private val foundFiles: MutableList<File> = ArrayList()
+    private val foundFiles = mutableListOf<File>()
     private val totalFileSize = AtomicLong(0)
     private val fileSize = AtomicLong(0)
     private val fileCount = AtomicLong(0)
@@ -26,11 +26,10 @@ class FileDeletionHandler(
         fileSize.addAndGet(FileUtils.sizeOf(file))
     }
 
-    private fun addDirectory(file: File) {
-        if (file.isFile) addFile(file)
-        else if (file.isDirectory) {
-            val files = file.listFiles()
-            files?.forEach {
+    private fun addDirectory(directory: File) {
+        if (directory.isFile) addFile(directory)
+        else if (directory.isDirectory) {
+            directory.listFiles()?.forEach {
                 if (it.isFile) addFile(it)
                 else if (it.isDirectory) addDirectory(it)
             }
@@ -46,7 +45,7 @@ class FileDeletionHandler(
     }
 
     override fun processFile() {
-        foundFiles.forEach {
+        foundFiles.parallelStream().forEach {
             fileSize.addAndGet(-FileUtils.sizeOf(it))
             fileCount.getAndDecrement()
             FileUtils.deleteQuietly(it)
@@ -55,17 +54,11 @@ class FileDeletionHandler(
         mSelectedFiles.forEach { FileUtils.deleteQuietly(it) }
     }
 
-    override fun getCurrentFileCount(): Long {
-        return fileCount.get()
-    }
+    override fun getCurrentFileCount() = fileCount.get()
 
-    override fun getTotalSize(): Long {
-        return totalFileSize.get()
-    }
+    override fun getTotalSize() = totalFileSize.get()
 
-    override fun getPendingSize(): Long {
-        return fileSize.get()
-    }
+    override fun getPendingSize() = fileSize.get()
 
     override fun onEnd() {
         PojavApplication.sExecutorService.execute(onEndRunnable)

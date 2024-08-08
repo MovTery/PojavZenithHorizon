@@ -12,14 +12,14 @@ import java.util.concurrent.Future
 abstract class FileHandler(
     protected val context: Context,
 ) {
-    protected var currentTask: Future<*>? = null
+    private var currentTask: Future<*>? = null
     private var timer: Timer? = null
 
     protected fun start(progress: FileSearchProgress) {
         Tools.runOnUiThread {
             val dialog = ProgressDialog(context) {
                 cancelTask()
-                progress.onEnd()
+                onEnd()
                 true
             }
             dialog.updateText(context.getString(R.string.zh_file_operation_file, "0 B", "0 B", 0))
@@ -43,15 +43,21 @@ abstract class FileHandler(
                     }
                 }, 0, 100)
 
-                progress.searchFilesToProcess()
-                progress.processFile()
+                searchFilesToProcess()
+                processFile()
 
                 Tools.runOnUiThread { dialog.dismiss() }
                 timer?.cancel()
-                progress.onEnd()
+                onEnd()
             }
         }
     }
+
+    abstract fun searchFilesToProcess()
+
+    abstract fun processFile()
+
+    abstract fun onEnd()
 
     private fun cancelTask() {
         currentTask?.let {
