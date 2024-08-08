@@ -11,8 +11,8 @@ import android.widget.Button
 import android.widget.TextView
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
-import com.movtery.pojavzh.utils.file.FileTools.getLatestFile
-import com.movtery.pojavzh.utils.file.FileTools.shareFile
+import com.movtery.pojavzh.utils.file.FileTools.Companion.getLatestFile
+import com.movtery.pojavzh.utils.file.FileTools.Companion.shareFile
 import net.kdt.pojavlaunch.BaseActivity
 import net.kdt.pojavlaunch.LauncherActivity
 import net.kdt.pojavlaunch.R

@@ -13,8 +13,8 @@ import com.movtery.pojavzh.ui.subassembly.modlist.ModListFragment
 import com.movtery.pojavzh.ui.subassembly.modlist.ModListItemBean
 import com.movtery.pojavzh.ui.subassembly.viewmodel.ModApiViewModel
 import com.movtery.pojavzh.ui.subassembly.viewmodel.RecyclerViewModel
-import com.movtery.pojavzh.utils.MCVersionComparator.versionCompare
-import com.movtery.pojavzh.utils.MCVersionRegex.RELEASE_REGEX
+import com.movtery.pojavzh.utils.MCVersionComparator.Companion.versionCompare
+import com.movtery.pojavzh.utils.MCVersionRegex.Companion.RELEASE_REGEX
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools

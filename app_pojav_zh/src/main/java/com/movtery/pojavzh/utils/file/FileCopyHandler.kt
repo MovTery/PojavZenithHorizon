@@ -1,7 +1,7 @@
 package com.movtery.pojavzh.utils.file
 
 import android.content.Context
-import com.movtery.pojavzh.utils.file.FileTools.getFileNameWithoutExtension
+import com.movtery.pojavzh.utils.file.FileTools.Companion.getFileNameWithoutExtension
 import net.kdt.pojavlaunch.PojavApplication
 import org.apache.commons.io.FileUtils
 import java.io.File

@@ -12,7 +12,7 @@ import com.movtery.pojavzh.ui.fragment.preference.PreferenceExperimentalFragment
 import com.movtery.pojavzh.ui.fragment.preference.PreferenceLauncherFragment
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundType
 import com.movtery.pojavzh.utils.ZHTools
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.setViewAnim
+import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
 import net.kdt.pojavlaunch.BaseActivity
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor

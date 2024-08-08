@@ -1,7 +1,7 @@
 package com.movtery.pojavzh.ui.subassembly.filelist
 
 import android.graphics.drawable.Drawable
-import com.movtery.pojavzh.utils.stringutils.SortStrings.compareChar
+import com.movtery.pojavzh.utils.stringutils.SortStrings.Companion.compareChar
 import java.io.File
 
 class FileItemBean : Comparable<FileItemBean?> {

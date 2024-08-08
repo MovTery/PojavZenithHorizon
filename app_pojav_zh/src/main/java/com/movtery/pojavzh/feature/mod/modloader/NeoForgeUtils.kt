@@ -10,74 +10,76 @@ import java.io.IOException
 import java.io.StringReader
 import javax.xml.parsers.SAXParserFactory
 
-object NeoForgeUtils {
-    private const val NEOFORGE_METADATA_URL =
-        "https://maven.neoforged.net/releases/net/neoforged/neoforge/maven-metadata.xml"
-    private const val NEOFORGE_INSTALLER_URL =
-        "https://maven.neoforged.net/releases/net/neoforged/neoforge/%1\$s/neoforge-%1\$s-installer.jar"
-    private const val NEOFORGED_FORGE_METADATA_URL =
-        "https://maven.neoforged.net/releases/net/neoforged/forge/maven-metadata.xml"
-    private const val NEOFORGED_FORGE_INSTALLER_URL =
-        "https://maven.neoforged.net/releases/net/neoforged/forge/%1\$s/forge-%1\$s-installer.jar"
+class NeoForgeUtils {
+    companion object {
+        private const val NEOFORGE_METADATA_URL =
+            "https://maven.neoforged.net/releases/net/neoforged/neoforge/maven-metadata.xml"
+        private const val NEOFORGE_INSTALLER_URL =
+            "https://maven.neoforged.net/releases/net/neoforged/neoforge/%1\$s/neoforge-%1\$s-installer.jar"
+        private const val NEOFORGED_FORGE_METADATA_URL =
+            "https://maven.neoforged.net/releases/net/neoforged/forge/maven-metadata.xml"
+        private const val NEOFORGED_FORGE_INSTALLER_URL =
+            "https://maven.neoforged.net/releases/net/neoforged/forge/%1\$s/forge-%1\$s-installer.jar"
 
-    @Throws(Exception::class)
-    private fun downloadVersions(metaDataUrl: String, name: String): List<String> {
-        val parserFactory = SAXParserFactory.newInstance()
-        val saxParser = parserFactory.newSAXParser()
+        @Throws(Exception::class)
+        private fun downloadVersions(metaDataUrl: String, name: String): List<String> {
+            val parserFactory = SAXParserFactory.newInstance()
+            val saxParser = parserFactory.newSAXParser()
 
-        return DownloadUtils.downloadStringCached<List<String>>(
-            metaDataUrl,
-            name
-        ) { input: String? ->
-            try {
-                val handler = ForgeVersionListHandler()
-                saxParser.parse(InputSource(StringReader(input)), handler)
-                return@downloadStringCached handler.versions
-                // IOException is present here StringReader throws it only if the parser called close()
-                // sooner than needed, which is a parser issue and not an I/O one
-            } catch (e: SAXException) {
-                throw DownloadUtils.ParseException(e)
-            } catch (e: IOException) {
-                throw DownloadUtils.ParseException(e)
+            return DownloadUtils.downloadStringCached<List<String>>(
+                metaDataUrl,
+                name
+            ) { input: String? ->
+                try {
+                    val handler = ForgeVersionListHandler()
+                    saxParser.parse(InputSource(StringReader(input)), handler)
+                    return@downloadStringCached handler.versions
+                    // IOException is present here StringReader throws it only if the parser called close()
+                    // sooner than needed, which is a parser issue and not an I/O one
+                } catch (e: SAXException) {
+                    throw DownloadUtils.ParseException(e)
+                } catch (e: IOException) {
+                    throw DownloadUtils.ParseException(e)
+                }
             }
         }
-    }
 
-    @JvmStatic
-    @Throws(Exception::class)
-    fun downloadNeoForgeVersions(): List<String> {
-        return downloadVersions(NEOFORGE_METADATA_URL, "neoforge_versions")
-    }
+        @JvmStatic
+        @Throws(Exception::class)
+        fun downloadNeoForgeVersions(): List<String> {
+            return downloadVersions(NEOFORGE_METADATA_URL, "neoforge_versions")
+        }
 
-    @JvmStatic
-    @Throws(Exception::class)
-    fun downloadNeoForgedForgeVersions(): List<String> {
-        return downloadVersions(NEOFORGED_FORGE_METADATA_URL, "neoforged_forge_versions")
-    }
+        @JvmStatic
+        @Throws(Exception::class)
+        fun downloadNeoForgedForgeVersions(): List<String> {
+            return downloadVersions(NEOFORGED_FORGE_METADATA_URL, "neoforged_forge_versions")
+        }
 
-    @JvmStatic
-    fun getNeoForgeInstallerUrl(version: String?): String {
-        return String.format(NEOFORGE_INSTALLER_URL, version)
-    }
+        @JvmStatic
+        fun getNeoForgeInstallerUrl(version: String?): String {
+            return String.format(NEOFORGE_INSTALLER_URL, version)
+        }
 
-    @JvmStatic
-    fun getNeoForgedForgeInstallerUrl(version: String?): String {
-        return String.format(NEOFORGED_FORGE_INSTALLER_URL, version)
-    }
+        @JvmStatic
+        fun getNeoForgedForgeInstallerUrl(version: String?): String {
+            return String.format(NEOFORGED_FORGE_INSTALLER_URL, version)
+        }
 
-    @JvmStatic
-    fun addAutoInstallArgs(intent: Intent, modInstallerJar: File) {
-        intent.putExtra("javaArgs", "-jar " + modInstallerJar.absolutePath)
-    }
+        @JvmStatic
+        fun addAutoInstallArgs(intent: Intent, modInstallerJar: File) {
+            intent.putExtra("javaArgs", "-jar " + modInstallerJar.absolutePath)
+        }
 
-    @JvmStatic
-    fun formatGameVersion(neoForgeVersion: String): String {
-        val originalGameVersion =
-            neoForgeVersion.substring(0, 4) //例neoForgeVersion = 21.0.xxx : 21.0
-        return if (originalGameVersion[originalGameVersion.length - 1] == '0') { //例21.0.xxx
-            "1." + originalGameVersion.substring(0, 2)
-        } else { //例20.2.xxx
-            "1.$originalGameVersion"
+        @JvmStatic
+        fun formatGameVersion(neoForgeVersion: String): String {
+            val originalGameVersion =
+                neoForgeVersion.substring(0, 4) //例neoForgeVersion = 21.0.xxx : 21.0
+            return if (originalGameVersion[originalGameVersion.length - 1] == '0') { //例21.0.xxx
+                "1." + originalGameVersion.substring(0, 2)
+            } else { //例20.2.xxx
+                "1.$originalGameVersion"
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import com.movtery.pojavzh.ui.subassembly.view.DraggableView.AttributesFetcher
 import com.movtery.pojavzh.ui.subassembly.view.DraggableView.ScreenPixels
-import com.movtery.pojavzh.utils.anim.AnimUtils.setVisibilityAnim
+import com.movtery.pojavzh.utils.anim.AnimUtils.Companion.setVisibilityAnim
 import net.kdt.pojavlaunch.R
 
 class SearchView(private val parentView: View, private val mainView: View) {

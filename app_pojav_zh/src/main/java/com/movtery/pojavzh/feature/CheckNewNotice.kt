@@ -15,79 +15,81 @@ import java.io.IOException
 import java.nio.charset.StandardCharsets
 import java.util.Objects
 
-object CheckNewNotice {
-    @JvmStatic
-    var noticeInfo: NoticeInfo? = null
-    private var isChecking = false
+class CheckNewNotice {
+    companion object {
+        @JvmStatic
+        var noticeInfo: NoticeInfo? = null
+        private var isChecking = false
 
-    @JvmStatic
-    fun checkNewNotice(context: Context, listener: CheckListener) {
-        if (isChecking) {
-            return
-        }
-        isChecking = true
+        @JvmStatic
+        fun checkNewNotice(context: Context, listener: CheckListener) {
+            if (isChecking) {
+                return
+            }
+            isChecking = true
 
-        noticeInfo?.let {
-            listener.onSuccessful(noticeInfo)
-            isChecking = false
-            return
-        }
-
-        val token = context.getString(R.string.zh_private_api_token)
-        CallUtils(object : CallbackListener {
-            override fun onFailure(call: Call?, e: IOException?) {
+            noticeInfo?.let {
+                listener.onSuccessful(noticeInfo)
                 isChecking = false
+                return
             }
 
-            @Throws(IOException::class)
-            override fun onResponse(call: Call?, response: Response?) {
-                if (!response!!.isSuccessful) {
-                    throw IOException("Unexpected code $response")
-                } else {
-                    try {
-                        Objects.requireNonNull(response.body())
-                        val responseBody = response.body()!!.string()
-
-                        val originJson = JSONObject(responseBody)
-                        val rawBase64 = originJson.getString("content")
-                        //base64解码，因为这里读取的是一个经过Base64加密后的文本
-                        val decodedBytes = Base64.decode(rawBase64, Base64.DEFAULT)
-                        val rawJson = String(decodedBytes, StandardCharsets.UTF_8)
-
-                        val noticeJson = JSONObject(rawJson)
-
-                        //获取通知消息
-                        val language = ZHTools.getSystemLanguage()
-                        val rawTitle: String
-                        val rawSubstance: String
-                        when (language) {
-                            "zh_cn" -> {
-                                rawTitle = noticeJson.getString("title_zh_cn")
-                                rawSubstance = noticeJson.getString("substance_zh_cn")
-                            }
-
-                            "zh_tw" -> {
-                                rawTitle = noticeJson.getString("title_zh_tw")
-                                rawSubstance = noticeJson.getString("substance_zh_tw")
-                            }
-
-                            else -> {
-                                rawTitle = noticeJson.getString("title_en_us")
-                                rawSubstance = noticeJson.getString("substance_en_us")
-                            }
-                        }
-                        val rawDate = noticeJson.getString("date")
-                        val numbering = noticeJson.getInt("numbering")
-
-                        noticeInfo = NoticeInfo(rawTitle, rawSubstance, rawDate, numbering)
-                        listener.onSuccessful(noticeInfo)
-                    } catch (e: Exception) {
-                        Log.e("Check New Notice", e.toString())
-                    }
+            val token = context.getString(R.string.zh_private_api_token)
+            CallUtils(object : CallbackListener {
+                override fun onFailure(call: Call?, e: IOException?) {
+                    isChecking = false
                 }
-                isChecking = false
-            }
-        }, PathAndUrlManager.URL_GITHUB_HOME + "notice.json", if (token == "DUMMY") null else token).start()
+
+                @Throws(IOException::class)
+                override fun onResponse(call: Call?, response: Response?) {
+                    if (!response!!.isSuccessful) {
+                        throw IOException("Unexpected code $response")
+                    } else {
+                        runCatching {
+                            Objects.requireNonNull(response.body())
+                            val responseBody = response.body()!!.string()
+
+                            val originJson = JSONObject(responseBody)
+                            val rawBase64 = originJson.getString("content")
+                            //base64解码，因为这里读取的是一个经过Base64加密后的文本
+                            val decodedBytes = Base64.decode(rawBase64, Base64.DEFAULT)
+                            val rawJson = String(decodedBytes, StandardCharsets.UTF_8)
+
+                            val noticeJson = JSONObject(rawJson)
+
+                            //获取通知消息
+                            val language = ZHTools.getSystemLanguage()
+                            val rawTitle: String
+                            val rawSubstance: String
+                            when (language) {
+                                "zh_cn" -> {
+                                    rawTitle = noticeJson.getString("title_zh_cn")
+                                    rawSubstance = noticeJson.getString("substance_zh_cn")
+                                }
+
+                                "zh_tw" -> {
+                                    rawTitle = noticeJson.getString("title_zh_tw")
+                                    rawSubstance = noticeJson.getString("substance_zh_tw")
+                                }
+
+                                else -> {
+                                    rawTitle = noticeJson.getString("title_en_us")
+                                    rawSubstance = noticeJson.getString("substance_en_us")
+                                }
+                            }
+                            val rawDate = noticeJson.getString("date")
+                            val numbering = noticeJson.getInt("numbering")
+
+                            noticeInfo = NoticeInfo(rawTitle, rawSubstance, rawDate, numbering)
+                            listener.onSuccessful(noticeInfo)
+                        }.getOrElse { e ->
+                            Log.e("Check New Notice", e.toString())
+                        }
+                    }
+                    isChecking = false
+                }
+            }, PathAndUrlManager.URL_GITHUB_HOME + "notice.json", if (token == "DUMMY") null else token).start()
+        }
     }
 
     interface CheckListener {
