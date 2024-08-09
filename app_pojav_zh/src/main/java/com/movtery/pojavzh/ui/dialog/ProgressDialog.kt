@@ -43,8 +43,9 @@ class ProgressDialog(context: Context, listener: OnCancelListener) : FullScreenD
     }
 
     fun updateRate(processingRate: Long) {
-        rate?.visibility = if (processingRate > 0) View.VISIBLE else View.GONE
-        rate?.text = formatFileSize(processingRate)
+        if (processingRate > 0) rate?.visibility = View.VISIBLE
+        val formatFileSize = formatFileSize(processingRate)
+        "$formatFileSize/s".also { rate?.text = it }
     }
 
     fun updateProgress(progress: Double, total: Double) {
