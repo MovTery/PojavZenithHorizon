@@ -3,6 +3,16 @@ description: '创建一个 BUG 反馈，帮助我改进 Pojav Zenith Horizon'
 title: "[BUG] 简短的描述"
 labels: [bug]
 body:
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: 问题类型
+      options:
+        - '游戏问题'
+        - '应用问题'
+    validations:
+      required: true
+
   - type: textarea
     id: description
     attributes:
@@ -64,7 +74,6 @@ body:
         - '10'
         - '9'
         - '8'
-        - '7-'
     validations:
       required: true
 
