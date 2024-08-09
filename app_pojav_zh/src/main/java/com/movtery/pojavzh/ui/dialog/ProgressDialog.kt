@@ -1,64 +1,65 @@
-package com.movtery.pojavzh.ui.dialog;
+package com.movtery.pojavzh.ui.dialog
 
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
+import android.content.Context
+import android.view.View
+import android.view.Window
+import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.TextView
+import com.movtery.pojavzh.ui.dialog.DraggableDialog.DialogInitializationListener
+import com.movtery.pojavzh.utils.file.FileTools.Companion.formatFileSize
+import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.prefs.LauncherPreferences
 
-import android.content.Context;
-import android.view.View;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+class ProgressDialog(context: Context, listener: OnCancelListener) : FullScreenDialog(context),
+    DialogInitializationListener {
+    private var message: TextView? = null
+    private var rate: TextView? = null
+    private var progressBar: ProgressBar? = null
 
-import androidx.annotation.NonNull;
+    init {
+        this.setContentView(R.layout.dialog_progress)
+        this.setCancelable(false)
 
-import net.kdt.pojavlaunch.R;
-
-public class ProgressDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
-    private TextView textView;
-    private ProgressBar progressBar;
-
-    public ProgressDialog(@NonNull Context context, @NonNull OnCancelListener listener) {
-        super(context);
-        this.setContentView(R.layout.dialog_progress);
-        this.setCancelable(false);
-
-        init(listener);
-        DraggableDialog.initDialog(this);
+        init(listener)
+        DraggableDialog.initDialog(this)
     }
 
-    private void init(OnCancelListener listener) {
-        this.textView = findViewById(R.id.zh_download_upload_textView);
-        this.progressBar = findViewById(R.id.progressBar2);
-        Button cancelButton = findViewById(R.id.zh_download_cancel_button);
+    private fun init(listener: OnCancelListener?) {
+        this.message = findViewById(R.id.zh_download_upload_textView)
+        this.rate = findViewById(R.id.zh_download_upload_rate)
+        this.progressBar = findViewById(R.id.progressBar2)
+        val cancelButton = findViewById<Button>(R.id.zh_download_cancel_button)
 
-        this.progressBar.setMax(1000);
-        cancelButton.setOnClickListener(v -> {
-            if (listener != null) {
-                if (!listener.onClick()) return;
-            }
-            dismiss();
-        });
+        progressBar?.setMax(1000)
+        cancelButton.setOnClickListener {
+            listener?.let { if (!listener.onClick()) return@setOnClickListener }
+            dismiss()
+        }
     }
 
-    public void updateText(String text) {
-        if (text != null) this.textView.setText(text);
+    fun updateText(text: String?) {
+        if (text != null) message?.text = text
     }
 
-    public void updateProgress(double progress, double total) {
-        double doubleValue = progress / total * 1000;
-        int intValue = (int) (doubleValue);
-
-        if (doubleValue > 0) this.progressBar.setVisibility(View.VISIBLE);
-        else this.progressBar.setVisibility(View.GONE);
-        this.progressBar.setProgress(intValue, PREF_ANIMATION);
+    fun updateRate(processingRate: Long) {
+        rate?.visibility = if (processingRate > 0) View.VISIBLE else View.GONE
+        rate?.text = formatFileSize(processingRate)
     }
 
-    @Override
-    public Window onInit() {
-        return getWindow();
+    fun updateProgress(progress: Double, total: Double) {
+        val doubleValue = progress / total * 1000
+        val intValue = doubleValue.toInt()
+
+        progressBar?.visibility = if (doubleValue > 0) View.VISIBLE else View.GONE
+        progressBar?.setProgress(intValue, LauncherPreferences.PREF_ANIMATION)
     }
 
-    public interface OnCancelListener {
-        boolean onClick();
+    override fun onInit(): Window {
+        return window!!
+    }
+
+    fun interface OnCancelListener {
+        fun onClick(): Boolean
     }
 }

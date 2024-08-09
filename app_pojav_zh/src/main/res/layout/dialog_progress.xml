@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
@@ -29,17 +30,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ProgressBar
-        android:id="@+id/progressBar2"
-        style="?android:attr/progressBarStyleHorizontal"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/zh_download_upload_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_4sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/zh_download_cancel_button"
         app:layout_constraintStart_toStartOf="@+id/zh_download_cancel_button"
-        app:layout_constraintTop_toBottomOf="@+id/zh_download_upload_textView" />
+        app:layout_constraintTop_toBottomOf="@+id/zh_download_upload_textView">
+
+        <TextView
+            android:id="@+id/zh_download_upload_rate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:text="0 B/s"
+            android:textSize="@dimen/_14sdp"
+            android:maxLines="1"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/progressBar2"
+            app:layout_constraintHorizontal_weight="1"
+            tools:ignore="HardcodedText" />
+
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/zh_download_upload_rate"
+            app:layout_constraintHorizontal_weight="4.5"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/zh_download_cancel_button"
@@ -47,12 +75,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_4sdp"
-        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_4sdp"
         android:layout_marginBottom="@dimen/_24sdp"
         android:layout_weight="1"
         android:text="@android:string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar2" />
+        app:layout_constraintTop_toBottomOf="@+id/zh_download_upload_layout" />
 </androidx.constraintlayout.widget.ConstraintLayout>

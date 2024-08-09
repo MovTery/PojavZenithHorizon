@@ -38,18 +38,24 @@ class FileDeletionHandler(
 
     override fun searchFilesToProcess() {
         mSelectedFiles.forEach {
+            currentTask?.let { task -> if (task.isCancelled) return@forEach }
+
             if (it.isFile) addFile(it)
             else if (it.isDirectory) addDirectory(it)
         }
+        currentTask?.let { task -> if (task.isCancelled) return }
         totalFileSize.set(fileSize.get())
     }
 
     override fun processFile() {
         foundFiles.parallelStream().forEach {
+            currentTask?.let { task -> if (task.isCancelled) return@forEach }
+
             fileSize.addAndGet(-FileUtils.sizeOf(it))
             fileCount.getAndDecrement()
             FileUtils.deleteQuietly(it)
         }
+        currentTask?.let { task -> if (task.isCancelled) return }
         //剩下的都是空文件夹，直接删除
         mSelectedFiles.forEach { FileUtils.deleteQuietly(it) }
     }
