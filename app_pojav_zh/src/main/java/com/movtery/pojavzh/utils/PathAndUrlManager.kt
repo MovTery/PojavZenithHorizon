@@ -35,13 +35,6 @@ object PathAndUrlManager {
 
     @JvmStatic
     fun initContextConstants(context: Context) {
-        initDirectoryPath(context)
-        initFilePath()
-
-        createDefaultPath(DIR_BACKGROUND)
-    }
-
-    private fun initDirectoryPath(context: Context) {
         DIR_NATIVE_LIB = context.applicationInfo.nativeLibraryDir
         DIR_DATA = context.filesDir.getParent()
         DIR_CACHE = context.cacheDir
@@ -49,17 +42,17 @@ object PathAndUrlManager {
         DIR_GAME_HOME = Tools.getPojavStorageRoot(context).absolutePath
         DIR_CTRLMAP_PATH = "$DIR_GAME_HOME/controlmap"
 
+        FILE_PROFILE_PATH = File(DIR_DATA, "/profile_path.json")
+        FILE_CTRLDEF_FILE = "$DIR_GAME_HOME/controlmap/default.json"
+
         DIR_GAME_DEFAULT = "$gameHome/instance/default"
         DIR_CUSTOM_MOUSE = "$DIR_GAME_HOME/mouse"
         DIR_LOGIN = "$DIR_GAME_HOME/login"
         DIR_BACKGROUND = File("$DIR_GAME_HOME/background")
         DIR_APP_CACHE = context.externalCacheDir
         DIR_USER_ICON = File(DIR_CACHE, "/user_icon")
-    }
 
-    private fun initFilePath() {
-        FILE_PROFILE_PATH = File(DIR_DATA, "/profile_path.json")
-        FILE_CTRLDEF_FILE = "$DIR_GAME_HOME/controlmap/default.json"
+        createDefaultPath(DIR_BACKGROUND)
     }
 
     private fun createDefaultPath(path: File?) {
