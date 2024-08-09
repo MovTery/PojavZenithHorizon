@@ -3,6 +3,16 @@ description: 'Create a BUG report to help me improve Pojav Zenith Horizon.'
 title: "[BUG] Brief Description"
 labels: [bug]
 body:
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: Issue Type
+      options:
+        - 'Game Issue'
+        - 'Application Issue'
+    validations:
+      required: true
+
   - type: textarea
     id: description
     attributes:
