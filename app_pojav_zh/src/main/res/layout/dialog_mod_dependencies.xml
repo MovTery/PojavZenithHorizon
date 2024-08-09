@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="@dimen/_8sdp">
 
     <TextView
         android:id="@+id/zh_mod_dependencies_title"
@@ -25,8 +25,7 @@
         android:id="@+id/zh_mod_constraintLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginVertical="@dimen/_8sdp"
         app:layout_constraintBottom_toTopOf="@id/zh_mod_dependencies_tip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,8 +35,7 @@
             android:id="@+id/zh_mod_dependencies"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginHorizontal="@dimen/_8sdp"
             android:scrollbars="vertical"
             android:scrollbarThumbVertical="@color/scrollbar_color"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -51,8 +49,8 @@
         android:id="@+id/zh_mod_dependencies_tip"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:text="@string/zh_profile_mods_dependencies_dialog_tip"
         android:textStyle="bold"
         android:textSize="12sp"
@@ -64,8 +62,7 @@
         android:id="@+id/linearLayoutCompat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginVertical="@dimen/_8sdp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -77,8 +74,7 @@
             style="@style/CustomButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginVertical="@dimen/_8sdp"
             android:layout_weight="1"
             android:text="@string/zh_close" />
 
@@ -87,8 +83,7 @@
             style="@style/CustomButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginVertical="@dimen/_8sdp"
             android:layout_weight="1"
             android:textAllCaps="false"
             android:text="@string/zh_profile_mods_dependencies_dialog_this_mod" />

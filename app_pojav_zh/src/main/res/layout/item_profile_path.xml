@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    android:padding="8dp"
+    android:layout_marginBottom="@dimen/_8sdp"
+    android:padding="@dimen/_8sdp"
     android:background="@drawable/background_item">
 
     <RadioButton
@@ -20,8 +20,7 @@
         android:id="@+id/linearLayoutCompat3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginHorizontal="@dimen/_8sdp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/zh_profile_path_image_buttons"
@@ -58,7 +57,7 @@
             android:id="@+id/zh_profile_path_rename"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="@dimen/_12sdp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_edit" />
@@ -67,7 +66,7 @@
             android:id="@+id/zh_profile_path_visit"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="@dimen/_12sdp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_move" />
@@ -76,7 +75,7 @@
             android:id="@+id/zh_profile_path_delete"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="@dimen/_12sdp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_menu_delete_forever" />

@@ -5,21 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/_60sdp"
     android:background="?android:attr/selectableItemBackground"
-    android:paddingHorizontal="8dp">
+    android:paddingHorizontal="@dimen/_8sdp">
 
     <TextView
         android:id="@+id/multirt_view_java_version"
         style="@style/TextAppearance.AppCompat.Body1"
         android:layout_width="@dimen/_150sdp"
         android:layout_height="wrap_content"
-
-        android:layout_marginStart="15dp"
-
+        android:layout_marginStart="@dimen/_15sdp"
         android:textColor="@color/primary_text"
-
         android:textSize="@dimen/_12ssp"
         app:layout_constraintBottom_toBottomOf="parent"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.28"
@@ -29,11 +25,8 @@
         android:id="@+id/multirt_view_java_version_full"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:textSize="@dimen/_10ssp"
-
         app:layout_constraintStart_toStartOf="@+id/multirt_view_java_version"
         app:layout_constraintTop_toBottomOf="@+id/multirt_view_java_version"
         tools:text="1.8.0_292" />

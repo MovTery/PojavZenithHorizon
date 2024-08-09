@@ -42,11 +42,8 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="12dp"
-            android:padding="12dp"
+            android:layout_margin="@dimen/_12sdp"
+            android:padding="@dimen/_12sdp"
             android:background="@drawable/background_card"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -109,16 +106,14 @@
                 android:id="@+id/zh_crash_share_log"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
                 android:text="@string/main_share_logs"/>
 
             <Button
                 android:id="@+id/zh_crash_share_crash_report"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
                 android:text="@string/zh_main_share_crash_report"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -136,16 +131,14 @@
                 android:id="@+id/zh_error_share"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
                 android:text="@string/zh_share"/>
 
             <Button
                 android:id="@+id/zh_error_copy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
                 android:text="@android:string/copy"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -154,8 +147,7 @@
             android:id="@+id/zh_error_restart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginHorizontal="@dimen/_8sdp"
             android:text="@string/global_restart"
             app:layout_constraintBottom_toTopOf="@id/zh_error_confirm"/>
 
@@ -163,9 +155,8 @@
             android:id="@+id/zh_error_confirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
             android:text="@string/zh_confirm"
             app:layout_constraintBottom_toBottomOf="parent" />
 

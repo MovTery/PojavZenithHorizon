@@ -5,8 +5,8 @@
     android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minWidth="450dp"
-    android:minHeight="150dp"
+    android:minWidth="@dimen/_450sdp"
+    android:minHeight="@dimen/_150sdp"
     android:orientation="vertical"
     android:padding="8dp">
 
@@ -24,18 +24,15 @@
         android:id="@+id/zh_controls_settings_scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginVertical="@dimen/_12sdp"
         android:layout_weight="1">
 
         <LinearLayout
             android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginVertical="@dimen/_8sdp"
             android:orientation="vertical">
 
             <Switch
@@ -44,8 +41,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_edit_box"
                 android:checked="true"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
+                android:paddingHorizontal="@dimen/_8sdp"
                 android:text="@string/zh_controls_settings_button_snapping"
                 android:textStyle="bold"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
@@ -53,14 +49,14 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:background="@drawable/background_edit_box">
 
                 <TextView
                     android:id="@+id/zh_controls_settings_button_snapping_distance_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="@dimen/_8sdp"
                     android:text="@string/zh_controls_settings_button_snapping_distance"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -71,8 +67,7 @@
                     android:id="@+id/zh_controls_settings_button_snapping_distance"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginHorizontal="@dimen/_8sdp"
                     android:max="30"
                     android:progress="8"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -84,7 +79,7 @@
                     android:id="@+id/zh_controls_settings_button_snapping_distance_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="@dimen/_8sdp"
                     android:text="8dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -102,7 +97,7 @@
         android:id="@+id/zh_controls_settings_confirm_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="4dp"
+        android:layout_marginHorizontal="@dimen/_4sdp"
         android:text="@string/zh_confirm"
         style="@style/CustomButtonStyle" />
 

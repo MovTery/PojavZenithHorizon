@@ -5,10 +5,10 @@
     android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minWidth="450dp"
-    android:minHeight="150dp"
+    android:minWidth="@dimen/_450sdp"
+    android:minHeight="@dimen/_150sdp"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="@dimen/_8sdp">
 
     <TextView
         android:id="@+id/zh_mouse_settings_title"
@@ -24,18 +24,15 @@
         android:id="@+id/zh_mouse_settings_scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginVertical="@dimen/_12sdp"
         android:layout_weight="1">
 
         <LinearLayout
             android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginVertical="@dimen/_8sdp"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,7 +44,7 @@
                     android:id="@+id/zh_mouse_settings_speed_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="@dimen/_8sdp"
                     android:text="@string/zh_mouse_settings_speed_name"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -58,8 +55,7 @@
                     android:id="@+id/zh_mouse_settings_speed_seek"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginHorizontal="@dimen/_8sdp"
                     android:min="25"
                     android:max="300"
                     android:progress="100"
@@ -72,7 +68,7 @@
                     android:id="@+id/zh_mouse_settings_speed_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="@dimen/_8sdp"
                     android:text="100 %"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -85,14 +81,14 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:background="@drawable/background_edit_box">
 
                 <TextView
                     android:id="@+id/zh_mouse_settings_scale_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="@dimen/_8sdp"
                     android:text="@string/zh_mouse_settings_scale_name"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -103,8 +99,7 @@
                     android:id="@+id/zh_mouse_settings_scale_seek"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginHorizontal="@dimen/_8sdp"
                     android:min="25"
                     android:max="300"
                     android:progress="100"
@@ -117,7 +112,7 @@
                     android:id="@+id/zh_mouse_settings_scale_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="@dimen/_8sdp"
                     android:text="100 %"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -131,13 +126,13 @@
                 android:id="@+id/zh_mouse_settings_custom_mouse"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:background="@drawable/background_edit_box">
 
                 <TextView
                     android:text="@string/zh_custom_mouse_title"
                     android:textStyle="bold"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="@dimen/_8sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -152,7 +147,7 @@
         style="@style/CustomButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="4dp"
+        android:layout_marginHorizontal="@dimen/_4sdp"
         android:text="@string/zh_confirm" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -30,10 +30,9 @@
         android:name="net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceVideoFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:layout_marginVertical="@dimen/_8sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/zh_settings_progress_layout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,9 +73,9 @@
 
                 <ImageButton
                     android:id="@+id/video_settings"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginTop="18dp"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_marginTop="@dimen/_18sdp"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/preference_category_video"
                     android:scaleType="fitCenter"
@@ -89,9 +88,9 @@
 
                 <ImageButton
                     android:id="@+id/controls_settings"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginTop="14dp"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_marginTop="@dimen/_14sdp"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/preference_category_buttons"
                     android:scaleType="fitCenter"
@@ -104,9 +103,9 @@
 
                 <ImageButton
                     android:id="@+id/java_settings"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginTop="14dp"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_marginTop="@dimen/_14sdp"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/preference_category_java_tweaks"
                     android:scaleType="fitCenter"
@@ -119,9 +118,9 @@
 
                 <ImageButton
                     android:id="@+id/misc_settings"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginTop="14dp"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_marginTop="@dimen/_14sdp"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/preference_category_miscellaneous"
                     android:scaleType="fitCenter"
@@ -134,9 +133,9 @@
 
                 <ImageButton
                     android:id="@+id/launcher_settings"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginTop="14dp"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_marginTop="@dimen/_14sdp"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/zh_preference_category_launcher"
                     android:scaleType="fitCenter"
@@ -149,9 +148,9 @@
 
                 <ImageButton
                     android:id="@+id/experimental_settings"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginVertical="14dp"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_marginVertical="@dimen/_14sdp"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/zh_preference_category_experimental"
                     android:scaleType="fitCenter"

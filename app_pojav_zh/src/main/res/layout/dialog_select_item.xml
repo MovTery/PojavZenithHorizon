@@ -4,7 +4,7 @@
     android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:minWidth="480dp"
+    android:minWidth="@dimen/_480sdp"
     android:orientation="vertical"
     android:padding="8dp">
 
@@ -36,18 +36,18 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/background_edit_box"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="4dp"
+        android:paddingHorizontal="@dimen/_8sdp"
+        android:paddingVertical="@dimen/_4sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/zh_select_item_message"
-        app:layout_constraintHeight_max="240dp" />
+        app:layout_constraintHeight_max="@dimen/_240sdp" />
 
     <ImageButton
         android:id="@+id/zh_select_item_close_button"
         android:layout_width="18dp"
         android:layout_height="18dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="@dimen/_12sdp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/zh_close"
         android:src="@drawable/ic_close"

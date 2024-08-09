@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="41dp"
-    android:layout_marginVertical="4dp"
+    android:layout_height="@dimen/_41sdp"
+    android:layout_marginVertical="@dimen/_4sdp"
     android:background="@drawable/background_item">
 
     <ImageView
         android:id="@+id/zh_file_image"
         android:layout_width="20dp"
         android:layout_height="match_parent"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="@dimen/_12sdp"
         android:scaleType="centerInside"
         android:src="@drawable/ic_file"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,8 +22,7 @@
         android:id="@+id/zh_file_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginHorizontal="@dimen/_8sdp"
         android:singleLine="true"
         android:text="File Name"
         android:textSize="@dimen/_12sdp"
@@ -37,7 +36,7 @@
         android:id="@+id/zh_file_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="@dimen/_8sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

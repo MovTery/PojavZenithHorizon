@@ -4,8 +4,8 @@
     android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minWidth="450dp"
-    android:minHeight="150dp"
+    android:minWidth="@dimen/_450sdp"
+    android:minHeight="@dimen/_150sdp"
     android:orientation="vertical"
     android:padding="8dp">
 
@@ -23,8 +23,8 @@
         android:id="@+id/zh_edit_text_scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginHorizontal="@dimen/_8sdp"
         android:layout_weight="1">
 
         <LinearLayout
@@ -48,21 +48,19 @@
         android:id="@+id/zh_edit_text_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:autofillHints="name"
         android:background="@drawable/background_edit_box"
         android:inputType="text"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
+        android:paddingHorizontal="@dimen/_8sdp"
         tools:ignore="LabelFor" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="4dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="@dimen/_4sdp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
