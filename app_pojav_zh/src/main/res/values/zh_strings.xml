@@ -189,7 +189,7 @@
     <string name="zh_file_multi_select_mode">Enable Multi-Select Mode</string>
     <string name="zh_file_multi_select_mode_title">Multi-Select Mode</string>
     <string name="zh_file_multi_select_mode_message">Currently, a total of %d items are selected</string>
-    <string name="zh_file_operation_file">Operating on file… (%s / %s, %d)</string>
+    <string name="zh_file_operation_file">Processing file… (%s / %s, %d)</string>
     <string name="zh_file_jump_to_path">Jump to Path</string>
     <string name="zh_file_nothing">No files found!</string>
     <!-- Search View -->

@@ -189,7 +189,7 @@
     <string name="zh_file_multi_select_mode">Bật chế độ chọn nhiều</string>
     <string name="zh_file_multi_select_mode_title">Chọn nhiều mục</string>
     <string name="zh_file_multi_select_mode_message">Hiện tại đã chọn tổng cộng %d mục</string>
-    <string name="zh_file_operation_file">Đang thao tác trên tệp tin… (%s / %s, %d)</string>
+    <string name="zh_file_operation_file">Đang xử lý tập tin… (%s / %s, %d)</string>
     <string name="zh_file_jump_to_path">Nhảy đến đường dẫn</string>
     <string name="zh_file_nothing">Không tìm thấy tệp nào!</string>
     <!-- Search View -->

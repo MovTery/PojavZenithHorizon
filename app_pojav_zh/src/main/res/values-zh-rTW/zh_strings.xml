@@ -189,7 +189,7 @@
     <string name="zh_file_multi_select_mode">開啟多選模式</string>
     <string name="zh_file_multi_select_mode_title">多選項目</string>
     <string name="zh_file_multi_select_mode_message">目前共選擇了 %d 個項目</string>
-    <string name="zh_file_operation_file">正在操作檔案中… (%s / %s, %d)</string>
+    <string name="zh_file_operation_file">正在處理檔案中… (%s / %s, %d)</string>
     <string name="zh_file_jump_to_path">跳至路徑</string>
     <string name="zh_file_nothing">沒有找到任何文件哦！</string>
     <!-- Search View -->

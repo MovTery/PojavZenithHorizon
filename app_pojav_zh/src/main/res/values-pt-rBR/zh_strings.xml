@@ -189,7 +189,7 @@
     <string name="zh_file_multi_select_mode">Ativar modo de seleção múltipla</string>
     <string name="zh_file_multi_select_mode_title">Seleção múltipla de itens</string>
     <string name="zh_file_multi_select_mode_message">No total, %d itens foram selecionados</string>
-    <string name="zh_file_operation_file">Operando arquivo… (%s / %s, %d)</string>
+    <string name="zh_file_operation_file">Processando arquivo… (%s / %s, %d)</string>
     <string name="zh_file_jump_to_path">Ir para o caminho</string>
     <string name="zh_file_nothing">Nenhum arquivo encontrado!</string>
     <!-- Search View -->

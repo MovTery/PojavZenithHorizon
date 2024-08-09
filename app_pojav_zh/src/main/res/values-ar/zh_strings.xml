@@ -189,7 +189,7 @@
     <string name="zh_file_multi_select_mode">تفعيل وضع الاختيار المتعدد</string>
     <string name="zh_file_multi_select_mode_title">اختيارات متعددة</string>
     <string name="zh_file_multi_select_mode_message">تم اختيار إجمالي %d عنصر</string>
-    <string name="zh_file_operation_file">جاري العمل على الملف… (%s / %s, %d)</string>
+    <string name="zh_file_operation_file">جاري معالجة الملف… (%s / %s, %d)</string>
     <string name="zh_file_jump_to_path">الانتقال إلى المسار</string>
     <string name="zh_file_nothing">لم يتم العثور على أي ملفات!</string>
     <!-- Search View -->

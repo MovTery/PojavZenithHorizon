@@ -189,7 +189,7 @@
     <string name="zh_file_multi_select_mode">Включить режим множественного выбора</string>
     <string name="zh_file_multi_select_mode_title">Множественный выбор</string>
     <string name="zh_file_multi_select_mode_message">Выбрано всего %d элементов</string>
-    <string name="zh_file_operation_file">Операция с файлом… (%s / %s, %d)</string>
+    <string name="zh_file_operation_file">Обработка файла… (%s / %s, %d)</string>
     <string name="zh_file_jump_to_path">Перейти к пути</string>
     <string name="zh_file_nothing">Файлы не найдены!</string>
     <!-- Search View -->
