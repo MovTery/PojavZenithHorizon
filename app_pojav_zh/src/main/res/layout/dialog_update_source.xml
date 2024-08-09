@@ -4,9 +4,9 @@
     android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minWidth="450dp"
+    android:minWidth="@dimen/_450sdp"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="@dimen/_8sdp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -20,8 +20,8 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
@@ -40,7 +40,7 @@
             style="@style/CustomButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:layout_weight="1"
             android:textAllCaps="false"
             android:text="@string/zh_update_update_source_ghproxy" />

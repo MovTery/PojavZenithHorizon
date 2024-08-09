@@ -4,10 +4,10 @@
     android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minWidth="480dp"
-    android:minHeight="150dp"
+    android:minWidth="@dimen/_480sdp"
+    android:minHeight="@dimen/_150sdp"
     android:orientation="vertical"
-    android:padding="12dp">
+    android:padding="@dimen/_12sdp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -22,10 +22,8 @@
         android:id="@+id/text_scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginEnd="2dp"
+        android:layout_marginVertical="@dimen/_8sdp"
+        android:layout_marginHorizontal="@dimen/_2sdp"
         android:layout_weight="1">
 
         <LinearLayout
@@ -56,7 +54,7 @@
                 android:id="@+id/zh_update_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/_4sdp"
                 android:background="@android:color/transparent"
                 android:singleLine="true"
                 tools:ignore="WebViewLayout" />
@@ -83,7 +81,7 @@
             style="@style/CustomButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:layout_weight="1"
             android:text="@string/zh_update_dialog_ignore" />
 
@@ -92,7 +90,7 @@
             style="@style/CustomButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:layout_weight="1"
             android:text="@string/zh_update_dialog_yes" />
 

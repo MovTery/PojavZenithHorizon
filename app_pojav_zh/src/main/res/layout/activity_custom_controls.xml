@@ -14,8 +14,8 @@
 
         <net.kdt.pojavlaunch.customcontrols.handleview.DrawerPullButton
             android:id="@+id/drawer_button"
-            android:layout_width="32dp"
-            android:layout_height="16dp"
+            android:layout_width="@dimen/_28sdp"
+            android:layout_height="@dimen/_14sdp"
             android:elevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,7 @@
 
     <ListView
         android:id="@+id/customctrl_navigation_view"
-        android:layout_width="200dp"
+        android:layout_width="@dimen/_200sdp"
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:background="?attr/colorBackgroundFloating"

@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="4dp"
+    android:layout_marginVertical="@dimen/_4sdp"
     android:background="@drawable/background_item"
-    android:padding="8dp">
+    android:padding="@dimen/_8sdp">
 
     <TextView
         android:id="@+id/multirt_view_java_version"
         style="@style/TextAppearance.AppCompat.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/_8sdp"
         android:textColor="@color/primary_text"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -26,7 +26,7 @@
         android:id="@+id/multirt_view_java_version_full"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="@dimen/_16sdp"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/multirt_view_java_version"
         app:layout_constraintStart_toEndOf="@+id/multirt_view_java_version"
