@@ -42,7 +42,7 @@
             android:id="@+id/zh_download_upload_rate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_4sdp"
             android:text="0 B/s"
             android:textSize="@dimen/_14sdp"
             android:maxLines="1"
@@ -51,7 +51,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/progressBar2"
-            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintHorizontal_weight="1.5"
             tools:ignore="HardcodedText" />
 
         <ProgressBar
@@ -64,7 +64,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/zh_download_upload_rate"
-            app:layout_constraintHorizontal_weight="4.5"
+            app:layout_constraintHorizontal_weight="5"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -228,6 +228,8 @@ public class UpdateLauncher {
                         });
 
                         final long[] downloadedSize = new long[1];
+                        final long[] lastSize = {0};
+                        final long[] lastTime = {ZHTools.getCurrentTimeMillis()};
 
                         //限制刷新速度
                         timer = new Timer();
@@ -235,9 +237,18 @@ public class UpdateLauncher {
                             @Override
                             public void run() {
                                 long size = downloadedSize[0];
+                                long currentTime = ZHTools.getCurrentTimeMillis();
+                                double timeElapsed = (currentTime - lastTime[0]) / 1000.0;
+                                long sizeChange = size - lastSize[0];
+                                long rate = (long) (sizeChange / timeElapsed);
+
+                                lastSize[0] = size;
+                                lastTime[0] = currentTime;
+
                                 runOnUiThread(() -> {
                                     String formattedDownloaded = formatFileSize(size);
                                     UpdateLauncher.this.dialog.updateProgress(size, fileSize);
+                                    UpdateLauncher.this.dialog.updateRate(rate > 0 ? rate : 0L);
                                     UpdateLauncher.this.dialog.updateText(String.format(context.getString(R.string.zh_update_downloading), formattedDownloaded, fileSizeString));
                                 });
                             }
