@@ -30,13 +30,17 @@ class ModToggleHandler(
 
     override fun searchFilesToProcess() {
         mSelectedFiles.forEach {
+            currentTask?.let { task -> if (task.isCancelled) return@forEach }
             if (it.isFile) addFile(it)
         }
+        currentTask?.let { task -> if (task.isCancelled) return }
         totalFileSize.set(fileSize.get())
     }
 
     override fun processFile() {
         (foundFiles).forEach {
+            currentTask?.let { task -> if (task.isCancelled) return@forEach }
+
             fileSize.addAndGet(-FileUtils.sizeOf(it))
             fileCount.getAndDecrement()
 

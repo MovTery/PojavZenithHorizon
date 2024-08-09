@@ -12,7 +12,7 @@ import java.util.concurrent.Future
 abstract class FileHandler(
     protected val context: Context,
 ) {
-    private var currentTask: Future<*>? = null
+    protected var currentTask: Future<*>? = null
     private var timer: Timer? = null
 
     protected fun start(progress: FileSearchProgress) {
@@ -44,6 +44,7 @@ abstract class FileHandler(
                 }, 0, 100)
 
                 searchFilesToProcess()
+                currentTask?.let { task -> if (task.isCancelled) return@submit }
                 processFile()
 
                 Tools.runOnUiThread { dialog.dismiss() }

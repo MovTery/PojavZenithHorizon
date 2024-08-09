@@ -76,14 +76,19 @@ class FileCopyHandler(
 
     override fun searchFilesToProcess() {
         mSelectedFiles.forEach {
+            currentTask?.let { task -> if (task.isCancelled) return@forEach }
+
             if (it.isFile) addFile(it)
             else if (it.isDirectory) addDirectory(it)
         }
+        currentTask?.let { task -> if (task.isCancelled) return }
         totalFileSize.set(fileSize.get())
     }
 
     override fun processFile() {
         foundFiles.entries.parallelStream().forEach { (currentFile, targetFile) ->
+            currentTask?.let { task -> if (task.isCancelled) return@forEach }
+
             fileSize.addAndGet(-FileUtils.sizeOf(currentFile))
             fileCount.decrementAndGet()
             targetFile.parentFile?.takeIf { !it.exists() }?.mkdirs()
@@ -92,6 +97,7 @@ class FileCopyHandler(
                 else -> FileTools.moveFile(currentFile, targetFile)
             }
         }
+        currentTask?.let { task -> if (task.isCancelled) return }
         if (mPasteType == PasteFile.PasteType.MOVE) mSelectedFiles.forEach { FileUtils.deleteQuietly(it) }
     }
 
