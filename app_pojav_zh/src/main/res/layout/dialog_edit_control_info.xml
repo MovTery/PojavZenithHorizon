@@ -34,7 +34,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.movtery.pojavzh.ui.view.MovEditText
+        <com.movtery.pojavzh.ui.view.AnimEditText
             android:id="@+id/zh_edit_control_info_file_name_edit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
             app:layout_constraintStart_toStartOf="@+id/zh_edit_control_info_name_edit"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.movtery.pojavzh.ui.view.MovEditText
+        <com.movtery.pojavzh.ui.view.AnimEditText
             android:id="@+id/zh_edit_control_info_name_edit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.movtery.pojavzh.ui.view.MovEditText
+        <com.movtery.pojavzh.ui.view.AnimEditText
             android:id="@+id/zh_edit_control_info_version_edit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
             app:layout_constraintStart_toStartOf="@+id/zh_edit_control_info_author_edit"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.movtery.pojavzh.ui.view.MovEditText
+        <com.movtery.pojavzh.ui.view.AnimEditText
             android:id="@+id/zh_edit_control_info_author_edit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -135,7 +135,7 @@
         android:layout_height="wrap_content"
         android:text="@string/zh_controls_info_desc"/>
 
-    <com.movtery.pojavzh.ui.view.MovEditText
+    <com.movtery.pojavzh.ui.view.AnimEditText
         android:id="@+id/zh_edit_control_info_desc_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -155,21 +155,19 @@
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
-        <Button
+        <com.movtery.pojavzh.ui.view.AnimButton
             android:id="@+id/zh_edit_control_info_cancel_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@android:string/cancel"
-            style="@style/CustomButtonStyle" />
+            android:text="@android:string/cancel" />
 
-        <Button
+        <com.movtery.pojavzh.ui.view.AnimButton
             android:id="@+id/zh_edit_control_info_confirm_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/zh_confirm"
-            style="@style/CustomButtonStyle" />
+            android:text="@string/zh_confirm" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

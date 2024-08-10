@@ -86,7 +86,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/shadowView">
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/zh_version_return_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/zh_version_refresh_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

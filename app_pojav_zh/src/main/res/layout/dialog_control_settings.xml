@@ -93,12 +93,11 @@
 
     </ScrollView>
 
-    <Button
+    <com.movtery.pojavzh.ui.view.AnimButton
         android:id="@+id/zh_controls_settings_confirm_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_4sdp"
-        android:text="@string/zh_confirm"
-        style="@style/CustomButtonStyle" />
+        android:text="@string/zh_confirm" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

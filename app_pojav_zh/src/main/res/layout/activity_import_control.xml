@@ -33,7 +33,7 @@
         app:layout_constraintBottom_toTopOf="@+id/editText_import_control_file_name"
         app:layout_constraintStart_toStartOf="@+id/editText_import_control_file_name" />
 
-    <com.movtery.pojavzh.ui.view.MovEditText
+    <com.movtery.pojavzh.ui.view.AnimEditText
         android:id="@+id/editText_import_control_file_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
         app:layout_constraintStart_toStartOf="@+id/_background_display_view"
         app:layout_constraintTop_toTopOf="@+id/_background_display_view" />
 
-    <Button
+    <com.movtery.pojavzh.ui.view.AnimButton
         android:id="@+id/mineButton_import_control"
         android:layout_width="0dp"
         android:layout_height="@dimen/_42sdp"

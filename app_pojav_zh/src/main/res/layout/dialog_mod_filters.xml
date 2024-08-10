@@ -29,9 +29,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_mod_mc_version_textview" />
 
-    <Button
+    <com.movtery.pojavzh.ui.view.AnimButton
         android:id="@+id/search_mod_mc_version_button"
-        style="@style/CustomButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:paddingHorizontal="@dimen/padding_large"
@@ -183,18 +182,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-        <Button
+        <com.movtery.pojavzh.ui.view.AnimButton
             android:id="@+id/search_mod_reset"
-            style="@style/CustomButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/cropper_reset"/>
 
         <!-- Apply -->
-        <Button
+        <com.movtery.pojavzh.ui.view.AnimButton
             android:id="@+id/search_mod_apply_filters"
-            style="@style/CustomButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

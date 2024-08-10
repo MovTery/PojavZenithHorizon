@@ -49,7 +49,7 @@
                 app:layout_constraintTop_toTopOf="@+id/vanilla_profile"
                 app:srcCompat="@drawable/ic_minecraft" />
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/vanilla_profile"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                 app:layout_constraintTop_toTopOf="@+id/optifine_profile"
                 app:srcCompat="@drawable/ic_optifine" />
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/optifine_profile"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
                 app:layout_constraintTop_toTopOf="@+id/modded_profile_fabric"
                 app:srcCompat="@drawable/ic_fabric" />
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/modded_profile_fabric"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -145,7 +145,7 @@
                 app:layout_constraintTop_toTopOf="@+id/modded_profile_quilt"
                 app:srcCompat="@drawable/ic_quilt" />
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/modded_profile_quilt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -166,7 +166,7 @@
                 app:layout_constraintTop_toTopOf="@+id/modded_profile_forge"
                 app:srcCompat="@drawable/ic_anvil" />
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/modded_profile_forge"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -187,7 +187,7 @@
                 app:layout_constraintTop_toTopOf="@+id/zh_modded_profile_neoforge"
                 app:srcCompat="@drawable/ic_neoforge" />
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/zh_modded_profile_neoforge"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -208,7 +208,7 @@
                 app:layout_constraintTop_toTopOf="@+id/modded_profile_modpack"
                 app:srcCompat="@drawable/ic_pojav_full" />
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/modded_profile_modpack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

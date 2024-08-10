@@ -1,5 +1,6 @@
 package com.kdt.mcgui;
 
+import android.animation.AnimatorInflater;
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.AttributeSet;
@@ -25,6 +26,15 @@ public class LauncherMenuButton extends ExtendedButton {
         setSettings();
     }
 
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        post(() -> {
+            setPivotX(getWidth() / 2f);
+            setPivotY(getHeight() / 2f);
+            setStateListAnimator(AnimatorInflater.loadStateListAnimator(getContext(), R.xml.anim_scale));
+        });
+    }
 
     /** Set style stuff */
     private void setSettings(){

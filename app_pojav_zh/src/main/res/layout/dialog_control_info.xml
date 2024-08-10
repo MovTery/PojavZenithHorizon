@@ -91,9 +91,8 @@
         app:layout_constraintTop_toBottomOf="@+id/zh_control_info_version_text"
         tools:ignore="HardcodedText" />
 
-    <Button
+    <com.movtery.pojavzh.ui.view.AnimButton
         android:id="@+id/zh_control_info_close"
-        style="@style/CustomButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_16sdp"

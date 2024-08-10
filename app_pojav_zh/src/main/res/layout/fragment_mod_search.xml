@@ -33,7 +33,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/search_mod_edittext" />
 
-        <com.movtery.pojavzh.ui.view.MovEditText
+        <com.movtery.pojavzh.ui.view.AnimEditText
             android:id="@+id/search_mod_edittext"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

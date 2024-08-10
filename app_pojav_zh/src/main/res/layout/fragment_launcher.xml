@@ -88,7 +88,7 @@
 
             </ScrollView>
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/zh_menu_notice_close_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -276,7 +276,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/mc_version_spinner" />
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/play_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

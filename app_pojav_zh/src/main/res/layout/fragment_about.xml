@@ -93,7 +93,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/zh_about_dec2" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/zh_about_pojavlauncher_button"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
@@ -104,7 +104,7 @@
                         app:layout_constraintTop_toTopOf="@+id/zh_about_license_button"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/zh_about_license_button"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
@@ -208,7 +208,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/zh_about_sponsor_desc" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/zh_about_sponsor_more"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -257,7 +257,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/shadowView">
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/zh_about_return_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -268,7 +268,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/zh_about_github_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -280,7 +280,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 tools:ignore="HardcodedText" />
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/zh_about_support_development"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
