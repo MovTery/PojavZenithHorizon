@@ -402,7 +402,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     }
 
     private void printLauncherInfo(String gameVersion, String javaArguments, String javaRuntime) {
-        Logger.appendToLog("Info: Launcher version: " + getVersionName(this) + " (" + getVersionCode(this) + ")");
+        Logger.appendToLog("Info: Launcher version: " + getVersionName() + " (" + getVersionCode() + ")");
         Logger.appendToLog("Info: Architecture: " + Architecture.archAsString(Tools.DEVICE_ARCHITECTURE));
         Logger.appendToLog("Info: Device model: " + StringUtils.insertSpace(Build.MANUFACTURER, Build.MODEL));
         Logger.appendToLog("Info: API version: " + Build.VERSION.SDK_INT);

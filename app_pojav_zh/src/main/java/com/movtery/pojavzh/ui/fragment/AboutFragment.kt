@@ -88,8 +88,8 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
         val mVersionStatus = view.findViewById<TextView>(R.id.zh_about_version_status)
 
         //软件信息
-        mVersionName.text = StringUtils.insertSpace(getString(R.string.zh_about_version_name), ZHTools.getVersionName(requireContext()))
-        mVersionCode.text = StringUtils.insertSpace(getString(R.string.zh_about_version_code), ZHTools.getVersionCode(requireContext()))
+        mVersionName.text = StringUtils.insertSpace(getString(R.string.zh_about_version_name), ZHTools.getVersionName())
+        mVersionCode.text = StringUtils.insertSpace(getString(R.string.zh_about_version_code), ZHTools.getVersionCode())
         mLastUpdateTime.text = StringUtils.insertSpace(getString(R.string.zh_about_last_update_time), ZHTools.getLastUpdateTime(requireContext()))
         mVersionStatus.text = StringUtils.insertSpace(getString(R.string.zh_about_version_status), ZHTools.getVersionStatus(requireContext()))
     }

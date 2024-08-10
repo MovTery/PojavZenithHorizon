@@ -96,7 +96,6 @@ android {
             signingConfig signingConfigs.customDebug
             resValue 'string', 'application_package', 'net.kdt.pojavlaunch.zh.debug'
             resValue 'string', 'storageProviderAuthorities', 'net.kdt.pojavlaunch.scoped.gamefolder.zh.debug'
-            resValue 'string', 'zh_version_status', 'debug'
         }
         proguard {
             initWith debug
@@ -113,7 +112,6 @@ android {
             // debuggable = true
             resValue 'string', 'application_package', 'net.kdt.pojavlaunch.zh'
             resValue 'string', 'storageProviderAuthorities', 'net.kdt.pojavlaunch.scoped.gamefolder.zh'
-            resValue 'string', 'zh_version_status', 'release'
             signingConfig signingConfigs.releaseBuild
         }
     }

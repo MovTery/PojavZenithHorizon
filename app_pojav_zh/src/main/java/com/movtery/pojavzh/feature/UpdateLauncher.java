@@ -44,9 +44,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class UpdateLauncher {
+    private static final File sApkFile = new File(PathAndUrlManager.DIR_APP_CACHE, "cache.apk");
     private final Context context;
     private final UpdateSource updateSource;
-    private final File apkFile;
     private final String versionName, tagName, fileSizeString;
     private final long fileSize;
     private ProgressDialog dialog;
@@ -57,7 +57,6 @@ public class UpdateLauncher {
     public UpdateLauncher(Context context, String versionName, String tagName, long fileSize, UpdateSource updateSource) {
         this.context = context;
         this.updateSource = updateSource;
-        this.apkFile = new File(PathAndUrlManager.DIR_APP_CACHE, "cache.apk");
         this.versionName = versionName;
         this.tagName = tagName;
         this.fileSizeString = formatFileSize(fileSize);
@@ -66,26 +65,24 @@ public class UpdateLauncher {
     }
 
     public static void CheckDownloadedPackage(Context context, boolean ignore) {
-        File downloadedFile = new File(PathAndUrlManager.DIR_APP_CACHE, "cache.apk");
-
-        if (downloadedFile.exists()) {
+        if (sApkFile.exists()) {
             PackageManager packageManager = context.getPackageManager();
-            PackageInfo packageInfo = packageManager.getPackageArchiveInfo(downloadedFile.getAbsolutePath(), 0);
+            PackageInfo packageInfo = packageManager.getPackageArchiveInfo(sApkFile.getAbsolutePath(), 0);
 
             if (packageInfo != null) {
                 String packageName = packageInfo.packageName;
                 int versionCode = packageInfo.versionCode;
 
-                int thisVersionCode = ZHTools.getVersionCode(context);
+                int thisVersionCode = ZHTools.getVersionCode();
                 DEFAULT_PREF.edit().putInt("launcherVersionCode", thisVersionCode).apply();
 
-                if (Objects.equals(packageName, "net.kdt.pojavlaunch.zh") && versionCode > thisVersionCode) {
-                    installApk(context, downloadedFile);
+                if (Objects.equals(packageName, ZHTools.getPackageName()) && versionCode > thisVersionCode) {
+                    installApk(context, sApkFile);
                 } else {
-                    FileUtils.deleteQuietly(downloadedFile);
+                    FileUtils.deleteQuietly(sApkFile);
                 }
             } else {
-                FileUtils.deleteQuietly(downloadedFile);
+                FileUtils.deleteQuietly(sApkFile);
             }
         } else {
             //如果安装包不存在，那么将自动获取更新
@@ -143,7 +140,7 @@ public class UpdateLauncher {
                             Log.e("Parse github version", e.toString());
                         }
 
-                        if (ZHTools.getVersionCode(context) < githubVersion) {
+                        if (ZHTools.getVersionCode() < githubVersion) {
                             runOnUiThread(() -> {
                                 UpdateDialog.UpdateInformation updateInformation = new UpdateDialog.UpdateInformation();
                                 try {
@@ -161,7 +158,7 @@ public class UpdateLauncher {
                             });
                         } else if (!ignore) {
                             runOnUiThread(() -> {
-                                String nowVersionName = ZHTools.getVersionName(context);
+                                String nowVersionName = ZHTools.getVersionName();
                                 runOnUiThread(() -> Toast.makeText(context,
                                         StringUtils.insertSpace(context.getString(R.string.zh_update_without), nowVersionName),
                                         Toast.LENGTH_SHORT).show());
@@ -176,7 +173,7 @@ public class UpdateLauncher {
     }
 
     private void init() {
-        this.destinationFilePath = this.apkFile.getAbsolutePath();
+        this.destinationFilePath = sApkFile.getAbsolutePath();
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(getDownloadUrl())
@@ -276,7 +273,7 @@ public class UpdateLauncher {
         if (this.call == null) return;
         this.call.cancel();
         this.timer.cancel();
-        FileUtils.deleteQuietly(this.apkFile);
+        FileUtils.deleteQuietly(sApkFile);
     }
 
     public enum UpdateSource {
