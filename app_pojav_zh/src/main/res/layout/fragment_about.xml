@@ -291,12 +291,12 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"/>
 
-            <TextView
+            <com.movtery.pojavzh.ui.view.AnimTextView
                 android:id="@+id/zh_about_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_margin="@dimen/_8sdp"
+                android:padding="@dimen/_8sdp"
                 android:lineSpacingExtra="@dimen/_4sdp"
                 android:background="?android:attr/selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="parent"

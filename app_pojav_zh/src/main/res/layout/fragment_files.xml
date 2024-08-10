@@ -52,7 +52,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <com.movtery.pojavzh.ui.view.AnimTextView
                 android:id="@+id/zh_files_current_path"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

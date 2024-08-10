@@ -46,7 +46,7 @@ class SettingsActivity : BaseActivity() {
         ZHTools.setBackgroundImage(this, BackgroundType.SETTINGS, mBackgroundView)
 
         mReturnButton?.setOnClickListener {
-            setViewAnim(mReturnButton!!, Techniques.Bounce)
+            setViewAnim(mReturnButton!!, Techniques.Pulse)
             finish()
         }
 

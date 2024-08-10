@@ -3,10 +3,12 @@
     <item android:state_pressed="true">
         <set>
             <objectAnimator
+                android:interpolator="@android:anim/decelerate_interpolator"
                 android:duration="160"
                 android:propertyName="scaleX"
                 android:valueTo="0.95" />
             <objectAnimator
+                android:interpolator="@android:anim/decelerate_interpolator"
                 android:duration="160"
                 android:propertyName="scaleY"
                 android:valueTo="0.95" />
@@ -15,10 +17,12 @@
     <item android:state_pressed="false">
         <set>
             <objectAnimator
+                android:interpolator="@android:anim/decelerate_interpolator"
                 android:duration="160"
                 android:propertyName="scaleX"
                 android:valueTo="1" />
             <objectAnimator
+                android:interpolator="@android:anim/decelerate_interpolator"
                 android:duration="160"
                 android:propertyName="scaleY"
                 android:valueTo="1" />
