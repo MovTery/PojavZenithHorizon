@@ -27,7 +27,7 @@ def getCFApiKey = {
         return curseforgeKeyFile.text
     }
     logger.warn('BUILD: You have no CurseForge key, the curseforge api will get disabled !')
-    return "\$2a\$10\$LC5SUsOHM4rHqplPyfanRunYMJSlnGsKxFeiKFFNFekf.kA/pr45q"
+    return "DUMMY"
 }
 
 def getBranchName = {
