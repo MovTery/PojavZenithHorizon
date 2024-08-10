@@ -14,13 +14,15 @@ class AnimEditText @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = android.R.attr.editTextStyle
 ) : AppCompatEditText(context, attrs, defStyleAttr) {
+    init {
+        stateListAnimator = AnimatorInflater.loadStateListAnimator(context, R.xml.anim_scale_out)
+    }
 
-    override fun onFinishInflate() {
-        super.onFinishInflate()
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+        super.onLayout(changed, left, top, right, bottom)
         post {
             pivotX = width / 2f
             pivotY = height / 2f
-            stateListAnimator = AnimatorInflater.loadStateListAnimator(context, R.xml.anim_scale)
         }
     }
 

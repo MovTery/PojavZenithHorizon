@@ -307,10 +307,7 @@ public class LauncherActivity extends BaseActivity {
         ProgressKeeper.addTaskCountListener((mProgressServiceKeeper = new ProgressServiceKeeper(this)));
 
         mSettingsButton.setOnClickListener(mSettingButtonListener);
-        mAppTitle.setOnClickListener(v -> {
-            ViewAnimUtils.setViewAnim(mAppTitle, Techniques.Pulse);
-            mAppTitle.setText(StringUtils.shiftString(mAppTitle.getText().toString(), ShiftDirection.RIGHT, 1));
-        });
+        mAppTitle.setOnClickListener(v -> mAppTitle.setText(StringUtils.shiftString(mAppTitle.getText().toString(), ShiftDirection.RIGHT, 1)));
 
         ProgressKeeper.addTaskCountListener(mProgressLayout);
 
