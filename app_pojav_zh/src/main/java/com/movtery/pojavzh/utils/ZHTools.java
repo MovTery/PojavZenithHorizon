@@ -30,6 +30,7 @@ import com.movtery.pojavzh.ui.subassembly.background.BackgroundManager;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
 import com.movtery.pojavzh.utils.image.ImageUtils;
 
+import net.kdt.pojavlaunch.BuildConfig;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 
@@ -159,24 +160,16 @@ public class ZHTools {
         return new File(PathAndUrlManager.DIR_GAME_DEFAULT);
     }
 
-    public static int getVersionCode(Context context) {
-        PackageManager packageManager = context.getPackageManager();
-        try {
-            PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
-            return packageInfo.versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+    public static int getVersionCode() {
+        return BuildConfig.VERSION_CODE;
     }
 
-    public static String getVersionName(Context context) {
-        PackageManager packageManager = context.getPackageManager();
-        try {
-            PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
-            return packageInfo.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+    public static String getVersionName() {
+        return BuildConfig.VERSION_NAME;
+    }
+
+    public static String getPackageName() {
+        return BuildConfig.APPLICATION_ID;
     }
 
     //获取软件上一次更新时间
@@ -199,11 +192,9 @@ public class ZHTools {
                 context.getString(R.string.zh_about_version_status_main_branch) :
                 context.getString(R.string.zh_about_version_status_other_branch);
 
-        String status = Objects.equals(context.getString(R.string.zh_version_status), "debug") ?
-                context.getString(R.string.zh_about_version_status_debug) :
-                Objects.equals(context.getString(R.string.zh_version_status), "release") ?
-                        context.getString(R.string.zh_about_version_status_release) :
-                        context.getString(R.string.zh_unknown);
+        String status;
+        if (Objects.equals(BuildConfig.BUILD_TYPE, "release")) status = context.getString(R.string.zh_about_version_status_release);
+        else status = context.getString(R.string.zh_about_version_status_debug);
 
         return "[" + branch + "] " + status;
     }
