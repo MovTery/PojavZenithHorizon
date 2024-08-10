@@ -1,5 +1,15 @@
 package com.movtery.pojavzh.utils.stringutils;
 
+import static android.content.Context.CLIPBOARD_SERVICE;
+
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.widget.Toast;
+
+import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.Tools;
+
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
@@ -123,5 +133,11 @@ public class StringUtils {
         Node document = parser.parse(markdown);
         HtmlRenderer renderer = HtmlRenderer.builder().build();
         return renderer.render(document);
+    }
+
+    public static void copyText(String label, String text, Context context) {
+        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
+        clipboardManager.setPrimaryClip(ClipData.newPlainText(label, text));
+        Tools.runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_copied), Toast.LENGTH_SHORT).show());
     }
 }

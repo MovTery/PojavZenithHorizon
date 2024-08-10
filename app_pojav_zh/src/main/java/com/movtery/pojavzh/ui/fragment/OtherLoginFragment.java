@@ -1,10 +1,7 @@
 package com.movtery.pojavzh.ui.fragment;
 
-import static android.content.Context.CLIPBOARD_SERVICE;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,6 +34,7 @@ import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
@@ -184,10 +182,7 @@ public class OtherLoginFragment extends FragmentWithAnim {
                                         .setTitle(R.string.zh_warning)
                                         .setMessage(getString(R.string.zh_other_login_error) + error)
                                         .setCancel(android.R.string.copy)
-                                        .setCancelClickListener(() -> {
-                                            ClipboardManager mgr = (ClipboardManager) requireActivity().getSystemService(CLIPBOARD_SERVICE);
-                                            mgr.setPrimaryClip(ClipData.newPlainText("error", error));
-                                        })
+                                        .setCancelClickListener(() -> StringUtils.copyText("error", error, requireContext()))
                                         .buildDialog();
                             });
                         }

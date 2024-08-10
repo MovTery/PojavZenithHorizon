@@ -26,6 +26,7 @@
     <string name="zh_input_invalid">填寫的內容不符合要求，請重新輸入</string>
     <string name="zh_input_too_small">填寫的值過小，至少需要為 %s</string>
     <string name="zh_input_too_big">填寫的值過大，最大只能為 %s</string>
+    <string name="zh_copied">已複製</string>
     <!-- Dialog -->
     <string name="zh_dialog_select_jar">選擇 Jar 檔案</string>
     <!-- Profiles Path -->

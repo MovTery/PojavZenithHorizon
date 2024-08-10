@@ -26,6 +26,7 @@
     <string name="zh_input_invalid">O conteúdo preenchido não é válido, por favor, insira novamente</string>
     <string name="zh_input_too_small">O valor preenchido é muito pequeno, deve ser pelo menos %s</string>
     <string name="zh_input_too_big">O valor preenchido é muito grande, o máximo é %s</string>
+    <string name="zh_copied">Copiado</string>
     <!-- Dialog -->
     <string name="zh_dialog_select_jar">Selecionar Arquivo Jar</string>
     <!-- Profiles Path -->

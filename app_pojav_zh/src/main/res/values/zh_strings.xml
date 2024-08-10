@@ -26,6 +26,7 @@
     <string name="zh_input_invalid">The content entered does not meet the requirements, please re-enter</string>
     <string name="zh_input_too_small">The value entered is too small, it must be at least %s</string>
     <string name="zh_input_too_big">The value entered is too large, it can only be up to %s</string>
+    <string name="zh_copied">Copied</string>
     <!-- Dialog -->
     <string name="zh_dialog_select_jar">Select Jar file</string>
     <!-- Profiles Path -->

@@ -26,6 +26,7 @@
     <string name="zh_input_invalid">المحتوى المدخل لا يتوافق مع المتطلبات، يرجى إعادة الإدخال</string>
     <string name="zh_input_too_small">القيمة المدخلة صغيرة جدًا، يجب أن تكون على الأقل s%</string>
     <string name="zh_input_too_big">القيمة المدخلة كبيرة جدًا، يجب أن تكون أقصى حد s%</string>
+    <string name="zh_copied">تم النسخ</string>
     <!-- Dialog -->
     <string name="zh_dialog_select_jar">اختر ملف Jar</string>
     <!-- Profiles Path -->
