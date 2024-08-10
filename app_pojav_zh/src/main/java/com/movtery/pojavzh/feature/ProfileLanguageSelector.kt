@@ -9,6 +9,8 @@ import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
 import net.kdt.pojavlaunch.utils.MCOptionUtils
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile
+import org.jackhuang.hmcl.util.versioning.VersionNumber
+import org.jackhuang.hmcl.util.versioning.VersionRange
 
 class ProfileLanguageSelector {
     companion object {
@@ -20,15 +22,6 @@ class ProfileLanguageSelector {
                 builder.append(lang.substring(underscoreIndex + 1).uppercase())
                 builder.toString()
             } else lang
-        }
-
-        @Throws(NumberFormatException::class)
-        private fun getVersion(versionId: String): Int {
-            val versionParts = versionId.split('.')
-            return when {
-                versionParts.size > 1 -> versionParts[1].toInt()
-                else -> 12
-            }
         }
 
         private fun getLanguage(versionName: String?, rawLang: String?): String? {
@@ -44,24 +37,16 @@ class ProfileLanguageSelector {
                 throw RuntimeException(e)
             }
 
-            val versionId = version.id
+            val versionId = VersionNumber.asVersion(version.id).canonical
 
             return when {
-                StringUtils.containsDot(versionId) -> { // 1.10 -
-                    runCatching {
-                        val ver = getVersion(versionId)
-                        if (ver < 11) getOlderLanguage(lang) else lang
-                    }.getOrDefault(lang)
+                StringUtils.containsDot(versionId) -> {
+                    if (VersionRange.atMost(VersionNumber.asVersion("1.10.2")).contains(VersionNumber.asVersion(versionId))) getOlderLanguage(lang) // 1.10 -
+                    else lang
                 }
                 MCVersionRegex.SNAPSHOT_REGEX.matcher(versionId).matches() -> { // 快照版本 "24w09a" "16w20a"
-                    runCatching {
-                        val result = StringUtils.extractNumbers(versionId, 2)
-                        when {
-                            result[0] < 16 -> getOlderLanguage(lang)
-                            result[0] == 16 && result[1] <= 32 -> getOlderLanguage(lang)
-                            else -> lang
-                        }
-                    }.getOrDefault(lang)
+                    if (VersionRange.atMost(VersionNumber.asVersion("16w32a")).contains(VersionNumber.asVersion(versionId))) getOlderLanguage(lang)
+                    else lang
                 }
                 else -> lang
             }

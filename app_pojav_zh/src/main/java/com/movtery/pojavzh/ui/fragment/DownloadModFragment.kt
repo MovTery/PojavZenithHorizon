@@ -13,7 +13,6 @@ import com.movtery.pojavzh.ui.subassembly.modlist.ModListFragment
 import com.movtery.pojavzh.ui.subassembly.modlist.ModListItemBean
 import com.movtery.pojavzh.ui.subassembly.viewmodel.ModApiViewModel
 import com.movtery.pojavzh.ui.subassembly.viewmodel.RecyclerViewModel
-import com.movtery.pojavzh.utils.MCVersionComparator.Companion.versionCompare
 import com.movtery.pojavzh.utils.MCVersionRegex.Companion.RELEASE_REGEX
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
@@ -23,6 +22,7 @@ import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ImageReceiver
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ModIconCache
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem
+import org.jackhuang.hmcl.util.versioning.VersionNumber
 import java.util.Collections
 import java.util.concurrent.Future
 import java.util.function.Consumer
@@ -99,9 +99,7 @@ class DownloadModFragment : ModListFragment() {
 
         val mData: MutableList<ModListItemBean> = ArrayList()
         mModVersionsByMinecraftVersion.entries
-            .sortedWith { entry1, entry2 ->
-                versionCompare(entry1.key, entry2.key)
-            }
+            .sortedWith { entry1, entry2 -> -VersionNumber.compare(entry1.key, entry2.key) }
             .forEach { entry: Map.Entry<String, List<ModVersionItem>> ->
                 if (currentTask.isCancelled) return@forEach
 

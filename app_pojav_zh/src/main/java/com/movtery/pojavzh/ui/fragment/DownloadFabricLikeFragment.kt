@@ -6,7 +6,6 @@ import com.movtery.pojavzh.feature.mod.modloader.BaseModVersionListAdapter
 import com.movtery.pojavzh.ui.subassembly.modlist.ModListAdapter
 import com.movtery.pojavzh.ui.subassembly.modlist.ModListFragment
 import com.movtery.pojavzh.ui.subassembly.modlist.ModListItemBean
-import com.movtery.pojavzh.utils.MCVersionComparator
 import com.movtery.pojavzh.utils.MCVersionRegex
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
@@ -16,6 +15,7 @@ import net.kdt.pojavlaunch.modloaders.FabriclikeDownloadTask
 import net.kdt.pojavlaunch.modloaders.FabriclikeUtils
 import net.kdt.pojavlaunch.modloaders.ModloaderDownloadListener
 import net.kdt.pojavlaunch.modloaders.ModloaderListenerProxy
+import org.jackhuang.hmcl.util.versioning.VersionNumber
 import java.io.File
 import java.util.concurrent.Future
 
@@ -79,9 +79,7 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
 
         val mData: MutableList<ModListItemBean> = ArrayList()
         mFabricVersions.entries
-            .sortedWith { entry1, entry2 ->
-                MCVersionComparator.versionCompare(entry1.key, entry2.key)
-            }
+            .sortedWith { entry1, entry2 -> -VersionNumber.compare(entry1.key, entry2.key) }
             .forEach { (gameVersion, loaderVersions) ->
                 if (currentTask!!.isCancelled) return
 
