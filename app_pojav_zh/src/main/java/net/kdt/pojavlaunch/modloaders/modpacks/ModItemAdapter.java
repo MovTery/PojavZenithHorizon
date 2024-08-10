@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.pojavzh.feature.mod.ModLoaderList;
 import com.movtery.pojavzh.ui.fragment.DownloadModFragment;
 import com.movtery.pojavzh.ui.subassembly.viewmodel.ModApiViewModel;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
@@ -38,6 +39,7 @@ import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchResult;
 
 import java.util.Collections;
 import java.util.Set;
+import java.util.StringJoiner;
 import java.util.WeakHashMap;
 import java.util.concurrent.Future;
 
@@ -212,12 +214,15 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     //判断当前系统语言是否为英文
                     ZHTools.isEnglish(context)));
             mDownloadCount.setText(downloaderCount);
-            String modloaderText;
-            if (item.modloader != null && !item.modloader.isEmpty()) {
-                modloaderText = item.modloader;
-            } else {
-                modloaderText = context.getString(R.string.zh_unknown);
+
+            StringJoiner sj = new StringJoiner(", ");
+            for (ModLoaderList.ModLoader modloader : item.modloaders) {
+                sj.add(modloader.getLoaderName());
             }
+            String modloaderText;
+            if (sj.length() > 0) modloaderText = sj.toString();
+            else modloaderText = context.getString(R.string.zh_unknown);
+
             mModloader.setText(StringUtils.insertSpace(context.getString(R.string.zh_profile_mods_information_modloader), modloaderText));
         }
 

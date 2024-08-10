@@ -9,7 +9,7 @@ public class ModDetail extends ModItem {
     public List<ModVersionItem> modVersionItems;
 
     public ModDetail(ModItem item, List<ModVersionItem> modVersionItems) {
-        super(item.apiSource, item.isModpack, item.id, item.title, item.description, item.downloadCount, item.modloader, item.imageUrl);
+        super(item.apiSource, item.isModpack, item.id, item.title, item.description, item.downloadCount, item.modloaders, item.imageUrl);
         this.modVersionItems = modVersionItems;
     }
 }
