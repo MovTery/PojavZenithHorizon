@@ -82,16 +82,12 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
         mSponsorRecyclerView = view.findViewById(R.id.zh_about_sponsor_recycler)
         mSponsorView = view.findViewById(R.id.constraintLayout5)
 
-        val mVersionName = view.findViewById<TextView>(R.id.zh_about_version_name)
-        val mVersionCode = view.findViewById<TextView>(R.id.zh_about_version_code)
-        val mLastUpdateTime = view.findViewById<TextView>(R.id.zh_about_last_update_time)
-        val mVersionStatus = view.findViewById<TextView>(R.id.zh_about_version_status)
-
-        //软件信息
-        mVersionName.text = StringUtils.insertSpace(getString(R.string.zh_about_version_name), ZHTools.getVersionName())
-        mVersionCode.text = StringUtils.insertSpace(getString(R.string.zh_about_version_code), ZHTools.getVersionCode())
-        mLastUpdateTime.text = StringUtils.insertSpace(getString(R.string.zh_about_last_update_time), ZHTools.getLastUpdateTime(requireContext()))
-        mVersionStatus.text = StringUtils.insertSpace(getString(R.string.zh_about_version_status), ZHTools.getVersionStatus(requireContext()))
+        val mVersionInfo = view.findViewById<TextView>(R.id.zh_about_info)
+        mVersionInfo.text = StringUtils.insertNewline(StringUtils.insertSpace(getString(R.string.zh_about_version_name), ZHTools.getVersionName()),
+            StringUtils.insertSpace(getString(R.string.zh_about_version_code), ZHTools.getVersionCode()),
+            StringUtils.insertSpace(getString(R.string.zh_about_last_update_time), ZHTools.getLastUpdateTime(requireContext())),
+            StringUtils.insertSpace(getString(R.string.zh_about_version_status), ZHTools.getVersionStatus(requireContext())))
+        mVersionInfo.setOnClickListener{ StringUtils.copyText("text", mVersionInfo.text.toString(), requireContext()) }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")

@@ -11,8 +11,6 @@ import android.app.ActivityManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -48,6 +46,7 @@ import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.file.FileTools;
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutorTask;
@@ -578,8 +577,7 @@ public final class Tools {
                     })
                     .setNegativeButton(showMore ? R.string.error_show_less : R.string.error_show_more, (p1, p2) -> showError(ctx, titleId, rolledMessage, e, exitIfOk, !showMore))
                     .setNeutralButton(android.R.string.copy, (p1, p2) -> {
-                        ClipboardManager mgr = (ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
-                        mgr.setPrimaryClip(ClipData.newPlainText("error", printToString(e)));
+                        StringUtils.copyText("error", printToString(e), ctx);
                         if(exitIfOk) {
                             if (ctx instanceof MainActivity) {
                                 MainActivity.fullyExit();

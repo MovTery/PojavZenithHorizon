@@ -1,7 +1,5 @@
 package com.movtery.pojavzh.ui.activity
 
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -13,6 +11,7 @@ import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.file.FileTools.Companion.getLatestFile
 import com.movtery.pojavzh.utils.file.FileTools.Companion.shareFile
+import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.BaseActivity
 import net.kdt.pojavlaunch.LauncherActivity
 import net.kdt.pojavlaunch.R
@@ -91,10 +90,7 @@ class ErrorActivity : BaseActivity() {
         val errorText = "$strSavePath :\r\n\r\n$stackTrace"
 
         mErrorText?.text = errorText
-        mCopyButton?.setOnClickListener {
-            val mgr = this@ErrorActivity.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-            mgr.setPrimaryClip(ClipData.newPlainText("error", stackTrace))
-        }
+        mCopyButton?.setOnClickListener { StringUtils.copyText("error", stackTrace, this@ErrorActivity) }
         strSavePath?.let{
             val crashFile = File(strSavePath)
             mShareButton?.setOnClickListener {

@@ -26,6 +26,7 @@
     <string name="zh_input_invalid">Введенное содержимое не соответствует требованиям, пожалуйста, введите снова</string>
     <string name="zh_input_too_small">Введенное значение слишком мало, оно должно быть не менее %s</string>
     <string name="zh_input_too_big">Введенное значение слишком велико, оно должно быть не более %s</string>
+    <string name="zh_copied">Скопировано</string>
     <!-- Dialog -->
     <string name="zh_dialog_select_jar">Выбрать файл Jar</string>
     <!-- Profiles Path -->
