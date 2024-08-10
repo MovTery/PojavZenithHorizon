@@ -105,6 +105,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/shadowView">
 
+            <include
+                android:id="@+id/zh_search_view"
+                layout="@layout/view_search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <CheckBox
                 android:id="@+id/zh_mods_multi_select_files"
                 android:layout_width="0dp"
@@ -160,17 +172,4 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <include
-        android:id="@+id/zh_search_view"
-        layout="@layout/view_search"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/operate_layout"
-        app:layout_constraintStart_toStartOf="@+id/operate_layout"
-        app:layout_constraintTop_toTopOf="@+id/operate_layout" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

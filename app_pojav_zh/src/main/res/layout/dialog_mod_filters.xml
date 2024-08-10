@@ -178,7 +178,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_12sdp"
-        android:layout_marginHorizontal="@dimen/_minus4sdp"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -190,7 +189,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginEnd="@dimen/_2sdp"
             android:text="@string/cropper_reset"/>
 
         <!-- Apply -->
@@ -200,7 +198,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="@dimen/_2sdp"
             android:text="@string/generic_apply"/>
     </LinearLayout>
 
