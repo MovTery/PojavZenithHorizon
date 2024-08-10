@@ -9,7 +9,6 @@ import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog
 import com.movtery.pojavzh.ui.subassembly.modlist.ModListAdapter
 import com.movtery.pojavzh.ui.subassembly.modlist.ModListFragment
 import com.movtery.pojavzh.ui.subassembly.modlist.ModListItemBean
-import com.movtery.pojavzh.utils.MCVersionComparator.Companion.versionCompare
 import net.kdt.pojavlaunch.JavaGUILauncherActivity
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
@@ -20,6 +19,7 @@ import net.kdt.pojavlaunch.modloaders.OptiFineDownloadTask
 import net.kdt.pojavlaunch.modloaders.OptiFineUtils
 import net.kdt.pojavlaunch.modloaders.OptiFineUtils.OptiFineVersion
 import net.kdt.pojavlaunch.modloaders.OptiFineUtils.OptiFineVersions
+import org.jackhuang.hmcl.util.versioning.VersionNumber
 import java.io.File
 import java.util.concurrent.Future
 import java.util.function.Consumer
@@ -89,9 +89,7 @@ class DownloadOptiFineFragment : ModListFragment(), ModloaderDownloadListener {
 
         val mData: MutableList<ModListItemBean> = ArrayList()
         mOptiFineVersions.entries
-            .sortedWith { entry1, entry2 ->
-                versionCompare(entry1.key, entry2.key)
-            }
+            .sortedWith { entry1, entry2 -> -VersionNumber.compare(entry1.key, entry2.key) }
             .forEach { entry: Map.Entry<String, List<OptiFineVersion?>> ->
                 if (currentTask.isCancelled) return@forEach
 
