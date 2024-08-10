@@ -45,6 +45,7 @@
             android:layout_marginStart="@dimen/_32sdp"
             android:layout_marginTop="@dimen/_48sdp"
             android:layout_marginEnd="@dimen/_24sdp"
+            android:paddingVertical="0px"
             android:background="@drawable/background_edit_box"
             app:layout_constraintEnd_toStartOf="@+id/register"
             app:layout_constraintStart_toStartOf="parent"
