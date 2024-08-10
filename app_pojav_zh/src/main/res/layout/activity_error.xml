@@ -102,14 +102,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/zh_crash_share_log"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_8sdp"
                 android:text="@string/main_share_logs"/>
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/zh_crash_share_crash_report"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -127,14 +127,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/zh_error_share"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_8sdp"
                 android:text="@string/zh_share"/>
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/zh_error_copy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -143,7 +143,7 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <Button
+        <com.movtery.pojavzh.ui.view.AnimButton
             android:id="@+id/zh_error_restart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -151,7 +151,7 @@
             android:text="@string/global_restart"
             app:layout_constraintBottom_toTopOf="@id/zh_error_confirm"/>
 
-        <Button
+        <com.movtery.pojavzh.ui.view.AnimButton
             android:id="@+id/zh_error_confirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

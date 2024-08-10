@@ -49,7 +49,7 @@
         app:layout_constraintVertical_bias="0.0"
         tools:visibility="visible" />
 
-    <Button
+    <com.movtery.pojavzh.ui.view.AnimButton
         android:id="@+id/multirt_view_setdefaultbtn"
         android:layout_width="wrap_content"
         android:layout_height="0dp"

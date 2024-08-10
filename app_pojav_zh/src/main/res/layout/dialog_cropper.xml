@@ -33,7 +33,7 @@
             android:textOff="@string/cropper_lock_vertical"
             android:textOn="@string/cropper_lock_vertical" />
 
-        <Button
+        <com.movtery.pojavzh.ui.view.AnimButton
             android:id="@+id/crop_dialog_reset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

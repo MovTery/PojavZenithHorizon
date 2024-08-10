@@ -68,26 +68,23 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
+        <com.movtery.pojavzh.ui.view.AnimButton
             android:id="@+id/zh_update_cancel_button"
-            style="@style/CustomButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@android:string/cancel" />
 
-        <Button
+        <com.movtery.pojavzh.ui.view.AnimButton
             android:id="@+id/zh_update_ignore_button"
-            style="@style/CustomButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_weight="1"
             android:text="@string/zh_update_dialog_ignore" />
 
-        <Button
+        <com.movtery.pojavzh.ui.view.AnimButton
             android:id="@+id/zh_update_update_button"
-            style="@style/CustomButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"

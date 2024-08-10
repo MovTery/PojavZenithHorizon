@@ -34,45 +34,40 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_special_keyboard"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:text="@string/zh_keycode_special_keyboard"
                         tools:ignore="HardcodedText,NestedWeights" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_special_gui"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:text="GUI"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_special_pri"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:text="@string/zh_keycode_special_pri"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_special_sec"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:text="@string/zh_keycode_special_sec"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_special_menu"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -87,45 +82,40 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_special_mouse"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:text="@string/zh_keycode_special_mouse"
                         tools:ignore="HardcodedText,NestedWeights" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_special_mid"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:text="@string/zh_keycode_special_mid"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_special_scrollup"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:text="@string/zh_keycode_special_scrollup"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_special_scrolldown"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:text="@string/zh_keycode_special_scrolldown"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_unknown"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -152,117 +142,104 @@
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_esc"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="Esc"
                         tools:ignore="HardcodedText,NestedWeights" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_f1"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="F1"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_f2"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="F2"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_f3"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="F3"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_f4"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="F4"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_f5"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="F5"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_f6"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="F6"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_f7"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="F7"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_f8"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="F8"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_f9"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="F9"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_f10"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="F10"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_f11"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="F11"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_f12"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -276,126 +253,112 @@
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_grave"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="~\n`"
                         tools:ignore="HardcodedText,NestedWeights" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_1"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="!\n1"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_2"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="\@\n2"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_3"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="#\n3"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_4"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="$\n4"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_5"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="%\n5"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_6"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="^\n6"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_7"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="&amp;\n7"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_8"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="*\n8"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_9"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="(\n9"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_0"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text=")\n0"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_minus"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="_\n-"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_equals"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="+\n="
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_backspace"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1.9"
@@ -409,126 +372,112 @@
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_tab"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1.2"
                         android:text="tab"
                         tools:ignore="HardcodedText,NestedWeights" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_q"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="Q"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_w"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="W"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_e"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="E"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_r"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="R"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_t"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="T"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_y"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="Y"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_u"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="U"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_i"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="I"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_o"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="O"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_p"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="P"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_left_bracket"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="{\n["
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_right_bracket"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="}\n]"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_backslash"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1.2"
@@ -542,117 +491,104 @@
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_capslock"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1.4"
                         android:text="Caps Lock"
                         tools:ignore="HardcodedText,NestedWeights" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_a"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="A"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_s"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="S"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_d"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="D"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_f"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="F"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_g"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="G"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_h"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="H"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_j"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="J"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_k"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="K"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_l"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="L"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_semicolon"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text=":\n;"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_apostrophe"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="&quot;\n'"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_enter"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2.1"
@@ -666,108 +602,96 @@
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_left_shift"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2.3"
                         android:text="Shift"
                         tools:ignore="HardcodedText,NestedWeights" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_z"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="Z"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_x"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="X"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_c"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="C"
                         tools:ignore="HardcodedText,TooManyViews" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_v"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="V"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_b"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="B"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_n"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="N"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_m"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="M"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_comma"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="&lt;\n,"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_period"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="&gt;\n."
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_slash"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="\?\n/"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_right_shift"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1.2"
@@ -781,45 +705,40 @@
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_left_ctrl"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1.05"
                         android:text="Ctrl"
                         tools:ignore="HardcodedText,NestedWeights" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_left_alt"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1.05"
                         android:text="Alt"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_space"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="7"
                         android:text="Space"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_right_alt"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1.05"
                         android:text="Alt"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_right_ctrl"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1.05"
@@ -854,27 +773,24 @@
                         android:orientation="horizontal"
                         tools:ignore="NestedWeights">
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_pause"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="Pause"
                             tools:ignore="HardcodedText,NestedWeights" />
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_insert"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="Insert"
                             tools:ignore="HardcodedText" />
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_home"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -888,27 +804,24 @@
                         android:layout_weight="1"
                         android:orientation="horizontal">
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_end"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="End"
                             tools:ignore="HardcodedText" />
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_page_up"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="PGUp"
                             tools:ignore="HardcodedText" />
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_page_down"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -932,9 +845,8 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1" />
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_up"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -953,27 +865,24 @@
                         android:layout_weight="1"
                         android:orientation="horizontal">
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_left"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="←"
                             tools:ignore="HardcodedText" />
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_down"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="↓"
                             tools:ignore="HardcodedText" />
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_right"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -1001,27 +910,24 @@
                         android:layout_weight="1"
                         android:orientation="horizontal">
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_num_lock"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="Num Lock"
                             tools:ignore="HardcodedText" />
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_kp_divide"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="/"
                             tools:ignore="HardcodedText" />
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_kp_multiply"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -1035,27 +941,24 @@
                         android:layout_weight="1"
                         android:orientation="horizontal">
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_kp_7"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="7"
                             tools:ignore="HardcodedText" />
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_kp_8"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="8"
                             tools:ignore="HardcodedText" />
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_kp_9"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -1069,27 +972,24 @@
                         android:layout_weight="1"
                         android:orientation="horizontal">
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_kp_4"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="4"
                             tools:ignore="HardcodedText" />
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_kp_5"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="5"
                             tools:ignore="HardcodedText" />
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_kp_6"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -1103,27 +1003,24 @@
                         android:layout_weight="1"
                         android:orientation="horizontal">
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_kp_1"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="1"
                             tools:ignore="HardcodedText" />
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_kp_2"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="2"
                             tools:ignore="HardcodedText" />
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_kp_3"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -1137,18 +1034,16 @@
                         android:layout_weight="1"
                         android:orientation="horizontal">
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_kp_0"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="2"
                             android:text="0"
                             tools:ignore="HardcodedText" />
 
-                        <Button
+                        <com.movtery.pojavzh.ui.view.AnimButton
                             android:id="@+id/keyboard_kp_decimal"
-                            style="@style/CustomButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -1172,27 +1067,24 @@
                         android:layout_weight="1"
                         tools:ignore="NestedWeights" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_kp_subract"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:text="-"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_kp_add"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="2"
                         android:text="+"
                         tools:ignore="HardcodedText" />
 
-                    <Button
+                    <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/keyboard_kp_enter"
-                        style="@style/CustomButtonStyle"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="2"

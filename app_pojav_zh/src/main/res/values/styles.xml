@@ -15,23 +15,7 @@
 
     </style>
 
-    <style name="CustomButtonStyle" parent="Widget.AppCompat.Button">
-        <item name="textAllCaps">false</item>
-        <item name="android:background">@drawable/button_background</item>
-    </style>
-
     <style name="CustomDialogStyle" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowBackground">@drawable/dialog_background</item>
     </style>
-
-    <style name="RoundedCornersImageView">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">4%</item>
-    </style>
-
-    <style name="RoundImageView">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
-    </style>
-
 </resources>

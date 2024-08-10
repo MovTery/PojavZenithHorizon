@@ -50,17 +50,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/zh_tip_more">
 
-        <Button
+        <com.movtery.pojavzh.ui.view.AnimButton
             android:id="@+id/zh_tip_cancel"
-            style="@style/CustomButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@android:string/cancel" />
 
-        <Button
+        <com.movtery.pojavzh.ui.view.AnimButton
             android:id="@+id/zh_tip_confirm"
-            style="@style/CustomButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

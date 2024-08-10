@@ -37,7 +37,7 @@
             app:layout_constraintBottom_toTopOf="@+id/login_edit_name"
             app:layout_constraintStart_toStartOf="@+id/login_edit_name" />
 
-        <com.movtery.pojavzh.ui.view.MovEditText
+        <com.movtery.pojavzh.ui.view.AnimEditText
             android:id="@+id/login_edit_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
             app:layout_constraintTop_toTopOf="@+id/login_menu"
             tools:ignore="LabelFor" />
 
-        <Button
+        <com.movtery.pojavzh.ui.view.AnimButton
             android:id="@+id/login_button"
             android:layout_width="0dp"
             android:layout_height="@dimen/_42sdp"

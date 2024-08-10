@@ -69,18 +69,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <Button
+        <com.movtery.pojavzh.ui.view.AnimButton
             android:id="@+id/zh_mod_dependencies_close_button"
-            style="@style/CustomButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/_8sdp"
             android:layout_weight="1"
             android:text="@string/zh_close" />
 
-        <Button
+        <com.movtery.pojavzh.ui.view.AnimButton
             android:id="@+id/zh_mod_dependencies_download_button"
-            style="@style/CustomButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/_8sdp"

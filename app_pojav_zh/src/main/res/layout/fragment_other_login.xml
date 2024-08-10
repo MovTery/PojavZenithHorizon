@@ -83,7 +83,7 @@
             app:layout_constraintStart_toStartOf="@+id/login_edit_email" />
 
 
-        <com.movtery.pojavzh.ui.view.MovEditText
+        <com.movtery.pojavzh.ui.view.AnimEditText
             android:id="@+id/login_edit_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
             app:layout_constraintBottom_toTopOf="@+id/login_edit_password"
             app:layout_constraintStart_toStartOf="@+id/login_edit_password" />
 
-        <com.movtery.pojavzh.ui.view.MovEditText
+        <com.movtery.pojavzh.ui.view.AnimEditText
             android:id="@+id/login_edit_password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
             app:layout_constraintTop_toBottomOf="@+id/server_spinner"
             tools:ignore="LabelFor" />
 
-        <Button
+        <com.movtery.pojavzh.ui.view.AnimButton
             android:id="@+id/other_login_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

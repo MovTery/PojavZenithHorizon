@@ -49,7 +49,7 @@
                 app:layout_constraintTop_toTopOf="@+id/zh_shortcuts_mods"
                 app:srcCompat="@drawable/ic_profile_mods" />
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/zh_shortcuts_mods"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
                 app:layout_constraintTop_toTopOf="@+id/zh_instance_path"
                 app:srcCompat="@drawable/ic_profile_folder" />
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/zh_instance_path"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
                 app:layout_constraintTop_toTopOf="@+id/zh_resource_path"
                 app:srcCompat="@drawable/ic_profile_resource_pack" />
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/zh_resource_path"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
                 app:layout_constraintTop_toTopOf="@+id/zh_world_path"
                 app:srcCompat="@drawable/ic_profile_saves" />
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/zh_world_path"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
                 app:layout_constraintTop_toTopOf="@+id/zh_logs_path"
                 app:srcCompat="@drawable/ic_profile_logs" />
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/zh_logs_path"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -158,7 +158,7 @@
                 app:layout_constraintTop_toTopOf="@+id/zh_crash_report_path"
                 app:srcCompat="@drawable/ic_profile_crash_report" />
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/zh_crash_report_path"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -214,7 +214,7 @@
                 app:layout_constraintTop_toTopOf="@+id/zh_profile_edit"
                 app:srcCompat="@drawable/ic_edit" />
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/zh_profile_edit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -236,7 +236,7 @@
                 app:layout_constraintTop_toTopOf="@+id/zh_profile_delete"
                 app:srcCompat="@drawable/ic_menu_delete_forever" />
 
-            <Button
+            <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/zh_profile_delete"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
