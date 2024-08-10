@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.daimajia.androidanimations.library.Techniques;
+import com.movtery.pojavzh.feature.mod.ModLoaderList;
 import com.movtery.pojavzh.ui.dialog.ModDependenciesDialog;
 import com.movtery.pojavzh.utils.NumberWithUnits;
 import com.movtery.pojavzh.utils.ZHTools;
@@ -24,6 +25,7 @@ import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
 
 import java.util.List;
+import java.util.StringJoiner;
 
 public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.InnerHolder> implements TaskCountListener {
     private final ModDependencies.SelectedMod mod;
@@ -86,12 +88,14 @@ public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.In
                     NumberWithUnits.formatNumberWithUnit(modVersionItem.download, ZHTools.isEnglish(context)));
             mDownloadCount.setText(downloadCountText);
 
-            String modloaderText;
-            if (!modVersionItem.modloaders.isEmpty()) {
-                modloaderText = modVersionItem.modloaders;
-            } else {
-                modloaderText = context.getString(R.string.zh_unknown);
+            StringJoiner sj = new StringJoiner(", ");
+            for (ModLoaderList.ModLoader modloader : modVersionItem.modloaders) {
+                sj.add(modloader.getLoaderName());
             }
+            String modloaderText;
+            if (sj.length() > 0) modloaderText = sj.toString();
+            else modloaderText = context.getString(R.string.zh_unknown);
+
             mModloaders.setText(StringUtils.insertSpace(context.getString(R.string.zh_profile_mods_information_modloader), modloaderText));
 
             mReleaseType.setText(getDownloadTypeText(modVersionItem.versionType));

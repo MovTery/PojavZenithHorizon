@@ -41,14 +41,21 @@ class ModLoaderList {
         }
 
         @JvmStatic
-        fun notModloaderName(modloader: String?): Boolean {
-            return modloader.isNullOrEmpty() || !modloaderNameMap!!.containsKey(
-                modloader.lowercase(Locale.getDefault())
-            )
+        fun getModLoader(name: String?): ModLoader? {
+            return if (name.equals("fabric", true)) ModLoader.FABRIC
+            else if (name.equals("forge", true)) ModLoader.FORGE
+            else if (name.equals("quilt", true)) ModLoader.QUILT
+            else if (name.equals("neoforge", true)) ModLoader.NEO_FORGE
+            else null
+        }
+
+        @JvmStatic
+        fun addModLoaderToList(list: MutableCollection<ModLoader>, name: String?) {
+            getModLoader(name)?.let { list.add(it) }
         }
     }
 
-    private enum class ModLoader(val id: Int, val loaderName: String) {
+    enum class ModLoader(val id: Int, val loaderName: String) {
         FORGE(1, "Forge"),
         FABRIC(4, "Fabric"),
         QUILT(5, "Quilt"),

@@ -100,7 +100,7 @@ class DownloadNeoForgeFragment : ModListFragment(), ModloaderDownloadListener {
         mNeoForgeVersions.entries
             .sortedWith { entry1, entry2 -> -VersionNumber.compare(entry1.key, entry2.key) }
             .forEach { entry: Map.Entry<String, List<String?>> ->
-                if (currentTask.isCancelled) return@forEach
+                if (currentTask.isCancelled) return
                 val adapter = BaseModVersionListAdapter(modloaderListenerProxy, this, R.drawable.ic_neoforge, entry.value)
 
                 adapter.setOnItemClickListener { version: Any? ->

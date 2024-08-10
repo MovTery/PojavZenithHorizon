@@ -86,7 +86,7 @@ public class ModrinthApi implements ModpackApi{
             JsonObject hit = responseHits.get(i).getAsJsonObject();
 
             JsonArray categories = hit.get("categories").getAsJsonArray();
-            StringJoiner sj = new StringJoiner(",  ");
+            List<ModLoaderList.ModLoader> modLoaders = new ArrayList<>();
             boolean isDataPack = false;
             for (JsonElement category : categories) {
                 String string = category.getAsString();
@@ -95,8 +95,7 @@ public class ModrinthApi implements ModpackApi{
                     isDataPack = true; //老是能搜到数据包我不理解...
                 }
 
-                if (ModLoaderList.notModloaderName(string)) continue; //排除不是Mod加载器名字的字符串
-                sj.add(ModLoaderList.getModloaderName(string));
+                ModLoaderList.addModLoaderToList(modLoaders, string);
             }
 
             if (isDataPack) {
@@ -110,7 +109,7 @@ public class ModrinthApi implements ModpackApi{
                     hit.get("title").getAsString(),
                     hit.get("description").getAsString(),
                     hit.get("downloads").getAsInt(),
-                    sj.toString(),
+                    modLoaders.toArray(new ModLoaderList.ModLoader[]{}),
                     hit.get("icon_url").getAsString()));
         }
         if (modrinthSearchResult == null) modrinthSearchResult = new ModrinthSearchResult();
@@ -140,10 +139,10 @@ public class ModrinthApi implements ModpackApi{
             String versionTypeString = version.get("version_type").getAsString();
             //Mod加载器信息
             JsonArray loaders = version.get("loaders").getAsJsonArray();
-            StringJoiner modloaderList = new StringJoiner(", ");
+            List<ModLoaderList.ModLoader> modloaderList = new ArrayList<>();
             for (JsonElement loader : loaders) {
                 String loaderName = loader.getAsString();
-                modloaderList.add(ModLoaderList.getModloaderName(loaderName));
+                ModLoaderList.addModLoaderToList(modloaderList, loaderName);
             }
 
             // Assume there may not be hashes, in case the API changes
@@ -179,10 +178,10 @@ public class ModrinthApi implements ModpackApi{
 
                         if (hit != null) {
                             JsonArray modLoaders = hit.get("loaders").getAsJsonArray();
-                            StringJoiner modLoadersArray = new StringJoiner(",  ");
+                            List<ModLoaderList.ModLoader> modLoadersList = new ArrayList<>();
                             for (JsonElement loader : modLoaders) {
                                 String string = loader.getAsString();
-                                modLoadersArray.add(ModLoaderList.getModloaderName(string));
+                                ModLoaderList.addModLoaderToList(modLoadersList, string);
                             }
                             items = new ModItem(
                                     Constants.SOURCE_MODRINTH,
@@ -191,7 +190,7 @@ public class ModrinthApi implements ModpackApi{
                                     hit.get("title").getAsString(),
                                     hit.get("description").getAsString(),
                                     hit.get("downloads").getAsInt(),
-                                    modLoadersArray.toString(),
+                                    modLoadersList.toArray(new ModLoaderList.ModLoader[]{}),
                                     hit.get("icon_url").getAsString()
                             );
                         }
@@ -209,7 +208,7 @@ public class ModrinthApi implements ModpackApi{
             modItems.add(new ModVersionItem(mcVersionsArray,
                     filename,
                     name,
-                    modloaderList.toString(),
+                    modloaderList.toArray(new ModLoaderList.ModLoader[]{}),
                     modDependencies,
                     VersionType.getVersionType(versionTypeString),
                     hash,

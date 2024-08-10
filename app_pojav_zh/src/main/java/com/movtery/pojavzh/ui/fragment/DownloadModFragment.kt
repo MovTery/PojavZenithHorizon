@@ -101,7 +101,7 @@ class DownloadModFragment : ModListFragment() {
         mModVersionsByMinecraftVersion.entries
             .sortedWith { entry1, entry2 -> -VersionNumber.compare(entry1.key, entry2.key) }
             .forEach { entry: Map.Entry<String, List<ModVersionItem>> ->
-                if (currentTask.isCancelled) return@forEach
+                if (currentTask.isCancelled) return
 
                 mData.add(ModListItemBean("Minecraft " + entry.key,
                     ModVersionAdapter(SelectedMod(this@DownloadModFragment,
