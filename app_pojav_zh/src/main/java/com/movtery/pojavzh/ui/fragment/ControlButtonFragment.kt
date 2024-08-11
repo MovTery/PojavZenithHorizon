@@ -19,7 +19,7 @@ import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlInfoData
 import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlsListViewCreator
 import com.movtery.pojavzh.ui.subassembly.customcontrols.EditControlData.Companion.createNewControlFile
 import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener
-import com.movtery.pojavzh.ui.subassembly.view.SearchView
+import com.movtery.pojavzh.ui.subassembly.view.SearchViewWrapper
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.anim.AnimUtils.Companion.setVisibilityAnim
@@ -54,7 +54,7 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
     private var mSearchSummonButton: ImageButton? = null
     private var mRefreshButton: ImageButton? = null
     private var mNothingTip: TextView? = null
-    private var mSearchView: SearchView? = null
+    private var mSearchViewWrapper: SearchViewWrapper? = null
     private var controlsListViewCreator: ControlsListViewCreator? = null
     private var mSelectControl = false
 
@@ -142,7 +142,7 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
             }
             editControlInfoDialog.show()
         }
-        mSearchSummonButton?.setOnClickListener { mSearchView?.setVisibility() }
+        mSearchSummonButton?.setOnClickListener { mSearchViewWrapper?.setVisibility() }
         mRefreshButton?.setOnClickListener { controlsListViewCreator?.refresh() }
 
         controlsListViewCreator?.listAtPath()
@@ -209,13 +209,13 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
         controlsListViewCreator =
             ControlsListViewCreator(requireContext(), view.findViewById(R.id.zh_controls_list))
 
-        mSearchView = SearchView(view, view.findViewById(R.id.zh_search_view))
-        mSearchView?.setAsynchronousUpdatesListener(object : SearchView.SearchAsynchronousUpdatesListener {
+        mSearchViewWrapper = SearchViewWrapper(view, view.findViewById(R.id.zh_search_view))
+        mSearchViewWrapper?.setAsynchronousUpdatesListener(object : SearchViewWrapper.SearchAsynchronousUpdatesListener {
             override fun onSearch(searchCount: TextView?, string: String?, caseSensitive: Boolean) {
                 controlsListViewCreator?.searchControls(searchCount, string, caseSensitive)
             }
         })
-        mSearchView?.setShowSearchResultsListener(object : SearchView.ShowSearchResultsListener {
+        mSearchViewWrapper?.setShowSearchResultsListener(object : SearchViewWrapper.ShowSearchResultsListener {
             override fun onSearch(show: Boolean) {
                 controlsListViewCreator?.setShowSearchResultsOnly(show)
             }

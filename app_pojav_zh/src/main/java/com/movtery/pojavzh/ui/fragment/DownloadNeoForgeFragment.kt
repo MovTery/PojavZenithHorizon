@@ -3,7 +3,7 @@ package com.movtery.pojavzh.ui.fragment
 import android.content.Intent
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.movtery.pojavzh.feature.mod.modloader.BaseModVersionListAdapter
+import com.movtery.pojavzh.feature.mod.modloader.ModVersionListAdapter
 import com.movtery.pojavzh.feature.mod.modloader.NeoForgeDownloadTask
 import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils.Companion.addAutoInstallArgs
 import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils.Companion.downloadNeoForgeVersions
@@ -101,7 +101,7 @@ class DownloadNeoForgeFragment : ModListFragment(), ModloaderDownloadListener {
             .sortedWith { entry1, entry2 -> -VersionNumber.compare(entry1.key, entry2.key) }
             .forEach { entry: Map.Entry<String, List<String?>> ->
                 if (currentTask.isCancelled) return
-                val adapter = BaseModVersionListAdapter(modloaderListenerProxy, this, R.drawable.ic_neoforge, entry.value)
+                val adapter = ModVersionListAdapter(modloaderListenerProxy, this, R.drawable.ic_neoforge, entry.value)
 
                 adapter.setOnItemClickListener { version: Any? ->
                     Thread(NeoForgeDownloadTask(modloaderListenerProxy, (version as String?)!!)).start()

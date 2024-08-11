@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.movtery.pojavzh.ui.subassembly.view.DraggableView;
+import androidx.annotation.NonNull;
+
+import com.movtery.pojavzh.ui.subassembly.view.DraggableViewWrapper;
 
 public abstract class DraggableDialog {
 
@@ -16,14 +18,16 @@ public abstract class DraggableDialog {
         if (window != null) {
             View contentView = window.findViewById(android.R.id.content);
             if (contentView != null) {
-                DraggableView draggableView = new DraggableView(contentView, new DraggableView.AttributesFetcher() {
+                DraggableViewWrapper draggableViewWrapper = new DraggableViewWrapper(contentView, new DraggableViewWrapper.AttributesFetcher() {
+                    @NonNull
                     @Override
-                    public DraggableView.ScreenPixels getScreenPixels() {
+                    public DraggableViewWrapper.ScreenPixels getScreenPixels() {
                         int width = (currentDisplayMetrics.widthPixels - contentView.getWidth()) / 2;
                         int height = (currentDisplayMetrics.heightPixels - contentView.getHeight()) / 2;
-                        return new DraggableView.ScreenPixels(-width, -height, width, height);
+                        return new DraggableViewWrapper.ScreenPixels(-width, -height, width, height);
                     }
 
+                    @NonNull
                     @Override
                     public int[] get() {
                         WindowManager.LayoutParams attributes = window.getAttributes();
@@ -39,7 +43,7 @@ public abstract class DraggableDialog {
                     }
                 });
 
-                draggableView.init();
+                draggableViewWrapper.init();
             } else {
                 Log.w("DraggableDialog", "The content view does not exist!");
             }
