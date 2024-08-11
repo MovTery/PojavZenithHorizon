@@ -63,7 +63,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <CheckBox
+            <com.movtery.pojavzh.ui.view.AnimCheckBox
                 android:id="@+id/zh_mods_select_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <CheckBox
+            <com.movtery.pojavzh.ui.view.AnimCheckBox
                 android:id="@+id/zh_mods_multi_select_files"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 tools:ignore="RtlSymmetry" />
 
-            <RelativeLayout
+            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
                 android:id="@+id/zh_mods_download_optifine"
                 android:layout_width="0dp"
                 android:layout_height="42dp"
@@ -157,7 +157,7 @@
                     android:singleLine="true"
                     android:textColor="@color/black_or_white"
                     android:text="@string/zh_profile_manager_download_optifine" />
-            </RelativeLayout>
+            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
             <include
                 android:id="@+id/operate_view"

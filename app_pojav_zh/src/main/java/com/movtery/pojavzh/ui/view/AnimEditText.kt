@@ -15,7 +15,7 @@ class AnimEditText @JvmOverloads constructor(
     defStyleAttr: Int = android.R.attr.editTextStyle
 ) : AppCompatEditText(context, attrs, defStyleAttr) {
     init {
-        stateListAnimator = AnimatorInflater.loadStateListAnimator(context, R.xml.anim_scale_out)
+        stateListAnimator = AnimatorInflater.loadStateListAnimator(context, R.xml.anim_scale)
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {

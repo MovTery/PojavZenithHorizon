@@ -35,7 +35,7 @@
             android:layout_marginVertical="@dimen/_8sdp"
             android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.movtery.pojavzh.ui.layout.AnimConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_edit_box">
@@ -76,9 +76,9 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="HardcodedText" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.movtery.pojavzh.ui.layout.AnimConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.movtery.pojavzh.ui.layout.AnimConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
@@ -120,9 +120,9 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="HardcodedText" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.movtery.pojavzh.ui.layout.AnimConstraintLayout>
 
-            <RelativeLayout
+            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
                 android:id="@+id/zh_mouse_settings_custom_mouse"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -136,7 +136,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-            </RelativeLayout>
+            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
         </LinearLayout>
 

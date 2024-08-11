@@ -13,7 +13,7 @@ class AnimConstraintLayout @JvmOverloads constructor(
     defStyleRes: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr, defStyleRes) {
     init {
-        stateListAnimator = AnimatorInflater.loadStateListAnimator(context, R.xml.anim_scale_out)
+        stateListAnimator = AnimatorInflater.loadStateListAnimator(context, R.xml.anim_scale)
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {

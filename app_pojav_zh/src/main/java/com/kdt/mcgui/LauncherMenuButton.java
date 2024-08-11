@@ -32,7 +32,7 @@ public class LauncherMenuButton extends ExtendedButton {
         post(() -> {
             setPivotX(getWidth() / 2f);
             setPivotY(getHeight() / 2f);
-            setStateListAnimator(AnimatorInflater.loadStateListAnimator(getContext(), R.xml.anim_scale_out));
+            setStateListAnimator(AnimatorInflater.loadStateListAnimator(getContext(), R.xml.anim_scale));
         });
     }
 

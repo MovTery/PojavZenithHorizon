@@ -161,7 +161,7 @@
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <CheckBox
+            <com.movtery.pojavzh.ui.view.AnimCheckBox
                 android:id="@+id/zh_mod_release_version"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
