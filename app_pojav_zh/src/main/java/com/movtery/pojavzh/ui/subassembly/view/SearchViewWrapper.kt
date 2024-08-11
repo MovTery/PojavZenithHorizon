@@ -6,12 +6,12 @@ import android.widget.CompoundButton
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
-import com.movtery.pojavzh.ui.subassembly.view.DraggableView.AttributesFetcher
-import com.movtery.pojavzh.ui.subassembly.view.DraggableView.ScreenPixels
+import com.movtery.pojavzh.ui.subassembly.view.DraggableViewWrapper.AttributesFetcher
+import com.movtery.pojavzh.ui.subassembly.view.DraggableViewWrapper.ScreenPixels
 import com.movtery.pojavzh.utils.anim.AnimUtils.Companion.setVisibilityAnim
 import net.kdt.pojavlaunch.R
 
-class SearchView(private val parentView: View, private val mainView: View) {
+class SearchViewWrapper(private val parentView: View, private val mainView: View) {
     private var mSearchEditText: EditText? = null
     private var searchListener: SearchListener? = null
     private var showSearchResultsListener: ShowSearchResultsListener? = null
@@ -36,7 +36,7 @@ class SearchView(private val parentView: View, private val mainView: View) {
             if (mSearchEditText?.getText().toString().isNotEmpty()) search(searchCountText, mCaseSensitive.isChecked)
         }
 
-        val draggableView = DraggableView(mainView, object : AttributesFetcher {
+        val draggableViewWrapper = DraggableViewWrapper(mainView, object : AttributesFetcher {
             override val screenPixels: ScreenPixels
                 get() = ScreenPixels(0, 0, parentView.width - mainView.width,
                     parentView.height - mainView.height)
@@ -50,7 +50,7 @@ class SearchView(private val parentView: View, private val mainView: View) {
                 mainView.y = y.toFloat()
             }
         })
-        draggableView.init()
+        draggableViewWrapper.init()
     }
 
     private fun search(searchCountText: TextView, caseSensitive: Boolean) {

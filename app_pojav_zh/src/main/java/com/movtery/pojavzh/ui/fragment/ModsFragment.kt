@@ -20,7 +20,7 @@ import com.movtery.pojavzh.ui.subassembly.filelist.FileIcon
 import com.movtery.pojavzh.ui.subassembly.filelist.FileItemBean
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerView
 import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener
-import com.movtery.pojavzh.ui.subassembly.view.SearchView
+import com.movtery.pojavzh.ui.subassembly.view.SearchViewWrapper
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.anim.AnimUtils.Companion.setVisibilityAnim
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
@@ -55,7 +55,7 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
     private var mSearchSummonButton: ImageButton? = null
     private var mRefreshButton: ImageButton? = null
     private var mNothingTip: TextView? = null
-    private var mSearchView: SearchView? = null
+    private var mSearchViewWrapper: SearchViewWrapper? = null
     private var mMultiSelectCheck: CheckBox? = null
     private var mSelectAllCheck: CheckBox? = null
     private var mFileRecyclerView: FileRecyclerView? = null
@@ -205,7 +205,7 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
         }
         mSearchSummonButton?.setOnClickListener {
             closeMultiSelect()
-            mSearchView?.setVisibility()
+            mSearchViewWrapper?.setVisibility()
         }
         mRefreshButton?.setOnClickListener {
             closeMultiSelect()
@@ -309,13 +309,13 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
 
         mDownloadOptiFine = view.findViewById(R.id.zh_mods_download_optifine)
 
-        mSearchView = SearchView(view, view.findViewById(R.id.zh_search_view))
-        mSearchView?.setSearchListener(object : SearchView.SearchListener {
+        mSearchViewWrapper = SearchViewWrapper(view, view.findViewById(R.id.zh_search_view))
+        mSearchViewWrapper?.setSearchListener(object : SearchViewWrapper.SearchListener {
             override fun onSearch(string: String?, caseSensitive: Boolean): Int {
                 return mFileRecyclerView!!.searchFiles(string, caseSensitive)
             }
         })
-        mSearchView?.setShowSearchResultsListener(object : SearchView.ShowSearchResultsListener {
+        mSearchViewWrapper?.setShowSearchResultsListener(object : SearchViewWrapper.ShowSearchResultsListener {
             override fun onSearch(show: Boolean) {
                 mFileRecyclerView?.setShowSearchResultsOnly(show)
             }

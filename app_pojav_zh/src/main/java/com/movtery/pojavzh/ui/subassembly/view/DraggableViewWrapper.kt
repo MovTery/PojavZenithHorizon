@@ -7,7 +7,7 @@ import com.movtery.pojavzh.utils.ZHTools
 import kotlin.math.max
 import kotlin.math.min
 
-class DraggableView(private val mainView: View, private val fetcher: AttributesFetcher) {
+class DraggableViewWrapper(private val mainView: View, private val fetcher: AttributesFetcher) {
     private var lastUpdateTime: Long = 0
     private var initialX = 0f
     private var initialY = 0f
