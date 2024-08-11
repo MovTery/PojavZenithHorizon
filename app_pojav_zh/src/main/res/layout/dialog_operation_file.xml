@@ -78,7 +78,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout">
 
-        <RelativeLayout
+        <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
             android:id="@+id/zh_file_copy"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -103,9 +103,9 @@
                 android:text="@android:string/copy"
                 android:textColor="@color/black_or_white"
                 android:textSize="16sp" />
-        </RelativeLayout>
+        </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
-        <RelativeLayout
+        <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
             android:id="@+id/zh_file_rename"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -132,9 +132,9 @@
                 android:text="@string/zh_rename"
                 android:textColor="@color/black_or_white"
                 android:textSize="16sp" />
-        </RelativeLayout>
+        </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
-        <RelativeLayout
+        <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
             android:id="@+id/zh_file_share"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -159,7 +159,7 @@
                 android:text="@string/zh_share"
                 android:textColor="@color/black_or_white"
                 android:textSize="16sp" />
-        </RelativeLayout>
+        </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -172,7 +172,7 @@
         app:layout_constraintStart_toEndOf="@+id/layout_1"
         app:layout_constraintTop_toBottomOf="@+id/layout">
 
-        <RelativeLayout
+        <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
             android:id="@+id/zh_file_move"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -197,9 +197,9 @@
                 android:text="@string/zh_move"
                 android:textColor="@color/black_or_white"
                 android:textSize="16sp" />
-        </RelativeLayout>
+        </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
-        <RelativeLayout
+        <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
             android:id="@+id/zh_file_delete"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -224,9 +224,9 @@
                 android:text="@string/global_delete"
                 android:textColor="@color/black_or_white"
                 android:textSize="16sp" />
-        </RelativeLayout>
+        </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
-        <RelativeLayout
+        <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
             android:id="@+id/zh_file_more"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -252,6 +252,6 @@
                 android:text="@string/zh_more"
                 android:textColor="@color/black_or_white"
                 android:textSize="16sp" />
-        </RelativeLayout>
+        </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

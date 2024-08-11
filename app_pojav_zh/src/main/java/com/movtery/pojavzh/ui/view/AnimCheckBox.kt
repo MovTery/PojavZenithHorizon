@@ -3,17 +3,15 @@ package com.movtery.pojavzh.ui.view
 import android.animation.AnimatorInflater
 import android.content.Context
 import android.util.AttributeSet
-import androidx.appcompat.widget.AppCompatButton
-import androidx.core.content.res.ResourcesCompat
+import androidx.appcompat.widget.AppCompatCheckBox
 import net.kdt.pojavlaunch.R
 
-class AnimButton @JvmOverloads constructor(
+class AnimCheckBox @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = android.R.attr.buttonStyle
-) : AppCompatButton(context, attrs, defStyleAttr) {
+    defStyleAttr: Int = android.R.attr.checkboxStyle
+) : AppCompatCheckBox(context, attrs, defStyleAttr) {
     init {
-        background = ResourcesCompat.getDrawable(resources, R.drawable.button_background, context.theme)
         stateListAnimator = AnimatorInflater.loadStateListAnimator(context, R.xml.anim_scale)
     }
 

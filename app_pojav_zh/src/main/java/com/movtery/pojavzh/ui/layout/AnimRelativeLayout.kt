@@ -1,19 +1,18 @@
-package com.movtery.pojavzh.ui.view
+package com.movtery.pojavzh.ui.layout
 
 import android.animation.AnimatorInflater
 import android.content.Context
 import android.util.AttributeSet
-import androidx.appcompat.widget.AppCompatButton
-import androidx.core.content.res.ResourcesCompat
+import android.widget.RelativeLayout
 import net.kdt.pojavlaunch.R
 
-class AnimButton @JvmOverloads constructor(
+class AnimRelativeLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = android.R.attr.buttonStyle
-) : AppCompatButton(context, attrs, defStyleAttr) {
+    defStyleAttr: Int = 0,
+    defStyleRes: Int = 0
+) : RelativeLayout(context, attrs, defStyleAttr, defStyleRes) {
     init {
-        background = ResourcesCompat.getDrawable(resources, R.drawable.button_background, context.theme)
         stateListAnimator = AnimatorInflater.loadStateListAnimator(context, R.xml.anim_scale)
     }
 

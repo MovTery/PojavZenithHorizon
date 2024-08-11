@@ -12,7 +12,7 @@ class AnimTextView @JvmOverloads constructor(
     defStyleAttr: Int = android.R.attr.textStyle
 ) : AppCompatTextView(context, attrs, defStyleAttr) {
     init {
-        stateListAnimator = AnimatorInflater.loadStateListAnimator(context, R.xml.anim_scale_in)
+        stateListAnimator = AnimatorInflater.loadStateListAnimator(context, R.xml.anim_scale)
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {

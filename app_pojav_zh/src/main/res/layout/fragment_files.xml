@@ -66,7 +66,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="HardcodedText" />
 
-            <CheckBox
+            <com.movtery.pojavzh.ui.view.AnimCheckBox
                 android:id="@+id/zh_file_select_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <RelativeLayout
+            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
                 android:id="@+id/zh_files_external_storage"
                 android:layout_width="0dp"
                 android:layout_height="42dp"
@@ -147,9 +147,9 @@
                     android:singleLine="true"
                     android:textColor="@color/black_or_white"
                     android:text="@string/zh_file_external_storage" />
-            </RelativeLayout>
+            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
-            <RelativeLayout
+            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
                 android:id="@+id/zh_files_software_private"
                 android:layout_width="0dp"
                 android:layout_height="42dp"
@@ -175,9 +175,9 @@
                     android:singleLine="true"
                     android:textColor="@color/black_or_white"
                     android:text="@string/zh_file_software_private" />
-            </RelativeLayout>
+            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
-            <CheckBox
+            <com.movtery.pojavzh.ui.view.AnimCheckBox
                 android:id="@+id/zh_file_multi_select_files"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
