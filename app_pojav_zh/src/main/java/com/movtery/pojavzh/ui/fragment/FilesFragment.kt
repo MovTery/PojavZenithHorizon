@@ -181,6 +181,7 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
             mSelectAllCheck?.isChecked = false
             mSelectAllCheck?.visibility = if (isChecked) View.VISIBLE else View.GONE
             adapter.setMultiSelectMode(isChecked)
+            mSearchViewWrapper?.let { if (mSearchViewWrapper!!.isVisible()) mSearchViewWrapper!!.setVisibility(!isChecked) }
         }
         mSelectAllCheck?.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
             adapter.selectAllFiles(

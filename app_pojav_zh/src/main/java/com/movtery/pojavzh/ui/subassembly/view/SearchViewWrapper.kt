@@ -77,9 +77,14 @@ class SearchViewWrapper(private val parentView: View, private val mainView: View
         this.showSearchResultsListener = listener
     }
 
+    fun isVisible() = mainView.visibility == View.VISIBLE
+
     fun setVisibility() {
-        val isVisible = mainView.visibility == View.VISIBLE
-        setVisibilityAnim(mainView, !isVisible, 150)
+        setVisibility(!isVisible())
+    }
+
+    fun setVisibility(visible: Boolean) {
+        setVisibilityAnim(mainView, visible, 150)
     }
 
     fun close() {
