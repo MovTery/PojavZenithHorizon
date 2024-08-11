@@ -107,7 +107,7 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
                 RoundedBitmapDrawable drawable = RoundedBitmapDrawableFactory.create(mainView.getResources(), bm);
                 mModIcon.setImageDrawable(drawable);
             };
-            mIconCache.getImage(mImageReceiver, item.getIconCacheTag(), item.imageUrl);
+            if (item.imageUrl != null) mIconCache.getImage(mImageReceiver, item.getIconCacheTag(), item.imageUrl);
             mSourceImage.setImageResource(getSourceDrawable(item.apiSource));
             mTitle.setText(item.title);
 

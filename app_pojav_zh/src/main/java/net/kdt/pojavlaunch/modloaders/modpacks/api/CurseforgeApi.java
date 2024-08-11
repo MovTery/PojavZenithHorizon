@@ -103,6 +103,15 @@ public class CurseforgeApi implements ModpackApi{
                 Log.i("CurseforgeApi", "Skipping modpack "+dataElement.get("name").getAsString() + " because curseforge sucks");
                 continue;
             }
+
+            String iconUrl;
+            try {
+                iconUrl = dataElement.getAsJsonObject("logo").get("thumbnailUrl").getAsString();
+            } catch (Exception e) {
+                Log.e("error", Tools.printToString(e));
+                iconUrl = null;
+            }
+
             ModItem modItem = new ModItem(Constants.SOURCE_CURSEFORGE,
                     searchFilters.isModpack,
                     dataElement.get("id").getAsString(),
@@ -110,7 +119,7 @@ public class CurseforgeApi implements ModpackApi{
                     dataElement.get("summary").getAsString(),
                     dataElement.get("downloadCount").getAsInt(),
                     getModloaders(dataElement.getAsJsonArray("latestFilesIndexes")),
-                    dataElement.getAsJsonObject("logo").get("thumbnailUrl").getAsString());
+                    iconUrl);
             modItemList.add(modItem);
         }
         if(curseforgeSearchResult == null) curseforgeSearchResult = new CurseforgeSearchResult();
@@ -207,6 +216,14 @@ public class CurseforgeApi implements ModpackApi{
                                 ModLoaderList.addModLoaderToList(itemsModloaderNames, gameVersion);
                             }
 
+                            String iconUrl;
+                            try {
+                                iconUrl = hit.getAsJsonObject("logo").get("thumbnailUrl").getAsString();
+                            } catch (Exception e) {
+                                Log.e("error", Tools.printToString(e));
+                                iconUrl = null;
+                            }
+
                             items = new ModItem(
                                     Constants.SOURCE_CURSEFORGE,
                                     hit.get("categories").getAsJsonArray().get(0).getAsJsonObject().get("classId").getAsInt() != CURSEFORGE_MOD_CLASS_ID,
@@ -215,7 +232,7 @@ public class CurseforgeApi implements ModpackApi{
                                     hit.get("summary").getAsString(),
                                     hit.get("downloadCount").getAsInt(),
                                     itemsModloaderNames.toArray(new ModLoaderList.ModLoader[]{}),
-                                    hit.getAsJsonObject("logo").get("thumbnailUrl").getAsString()
+                                    iconUrl
                             );
                         }
                         dependenciesModMap.put(modId, items);

@@ -102,6 +102,14 @@ public class ModrinthApi implements ModpackApi{
                 continue;
             }
 
+            String iconUrl;
+            try {
+                iconUrl = hit.get("icon_url").getAsString();
+            } catch (Exception e) {
+                Log.e("error", Tools.printToString(e));
+                iconUrl = null;
+            }
+
             modItems.add(new ModItem(
                     Constants.SOURCE_MODRINTH,
                     hit.get("project_type").getAsString().equals("modpack"),
@@ -110,7 +118,7 @@ public class ModrinthApi implements ModpackApi{
                     hit.get("description").getAsString(),
                     hit.get("downloads").getAsInt(),
                     modLoaders.toArray(new ModLoaderList.ModLoader[]{}),
-                    hit.get("icon_url").getAsString()));
+                    iconUrl));
         }
         if (modrinthSearchResult == null) modrinthSearchResult = new ModrinthSearchResult();
         modrinthSearchResult.previousOffset += responseHits.size();
@@ -183,6 +191,15 @@ public class ModrinthApi implements ModpackApi{
                                 String string = loader.getAsString();
                                 ModLoaderList.addModLoaderToList(modLoadersList, string);
                             }
+
+                            String iconUrl;
+                            try {
+                                iconUrl = hit.get("icon_url").getAsString();
+                            } catch (Exception e) {
+                                Log.e("error", Tools.printToString(e));
+                                iconUrl = null;
+                            }
+
                             items = new ModItem(
                                     Constants.SOURCE_MODRINTH,
                                     hit.get("project_type").getAsString().equals("modpack"),
@@ -191,7 +208,7 @@ public class ModrinthApi implements ModpackApi{
                                     hit.get("description").getAsString(),
                                     hit.get("downloads").getAsInt(),
                                     modLoadersList.toArray(new ModLoaderList.ModLoader[]{}),
-                                    hit.get("icon_url").getAsString()
+                                    iconUrl
                             );
                         }
                         dependenciesModMap.put(projectId, items);
