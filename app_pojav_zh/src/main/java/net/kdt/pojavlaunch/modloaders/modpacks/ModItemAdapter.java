@@ -205,7 +205,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 drawable.setCornerRadius(mCornerDimensionCache * bm.getHeight());
                 mIconView.setImageDrawable(drawable);
             };
-            mIconCache.getImage(mImageReceiver, item.getIconCacheTag(), item.imageUrl);
+            if (item.imageUrl != null) mIconCache.getImage(mImageReceiver, item.getIconCacheTag(), item.imageUrl);
             mSourceView.setImageResource(getSourceDrawable(item.apiSource));
             mTitle.setText(item.title);
             mDescription.setText(item.description);

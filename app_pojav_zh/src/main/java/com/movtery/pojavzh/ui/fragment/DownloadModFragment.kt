@@ -1,6 +1,7 @@
 package com.movtery.pojavzh.ui.fragment
 
 import android.graphics.Bitmap
+import android.util.Log
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,18 +48,19 @@ class DownloadModFragment : ModListFragment() {
 
     override fun refresh(): Future<*> {
         return PojavApplication.sExecutorService.submit {
-            try {
+            runCatching {
                 Tools.runOnUiThread {
                     cancelFailedToLoad()
                     componentProcessing(true)
                 }
                 val mModDetail = mModApi!!.getModDetails(mModItem)
                 processModDetails(mModDetail)
-            } catch (e: Exception) {
+            }.getOrElse { e ->
                 Tools.runOnUiThread {
                     componentProcessing(false)
                     setFailedToLoad(e.toString())
                 }
+                Log.e("error", Tools.printToString(e))
             }
         }
     }
@@ -148,6 +150,6 @@ class DownloadModFragment : ModListFragment() {
             drawable.cornerRadius = resources.getDimension(R.dimen._1sdp) / 250 * bm.height
             setIcon(drawable)
         }
-        mIconCache.getImage(mImageReceiver, mModItem!!.iconCacheTag, mModItem!!.imageUrl)
+        mModItem!!.imageUrl?.let{ mIconCache.getImage(mImageReceiver, mModItem!!.iconCacheTag, it) }
     }
 }

@@ -1,6 +1,7 @@
 package com.movtery.pojavzh.ui.fragment
 
 import android.content.Intent
+import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.movtery.pojavzh.feature.mod.modloader.ModVersionListAdapter
@@ -40,17 +41,18 @@ class DownloadNeoForgeFragment : ModListFragment(), ModloaderDownloadListener {
 
     override fun refresh(): Future<*> {
         return PojavApplication.sExecutorService.submit {
-            try {
+            runCatching {
                 Tools.runOnUiThread {
                     cancelFailedToLoad()
                     componentProcessing(true)
                 }
                 processModDetails(loadVersionList())
-            } catch (e: Exception) {
+            }.getOrElse { e ->
                 Tools.runOnUiThread {
                     componentProcessing(false)
                     setFailedToLoad(e.toString())
                 }
+                Log.e("error", Tools.printToString(e))
             }
         }
     }
