@@ -1,10 +1,9 @@
 package net.kdt.pojavlaunch.value.launcherprofiles;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.feature.log.Logging;
 
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
@@ -25,7 +24,7 @@ public class LauncherProfiles {
             try {
                 mainProfileJson = Tools.GLOBAL_GSON.fromJson(Tools.read(launcherProfilesFile.getAbsolutePath()), MinecraftLauncherProfiles.class);
             } catch (IOException e) {
-                Log.e(LauncherProfiles.class.toString(), "Failed to load file: ", e);
+                Logging.e(LauncherProfiles.class.toString(), "Failed to load file: ", e);
                 throw new RuntimeException(e);
             }
         }
@@ -48,7 +47,7 @@ public class LauncherProfiles {
         try {
             Tools.write(launcherProfilesFile.getAbsolutePath(), mainProfileJson.toJson());
         } catch (IOException e) {
-            Log.e(LauncherProfiles.class.toString(), "Failed to write profile file", e);
+            Logging.e(LauncherProfiles.class.toString(), "Failed to write profile file", e);
             throw new RuntimeException(e);
         }
     }
@@ -95,7 +94,7 @@ public class LauncherProfiles {
                 if(!UUID.fromString(profileKey).toString().equals(profileKey)) keys.add(profileKey);
             }catch (IllegalArgumentException exception){
                 keys.add(profileKey);
-                Log.w(LauncherProfiles.class.toString(), "Illegal profile uuid: " + profileKey);
+                Logging.w(LauncherProfiles.class.toString(), "Illegal profile uuid: " + profileKey);
             }
         }
 

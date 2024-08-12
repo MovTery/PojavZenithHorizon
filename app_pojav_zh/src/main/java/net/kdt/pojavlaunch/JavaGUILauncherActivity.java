@@ -8,7 +8,6 @@ import android.content.ClipboardManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,6 +19,7 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 
 import com.kdt.LoggerView;
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.ZHTools;
@@ -437,10 +437,10 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
             if(byteBuffer.getInt() != 0xCAFEBABE) return -1;
             short minorVersion = byteBuffer.getShort();
             short majorVersion = byteBuffer.getShort();
-            Log.i("JavaGUILauncher", majorVersion+","+minorVersion);
+            Logging.i("JavaGUILauncher", majorVersion+","+minorVersion);
             return classVersionToJavaVersion(majorVersion);
         }catch (Exception e) {
-            Log.e("JavaVersion", "Exception thrown", e);
+            Logging.e("JavaVersion", "Exception thrown", e);
             return -1;
         }
     }

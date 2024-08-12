@@ -1,15 +1,14 @@
 package net.kdt.pojavlaunch.mirrors;
 
-import android.util.Log;
-
 import androidx.annotation.Nullable;
+
+import com.movtery.pojavzh.feature.log.Logging;
 
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.utils.DownloadUtils;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
@@ -42,8 +41,8 @@ public class DownloadMirror {
                     outputFile, buffer, monitor);
             return;
         }catch (Exception e) {
-            Log.w("DownloadMirror", "Cannot find the file on the mirror", e);
-            Log.i("DownloadMirror", "Failling back to default source");
+            Logging.w("DownloadMirror", "Cannot find the file on the mirror", e);
+            Logging.i("DownloadMirror", "Failling back to default source");
         }
         DownloadUtils.downloadFileMonitored(urlInput, outputFile, buffer, monitor);
     }
@@ -62,8 +61,8 @@ public class DownloadMirror {
                     outputFile);
             return;
         }catch (Exception e) {
-            Log.w("DownloadMirror", "Cannot find the file on the mirror", e);
-            Log.i("DownloadMirror", "Failling back to default source");
+            Logging.w("DownloadMirror", "Cannot find the file on the mirror", e);
+            Logging.i("DownloadMirror", "Failling back to default source");
         }
         DownloadUtils.downloadFile(urlInput, outputFile);
     }

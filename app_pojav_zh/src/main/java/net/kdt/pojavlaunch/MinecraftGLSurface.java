@@ -11,7 +11,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.SurfaceTexture;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -23,6 +22,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+
+import com.movtery.pojavzh.feature.log.Logging;
 
 import net.kdt.pojavlaunch.customcontrols.ControlLayout;
 import net.kdt.pojavlaunch.customcontrols.gamepad.Gamepad;
@@ -329,7 +330,7 @@ public class MinecraftGLSurface extends View implements GrabListener {
         windowWidth = Tools.getDisplayFriendlyRes(Tools.currentDisplayMetrics.widthPixels, mScaleFactor);
         windowHeight = Tools.getDisplayFriendlyRes(Tools.currentDisplayMetrics.heightPixels, mScaleFactor);
         if(mSurface == null){
-            Log.w("MGLSurface", "Attempt to refresh size on null surface");
+            Logging.w("MGLSurface", "Attempt to refresh size on null surface");
             return;
         }
         if(LauncherPreferences.PREF_USE_ALTERNATE_SURFACE){

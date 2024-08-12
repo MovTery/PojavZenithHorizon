@@ -1,10 +1,10 @@
 package com.movtery.pojavzh.feature.customprofilepath
 
-import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome.Companion.gameHome
+import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfileItem
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import net.kdt.pojavlaunch.PojavApplication
@@ -42,7 +42,7 @@ class ProfilePathManager {
                             return profilePathJsonObject.path
                         }
                     } catch (e: IOException) {
-                        Log.e("Read Profile", e.toString())
+                        Logging.e("Read Profile", e.toString())
                     }
                 }
                 return defaultPath
@@ -78,7 +78,7 @@ class ProfilePathManager {
                     Gson().toJson(jsonObject, fileWriter)
                 }
             } catch (e: IOException) {
-                Log.e("Write Profile", e.toString())
+                Logging.e("Write Profile", e.toString())
             }
         }
     }

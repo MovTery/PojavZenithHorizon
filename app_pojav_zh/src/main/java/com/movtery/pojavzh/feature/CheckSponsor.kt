@@ -2,7 +2,7 @@ package com.movtery.pojavzh.feature
 
 import android.content.Context
 import android.util.Base64
-import android.util.Log
+import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.ui.subassembly.about.SponsorItemBean
 import com.movtery.pojavzh.ui.subassembly.about.SponsorMeta
 import com.movtery.pojavzh.utils.PathAndUrlManager
@@ -81,7 +81,7 @@ class CheckSponsor {
                             }
                             listener.onSuccessful(sponsorData)
                         }.getOrElse { e ->
-                            Log.e("Load Sponsor Data", e.toString())
+                            Logging.e("Load Sponsor Data", e.toString())
                             listener.onFailure()
                         }
                     }

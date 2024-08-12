@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.utils.FileUtils;
@@ -130,7 +131,7 @@ public class ImportControlActivity extends Activity {
             os.close();
             is.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            Logging.e("ImportControlFile", Tools.printToString(e));
         }
     }
 
@@ -181,7 +182,7 @@ public class ImportControlActivity extends Activity {
             JSONObject layoutJobj = new JSONObject(jsonLayoutData);
             return layoutJobj.has("version") && layoutJobj.has("mControlDataList");
         }catch (JSONException | IOException e) {
-            e.printStackTrace();
+            Logging.e("Verify", Tools.printToString(e));
             return false;
         }
     }

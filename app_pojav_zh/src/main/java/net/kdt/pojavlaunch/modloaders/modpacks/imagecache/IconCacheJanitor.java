@@ -1,6 +1,6 @@
 package net.kdt.pojavlaunch.modloaders.modpacks.imagecache;
 
-import android.util.Log;
+import com.movtery.pojavzh.feature.log.Logging;
 
 import net.kdt.pojavlaunch.PojavApplication;
 
@@ -37,7 +37,7 @@ public class IconCacheJanitor implements Runnable{
             writableModIconFiles.add(modIconFile);
         }
         if(directoryFileSize < CACHE_SIZE_LIMIT)  {
-            Log.i("IconCacheJanitor", "Skipping cleanup because there's not enough to clean up");
+            Logging.i("IconCacheJanitor", "Skipping cleanup because there's not enough to clean up");
             return;
         }
         Arrays.sort(modIconFiles,
@@ -52,7 +52,7 @@ public class IconCacheJanitor implements Runnable{
                 filesCleanedUp++;
             }
         }
-        Log.i("IconCacheJanitor", "Cleaned up "+filesCleanedUp+ " files");
+        Logging.i("IconCacheJanitor", "Cleaned up "+filesCleanedUp+ " files");
         synchronized (IconCacheJanitor.class) {
             sJanitorFuture = null;
             sJanitorRan = true;

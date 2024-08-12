@@ -3,6 +3,9 @@ package net.kdt.pojavlaunch.modloaders.modpacks.imagecache;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.movtery.pojavzh.feature.log.Logging;
+
+import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.utils.DownloadUtils;
 
 import java.io.FileOutputStream;
@@ -54,7 +57,7 @@ class DownloadImageTask implements Runnable {
             }
             return true;
         }catch (IOException e) {
-            e.printStackTrace();
+            Logging.e("DownloadImageTask", Tools.printToString(e));
             return false;
         }
     }

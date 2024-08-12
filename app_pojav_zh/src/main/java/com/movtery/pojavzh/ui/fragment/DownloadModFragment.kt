@@ -1,11 +1,11 @@
 package com.movtery.pojavzh.ui.fragment
 
 import android.graphics.Bitmap
-import android.util.Log
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies.SelectedMod
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionAdapter
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem
@@ -60,7 +60,7 @@ class DownloadModFragment : ModListFragment() {
                     componentProcessing(false)
                     setFailedToLoad(e.toString())
                 }
-                Log.e("error", Tools.printToString(e))
+                Logging.e("DownloadModFragment", Tools.printToString(e))
             }
         }
     }

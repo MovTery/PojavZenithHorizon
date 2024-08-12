@@ -1,12 +1,12 @@
 package net.kdt.pojavlaunch.modloaders.modpacks.api;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
 
 import net.kdt.pojavlaunch.PojavApplication;
+import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.Constants;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
@@ -73,7 +73,7 @@ public class CommonApi implements ModpackApi {
                 totalSize += searchResult.totalResultCount;
             } catch (Exception e) {
                 cancelAllFutures(futures);
-                e.printStackTrace();
+                Logging.e("SearchMod", Tools.printToString(e));
                 return null;
             }
         }
@@ -106,7 +106,7 @@ public class CommonApi implements ModpackApi {
 
     @Override
     public ModDetail getModDetails(ModItem item) {
-        Log.i("CommonApi", "Invoking getModDetails on item.apiSource=" + item.apiSource + " item.title=" + item.title);
+        Logging.i("CommonApi", "Invoking getModDetails on item.apiSource=" + item.apiSource + " item.title=" + item.title);
         return getModpackApi(item.apiSource).getModDetails(item);
     }
 

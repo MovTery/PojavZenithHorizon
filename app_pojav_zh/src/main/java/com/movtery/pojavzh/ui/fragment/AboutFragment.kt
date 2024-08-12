@@ -3,7 +3,6 @@ package com.movtery.pojavzh.ui.fragment
 import android.annotation.SuppressLint
 import android.content.res.Resources
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -14,6 +13,7 @@ import com.daimajia.androidanimations.library.YoYo.YoYoString
 import com.movtery.pojavzh.feature.CheckSponsor
 import com.movtery.pojavzh.feature.CheckSponsor.Companion.check
 import com.movtery.pojavzh.feature.CheckSponsor.Companion.getSponsorData
+import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.ui.dialog.MoreSponsorDialog
 import com.movtery.pojavzh.ui.subassembly.about.AboutItemBean
 import com.movtery.pojavzh.ui.subassembly.about.AboutItemBean.AboutItemButtonBean
@@ -161,7 +161,7 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
                     }
                 }
             } catch (e: Exception) {
-                Log.e("setSponsorVisible", e.toString())
+                Logging.e("setSponsorVisible", e.toString())
             }
         }
     }

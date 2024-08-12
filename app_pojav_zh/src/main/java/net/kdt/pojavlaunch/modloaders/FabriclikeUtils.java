@@ -1,8 +1,7 @@
 package net.kdt.pojavlaunch.modloaders;
 
-import android.util.Log;
-
 import com.google.gson.JsonSyntaxException;
+import com.movtery.pojavzh.feature.log.Logging;
 
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.utils.DownloadUtils;
@@ -60,7 +59,7 @@ public class FabriclikeUtils {
                         }
                     });
         } catch (DownloadUtils.ParseException e) {
-            Log.e("Download Fabric Meta", e.toString());
+            Logging.e("Download Fabric Meta", e.toString());
         }
         return null;
     }
@@ -101,7 +100,7 @@ public class FabriclikeUtils {
         try {
             return Tools.GLOBAL_GSON.fromJson(jsonArrayIn, FabricVersion[].class);
         }catch (JsonSyntaxException e) {
-            e.printStackTrace();
+            Logging.e(FabriclikeUtils.class.getName(), Tools.printToString(e));
             throw new DownloadUtils.ParseException(null);
         }
     }

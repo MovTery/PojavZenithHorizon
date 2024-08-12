@@ -3,7 +3,8 @@ package net.kdt.pojavlaunch.plugins;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.util.Log;
+
+import com.movtery.pojavzh.feature.log.Logging;
 
 public class FFmpegPlugin {
     public static boolean isAvailable = false;
@@ -15,7 +16,7 @@ public class FFmpegPlugin {
             libraryPath = ffmpegPluginInfo.applicationInfo.nativeLibraryDir;
             isAvailable = true;
         }catch (Exception e) {
-            Log.i("FFmpegPlugin", "Failed to discover plugin", e);
+            Logging.i("FFmpegPlugin", "Failed to discover plugin", e);
         }
     }
 }

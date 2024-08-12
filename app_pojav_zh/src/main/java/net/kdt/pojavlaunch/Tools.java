@@ -25,7 +25,6 @@ import android.os.Looper;
 import android.provider.OpenableColumns;
 import android.util.ArrayMap;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -39,6 +38,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
@@ -132,7 +132,7 @@ public final class Tools {
         int freeDeviceMemory = getFreeDeviceMemory(activity);
         int localeString;
         int freeAddressSpace = Architecture.is32BitsDevice() ? getMaxContinuousAddressSpaceSize() : -1;
-        Log.i("MemStat", "Free RAM: " + freeDeviceMemory + " Addressable: " + freeAddressSpace);
+        Logging.i("MemStat", "Free RAM: " + freeDeviceMemory + " Addressable: " + freeAddressSpace);
         if(freeDeviceMemory > freeAddressSpace && freeAddressSpace != -1) {
             freeDeviceMemory = freeAddressSpace;
             localeString = R.string.address_memory_warning_msg;
@@ -234,10 +234,10 @@ public final class Tools {
                             forgeSplashContent.replace("enabled=true", "enabled=false"));
                 }
             } catch (IOException e) {
-                Log.w(Tools.APP_NAME, "Could not disable Forge 1.12.2 and below splash screen!", e);
+                Logging.w(Tools.APP_NAME, "Could not disable Forge 1.12.2 and below splash screen!", e);
             }
         } else {
-            Log.w(Tools.APP_NAME, "Failed to create the configuration directory");
+            Logging.w(Tools.APP_NAME, "Failed to create the configuration directory");
         }
     }
 
@@ -331,7 +331,7 @@ public final class Tools {
                 userType = "msa";
             }
         }catch (ParseException e) {
-            Log.e("CheckForProfileKey", "Failed to determine profile creation date, using \"mojang\"", e);
+            Logging.e("CheckForProfileKey", "Failed to determine profile creation date, using \"mojang\"", e);
         }
 
 
@@ -429,7 +429,7 @@ public final class Tools {
         }
         for (String jarFile : classpath) {
             if (!FileUtils.exists(jarFile)) {
-                Log.d(APP_NAME, "Ignored non-exists file: " + jarFile);
+                Logging.d(APP_NAME, "Ignored non-exists file: " + jarFile);
                 continue;
             }
             finalClasspath.append((isClientFirst ? ":" : "")).append(jarFile).append(!isClientFirst ? ":" : "");
@@ -559,7 +559,7 @@ public final class Tools {
             ContextExecutor.execute((ContextExecutorTask) e);
             return;
         }
-        e.printStackTrace();
+        Logging.e("ShowError", printToString(e));
 
         Runnable runnable = () -> {
             final String errMsg = showMore ? printToString(e) : rolledMessage != null ? rolledMessage : e.getMessage();
@@ -662,7 +662,7 @@ public final class Tools {
                 // we have libjnidispatch 5.13.0 in jniLibs directory
                 if (Integer.parseInt(version[0]) >= 5 && Integer.parseInt(version[1]) >= 13)
                     continue;
-                Log.d(APP_NAME, "Library " + libItem.name + " has been changed to version 5.13.0");
+                Logging.d(APP_NAME, "Library " + libItem.name + " has been changed to version 5.13.0");
                 createLibraryInfo(libItem);
                 libItem.name = "net.java.dev.jna:jna:5.13.0";
                 libItem.downloads.artifact.path = "net/java/dev/jna/jna/5.13.0/jna-5.13.0.jar";
@@ -674,7 +674,7 @@ public final class Tools {
 
                 if (Integer.parseInt(version[0]) != 6 || Integer.parseInt(version[1]) != 2)
                     continue;
-                Log.d(APP_NAME, "Library " + libItem.name + " has been changed to version 6.3.0");
+                Logging.d(APP_NAME, "Library " + libItem.name + " has been changed to version 6.3.0");
                 createLibraryInfo(libItem);
                 libItem.name = "com.github.oshi:oshi-core:6.3.0";
                 libItem.downloads.artifact.path = "com/github/oshi/oshi-core/6.3.0/oshi-core-6.3.0.jar";
@@ -685,7 +685,7 @@ public final class Tools {
                 // Java 8, which is not supported by old ASM versions. Mod loaders like Forge, which depend on this
                 // library, often include lwjgl in their class transformations, which causes errors with old ASM versions.
                 if (Integer.parseInt(version[0]) >= 5) continue;
-                Log.d(APP_NAME, "Library " + libItem.name + " has been changed to version 5.0.4");
+                Logging.d(APP_NAME, "Library " + libItem.name + " has been changed to version 5.0.4");
                 createLibraryInfo(libItem);
                 libItem.name = "org.ow2.asm:asm-all:5.0.4";
                 libItem.url = null;
@@ -746,7 +746,7 @@ public final class Tools {
                         String inheritLibName = inheritLibrary.name.substring(0, inheritLibrary.name.lastIndexOf(":"));
 
                         if(libName.equals(inheritLibName)){
-                            Log.d(APP_NAME, "Library " + libName + ": Replaced version " +
+                            Logging.d(APP_NAME, "Library " + libName + ": Replaced version " +
                                     libName.substring(libName.lastIndexOf(":") + 1) + " with " +
                                     inheritLibName.substring(inheritLibName.lastIndexOf(":") + 1));
 
@@ -823,7 +823,7 @@ public final class Tools {
                     fieldB.set(targetVer, value);
                 }
             } catch (Throwable th) {
-                Log.w(Tools.APP_NAME, "Unable to insert " + key + "=" + value, th);
+                Logging.w(Tools.APP_NAME, "Unable to insert " + key + "=" + value, th);
             }
         }
     }
@@ -871,7 +871,7 @@ public final class Tools {
                 return true; // fake match
             }
         }catch (IOException e) {
-            Log.i("SHA1","Fake-matching a hash due to a read error",e);
+            Logging.i("SHA1","Fake-matching a hash due to a read error",e);
             return true;
         }
     }
@@ -914,7 +914,7 @@ public final class Tools {
         try {
             return internalGetMaxContinuousAddressSpaceSize();
         }catch (Exception e){
-            Log.w("Tools", "Failed to find the largest uninterrupted address space");
+            Logging.w("Tools", "Failed to find the largest uninterrupted address space");
             return -1;
         }
     }

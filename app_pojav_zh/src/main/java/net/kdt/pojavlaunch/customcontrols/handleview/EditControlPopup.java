@@ -11,7 +11,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +37,8 @@ import net.kdt.pojavlaunch.customcontrols.ControlDrawerData;
 import net.kdt.pojavlaunch.customcontrols.ControlJoystickData;
 import net.kdt.pojavlaunch.customcontrols.buttons.ControlDrawer;
 import net.kdt.pojavlaunch.customcontrols.buttons.ControlInterface;
+
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.ui.dialog.KeyboardDialog;
 
 import java.util.List;
@@ -657,7 +658,7 @@ public class EditControlPopup {
         try {
             out = Float.parseFloat(string);
         } catch (NumberFormatException e) {
-            Log.e("EditControlPopup", e.toString());
+            Logging.e("EditControlPopup", e.toString());
         }
         return out;
     }

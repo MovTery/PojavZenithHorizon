@@ -3,12 +3,12 @@ package net.kdt.pojavlaunch.authenticator.microsoft;
 import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
 
 import android.util.ArrayMap;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.kdt.mcgui.ProgressLayout;
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.R;
@@ -108,7 +108,7 @@ public class MicrosoftBackgroundLogin {
                 }
 
             }catch (Exception e){
-                Log.e("MicroAuth", "Exception thrown during authentication", e);
+                Logging.e("MicroAuth", "Exception thrown during authentication", e);
                 if(errorListener != null)
                     Tools.runOnUiThread(() -> errorListener.onLoginError(e));
             }
@@ -118,7 +118,7 @@ public class MicrosoftBackgroundLogin {
 
     public String acquireAccessToken(boolean isRefresh, String authcode) throws IOException, JSONException {
         URL url = new URL(authTokenUrl);
-        Log.i("MicrosoftLogin", "isRefresh=" + isRefresh + ", authCode= "+authcode);
+        Logging.i("MicrosoftLogin", "isRefresh=" + isRefresh);
 
         String formData = convertToFormData(
                 "client_id", "00000000402b5328",
@@ -127,8 +127,6 @@ public class MicrosoftBackgroundLogin {
                 "redirect_url", "https://login.live.com/oauth20_desktop.srf",
                 "scope", "service::user.auth.xboxlive.com::MBI_SSL"
         );
-
-        Log.i("MicroAuth", formData);
 
         //да пошла yf[eq1 она ваша джава 11
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
@@ -147,7 +145,6 @@ public class MicrosoftBackgroundLogin {
             JSONObject jo = new JSONObject(Tools.read(conn.getInputStream()));
             msRefreshToken = jo.getString("refresh_token");
             conn.disconnect();
-            Log.i("MicrosoftLogin","Acess Token = " + jo.getString("access_token"));
             return jo.getString("access_token");
             //acquireXBLToken(jo.getString("access_token"));
         }else{
@@ -178,7 +175,6 @@ public class MicrosoftBackgroundLogin {
         if(conn.getResponseCode() >= 200 && conn.getResponseCode() < 300) {
             JSONObject jo = new JSONObject(Tools.read(conn.getInputStream()));
             conn.disconnect();
-            Log.i("MicrosoftLogin","Xbl Token = "+jo.getString("Token"));
             return jo.getString("Token");
             //acquireXsts(jo.getString("Token"));
         }else{
@@ -199,10 +195,8 @@ public class MicrosoftBackgroundLogin {
         data.put("TokenType", "JWT");
 
         String req = data.toString();
-        Log.i("MicroAuth", req);
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         setCommonProperties(conn, req);
-        Log.i("MicroAuth", conn.getRequestMethod());
         conn.connect();
 
         try(OutputStream wr = conn.getOutputStream()) {
@@ -214,7 +208,6 @@ public class MicrosoftBackgroundLogin {
             String uhs = jo.getJSONObject("DisplayClaims").getJSONArray("xui").getJSONObject(0).getString("uhs");
             String token = jo.getString("Token");
             conn.disconnect();
-            Log.i("MicrosoftLogin","Xbl Xsts = " + token + "; Uhs = " + uhs);
             return new String[]{uhs, token};
             //acquireMinecraftToken(uhs,jo.getString("Token"));
         }else if(conn.getResponseCode() == 401) {
@@ -250,7 +243,6 @@ public class MicrosoftBackgroundLogin {
             expiresAt = ZHTools.getCurrentTimeMillis() + 86400000;
             JSONObject jo = new JSONObject(Tools.read(conn.getInputStream()));
             conn.disconnect();
-            Log.i("MicrosoftLogin","MC token: "+jo.getString("access_token"));
             mcToken = jo.getString("access_token");
             //checkMcProfile(jo.getString("access_token"));
             return jo.getString("access_token");
@@ -285,7 +277,6 @@ public class MicrosoftBackgroundLogin {
         if(conn.getResponseCode() >= 200 && conn.getResponseCode() < 300) {
             String s= Tools.read(conn.getInputStream());
             conn.disconnect();
-            Log.i("MicrosoftLogin","profile:" + s);
             JSONObject jsonObject = new JSONObject(s);
             String name = (String) jsonObject.get("name");
             String uuid = (String) jsonObject.get("id");
@@ -293,12 +284,12 @@ public class MicrosoftBackgroundLogin {
                     "(\\p{XDigit}{8})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}+)", "$1-$2-$3-$4-$5"
             );
             doesOwnGame = true;
-            Log.i("MicrosoftLogin","UserName = " + name);
-            Log.i("MicrosoftLogin","Uuid Minecraft = " + uuidDashes);
+            Logging.i("MicrosoftLogin","UserName = " + name);
+            Logging.i("MicrosoftLogin","Uuid Minecraft = " + uuidDashes);
             mcName=name;
             mcUuid=uuidDashes;
         }else{
-            Log.i("MicrosoftLogin","It seems that this Microsoft Account does not own the game.");
+            Logging.i("MicrosoftLogin","It seems that this Microsoft Account does not own the game.");
             doesOwnGame = false;
             throw new PresentedException(new RuntimeException(conn.getResponseMessage()), R.string.minecraft_not_owned);
             //throwResponseError(conn);
@@ -323,7 +314,7 @@ public class MicrosoftBackgroundLogin {
             conn.setRequestProperty("Content-Length", Integer.toString(formData.getBytes(StandardCharsets.UTF_8).length));
             conn.setRequestMethod("POST");
         }catch (ProtocolException e) {
-            Log.e("MicrosoftAuth", e.toString());
+            Logging.e("MicrosoftAuth", e.toString());
         }
         conn.setUseCaches(false);
         conn.setDoInput(true);
@@ -346,7 +337,7 @@ public class MicrosoftBackgroundLogin {
     }
 
     private RuntimeException getResponseThrowable(HttpURLConnection conn) throws IOException {
-        Log.i("MicrosoftLogin", "Error code: " + conn.getResponseCode() + ": " + conn.getResponseMessage());
+        Logging.i("MicrosoftLogin", "Error code: " + conn.getResponseCode() + ": " + conn.getResponseMessage());
         if(conn.getResponseCode() == 429) {
             return new PresentedException(R.string.microsoft_login_retry_later);
         }

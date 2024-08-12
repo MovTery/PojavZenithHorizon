@@ -1,8 +1,8 @@
 package com.movtery.pojavzh.feature.mod.modpack
 
 import android.content.Context
-import android.util.Log
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager.Companion.currentProfile
+import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.feature.mod.models.MCBBSPackMeta
 import com.movtery.pojavzh.feature.mod.models.MCBBSPackMeta.MCBBSAddons
 import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils
@@ -37,7 +37,7 @@ class MCBBSModPack(private val context: Context, private val zipFile: File?) {
                     MCBBSPackMeta::class.java
                 )
                 if (!ModPackUtils.verifyMCBBSPackMeta(mcbbsPackMeta)) {
-                    Log.i("MCBBSModPack", "manifest verification failed")
+                    Logging.i("MCBBSModPack", "manifest verification failed")
                     return null
                 }
                 onInstallStartListener?.onStart()

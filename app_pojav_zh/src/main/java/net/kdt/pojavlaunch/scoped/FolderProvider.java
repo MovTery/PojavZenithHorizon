@@ -10,11 +10,11 @@ import android.provider.DocumentsContract;
 import android.provider.DocumentsContract.Document;
 import android.provider.DocumentsContract.Root;
 import android.provider.DocumentsProvider;
-import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import androidx.annotation.Nullable;
 
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.R;
@@ -193,7 +193,7 @@ public class FolderProvider extends DocumentsProvider {
 
     @Override
     public String getDocumentType(String documentId) throws FileNotFoundException {
-        Log.i("FolderPRovider", "getDocumentType("+documentId+")");
+        Logging.i("FolderPRovider", "getDocumentType("+documentId+")");
         File file = getFileForDocId(documentId);
         return getMimeType(file);
     }
@@ -327,7 +327,7 @@ public class FolderProvider extends DocumentsProvider {
         }
         pathIds.add(getDocIdForFile(source));
         Collections.reverse(pathIds);
-        Log.i("FolderProvider", pathIds.toString());
+        Logging.i("FolderProvider", pathIds.toString());
         return new DocumentsContract.Path(getDocIdForFile(source), pathIds);
     }
 }

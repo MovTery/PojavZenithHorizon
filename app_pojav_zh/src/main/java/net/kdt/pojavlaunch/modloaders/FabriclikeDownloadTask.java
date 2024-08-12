@@ -3,6 +3,7 @@ package net.kdt.pojavlaunch.modloaders;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.feature.log.Logging;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -51,7 +52,7 @@ public class FabriclikeDownloadTask implements Runnable, Tools.DownloaderFeedbac
             JSONObject fabricJsonObject = new JSONObject(fabricJson);
             versionId = fabricJsonObject.getString("id");
         }catch (JSONException e) {
-            e.printStackTrace();
+            Logging.e(FabriclikeDownloadTask.class.getName(), Tools.printToString(e));
             return false;
         }
         File versionJsonDir = new File(ProfilePathHome.getVersionsHome(), versionId);
