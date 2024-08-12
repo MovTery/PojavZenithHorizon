@@ -2,9 +2,6 @@
 <resources>
     <color name="black_or_white">#000000</color>
 
-    <color name="control_button_color">#4CC4C4C4</color>
-    <color name="control_button_pressed_color">#4D000000</color>
-
     <color name="background_app">#BDD9DD</color>
     <color name="background_overlay">#CFCFCF</color>
     <color name="background_status_bar">#EDEDED</color>
