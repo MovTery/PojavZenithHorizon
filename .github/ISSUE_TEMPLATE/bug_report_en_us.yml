@@ -84,7 +84,7 @@ body:
       label: Pojav Zenith Horizon Version
       description: |
         Which version of Pojav Zenith Horizon did you encounter this issue in? You can check this on the "About Pojav Zenith Horizon" page.
-      placeholder: 1.2.7
+      placeholder: 1.2.7.1
     validations:
       required: true
 
