@@ -6,7 +6,7 @@
 [![Crowdin](https://badges.crowdin.net/pojav-zenith-horizon/localized.svg)](https://crowdin.com/project/pojav-zenith-horizon)
 
 - <a href="/README-EN_US.md">English</a>丨<a href="/README-ZH_TW.md">繁體中文</a>
-- Pojav Zenith Horizon 是一款基于 [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher) 魔改的 Minecraft 启动器，它能够在 Android 设备上运行 [Minecraft: Java Edition](https://www.minecraft.net/)。
+- Pojav Zenith Horizon 是一款基于 [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher) 开发的 Minecraft 启动器，它能够在 Android 设备上运行 [Minecraft: Java Edition](https://www.minecraft.net/)。
 - Pojav Zenith Horizon 致力于优化用户体验，重新设计了应用界面，新增了更多实用的功能，旨在最大程度地降低游玩门槛，让更多人能够轻松体验 Minecraft 的乐趣。
 - 你可以前往 [Crowdin](https://zh.crowdin.com/project/pojav-zenith-horizon) 帮助我翻译 Pojav Zenith Horizon！
 
@@ -32,8 +32,8 @@
 <h2 align="center">下载</h2>  
 
 - 前往 [Release](https://github.com/MovTery/PojavZenithHorizon/releases) 查看最新且经过测试的稳定版本（更新并不频繁）。  
-- (并不推荐) 前往 [Actions](https://github.com/MovTery/PojavZenithHorizon/actions) 查看最新的版本 ( 主线：main，其他任何支线均可忽略！)
-，进入后，点击 **PojavZenithHorizon** 下载 (Debug 为测试构建版本，Release 为发行构建版本)。
+- (并不推荐) 前往 [Actions](https://github.com/MovTery/PojavZenithHorizon/actions) 查看最新的版本 ( 主线：main，其他任何支线均可忽略！)，
+- 进入后，点击 **PojavZenithHorizon** 下载 (Debug 为测试构建版本，Release 为发行构建版本)。
 
 <h2 align="center">特别感谢</h2>
 
