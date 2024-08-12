@@ -43,7 +43,7 @@ public class PojavApplication extends Application {
 		ContextExecutor.setApplication(this);
 		Thread.setDefaultUncaughtExceptionHandler((thread, th) -> {
 			boolean storagePermAllowed = (Build.VERSION.SDK_INT >= 29 || ActivityCompat.checkSelfPermission(PojavApplication.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) && Tools.checkStorageRoot();
-			File crashFile = new File(storagePermAllowed ? PathAndUrlManager.DIR_GAME_HOME : PathAndUrlManager.DIR_DATA, "latestcrash.txt");
+			File crashFile = new File(storagePermAllowed ? PathAndUrlManager.DIR_LAUNCHER_LOG : PathAndUrlManager.DIR_DATA, "latestcrash.txt");
 			try {
 				// Write to file, since some devices may not able to show error
 				FileUtils.ensureParentDirectory(crashFile);

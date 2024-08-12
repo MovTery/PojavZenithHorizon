@@ -1,9 +1,8 @@
 package com.movtery.pojavzh.feature.log
 
 import android.util.Log
-import com.movtery.pojavzh.utils.PathAndUrlManager.Companion.DIR_GAME_HOME
+import com.movtery.pojavzh.utils.PathAndUrlManager.Companion.DIR_LAUNCHER_LOG
 import com.movtery.pojavzh.utils.ZHTools
-import com.movtery.pojavzh.utils.file.FileTools
 import net.kdt.pojavlaunch.Tools
 import java.io.BufferedWriter
 import java.io.File
@@ -18,17 +17,10 @@ import java.util.concurrent.Executors
  */
 object Logging {
     private val executor = Executors.newSingleThreadExecutor()
-    private val DIR_LAUNCHER_LOG: File = getLogDir()
     private var FILE_LAUNCHER_LOG: File? = null
 
     init {
         FILE_LAUNCHER_LOG = getLogFile()
-    }
-
-    private fun getLogDir(): File {
-        val dir = File(DIR_GAME_HOME, "launcher_log")
-        if (!dir.exists()) FileTools.mkdirs(dir)
-        return dir
     }
 
     private fun getLogFile(): File {
@@ -36,20 +28,22 @@ object Logging {
         val logSuffix = ".txt"
         val maxLogIndex = 10
 
-        val logFiles = DIR_LAUNCHER_LOG.listFiles { file ->
+        val launcherLogDir = File(DIR_LAUNCHER_LOG!!)
+
+        val logFiles = launcherLogDir.listFiles { file ->
             file.isFile && file.name.startsWith(logPrefix) && file.name.endsWith(logSuffix)
         } ?: emptyArray()
 
         if (logFiles.isEmpty()) {
-            return File(DIR_LAUNCHER_LOG, "${logPrefix}1$logSuffix")
+            return File(launcherLogDir, "${logPrefix}1$logSuffix")
         }
 
-        val latestFile = logFiles.maxByOrNull { it.lastModified() } ?: return File(DIR_LAUNCHER_LOG, "${logPrefix}1$logSuffix")
+        val latestFile = logFiles.maxByOrNull { it.lastModified() } ?: return File(launcherLogDir, "${logPrefix}1$logSuffix")
         val latestIndex: Int = latestFile.name.removePrefix(logPrefix).removeSuffix(logSuffix).toIntOrNull() ?: 0
         val nextIndex = (latestIndex % maxLogIndex) + 1
 
         val nextLogFileName = "$logPrefix$nextIndex$logSuffix"
-        val file = File(DIR_LAUNCHER_LOG, nextLogFileName)
+        val file = File(launcherLogDir, nextLogFileName)
         if (file.exists()) file.delete()
         return file
     }
