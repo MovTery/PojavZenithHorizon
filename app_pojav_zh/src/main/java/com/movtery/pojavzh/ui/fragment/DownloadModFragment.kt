@@ -146,7 +146,7 @@ class DownloadModFragment : ModListFragment() {
 
         mImageReceiver = ImageReceiver { bm: Bitmap ->
             mImageReceiver = null
-            val drawable = RoundedBitmapDrawableFactory.create(resources, bm)
+            val drawable = RoundedBitmapDrawableFactory.create(fragmentActivity!!.resources, bm)
             drawable.cornerRadius = resources.getDimension(R.dimen._1sdp) / 250 * bm.height
             setIcon(drawable)
         }
