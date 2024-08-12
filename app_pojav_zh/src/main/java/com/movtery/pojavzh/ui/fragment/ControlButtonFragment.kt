@@ -86,7 +86,7 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
                     ExtraCore.setValue(ExtraConstants.FILE_SELECTOR, removeLockPath(path))
                     Tools.removeCurrentFragment(requireActivity())
                 } else {
-                    showDialog(file)
+                    file?.let { if (it.isFile) showDialog(it) }
                 }
             }
 
@@ -154,15 +154,10 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
         return path!!.replace(PathAndUrlManager.DIR_CTRLMAP_PATH!!, ".")
     }
 
-    private fun showDialog(file: File?) {
+    private fun showDialog(file: File) {
         val filesButton = FilesButton()
-        filesButton.setButtonVisibility(true, true, !file!!.isDirectory, true, true, true)
-
-        if (file.isDirectory) {
-            filesButton.setMessageText(getString(R.string.zh_file_folder_message))
-        } else {
-            filesButton.setMessageText(getString(R.string.zh_file_message))
-        }
+        filesButton.setButtonVisibility(true, true, true, true, true, true)
+        filesButton.setMessageText(getString(R.string.zh_file_message))
         filesButton.setMoreButtonText(getString(R.string.global_load))
 
         val filesDialog = FilesDialog(requireContext(), filesButton,
