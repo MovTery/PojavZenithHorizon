@@ -1,6 +1,7 @@
 package com.movtery.pojavzh.utils.file
 
 import android.content.Context
+import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.utils.file.FileTools.Companion.getFileNameWithoutExtension
 import net.kdt.pojavlaunch.PojavApplication
 import org.apache.commons.io.FileUtils
@@ -86,6 +87,7 @@ class FileCopyHandler(
     }
 
     override fun processFile() {
+        Logging.i("FileCopyHandler", "Copy files (total files: $fileCount, to ${mTarget.absolutePath})")
         foundFiles.entries.parallelStream().forEach { (currentFile, targetFile) ->
             currentTask?.let { task -> if (task.isCancelled) return@forEach }
 

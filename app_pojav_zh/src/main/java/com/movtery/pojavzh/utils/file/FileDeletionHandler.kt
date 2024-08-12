@@ -1,6 +1,7 @@
 package com.movtery.pojavzh.utils.file
 
 import android.content.Context
+import com.movtery.pojavzh.feature.log.Logging
 import net.kdt.pojavlaunch.PojavApplication
 import org.apache.commons.io.FileUtils
 import java.io.File
@@ -48,6 +49,7 @@ class FileDeletionHandler(
     }
 
     override fun processFile() {
+        Logging.i("FileDeletionHandler", "Delete files (total files: $fileCount)")
         foundFiles.parallelStream().forEach {
             currentTask?.let { task -> if (task.isCancelled) return@forEach }
 
