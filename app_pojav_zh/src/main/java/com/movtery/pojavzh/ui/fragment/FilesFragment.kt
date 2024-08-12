@@ -127,11 +127,11 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
 
         mFileRecyclerView?.setFileSelectedListener(object : FileSelectedListener() {
             override fun onFileSelected(file: File?, path: String?) {
-                showDialog(file)
+                file?.let { showDialog(it) }
             }
 
             override fun onItemLongClick(file: File?, path: String?) {
-                if (file!!.isDirectory) showDialog(file)
+                file?.let { if (it.isDirectory) showDialog(it) }
             }
         })
 
@@ -268,9 +268,9 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
         mSelectAllCheck?.visibility = View.GONE
     }
 
-    private fun showDialog(file: File?) {
+    private fun showDialog(file: File) {
         val filesButton = FilesButton()
-        filesButton.setButtonVisibility(true, true, !file!!.isDirectory, true, true, false)
+        filesButton.setButtonVisibility(true, true, true, true, true, false)
         val message = if (file.isDirectory) {
             getString(R.string.zh_file_folder_message)
         } else {
