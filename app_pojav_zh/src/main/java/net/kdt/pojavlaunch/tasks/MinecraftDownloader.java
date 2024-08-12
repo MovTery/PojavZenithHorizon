@@ -2,13 +2,12 @@ package net.kdt.pojavlaunch.tasks;
 
 import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.JAssetInfo;
@@ -137,7 +136,7 @@ public class MinecraftDownloader {
         if(mSourceJarFile.equals(mTargetJarFile)) return;
         if(mTargetJarFile.exists()) return;
         FileUtils.ensureParentDirectory(mTargetJarFile);
-        Log.i("NewMCDownloader", "Copying " + mSourceJarFile.getName() + " to "+mTargetJarFile.getAbsolutePath());
+        Logging.i("NewMCDownloader", "Copying " + mSourceJarFile.getName() + " to "+mTargetJarFile.getAbsolutePath());
         org.apache.commons.io.FileUtils.copyFile(mSourceJarFile, mTargetJarFile, false);
     }
 
@@ -248,7 +247,7 @@ public class MinecraftDownloader {
                 } else {
                     // If the library has a downloads section but doesn't have an artifact in
                     // it, it is likely natives-only, which means it can be skipped.
-                    Log.i("NewMCDownloader", "Skipped library " + dependentLibrary.name + " due to lack of artifact");
+                    Logging.i("NewMCDownloader", "Skipped library " + dependentLibrary.name + " due to lack of artifact");
                     continue;
                 }
             }

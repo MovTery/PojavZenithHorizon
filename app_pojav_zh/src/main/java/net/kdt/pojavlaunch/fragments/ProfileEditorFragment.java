@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Base64OutputStream;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +23,7 @@ import androidx.annotation.Nullable;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.movtery.pojavzh.extra.ZHExtraConstants;
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
 import com.movtery.pojavzh.ui.fragment.ControlButtonFragment;
 import com.movtery.pojavzh.ui.fragment.FilesFragment;
@@ -250,7 +250,7 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
     @Override
     public void onCropped(Bitmap contentBitmap) {
         mProfileIcon.setImageBitmap(contentBitmap);
-        Log.i("bitmap", "w="+contentBitmap.getWidth() +" h="+contentBitmap.getHeight());
+        Logging.i("bitmap", "w="+contentBitmap.getWidth() +" h="+contentBitmap.getHeight());
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try (Base64OutputStream base64OutputStream = new Base64OutputStream(byteArrayOutputStream, Base64.NO_WRAP)) {
             contentBitmap.compress(

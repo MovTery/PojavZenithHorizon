@@ -17,6 +17,7 @@ import androidx.core.app.*;
 
 import android.util.*;
 
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.ui.activity.ErrorActivity;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 
@@ -56,8 +57,8 @@ public class PojavApplication extends Application {
 				crashStream.append(Log.getStackTraceString(th));
 				crashStream.close();
 			} catch (Throwable throwable) {
-				Log.e(CRASH_REPORT_TAG, " - Exception attempt saving crash stack trace:", throwable);
-				Log.e(CRASH_REPORT_TAG, " - The crash stack trace was:", th);
+				Logging.e(CRASH_REPORT_TAG, " - Exception attempt saving crash stack trace:", throwable);
+				Logging.e(CRASH_REPORT_TAG, " - The crash stack trace was:", th);
 			}
 
 			ErrorActivity.showError(PojavApplication.this, crashFile.getAbsolutePath(), th);

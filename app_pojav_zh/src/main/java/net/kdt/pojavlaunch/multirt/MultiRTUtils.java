@@ -3,9 +3,9 @@ package net.kdt.pojavlaunch.multirt;
 import static org.apache.commons.io.FileUtils.listFiles;
 
 import android.system.Os;
-import android.util.Log;
 
 import com.kdt.mcgui.ProgressLayout;
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.R;
@@ -122,7 +122,7 @@ public class MultiRTUtils {
                 return null;
             }
         }catch (IOException e) {
-            e.printStackTrace();
+            Logging.e("ReadInternalRuntimeVersion", Tools.printToString(e));
             return null;
         }
     }
@@ -137,7 +137,7 @@ public class MultiRTUtils {
 
     public static File getRuntimeHome(String name) {
         File dest = new File(RUNTIME_FOLDER, name);
-        Log.i("MiltiRTUitls", "Dest exists? "+dest.exists());
+        Logging.i("MiltiRTUitls", "Dest exists? "+dest.exists());
         if((!dest.exists()) || MultiRTUtils.forceReread(name).versionString == null) throw new RuntimeException("Selected runtime is broken!");
         return dest;
     }
@@ -195,7 +195,7 @@ public class MultiRTUtils {
                 Process process = processBuilder.command("./libunpack200.so", "-r", jarFile.getAbsolutePath(), jarFile.getAbsolutePath().replace(".pack", "")).start();
                 process.waitFor();
             }catch (InterruptedException | IOException e) {
-                Log.e("MULTIRT", "Failed to unpack the runtime !");
+                Logging.e("MULTIRT", "Failed to unpack the runtime !");
             }
         }
     }
@@ -238,7 +238,7 @@ public class MultiRTUtils {
                     // Libcore one support all Android versions
                     Os.symlink(tarEntry.getName(), tarEntry.getLinkName());
                 } catch (Throwable e) {
-                    Log.e("MultiRT", e.toString());
+                    Logging.e("MultiRT", e.toString());
                 }
 
             } else if (tarEntry.isDirectory()) {

@@ -4,10 +4,10 @@ import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.util.Log;
 
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.utils.CopyDefaultFromAssets;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.file.FileTools;
@@ -35,7 +35,7 @@ public class AsyncAssetManager {
                 Tools.copyAssetFile(ctx, "launcher_profiles.json", ProfilePathHome.getGameHome(), false);
                 Tools.copyAssetFile(ctx,"resolv.conf", PathAndUrlManager.DIR_DATA, false);
             } catch (IOException e) {
-                Log.e("AsyncAssetManager", "Failed to unpack critical components !");
+                Logging.e("AsyncAssetManager", "Failed to unpack critical components !");
             }
             ProgressLayout.clearProgress(ProgressLayout.EXTRACT_SINGLE_FILES);
         });
@@ -56,7 +56,7 @@ public class AsyncAssetManager {
                 unpackComponent(ctx, "arc_dns_injector", true);
                 unpackComponent(ctx, "forge_installer", true);
             } catch (IOException e) {
-                Log.e("AsyncAssetManager", "Failed o unpack components !",e );
+                Logging.e("AsyncAssetManager", "Failed o unpack components !",e );
             }
             ProgressLayout.clearProgress(ProgressLayout.EXTRACT_COMPONENTS);
         });
@@ -74,7 +74,7 @@ public class AsyncAssetManager {
             }
             FileTools.mkdir(versionFile.getParentFile());
 
-            Log.i("UnpackPrep", component + ": Pack was installed manually, or does not exist, unpacking new...");
+            Logging.i("UnpackPrep", component + ": Pack was installed manually, or does not exist, unpacking new...");
             String[] fileList = am.list("components/" + component);
             for(String s : fileList) {
                 Tools.copyAssetFile(ctx, "components/" + component + "/" + s, rootDir + "/" + component, true);
@@ -94,7 +94,7 @@ public class AsyncAssetManager {
                     Tools.copyAssetFile(ctx, "components/" + component + "/" + fileName, rootDir + "/" + component, true);
                 }
             } else {
-                Log.i("UnpackPrep", component + ": Pack is up-to-date with the launcher, continuing...");
+                Logging.i("UnpackPrep", component + ": Pack is up-to-date with the launcher, continuing...");
             }
         }
     }

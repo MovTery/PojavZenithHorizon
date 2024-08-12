@@ -1,7 +1,7 @@
 package com.movtery.pojavzh.feature.mod.modpack.install
 
-import android.util.Log
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager.Companion.currentProfile
+import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.feature.mod.models.MCBBSPackMeta
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.models.CurseManifest
@@ -47,7 +47,7 @@ class ModPackUtils {
                     }
                 }
             }.getOrElse { e ->
-                Log.e("determineModpack", e.toString())
+                Logging.e("determineModpack", e.toString())
             }
 
             return ModPackEnum.UNKNOWN

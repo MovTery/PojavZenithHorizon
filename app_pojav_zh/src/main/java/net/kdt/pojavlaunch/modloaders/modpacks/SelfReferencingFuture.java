@@ -1,6 +1,6 @@
 package net.kdt.pojavlaunch.modloaders.modpacks;
 
-import android.util.Log;
+import com.movtery.pojavzh.feature.log.Logging;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
@@ -30,7 +30,7 @@ public class SelfReferencingFuture {
             }
             mFutureInterface.run(mMyFuture);
         }catch (InterruptedException e) {
-            Log.i("SelfReferencingFuture", "Interrupted while acquiring own Future");
+            Logging.i("SelfReferencingFuture", "Interrupted while acquiring own Future");
         }
     }
 

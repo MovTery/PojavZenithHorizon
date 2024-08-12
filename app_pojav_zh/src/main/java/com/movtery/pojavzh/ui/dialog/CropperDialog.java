@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapRegionDecoder;
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -14,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
+
+import com.movtery.pojavzh.feature.log.Logging;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
@@ -100,7 +101,7 @@ public class CropperDialog extends FullScreenDialog implements DraggableDialog.D
             } catch (IOException e) {
                 // Catch IOE here to detect the case when BitmapRegionDecoder does not support this image format.
                 // If it does not, we will just have to load the bitmap in full resolution using BitmapFactory.
-                Log.w("CropperUtils", "Failed to load image into BitmapRegionDecoder", e);
+                Logging.w("CropperUtils", "Failed to load image into BitmapRegionDecoder", e);
             }
         }
         // We can safely re-open the stream here as ACTION_OPEN_DOCUMENT grants us long-term access

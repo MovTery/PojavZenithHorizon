@@ -7,7 +7,6 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_BUTTONSIZE;
 
 import android.annotation.SuppressLint;
 import android.graphics.drawable.GradientDrawable;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,8 @@ import android.widget.FrameLayout;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.core.math.MathUtils;
+
+import com.movtery.pojavzh.feature.log.Logging;
 
 import net.kdt.pojavlaunch.GrabListener;
 import net.kdt.pojavlaunch.Tools;
@@ -311,7 +312,7 @@ public interface ControlInterface extends View.OnLongClickListener, GrabListener
      */
     default void injectGrabListenerBehavior() {
         if (getControlView() == null) {
-            Log.e(ControlInterface.class.toString(), "Failed to inject grab listener behavior !");
+            Logging.e(ControlInterface.class.toString(), "Failed to inject grab listener behavior !");
             return;
         }
 

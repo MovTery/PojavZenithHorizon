@@ -5,12 +5,12 @@ import static org.lwjgl.glfw.CallbackBridge.windowWidth;
 
 import android.os.Build;
 import android.os.FileObserver;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
+import com.movtery.pojavzh.feature.log.Logging;
 
 import net.kdt.pojavlaunch.Tools;
 
@@ -47,7 +47,9 @@ public class MCOptionUtils {
         if(!optionFile.exists()) {
             try { // Needed for new instances I guess  :think:
                 optionFile.createNewFile();
-            } catch (IOException e) { e.printStackTrace(); }
+            } catch (IOException e) {
+                Logging.e("MCOptionUtils", Tools.printToString(e));
+            }
         }
 
         if(sFileObserver == null || !Objects.equals(sOptionFolderPath, folderPath)){
@@ -64,14 +66,14 @@ public class MCOptionUtils {
             while ((line = reader.readLine()) != null) {
                 int firstColonIndex = line.indexOf(':');
                 if(firstColonIndex < 0) {
-                    Log.w(Tools.APP_NAME, "No colon on line \""+line+"\", skipping");
+                    Logging.w(Tools.APP_NAME, "No colon on line \""+line+"\", skipping");
                     continue;
                 }
                 sParameterMap.put(line.substring(0,firstColonIndex), line.substring(firstColonIndex+1));
             }
             reader.close();
         } catch (IOException e) {
-            Log.w(Tools.APP_NAME, "Could not load options.txt", e);
+            Logging.w(Tools.APP_NAME, "Could not load options.txt", e);
         }
     }
 
@@ -119,7 +121,7 @@ public class MCOptionUtils {
             Tools.write(sOptionFolderPath + "/options.txt", result.toString());
             sFileObserver.startWatching();
         } catch (IOException e) {
-            Log.w(Tools.APP_NAME, "Could not save options.txt", e);
+            Logging.w(Tools.APP_NAME, "Could not save options.txt", e);
         }
     }
 

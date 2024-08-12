@@ -8,7 +8,6 @@ import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.preference.Preference;
@@ -16,6 +15,8 @@ import androidx.preference.Preference;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
+
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 import com.movtery.pojavzh.utils.file.FileTools;
 import com.movtery.pojavzh.utils.platform.MemoryUtils;
@@ -64,7 +65,7 @@ public class LauncherPreferenceJavaFragment extends LauncherPreferenceFragment {
                         updateMemoryInfo(getContext(), allocationSeek);
                     }
                 } catch (Exception e) {
-                    Log.e("updateMemoryInfo", e.toString());
+                    Logging.e("updateMemoryInfo", e.toString());
                 }
             }
         }, 0, 500);

@@ -3,7 +3,6 @@ package net.kdt.pojavlaunch.fragments;
 import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.WebSettings;
@@ -16,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.R;
@@ -70,9 +70,9 @@ public class MicrosoftLoginFragment extends Fragment {
     }
 
     private void restoreWebViewState(Bundle savedInstanceState) {
-        Log.i("MSAuthFragment","Restoring state...");
+        Logging.i("MSAuthFragment","Restoring state...");
         if(mWebview.restoreState(savedInstanceState) == null) {
-            Log.w("MSAuthFragment", "Failed to restore state, starting afresh");
+            Logging.w("MSAuthFragment", "Failed to restore state, starting afresh");
             // if, for some reason, we failed to restore our session,
             // just start afresh
             startNewSession();

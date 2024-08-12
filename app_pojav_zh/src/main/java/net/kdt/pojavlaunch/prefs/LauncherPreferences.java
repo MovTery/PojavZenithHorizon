@@ -10,8 +10,8 @@ import android.content.*;
 import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.os.Build;
-import android.util.Log;
 
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.UnpackJRE;
 import com.movtery.pojavzh.utils.ZHTools;
@@ -205,7 +205,7 @@ public class LauncherPreferences {
             else LauncherPreferences.PREF_NOTCH_SIZE = Math.min(cutout.width(), cutout.height());
 
         }catch (Exception e){
-            Log.i("NOTCH DETECTION", "No notch detected, or the device if in split screen mode");
+            Logging.i("NOTCH DETECTION", "No notch detected, or the device if in split screen mode");
             LauncherPreferences.PREF_NOTCH_SIZE = -1;
         }
         Tools.updateWindowSize(activity);

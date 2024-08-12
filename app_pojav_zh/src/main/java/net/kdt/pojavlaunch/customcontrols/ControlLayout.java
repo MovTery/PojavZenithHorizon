@@ -9,7 +9,6 @@ import static org.lwjgl.glfw.CallbackBridge.isGrabbing;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -17,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.google.gson.JsonSyntaxException;
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlInfoData;
 
@@ -448,7 +448,8 @@ public class ControlLayout extends FrameLayout {
 	public void save(String path){
 		try {
 			mLayout.save(path);
-		} catch (IOException e) {Log.e("ControlLayout", "Failed to save the layout at:" + path);}
+		} catch (IOException e) {
+			Logging.e("ControlLayout", "Failed to save the layout at:" + path);}
 	}
 
 

@@ -3,7 +3,6 @@ package com.kdt.mcgui;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.movtery.pojavzh.feature.log.Logging;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
@@ -136,7 +137,7 @@ public class ProgressLayout extends ConstraintLayout implements View.OnClickList
         @Override
         public void onProgressStarted() {
             post(()-> {
-                Log.i("ProgressLayout", "onProgressStarted");
+                Logging.i("ProgressLayout", "onProgressStarted");
                 mLinearLayout.addView(textView, params);
             });
         }

@@ -1,7 +1,7 @@
 package com.movtery.pojavzh.utils
 
 import android.content.res.AssetManager
-import android.util.Log
+import com.movtery.pojavzh.feature.log.Logging
 import net.kdt.pojavlaunch.Architecture
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.Tools
@@ -53,7 +53,7 @@ class UnpackJRE {
                 )
                 MultiRTUtils.postPrepare(internalRuntime.jreName)
             } catch (e: IOException) {
-                Log.e("UnpackJREAuto", "Internal JRE unpack failed", e)
+                Logging.e("UnpackJREAuto", "Internal JRE unpack failed", e)
             }
         }
     }

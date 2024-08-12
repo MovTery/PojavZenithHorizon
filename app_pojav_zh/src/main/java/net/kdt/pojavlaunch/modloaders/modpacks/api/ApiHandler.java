@@ -1,9 +1,9 @@
 package net.kdt.pojavlaunch.modloaders.modpacks.api;
 
 import android.util.ArrayMap;
-import android.util.Log;
 
 import com.google.gson.Gson;
+import com.movtery.pojavzh.feature.log.Logging;
 
 import net.kdt.pojavlaunch.Tools;
 
@@ -57,7 +57,7 @@ public class ApiHandler {
     }
 
     public static String getRaw(Map<String, String> headers, String url) {
-        Log.d("ApiHandler", url);
+        Logging.d("ApiHandler", url);
         HttpURLConnection conn = null;
         try{
             conn = (HttpURLConnection) new URL(url).openConnection();
@@ -65,7 +65,6 @@ public class ApiHandler {
             InputStream inputStream = conn.getInputStream();
             String data = Tools.read(inputStream);
 
-            Log.d(ApiHandler.class.toString(), data);
             inputStream.close();
             conn.disconnect();
             return data;
@@ -102,7 +101,7 @@ public class ApiHandler {
             conn.disconnect();
             return data;
         } catch (IOException e) {
-            e.printStackTrace();
+            Logging.e("ApiHandler", Tools.printToString(e));
         }
         return null;
     }

@@ -4,9 +4,9 @@ import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.LauncherActivity;
@@ -143,12 +143,12 @@ public class AccountsManager {
                         MinecraftAccount account = MinecraftAccount.parse(jsonString);
                         if (account != null) accounts.add(account);
                     } catch (IOException e) {
-                        Log.e("AccountsManager", String.format("File %s is not recognized as a profile for an account", accountFile.getName()));
+                        Logging.e("AccountsManager", String.format("File %s is not recognized as a profile for an account", accountFile.getName()));
                     }
                 }
             }
         }
-        Log.i("AccountsManager", "Reload complete.");
+        Logging.i("AccountsManager", "Reload complete.");
 //        System.out.println(accounts);
     }
 

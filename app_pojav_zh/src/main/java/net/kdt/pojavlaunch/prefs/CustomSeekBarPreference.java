@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.InputType;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -14,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.preference.PreferenceViewHolder;
 import androidx.preference.SeekBarPreference;
 
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 
 import net.kdt.pojavlaunch.R;
@@ -73,7 +73,7 @@ public class CustomSeekBarPreference extends SeekBarPreference {
                 try {
                     value = Integer.parseInt(string);
                 } catch (NumberFormatException e) {
-                    Log.e("Custom Seek Bar", e.toString());
+                    Logging.e("Custom Seek Bar", e.toString());
 
                     editBox.setError(context.getString(R.string.zh_input_invalid));
                     return false;

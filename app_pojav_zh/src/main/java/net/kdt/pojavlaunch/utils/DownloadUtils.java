@@ -1,9 +1,8 @@
 package net.kdt.pojavlaunch.utils;
 
-import android.util.Log;
-
 import androidx.annotation.Nullable;
 
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.ZHTools;
 
@@ -45,7 +44,7 @@ public class DownloadUtils {
                 try {
                     is.close();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Logging.e("DownloadUtils", Tools.printToString(e));
                 }
             }
         }
@@ -97,9 +96,9 @@ public class DownloadUtils {
                 String cachedString = Tools.read(new FileInputStream(cacheDestination));
                 return parseCallback.process(cachedString);
             }catch(IOException e) {
-                Log.i("DownloadUtils", "Failed to read the cached file", e);
+                Logging.i("DownloadUtils", "Failed to read the cached file", e);
             }catch (ParseException e) {
-                Log.i("DownloadUtils", "Failed to parse the cached file", e);
+                Logging.i("DownloadUtils", "Failed to parse the cached file", e);
             }
         }
         String urlContent = DownloadUtils.downloadString(url);
@@ -118,7 +117,7 @@ public class DownloadUtils {
         if(tryWriteCache) try {
             Tools.write(cacheDestination.getAbsolutePath(), urlContent);
         }catch(IOException e) {
-            Log.i("DownloadUtils", "Failed to cache the string", e);
+            Logging.i("DownloadUtils", "Failed to cache the string", e);
         }
         return parseResult;
     }

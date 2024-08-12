@@ -8,12 +8,13 @@ import android.annotation.SuppressLint;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+
+import com.movtery.pojavzh.feature.log.Logging;
 
 import net.kdt.pojavlaunch.LwjglGlfwKeycode;
 import net.kdt.pojavlaunch.MainActivity;
@@ -194,7 +195,7 @@ public class ControlButton extends TextView implements ControlInterface {
                 sendKeyPress(keycode, CallbackBridge.getCurrentMods(), isDown);
                 CallbackBridge.setModifiers(keycode, isDown);
             }else{
-                Log.i("punjabilauncher", "sendSpecialKey("+keycode+","+isDown+")");
+                Logging.i("punjabilauncher", "sendSpecialKey("+keycode+","+isDown+")");
                 sendSpecialKey(keycode, isDown);
             }
         }

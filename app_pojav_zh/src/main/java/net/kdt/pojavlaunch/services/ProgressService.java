@@ -9,13 +9,14 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.IBinder;
 import android.os.Process;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+
+import com.movtery.pojavzh.feature.log.Logging;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -65,7 +66,7 @@ public class ProgressService extends Service implements TaskCountListener {
                 return START_NOT_STICKY;
             }
         }
-        Log.d("ProgressService", "Started!");
+        Logging.d("ProgressService", "Started!");
         mNotificationBuilder.setContentText(getString(R.string.progresslayout_tasks_in_progress, ProgressKeeper.getTaskCount()));
         startForeground(NotificationUtils.NOTIFICATION_ID_PROGRESS_SERVICE, mNotificationBuilder.build());
         if (ProgressKeeper.getTaskCount() < 1) stopSelf();

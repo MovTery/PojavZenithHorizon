@@ -1,13 +1,12 @@
 package net.kdt.pojavlaunch.value;
 
-
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import net.kdt.pojavlaunch.*;
 
 import java.io.*;
 import com.google.gson.*;
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import android.graphics.Bitmap;
@@ -42,11 +41,11 @@ public class MinecraftAccount {
             if(skinFile.exists()) FileUtils.deleteQuietly(skinFile); //清除一次图标
             Tools.downloadFile("https://crafthead.net/helm/" + uuid + "/100", skinFile.getAbsolutePath());
 
-            Log.i("SkinLoader", "Update skin face success");
+            Logging.i("SkinLoader", "Update skin face success");
         } catch (IOException e) {
             // Skin refresh limit, no internet connection, etc...
             // Simply ignore updating skin face
-            Log.w("SkinLoader", "Could not update skin face", e);
+            Logging.w("SkinLoader", "Could not update skin face", e);
         }
     }
 
@@ -95,7 +94,7 @@ public class MinecraftAccount {
             }
             return acc;
         } catch(IOException | JsonSyntaxException e) {
-            Log.e(MinecraftAccount.class.getName(), "Caught an exception while loading the profile",e);
+            Logging.e(MinecraftAccount.class.getName(), "Caught an exception while loading the profile",e);
             return null;
         }
     }

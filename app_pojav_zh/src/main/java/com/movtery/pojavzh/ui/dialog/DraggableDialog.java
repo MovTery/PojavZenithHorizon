@@ -2,13 +2,13 @@ package com.movtery.pojavzh.ui.dialog;
 
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
 
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.ui.subassembly.view.DraggableViewWrapper;
 
 public abstract class DraggableDialog {
@@ -45,7 +45,7 @@ public abstract class DraggableDialog {
 
                 draggableViewWrapper.init();
             } else {
-                Log.w("DraggableDialog", "The content view does not exist!");
+                Logging.w("DraggableDialog", "The content view does not exist!");
             }
         }
     }

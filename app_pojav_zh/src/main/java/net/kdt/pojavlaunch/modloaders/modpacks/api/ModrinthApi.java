@@ -1,11 +1,10 @@
 package net.kdt.pojavlaunch.modloaders.modpacks.api;
 
-import android.util.Log;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.kdt.mcgui.ProgressLayout;
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.feature.mod.ModLoaderList;
 import com.movtery.pojavzh.feature.mod.SearchModSort;
 import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
@@ -106,7 +105,7 @@ public class ModrinthApi implements ModpackApi{
             try {
                 iconUrl = hit.get("icon_url").getAsString();
             } catch (Exception e) {
-                Log.e("error", Tools.printToString(e));
+                Logging.e("error", Tools.printToString(e));
                 iconUrl = null;
             }
 
@@ -196,7 +195,7 @@ public class ModrinthApi implements ModpackApi{
                             try {
                                 iconUrl = hit.get("icon_url").getAsString();
                             } catch (Exception e) {
-                                Log.e("error", Tools.printToString(e));
+                                Logging.e("error", Tools.printToString(e));
                                 iconUrl = null;
                             }
 
@@ -272,7 +271,7 @@ public class ModrinthApi implements ModpackApi{
                     Tools.read(ZipUtils.getEntryStream(modpackZipFile, "modrinth.index.json")),
                     ModrinthIndex.class);
             if(!ModPackUtils.verifyModrinthIndex(modrinthIndex)) {
-                Log.i("ModrinthApi","manifest verification failed");
+                Logging.i("ModrinthApi","manifest verification failed");
                 return null;
             }
             if (onInstallStartListener != null) onInstallStartListener.onStart();

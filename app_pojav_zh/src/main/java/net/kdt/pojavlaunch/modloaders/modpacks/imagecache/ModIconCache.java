@@ -1,9 +1,11 @@
 package net.kdt.pojavlaunch.modloaders.modpacks.imagecache;
 
 import android.util.Base64;
-import android.util.Log;
 
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
+
+import net.kdt.pojavlaunch.Tools;
 
 import org.apache.commons.io.IOUtils;
 
@@ -75,7 +77,7 @@ public class ModIconCache {
                 }
             }
         }
-        if(isCanceled) Log.i("IconCache", "checkCancelled("+imageReceiver.hashCode()+") == true");
+        if(isCanceled) Logging.i("IconCache", "checkCancelled("+imageReceiver.hashCode()+") == true");
         return isCanceled;
     }
 
@@ -89,9 +91,9 @@ public class ModIconCache {
 
     public static String getBase64Image(String imageTag) {
         File imagePath = new File(PathAndUrlManager.DIR_CACHE, "mod_icons/"+imageTag+".ca");
-        Log.i("IconCache", "Creating base64 version of icon "+imageTag);
+        Logging.i("IconCache", "Creating base64 version of icon "+imageTag);
         if(!imagePath.canRead() || !imagePath.isFile()) {
-            Log.i("IconCache", "Icon does not exist");
+            Logging.i("IconCache", "Icon does not exist");
             return null;
         }
         try {
@@ -102,7 +104,7 @@ public class ModIconCache {
                 return "data:image/png;base64,"+ Base64.encodeToString(imageBytes, Base64.DEFAULT);
             }
         }catch (IOException e) {
-            e.printStackTrace();
+            Logging.e("getBase64Image", Tools.printToString(e));
             return null;
         }
     }

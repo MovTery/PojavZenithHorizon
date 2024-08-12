@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.ui.activity.ErrorActivity;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
@@ -52,7 +53,7 @@ public class JREUtils {
                     Os.setenv("LD_LIBRARY_PATH", LD_LIBRARY_PATH, true);
                 }
             }catch (ErrnoException e) {
-                e.printStackTrace();
+                Logging.e("JREUtils", Tools.printToString(e));
             }
             return libName;
         }
@@ -83,7 +84,7 @@ public class JREUtils {
     public static void initJavaRuntime(String jreHome) {
         dlopen(findInLdLibPath("libjli.so"));
         if(!dlopen("libjvm.so")){
-            Log.w("DynamicLoader","Failed to load with no path, trying with full path");
+            Logging.w("DynamicLoader","Failed to load with no path, trying with full path");
             dlopen(jvmLibraryPath+"/libjvm.so");
         }
         dlopen(findInLdLibPath("libverify.so"));
@@ -103,7 +104,7 @@ public class JREUtils {
 
     public static void redirectAndPrintJRELog() {
 
-        Log.v("jrelog","Log starts here");
+        Logging.v("jrelog","Log starts here");
         new Thread(new Runnable(){
             int failTime = 0;
             ProcessBuilder logcatPb;
@@ -114,9 +115,9 @@ public class JREUtils {
                         logcatPb = new ProcessBuilder().command("logcat", /* "-G", "1mb", */ "-v", "brief", "-s", "jrelog:I", "LIBGL:I", "NativeInput").redirectErrorStream(true);
                     }
 
-                    Log.i("jrelog-logcat","Clearing logcat");
+                    Logging.i("jrelog-logcat","Clearing logcat");
                     new ProcessBuilder().command("logcat", "-c").redirectErrorStream(true).start();
-                    Log.i("jrelog-logcat","Starting logcat");
+                    Logging.i("jrelog-logcat","Starting logcat");
                     Process p = logcatPb.start();
 
                     byte[] buf = new byte[1024];
@@ -127,22 +128,22 @@ public class JREUtils {
                     }
 
                     if (p.waitFor() != 0) {
-                        Log.e("jrelog-logcat", "Logcat exited with code " + p.exitValue());
+                        Logging.e("jrelog-logcat", "Logcat exited with code " + p.exitValue());
                         failTime++;
-                        Log.i("jrelog-logcat", (failTime <= 10 ? "Restarting logcat" : "Too many restart fails") + " (attempt " + failTime + "/10");
+                        Logging.i("jrelog-logcat", (failTime <= 10 ? "Restarting logcat" : "Too many restart fails") + " (attempt " + failTime + "/10");
                         if (failTime <= 10) {
                             run();
                         } else {
-                            Logger.appendToLog("ERROR: Unable to get more log.");
+                            Logger.appendToLog("ERROR: Unable to get more Logging.");
                         }
                     }
                 } catch (Throwable e) {
-                    Log.e("jrelog-logcat", "Exception on logging thread", e);
+                    Logging.e("jrelog-logcat", "Exception on logging thread", e);
                     Logger.appendToLog("Exception on logging thread:\n" + Log.getStackTraceString(e));
                 }
             }
         }).start();
-        Log.i("jrelog-logcat","Logcat thread started");
+        Logging.i("jrelog-logcat","Logcat thread started");
 
     }
 
@@ -242,7 +243,7 @@ public class JREUtils {
         }
         if(!envMap.containsKey("LIBGL_ES") && LOCAL_RENDERER != null) {
             int glesMajor = getDetectedVersion();
-            Log.i("glesDetect","GLES version detected: "+glesMajor);
+            Logging.i("glesDetect","GLES version detected: "+glesMajor);
 
             if (glesMajor < 3) {
                 //fallback to 2 since it's the minimum for the entire app
@@ -260,14 +261,14 @@ public class JREUtils {
             try {
                 Os.setenv(env.getKey(), env.getValue(), true);
             }catch (NullPointerException exception){
-                Log.e("JREUtils", exception.toString());
+                Logging.e("JREUtils", exception.toString());
             }
         }
 
         File serverFile = new File(jreHome + "/" + Tools.DIRNAME_HOME_JRE + "/server/libjvm.so");
         jvmLibraryPath = jreHome + "/" + Tools.DIRNAME_HOME_JRE + "/" + (serverFile.exists() ? "server" : "client");
-        Log.d("DynamicLoader","Base LD_LIBRARY_PATH: "+LD_LIBRARY_PATH);
-        Log.d("DynamicLoader","Internal LD_LIBRARY_PATH: "+jvmLibraryPath+":"+LD_LIBRARY_PATH);
+        Logging.d("DynamicLoader","Base LD_LIBRARY_PATH: "+LD_LIBRARY_PATH);
+        Logging.d("DynamicLoader","Internal LD_LIBRARY_PATH: "+jvmLibraryPath+":"+LD_LIBRARY_PATH);
         setLdLibraryPath(jvmLibraryPath+":"+LD_LIBRARY_PATH);
 
         // return ldLibraryPath;
@@ -376,7 +377,7 @@ public class JREUtils {
             if(add)
                 additionalArguments.add(arg);
             else
-                Log.i("ArgProcessor","Arg skipped: "+arg);
+                Logging.i("ArgProcessor","Arg skipped: "+arg);
         }
 
         //Add all the arguments
@@ -433,7 +434,7 @@ public class JREUtils {
                     }
                     parsedArguments.add(parsedSubString);
                 }
-                else Log.w("JAVA ARGS PARSER", "Removed improper arguments: " + parsedSubString);
+                else Logging.w("JAVA ARGS PARSER", "Removed improper arguments: " + parsedSubString);
             }
         }
         return parsedArguments;
@@ -455,13 +456,13 @@ public class JREUtils {
             case "vulkan_zink": renderLibrary = "libOSMesa.so"; break;
             case "opengles3_desktopgl_angle_vulkan" : renderLibrary = "libtinywrapper.so"; break;
             default:
-                Log.w("RENDER_LIBRARY", "No renderer selected, defaulting to opengles2");
+                Logging.w("RENDER_LIBRARY", "No renderer selected, defaulting to opengles2");
                 renderLibrary = "libgl4es_114.so";
                 break;
         }
 
         if (!dlopen(renderLibrary) && !dlopen(findInLdLibPath(renderLibrary))) {
-            Log.e("RENDER_LIBRARY","Failed to load renderer " + renderLibrary + ". Falling back to GL4ES 1.1.4");
+            Logging.e("RENDER_LIBRARY","Failed to load renderer " + renderLibrary + ". Falling back to GL4ES 1.1.4");
             LOCAL_RENDERER = "opengles2";
             renderLibrary = "libgl4es_114.so";
             dlopen(DIR_NATIVE_LIB + "/libgl4es_114.so");
@@ -527,7 +528,7 @@ public class JREUtils {
                                     if (highestEsVersion < 1) highestEsVersion = 1;
                                 }
                             } else {
-                                Log.w("glesDetect", "Getting config attribute with "
+                                Logging.w("glesDetect", "Getting config attribute with "
                                         + "EGL10#eglGetConfigAttrib failed "
                                         + "(" + i + "/" + numConfigs[0] + "): "
                                         + egl.eglGetError());
@@ -535,12 +536,12 @@ public class JREUtils {
                         }
                         return highestEsVersion;
                     } else {
-                        Log.e("glesDetect", "Getting configs with EGL10#eglGetConfigs failed: "
+                        Logging.e("glesDetect", "Getting configs with EGL10#eglGetConfigs failed: "
                                 + egl.eglGetError());
                         return -1;
                     }
                 } else {
-                    Log.e("glesDetect", "Getting number of configs with EGL10#eglGetConfigs failed: "
+                    Logging.e("glesDetect", "Getting number of configs with EGL10#eglGetConfigs failed: "
                             + egl.eglGetError());
                     return -2;
                 }
@@ -548,7 +549,7 @@ public class JREUtils {
                 egl.eglTerminate(display);
             }
         } else {
-            Log.e("glesDetect", "Couldn't initialize EGL.");
+            Logging.e("glesDetect", "Couldn't initialize EGL.");
             return -3;
         }
     }

@@ -1,9 +1,9 @@
 package com.movtery.pojavzh.ui.fragment
 
 import android.content.Intent
-import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.feature.mod.modloader.ModVersionListAdapter
 import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog
 import com.movtery.pojavzh.ui.subassembly.modlist.ModListAdapter
@@ -50,7 +50,7 @@ class DownloadForgeFragment : ModListFragment(), ModloaderDownloadListener {
                     componentProcessing(false)
                     setFailedToLoad(e.toString())
                 }
-                Log.e("error", Tools.printToString(e))
+                Logging.e("DownloadForge", Tools.printToString(e))
             }
         }
     }

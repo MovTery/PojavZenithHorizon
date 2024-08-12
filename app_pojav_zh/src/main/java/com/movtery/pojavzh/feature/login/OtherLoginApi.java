@@ -1,9 +1,9 @@
 package com.movtery.pojavzh.feature.login;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.gson.Gson;
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
@@ -85,7 +85,7 @@ public class OtherLoginApi {
                 return res;
             }
         } catch (Exception e) {
-            Log.e("test", e.toString());
+            Logging.e("test", e.toString());
         }
         return null;
     }
