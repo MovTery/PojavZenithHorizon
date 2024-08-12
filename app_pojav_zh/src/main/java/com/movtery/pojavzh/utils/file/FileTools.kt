@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.DocumentsContract
 import android.widget.EditText
+import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.ui.dialog.EditTextDialog
 import com.movtery.pojavzh.ui.dialog.EditTextDialog.ConfirmListener
 import com.movtery.pojavzh.utils.ZHTools
@@ -39,6 +40,7 @@ class FileTools {
                     FileUtils.copyInputStreamToFile(inputStream, outputFile)
                 }
             }.getOrElse { e ->
+                Logging.e("CopyFileInBackground", Tools.printToString(e))
                 throw RuntimeException(e)
             }
 
