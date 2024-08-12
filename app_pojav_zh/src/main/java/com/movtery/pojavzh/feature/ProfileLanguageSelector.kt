@@ -1,6 +1,7 @@
 package com.movtery.pojavzh.feature
 
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome.Companion.versionsHome
+import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.utils.MCVersionRegex
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.stringutils.StringUtils
@@ -24,20 +25,21 @@ class ProfileLanguageSelector {
             } else lang
         }
 
-        private fun getLanguage(versionName: String?, rawLang: String?): String? {
-            if (versionName == null || rawLang == null) return null
+        private fun getLanguage(versionName: String, rawLang: String): String {
             val lang = if (rawLang == "system") ZHTools.getSystemLanguage() else rawLang
 
-            val version = runCatching {
-                Tools.GLOBAL_GSON.fromJson(
+            val version: String = runCatching {
+                val versionObject = Tools.GLOBAL_GSON.fromJson(
                     Tools.read("$versionsHome/$versionName/$versionName.json"),
                     JMinecraftVersionList.Version::class.java
                 )
+                return versionObject.id
             }.getOrElse { e ->
-                throw RuntimeException(e)
+                Logging.e("ProfileLanguageSelector", "Failed to read version data : \n ${Tools.printToString(e)}")
+                "1.11"
             }
 
-            val versionId = VersionNumber.asVersion(version.id).canonical
+            val versionId = VersionNumber.asVersion(version).canonical
 
             return when {
                 StringUtils.containsDot(versionId) -> {
@@ -56,6 +58,7 @@ class ProfileLanguageSelector {
         fun setGameLanguage(minecraftProfile: MinecraftProfile, overridden: Boolean) {
             if (MCOptionUtils.containsKey("lang") && !overridden) return
             val language = getLanguage(minecraftProfile.lastVersionId, LauncherPreferences.PREF_GAME_LANGUAGE)
+            Logging.i("ProfileLanguageSelector", "The game language has been set to: $language")
             MCOptionUtils.set("lang", language)
         }
     }

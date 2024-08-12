@@ -180,6 +180,7 @@ public class LauncherActivity extends BaseActivity {
             account.username = value[0];
             try {
                 account.save();
+                Logging.i("McAccountSpinner", "Saved the account : " + account.username);
             } catch (IOException e) {
                 Logging.e("McAccountSpinner", "Failed to save the account : " + e);
             }
@@ -192,6 +193,7 @@ public class LauncherActivity extends BaseActivity {
     private final ExtraListener<MinecraftAccount> mOtherLoginListener = (key, value) -> {
         try {
             value.save();
+            Logging.i("McAccountSpinner", "Saved the account : " + value.username);
         } catch (IOException e) {
             Logging.e("McAccountSpinner", "Failed to save the account : " + e);
         }

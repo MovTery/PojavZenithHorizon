@@ -101,6 +101,7 @@ public class MicrosoftBackgroundLogin {
                     acc.updateSkinFace();
                 }
                 acc.save();
+                Logging.i("McAccountSpinner", "Saved the account : " + acc.username);
 
                 if(doneListener != null) {
                     MinecraftAccount finalAcc = acc;

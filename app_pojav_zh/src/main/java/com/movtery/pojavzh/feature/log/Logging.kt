@@ -1,7 +1,6 @@
 package com.movtery.pojavzh.feature.log
 
 import android.util.Log
-import androidx.annotation.Keep
 import com.movtery.pojavzh.utils.PathAndUrlManager.Companion.DIR_GAME_HOME
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.file.FileTools
@@ -14,13 +13,17 @@ import java.util.Date
 import java.util.Locale
 import java.util.concurrent.Executors
 
-@Keep
+/**
+ * 启动器日志记录，将软件日志及时写入本地文件存储
+ */
 object Logging {
-    @JvmField val DIR_LAUNCHER_LOG: File = getLogDir()
-    @JvmField val FILE_LAUNCHER_LOG: File = getLogFile()
-    @JvmField var FILE_LATEST_LAUNCHER_LOG: File? = null
-
     private val executor = Executors.newSingleThreadExecutor()
+    private val DIR_LAUNCHER_LOG: File = getLogDir()
+    private var FILE_LAUNCHER_LOG: File? = null
+
+    init {
+        FILE_LAUNCHER_LOG = getLogFile()
+    }
 
     private fun getLogDir(): File {
         val dir = File(DIR_GAME_HOME, "launcher_log")
@@ -31,7 +34,7 @@ object Logging {
     private fun getLogFile(): File {
         val logPrefix = "log"
         val logSuffix = ".txt"
-        val maxLogIndex = 5
+        val maxLogIndex = 10
 
         val logFiles = DIR_LAUNCHER_LOG.listFiles { file ->
             file.isFile && file.name.startsWith(logPrefix) && file.name.endsWith(logSuffix)
@@ -42,8 +45,6 @@ object Logging {
         }
 
         val latestFile = logFiles.maxByOrNull { it.lastModified() } ?: return File(DIR_LAUNCHER_LOG, "${logPrefix}1$logSuffix")
-        FILE_LATEST_LAUNCHER_LOG = latestFile
-
         val latestIndex: Int = latestFile.name.removePrefix(logPrefix).removeSuffix(logSuffix).toIntOrNull() ?: 0
         val nextIndex = (latestIndex % maxLogIndex) + 1
 
@@ -56,7 +57,7 @@ object Logging {
     private fun writeToFile(log: String, tag: Tag, mark: String) {
         val date = Date(ZHTools.getCurrentTimeMillis())
         val timeString = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(date)
-        val logString = "($timeString) [${tag.tagName}] <$mark> $log"
+        val logString = "($timeString) [${tag.name}] <$mark> $log"
 
         executor.execute {
             runCatching {
@@ -71,69 +72,63 @@ object Logging {
 
     @JvmStatic
     fun v(mark: String, verbose: String) {
-        Log.v(Tag.VERBOSE.tagName, verbose)
+        Log.v(Tag.VERBOSE.name, verbose)
         writeToFile(verbose, Tag.VERBOSE, mark)
     }
 
     @JvmStatic
     fun v(mark: String, verbose: String, throwable: Throwable) {
-        Log.v(Tag.VERBOSE.tagName, verbose, throwable)
+        Log.v(Tag.VERBOSE.name, verbose, throwable)
         writeToFile("$verbose\n${Tools.printToString(throwable)}", Tag.VERBOSE, mark)
     }
 
     @JvmStatic
     fun d(mark: String, debug: String) {
-        Log.d(Tag.DEBUG.tagName, debug)
+        Log.d(Tag.DEBUG.name, debug)
         writeToFile(debug, Tag.DEBUG, mark)
     }
 
     @JvmStatic
     fun d(mark: String, debug: String, throwable: Throwable) {
-        Log.d(Tag.DEBUG.tagName, debug, throwable)
+        Log.d(Tag.DEBUG.name, debug, throwable)
         writeToFile("$debug\n${Tools.printToString(throwable)}", Tag.DEBUG, mark)
     }
 
     @JvmStatic
     fun i(mark: String, info: String) {
-        Log.i(Tag.INFO.tagName, info)
+        Log.i(Tag.INFO.name, info)
         writeToFile(info, Tag.INFO, mark)
     }
 
     @JvmStatic
     fun i(mark: String, info: String, throwable: Throwable) {
-        Log.i(Tag.INFO.tagName, info, throwable)
+        Log.i(Tag.INFO.name, info, throwable)
         writeToFile("$info\n${Tools.printToString(throwable)}", Tag.INFO, mark)
     }
 
     @JvmStatic
     fun w(mark: String, warn: String) {
-        Log.w(Tag.WARN.tagName, warn)
+        Log.w(Tag.WARN.name, warn)
         writeToFile(warn, Tag.WARN, mark)
     }
 
     @JvmStatic
     fun w(mark: String, warn: String, throwable: Throwable) {
-        Log.w(Tag.WARN.tagName, warn, throwable)
+        Log.w(Tag.WARN.name, warn, throwable)
         writeToFile("$warn\n${Tools.printToString(throwable)}", Tag.WARN, mark)
     }
 
     @JvmStatic
     fun e(mark: String, error: String) {
-        Log.e(Tag.ERROR.tagName, error)
+        Log.e(Tag.ERROR.name, error)
         writeToFile(error, Tag.ERROR, mark)
     }
 
     @JvmStatic
     fun e(mark: String, error: String, throwable: Throwable) {
-        Log.e(Tag.ERROR.tagName, error, throwable)
+        Log.e(Tag.ERROR.name, error, throwable)
         writeToFile("$error\n${Tools.printToString(throwable)}", Tag.ERROR, mark)
     }
 
-    enum class Tag(val tagName: String) {
-        VERBOSE("VERBOSE"),
-        DEBUG("DEBUG"),
-        INFO("INFO"),
-        WARN("WARN"),
-        ERROR("ERROR")
-    }
+    enum class Tag { VERBOSE, DEBUG, INFO, WARN, ERROR }
 }

@@ -118,7 +118,7 @@ public class UpdateLauncher {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
+                    Logging.e("UpdateLauncher", "Unexpected code " + response.code());
                 } else {
                     Objects.requireNonNull(response.body());
                     String responseBody = response.body().string(); //解析响应体

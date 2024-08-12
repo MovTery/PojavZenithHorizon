@@ -7,7 +7,6 @@ import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.multirt.MultiRTUtils
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
-import java.io.IOException
 
 class UnpackJRE {
     companion object {
@@ -22,18 +21,14 @@ class UnpackJRE {
         }
 
         private fun checkInternalRuntime(assetManager: AssetManager, internalRuntime: InternalRuntime) {
-            val launcherRuntimeVersion: String
-            val installedRuntimeVersion =
-                MultiRTUtils.readInternalRuntimeVersion(internalRuntime.jreName)
-            try {
-                launcherRuntimeVersion =
-                    Tools.read(assetManager.open(internalRuntime.jrePath + "/version"))
-            } catch (exc: IOException) {
-                return
-            }
-            if (launcherRuntimeVersion != installedRuntimeVersion) {
-                unpackInternalRuntime(assetManager, internalRuntime, launcherRuntimeVersion)
-            }
+            runCatching {
+                val launcherRuntimeVersion: String = Tools.read(assetManager.open(internalRuntime.jrePath + "/version"))
+                val installedRuntimeVersion = MultiRTUtils.readInternalRuntimeVersion(internalRuntime.jreName)
+
+                if (launcherRuntimeVersion != installedRuntimeVersion) {
+                    unpackInternalRuntime(assetManager, internalRuntime, launcherRuntimeVersion)
+                }
+            }.getOrElse { e -> Logging.e("CheckInternalRuntime", Tools.printToString(e)) }
         }
 
         private fun unpackInternalRuntime(
@@ -41,7 +36,7 @@ class UnpackJRE {
             internalRuntime: InternalRuntime,
             version: String
         ) {
-            try {
+            runCatching {
                 MultiRTUtils.installRuntimeNamedBinpack(
                     assetManager.open(internalRuntime.jrePath + "/universal.tar.xz"),
                     assetManager.open(
@@ -52,9 +47,7 @@ class UnpackJRE {
                     internalRuntime.jreName, version
                 )
                 MultiRTUtils.postPrepare(internalRuntime.jreName)
-            } catch (e: IOException) {
-                Logging.e("UnpackJREAuto", "Internal JRE unpack failed", e)
-            }
+            }.getOrElse { e -> Logging.e("UnpackJREAuto", "Internal JRE unpack failed", e) }
         }
     }
 
