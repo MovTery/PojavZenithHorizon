@@ -2,9 +2,9 @@ package com.movtery.pojavzh.feature
 
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome.Companion.versionsHome
 import com.movtery.pojavzh.feature.log.Logging
+import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils
 import com.movtery.pojavzh.utils.MCVersionRegex
 import com.movtery.pojavzh.utils.ZHTools
-import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.JMinecraftVersionList
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
@@ -12,6 +12,7 @@ import net.kdt.pojavlaunch.utils.MCOptionUtils
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile
 import org.jackhuang.hmcl.util.versioning.VersionNumber
 import org.jackhuang.hmcl.util.versioning.VersionRange
+
 
 class ProfileLanguageSelector {
     companion object {
@@ -33,25 +34,60 @@ class ProfileLanguageSelector {
                     Tools.read("$versionsHome/$versionName/$versionName.json"),
                     JMinecraftVersionList.Version::class.java
                 )
-                return versionObject.id
+                versionObject.id
             }.getOrElse { e ->
                 Logging.e("ProfileLanguageSelector", "Failed to read version data : \n ${Tools.printToString(e)}")
                 "1.11"
             }
 
             val versionId = VersionNumber.asVersion(version).canonical
+            Logging.i("ProfileLanguageSelector", "Version Id : $versionId")
 
             return when {
-                StringUtils.containsDot(versionId) -> {
-                    if (VersionRange.atMost(VersionNumber.asVersion("1.10.2")).contains(VersionNumber.asVersion(versionId))) getOlderLanguage(lang) // 1.10 -
+                versionId.contains('-') -> otherVersion(versionId, lang) // Mod加载器或者其他
+                versionId.contains('.') -> {
+                    if (isOlderVersionRelease(versionId)) getOlderLanguage(lang) // 1.10 -
                     else lang
                 }
                 MCVersionRegex.SNAPSHOT_REGEX.matcher(versionId).matches() -> { // 快照版本 "24w09a" "16w20a"
-                    if (VersionRange.atMost(VersionNumber.asVersion("16w32a")).contains(VersionNumber.asVersion(versionId))) getOlderLanguage(lang)
+                    if (isOlderVersionSnapshot(versionId)) getOlderLanguage(lang)
                     else lang
                 }
                 else -> lang
             }
+        }
+
+        private fun otherVersion(versionId: String, lang: String): String {
+            // 定义关键词，以及相应的版本名称处理逻辑
+            val suffixes = mapOf(
+                // "1.20.4-OptiFine_HD_U_I7_pre3"   -> "1.20.4"
+                "-OptiFine" to { id: String -> id.substringBefore('-') },
+                // "1.20.2-forge-48.1.0"            -> "1.20.2"
+                "-forge-" to { id: String -> id.substringBefore('-') },
+                // "neoforge-21.1.8"                -> "1.21.1"
+                "neoforge-" to { id: String -> NeoForgeUtils.formatGameVersion(id.removePrefix("neoforge-")) },
+                // "fabric-loader-0.15.7-1.20.4"    -> "1.20.4"
+                "fabric-loader-" to { id: String -> id.substringAfterLast('-') },
+                // "quilt-loader-0.23.1-1.20.4"     -> "1.20.4"
+                "quilt-loader-" to { id: String -> id.substringAfterLast('-') }
+            )
+
+            val versionName = suffixes.entries
+                .firstOrNull { versionId.contains(it.key, true) }
+                ?.value?.invoke(versionId)
+                ?: versionId //其他情况，命名规则千变万化，故不做检测
+
+            Logging.i("ProfileLanguageSelector", "Version Name: $versionName")
+
+            return if (isOlderVersionRelease(versionName)) getOlderLanguage(lang) else lang
+        }
+
+        private fun isOlderVersionRelease(versionName: String): Boolean {
+            return VersionRange.atMost(VersionNumber.asVersion("1.10.2")).contains(VersionNumber.asVersion(versionName))
+        }
+
+        private fun isOlderVersionSnapshot(versionName: String): Boolean {
+            return VersionRange.atMost(VersionNumber.asVersion("16w32a")).contains(VersionNumber.asVersion(versionName))
         }
 
         @JvmStatic

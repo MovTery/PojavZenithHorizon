@@ -89,11 +89,6 @@ public class StringUtils {
         }
     }
 
-    public static boolean containsDot(String input) {
-        int dotIndex = input.indexOf('.');
-        return dotIndex != -1;
-    }
-
     /**
      * 在一段字符串中提取数字
      */

@@ -8,3 +8,6 @@ app_pojav_zh/.cxx/
 .vs/
 /curseforge_key.txt
 /app_pojav_zh/release/
+/app_pojav_zh/src/main/assets/components/jre-8/
+/app_pojav_zh/src/main/assets/components/jre-17/
+/app_pojav_zh/src/main/assets/components/jre-21/
