@@ -4,6 +4,7 @@ import android.util.Log
 import com.movtery.pojavzh.utils.PathAndUrlManager.Companion.DIR_LAUNCHER_LOG
 import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.Tools
+import org.apache.commons.io.FileUtils
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
@@ -49,17 +50,25 @@ object Logging {
     }
 
     private fun writeToFile(log: String, tag: Tag, mark: String) {
-        val date = Date(ZHTools.getCurrentTimeMillis())
-        val timeString = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(date)
-        val logString = "($timeString) [${tag.name}] <$mark> $log"
-
         executor.execute {
-            runCatching {
-                BufferedWriter(FileWriter(FILE_LAUNCHER_LOG, true)).use { writer ->
-                    writer.append(logString).append("\n")
+            synchronized(this) {
+                FILE_LAUNCHER_LOG?.let { file ->
+                    if (file.exists() && FileUtils.sizeOf(file) >= 15 * 1024 * 1024) { //15MB
+                        FILE_LAUNCHER_LOG = getLogFile()
+                    }
                 }
-            }.getOrElse { e ->
-                Log.e("Logging", "Failed to write log: ${Tools.printToString(e)}")
+
+                val date = Date(ZHTools.getCurrentTimeMillis())
+                val timeString = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(date)
+                val logString = "($timeString) [${tag.name}] <$mark> $log"
+
+                runCatching {
+                    BufferedWriter(FileWriter(FILE_LAUNCHER_LOG, true)).use { writer ->
+                        writer.append(logString).append("\n")
+                    }
+                }.getOrElse { e ->
+                    Log.e("Logging", "Failed to write log: ${Tools.printToString(e)}")
+                }
             }
         }
     }
