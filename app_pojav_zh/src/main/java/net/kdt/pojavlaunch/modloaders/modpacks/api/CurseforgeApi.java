@@ -99,7 +99,7 @@ public class CurseforgeApi implements ModpackApi{
             // Gson automatically casts null to false, which leans to issues
             // So, only check the distribution flag if it is non-null
             if(!allowModDistribution.isJsonNull() && !allowModDistribution.getAsBoolean()) {
-                Logging.i("CurseforgeApi", "Skipping modpack "+dataElement.get("name").getAsString() + " because curseforge sucks");
+                Logging.i("CurseforgeApi", "Skipping project "+dataElement.get("name").getAsString() + " because curseforge sucks");
                 continue;
             }
 
