@@ -83,13 +83,7 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public int getItemViewType(int position) {
-        switch (mType) {
-            case TYPE_MODE_SELECT:
-                return TYPE_MODE_SELECT;
-            case TYPE_MODE_EDIT:
-            default:
-                return TYPE_MODE_EDIT;
-        }
+        return mType;
     }
 
     @SuppressLint("NotifyDataSetChanged") //not a problem, given the typical size of the list
@@ -202,8 +196,11 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     try {
                         MultiRTUtils.removeRuntimeNamed(mCurrentRuntime.name);
                         mDeleteButton.post(() -> {
-                            if(getBindingAdapter() != null)
+                            if(getBindingAdapter() != null) {
+                                mData.clear();
+                                mData.addAll(MultiRTUtils.getRuntimes());
                                 getBindingAdapter().notifyDataSetChanged();
+                            }
                         });
 
                     } catch (IOException e) {
