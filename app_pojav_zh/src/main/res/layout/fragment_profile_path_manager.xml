@@ -10,7 +10,7 @@
         android:id="@+id/path_layout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        app:layout_constraintHorizontal_weight="7"
+        app:layout_constraintHorizontal_weight="6.5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/operate_layout"
         app:layout_constraintStart_toStartOf="parent"
