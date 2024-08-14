@@ -78,6 +78,7 @@ public class LauncherPreferences {
     public static boolean PREF_ENABLE_LOG_OUTPUT = false;
     public static boolean PREF_ANIMATION = true;
     public static int PREF_ANIMATION_SPEED = 600;
+    public static int PREF_PAGE_OPACITY = 100;
     public static boolean PREF_QUILT_LAUNCHER = true;
     public static boolean PREF_BUTTON_SNAPPING = true;
     public static int PREF_BUTTON_SNAPPING_DISTANCE = 8;
@@ -132,6 +133,7 @@ public class LauncherPreferences {
         PREF_ENABLE_LOG_OUTPUT = DEFAULT_PREF.getBoolean("enableLogOutput", false);
         PREF_ANIMATION = DEFAULT_PREF.getBoolean("animation", true);
         PREF_ANIMATION_SPEED = DEFAULT_PREF.getInt("animationSpeed", 600);
+        PREF_PAGE_OPACITY = DEFAULT_PREF.getInt("pageOpacity", 100);
         PREF_QUILT_LAUNCHER = DEFAULT_PREF.getBoolean("quitLauncher", true);
         PREF_BUTTON_SNAPPING = DEFAULT_PREF.getBoolean("buttonSnapping", true);
         PREF_BUTTON_SNAPPING_DISTANCE = DEFAULT_PREF.getInt("buttonSnappingDistance", 8);

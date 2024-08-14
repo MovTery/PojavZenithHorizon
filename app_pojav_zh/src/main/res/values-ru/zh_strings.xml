@@ -230,6 +230,8 @@
     <string name="zh_setting_animation_title">Включить анимацию</string>
     <string name="zh_setting_animation_speed_desc">Установите скорость воспроизведения анимации в лаунчере</string>
     <string name="zh_setting_animation_speed_title">Скорость анимации</string>
+    <string name="zh_setting_page_opacity_title">Прозрачность страницы</string>
+    <string name="zh_setting_page_opacity_desc">Установите прозрачность главной страницы лаунчера</string>
     <string name="zh_setting_quit_launcher_desc">Выйти из лаунчера при запуске игры</string>
     <string name="zh_setting_quit_launcher_title">Выход из лаунчера</string>
     <string name="zh_setting_reboot_tip">Этот параметр был изменен, но для его применения необходимо перезапустить приложение!</string>

@@ -12,5 +12,7 @@ class ZHExtraConstants {
         const val VERSION_SELECTOR: String = "version_selector"
         //用于监听账号更新事件
         const val ACCOUNT_UPDATE: String = "account_update"
+        //用于监听页面不透明度设置
+        const val PAGE_OPACITY_CHANGE: String = "page_opacity_change"
     }
 }
