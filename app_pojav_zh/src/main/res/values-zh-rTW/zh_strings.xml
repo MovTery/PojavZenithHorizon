@@ -206,6 +206,7 @@
     <string name="zh_main_share_log_tip">你確定要分享啟動器的執行日誌嗎？\n日誌文件位置:</string>
     <string name="zh_main_notice_title">通知欄</string>
     <string name="zh_preference_category_language">語言</string>
+    <string name="zh_preference_category_personalization">個性化</string>
     <string name="zh_preference_category_launcher">啟動器</string>
     <string name="zh_preference_category_experimental">實驗性</string>
     <string name="zh_preference_category_experimental_patches">實驗性的補丁</string>
