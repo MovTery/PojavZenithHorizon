@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/play_layout"
-        app:layout_constraintHorizontal_weight="7"
+        app:layout_constraintHorizontal_weight="6.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -69,7 +69,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_4sdp"
                         android:text="@string/zh_unknown"
-                        android:textSize="@dimen/_16sdp"
+                        android:textSize="@dimen/_14sdp"
                         android:textStyle="bold"
                         android:textIsSelectable="true"
                         tools:ignore="HardcodedText" />
@@ -81,7 +81,7 @@
                         android:layout_marginTop="@dimen/_8sdp"
                         android:gravity="end"
                         android:text="@string/zh_unknown"
-                        android:textSize="@dimen/_14sdp"
+                        android:textSize="@dimen/_12sdp"
                         android:textStyle="bold"
                         tools:ignore="HardcodedText" />
                 </LinearLayout>
