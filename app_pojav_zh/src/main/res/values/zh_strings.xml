@@ -206,6 +206,7 @@
     <string name="zh_main_share_log_tip">Are you sure you want to share the launcher\'s running log?\nLog file location:</string>
     <string name="zh_main_notice_title">Notification Bar</string>
     <string name="zh_preference_category_language">Language</string>
+    <string name="zh_preference_category_personalization">Personalization</string>
     <string name="zh_preference_category_launcher">Launcher</string>
     <string name="zh_preference_category_experimental">Experimental</string>
     <string name="zh_preference_category_experimental_patches">Experimental Patches</string>

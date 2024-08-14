@@ -206,6 +206,7 @@
     <string name="zh_main_share_log_tip">Bạn có chắc chắn muốn chia sẻ nhật ký chạy của trình khởi chạy?\nVị trí tệp nhật ký:</string>
     <string name="zh_main_notice_title">Thanh thông báo</string>
     <string name="zh_preference_category_language">Ngôn ngữ</string>
+    <string name="zh_preference_category_personalization">Cá nhân hóa</string>
     <string name="zh_preference_category_launcher">Trình khởi chạy</string>
     <string name="zh_preference_category_experimental">Thử nghiệm</string>
     <string name="zh_preference_category_experimental_patches">Bản vá thử nghiệm</string>

@@ -206,6 +206,7 @@
     <string name="zh_main_share_log_tip">هل أنت متأكد أنك تريد مشاركة سجل تشغيل المشغل؟\nموقع ملف السجل:</string>
     <string name="zh_main_notice_title">الإشعارات</string>
     <string name="zh_preference_category_language">اللغة</string>
+    <string name="zh_preference_category_personalization">تخصيص</string>
     <string name="zh_preference_category_launcher">المشغل</string>
     <string name="zh_preference_category_experimental">تجريبي</string>
     <string name="zh_preference_category_experimental_patches">تصحيحات تجريبية</string>
