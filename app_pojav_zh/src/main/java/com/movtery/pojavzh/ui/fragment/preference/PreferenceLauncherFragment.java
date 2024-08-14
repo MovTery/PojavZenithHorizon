@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.preference.Preference;
 
+import com.movtery.pojavzh.extra.ZHExtraConstants;
 import com.movtery.pojavzh.feature.UpdateLauncher;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.fragment.CustomBackgroundFragment;
@@ -11,6 +12,7 @@ import com.movtery.pojavzh.utils.CleanUpCache;
 import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.prefs.CustomSeekBarPreference;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceFragment;
@@ -22,6 +24,7 @@ public class PreferenceLauncherFragment extends LauncherPreferenceFragment {
     public void onCreatePreferences(Bundle b, String str) {
         addPreferencesFromResource(R.xml.pref_launcher);
         int animationSpeedValue = LauncherPreferences.PREF_ANIMATION_SPEED;
+        int pageOpacityValue = LauncherPreferences.PREF_PAGE_OPACITY;
 
         Preference launcherTheme = requirePreference("launcherTheme");
         launcherTheme.setOnPreferenceChangeListener((preference, newValue) -> {
@@ -36,6 +39,13 @@ public class PreferenceLauncherFragment extends LauncherPreferenceFragment {
         animationSpeed.setRange(300, 1500);
         animationSpeed.setValue(animationSpeedValue);
         animationSpeed.setSuffix(" MS");
+
+        CustomSeekBarPreference pageOpacity = requirePreference("pageOpacity", CustomSeekBarPreference.class);
+        pageOpacity.setRange(50, 100);
+        pageOpacity.setValue(pageOpacityValue);
+        pageOpacity.setSuffix(" %");
+
+        pageOpacity.setOnProgressChangedListener(value -> ExtraCore.setValue(ZHExtraConstants.PAGE_OPACITY_CHANGE, true));
 
         Preference customBackgroundPreference = requirePreference("zh_custom_background");
         customBackgroundPreference.setOnPreferenceClickListener(preference -> {

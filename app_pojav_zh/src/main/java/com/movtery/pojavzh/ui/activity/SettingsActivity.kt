@@ -5,9 +5,11 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.kdt.mcgui.ProgressLayout
+import com.movtery.pojavzh.extra.ZHExtraConstants
 import com.movtery.pojavzh.ui.fragment.preference.PreferenceExperimentalFragment
 import com.movtery.pojavzh.ui.fragment.preference.PreferenceLauncherFragment
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundType
@@ -15,6 +17,8 @@ import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
 import net.kdt.pojavlaunch.BaseActivity
 import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.extra.ExtraCore
+import net.kdt.pojavlaunch.extra.ExtraListener
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceControlFragment
@@ -26,6 +30,7 @@ import net.kdt.pojavlaunch.services.ProgressServiceKeeper
 
 class SettingsActivity : BaseActivity() {
     private val mTitle: MutableMap<View?, String?> = HashMap()
+    private var mFragmentView: FragmentContainerView? = null
     private var mSettingsLayout: View? = null
     private var mBackgroundView: View? = null
     private var mReturnButton: ImageButton? = null
@@ -39,10 +44,16 @@ class SettingsActivity : BaseActivity() {
     private var mProgressLayout: ProgressLayout? = null
     private var mProgressServiceKeeper: ProgressServiceKeeper? = null
 
+    private val mPageOpacityChangeListener = ExtraListener<Boolean> { _: String?, _: Boolean ->
+        setPageOpacity()
+        false
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         bindViews()
+        setPageOpacity()
         ZHTools.setBackgroundImage(this, BackgroundType.SETTINGS, mBackgroundView)
 
         mReturnButton?.setOnClickListener {
@@ -99,6 +110,7 @@ class SettingsActivity : BaseActivity() {
         mProgressLayout?.observe(ProgressLayout.INSTALL_MODPACK)
         mProgressLayout?.observe(ProgressLayout.AUTHENTICATE_MICROSOFT)
         mProgressLayout?.observe(ProgressLayout.DOWNLOAD_VERSION_LIST)
+        ExtraCore.addExtraListener(ZHExtraConstants.PAGE_OPACITY_CHANGE, mPageOpacityChangeListener)
 
         initialize()
 
@@ -120,6 +132,7 @@ class SettingsActivity : BaseActivity() {
         mProgressLayout?.cleanUpObservers()
         ProgressKeeper.removeTaskCountListener(mProgressLayout)
         ProgressKeeper.removeTaskCountListener(mProgressServiceKeeper)
+        ExtraCore.removeExtraListenerFromValue(ZHExtraConstants.PAGE_OPACITY_CHANGE, mPageOpacityChangeListener)
     }
 
     private fun initialize() {
@@ -169,7 +182,13 @@ class SettingsActivity : BaseActivity() {
         }
     }
 
+    private fun setPageOpacity() {
+        mFragmentView?.alpha = LauncherPreferences.PREF_PAGE_OPACITY.toFloat() / 100
+    }
+
     private fun bindViews() {
+        mFragmentView = findViewById(R.id.zh_settings_fragment)
+
         mSettingsLayout = findViewById(R.id.scroll_settings_layout)
         mBackgroundView = findViewById(R.id.background_view)
 

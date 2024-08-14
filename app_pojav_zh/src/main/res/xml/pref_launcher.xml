@@ -65,6 +65,13 @@
             app2:showSeekBarValue="true"
             app2:iconSpaceReserved="false" />
 
+        <net.kdt.pojavlaunch.prefs.CustomSeekBarPreference
+            android:key="pageOpacity"
+            android:title="@string/zh_setting_page_opacity_title"
+            android:summary="@string/zh_setting_page_opacity_desc"
+            app2:showSeekBarValue="true"
+            app2:iconSpaceReserved="false" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

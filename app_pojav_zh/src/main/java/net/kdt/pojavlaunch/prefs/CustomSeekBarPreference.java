@@ -28,6 +28,7 @@ public class CustomSeekBarPreference extends SeekBarPreference {
     private TextView mTextView;
     private boolean isUserSeeking = false;
     private OnPreferenceClickDialog onPreferenceClickDialog;
+    private OnProgressChanged onProgressChanged;
 
 
     @SuppressLint({"PrivateResource", "StringFormatInvalid"})
@@ -90,7 +91,7 @@ public class CustomSeekBarPreference extends SeekBarPreference {
                     return false;
                 }
 
-                setValue(value);
+                changeValue(value);
 
                 return true;
             }).buildDialog();
@@ -154,7 +155,7 @@ public class CustomSeekBarPreference extends SeekBarPreference {
                 progress *= getSeekBarIncrement();
                 progress -= mMin;
 
-                setValue(progress + mMin);
+                changeValue(progress + mMin);
                 updateTextViewWithSuffix();
             }
         });
@@ -184,6 +185,10 @@ public class CustomSeekBarPreference extends SeekBarPreference {
         this.onPreferenceClickDialog = listener;
     }
 
+    public void setOnProgressChangedListener(OnProgressChanged listener) {
+        this.onProgressChanged = listener;
+    }
+
     public boolean isUserSeeking() {
         return isUserSeeking;
     }
@@ -194,8 +199,17 @@ public class CustomSeekBarPreference extends SeekBarPreference {
         }
     }
 
+    private void changeValue(int value) {
+        setValue(value);
+        if (onProgressChanged != null) onProgressChanged.onChanged(value);
+    }
+
     public interface OnPreferenceClickDialog {
         String getTitle();
         String getMessage();
+    }
+
+    public interface OnProgressChanged {
+        void onChanged(int value);
     }
 }
