@@ -40,7 +40,6 @@ import java.util.TimerTask;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.Response;
 
 public class UpdateLauncher {
@@ -175,10 +174,7 @@ public class UpdateLauncher {
     private void init() {
         this.destinationFilePath = sApkFile.getAbsolutePath();
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(getDownloadUrl())
-                .build();
-        this.call = client.newCall(request); //获取请求对象
+        this.call = client.newCall(PathAndUrlManager.createRequestBuilder(getDownloadUrl()).build()); //获取请求对象
     }
 
     private String getDownloadUrl() {

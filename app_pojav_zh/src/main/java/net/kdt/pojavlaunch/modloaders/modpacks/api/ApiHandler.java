@@ -4,6 +4,7 @@ import android.util.ArrayMap;
 
 import com.google.gson.Gson;
 import com.movtery.pojavzh.feature.log.Logging;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.Tools;
 
@@ -22,16 +23,14 @@ import java.util.Objects;
 @SuppressWarnings("unused")
 public class ApiHandler {
     public final String baseUrl;
-    public final Map<String, String> additionalHeaders;
+    public final Map<String, String> additionalHeaders = new ArrayMap<>();
 
     public ApiHandler(String url) {
         baseUrl = url;
-        additionalHeaders = null;
     }
 
     public ApiHandler(String url, String apiKey) {
-        baseUrl = url;
-        additionalHeaders = new ArrayMap<>();
+        this(url);
         additionalHeaders.put("x-api-key", apiKey);
     }
 
@@ -60,7 +59,7 @@ public class ApiHandler {
         Logging.d("ApiHandler", url);
         HttpURLConnection conn = null;
         try{
-            conn = (HttpURLConnection) new URL(url).openConnection();
+            conn = PathAndUrlManager.createHttpConnection(new URL(url));
             addHeaders(conn, headers);
             InputStream inputStream = conn.getInputStream();
             String data = Tools.read(inputStream);
@@ -82,7 +81,7 @@ public class ApiHandler {
 
     public static String postRaw(Map<String, String> headers, String url, String body) {
         try {
-            HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+            HttpURLConnection conn = PathAndUrlManager.createHttpConnection(new URL(url));
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Accept", "application/json");

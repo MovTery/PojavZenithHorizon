@@ -16,8 +16,6 @@ import org.apache.commons.io.*;
 
 @SuppressWarnings("IOStreamConstructor")
 public class DownloadUtils {
-    public static final String USER_AGENT = Tools.APP_NAME;
-
     public static void download(String url, OutputStream os) throws IOException {
         download(new URL(url), os);
     }
@@ -25,10 +23,7 @@ public class DownloadUtils {
     public static void download(URL url, OutputStream os) throws IOException {
         InputStream is = null;
         try {
-            // System.out.println("Connecting: " + url.toString());
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestProperty("User-Agent", USER_AGENT);
-            conn.setConnectTimeout(10000);
+            HttpURLConnection conn = PathAndUrlManager.createHttpConnection(url);
             conn.setDoInput(true);
             conn.connect();
             if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
