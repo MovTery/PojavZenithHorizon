@@ -26,5 +26,21 @@ class ModUtils {
             val newFile = File(fileParent, newFileName)
             renameFile(file, newFile)
         }
+
+        @JvmStatic
+        fun replaceDownloadUrl(baseUrl: String): String {
+            val urls = mapOf(
+                //Modrinth
+                "staging-api.modrinth.com" to { url: String -> url.replace("staging-api.modrinth.com", "mod.mcimirror.top/modrinth") },
+                "api.modrinth.com" to { url: String -> url.replace("api.modrinth.com", "mod.mcimirror.top/modrinth") },
+                "cdn.modrinth.com" to { url: String -> url.replace("cdn.modrinth.com", "mod.mcimirror.top") },
+                //CurseForge
+                "api.curseforge.com" to { url: String -> url.replace("api.curseforge.com", "mod.mcimirror.top/curseforge") },
+                "edge.forgecdn.net" to { url: String -> url.replace("edge.forgecdn.net", "mod.mcimirror.top") },
+                "mediafilez.forgecdn.net" to { url: String -> url.replace("mediafilez.forgecdn.net", "mod.mcimirror.top") }
+            )
+
+            return urls.entries.firstOrNull { baseUrl.contains(it.key) }?.value?.invoke(baseUrl)?: baseUrl
+        }
     }
 }
