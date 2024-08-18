@@ -37,8 +37,6 @@ public class SelectAuthFragment extends FragmentWithAnim {
         Button mLocalButton = view.findViewById(R.id.button_local_authentication);
         Button mOtherButton = view.findViewById(R.id.button_other_authentication);
 
-        if (!ZHTools.areaChecks()) mOtherButton.setVisibility(View.GONE);
-
         FragmentWithAnim fragment = this;
         FragmentActivity fragmentActivity = requireActivity();
         mReturnButton.setOnClickListener(v -> ZHTools.onBackPressed(fragmentActivity));
