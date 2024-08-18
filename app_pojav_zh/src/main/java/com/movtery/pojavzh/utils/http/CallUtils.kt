@@ -1,10 +1,10 @@
 package com.movtery.pojavzh.utils.http
 
+import com.movtery.pojavzh.utils.PathAndUrlManager
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Request
 import okhttp3.Response
 import java.io.IOException
 
@@ -26,9 +26,7 @@ class CallUtils(
             .addInterceptor(tokenInterceptor)
             .build()
 
-        val request = Request.Builder().url(url).build()
-
-        client.newCall(request).enqueue(object : Callback {
+        client.newCall(PathAndUrlManager.createRequestBuilder(url).build()).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 listener.onFailure(call, e)
             }

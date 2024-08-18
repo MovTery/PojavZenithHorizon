@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.feature.log.Logging;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.R;
@@ -130,7 +131,7 @@ public class MicrosoftBackgroundLogin {
         );
 
         //да пошла yf[eq1 она ваша джава 11
-        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+        HttpURLConnection conn = PathAndUrlManager.createHttpConnection(url);
         conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         conn.setRequestProperty("charset", "utf-8");
         conn.setRequestProperty("Content-Length", Integer.toString(formData.getBytes(StandardCharsets.UTF_8).length));
@@ -166,7 +167,7 @@ public class MicrosoftBackgroundLogin {
         data.put("TokenType", "JWT");
 
         String req = data.toString();
-        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+        HttpURLConnection conn = PathAndUrlManager.createHttpConnection(url);
         setCommonProperties(conn, req);
         conn.connect();
 
@@ -196,7 +197,7 @@ public class MicrosoftBackgroundLogin {
         data.put("TokenType", "JWT");
 
         String req = data.toString();
-        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+        HttpURLConnection conn = PathAndUrlManager.createHttpConnection(url);
         setCommonProperties(conn, req);
         conn.connect();
 
@@ -232,7 +233,7 @@ public class MicrosoftBackgroundLogin {
         data.put("identityToken", "XBL3.0 x=" + xblUhs + ";" + xblXsts);
 
         String req = data.toString();
-        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+        HttpURLConnection conn = PathAndUrlManager.createHttpConnection(url);
         setCommonProperties(conn, req);
         conn.connect();
 
@@ -255,7 +256,7 @@ public class MicrosoftBackgroundLogin {
     private void fetchOwnedItems(String mcAccessToken) throws IOException {
         URL url = new URL(mcStoreUrl);
 
-        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+        HttpURLConnection conn = PathAndUrlManager.createHttpConnection(url);
         conn.setRequestProperty("Authorization", "Bearer " + mcAccessToken);
         conn.setUseCaches(false);
         conn.connect();
@@ -270,7 +271,7 @@ public class MicrosoftBackgroundLogin {
     private void checkMcProfile(String mcAccessToken) throws IOException, JSONException {
         URL url = new URL(mcProfileUrl);
 
-        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+        HttpURLConnection conn = PathAndUrlManager.createHttpConnection(url);
         conn.setRequestProperty("Authorization", "Bearer " + mcAccessToken);
         conn.setUseCaches(false);
         conn.connect();

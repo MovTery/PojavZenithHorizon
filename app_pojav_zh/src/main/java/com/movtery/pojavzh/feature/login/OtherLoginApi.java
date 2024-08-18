@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.movtery.pojavzh.feature.log.Logging;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
@@ -14,7 +15,6 @@ import java.util.Objects;
 import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
@@ -55,11 +55,7 @@ public class OtherLoginApi {
         authRequest.setClientToken("fun");
         System.out.println(new Gson().toJson(authRequest));
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), new Gson().toJson(authRequest));
-        Request request = new Request.Builder()
-                .url(baseUrl + "/authserver/authenticate")
-                .post(body)
-                .build();
-        Call call = client.newCall(request);
+        Call call = client.newCall(PathAndUrlManager.createRequestBuilder(baseUrl + "/authserver/authenticate", body).build());
         Response response = call.execute();
         String res = response.body().string();
         System.out.println(res);
@@ -73,11 +69,7 @@ public class OtherLoginApi {
 
     public String getServeInfo(String url) {
         try {
-            Request request = new Request.Builder()
-                    .url(url)
-                    .get()
-                    .build();
-            Call call = client.newCall(request);
+            Call call = client.newCall(PathAndUrlManager.createRequestBuilder(url).get().build());
             Response response = call.execute();
             String res = response.body().string();
             System.out.println(res);
