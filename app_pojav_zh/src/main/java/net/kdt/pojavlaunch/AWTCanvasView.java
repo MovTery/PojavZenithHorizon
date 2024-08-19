@@ -10,8 +10,8 @@ import java.util.*;
 import net.kdt.pojavlaunch.utils.*;
 
 public class AWTCanvasView extends TextureView implements TextureView.SurfaceTextureListener, Runnable {
-    public static final int AWT_CANVAS_WIDTH = 720;
-    public static final int AWT_CANVAS_HEIGHT = 600;
+    public static final int AWT_CANVAS_WIDTH = (int) (Tools.currentDisplayMetrics.widthPixels * 0.8);
+    public static final int AWT_CANVAS_HEIGHT = (int) (Tools.currentDisplayMetrics.heightPixels * 0.8);
     private static final int MAX_SIZE = 100;
     private static final double NANOS = 1000000000.0;
     private boolean mIsDestroyed = false;
@@ -29,8 +29,7 @@ public class AWTCanvasView extends TextureView implements TextureView.SurfaceTex
         
         mFpsPaint = new TextPaint();
         mFpsPaint.setColor(Color.WHITE);
-        mFpsPaint.setTextSize(20);
-
+        mFpsPaint.setTextSize(24);
 
         setSurfaceTextureListener(this);
 
@@ -78,7 +77,7 @@ public class AWTCanvasView extends TextureView implements TextureView.SurfaceTex
                     canvas.drawBitmap(rgbArrayBitmap, 0, 0, paint);
                     canvas.restore();
                 }
-                canvas.drawText("FPS: " + (Math.round(fps() * 10) / 10) + ", drawing=" + mDrawing, 0, 20, mFpsPaint);
+                canvas.drawText("FPS: " + (Math.round(fps() * 10) / 10) + ", drawing=" + mDrawing, 20, 20, mFpsPaint);
                 surface.unlockCanvasAndPost(canvas);
             }
         } catch (Throwable throwable) {
