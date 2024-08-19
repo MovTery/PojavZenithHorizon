@@ -275,28 +275,38 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/shadowView">
 
-            <ImageView
-                android:id="@+id/vprof_editor_profile_icon"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_marginTop="@dimen/_45sdp"
-                android:paddingHorizontal="@dimen/profile_editor_image_padding"
-                android:paddingVertical="@dimen/profile_editor_image_padding"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
+            <com.movtery.pojavzh.ui.layout.AnimConstraintLayout
+                android:id="@+id/vprof_editor_profile_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_52sdp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/avatars" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="@dimen/_14sdp"
-                android:layout_height="@dimen/_14sdp"
-                android:background="@drawable/background_icon_edit"
-                android:src="@drawable/ic_edit"
-                app:layout_constraintBottom_toBottomOf="@+id/vprof_editor_profile_icon"
-                app:layout_constraintEnd_toEndOf="@+id/vprof_editor_profile_icon" />
+                <ImageView
+                    android:id="@+id/vprof_editor_profile_icon"
+                    android:layout_width="@dimen/_52sdp"
+                    android:layout_height="@dimen/_52sdp"
+                    android:paddingHorizontal="@dimen/profile_editor_image_padding"
+                    android:paddingVertical="@dimen/profile_editor_image_padding"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@tools:sample/avatars" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="@dimen/_14sdp"
+                    android:layout_height="@dimen/_14sdp"
+                    android:background="@drawable/background_icon_edit"
+                    android:src="@drawable/ic_edit"
+                    app:layout_constraintBottom_toBottomOf="@+id/vprof_editor_profile_icon"
+                    app:layout_constraintEnd_toEndOf="@+id/vprof_editor_profile_icon" />
+
+            </com.movtery.pojavzh.ui.layout.AnimConstraintLayout>
 
             <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/vprof_editor_save_button"
