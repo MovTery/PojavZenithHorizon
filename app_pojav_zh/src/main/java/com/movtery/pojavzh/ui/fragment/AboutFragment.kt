@@ -14,7 +14,6 @@ import com.movtery.pojavzh.feature.CheckSponsor
 import com.movtery.pojavzh.feature.CheckSponsor.Companion.check
 import com.movtery.pojavzh.feature.CheckSponsor.Companion.getSponsorData
 import com.movtery.pojavzh.feature.log.Logging
-import com.movtery.pojavzh.ui.dialog.MoreSponsorDialog
 import com.movtery.pojavzh.ui.subassembly.about.AboutItemBean
 import com.movtery.pojavzh.ui.subassembly.about.AboutItemBean.AboutItemButtonBean
 import com.movtery.pojavzh.ui.subassembly.about.AboutRecyclerAdapter
@@ -39,7 +38,6 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
     private var mPojavLauncherButton: Button? = null
     private var mLicenseButton: Button? = null
     private var mSupportButton: Button? = null
-    private var mSupportMoreButton: Button? = null
     private var mAboutRecyclerView: RecyclerView? = null
     private var mSponsorRecyclerView: RecyclerView? = null
     private var mInfoLayout: View? = null
@@ -61,7 +59,6 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
 
         val aboutAdapter = AboutRecyclerAdapter(this.mAboutData)
         mAboutRecyclerView?.layoutManager = LinearLayoutManager(requireContext())
-        mAboutRecyclerView?.isNestedScrollingEnabled = false //禁止滑动
         mAboutRecyclerView?.adapter = aboutAdapter
 
         slideInAnim(this)
@@ -77,7 +74,6 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
         mPojavLauncherButton = view.findViewById(R.id.zh_about_pojavlauncher_button)
         mLicenseButton = view.findViewById(R.id.zh_about_license_button)
         mSupportButton = view.findViewById(R.id.zh_about_support_development)
-        mSupportMoreButton = view.findViewById(R.id.zh_about_sponsor_more)
         mAboutRecyclerView = view.findViewById(R.id.zh_about_about_recycler)
         mSponsorRecyclerView = view.findViewById(R.id.zh_about_sponsor_recycler)
         mSponsorView = view.findViewById(R.id.constraintLayout5)
@@ -138,6 +134,26 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
                 )
             )
         )
+        mAboutData.add(
+            AboutItemBean(
+                resources.getDrawable(R.drawable.image_about_bangbang93, requireContext().theme),
+                "bangbang93",
+                getString(R.string.zh_about_bangbang93_desc),
+                AboutItemButtonBean(
+                    requireActivity(),
+                    getString(R.string.zh_about_button_support_development),
+                    "https://afdian.com/a/bangbang93"
+                )
+            )
+        )
+        mAboutData.add(
+            AboutItemBean(
+                resources.getDrawable(R.drawable.image_about_z0z0r4, requireContext().theme),
+                "z0z0r4",
+                getString(R.string.zh_about_z0z0r4_desc),
+                null
+            )
+        )
     }
 
     private fun loadSponsorData() {
@@ -153,27 +169,14 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
                 mSponsorView?.visibility = if (visible) View.VISIBLE else View.GONE
 
                 if (visible) {
-                    setupSponsorRecyclerView()
-                    mSupportMoreButton?.setOnClickListener {
-                        getSponsorData()?.let { data ->
-                            MoreSponsorDialog(requireContext(), data).show()
-                        }
+                    mSponsorRecyclerView?.apply {
+                        layoutManager = LinearLayoutManager(requireContext())
+                        adapter = SponsorRecyclerAdapter(getSponsorData())
                     }
                 }
             } catch (e: Exception) {
                 Logging.e("setSponsorVisible", e.toString())
             }
-        }
-    }
-
-    private fun setupSponsorRecyclerView() {
-        val sponsorData = getSponsorData()?.take(6) ?: return
-        val sponsorAdapter = SponsorRecyclerAdapter(sponsorData)
-
-        mSponsorRecyclerView?.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            isNestedScrollingEnabled = false
-            adapter = sponsorAdapter
         }
     }
 

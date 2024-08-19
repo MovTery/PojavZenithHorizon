@@ -300,6 +300,8 @@
     <string name="zh_about_pojavlauncher_desc">PojavLauncher 的開發團隊，開發並開源了 PojavLauncher</string>
     <string name="zh_about_verafirefly_desc">為 Pojav Zenith Horizon 提供渲染方面的技術支援</string>
     <string name="zh_about_lingmuqiuzhu_desc">為 Pojav Zenith Horizon 提供了技術支援</string>
+    <string name="zh_about_bangbang93_desc">Pojav Zenith Horizon 使用了其創作的 BMCLAPI 鏡像源</string>
+    <string name="zh_about_z0z0r4_desc">Pojav Zenith Horizon 使用了其創作的 MCIM Mod 資訊鏡像源</string>
     <string name="zh_about_access_space">訪問空間</string>
     <string name="zh_about_version_name">軟體版本名稱:</string>
     <string name="zh_about_version_code">軟體版本碼:</string>
