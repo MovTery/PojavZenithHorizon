@@ -9,7 +9,7 @@ import com.google.gson.JsonObject;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.feature.mod.ModLoaderList;
-import com.movtery.pojavzh.feature.mod.ModUtils;
+import com.movtery.pojavzh.feature.mod.ModMirror;
 import com.movtery.pojavzh.feature.mod.SearchModSort;
 import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
 import com.movtery.pojavzh.feature.mod.modpack.install.OnInstallStartListener;
@@ -58,7 +58,7 @@ public class CurseforgeApi implements ModpackApi{
 
     private final ApiHandler mApiHandler;
     public CurseforgeApi(String apiKey) {
-        mApiHandler = new ApiHandler(ModUtils.replaceMirrorUrl("https://api.curseforge.com/v1"), apiKey);
+        mApiHandler = new ApiHandler(ModMirror.replaceMirrorInfoUrl("https://api.curseforge.com/v1"), apiKey);
     }
 
     @Override
@@ -164,8 +164,7 @@ public class CurseforgeApi implements ModpackApi{
         for(int i = 0; i < allModDetails.size(); i++) {
             JsonObject modDetail = allModDetails.get(i);
             //获取信息
-            String downloadUrl = modDetail.get("downloadUrl").getAsString();
-            downloadUrl = ModUtils.replaceMirrorUrl(downloadUrl);
+            String downloadUrl = ModMirror.replaceMirrorDownloadUrl(modDetail.get("downloadUrl").getAsString());
             String fileName = modDetail.get("fileName").getAsString();
             String displayName = modDetail.get("displayName").getAsString();
             String releaseTypeString = modDetail.get("releaseType").getAsString();
