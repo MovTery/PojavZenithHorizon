@@ -20,12 +20,9 @@ class ProgressDialog(context: Context, listener: OnCancelListener) : FullScreenD
     init {
         this.setContentView(R.layout.dialog_progress)
         this.setCancelable(false)
-
-        init(listener)
-        DraggableDialog.initDialog(this)
     }
 
-    private fun init(listener: OnCancelListener?) {
+    init {
         this.message = findViewById(R.id.zh_download_upload_textView)
         this.rate = findViewById(R.id.zh_download_upload_rate)
         this.progressBar = findViewById(R.id.progressBar2)
@@ -33,9 +30,11 @@ class ProgressDialog(context: Context, listener: OnCancelListener) : FullScreenD
 
         progressBar?.setMax(1000)
         cancelButton.setOnClickListener {
-            listener?.let { if (!listener.onClick()) return@setOnClickListener }
+            if (!listener.onClick()) return@setOnClickListener
             dismiss()
         }
+
+        DraggableDialog.initDialog(this)
     }
 
     fun updateText(text: String?) {
@@ -56,8 +55,8 @@ class ProgressDialog(context: Context, listener: OnCancelListener) : FullScreenD
         progressBar?.setProgress(intValue, LauncherPreferences.PREF_ANIMATION)
     }
 
-    override fun onInit(): Window {
-        return window!!
+    override fun onInit(): Window? {
+        return window
     }
 
     fun interface OnCancelListener {
