@@ -2,6 +2,7 @@ package net.kdt.pojavlaunch.modloaders.modpacks.api;
 
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 
@@ -29,6 +30,7 @@ public class ModpackInstaller {
         try {
             byte[] downloadBuffer = new byte[8192];
             DownloadUtils.ensureSha1(modFile, modVersionItem.versionHash, (Callable<Void>) () -> {
+                Logging.i("ModpackInstaller", "Download Url: " + modVersionItem.downloadUrl);
                 DownloadUtils.downloadFileMonitored(modVersionItem.downloadUrl, modFile, downloadBuffer,
                         new DownloaderProgressWrapper(R.string.modpack_download_downloading_mods,
                                 ProgressLayout.INSTALL_MODPACK));
@@ -53,6 +55,7 @@ public class ModpackInstaller {
         try {
             byte[] downloadBuffer = new byte[8192];
             DownloadUtils.ensureSha1(modpackFile, modVersionItem.versionHash, (Callable<Void>) () -> {
+                Logging.i("ModpackInstaller", "Download Url: " + modVersionItem.downloadUrl);
                 DownloadUtils.downloadFileMonitored(modVersionItem.downloadUrl, modpackFile, downloadBuffer,
                         new DownloaderProgressWrapper(R.string.modpack_download_downloading_metadata,
                                 ProgressLayout.INSTALL_MODPACK));

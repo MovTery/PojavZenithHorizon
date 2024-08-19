@@ -11,23 +11,23 @@ class ModMirror {
 
         @JvmStatic
         fun replaceMirrorInfoUrl(baseUrl: String): String {
-            println(PREF_MOD_INFO_SOURCE)
-            if (PREF_MOD_INFO_SOURCE.contains(Source.ORIGINAL.name.lowercase()) ||
-                !PREF_MOD_INFO_SOURCE.contains(Source.MCIM.name.lowercase())) return baseUrl
-
-            return replace(baseUrl)
+            return when (PREF_MOD_INFO_SOURCE) {
+                Source.ORIGINAL.name.lowercase() -> baseUrl
+                Source.MCIM.name.lowercase() -> replaceMCIM(baseUrl)
+                else -> baseUrl
+            }
         }
 
         @JvmStatic
         fun replaceMirrorDownloadUrl(baseUrl: String): String {
-            println(PREF_MOD_DOWNLOAD_SOURCE)
-            if (PREF_MOD_DOWNLOAD_SOURCE.contains(Source.ORIGINAL.name.lowercase()) ||
-                !PREF_MOD_DOWNLOAD_SOURCE.contains(Source.MCIM.name.lowercase())) return baseUrl
-
-            return replace(baseUrl)
+            return when(PREF_MOD_DOWNLOAD_SOURCE) {
+                Source.ORIGINAL.name.lowercase() -> baseUrl
+                Source.MCIM.name.lowercase() -> replaceMCIM(baseUrl)
+                else -> baseUrl
+            }
         }
 
-        private fun replace(baseUrl: String): String {
+        private fun replaceMCIM(baseUrl: String): String {
             val urls = mapOf(
                 MODRINTH[0] to { url: String -> url.replace(MODRINTH[0], "$MCIM_MIRROR/modrinth") },
                 MODRINTH[1] to { url: String -> url.replace(MODRINTH[1], "$MCIM_MIRROR/modrinth") },
