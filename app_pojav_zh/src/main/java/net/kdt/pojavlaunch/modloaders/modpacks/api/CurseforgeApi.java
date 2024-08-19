@@ -152,17 +152,17 @@ public class CurseforgeApi implements ModpackApi{
     public ModDetail getModDetails(ModItem item) {
         ArrayList<JsonObject> allModDetails = new ArrayList<>();
         int index = 0;
-        while(index != CURSEFORGE_PAGINATION_END_REACHED &&
-                index != CURSEFORGE_PAGINATION_ERROR) {
+
+        while (index != CURSEFORGE_PAGINATION_END_REACHED && index != CURSEFORGE_PAGINATION_ERROR) {
             index = getPaginatedDetails(allModDetails, index, item.id);
         }
-        if(index == CURSEFORGE_PAGINATION_ERROR) return null;
+
+        if (index == CURSEFORGE_PAGINATION_ERROR) return null;
 
         List<ModVersionItem> modVersionItems = new ArrayList<>();
         Map<String, ModItem> dependenciesModMap = new HashMap<>();
 
-        for(int i = 0; i < allModDetails.size(); i++) {
-            JsonObject modDetail = allModDetails.get(i);
+        for (JsonObject modDetail : allModDetails) {
             //获取信息
             String downloadUrl = ModMirror.replaceMirrorDownloadUrl(modDetail.get("downloadUrl").getAsString());
             String fileName = modDetail.get("fileName").getAsString();
@@ -170,94 +170,77 @@ public class CurseforgeApi implements ModpackApi{
             String releaseTypeString = modDetail.get("releaseType").getAsString();
             //获取版本信息
             List<String> mcVersions = new ArrayList<>();
-            JsonArray gameVersions = modDetail.getAsJsonArray("gameVersions");
             Set<String> modloaderNames = new TreeSet<>();
-            for(JsonElement jsonElement : gameVersions) {
-                String gameVersion = jsonElement.getAsString();
-                if(!sMcVersionPattern.matcher(gameVersion).matches()) {
+            for (JsonElement gameVersionElement : modDetail.getAsJsonArray("gameVersions")) {
+                String gameVersion = gameVersionElement.getAsString();
+                if (!sMcVersionPattern.matcher(gameVersion).matches()) {
                     modloaderNames.add(gameVersion);
-                    continue;
+                } else {
+                    mcVersions.add(gameVersion);
+                    break;
                 }
-
-                mcVersions.add(gameVersion);
-                break;
             }
 
             //获取全部的Mod加载器
             List<ModLoaderList.ModLoader> modloaderList = new ArrayList<>();
-            if (!modloaderNames.isEmpty()) {
-                for (String modloaderName : modloaderNames) {
-                    ModLoaderList.addModLoaderToList(modloaderList, modloaderName);
-                }
-            }
+            modloaderNames.forEach(modloaderName -> ModLoaderList.addModLoaderToList(modloaderList, modloaderName));
 
-            String[] mcVersionsArray = new String[mcVersions.size()];
-            mcVersions.toArray(mcVersionsArray);
-
-            JsonArray dependencies = modDetail.get("dependencies").getAsJsonArray();
             List<ModDependencies> modDependencies = new ArrayList<>();
-            if (!item.isModpack && dependencies.size() != 0) {
-                for (JsonElement dependency : dependencies) {
-                    JsonObject object = dependency.getAsJsonObject();
-                    String modId = object.get("modId").getAsString();
-                    String dependencyType = object.get("relationType").getAsString();
-
-                    ModItem items = null;
-                    if (!dependenciesModMap.containsKey(modId)) {
-                        JsonObject response = searchModFromID(modId);
-                        JsonObject hit = response.get("data").getAsJsonObject();
-
-                        if (hit != null) {
-                            JsonArray itemsGameVersions = modDetail.getAsJsonArray("gameVersions");
-                            Set<ModLoaderList.ModLoader> itemsModloaderNames = new TreeSet<>();
-                            for(JsonElement jsonElement : itemsGameVersions) {
-                                String gameVersion = jsonElement.getAsString();
-
-                                ModLoaderList.addModLoaderToList(itemsModloaderNames, gameVersion);
-                            }
-
-                            String iconUrl;
-                            try {
-                                iconUrl = hit.getAsJsonObject("logo").get("thumbnailUrl").getAsString();
-                            } catch (Exception e) {
-                                Logging.e("error", Tools.printToString(e));
-                                iconUrl = null;
-                            }
-
-                            items = new ModItem(
-                                    Constants.SOURCE_CURSEFORGE,
-                                    hit.get("categories").getAsJsonArray().get(0).getAsJsonObject().get("classId").getAsInt() != CURSEFORGE_MOD_CLASS_ID,
-                                    modId,
-                                    hit.get("name").getAsString(),
-                                    hit.get("summary").getAsString(),
-                                    hit.get("downloadCount").getAsInt(),
-                                    itemsModloaderNames.toArray(new ModLoaderList.ModLoader[]{}),
-                                    iconUrl
-                            );
-                        }
-                        dependenciesModMap.put(modId, items);
-                    } else {
-                        items = dependenciesModMap.get(modId);
-                    }
-
-                    if (items != null) {
-                        modDependencies.add(new ModDependencies(items, ModDependencies.getDependencyType(dependencyType)));
-                    }
-                }
+            if (!item.isModpack && modDetail.getAsJsonArray("dependencies").size() != 0) {
+                processDependencies(modDetail, dependenciesModMap, modDependencies);
             }
 
-            modVersionItems.add(new ModVersionItem(mcVersionsArray,
+            modVersionItems.add(new ModVersionItem(
+                    mcVersions.toArray(new String[0]),
                     fileName,
                     displayName,
-                    modloaderList.toArray(new ModLoaderList.ModLoader[]{}),
+                    modloaderList.toArray(new ModLoaderList.ModLoader[0]),
                     modDependencies,
                     VersionType.getVersionType(releaseTypeString),
                     getSha1FromModData(modDetail),
                     modDetail.get("downloadCount").getAsInt(),
-                    downloadUrl));
+                    downloadUrl
+            ));
         }
 
         return new ModDetail(item, modVersionItems);
+    }
+
+    private void processDependencies(JsonObject modDetail, Map<String, ModItem> dependenciesModMap, List<ModDependencies> modDependencies) {
+        for (JsonElement dependencyElement : modDetail.getAsJsonArray("dependencies")) {
+            JsonObject dependency = dependencyElement.getAsJsonObject();
+            String modId = dependency.get("modId").getAsString();
+            String dependencyType = dependency.get("relationType").getAsString();
+
+            ModItem items = dependenciesModMap.computeIfAbsent(modId, id -> {
+                JsonObject hit = searchModFromID(id).get("data").getAsJsonObject();
+                if (hit != null) {
+                    Set<ModLoaderList.ModLoader> itemsModloaderNames = new TreeSet<>();
+                    for (JsonElement jsonElement : modDetail.getAsJsonArray("gameVersions")) {
+                        String gameVersion = jsonElement.getAsString();
+                        ModLoaderList.addModLoaderToList(itemsModloaderNames, gameVersion);
+                    }
+
+                    String iconUrl = hit.has("logo") ? hit.getAsJsonObject("logo").get("thumbnailUrl").getAsString() : null;
+
+                    return new ModItem(
+                            Constants.SOURCE_CURSEFORGE,
+                            hit.get("categories").getAsJsonArray().get(0).getAsJsonObject().get("classId").getAsInt() != CURSEFORGE_MOD_CLASS_ID,
+                            modId,
+                            hit.get("name").getAsString(),
+                            hit.get("summary").getAsString(),
+                            hit.get("downloadCount").getAsInt(),
+                            itemsModloaderNames.toArray(new ModLoaderList.ModLoader[0]),
+                            iconUrl
+                    );
+                }
+                return null;
+            });
+
+            if (items != null) {
+                modDependencies.add(new ModDependencies(items, ModDependencies.getDependencyType(dependencyType)));
+            }
+        }
     }
 
     @Override
