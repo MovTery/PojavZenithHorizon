@@ -33,36 +33,6 @@ jobs:
           distribution: 'temurin'
           java-version: '8'
 
-      - name: Get JRE 8
-        uses: dawidd6/action-download-artifact@v3
-        with:
-          workflow: build.yml
-          path: app_pojav_zh/src/main/assets/components/jre-8
-          workflow_conclusion: success
-          repo: PojavLauncherTeam/android-openjdk-build-multiarch
-          branch: buildjre8
-          name: jre8-pojav
-
-      - name: Get JRE 17
-        uses: dawidd6/action-download-artifact@v3
-        with:
-          workflow: build.yml
-          path: app_pojav_zh/src/main/assets/components/jre-17
-          workflow_conclusion: success
-          repo: PojavLauncherTeam/android-openjdk-build-multiarch
-          branch: buildjre17-21
-          name: jre17-pojav
-
-      - name: Get JRE 21
-        uses: dawidd6/action-download-artifact@v3
-        with:
-          workflow: build.yml
-          path: app_pojav_zh/src/main/assets/components/jre-21
-          workflow_conclusion: success
-          repo: PojavLauncherTeam/android-openjdk-build-multiarch
-          branch: buildjre17-21
-          name: jre21-pojav
-
       - uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 8.4
@@ -101,53 +71,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: PojavZenithHorizon(Debug)
-          path: app_pojav_zh/build/outputs/apk/debug/*
-
-  build-noruntime:
-    runs-on: ubuntu-latest
-    env:
-      CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
-      MOVTERY_KEYSTORE_PASSWORD: ${{ secrets.MOVTERY_KEYSTORE_PASSWORD }}
-      MY_API_TOKEN: ${{ secrets.MY_API_TOKEN }}
-      MY_PRIVATE_API_TOKEN: ${{ secrets.MY_PRIVATE_API_TOKEN }}
-
-    steps:
-      - name: Set IS_MAIN_BRANCH if on main branch
-        if: github.ref_name == 'main'
-        run: echo "IS_MAIN_BRANCH=true" >> $GITHUB_ENV
-
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up JDK 8
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '8'
-
-      - uses: gradle/gradle-build-action@v2
-        with:
-          gradle-version: 8.4
-
-      - name: Build JRE JAR files
-        run: |
-          mkdir out
-          # Build JRE JAR files (security manager, etc...)
-          gradle :jre_lwjgl3glfw:build --no-daemon
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Build Debug-noruntime.apk
-        run: |
-          # Build the launcher
-          gradle :app_pojav_zh:assembleDebug
-
-      - name: Upload Debug
-        uses: actions/upload-artifact@v4
-        with:
-          name: PojavZenithHorizon(Debug - No Runtime)
           path: app_pojav_zh/build/outputs/apk/debug/*
