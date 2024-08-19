@@ -207,6 +207,7 @@
     <string name="zh_main_notice_title">Уведомления</string>
     <string name="zh_preference_category_language">Язык</string>
     <string name="zh_preference_category_personalization">Персонализация</string>
+    <string name="zh_preference_category_download">Загрузка</string>
     <string name="zh_preference_category_launcher">Лаунчер</string>
     <string name="zh_preference_category_experimental">Экспериментальное</string>
     <string name="zh_preference_category_experimental_patches">Экспериментальные патчи</string>
@@ -214,6 +215,8 @@
     <string name="zh_setting_java_memory_info">Текущая информация о памяти: %s / %s, свободной памяти: %s</string>
     <string name="zh_setting_java_memory_max">Максимальный доступный объем памяти: %s</string>
     <string name="zh_setting_java_memory_exceeded">Установленный объем памяти превышает доступный</string>
+    <string name="zh_setting_mod_info_mirror">Источник информации о модах</string>
+    <string name="zh_setting_mod_download_mirror">Источник загрузки модов</string>
     <string name="zh_setting_set_game_language_desc">Автоматически устанавливать язык игры на выбранный язык при запуске игры</string>
     <string name="zh_setting_set_game_language_title">Автоматическая установка языка игры</string>
     <string name="zh_setting_set_game_language_list">Установить язык игры</string>

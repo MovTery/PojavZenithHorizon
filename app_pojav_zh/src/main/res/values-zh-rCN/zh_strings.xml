@@ -207,6 +207,7 @@
     <string name="zh_main_notice_title">通知栏</string>
     <string name="zh_preference_category_language">语言</string>
     <string name="zh_preference_category_personalization">个性化</string>
+    <string name="zh_preference_category_download">下载</string>
     <string name="zh_preference_category_launcher">启动器</string>
     <string name="zh_preference_category_experimental">实验性</string>
     <string name="zh_preference_category_experimental_patches">实验性的补丁</string>
@@ -214,6 +215,8 @@
     <string name="zh_setting_java_memory_info">当前内存使用信息：%s / %s ，空闲内存大小：%s</string>
     <string name="zh_setting_java_memory_max">最大可设置的内存大小：%s</string>
     <string name="zh_setting_java_memory_exceeded">当前设置的内存空间超出了可用内存大小</string>
+    <string name="zh_setting_mod_info_mirror">Mod 信息获取源</string>
+    <string name="zh_setting_mod_download_mirror">Mod 下载源</string>
     <string name="zh_setting_set_game_language_desc">在游戏启动时，自动设置游戏语言为选定的语言</string>
     <string name="zh_setting_set_game_language_title">自动设置游戏语言</string>
     <string name="zh_setting_set_game_language_list">设置游戏语言</string>

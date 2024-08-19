@@ -207,6 +207,7 @@
     <string name="zh_main_notice_title">Barra de notificações</string>
     <string name="zh_preference_category_language">Idioma</string>
     <string name="zh_preference_category_personalization">Personalização</string>
+    <string name="zh_preference_category_download">Download</string>
     <string name="zh_preference_category_launcher">Launcher</string>
     <string name="zh_preference_category_experimental">Experimental</string>
     <string name="zh_preference_category_experimental_patches">Patches experimentais</string>
@@ -214,6 +215,8 @@
     <string name="zh_setting_java_memory_info">Informações de uso de memória atual: %s / %s, memória livre: %s</string>
     <string name="zh_setting_java_memory_max">Memória máxima configurável: %s</string>
     <string name="zh_setting_java_memory_exceeded">O espaço de memória configurado excede a memória disponível</string>
+    <string name="zh_setting_mod_info_mirror">Fonte de Informações do Mod</string>
+    <string name="zh_setting_mod_download_mirror">Fonte de Download do Mod</string>
     <string name="zh_setting_set_game_language_desc">Configura automaticamente o idioma do jogo para o idioma selecionado ao iniciar o jogo</string>
     <string name="zh_setting_set_game_language_title">Configurar automaticamente o idioma do jogo</string>
     <string name="zh_setting_set_game_language_list">Configurar idioma do jogo</string>
