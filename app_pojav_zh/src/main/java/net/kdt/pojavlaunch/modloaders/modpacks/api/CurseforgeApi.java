@@ -187,10 +187,7 @@ public class CurseforgeApi implements ModpackApi{
             });
             if (!nonMCVersion.isEmpty()) mcVersions.removeAll(nonMCVersion);
 
-            List<ModDependencies> modDependencies = new ArrayList<>();
-            if (!item.isModpack && modDetail.getAsJsonArray("dependencies").size() != 0) {
-                processDependencies(modDetail, dependenciesModMap, modDependencies);
-            }
+            List<ModDependencies> modDependencies = new ArrayList<>(getModDependencies(item, modDetail, dependenciesModMap));
 
             modVersionItems.add(new ModVersionItem(
                     mcVersions.toArray(new String[0]),
@@ -208,40 +205,50 @@ public class CurseforgeApi implements ModpackApi{
         return new ModDetail(item, modVersionItems);
     }
 
-    private void processDependencies(JsonObject modDetail, Map<String, ModItem> dependenciesModMap, List<ModDependencies> modDependencies) {
-        for (JsonElement dependencyElement : modDetail.getAsJsonArray("dependencies")) {
-            JsonObject dependency = dependencyElement.getAsJsonObject();
-            String modId = dependency.get("modId").getAsString();
-            String dependencyType = dependency.get("relationType").getAsString();
+    private Set<ModDependencies> getModDependencies(ModItem item, JsonObject modDetail, Map<String, ModItem> dependenciesModMap) {
+        Set<ModDependencies> modDependencies = new TreeSet<>();
+        JsonArray dependencies = modDetail.getAsJsonArray("dependencies");
+        if (!item.isModpack && dependencies.size() != 0) {
+            for (JsonElement dependency : dependencies) {
+                JsonObject dependencyObj = dependency.getAsJsonObject();
+                String projectId = dependencyObj.get("modId").getAsString();
+                String dependencyType = dependencyObj.get("relationType").getAsString();
 
-            ModItem items = dependenciesModMap.computeIfAbsent(modId, id -> {
-                JsonObject hit = searchModFromID(id).get("data").getAsJsonObject();
-                if (hit != null) {
+                ModItem modItem = dependenciesModMap.computeIfAbsent(projectId, id -> {
+                    JsonObject hit = searchModFromID(projectId).get("data").getAsJsonObject();
+                    if (hit == null) return null;
+
                     Set<ModLoaderList.ModLoader> itemsModloaderNames = new TreeSet<>();
                     for (JsonElement jsonElement : modDetail.getAsJsonArray("gameVersions")) {
                         String gameVersion = jsonElement.getAsString();
                         ModLoaderList.addModLoaderToList(itemsModloaderNames, gameVersion);
                     }
-
-                    String iconUrl = hit.has("logo") ? hit.getAsJsonObject("logo").get("thumbnailUrl").getAsString() : null;
+                    String iconUrl = fetchIconUrl(hit);
 
                     return new ModItem(
                             Constants.SOURCE_CURSEFORGE,
                             hit.get("categories").getAsJsonArray().get(0).getAsJsonObject().get("classId").getAsInt() != CURSEFORGE_MOD_CLASS_ID,
-                            modId,
+                            projectId,
                             hit.get("name").getAsString(),
                             hit.get("summary").getAsString(),
                             hit.get("downloadCount").getAsInt(),
                             itemsModloaderNames.toArray(new ModLoaderList.ModLoader[0]),
                             iconUrl
                     );
-                }
-                return null;
-            });
+                });
 
-            if (items != null) {
-                modDependencies.add(new ModDependencies(items, ModDependencies.getDependencyType(dependencyType)));
+                modDependencies.add(new ModDependencies(modItem, ModDependencies.getDependencyType(dependencyType)));
             }
+        }
+        return modDependencies;
+    }
+
+    private String fetchIconUrl(JsonObject hit) {
+        try {
+            return hit.getAsJsonObject("logo").get("thumbnailUrl").getAsString();
+        } catch (Exception e) {
+            Logging.e("error", Tools.printToString(e));
+            return null;
         }
     }
 
