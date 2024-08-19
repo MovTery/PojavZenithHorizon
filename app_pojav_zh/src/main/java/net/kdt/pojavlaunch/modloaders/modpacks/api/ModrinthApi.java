@@ -38,7 +38,7 @@ import java.util.zip.ZipFile;
 public class ModrinthApi implements ModpackApi{
     private final ApiHandler mApiHandler;
     public ModrinthApi(){
-        mApiHandler = new ApiHandler(ModUtils.replaceDownloadUrl("https://api.modrinth.com/v2"));
+        mApiHandler = new ApiHandler(ModUtils.replaceMirrorUrl("https://api.modrinth.com/v2"));
     }
 
     @Override
@@ -142,7 +142,7 @@ public class ModrinthApi implements ModpackApi{
             JsonObject filesJsonObject = version.get("files").getAsJsonArray().get(0).getAsJsonObject();
             //提取信息
             String downloadUrl = filesJsonObject.get("url").getAsString();
-            downloadUrl = ModUtils.replaceDownloadUrl(downloadUrl);
+            downloadUrl = ModUtils.replaceMirrorUrl(downloadUrl);
             String filename = filesJsonObject.get("filename").getAsString();
             String name = version.get("name").getAsString();
             String versionTypeString = version.get("version_type").getAsString();

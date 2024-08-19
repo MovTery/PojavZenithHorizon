@@ -7,6 +7,9 @@ class ModUtils {
     companion object {
         const val JAR_FILE_SUFFIX: String = ".jar"
         const val DISABLE_JAR_FILE_SUFFIX: String = "$JAR_FILE_SUFFIX.disabled"
+        private const val MCIM_MIRROR: String = "mod.mcimirror.top"
+        private val MODRINTH = arrayListOf("staging-api.modrinth.com", "api.modrinth.com", "cdn.modrinth.com")
+        private val CURSEFORGE = arrayListOf("api.curseforge.com", "edge.forgecdn.net", "mediafilez.forgecdn.net", "media.forgecdn.net")
 
         @JvmStatic
         fun disableMod(file: File?) {
@@ -28,16 +31,17 @@ class ModUtils {
         }
 
         @JvmStatic
-        fun replaceDownloadUrl(baseUrl: String): String {
+        fun replaceMirrorUrl(baseUrl: String): String {
             val urls = mapOf(
                 //Modrinth
-                "staging-api.modrinth.com" to { url: String -> url.replace("staging-api.modrinth.com", "mod.mcimirror.top/modrinth") },
-                "api.modrinth.com" to { url: String -> url.replace("api.modrinth.com", "mod.mcimirror.top/modrinth") },
-                "cdn.modrinth.com" to { url: String -> url.replace("cdn.modrinth.com", "mod.mcimirror.top") },
+                MODRINTH[0] to { url: String -> url.replace(MODRINTH[0], "$MCIM_MIRROR/modrinth") },
+                MODRINTH[1] to { url: String -> url.replace(MODRINTH[1], "$MCIM_MIRROR/modrinth") },
+                MODRINTH[2] to { url: String -> url.replace(MODRINTH[2], MCIM_MIRROR) },
                 //CurseForge
-                "api.curseforge.com" to { url: String -> url.replace("api.curseforge.com", "mod.mcimirror.top/curseforge") },
-                "edge.forgecdn.net" to { url: String -> url.replace("edge.forgecdn.net", "mod.mcimirror.top") },
-                "mediafilez.forgecdn.net" to { url: String -> url.replace("mediafilez.forgecdn.net", "mod.mcimirror.top") }
+                CURSEFORGE[0] to { url: String -> url.replace(CURSEFORGE[0], "$MCIM_MIRROR/curseforge") },
+                CURSEFORGE[1] to { url: String -> url.replace(CURSEFORGE[1], MCIM_MIRROR) },
+                CURSEFORGE[2] to { url: String -> url.replace(CURSEFORGE[2], MCIM_MIRROR) },
+                CURSEFORGE[3] to { url: String -> url.replace(CURSEFORGE[3], MCIM_MIRROR) }
             )
 
             return urls.entries.firstOrNull { baseUrl.contains(it.key) }?.value?.invoke(baseUrl)?: baseUrl

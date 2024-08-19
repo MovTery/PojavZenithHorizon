@@ -68,6 +68,7 @@ public class ApiHandler {
             conn.disconnect();
             return data;
         } catch (IOException e) {
+            Logging.e("ApiHandler", Tools.printToString(e));
             if (conn != null) {
                 conn.disconnect();
             }
