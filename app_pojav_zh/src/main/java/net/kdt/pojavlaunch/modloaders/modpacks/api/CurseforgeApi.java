@@ -58,7 +58,7 @@ public class CurseforgeApi implements ModpackApi{
 
     private final ApiHandler mApiHandler;
     public CurseforgeApi(String apiKey) {
-        mApiHandler = new ApiHandler(ModUtils.replaceDownloadUrl("https://api.curseforge.com/v1"), apiKey);
+        mApiHandler = new ApiHandler(ModUtils.replaceMirrorUrl("https://api.curseforge.com/v1"), apiKey);
     }
 
     @Override
@@ -165,7 +165,7 @@ public class CurseforgeApi implements ModpackApi{
             JsonObject modDetail = allModDetails.get(i);
             //获取信息
             String downloadUrl = modDetail.get("downloadUrl").getAsString();
-            downloadUrl = ModUtils.replaceDownloadUrl(downloadUrl);
+            downloadUrl = ModUtils.replaceMirrorUrl(downloadUrl);
             String fileName = modDetail.get("fileName").getAsString();
             String displayName = modDetail.get("displayName").getAsString();
             String releaseTypeString = modDetail.get("releaseType").getAsString();
