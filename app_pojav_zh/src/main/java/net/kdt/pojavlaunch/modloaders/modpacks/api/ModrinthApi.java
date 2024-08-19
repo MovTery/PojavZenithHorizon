@@ -32,7 +32,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.StringJoiner;
+import java.util.TreeSet;
 import java.util.zip.ZipFile;
 
 public class ModrinthApi implements ModpackApi{
@@ -142,7 +144,7 @@ public class ModrinthApi implements ModpackApi{
             List<ModLoaderList.ModLoader> modloaderList = getModLoaderList(version.getAsJsonArray("loaders"));
             String[] mcVersionsArray = getMcVersions(version.getAsJsonArray("game_versions"));
 
-            List<ModDependencies> modDependencies = getModDependencies(item, version.getAsJsonArray("dependencies"), dependenciesModMap);
+            List<ModDependencies> modDependencies = new ArrayList<>(getModDependencies(item, version.getAsJsonArray("dependencies"), dependenciesModMap));
 
             modItems.add(new ModVersionItem(mcVersionsArray, filename, name,
                     modloaderList.toArray(new ModLoaderList.ModLoader[0]), modDependencies,
@@ -174,8 +176,8 @@ public class ModrinthApi implements ModpackApi{
         return mcVersions.toArray(new String[0]);
     }
 
-    private List<ModDependencies> getModDependencies(ModItem item, JsonArray dependencies, Map<String, ModItem> dependenciesModMap) {
-        List<ModDependencies> modDependencies = new ArrayList<>();
+    private Set<ModDependencies> getModDependencies(ModItem item, JsonArray dependencies, Map<String, ModItem> dependenciesModMap) {
+        Set<ModDependencies> modDependencies = new TreeSet<>();
         if (!item.isModpack && dependencies.size() != 0) {
             for (JsonElement dependency : dependencies) {
                 JsonObject dependencyObj = dependency.getAsJsonObject();
