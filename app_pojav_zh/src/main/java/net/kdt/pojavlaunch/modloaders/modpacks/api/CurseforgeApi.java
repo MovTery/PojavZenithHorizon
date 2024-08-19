@@ -16,6 +16,7 @@ import com.movtery.pojavzh.feature.mod.modpack.install.OnInstallStartListener;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.VersionType;
+import com.movtery.pojavzh.utils.MCVersionRegex;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
@@ -40,6 +41,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringJoiner;
 import java.util.TreeSet;
+import java.util.regex.Pattern;
 import java.util.zip.ZipFile;
 
 public class CurseforgeApi implements ModpackApi{
@@ -176,6 +178,14 @@ public class CurseforgeApi implements ModpackApi{
             //获取全部的Mod加载器
             List<ModLoaderList.ModLoader> modloaderList = new ArrayList<>();
             mcVersions.forEach(modloaderName -> ModLoaderList.addModLoaderToList(modloaderList, modloaderName));
+
+            //过滤非MC版本的元素
+            Pattern releaseRegex = MCVersionRegex.getRELEASE_REGEX();
+            Set<String> nonMCVersion = new TreeSet<>();
+            mcVersions.forEach(string -> {
+                if (!releaseRegex.matcher(string).find()) nonMCVersion.add(string);
+            });
+            if (!nonMCVersion.isEmpty()) mcVersions.removeAll(nonMCVersion);
 
             List<ModDependencies> modDependencies = new ArrayList<>();
             if (!item.isModpack && modDetail.getAsJsonArray("dependencies").size() != 0) {
