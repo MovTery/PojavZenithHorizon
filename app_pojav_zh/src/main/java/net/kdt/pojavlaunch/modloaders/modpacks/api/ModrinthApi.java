@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.feature.mod.ModLoaderList;
+import com.movtery.pojavzh.feature.mod.ModMirror;
 import com.movtery.pojavzh.feature.mod.SearchModSort;
 import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
 import com.movtery.pojavzh.feature.mod.modpack.install.OnInstallStartListener;
@@ -37,7 +38,7 @@ import java.util.zip.ZipFile;
 public class ModrinthApi implements ModpackApi{
     private final ApiHandler mApiHandler;
     public ModrinthApi(){
-        mApiHandler = new ApiHandler("https://api.modrinth.com/v2");
+        mApiHandler = new ApiHandler(ModMirror.replaceMirrorInfoUrl("https://api.modrinth.com/v2"));
     }
 
     @Override
@@ -101,13 +102,7 @@ public class ModrinthApi implements ModpackApi{
                 continue;
             }
 
-            String iconUrl;
-            try {
-                iconUrl = hit.get("icon_url").getAsString();
-            } catch (Exception e) {
-                Logging.e("error", Tools.printToString(e));
-                iconUrl = null;
-            }
+            String iconUrl = fetchIconUrl(hit);
 
             modItems.add(new ModItem(
                     Constants.SOURCE_MODRINTH,
@@ -128,111 +123,100 @@ public class ModrinthApi implements ModpackApi{
 
     @Override
     public ModDetail getModDetails(ModItem item) {
-
         JsonArray response = mApiHandler.get(String.format("project/%s/version", item.id), JsonArray.class);
         if (response == null) return null;
-        System.out.println(response);
 
         List<ModVersionItem> modItems = new ArrayList<>();
         Map<String, ModItem> dependenciesModMap = new HashMap<>();
 
-        for (int i = 0; i < response.size(); ++i) {
-            JsonObject version = response.get(i).getAsJsonObject();
-            JsonObject filesJsonObject = version.get("files").getAsJsonArray().get(0).getAsJsonObject();
+        for (JsonElement element : response) {
+            JsonObject version = element.getAsJsonObject();
+            JsonObject filesJsonObject = version.getAsJsonArray("files").get(0).getAsJsonObject();
             //提取信息
-            String downloadUrl = filesJsonObject.get("url").getAsString();
+            String downloadUrl = ModMirror.replaceMirrorDownloadUrl(filesJsonObject.get("url").getAsString());
             String filename = filesJsonObject.get("filename").getAsString();
             String name = version.get("name").getAsString();
             String versionTypeString = version.get("version_type").getAsString();
+            String hash = getSha1Hash(filesJsonObject);
             //Mod加载器信息
-            JsonArray loaders = version.get("loaders").getAsJsonArray();
-            List<ModLoaderList.ModLoader> modloaderList = new ArrayList<>();
-            for (JsonElement loader : loaders) {
-                String loaderName = loader.getAsString();
-                ModLoaderList.addModLoaderToList(modloaderList, loaderName);
-            }
+            List<ModLoaderList.ModLoader> modloaderList = getModLoaderList(version.getAsJsonArray("loaders"));
+            String[] mcVersionsArray = getMcVersions(version.getAsJsonArray("game_versions"));
 
-            // Assume there may not be hashes, in case the API changes
-            String hash;
-            JsonObject hashesMap = version.getAsJsonArray("files").get(0).getAsJsonObject()
-                    .get("hashes").getAsJsonObject();
-            if (hashesMap == null || hashesMap.get("sha1") == null) {
-                hash = null;
-            } else {
-                hash = hashesMap.get("sha1").getAsString();
-            }
+            List<ModDependencies> modDependencies = getModDependencies(item, version.getAsJsonArray("dependencies"), dependenciesModMap);
 
-            JsonArray gameVersionJson = version.get("game_versions").getAsJsonArray();
-
-            List<String> mcVersions = new ArrayList<>();
-            for (JsonElement gameVersions : gameVersionJson) {
-                mcVersions.add(gameVersions.getAsString());
-            }
-            String[] mcVersionsArray = new String[mcVersions.size()];
-            mcVersions.toArray(mcVersionsArray);
-
-            JsonArray dependencies = version.get("dependencies").getAsJsonArray();
-            List<ModDependencies> modDependencies = new ArrayList<>();
-            if (!item.isModpack && dependencies.size() != 0) {
-                for (JsonElement dependency : dependencies) {
-                    JsonObject object = dependency.getAsJsonObject();
-                    String projectId = object.get("project_id").getAsString();
-                    String dependencyType = object.get("dependency_type").getAsString();
-
-                    ModItem items = null;
-                    if (!dependenciesModMap.containsKey(projectId)) {
-                        JsonObject hit = mApiHandler.get("project/" + projectId, JsonObject.class);
-
-                        if (hit != null) {
-                            JsonArray modLoaders = hit.get("loaders").getAsJsonArray();
-                            List<ModLoaderList.ModLoader> modLoadersList = new ArrayList<>();
-                            for (JsonElement loader : modLoaders) {
-                                String string = loader.getAsString();
-                                ModLoaderList.addModLoaderToList(modLoadersList, string);
-                            }
-
-                            String iconUrl;
-                            try {
-                                iconUrl = hit.get("icon_url").getAsString();
-                            } catch (Exception e) {
-                                Logging.e("error", Tools.printToString(e));
-                                iconUrl = null;
-                            }
-
-                            items = new ModItem(
-                                    Constants.SOURCE_MODRINTH,
-                                    hit.get("project_type").getAsString().equals("modpack"),
-                                    projectId,
-                                    hit.get("title").getAsString(),
-                                    hit.get("description").getAsString(),
-                                    hit.get("downloads").getAsInt(),
-                                    modLoadersList.toArray(new ModLoaderList.ModLoader[]{}),
-                                    iconUrl
-                            );
-                        }
-                        dependenciesModMap.put(projectId, items);
-                    } else {
-                        items = dependenciesModMap.get(projectId);
-                    }
-
-                    if (items != null) {
-                        modDependencies.add(new ModDependencies(items, ModDependencies.getDependencyType(dependencyType)));
-                    }
-                }
-            }
-
-            modItems.add(new ModVersionItem(mcVersionsArray,
-                    filename,
-                    name,
-                    modloaderList.toArray(new ModLoaderList.ModLoader[]{}),
-                    modDependencies,
-                    VersionType.getVersionType(versionTypeString),
-                    hash,
-                    version.get("downloads").getAsInt(),
-                    downloadUrl));
+            modItems.add(new ModVersionItem(mcVersionsArray, filename, name,
+                    modloaderList.toArray(new ModLoaderList.ModLoader[0]), modDependencies,
+                    VersionType.getVersionType(versionTypeString), hash,
+                    version.get("downloads").getAsInt(), downloadUrl));
         }
 
         return new ModDetail(item, modItems);
+    }
+
+    private String getSha1Hash(JsonObject filesJsonObject) {
+        JsonObject hashesMap = filesJsonObject.getAsJsonObject("hashes");
+        return (hashesMap != null && hashesMap.has("sha1")) ? hashesMap.get("sha1").getAsString() : null;
+    }
+
+    private List<ModLoaderList.ModLoader> getModLoaderList(JsonArray loaders) {
+        List<ModLoaderList.ModLoader> modloaderList = new ArrayList<>();
+        for (JsonElement loader : loaders) {
+            ModLoaderList.addModLoaderToList(modloaderList, loader.getAsString());
+        }
+        return modloaderList;
+    }
+
+    private String[] getMcVersions(JsonArray gameVersionJson) {
+        List<String> mcVersions = new ArrayList<>();
+        for (JsonElement gameVersion : gameVersionJson) {
+            mcVersions.add(gameVersion.getAsString());
+        }
+        return mcVersions.toArray(new String[0]);
+    }
+
+    private List<ModDependencies> getModDependencies(ModItem item, JsonArray dependencies, Map<String, ModItem> dependenciesModMap) {
+        List<ModDependencies> modDependencies = new ArrayList<>();
+        if (!item.isModpack && dependencies.size() != 0) {
+            for (JsonElement dependency : dependencies) {
+                JsonObject dependencyObj = dependency.getAsJsonObject();
+                String projectId = dependencyObj.get("project_id").getAsString();
+                String dependencyType = dependencyObj.get("dependency_type").getAsString();
+
+                ModItem modItem = dependenciesModMap.computeIfAbsent(projectId, this::fetchDependencyModItem);
+                if (modItem != null) {
+                    modDependencies.add(new ModDependencies(modItem, ModDependencies.getDependencyType(dependencyType)));
+                }
+            }
+        }
+        return modDependencies;
+    }
+
+    private ModItem fetchDependencyModItem(String projectId) {
+        JsonObject hit = mApiHandler.get("project/" + projectId, JsonObject.class);
+        if (hit == null) return null;
+
+        List<ModLoaderList.ModLoader> modLoadersList = getModLoaderList(hit.getAsJsonArray("loaders"));
+        String iconUrl = fetchIconUrl(hit);
+
+        return new ModItem(
+                Constants.SOURCE_MODRINTH,
+                hit.get("project_type").getAsString().equals("modpack"),
+                projectId,
+                hit.get("title").getAsString(),
+                hit.get("description").getAsString(),
+                hit.get("downloads").getAsInt(),
+                modLoadersList.toArray(new ModLoaderList.ModLoader[0]),
+                iconUrl
+        );
+    }
+
+    private String fetchIconUrl(JsonObject hit) {
+        try {
+            return hit.get("icon_url").getAsString();
+        } catch (Exception e) {
+            Logging.e("error", Tools.printToString(e));
+            return null;
+        }
     }
 
     @Override

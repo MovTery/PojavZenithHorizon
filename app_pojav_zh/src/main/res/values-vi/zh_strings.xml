@@ -207,6 +207,7 @@
     <string name="zh_main_notice_title">Thanh thông báo</string>
     <string name="zh_preference_category_language">Ngôn ngữ</string>
     <string name="zh_preference_category_personalization">Cá nhân hóa</string>
+    <string name="zh_preference_category_download">Tải xuống</string>
     <string name="zh_preference_category_launcher">Trình khởi chạy</string>
     <string name="zh_preference_category_experimental">Thử nghiệm</string>
     <string name="zh_preference_category_experimental_patches">Bản vá thử nghiệm</string>
@@ -214,6 +215,8 @@
     <string name="zh_setting_java_memory_info">Thông tin sử dụng bộ nhớ hiện tại: %s / %s, kích thước bộ nhớ trống: %s</string>
     <string name="zh_setting_java_memory_max">Kích thước bộ nhớ tối đa có thể đặt: %s</string>
     <string name="zh_setting_java_memory_exceeded">Kích thước bộ nhớ được đặt hiện vượt quá kích thước bộ nhớ có sẵn</string>
+    <string name="zh_setting_mod_info_mirror">Nguồn thông tin Mod</string>
+    <string name="zh_setting_mod_download_mirror">Nguồn tải xuống Mod</string>
     <string name="zh_setting_set_game_language_desc">Tự động đặt ngôn ngữ trò chơi thành ngôn ngữ đã chọn khi khởi động trò chơi</string>
     <string name="zh_setting_set_game_language_title">Tự động đặt ngôn ngữ trò chơi</string>
     <string name="zh_setting_set_game_language_list">Đặt ngôn ngữ trò chơi</string>

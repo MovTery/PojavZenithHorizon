@@ -207,6 +207,7 @@
     <string name="zh_main_notice_title">الإشعارات</string>
     <string name="zh_preference_category_language">اللغة</string>
     <string name="zh_preference_category_personalization">تخصيص</string>
+    <string name="zh_preference_category_download">تنزيل</string>
     <string name="zh_preference_category_launcher">المشغل</string>
     <string name="zh_preference_category_experimental">تجريبي</string>
     <string name="zh_preference_category_experimental_patches">تصحيحات تجريبية</string>
@@ -214,6 +215,8 @@
     <string name="zh_setting_java_memory_info">معلومات استخدام الذاكرة الحالية: %s / %s ، حجم الذاكرة الحرة: %s</string>
     <string name="zh_setting_java_memory_max">الحد الأقصى لحجم الذاكرة القابل للضبط: %s</string>
     <string name="zh_setting_java_memory_exceeded">حجم الذاكرة المعين حاليًا يتجاوز حجم الذاكرة المتاحة</string>
+    <string name="zh_setting_mod_info_mirror">مصدر معلومات Mod</string>
+    <string name="zh_setting_mod_download_mirror">مصدر تنزيل Mod</string>
     <string name="zh_setting_set_game_language_desc">تعيين لغة اللعبة تلقائيًا إلى اللغة المحددة عند بدء اللعبة</string>
     <string name="zh_setting_set_game_language_title">تعيين لغة اللعبة تلقائيًا</string>
     <string name="zh_setting_set_game_language_list">تعيين لغة اللعبة</string>

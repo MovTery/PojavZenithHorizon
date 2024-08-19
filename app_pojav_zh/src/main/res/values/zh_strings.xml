@@ -207,6 +207,7 @@
     <string name="zh_main_notice_title">Notification Bar</string>
     <string name="zh_preference_category_language">Language</string>
     <string name="zh_preference_category_personalization">Personalization</string>
+    <string name="zh_preference_category_download">Download</string>
     <string name="zh_preference_category_launcher">Launcher</string>
     <string name="zh_preference_category_experimental">Experimental</string>
     <string name="zh_preference_category_experimental_patches">Experimental Patches</string>
@@ -214,6 +215,8 @@
     <string name="zh_setting_java_memory_info">Current memory usage: %s / %s, Free memory size: %s</string>
     <string name="zh_setting_java_memory_max">Maximum allowable memory size: %s</string>
     <string name="zh_setting_java_memory_exceeded">The current memory allocation exceeds available memory size</string>
+    <string name="zh_setting_mod_info_mirror">Mod Information Source</string>
+    <string name="zh_setting_mod_download_mirror">Mod Download Source</string>
     <string name="zh_setting_set_game_language_desc">Automatically set the game language to the selected language when the game starts</string>
     <string name="zh_setting_set_game_language_title">Automatically Set Game Language</string>
     <string name="zh_setting_set_game_language_list">Set Game Language</string>
