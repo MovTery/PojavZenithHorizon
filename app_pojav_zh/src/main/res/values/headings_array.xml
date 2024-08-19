@@ -53,6 +53,14 @@
         <item>default</item>
         <item>bmclapi</item>
     </string-array>
+    <string-array name="mod_source_names">
+        <item>@string/global_default</item>
+        <item>MCIM</item>
+    </string-array>
+    <string-array name="mod_source_values">
+        <item>original</item>
+        <item>mcim</item>
+    </string-array>
 
     <string-array name="launcher_theme_names">
         <item>@string/zh_setting_launcher_theme_system</item>

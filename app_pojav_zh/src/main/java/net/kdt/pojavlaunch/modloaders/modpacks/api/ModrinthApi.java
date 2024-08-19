@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.feature.mod.ModLoaderList;
-import com.movtery.pojavzh.feature.mod.ModUtils;
+import com.movtery.pojavzh.feature.mod.ModMirror;
 import com.movtery.pojavzh.feature.mod.SearchModSort;
 import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
 import com.movtery.pojavzh.feature.mod.modpack.install.OnInstallStartListener;
@@ -38,7 +38,7 @@ import java.util.zip.ZipFile;
 public class ModrinthApi implements ModpackApi{
     private final ApiHandler mApiHandler;
     public ModrinthApi(){
-        mApiHandler = new ApiHandler(ModUtils.replaceMirrorUrl("https://api.modrinth.com/v2"));
+        mApiHandler = new ApiHandler(ModMirror.replaceMirrorInfoUrl("https://api.modrinth.com/v2"));
     }
 
     @Override
@@ -141,8 +141,7 @@ public class ModrinthApi implements ModpackApi{
             JsonObject version = response.get(i).getAsJsonObject();
             JsonObject filesJsonObject = version.get("files").getAsJsonArray().get(0).getAsJsonObject();
             //提取信息
-            String downloadUrl = filesJsonObject.get("url").getAsString();
-            downloadUrl = ModUtils.replaceMirrorUrl(downloadUrl);
+            String downloadUrl = ModMirror.replaceMirrorDownloadUrl(filesJsonObject.get("url").getAsString());
             String filename = filesJsonObject.get("filename").getAsString();
             String name = version.get("name").getAsString();
             String versionTypeString = version.get("version_type").getAsString();
