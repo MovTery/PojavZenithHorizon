@@ -55,10 +55,9 @@
     <string name="zh_profile_mods_search_sort_by_popularity">Phổ biến</string>
     <string name="zh_profile_mods_search_sort_by_recently_created">Được tạo gần đây</string>
     <string name="zh_profile_mods_search_sort_by_recently_updated">Gần đây được cập nhật</string>
-    <string name="zh_profile_mods_information_download_count">Tổng số lượt tải xuống:</string>
-    <string name="zh_profile_mods_information_modloader">Trình nạp Mod hỗ trợ:</string>
+    <string name="zh_profile_mods_information_download_count">Lượt tải xuống:</string>
+    <string name="zh_profile_mods_information_modloader">Tương thích với:</string>
     <string name="zh_profile_mods_information_dependencies">Loại phụ thuộc:</string>
-    <string name="zh_profile_mods_information_release_type">Loại phiên bản:</string>
     <string name="zh_profile_mods_information_release_type_release">Phiên bản chính thức</string>
     <string name="zh_profile_mods_information_release_type_beta">Phiên bản thử nghiệm</string>
     <string name="zh_profile_mods_information_release_type_alpha">Phiên bản thử nội bộ</string>

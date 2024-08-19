@@ -55,10 +55,9 @@
     <string name="zh_profile_mods_search_sort_by_popularity">Popularity</string>
     <string name="zh_profile_mods_search_sort_by_recently_created">Recently Created</string>
     <string name="zh_profile_mods_search_sort_by_recently_updated">Recently Updated</string>
-    <string name="zh_profile_mods_information_download_count">Total Downloads:</string>
-    <string name="zh_profile_mods_information_modloader">Supported Mod Loaders:</string>
+    <string name="zh_profile_mods_information_download_count">Downloads:</string>
+    <string name="zh_profile_mods_information_modloader">Compatible with:</string>
     <string name="zh_profile_mods_information_dependencies">Dependency Type:</string>
-    <string name="zh_profile_mods_information_release_type">Release Type:</string>
     <string name="zh_profile_mods_information_release_type_release">Release</string>
     <string name="zh_profile_mods_information_release_type_beta">Beta</string>
     <string name="zh_profile_mods_information_release_type_alpha">Alpha</string>
