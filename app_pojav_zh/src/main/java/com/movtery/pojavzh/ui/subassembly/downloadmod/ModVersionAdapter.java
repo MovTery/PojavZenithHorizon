@@ -149,7 +149,7 @@ public class ModVersionAdapter extends RecyclerView.Adapter<ModVersionAdapter.In
                     text = mainView.getContext().getString(R.string.zh_unknown);
                     break;
             }
-            return StringUtils.insertSpace(mainView.getContext().getString(R.string.zh_profile_mods_information_release_type), text);
+            return text;
         }
     }
 }

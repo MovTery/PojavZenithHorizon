@@ -55,10 +55,9 @@
     <string name="zh_profile_mods_search_sort_by_popularity">الشعبية</string>
     <string name="zh_profile_mods_search_sort_by_recently_created">أُنشئت مؤخرًا</string>
     <string name="zh_profile_mods_search_sort_by_recently_updated">آخر تحديث</string>
-    <string name="zh_profile_mods_information_download_count">إجمالي التنزيلات:</string>
-    <string name="zh_profile_mods_information_modloader">محملات المودات المدعومة:</string>
+    <string name="zh_profile_mods_information_download_count">عدد التنزيلات:</string>
+    <string name="zh_profile_mods_information_modloader">متوافق مع:</string>
     <string name="zh_profile_mods_information_dependencies">نوع التبعيات:</string>
-    <string name="zh_profile_mods_information_release_type">نوع الإصدار:</string>
     <string name="zh_profile_mods_information_release_type_release">الإصدار الرسمي</string>
     <string name="zh_profile_mods_information_release_type_beta">الإصدار التجريبي</string>
     <string name="zh_profile_mods_information_release_type_alpha">الإصدار الداخلي</string>

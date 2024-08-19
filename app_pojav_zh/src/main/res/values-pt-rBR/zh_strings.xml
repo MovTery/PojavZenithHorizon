@@ -55,10 +55,9 @@
     <string name="zh_profile_mods_search_sort_by_popularity">Popularidade</string>
     <string name="zh_profile_mods_search_sort_by_recently_created">Criado Recentemente</string>
     <string name="zh_profile_mods_search_sort_by_recently_updated">Atualizado Recentemente</string>
-    <string name="zh_profile_mods_information_download_count">Total de Downloads:</string>
-    <string name="zh_profile_mods_information_modloader">Mod Loader Suportado:</string>
+    <string name="zh_profile_mods_information_download_count">Downloads:</string>
+    <string name="zh_profile_mods_information_modloader">Compatível com:</string>
     <string name="zh_profile_mods_information_dependencies">Tipo de Dependências:</string>
-    <string name="zh_profile_mods_information_release_type">Tipo de Versão:</string>
     <string name="zh_profile_mods_information_release_type_release">Versão Oficial</string>
     <string name="zh_profile_mods_information_release_type_beta">Versão Beta</string>
     <string name="zh_profile_mods_information_release_type_alpha">Versão Alpha</string>

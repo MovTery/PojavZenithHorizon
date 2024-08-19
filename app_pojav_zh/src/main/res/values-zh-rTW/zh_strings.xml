@@ -55,10 +55,9 @@
     <string name="zh_profile_mods_search_sort_by_popularity">受歡迎程度</string>
     <string name="zh_profile_mods_search_sort_by_recently_created">最新創建</string>
     <string name="zh_profile_mods_search_sort_by_recently_updated">最新更新</string>
-    <string name="zh_profile_mods_information_download_count">總下載量：</string>
-    <string name="zh_profile_mods_information_modloader">支援的 Mod 載入器：</string>
+    <string name="zh_profile_mods_information_download_count">下載量:</string>
+    <string name="zh_profile_mods_information_modloader">適用於:</string>
     <string name="zh_profile_mods_information_dependencies">依賴類型:</string>
-    <string name="zh_profile_mods_information_release_type">版本類型:</string>
     <string name="zh_profile_mods_information_release_type_release">正式版</string>
     <string name="zh_profile_mods_information_release_type_beta">測試版</string>
     <string name="zh_profile_mods_information_release_type_alpha">內測版</string>
