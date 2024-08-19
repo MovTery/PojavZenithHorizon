@@ -204,7 +204,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/_8sdp"
-                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_4sdp"
                         android:paddingVertical="@dimen/_4sdp"
                         android:maxHeight="@dimen/_300sdp"
                         app:layout_constraintEnd_toEndOf="parent"
