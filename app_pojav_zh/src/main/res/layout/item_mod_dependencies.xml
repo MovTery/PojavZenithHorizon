@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:ellipsize="end"
-        android:textSize="12sp"
+        android:textSize="12.5sp"
         android:textColor="@color/primary_text"
         app:layout_constraintEnd_toStartOf="@+id/mod_source_imageview"
         app:layout_constraintHorizontal_bias="0.0"
@@ -51,8 +51,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="2"
-        android:textColor="@color/primary_text"
-        android:textSize="10sp"
+        android:textSize="11.5sp"
         app:layout_constraintEnd_toEndOf="@+id/mod_title_textview"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/mod_title_textview"
@@ -60,57 +59,50 @@
         tools:text="Feed the beast - Reforged is a machine and magic focused modpack, with no respect for the minimum requirements of minecraft. Very long text"
         tools:ignore="SmallSp" />
 
-    <TextView
-        android:id="@+id/zh_mod_dependencies_textview"
-        style="@style/TextAppearance.AppCompat.Body1"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="Dependencies: "
-        android:textColor="@color/primary_text"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginTop="@dimen/_6sdp"
+        app:layout_constraintEnd_toEndOf="@+id/mod_body_textview"
         app:layout_constraintStart_toStartOf="@+id/mod_body_textview"
-        app:layout_constraintTop_toBottomOf="@+id/mod_body_textview"
-        tools:ignore="HardcodedText,SmallSp" />
+        app:layout_constraintTop_toBottomOf="@+id/mod_body_textview">
 
-    <TextView
-        android:id="@+id/zh_mod_download_count_textview"
-        style="@style/TextAppearance.AppCompat.Body1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="Downloads: "
-        android:textColor="@color/primary_text"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/zh_mod_dependencies_textview"
-        app:layout_constraintTop_toBottomOf="@+id/mod_body_textview"
-        tools:ignore="HardcodedText,SmallSp" />
+        <TextView
+            android:id="@+id/zh_mod_dependencies_textview"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="Dependencies: "
+            android:textColor="@color/primary_text"
+            android:textSize="11.5sp"
+            tools:ignore="HardcodedText,SmallSp" />
 
-    <TextView
-        android:id="@+id/zh_mod_modloader_textview"
-        style="@style/TextAppearance.AppCompat.Body1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="Forge"
-        android:textColor="@color/primary_text"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/zh_mod_download_count_textview"
-        app:layout_constraintTop_toBottomOf="@+id/mod_body_textview"
-        tools:ignore="HardcodedText,SmallSp" />
+        <TextView
+            android:id="@+id/zh_mod_download_count_textview"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="Downloads: "
+            android:textColor="@color/primary_text"
+            android:textSize="11.5sp"
+            tools:ignore="HardcodedText,SmallSp" />
+
+        <TextView
+            android:id="@+id/zh_mod_modloader_textview"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="Forge"
+            android:textColor="@color/primary_text"
+            android:textSize="11.5sp"
+            tools:ignore="HardcodedText,SmallSp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </com.movtery.pojavzh.ui.layout.AnimConstraintLayout>
