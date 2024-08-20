@@ -41,7 +41,7 @@ public interface ModpackApi {
      * @param item The moditem that was selected
      * @return Detailed data about a mod(pack)
      */
-    ModDetail getModDetails(ModItem item);
+    ModDetail getModDetails(ModItem item, boolean force);
 
     /**
      * Download and install the mod(pack)

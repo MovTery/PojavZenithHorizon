@@ -82,10 +82,10 @@ public class DownloadUtils {
 
     }
 
-    public static <T> T downloadStringCached(String url, String cacheName, ParseCallback<T> parseCallback) throws IOException, ParseException{
+    public static <T> T downloadStringCached(String url, String cacheName, boolean force, ParseCallback<T> parseCallback) throws IOException, ParseException{
         File cacheDestination = new File(PathAndUrlManager.DIR_CACHE, "string_cache/"+cacheName);
-        if(cacheDestination.isFile() &&
-                cacheDestination.canRead() &&
+        if (force && cacheDestination.exists()) org.apache.commons.io.FileUtils.deleteQuietly(cacheDestination);
+        if (cacheDestination.isFile() && cacheDestination.canRead() &&
                 ZHTools.getCurrentTimeMillis() < (cacheDestination.lastModified() + 86400000)) {
             try {
                 String cachedString = Tools.read(new FileInputStream(cacheDestination));

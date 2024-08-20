@@ -29,15 +29,23 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
         super.init()
     }
 
+    override fun initRefresh(): Future<*>? {
+        return refresh(false)
+    }
+
     override fun refresh(): Future<*> {
+        return refresh(true)
+    }
+
+    private fun refresh(force: Boolean): Future<*> {
         return PojavApplication.sExecutorService.submit {
             runCatching {
                 Tools.runOnUiThread {
                     cancelFailedToLoad()
                     componentProcessing(true)
                 }
-                val gameVersions = utils.downloadGameVersions()
-                processInfo(gameVersions)
+                val gameVersions = utils.downloadGameVersions(force)
+                processInfo(gameVersions, force)
             }.getOrElse { e ->
                 Tools.runOnUiThread {
                     componentProcessing(false)
@@ -48,7 +56,7 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
         }
     }
 
-    private fun processInfo(gameVersions: Array<FabricVersion>) {
+    private fun processInfo(gameVersions: Array<FabricVersion>, force: Boolean) {
         if (gameVersions.isEmpty()) {
             Tools.runOnUiThread {
                 componentProcessing(false)
@@ -61,7 +69,7 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
         val pattern = MCVersionRegex.RELEASE_REGEX
 
         val mFabricVersions: MutableMap<String, List<FabricVersion>> = HashMap()
-        val loaderVersions: Array<FabricVersion>? = utils.downloadLoaderVersions()
+        val loaderVersions: Array<FabricVersion>? = utils.downloadLoaderVersions(force)
         gameVersions.forEach {
             if (currentTask!!.isCancelled) return
             val version = it.version

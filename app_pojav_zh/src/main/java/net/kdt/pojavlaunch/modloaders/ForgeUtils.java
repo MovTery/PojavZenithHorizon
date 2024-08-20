@@ -20,11 +20,12 @@ import javax.xml.parsers.SAXParserFactory;
 public class ForgeUtils {
     private static final String FORGE_METADATA_URL = "https://maven.minecraftforge.net/net/minecraftforge/forge/maven-metadata.xml";
     private static final String FORGE_INSTALLER_URL = "https://maven.minecraftforge.net/net/minecraftforge/forge/%1$s/forge-%1$s-installer.jar";
-    public static List<String> downloadForgeVersions() throws Exception {
+
+    public static List<String> downloadForgeVersions(boolean force) throws Exception {
         SAXParserFactory parserFactory = SAXParserFactory.newInstance();
         SAXParser saxParser = parserFactory.newSAXParser();
 
-        return DownloadUtils.downloadStringCached(FORGE_METADATA_URL, "forge_versions", input -> {
+        return DownloadUtils.downloadStringCached(FORGE_METADATA_URL, "forge_versions", force, input -> {
             try {
                 ForgeVersionListHandler handler = new ForgeVersionListHandler();
                 saxParser.parse(new InputSource(new StringReader(input)), handler);

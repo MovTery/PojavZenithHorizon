@@ -39,14 +39,22 @@ class DownloadNeoForgeFragment : ModListFragment(), ModloaderDownloadListener {
         super.init()
     }
 
+    override fun initRefresh(): Future<*> {
+        return refresh(false)
+    }
+
     override fun refresh(): Future<*> {
+        return refresh(true)
+    }
+
+    private fun refresh(force: Boolean): Future<*> {
         return PojavApplication.sExecutorService.submit {
             runCatching {
                 Tools.runOnUiThread {
                     cancelFailedToLoad()
                     componentProcessing(true)
                 }
-                processModDetails(loadVersionList())
+                processModDetails(loadVersionList(force))
             }.getOrElse { e ->
                 Tools.runOnUiThread {
                     componentProcessing(false)
@@ -58,10 +66,10 @@ class DownloadNeoForgeFragment : ModListFragment(), ModloaderDownloadListener {
     }
 
     @Throws(Exception::class)
-    fun loadVersionList(): List<String?> {
+    fun loadVersionList(force: Boolean): List<String?> {
         val versions: MutableList<String?> = ArrayList()
-        versions.addAll(downloadNeoForgedForgeVersions())
-        versions.addAll(downloadNeoForgeVersions())
+        versions.addAll(downloadNeoForgedForgeVersions(force))
+        versions.addAll(downloadNeoForgeVersions(force))
 
         versions.reverse()
 

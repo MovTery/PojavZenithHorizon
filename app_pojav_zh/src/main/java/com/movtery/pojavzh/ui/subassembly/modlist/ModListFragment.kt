@@ -58,7 +58,7 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
         recyclerView?.layoutManager = layoutManager
 
         mRefreshButton?.setOnClickListener { refreshTask() }
-        releaseCheckBox?.setOnClickListener { refreshTask() }
+        releaseCheckBox?.setOnClickListener { initRefresh() }
         mReturnButton?.setOnClickListener {
             if (parentAdapter != null) {
                 hideParentElement(false)
@@ -72,7 +72,7 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
 
         mBackToTop?.setOnClickListener { recyclerView?.smoothScrollToPosition(0) }
 
-        refreshTask()
+        currentTask = initRefresh()
     }
 
     override fun onAttach(context: Context) {
@@ -111,6 +111,7 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
         currentTask = refresh()
     }
 
+    protected abstract fun initRefresh(): Future<*>?
     protected abstract fun refresh(): Future<*>?
 
     protected fun componentProcessing(state: Boolean) {

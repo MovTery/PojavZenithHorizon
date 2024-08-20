@@ -46,14 +46,27 @@ class DownloadModFragment : ModListFragment() {
         super.init()
     }
 
+    override fun initRefresh(): Future<*> {
+        return refresh(false)
+    }
+
     override fun refresh(): Future<*> {
+        return refresh(true)
+    }
+
+    override fun onDestroy() {
+        mParentUIRecyclerView?.isEnabled = true
+        super.onDestroy()
+    }
+
+    private fun refresh(force: Boolean): Future<*> {
         return PojavApplication.sExecutorService.submit {
             runCatching {
                 Tools.runOnUiThread {
                     cancelFailedToLoad()
                     componentProcessing(true)
                 }
-                val mModDetail = mModApi!!.getModDetails(mModItem)
+                val mModDetail = mModApi!!.getModDetails(mModItem, force)
                 processModDetails(mModDetail)
             }.getOrElse { e ->
                 Tools.runOnUiThread {
@@ -63,11 +76,6 @@ class DownloadModFragment : ModListFragment() {
                 Logging.e("DownloadModFragment", Tools.printToString(e))
             }
         }
-    }
-
-    override fun onDestroy() {
-        mParentUIRecyclerView?.isEnabled = true
-        super.onDestroy()
     }
 
     private fun processModDetails(mModDetail: ModDetail) {

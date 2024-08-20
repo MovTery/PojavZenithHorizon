@@ -123,8 +123,8 @@ public class ModrinthApi implements ModpackApi{
     }
 
     @Override
-    public ModDetail getModDetails(ModItem item) {
-        if (ModCache.ModInfoCache.INSTANCE.containsKey(this, item.id)) return new ModDetail(item, ModCache.ModInfoCache.INSTANCE.get(this, item.id));
+    public ModDetail getModDetails(ModItem item, boolean force) {
+        if (!force && ModCache.ModInfoCache.INSTANCE.containsKey(this, item.id)) return new ModDetail(item, ModCache.ModInfoCache.INSTANCE.get(this, item.id));
 
         JsonArray response = mApiHandler.get(String.format("project/%s/version", item.id), JsonArray.class);
         if (response == null) return null;
