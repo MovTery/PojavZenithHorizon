@@ -36,14 +36,22 @@ class DownloadForgeFragment : ModListFragment(), ModloaderDownloadListener {
         super.init()
     }
 
+    override fun initRefresh(): Future<*> {
+        return refresh(false)
+    }
+
     override fun refresh(): Future<*> {
+        return refresh(true)
+    }
+
+    private fun refresh(force: Boolean): Future<*> {
         return PojavApplication.sExecutorService.submit {
             runCatching {
                 Tools.runOnUiThread {
                     cancelFailedToLoad()
                     componentProcessing(true)
                 }
-                val forgeVersions = ForgeUtils.downloadForgeVersions()
+                val forgeVersions = ForgeUtils.downloadForgeVersions(force)
                 processModDetails(forgeVersions)
             }.getOrElse { e ->
                 Tools.runOnUiThread {

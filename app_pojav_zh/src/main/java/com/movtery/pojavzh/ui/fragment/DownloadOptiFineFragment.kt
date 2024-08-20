@@ -42,14 +42,22 @@ class DownloadOptiFineFragment : ModListFragment(), ModloaderDownloadListener {
         super.init()
     }
 
+    override fun initRefresh(): Future<*> {
+        return refresh(false)
+    }
+
     override fun refresh(): Future<*> {
+        return refresh(true)
+    }
+
+    private fun refresh(force: Boolean): Future<*> {
         return PojavApplication.sExecutorService.submit {
             runCatching {
                 Tools.runOnUiThread {
                     cancelFailedToLoad()
                     componentProcessing(true)
                 }
-                val optiFineVersions = OptiFineUtils.downloadOptiFineVersions()
+                val optiFineVersions = OptiFineUtils.downloadOptiFineVersions(force)
                 processModDetails(optiFineVersions)
             }.getOrElse { e ->
                 Tools.runOnUiThread {

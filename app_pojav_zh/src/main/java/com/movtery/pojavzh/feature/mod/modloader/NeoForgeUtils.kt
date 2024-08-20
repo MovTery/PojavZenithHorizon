@@ -22,13 +22,14 @@ class NeoForgeUtils {
             "https://maven.neoforged.net/releases/net/neoforged/forge/%1\$s/forge-%1\$s-installer.jar"
 
         @Throws(Exception::class)
-        private fun downloadVersions(metaDataUrl: String, name: String): List<String> {
+        private fun downloadVersions(metaDataUrl: String, name: String, force: Boolean): List<String> {
             val parserFactory = SAXParserFactory.newInstance()
             val saxParser = parserFactory.newSAXParser()
 
             return DownloadUtils.downloadStringCached<List<String>>(
                 metaDataUrl,
-                name
+                name,
+                force,
             ) { input: String? ->
                 try {
                     val handler = ForgeVersionListHandler()
@@ -46,14 +47,14 @@ class NeoForgeUtils {
 
         @JvmStatic
         @Throws(Exception::class)
-        fun downloadNeoForgeVersions(): List<String> {
-            return downloadVersions(NEOFORGE_METADATA_URL, "neoforge_versions")
+        fun downloadNeoForgeVersions(force: Boolean): List<String> {
+            return downloadVersions(NEOFORGE_METADATA_URL, "neoforge_versions", force)
         }
 
         @JvmStatic
         @Throws(Exception::class)
-        fun downloadNeoForgedForgeVersions(): List<String> {
-            return downloadVersions(NEOFORGED_FORGE_METADATA_URL, "neoforged_forge_versions")
+        fun downloadNeoForgedForgeVersions(force: Boolean): List<String> {
+            return downloadVersions(NEOFORGED_FORGE_METADATA_URL, "neoforged_forge_versions", force)
         }
 
         @JvmStatic

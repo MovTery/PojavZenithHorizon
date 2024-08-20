@@ -126,13 +126,13 @@ class NeoForgeDownloadTask : Runnable, DownloaderFeedback {
 
     @Throws(Exception::class)
     fun findNeoForgeVersion(): Boolean {
-        return findVersion(downloadNeoForgeVersions(), getNeoForgeInstallerUrl(mFullVersion))
+        return findVersion(downloadNeoForgeVersions(false), getNeoForgeInstallerUrl(mFullVersion))
     }
 
     @Throws(Exception::class)
     fun findNeoForgedForgeVersion(): Boolean {
         return findVersion(
-            downloadNeoForgedForgeVersions(),
+            downloadNeoForgedForgeVersions(false),
             getNeoForgedForgeInstallerUrl(mFullVersion)
         )
     }

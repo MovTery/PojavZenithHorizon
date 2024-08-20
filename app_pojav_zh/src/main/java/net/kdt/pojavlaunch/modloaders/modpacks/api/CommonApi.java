@@ -105,9 +105,9 @@ public class CommonApi implements ModpackApi {
     }
 
     @Override
-    public ModDetail getModDetails(ModItem item) {
+    public ModDetail getModDetails(ModItem item, boolean force) {
         Logging.i("CommonApi", "Invoking getModDetails on item.apiSource=" + item.apiSource + " item.title=" + item.title);
-        return getModpackApi(item.apiSource).getModDetails(item);
+        return getModpackApi(item.apiSource).getModDetails(item, force);
     }
 
     @Override

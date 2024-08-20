@@ -38,19 +38,19 @@ public class FabriclikeUtils {
         this.mName = mName;
     }
 
-    public FabricVersion[] downloadGameVersions() throws IOException{
+    public FabricVersion[] downloadGameVersions(boolean force) throws IOException{
         try {
-            return DownloadUtils.downloadStringCached(String.format(GAME_METADATA_URL, mApiUrl), mCachePrefix+"_game_versions",
+            return DownloadUtils.downloadStringCached(String.format(GAME_METADATA_URL, mApiUrl), mCachePrefix+"_game_versions", force,
                     FabriclikeUtils::deserializeRawVersions
             );
         }catch (DownloadUtils.ParseException ignored) {}
         return null;
     }
 
-    public FabricVersion[] downloadLoaderVersions() throws IOException {
+    public FabricVersion[] downloadLoaderVersions(boolean force) throws IOException {
         try {
             return DownloadUtils.downloadStringCached(String.format(LOADER_METADATA_URL, mApiUrl),
-                    mCachePrefix + "_loader_versions",
+                    mCachePrefix + "_loader_versions", force,
                     (input) -> {
                         try {
                             return deserializeLoaderVersions(input);

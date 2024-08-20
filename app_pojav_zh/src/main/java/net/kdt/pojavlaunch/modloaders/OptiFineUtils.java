@@ -11,8 +11,8 @@ import java.util.List;
 
 public class OptiFineUtils {
 
-    public static OptiFineVersions downloadOptiFineVersions() throws Exception {
-        return DownloadUtils.downloadStringCached("https://optifine.net/downloads", "of_downloads_page", new OptiFineScraper());
+    public static OptiFineVersions downloadOptiFineVersions(boolean force) throws Exception {
+        return DownloadUtils.downloadStringCached("https://optifine.net/downloads", "of_downloads_page", force, new OptiFineScraper());
     }
 
     public static void addAutoInstallArgs(Intent intent, File modInstallerJar) {
