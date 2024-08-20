@@ -34,57 +34,50 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Mod Title" />
 
-    <TextView
-        android:id="@+id/zh_mod_download_count_textview"
-        style="@style/TextAppearance.AppCompat.Body1"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_4sdp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="Downloads: "
-        android:textColor="@color/primary_text"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="@+id/mod_title_textview"
         app:layout_constraintStart_toStartOf="@+id/mod_title_textview"
-        app:layout_constraintTop_toBottomOf="@+id/mod_title_textview"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintTop_toBottomOf="@+id/mod_title_textview">
 
-    <TextView
-        android:id="@+id/zh_mod_modloader_textview"
-        style="@style/TextAppearance.AppCompat.Body1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="Forge"
-        android:textColor="@color/primary_text"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/zh_mod_download_count_textview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/zh_mod_download_count_textview"
-        app:layout_constraintTop_toTopOf="@+id/zh_mod_download_count_textview"
-        tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/zh_mod_download_count_textview"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="Downloads: "
+            android:textColor="@color/primary_text"
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
 
-    <TextView
-        android:id="@+id/zh_mod_release_type_textview"
-        style="@style/TextAppearance.AppCompat.Body1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="Release"
-        android:textColor="@color/primary_text"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/zh_mod_modloader_textview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/zh_mod_modloader_textview"
-        app:layout_constraintTop_toTopOf="@+id/zh_mod_modloader_textview"
-        tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/zh_mod_modloader_textview"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="Forge"
+            android:textColor="@color/primary_text"
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/zh_mod_release_type_textview"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="Release"
+            android:textColor="@color/primary_text"
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </com.movtery.pojavzh.ui.layout.AnimConstraintLayout>
