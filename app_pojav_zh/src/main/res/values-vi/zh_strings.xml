@@ -150,7 +150,7 @@
     <!-- Custom Mouse -->
     <string name="zh_mouse_settings_title">Cài đặt chuột ảo</string>
     <string name="zh_mouse_settings_speed_name">Tốc độ chuột ảo</string>
-    <string name="zh_mouse_settings_scale_name">Tỷ lệ chuột ảo</string>
+    <string name="zh_mouse_settings_scale_name">Kích thước chuột ảo</string>
     <string name="zh_custom_mouse_add">Thêm chuột ảo</string>
     <string name="zh_custom_mouse_added">Thiết lập chuột ảo thành công:</string>
     <string name="zh_custom_mouse_default">Chuột ảo mặc định</string>
@@ -300,8 +300,8 @@
     <string name="zh_about_pojavlauncher_desc">Nhóm phát triển PojavLauncher, phát triển và mở mã nguồn PojavLauncher</string>
     <string name="zh_about_verafirefly_desc">Cung cấp hỗ trợ kỹ thuật về kết xuất cho Pojav Zenith Horizon</string>
     <string name="zh_about_lingmuqiuzhu_desc">Cung cấp hỗ trợ kỹ thuật cho Pojav Zenith Horizon</string>
-    <string name="zh_about_bangbang93_desc">Pojav Zenith Horizon sử dụng nguồn BMCLAPI do Bangbang93 tạo ra</string>
-    <string name="zh_about_z0z0r4_desc">Pojav Zenith Horizon sử dụng nguồn thông tin MCIM Mod do Z0z0r4 tạo ra</string>
+    <string name="zh_about_bangbang93_desc">Pojav Zenith Horizon sử dụng nguồn BMCLAPI do bangbang93 tạo ra</string>
+    <string name="zh_about_z0z0r4_desc">Pojav Zenith Horizon sử dụng nguồn thông tin MCIM Mod do z0z0r4 tạo ra</string>
     <string name="zh_about_access_space">Truy cập không gian</string>
     <string name="zh_about_version_name">Tên phiên bản phần mềm:</string>
     <string name="zh_about_version_code">Mã phiên bản phần mềm:</string>

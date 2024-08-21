@@ -27,7 +27,7 @@
     <string name="mcl_setting_subtitle_buttonscale">Nếu nút quá nhỏ, bạn có thể phóng to nó</string>
     <string name="mcl_setting_subtitle_mousescale">Thay đổi kích thước của chuột ảo</string>
     <string name="mcl_setting_title_javaargs">Tham số khởi động JVM</string>
-    <string name="mcl_setting_subtitle_javaargs">Chú ý, việc sửa đổi giá trị này bởi người không chuyên có thể gây ra sự cố trò chơi</string>
+    <string name="mcl_setting_subtitle_javaargs">Cẩn thận, điều này có thể khiến trò chơi bị sập nếu sửa đổi mà không có kiến thức.</string>
     <string name="mcl_setting_category_renderer">Trình kết xuất</string>
     <string name="mcl_setting_renderer_gles2_4">Holy GL4ES - (Khả dụng cho tất cả các phiên bản, tốc độ nhanh)</string>
     <string name="mcl_setting_renderer_vulkan_zink">Zink (Vulkan) - (Khả dụng cho tất cả các phiên bản, tốc độ trung bình)</string>
@@ -60,9 +60,9 @@
     <string name="control_mouseoff">Chuột: Tắt</string>
     <string name="control_mouseon">Chuột: Bật</string>
     <!-- MainActivity: Menu advanced controls -->
-    <string name="control_forceclose">Tắt bằng lực</string>
+    <string name="control_forceclose">Buộc dừng</string>
     <string name="control_viewout">Xuất nhật ký</string>
-    <string name="control_customkey">Gửi mã phím tùy chỉnh</string>
+    <string name="control_customkey">Gửi phím tùy chỉnh</string>
     <!-- ImportControlActivity Strings -->
     <string name="import_control_label">Nhập bố cục điều khiển</string>
     <string name="import_control_invalid_file">Tệp không hợp lệ hoặc bị hỏng</string>
@@ -82,7 +82,7 @@
     <string name="customctrl_corner_radius">Bán kính góc tròn</string>
     <string name="customctrl_stroke_width">Độ rộng viền</string>
     <string name="customctrl_stroke_color">Màu viền</string>
-    <string name="customctrl_button_opacity">Độ mờ nhạt của nút</string>
+    <string name="customctrl_button_opacity">Độ mờ của nút</string>
     <string name="customctrl_addbutton">Thêm nút</string>
     <string name="customctrl_addbutton_drawer">Thêm nút kết hợp</string>
     <string name="customctrl_addbutton_joystick">Thêm joystick</string>
@@ -191,7 +191,7 @@
     <string name="global_save_and_exit">Lưu và thoát</string>
     <string name="preference_controller_map_wiped">Cấu hình bộ điều khiển đã được đặt lại</string>
     <string name="preference_category_controller_settings">Cài đặt bộ điều khiển</string>
-    <string name="preference_wipe_controller_title">Đặt lại ánh xạ bộ điều khiển</string>
+    <string name="preference_wipe_controller_title">Đặt lại bộ điều khiển</string>
     <string name="preference_wipe_controller_description">Cho phép bạn ánh xạ lại các nút bộ điều khiển</string>
     <string name="preference_deadzone_scale_title">Phạm vi chết của joystick thu nhỏ</string>
     <string name="preference_deadzone_scale_description">Nếu joystick bị lệch, vui lòng tăng tùy chọn này</string>
@@ -204,10 +204,10 @@
     <string name="forge_dl_no_installer">Xin lỗi, phiên bản Forge này không có trình cài đặt, chưa được hỗ trợ</string>
     <string name="fabric_dl_progress">Đang tải xuống siêu dữ liệu trình nạp %s</string>
     <string name="fabric_dl_cant_read_meta">Không thể đọc siêu dữ liệu trình nạp %s, vui lòng thử lại sau</string>
-    <string name="modloader_dl_install_fabric">Tạo thể hiện Fabric</string>
-    <string name="modloader_dl_install_quilt">Tạo thể hiện Quilt</string>
-    <string name="modloader_dl_install_forge">Tạo thể hiện Forge</string>
-    <string name="create_profile_vanilla">Tạo thể hiện Vanilla</string>
+    <string name="modloader_dl_install_fabric">Tạo hồ sơ Fabric</string>
+    <string name="modloader_dl_install_quilt">Tạo hồ sơ Quilt</string>
+    <string name="modloader_dl_install_forge">Tạo hồ sơ Forge</string>
+    <string name="create_profile_vanilla">Tạo hồ sơ Vanilla</string>
     <string name="create_profile_vanilla_like_versions">Phiên bản giống Vanilla</string>
     <string name="create_profile_modded_versions">Phiên bản đã sửa đổi</string>
     <string name="of_dl_failed_to_scrape">Không thể thu thập dữ liệu cài đặt OptiFine</string>
@@ -215,7 +215,7 @@
     <string name="create_profile_optifine">Tạo thể hiện OptiFine</string>
     <string name="hint_search_modpack">Tìm kiếm gói tích hợp</string>
     <string name="preference_vulkan_driver_system_title">Sử dụng driver Vulkan của hệ thống</string>
-    <string name="preference_vulkan_driver_system_description">Ép buộc launcher sử dụng driver Vulkan của hệ thống thay vì Turnip trên GPU Adreno, chỉ ảnh hưởng đến Zink và mod sử dụng Vulkan</string>
+    <string name="preference_vulkan_driver_system_description">Bắc buộc launcher sử dụng driver Vulkan của hệ thống thay vì Turnip trên GPU Adreno, chỉ ảnh hưởng đến Zink và mod sử dụng Vulkan</string>
     <string name="generic_apply">Áp dụng</string>
     <string name="search_modpack_no_result">Không tìm thấy gói tích hợp</string>
     <string name="search_modpack_error">Tìm kiếm gói tích hợp thất bại</string>

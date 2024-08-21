@@ -300,8 +300,8 @@
     <string name="zh_about_pojavlauncher_desc">Development team of PojavLauncher, developed and open-sourced PojavLauncher</string>
     <string name="zh_about_verafirefly_desc">Provides rendering technical support for Pojav Zenith Horizon</string>
     <string name="zh_about_lingmuqiuzhu_desc">Provided technical support for Pojav Zenith Horizon</string>
-    <string name="zh_about_bangbang93_desc">Pojav Zenith Horizon uses the BMCLAPI mirror created by Bangbang93</string>
-    <string name="zh_about_z0z0r4_desc">Pojav Zenith Horizon uses the MCIM Mod information mirror created by Z0z0r4</string>
+    <string name="zh_about_bangbang93_desc">Pojav Zenith Horizon uses the BMCLAPI mirror created by bangbang93</string>
+    <string name="zh_about_z0z0r4_desc">Pojav Zenith Horizon uses the MCIM Mod information mirror created by z0z0r4</string>
     <string name="zh_about_access_space">Access Space</string>
     <string name="zh_about_version_name">Software Version Name:</string>
     <string name="zh_about_version_code">Software Version Code:</string>
