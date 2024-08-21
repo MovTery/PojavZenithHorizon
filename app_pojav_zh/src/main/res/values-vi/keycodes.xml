@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="zh_keycode_special">đặc biệt</string>
+    <string name="zh_keycode_special">Đặc biệt</string>
     <string name="zh_keycode_special_keyboard">bàn phím</string>
     <string name="zh_keycode_special_pri">nhấp chuột trái</string>
     <string name="zh_keycode_special_sec">nhấp chuột phải</string>
