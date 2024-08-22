@@ -29,19 +29,17 @@ import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper
 import net.kdt.pojavlaunch.services.ProgressServiceKeeper
 
 class SettingsActivity : BaseActivity() {
-    private val mTitle: MutableMap<View?, String?> = HashMap()
-    private var mFragmentView: FragmentContainerView? = null
-    private var mSettingsLayout: View? = null
-    private var mBackgroundView: View? = null
-    private var mReturnButton: ImageButton? = null
-    private var mVideoButton: ImageButton? = null
-    private var mControlsButton: ImageButton? = null
-    private var mJavaButton: ImageButton? = null
-    private var mMiscButton: ImageButton? = null
-    private var mLauncherButton: ImageButton? = null
-    private var mExperimentalButton: ImageButton? = null
-    private var mTitleView: TextView? = null
-    private var mProgressLayout: ProgressLayout? = null
+    companion object {
+        private var mCurrentClickButton: Int? = null
+    }
+
+    private lateinit var mTitle: Map<View?, String>
+    private lateinit var mButtons: Map<Int, ImageButton>
+    private lateinit var mFragmentView: FragmentContainerView
+    private lateinit var mSettingsLayout: View
+    private lateinit var mBackgroundView: View
+    private lateinit var mTitleView: TextView
+    private lateinit var mProgressLayout: ProgressLayout
     private var mProgressServiceKeeper: ProgressServiceKeeper? = null
 
     private val mPageOpacityChangeListener = ExtraListener<Boolean> { _: String?, _: Boolean ->
@@ -56,65 +54,34 @@ class SettingsActivity : BaseActivity() {
         setPageOpacity()
         ZHTools.setBackgroundImage(this, BackgroundType.SETTINGS, mBackgroundView)
 
-        mReturnButton?.setOnClickListener {
-            setViewAnim(mReturnButton!!, Techniques.Pulse)
-            finish()
+        mButtons.forEach { (index, button) ->
+            button.setOnClickListener { v: View ->
+                onButtonClick(v)
+                swapFragment(getFragmentClassByIndex(index), getFragmentTagByIndex(index))
+                mCurrentClickButton = index
+            }
         }
 
-        mVideoButton?.setOnClickListener { v: View ->
-            onButtonClick(v)
-            swapFragment(
-                LauncherPreferenceVideoFragment::class.java,
-                LauncherPreferenceVideoFragment.TAG
-            )
-        }
-        mControlsButton?.setOnClickListener { v: View ->
-            onButtonClick(v)
-            swapFragment(
-                LauncherPreferenceControlFragment::class.java,
-                LauncherPreferenceControlFragment.TAG
-            )
-        }
-        mJavaButton?.setOnClickListener { v: View ->
-            onButtonClick(v)
-            swapFragment(
-                LauncherPreferenceJavaFragment::class.java,
-                LauncherPreferenceJavaFragment.TAG
-            )
-        }
-        mMiscButton?.setOnClickListener { v: View ->
-            onButtonClick(v)
-            swapFragment(
-                LauncherPreferenceMiscellaneousFragment::class.java,
-                LauncherPreferenceMiscellaneousFragment.TAG
-            )
-        }
-        mLauncherButton?.setOnClickListener { v: View ->
-            onButtonClick(v)
-            swapFragment(PreferenceLauncherFragment::class.java, PreferenceLauncherFragment.TAG)
-        }
-        mExperimentalButton?.setOnClickListener { v: View ->
-            onButtonClick(v)
-            swapFragment(
-                PreferenceExperimentalFragment::class.java,
-                PreferenceExperimentalFragment.TAG
-            )
+        findViewById<ImageButton>(R.id.settings_return_button).apply {
+            setOnClickListener {
+                setViewAnim(this, Techniques.Pulse)
+                finish()
+            }
         }
 
         ProgressKeeper.addTaskCountListener((ProgressServiceKeeper(this).also {
             mProgressServiceKeeper = it
         }))
         ProgressKeeper.addTaskCountListener(mProgressLayout)
-        mProgressLayout?.observe(ProgressLayout.DOWNLOAD_MINECRAFT)
-        mProgressLayout?.observe(ProgressLayout.UNPACK_RUNTIME)
-        mProgressLayout?.observe(ProgressLayout.INSTALL_MODPACK)
-        mProgressLayout?.observe(ProgressLayout.AUTHENTICATE_MICROSOFT)
-        mProgressLayout?.observe(ProgressLayout.DOWNLOAD_VERSION_LIST)
+        observeProgressLayout()
+
         ExtraCore.addExtraListener(ZHExtraConstants.PAGE_OPACITY_CHANGE, mPageOpacityChangeListener)
 
         initialize()
 
-        if (LauncherPreferences.PREF_ANIMATION) setViewAnim(mSettingsLayout!!, Techniques.BounceInRight)
+        if (LauncherPreferences.PREF_ANIMATION) setViewAnim(mSettingsLayout, Techniques.BounceInRight)
+
+        mCurrentClickButton?.let { mButtons[it]?.callOnClick() }
     }
 
     override fun onResume() {
@@ -129,82 +96,106 @@ class SettingsActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        mProgressLayout?.cleanUpObservers()
-        ProgressKeeper.removeTaskCountListener(mProgressLayout)
-        ProgressKeeper.removeTaskCountListener(mProgressServiceKeeper)
-        ExtraCore.removeExtraListenerFromValue(ZHExtraConstants.PAGE_OPACITY_CHANGE, mPageOpacityChangeListener)
+        cleanUpObservers()
     }
 
     private fun initialize() {
-        mVideoButton?.isClickable = false
-        mVideoButton?.alpha = 0.4f
+        mButtons[0]?.apply {
+            isClickable = false
+            alpha = 0.4f
+        }
 
-        mTitle[mVideoButton] = getString(R.string.preference_category_video)
-        mTitle[mControlsButton] = getString(R.string.preference_category_buttons)
-        mTitle[mJavaButton] = getString(R.string.preference_category_java_tweaks)
-        mTitle[mMiscButton] = getString(R.string.preference_category_miscellaneous)
-        mTitle[mLauncherButton] = getString(R.string.zh_preference_category_launcher)
-        mTitle[mExperimentalButton] = getString(R.string.zh_preference_category_experimental)
+        mTitle = mapOf(
+            mButtons[0] to getString(R.string.preference_category_video),
+            mButtons[1] to getString(R.string.preference_category_buttons),
+            mButtons[2] to getString(R.string.preference_category_java_tweaks),
+            mButtons[3] to getString(R.string.preference_category_miscellaneous),
+            mButtons[4] to getString(R.string.zh_preference_category_launcher),
+            mButtons[5] to getString(R.string.zh_preference_category_experimental)
+        )
     }
 
     private fun onButtonClick(view: View) {
-        mVideoButton?.isClickable = view !== mVideoButton
-        mControlsButton?.isClickable = view !== mControlsButton
-        mJavaButton?.isClickable = view !== mJavaButton
-        mMiscButton?.isClickable = view !== mMiscButton
-        mLauncherButton?.isClickable = view !== mLauncherButton
-        mExperimentalButton?.isClickable = view !== mExperimentalButton
+        mButtons.forEach { (_, button) ->
+            button.isClickable = view !== button
+            setAnim(button, button.isClickable)
+        }
 
-        setAnim(mVideoButton, mVideoButton?.isClickable)
-        setAnim(mControlsButton, mControlsButton?.isClickable)
-        setAnim(mJavaButton, mJavaButton?.isClickable)
-        setAnim(mMiscButton, mMiscButton?.isClickable)
-        setAnim(mLauncherButton, mLauncherButton?.isClickable)
-        setAnim(mExperimentalButton, mExperimentalButton?.isClickable)
-
-        mTitleView?.let { setViewAnim(it, Techniques.Pulse) }
-        mTitleView?.text = if (mTitle[view] != null) mTitle[view] else getString(R.string.preference_category_video)
+        mTitleView.apply {
+            setViewAnim(this, Techniques.Pulse)
+            text = mTitle[view] ?: getString(R.string.preference_category_video)
+        }
 
         YoYo.with(Techniques.Pulse)
             .duration((LauncherPreferences.PREF_ANIMATION_SPEED * 1.2).toLong())
             .playOn(view)
     }
 
-    private fun setAnim(button: View?, clickable: Boolean?) {
-        if (clickable!! && button!!.alpha < 1f) {
-            button.animate()
-                .alpha(1f)
-                .setDuration(250)
-        } else if (!clickable && button!!.alpha > 0.4f) {
-            button.animate()
-                .alpha(0.4f)
-                .setDuration(250)
-        }
+    private fun setAnim(button: View, clickable: Boolean) {
+        button.animate()
+            .alpha(if (clickable) 1f else 0.4f)
+            .setDuration(250)
     }
 
     private fun setPageOpacity() {
-        mFragmentView?.alpha = LauncherPreferences.PREF_PAGE_OPACITY.toFloat() / 100
+        mFragmentView.alpha = LauncherPreferences.PREF_PAGE_OPACITY.toFloat() / 100
     }
 
     private fun bindViews() {
         mFragmentView = findViewById(R.id.zh_settings_fragment)
-
         mSettingsLayout = findViewById(R.id.scroll_settings_layout)
         mBackgroundView = findViewById(R.id.background_view)
-
-        mReturnButton = findViewById(R.id.settings_return_button)
-        mVideoButton = findViewById(R.id.video_settings)
-        mControlsButton = findViewById(R.id.controls_settings)
-        mJavaButton = findViewById(R.id.java_settings)
-        mMiscButton = findViewById(R.id.misc_settings)
-        mLauncherButton = findViewById(R.id.launcher_settings)
-        mExperimentalButton = findViewById(R.id.experimental_settings)
-
         mTitleView = findViewById(R.id.zh_settings_title)
         mProgressLayout = findViewById(R.id.zh_settings_progress_layout)
+
+        mButtons = mapOf(
+            0 to findViewById(R.id.video_settings),
+            1 to findViewById(R.id.controls_settings),
+            2 to findViewById(R.id.java_settings),
+            3 to findViewById(R.id.misc_settings),
+            4 to findViewById(R.id.launcher_settings),
+            5 to findViewById(R.id.experimental_settings)
+        )
     }
 
     private fun swapFragment(fragmentClass: Class<out Fragment?>, fragmentTag: String) {
         ZHTools.swapSettingsFragment(this, fragmentClass, fragmentTag, null, false)
+    }
+
+    private fun cleanUpObservers() {
+        mProgressLayout.cleanUpObservers()
+        ProgressKeeper.removeTaskCountListener(mProgressLayout)
+        ProgressKeeper.removeTaskCountListener(mProgressServiceKeeper)
+        ExtraCore.removeExtraListenerFromValue(ZHExtraConstants.PAGE_OPACITY_CHANGE, mPageOpacityChangeListener)
+    }
+
+    private fun observeProgressLayout() {
+        with(mProgressLayout) {
+            observe(ProgressLayout.DOWNLOAD_MINECRAFT)
+            observe(ProgressLayout.UNPACK_RUNTIME)
+            observe(ProgressLayout.INSTALL_MODPACK)
+            observe(ProgressLayout.AUTHENTICATE_MICROSOFT)
+            observe(ProgressLayout.DOWNLOAD_VERSION_LIST)
+        }
+    }
+
+    private fun getFragmentClassByIndex(index: Int): Class<out Fragment?> = when (index) {
+        0 -> LauncherPreferenceVideoFragment::class.java
+        1 -> LauncherPreferenceControlFragment::class.java
+        2 -> LauncherPreferenceJavaFragment::class.java
+        3 -> LauncherPreferenceMiscellaneousFragment::class.java
+        4 -> PreferenceLauncherFragment::class.java
+        5 -> PreferenceExperimentalFragment::class.java
+        else -> throw IllegalArgumentException("Unknown index: $index")
+    }
+
+    private fun getFragmentTagByIndex(index: Int): String = when (index) {
+        0 -> LauncherPreferenceVideoFragment.TAG
+        1 -> LauncherPreferenceControlFragment.TAG
+        2 -> LauncherPreferenceJavaFragment.TAG
+        3 -> LauncherPreferenceMiscellaneousFragment.TAG
+        4 -> PreferenceLauncherFragment.TAG
+        5 -> PreferenceExperimentalFragment.TAG
+        else -> throw IllegalArgumentException("Unknown index: $index")
     }
 }
