@@ -9,13 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -38,6 +35,9 @@ import com.movtery.pojavzh.utils.anim.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
+import com.skydoves.powerspinner.DefaultSpinnerAdapter;
+import com.skydoves.powerspinner.OnSpinnerItemSelectedListener;
+import com.skydoves.powerspinner.PowerSpinnerView;
 
 import net.kdt.pojavlaunch.modloaders.modpacks.ModItemAdapter;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.CommonApi;
@@ -59,6 +59,7 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
     private ModItemAdapter mModItemAdapter;
     private TextView mStatusTextView;
     private ColorStateList mDefaultTextColor;
+    private PowerSpinnerView mSortBy, mPlatform, mCategory;
     private ModpackApi modpackApi;
 
     public SearchModFragment() {
@@ -98,6 +99,7 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
         mModItemAdapter = new ModItemAdapter(new ModDependencies.SelectedMod(SearchModFragment.this,
                 null, modpackApi, isModpack, mModsPath),
                 mRecyclerview, getResources(), this);
+        mModItemAdapter.setOnAddFragmentListener(this::closeSpinner);
         mRecyclerview.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.fade_downwards)));
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerview.setAdapter(mModItemAdapter);
@@ -139,6 +141,18 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
         }
     }
 
+    @Override
+    public void onStop() {
+        closeSpinner();
+        super.onStop();
+    }
+
+    private void closeSpinner() {
+        mSortBy.dismiss();
+        mPlatform.dismiss();
+        mCategory.dismiss();
+    }
+
     private void searchMods(String name) {
         mRecyclerview.scrollToPosition(0);
         mRecyclerview.setVisibility(View.GONE);
@@ -157,13 +171,13 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
 
     private void initFilterView(Context context, View view) {
         mSearchEditText = view.findViewById(R.id.search_mod_edittext);
+        mSortBy = view.findViewById(R.id.zh_search_mod_sort);
+        mPlatform = view.findViewById(R.id.zh_search_mod_platform);
+        mCategory = view.findViewById(R.id.zh_search_mod_category);
         TextView mTitleTextView = view.findViewById(R.id.search_mod_title);
         ImageButton mSearchButton = view.findViewById(R.id.zh_search_mod_search);
         TextView mSelectedVersion = view.findViewById(R.id.search_mod_selected_mc_version_textview);
         Button mSelectVersionButton = view.findViewById(R.id.search_mod_mc_version_button);
-        Spinner mSortBy = view.findViewById(R.id.zh_search_mod_sort);
-        Spinner mPlatform = view.findViewById(R.id.zh_search_mod_platform);
-        Spinner mCategory = view.findViewById(R.id.zh_search_mod_category);
         CheckBox mModloaderForge = view.findViewById(R.id.zh_search_forge_checkBox);
         CheckBox mModloaderFabric = view.findViewById(R.id.zh_search_fabric_checkBox);
         CheckBox mModloaderQuilt = view.findViewById(R.id.zh_search_quilt_checkBox);
@@ -195,55 +209,39 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
 
         List<String> categoriesList = this.isModpack ? ModCategory.getModPackCategories(context) : ModCategory.getModCategories(context);
         if (mCategory != null) {
-            mCategory.setAdapter(new ArrayAdapter<>(context, R.layout.item_simple_list_1, categoriesList));
-            mCategory.setSelection(0);
+            DefaultSpinnerAdapter adapter = new DefaultSpinnerAdapter(mCategory);
+            adapter.setItems(categoriesList);
 
-            mCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            mCategory.setSpinnerAdapter(adapter);
+            mCategory.selectItemByIndex(0);
+
+            mCategory.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) ->
                     mModFilters.setCategory(isModpack ?
-                            ModCategory.getModPackCategoryFromIndex(position) :
-                            ModCategory.getModCategoryFromIndex(position));
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-                }
-            });
+                    ModCategory.getModPackCategoryFromIndex(i1) :
+                    ModCategory.getModCategoryFromIndex(i1)));
         }
 
         List<String> platfromList = SearchModPlatform.getIndexList(context);
         if (mPlatform != null) {
-            mPlatform.setAdapter(new ArrayAdapter<>(context, R.layout.item_simple_list_1, platfromList));
-            mPlatform.setSelection(0);
+            DefaultSpinnerAdapter adapter = new DefaultSpinnerAdapter(mPlatform);
+            adapter.setItems(platfromList);
 
-            mPlatform.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    mModFilters.setPlatform(SearchModPlatform.getPlatform(position));
-                }
+            mPlatform.setSpinnerAdapter(adapter);
+            mPlatform.selectItemByIndex(0);
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-                }
-            });
+            mPlatform.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) ->
+                    mModFilters.setPlatform(SearchModPlatform.getPlatform(i1)));
         }
 
         List<String> sortList = new ArrayList<>(SearchModSort.getIndexList(context));
         if (mSortBy != null) {
-            mSortBy.setAdapter(new ArrayAdapter<>(context, R.layout.item_simple_list_1, sortList));
-            mSortBy.setSelection(0);
+            DefaultSpinnerAdapter adapter = new DefaultSpinnerAdapter(mSortBy);
+            adapter.setItems(sortList);
 
-            mSortBy.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    mModFilters.setSort(position);
-                }
+            mSortBy.setSpinnerAdapter(adapter);
+            mSortBy.selectItemByIndex(0);
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-                }
-            });
+            mSortBy.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> mModFilters.setSort(i1));
         }
 
         mModloaderForge.setChecked(mModFilters.getModloaders().contains(ModLoaderList.modloaderList.get(0)));
@@ -286,9 +284,9 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
 
             //重置控件
             mSelectedVersion.setText("");
-            if (mSortBy != null) mSortBy.setSelection(0);
-            if (mPlatform != null) mPlatform.setSelection(0);
-            if (mCategory != null) mCategory.setSelection(0);
+            if (mSortBy != null) mSortBy.selectItemByIndex(0);
+            if (mPlatform != null) mPlatform.selectItemByIndex(0);
+            if (mCategory != null) mCategory.selectItemByIndex(0);
             mModloaderForge.setChecked(false);
             mModloaderFabric.setChecked(false);
             mModloaderQuilt.setChecked(false);

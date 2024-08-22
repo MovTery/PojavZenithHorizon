@@ -38,18 +38,19 @@
             app:layout_constraintBottom_toTopOf="@+id/server_spinner"
             app:layout_constraintStart_toStartOf="@+id/server_spinner" />
 
-        <Spinner
+        <com.skydoves.powerspinner.PowerSpinnerView
             android:id="@+id/server_spinner"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_40sdp"
             android:layout_marginStart="@dimen/_32sdp"
             android:layout_marginTop="@dimen/_48sdp"
             android:layout_marginEnd="@dimen/_24sdp"
-            android:paddingVertical="0px"
+            android:paddingHorizontal="@dimen/_8sdp"
             android:background="@drawable/background_edit_box"
             app:layout_constraintEnd_toStartOf="@+id/register"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:spinner_arrow_tint="@color/primary_text"
             tools:paddingVertical="@dimen/_12sdp" />
 
         <TextView
@@ -86,7 +87,7 @@
         <com.movtery.pojavzh.ui.view.AnimEditText
             android:id="@+id/login_edit_email"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_40sdp"
             android:layout_marginStart="@dimen/_32sdp"
             android:layout_marginTop="@dimen/_32sdp"
             android:layout_marginEnd="@dimen/_12sdp"
@@ -113,7 +114,7 @@
         <com.movtery.pojavzh.ui.view.AnimEditText
             android:id="@+id/login_edit_password"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_40sdp"
             android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_32sdp"
             android:layout_marginEnd="@dimen/_32sdp"

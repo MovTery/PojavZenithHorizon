@@ -62,6 +62,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private ModFilters mModFilters;
     private SearchResult mCurrentResult;
     private boolean mLastPage;
+    private OnAddFragmentListener onAddFragmentListener;
 
 
     public ModItemAdapter(ModDependencies.SelectedMod mod, RecyclerView modsRecyclerView, Resources resources, SearchResultCallback callback) {
@@ -135,6 +136,10 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return VIEW_TYPE_LOADING;
     }
 
+    public void setOnAddFragmentListener(OnAddFragmentListener listener) {
+        this.onAddFragmentListener = listener;
+    }
+
     /**
      * Basic viewholder with expension capabilities
      */
@@ -178,6 +183,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 viewModel.setModsPath(mod.modsPath);
                 recyclerViewModel.view = modsRecyclerView;
 
+                if (onAddFragmentListener != null) onAddFragmentListener.onAdd();
                 ZHTools.addFragment(mod.fragment, DownloadModFragment.class, DownloadModFragment.TAG, null);
             });
 
@@ -309,5 +315,9 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         int ERROR_NO_RESULTS = 1;
         void onSearchFinished();
         void onSearchError(int error);
+    }
+
+    public interface OnAddFragmentListener {
+        void onAdd();
     }
 }

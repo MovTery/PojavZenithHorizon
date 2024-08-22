@@ -144,7 +144,7 @@
                     <com.movtery.pojavzh.ui.view.AnimEditText
                         android:id="@+id/search_mod_edittext"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_40sdp"
                         android:layout_marginEnd="@dimen/_8sdp"
                         android:background="@drawable/background_edit_box"
                         android:inputType="textPersonName"
@@ -179,7 +179,7 @@
                     <TextView
                         android:id="@+id/search_mod_selected_mc_version_textview"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_40sdp"
                         android:layout_marginEnd="@dimen/_4sdp"
                         android:background="@drawable/background_edit_box"
                         android:hint="@string/version_select_hint"
@@ -208,26 +208,17 @@
                         app:layout_constraintStart_toStartOf="@+id/zh_search_mod_platform"
                         app:layout_constraintTop_toBottomOf="@+id/search_mod_selected_mc_version_textview" />
 
-                    <Spinner
+                    <com.skydoves.powerspinner.PowerSpinnerView
                         android:id="@+id/zh_search_mod_platform"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_40sdp"
                         android:background="@drawable/background_edit_box"
-                        android:paddingVertical="0px"
+                        android:paddingHorizontal="@dimen/_8sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/search_mod_platform_textview"
+                        app:spinner_arrow_tint="@color/primary_text"
                         tools:paddingVertical="@dimen/_12sdp" />
-
-                    <ImageView
-                        android:layout_width="63dp"
-                        android:layout_height="18dp"
-                        android:rotation="180"
-                        android:src="@drawable/spinner_arrow"
-                        app:layout_constraintBottom_toBottomOf="@+id/zh_search_mod_platform"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/zh_search_mod_platform"
-                        tools:ignore="ContentDescription,MissingConstraints" />
 
                     <TextView
                         android:id="@+id/search_mod_sort_textview"
@@ -238,27 +229,17 @@
                         app:layout_constraintStart_toStartOf="@+id/zh_search_mod_sort"
                         app:layout_constraintTop_toBottomOf="@+id/zh_search_mod_platform" />
 
-                    <Spinner
+                    <com.skydoves.powerspinner.PowerSpinnerView
                         android:id="@+id/zh_search_mod_sort"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_40sdp"
                         android:background="@drawable/background_edit_box"
-                        android:paddingVertical="0px"
+                        android:paddingHorizontal="@dimen/_8sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/search_mod_sort_textview"
+                        app:spinner_arrow_tint="@color/primary_text"
                         tools:paddingVertical="@dimen/_12sdp" />
-
-                    <ImageView
-                        android:layout_width="63dp"
-                        android:layout_height="18dp"
-                        android:paddingHorizontal="@dimen/_8sdp"
-                        android:rotation="180"
-                        android:src="@drawable/spinner_arrow"
-                        app:layout_constraintBottom_toBottomOf="@+id/zh_search_mod_sort"
-                        app:layout_constraintEnd_toEndOf="@+id/zh_search_mod_sort"
-                        app:layout_constraintTop_toTopOf="@+id/zh_search_mod_sort"
-                        tools:ignore="ContentDescription,MissingConstraints" />
 
                     <TextView
                         android:id="@+id/search_mod_category_textview"
@@ -269,27 +250,17 @@
                         app:layout_constraintStart_toStartOf="@+id/zh_search_mod_category"
                         app:layout_constraintTop_toBottomOf="@+id/zh_search_mod_sort" />
 
-                    <Spinner
+                    <com.skydoves.powerspinner.PowerSpinnerView
                         android:id="@+id/zh_search_mod_category"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_40sdp"
                         android:background="@drawable/background_edit_box"
-                        android:paddingVertical="0px"
+                        android:paddingHorizontal="@dimen/_8sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/search_mod_category_textview"
+                        app:spinner_arrow_tint="@color/primary_text"
                         tools:paddingVertical="@dimen/_12sdp" />
-
-                    <ImageView
-                        android:layout_width="63dp"
-                        android:layout_height="18dp"
-                        android:paddingHorizontal="@dimen/_8sdp"
-                        android:rotation="180"
-                        android:src="@drawable/spinner_arrow"
-                        app:layout_constraintBottom_toBottomOf="@+id/zh_search_mod_category"
-                        app:layout_constraintEnd_toEndOf="@+id/zh_search_mod_category"
-                        app:layout_constraintTop_toTopOf="@+id/zh_search_mod_category"
-                        tools:ignore="ContentDescription,MissingConstraints" />
 
                     <TextView
                         android:id="@+id/search_mod_modloader_textview"
@@ -312,7 +283,7 @@
                         <com.movtery.pojavzh.ui.view.AnimCheckBox
                             android:id="@+id/zh_search_forge_checkBox"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_40sdp"
                             android:background="@drawable/background_edit_box"
                             android:text="Forge"
                             tools:ignore="HardcodedText" />
@@ -320,7 +291,7 @@
                         <com.movtery.pojavzh.ui.view.AnimCheckBox
                             android:id="@+id/zh_search_fabric_checkBox"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_40sdp"
                             android:layout_marginTop="@dimen/_8sdp"
                             android:background="@drawable/background_edit_box"
                             android:text="Fabric"
@@ -329,7 +300,7 @@
                         <com.movtery.pojavzh.ui.view.AnimCheckBox
                             android:id="@+id/zh_search_quilt_checkBox"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_40sdp"
                             android:layout_marginTop="@dimen/_8sdp"
                             android:background="@drawable/background_edit_box"
                             android:text="Quilt"
@@ -338,7 +309,7 @@
                         <com.movtery.pojavzh.ui.view.AnimCheckBox
                             android:id="@+id/zh_search_neoforge_checkBox"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_40sdp"
                             android:layout_marginTop="@dimen/_8sdp"
                             android:background="@drawable/background_edit_box"
                             android:text="NeoForge"
