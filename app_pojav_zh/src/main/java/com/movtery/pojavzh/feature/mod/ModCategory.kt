@@ -18,11 +18,17 @@ class ModCategory {
             }
         }
 
+        private fun getCategoryName(context: Context, category: Category): String {
+            var name = context.getString(category.resNameID)
+            if (category.retraction) name = "-\t\t$name"
+            return name
+        }
+
         @JvmStatic
         fun getModCategories(context: Context): List<String> {
             val namesList: MutableList<String> = ArrayList()
             modCategoriesList.forEach {
-                namesList.add(context.getString(it.resNameID))
+                namesList.add(getCategoryName(context, it))
             }
             return namesList
         }
@@ -31,7 +37,7 @@ class ModCategory {
         fun getModPackCategories(context: Context): List<String> {
             val namesList: MutableList<String> = ArrayList()
             modpackCategoriesList.forEach {
-                namesList.add(context.getString(it.resNameID))
+                namesList.add(getCategoryName(context, it))
             }
             return namesList
         }
@@ -52,20 +58,20 @@ class ModCategory {
      * 数据来源：https://github.com/Hex-Dragon/PCL2/blob/f40a2990103ae85c34acb5d8d367ab1644aa7ca6/Plain%20Craft%20Launcher%202/Modules/Minecraft/ModComp.vb#L281
      * 感谢龙腾猫跃!!!!
      */
-    enum class Category(val resNameID: Int, val curseforgeID: String?, val modrinthName: String?) {
+    enum class Category(val resNameID: Int, val curseforgeID: String?, val modrinthName: String?, val retraction: Boolean = false) {
         ALL(R.string.zh_all, null, null),
         MOD_WORLDGEN(R.string.zh_profile_mods_category_worldgen, "406", "worldgen"),
-        MOD_BIOMES(R.string.zh_profile_mods_category_biomes, "407", null),
-        MOD_DIMENSIONS(R.string.zh_profile_mods_category_dimensions, "410", null),
-        MOD_ORES_RESOURCES(R.string.zh_profile_mods_category_ores_resources, "408", null),
-        MOD_STRUCTURES(R.string.zh_profile_mods_category_structures, "409", null),
+        MOD_BIOMES(R.string.zh_profile_mods_category_biomes, "407", null, true),
+        MOD_DIMENSIONS(R.string.zh_profile_mods_category_dimensions, "410", null, true),
+        MOD_ORES_RESOURCES(R.string.zh_profile_mods_category_ores_resources, "408", null, true),
+        MOD_STRUCTURES(R.string.zh_profile_mods_category_structures, "409", null, true),
         MOD_TECHNOLOGY(R.string.zh_profile_mods_category_technology, "412", "technology"),
-        MOD_ITEM_FLUID_ENERGY_TRANSPORT(R.string.zh_profile_mods_category_item_fluid_energy_transport, "415", null),
-        MOD_AUTOMATION(R.string.zh_profile_mods_category_automation, "4843", null),
-        MOD_ENERGY(R.string.zh_profile_mods_category_energy, "417", null),
-        MOD_REDSTONE(R.string.zh_profile_mods_category_redstone, "4558", null),
+        MOD_ITEM_FLUID_ENERGY_TRANSPORT(R.string.zh_profile_mods_category_item_fluid_energy_transport, "415", null, true),
+        MOD_AUTOMATION(R.string.zh_profile_mods_category_automation, "4843", null, true),
+        MOD_ENERGY(R.string.zh_profile_mods_category_energy, "417", null, true),
+        MOD_REDSTONE(R.string.zh_profile_mods_category_redstone, "4558", null, true),
         MOD_FOOD(R.string.zh_profile_mods_category_food, "436", "food"),
-        MOD_FARMING(R.string.zh_profile_mods_category_farming, "416", null),
+        MOD_FARMING(R.string.zh_profile_mods_category_farming, "416", null, true),
         MOD_TRANSPORT(R.string.zh_profile_mods_category_transport, "414", "transportation"),
         MOD_STORAGE(R.string.zh_profile_mods_category_storage, "420", "storage"),
         MOD_MAGIC(R.string.zh_profile_mods_category_magic, "419", "magic"),

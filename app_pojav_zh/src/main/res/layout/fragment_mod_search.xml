@@ -218,6 +218,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/search_mod_platform_textview"
                         app:spinner_arrow_tint="@color/primary_text"
+                        app:spinner_popup_max_height="@dimen/_240sdp"
                         tools:paddingVertical="@dimen/_12sdp" />
 
                     <TextView
@@ -239,6 +240,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/search_mod_sort_textview"
                         app:spinner_arrow_tint="@color/primary_text"
+                        app:spinner_popup_max_height="@dimen/_240sdp"
                         tools:paddingVertical="@dimen/_12sdp" />
 
                     <TextView
@@ -260,6 +262,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/search_mod_category_textview"
                         app:spinner_arrow_tint="@color/primary_text"
+                        app:spinner_popup_max_height="@dimen/_240sdp"
                         tools:paddingVertical="@dimen/_12sdp" />
 
                     <TextView

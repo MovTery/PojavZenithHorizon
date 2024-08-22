@@ -196,12 +196,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
                     android:background="@drawable/background_item"
-                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:paddingHorizontal="@dimen/padding_heavy"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView2"
                     app:spinner_arrow_tint="@color/primary_text"
                     app:spinner_item_height="@dimen/_40sdp"
+                    app:spinner_popup_max_height="@dimen/_240sdp"
                     tools:paddingVertical="@dimen/_12sdp" />
 
                 <TextView
@@ -218,10 +219,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
                     android:background="@drawable/background_item"
-                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:paddingHorizontal="@dimen/padding_heavy"
                     app:layout_constraintTop_toBottomOf="@+id/textView3"
                     app:spinner_arrow_tint="@color/primary_text"
                     app:spinner_item_height="@dimen/_40sdp"
+                    app:spinner_popup_max_height="@dimen/_240sdp"
                     tools:paddingVertical="@dimen/_12sdp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
