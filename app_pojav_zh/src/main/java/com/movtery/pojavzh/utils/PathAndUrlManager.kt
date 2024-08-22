@@ -34,6 +34,7 @@ class PathAndUrlManager {
         @JvmField var DIR_GAME_HOME: String = Environment.getExternalStorageDirectory().absolutePath + "/games/PojavZenithHorizon"
         @JvmField var DIR_LAUNCHER_LOG: String? = null
         @JvmField var DIR_CTRLMAP_PATH: String? = null
+        @JvmField var DIR_ACCOUNT_NEW: String? = null
 
         @JvmField var DIR_GAME_DEFAULT: String? = null
         @JvmField var DIR_CUSTOM_MOUSE: String? = null
@@ -54,6 +55,7 @@ class PathAndUrlManager {
             DIR_GAME_HOME = Tools.getPojavStorageRoot(context).absolutePath
             DIR_LAUNCHER_LOG = "$DIR_GAME_HOME/launcher_log"
             DIR_CTRLMAP_PATH = "$DIR_GAME_HOME/controlmap"
+            DIR_ACCOUNT_NEW = "$DIR_DATA/accounts"
 
             FILE_PROFILE_PATH = File(DIR_DATA, "/profile_path.json")
             FILE_CTRLDEF_FILE = "$DIR_GAME_HOME/controlmap/default.json"
@@ -63,7 +65,7 @@ class PathAndUrlManager {
             DIR_LOGIN = "$DIR_GAME_HOME/login"
             DIR_BACKGROUND = File("$DIR_GAME_HOME/background")
             DIR_APP_CACHE = context.externalCacheDir
-            DIR_USER_ICON = File(DIR_CACHE, "/user_icon")
+            DIR_USER_ICON = File(DIR_DATA, "/user_icon")
 
             createDefaultPath(DIR_LAUNCHER_LOG)
             createDefaultPath(DIR_BACKGROUND)

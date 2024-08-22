@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.movtery.pojavzh.extra.ZHExtraConstants;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
@@ -26,8 +27,8 @@ public class PojavProfile {
     public static String getCurrentProfileName(Context ctx) {
         String name = getPrefs(ctx).getString(PROFILE_PREF_FILE, "");
         // A dirty fix
-        if (name.startsWith(Tools.DIR_ACCOUNT_NEW) && name.endsWith(".json")) {
-            name = name.substring(0, name.length() - 5).replace(Tools.DIR_ACCOUNT_NEW, "").replace(".json", "");
+        if (name.startsWith(PathAndUrlManager.DIR_ACCOUNT_NEW) && name.endsWith(".json")) {
+            name = name.substring(0, name.length() - 5).replace(PathAndUrlManager.DIR_ACCOUNT_NEW, "").replace(".json", "");
             setCurrentProfile(ctx, name);
         }
         return name;

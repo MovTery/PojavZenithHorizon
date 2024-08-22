@@ -13,6 +13,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.movtery.pojavzh.extra.ZHExtraConstants;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
@@ -76,7 +77,7 @@ public class LocalLoginFragment extends FragmentWithAnim {
             return false;
         }
 
-        boolean exists = new File(Tools.DIR_ACCOUNT_NEW + "/" + text + ".json").exists();
+        boolean exists = new File(PathAndUrlManager.DIR_ACCOUNT_NEW + "/" + text + ".json").exists();
         if (exists) {
             mUsernameEditText.setError(getString(R.string.zh_account_local_account_exists));
         }

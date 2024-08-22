@@ -28,10 +28,7 @@ class CleanUpCache {
 
                 list?.let{
                     for (file in list) {
-                        if (file.name == "user_icon") continue
-
                         ++fileCount
-
                         totalSize += FileUtils.sizeOf(file)
                         FileUtils.deleteQuietly(file)
                     }

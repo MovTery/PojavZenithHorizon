@@ -19,7 +19,6 @@ import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.PojavProfile;
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
@@ -104,7 +103,7 @@ public class AccountsDialog extends FullScreenDialog implements TaskCountListene
                         .setMessage(R.string.warning_remove_account)
                         .setConfirm(R.string.global_delete)
                         .setConfirmClickListener(() -> {
-                            File accountFile = new File(Tools.DIR_ACCOUNT_NEW, account.username + ".json");
+                            File accountFile = new File(PathAndUrlManager.DIR_ACCOUNT_NEW, account.username + ".json");
                             File userIconFile = new File(PathAndUrlManager.DIR_USER_ICON, account.username + ".png");
                             if (accountFile.exists()) FileUtils.deleteQuietly(accountFile);
                             if (userIconFile.exists()) FileUtils.deleteQuietly(userIconFile);
