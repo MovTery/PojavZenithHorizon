@@ -15,11 +15,11 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo.AnimatorCallback
 import com.daimajia.androidanimations.library.YoYo.YoYoString
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.anim.AnimUtils
+import com.movtery.pojavzh.utils.anim.AnimUtils.Companion.setVisibilityAnimYoYo
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
 import com.movtery.pojavzh.utils.stringutils.StringUtils
@@ -115,7 +115,7 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
     protected abstract fun refresh(): Future<*>?
 
     protected fun componentProcessing(state: Boolean) {
-        setVisibilityAnim(mLoadingView!!, state)
+        setVisibilityAnimYoYo(mLoadingView!!, state)
         recyclerView?.visibility = if (state) View.GONE else View.VISIBLE
 
         mRefreshButton?.isClickable = !state
@@ -169,21 +169,11 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
     protected fun setFailedToLoad(reasons: String?) {
         val text = fragmentActivity!!.getString(R.string.modloader_dl_failed_to_load_list)
         mFailedToLoad?.text = if (reasons == null) text else StringUtils.insertNewline(text, reasons)
-        setVisibilityAnim(mFailedToLoad!!, true)
+        setVisibilityAnimYoYo(mFailedToLoad!!, true)
     }
 
     protected fun cancelFailedToLoad() {
-        setVisibilityAnim(mFailedToLoad!!, false)
-    }
-
-    private fun setVisibilityAnim(view: View, visible: Boolean) {
-        val targetVisibility = if (visible) View.VISIBLE else View.GONE
-        if (view.visibility == targetVisibility) return
-
-        setViewAnim(view, if (visible) Techniques.FadeIn else Techniques.FadeOut,
-            (LauncherPreferences.PREF_ANIMATION_SPEED * 0.7).toLong(),
-            AnimatorCallback { view.visibility = View.VISIBLE },
-            AnimatorCallback { view.visibility = if (visible) View.VISIBLE else View.GONE })
+        setVisibilityAnimYoYo(mFailedToLoad!!, false)
     }
 
     fun switchToChild(adapter: RecyclerView.Adapter<*>?, title: String?) {

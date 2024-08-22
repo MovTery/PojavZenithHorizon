@@ -9,26 +9,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.math.MathUtils;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.movtery.pojavzh.feature.mod.ModLoaderList;
+import com.movtery.pojavzh.feature.mod.SearchModPlatform;
+import com.movtery.pojavzh.feature.mod.SearchModSort;
+import com.movtery.pojavzh.ui.dialog.SelectVersionDialog;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
+import com.movtery.pojavzh.ui.subassembly.versionlist.VersionSelectedListener;
 import com.movtery.pojavzh.utils.anim.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
-import com.movtery.pojavzh.ui.dialog.ModFitersDialog;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
 import net.kdt.pojavlaunch.modloaders.modpacks.ModItemAdapter;
@@ -46,18 +52,10 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
     private SearchFilters mSearchFilters;
     private boolean isModpack;
     private String mModsPath;
-    private View mMainView, mOverlay;
-    private float mOverlayTopCache; // Padding cache reduce resource lookup
-    private final RecyclerView.OnScrollListener mOverlayPositionListener = new RecyclerView.OnScrollListener() {
-        @Override
-        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-            mOverlay.setY(MathUtils.clamp(mOverlay.getY() - dy, -mOverlay.getHeight(), mOverlayTopCache));
-        }
-    };
+    private View mModsLayout, mOperateLayout, mLoadingView;
     private EditText mSearchEditText;
     private RecyclerView mRecyclerview;
     private ModItemAdapter mModItemAdapter;
-    private ProgressBar mSearchProgressBar;
     private TextView mStatusTextView;
     private ColorStateList mDefaultTextColor;
     private ModpackApi modpackApi;
@@ -81,18 +79,17 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         parseBundle();
-        mMainView = view;
+        mModsLayout = view.findViewById(R.id.mods_layout);
+        mOperateLayout = view.findViewById(R.id.operate_layout);
         mSearchFilters = new SearchFilters();
         mSearchFilters.isModpack = this.isModpack;
 
-        mOverlay = view.findViewById(R.id.search_mod_overlay);
-        mSearchEditText = view.findViewById(R.id.search_mod_edittext);
-        mSearchProgressBar = view.findViewById(R.id.search_mod_progressbar);
         mRecyclerview = view.findViewById(R.id.search_mod_list);
+        mLoadingView = view.findViewById(R.id.zh_mods_loading);
         mStatusTextView = view.findViewById(R.id.search_mod_status_text);
-        ImageButton mBackButton = view.findViewById(R.id.search_mod_back);
-        ImageButton mFilterButton = view.findViewById(R.id.search_mod_filter);
-        ImageButton mSearchButton = view.findViewById(R.id.zh_search_mod_search);
+        Button mBackButton = view.findViewById(R.id.search_mod_back);
+
+        initFilterView(requireContext(), view);
 
         mDefaultTextColor = mStatusTextView.getTextColors();
 
@@ -100,33 +97,17 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
         mModItemAdapter = new ModItemAdapter(new ModDependencies.SelectedMod(SearchModFragment.this,
                 null, modpackApi, isModpack, mModsPath),
                 mRecyclerview, getResources(), this);
-        mOverlayTopCache = Tools.dpToPx(20);
         mRecyclerview.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.fade_downwards)));
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerview.setAdapter(mModItemAdapter);
-
-        mRecyclerview.addOnScrollListener(mOverlayPositionListener);
 
         mSearchEditText.setOnEditorActionListener((v, actionId, event) -> {
             searchMods(mSearchEditText.getText().toString());
             mSearchEditText.clearFocus();
             return false;
         });
-        if (!this.isModpack) {
-            mSearchEditText.setHint(R.string.zh_profile_mods_search_mod);
-        }
 
-        mOverlay.post(() -> {
-            int overlayHeight = (int) (mOverlay.getHeight() - Tools.dpToPx(20));
-            mRecyclerview.setPadding(mRecyclerview.getPaddingLeft(),
-                    mRecyclerview.getPaddingTop() + overlayHeight,
-                    mRecyclerview.getPaddingRight(),
-                    mRecyclerview.getPaddingBottom());
-        });
         mBackButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
-        mFilterButton.setOnClickListener(v -> displayFilterDialog());
-
-        mSearchButton.setOnClickListener(v -> searchMods(mSearchEditText.getText().toString()));
 
         searchMods(null); //自动搜索一次
 
@@ -134,20 +115,16 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mRecyclerview.removeOnScrollListener(mOverlayPositionListener);
-    }
-
-    @Override
     public void onSearchFinished() {
-        mSearchProgressBar.setVisibility(View.GONE);
+        AnimUtils.setVisibilityAnimYoYo(mLoadingView, false);
         AnimUtils.setVisibilityAnim(mStatusTextView, false);
+        mRecyclerview.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onSearchError(int error) {
-        mSearchProgressBar.setVisibility(View.GONE);
+        mRecyclerview.setVisibility(View.GONE);
+        AnimUtils.setVisibilityAnimYoYo(mLoadingView, false);
         AnimUtils.setVisibilityAnim(mStatusTextView, true);
         switch (error) {
             case ERROR_INTERNAL:
@@ -162,7 +139,9 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
     }
 
     private void searchMods(String name) {
-        mSearchProgressBar.setVisibility(View.VISIBLE);
+        mRecyclerview.scrollToPosition(0);
+        mRecyclerview.setVisibility(View.GONE);
+        AnimUtils.setVisibilityAnimYoYo(mLoadingView, true);
         mSearchFilters.name = name == null ? "" : name;
         mModItemAdapter.performSearchQuery(mSearchFilters);
     }
@@ -174,17 +153,131 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
         mModsPath = bundle.getString(BUNDLE_MOD_PATH, null);
     }
 
-    private void displayFilterDialog() {
-        ModFitersDialog modFitersDialog = new ModFitersDialog(requireContext(), mSearchFilters);
-        modFitersDialog.setOnApplyButtonClickListener(() -> searchMods(mSearchEditText.getText().toString()));
-        modFitersDialog.show();
+    private void initFilterView(Context context, View view) {
+        mSearchEditText = view.findViewById(R.id.search_mod_edittext);
+        TextView mTitleTextView = view.findViewById(R.id.search_mod_title);
+        ImageButton mSearchButton = view.findViewById(R.id.zh_search_mod_search);
+        TextView mSelectedVersion = view.findViewById(R.id.search_mod_selected_mc_version_textview);
+        Button mSelectVersionButton = view.findViewById(R.id.search_mod_mc_version_button);
+        Spinner mSortBy = view.findViewById(R.id.zh_search_mod_sort);
+        Spinner mPlatform = view.findViewById(R.id.zh_search_mod_platform);
+        CheckBox mModloaderForge = view.findViewById(R.id.zh_search_forge_checkBox);
+        CheckBox mModloaderFabric = view.findViewById(R.id.zh_search_fabric_checkBox);
+        CheckBox mModloaderQuilt = view.findViewById(R.id.zh_search_quilt_checkBox);
+        CheckBox mModloaderNeoForge = view.findViewById(R.id.zh_search_neoforge_checkBox);
+        Button mResetButton = view.findViewById(R.id.search_mod_reset);
+
+        if (this.isModpack) {
+            mTitleTextView.setText(R.string.hint_search_modpack);
+        }
+
+        mSearchButton.setOnClickListener(v -> searchMods(mSearchEditText.getText().toString()));
+
+        // 打开版本选择弹窗
+        mSelectVersionButton.setOnClickListener(v -> {
+            SelectVersionDialog selectVersionDialog = new SelectVersionDialog(context);
+            selectVersionDialog.setOnVersionSelectedListener(new VersionSelectedListener() {
+                @Override
+                public void onVersionSelected(String version) {
+                    mSelectedVersion.setText(version);
+                    mSearchFilters.mcVersion = version;
+                    selectVersionDialog.dismiss();
+                }
+            });
+
+            selectVersionDialog.show();
+        });
+
+        mSelectedVersion.setText(mSearchFilters.mcVersion);
+
+        List<String> platfromList = SearchModPlatform.getIndexList(context);
+        if (mPlatform != null) {
+            mPlatform.setAdapter(new ArrayAdapter<>(context, R.layout.item_simple_list_1, platfromList));
+            mPlatform.setSelection(SearchModPlatform.getIndex(mSearchFilters.platform));
+
+            mPlatform.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    mSearchFilters.platform = SearchModPlatform.getPlatform(position);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+        }
+
+        List<String> sortList = new ArrayList<>(SearchModSort.getIndexList(context));
+        if (mSortBy != null) {
+            mSortBy.setAdapter(new ArrayAdapter<>(context, R.layout.item_simple_list_1, sortList));
+            //默认选中筛选器设置的排序索引
+            mSortBy.setSelection(mSearchFilters.sort);
+
+            mSortBy.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    mSearchFilters.sort = position;
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+        }
+
+        mModloaderForge.setChecked(mSearchFilters.modloaders.contains(ModLoaderList.modloaderList.get(0)));
+        mModloaderFabric.setChecked(mSearchFilters.modloaders.contains(ModLoaderList.modloaderList.get(1)));
+        mModloaderQuilt.setChecked(mSearchFilters.modloaders.contains(ModLoaderList.modloaderList.get(2)));
+        mModloaderNeoForge.setChecked(mSearchFilters.modloaders.contains(ModLoaderList.modloaderList.get(3)));
+
+        mModloaderForge.setOnClickListener(v -> {
+            String forge = ModLoaderList.modloaderList.get(0);
+            if (mModloaderForge.isChecked() && !mSearchFilters.modloaders.contains(forge)) {
+                mSearchFilters.modloaders.add(forge);
+            } else mSearchFilters.modloaders.remove(forge);
+        });
+        mModloaderFabric.setOnClickListener(v -> {
+            String fabric = ModLoaderList.modloaderList.get(1);
+            if (mModloaderFabric.isChecked() && !mSearchFilters.modloaders.contains(fabric)) {
+                mSearchFilters.modloaders.add(fabric);
+            } else mSearchFilters.modloaders.remove(fabric);
+        });
+        mModloaderQuilt.setOnClickListener(v -> {
+            String quilt = ModLoaderList.modloaderList.get(2);
+            if (mModloaderQuilt.isChecked() && !mSearchFilters.modloaders.contains(quilt)) {
+                mSearchFilters.modloaders.add(quilt);
+            } else mSearchFilters.modloaders.remove(quilt);
+        });
+        mModloaderNeoForge.setOnClickListener(v -> {
+            String neoforge = ModLoaderList.modloaderList.get(3);
+            if (mModloaderNeoForge.isChecked() && !mSearchFilters.modloaders.contains(neoforge)) {
+                mSearchFilters.modloaders.add(neoforge);
+            } else mSearchFilters.modloaders.remove(neoforge);
+        });
+
+        mResetButton.setOnClickListener(v -> {
+            mSearchFilters.name = "";
+            mSearchFilters.mcVersion = "";
+            mSearchFilters.modloaders = new ArrayList<>();
+            mSearchFilters.sort = 0;
+            mSearchFilters.platform = SearchFilters.ApiPlatform.BOTH;
+
+            //重置控件
+            mSelectedVersion.setText("");
+            if (mSortBy != null) mSortBy.setSelection(0);
+            if (mPlatform != null) mPlatform.setSelection(0);
+            mModloaderForge.setChecked(false);
+            mModloaderFabric.setChecked(false);
+            mModloaderQuilt.setChecked(false);
+            mModloaderNeoForge.setChecked(false);
+        });
     }
 
     @Override
     public YoYo.YoYoString[] slideIn() {
         List<YoYo.YoYoString> yoYos = new ArrayList<>();
-        yoYos.add(ViewAnimUtils.setViewAnim(mMainView, Techniques.BounceInDown));
-        yoYos.add(ViewAnimUtils.setViewAnim(mOverlay, Techniques.FadeInDown));
+        yoYos.add(ViewAnimUtils.setViewAnim(mModsLayout, Techniques.BounceInDown));
+        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
         YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
         super.setYoYos(array);
         return array;
@@ -192,8 +285,10 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
 
     @Override
     public YoYo.YoYoString[] slideOut() {
-        YoYo.YoYoString yoYoString = ViewAnimUtils.setViewAnim(mMainView, Techniques.FadeOutUp);
-        YoYo.YoYoString[] array = {yoYoString};
+        List<YoYo.YoYoString> yoYos = new ArrayList<>();
+        yoYos.add(ViewAnimUtils.setViewAnim(mModsLayout, Techniques.FadeOutUp));
+        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight));
+        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
         super.setYoYos(array);
         return array;
     }
