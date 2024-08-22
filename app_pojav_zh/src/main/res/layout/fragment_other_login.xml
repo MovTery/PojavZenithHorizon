@@ -51,6 +51,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:spinner_arrow_tint="@color/primary_text"
+            app:spinner_popup_max_height="@dimen/_240sdp"
             tools:paddingVertical="@dimen/_12sdp" />
 
         <TextView
