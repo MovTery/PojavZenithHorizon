@@ -178,7 +178,9 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
 
     @Override
     public void onDestroy() {
-        future.cancel(true);
+        if (future != null) {
+            future.cancel(true);
+        }
         super.onDestroy();
     }
 
