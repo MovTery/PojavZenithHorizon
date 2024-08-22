@@ -8,6 +8,7 @@ import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.Tools;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -61,7 +62,7 @@ public class ApiHandler {
         try{
             conn = PathAndUrlManager.createHttpConnection(new URL(url));
             addHeaders(conn, headers);
-            InputStream inputStream = conn.getInputStream();
+            InputStream inputStream = new BufferedInputStream(conn.getInputStream());
             String data = Tools.read(inputStream);
 
             inputStream.close();

@@ -10,7 +10,7 @@ class ModVersionItem(
     @JvmField val modloaders: Array<ModLoaderList.ModLoader>,
     @JvmField val modDependencies: List<ModDependencies>,
     @JvmField val versionType: VersionTypeEnum,
-    @JvmField val versionHash: String,
+    @JvmField val versionHash: String?,
     @JvmField val download: Int,
     @JvmField val downloadUrl: String
 ) {

@@ -52,7 +52,7 @@ public class CurseforgeApi implements ModpackApi{
     private static final int CURSEFORGE_MODPACK_CLASS_ID = 4471;
     // https://api.curseforge.com/v1/categories?gameId=432 and search for "Mods" (case-sensitive)
     private static final int CURSEFORGE_MOD_CLASS_ID = 6;
-    private static final int CURSEFORGE_PAGINATION_SIZE = 100;
+    private static final int CURSEFORGE_PAGINATION_SIZE = 50;
     private static final int CURSEFORGE_PAGINATION_END_REACHED = -1;
     private static final int CURSEFORGE_PAGINATION_ERROR = -2;
 
@@ -245,7 +245,7 @@ public class CurseforgeApi implements ModpackApi{
         return modDependencies;
     }
 
-    public String fetchIconUrl(JsonObject hit) {
+    private String fetchIconUrl(JsonObject hit) {
         try {
             return hit.getAsJsonObject("logo").get("thumbnailUrl").getAsString();
         } catch (Exception e) {
@@ -263,7 +263,7 @@ public class CurseforgeApi implements ModpackApi{
         }
     }
 
-    public JsonObject searchModFromID(String id) {
+    private JsonObject searchModFromID(String id) {
         JsonObject response = mApiHandler.get(String.format("mods/%s", id), JsonObject.class);
         System.out.println(response);
 
@@ -300,18 +300,7 @@ public class CurseforgeApi implements ModpackApi{
                 return null;
             }
             if (onInstallStartListener != null) onInstallStartListener.onStart();
-            ModDownloader modDownloader = new ModDownloader(new File(instanceDestination, "mods"), true);
-            int fileCount = curseManifest.files.length;
-            for (int i = 0; i < fileCount; i++) {
-                final CurseManifest.CurseFile curseFile = curseManifest.files[i];
-                modDownloader.submitDownload(() -> {
-                    String url = getDownloadUrl(curseFile.projectID, curseFile.fileID);
-                    if (url == null && curseFile.required)
-                        throw new IOException("Failed to obtain download URL for " + StringUtils.insertSpace(curseFile.projectID, curseFile.fileID));
-                    else if (url == null) return null;
-                    return new ModDownloader.FileInfo(url, FileUtils.getFileName(url), getDownloadSha1(curseFile.projectID, curseFile.fileID));
-                });
-            }
+            ModDownloader modDownloader = getModDownloader(instanceDestination, curseManifest);
             modDownloader.awaitFinish((c, m) ->
                     ProgressKeeper.submitProgress(ProgressLayout.INSTALL_MODPACK, (int) Math.max((float) c / m * 100, 0), R.string.modpack_download_downloading_mods_fc, c, m)
             );
@@ -320,6 +309,23 @@ public class CurseforgeApi implements ModpackApi{
             ZipUtils.zipExtract(modpackZipFile, overridesDir, instanceDestination);
             return createInfo(curseManifest.minecraft);
         }
+    }
+
+    @NonNull
+    private ModDownloader getModDownloader(File instanceDestination, CurseManifest curseManifest) {
+        ModDownloader modDownloader = new ModDownloader(new File(instanceDestination, "mods"), true);
+        int fileCount = curseManifest.files.length;
+        for (int i = 0; i < fileCount; i++) {
+            final CurseManifest.CurseFile curseFile = curseManifest.files[i];
+            modDownloader.submitDownload(() -> {
+                String url = getDownloadUrl(curseFile.projectID, curseFile.fileID);
+                if (url == null && curseFile.required)
+                    throw new IOException("Failed to obtain download URL for " + StringUtils.insertSpace(curseFile.projectID, curseFile.fileID));
+                else if (url == null) return null;
+                return new ModDownloader.FileInfo(url, FileUtils.getFileName(url), getDownloadSha1(curseFile.projectID, curseFile.fileID));
+            });
+        }
+        return modDownloader;
     }
 
     private ModLoader createInfo(CurseManifest.CurseMinecraft minecraft) {
