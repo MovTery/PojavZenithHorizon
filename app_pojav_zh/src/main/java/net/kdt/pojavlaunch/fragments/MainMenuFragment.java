@@ -173,12 +173,12 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
     @Override
     public void onResume() {
         super.onResume();
-        mVersionSpinner.reloadProfiles();
+        if (mVersionSpinner != null) mVersionSpinner.reloadProfiles();
     }
 
     @Override
     public void onDestroy() {
-        future.cancel(true);
+        if (future != null) future.cancel(true);
         super.onDestroy();
     }
 
@@ -265,7 +265,7 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
 
     @Override
     public void onUpdate() {
-        accountViewWrapper.refreshAccountInfo();
+        if (accountViewWrapper != null) accountViewWrapper.refreshAccountInfo();
     }
 
     @Override
