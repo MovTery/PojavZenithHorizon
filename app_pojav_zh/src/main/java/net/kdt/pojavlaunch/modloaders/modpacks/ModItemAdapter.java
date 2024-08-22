@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.pojavzh.feature.mod.ModFilters;
 import com.movtery.pojavzh.feature.mod.ModLoaderList;
 import com.movtery.pojavzh.ui.fragment.DownloadModFragment;
 import com.movtery.pojavzh.ui.subassembly.viewmodel.ModApiViewModel;
@@ -34,7 +35,6 @@ import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ImageReceiver;
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ModIconCache;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.Constants;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchFilters;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchResult;
 
 import java.util.Collections;
@@ -59,7 +59,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private final float mCornerDimensionCache;
 
     private Future<?> mTaskInProgress;
-    private SearchFilters mSearchFilters;
+    private ModFilters mModFilters;
     private SearchResult mCurrentResult;
     private boolean mLastPage;
 
@@ -73,14 +73,14 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.modsRecyclerView = modsRecyclerView;
     }
 
-    public void performSearchQuery(SearchFilters searchFilters) {
+    public void performSearchQuery(ModFilters modFilters) {
         if(mTaskInProgress != null) {
             mTaskInProgress.cancel(true);
             mTaskInProgress = null;
         }
-        this.mSearchFilters = searchFilters;
+        this.mModFilters = modFilters;
         this.mLastPage = false;
-        mTaskInProgress = new SelfReferencingFuture(new SearchApiTask(mSearchFilters, null))
+        mTaskInProgress = new SelfReferencingFuture(new SearchApiTask(mModFilters, null))
                 .startOnExecutor(PojavApplication.sExecutorService);
     }
 
@@ -125,7 +125,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private void loadMoreResults() {
         if(mTaskInProgress != null) return;
-        mTaskInProgress = new SelfReferencingFuture(new SearchApiTask(mSearchFilters, mCurrentResult))
+        mTaskInProgress = new SelfReferencingFuture(new SearchApiTask(mModFilters, mCurrentResult))
                 .startOnExecutor(PojavApplication.sExecutorService);
     }
 
@@ -248,18 +248,18 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     private class SearchApiTask implements SelfReferencingFuture.FutureInterface {
-        private final SearchFilters mSearchFilters;
+        private final ModFilters mModFilters;
         private final SearchResult mPreviousResult;
 
-        private SearchApiTask(SearchFilters searchFilters, SearchResult previousResult) {
-            this.mSearchFilters = searchFilters;
+        private SearchApiTask(ModFilters modFilters, SearchResult previousResult) {
+            this.mModFilters = modFilters;
             this.mPreviousResult = previousResult;
         }
 
         @SuppressLint("NotifyDataSetChanged")
         @Override
         public void run(Future<?> myFuture) {
-            SearchResult result = mod.api.searchMod(mSearchFilters, mPreviousResult);
+            SearchResult result = mod.api.searchMod(mModFilters, mPreviousResult);
             ModItem[] resultModItems = result != null ? result.results : null;
             if(resultModItems != null && resultModItems.length != 0 && mPreviousResult != null) {
                 ModItem[] newModItems = new ModItem[resultModItems.length + mModItems.length];

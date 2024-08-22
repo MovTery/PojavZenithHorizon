@@ -19,6 +19,7 @@
     <string name="zh_loading">加载中</string>
     <string name="zh_optional">选填</string>
     <string name="zh_required">必填</string>
+    <string name="zh_all">全部</string>
     <string name="zh_wan">万</string>
     <string name="zh_yi">亿</string>
     <string name="zh_wrong_tip">出现了一些问题</string>
@@ -43,6 +44,7 @@
     <string name="zh_profile_mods_download_mod">下载 Mod</string>
     <string name="zh_profile_mods_platform">搜索平台</string>
     <string name="zh_profile_mods_sort_by">排序方式</string>
+    <string name="zh_profile_mods_category">类别</string>
     <string name="zh_profile_mods_modloader">Mod 加载器</string>
     <string name="zh_profile_mods_download_mod_failed">下载 Mod 文件时失败</string>
     <string name="zh_profile_mods_download_mod_release_version">仅展示 Minecraft 正式版本</string>

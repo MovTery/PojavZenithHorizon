@@ -1,9 +1,9 @@
 package net.kdt.pojavlaunch.modloaders.modpacks.api;
 
-
 import android.content.Context;
 
 import com.kdt.mcgui.ProgressLayout;
+import com.movtery.pojavzh.feature.mod.ModFilters;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
 
 import net.kdt.pojavlaunch.PojavApplication;
@@ -11,7 +11,6 @@ import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchFilters;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchResult;
 
 import java.io.IOException;
@@ -22,18 +21,18 @@ import java.io.IOException;
 public interface ModpackApi {
 
     /**
-     * @param searchFilters Filters
+     * @param modFilters Filters
      * @param previousPageResult The result from the previous page
      * @return the list of mod items from specified offset
      */
-    SearchResult searchMod(SearchFilters searchFilters, SearchResult previousPageResult);
+    SearchResult searchMod(ModFilters modFilters, SearchResult previousPageResult);
 
     /**
-     * @param searchFilters Filters
+     * @param modFilters Filters
      * @return A list of mod items
      */
-    default SearchResult searchMod(SearchFilters searchFilters) {
-        return searchMod(searchFilters, null);
+    default SearchResult searchMod(ModFilters modFilters) {
+        return searchMod(modFilters, null);
     }
 
     /**

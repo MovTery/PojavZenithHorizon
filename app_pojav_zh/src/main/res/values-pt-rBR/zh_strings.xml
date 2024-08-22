@@ -19,6 +19,7 @@
     <string name="zh_loading">Carregando</string>
     <string name="zh_optional">Opcional</string>
     <string name="zh_required">Obrigatório</string>
+    <string name="zh_all">Todos</string>
     <string name="zh_wan">Dez mil</string>
     <string name="zh_yi">Cem milhões</string>
     <string name="zh_wrong_tip">Algo deu errado</string>
@@ -43,6 +44,7 @@
     <string name="zh_profile_mods_download_mod">Baixar Mod</string>
     <string name="zh_profile_mods_platform">Plataforma de Busca</string>
     <string name="zh_profile_mods_sort_by">Ordenar Por</string>
+    <string name="zh_profile_mods_category">Categoria</string>
     <string name="zh_profile_mods_modloader">Carregador de Mods</string>
     <string name="zh_profile_mods_download_mod_failed">Falha ao baixar o arquivo Mod</string>
     <string name="zh_profile_mods_download_mod_release_version">Mostrar apenas versões oficiais do Minecraft</string>

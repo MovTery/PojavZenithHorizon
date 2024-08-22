@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Mod -->
+    <string name="zh_profile_mods_category_worldgen">Tạo Thế Giới</string>
+    <string name="zh_profile_mods_category_biomes">Quần Xã</string>
+    <string name="zh_profile_mods_category_dimensions">Chiều Không Gian</string>
+    <string name="zh_profile_mods_category_ores_resources">Quặng và Tài Nguyên</string>
+    <string name="zh_profile_mods_category_structures">Cấu Trúc</string>
+    <string name="zh_profile_mods_category_technology">Công Nghệ</string>
+    <string name="zh_profile_mods_category_item_fluid_energy_transport">Ống dẫn và Hậu cần</string>
+    <string name="zh_profile_mods_category_automation">Tự Động Hóa</string>
+    <string name="zh_profile_mods_category_energy">Năng Lượng</string>
+    <string name="zh_profile_mods_category_redstone">Đá Đỏ</string>
+    <string name="zh_profile_mods_category_food">Thực Phẩm và Nấu Ăn</string>
+    <string name="zh_profile_mods_category_farming">Nông Nghiệp</string>
+    <string name="zh_profile_mods_category_transport">Vận Chuyển</string>
+    <string name="zh_profile_mods_category_storage">Lưu Trữ</string>
+    <string name="zh_profile_mods_category_magic">Ma Thuật</string>
+    <string name="zh_profile_mods_category_adventure">Phiêu Lưu</string>
+    <string name="zh_profile_mods_category_decoration">Trang Trí</string>
+    <string name="zh_profile_mods_category_mobs">Sinh Vật</string>
+    <string name="zh_profile_mods_category_equipment">Trang Bị</string>
+    <string name="zh_profile_mods_category_information">Hiển Thị Thông Tin</string>
+    <string name="zh_profile_mods_category_social">Máy Chủ</string>
+    <string name="zh_profile_mods_category_utility">Cải Tiến</string>
+    <string name="zh_profile_mods_category_library">Thư Viện</string>
+    <string name="zh_profile_mods_category_game_mechanics">Cơ Chế Trò Chơi</string>
+    <string name="zh_profile_mods_category_optimization">Tối Ưu Hóa Hiệu Suất</string>
+    <!-- Modpack -->
+    <string name="zh_profile_modpacks_category_multiplayer">Nhiều người chơi</string>
+    <string name="zh_profile_modpacks_category_challenging">Thử thách</string>
+    <string name="zh_profile_modpacks_category_combat">Chiến đấu</string>
+    <string name="zh_profile_modpacks_category_quests">Nhiệm vụ</string>
+    <string name="zh_profile_modpacks_category_technology">Công nghệ</string>
+    <string name="zh_profile_modpacks_category_magic">Ma thuật</string>
+    <string name="zh_profile_modpacks_category_adventure">Phiêu lưu</string>
+    <string name="zh_profile_modpacks_category_exploration">Thám hiểm</string>
+    <string name="zh_profile_modpacks_category_mini_game">Trò chơi nhỏ</string>
+    <string name="zh_profile_modpacks_category_sci_fi">Khoa học viễn tưởng</string>
+    <string name="zh_profile_modpacks_category_skyblock">Skyblock</string>
+    <string name="zh_profile_modpacks_category_vanilla">Cải tiến Vanilla</string>
+    <string name="zh_profile_modpacks_category_map_based">Dựa trên bản đồ</string>
+    <string name="zh_profile_modpacks_category_lightweight">Nhẹ</string>
+    <string name="zh_profile_modpacks_category_extra_large">Rất lớn</string>
+    <string name="zh_profile_modpacks_category_optimization">Tối ưu hóa</string>
+    <string name="zh_profile_modpacks_category_kitchen_sink">Hỗn hợp</string>
+</resources>

@@ -2,7 +2,6 @@ package com.movtery.pojavzh.feature.mod
 
 import android.content.Context
 import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchFilters.ApiPlatform
 
 class SearchModPlatform {
     companion object {
@@ -19,20 +18,11 @@ class SearchModPlatform {
         }
 
         @JvmStatic
-        fun getIndex(platform: ApiPlatform?): Int {
-            return when (platform) {
-                ApiPlatform.MODRINTH -> 1
-                ApiPlatform.CURSEFORGE -> 2
-                else -> 0
-            }
-        }
-
-        @JvmStatic
-        fun getPlatform(index: Int): ApiPlatform {
+        fun getPlatform(index: Int): ModFilters.ApiPlatform {
             return when (index) {
-                1 -> ApiPlatform.MODRINTH
-                2 -> ApiPlatform.CURSEFORGE
-                else -> ApiPlatform.BOTH
+                1 -> ModFilters.ApiPlatform.MODRINTH
+                2 -> ModFilters.ApiPlatform.CURSEFORGE
+                else -> ModFilters.ApiPlatform.BOTH
             }
         }
     }

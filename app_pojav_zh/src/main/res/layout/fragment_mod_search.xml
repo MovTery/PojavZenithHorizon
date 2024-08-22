@@ -261,13 +261,44 @@
                         tools:ignore="ContentDescription,MissingConstraints" />
 
                     <TextView
+                        android:id="@+id/search_mod_category_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:text="@string/zh_profile_mods_category"
+                        app:layout_constraintStart_toStartOf="@+id/zh_search_mod_category"
+                        app:layout_constraintTop_toBottomOf="@+id/zh_search_mod_sort" />
+
+                    <Spinner
+                        android:id="@+id/zh_search_mod_category"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_edit_box"
+                        android:paddingVertical="0px"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/search_mod_category_textview"
+                        tools:paddingVertical="@dimen/_12sdp" />
+
+                    <ImageView
+                        android:layout_width="63dp"
+                        android:layout_height="18dp"
+                        android:paddingHorizontal="@dimen/_8sdp"
+                        android:rotation="180"
+                        android:src="@drawable/spinner_arrow"
+                        app:layout_constraintBottom_toBottomOf="@+id/zh_search_mod_category"
+                        app:layout_constraintEnd_toEndOf="@+id/zh_search_mod_category"
+                        app:layout_constraintTop_toTopOf="@+id/zh_search_mod_category"
+                        tools:ignore="ContentDescription,MissingConstraints" />
+
+                    <TextView
                         android:id="@+id/search_mod_modloader_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:text="@string/zh_profile_mods_modloader"
                         app:layout_constraintStart_toStartOf="@+id/linearLayout"
-                        app:layout_constraintTop_toBottomOf="@+id/zh_search_mod_sort" />
+                        app:layout_constraintTop_toBottomOf="@+id/zh_search_mod_category" />
 
                     <LinearLayout
                         android:id="@+id/linearLayout"
