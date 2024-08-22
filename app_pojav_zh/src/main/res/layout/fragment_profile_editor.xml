@@ -191,27 +191,18 @@
                     app:layout_constraintStart_toStartOf="@+id/vprof_editor_spinner_runtime"
                     app:layout_constraintTop_toBottomOf="@+id/vprof_editor_path" />
 
-                <Spinner
+                <com.skydoves.powerspinner.PowerSpinnerView
                     android:id="@+id/vprof_editor_spinner_runtime"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_40sdp"
                     android:background="@drawable/background_item"
-                    android:paddingVertical="0px"
+                    android:paddingHorizontal="@dimen/_8sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView2"
+                    app:spinner_arrow_tint="@color/primary_text"
+                    app:spinner_item_height="@dimen/_40sdp"
                     tools:paddingVertical="@dimen/_12sdp" />
-
-                <ImageView
-                    android:layout_width="63dp"
-                    android:layout_height="18dp"
-                    android:paddingHorizontal="@dimen/_8sdp"
-                    android:rotation="180"
-                    android:src="@drawable/spinner_arrow"
-                    app:layout_constraintBottom_toBottomOf="@id/vprof_editor_spinner_runtime"
-                    app:layout_constraintEnd_toEndOf="@id/vprof_editor_spinner_runtime"
-                    app:layout_constraintTop_toTopOf="@id/vprof_editor_spinner_runtime" />
-
 
                 <TextView
                     android:id="@+id/textView3"
@@ -222,26 +213,16 @@
                     app:layout_constraintStart_toStartOf="@+id/vprof_editor_profile_renderer"
                     app:layout_constraintTop_toBottomOf="@+id/vprof_editor_spinner_runtime" />
 
-                <Spinner
+                <com.skydoves.powerspinner.PowerSpinnerView
                     android:id="@+id/vprof_editor_profile_renderer"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_40sdp"
                     android:background="@drawable/background_item"
-                    android:dropDownWidth="match_parent"
-                    android:paddingVertical="0px"
-                    app:layout_constraintTop_toBottomOf="@+id/textView3"
-                    tools:layout_editor_absoluteX="10dp"
-                    tools:paddingVertical="@dimen/_12sdp" />
-
-                <ImageView
-                    android:layout_width="63dp"
-                    android:layout_height="18dp"
                     android:paddingHorizontal="@dimen/_8sdp"
-                    android:rotation="180"
-                    android:src="@drawable/spinner_arrow"
-                    app:layout_constraintBottom_toBottomOf="@id/vprof_editor_profile_renderer"
-                    app:layout_constraintEnd_toEndOf="@id/vprof_editor_profile_renderer"
-                    app:layout_constraintTop_toTopOf="@id/vprof_editor_profile_renderer" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView3"
+                    app:spinner_arrow_tint="@color/primary_text"
+                    app:spinner_item_height="@dimen/_40sdp"
+                    tools:paddingVertical="@dimen/_12sdp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

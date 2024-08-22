@@ -181,6 +181,7 @@ dependencies {
     implementation 'com.github.Mathias-Boulay:ExtendedView:1.0.0'
     implementation 'com.github.Mathias-Boulay:android_gamepad_remapper:06184ddbce'
     implementation 'com.github.Mathias-Boulay:virtual-joystick-android:2e7aa25e50'
+    implementation "com.github.skydoves:powerspinner:1.2.7"
 
     // implementation 'com.intuit.sdp:sdp-android:1.0.5'
     // implementation 'com.intuit.ssp:ssp-android:1.0.5'

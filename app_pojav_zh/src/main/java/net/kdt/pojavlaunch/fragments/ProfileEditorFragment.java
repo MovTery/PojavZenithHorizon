@@ -9,11 +9,9 @@ import android.util.Base64OutputStream;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -33,13 +31,15 @@ import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 import com.movtery.pojavzh.utils.file.FileTools;
+import com.skydoves.powerspinner.DefaultSpinnerAdapter;
+import com.skydoves.powerspinner.OnSpinnerItemSelectedListener;
+import com.skydoves.powerspinner.PowerSpinnerView;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
-import net.kdt.pojavlaunch.multirt.RTSpinnerAdapter;
 import net.kdt.pojavlaunch.multirt.Runtime;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.profiles.ProfileIconCache;
@@ -64,7 +64,7 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
     private String mValueToConsume = "";
     private View mEditorLayout, mOperateLayout, mProfileLayout;
     private Button mCancelButton, mSaveButton, mControlSelectButton, mGameDirButton, mVersionSelectButton;
-    private Spinner mDefaultRuntime, mDefaultRenderer;
+    private PowerSpinnerView mDefaultRuntime, mDefaultRenderer;
     private EditText mDefaultName, mDefaultJvmArgument;
     private TextView mDefaultPath, mDefaultVersion, mDefaultControl;
     private ImageView mProfileIcon;
@@ -100,13 +100,6 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         bindViews(view);
-
-        Tools.RenderersList renderersList = Tools.getCompatibleRenderers(view.getContext());
-        mRenderNames = renderersList.rendererIds;
-        List<String> renderList = new ArrayList<>(renderersList.rendererDisplayNames.length + 1);
-        renderList.addAll(Arrays.asList(renderersList.rendererDisplayNames));
-        renderList.add(view.getContext().getString(R.string.global_default));
-        mDefaultRenderer.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.item_simple_list_1, renderList));
 
         // Set up behaviors
         mCancelButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
@@ -150,6 +143,12 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
         ViewAnimUtils.slideInAnim(this);
     }
 
+    @Override
+    public void onPause() {
+        mDefaultRuntime.dismiss();
+        mDefaultRenderer.dismiss();
+        super.onPause();
+    }
 
     private void loadValues(@NonNull String profile, @NonNull Context context){
         if(mTempProfile == null){
@@ -161,23 +160,46 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
 
         // Runtime spinner
         List<Runtime> runtimes = MultiRTUtils.getRuntimes();
-        int jvmIndex = runtimes.indexOf(new Runtime(getString(R.string.global_default)));
+        List<String> runtimeNames = new ArrayList<>();
+        runtimes.forEach(v -> runtimeNames.add(String.format("%s - %s", v.name, v.versionString == null ? getString(R.string.multirt_runtime_corrupt) : v.versionString)));
+        runtimeNames.add(getString(R.string.global_default));
+        int jvmIndex = runtimeNames.size() - 1;
         if (mTempProfile.javaDir != null) {
             String selectedRuntime = mTempProfile.javaDir.substring(Tools.LAUNCHERPROFILES_RTPREFIX.length());
             int nindex = runtimes.indexOf(new Runtime(selectedRuntime));
             if (nindex != -1) jvmIndex = nindex;
         }
-        mDefaultRuntime.setAdapter(new RTSpinnerAdapter(context, runtimes));
-        if(jvmIndex == -1) jvmIndex = runtimes.size() - 1;
-        mDefaultRuntime.setSelection(jvmIndex);
+        DefaultSpinnerAdapter runtimeAdapter = new DefaultSpinnerAdapter(mDefaultRuntime);
+        runtimeAdapter.setItems(runtimeNames);
+        mDefaultRuntime.setSpinnerAdapter(runtimeAdapter);
+        mDefaultRuntime.selectItemByIndex(jvmIndex);
+        mDefaultRuntime.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> {
+            if (i1 == runtimeNames.size() - 1) mTempProfile.javaDir = null;
+            else {
+                Runtime runtime = runtimes.get(i1);
+                mTempProfile.javaDir = runtime.versionString == null ? null : Tools.LAUNCHERPROFILES_RTPREFIX + runtime.name;
+            }
+        });
 
         // Renderer spinner
-        int rendererIndex = mDefaultRenderer.getAdapter().getCount() - 1;
+        Tools.RenderersList renderersList = Tools.getCompatibleRenderers(context);
+        mRenderNames = renderersList.rendererIds;
+        List<String> renderList = new ArrayList<>(renderersList.rendererDisplayNames.length + 1);
+        renderList.addAll(Arrays.asList(renderersList.rendererDisplayNames));
+        renderList.add(context.getString(R.string.global_default));
+        int rendererIndex = renderList.size() - 1;
         if(mTempProfile.pojavRendererName != null) {
             int nindex = mRenderNames.indexOf(mTempProfile.pojavRendererName);
             if(nindex != -1) rendererIndex = nindex;
         }
-        mDefaultRenderer.setSelection(rendererIndex);
+        DefaultSpinnerAdapter rendererAdapter = new DefaultSpinnerAdapter(mDefaultRenderer);
+        rendererAdapter.setItems(renderList);
+        mDefaultRenderer.setSpinnerAdapter(rendererAdapter);
+        mDefaultRenderer.selectItemByIndex(rendererIndex);
+        mDefaultRenderer.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> {
+            if(i1 == renderList.size() - 1) mTempProfile.pojavRendererName = null;
+            else mTempProfile.pojavRendererName = mRenderNames.get(i1);
+        });
 
         mDefaultVersion.setText(mTempProfile.lastVersionId);
         mDefaultJvmArgument.setText(mTempProfile.javaArgs == null ? "" : mTempProfile.javaArgs);
@@ -197,7 +219,6 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
         }
         return minecraftProfile;
     }
-
 
     private void bindViews(@NonNull View view){
         mEditorLayout = view.findViewById(R.id.editor_layout);
@@ -232,13 +253,6 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
         if(mTempProfile.controlFile.isEmpty()) mTempProfile.controlFile = null;
         if(mTempProfile.javaArgs.isEmpty()) mTempProfile.javaArgs = null;
         if(mTempProfile.gameDir.isEmpty()) mTempProfile.gameDir = null;
-
-        Runtime selectedRuntime = (Runtime) mDefaultRuntime.getSelectedItem();
-        mTempProfile.javaDir = (selectedRuntime.name.equals(getString(R.string.global_default)) || selectedRuntime.versionString == null)
-                ? null : Tools.LAUNCHERPROFILES_RTPREFIX + selectedRuntime.name;
-
-        if(mDefaultRenderer.getSelectedItemPosition() == mRenderNames.size()) mTempProfile.pojavRendererName = null;
-        else mTempProfile.pojavRendererName = mRenderNames.get(mDefaultRenderer.getSelectedItemPosition());
 
         LauncherProfiles.mainProfileJson.profiles.put(mProfileKey, mTempProfile);
         LauncherProfiles.write(ProfilePathManager.getCurrentProfile());

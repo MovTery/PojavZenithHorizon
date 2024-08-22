@@ -6,13 +6,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +32,9 @@ import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
+import com.skydoves.powerspinner.DefaultSpinnerAdapter;
+import com.skydoves.powerspinner.OnSpinnerItemSelectedListener;
+import com.skydoves.powerspinner.PowerSpinnerView;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
@@ -55,7 +55,7 @@ public class OtherLoginFragment extends FragmentWithAnim {
     public String mCurrentBaseUrl;
     private View mMainView;
     private ProgressDialog mProgressDialog;
-    private Spinner mServerSpinner;
+    private PowerSpinnerView mServerSpinner;
     private EditText mUserEditText, mPassEditText;
     private Button mLoginButton;
     private TextView mRegister;
@@ -65,7 +65,7 @@ public class OtherLoginFragment extends FragmentWithAnim {
     private Servers mServers;
     private List<String> mServerList;
     private String mCurrentRegisterUrl;
-    private ArrayAdapter<String> mServerSpinnerAdapter;
+    private DefaultSpinnerAdapter mServerSpinnerAdapter;
 
     public OtherLoginFragment() {
         super(R.layout.fragment_other_login);
@@ -84,24 +84,17 @@ public class OtherLoginFragment extends FragmentWithAnim {
         showRegisterButton(); //刷新注册按钮
 
         mReturnButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
-        mServerSpinner.setAdapter(mServerSpinnerAdapter);
-        mServerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (!Objects.isNull(mServers)) {
-                    for (Servers.Server server : mServers.getServer()) {
-                        if (server.getServerName().equals(mServerList.get(i))) {
-                            mCurrentBaseUrl = server.getBaseUrl();
-                            mCurrentRegisterUrl = server.getRegister();
-                            Logging.e("test", "currentRegisterUrl:" + mCurrentRegisterUrl);
-                        }
+        mServerSpinner.setSpinnerAdapter(mServerSpinnerAdapter);
+        mServerSpinner.selectItemByIndex(0);
+        mServerSpinner.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> {
+            if (!Objects.isNull(mServers)) {
+                for (Servers.Server server : mServers.getServer()) {
+                    if (server.getServerName().equals(mServerList.get(i1))) {
+                        mCurrentBaseUrl = server.getBaseUrl();
+                        mCurrentRegisterUrl = server.getRegister();
+                        Logging.e("test", "currentRegisterUrl:" + mCurrentRegisterUrl);
                     }
                 }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
 
@@ -197,6 +190,12 @@ public class OtherLoginFragment extends FragmentWithAnim {
         }));
 
         ViewAnimUtils.slideInAnim(this);
+    }
+
+    @Override
+    public void onPause() {
+        mServerSpinner.dismiss();
+        super.onPause();
     }
 
     private void bindViews(@NonNull View view) {
@@ -301,10 +300,9 @@ public class OtherLoginFragment extends FragmentWithAnim {
             mServerList.add(getString(R.string.zh_other_login_no_server));
         }
         if (Objects.isNull(mServerSpinnerAdapter)) {
-            mServerSpinnerAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item, mServerList);
-        } else {
-            mServerSpinnerAdapter.notifyDataSetChanged();
+            mServerSpinnerAdapter = new DefaultSpinnerAdapter(mServerSpinner);
         }
+        mServerSpinnerAdapter.setItems(mServerList);
     }
 
     private void showRegisterButton() {
