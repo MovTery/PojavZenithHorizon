@@ -12,8 +12,6 @@
         android:id="@+id/zh_version_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_8sdp"
         android:background="@drawable/background_edit_box"
         android:padding="@dimen/_4sdp"
         app:tabGravity="fill"
@@ -25,7 +23,7 @@
         android:id="@+id/zh_version"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:background="@drawable/background_edit_box"
         android:padding="@dimen/_8sdp" />
 

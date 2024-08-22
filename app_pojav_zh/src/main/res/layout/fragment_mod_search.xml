@@ -35,7 +35,6 @@
                 android:layout_marginVertical="@dimen/_4sdp"
                 android:scrollbars="vertical"
                 android:scrollbarThumbVertical="@color/scrollbar_color"
-                android:background="@drawable/background_card"
                 android:clipToPadding="false"
                 android:paddingHorizontal="@dimen/_8sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -137,6 +136,7 @@
                         android:id="@+id/search_mod_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
                         android:text="@string/zh_profile_mods_search_mod"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"/>
