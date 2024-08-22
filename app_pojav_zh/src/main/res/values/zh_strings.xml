@@ -19,6 +19,7 @@
     <string name="zh_loading">Loading</string>
     <string name="zh_optional">Optional</string>
     <string name="zh_required">Required</string>
+    <string name="zh_all">All</string>
     <string name="zh_wan">Ten thousand</string>
     <string name="zh_yi">A Hundred million</string>
     <string name="zh_wrong_tip">Something went wrong</string>
@@ -43,6 +44,7 @@
     <string name="zh_profile_mods_download_mod">Download Mod</string>
     <string name="zh_profile_mods_platform">Search Platform</string>
     <string name="zh_profile_mods_sort_by">Sort By</string>
+    <string name="zh_profile_mods_category">Category</string>
     <string name="zh_profile_mods_modloader">Mod Loader</string>
     <string name="zh_profile_mods_download_mod_failed">Failed to download Mod file</string>
     <string name="zh_profile_mods_download_mod_release_version">Show only Minecraft release versions</string>

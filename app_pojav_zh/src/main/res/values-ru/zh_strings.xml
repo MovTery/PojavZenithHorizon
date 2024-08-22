@@ -19,6 +19,7 @@
     <string name="zh_loading">Загрузка</string>
     <string name="zh_optional">Необязательно</string>
     <string name="zh_required">Обязательно</string>
+    <string name="zh_all">Все</string>
     <string name="zh_wan">Тысяча</string>
     <string name="zh_yi">Миллиард</string>
     <string name="zh_wrong_tip">Произошла ошибка</string>
@@ -43,6 +44,7 @@
     <string name="zh_profile_mods_download_mod">Скачать Mod</string>
     <string name="zh_profile_mods_platform">Платформа поиска</string>
     <string name="zh_profile_mods_sort_by">Сортировать по</string>
+    <string name="zh_profile_mods_category">Категория</string>
     <string name="zh_profile_mods_modloader">Загрузчик Mod</string>
     <string name="zh_profile_mods_download_mod_failed">Не удалось скачать файл Mod</string>
     <string name="zh_profile_mods_download_mod_release_version">Показывать только официальные версии Minecraft</string>

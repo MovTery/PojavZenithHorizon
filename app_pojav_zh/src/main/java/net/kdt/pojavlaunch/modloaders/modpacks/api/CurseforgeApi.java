@@ -9,6 +9,8 @@ import com.google.gson.JsonObject;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.feature.mod.ModCache;
+import com.movtery.pojavzh.feature.mod.ModCategory;
+import com.movtery.pojavzh.feature.mod.ModFilters;
 import com.movtery.pojavzh.feature.mod.ModLoaderList;
 import com.movtery.pojavzh.feature.mod.ModMirror;
 import com.movtery.pojavzh.feature.mod.SearchModSort;
@@ -26,7 +28,6 @@ import net.kdt.pojavlaunch.modloaders.modpacks.models.Constants;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.CurseManifest;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchFilters;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchResult;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.utils.FileUtils;
@@ -62,26 +63,29 @@ public class CurseforgeApi implements ModpackApi{
     }
 
     @Override
-    public SearchResult searchMod(SearchFilters searchFilters, SearchResult previousPageResult) {
+    public SearchResult searchMod(ModFilters modFilters, SearchResult previousPageResult) {
+        ModCategory.Category category = modFilters.getCategory();
+        if (category != ModCategory.Category.ALL && category.getCurseforgeID() == null) return returnEmptyResult();
         CurseforgeSearchResult curseforgeSearchResult = (CurseforgeSearchResult) previousPageResult;
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("gameId", CURSEFORGE_MINECRAFT_GAME_ID);
-        params.put("classId", searchFilters.isModpack ? CURSEFORGE_MODPACK_CLASS_ID : CURSEFORGE_MOD_CLASS_ID);
-        params.put("searchFilter", searchFilters.name);
-        params.put("sortField", SearchModSort.getCurseforgeIndexById(searchFilters.sort));
+        params.put("classId", modFilters.isModpack() ? CURSEFORGE_MODPACK_CLASS_ID : CURSEFORGE_MOD_CLASS_ID);
+        params.put("searchFilter", modFilters.getName());
+        params.put("sortField", SearchModSort.getCurseforgeIndexById(modFilters.getSort()));
         params.put("sortOrder", "desc");
-        if(searchFilters.mcVersion != null && !searchFilters.mcVersion.isEmpty())
-            params.put("gameVersion", searchFilters.mcVersion);
-        if (searchFilters.modloaders != null && !searchFilters.modloaders.isEmpty()) {
-            if (searchFilters.modloaders.size() > 1) {
+        if (category != ModCategory.Category.ALL) params.put("categoryId", category.getCurseforgeID());
+        if (modFilters.getMcVersion() != null && !modFilters.getMcVersion().isEmpty())
+            params.put("gameVersion", modFilters.getMcVersion());
+        if (!modFilters.getModloaders().isEmpty()) {
+            if (modFilters.getModloaders().size() > 1) {
                 StringJoiner stringJoiner = new StringJoiner(",", "[", "]");
-                for (String modloader : searchFilters.modloaders) {
+                for (String modloader : modFilters.getModloaders()) {
                     stringJoiner.add(ModLoaderList.getModloaderName(modloader));
                 }
                 params.put("modLoaderTypes", stringJoiner.toString());
             } else {
-                params.put("modLoaderType", ModLoaderList.getModloaderName(searchFilters.modloaders.get(0)));
+                params.put("modLoaderType", ModLoaderList.getModloaderName(modFilters.getModloaders().get(0)));
             }
         }
         if(previousPageResult != null)
@@ -107,7 +111,7 @@ public class CurseforgeApi implements ModpackApi{
             String iconUrl = fetchIconUrl(dataElement);
 
             ModItem modItem = new ModItem(Constants.SOURCE_CURSEFORGE,
-                    searchFilters.isModpack,
+                    modFilters.isModpack(),
                     dataElement.get("id").getAsString(),
                     dataElement.get("name").getAsString(),
                     dataElement.get("summary").getAsString(),
@@ -121,7 +125,6 @@ public class CurseforgeApi implements ModpackApi{
         curseforgeSearchResult.totalResultCount = paginationInfo.get("totalCount").getAsInt();
         curseforgeSearchResult.previousOffset += dataArray.size();
         return curseforgeSearchResult;
-
     }
 
     @NonNull
@@ -288,6 +291,13 @@ public class CurseforgeApi implements ModpackApi{
             return CURSEFORGE_PAGINATION_END_REACHED; // we read the remainder! yay!
         }
         return index + data.size();
+    }
+
+    private SearchResult returnEmptyResult() {
+        CurseforgeSearchResult searchResult = new CurseforgeSearchResult();
+        searchResult.results = new ModItem[0];
+        searchResult.totalResultCount = 0;
+        return searchResult;
     }
 
     public ModLoader installCurseforgeZip(File zipFile, File instanceDestination, OnInstallStartListener onInstallStartListener) throws IOException {

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Mod -->
+    <string name="zh_profile_mods_category_worldgen">توليد العالم</string>
+    <string name="zh_profile_mods_category_biomes">المناطق الحيوية</string>
+    <string name="zh_profile_mods_category_dimensions">الأبعاد</string>
+    <string name="zh_profile_mods_category_ores_resources">الخامات والموارد</string>
+    <string name="zh_profile_mods_category_structures">الهياكل</string>
+    <string name="zh_profile_mods_category_technology">التكنولوجيا</string>
+    <string name="zh_profile_mods_category_item_fluid_energy_transport">الأنابيب والخدمات اللوجستية</string>
+    <string name="zh_profile_mods_category_automation">الأتمتة</string>
+    <string name="zh_profile_mods_category_energy">الطاقة</string>
+    <string name="zh_profile_mods_category_redstone">الحجر الأحمر</string>
+    <string name="zh_profile_mods_category_food">الطعام والطبخ</string>
+    <string name="zh_profile_mods_category_farming">الزراعة</string>
+    <string name="zh_profile_mods_category_transport">النقل</string>
+    <string name="zh_profile_mods_category_storage">التخزين</string>
+    <string name="zh_profile_mods_category_magic">السحر</string>
+    <string name="zh_profile_mods_category_adventure">المغامرة</string>
+    <string name="zh_profile_mods_category_decoration">الديكور</string>
+    <string name="zh_profile_mods_category_mobs">المخلوقات</string>
+    <string name="zh_profile_mods_category_equipment">المعدات</string>
+    <string name="zh_profile_mods_category_information">عرض المعلومات</string>
+    <string name="zh_profile_mods_category_social">الخادم</string>
+    <string name="zh_profile_mods_category_utility">التحسينات</string>
+    <string name="zh_profile_mods_category_library">المكتبة</string>
+    <string name="zh_profile_mods_category_game_mechanics">ميكانيكا اللعبة</string>
+    <string name="zh_profile_mods_category_optimization">تحسين الأداء</string>
+    <!-- Modpack -->
+    <string name="zh_profile_modpacks_category_multiplayer">متعدد اللاعبين</string>
+    <string name="zh_profile_modpacks_category_challenging">تحدي</string>
+    <string name="zh_profile_modpacks_category_combat">قتال</string>
+    <string name="zh_profile_modpacks_category_quests">مهام</string>
+    <string name="zh_profile_modpacks_category_technology">تكنولوجيا</string>
+    <string name="zh_profile_modpacks_category_magic">سحر</string>
+    <string name="zh_profile_modpacks_category_adventure">مغامرة</string>
+    <string name="zh_profile_modpacks_category_exploration">استكشاف</string>
+    <string name="zh_profile_modpacks_category_mini_game">لعبة صغيرة</string>
+    <string name="zh_profile_modpacks_category_sci_fi">خيال علمي</string>
+    <string name="zh_profile_modpacks_category_skyblock">سكاي بلوك</string>
+    <string name="zh_profile_modpacks_category_vanilla">تحسين الفانيليا</string>
+    <string name="zh_profile_modpacks_category_map_based">معتمد على الخريطة</string>
+    <string name="zh_profile_modpacks_category_lightweight">خفيف الوزن</string>
+    <string name="zh_profile_modpacks_category_extra_large">كبير جدًا</string>
+    <string name="zh_profile_modpacks_category_optimization">تحسين الأداء</string>
+    <string name="zh_profile_modpacks_category_kitchen_sink">خليط</string>
+</resources>

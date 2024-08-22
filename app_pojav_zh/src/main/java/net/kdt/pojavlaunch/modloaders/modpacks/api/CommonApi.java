@@ -3,6 +3,7 @@ package net.kdt.pojavlaunch.modloaders.modpacks.api;
 import androidx.annotation.NonNull;
 
 import com.movtery.pojavzh.feature.log.Logging;
+import com.movtery.pojavzh.feature.mod.ModFilters;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
 
 import net.kdt.pojavlaunch.PojavApplication;
@@ -10,7 +11,6 @@ import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.Constants;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchFilters;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchResult;
 
 import java.io.IOException;
@@ -35,7 +35,7 @@ public class CommonApi implements ModpackApi {
     }
 
     @Override
-    public SearchResult searchMod(SearchFilters searchFilters, SearchResult previousPageResult) {
+    public SearchResult searchMod(ModFilters modFilters, SearchResult previousPageResult) {
         CommonApiSearchResult commonApiSearchResult = (CommonApiSearchResult) previousPageResult;
         // If there are no previous page results, create a new array. Otherwise, use the one from the previous page
         SearchResult[] results = commonApiSearchResult == null ?
@@ -45,8 +45,8 @@ public class CommonApi implements ModpackApi {
 
         Future<?>[] futures = new Future<?>[mModpackApis.length];
         for (int i = 0; i < mModpackApis.length; i++) {
-            if ((searchFilters.platform == SearchFilters.ApiPlatform.CURSEFORGE && mModpackApis[i] != mCurseforgeApi) ||
-                    (searchFilters.platform == SearchFilters.ApiPlatform.MODRINTH && mModpackApis[i] != mModrinthApi)) {
+            if ((modFilters.getPlatform() == ModFilters.ApiPlatform.CURSEFORGE && mModpackApis[i] != mCurseforgeApi) ||
+                    (modFilters.getPlatform() == ModFilters.ApiPlatform.MODRINTH && mModpackApis[i] != mModrinthApi)) {
                 continue;
             }
             if (results[i] != null && results[i].results.length == 0) continue;
@@ -54,7 +54,7 @@ public class CommonApi implements ModpackApi {
             // and the previous result is null, it means that na error has occured on the previous
             // page. We lost contingency anyway, so don't bother requesting.
             if (previousPageResult != null && results[i] == null) continue;
-            futures[i] = PojavApplication.sExecutorService.submit(new ApiDownloadTask(i, searchFilters, results[i]));
+            futures[i] = PojavApplication.sExecutorService.submit(new ApiDownloadTask(i, modFilters, results[i]));
         }
 
         if (Thread.interrupted()) {
@@ -171,18 +171,18 @@ public class CommonApi implements ModpackApi {
 
     private class ApiDownloadTask implements Callable<SearchResult> {
         private final int mModApi;
-        private final SearchFilters mSearchFilters;
+        private final ModFilters mModFilters;
         private final SearchResult mPreviousPageResult;
 
-        private ApiDownloadTask(int modApi, SearchFilters searchFilters, SearchResult previousPageResult) {
+        private ApiDownloadTask(int modApi, ModFilters modFilters, SearchResult previousPageResult) {
             this.mModApi = modApi;
-            this.mSearchFilters = searchFilters;
+            this.mModFilters = modFilters;
             this.mPreviousPageResult = previousPageResult;
         }
 
         @Override
         public SearchResult call() {
-            return mModpackApis[mModApi].searchMod(mSearchFilters, mPreviousPageResult);
+            return mModpackApis[mModApi].searchMod(mModFilters, mPreviousPageResult);
         }
     }
 

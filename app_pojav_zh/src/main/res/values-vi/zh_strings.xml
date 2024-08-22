@@ -19,6 +19,7 @@
     <string name="zh_loading">Đang tải</string>
     <string name="zh_optional">Tùy chọn</string>
     <string name="zh_required">Bắt buộc</string>
+    <string name="zh_all">Tất cả</string>
     <string name="zh_wan">Vạn</string>
     <string name="zh_yi">Tỷ</string>
     <string name="zh_wrong_tip">Đã xảy ra sự cố</string>
@@ -43,6 +44,7 @@
     <string name="zh_profile_mods_download_mod">Tải Mod</string>
     <string name="zh_profile_mods_platform">Nền tảng tìm kiếm</string>
     <string name="zh_profile_mods_sort_by">Sắp xếp theo</string>
+    <string name="zh_profile_mods_category">Danh mục</string>
     <string name="zh_profile_mods_modloader">Trình nạp Mod</string>
     <string name="zh_profile_mods_download_mod_failed">Tải tệp Mod thất bại</string>
     <string name="zh_profile_mods_download_mod_release_version">Chỉ hiển thị các phiên bản chính thức của Minecraft</string>

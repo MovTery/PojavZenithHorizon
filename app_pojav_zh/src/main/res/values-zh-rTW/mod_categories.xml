@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Mod -->
+    <string name="zh_profile_mods_category_worldgen">世界生成</string>
+    <string name="zh_profile_mods_category_biomes">生物群系</string>
+    <string name="zh_profile_mods_category_dimensions">維度</string>
+    <string name="zh_profile_mods_category_ores_resources">礦物與資源</string>
+    <string name="zh_profile_mods_category_structures">結構</string>
+    <string name="zh_profile_mods_category_technology">技術</string>
+    <string name="zh_profile_mods_category_item_fluid_energy_transport">管道與物流</string>
+    <string name="zh_profile_mods_category_automation">自動化</string>
+    <string name="zh_profile_mods_category_energy">能源</string>
+    <string name="zh_profile_mods_category_redstone">紅石</string>
+    <string name="zh_profile_mods_category_food">食物與烹飪</string>
+    <string name="zh_profile_mods_category_farming">農業</string>
+    <string name="zh_profile_mods_category_transport">運輸</string>
+    <string name="zh_profile_mods_category_storage">倉儲</string>
+    <string name="zh_profile_mods_category_magic">魔法</string>
+    <string name="zh_profile_mods_category_adventure">冒險</string>
+    <string name="zh_profile_mods_category_decoration">裝飾</string>
+    <string name="zh_profile_mods_category_mobs">生物</string>
+    <string name="zh_profile_mods_category_equipment">裝備</string>
+    <string name="zh_profile_mods_category_information">信息顯示</string>
+    <string name="zh_profile_mods_category_social">伺服器</string>
+    <string name="zh_profile_mods_category_utility">改良</string>
+    <string name="zh_profile_mods_category_library">支援庫</string>
+    <string name="zh_profile_mods_category_game_mechanics">遊戲機制</string>
+    <string name="zh_profile_mods_category_optimization">效能優化</string>
+    <!-- Modpack -->
+    <string name="zh_profile_modpacks_category_multiplayer">多人</string>
+    <string name="zh_profile_modpacks_category_challenging">硬核</string>
+    <string name="zh_profile_modpacks_category_combat">戰鬥</string>
+    <string name="zh_profile_modpacks_category_quests">任務</string>
+    <string name="zh_profile_modpacks_category_technology">科技</string>
+    <string name="zh_profile_modpacks_category_magic">魔法</string>
+    <string name="zh_profile_modpacks_category_adventure">冒險</string>
+    <string name="zh_profile_modpacks_category_exploration">探險</string>
+    <string name="zh_profile_modpacks_category_mini_game">小遊戲</string>
+    <string name="zh_profile_modpacks_category_sci_fi">科幻</string>
+    <string name="zh_profile_modpacks_category_skyblock">空島</string>
+    <string name="zh_profile_modpacks_category_vanilla">原版改良</string>
+    <string name="zh_profile_modpacks_category_map_based">基於地圖</string>
+    <string name="zh_profile_modpacks_category_lightweight">輕量</string>
+    <string name="zh_profile_modpacks_category_extra_large">大型</string>
+    <string name="zh_profile_modpacks_category_optimization">效能優化</string>
+    <string name="zh_profile_modpacks_category_kitchen_sink">大雜燴</string>
+</resources>

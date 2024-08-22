@@ -25,6 +25,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.movtery.pojavzh.feature.mod.ModCategory;
+import com.movtery.pojavzh.feature.mod.ModFilters;
 import com.movtery.pojavzh.feature.mod.ModLoaderList;
 import com.movtery.pojavzh.feature.mod.SearchModPlatform;
 import com.movtery.pojavzh.feature.mod.SearchModSort;
@@ -40,7 +42,6 @@ import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 import net.kdt.pojavlaunch.modloaders.modpacks.ModItemAdapter;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.CommonApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchFilters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +50,7 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
     public static final String TAG = "SearchModFragment";
     public static final String BUNDLE_SEARCH_MODPACK = "BundleSearchModPack";
     public static final String BUNDLE_MOD_PATH = "BundleModPath";
-    private SearchFilters mSearchFilters;
+    private ModFilters mModFilters;
     private boolean isModpack;
     private String mModsPath;
     private View mModsLayout, mOperateLayout, mLoadingView;
@@ -81,8 +82,8 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
         parseBundle();
         mModsLayout = view.findViewById(R.id.mods_layout);
         mOperateLayout = view.findViewById(R.id.operate_layout);
-        mSearchFilters = new SearchFilters();
-        mSearchFilters.isModpack = this.isModpack;
+        mModFilters = new ModFilters();
+        mModFilters.setModpack(this.isModpack);
 
         mRecyclerview = view.findViewById(R.id.search_mod_list);
         mLoadingView = view.findViewById(R.id.zh_mods_loading);
@@ -142,8 +143,9 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
         mRecyclerview.scrollToPosition(0);
         mRecyclerview.setVisibility(View.GONE);
         AnimUtils.setVisibilityAnimYoYo(mLoadingView, true);
-        mSearchFilters.name = name == null ? "" : name;
-        mModItemAdapter.performSearchQuery(mSearchFilters);
+        AnimUtils.setVisibilityAnimYoYo(mStatusTextView, false);
+        mModFilters.setName(name == null ? "" : name);
+        mModItemAdapter.performSearchQuery(mModFilters);
     }
 
     private void parseBundle() {
@@ -161,6 +163,7 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
         Button mSelectVersionButton = view.findViewById(R.id.search_mod_mc_version_button);
         Spinner mSortBy = view.findViewById(R.id.zh_search_mod_sort);
         Spinner mPlatform = view.findViewById(R.id.zh_search_mod_platform);
+        Spinner mCategory = view.findViewById(R.id.zh_search_mod_category);
         CheckBox mModloaderForge = view.findViewById(R.id.zh_search_forge_checkBox);
         CheckBox mModloaderFabric = view.findViewById(R.id.zh_search_fabric_checkBox);
         CheckBox mModloaderQuilt = view.findViewById(R.id.zh_search_quilt_checkBox);
@@ -180,7 +183,7 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
                 @Override
                 public void onVersionSelected(String version) {
                     mSelectedVersion.setText(version);
-                    mSearchFilters.mcVersion = version;
+                    mModFilters.setMcVersion(version);
                     selectVersionDialog.dismiss();
                 }
             });
@@ -188,17 +191,36 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
             selectVersionDialog.show();
         });
 
-        mSelectedVersion.setText(mSearchFilters.mcVersion);
+        mSelectedVersion.setText(mModFilters.getMcVersion());
+
+        List<String> categoriesList = this.isModpack ? ModCategory.getModPackCategories(context) : ModCategory.getModCategories(context);
+        if (mCategory != null) {
+            mCategory.setAdapter(new ArrayAdapter<>(context, R.layout.item_simple_list_1, categoriesList));
+            mCategory.setSelection(0);
+
+            mCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    mModFilters.setCategory(isModpack ?
+                            ModCategory.getModPackCategoryFromIndex(position) :
+                            ModCategory.getModCategoryFromIndex(position));
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+        }
 
         List<String> platfromList = SearchModPlatform.getIndexList(context);
         if (mPlatform != null) {
             mPlatform.setAdapter(new ArrayAdapter<>(context, R.layout.item_simple_list_1, platfromList));
-            mPlatform.setSelection(SearchModPlatform.getIndex(mSearchFilters.platform));
+            mPlatform.setSelection(0);
 
             mPlatform.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    mSearchFilters.platform = SearchModPlatform.getPlatform(position);
+                    mModFilters.setPlatform(SearchModPlatform.getPlatform(position));
                 }
 
                 @Override
@@ -210,13 +232,12 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
         List<String> sortList = new ArrayList<>(SearchModSort.getIndexList(context));
         if (mSortBy != null) {
             mSortBy.setAdapter(new ArrayAdapter<>(context, R.layout.item_simple_list_1, sortList));
-            //默认选中筛选器设置的排序索引
-            mSortBy.setSelection(mSearchFilters.sort);
+            mSortBy.setSelection(0);
 
             mSortBy.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    mSearchFilters.sort = position;
+                    mModFilters.setSort(position);
                 }
 
                 @Override
@@ -225,47 +246,49 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
             });
         }
 
-        mModloaderForge.setChecked(mSearchFilters.modloaders.contains(ModLoaderList.modloaderList.get(0)));
-        mModloaderFabric.setChecked(mSearchFilters.modloaders.contains(ModLoaderList.modloaderList.get(1)));
-        mModloaderQuilt.setChecked(mSearchFilters.modloaders.contains(ModLoaderList.modloaderList.get(2)));
-        mModloaderNeoForge.setChecked(mSearchFilters.modloaders.contains(ModLoaderList.modloaderList.get(3)));
+        mModloaderForge.setChecked(mModFilters.getModloaders().contains(ModLoaderList.modloaderList.get(0)));
+        mModloaderFabric.setChecked(mModFilters.getModloaders().contains(ModLoaderList.modloaderList.get(1)));
+        mModloaderQuilt.setChecked(mModFilters.getModloaders().contains(ModLoaderList.modloaderList.get(2)));
+        mModloaderNeoForge.setChecked(mModFilters.getModloaders().contains(ModLoaderList.modloaderList.get(3)));
 
         mModloaderForge.setOnClickListener(v -> {
             String forge = ModLoaderList.modloaderList.get(0);
-            if (mModloaderForge.isChecked() && !mSearchFilters.modloaders.contains(forge)) {
-                mSearchFilters.modloaders.add(forge);
-            } else mSearchFilters.modloaders.remove(forge);
+            if (mModloaderForge.isChecked() && !mModFilters.getModloaders().contains(forge)) {
+                mModFilters.getModloaders().add(forge);
+            } else mModFilters.getModloaders().remove(forge);
         });
         mModloaderFabric.setOnClickListener(v -> {
             String fabric = ModLoaderList.modloaderList.get(1);
-            if (mModloaderFabric.isChecked() && !mSearchFilters.modloaders.contains(fabric)) {
-                mSearchFilters.modloaders.add(fabric);
-            } else mSearchFilters.modloaders.remove(fabric);
+            if (mModloaderFabric.isChecked() && !mModFilters.getModloaders().contains(fabric)) {
+                mModFilters.getModloaders().add(fabric);
+            } else mModFilters.getModloaders().remove(fabric);
         });
         mModloaderQuilt.setOnClickListener(v -> {
             String quilt = ModLoaderList.modloaderList.get(2);
-            if (mModloaderQuilt.isChecked() && !mSearchFilters.modloaders.contains(quilt)) {
-                mSearchFilters.modloaders.add(quilt);
-            } else mSearchFilters.modloaders.remove(quilt);
+            if (mModloaderQuilt.isChecked() && !mModFilters.getModloaders().contains(quilt)) {
+                mModFilters.getModloaders().add(quilt);
+            } else mModFilters.getModloaders().remove(quilt);
         });
         mModloaderNeoForge.setOnClickListener(v -> {
             String neoforge = ModLoaderList.modloaderList.get(3);
-            if (mModloaderNeoForge.isChecked() && !mSearchFilters.modloaders.contains(neoforge)) {
-                mSearchFilters.modloaders.add(neoforge);
-            } else mSearchFilters.modloaders.remove(neoforge);
+            if (mModloaderNeoForge.isChecked() && !mModFilters.getModloaders().contains(neoforge)) {
+                mModFilters.getModloaders().add(neoforge);
+            } else mModFilters.getModloaders().remove(neoforge);
         });
 
         mResetButton.setOnClickListener(v -> {
-            mSearchFilters.name = "";
-            mSearchFilters.mcVersion = "";
-            mSearchFilters.modloaders = new ArrayList<>();
-            mSearchFilters.sort = 0;
-            mSearchFilters.platform = SearchFilters.ApiPlatform.BOTH;
+            mModFilters.setName("");
+            mModFilters.setMcVersion("");
+            mModFilters.setModloaders(new ArrayList<>());
+            mModFilters.setSort(0);
+            mModFilters.setPlatform(ModFilters.ApiPlatform.BOTH);
+            mModFilters.setCategory(ModCategory.Category.ALL);
 
             //重置控件
             mSelectedVersion.setText("");
             if (mSortBy != null) mSortBy.setSelection(0);
             if (mPlatform != null) mPlatform.setSelection(0);
+            if (mCategory != null) mCategory.setSelection(0);
             mModloaderForge.setChecked(false);
             mModloaderFabric.setChecked(false);
             mModloaderQuilt.setChecked(false);

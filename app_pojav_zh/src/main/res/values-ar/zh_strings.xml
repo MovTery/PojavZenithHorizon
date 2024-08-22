@@ -19,6 +19,7 @@
     <string name="zh_loading">جار التحميل</string>
     <string name="zh_optional">اختياري</string>
     <string name="zh_required">إلزامي</string>
+    <string name="zh_all">الكل</string>
     <string name="zh_wan">عشرة آلاف</string>
     <string name="zh_yi">مليار</string>
     <string name="zh_wrong_tip">حدثت بعض المشاكل</string>
@@ -43,6 +44,7 @@
     <string name="zh_profile_mods_download_mod">تنزيل Mod</string>
     <string name="zh_profile_mods_platform">منصة البحث</string>
     <string name="zh_profile_mods_sort_by">طريقة الفرز</string>
+    <string name="zh_profile_mods_category">فئة</string>
     <string name="zh_profile_mods_modloader">محمل Mod</string>
     <string name="zh_profile_mods_download_mod_failed">فشل في تنزيل ملف Mod</string>
     <string name="zh_profile_mods_download_mod_release_version">عرض إصدارات Minecraft الرسمية فقط</string>
