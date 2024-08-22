@@ -102,12 +102,9 @@ public final class Tools {
     public static final String APP_NAME = "Pojav Zenith Horizon";
     public static String LOCAL_RENDERER = null;
     public static int DEVICE_ARCHITECTURE;
-    // New since 3.3.1
-    public static String DIR_ACCOUNT_NEW;
     // New since 3.0.0
     public static String DIRNAME_HOME_JRE = "lib";
     private static RenderersList sCompatibleRenderers;
-
 
     public static File getPojavStorageRoot(Context ctx) {
         if(SDK_INT >= 29) {

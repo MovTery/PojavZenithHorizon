@@ -7,6 +7,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.movtery.pojavzh.feature.log.Logging;
+import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.LauncherActivity;
@@ -133,7 +134,7 @@ public class AccountsManager {
 
     public void reload() {
         accounts.clear();
-        File accountsPath = new File(Tools.DIR_ACCOUNT_NEW);
+        File accountsPath = new File(PathAndUrlManager.DIR_ACCOUNT_NEW);
         if (accountsPath.exists() && accountsPath.isDirectory()) {
             File[] files = accountsPath.listFiles();
             if (files != null) {

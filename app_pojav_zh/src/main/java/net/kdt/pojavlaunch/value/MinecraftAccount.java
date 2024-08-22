@@ -63,7 +63,7 @@ public class MinecraftAccount {
     }
     
     public String save() throws IOException {
-        return save(Tools.DIR_ACCOUNT_NEW + "/" + username + ".json");
+        return save(PathAndUrlManager.DIR_ACCOUNT_NEW + "/" + username + ".json");
     }
     
     public static MinecraftAccount parse(String content) throws JsonSyntaxException {
@@ -73,7 +73,7 @@ public class MinecraftAccount {
     public static MinecraftAccount load(String name) {
         if(!accountExists(name)) return null;
         try {
-            MinecraftAccount acc = parse(Tools.read(Tools.DIR_ACCOUNT_NEW + "/" + name + ".json"));
+            MinecraftAccount acc = parse(Tools.read(PathAndUrlManager.DIR_ACCOUNT_NEW + "/" + name + ".json"));
             if (acc.accessToken == null) {
                 acc.accessToken = "0";
             }
@@ -126,7 +126,7 @@ public class MinecraftAccount {
     }
 
     private static boolean accountExists(String username){
-        return new File(Tools.DIR_ACCOUNT_NEW + "/" + username + ".json").exists();
+        return new File(PathAndUrlManager.DIR_ACCOUNT_NEW + "/" + username + ".json").exists();
     }
 
     public String getAccount() {
