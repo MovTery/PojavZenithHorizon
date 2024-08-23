@@ -20,7 +20,7 @@ class ModCategory {
 
         private fun getCategoryName(context: Context, category: Category): String {
             var name = context.getString(category.resNameID)
-            if (category.retraction) name = "-\t\t$name"
+            if (category.retraction) name = "-\t$name"
             return name
         }
 
