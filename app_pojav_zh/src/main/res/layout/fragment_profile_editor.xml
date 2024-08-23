@@ -203,6 +203,7 @@
                     app:spinner_arrow_tint="@color/primary_text"
                     app:spinner_item_height="@dimen/_40sdp"
                     app:spinner_popup_max_height="@dimen/_240sdp"
+                    app:spinner_popup_background="@drawable/background_item"
                     tools:paddingVertical="@dimen/_12sdp" />
 
                 <TextView
@@ -224,6 +225,7 @@
                     app:spinner_arrow_tint="@color/primary_text"
                     app:spinner_item_height="@dimen/_40sdp"
                     app:spinner_popup_max_height="@dimen/_240sdp"
+                    app:spinner_popup_background="@drawable/background_item"
                     tools:paddingVertical="@dimen/_12sdp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
