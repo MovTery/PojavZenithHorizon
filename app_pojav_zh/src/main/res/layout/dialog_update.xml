@@ -18,7 +18,7 @@
         android:textSize="16sp"
         android:textStyle="bold" />
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/text_scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -61,7 +61,7 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
