@@ -7,7 +7,7 @@
     android:background="@android:color/transparent"
     android:gravity="center"
     android:orientation="vertical"
-    android:paddingHorizontal="@dimen/_80sdp">
+    android:paddingHorizontal="@dimen/_50sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/modpack_menu"

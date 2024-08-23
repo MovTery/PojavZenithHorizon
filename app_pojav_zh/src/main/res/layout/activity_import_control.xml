@@ -16,7 +16,7 @@
         android:id="@+id/_background_display_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_180sdp"
-        android:layout_marginHorizontal="@dimen/_80sdp"
+        android:layout_marginHorizontal="@dimen/_50sdp"
         android:background="@drawable/background_card"
         android:translationZ="-1dp"
         app:layout_constraintBottom_toBottomOf="parent"
