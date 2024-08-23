@@ -45,6 +45,7 @@ class PathAndUrlManager {
 
         @JvmField var FILE_PROFILE_PATH: File? = null
         @JvmField var FILE_CTRLDEF_FILE: String? = null
+        @JvmField var FILE_VERSION_LIST: String? = null
 
         @JvmStatic
         fun initContextConstants(context: Context) {
@@ -59,6 +60,7 @@ class PathAndUrlManager {
 
             FILE_PROFILE_PATH = File(DIR_DATA, "/profile_path.json")
             FILE_CTRLDEF_FILE = "$DIR_GAME_HOME/controlmap/default.json"
+            FILE_VERSION_LIST = "$DIR_DATA/version_list.json"
 
             DIR_GAME_DEFAULT = "$gameHome/instance/default"
             DIR_CUSTOM_MOUSE = "$DIR_GAME_HOME/mouse"

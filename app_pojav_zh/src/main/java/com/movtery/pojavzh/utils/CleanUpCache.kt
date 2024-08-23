@@ -26,6 +26,8 @@ class CleanUpCache {
                     }
                 }
 
+                PathAndUrlManager.FILE_VERSION_LIST?.let { list?.add(File(it)) }
+
                 list?.let{
                     for (file in list) {
                         ++fileCount
@@ -59,7 +61,7 @@ class CleanUpCache {
             }
         }
 
-        private fun getList(vararg filesArray: Array<File>): List<File> {
+        private fun getList(vararg filesArray: Array<File>): MutableList<File> {
             val filesList: MutableList<File> = ArrayList()
             for (fileArray in filesArray) {
                 filesList.addAll(listOf(*fileArray))

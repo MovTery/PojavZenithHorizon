@@ -27,7 +27,7 @@ public class AsyncVersionList {
 
     public void getVersionList(@Nullable VersionDoneListener listener, boolean secondPass){
         sExecutorService.execute(() -> {
-            File versionFile = new File(PathAndUrlManager.DIR_DATA + "/version_list.json");
+            File versionFile = new File(PathAndUrlManager.FILE_VERSION_LIST);
             JMinecraftVersionList versionList = null;
             try{
                 if(!versionFile.exists() || (ZHTools.getCurrentTimeMillis() > versionFile.lastModified() + 86400000 )){
@@ -69,7 +69,7 @@ public class AsyncVersionList {
 
             // Then save the version list
             //TODO make it not save at times ?
-            FileOutputStream fos = new FileOutputStream(PathAndUrlManager.DIR_DATA + "/version_list.json");
+            FileOutputStream fos = new FileOutputStream(PathAndUrlManager.FILE_VERSION_LIST);
             fos.write(jsonString.getBytes());
             fos.close();
 
