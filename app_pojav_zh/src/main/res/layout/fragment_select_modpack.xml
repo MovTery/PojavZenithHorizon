@@ -7,12 +7,12 @@
     android:background="@android:color/transparent"
     android:gravity="center"
     android:orientation="vertical"
-    android:paddingHorizontal="@dimen/fragment_padding_medium">
+    android:paddingHorizontal="@dimen/_80sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/modpack_menu"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_200sdp"
+        android:layout_height="@dimen/_180sdp"
         android:layout_marginHorizontal="@dimen/_50sdp"
         android:background="@drawable/background_card"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,7 +36,7 @@
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_28sdp"
+            android:layout_marginTop="@dimen/_30sdp"
             android:text="@string/modpack_install_button"
             android:textColor="@color/primary_text"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,26 +48,28 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_28sdp"
+            android:layout_marginTop="@dimen/_40sdp"
             android:text="@string/zh_select_modpack_search"
             android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/zh_modpack_button_local_modpack"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="@id/modpack_menu"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.movtery.pojavzh.ui.view.AnimButton
             android:id="@+id/zh_modpack_button_local_modpack"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_28sdp"
+            android:layout_marginTop="@dimen/_40sdp"
             android:text="@string/zh_select_modpack_local"
             android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/zh_modpack_button_search_modpack"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
