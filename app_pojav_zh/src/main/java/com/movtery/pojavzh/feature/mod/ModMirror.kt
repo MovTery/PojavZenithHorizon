@@ -27,6 +27,22 @@ class ModMirror {
             }
         }
 
+        @JvmStatic
+        fun isInfoMirrored(): Boolean {
+            return when (PREF_MOD_INFO_SOURCE) {
+                Source.ORIGINAL.name.lowercase() -> false
+                else -> true
+            }
+        }
+
+        @JvmStatic
+        fun isDownloadUrlMirrored(): Boolean {
+            return when (PREF_MOD_DOWNLOAD_SOURCE) {
+                Source.ORIGINAL.name.lowercase() -> false
+                else -> true
+            }
+        }
+
         private fun replaceMCIM(baseUrl: String): String {
             val urls = mapOf(
                 MODRINTH[0] to { url: String -> url.replace(MODRINTH[0], "$MCIM_MIRROR/modrinth") },
