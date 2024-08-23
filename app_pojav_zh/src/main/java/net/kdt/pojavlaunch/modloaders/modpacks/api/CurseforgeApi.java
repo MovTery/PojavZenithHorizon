@@ -55,7 +55,6 @@ public class CurseforgeApi implements ModpackApi{
     private static final int CURSEFORGE_MOD_CLASS_ID = 6;
     private static final int CURSEFORGE_PAGINATION_SIZE = 50;
     private static final int CURSEFORGE_PAGINATION_END_REACHED = -1;
-    private static final int CURSEFORGE_PAGINATION_ERROR = -2;
 
     private final ApiHandler mApiHandler;
     public CurseforgeApi(String apiKey) {
@@ -149,14 +148,13 @@ public class CurseforgeApi implements ModpackApi{
     public ModDetail getModDetails(ModItem item, boolean force) {
         if (!force && ModCache.ModInfoCache.INSTANCE.containsKey(this, item.id)) return new ModDetail(item, ModCache.ModInfoCache.INSTANCE.get(this, item.id));
 
-        ArrayList<JsonObject> allModDetails = new ArrayList<>();
-        int index = 0;
-
-        while (index != CURSEFORGE_PAGINATION_END_REACHED && index != CURSEFORGE_PAGINATION_ERROR) {
-            index = getPaginatedDetails(allModDetails, index, item.id);
+        List<JsonObject> allModDetails;
+        try {
+            allModDetails = getPaginatedDetails(item.id);
+        } catch (IOException e) {
+            Logging.e("CurseForgeAPI", Tools.printToString(e));
+            return null;
         }
-
-        if (index == CURSEFORGE_PAGINATION_ERROR) return null;
 
         List<ModVersionItem> modVersionItems = new ArrayList<>();
 
@@ -273,24 +271,35 @@ public class CurseforgeApi implements ModpackApi{
         return response;
     }
 
-    private int getPaginatedDetails(ArrayList<JsonObject> objectList, int index, String modId) {
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("index", index);
-        params.put("pageSize", CURSEFORGE_PAGINATION_SIZE);
+    private List<JsonObject> getPaginatedDetails(String modId) throws IOException {
+        List<JsonObject> dataList = new ArrayList<>();
+        int index = 0;
+        boolean isMirrored = false;
+        while (index != CURSEFORGE_PAGINATION_END_REACHED && !isMirrored) {
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("index", index);
+            params.put("pageSize", CURSEFORGE_PAGINATION_SIZE);
 
-        JsonObject response = mApiHandler.get("mods/"+modId+"/files", params, JsonObject.class);
-        JsonArray data = GsonJsonUtils.getJsonArraySafe(response, "data");
-        if(data == null) return CURSEFORGE_PAGINATION_ERROR;
+            JsonObject response = mApiHandler.get("mods/" + modId + "/files", params, JsonObject.class);
+            JsonArray data = GsonJsonUtils.getJsonArraySafe(response, "data");
+            if (data == null) {
+                throw new IOException("Invalid data!");
+            }
 
-        for(int i = 0; i < data.size(); i++) {
-            JsonObject fileInfo = data.get(i).getAsJsonObject();
-            if(fileInfo.get("isServerPack").getAsBoolean()) continue;
-            objectList.add(fileInfo);
+            for (int i = 0; i < data.size(); i++) {
+                JsonObject fileInfo = data.get(i).getAsJsonObject();
+                if (fileInfo.get("isServerPack").getAsBoolean()) continue;
+                dataList.add(fileInfo);
+            }
+            if (data.size() < CURSEFORGE_PAGINATION_SIZE) {
+                index = CURSEFORGE_PAGINATION_END_REACHED; // we read the remainder! yay!
+                continue;
+            }
+            index += CURSEFORGE_PAGINATION_SIZE;
+            isMirrored = ModMirror.isInfoMirrored();
         }
-        if(data.size() < CURSEFORGE_PAGINATION_SIZE) {
-            return CURSEFORGE_PAGINATION_END_REACHED; // we read the remainder! yay!
-        }
-        return index + data.size();
+
+        return dataList;
     }
 
     private SearchResult returnEmptyResult() {
