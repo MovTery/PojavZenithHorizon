@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -59,7 +58,7 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
     private ModItemAdapter mModItemAdapter;
     private TextView mStatusTextView;
     private ColorStateList mDefaultTextColor;
-    private PowerSpinnerView mSortBy, mPlatform, mCategory;
+    private PowerSpinnerView mSortBy, mPlatform, mCategory, mModloader;
     private ModpackApi modpackApi;
 
     public SearchModFragment() {
@@ -151,6 +150,7 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
         mSortBy.dismiss();
         mPlatform.dismiss();
         mCategory.dismiss();
+        mModloader.dismiss();
     }
 
     private void searchMods(String name) {
@@ -174,14 +174,11 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
         mSortBy = view.findViewById(R.id.zh_search_mod_sort);
         mPlatform = view.findViewById(R.id.zh_search_mod_platform);
         mCategory = view.findViewById(R.id.zh_search_mod_category);
+        mModloader = view.findViewById(R.id.zh_search_mod_modloader);
         TextView mTitleTextView = view.findViewById(R.id.search_mod_title);
         ImageButton mSearchButton = view.findViewById(R.id.zh_search_mod_search);
         TextView mSelectedVersion = view.findViewById(R.id.search_mod_selected_mc_version_textview);
         Button mSelectVersionButton = view.findViewById(R.id.search_mod_mc_version_button);
-        CheckBox mModloaderForge = view.findViewById(R.id.zh_search_forge_checkBox);
-        CheckBox mModloaderFabric = view.findViewById(R.id.zh_search_fabric_checkBox);
-        CheckBox mModloaderQuilt = view.findViewById(R.id.zh_search_quilt_checkBox);
-        CheckBox mModloaderNeoForge = view.findViewById(R.id.zh_search_neoforge_checkBox);
         Button mResetButton = view.findViewById(R.id.search_mod_reset);
 
         if (this.isModpack) {
@@ -244,40 +241,25 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
             mSortBy.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> mModFilters.setSort(i1));
         }
 
-        mModloaderForge.setChecked(mModFilters.getModloaders().contains(ModLoaderList.modloaderList.get(0)));
-        mModloaderFabric.setChecked(mModFilters.getModloaders().contains(ModLoaderList.modloaderList.get(1)));
-        mModloaderQuilt.setChecked(mModFilters.getModloaders().contains(ModLoaderList.modloaderList.get(2)));
-        mModloaderNeoForge.setChecked(mModFilters.getModloaders().contains(ModLoaderList.modloaderList.get(3)));
+        List<String> modloaderList = new ArrayList<>(ModLoaderList.modloaderList);
+        modloaderList.add(0, getString(R.string.zh_all));
+        if (mModloader != null) {
+            DefaultSpinnerAdapter adapter = new DefaultSpinnerAdapter(mModloader);
+            adapter.setItems(modloaderList);
 
-        mModloaderForge.setOnClickListener(v -> {
-            String forge = ModLoaderList.modloaderList.get(0);
-            if (mModloaderForge.isChecked() && !mModFilters.getModloaders().contains(forge)) {
-                mModFilters.getModloaders().add(forge);
-            } else mModFilters.getModloaders().remove(forge);
-        });
-        mModloaderFabric.setOnClickListener(v -> {
-            String fabric = ModLoaderList.modloaderList.get(1);
-            if (mModloaderFabric.isChecked() && !mModFilters.getModloaders().contains(fabric)) {
-                mModFilters.getModloaders().add(fabric);
-            } else mModFilters.getModloaders().remove(fabric);
-        });
-        mModloaderQuilt.setOnClickListener(v -> {
-            String quilt = ModLoaderList.modloaderList.get(2);
-            if (mModloaderQuilt.isChecked() && !mModFilters.getModloaders().contains(quilt)) {
-                mModFilters.getModloaders().add(quilt);
-            } else mModFilters.getModloaders().remove(quilt);
-        });
-        mModloaderNeoForge.setOnClickListener(v -> {
-            String neoforge = ModLoaderList.modloaderList.get(3);
-            if (mModloaderNeoForge.isChecked() && !mModFilters.getModloaders().contains(neoforge)) {
-                mModFilters.getModloaders().add(neoforge);
-            } else mModFilters.getModloaders().remove(neoforge);
-        });
+            mModloader.setSpinnerAdapter(adapter);
+            mModloader.selectItemByIndex(0);
+
+            mModloader.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> {
+                if (i1 == 0) mModFilters.setModloader(null);
+                else mModFilters.setModloader(ModLoaderList.getModLoaderNameFromIndex(i1 - 1));
+            });
+        }
 
         mResetButton.setOnClickListener(v -> {
             mModFilters.setName("");
             mModFilters.setMcVersion("");
-            mModFilters.setModloaders(new ArrayList<>());
+            mModFilters.setModloader(null);
             mModFilters.setSort(0);
             mModFilters.setPlatform(ModFilters.ApiPlatform.BOTH);
             mModFilters.setCategory(ModCategory.Category.ALL);
@@ -287,10 +269,7 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
             if (mSortBy != null) mSortBy.selectItemByIndex(0);
             if (mPlatform != null) mPlatform.selectItemByIndex(0);
             if (mCategory != null) mCategory.selectItemByIndex(0);
-            mModloaderForge.setChecked(false);
-            mModloaderFabric.setChecked(false);
-            mModloaderQuilt.setChecked(false);
-            mModloaderNeoForge.setChecked(false);
+            if (mModloader != null) mModloader.selectItemByIndex(0);
         });
     }
 

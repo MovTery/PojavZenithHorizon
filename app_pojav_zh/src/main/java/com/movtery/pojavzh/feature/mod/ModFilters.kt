@@ -7,7 +7,7 @@ class ModFilters {
     var isModpack: Boolean = false
     var name: String? = null
     var mcVersion: String? = null
-    var modloaders: List<String> = ArrayList()
+    var modloader: String? = null
     var sort: Int = 0
     var platform: ApiPlatform = ApiPlatform.BOTH
     var category: ModCategory.Category = ModCategory.Category.ALL

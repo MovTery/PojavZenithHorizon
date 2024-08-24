@@ -68,8 +68,8 @@ public class ModrinthApi implements ModpackApi{
 
         //处理全部"categories"
         List<String> categoriesList = new ArrayList<>();
-        if (!modFilters.getModloaders().isEmpty()) {
-            categoriesList.addAll(modFilters.getModloaders());
+        if (modFilters.getModloader() != null) {
+            categoriesList.add(modFilters.getModloader());
         }
         if (categoryName != ModCategory.Category.ALL) categoriesList.add(categoryName.getModrinthName());
         if (!categoriesList.isEmpty()) {

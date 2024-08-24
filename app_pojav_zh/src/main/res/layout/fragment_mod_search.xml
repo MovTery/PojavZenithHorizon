@@ -264,7 +264,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/search_mod_category_textview"
                         app:spinner_arrow_tint="@color/primary_text"
-                        app:spinner_popup_max_height="@dimen/_240sdp"
+                        app:spinner_popup_height="@dimen/_240sdp"
                         app:spinner_popup_background="@drawable/background_edit_box"
                         tools:paddingVertical="@dimen/_12sdp" />
 
@@ -274,53 +274,22 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:text="@string/zh_profile_mods_modloader"
-                        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/zh_search_mod_category" />
 
-                    <LinearLayout
-                        android:id="@+id/linearLayout"
+                    <com.skydoves.powerspinner.PowerSpinnerView
+                        android:id="@+id/zh_search_mod_modloader"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:layout_height="@dimen/_40sdp"
+                        android:background="@drawable/background_edit_box"
+                        android:paddingHorizontal="@dimen/_8sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/search_mod_modloader_textview">
-
-                        <com.movtery.pojavzh.ui.view.AnimCheckBox
-                            android:id="@+id/zh_search_forge_checkBox"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
-                            android:background="@drawable/background_edit_box"
-                            android:text="Forge"
-                            tools:ignore="HardcodedText" />
-
-                        <com.movtery.pojavzh.ui.view.AnimCheckBox
-                            android:id="@+id/zh_search_fabric_checkBox"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:background="@drawable/background_edit_box"
-                            android:text="Fabric"
-                            tools:ignore="HardcodedText" />
-
-                        <com.movtery.pojavzh.ui.view.AnimCheckBox
-                            android:id="@+id/zh_search_quilt_checkBox"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:background="@drawable/background_edit_box"
-                            android:text="Quilt"
-                            tools:ignore="HardcodedText" />
-
-                        <com.movtery.pojavzh.ui.view.AnimCheckBox
-                            android:id="@+id/zh_search_neoforge_checkBox"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:background="@drawable/background_edit_box"
-                            android:text="NeoForge"
-                            tools:ignore="HardcodedText" />
-                    </LinearLayout>
+                        app:layout_constraintTop_toBottomOf="@+id/search_mod_modloader_textview"
+                        app:spinner_arrow_tint="@color/primary_text"
+                        app:spinner_popup_background="@drawable/background_edit_box"
+                        app:spinner_popup_height="@dimen/_160sdp"
+                        tools:paddingVertical="@dimen/_12sdp" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
 
