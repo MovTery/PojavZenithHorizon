@@ -204,7 +204,9 @@
     <!-- Main Page & Preferce Settings -->
     <string name="zh_main_open_main_dir">Открыть главную папку</string>
     <string name="zh_main_share_crash_report">Поделиться отчетом о сбое</string>
-    <string name="zh_main_share_log_tip">Вы уверены, что хотите поделиться журналом работы лаунчера?\nРасположение файла журнала:</string>
+    <string name="zh_main_share_log_title">Пожалуйста, выберите тип файла журнала</string>
+    <string name="zh_main_share_launcher_log">Файл журнала лаунчера</string>
+    <string name="zh_main_share_game_log">Журнал последней игровой сессии</string>
     <string name="zh_main_notice_title">Уведомления</string>
     <string name="zh_preference_category_language">Язык</string>
     <string name="zh_preference_category_personalization">Персонализация</string>
