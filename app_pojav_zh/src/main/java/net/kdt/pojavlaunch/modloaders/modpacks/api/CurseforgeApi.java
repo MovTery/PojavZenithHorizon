@@ -40,7 +40,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-import java.util.StringJoiner;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 import java.util.zip.ZipFile;
@@ -76,16 +75,8 @@ public class CurseforgeApi implements ModpackApi{
         if (category != ModCategory.Category.ALL) params.put("categoryId", category.getCurseforgeID());
         if (modFilters.getMcVersion() != null && !modFilters.getMcVersion().isEmpty())
             params.put("gameVersion", modFilters.getMcVersion());
-        if (!modFilters.getModloaders().isEmpty()) {
-            if (modFilters.getModloaders().size() > 1) {
-                StringJoiner stringJoiner = new StringJoiner(",", "[", "]");
-                for (String modloader : modFilters.getModloaders()) {
-                    stringJoiner.add(ModLoaderList.getModloaderName(modloader));
-                }
-                params.put("modLoaderTypes", stringJoiner.toString());
-            } else {
-                params.put("modLoaderType", ModLoaderList.getModloaderName(modFilters.getModloaders().get(0)));
-            }
+        if (modFilters.getModloader() != null) {
+            params.put("modLoaderType", ModLoaderList.getModloaderName(modFilters.getModloader()));
         }
         if(previousPageResult != null)
             params.put("index", curseforgeSearchResult.previousOffset);

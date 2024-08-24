@@ -41,6 +41,17 @@ class ModLoaderList {
         }
 
         @JvmStatic
+        fun getModLoaderNameFromIndex(index: Int): String? {
+            return when (index) {
+                0 -> ModLoader.FORGE.loaderName
+                1 -> ModLoader.FABRIC.loaderName
+                2 -> ModLoader.QUILT.loaderName
+                3 -> ModLoader.NEO_FORGE.loaderName
+                else -> null
+            }
+        }
+
+        @JvmStatic
         fun getModLoader(name: String?): ModLoader? {
             return if (name.equals("fabric", true)) ModLoader.FABRIC
             else if (name.equals("forge", true)) ModLoader.FORGE
