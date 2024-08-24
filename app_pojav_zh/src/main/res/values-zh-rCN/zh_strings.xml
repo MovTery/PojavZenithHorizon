@@ -204,7 +204,9 @@
     <!-- Main Page & Preferce Settings -->
     <string name="zh_main_open_main_dir">打开主目录</string>
     <string name="zh_main_share_crash_report">分享崩溃报告</string>
-    <string name="zh_main_share_log_tip">你确定要分享启动器的运行日志吗？\n日志文件位置:</string>
+    <string name="zh_main_share_log_title">请选择日志文件类型</string>
+    <string name="zh_main_share_launcher_log">启动器日志文件</string>
+    <string name="zh_main_share_game_log">上一次游戏运行日志</string>
     <string name="zh_main_notice_title">通知栏</string>
     <string name="zh_preference_category_language">语言</string>
     <string name="zh_preference_category_personalization">个性化</string>

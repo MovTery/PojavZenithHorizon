@@ -1,55 +1,79 @@
-package com.movtery.pojavzh.ui.dialog;
+package com.movtery.pojavzh.ui.dialog
 
-import static net.kdt.pojavlaunch.Tools.shareLog;
+import android.content.Context
+import android.view.View
+import android.view.Window
+import android.widget.TextView
+import com.movtery.pojavzh.feature.log.Logging
+import com.movtery.pojavzh.ui.dialog.DraggableDialog.DialogInitializationListener
+import com.movtery.pojavzh.utils.PathAndUrlManager
+import com.movtery.pojavzh.utils.file.FileTools
+import net.kdt.pojavlaunch.PojavApplication
+import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.Tools
+import java.io.File
 
-import android.content.Context;
-import android.view.View;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.TextView;
+class ShareLogDialog(context: Context) : FullScreenDialog(context), DialogInitializationListener {
+    //启动器的日志文件集合，这里只会提取带有"log"名称的日志文件
+    private val mLauncherLogFiles: Array<File>
+        get() = PathAndUrlManager.DIR_LAUNCHER_LOG?.let { logDir ->
+            File(logDir).listFiles()?.filter { it.name.contains("log") }?.toTypedArray()
+        } ?: emptyArray()
 
-import androidx.annotation.NonNull;
+    private val mGameLogFile = File(PathAndUrlManager.DIR_GAME_HOME, "/latestlog.txt")
 
-import com.movtery.pojavzh.utils.stringutils.StringUtils;
+    init {
+        setContentView(R.layout.dialog_share_log)
 
-import net.kdt.pojavlaunch.R;
+        findViewById<View>(R.id.zh_launcher_log)?.apply {
+            val launcherLogFiles = mLauncherLogFiles
 
-import java.io.File;
+            setOnClickListener {
+                if (launcherLogFiles.isNotEmpty()) {
+                    PojavApplication.sExecutorService.execute {
+                        runCatching {
+                            val zipFile = File(PathAndUrlManager.DIR_APP_CACHE, "logs.zip")
+                            FileTools.packZip(launcherLogFiles, zipFile)
+                            Tools.runOnUiThread { FileTools.shareFile(context, zipFile.name, zipFile.absolutePath) }
+                        }.getOrElse { e ->
+                            Logging.e("ShareLauncherLog", Tools.printToString(e))
+                        }
+                    }
+                    this@ShareLogDialog.dismiss()
+                }
+            }
 
-public class ShareLogDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
-    private final File logFile;
-    private final String message;
+            val mLauncherLogFilesPath = findViewById<TextView>(R.id.launcher_files_path)
+            if (launcherLogFiles.isEmpty()) {
+                setUnClickable(this)
+                mLauncherLogFilesPath.setText(R.string.zh_file_does_not_exist)
+            } else mLauncherLogFilesPath.text = PathAndUrlManager.DIR_LAUNCHER_LOG
+        }
 
-    public ShareLogDialog(@NonNull Context context, @NonNull File log) {
-        super(context);
+        findViewById<View>(R.id.zh_game_log)?.apply {
+            setOnClickListener {
+                if (mGameLogFile.exists()) {
+                    FileTools.shareFile(context, mGameLogFile.name, mGameLogFile.absolutePath)
+                    this@ShareLogDialog.dismiss()
+                }
+            }
 
-        this.message = StringUtils.insertSpace(context.getString(R.string.zh_main_share_log_tip), (log.exists() ? log.getAbsolutePath() : context.getString(R.string.zh_file_does_not_exist)));
-        this.logFile = log;
+            val mGameLogFilePath = findViewById<TextView>(R.id.log_file_path)
+            if (!mGameLogFile.exists()) {
+                setUnClickable(this)
+                mGameLogFilePath.setText(R.string.zh_file_does_not_exist)
+            } else mGameLogFilePath.text = mGameLogFile.absolutePath
+        }
 
-        setContentView(R.layout.dialog_share_log);
-        setCancelable(false);
-        init(context);
-        DraggableDialog.initDialog(this);
+        findViewById<View>(R.id.zh_operation_close)?.setOnClickListener { dismiss() }
+
+        DraggableDialog.initDialog(this)
     }
 
-    private void init(Context context) {
-        TextView mMessage = findViewById(R.id.zh_share_log_message);
-        Button mConfirm = findViewById(R.id.zh_share_log_confirm);
-        Button mCancel = findViewById(R.id.zh_share_log_cancel);
-
-        mMessage.setText(this.message);
-        mConfirm.setVisibility((this.logFile.exists()) ? View.VISIBLE : View.GONE);
-        mCancel.setVisibility(View.VISIBLE);
-
-        mCancel.setOnClickListener(view -> ShareLogDialog.this.dismiss());
-        if (this.logFile.exists()) mConfirm.setOnClickListener(view -> {
-            shareLog(context);
-            ShareLogDialog.this.dismiss();
-        });
+    private fun setUnClickable(view: View) {
+        view.isClickable = false
+        view.alpha = 0.5f
     }
 
-    @Override
-    public Window onInit() {
-        return getWindow();
-    }
+    override fun onInit(): Window = window!!
 }

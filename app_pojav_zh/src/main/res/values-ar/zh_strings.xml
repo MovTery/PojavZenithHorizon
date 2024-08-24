@@ -204,7 +204,9 @@
     <!-- Main Page & Preferce Settings -->
     <string name="zh_main_open_main_dir">فتح الدليل الرئيسي</string>
     <string name="zh_main_share_crash_report">مشاركة تقرير التعطل</string>
-    <string name="zh_main_share_log_tip">هل أنت متأكد أنك تريد مشاركة سجل تشغيل المشغل؟\nموقع ملف السجل:</string>
+    <string name="zh_main_share_log_title">يرجى اختيار نوع ملف السجل</string>
+    <string name="zh_main_share_launcher_log">ملف سجل المشغل</string>
+    <string name="zh_main_share_game_log">ملف سجل جلسة اللعبة الأخيرة</string>
     <string name="zh_main_notice_title">الإشعارات</string>
     <string name="zh_preference_category_language">اللغة</string>
     <string name="zh_preference_category_personalization">تخصيص</string>

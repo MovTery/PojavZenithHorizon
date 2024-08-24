@@ -204,7 +204,9 @@
     <!-- Main Page & Preferce Settings -->
     <string name="zh_main_open_main_dir">Abrir diretório principal</string>
     <string name="zh_main_share_crash_report">Compartilhar relatório de falha</string>
-    <string name="zh_main_share_log_tip">Tem certeza de que deseja compartilhar o log de execução do launcher?\nLocal do arquivo de log:</string>
+    <string name="zh_main_share_log_title">Por favor, selecione o tipo de arquivo de log</string>
+    <string name="zh_main_share_launcher_log">Arquivo de log do launcher</string>
+    <string name="zh_main_share_game_log">Log da última sessão de jogo</string>
     <string name="zh_main_notice_title">Barra de notificações</string>
     <string name="zh_preference_category_language">Idioma</string>
     <string name="zh_preference_category_personalization">Personalização</string>

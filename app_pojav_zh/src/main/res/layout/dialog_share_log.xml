@@ -1,61 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minWidth="@dimen/_450sdp"
-    android:orientation="vertical"
-    android:padding="@dimen/_8sdp">
+    android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/_8sdp"
+    android:baselineAligned="true"
+    android:minWidth="@dimen/_480sdp">
+
+    <ImageView
+        android:id="@+id/zh_operation_close"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/zh_share_log_title"
+        android:id="@+id/zh_operation_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_8sdp"
         android:singleLine="true"
-        android:text="@string/main_share_logs"
+        android:text="@string/zh_main_share_log_title"
+        android:textColor="@color/black_or_white"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/zh_share_log_message"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:gravity="center_horizontal"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zh_share_log_title" />
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/linearLayoutCompat2"
+    <LinearLayout
+        android:id="@+id/layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:gravity="center"
-        android:orientation="horizontal"
+        android:layout_marginVertical="@dimen/_8sdp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zh_share_log_message">
+        app:layout_constraintTop_toBottomOf="@+id/zh_operation_title">
 
-        <com.movtery.pojavzh.ui.view.AnimButton
-            android:id="@+id/zh_share_log_cancel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@android:string/cancel" />
+        <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
+            android:id="@+id/zh_launcher_log"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="?android:attr/selectableItemBackground">
 
-        <com.movtery.pojavzh.ui.view.AnimButton
-            android:id="@+id/zh_share_log_confirm"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/zh_confirm" />
+            <ImageView
+                android:id="@+id/launcher_files_image"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="24dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_folder" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/launcher_files_image"
+                android:layout_marginStart="12dp"
+                android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/launcher_files_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="@string/zh_main_share_launcher_log"
+                    android:textColor="@color/black_or_white"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/launcher_files_path"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
+
+            </LinearLayout>
+        </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
+
+        <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
+            android:id="@+id/zh_game_log"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="?android:attr/selectableItemBackground">
+
+            <ImageView
+                android:id="@+id/log_file_image"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="24dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_file" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/log_file_image"
+                android:layout_marginStart="12dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/log_file_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="@string/zh_main_share_game_log"
+                    android:textColor="@color/black_or_white"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/log_file_path"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
+
+            </LinearLayout>
+        </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

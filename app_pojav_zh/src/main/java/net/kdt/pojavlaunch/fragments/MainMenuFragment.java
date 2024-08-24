@@ -49,7 +49,6 @@ import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Future;
@@ -113,7 +112,7 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
         mPlayButton.setOnClickListener(v -> ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true));
 
         mShareLogsButton.setOnClickListener(v -> {
-            ShareLogDialog shareLogDialog = new ShareLogDialog(requireContext(), new File(PathAndUrlManager.DIR_GAME_HOME + "/latestlog.txt"));
+            ShareLogDialog shareLogDialog = new ShareLogDialog(requireContext());
             shareLogDialog.show();
         });
 

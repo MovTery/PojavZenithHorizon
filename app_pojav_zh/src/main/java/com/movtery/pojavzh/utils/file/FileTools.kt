@@ -15,9 +15,14 @@ import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import org.apache.commons.io.FileUtils
 import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 import java.io.FilenameFilter
+import java.io.IOException
 import java.io.InputStream
 import java.security.MessageDigest
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
 
 class FileTools {
     companion object {
@@ -59,7 +64,7 @@ class FileTools {
                 return null
             }
 
-            val files = folder.listFiles(FilenameFilter { dir: File?, name: String ->
+            val files = folder.listFiles(FilenameFilter { _: File?, name: String ->
                 !name.startsWith(
                     "."
                 )
@@ -210,6 +215,26 @@ class FileTools {
                 unitIndex++
             }
             return String.format("%.2f %s", value, units[unitIndex])
+        }
+
+        @Throws(IOException::class)
+        fun packZip(files: Array<File>, outputZipFile: File?) {
+            if (files.isEmpty()) return
+
+            FileOutputStream(outputZipFile).use { fos ->
+                ZipOutputStream(fos).use { zos ->
+                    files.forEach { file ->
+                        FileInputStream(file).use { fis ->
+                            val zipEntry = ZipEntry(file.name).apply {
+                                time = file.lastModified() //保留原始文件的修改时间
+                            }
+                            zos.putNextEntry(zipEntry)
+                            fis.copyTo(zos, bufferSize = 1024)
+                            zos.closeEntry()
+                        }
+                    }
+                }
+            }
         }
 
         @JvmStatic

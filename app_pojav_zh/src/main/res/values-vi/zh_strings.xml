@@ -204,7 +204,9 @@
     <!-- Main Page & Preferce Settings -->
     <string name="zh_main_open_main_dir">Mở thư mục chính</string>
     <string name="zh_main_share_crash_report">Chia sẻ báo cáo sự cố</string>
-    <string name="zh_main_share_log_tip">Bạn có chắc chắn muốn chia sẻ nhật ký chạy của trình khởi chạy?\nVị trí tệp nhật ký:</string>
+    <string name="zh_main_share_log_title">Vui lòng chọn loại tệp nhật ký</string>
+    <string name="zh_main_share_launcher_log">Tệp nhật ký của launcher</string>
+    <string name="zh_main_share_game_log">Nhật ký phiên chơi cuối cùng</string>
     <string name="zh_main_notice_title">Thanh thông báo</string>
     <string name="zh_preference_category_language">Ngôn ngữ</string>
     <string name="zh_preference_category_personalization">Cá nhân hóa</string>
