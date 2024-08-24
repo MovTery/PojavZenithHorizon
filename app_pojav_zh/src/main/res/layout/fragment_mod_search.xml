@@ -264,7 +264,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/search_mod_category_textview"
                         app:spinner_arrow_tint="@color/primary_text"
-                        app:spinner_popup_height="@dimen/_240sdp"
+                        app:spinner_popup_height="@dimen/_200sdp"
                         app:spinner_popup_background="@drawable/background_edit_box"
                         tools:paddingVertical="@dimen/_12sdp" />
 
@@ -288,7 +288,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/search_mod_modloader_textview"
                         app:spinner_arrow_tint="@color/primary_text"
                         app:spinner_popup_background="@drawable/background_edit_box"
-                        app:spinner_popup_height="@dimen/_160sdp"
+                        app:spinner_popup_height="@dimen/_200sdp"
                         tools:paddingVertical="@dimen/_12sdp" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
