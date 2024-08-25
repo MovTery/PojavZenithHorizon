@@ -75,8 +75,9 @@ public class CurseforgeApi implements ModpackApi{
         if (category != ModCategory.Category.ALL) params.put("categoryId", category.getCurseforgeID());
         if (modFilters.getMcVersion() != null && !modFilters.getMcVersion().isEmpty())
             params.put("gameVersion", modFilters.getMcVersion());
-        if (modFilters.getModloader() != null) {
-            params.put("modLoaderType", ModLoaderList.getModloaderName(modFilters.getModloader()));
+        ModLoaderList.ModLoader modLoader = ModLoaderList.getModLoader(modFilters.getModloader());
+        if (modLoader != null) {
+            params.put("modLoaderTypes", String.format("[%s]", modLoader.getId()));
         }
         if(previousPageResult != null)
             params.put("index", curseforgeSearchResult.previousOffset);
