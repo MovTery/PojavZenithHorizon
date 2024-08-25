@@ -26,6 +26,8 @@ import com.movtery.pojavzh.feature.mod.ModFilters;
 import com.movtery.pojavzh.feature.mod.ModLoaderList;
 import com.movtery.pojavzh.feature.mod.SearchModPlatform;
 import com.movtery.pojavzh.feature.mod.SearchModSort;
+import com.movtery.pojavzh.feature.mod.translate.ModPackTranslateManager;
+import com.movtery.pojavzh.feature.mod.translate.ModTranslateManager;
 import com.movtery.pojavzh.ui.dialog.SelectVersionDialog;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
@@ -34,6 +36,7 @@ import com.movtery.pojavzh.utils.anim.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
+import com.movtery.pojavzh.utils.stringutils.StringUtils;
 import com.skydoves.powerspinner.DefaultSpinnerAdapter;
 import com.skydoves.powerspinner.OnSpinnerItemSelectedListener;
 import com.skydoves.powerspinner.PowerSpinnerView;
@@ -158,6 +161,13 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
         mRecyclerview.setVisibility(View.GONE);
         AnimUtils.setVisibilityAnimYoYo(mLoadingView, true);
         AnimUtils.setVisibilityAnimYoYo(mStatusTextView, false);
+
+        if (ZHTools.areaChecks("zh") && StringUtils.containsChinese(name)) {
+            name = this.isModpack ?
+                    ModPackTranslateManager.INSTANCE.searchToOrigin(name) :
+                    ModTranslateManager.INSTANCE.searchToOrigin(name);
+        }
+
         mModFilters.setName(name == null ? "" : name);
         mModItemAdapter.performSearchQuery(mModFilters);
     }

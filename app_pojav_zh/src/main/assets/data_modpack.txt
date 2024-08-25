@@ -1,0 +1,346 @@
+1;;格雷科技：新视野;;GT: New Horizons
+2;;玄理2;;EnigTech 2
+3;;飞翔之路3;;Flying Road 3
+4;;龙与地下城和太空飞船;;Dungeons, Dragons and Space Shuttles
+5;;天空工厂4;;SkyFactory 4
+8;;失重;;Levitated
+13;;永恒的MC;;MC Eternal
+14;;永恒的MC精简版;;MC Eternal Lite
+15;;永恒的MC 硬核版;;MC Eternal Hardcore
+16;;超现实 x 虚拟生存;;RLCraft
+17;;神之试炼;;The Trial of God
+18;;臭氧计划3;;Project Ozone 3 A New Way Forward
+19;;等价空岛;;Equivalent Skies
+28;;Roguelike冒险与地牢;;Roguelike Adventures and Dungeons
+29;;农场物语;;Farming Valley
+30;;幽恐噩梦;;Compact Claustrophobia
+31;;现代空岛3;;Modern Skyblock 3: Departed
+32;;格雷空岛;;Gregblock
+33;;赛文科技;;SevTech: Ages
+34;;伊卡洛斯号迫降;;Icarus Landing
+35;;贪婪整合包;;GreedyCraft
+37;;天空工厂3;;FTB Presents SkyFactory 3
+40;;现代空岛2;;Modern Skyblock 2
+49;;天空奥德赛;;FTB Sky Odyssey
+51;;群峦：救援;;Terrafirma:Rescue
+55;;放逐之路;;Craft to Exile [Dissonance]
+56;;放逐之路;;Craft to Exile [Harmony]
+57;;艾柯索瑞亚;;Exoria
+58;;时代工业;;Age of Engineering
+82;;天空工厂2.5;;FTB Presents SkyFactory 2.5
+126;;全能工厂;;Omnifactory
+134;;超越深渊之旅;;Journey Beyond the Abyss
+137;;All the Mods 3 专家版;;All the Mods 3 Expert
+138;;乡村水域;;Seablock: Rustic Waters
+148;;我的幻想世界;;MineFantasyWorld
+155;;星空;;Galaxy Space Integration
+161;;匠魂的生存;;Tinker's Survival Modpack
+163;;魔法与工业;;Magic And Creat
+166;;圣剑传奇;;Sword Legendary
+170;;休闲-生存-2021版;;Leisure Survival-2021
+172;;Create 101 第二季;;Create 101 Season 2
+173;;荒漠求生;;Forever Stranded
+180;;MC百科-测试包;;MCMOD-TestPack
+182;;铅笔空岛;;How are you block
+183;;花鸟旅途;;Hananichi On The Road
+184;;蜜蜂空岛;;Sky Bees
+185;;重生之夜;;Rebirth of the Night
+186;;僵尸启示录;;Zombie Apocalypse / Mustard Virus
+189;;矿井与怪物;;Mineshafts & Monsters
+193;;模拟殖民地;;MineColonies Official
+202;;伪装者;;The Disguiser
+203;;科瑞亚科技;;CreaTech
+204;;重启;;Reboot
+205;;更好的我的世界;;Better MC
+211;;艾瑞卡科技;;Airaka Tech
+213;;起源SMP;;OriginsSMP
+216;;逆迫降;;INVERSE FORCED LANDING
+219;;僵尸启示录：重制;;Zombie Apocalypse Remastered
+224;;交汇;;Interactions
+226;;臭氧计划;;Project Ozone
+227;;臭氧计划2;;Project Ozone 2: Reloaded
+233;;色度空岛;;Chroma Sky
+235;;群峦：核工程师;;Terra Firma Atomic Engineer
+236;;北极星;;Borealis
+239;;氮元素;;Nitrogen
+240;;合虚为实：原子空间;;FictionCraft: Atomic Space
+242;;思维;;Mind
+243;;最全的匠魂;;All The Tinker's Construct
+248;;难以置信的优化;;Fabulously Optimized
+250;;进化：重启;;Evolution: Reset
+251;;核荒原;;The Nuclear Wasteland
+252;;祝福或诅咒：无限力量之征;;Blessed or Cursed: Expedition to Infinite Force
+253;;边界生存;;Border Survival
+256;;巫术天堂;;Heavens of Sorcery
+257;;希罗多德;;Herodotus
+258;;重生世界;;Rebirth world
+259;;永久冻土：风暴之眼;;Permafrost - Eyes of the Storm
+260;;终极炼金;;Ultimate Alchemy
+261;;虚拟生存 起源与未来;;Survival - Origin & Future
+262;;超级英雄无限;;Superheroes Unlimited
+263;;植物大战僵尸：科学默语;;Science in PVZ
+271;;神秘复兴;;Thaumic Renaissance
+273;;冬季救援;;The Winter Rescue
+274;;飞翔之路;;Flying Road
+277;;RAD匠魂版;;Roguelike Adventures and Dungeons TiC Edition
+293;;喂养奇点生存;;Feed the Singularity
+295;;废土文明;;Wasteland civilization
+301;;尘烬:消失世界;;Annals:Mechanizac
+306;;洞穴工厂;;Cave Factory
+312;;机械动力：永无止境;;Create: Above and Beyond
+314;;色度科技2;;Chroma Technology 2
+328;;人类末日;;Last Days of Humanity
+329;;弱者;;Underdog
+332;;技术时代;;Techno Ages
+340;;大轩整合包;;Biggest Xuan Pack
+343;;命定之旅;;Deep To Destiny
+359;;更好的我的世界：空岛;;Better Minecraft Skyblock
+360;;命运时代;;Age of Fate
+362;;幻想旅程;;Imaginary Journey
+363;;月耀神话;;Moonlit Myths
+364;;晴天整合;;Sunny Modpack
+370;;转生之路;;The way of reincarnation
+372;;魔法包裹;;Magic Pouch
+375;;神秘启示录2：梦魇般的回忆;;Nightmare Memories Pack
+378;;幻想科技;;Fantazy Tech
+384;;天空炼金术士;;Sky Alchemist
+387;;核地球：再辐照;;Nuclear Earth: Reirradiated
+391;;寄生虫：血染黎明;;Parasites: Blood Dawn
+392;;亿万富翁;;Minecraft Trillionaire
+394;;诸神匠心;;Tinkers Heartwork and Deities
+397;;星夜祈临;;StarryNight Pray
+398;;乡村水域2;;Rustic Waters II
+401;;天空舞台;;Skyblock Create Show
+405;;僵尸生存;;Mike's Zombie Survival
+407;;征途;;Conquest journey
+408;;创生银莲;;Create Anemone
+409;;鬼灭之刃;;Kimetsu no Yaiba
+410;;七曜之际;;FOR A WEEK
+412;;列土封疆;;Fiefdom
+413;;死亡工艺&重生;;Deathcraft & Rebirth
+417;;时代领跑人;;Epoch Runner
+418;;星海征途;;The Journey of Star Sea
+419;;冒险与地牢2;;Roguelike Adventures and Dungeons 2
+420;;模块化空岛;;MultiSkyBlock
+421;;人性化;;Humanized
+424;;魔法金属-新手向导;;ManaMetalMod - WithNewbHelper
+425;;奇美拉;;Chimera
+426;;色度空岛2;;Chroma Sky 2
+427;;无限;;Infinity
+429;;水星迫降重制版;;Mercury landing
+431;;科技飞升;;Rise of Tech
+437;;谁动了我的合成表;;Dude where's my blocks
+442;;奇点工厂;;Factory of Singularity
+443;;异界旅者;;Traveller of the World
+444;;无产阶级：专家模式;;Proletaria Expert
+447;;氘;;Deuterium
+453;;失落文明：野原;;Lost_Civilization:Wilds
+455;;最后一人;;The Last One
+456;;帕斯特之梦;;PasterDream
+457;;失落的米德加尔特;;Lost Midgard
+458;;真实空岛;;Real Island
+459;;深渊猎人;;Abyss Hunter
+465;;永无止境：重缝;;Cabricality
+467;;XPlus 2.0 基础整合;;XPlus 2.0 Modpack
+470;;魔力做功;;Work Done by Mana
+472;;微笑草坪4;;SmileLawn 4
+474;;行星;;Planetary
+475;;微笑草坪5;;SmileLawn 5
+476;;寂静传说;;tales of silent
+479;;MITE：绝境求生;;MITE Desperate Survival
+482;;喷气背包猫;;Jetpack Cat
+483;;随心石艺;;Random Stone
+484;;贪婪整合包II：重生;;GreedyCraft II:Reborn
+485;;机械空岛;;Create to Sky
+486;;兔头：超级惊变;;jokbit super apocalypse
+491;;科技空岛;;RxanGrben
+494;;硬核生存;;HardCraft
+495;;怀末韵云;;Institutions mz
+497;;幻想领域;;Fantasy Realm
+499;;道阻且长;;Copy A JB
+502;;机巧花苑;;Art of Enigma
+505;;兔头：地狱前线;;jokbit nether frontline
+506;;莱姆星云;;Lime Nebula
+511;;起源创造;;CreateOrigin
+515;;群星构析;;Analyses Of Galaxy
+517;;逃离2020;;Escape From 2020
+520;;乐事 · 起源;;Delight ·  Origins
+521;;坦坦优化;;Tankoptimization
+523;;摘星;;Pick The Stars
+528;;RawDiamondMC的优化包;;RawDiamondMC's optimization pack
+533;;斯洛文尼亚发生了什么;;What Happened in Slovenia
+534;;奇点工厂1：社区版;;Factory of Singularity:Community Edition
+535;;洋之叹息;;Ocean Sigh
+536;;提尔3：九天往事;;Tover 3:the Dream
+537;;沉没的亚伯拉罕;;Sunken Abraham Craft
+538;;跃迁计划;;CT TransitionPlan
+540;;筑梦者;;Builder Dream
+543;;交错维度2;;Among Dimensions 2
+546;;冒险生活;;Adventure Life
+550;;蜜蜂空岛2;;Sky Bees 2
+553;;末世工匠;;End-Time Craftsmen
+556;;勇者之章;;Chapter of Yuusha
+557;;齿轮颂歌：暮光;;Gear Carol
+560;;月见苍穹传说:大地演化;;TskimiCanopyCraft:Terra Evolution
+561;;最后的战役：劫后余生;;The Last Stand:Aftermath
+562;;小猪配平;;Peppa Pig's Burning Broom
+567;;失落钶罗;;Chrost
+569;;忘却之刻;;Provefrom
+571;;匠心魔艺;;Wizardry Tinkers
+573;;魔艺世界;;Expert of Magic Art World
+574;;龙境;;Dragoncraft
+576;;核污染二;;nuclear radiation 2
+577;;白狐铃的奇思妙想;;Arctic Fox Ling Fantasy
+579;;史诗战斗：兵团战争;;EPIC Fight Corps War
+580;;月见清兰的个人优化;;TskimiSeiran's Idea
+585;;模块化科技：探索;;ModularTech Odyssey
+586;;简单优化;;Simply Optimized
+590;;格雷：量子跃迁;;GregTech:QuantumTransition
+591;;冬境边域;;The Winter Frontier
+592;;林深不知处;;NO, is killed by... Twlight Forest?
+593;;太阳机械厂;;Create Sun
+594;;破晓之界;;DawnCraft: Echoes of Legends
+596;;可乐兔的格雷整合包;;Keletu's GregPack
+600;;重构：炼金术;;Refactoring: Alchemy
+601;;地心;;Geocentric
+603;;进化太阳生存;;Evolutionary Sun Survival
+604;;长峰漫路;;Long peak Long road
+605;;科技城2;;Techopolis 2
+606;;Arcomua 原版整合;;Arcomua Modpack
+609;;乐土韶光;;Delighted Time on Another Land
+611;;冥行之至;;Reaching Darkness
+613;;原环之理;;Science of Cycles
+619;;抗争之际;;Striving Standoff
+620;;枪火生存;;Gun fire survival
+622;;永夜;;Eternal Night
+626;;钓月织梦;;Tsuri No Gatsu
+627;;冰河物语;;Ice Age Fairy
+630;;质能世界;;EMCWorld
+633;;月亮工厂;;Moon Create factory
+639;;宝藏猎人3;;Vault Hunters 3rd Edition
+640;;生存硬摇滚;;Survival Hard Rock
+645;;霜叶表达法;;Wither Expression
+649;;洞穴与山崖：增强版;;Caves & Cliffs: Plus
+651;;虚无之主;;The Lord of Ascension
+653;;科技飞升2;;Rise of Tech 2
+654;;虚空居者;;Void Dweller
+655;;格雷科技精简版;;GregTech Lite
+656;;持之永恒;;Stay With Eternity
+657;;永恒乐事2.0;;Eternal Delight2.0
+663;;空岛物语;;Empty Island RPG
+664;;卓越1 [FABRIC];;Prominence I
+665;;模块化空岛2;;MultiSkyBlock 2
+667;;万象天工;;Millions of Heavens industries
+669;;魔幻大陆;;Enchanted Lands
+676;;征途 守望;;Journey Watch
+677;;Arcomua Lite 原版整合;;Arcomua Lite
+679;;海王星计划：重构;;NeptunePlan:Reboot
+680;;中世纪生存日记;;Medieval Survival Diary
+682;;超能力之旅;;Meet Your Superpower
+684;;匠造之传;;The Legend of Tinker
+686;;塔可努的原生优化整合包;;TechNoob's Vanilla Boost Pack
+687;;灵茗屿空岛;;LMY SKY
+689;;恐惧深渊;;Abyss of Fear
+690;;德雷戈拉旅人日记;;Diary of Dregora's Traveller
+691;;近西之旅;;NwtCraft
+697;;命运之轮;;Wheel of Fate
+700;;死亡突围;;Deadout
+701;;机械动力：奥术工程;;Create: Arcane Engineering
+706;;交错维度3;;Among Dimensions 3
+708;;飞翔之路4;;Flying Road 4
+709;;星月传说;;Celestial Legend
+713;;灾变录;;Catastrophe Record
+716;;生欲:求生;;Vivere The Zombie Apocalypse
+720;;史诗的地下城;;Dungeons Of Fantasy
+722;;脆骨症;;No Flesh Within Chest
+725;;13年前的梦;;Dreams 13 years ago
+727;;理想国：科克肖特;;Utopia:Cockshott
+729;;异世界探险;;ISEKAIBOUKEN
+732;;恐怖生存;;All The Horror
+734;;伊甸空天;;Eden Aerospace
+735;;亚特兰深渊;;AtlanAbyss
+736;;龙境II;;Dragon Odyssey
+741;;联缘;;NEXUS
+743;;神秘纪元;;Thaumic Epoch
+746;;天空厨房;;Cook in skyland
+747;;被恐惧支配 1;;Dominated by Fear 1
+748;;新的原版;;New Vanilla
+749;;群峦救援非官方版;;Terrafirma Rescue Unofficial
+753;;无限:重生;;Infinity-Reborn
+754;;随心之旅;;spontaneous journey
+757;;锻造大师3;;Master Blacksmith3
+758;;科技用于探索世界;;Technology Exploration World
+759;;幻梦闲笔;;Aetherial Voyage
+760;;雾中的恐惧;;Fear The Mist
+768;;随机空岛;;RandBlock
+769;;格雷科技休闲版;;GregTech  Leisure
+772;;天狼星;;Sirius
+773;;悠沙海;;Ethereal Sand Sea
+776;;Fr的生存优化;;Fr's Optimisation for Survival
+779;;冒险生活 - 新生活;;Adventure Life - New Life
+780;;拾穗;;Harvista
+781;;时间之书 : 星之旅行;;BookofTime StarTravel
+783;;机械动力：应用能源时代;;Create: Applied Energevation
+784;;新星工程：世界;;Nova Engineering - World
+787;;勿忘我;;Forget Me Not
+788;;整合优选;;Modpack Essentials
+791;;战斗的法则;;The Law of Battle
+792;;奇点工厂II：绚彩;;Factory of Singularity II: Colorfulness
+794;;魔法之旅;;Magic journey
+795;;轻松冒险;;Easy adventure
+796;;魔幻大陆2;;Enchanted Lands 2
+797;;艾利克斯的世界;;Alexcraft
+798;;瓦尔登湖畔;;Wiph Walden Lagu
+800;;合成工艺;;CraftingCraft
+801;;感染者手册;;Handbook for Infected People
+803;;宾果难题;;Bingo Madness
+804;;化学：重生;;Chemilla's Reborn
+805;;群峦传说·异世界行纪;;Terra Firma Craft:Travel in Another World
+809;;群峦：重生;;TerraFirma: Rebirth
+811;;万象征程;;Cosmos of Endless Allegory
+813;;奈の奇妙冒险;;Kotona's Mystery Adventure
+814;;战争魔匠;;war craftman
+815;;命定IV;;unique destiny IV
+817;;朝花夕拾;;Dawn Blossoms Plucked at Dusk
+818;;胶兽大冒险;;Latex Advanture
+820;;更完美的MC;;More Perfect Minecraft
+821;;动画世界：烂柯人;;AnimateCraft: Lankeren
+826;;真理之路;;Path of Truth
+829;;魔金：探秘;;ManaMetalMod Exploration
+830;;落英;;FallenPetals
+834;;合成工艺2;;Crafting Craft 2
+835;;僵尸入侵100天;;Zombie Invade 100 Days
+837;;宁然一隅;;A Fragment of Peace
+839;;流线鱼概念;;Fish Spi Rally
+840;;肉丸工艺，次元提升;;MeatballCraft, Dimensional Ascension
+841;;海之城: 潜没水中;;Seaopolis: Submerged
+842;;空中厕所;;PoopSky
+843;;收缩空岛;;Compact Sky
+844;;背靠背;;Back to Back
+845;;冒险与探索;;Adventure & Exploration
+846;;复兴;;Renaissance
+847;;木筏求生2;;Raftcraft2
+848;;人鱼传说;;Mermaid legend
+850;;机械动力：失落与复兴;;Create Lost and Renaissance
+852;;格雷伊甸：建造;;GregEden:Building
+853;;迷失时代;;LOST ERA
+854;;机械动力：炼金计划;;Create：Alchemy Plan
+858;;机械动力：悠然乐事;;Create Delight
+859;;蔚蓝悠悠;;Azure Leisurely
+861;;空中厕所：生产线;;Poopsky：Assembly Line
+862;;佛罗伦萨迷思;;Fantasy in Florence
+869;;勇者之章 Ⅱ;;Chapter of Yuusha II
+871;;神不在的星期天;;God Without Create
+873;;黑暗深处;;Deep Dark
+874;;自在极境;;Free Extreme Realm
+877;;Minecraft+;;Minecraft plus
+878;;龙珠Super;;Dragon Ball Super
+882;;被恐惧支配2：收容失效;;Dominated by Fear 2 Containment Breach
+891;;群峦传说：宝宝快乐版;;TerraFirma: Baby Happy Edition
+892;;阶段: 残骸;;Phase: the Debris
+893;;AE管道;;AE Pipes
+896;;我的世界从来不简单;;Minecraft Is Never Easy
+897;;机械动力：新视野;;Create: The New Horizon
+901;;历久尤新;;Old But New
+902;;继承;;Inherit
+903;;幸运世界入侵;;Lucky World Invasion

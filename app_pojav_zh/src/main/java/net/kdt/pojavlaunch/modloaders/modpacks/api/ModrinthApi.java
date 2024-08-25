@@ -13,9 +13,12 @@ import com.movtery.pojavzh.feature.mod.ModMirror;
 import com.movtery.pojavzh.feature.mod.SearchModSort;
 import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
 import com.movtery.pojavzh.feature.mod.modpack.install.OnInstallStartListener;
+import com.movtery.pojavzh.feature.mod.translate.ModPackTranslateManager;
+import com.movtery.pojavzh.feature.mod.translate.ModTranslateManager;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.VersionType;
+import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -116,11 +119,19 @@ public class ModrinthApi implements ModpackApi{
 
             String iconUrl = fetchIconUrl(hit);
 
+            String name = hit.get("title").getAsString();
+            if (ZHTools.areaChecks("zh")) {
+                String chineseName = modFilters.isModpack() ?
+                        ModPackTranslateManager.INSTANCE.searchToChinese(name) :
+                        ModTranslateManager.INSTANCE.searchToChinese(name);
+                name = chineseName != null ? String.format("%s (%s)", chineseName, name) : name;
+            }
+
             modItems.add(new ModItem(
                     Constants.SOURCE_MODRINTH,
                     hit.get("project_type").getAsString().equals("modpack"),
                     hit.get("project_id").getAsString(),
-                    hit.get("title").getAsString(),
+                    name,
                     hit.get("description").getAsString(),
                     hit.get("downloads").getAsInt(),
                     modLoaders.toArray(new ModLoaderList.ModLoader[]{}),
