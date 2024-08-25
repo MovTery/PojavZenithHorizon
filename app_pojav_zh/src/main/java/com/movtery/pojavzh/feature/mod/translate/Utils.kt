@@ -2,7 +2,8 @@ package com.movtery.pojavzh.feature.mod.translate
 
 import net.kdt.pojavlaunch.Tools
 import java.io.InputStream
-import kotlin.math.abs
+import org.apache.commons.text.similarity.FuzzyScore
+import java.util.Locale
 
 class Utils {
     companion object {
@@ -30,17 +31,10 @@ class Utils {
             return candidates.maxByOrNull { calculateScore(matchBy(it), normalizedInput) }?.let { returnBy(it) }
         }
 
-        //最最最最最简单的积分算法 1.长度越接近，分数越高 2.完全匹配的词越多，分数越高
+        //使用FuzzyScore计算相似度
         private fun calculateScore(candidate: String, input: String): Int {
-            val candidateWords = candidate.lowercase().split("\\s+".toRegex())
-            val inputWords = input.lowercase().split("\\s+".toRegex())
-
-            var score = 0
-
-            score += 100 - abs(candidate.length - input.length) // 长度相近性得分
-            score += candidateWords.count { it in inputWords } * 50//词汇匹配得分
-
-            return score
+            val fuzzyScore = FuzzyScore(Locale.getDefault())
+            return fuzzyScore.fuzzyScore(candidate, input)
         }
     }
 }
