@@ -302,11 +302,13 @@
     <string name="zh_about_button_support_development">Tài trợ phát triển</string>
     <string name="zh_about_movtery_desc">Tác giả của Pojav Zenith Horizon</string>
     <string name="zh_about_pojavlauncher_desc">Nhóm phát triển PojavLauncher, phát triển và mở mã nguồn PojavLauncher</string>
+    <string name="zh_about_mcmod_desc">Pojav Zenith Horizon sử dụng các mod và bản dịch gói tích hợp từ MC 百科</string>
     <string name="zh_about_verafirefly_desc">Cung cấp hỗ trợ kỹ thuật về kết xuất cho Pojav Zenith Horizon</string>
     <string name="zh_about_lingmuqiuzhu_desc">Cung cấp hỗ trợ kỹ thuật cho Pojav Zenith Horizon</string>
     <string name="zh_about_bangbang93_desc">Pojav Zenith Horizon sử dụng nguồn BMCLAPI do bangbang93 tạo ra</string>
     <string name="zh_about_z0z0r4_desc">Pojav Zenith Horizon sử dụng nguồn thông tin MCIM Mod do z0z0r4 tạo ra</string>
     <string name="zh_about_access_space">Truy cập không gian</string>
+    <string name="zh_about_access_link">Liên kết truy cập</string>
     <string name="zh_about_version_name">Tên phiên bản phần mềm:</string>
     <string name="zh_about_version_code">Mã phiên bản phần mềm:</string>
     <string name="zh_about_last_update_time">Thời gian cập nhật cuối cùng:</string>

@@ -16,10 +16,13 @@ import com.movtery.pojavzh.feature.mod.ModMirror;
 import com.movtery.pojavzh.feature.mod.SearchModSort;
 import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
 import com.movtery.pojavzh.feature.mod.modpack.install.OnInstallStartListener;
+import com.movtery.pojavzh.feature.mod.translate.ModPackTranslateManager;
+import com.movtery.pojavzh.feature.mod.translate.ModTranslateManager;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.VersionType;
 import com.movtery.pojavzh.utils.MCVersionRegex;
+import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
@@ -101,10 +104,18 @@ public class CurseforgeApi implements ModpackApi{
 
             String iconUrl = fetchIconUrl(dataElement);
 
+            String name = dataElement.get("name").getAsString();
+            if (ZHTools.areaChecks("zh")) {
+                String chineseName = modFilters.isModpack() ?
+                        ModPackTranslateManager.INSTANCE.searchToChinese(name) :
+                        ModTranslateManager.INSTANCE.searchToChinese(name);
+                name = chineseName != null ? String.format("%s (%s)", chineseName, name) : name;
+            }
+
             ModItem modItem = new ModItem(Constants.SOURCE_CURSEFORGE,
                     modFilters.isModpack(),
                     dataElement.get("id").getAsString(),
-                    dataElement.get("name").getAsString(),
+                    name,
                     dataElement.get("summary").getAsString(),
                     dataElement.get("downloadCount").getAsInt(),
                     getModloaders(dataElement.getAsJsonArray("latestFilesIndexes")),

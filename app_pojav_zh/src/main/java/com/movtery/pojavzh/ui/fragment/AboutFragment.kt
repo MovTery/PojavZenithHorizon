@@ -112,6 +112,17 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
         )
         mAboutData.add(
             AboutItemBean(
+                resources.getDrawable(R.drawable.image_about_mcmod, requireContext().theme),
+                "MC 百科",
+                getString(R.string.zh_about_mcmod_desc),
+                AboutItemButtonBean(
+                    requireActivity(),
+                    getString(R.string.zh_about_access_link),
+                    PathAndUrlManager.URL_MCMOD)
+            )
+        )
+        mAboutData.add(
+            AboutItemBean(
                 resources.getDrawable(R.drawable.image_about_verafirefly, requireContext().theme),
                 "Vera-Firefly",
                 getString(R.string.zh_about_verafirefly_desc),
