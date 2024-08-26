@@ -1,14 +1,8 @@
 name: Android CI
 
 on:
-  pull_request:
-    branches-ignore:
-      - ''
   push:
-    tags:
-      - '*'
-    branches-ignore:
-      - ''
+  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -33,27 +27,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up JDK 8
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '8'
-
-      - uses: gradle/gradle-build-action@v2
-        with:
-          gradle-version: 8.4
-
-      - name: Build JRE JAR files
-        run: |
-          mkdir out
-          # Build JRE JAR files (security manager, etc...)
-          gradle :jre_lwjgl3glfw:build --no-daemon
-
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
+
+      - name: Build JRE JAR files
+        run: |
+          chmod +x gradlew
+          mkdir out
+          ./gradlew jre_lwjgl3glfw:build --no-daemon
 
       - name: Build Release ${{matrix.arch}}
         if: github.repository_owner == 'MovTery' && github.ref_name == 'main'
