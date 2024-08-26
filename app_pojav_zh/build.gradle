@@ -116,6 +116,54 @@ android {
         }
     }
 
+    applicationVariants.configureEach { variant ->
+        variant.outputs.configureEach { output ->
+            def abi = output.getFilter(ABI) ?: "all"
+
+            variant.mergeAssetsProvider.get().doLast {
+                def arch = System.getProperty("arch", "all")
+                def assetsDir = mergeAssetsProvider.get().outputDir.get()
+                def javaVersions = ['jre-8', 'jre-17', 'jre-21']
+
+                javaVersions.each { javaVersion ->
+                    def runtimeDir = new File([assetsDir, "components/${javaVersion}"].join(File.separator))
+                    fileTree(dir: runtimeDir, include: ['*.tar.xz']).each { file ->
+                        if (arch != 'all' && !file.name.contains(arch) && !file.name.contains("universal")) {
+                            println("delete:${file} : ${delete(file)}")
+                        }
+                    }
+                }
+            }
+
+            def baseName = "PojavZenithHorizon-${variant.buildType.name == 'release' ? variant.versionName : "Debug-${variant.versionName}"}"
+            outputFileName = abi == "all" ? "${baseName}.apk" : "${baseName}-${abi}.apk"
+        }
+    }
+
+    splits {
+        def arch = System.getProperty("arch", "all")
+        if (arch != 'all') {
+            abi {
+                enable true
+                reset()
+                switch (arch) {
+                    case 'arm':
+                        include 'armeabi-v7a'
+                        break
+                    case 'arm64':
+                        include 'arm64-v8a'
+                        break
+                    case 'x86':
+                        include 'x86'
+                        break
+                    case 'x86_64':
+                        include 'x86_64'
+                        break
+                }
+            }
+        }
+    }
+
     ndkVersion = "25.2.9519653"
 
     externalNativeBuild {
@@ -149,18 +197,6 @@ android {
     buildToolsVersion = '34.0.0'
     kotlinOptions {
         jvmTarget = '1.8'
-    }
-
-    applicationVariants.configureEach { variant ->
-        variant.outputs.configureEach { output ->
-            def newName
-            if (variant.buildType.name == 'release') {
-                newName = "PojavZenithHorizon-${variant.versionName}.apk"
-            } else {
-                newName = "PojavZenithHorizon-Debug-${variant.versionName}.apk"
-            }
-            outputFileName = newName
-        }
     }
 }
 
