@@ -25,6 +25,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/_8sdp"
         android:background="@drawable/background_edit_box"
-        android:padding="@dimen/_8sdp" />
+        android:paddingVertical="@dimen/_4sdp"
+        android:paddingHorizontal="@dimen/_8sdp" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
