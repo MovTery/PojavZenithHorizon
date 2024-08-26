@@ -36,6 +36,7 @@ class PathAndUrlManager {
         @JvmField var DIR_LAUNCHER_LOG: String? = null
         @JvmField var DIR_CTRLMAP_PATH: String? = null
         @JvmField var DIR_ACCOUNT_NEW: String? = null
+        @JvmField var DIR_CACHE_STRING: String? = null
 
         @JvmField var DIR_GAME_DEFAULT: String? = null
         @JvmField var DIR_CUSTOM_MOUSE: String? = null
@@ -58,6 +59,7 @@ class PathAndUrlManager {
             DIR_LAUNCHER_LOG = "$DIR_GAME_HOME/launcher_log"
             DIR_CTRLMAP_PATH = "$DIR_GAME_HOME/controlmap"
             DIR_ACCOUNT_NEW = "$DIR_DATA/accounts"
+            DIR_CACHE_STRING = "$DIR_CACHE/string_cache"
 
             FILE_PROFILE_PATH = File(DIR_DATA, "/profile_path.json")
             FILE_CTRLDEF_FILE = "$DIR_GAME_HOME/controlmap/default.json"
