@@ -70,7 +70,7 @@ public class UpdateDialog extends FullScreenDialog implements DraggableDialog.Di
 
         mUpdateButton.setOnClickListener(view -> {
             this.dismiss();
-            if (ZHTools.areaChecks()) {
+            if (ZHTools.areaChecks("zh")) {
                 runOnUiThread(() -> {
                     UpdateSourceDialog updateSourceDialog = new UpdateSourceDialog(getContext(), versionName, tagName, fileSize);
                     updateSourceDialog.show();

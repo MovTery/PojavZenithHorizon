@@ -204,8 +204,8 @@ public class ZHTools {
         return currentDate.getMonthValue() == month && currentDate.getDayOfMonth() == day;
     }
 
-    public static boolean areaChecks() {
-        return getSystemLanguageName().equals("zh");
+    public static boolean areaChecks(String area) {
+        return getSystemLanguageName().equals(area);
     }
 
     public static String getSystemLanguageName() {
