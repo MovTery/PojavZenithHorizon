@@ -22,6 +22,7 @@ class PathAndUrlManager {
         const val URL_GITHUB_RELEASE: String = "https://api.github.com/repos/MovTery/PojavZenithHorizon/releases/latest"
         const val URL_GITHUB_HOME: String = "https://api.github.com/repos/MovTery/PZH-InfoRetrieval/contents/"
         const val URL_GITHUB_POJAVLAUNCHER: String = "https://github.com/PojavLauncherTeam/PojavLauncher"
+        const val URL_MCMOD: String = "https://www.mcmod.cn/"
         const val URL_MINECRAFT: String = "https://www.minecraft.net/"
         const val URL_SUPPORT: String = "https://afdian.com/a/MovTery"
         const val URL_HOME: String = "https://github.com/MovTery/PojavZenithHorizon"

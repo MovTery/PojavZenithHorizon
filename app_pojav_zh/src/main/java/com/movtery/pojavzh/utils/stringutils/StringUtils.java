@@ -90,6 +90,18 @@ public class StringUtils {
     }
 
     /**
+     * 检查一段字符串内是否含有中文字符
+     * @param str 检查的字符
+     * @return 是否带有中文
+     */
+    public static boolean containsChinese(String str) {
+        if (str == null || str.isEmpty()) {
+            return false;
+        }
+        return str.matches(".*[\\u4E00-\\u9FFF]+.*");
+    }
+
+    /**
      * 在一段字符串中提取数字
      */
     public static int[] extractNumbers(String str, int quantity) {
