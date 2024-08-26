@@ -3,16 +3,25 @@ package com.movtery.pojavzh.feature.mod.translate
 import com.movtery.pojavzh.feature.log.Logging
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.Tools
+import java.io.File
+import java.io.FileInputStream
+import java.io.InputStream
 
-abstract class TranslateManager(private val tag: String, private val dataFile: String) {
+abstract class TranslateManager(private val classify: TranslateClassify) {
     private val infos: MutableList<TranslateInfoItem> = ArrayList()
 
     init {
         runCatching {
-            val input = PojavApplication.getContext().assets.open(dataFile)
-            Utils.identificationData(input, infos)
+            val context = PojavApplication.getContext()
+            var input: InputStream? = null
+            CheckTranslate.check(context, classify, object : CheckTranslate.CheckListener {
+                override fun onSuccessful(infoFile: File) {
+                    input = FileInputStream(infoFile)
+                }
+            })
+            Utils.identificationData(input ?: context.assets.open(classify.fileName), infos)
         }.getOrElse { e ->
-            Logging.e("$tag Translate Manager", Tools.printToString(e))
+            Logging.e("${classify.name} Translate Manager", Tools.printToString(e))
         }
     }
 
