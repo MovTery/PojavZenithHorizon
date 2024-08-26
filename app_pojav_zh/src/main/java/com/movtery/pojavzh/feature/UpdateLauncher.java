@@ -1,6 +1,7 @@
 package com.movtery.pojavzh.feature;
 
 import static com.movtery.pojavzh.utils.file.FileTools.formatFileSize;
+import static net.kdt.pojavlaunch.Architecture.*;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
@@ -23,6 +24,7 @@ import com.movtery.pojavzh.utils.http.CallUtils;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.Tools;
 
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
@@ -179,7 +181,9 @@ public class UpdateLauncher {
 
     private String getDownloadUrl() {
         String fileUrl;
-        String githubUrl = "github.com/MovTery/PojavZenithHorizon/releases/download/" + tagName + "/" + "PojavZenithHorizon-" + versionName + ".apk";
+        String archModel = getArchModel();
+        String githubUrl = "github.com/MovTery/PojavZenithHorizon/releases/download/" + tagName + "/" + "PojavZenithHorizon-" + versionName +
+                (archModel != null ? String.format("-%s", archModel) : "") + ".apk";
         switch (updateSource) {
             case GHPROXY:
                 fileUrl = "https://mirror.ghproxy.com/" + githubUrl;
@@ -190,6 +194,15 @@ public class UpdateLauncher {
                 break;
         }
         return fileUrl;
+    }
+
+    private String getArchModel() {
+        int arch = Tools.DEVICE_ARCHITECTURE;
+        if(arch == ARCH_ARM64) return "arm64-v8a";
+        if(arch == ARCH_ARM) return "armeabi-v7a";
+        if(arch == ARCH_X86_64) return "x86_64";
+        if(arch == ARCH_X86) return "x86";
+        return null;
     }
 
     public void start() {
