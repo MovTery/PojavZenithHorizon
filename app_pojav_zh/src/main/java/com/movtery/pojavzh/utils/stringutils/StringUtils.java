@@ -90,7 +90,7 @@ public class StringUtils {
     }
 
     /**
-     * 检查一段字符串内是否含有中文字符
+     * 检查一段字符串内是否含有中文字符（中文标点）
      * @param str 检查的字符
      * @return 是否带有中文
      */
@@ -98,7 +98,10 @@ public class StringUtils {
         if (str == null || str.isEmpty()) {
             return false;
         }
-        return str.matches(".*[\\u4E00-\\u9FFF]+.*");
+
+        Pattern pattern = Pattern.compile("[一-龥|！，。（）《》“”？：；【】]");
+        Matcher matcher = pattern.matcher(str);
+        return matcher.find();
     }
 
     /**
