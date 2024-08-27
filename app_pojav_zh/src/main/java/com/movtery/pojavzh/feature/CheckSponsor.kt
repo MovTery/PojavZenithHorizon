@@ -43,7 +43,7 @@ class CheckSponsor {
 
             val token = context.getString(R.string.zh_private_api_token)
             CallUtils(object : CallbackListener {
-                override fun onFailure(call: Call?, e: IOException?) {
+                override fun onFailure(call: Call?) {
                     listener.onFailure()
                     isChecking = false
                 }
@@ -87,7 +87,7 @@ class CheckSponsor {
                     }
                     isChecking = false
                 }
-            }, PathAndUrlManager.URL_GITHUB_HOME + "sponsor.json", if (token == "DUMMY") null else token).start()
+            }, PathAndUrlManager.URL_GITHUB_HOME + "sponsor.json", if (token == "DUMMY") null else token).enqueue()
         }
     }
 

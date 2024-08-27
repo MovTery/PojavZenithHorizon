@@ -13,13 +13,16 @@ abstract class TranslateManager(private val classify: TranslateClassify) {
     init {
         runCatching {
             val context = PojavApplication.getContext()
-            var input: InputStream? = null
             CheckTranslate.check(context, classify, object : CheckTranslate.CheckListener {
-                override fun onSuccessful(infoFile: File) {
-                    input = FileInputStream(infoFile)
+                override fun onEnd(infoFile: File?) {
+                    var input: InputStream? = null
+                    infoFile?.let {
+                        input = FileInputStream(infoFile)
+                        Logging.i("${classify.name} Translate Manager", "The local cache database is successfully read!")
+                    }
+                    Utils.identificationData(input ?: context.assets.open(classify.fileName), infos)
                 }
             })
-            Utils.identificationData(input ?: context.assets.open(classify.fileName), infos)
         }.getOrElse { e ->
             Logging.e("${classify.name} Translate Manager", Tools.printToString(e))
         }
