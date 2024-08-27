@@ -23,7 +23,7 @@ import java.util.concurrent.Callable;
 
 public class ModpackInstaller {
     public static ModLoader installMod(ModDetail modDetail, String path, ModVersionItem modVersionItem) throws IOException {
-        String modFileName = "[" + modDetail.title + "] " + modVersionItem.name;
+        String modFileName = "[" + (modDetail.subTitle != null ? modDetail.subTitle : modDetail.title) + "] " + modVersionItem.name;
 
         File modFile = new File(path, modFileName.replace("/", "-"));
 
