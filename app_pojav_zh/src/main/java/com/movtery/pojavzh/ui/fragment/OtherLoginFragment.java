@@ -85,7 +85,6 @@ public class OtherLoginFragment extends FragmentWithAnim {
 
         mReturnButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
         mServerSpinner.setSpinnerAdapter(mServerSpinnerAdapter);
-        mServerSpinner.selectItemByIndex(0);
         mServerSpinner.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> {
             if (!Objects.isNull(mServers)) {
                 for (Servers.Server server : mServers.getServer()) {
@@ -97,6 +96,7 @@ public class OtherLoginFragment extends FragmentWithAnim {
                 }
             }
         });
+        mServerSpinner.selectItemByIndex(0);
 
         mAddServer.setOnClickListener(v -> new TipDialog.Builder(requireContext())
                 .setMessage(getString(R.string.zh_other_login_add_server))
