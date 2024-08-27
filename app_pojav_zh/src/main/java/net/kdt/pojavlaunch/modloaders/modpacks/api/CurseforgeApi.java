@@ -212,7 +212,7 @@ public class CurseforgeApi implements ModpackApi{
 
                 if (!ModCache.ModItemCache.INSTANCE.containsKey(this, modId)) {
                     JsonObject response = searchModFromID(modId);
-                    JsonObject hit = response.get("data").getAsJsonObject();
+                    JsonObject hit = GsonJsonUtils.getJsonObjectSafe(response, "data");
 
                     if (hit != null) {
                         JsonArray itemsGameVersions = modDetail.getAsJsonArray("gameVersions");

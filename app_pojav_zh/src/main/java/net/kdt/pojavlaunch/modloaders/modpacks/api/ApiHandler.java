@@ -9,6 +9,7 @@ import com.movtery.pojavzh.utils.PathAndUrlManager;
 import net.kdt.pojavlaunch.Tools;
 
 import java.io.BufferedInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -68,6 +69,9 @@ public class ApiHandler {
             inputStream.close();
             conn.disconnect();
             return data;
+        } catch (FileNotFoundException e) {
+            Logging.e("ApiHandler", "File Not Found! " + Tools.printToString(e));
+            return null;
         } catch (Exception e) {
             Logging.e("ApiHandler", Tools.printToString(e));
             if (conn != null) {
