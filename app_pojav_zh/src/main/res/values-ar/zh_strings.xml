@@ -268,6 +268,7 @@
     <string name="zh_update_summary">الحصول على الإصدار الأحدث والتحديث إليه</string>
     <string name="zh_update_without">أنت على أحدث إصدار</string>
     <string name="zh_update_fail">خطأ في الشبكة، لا يمكن الحصول على التحديثات حاليًا!</string>
+    <string name="zh_update_fail_code">خطأ في الشبكة، غير قادر على جلب التحديثات مؤقتًا! رمز الخطأ: %d</string>
     <string name="zh_update_success">تم تنزيل أحدث حزمة مثبتة، هل تريد التثبيت؟\nموقع الحزمة:</string>
     <string name="zh_update_update_source">اختيار مصدر التحديث</string>
     <string name="zh_update_update_source_ghproxy">مصدر تسريع Ghproxy</string>

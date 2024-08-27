@@ -268,6 +268,7 @@
     <string name="zh_update_summary">Obter e atualizar para a versão mais recente</string>
     <string name="zh_update_without">Já está na versão mais recente</string>
     <string name="zh_update_fail">Erro de rede, atualizações temporariamente indisponíveis!</string>
+    <string name="zh_update_fail_code">Erro de rede, não foi possível buscar atualizações temporariamente! Código de erro: %d</string>
     <string name="zh_update_success">O pacote de instalação mais recente foi baixado, deseja instalar?\nLocal do Pacote de Instalação:</string>
     <string name="zh_update_update_source">Selecionar Fonte de Atualização</string>
     <string name="zh_update_update_source_ghproxy">Fonte de Aceleração Ghproxy</string>

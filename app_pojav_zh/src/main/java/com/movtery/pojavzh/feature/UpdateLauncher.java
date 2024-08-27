@@ -113,12 +113,13 @@ public class UpdateLauncher {
         new CallUtils(new CallUtils.CallbackListener() {
             @Override
             public void onFailure(Call call) {
-                runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_fail), Toast.LENGTH_SHORT).show());
+                showFailToast(context, context.getString(R.string.zh_update_fail));
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (!response.isSuccessful()) {
+                    showFailToast(context, context.getString(R.string.zh_update_fail_code, response.code()));
                     Logging.e("UpdateLauncher", "Unexpected code " + response.code());
                 } else {
                     Objects.requireNonNull(response.body());
@@ -138,7 +139,7 @@ public class UpdateLauncher {
                         try {
                             githubVersion = Integer.parseInt(tagName);
                         } catch (Exception e) {
-                            Logging.e("Parse github version", e.toString());
+                            Logging.e("Parse github version", Tools.printToString(e));
                         }
 
                         if (ZHTools.getVersionCode() < githubVersion) {
@@ -151,7 +152,7 @@ public class UpdateLauncher {
                                             fileSize,
                                             jsonObject.getString("body"));
                                 } catch (Exception e) {
-                                    Logging.e("Init update information", e.toString());
+                                    Logging.e("Init update information", Tools.printToString(e));
                                 }
                                 UpdateDialog updateDialog = new UpdateDialog(context, updateInformation);
 
@@ -166,11 +167,15 @@ public class UpdateLauncher {
                             });
                         }
                     } catch (Exception e) {
-                        Logging.e("Check Update", e.toString());
+                        Logging.e("Check Update", Tools.printToString(e));
                     }
                 }
             }
         }, PathAndUrlManager.URL_GITHUB_RELEASE, token.equals("DUMMY") ? null : token).enqueue();
+    }
+
+    private static void showFailToast(Context context, String resString) {
+        runOnUiThread(() -> Toast.makeText(context, resString, Toast.LENGTH_SHORT).show());
     }
 
     private void init() {
@@ -209,12 +214,13 @@ public class UpdateLauncher {
         this.call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                runOnUiThread(() -> Toast.makeText(UpdateLauncher.this.context, context.getString(R.string.zh_update_fail), Toast.LENGTH_SHORT).show());
+                showFailToast(context, context.getString(R.string.zh_update_fail));
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (!response.isSuccessful()) {
+                    showFailToast(context, context.getString(R.string.zh_update_fail_code, response.code()));
                     throw new IOException("Unexpected code " + response);
                 } else {
                     File outputFile = new File(UpdateLauncher.this.destinationFilePath);
