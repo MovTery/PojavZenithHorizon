@@ -26,7 +26,10 @@ class CleanUpCache {
                     }
                 }
 
-                PathAndUrlManager.FILE_VERSION_LIST?.let { list?.add(File(it)) }
+                PathAndUrlManager.FILE_VERSION_LIST?.let {
+                    val file = File(it)
+                    if (file.exists()) list?.add(file)
+                }
 
                 list?.let{
                     for (file in list) {
