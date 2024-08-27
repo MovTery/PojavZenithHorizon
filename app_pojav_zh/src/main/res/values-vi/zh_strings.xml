@@ -268,6 +268,7 @@
     <string name="zh_update_summary">Tải xuống và cập nhật lên phiên bản mới nhất</string>
     <string name="zh_update_without">Hiện tại đã là phiên bản mới nhất</string>
     <string name="zh_update_fail">Lỗi mạng, tạm thời không thể lấy cập nhật!</string>
+    <string name="zh_update_fail_code">Lỗi mạng, tạm thời không thể tải bản cập nhật! Mã lỗi: %d</string>
     <string name="zh_update_success">Gói cài đặt mới nhất đã tải xuống hoàn tất, có cài đặt không?\nVị trí gói cài đặt:</string>
     <string name="zh_update_update_source">Chọn nguồn cập nhật</string>
     <string name="zh_update_update_source_ghproxy">Nguồn tăng tốc Ghproxy</string>

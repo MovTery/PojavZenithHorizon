@@ -268,6 +268,7 @@
     <string name="zh_update_summary">获取并更新到最新的版本</string>
     <string name="zh_update_without">当前已是最新版本</string>
     <string name="zh_update_fail">网络异常，暂时无法获取更新！</string>
+    <string name="zh_update_fail_code">网络异常，暂时无法获取更新！错误码: %d</string>
     <string name="zh_update_success">最新的安装包已经下载完成，是否安装？\n安装包位置:</string>
     <string name="zh_update_update_source">选择更新源</string>
     <string name="zh_update_update_source_ghproxy">Ghproxy 加速源</string>
