@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -68,6 +69,8 @@ public class ApiHandler {
             inputStream.close();
             conn.disconnect();
             return data;
+        } catch (SocketTimeoutException e) {
+            throw new RuntimeException(e);
         } catch (IOException e) {
             Logging.e("ApiHandler", Tools.printToString(e));
             if (conn != null) {
