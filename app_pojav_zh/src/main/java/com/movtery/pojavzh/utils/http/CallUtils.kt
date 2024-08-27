@@ -10,25 +10,27 @@ import java.io.IOException
 
 class CallUtils(
     private val listener: CallbackListener,
-    private val url: String,
+    url: String,
     private val token: String?
 ) {
-    fun start() {
-        val tokenInterceptor = Interceptor { chain ->
-            val originalRequest = chain.request()
-            val requestWithToken = originalRequest.newBuilder()
-            token?.let { requestWithToken.header("Authorization", "token $token") }
+    private val tokenInterceptor = Interceptor { chain ->
+        val originalRequest = chain.request()
+        val requestWithToken = originalRequest.newBuilder()
+        token?.let { requestWithToken.header("Authorization", "token $token") }
 
-            chain.proceed(requestWithToken.build())
-        }
+        chain.proceed(requestWithToken.build())
+    }
 
-        val client = OkHttpClient.Builder()
-            .addInterceptor(tokenInterceptor)
-            .build()
+    val client: OkHttpClient = OkHttpClient.Builder()
+        .addInterceptor(tokenInterceptor)
+        .build()
 
-        client.newCall(PathAndUrlManager.createRequestBuilder(url).build()).enqueue(object : Callback {
+    private val newCall: Call = client.newCall(PathAndUrlManager.createRequestBuilder(url).build())
+
+    fun enqueue() {
+        newCall.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                listener.onFailure(call, e)
+                listener.onFailure(call)
             }
 
             @Throws(IOException::class)
@@ -38,8 +40,22 @@ class CallUtils(
         })
     }
 
+    fun execute() {
+        try {
+            val response = newCall.execute()
+
+            if (response.isSuccessful) {
+                listener.onResponse(newCall, response)
+            } else {
+                listener.onFailure(newCall)
+            }
+        } catch (e: IOException) {
+            listener.onFailure(newCall)
+        }
+    }
+
     interface CallbackListener {
-        fun onFailure(call: Call?, e: IOException?)
+        fun onFailure(call: Call?)
 
         @Throws(IOException::class)
         fun onResponse(call: Call?, response: Response?)

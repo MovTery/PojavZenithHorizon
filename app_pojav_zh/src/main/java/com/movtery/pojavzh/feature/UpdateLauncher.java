@@ -112,7 +112,7 @@ public class UpdateLauncher {
         String token = context.getString(R.string.zh_api_token);
         new CallUtils(new CallUtils.CallbackListener() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(Call call) {
                 runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_update_fail), Toast.LENGTH_SHORT).show());
             }
 
@@ -170,7 +170,7 @@ public class UpdateLauncher {
                     }
                 }
             }
-        }, PathAndUrlManager.URL_GITHUB_RELEASE, token.equals("DUMMY") ? null : token).start();
+        }, PathAndUrlManager.URL_GITHUB_RELEASE, token.equals("DUMMY") ? null : token).enqueue();
     }
 
     private void init() {
