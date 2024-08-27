@@ -34,7 +34,9 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
     private var mModsLayout: View? = null
     private var mOperateLayout: View? = null
     private var mLoadingView: View? = null
+    private var mTitleLayout: View? = null
     private var mNameText: TextView? = null
+    private var mSubTitleText: TextView? = null
     private var mSelectTitle: TextView? = null
     private var mFailedToLoad: TextView? = null
     private var mIcon: ImageView? = null
@@ -130,7 +132,9 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
         mBackToTop = view.findViewById(R.id.zh_mod_back_to_top)
         mLoadingView = view.findViewById(R.id.zh_mod_loading)
         mIcon = view.findViewById(R.id.zh_mod_icon)
+        mTitleLayout = view.findViewById(R.id.mod_title_layout)
         mNameText = view.findViewById(R.id.zh_mod_name)
+        mSubTitleText = view.findViewById(R.id.zh_mod_subtitle)
         mSelectTitle = view.findViewById(R.id.zh_select_title)
         mFailedToLoad = view.findViewById(R.id.zh_mod_failed_to_load)
 
@@ -155,6 +159,13 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
 
     protected fun setNameText(nameText: String?) {
         mNameText?.text = nameText
+    }
+
+    protected fun setSubTitleText(text: String?) {
+        mSubTitleText?.apply {
+            visibility = if (text != null) View.VISIBLE else View.GONE
+            text?.let { this.text = it }
+        }
     }
 
     protected fun setIcon(icon: Drawable?) {
@@ -193,7 +204,7 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
         yoYos.add(setViewAnim(mOperateLayout!!, Techniques.BounceInLeft))
 
         yoYos.add(setViewAnim(mIcon!!, Techniques.Wobble))
-        yoYos.add(setViewAnim(mNameText!!, Techniques.FadeInLeft))
+        yoYos.add(setViewAnim(mTitleLayout!!, Techniques.FadeInLeft))
         yoYos.add(setViewAnim(mReturnButton!!, Techniques.FadeInLeft))
         yoYos.add(setViewAnim(mRefreshButton!!, Techniques.FadeInLeft))
         yoYos.add(setViewAnim(releaseCheckBox!!, Techniques.FadeInLeft))

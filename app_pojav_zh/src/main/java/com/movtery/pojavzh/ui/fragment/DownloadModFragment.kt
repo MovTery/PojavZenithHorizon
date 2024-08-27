@@ -150,7 +150,10 @@ class DownloadModFragment : ModListFragment() {
         mModsPath = viewModel.modsPath
         mParentUIRecyclerView = recyclerViewModel.view
 
-        setNameText(mModItem!!.title)
+        mModItem?.let { item ->
+            setNameText(item.subTitle ?: item.title)
+            setSubTitleText(item.subTitle?.let { item.title })
+        }
 
         mImageReceiver = ImageReceiver { bm: Bitmap ->
             mImageReceiver = null

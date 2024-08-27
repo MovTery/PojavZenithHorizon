@@ -146,7 +146,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final Context context;
         private final View view;
-        private final TextView mTitle, mDescription, mDownloadCount, mModloader;
+        private final TextView mTitle, mSubTitle, mDescription, mDownloadCount, mModloader;
         private final ImageView mIconView, mSourceView;
         private Future<?> mExtensionFuture;
         private Bitmap mThumbnailBitmap;
@@ -160,6 +160,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             // Define click listener for the ViewHolder's View
             mTitle = view.findViewById(R.id.mod_title_textview);
+            mSubTitle = view.findViewById(R.id.mod_subtitle_textview);
             mDescription = view.findViewById(R.id.mod_body_textview);
             mDownloadCount = view.findViewById(R.id.zh_mod_download_count_textview);
             mModloader = view.findViewById(R.id.zh_mod_modloader_textview);
@@ -213,8 +214,16 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             };
             if (item.imageUrl != null) mIconCache.getImage(mImageReceiver, item.getIconCacheTag(), item.imageUrl);
             mSourceView.setImageResource(getSourceDrawable(item.apiSource));
-            mTitle.setText(item.title);
             mDescription.setText(item.description);
+
+            if (item.subTitle != null) {
+                mSubTitle.setVisibility(View.VISIBLE);
+                mTitle.setText(item.subTitle);
+                mSubTitle.setText(item.title);
+            } else {
+                mSubTitle.setVisibility(View.GONE);
+                mTitle.setText(item.title);
+            }
 
             String downloaderCount = StringUtils.insertSpace(context.getString(R.string.zh_profile_mods_information_download_count), NumberWithUnits.formatNumberWithUnit(item.downloadCount,
                     //判断当前系统语言是否为英文
