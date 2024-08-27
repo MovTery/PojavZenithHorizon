@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Pojav Zenith Horizon -->
-    <string name="zh_close">關閉</string>
+    <string name="zh_close">关闭</string>
     <string name="zh_return">返回</string>
     <string name="zh_edit">編輯</string>
     <string name="zh_share">分享</string>
