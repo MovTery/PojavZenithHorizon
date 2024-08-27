@@ -14,7 +14,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -60,7 +59,7 @@ public class ApiHandler {
     public static String getRaw(Map<String, String> headers, String url) {
         Logging.d("ApiHandler", url);
         HttpURLConnection conn = null;
-        try{
+        try {
             conn = PathAndUrlManager.createHttpConnection(new URL(url));
             addHeaders(conn, headers);
             InputStream inputStream = new BufferedInputStream(conn.getInputStream());
@@ -69,15 +68,13 @@ public class ApiHandler {
             inputStream.close();
             conn.disconnect();
             return data;
-        } catch (SocketTimeoutException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (Exception e) {
             Logging.e("ApiHandler", Tools.printToString(e));
             if (conn != null) {
                 conn.disconnect();
             }
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     public static String postRaw(String url, String body) {
