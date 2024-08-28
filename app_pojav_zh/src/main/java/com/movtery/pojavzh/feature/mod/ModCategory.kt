@@ -49,6 +49,22 @@ class ModCategory {
         fun getModPackCategoryFromIndex(index: Int): Category {
             return modpackCategoriesList[index]
         }
+
+        @JvmStatic
+        fun getCategoryFromCurseForgeId(id: String): Category? {
+            Category.entries.forEach { category ->
+                if (category.curseforgeID == id) return category
+            }
+            return null
+        }
+
+        @JvmStatic
+        fun getCategoryFromModrinthName(name: String): Category? {
+            Category.entries.forEach { category ->
+                if (category.modrinthName == name) return category
+            }
+            return null
+        }
     }
 
     /**
