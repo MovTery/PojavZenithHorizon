@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="zh_keycode_unspecified">Chưa chỉ định</string>
     <string name="zh_keycode_special">Đặc biệt</string>
     <string name="zh_keycode_special_keyboard">bàn phím</string>
     <string name="zh_keycode_special_pri">nhấp chuột trái</string>
@@ -9,6 +10,11 @@
     <string name="zh_keycode_special_scrollup">bánh xe chuột - lên</string>
     <string name="zh_keycode_special_scrolldown">bánh xe chuột - xuống</string>
     <string name="zh_keycode_special_menu">menu chính</string>
+    <string name="zh_keycode_mouse_right">Chuột Phải</string>
+    <string name="zh_keycode_mouse_middle">Chuột Giữa</string>
+    <string name="zh_keycode_mouse_left">Chuột Trái</string>
+    <string name="zh_keycode_scroll_up">Cuộn Lên</string>
+    <string name="zh_keycode_scroll_down">Cuộn Xuống</string>
     <string name="zh_keycode_left_alt">Alt trái</string>
     <string name="zh_keycode_right_alt">Alt phải</string>
     <string name="zh_keycode_left_shift">Shift trái</string>
