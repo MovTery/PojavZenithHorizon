@@ -269,4 +269,24 @@ Se você deseja usar a fonte de download oficial, clique em "Alternar para a fon
     <string name="log_view_label_log_output">Saída de log:</string>
     <string name="execute_jar_failed_to_read_file">Falha ao ler arquivo .jar</string>
     <string name="execute_jar_incompatible_runtime">Funcionalidade de execução .jar incompatível com Java %d</string>
+    <string name="controller_button_start">Iniciar</string>
+    <string name="controller_button_select">Selecionar</string>
+    <string name="controller_button_trigger_left">Gatilho Esquerdo</string>
+    <string name="controller_button_trigger_right">Gatilho Direito</string>
+    <string name="controller_button_shoulder_left">Botão do Ombro Esquerdo</string>
+    <string name="controller_button_shoulder_right">Botão do Ombro Direito</string>
+    <string name="controller_direction_forward">Joystick Para Cima</string>
+    <string name="controller_direction_backward">Joystick Para Baixo</string>
+    <string name="controller_direction_left">Joystick Para Esquerda</string>
+    <string name="controller_direction_right">Joystick Para Direita</string>
+    <string name="controller_stick_press_l">Joystick Esquerdo (Pressionado)</string>
+    <string name="controller_stick_press_r">Joystick Direito (Pressionado)</string>
+    <string name="controller_dpad_up">D-Pad Para Cima</string>
+    <string name="controller_dpad_down">D-Pad Para Baixo</string>
+    <string name="controller_dpad_left">D-Pad Para Esquerda</string>
+    <string name="controller_dpad_right">D-Pad Para Direita</string>
+    <string name="controller_remapper_operating_mode">Modo Atual</string>
+    <string name="controller_remapper_expand_entry">Expanda para alterar os códigos das teclas</string>
+    <string name="preference_remap_controller_title">Alterar Mapeamento de Teclas do Controlador</string>
+    <string name="preference_remap_controller_description">Permite que você modifique as teclas do teclado vinculadas a cada botão do controlador</string>
 </resources>

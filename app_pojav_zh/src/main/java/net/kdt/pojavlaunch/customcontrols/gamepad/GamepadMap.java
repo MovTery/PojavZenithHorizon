@@ -188,6 +188,12 @@ public class GamepadMap {
     }
 
     public static String[] getSpecialKeycodeNames(Context context) {
-        return new String[] {context.getString(R.string.zh_unknown), "MOUSE_RIGHT", "MOUSE_MIDDLE", "MOUSE_LEFT", "SCROLL_UP", "SCROLL_DOWN"};
+        return new String[]{
+                context.getString(R.string.zh_keycode_unspecified),
+                context.getString(R.string.zh_keycode_mouse_right),
+                context.getString(R.string.zh_keycode_mouse_right),
+                context.getString(R.string.zh_keycode_mouse_left),
+                context.getString(R.string.zh_keycode_scroll_up),
+                context.getString(R.string.zh_keycode_scroll_down)};
     }
 }

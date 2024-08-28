@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="zh_keycode_unspecified">未指定</string>
     <string name="zh_keycode_special">特殊</string>
     <string name="zh_keycode_special_keyboard">輸入法</string>
     <string name="zh_keycode_special_pri">左鍵</string>
@@ -9,6 +10,11 @@
     <string name="zh_keycode_special_scrollup">滑鼠滾輪 - 上滑</string>
     <string name="zh_keycode_special_scrolldown">滑鼠滾輪 - 下滑</string>
     <string name="zh_keycode_special_menu">主選單</string>
+    <string name="zh_keycode_mouse_right">右鍵</string>
+    <string name="zh_keycode_mouse_middle">中鍵</string>
+    <string name="zh_keycode_mouse_left">左鍵</string>
+    <string name="zh_keycode_scroll_up">向上滾動</string>
+    <string name="zh_keycode_scroll_down">向下滾動</string>
     <string name="zh_keycode_left_alt">左 Alt</string>
     <string name="zh_keycode_right_alt">右 Alt</string>
     <string name="zh_keycode_left_shift">左 Shift</string>

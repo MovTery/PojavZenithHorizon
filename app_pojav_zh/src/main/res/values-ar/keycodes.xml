@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="zh_keycode_unspecified">غير محدد</string>
     <string name="zh_keycode_special">خاص</string>
     <string name="zh_keycode_special_keyboard">كيبورد</string>
     <string name="zh_keycode_special_pri">الزر الأيسر</string>
@@ -9,6 +10,11 @@
     <string name="zh_keycode_special_scrollup">ماوس العجلة - التمرير لأسفل</string>
     <string name="zh_keycode_special_scrolldown">ماوس العجلة - التمرير لأعلى</string>
     <string name="zh_keycode_special_menu">القائمة الرئيسية</string>
+    <string name="zh_keycode_mouse_right">زر الفأرة الأيمن</string>
+    <string name="zh_keycode_mouse_middle">زر الفأرة الأوسط</string>
+    <string name="zh_keycode_mouse_left">زر الفأرة الأيسر</string>
+    <string name="zh_keycode_scroll_up">التمرير لأعلى</string>
+    <string name="zh_keycode_scroll_down">التمرير لأسفل</string>
     <string name="zh_keycode_left_alt">Alt الأيسر</string>
     <string name="zh_keycode_right_alt">Alt الأيمن</string>
     <string name="zh_keycode_left_shift">Shift الأيسر</string>
