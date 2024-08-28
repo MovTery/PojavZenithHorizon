@@ -94,7 +94,6 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_6sdp"
         app:layout_constraintEnd_toEndOf="@+id/mod_body_textview"
         app:layout_constraintStart_toStartOf="@+id/mod_body_textview"
         app:layout_constraintTop_toBottomOf="@+id/mod_body_textview">
