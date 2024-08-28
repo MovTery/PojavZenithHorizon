@@ -272,10 +272,10 @@
     <string name="log_view_label_log_output">Log output:</string>
     <string name="execute_jar_failed_to_read_file">Failed to read the .jar file</string>
     <string name="execute_jar_incompatible_runtime">Execute .jar feature is not compatible with Java %d</string>
-    <string name="controller_button_a">A</string>
-    <string name="controller_button_b">B</string>
-    <string name="controller_button_x">X</string>
-    <string name="controller_button_y">Y</string>
+    <string name="controller_button_a" translatable="false">A</string>
+    <string name="controller_button_b" translatable="false">B</string>
+    <string name="controller_button_x" translatable="false">X</string>
+    <string name="controller_button_y" translatable="false">Y</string>
     <string name="controller_button_start">Start</string>
     <string name="controller_button_select">Select</string>
     <string name="controller_button_trigger_left">Left Trigger</string>

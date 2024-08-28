@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="zh_keycode_unspecified">Não Especificado</string>
     <string name="zh_keycode_special">Especial</string>
     <string name="zh_keycode_special_keyboard">Teclado Virtual</string>
     <string name="zh_keycode_special_pri">Botão Esquerdo</string>
@@ -9,6 +10,11 @@
     <string name="zh_keycode_special_scrollup">Roda do Mouse - Descer</string>
     <string name="zh_keycode_special_scrolldown">Roda do Mouse - Subir</string>
     <string name="zh_keycode_special_menu">Menu Principal</string>
+    <string name="zh_keycode_mouse_right">Botão Direito do Mouse</string>
+    <string name="zh_keycode_mouse_middle">Botão do Meio do Mouse</string>
+    <string name="zh_keycode_mouse_left">Botão Esquerdo do Mouse</string>
+    <string name="zh_keycode_scroll_up">Rolagem Para Cima</string>
+    <string name="zh_keycode_scroll_down">Rolagem Para Baixo</string>
     <string name="zh_keycode_left_alt">Alt Esquerdo</string>
     <string name="zh_keycode_right_alt">Alt Direito</string>
     <string name="zh_keycode_left_shift">Shift Esquerdo</string>

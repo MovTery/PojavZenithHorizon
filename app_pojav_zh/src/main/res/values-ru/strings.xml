@@ -269,4 +269,24 @@
     <string name="log_view_label_log_output">Вывод журнала:</string>
     <string name="execute_jar_failed_to_read_file">Не удалось прочитать файл .jar</string>
     <string name="execute_jar_incompatible_runtime">Функция выполнения .jar несовместима с Java %d</string>
+    <string name="controller_button_start">Начать</string>
+    <string name="controller_button_select">Выбрать</string>
+    <string name="controller_button_trigger_left">Левый триггер</string>
+    <string name="controller_button_trigger_right">Правый триггер</string>
+    <string name="controller_button_shoulder_left">Левая клавиша плеча</string>
+    <string name="controller_button_shoulder_right">Правая клавиша плеча</string>
+    <string name="controller_direction_forward">Джойстик вверх</string>
+    <string name="controller_direction_backward">Джойстик вниз</string>
+    <string name="controller_direction_left">Джойстик влево</string>
+    <string name="controller_direction_right">Джойстик вправо</string>
+    <string name="controller_stick_press_l">Левый джойстик (нажат)</string>
+    <string name="controller_stick_press_r">Правый джойстик (нажат)</string>
+    <string name="controller_dpad_up">D-Pad вверх</string>
+    <string name="controller_dpad_down">D-Pad вниз</string>
+    <string name="controller_dpad_left">D-Pad влево</string>
+    <string name="controller_dpad_right">D-Pad вправо</string>
+    <string name="controller_remapper_operating_mode">Текущий режим</string>
+    <string name="controller_remapper_expand_entry">Раскрыть, чтобы изменить коды клавиш</string>
+    <string name="preference_remap_controller_title">Изменить привязку клавиш контроллера</string>
+    <string name="preference_remap_controller_description">Позволяет вам изменить клавиши клавиатуры, связанные с каждой кнопкой контроллера</string>
 </resources>
