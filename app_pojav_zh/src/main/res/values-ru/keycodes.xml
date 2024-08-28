@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="zh_keycode_unspecified">Не указано</string>
     <string name="zh_keycode_special">Специальный</string>
     <string name="zh_keycode_special_keyboard">Раскладка клавиатуры</string>
     <string name="zh_keycode_special_pri">Левая кнопка</string>
@@ -9,6 +10,11 @@
     <string name="zh_keycode_special_scrollup">Колесо мыши - прокрутка вниз</string>
     <string name="zh_keycode_special_scrolldown">Колесо мыши - прокрутка вверх</string>
     <string name="zh_keycode_special_menu">Главное меню</string>
+    <string name="zh_keycode_mouse_right">Правый клик мыши</string>
+    <string name="zh_keycode_mouse_middle">Средний клик мыши</string>
+    <string name="zh_keycode_mouse_left">Левый клик мыши</string>
+    <string name="zh_keycode_scroll_up">Прокрутка вверх</string>
+    <string name="zh_keycode_scroll_down">Прокрутка вниз</string>
     <string name="zh_keycode_left_alt">Левый Alt</string>
     <string name="zh_keycode_right_alt">Правый Alt</string>
     <string name="zh_keycode_left_shift">Левый Shift</string>

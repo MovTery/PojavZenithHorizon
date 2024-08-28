@@ -28,7 +28,7 @@ public class EfficientAndroidLWJGLKeycode {
         /*  BINARY SEARCH IS PERFORMED ON THE androidKeycodes ARRAY !
             WHEN ADDING A MAPPING, ADD IT SO THE androidKeycodes ARRAY STAYS SORTED ! */
         // Mapping Android Keycodes to LWJGL Keycodes
-        add(KeyEvent.KEYCODE_UNKNOWN, LwjglGlfwKeycode.GLFW_KEY_UNKNOWN, getResString(R.string.zh_unknown));
+        add(KeyEvent.KEYCODE_UNKNOWN, LwjglGlfwKeycode.GLFW_KEY_UNKNOWN, getResString(R.string.zh_keycode_unspecified));
         add(KeyEvent.KEYCODE_HOME, LwjglGlfwKeycode.GLFW_KEY_HOME, "Home");
         // Escape key
         add(KeyEvent.KEYCODE_BACK, LwjglGlfwKeycode.GLFW_KEY_ESCAPE, "Back (Esc)");
@@ -202,7 +202,7 @@ public class EfficientAndroidLWJGLKeycode {
         sendKeyPress(getValueByIndex(index));
     }
 
-    public static int getValueByIndex(int index) {
+    public static short getValueByIndex(int index) {
         return sLwjglKeycodes[index];
     }
 

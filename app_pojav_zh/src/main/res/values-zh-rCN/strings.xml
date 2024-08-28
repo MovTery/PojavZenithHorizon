@@ -303,4 +303,24 @@
     <string name="log_view_label_log_output">日志输出:</string>
     <string name="execute_jar_failed_to_read_file">读取 .jar 文件失败</string>
     <string name="execute_jar_incompatible_runtime">执行 .jar 功能与 Java %d 不兼容</string>
+    <string name="controller_button_start">开始</string>
+    <string name="controller_button_select">选择</string>
+    <string name="controller_button_trigger_left">左触发键</string>
+    <string name="controller_button_trigger_right">右触发键</string>
+    <string name="controller_button_shoulder_left">左肩键</string>
+    <string name="controller_button_shoulder_right">右肩键</string>
+    <string name="controller_direction_forward">摇杆上</string>
+    <string name="controller_direction_backward">摇杆下</string>
+    <string name="controller_direction_left">摇杆左</string>
+    <string name="controller_direction_right">摇杆右</string>
+    <string name="controller_stick_press_l">左摇杆（按下）</string>
+    <string name="controller_stick_press_r">右摇杆（按下）</string>
+    <string name="controller_dpad_up">方向键上</string>
+    <string name="controller_dpad_down">方向键下</string>
+    <string name="controller_dpad_left">方向键左</string>
+    <string name="controller_dpad_right">方向键右</string>
+    <string name="controller_remapper_operating_mode">当前模式</string>
+    <string name="controller_remapper_expand_entry">展开以更改按键码</string>
+    <string name="preference_remap_controller_title">更改控制器按键绑定</string>
+    <string name="preference_remap_controller_description">允许你修改绑定到每个控制器按钮的键盘按键</string>
 </resources>

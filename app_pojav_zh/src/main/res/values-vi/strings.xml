@@ -272,4 +272,24 @@ Nếu bạn muốn sử dụng nguồn tải xuống chính thức, nhấn vào 
     <string name="log_view_label_log_output">Đầu ra nhật ký:</string>
     <string name="execute_jar_failed_to_read_file">Không thể đọc tệp .jar</string>
     <string name="execute_jar_incompatible_runtime">Tính năng thực thi .jar không tương thích với Java %d</string>
+    <string name="controller_button_start">Bắt đầu</string>
+    <string name="controller_button_select">Chọn</string>
+    <string name="controller_button_trigger_left">Cò trái</string>
+    <string name="controller_button_trigger_right">Cò phải</string>
+    <string name="controller_button_shoulder_left">Nút vai trái</string>
+    <string name="controller_button_shoulder_right">Nút vai phải</string>
+    <string name="controller_direction_forward">Joystik lên</string>
+    <string name="controller_direction_backward">Joystik xuống</string>
+    <string name="controller_direction_left">Joystik trái</string>
+    <string name="controller_direction_right">Joystik phải</string>
+    <string name="controller_stick_press_l">Joystik trái (nhấn)</string>
+    <string name="controller_stick_press_r">Joystik phải (nhấn)</string>
+    <string name="controller_dpad_up">D-Pad lên</string>
+    <string name="controller_dpad_down">D-Pad xuống</string>
+    <string name="controller_dpad_left">D-Pad trái</string>
+    <string name="controller_dpad_right">D-Pad phải</string>
+    <string name="controller_remapper_operating_mode">Chế độ hiện tại</string>
+    <string name="controller_remapper_expand_entry">Mở rộng để thay đổi mã phím</string>
+    <string name="preference_remap_controller_title">Thay đổi ánh xạ phím điều khiển</string>
+    <string name="preference_remap_controller_description">Cho phép bạn sửa đổi các phím bàn phím được gán cho mỗi nút điều khiển</string>
 </resources>

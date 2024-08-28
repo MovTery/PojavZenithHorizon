@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="zh_keycode_unspecified">Unspecified</string>
     <string name="zh_keycode_special">Special</string>
     <string name="zh_keycode_special_keyboard">Keyboard</string>
     <string name="zh_keycode_special_pri">Left Click</string>
@@ -9,6 +10,11 @@
     <string name="zh_keycode_special_scrollup">Mouse Wheel - Scroll Up</string>
     <string name="zh_keycode_special_scrolldown">Mouse Wheel - Scroll Down</string>
     <string name="zh_keycode_special_menu">Main Menu</string>
+    <string name="zh_keycode_mouse_right">Right Mouse</string>
+    <string name="zh_keycode_mouse_middle">Middle Mouse</string>
+    <string name="zh_keycode_mouse_left">Left Mouse</string>
+    <string name="zh_keycode_scroll_up">Scroll Up</string>
+    <string name="zh_keycode_scroll_down">Scroll Down</string>
     <string name="zh_keycode_left_alt">Left Alt</string>
     <string name="zh_keycode_right_alt">Right Alt</string>
     <string name="zh_keycode_left_shift">Left Shift</string>
