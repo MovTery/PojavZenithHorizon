@@ -284,17 +284,11 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
         }
 
         mResetButton.setOnClickListener(v -> {
-            mModFilters.setName("");
-            mModFilters.setMcVersion("");
-            mModFilters.setModloader(null);
-            mModFilters.setSort(0);
-            mModFilters.setPlatform(ModFilters.ApiPlatform.BOTH);
-            mModFilters.setCategory(ModCategory.Category.ALL);
-
             //重置控件
+            mSearchEditText.setText("");
             mSelectedVersion.setText("");
-            if (mSortBy != null) mSortBy.selectItemByIndex(0);
             if (mPlatform != null) mPlatform.selectItemByIndex(0);
+            if (mSortBy != null) mSortBy.selectItemByIndex(0);
             if (mCategory != null) mCategory.selectItemByIndex(0);
             if (mModloader != null) mModloader.selectItemByIndex(0);
         });

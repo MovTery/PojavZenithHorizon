@@ -29,7 +29,7 @@ abstract class TranslateManager(private val classify: TranslateClassify) {
     }
 
     /**
-     * 通过原始名称得到一个匹配度最高的中文翻译名
+     * 通过原始名称得到一个完全匹配的中文翻译名
      */
     fun searchToChinese(origin: String): String? {
         if (infos.isEmpty()) return null
