@@ -37,7 +37,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.StringJoiner;
+import java.util.TreeSet;
 import java.util.zip.ZipFile;
 
 public class ModrinthApi implements ModpackApi{
@@ -130,6 +132,7 @@ public class ModrinthApi implements ModpackApi{
                     subTitle,
                     hit.get("description").getAsString(),
                     hit.get("downloads").getAsInt(),
+                    getAllCategories(hit),
                     modLoaders.toArray(new ModLoaderList.ModLoader[]{}),
                     iconUrl));
         }
@@ -228,6 +231,7 @@ public class ModrinthApi implements ModpackApi{
                                 subTitle,
                                 hit.get("description").getAsString(),
                                 hit.get("downloads").getAsInt(),
+                                getAllCategories(hit),
                                 modLoadersList.toArray(new ModLoaderList.ModLoader[]{}),
                                 iconUrl
                         ));
@@ -266,6 +270,16 @@ public class ModrinthApi implements ModpackApi{
                     ModTranslateManager.INSTANCE.searchToChinese(title);
         }
         return subTitle;
+    }
+
+    private Set<ModCategory.Category> getAllCategories(JsonObject hit) {
+        Set<ModCategory.Category> list = new TreeSet<>();
+        for (JsonElement categories : hit.get("categories").getAsJsonArray()) {
+            String name = categories.getAsString();
+            ModCategory.Category category = ModCategory.getCategoryFromModrinthName(name);
+            if (category != null) list.add(category);
+        }
+        return list;
     }
 
     private SearchResult returnEmptyResult() {

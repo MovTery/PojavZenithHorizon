@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.pojavzh.feature.mod.ModCategory;
 import com.movtery.pojavzh.feature.mod.ModFilters;
 import com.movtery.pojavzh.feature.mod.ModLoaderList;
 import com.movtery.pojavzh.ui.fragment.DownloadModFragment;
@@ -146,6 +148,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final Context context;
         private final View view;
+        private final LinearLayout mCategoriesLayout;
         private final TextView mTitle, mSubTitle, mDescription, mDownloadCount, mModloader;
         private final ImageView mIconView, mSourceView;
         private Future<?> mExtensionFuture;
@@ -159,6 +162,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             mViewHolderSet.add(this);
 
             // Define click listener for the ViewHolder's View
+            mCategoriesLayout = view.findViewById(R.id.mod_categories_Layout);
             mTitle = view.findViewById(R.id.mod_title_textview);
             mSubTitle = view.findViewById(R.id.mod_subtitle_textview);
             mDescription = view.findViewById(R.id.mod_body_textview);
@@ -225,6 +229,11 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 mTitle.setText(item.title);
             }
 
+            mCategoriesLayout.removeAllViews();
+            for (ModCategory.Category category : item.categories) {
+                addCategoryView(context, mCategoriesLayout, context.getString(category.getResNameID()));
+            }
+
             String downloaderCount = StringUtils.insertSpace(context.getString(R.string.zh_profile_mods_information_download_count), NumberWithUnits.formatNumberWithUnit(item.downloadCount,
                     //判断当前系统语言是否为英文
                     ZHTools.isEnglish(context)));
@@ -250,6 +259,14 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 default:
                     throw new RuntimeException("Unknown API source");
             }
+        }
+
+        private void addCategoryView(Context context, LinearLayout layout, String text) {
+            LayoutInflater inflater = LayoutInflater.from(context);
+            TextView textView = (TextView) inflater.inflate(R.layout.item_mod_category_textview, layout, false);
+            textView.setText(text);
+
+            layout.addView(textView);
         }
     }
 

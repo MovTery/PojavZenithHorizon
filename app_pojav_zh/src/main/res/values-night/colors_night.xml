@@ -23,6 +23,8 @@
     <color name="edit_box_fill">#4C4C4C</color>
     <color name="edit_box_fill_selected">#636363</color>
 
+    <color name="mod_category_fill">#804C4C4C</color>
+
     <color name="icon_color">#FFFFFF</color>
 
     <color name="primary_text">#FFFFFF</color>

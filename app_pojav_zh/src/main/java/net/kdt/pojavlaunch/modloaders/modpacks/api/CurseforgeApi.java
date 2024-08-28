@@ -114,6 +114,7 @@ public class CurseforgeApi implements ModpackApi{
                     subTitle,
                     dataElement.get("summary").getAsString(),
                     dataElement.get("downloadCount").getAsInt(),
+                    getAllCategories(dataElement),
                     getModloaders(dataElement.getAsJsonArray("latestFilesIndexes")),
                     iconUrl);
             modItemList.add(modItem);
@@ -236,6 +237,7 @@ public class CurseforgeApi implements ModpackApi{
                                 subTitle,
                                 hit.get("summary").getAsString(),
                                 hit.get("downloadCount").getAsInt(),
+                                getAllCategories(hit),
                                 itemsModloaderNames.toArray(new ModLoaderList.ModLoader[]{}),
                                 iconUrl
                         ));
@@ -266,6 +268,16 @@ public class CurseforgeApi implements ModpackApi{
                     ModTranslateManager.INSTANCE.searchToChinese(title);
         }
         return subTitle;
+    }
+
+    private Set<ModCategory.Category> getAllCategories(JsonObject hit) {
+        Set<ModCategory.Category> list = new TreeSet<>();
+        for (JsonElement categories : hit.get("categories").getAsJsonArray()) {
+            String id = categories.getAsJsonObject().get("id").getAsString();
+            ModCategory.Category category = ModCategory.getCategoryFromCurseForgeId(id);
+            if (category != null) list.add(category);
+        }
+        return list;
     }
 
     @Override
