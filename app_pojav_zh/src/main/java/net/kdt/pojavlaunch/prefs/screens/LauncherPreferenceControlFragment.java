@@ -15,6 +15,7 @@ import com.movtery.pojavzh.ui.fragment.CustomMouseFragment;
 import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.fragments.GamepadMapperFragment;
 import net.kdt.pojavlaunch.prefs.CustomSeekBarPreference;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
@@ -91,6 +92,12 @@ public class LauncherPreferenceControlFragment extends LauncherPreferenceFragmen
         gyroSampleRateSeek.setValue(gyroSampleRate);
         gyroSampleRateSeek.setSuffix(" ms");
         computeVisibility();
+
+        Preference changeControllerBindings = requirePreference("changeControllerBindings");
+        changeControllerBindings.setOnPreferenceClickListener(preference -> {
+            ZHTools.swapSettingsFragment(requireActivity(), GamepadMapperFragment.class, GamepadMapperFragment.TAG, null, true);
+            return true;
+        });
     }
 
     @Override
