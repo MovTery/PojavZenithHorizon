@@ -162,9 +162,9 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             mViewHolderSet.add(this);
 
             // Define click listener for the ViewHolder's View
-            mCategoriesLayout = view.findViewById(R.id.mod_categories_Layout);
             mTitle = view.findViewById(R.id.mod_title_textview);
             mSubTitle = view.findViewById(R.id.mod_subtitle_textview);
+            mCategoriesLayout = view.findViewById(R.id.mod_categories_Layout);
             mDescription = view.findViewById(R.id.mod_body_textview);
             mDownloadCount = view.findViewById(R.id.zh_mod_download_count_textview);
             mModloader = view.findViewById(R.id.zh_mod_modloader_textview);
