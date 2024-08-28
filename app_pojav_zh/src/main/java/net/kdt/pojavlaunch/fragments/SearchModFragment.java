@@ -58,6 +58,7 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
     private View mModsLayout, mOperateLayout, mLoadingView;
     private EditText mSearchEditText;
     private RecyclerView mRecyclerview;
+    private ImageButton mBackToTop;
     private ModItemAdapter mModItemAdapter;
     private TextView mStatusTextView;
     private ColorStateList mDefaultTextColor;
@@ -89,6 +90,7 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
         mModFilters.setModpack(this.isModpack);
 
         mRecyclerview = view.findViewById(R.id.search_mod_list);
+        mBackToTop = view.findViewById(R.id.search_mod_back_to_top);
         mLoadingView = view.findViewById(R.id.zh_mods_loading);
         mStatusTextView = view.findViewById(R.id.search_mod_status_text);
         Button mBackButton = view.findViewById(R.id.search_mod_back);
@@ -106,12 +108,27 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerview.setAdapter(mModItemAdapter);
 
+        mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (layoutManager != null && recyclerView.getAdapter() != null) {
+                    int lastPosition = layoutManager.findLastVisibleItemPosition();
+                    boolean b = lastPosition >= 12;
+
+                    AnimUtils.setVisibilityAnim(mBackToTop, b);
+                }
+            }
+        });
+
         mSearchEditText.setOnEditorActionListener((v, actionId, event) -> {
             searchMods(mSearchEditText.getText().toString());
             mSearchEditText.clearFocus();
             return false;
         });
 
+        mBackToTop.setOnClickListener(v -> mRecyclerview.smoothScrollToPosition(0));
         mBackButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
 
         searchMods(null); //自动搜索一次

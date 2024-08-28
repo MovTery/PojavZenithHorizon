@@ -87,6 +87,20 @@
                 app:layout_constraintTop_toTopOf="@+id/search_mod_list"
                 tools:ignore="HardcodedText" />
 
+            <ImageButton
+                android:id="@+id/search_mod_back_to_top"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/_18sdp"
+                android:layout_marginBottom="@dimen/_16sdp"
+                android:visibility="gone"
+                android:rotation="-90"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_spinner_arrow_right"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

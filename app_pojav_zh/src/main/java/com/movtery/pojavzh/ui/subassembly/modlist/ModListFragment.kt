@@ -146,10 +146,9 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager?
-                val adapter = recyclerView.adapter
-                if (layoutManager != null && adapter != null) {
-                    val firstPosition = layoutManager.findFirstVisibleItemPosition()
-                    val b = firstPosition >= adapter.itemCount / 3
+                if (layoutManager != null && recyclerView.adapter != null) {
+                    val lastPosition = layoutManager.findFirstVisibleItemPosition()
+                    val b = lastPosition >= 12
 
                     AnimUtils.setVisibilityAnim(mBackToTop!!, b)
                 }
