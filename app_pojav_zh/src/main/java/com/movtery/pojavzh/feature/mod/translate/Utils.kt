@@ -21,10 +21,14 @@ class Utils {
             }
         }
 
-        fun searchBestMatch(infos: MutableList<TranslateInfoItem>, input: String, matchBy: (TranslateInfoItem) -> String?, returnBy: (TranslateInfoItem) -> String?): String? {
+        fun searchBestMatch(infos: MutableList<TranslateInfoItem>,
+                            input: String, matchBy: (TranslateInfoItem) -> String?,
+                            returnBy: (TranslateInfoItem) -> String?,
+                            exactMatch: Boolean = false): String? {
             val normalizedInput = input.trim().lowercase()
             //完全匹配
             infos.firstOrNull { matchBy(it).equals(normalizedInput, ignoreCase = true) }?.let { return returnBy(it) }
+            if (exactMatch) return null
             //包含
             val candidates = infos.filter { matchBy(it)?.contains(normalizedInput, ignoreCase = true) ?: false }
 
