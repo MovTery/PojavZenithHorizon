@@ -291,15 +291,19 @@ public class ModrinthApi implements ModpackApi{
         if(mcVersion == null) return null;
         String modLoaderVersion;
         if((modLoaderVersion = dependencies.get("forge")) != null) {
+            Logging.i("ModLoader", "Forge");
             return new ModLoader(ModLoader.MOD_LOADER_FORGE, modLoaderVersion, mcVersion);
         }
         if((modLoaderVersion = dependencies.get("neoforge")) != null) {
+            Logging.i("ModLoader", "NeoForge");
             return new ModLoader(ModLoader.MOD_LOADER_NEOFORGE, modLoaderVersion, mcVersion);
         }
         if((modLoaderVersion = dependencies.get("fabric-loader")) != null) {
+            Logging.i("ModLoader", "Fabric");
             return new ModLoader(ModLoader.MOD_LOADER_FABRIC, modLoaderVersion, mcVersion);
         }
         if((modLoaderVersion = dependencies.get("quilt-loader")) != null) {
+            Logging.i("ModLoader", "Quilt");
             return new ModLoader(ModLoader.MOD_LOADER_QUILT, modLoaderVersion, mcVersion);
         }
         return null;

@@ -49,6 +49,25 @@ public class ModLoader {
     }
 
     /**
+     * Obtain the name of the ModLoader based on the Id value stored internally
+     * @return ModLoader Name
+     */
+    public String getNameById() {
+        switch (modLoaderType) {
+            case MOD_LOADER_FORGE:
+                return "Forge";
+            case MOD_LOADER_NEOFORGE:
+                return "NeoForge";
+            case MOD_LOADER_FABRIC:
+                return "Fabric";
+            case MOD_LOADER_QUILT:
+                return "Quilt";
+            default:
+                return null;
+        }
+    }
+
+    /**
      * Get the Runnable that needs to run in order to download the mod loader.
      * The task will also install the mod loader if it does not require GUI installation
      * @param listener the listener that gets notified of the installation status
@@ -59,7 +78,7 @@ public class ModLoader {
             case MOD_LOADER_FORGE:
                 return new ForgeDownloadTask(listener, minecraftVersion, modLoaderVersion);
             case MOD_LOADER_NEOFORGE:
-                return new NeoForgeDownloadTask(listener, minecraftVersion, modLoaderVersion);
+                return new NeoForgeDownloadTask(listener, modLoaderVersion);
             case MOD_LOADER_FABRIC:
                 return createFabriclikeTask(listener, FabriclikeUtils.FABRIC_UTILS);
             case MOD_LOADER_QUILT:

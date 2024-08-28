@@ -1,6 +1,7 @@
 package com.movtery.pojavzh.feature.mod.modloader
 
 import com.kdt.mcgui.ProgressLayout
+import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils.Companion.downloadNeoForgeVersions
 import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils.Companion.downloadNeoForgedForgeVersions
 import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils.Companion.getNeoForgeInstallerUrl
@@ -15,46 +16,28 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
 
-class NeoForgeDownloadTask : Runnable, DownloaderFeedback {
-    private val mListener: ModloaderDownloadListener
+class NeoForgeDownloadTask(listener: ModloaderDownloadListener, neoforgeVersion: String) : Runnable, DownloaderFeedback {
+    private val mListener: ModloaderDownloadListener = listener
     private var mDownloadUrl: String? = null
-    private var mFullVersion: String? = null
-    private var mLoaderVersion: String? = null
+    private var mLoaderVersion: String? = neoforgeVersion
     private var mGameVersion: String? = null
 
-    constructor(listener: ModloaderDownloadListener, neoforgeVersion: String) {
-        this.mListener = listener
+    init {
         if (neoforgeVersion.contains("1.20.1")) {
             this.mDownloadUrl = getNeoForgedForgeInstallerUrl(neoforgeVersion)
         } else {
             this.mDownloadUrl = getNeoForgeInstallerUrl(neoforgeVersion)
         }
-        this.mFullVersion = neoforgeVersion
-    }
-
-    constructor(listener: ModloaderDownloadListener, gameVersion: String?, loaderVersion: String?) {
-        this.mListener = listener
-        this.mLoaderVersion = loaderVersion
-        this.mGameVersion = gameVersion
+        Logging.i("NeoForgeDownloadTask", "Version : $mLoaderVersion, Download Url : $mDownloadUrl")
     }
 
     override fun run() {
-        if (this.mFullVersion != null) {
-            try {
-                if (if (mFullVersion!!.contains("1.20.1")) determineNeoForgedForgeDownloadUrl() else determineNeoForgeDownloadUrl()) {
-                    downloadNeoForge()
-                }
-            } catch (e: Exception) {
-                throw RuntimeException(e)
+        try {
+            if (if (mLoaderVersion!!.contains("1.20.1")) determineNeoForgedForgeDownloadUrl() else determineNeoForgeDownloadUrl()) {
+                downloadNeoForge()
             }
-        } else {
-            try {
-                if (if (this.mGameVersion == "1.20.1") determineNeoForgedForgeDownloadUrl() else determineNeoForgeDownloadUrl()) {
-                    downloadNeoForge()
-                }
-            } catch (e: Exception) {
-                throw RuntimeException(e)
-            }
+        } catch (e: Exception) {
+            throw RuntimeException(e)
         }
         ProgressLayout.clearProgress(ProgressLayout.INSTALL_MODPACK)
     }
@@ -65,7 +48,7 @@ class NeoForgeDownloadTask : Runnable, DownloaderFeedback {
             ProgressLayout.INSTALL_MODPACK,
             progress100,
             R.string.forge_dl_progress,
-            mFullVersion
+            mLoaderVersion
         )
     }
 
@@ -74,7 +57,7 @@ class NeoForgeDownloadTask : Runnable, DownloaderFeedback {
             ProgressLayout.INSTALL_MODPACK,
             0,
             R.string.forge_dl_progress,
-            mFullVersion
+            mLoaderVersion
         )
         try {
             val destinationFile = File(PathAndUrlManager.DIR_CACHE, "neoforge-installer.jar")
@@ -89,7 +72,7 @@ class NeoForgeDownloadTask : Runnable, DownloaderFeedback {
     }
 
     private fun determineDownloadUrl(findVersion: Boolean): Boolean {
-        if (mDownloadUrl != null && mFullVersion != null) return true
+        if (mDownloadUrl != null && mLoaderVersion != null) return true
         ProgressKeeper.submitProgress(
             ProgressLayout.INSTALL_MODPACK,
             0,
@@ -117,7 +100,7 @@ class NeoForgeDownloadTask : Runnable, DownloaderFeedback {
         val versionStart = "$mGameVersion-$mLoaderVersion"
         for (versionName in neoForgeUtils) {
             if (!versionName.startsWith(versionStart)) continue
-            mFullVersion = versionName
+            mLoaderVersion = versionName
             mDownloadUrl = installerUrl
             return true
         }
@@ -126,14 +109,14 @@ class NeoForgeDownloadTask : Runnable, DownloaderFeedback {
 
     @Throws(Exception::class)
     fun findNeoForgeVersion(): Boolean {
-        return findVersion(downloadNeoForgeVersions(false), getNeoForgeInstallerUrl(mFullVersion))
+        return findVersion(downloadNeoForgeVersions(false), getNeoForgeInstallerUrl(mLoaderVersion))
     }
 
     @Throws(Exception::class)
     fun findNeoForgedForgeVersion(): Boolean {
         return findVersion(
             downloadNeoForgedForgeVersions(false),
-            getNeoForgedForgeInstallerUrl(mFullVersion)
+            getNeoForgedForgeInstallerUrl(mLoaderVersion)
         )
     }
 }
