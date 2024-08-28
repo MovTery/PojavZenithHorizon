@@ -73,6 +73,8 @@ public class ModpackInstaller {
             return null;
         }
 
+        Logging.i("InstallModpack", "ModLoader is " + modLoaderInfo.getNameById());
+
         // Create the instance
         MinecraftProfile profile = new MinecraftProfile();
         profile.gameDir = "./custom_instances/" + modpackName;
@@ -87,7 +89,7 @@ public class ModpackInstaller {
         return modLoaderInfo;
     }
 
-    interface InstallFunction {
+    public interface InstallFunction {
         ModLoader installModpack(File modpackFile, File instanceDestination) throws IOException;
     }
 }
