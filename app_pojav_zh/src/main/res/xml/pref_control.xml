@@ -136,12 +136,15 @@
     <PreferenceCategory
         android:title="@string/preference_category_controller_settings"
         app2:iconSpaceReserved="false" >
-
+        <Preference
+            android:key="changeControllerBindings"
+            android:title="@string/preference_remap_controller_title"
+            android:summary="@string/preference_remap_controller_description"
+            app2:iconSpaceReserved="false" />
         <net.kdt.pojavlaunch.prefs.GamepadRemapPreference
             android:title="@string/preference_wipe_controller_title"
             android:summary="@string/preference_wipe_controller_description"
             app2:iconSpaceReserved="false" />
-
         <net.kdt.pojavlaunch.prefs.CustomSeekBarPreference
             android:key="gamepad_deadzone_scale"
             android:title="@string/preference_deadzone_scale_title"
