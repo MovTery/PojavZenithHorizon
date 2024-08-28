@@ -29,15 +29,15 @@ abstract class TranslateManager(private val classify: TranslateClassify) {
     }
 
     /**
-     * 通过原始名称得到一个准确或还算准确的中文翻译名
+     * 通过原始名称得到一个匹配度最高的中文翻译名
      */
     fun searchToChinese(origin: String): String? {
         if (infos.isEmpty()) return null
-        return Utils.searchBestMatch(infos, origin, matchBy = { it.originName }, returnBy = { it.chineseName })
+        return Utils.searchBestMatch(infos, origin, matchBy = { it.originName }, returnBy = { it.chineseName }, true)
     }
 
     /**
-     * 通过中文名称得到一个准确或还算准确的原始名
+     * 通过中文名称得到一个匹配度最高的原始名
      */
     fun searchToOrigin(chinese: String): String? {
         if (infos.isEmpty()) return null
