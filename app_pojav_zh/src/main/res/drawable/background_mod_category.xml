@@ -12,5 +12,4 @@
                 android:color="@color/mod_category_fill" />
         </shape>
     </item>
-    <item android:drawable="?attr/selectableItemBackground"/>
 </layer-list>
