@@ -43,11 +43,11 @@ class CheckNewNotice {
                 @Throws(IOException::class)
                 override fun onResponse(call: Call?, response: Response?) {
                     if (!response!!.isSuccessful) {
-                        Logging.e("CheckNewNotice", "Unexpected code ${response.code()}")
+                        Logging.e("CheckNewNotice", "Unexpected code ${response.code}")
                     } else {
                         runCatching {
-                            Objects.requireNonNull(response.body())
-                            val responseBody = response.body()!!.string()
+                            Objects.requireNonNull(response.body)
+                            val responseBody = response.body!!.string()
 
                             val originJson = JSONObject(responseBody)
                             val rawBase64 = originJson.getString("content")
