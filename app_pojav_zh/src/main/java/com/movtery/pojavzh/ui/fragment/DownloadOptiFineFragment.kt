@@ -37,6 +37,7 @@ class DownloadOptiFineFragment : ModListFragment(), ModloaderDownloadListener {
     override fun init() {
         setIcon(ContextCompat.getDrawable(fragmentActivity!!, R.drawable.ic_optifine))
         setNameText("OptiFine")
+        setLink("https://www.optifine.net/home")
         setReleaseCheckBoxGone()
         parseBundle()
         super.init()

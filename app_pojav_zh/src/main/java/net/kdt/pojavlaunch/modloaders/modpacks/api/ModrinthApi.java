@@ -49,6 +49,11 @@ public class ModrinthApi implements ModpackApi{
     }
 
     @Override
+    public String getWebUrl(ModItem item) {
+        return "https://modrinth.com/"+ (item.isModpack ? "modpack" : "mod") + "/" + item.id;
+    }
+
+    @Override
     public SearchResult searchMod(ModFilters modFilters, SearchResult previousPageResult) {
         ModCategory.Category categoryName = modFilters.getCategory();
         if (categoryName != ModCategory.Category.ALL && categoryName.getModrinthName() == null) return returnEmptyResult();

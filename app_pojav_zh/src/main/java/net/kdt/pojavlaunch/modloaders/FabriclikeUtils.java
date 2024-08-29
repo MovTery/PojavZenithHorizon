@@ -18,20 +18,22 @@ import java.util.List;
 
 public class FabriclikeUtils {
 
-    public static final FabriclikeUtils FABRIC_UTILS = new FabriclikeUtils("https://meta.fabricmc.net/v2", "fabric", "Fabric", "fabric");
-    public static final FabriclikeUtils QUILT_UTILS = new FabriclikeUtils("https://meta.quiltmc.org/v3", "quilt", "Quilt", "quilt");
+    public static final FabriclikeUtils FABRIC_UTILS = new FabriclikeUtils("https://fabricmc.net/", "https://meta.fabricmc.net/v2", "fabric", "Fabric", "fabric");
+    public static final FabriclikeUtils QUILT_UTILS = new FabriclikeUtils("https://quiltmc.org/", "https://meta.quiltmc.org/v3", "quilt", "Quilt", "quilt");
 
     private static final String LOADER_METADATA_URL = "%s/versions/loader";
     private static final String GAME_METADATA_URL = "%s/versions/game";
 
     private static final String JSON_DOWNLOAD_URL = "%s/versions/loader/%s/%s/profile/json";
 
+    private final String mWebUrl;
     private final String mApiUrl;
     private final String mCachePrefix;
     private final String mName;
     private final String mIconName;
 
-    private FabriclikeUtils(String mApiUrl, String cachePrefix, String mName, String iconName) {
+    private FabriclikeUtils(String mWebUrl, String mApiUrl, String cachePrefix, String mName, String iconName) {
+        this.mWebUrl = mWebUrl;
         this.mApiUrl = mApiUrl;
         this.mCachePrefix = cachePrefix;
         this.mIconName = iconName;
@@ -72,6 +74,10 @@ public class FabriclikeUtils {
             throw new RuntimeException(e);
         }
         return String.format(JSON_DOWNLOAD_URL, mApiUrl, gameVersion, loaderVersion);
+    }
+
+    public String getWebUrl() {
+        return mWebUrl;
     }
 
     public String getName() {

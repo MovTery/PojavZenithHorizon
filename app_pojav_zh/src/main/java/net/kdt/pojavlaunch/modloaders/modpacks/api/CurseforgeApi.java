@@ -64,6 +64,17 @@ public class CurseforgeApi implements ModpackApi{
     }
 
     @Override
+    public String getWebUrl(ModItem item) {
+        JsonObject response = searchModFromID(item.id);
+        JsonObject hit = GsonJsonUtils.getJsonObjectSafe(response, "data");
+        if (hit != null) {
+            JsonObject links = hit.getAsJsonObject("links");
+            return links.get("websiteUrl").getAsString();
+        }
+        return null;
+    }
+
+    @Override
     public SearchResult searchMod(ModFilters modFilters, SearchResult previousPageResult) {
         ModCategory.Category category = modFilters.getCategory();
         if (category != ModCategory.Category.ALL && category.getCurseforgeID() == null) return returnEmptyResult();

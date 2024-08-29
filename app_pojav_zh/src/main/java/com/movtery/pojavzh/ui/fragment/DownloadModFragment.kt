@@ -40,9 +40,18 @@ class DownloadModFragment : ModListFragment() {
     private var mImageReceiver: ImageReceiver? = null
     private var mIsModpack = false
     private var mModsPath: String? = null
+    private var linkGetSubmit: Future<*>? = null
 
     override fun init() {
         parseViewModel()
+        linkGetSubmit = PojavApplication.sExecutorService.submit {
+            runCatching {
+                val webUrl = mModApi!!.getWebUrl(mModItem)
+                fragmentActivity?.runOnUiThread { setLink(webUrl) }
+            }.getOrElse { e ->
+                Logging.e("DownloadModFragment", "Failed to retrieve the website link, ${Tools.printToString(e)}")
+            }
+        }
         super.init()
     }
 
@@ -56,6 +65,9 @@ class DownloadModFragment : ModListFragment() {
 
     override fun onDestroy() {
         mParentUIRecyclerView?.isEnabled = true
+        linkGetSubmit?.apply {
+            if (!isCancelled && !isDone) cancel(true)
+        }
         super.onDestroy()
     }
 
