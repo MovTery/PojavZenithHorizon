@@ -24,6 +24,7 @@ import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
 import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
 import java.util.concurrent.Future
 
@@ -40,6 +41,7 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
     private var mSelectTitle: TextView? = null
     private var mFailedToLoad: TextView? = null
     private var mIcon: ImageView? = null
+    private var mLaunchLink: ImageView? = null
     private var mBackToTop: ImageButton? = null
     private var mReturnButton: Button? = null
     private var mRefreshButton: Button? = null
@@ -132,6 +134,7 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
         mBackToTop = view.findViewById(R.id.zh_mod_back_to_top)
         mLoadingView = view.findViewById(R.id.zh_mod_loading)
         mIcon = view.findViewById(R.id.zh_mod_icon)
+        mLaunchLink = view.findViewById(R.id.zh_launch_link)
         mTitleLayout = view.findViewById(R.id.mod_title_layout)
         mNameText = view.findViewById(R.id.zh_mod_name)
         mSubTitleText = view.findViewById(R.id.zh_mod_subtitle)
@@ -184,6 +187,14 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
 
     protected fun cancelFailedToLoad() {
         setVisibilityAnimYoYo(mFailedToLoad!!, false)
+    }
+
+    protected fun setLink(link: String?) {
+        if (link == null) return
+        mLaunchLink?.let { view ->
+            view.setOnClickListener { Tools.openURL(fragmentActivity, link) }
+            AnimUtils.setVisibilityAnim(view, true)
+        }
     }
 
     fun switchToChild(adapter: RecyclerView.Adapter<*>?, title: String?) {

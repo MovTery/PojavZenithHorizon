@@ -35,6 +35,12 @@ public class CommonApi implements ModpackApi {
     }
 
     @Override
+    public String getWebUrl(ModItem item) {
+        if (item == null) return null;
+        return getModpackApi(item.apiSource).getWebUrl(item);
+    }
+
+    @Override
     public SearchResult searchMod(ModFilters modFilters, SearchResult previousPageResult) {
         CommonApiSearchResult commonApiSearchResult = (CommonApiSearchResult) previousPageResult;
         // If there are no previous page results, create a new array. Otherwise, use the one from the previous page

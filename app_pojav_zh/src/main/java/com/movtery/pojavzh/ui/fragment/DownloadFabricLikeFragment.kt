@@ -26,6 +26,7 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
     override fun init() {
         setIcon(ContextCompat.getDrawable(fragmentActivity!!, icon))
         setNameText(utils.name)
+        setLink(utils.webUrl)
         super.init()
     }
 

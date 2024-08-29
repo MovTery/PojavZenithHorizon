@@ -237,6 +237,20 @@
                 app:layout_constraintTop_toBottomOf="@+id/mod_title_layout"
                 tools:ignore="HardcodedText" />
 
+            <ImageView
+                android:id="@+id/zh_launch_link"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:contentDescription="@string/zh_about_access_link"
+                android:src="@drawable/ic_launch_link"
+                android:scaleType="centerInside"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

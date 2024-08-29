@@ -19,6 +19,12 @@ import java.io.IOException;
  *
  */
 public interface ModpackApi {
+    /**
+     * Get the current mod's website link.
+     * @param item Used to obtain ID information.
+     * @return Website link, return null if retrieval fails.
+     */
+    String getWebUrl(ModItem item);
 
     /**
      * @param modFilters Filters
