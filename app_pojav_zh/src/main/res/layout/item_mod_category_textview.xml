@@ -4,6 +4,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginEnd="@dimen/_4sdp"
-    android:singleLine="true"
+    android:layout_marginVertical="@dimen/_1sdp"
     android:background="@drawable/background_mod_category"
     tools:text="Test"/>

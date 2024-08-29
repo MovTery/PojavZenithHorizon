@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +17,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.flexbox.FlexboxLayout;
 import com.movtery.pojavzh.feature.mod.ModCategory;
 import com.movtery.pojavzh.feature.mod.ModFilters;
 import com.movtery.pojavzh.feature.mod.ModLoaderList;
@@ -148,7 +148,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final Context context;
         private final View view;
-        private final LinearLayout mCategoriesLayout;
+        private final FlexboxLayout mCategoriesLayout;
         private final TextView mTitle, mSubTitle, mDescription, mDownloadCount, mModloader;
         private final ImageView mIconView, mSourceView;
         private Future<?> mExtensionFuture;
@@ -261,7 +261,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
         }
 
-        private void addCategoryView(Context context, LinearLayout layout, String text) {
+        private void addCategoryView(Context context, FlexboxLayout layout, String text) {
             LayoutInflater inflater = LayoutInflater.from(context);
             TextView textView = (TextView) inflater.inflate(R.layout.item_mod_category_textview, layout, false);
             textView.setText(text);

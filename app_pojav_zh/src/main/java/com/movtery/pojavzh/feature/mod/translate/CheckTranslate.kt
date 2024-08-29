@@ -52,13 +52,13 @@ class CheckTranslate {
                 @Throws(IOException::class)
                 override fun onResponse(call: Call?, response: Response?) {
                     if (!response!!.isSuccessful) {
-                        Logging.e("CheckModTranslate", "Unexpected code ${response.code()}")
+                        Logging.e("CheckModTranslate", "Unexpected code ${response.code}")
                         listener.onEnd(null)
                     } else {
                         Logging.i("CheckModTranslate", "The data was updated successfully : ${classify.name}")
                         runCatching {
-                            Objects.requireNonNull(response.body())
-                            val responseBody = response.body()!!.string()
+                            Objects.requireNonNull(response.body)
+                            val responseBody = response.body!!.string()
 
                             val originText = JSONObject(responseBody)
                             val rawBase64 = originText.getString("content")

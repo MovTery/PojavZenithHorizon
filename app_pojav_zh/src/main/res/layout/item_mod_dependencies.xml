@@ -10,8 +10,8 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/mod_thumbnail_imageview"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="@android:color/transparent"
@@ -66,12 +66,16 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/mod_categories_Layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:orientation="horizontal"
+        app:flexDirection="row"
+        app:flexWrap="wrap"
+        app:alignItems="flex_start"
+        app:justifyContent="flex_start"
         app:layout_constraintEnd_toStartOf="@+id/mod_source_imageview"
         app:layout_constraintStart_toEndOf="@+id/mod_thumbnail_imageview"
         app:layout_constraintTop_toBottomOf="@+id/mod_title_layout"/>
