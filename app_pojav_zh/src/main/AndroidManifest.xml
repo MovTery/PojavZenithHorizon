@@ -144,8 +144,8 @@
             android:foregroundServiceType="dataSync" />
         <service
             android:name=".services.GameService"
-            android:foregroundServiceType="mediaPlayback"
-            android:process=":game" />
+            android:process=":game"
+            android:foregroundServiceType="mediaPlayback"/>
     </application>
     <queries>
         <package android:name="net.kdt.pojavlaunch.ffmpeg"/>
