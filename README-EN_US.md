@@ -10,6 +10,8 @@
 - Pojav Zenith Horizon aims to enhance user experience by redesigning the app interface, adding more practical features, and lowering the barrier to entry, making it easier for more people to enjoy Minecraft.
 - You can help translate Pojav Zenith Horizon on [Crowdin](https://zh.crowdin.com/project/pojav-zenith-horizon)!
 
+**Notice! This project is just a community-made modification, similar to PojavLauncher’s predecessor, [Boardwalk](https://github.com/zhuowei/Boardwalk).**
+
 <h2 align="center">New Features</h2>
 
 - [x] Refactored app layout for improved aesthetics and usability.
@@ -32,7 +34,7 @@
 <h2 align="center">Download</h2>
 
 - Visit [Release](https://github.com/MovTery/PojavZenithHorizon/releases) to check the latest stable version (updates are infrequent).
-- (Not recommended) Visit [Actions](https://github.com/MovTery/PojavZenithHorizon/actions) to see the latest versions (main branch: main, other branches can be ignored!)
+- (Not recommended) Visit [Actions](https://github.com/MovTery/PojavZenithHorizon/actions) to see the latest versions (main branch: main, other branches can be ignored!)  
   After entering, click **PojavZenithHorizon** to download (Debug is for test builds, Release is for release builds).
 
 <h2 align="center">Special Thanks</h2>
