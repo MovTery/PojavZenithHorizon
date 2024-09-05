@@ -10,6 +10,8 @@
 - Pojav Zenith Horizon 致力于优化用户体验，重新设计了应用界面，新增了更多实用的功能，旨在最大程度地降低游玩门槛，让更多人能够轻松体验 Minecraft 的乐趣。
 - 你可以前往 [Crowdin](https://zh.crowdin.com/project/pojav-zenith-horizon) 帮助我翻译 Pojav Zenith Horizon！
 
+**注意！此项目只是一个社区改版，就像 PojavLauncher 的前身 [Boardwalk](https://github.com/zhuowei/Boardwalk) 一样。**
+
 <h2 align="center">新增功能</h2>
 
 - [x] 重构应用布局，更加美观更加合理。
@@ -31,9 +33,9 @@
 
 <h2 align="center">下载</h2>  
 
-- 前往 [Release](https://github.com/MovTery/PojavZenithHorizon/releases) 查看最新且经过测试的稳定版本（更新并不频繁）。  
-- (并不推荐) 前往 [Actions](https://github.com/MovTery/PojavZenithHorizon/actions) 查看最新的版本 ( 主线：main，其他任何支线均可忽略！)，
-- 进入后，点击 **PojavZenithHorizon** 下载 (Debug 为测试构建版本，Release 为发行构建版本)。
+- 前往 [Release](https://github.com/MovTery/PojavZenithHorizon/releases) 查看最新且经过测试的稳定版本（更新并不频繁）。
+- (并不推荐) 前往 [Actions](https://github.com/MovTery/PojavZenithHorizon/actions) 查看最新的版本 ( 主线：main，其他任何支线均可忽略！)，  
+  进入后，点击 **PojavZenithHorizon** 下载 (Debug 为测试构建版本，Release 为发行构建版本)。
 
 <h2 align="center">特别感谢</h2>
 
