@@ -292,11 +292,11 @@ public class CurseforgeApi implements ModpackApi{
     }
 
     @Override
-    public ModLoader installMod(boolean isModPack, String modsPath, ModDetail modDetail, ModVersionItem modVersionItem) throws IOException{
+    public ModLoader installMod(boolean isModPack, String modsPath, String modFileName, ModDetail modDetail, ModVersionItem modVersionItem) throws IOException{
         if (isModPack) {
             return ModpackInstaller.installModpack(modDetail, modVersionItem, (modpackFile, instanceDestination) -> installCurseforgeZip(modpackFile, instanceDestination, null));
         } else {
-            return ModpackInstaller.installMod(modDetail, modsPath, modVersionItem);
+            return ModpackInstaller.installMod(modsPath, modFileName, modVersionItem);
         }
     }
 

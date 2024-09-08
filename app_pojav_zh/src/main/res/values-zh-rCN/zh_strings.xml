@@ -48,6 +48,8 @@
     <string name="zh_profile_mods_modloader">Mod 加载器</string>
     <string name="zh_profile_mods_download_mod_failed">下载 Mod 文件时失败</string>
     <string name="zh_profile_mods_download_mod_release_version">仅展示 Minecraft 正式版本</string>
+    <string name="zh_profile_mods_download_mod_custom_name">自定义名称</string>
+    <string name="zh_profile_mods_download_mod_custom_name_invalid">名称内包含无效字符："%s"</string>
     <string name="zh_profile_mods_search_mod_failed">搜索 Mod 时失败</string>
     <string name="zh_profile_mods_search_mod_no_result">未找到相关 Mod</string>
     <string name="zh_profile_mods_search_mod">搜索 Mod</string>
