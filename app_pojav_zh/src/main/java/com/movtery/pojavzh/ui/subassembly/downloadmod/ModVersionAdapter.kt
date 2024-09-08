@@ -19,6 +19,7 @@ import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
 import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener
@@ -89,38 +90,38 @@ class ModVersionAdapter(
                     return@setOnClickListener
                 }
 
-                EditTextDialog.Builder(context)
-                    .setTitle(R.string.zh_profile_mods_download_mod_custom_name)
-                    .setEditText(
-                        ("[${modDetail.subTitle ?: modDetail.title}] ${modVersionItem.name}")
-                            .replace("/", "-").removeSuffix(".jar")
-                    )
-                    .setConfirmListener { editText: EditText ->
-                        val string = editText.text.toString()
-                        if (string.contains("/")) {
-                            editText.error = context.getString(
-                                R.string.zh_profile_mods_download_mod_custom_name_invalid,
-                                "/"
-                            )
-                            return@setConfirmListener false
-                        }
+                if (modVersionItem.modDependencies.isNotEmpty()) {
+                    val dependenciesDialog = ModDependenciesDialog(context, mod, modVersionItem.modDependencies) {
+                        Tools.runOnUiThread { customFileName(modVersionItem) }
+                    }
+                    dependenciesDialog.show()
+                    return@setOnClickListener
+                }
 
-                        startInstallation(modVersionItem, string)
-                        true
-                    }.buildDialog()
+                customFileName(modVersionItem)
             }
         }
 
-        private fun startInstallation(modVersionItem: ModVersionItem, fileName: String) {
-            if (modVersionItem.modDependencies.isNotEmpty()) {
-                val dependenciesDialog = ModDependenciesDialog(context, mod, modVersionItem.modDependencies) {
-                    mod.api.handleInstallation(context, mod.isModpack, mod.modsPath, fileName, modDetail, modVersionItem)
-                }
-                dependenciesDialog.show()
-                return
-            }
+        private fun customFileName(modVersionItem: ModVersionItem) {
+            EditTextDialog.Builder(context)
+                .setTitle(R.string.zh_profile_mods_download_mod_custom_name)
+                .setEditText(
+                    ("[${modDetail.subTitle ?: modDetail.title}] ${modVersionItem.name}")
+                        .replace("/", "-").removeSuffix(".jar")
+                )
+                .setConfirmListener { editText: EditText ->
+                    val string = editText.text.toString()
+                    if (string.contains("/")) {
+                        editText.error = context.getString(
+                            R.string.zh_profile_mods_download_mod_custom_name_invalid,
+                            "/"
+                        )
+                        return@setConfirmListener false
+                    }
 
-            mod.api.handleInstallation(context, mod.isModpack, mod.modsPath, fileName, modDetail, modVersionItem)
+                    mod.api.handleInstallation(context, mod.isModpack, mod.modsPath, string, modDetail, modVersionItem)
+                    true
+                }.buildDialog()
         }
 
         private fun getDownloadType(versionType: VersionTypeEnum): Int {
