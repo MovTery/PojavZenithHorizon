@@ -48,6 +48,8 @@
     <string name="zh_profile_mods_modloader">Trình nạp Mod</string>
     <string name="zh_profile_mods_download_mod_failed">Tải tệp Mod thất bại</string>
     <string name="zh_profile_mods_download_mod_release_version">Chỉ hiển thị các phiên bản chính thức của Minecraft</string>
+    <string name="zh_profile_mods_download_mod_custom_name">Tên Tùy Chỉnh</string>
+    <string name="zh_profile_mods_download_mod_custom_name_invalid">Tên chứa ký tự không hợp lệ: "%s"</string>
     <string name="zh_profile_mods_search_mod_failed">Tìm kiếm Mod thất bại</string>
     <string name="zh_profile_mods_search_mod_no_result">Không tìm thấy Mod liên quan</string>
     <string name="zh_profile_mods_search_mod">Tìm kiếm Mod</string>

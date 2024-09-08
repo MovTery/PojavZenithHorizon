@@ -48,6 +48,8 @@
     <string name="zh_profile_mods_modloader">Carregador de Mods</string>
     <string name="zh_profile_mods_download_mod_failed">Falha ao baixar o arquivo Mod</string>
     <string name="zh_profile_mods_download_mod_release_version">Mostrar apenas versões oficiais do Minecraft</string>
+    <string name="zh_profile_mods_download_mod_custom_name">Nome Personalizado</string>
+    <string name="zh_profile_mods_download_mod_custom_name_invalid">O nome contém caracteres inválidos: "%s"</string>
     <string name="zh_profile_mods_search_mod_failed">Falha ao pesquisar Mod</string>
     <string name="zh_profile_mods_search_mod_no_result">Nenhum Mod relevante encontrado</string>
     <string name="zh_profile_mods_search_mod">Pesquisar Mod</string>

@@ -22,10 +22,8 @@ import java.util.Locale;
 import java.util.concurrent.Callable;
 
 public class ModpackInstaller {
-    public static ModLoader installMod(ModDetail modDetail, String path, ModVersionItem modVersionItem) throws IOException {
-        String modFileName = "[" + (modDetail.subTitle != null ? modDetail.subTitle : modDetail.title) + "] " + modVersionItem.name;
-
-        File modFile = new File(path, modFileName.replace("/", "-"));
+    public static ModLoader installMod(String path, String fileName, ModVersionItem modVersionItem) throws IOException {
+        File modFile = new File(path, fileName + ".jar");
 
         try {
             byte[] downloadBuffer = new byte[8192];
