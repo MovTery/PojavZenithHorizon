@@ -147,6 +147,8 @@
     <string name="zh_controls_info_view">عرض المعلومات</string>
     <string name="zh_controls_info_no_info">لا يوجد وصف لتخطيط التحكم هذا…</string>
     <string name="zh_controls_info_invalid">ملف غير صالح:</string>
+    <string name="zh_controls_info_default_title">تخطيط التحكم الافتراضي</string>
+    <string name="zh_controls_info_default_desc">هذا هو ملف تخطيط التحكم الافتراضي. انقر لإدارة هذا التخطيط.</string>
     <string name="zh_controls_set_default_message">هل أنت متأكد أنك تريد تعيين هذا التخطيط الافتراضي للتحكم؟</string>
     <string name="zh_controls_nothing">لا توجد تخطيطات تحكم هنا، إعادة تشغيل التطبيق ستولد تخطيط تحكم افتراضي جديد.</string>
     <string name="zh_replacement_customcontrol">استبدال تخطيط التحكم</string>

@@ -147,6 +147,8 @@
     <string name="zh_controls_info_view">Xem thông tin</string>
     <string name="zh_controls_info_no_info">Bố cục điều khiển này không có mô tả…</string>
     <string name="zh_controls_info_invalid">Tệp không hợp lệ:</string>
+    <string name="zh_controls_info_default_title">Bố Cục Điều Khiển Mặc Định</string>
+    <string name="zh_controls_info_default_desc">Đây là tệp bố cục điều khiển mặc định. Nhấn để quản lý bố cục này.</string>
     <string name="zh_controls_set_default_message">Bạn có chắc chắn muốn đặt bố cục điều khiển này làm bố cục điều khiển mặc định không?</string>
     <string name="zh_controls_nothing">Không có bố cục điều khiển nào ở đây, khởi động lại ứng dụng sẽ tạo bố cục điều khiển mặc định mới</string>
     <string name="zh_replacement_customcontrol">Thay đổi bố cục điều khiển</string>
