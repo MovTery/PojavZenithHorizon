@@ -147,6 +147,8 @@
     <string name="zh_controls_info_view">查看資訊</string>
     <string name="zh_controls_info_no_info">此控制佈局沒有描述說明…</string>
     <string name="zh_controls_info_invalid">無效的檔案:</string>
+    <string name="zh_controls_info_default_title">預設控制配置</string>
+    <string name="zh_controls_info_default_desc">這是預設的控制配置檔案，點擊可管理此控制配置。</string>
     <string name="zh_controls_set_default_message">你確定要將此控制佈局設定為預設控制佈局嗎？</string>
     <string name="zh_controls_nothing">這裡沒有任何控制佈局，重新啟動應用程式將生成一份新的默認控制佈局</string>
     <string name="zh_replacement_customcontrol">更換控制佈局</string>

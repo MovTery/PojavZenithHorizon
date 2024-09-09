@@ -147,6 +147,8 @@
     <string name="zh_controls_info_view">Ver Informações</string>
     <string name="zh_controls_info_no_info">Este layout de controle não possui descrição…</string>
     <string name="zh_controls_info_invalid">Arquivo Inválido:</string>
+    <string name="zh_controls_info_default_title">Layout de Controle Padrão</string>
+    <string name="zh_controls_info_default_desc">Este é o arquivo de layout de controle padrão. Clique para gerenciar este layout.</string>
     <string name="zh_controls_set_default_message">Tem certeza de que deseja definir este layout de controle como o padrão?</string>
     <string name="zh_controls_nothing">Não há nenhum layout de controle aqui, reiniciar o aplicativo gerará um novo layout de controle padrão</string>
     <string name="zh_replacement_customcontrol">Substituir Layout de Controle</string>

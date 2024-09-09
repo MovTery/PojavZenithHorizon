@@ -121,11 +121,13 @@ public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public class ValidViewHolder extends RecyclerView.ViewHolder {
+        private final Context mContext;
         private final TextView mTitle, mAuthor, mVersion, mFileName, mDesc;
         private final Button mInfo;
 
         public ValidViewHolder(@NonNull View itemView) {
             super(itemView);
+            mContext = itemView.getContext();
             mTitle = itemView.findViewById(R.id.zh_control_title);
             mAuthor = itemView.findViewById(R.id.zh_control_author);
             mVersion = itemView.findViewById(R.id.zh_control_version);
@@ -144,6 +146,9 @@ public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             //初始化控制布局名称，如果为空，那么将设置为文件名
             if (!controlInfoData.name.isEmpty() && !controlInfoData.name.equals("null")) {
+                if (controlInfoData.name.equals("control.default.title.text")) {
+                    controlInfoData.name = mContext.getString(R.string.zh_controls_info_default_title);
+                }
                 mTitle.setText(controlInfoData.name);
                 String fileNameString = StringUtils.insertSpace(mFileName.getContext().getString(R.string.zh_controls_info_file_name), controlInfoData.fileName);
                 mFileName.setVisibility(View.VISIBLE);
@@ -177,6 +182,9 @@ public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             //初始化描述说明
             if (!controlInfoData.desc.isEmpty() && !controlInfoData.desc.equals("null")) {
+                if (controlInfoData.desc.equals("control.default.desc.text")) {
+                    controlInfoData.desc = mContext.getString(R.string.zh_controls_info_default_desc);
+                }
                 mDesc.setText(controlInfoData.desc);
             } else {
                 mDesc.setText(R.string.zh_controls_info_no_info);
