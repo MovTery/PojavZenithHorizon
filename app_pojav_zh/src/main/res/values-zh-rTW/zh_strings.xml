@@ -167,7 +167,6 @@
     <string name="zh_custom_background_title">自訂啟動器背景圖片</string>
     <string name="zh_custom_background_desc">打開啟動器背景圖示管理界面，你可以自行添加你喜歡的背景圖片，並為各個不同的界面設定不同的背景</string>
     <string name="zh_custom_background_main_menu">主菜單</string>
-    <string name="zh_custom_background_settings">設定螢幕</string>
     <string name="zh_custom_background_controls">控制佈局</string>
     <string name="zh_custom_background_in_game">遊戲內</string>
     <string name="zh_custom_background_dialog_message">點擊 “選擇” 按鈕，將此圖片設定為 %s 的背景圖片</string>

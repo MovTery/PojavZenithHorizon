@@ -167,7 +167,6 @@
     <string name="zh_custom_background_title">Custom Launcher Background Image</string>
     <string name="zh_custom_background_desc">Open the launcher background image management interface, where you can add your favorite background images and set different backgrounds for each interface.</string>
     <string name="zh_custom_background_main_menu">Main Menu</string>
-    <string name="zh_custom_background_settings">Settings Screen</string>
     <string name="zh_custom_background_controls">Control Layout</string>
     <string name="zh_custom_background_in_game">In-game</string>
     <string name="zh_custom_background_dialog_message">Click the \"Select\" button to set this image as the background for %s.</string>

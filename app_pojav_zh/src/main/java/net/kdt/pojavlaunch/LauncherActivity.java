@@ -8,7 +8,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -40,8 +39,8 @@ import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.feature.mod.modpack.install.InstallExtra;
 import com.movtery.pojavzh.feature.mod.modpack.install.InstallLocalModPack;
 import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
-import com.movtery.pojavzh.ui.activity.SettingsActivity;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
+import com.movtery.pojavzh.ui.fragment.SettingsFragment;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
 import com.movtery.pojavzh.ui.subassembly.settingsbutton.ButtonType;
 import com.movtery.pojavzh.ui.subassembly.settingsbutton.SettingsButtonWrapper;
@@ -160,7 +159,7 @@ public class LauncherActivity extends BaseActivity {
         ViewAnimUtils.setViewAnim(mSettingsButton, Techniques.Pulse);
         Fragment fragment = getSupportFragmentManager().findFragmentById(mFragmentView.getId());
         if(fragment instanceof MainMenuFragment){
-            startActivity(new Intent(this, SettingsActivity.class));
+            ZHTools.swapFragmentWithAnim(fragment, SettingsFragment.class, SettingsFragment.TAG, null);
         } else{
             // The setting button doubles as a home button now
             Tools.backToMainMenu(this);
@@ -208,6 +207,11 @@ public class LauncherActivity extends BaseActivity {
                 return false;
             }
         }
+        return false;
+    };
+
+    private final ExtraListener<Boolean> mPageOpacityChangeListener = (key, value) -> {
+        setPageOpacity();
         return false;
     };
 
@@ -318,6 +322,7 @@ public class LauncherActivity extends BaseActivity {
         ExtraCore.addExtraListener(ZHExtraConstants.LOCAL_LOGIN_TODO, mLocalLoginListener);
         ExtraCore.addExtraListener(ZHExtraConstants.OTHER_LOGIN_TODO, mOtherLoginListener);
         ExtraCore.addExtraListener(ZHExtraConstants.ACCOUNT_UPDATE, mAccountUpdateListener);
+        ExtraCore.addExtraListener(ZHExtraConstants.PAGE_OPACITY_CHANGE, mPageOpacityChangeListener);
 
         ExtraCore.addExtraListener(ExtraConstants.SELECT_AUTH_METHOD, mSelectAuthMethod);
 
@@ -382,6 +387,7 @@ public class LauncherActivity extends BaseActivity {
         ExtraCore.removeExtraListenerFromValue(ZHExtraConstants.LOCAL_LOGIN_TODO, mLocalLoginListener);
         ExtraCore.removeExtraListenerFromValue(ZHExtraConstants.OTHER_LOGIN_TODO, mOtherLoginListener);
         ExtraCore.removeExtraListenerFromValue(ZHExtraConstants.ACCOUNT_UPDATE, mAccountUpdateListener);
+        ExtraCore.removeExtraListenerFromValue(ZHExtraConstants.PAGE_OPACITY_CHANGE, mPageOpacityChangeListener);
 
         getSupportFragmentManager().unregisterFragmentLifecycleCallbacks(mFragmentCallbackListener);
     }

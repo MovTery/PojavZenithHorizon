@@ -167,7 +167,6 @@
     <string name="zh_custom_background_title">Personalizar Imagem de Fundo do Launcher</string>
     <string name="zh_custom_background_desc">Abra a interface de gerenciamento de ícones de fundo do launcher, você pode adicionar suas imagens de fundo favoritas e definir diferentes fundos para diferentes interfaces</string>
     <string name="zh_custom_background_main_menu">Menu Principal</string>
-    <string name="zh_custom_background_settings">Tela de Configurações</string>
     <string name="zh_custom_background_controls">Layout de Controle</string>
     <string name="zh_custom_background_in_game">In-Game</string>
     <string name="zh_custom_background_dialog_message">Clique no botão \"Selecionar\" para definir esta imagem como fundo de %s</string>

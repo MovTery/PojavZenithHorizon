@@ -167,7 +167,6 @@
     <string name="zh_custom_background_title">تخصيص صورة الخلفية للمشغل</string>
     <string name="zh_custom_background_desc">افتح واجهة إدارة أيقونات خلفية المشغل، يمكنك إضافة الصور الخلفية التي تفضلها وإعداد خلفيات مختلفة للواجهات المختلفة</string>
     <string name="zh_custom_background_main_menu">القائمة الرئيسية</string>
-    <string name="zh_custom_background_settings">شاشة الإعدادات</string>
     <string name="zh_custom_background_controls">تخطيط التحكم</string>
     <string name="zh_custom_background_in_game">داخل اللعبة</string>
     <string name="zh_custom_background_dialog_message">انقر فوق زر \"تحديد\" لتعيين هذه الصورة كخلفية لـ %s</string>
