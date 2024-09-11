@@ -108,7 +108,7 @@ public class ZHTools {
 
         if (addToBackStack) transaction.addToBackStack(fragmentClass.getName());
         transaction.setReorderingAllowed(true)
-                .replace(R.id.zh_settings_fragment, fragmentClass, bundle, fragmentTag)
+                .replace(R.id.container_fragment, fragmentClass, bundle, fragmentTag)
                 .commit();
     }
 

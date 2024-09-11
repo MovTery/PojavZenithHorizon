@@ -122,7 +122,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
             setVisibilityAnim(mNothingTip!!, show)
         }
 
-        mResetButton?.setOnClickListener { v: View? ->
+        mResetButton?.setOnClickListener { _: View? ->
             refreshType(mTabLayout!!.selectedTabPosition)
             backgroundMap[backgroundType] = "null"
             saveProperties(backgroundMap)
@@ -144,7 +144,6 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
     private fun initBackgroundMap() {
         val properties = properties
         backgroundMap[BackgroundType.MAIN_MENU] = properties[BackgroundType.MAIN_MENU.name] as String?
-        backgroundMap[BackgroundType.SETTINGS] = properties[BackgroundType.SETTINGS.name] as String?
         backgroundMap[BackgroundType.CUSTOM_CONTROLS] = properties[BackgroundType.CUSTOM_CONTROLS.name] as String?
         backgroundMap[BackgroundType.IN_GAME] = properties[BackgroundType.IN_GAME.name] as String?
     }
@@ -158,7 +157,6 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
     private val currentStatusName: String
         get() = when (this.backgroundType) {
             BackgroundType.MAIN_MENU -> getString(R.string.zh_custom_background_main_menu)
-            BackgroundType.SETTINGS -> getString(R.string.zh_custom_background_settings)
             BackgroundType.CUSTOM_CONTROLS -> getString(R.string.zh_custom_background_controls)
             BackgroundType.IN_GAME -> getString(R.string.zh_custom_background_in_game)
             else -> getString(R.string.zh_unknown)
@@ -166,9 +164,8 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
 
     private fun refreshType(index: Int) {
         when (index) {
-            1 -> this.backgroundType = BackgroundType.SETTINGS
-            2 -> this.backgroundType = BackgroundType.CUSTOM_CONTROLS
-            3 -> this.backgroundType = BackgroundType.IN_GAME
+            1 -> this.backgroundType = BackgroundType.CUSTOM_CONTROLS
+            2 -> this.backgroundType = BackgroundType.IN_GAME
             0 -> this.backgroundType = BackgroundType.MAIN_MENU
             else -> this.backgroundType = BackgroundType.MAIN_MENU
         }
@@ -203,17 +200,14 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
 
     private fun bindTabs() {
         val mainMenu = mTabLayout!!.newTab()
-        val settings = mTabLayout!!.newTab()
         val controls = mTabLayout!!.newTab()
         val inGame = mTabLayout!!.newTab()
 
         mainMenu.setText(resources.getText(R.string.zh_custom_background_main_menu))
-        settings.setText(resources.getText(R.string.zh_custom_background_settings))
         controls.setText(resources.getText(R.string.zh_custom_background_controls))
         inGame.setText(resources.getText(R.string.zh_custom_background_in_game))
 
         mTabLayout?.addTab(mainMenu)
-        mTabLayout?.addTab(settings)
         mTabLayout?.addTab(controls)
         mTabLayout?.addTab(inGame)
 

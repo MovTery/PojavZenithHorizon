@@ -167,7 +167,6 @@
     <string name="zh_custom_background_title">Пользовательское фоновое изображение лаунчера</string>
     <string name="zh_custom_background_desc">Откройте интерфейс управления фоновыми иконками лаунчера, где вы можете добавлять свои любимые фоновые изображения и устанавливать разные фоны для разных интерфейсов</string>
     <string name="zh_custom_background_main_menu">Главное меню</string>
-    <string name="zh_custom_background_settings">Экран настроек</string>
     <string name="zh_custom_background_controls">Схема управления</string>
     <string name="zh_custom_background_in_game">В игре</string>
     <string name="zh_custom_background_dialog_message">Нажмите кнопку \"Выбрать\", чтобы установить это изображение в качестве фонового изображения для %s</string>

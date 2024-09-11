@@ -52,7 +52,6 @@ class BackgroundManager {
             get() {
                 val properties = Properties()
                 properties.setProperty(BackgroundType.MAIN_MENU.name, "null")
-                properties.setProperty(BackgroundType.SETTINGS.name, "null")
                 properties.setProperty(BackgroundType.CUSTOM_CONTROLS.name, "null")
                 properties.setProperty(BackgroundType.IN_GAME.name, "null")
 
@@ -80,10 +79,6 @@ class BackgroundManager {
             properties.setProperty(
                 BackgroundType.MAIN_MENU.name,
                 (if (map[BackgroundType.MAIN_MENU] == null) "null" else map[BackgroundType.MAIN_MENU])
-            )
-            properties.setProperty(
-                BackgroundType.SETTINGS.name,
-                (if (map[BackgroundType.SETTINGS] == null) "null" else map[BackgroundType.SETTINGS])
             )
             properties.setProperty(
                 BackgroundType.CUSTOM_CONTROLS.name,

@@ -167,7 +167,6 @@
     <string name="zh_custom_background_title">Tùy chỉnh hình nền trình khởi động</string>
     <string name="zh_custom_background_desc">Mở giao diện quản lý hình nền trình khởi động, bạn có thể tự thêm hình nền yêu thích của mình và đặt hình nền khác nhau cho các giao diện khác nhau</string>
     <string name="zh_custom_background_main_menu">Menu chính</string>
-    <string name="zh_custom_background_settings">Màn hình cài đặt</string>
     <string name="zh_custom_background_controls">Bố cục điều khiển</string>
     <string name="zh_custom_background_in_game">Trong trò chơi</string>
     <string name="zh_custom_background_dialog_message">Nhấn nút \"Chọn\" để đặt hình ảnh này làm hình nền cho %s</string>
