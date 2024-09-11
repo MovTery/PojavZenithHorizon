@@ -3,10 +3,7 @@ package com.movtery.pojavzh.utils;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -100,18 +97,6 @@ public class ZHTools {
         return backgroundImage;
     }
 
-    public static void swapSettingsFragment(FragmentActivity fragmentActivity, Class<? extends Fragment> fragmentClass,
-                                            @Nullable String fragmentTag, @Nullable Bundle bundle, boolean addToBackStack) {
-        FragmentTransaction transaction = fragmentActivity.getSupportFragmentManager().beginTransaction();
-
-        if (PREF_ANIMATION) transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
-
-        if (addToBackStack) transaction.addToBackStack(fragmentClass.getName());
-        transaction.setReorderingAllowed(true)
-                .replace(R.id.container_fragment, fragmentClass, bundle, fragmentTag)
-                .commit();
-    }
-
     public static void swapFragmentWithAnim(Fragment fragment, Class<? extends Fragment> fragmentClass,
                                             @Nullable String fragmentTag, @Nullable Bundle bundle) {
         FragmentTransaction transaction = fragment.requireActivity().getSupportFragmentManager().beginTransaction();
@@ -139,14 +124,7 @@ public class ZHTools {
                 .commit();
     }
 
-    public static void restartApp(Context context) {
-        Intent intent = context.getPackageManager()
-                .getLaunchIntentForPackage(context.getPackageName());
-        PendingIntent restartIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
-
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC, getCurrentTimeMillis() + 1000, restartIntent);
-
+    public static void killApp() {
         android.os.Process.killProcess(android.os.Process.myPid());
     }
 

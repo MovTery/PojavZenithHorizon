@@ -9,15 +9,16 @@ import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo.YoYoString
-import com.movtery.pojavzh.ui.fragment.preference.PreferenceExperimentalFragment
-import com.movtery.pojavzh.ui.fragment.preference.PreferenceLauncherFragment
+import com.movtery.pojavzh.ui.fragment.settings.ControlSettingsFragment
+import com.movtery.pojavzh.ui.fragment.settings.ExperimentalSettingsFragment
+import com.movtery.pojavzh.ui.fragment.settings.JavaSettingsFragment
+import com.movtery.pojavzh.ui.fragment.settings.LauncherSettingsFragment
+import com.movtery.pojavzh.ui.fragment.settings.MiscellaneousSettingsFragment
+import com.movtery.pojavzh.ui.fragment.settings.VideoSettingsFragment
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
 import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceControlFragment
-import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceJavaFragment
-import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceMiscellaneousFragment
-import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceVideoFragment
+import net.kdt.pojavlaunch.fragments.GamepadMapperFragment
 import java.util.Objects
 
 class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
@@ -44,7 +45,7 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
 
     private fun initViewPager() {
         mSettingsViewpager?.apply {
-            adapter = ViewPagerAdapter(requireActivity())
+            adapter = ViewPagerAdapter(this, requireActivity())
             isUserInputEnabled = false
             registerOnPageChangeCallback(object: OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
@@ -56,6 +57,7 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
     }
 
     private fun onFragmentSelect(position: Int) {
+        if (position > 5) return
         val selectedView = mButtons[position]
         mButtons.forEach { (_, view) -> setAnim(selectedView!!, view) }
     }
@@ -98,16 +100,19 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
         return array
     }
 
-    private class ViewPagerAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {
-        override fun getItemCount(): Int = 6
+    private class ViewPagerAdapter(private val viewPager: ViewPager2, fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {
+        override fun getItemCount(): Int = 9
         override fun createFragment(position: Int): Fragment {
             return when(position) {
-                1 -> LauncherPreferenceControlFragment()
-                2 -> LauncherPreferenceJavaFragment()
-                3 -> LauncherPreferenceMiscellaneousFragment()
-                4 -> PreferenceLauncherFragment()
-                5 -> PreferenceExperimentalFragment()
-                else -> LauncherPreferenceVideoFragment()
+                1 -> ControlSettingsFragment(viewPager)
+                2 -> JavaSettingsFragment()
+                3 -> MiscellaneousSettingsFragment()
+                4 -> LauncherSettingsFragment(viewPager)
+                5 -> ExperimentalSettingsFragment()
+                6 -> CustomMouseFragment(viewPager)
+                7 -> CustomBackgroundFragment(viewPager)
+                8 -> GamepadMapperFragment(viewPager)
+                else -> VideoSettingsFragment()
             }
         }
     }

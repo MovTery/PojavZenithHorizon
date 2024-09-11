@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo.YoYoString
 import com.movtery.pojavzh.ui.dialog.FilesDialog
@@ -31,7 +32,7 @@ import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
 import java.io.File
 
-class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
+class CustomMouseFragment(private val viewPage: ViewPager2) : FragmentWithAnim(R.layout.fragment_custom_mouse) {
     companion object {
         const val TAG: String = "CustomMouseFragment"
     }
@@ -66,12 +67,17 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         bindViews(view)
 
-        mReturnButton?.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
+        mReturnButton?.setOnClickListener { viewPage.setCurrentItem(1, false) }
         mAddFileButton?.setOnClickListener { openDocumentLauncher?.launch(arrayOf("image/*")) }
         mRefreshButton?.setOnClickListener { loadData() }
 
         loadData()
 
+        slideInAnim(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
         slideInAnim(this)
     }
 

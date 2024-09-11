@@ -17,11 +17,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
-import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
 import net.kdt.pojavlaunch.R;
@@ -58,11 +58,14 @@ public class GamepadMapperFragment extends FragmentWithAnim implements
         if(activity == null) return;
         activity.onBackPressed();
     };
+    private final ViewPager2 viewPager;
     private RemapperManager mInputManager;
     private GamepadMapperAdapter mMapperAdapter;
     private Gamepad mGamepad;
-    public GamepadMapperFragment() {
+
+    public GamepadMapperFragment(ViewPager2 viewPager) {
         super(R.layout.fragment_controller_remapper);
+        this.viewPager = viewPager;
     }
 
     @Override
@@ -71,7 +74,7 @@ public class GamepadMapperFragment extends FragmentWithAnim implements
         mControllerLayout = view.findViewById(R.id.controller_layout);
         mOperateLayout = view.findViewById(R.id.operate_layout);
         Button backButton = view.findViewById(R.id.back_button);
-        backButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
+        backButton.setOnClickListener(v -> viewPager.setCurrentItem(1, false));
         RecyclerView buttonRecyclerView = view.findViewById(R.id.gamepad_remapper_recycler);
         mMapperAdapter = new GamepadMapperAdapter(view.getContext());
         buttonRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -86,6 +89,12 @@ public class GamepadMapperFragment extends FragmentWithAnim implements
         grabStateSpinner.setAdapter(mGrabStateAdapter);
         grabStateSpinner.setSelection(0);
         grabStateSpinner.setOnItemSelectedListener(this);
+        ViewAnimUtils.slideInAnim(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         ViewAnimUtils.slideInAnim(this);
     }
 
