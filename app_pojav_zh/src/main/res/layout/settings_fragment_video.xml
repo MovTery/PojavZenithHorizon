@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="UseSwitchCompatOrMaterialXml">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/video_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_12sdp"
+                android:text="@string/preference_category_video"
+                android:textColor="@color/settings_category" />
+
+            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
+                android:id="@+id/renderer_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="@dimen/_12sdp">
+
+                <TextView
+                    android:id="@+id/renderer_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mcl_setting_category_renderer"
+                    android:textColor="@color/black_or_white" />
+
+                <TextView
+                    android:id="@+id/renderer_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/renderer_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/global_default" />
+            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
+
+            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
+                android:id="@+id/ignoreNotch_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="@dimen/_12sdp">
+
+                <TextView
+                    android:id="@+id/ignoreNotch_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mcl_setting_title_ignore_notch"
+                    android:textColor="@color/black_or_white" />
+
+                <TextView
+                    android:id="@+id/ignoreNotch_summary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ignoreNotch_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/ignoreNotch"
+                    android:text="@string/mcl_setting_subtitle_ignore_notch" />
+
+                <Switch
+                    android:id="@+id/ignoreNotch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:checked="true"/>
+            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
+
+            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
+                android:id="@+id/resolutionRatio_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground">
+
+                <TextView
+                    android:id="@+id/resolutionRatio_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:text="@string/mcl_setting_title_resolution_scaler"
+                    android:textColor="@color/black_or_white" />
+
+                <TextView
+                    android:id="@+id/resolutionRatio_summary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/resolutionRatio_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:text="@string/mcl_setting_subtitle_resolution_scaler" />
+
+                <SeekBar
+                    android:id="@+id/resolutionRatio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/resolutionRatio_value"
+                    android:layout_alignBottom="@+id/resolutionRatio_value"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/resolutionRatio_value"
+                    android:max="300"
+                    android:min="25" />
+
+                <TextView
+                    android:id="@+id/resolutionRatio_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/resolutionRatio_summary"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    tools:text="0" />
+            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
+
+            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
+                android:id="@+id/sustainedPerformance_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="@dimen/_12sdp">
+
+                <TextView
+                    android:id="@+id/sustainedPerformance_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/preference_sustained_performance_title"
+                    android:textColor="@color/black_or_white" />
+
+                <TextView
+                    android:id="@+id/sustainedPerformance_summary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sustainedPerformance_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/sustainedPerformance"
+                    android:text="@string/preference_sustained_performance_description" />
+
+                <Switch
+                    android:id="@+id/sustainedPerformance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
+
+            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
+                android:id="@+id/alternate_surface_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="@dimen/_12sdp">
+
+                <TextView
+                    android:id="@+id/alternate_surface_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mcl_setting_title_use_surface_view"
+                    android:textColor="@color/black_or_white" />
+
+                <TextView
+                    android:id="@+id/alternate_surface_summary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/alternate_surface_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/alternate_surface"
+                    android:text="@string/mcl_setting_subtitle_use_surface_view" />
+
+                <Switch
+                    android:id="@+id/alternate_surface"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
+
+            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
+                android:id="@+id/force_vsync_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="@dimen/_12sdp">
+
+                <TextView
+                    android:id="@+id/force_vsync_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/preference_force_vsync_title"
+                    android:textColor="@color/black_or_white" />
+
+                <TextView
+                    android:id="@+id/force_vsync_summary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/force_vsync_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/force_vsync"
+                    android:text="@string/preference_force_vsync_description" />
+
+                <Switch
+                    android:id="@+id/force_vsync"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
+
+            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
+                android:id="@+id/vsync_in_zink_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="@dimen/_12sdp">
+
+                <TextView
+                    android:id="@+id/vsync_in_zink_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/preference_vsync_in_zink_title"
+                    android:textColor="@color/black_or_white" />
+
+                <TextView
+                    android:id="@+id/vsync_in_zink_summary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/vsync_in_zink_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/vsync_in_zink"
+                    android:text="@string/preference_vsync_in_zink_description" />
+
+                <Switch
+                    android:id="@+id/vsync_in_zink"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</ScrollView>

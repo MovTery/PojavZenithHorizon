@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="UseSwitchCompatOrMaterialXml">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/java_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_12sdp"
+                android:text="@string/preference_category_java_tweaks"
+                android:textColor="@color/settings_category" />
+
+            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
+                android:id="@+id/install_jre_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="@dimen/_12sdp">
+
+                <TextView
+                    android:id="@+id/install_jre_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/multirt_title"
+                    android:textColor="@color/black_or_white" />
+
+                <TextView
+                    android:id="@+id/install_jre_summary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/install_jre_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/multirt_subtitle" />
+            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
+
+            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
+                android:id="@+id/javaArgs_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="@dimen/_12sdp">
+
+                <TextView
+                    android:id="@+id/javaArgs_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mcl_setting_title_javaargs"
+                    android:textColor="@color/black_or_white" />
+
+                <TextView
+                    android:id="@+id/javaArgs_summary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/javaArgs_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/mcl_setting_subtitle_javaargs" />
+            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
+
+            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
+                android:id="@+id/allocation_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground">
+
+                <TextView
+                    android:id="@+id/allocation_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:text="@string/mcl_memory_allocation"
+                    android:textColor="@color/black_or_white" />
+
+                <TextView
+                    android:id="@+id/allocation_summary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/allocation_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:text="@string/zh_setting_java_memory_desc" />
+
+                <TextView
+                    android:id="@+id/allocation_memory"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/allocation_summary"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginHorizontal="@dimen/_12sdp" />
+
+                <SeekBar
+                    android:id="@+id/allocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/allocation_value"
+                    android:layout_alignBottom="@+id/allocation_value"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/allocation_value"
+                    android:min="256" />
+
+                <TextView
+                    android:id="@+id/allocation_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/allocation_memory"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    tools:text="0" />
+            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
+
+            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
+                android:id="@+id/java_sandbox_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="@dimen/_12sdp">
+
+                <TextView
+                    android:id="@+id/java_sandbox_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mcl_setting_java_sandbox"
+                    android:textColor="@color/black_or_white" />
+
+                <TextView
+                    android:id="@+id/java_sandbox_summary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/java_sandbox_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/java_sandbox"
+                    android:text="@string/mcl_setting_java_sandbox_subtitle" />
+
+                <Switch
+                    android:id="@+id/java_sandbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</ScrollView>
