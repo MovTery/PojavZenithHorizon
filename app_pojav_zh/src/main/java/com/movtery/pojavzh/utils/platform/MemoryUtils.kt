@@ -13,7 +13,7 @@ class MemoryUtils {
 
         @JvmStatic
         fun getTotalDeviceMemory(context: Context): Long {
-            if (activityManager == null) init(context)
+            activityManager ?: run { init(context) }
 
             val memInfo = ActivityManager.MemoryInfo()
             activityManager?.getMemoryInfo(memInfo)
@@ -22,7 +22,7 @@ class MemoryUtils {
 
         @JvmStatic
         fun getUsedDeviceMemory(context: Context): Long {
-            if (activityManager == null) init(context)
+            activityManager ?: run { init(context) }
 
             val memInfo = ActivityManager.MemoryInfo()
             activityManager?.getMemoryInfo(memInfo)
@@ -31,7 +31,7 @@ class MemoryUtils {
 
         @JvmStatic
         fun getFreeDeviceMemory(context: Context): Long {
-            if (activityManager == null) init(context)
+            activityManager ?: run { init(context) }
 
             val memInfo = ActivityManager.MemoryInfo()
             activityManager?.getMemoryInfo(memInfo)

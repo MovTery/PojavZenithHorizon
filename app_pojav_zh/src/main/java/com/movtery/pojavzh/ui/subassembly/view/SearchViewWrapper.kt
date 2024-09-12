@@ -18,10 +18,6 @@ class SearchViewWrapper(private val parentView: View, private val mainView: View
     private var searchAsynchronousUpdatesListener: SearchAsynchronousUpdatesListener? = null
 
     init {
-        init()
-    }
-
-    private fun init() {
         mSearchEditText = mainView.findViewById(R.id.zh_search_edit_text)
         val mSearchButton = mainView.findViewById<ImageButton>(R.id.zh_search_search_button)
         val mShowSearchResultsOnly = mainView.findViewById<CheckBox>(R.id.zh_search_show_search_results_only)
@@ -32,7 +28,7 @@ class SearchViewWrapper(private val parentView: View, private val mainView: View
             search(searchCountText, mCaseSensitive.isChecked)
         }
         mShowSearchResultsOnly.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
-            if (showSearchResultsListener != null) showSearchResultsListener?.onSearch(isChecked)
+            showSearchResultsListener?.apply { onSearch(isChecked) }
             if (mSearchEditText?.getText().toString().isNotEmpty()) search(searchCountText, mCaseSensitive.isChecked)
         }
 
@@ -56,13 +52,13 @@ class SearchViewWrapper(private val parentView: View, private val mainView: View
     private fun search(searchCountText: TextView, caseSensitive: Boolean) {
         val searchCount: Int
         val string = mSearchEditText!!.text.toString()
-        if (searchListener != null) {
-            searchCount = searchListener!!.onSearch(string, caseSensitive)
+        searchListener?.apply {
+            searchCount = onSearch(string, caseSensitive)
             searchCountText.text = searchCountText.context.getString(R.string.zh_search_count, searchCount)
             if (searchCount != 0) searchCountText.visibility = View.VISIBLE
-        } else if (searchAsynchronousUpdatesListener != null) {
-            searchAsynchronousUpdatesListener?.onSearch(searchCountText, string, caseSensitive)
+            return
         }
+        searchAsynchronousUpdatesListener?.apply { onSearch(searchCountText, string, caseSensitive) }
     }
 
     fun setSearchListener(listener: SearchListener?) {

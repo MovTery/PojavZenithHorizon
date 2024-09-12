@@ -78,18 +78,17 @@ class DownloadNeoForgeFragment : ModListFragment(), ModloaderDownloadListener {
     }
 
     private fun processModDetails(neoForgeVersions: List<String?>?) {
-        if (neoForgeVersions == null) {
+        neoForgeVersions ?: run {
             Tools.runOnUiThread {
                 componentProcessing(false)
                 setFailedToLoad("neoForgeVersions is Empty!")
             }
             return
         }
-        val currentTask = currentTask
 
         val mNeoForgeVersions: MutableMap<String, MutableList<String?>> = HashMap()
         neoForgeVersions.forEach(Consumer<String?> { neoForgeVersion: String? ->
-            if (currentTask!!.isCancelled) return@Consumer
+            currentTask?.apply { if (isCancelled) return@Consumer }
             //查找并分组Minecraft版本与NeoForge版本
             val gameVersion: String
 
@@ -105,13 +104,13 @@ class DownloadNeoForgeFragment : ModListFragment(), ModloaderDownloadListener {
                 .add(neoForgeVersion)
         })
 
-        if (currentTask!!.isCancelled) return
+        currentTask?.apply { if (isCancelled) return }
 
         val mData: MutableList<ModListItemBean> = ArrayList()
         mNeoForgeVersions.entries
             .sortedWith { entry1, entry2 -> -VersionNumber.compare(entry1.key, entry2.key) }
             .forEach { entry: Map.Entry<String, List<String?>> ->
-                if (currentTask.isCancelled) return
+                currentTask?.apply { if (isCancelled) return }
                 val adapter = ModVersionListAdapter(modloaderListenerProxy, this, R.drawable.ic_neoforge, entry.value)
 
                 adapter.setOnItemClickListener { version: Any? ->
@@ -120,20 +119,21 @@ class DownloadNeoForgeFragment : ModListFragment(), ModloaderDownloadListener {
                 mData.add(ModListItemBean("Minecraft " + entry.key, adapter))
             }
 
-        if (currentTask.isCancelled) return
+        currentTask?.apply { if (isCancelled) return }
 
         Tools.runOnUiThread {
             val recyclerView = recyclerView
-            try {
+            runCatching {
                 var mModAdapter = recyclerView!!.adapter as ModListAdapter?
-                if (mModAdapter == null) {
+                mModAdapter ?: run {
                     mModAdapter = ModListAdapter(this, mData)
                     recyclerView.layoutManager = LinearLayoutManager(fragmentActivity!!)
                     recyclerView.adapter = mModAdapter
-                } else {
-                    mModAdapter.updateData(mData)
+                    return@runCatching
                 }
-            } catch (ignored: Exception) {
+                mModAdapter?.updateData(mData)
+            }.getOrElse { e ->
+                Logging.e("Set Adapter", Tools.printToString(e))
             }
 
             componentProcessing(false)

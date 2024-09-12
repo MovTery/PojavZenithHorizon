@@ -35,7 +35,7 @@ class ErrorActivity : BaseActivity() {
         bindValues()
 
         val extras = intent.extras
-        if (extras == null) {
+        extras ?: run {
             finish()
             return
         }
@@ -70,13 +70,15 @@ class ErrorActivity : BaseActivity() {
         mErrorText?.text = getString(R.string.zh_game_exit_message, code)
         mErrorText?.textSize = 14f
         mShareCrashReportButton?.visibility =
-            if ((crashReportFile != null && crashReportFile.exists())) View.VISIBLE else View.GONE
+            if ((crashReportFile?.exists() == true)) View.VISIBLE else View.GONE
         mShareLogButton?.visibility = if (logFile.exists()) View.VISIBLE else View.GONE
 
-        if (crashReportFile != null) mShareCrashReportButton?.setOnClickListener {
-            shareFile(
-                this, crashReportFile.name, crashReportFile.absolutePath
-            )
+        crashReportFile?.let {
+            mShareCrashReportButton?.setOnClickListener {
+                shareFile(
+                    this, crashReportFile.name, crashReportFile.absolutePath
+                )
+            }
         }
         mShareLogButton?.setOnClickListener { Tools.shareLog(this) }
     }

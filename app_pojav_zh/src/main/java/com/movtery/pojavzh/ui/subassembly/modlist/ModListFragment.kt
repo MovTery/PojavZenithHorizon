@@ -64,14 +64,14 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
         mRefreshButton?.setOnClickListener { refreshTask() }
         releaseCheckBox?.setOnClickListener { initRefresh() }
         mReturnButton?.setOnClickListener {
-            if (parentAdapter != null) {
+            parentAdapter?.apply {
                 hideParentElement(false)
-                recyclerView?.adapter = parentAdapter
+                recyclerView?.adapter = this
                 recyclerView?.scheduleLayoutAnimation()
                 parentAdapter = null
-            } else {
-                ZHTools.onBackPressed(requireActivity())
+                return@setOnClickListener
             }
+            ZHTools.onBackPressed(requireActivity())
         }
 
         mBackToTop?.setOnClickListener { recyclerView?.smoothScrollToPosition(0) }
@@ -106,9 +106,7 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
     }
 
     private fun cancelTask() {
-        if (currentTask != null && !currentTask!!.isDone) {
-            currentTask?.cancel(true)
-        }
+        currentTask?.apply { if (!isDone) cancel(true) }
     }
 
     private fun refreshTask() {

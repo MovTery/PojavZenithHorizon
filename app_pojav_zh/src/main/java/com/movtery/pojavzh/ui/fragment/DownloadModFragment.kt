@@ -91,18 +91,17 @@ class DownloadModFragment : ModListFragment() {
     }
 
     private fun processModDetails(mModDetail: ModDetail) {
-        val currentTask = currentTask
         val pattern = RELEASE_REGEX
 
         val releaseCheckBoxChecked = releaseCheckBox!!.isChecked
         val mModVersionsByMinecraftVersion: MutableMap<String, MutableList<ModVersionItem>> = HashMap()
 
         mModDetail.modVersionItems.forEach(Consumer { modVersionItem: ModVersionItem ->
-            if (currentTask!!.isCancelled) return@Consumer
+            currentTask?.apply { if (isCancelled) return@Consumer }
 
             val versionId = modVersionItem.versionId
             for (mcVersion in versionId) {
-                if (currentTask.isCancelled) return@Consumer
+                currentTask?.apply { if (isCancelled) return@Consumer }
 
                 if (releaseCheckBoxChecked) {
                     val matcher = pattern.matcher(mcVersion)
@@ -117,13 +116,13 @@ class DownloadModFragment : ModListFragment() {
             }
         })
 
-        if (currentTask!!.isCancelled) return
+        currentTask?.apply { if (isCancelled) return }
 
         val mData: MutableList<ModListItemBean> = ArrayList()
         mModVersionsByMinecraftVersion.entries
             .sortedWith { entry1, entry2 -> -VersionNumber.compare(entry1.key, entry2.key) }
             .forEach { entry: Map.Entry<String, List<ModVersionItem>> ->
-                if (currentTask.isCancelled) return
+                currentTask?.apply { if (isCancelled) return }
 
                 mData.add(ModListItemBean("Minecraft " + entry.key,
                     ModVersionAdapter(SelectedMod(this@DownloadModFragment,
@@ -132,20 +131,21 @@ class DownloadModFragment : ModListFragment() {
                 )
             }
 
-        if (currentTask.isCancelled) return
+        currentTask?.apply { if (isCancelled) return }
 
         Tools.runOnUiThread {
             val modVersionView = recyclerView
-            try {
+            runCatching {
                 var mModAdapter = modVersionView!!.adapter as ModListAdapter?
-                if (mModAdapter == null) {
+                mModAdapter ?: run {
                     mModAdapter = ModListAdapter(this, mData)
                     modVersionView.layoutManager = LinearLayoutManager(fragmentActivity!!)
                     modVersionView.adapter = mModAdapter
-                } else {
-                    mModAdapter.updateData(mData)
+                    return@runCatching
                 }
-            } catch (ignored: Exception) {
+                mModAdapter?.updateData(mData)
+            }.getOrElse { e ->
+                Logging.e("Set Adapter", Tools.printToString(e))
             }
 
             componentProcessing(false)
