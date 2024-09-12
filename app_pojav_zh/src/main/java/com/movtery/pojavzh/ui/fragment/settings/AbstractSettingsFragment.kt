@@ -298,21 +298,18 @@ abstract class AbstractSettingsFragment(layoutId: Int) : Fragment(layoutId),
         entryValues: Array<String>
     ) {
         val index = entryValues.indexOf(DEFAULT_PREF.getString(item.key, defaultValue))
-        var selectedItemIndex = index
-
         AlertDialog.Builder(requireContext())
             .setTitle(item.getTitleView().text)
-            .setSingleChoiceItems(entries, selectedItemIndex) { _, which ->
-                selectedItemIndex = which
-            }
-            .setPositiveButton(R.string.zh_confirm) { _, _ ->
-                if (selectedItemIndex != index) {
-                    val selectedValue = entryValues[selectedItemIndex]
+            .setSingleChoiceItems(entries, index) { dialog, which ->
+                if (which != index) {
+                    val selectedValue = entryValues[which]
                     DEFAULT_PREF.edit().putString(item.key, selectedValue).apply()
                     updateListViewValue(item, defaultValue, entries, entryValues)
                     checkShowRebootDialog(item)
                 }
+                dialog.dismiss()
             }
+            .setPositiveButton(android.R.string.cancel, null)
             .show()
     }
 
