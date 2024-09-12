@@ -25,12 +25,10 @@ class FileItemBean : Comparable<FileItemBean?> {
     }
 
     override fun compareTo(other: FileItemBean?): Int {
-        if (other == null) {
-            throw NullPointerException("Cannot compare to null.")
-        }
+        other ?: run { throw NullPointerException("Cannot compare to null.") }
 
-        val thisName = if ((this.file != null)) file!!.name else name!!
-        val otherName = if ((other.file != null)) other.file!!.name else other.name!!
+        val thisName = file?.name ?: name!!
+        val otherName = other.file?.name ?: other.name!!
 
         //首先检查文件是否为目录
         if (this.file != null && file!!.isDirectory) {

@@ -38,7 +38,7 @@ class ProgressDialog(context: Context, listener: OnCancelListener) : FullScreenD
     }
 
     fun updateText(text: String?) {
-        if (text != null) message?.text = text
+        text?.apply { message?.text = this }
     }
 
     fun updateRate(processingRate: Long) {

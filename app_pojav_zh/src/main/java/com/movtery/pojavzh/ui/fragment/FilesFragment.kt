@@ -142,7 +142,7 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
                     val selectedFiles: MutableList<File> = ArrayList()
                     itemBeans.forEach(Consumer { value: FileItemBean ->
                         val file = value.file
-                        if (file != null) selectedFiles.add(file)
+                        file?.apply { selectedFiles.add(this) }
                     })
                     val filesButton = FilesButton()
                     filesButton.setButtonVisibility(true, true, false, false, true, false)

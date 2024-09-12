@@ -1,8 +1,10 @@
 package com.movtery.pojavzh.ui.subassembly.background
 
 import android.graphics.drawable.Drawable
+import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.file.FileTools.Companion.mkdirs
+import net.kdt.pojavlaunch.Tools
 import java.io.File
 import java.io.FileReader
 import java.io.FileWriter
@@ -20,11 +22,12 @@ class BackgroundManager {
             if (hasDrawable) {
                 return backgroundDrawable[name]
             } else {
-                try {
+                runCatching {
                     val drawable = Drawable.createFromPath(imageFile.absolutePath)
                     backgroundDrawable[name] = drawable
                     return drawable
-                } catch (e: Exception) {
+                }.getOrElse { e ->
+                    Logging.e("Create Drawable", Tools.printToString(e))
                     return null
                 }
             }
@@ -78,15 +81,15 @@ class BackgroundManager {
             val properties = Properties()
             properties.setProperty(
                 BackgroundType.MAIN_MENU.name,
-                (if (map[BackgroundType.MAIN_MENU] == null) "null" else map[BackgroundType.MAIN_MENU])
+                map[BackgroundType.MAIN_MENU] ?: "null"
             )
             properties.setProperty(
                 BackgroundType.CUSTOM_CONTROLS.name,
-                (if (map[BackgroundType.CUSTOM_CONTROLS] == null) "null" else map[BackgroundType.CUSTOM_CONTROLS])
+                map[BackgroundType.CUSTOM_CONTROLS] ?: "null"
             )
             properties.setProperty(
                 BackgroundType.IN_GAME.name,
-                (if (map[BackgroundType.IN_GAME] == null) "null" else map[BackgroundType.IN_GAME])
+                map[BackgroundType.IN_GAME] ?: "null"
             )
 
             saveProperties(properties)

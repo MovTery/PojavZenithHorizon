@@ -22,17 +22,17 @@ class AccountViewWrapper(val mainView: View) {
 
     init {
         mainView.setOnClickListener {
-            if (currentAccount == null) {
+            currentAccount ?: run {
                 ExtraCore.setValue(ExtraConstants.SELECT_AUTH_METHOD, true)
-            } else {
-                AccountsDialog(mContext) { this.refreshAccountInfo() }.show()
+                return@setOnClickListener
             }
+            AccountsDialog(mContext) { this.refreshAccountInfo() }.show()
         }
     }
 
     fun refreshAccountInfo() {
         val account = currentAccount
-        if (account == null) {
+        account ?: run {
             mUserIconView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_add))
             mUserNameView.setText(R.string.main_add_account)
             return

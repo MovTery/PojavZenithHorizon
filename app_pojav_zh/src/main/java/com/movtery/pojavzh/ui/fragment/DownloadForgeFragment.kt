@@ -65,18 +65,17 @@ class DownloadForgeFragment : ModListFragment(), ModloaderDownloadListener {
     }
 
     private fun processModDetails(forgeVersions: List<String>?) {
-        if (forgeVersions == null) {
+        forgeVersions ?: run {
             Tools.runOnUiThread {
                 componentProcessing(false)
                 setFailedToLoad("forgeVersions is Empty!")
             }
             return
         }
-        val currentTask = currentTask
 
         val mForgeVersions: MutableMap<String, MutableList<String?>> = HashMap()
         forgeVersions.forEach(Consumer { forgeVersion: String ->
-            if (currentTask!!.isCancelled) return@Consumer
+            currentTask?.apply { if (isCancelled) return@Consumer }
 
             //查找并分组Minecraft版本与Forge版本
             val dashIndex = forgeVersion.indexOf("-")
@@ -85,13 +84,13 @@ class DownloadForgeFragment : ModListFragment(), ModloaderDownloadListener {
                 .add(forgeVersion)
         })
 
-        if (currentTask!!.isCancelled) return
+        currentTask?.apply { if (isCancelled) return }
 
         val mData: MutableList<ModListItemBean> = ArrayList()
         mForgeVersions.entries
             .sortedWith { entry1, entry2 -> -VersionNumber.compare(entry1.key, entry2.key) }
             .forEach { entry: Map.Entry<String, List<String?>> ->
-                if (currentTask.isCancelled) return
+                currentTask?.apply { if (isCancelled) return }
 
                 //为整理好的Forge版本设置Adapter
                 val adapter = ModVersionListAdapter(modloaderListenerProxy, this, R.drawable.ic_anvil, entry.value)
@@ -101,20 +100,21 @@ class DownloadForgeFragment : ModListFragment(), ModloaderDownloadListener {
                 mData.add(ModListItemBean("Minecraft " + entry.key, adapter))
             }
 
-        if (currentTask.isCancelled) return
+        currentTask?.apply { if (isCancelled) return }
 
         Tools.runOnUiThread {
             val recyclerView = recyclerView
-            try {
+            runCatching {
                 var mModAdapter = recyclerView!!.adapter as ModListAdapter?
-                if (mModAdapter == null) {
+                mModAdapter ?: run {
                     mModAdapter = ModListAdapter(this, mData)
                     recyclerView.layoutManager = LinearLayoutManager(fragmentActivity!!)
                     recyclerView.adapter = mModAdapter
-                } else {
-                    mModAdapter.updateData(mData)
+                    return@runCatching
                 }
-            } catch (ignored: Exception) {
+                mModAdapter?.updateData(mData)
+            }.getOrElse { e ->
+                Logging.e("Set Adapter", Tools.printToString(e))
             }
 
             componentProcessing(false)

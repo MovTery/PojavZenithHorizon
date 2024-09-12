@@ -15,12 +15,10 @@ class ControlInfoData : Comparable<ControlInfoData?> {
     var desc: String = "null"
 
     override fun compareTo(other: ControlInfoData?): Int {
-        if (other == null) {
-            throw NullPointerException("Cannot compare to null.")
-        }
+        other ?: run { throw NullPointerException("Cannot compare to null.") }
 
-        val thisName = if ((this.fileName != null)) this.fileName else this.name
-        val otherName = if ((other.fileName != null)) other.fileName else other.name
+        val thisName = this.fileName ?: this.name
+        val otherName = other.fileName ?: other.name
 
         return compareChar(thisName, otherName)
     }

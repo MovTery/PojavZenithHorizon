@@ -76,21 +76,20 @@ class DownloadOptiFineFragment : ModListFragment(), ModloaderDownloadListener {
     }
 
     private fun processModDetails(optiFineVersions: OptiFineVersions?) {
-        if (optiFineVersions == null) {
+        optiFineVersions ?: run {
             Tools.runOnUiThread {
                 componentProcessing(false)
                 setFailedToLoad("optiFineVersions is Empty!")
             }
             return
         }
-        val currentTask = currentTask
 
         val mOptiFineVersions: MutableMap<String, MutableList<OptiFineVersion?>> = HashMap()
         optiFineVersions.optifineVersions.forEach(Consumer<List<OptiFineVersion>> { optiFineVersionList: List<OptiFineVersion> ->  //通过版本列表一层层遍历并合成为 Minecraft版本 + Optifine版本的Map集合
-            if (currentTask!!.isCancelled) return@Consumer
+            currentTask?.apply { if (isCancelled) return@Consumer }
 
             optiFineVersionList.forEach(Consumer Consumer2@{ optiFineVersion: OptiFineVersion ->
-                if (currentTask.isCancelled) return@Consumer2
+                currentTask?.apply { if (isCancelled) return@Consumer2 }
                 mOptiFineVersions.computeIfAbsent(optiFineVersion.minecraftVersion) { ArrayList() }
                     .add(optiFineVersion)
             })
@@ -102,7 +101,7 @@ class DownloadOptiFineFragment : ModListFragment(), ModloaderDownloadListener {
         mOptiFineVersions.entries
             .sortedWith { entry1, entry2 -> -VersionNumber.compare(entry1.key, entry2.key) }
             .forEach { entry: Map.Entry<String, List<OptiFineVersion?>> ->
-                if (currentTask.isCancelled) return@forEach
+                currentTask?.apply { if (isCancelled) return@forEach }
 
                 val adapter = ModVersionListAdapter(modloaderListenerProxy, this, R.drawable.ic_optifine, entry.value)
 
@@ -114,20 +113,21 @@ class DownloadOptiFineFragment : ModListFragment(), ModloaderDownloadListener {
                 mData.add(ModListItemBean(entry.key, adapter))
             }
 
-        if (currentTask.isCancelled) return
+        currentTask?.apply { if (isCancelled) return }
 
         Tools.runOnUiThread {
             val recyclerView = recyclerView
-            try {
+            runCatching {
                 var mModAdapter = recyclerView!!.adapter as ModListAdapter?
-                if (mModAdapter == null) {
+                mModAdapter ?: run {
                     mModAdapter = ModListAdapter(this, mData)
                     recyclerView.layoutManager = LinearLayoutManager(fragmentActivity!!)
                     recyclerView.adapter = mModAdapter
-                } else {
-                    mModAdapter.updateData(mData)
+                    return@runCatching
                 }
-            } catch (ignored: Exception) {
+                mModAdapter?.updateData(mData)
+            }.getOrElse { e ->
+                Logging.e("Set Adapter", Tools.printToString(e))
             }
 
             componentProcessing(false)

@@ -2,7 +2,7 @@ package com.movtery.pojavzh.ui.fragment
 
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.movtery.pojavzh.feature.log.Logging
+import com.movtery.pojavzh.feature.log.Logging.e
 import com.movtery.pojavzh.feature.mod.modloader.ModVersionListAdapter
 import com.movtery.pojavzh.ui.subassembly.modlist.ModListAdapter
 import com.movtery.pojavzh.ui.subassembly.modlist.ModListFragment
@@ -52,7 +52,7 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
                     componentProcessing(false)
                     setFailedToLoad(e.toString())
                 }
-                Logging.e("DownloadFabricLike", Tools.printToString(e))
+                e("DownloadFabricLike", Tools.printToString(e))
             }
         }
     }
@@ -72,7 +72,7 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
         val mFabricVersions: MutableMap<String, List<FabricVersion>> = HashMap()
         val loaderVersions: Array<FabricVersion>? = utils.downloadLoaderVersions(force)
         gameVersions.forEach {
-            if (currentTask!!.isCancelled) return
+            currentTask?.apply { if (isCancelled) return }
             val version = it.version
 
             if (releaseCheckBoxChecked) {
@@ -86,13 +86,13 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
             mFabricVersions[version] = loaderVersions!!.toList()
         }
 
-        if (currentTask!!.isCancelled) return
+        currentTask?.apply { if (isCancelled) return }
 
         val mData: MutableList<ModListItemBean> = ArrayList()
         mFabricVersions.entries
             .sortedWith { entry1, entry2 -> -VersionNumber.compare(entry1.key, entry2.key) }
             .forEach { (gameVersion, loaderVersions) ->
-                if (currentTask!!.isCancelled) return
+                currentTask?.apply { if (isCancelled) return }
 
                 //为整理好的Fabric版本设置Adapter
                 val adapter = ModVersionListAdapter(modloaderListenerProxy, this, icon, loaderVersions)
@@ -107,20 +107,21 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
                 mData.add(ModListItemBean("Minecraft $gameVersion", adapter))
             }
 
-        if (currentTask!!.isCancelled) return
+        currentTask?.apply { if (isCancelled) return }
 
         Tools.runOnUiThread {
             val recyclerView = recyclerView
-            try {
+            runCatching {
                 var mModAdapter = recyclerView!!.adapter as ModListAdapter?
-                if (mModAdapter == null) {
+                mModAdapter ?: run {
                     mModAdapter = ModListAdapter(this, mData)
                     recyclerView.layoutManager = LinearLayoutManager(fragmentActivity!!)
                     recyclerView.adapter = mModAdapter
-                } else {
-                    mModAdapter.updateData(mData)
+                    return@runCatching
                 }
-            } catch (ignored: java.lang.Exception) {
+                mModAdapter?.updateData(mData)
+            }.getOrElse { e ->
+                e("Set Adapter", Tools.printToString(e))
             }
 
             componentProcessing(false)

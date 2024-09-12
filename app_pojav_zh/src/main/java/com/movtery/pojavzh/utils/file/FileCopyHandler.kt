@@ -60,7 +60,7 @@ class FileCopyHandler(
         var destFile = File(targetDir, sourceFile.name)
         if (destFile.exists()) {
             val fileNameWithoutExt = getFileNameWithoutExtension(sourceFile.name, extension)
-            if (extension == null) {
+            extension ?: run {
                 val dotIndex = sourceFile.name.lastIndexOf('.')
                 extension = if (dotIndex == -1) "" else sourceFile.name.substring(dotIndex)
             }
