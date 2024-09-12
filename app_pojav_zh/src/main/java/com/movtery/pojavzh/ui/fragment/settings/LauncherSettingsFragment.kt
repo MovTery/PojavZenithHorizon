@@ -1,12 +1,15 @@
 package com.movtery.pojavzh.ui.fragment.settings
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2
+import com.movtery.pojavzh.extra.ZHExtraConstants
 import com.movtery.pojavzh.feature.UpdateLauncher
 import com.movtery.pojavzh.utils.CleanUpCache.Companion.start
 import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.extra.ExtraCore
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
 
 class LauncherSettingsFragment(private val viewPager: ViewPager2) : AbstractSettingsFragment(R.layout.settings_fragment_launcher) {
@@ -202,5 +205,10 @@ class LauncherSettingsFragment(private val viewPager: ViewPager2) : AbstractSett
         checkUpdate.mainView.setOnClickListener {
             UpdateLauncher.CheckDownloadedPackage(requireContext(), false)
         }
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        super.onSharedPreferenceChanged(sharedPreferences, key)
+        ExtraCore.setValue(ZHExtraConstants.PAGE_OPACITY_CHANGE, true)
     }
 }
