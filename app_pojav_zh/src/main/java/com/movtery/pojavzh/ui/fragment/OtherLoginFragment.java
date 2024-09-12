@@ -134,6 +134,7 @@ public class OtherLoginFragment extends FragmentWithAnim {
                                 mProgressDialog.dismiss();
                                 MinecraftAccount account = new MinecraftAccount();
                                 account.accessToken = authResult.getAccessToken();
+                                account.clientToken = authResult.getClientToken();
                                 account.baseUrl = mCurrentBaseUrl;
                                 account.account = mUserEditText.getText().toString();
                                 account.password = mPassEditText.getText().toString();
