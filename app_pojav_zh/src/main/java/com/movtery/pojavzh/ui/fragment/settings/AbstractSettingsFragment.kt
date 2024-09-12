@@ -9,6 +9,7 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.movtery.pojavzh.feature.log.Logging.e
 import com.movtery.pojavzh.ui.dialog.EditTextDialog
@@ -17,6 +18,7 @@ import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
 import net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF
+
 
 abstract class AbstractSettingsFragment(layoutId: Int) : Fragment(layoutId),
     SharedPreferences.OnSharedPreferenceChangeListener {
@@ -34,53 +36,85 @@ abstract class AbstractSettingsFragment(layoutId: Int) : Fragment(layoutId),
         LauncherPreferences.loadPreferences(requireContext())
     }
 
-    fun bindCategory(mainView: View) = SettingsCategoryItem(mainView)
+    /**
+     * 绑定类别标签
+     * @param mainView 视图的根部视图
+     */
+    fun bindCategory(mainView: View) = SettingsCategoryWrapper(mainView)
 
+    /**
+     * 绑定为最基础的视图
+     * @param category 绑定类别标签
+     * @param mainView 视图的根部视图
+     * @param titleView 标题视图
+     * @param summaryView 描述视图
+     */
     fun bindView(
-        category: SettingsCategoryItem?,
-        parentView: View,
+        category: SettingsCategoryWrapper?,
+        mainView: View,
         titleView: Int,
         summaryView: Int
-    ): SettingsViewItem {
+    ): SettingsViewWrapper {
         val item =
-            SettingsViewItem(null, parentView).setTitleView(parentView.findViewById(titleView))
-                .setSummaryView(parentView.findViewById(summaryView))
+            SettingsViewWrapper(null, mainView).setTitleView(mainView.findViewById(titleView))
+                .setSummaryView(mainView.findViewById(summaryView))
         bindViewInCategory(category, item)
         return item
     }
 
+    /**
+     * 绑定为列表视图，点击可展示列表 Dialog
+     * @param category 绑定类别标签
+     * @param key 视图与所指的 Preference 的 Key
+     * @param mainView 视图的根部视图
+     * @param titleView 标题视图
+     * @param summaryView 描述视图
+     * @param valueView 展示选中值的视图
+     */
     fun bindListView(
-        category: SettingsCategoryItem?,
+        category: SettingsCategoryWrapper?,
         key: String,
-        parentView: View,
+        mainView: View,
         titleView: Int,
         summaryView: Int?,
         valueView: Int
-    ): SettingsViewItem {
+    ): SettingsViewWrapper {
         val item =
-            SettingsViewItem(key, parentView).setTitleView(parentView.findViewById(titleView))
-                .setValueView(parentView.findViewById(valueView))
-        summaryView?.let { item.setSummaryView(parentView.findViewById(it)) }
+            SettingsViewWrapper(key, mainView).setTitleView(mainView.findViewById(titleView))
+                .setValueView(mainView.findViewById(valueView))
+        summaryView?.let { item.setSummaryView(mainView.findViewById(it)) }
         bindViewInCategory(category, item)
         return item
     }
 
+    /**
+     * 绑定为滑动条视图
+     * @param category 绑定类别标签
+     * @param key 视图与所指的 Preference 的 Key
+     * @param value 设置的值
+     * @param suffix 设置值的单位后缀
+     * @param mainView 视图的根部视图
+     * @param titleView 标题视图
+     * @param summaryView 描述视图
+     * @param seekBarView 滑动条视图
+     * @param seekBarValueView 滑动条值展示的视图
+     */
     fun bindSeekBarView(
-        category: SettingsCategoryItem?,
+        category: SettingsCategoryWrapper?,
         key: String,
         value: Int,
         suffix: String,
-        parentView: View,
+        mainView: View,
         titleView: Int,
         summaryView: Int,
         seekBarView: Int,
         seekBarValueView: Int
-    ): SettingsViewItem {
+    ): SettingsViewWrapper {
         val item =
-            SettingsViewItem(key, parentView).setTitleView(parentView.findViewById(titleView))
-                .setSummaryView(parentView.findViewById(summaryView))
-                .setSeekBarView(parentView.findViewById(seekBarView))
-                .setSeekBarValueView(parentView.findViewById(seekBarValueView))
+            SettingsViewWrapper(key, mainView).setTitleView(mainView.findViewById(titleView))
+                .setSummaryView(mainView.findViewById(summaryView))
+                .setSeekBarView(mainView.findViewById(seekBarView))
+                .setSeekBarValueView(mainView.findViewById(seekBarValueView))
                 .setSeekBarValueSuffix(suffix)
         item.getSeekBarView().progress = value
         setSeekBarValueTextView(item.getSeekBarValueView(), item.getSeekBarView().progress, suffix)
@@ -88,36 +122,53 @@ abstract class AbstractSettingsFragment(layoutId: Int) : Fragment(layoutId),
         return item
     }
 
+    /**
+     * 绑定为开关选择视图
+     * @param category 绑定类别标签
+     * @param key 视图与所指的 Preference 的 Key
+     * @param value 设置的值
+     * @param mainView 视图的根部视图
+     * @param titleView 标题视图
+     * @param summaryView 描述视图
+     * @param switch 开关视图
+     */
     fun bindSwitchView(
-        category: SettingsCategoryItem?,
+        category: SettingsCategoryWrapper?,
         key: String,
         value: Boolean,
-        parentView: View,
+        mainView: View,
         titleView: Int,
         summaryView: Int,
         switch: Int
-    ): SettingsViewItem {
+    ): SettingsViewWrapper {
         val item =
-            SettingsViewItem(key, parentView).setTitleView(parentView.findViewById(titleView))
-                .setSummaryView(parentView.findViewById(summaryView))
-                .setSwitchView(parentView.findViewById(switch))
+            SettingsViewWrapper(key, mainView).setTitleView(mainView.findViewById(titleView))
+                .setSummaryView(mainView.findViewById(summaryView))
+                .setSwitchView(mainView.findViewById(switch))
         item.getSwitchView().isChecked = value
         bindViewInCategory(category, item)
         return item
     }
 
-    private fun bindViewInCategory(category: SettingsCategoryItem?, item: SettingsViewItem) {
+    private fun bindViewInCategory(category: SettingsCategoryWrapper?, item: SettingsViewWrapper) {
         category?.addSubView(item)
     }
 
+    /**
+     * 快速初始化滑动条视图
+     * @param item 设置视图的包装类
+     */
     @SuppressLint("StringFormatInvalid")
-    fun initSeekBarView(item: SettingsViewItem) {
+    fun initSeekBarView(item: SettingsViewWrapper) {
         val seekBarView = item.getSeekBarView()
+        val seekBarValueView = item.getSeekBarValueView()
+        seekBarValueView.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_text)
+
         seekBarView.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 DEFAULT_PREF.edit().putInt(item.key, progress).apply()
                 setSeekBarValueTextView(
-                    item.getSeekBarValueView(),
+                    seekBarValueView,
                     progress,
                     item.getSeekBarValueSuffix()
                 )
@@ -130,7 +181,7 @@ abstract class AbstractSettingsFragment(layoutId: Int) : Fragment(layoutId),
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 seekBar?.apply {
                     setSeekBarValueTextView(
-                        item.getSeekBarValueView(),
+                        seekBarValueView,
                         progress,
                         item.getSeekBarValueSuffix()
                     )
@@ -181,8 +232,12 @@ abstract class AbstractSettingsFragment(layoutId: Int) : Fragment(layoutId),
         }
     }
 
+    /**
+     * 快速初始化开关视图
+     * @param item 设置视图的包装类
+     */
     @SuppressLint("UseSwitchCompatOrMaterialCode")
-    fun initSwitchView(item: SettingsViewItem) {
+    fun initSwitchView(item: SettingsViewWrapper) {
         val switchView = item.getSwitchView()
         switchView.setOnCheckedChangeListener { _, b ->
             DEFAULT_PREF.edit().putBoolean(item.key, b).apply()
@@ -193,8 +248,16 @@ abstract class AbstractSettingsFragment(layoutId: Int) : Fragment(layoutId),
         }
     }
 
+    /**
+     * 快速初始化列表展示视图
+     * 此函数主要用于从 R.array 加载数据
+     * @param item 设置视图的包装类
+     * @param defaultValue Preference 的默认值
+     * @param itemsId 所有要展示的数据的名称
+     * @param itemValuesId 所有要展示的数据的id值
+     */
     fun initListView(
-        item: SettingsViewItem,
+        item: SettingsViewWrapper,
         defaultValue: String,
         itemsId: Int,
         itemValuesId: Int
@@ -204,8 +267,15 @@ abstract class AbstractSettingsFragment(layoutId: Int) : Fragment(layoutId),
         initListView(item, defaultValue, entries, entryValues)
     }
 
+    /**
+     * 快速初始化列表展示视图
+     * @param item 设置视图的包装类
+     * @param defaultValue Preference 的默认值
+     * @param entries 所有要展示的数据的名称
+     * @param entryValues 所有要展示的数据的id值
+     */
     fun initListView(
-        item: SettingsViewItem,
+        item: SettingsViewWrapper,
         defaultValue: String,
         entries: Array<String>,
         entryValues: Array<String>
@@ -222,7 +292,7 @@ abstract class AbstractSettingsFragment(layoutId: Int) : Fragment(layoutId),
     }
 
     private fun createAListDialog(
-        item: SettingsViewItem,
+        item: SettingsViewWrapper,
         defaultValue: String,
         entries: Array<String>,
         entryValues: Array<String>
@@ -247,7 +317,7 @@ abstract class AbstractSettingsFragment(layoutId: Int) : Fragment(layoutId),
     }
 
     private fun updateListViewValue(
-        item: SettingsViewItem,
+        item: SettingsViewWrapper,
         defaultValue: String,
         entries: Array<String>,
         entryValues: Array<String>
@@ -256,7 +326,7 @@ abstract class AbstractSettingsFragment(layoutId: Int) : Fragment(layoutId),
         item.getValueView().text = entries[entryValues.indexOf(value)]
     }
 
-    private fun checkShowRebootDialog(item: SettingsViewItem) {
+    private fun checkShowRebootDialog(item: SettingsViewWrapper) {
         if (item.isRequiresReboot()) {
             TipDialog.Builder(requireContext())
                 .setMessage(R.string.zh_setting_reboot_tip)

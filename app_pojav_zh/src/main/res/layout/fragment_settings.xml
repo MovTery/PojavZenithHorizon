@@ -44,6 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:paddingVertical="@dimen/_8sdp"
+                    android:background="@drawable/settings_category_selected"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
                     <ImageButton
@@ -73,6 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingVertical="@dimen/_8sdp"
+                    android:background="@drawable/settings_category_selected"
                     app:layout_constraintStart_toStartOf="@+id/video_settings"
                     app:layout_constraintTop_toBottomOf="@+id/video_settings">
                     <ImageButton
@@ -102,6 +104,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingVertical="@dimen/_8sdp"
+                    android:background="@drawable/settings_category_selected"
                     app:layout_constraintStart_toStartOf="@+id/controls_settings"
                     app:layout_constraintTop_toBottomOf="@+id/controls_settings">
                     <ImageButton
@@ -131,6 +134,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingVertical="@dimen/_8sdp"
+                    android:background="@drawable/settings_category_selected"
                     app:layout_constraintStart_toStartOf="@+id/java_settings"
                     app:layout_constraintTop_toBottomOf="@+id/java_settings">
                     <ImageButton
@@ -160,6 +164,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingVertical="@dimen/_8sdp"
+                    android:background="@drawable/settings_category_selected"
                     app:layout_constraintStart_toStartOf="@+id/misc_settings"
                     app:layout_constraintTop_toBottomOf="@+id/misc_settings">
                     <ImageButton
@@ -189,6 +194,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingVertical="@dimen/_8sdp"
+                    android:background="@drawable/settings_category_selected"
                     app:layout_constraintStart_toStartOf="@+id/launcher_settings"
                     app:layout_constraintTop_toBottomOf="@+id/launcher_settings">
                     <ImageButton

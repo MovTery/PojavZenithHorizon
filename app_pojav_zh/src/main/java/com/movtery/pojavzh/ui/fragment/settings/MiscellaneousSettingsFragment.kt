@@ -75,7 +75,7 @@ class MiscellaneousSettingsFragment :
         initSwitchView(notificationPermissionRequest)
     }
 
-    private fun setupNotificationRequestPreference(notificationPermissionRequest: SettingsViewItem) {
+    private fun setupNotificationRequestPreference(notificationPermissionRequest: SettingsViewWrapper) {
         val activity = requireActivity()
         if (activity is LauncherActivity) {
             notificationPermissionRequest.mainView.visibility =
