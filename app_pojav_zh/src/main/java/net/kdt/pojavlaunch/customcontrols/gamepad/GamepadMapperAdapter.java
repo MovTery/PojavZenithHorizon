@@ -21,9 +21,12 @@ import net.kdt.pojavlaunch.Tools;
 
 import android.widget.TextView;
 
+import com.movtery.pojavzh.ui.dialog.KeyboardDialog;
+
 public class GamepadMapperAdapter extends RecyclerView.Adapter<GamepadMapperAdapter.ViewHolder> implements GamepadDataProvider {
     private static final int BUTTON_COUNT = 20;
 
+    private final KeyboardDialog keyboardDialog;
     private GamepadMap mSimulatedGamepadMap;
     private RebinderButton[] mRebinderButtons;
     private GamepadEmulatedButton[] mRealButtons;
@@ -42,6 +45,8 @@ public class GamepadMapperAdapter extends RecyclerView.Adapter<GamepadMapperAdap
         mKeyAdapter.addAll(EfficientAndroidLWJGLKeycode.generateKeyName());
         createRebinderMap();
         updateRealButtons();
+
+        keyboardDialog = new KeyboardDialog(context, true);
     }
 
     private void createRebinderMap() {
@@ -177,9 +182,16 @@ public class GamepadMapperAdapter extends RecyclerView.Adapter<GamepadMapperAdap
             mKeySpinners[1] = itemView.findViewById(R.id.controller_mapper_key_spinner2);
             mKeySpinners[2] = itemView.findViewById(R.id.controller_mapper_key_spinner3);
             mKeySpinners[3] = itemView.findViewById(R.id.controller_mapper_key_spinner4);
-            for(Spinner spinner : mKeySpinners) {
-                spinner.setAdapter(mKeyAdapter);
-                spinner.setOnItemSelectedListener(this);
+            TextView[] mKeyTextViews = new TextView[4];
+            mKeyTextViews[0] = itemView.findViewById(R.id.controller_mapper_key_textView1);
+            mKeyTextViews[1] = itemView.findViewById(R.id.controller_mapper_key_textView2);
+            mKeyTextViews[2] = itemView.findViewById(R.id.controller_mapper_key_textView3);
+            mKeyTextViews[3] = itemView.findViewById(R.id.controller_mapper_key_textView4);
+            for (int i = 0; i < mKeySpinners.length; i++) {
+                mKeySpinners[i].setAdapter(mKeyAdapter);
+                int finalI = i;
+                mKeyTextViews[i].setOnClickListener(v -> keyboardDialog.setOnKeycodeSelectListener(mKeySpinners[finalI]::setSelection).show());
+                mKeySpinners[i].setOnItemSelectedListener(this);
             }
         }
         private void attach(int index) {

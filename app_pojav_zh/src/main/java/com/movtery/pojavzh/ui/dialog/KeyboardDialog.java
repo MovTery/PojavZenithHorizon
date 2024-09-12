@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -18,12 +19,22 @@ import java.util.Objects;
 
 public class KeyboardDialog extends FullScreenDialog {
     private OnKeycodeSelectListener mOnKeycodeSelectListener;
+    private boolean showSpecialButtons = true;
+    private boolean isGamepadMapper = false;
 
-    public KeyboardDialog(@NonNull Context context, boolean showSpecialButtons) {
+    public KeyboardDialog(@NonNull Context context) {
         super(context);
-
         setContentView(R.layout.dialog_keyboard);
-        init(showSpecialButtons);
+    }
+
+    public KeyboardDialog(@NonNull Context context, boolean isGamepadMapper) {
+        this(context);
+        this.isGamepadMapper = isGamepadMapper;
+    }
+
+    public KeyboardDialog setShowSpecialButtons(boolean show) {
+        showSpecialButtons = show;
+        return this;
     }
 
     @Override
@@ -35,6 +46,8 @@ public class KeyboardDialog extends FullScreenDialog {
             window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
             window.setGravity(Gravity.CENTER);
         }
+
+        init(showSpecialButtons);
     }
 
     private void init(boolean showSpecialButtons) {
@@ -43,18 +56,46 @@ public class KeyboardDialog extends FullScreenDialog {
         List<View> specialButtons = new ArrayList<>();
         List<View> buttons = new ArrayList<>();
 
-        specialButtons.add(findViewById(R.id.keyboard_special_keyboard));
-        specialButtons.add(findViewById(R.id.keyboard_special_gui));
-        specialButtons.add(findViewById(R.id.keyboard_special_pri));
-        specialButtons.add(findViewById(R.id.keyboard_special_sec));
-        specialButtons.add(findViewById(R.id.keyboard_special_mouse));
+        if (isGamepadMapper) {
+            Button unspecified = findViewById(R.id.keyboard_unknown);
+            Button sec = findViewById(R.id.keyboard_special_pri);
+            Button mid = findViewById(R.id.keyboard_special_sec);
+            Button pri = findViewById(R.id.keyboard_special_menu);
+            Button scrollUp = findViewById(R.id.keyboard_special_scrolldown);
+            Button scrollDown = findViewById(R.id.keyboard_special_scrollup);
 
-        specialButtons.add(findViewById(R.id.keyboard_special_mid));
-        specialButtons.add(findViewById(R.id.keyboard_special_scrollup));
-        specialButtons.add(findViewById(R.id.keyboard_special_scrolldown));
-        specialButtons.add(findViewById(R.id.keyboard_special_menu));
+            unspecified.setText(R.string.zh_keycode_unspecified);
+            sec.setText(R.string.zh_keycode_mouse_right);
+            mid.setText(R.string.zh_keycode_mouse_middle);
+            pri.setText(R.string.zh_keycode_mouse_left);
+            scrollUp.setText(R.string.zh_keycode_scroll_up);
+            scrollDown.setText(R.string.zh_keycode_scroll_down);
 
-        buttons.add(findViewById(R.id.keyboard_unknown));
+            specialButtons.add(scrollDown);
+            specialButtons.add(scrollUp);
+            specialButtons.add(pri);
+            specialButtons.add(mid);
+            specialButtons.add(sec);
+            specialButtons.add(unspecified);
+
+            findViewById(R.id.keyboard_special_keyboard).setVisibility(View.GONE);
+            findViewById(R.id.keyboard_special_gui).setVisibility(View.GONE);
+            findViewById(R.id.keyboard_special_mouse).setVisibility(View.GONE);
+            findViewById(R.id.keyboard_special_mid).setVisibility(View.GONE);
+        } else {
+            specialButtons.add(findViewById(R.id.keyboard_special_keyboard));
+            specialButtons.add(findViewById(R.id.keyboard_special_gui));
+            specialButtons.add(findViewById(R.id.keyboard_special_pri));
+            specialButtons.add(findViewById(R.id.keyboard_special_sec));
+            specialButtons.add(findViewById(R.id.keyboard_special_mouse));
+
+            specialButtons.add(findViewById(R.id.keyboard_special_mid));
+            specialButtons.add(findViewById(R.id.keyboard_special_scrollup));
+            specialButtons.add(findViewById(R.id.keyboard_special_scrolldown));
+            specialButtons.add(findViewById(R.id.keyboard_special_menu));
+        }
+
+        if (!isGamepadMapper) buttons.add(findViewById(R.id.keyboard_unknown));
 
         buttons.add(findViewById(R.id.keyboard_home));
         buttons.add(findViewById(R.id.keyboard_esc));
@@ -180,7 +221,7 @@ public class KeyboardDialog extends FullScreenDialog {
             }
         }
 
-        int buttonCount = showSpecialButtons ? (specialButtons.size() - 1) : -1;
+        int buttonCount = showSpecialButtons ? isGamepadMapper ? specialButtons.size() : (specialButtons.size() - 1) : -1;
         for (View button : buttons) {
             buttonCount += 1;
             int finalButtonCount = buttonCount;
@@ -209,8 +250,9 @@ public class KeyboardDialog extends FullScreenDialog {
         }
     }
 
-    public void setOnKeycodeSelectListener(OnKeycodeSelectListener listener) {
+    public KeyboardDialog setOnKeycodeSelectListener(OnKeycodeSelectListener listener) {
         this.mOnKeycodeSelectListener = listener;
+        return this;
     }
 
     public interface OnKeycodeSelectListener {

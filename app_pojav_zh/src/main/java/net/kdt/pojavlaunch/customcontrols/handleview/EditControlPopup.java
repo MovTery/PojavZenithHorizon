@@ -49,7 +49,7 @@ import java.util.List;
 public class EditControlPopup {
     private final Context context;
     protected final Spinner[] mKeycodeSpinners = new Spinner[4];
-    private KeyboardDialog keynoardDialog;
+    private KeyboardDialog keyboardDialog;
     private final DefocusableScrollView mScrollView;
     private final ColorSelector mColorSelector;
 
@@ -422,7 +422,7 @@ public class EditControlPopup {
         mSizeTextview = mScrollView.findViewById(R.id.editSize_textView);
         mSizeXTextView = mScrollView.findViewById(R.id.editSize_x_textView);
 
-        keynoardDialog = new KeyboardDialog(this.context, true);
+        keyboardDialog = new KeyboardDialog(this.context);
     }
 
     /**
@@ -574,14 +574,10 @@ public class EditControlPopup {
 
         for (int i = 0; i < mKeycodeSpinners.length; ++i) {
             int finalI = i;
-            mKeycodeTextviews[i].setOnClickListener(v -> {
-                keynoardDialog.setOnKeycodeSelectListener(index -> {
-                    mKeycodeSpinners[finalI].setSelection(index);
-
-                    updateKeycodeText(index, finalI);
-                });
-                keynoardDialog.show();
-            });
+            mKeycodeTextviews[i].setOnClickListener(v -> keyboardDialog.setOnKeycodeSelectListener(index -> {
+                mKeycodeSpinners[finalI].setSelection(index);
+                updateKeycodeText(index, finalI);
+            }).show());
 
             mKeycodeSpinners[i].setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override

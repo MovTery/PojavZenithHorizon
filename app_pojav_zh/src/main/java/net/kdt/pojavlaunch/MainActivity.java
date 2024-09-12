@@ -169,7 +169,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         bindValues();
         ZHTools.setBackgroundImage(this, BackgroundType.IN_GAME, mControlLayout);
 
-        keyboardDialog = new KeyboardDialog(this, false);
+        keyboardDialog = new KeyboardDialog(this).setShowSpecialButtons(false);
 
         mControlLayout.setMenuListener(this);
 
@@ -412,8 +412,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     }
 
     private void dialogSendCustomKey() {
-        keyboardDialog.setOnKeycodeSelectListener(EfficientAndroidLWJGLKeycode::execKeyIndex);
-        keyboardDialog.show();
+        keyboardDialog.setOnKeycodeSelectListener(EfficientAndroidLWJGLKeycode::execKeyIndex).show();
     }
 
     private void replacementCustomControls() {
