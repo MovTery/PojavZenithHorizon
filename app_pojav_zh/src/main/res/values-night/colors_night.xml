@@ -25,6 +25,8 @@
 
     <color name="mod_category_fill">#804C4C4C</color>
 
+    <color name="settings_category">#31E2D4</color>
+
     <color name="icon_color">#FFFFFF</color>
 
     <color name="primary_text">#FFFFFF</color>
