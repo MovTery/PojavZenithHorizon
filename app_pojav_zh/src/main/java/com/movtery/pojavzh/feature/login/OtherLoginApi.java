@@ -10,7 +10,9 @@ import com.movtery.pojavzh.utils.stringutils.StringUtils;
 import net.kdt.pojavlaunch.R;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.UUID;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -52,7 +54,7 @@ public class OtherLoginApi {
         agent.setVersion(1.0);
         authRequest.setAgent(agent);
         authRequest.setRequestUser(true);
-        authRequest.setClientToken("fun");
+        authRequest.setClientToken(UUID.randomUUID().toString().toLowerCase(Locale.ROOT));
         System.out.println(new Gson().toJson(authRequest));
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), new Gson().toJson(authRequest));
         Call call = client.newCall(PathAndUrlManager.createRequestBuilder(baseUrl + "/authserver/authenticate", body).build());
