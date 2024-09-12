@@ -28,7 +28,7 @@ class JavaSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
         if (data != null) Tools.installRuntimeFromUri(context, data)
     }
     private var mDialogScreen: MultiRTConfigDialog? = null
-    private var allocationItem: SettingsViewItem? = null
+    private var allocationItem: SettingsViewWrapper? = null
     private var allocationMemory: TextView? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

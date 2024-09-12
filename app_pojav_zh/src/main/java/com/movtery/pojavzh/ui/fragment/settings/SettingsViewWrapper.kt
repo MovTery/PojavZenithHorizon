@@ -7,7 +7,7 @@ import android.widget.Switch
 import android.widget.TextView
 
 @SuppressLint("UseSwitchCompatOrMaterialCode")
-class SettingsViewItem(val key: String?, val mainView: View) {
+class SettingsViewWrapper(val key: String?, val mainView: View) {
     companion object {
         const val NULL_POINTER_MESSAGE: String =
             "Attempt to access an object that is either uninitialized or does not exist."
@@ -35,42 +35,42 @@ class SettingsViewItem(val key: String?, val mainView: View) {
 
     fun getSwitchView(): Switch = switchView ?: throw NullPointerException(NULL_POINTER_MESSAGE)
 
-    fun setRequiresReboot(require: Boolean): SettingsViewItem {
+    fun setRequiresReboot(require: Boolean): SettingsViewWrapper {
         requiresReboot = require
         return this
     }
 
-    fun setTitleView(textView: TextView): SettingsViewItem {
+    fun setTitleView(textView: TextView): SettingsViewWrapper {
         titleView = textView
         return this
     }
 
-    fun setSummaryView(textView: TextView): SettingsViewItem {
+    fun setSummaryView(textView: TextView): SettingsViewWrapper {
         summaryView = textView
         return this
     }
 
-    fun setValueView(textView: TextView): SettingsViewItem {
+    fun setValueView(textView: TextView): SettingsViewWrapper {
         valueView = textView
         return this
     }
 
-    fun setSeekBarView(seekBar: SeekBar): SettingsViewItem {
+    fun setSeekBarView(seekBar: SeekBar): SettingsViewWrapper {
         seekBarView = seekBar
         return this
     }
 
-    fun setSeekBarValueView(textView: TextView): SettingsViewItem {
+    fun setSeekBarValueView(textView: TextView): SettingsViewWrapper {
         seekBarValueView = textView
         return this
     }
 
-    fun setSeekBarValueSuffix(suffix: String): SettingsViewItem {
+    fun setSeekBarValueSuffix(suffix: String): SettingsViewWrapper {
         seekBarValueSuffix = suffix
         return this
     }
 
-    fun setSwitchView(switch: Switch): SettingsViewItem {
+    fun setSwitchView(switch: Switch): SettingsViewWrapper {
         switchView = switch
         return this
     }

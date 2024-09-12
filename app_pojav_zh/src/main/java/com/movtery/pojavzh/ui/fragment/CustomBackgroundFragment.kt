@@ -57,12 +57,12 @@ class CustomBackgroundFragment(private val viewPage: ViewPager2) : FragmentWithA
         super.onCreate(savedInstanceState)
         openDocumentLauncher = registerForActivityResult<Array<String>, Uri>(ActivityResultContracts.OpenDocument()) { result: Uri? ->
             result?.let {
-                Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
 
                 PojavApplication.sExecutorService.execute {
-                    copyFileInBackground(requireContext(), result, mFileRecyclerView!!.fullPath.absolutePath)
+                    copyFileInBackground(requireActivity(), result, mFileRecyclerView!!.fullPath.absolutePath)
                     Tools.runOnUiThread {
-                        Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireActivity(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show()
                         mFileRecyclerView?.listFileAt(backgroundPath())
                     }
                 }
@@ -97,14 +97,14 @@ class CustomBackgroundFragment(private val viewPage: ViewPager2) : FragmentWithA
                 filesButton.setMessageText(message)
                 filesButton.setMoreButtonText(getString(R.string.global_select))
 
-                val filesDialog = FilesDialog(requireContext(), filesButton,
+                val filesDialog = FilesDialog(requireActivity(), filesButton,
                     { Tools.runOnUiThread { mFileRecyclerView?.refreshPath() } },
                     backgroundPath(), file)
                 filesDialog.setMoreButtonClick {
                     backgroundMap[backgroundType] = fileName
                     saveProperties(backgroundMap)
 
-                    Toast.makeText(requireContext(),
+                    Toast.makeText(requireActivity(),
                         StringUtils.insertSpace(getString(R.string.zh_custom_background_selected, currentStatusName), fileName),
                         Toast.LENGTH_SHORT
                     ).show()
@@ -127,7 +127,7 @@ class CustomBackgroundFragment(private val viewPage: ViewPager2) : FragmentWithA
             refreshType(mTabLayout!!.selectedTabPosition)
             backgroundMap[backgroundType] = "null"
             saveProperties(backgroundMap)
-            Toast.makeText(requireContext(), getString(R.string.zh_custom_background_reset, currentStatusName), Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireActivity(), getString(R.string.zh_custom_background_reset, currentStatusName), Toast.LENGTH_SHORT).show()
         }
 
         mReturnButton?.setOnClickListener { viewPage.setCurrentItem(4, false) }
@@ -190,7 +190,7 @@ class CustomBackgroundFragment(private val viewPage: ViewPager2) : FragmentWithA
 
         mResetButton?.setContentDescription(getString(R.string.cropper_reset))
         mAddFileButton?.setContentDescription(getString(R.string.zh_custom_background_add))
-        mResetButton?.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_reset))
+        mResetButton?.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_reset))
 
         view.findViewById<View>(R.id.zh_create_folder_button).visibility = View.GONE
         view.findViewById<View>(R.id.zh_search_button).visibility = View.GONE

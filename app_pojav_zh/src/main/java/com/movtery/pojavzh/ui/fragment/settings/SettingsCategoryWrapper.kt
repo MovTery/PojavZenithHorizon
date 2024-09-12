@@ -2,9 +2,9 @@ package com.movtery.pojavzh.ui.fragment.settings
 
 import android.view.View
 
-class SettingsCategoryItem(val category: View) {
-    private val subItems: MutableList<SettingsViewItem> = ArrayList()
-    fun addSubView(item: SettingsViewItem) {
+class SettingsCategoryWrapper(val category: View) {
+    private val subItems: MutableList<SettingsViewWrapper> = ArrayList()
+    fun addSubView(item: SettingsViewWrapper) {
         subItems.add(item)
     }
 

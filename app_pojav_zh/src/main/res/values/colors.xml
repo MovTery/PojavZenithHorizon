@@ -25,6 +25,7 @@
     <color name="edit_box_fill_selected">#D2E8E5</color>
 
     <color name="mod_category_fill">#80D1D1D1</color>
+    <color name="text_background_fill">#B3DEDEDE</color>
 
     <color name="settings_category">#17958B</color>
 

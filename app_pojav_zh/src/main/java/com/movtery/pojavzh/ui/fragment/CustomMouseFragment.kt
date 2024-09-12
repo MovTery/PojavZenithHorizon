@@ -51,12 +51,12 @@ class CustomMouseFragment(private val viewPage: ViewPager2) : FragmentWithAnim(R
         super.onCreate(savedInstanceState)
         openDocumentLauncher = registerForActivityResult<Array<String>, Uri>(ActivityResultContracts.OpenDocument()) { result: Uri? ->
             result?.let{
-                Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
 
                 PojavApplication.sExecutorService.execute {
-                    copyFileInBackground(requireContext(), result, mousePath().absolutePath)
+                    copyFileInBackground(requireActivity(), result, mousePath().absolutePath)
                     Tools.runOnUiThread {
-                        Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireActivity(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show()
                         loadData()
                     }
                 }
@@ -83,10 +83,10 @@ class CustomMouseFragment(private val viewPage: ViewPager2) : FragmentWithAnim(R
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun loadData() {
-        val fileItemBeans = FileRecyclerViewCreator.loadItemBeansFromPath(requireContext(),
+        val fileItemBeans = FileRecyclerViewCreator.loadItemBeansFromPath(requireActivity(),
             mousePath(), FileIcon.IMAGE, true, false)
         fileItemBeans.add(
-            0, FileItemBean(requireContext().getDrawable(R.drawable.ic_mouse_pointer), null, getString(R.string.zh_custom_mouse_default)))
+            0, FileItemBean(requireActivity().getDrawable(R.drawable.ic_mouse_pointer), null, getString(R.string.zh_custom_mouse_default)))
         Tools.runOnUiThread {
             fileRecyclerViewCreator?.loadData(fileItemBeans)
             //默认显示当前选中的鼠标
@@ -103,7 +103,7 @@ class CustomMouseFragment(private val viewPage: ViewPager2) : FragmentWithAnim(R
     private fun refreshIcon() {
         PojavApplication.sExecutorService.execute {
             Tools.runOnUiThread {
-                mMouseView?.setImageDrawable(ZHTools.customMouse(requireContext()))
+                mMouseView?.setImageDrawable(ZHTools.customMouse(requireActivity()))
             }
         }
     }
@@ -128,7 +128,7 @@ class CustomMouseFragment(private val viewPage: ViewPager2) : FragmentWithAnim(R
         ZHTools.setTooltipText(mRefreshButton, mRefreshButton?.contentDescription)
 
         val mMouseListView = view.findViewById<RecyclerView>(R.id.zh_custom_mouse)
-        fileRecyclerViewCreator = FileRecyclerViewCreator(requireContext(), mMouseListView, { position: Int, fileItemBean: FileItemBean ->
+        fileRecyclerViewCreator = FileRecyclerViewCreator(requireActivity(), mMouseListView, { position: Int, fileItemBean: FileItemBean ->
                 val file = fileItemBean.file
                 val fileName = file?.name
                 val isDefaultMouse = position == 0
@@ -146,11 +146,11 @@ class CustomMouseFragment(private val viewPage: ViewPager2) : FragmentWithAnim(R
                 filesButton.setMessageText(message)
                 filesButton.setMoreButtonText(getString(R.string.global_select))
 
-                val filesDialog = FilesDialog(requireContext(), filesButton, { this.loadData() }, mousePath(), file)
+                val filesDialog = FilesDialog(requireActivity(), filesButton, { this.loadData() }, mousePath(), file)
                 filesDialog.setMoreButtonClick {
                     LauncherPreferences.DEFAULT_PREF.edit().putString("custom_mouse", fileName).apply()
                     refreshIcon()
-                    Toast.makeText(requireContext(),
+                    Toast.makeText(requireActivity(),
                         StringUtils.insertSpace(getString(R.string.zh_custom_mouse_added), (fileName ?: getString(R.string.zh_custom_mouse_default))),
                         Toast.LENGTH_SHORT).show()
                     filesDialog.dismiss()

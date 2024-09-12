@@ -1,5 +1,7 @@
 package com.movtery.pojavzh.ui.fragment
 
+import android.animation.ObjectAnimator
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -22,6 +24,7 @@ import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.fragments.GamepadMapperFragment
 import java.util.Objects
+
 
 class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
     companion object {
@@ -63,13 +66,19 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
     private fun onFragmentSelect(position: Int) {
         if (position > 5) return
         val selectedView = mButtons[position]
-        mButtons.forEach { (_, view) -> setAnim(selectedView!!, view) }
+        mButtons.forEach { (_, view) -> setAnim(selectedView!!, view, view.background) }
     }
 
-    private fun setAnim(clickedView: View, view: View) {
-        view.animate()
-            .alpha(if (Objects.equals(clickedView, view)) 0.4f else 1f)
-            .setDuration(250)
+    private fun setAnim(clickedView: View, view: View, drawable: Drawable?) {
+        drawable?.apply {
+            val currentAlpha = this.alpha
+            val equals = Objects.equals(clickedView, view)
+            val targetAlpha = if (equals) 255 else 0
+            if (currentAlpha == targetAlpha) return
+            val animator = ObjectAnimator.ofInt(this, "alpha", currentAlpha, targetAlpha)
+            animator.duration = 250
+            animator.start()
+        }
     }
 
     private fun bindViews(view: View) {
@@ -84,6 +93,9 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
             4 to view.findViewById(R.id.launcher_settings),
             5 to view.findViewById(R.id.experimental_settings)
         )
+        mButtons.forEach { (_, v) ->
+            v.background?.apply { alpha = 0 }
+        }
     }
 
     override fun slideIn(): Array<YoYoString?> {
@@ -108,6 +120,7 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
         override fun getItemCount(): Int = 9
         override fun createFragment(position: Int): Fragment {
             return when(position) {
+                0 -> VideoSettingsFragment()
                 1 -> ControlSettingsFragment(viewPager)
                 2 -> JavaSettingsFragment()
                 3 -> MiscellaneousSettingsFragment()
