@@ -72,6 +72,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/controller_mapper_plus_label1" />
 
+        <TextView
+            android:id="@+id/controller_mapper_key_textView1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            style="?android:attr/spinnerItemStyle"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:textAlignment="inherit"
+            android:gravity="center"
+            android:minHeight="48dp"
+            app:layout_constraintBottom_toBottomOf="@+id/controller_mapper_key_spinner1"
+            app:layout_constraintTop_toTopOf="@+id/controller_mapper_key_spinner1"
+            app:layout_constraintStart_toStartOf="@+id/controller_mapper_key_spinner1"
+            app:layout_constraintEnd_toEndOf="@+id/controller_mapper_key_spinner1"/>
+
         <Spinner
             android:id="@+id/controller_mapper_key_spinner2"
             android:layout_width="0dp"
@@ -81,6 +96,21 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/controller_mapper_plus_label1" />
+
+        <TextView
+            android:id="@+id/controller_mapper_key_textView2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            style="?android:attr/spinnerItemStyle"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:textAlignment="inherit"
+            android:gravity="center"
+            android:minHeight="48dp"
+            app:layout_constraintBottom_toBottomOf="@+id/controller_mapper_key_spinner2"
+            app:layout_constraintTop_toTopOf="@+id/controller_mapper_key_spinner2"
+            app:layout_constraintStart_toStartOf="@+id/controller_mapper_key_spinner2"
+            app:layout_constraintEnd_toEndOf="@+id/controller_mapper_key_spinner2"/>
 
         <Spinner
             android:id="@+id/controller_mapper_key_spinner3"
@@ -93,6 +123,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/controller_mapper_plus_label2"/>
 
+        <TextView
+            android:id="@+id/controller_mapper_key_textView3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            style="?android:attr/spinnerItemStyle"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:textAlignment="inherit"
+            android:gravity="center"
+            android:minHeight="48dp"
+            app:layout_constraintBottom_toBottomOf="@+id/controller_mapper_key_spinner3"
+            app:layout_constraintTop_toTopOf="@+id/controller_mapper_key_spinner3"
+            app:layout_constraintStart_toStartOf="@+id/controller_mapper_key_spinner3"
+            app:layout_constraintEnd_toEndOf="@+id/controller_mapper_key_spinner3"/>
+
         <Spinner
             android:id="@+id/controller_mapper_key_spinner4"
             android:layout_width="0dp"
@@ -103,6 +148,21 @@
             app:layout_constraintTop_toBottomOf="@id/controller_mapper_key_spinner2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/controller_mapper_plus_label2"/>
+
+        <TextView
+            android:id="@+id/controller_mapper_key_textView4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            style="?android:attr/spinnerItemStyle"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:textAlignment="inherit"
+            android:gravity="center"
+            android:minHeight="48dp"
+            app:layout_constraintBottom_toBottomOf="@+id/controller_mapper_key_spinner4"
+            app:layout_constraintTop_toTopOf="@+id/controller_mapper_key_spinner4"
+            app:layout_constraintStart_toStartOf="@+id/controller_mapper_key_spinner4"
+            app:layout_constraintEnd_toEndOf="@+id/controller_mapper_key_spinner4"/>
 
         <!-- A single "plus" sign does not need translation -->
         <TextView
