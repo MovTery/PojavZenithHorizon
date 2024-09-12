@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.daimajia.androidanimations.library.Techniques
@@ -18,6 +19,7 @@ import com.movtery.pojavzh.ui.fragment.settings.VideoSettingsFragment
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
 import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.fragments.GamepadMapperFragment
 import java.util.Objects
 
@@ -47,6 +49,8 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
         mSettingsViewpager?.apply {
             adapter = ViewPagerAdapter(this, requireActivity())
             isUserInputEnabled = false
+            orientation = ViewPager2.ORIENTATION_VERTICAL
+            setPageTransformer(MarginPageTransformer(Tools.dpToPx(12F).toInt()))
             registerOnPageChangeCallback(object: OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)

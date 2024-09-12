@@ -42,8 +42,8 @@
                     android:id="@+id/video_settings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:paddingVertical="@dimen/_2sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:paddingVertical="@dimen/_8sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
                     <ImageButton
@@ -72,8 +72,7 @@
                     android:id="@+id/controls_settings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:paddingVertical="@dimen/_2sdp"
+                    android:paddingVertical="@dimen/_8sdp"
                     app:layout_constraintStart_toStartOf="@+id/video_settings"
                     app:layout_constraintTop_toBottomOf="@+id/video_settings">
                     <ImageButton
@@ -102,8 +101,7 @@
                     android:id="@+id/java_settings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:paddingVertical="@dimen/_2sdp"
+                    android:paddingVertical="@dimen/_8sdp"
                     app:layout_constraintStart_toStartOf="@+id/controls_settings"
                     app:layout_constraintTop_toBottomOf="@+id/controls_settings">
                     <ImageButton
@@ -132,8 +130,7 @@
                     android:id="@+id/misc_settings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:paddingVertical="@dimen/_2sdp"
+                    android:paddingVertical="@dimen/_8sdp"
                     app:layout_constraintStart_toStartOf="@+id/java_settings"
                     app:layout_constraintTop_toBottomOf="@+id/java_settings">
                     <ImageButton
@@ -162,8 +159,7 @@
                     android:id="@+id/launcher_settings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:paddingVertical="@dimen/_2sdp"
+                    android:paddingVertical="@dimen/_8sdp"
                     app:layout_constraintStart_toStartOf="@+id/misc_settings"
                     app:layout_constraintTop_toBottomOf="@+id/misc_settings">
                     <ImageButton
@@ -192,8 +188,7 @@
                     android:id="@+id/experimental_settings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:paddingVertical="@dimen/_2sdp"
+                    android:paddingVertical="@dimen/_8sdp"
                     app:layout_constraintStart_toStartOf="@+id/launcher_settings"
                     app:layout_constraintTop_toBottomOf="@+id/launcher_settings">
                     <ImageButton
