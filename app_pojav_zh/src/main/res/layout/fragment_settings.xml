@@ -28,7 +28,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@color/menu_overlay"
-            android:paddingHorizontal="@dimen/_8sdp"
             app:layout_constraintEnd_toStartOf="@+id/shadowView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -36,18 +35,25 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_8sdp">
+
+                <com.movtery.pojavzh.ui.view.AnimSideIndicatorView
+                    android:id="@+id/side_indicator"
+                    android:layout_width="@dimen/_3sdp"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
                     android:id="@+id/video_settings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:paddingVertical="@dimen/_8sdp"
-                    android:background="@drawable/settings_category_selected"
+                    android:padding="@dimen/_8sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/video_image"
                         android:layout_width="@dimen/_28sdp"
                         android:layout_height="@dimen/_28sdp"
@@ -73,11 +79,10 @@
                     android:id="@+id/controls_settings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="@dimen/_8sdp"
-                    android:background="@drawable/settings_category_selected"
+                    android:padding="@dimen/_8sdp"
                     app:layout_constraintStart_toStartOf="@+id/video_settings"
                     app:layout_constraintTop_toBottomOf="@+id/video_settings">
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/controls_image"
                         android:layout_width="@dimen/_28sdp"
                         android:layout_height="@dimen/_28sdp"
@@ -103,11 +108,10 @@
                     android:id="@+id/java_settings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="@dimen/_8sdp"
-                    android:background="@drawable/settings_category_selected"
+                    android:padding="@dimen/_8sdp"
                     app:layout_constraintStart_toStartOf="@+id/controls_settings"
                     app:layout_constraintTop_toBottomOf="@+id/controls_settings">
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/java_image"
                         android:layout_width="@dimen/_28sdp"
                         android:layout_height="@dimen/_28sdp"
@@ -133,11 +137,10 @@
                     android:id="@+id/misc_settings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="@dimen/_8sdp"
-                    android:background="@drawable/settings_category_selected"
+                    android:padding="@dimen/_8sdp"
                     app:layout_constraintStart_toStartOf="@+id/java_settings"
                     app:layout_constraintTop_toBottomOf="@+id/java_settings">
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/misc_image"
                         android:layout_width="@dimen/_28sdp"
                         android:layout_height="@dimen/_28sdp"
@@ -163,11 +166,10 @@
                     android:id="@+id/launcher_settings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="@dimen/_8sdp"
-                    android:background="@drawable/settings_category_selected"
+                    android:padding="@dimen/_8sdp"
                     app:layout_constraintStart_toStartOf="@+id/misc_settings"
                     app:layout_constraintTop_toBottomOf="@+id/misc_settings">
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/launcher_image"
                         android:layout_width="@dimen/_28sdp"
                         android:layout_height="@dimen/_28sdp"
@@ -193,11 +195,10 @@
                     android:id="@+id/experimental_settings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="@dimen/_8sdp"
-                    android:background="@drawable/settings_category_selected"
+                    android:padding="@dimen/_8sdp"
                     app:layout_constraintStart_toStartOf="@+id/launcher_settings"
                     app:layout_constraintTop_toBottomOf="@+id/launcher_settings">
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/experimental_image"
                         android:layout_width="@dimen/_28sdp"
                         android:layout_height="@dimen/_28sdp"

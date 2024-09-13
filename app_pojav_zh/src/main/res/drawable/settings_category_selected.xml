@@ -6,7 +6,6 @@
         android:bottom="@dimen/_8sdp"
         android:width="@dimen/_3sdp">
         <shape>
-            <padding android:left="@dimen/_6sdp" />
             <corners android:radius="@dimen/_4sdp" />
             <solid android:color="@color/settings_category"/>
         </shape>
