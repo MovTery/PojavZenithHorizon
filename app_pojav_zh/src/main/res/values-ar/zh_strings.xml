@@ -321,6 +321,7 @@
     <string name="zh_about_version_status_other_branch">فروع أخرى</string>
     <string name="zh_about_version_status_debug">نسخة تجريبية</string>
     <string name="zh_about_version_status_release">نسخة رسمية</string>
+    <string name="zh_about_version_status_pre_release">إصدار ما قبل النشر</string>
     <!-- Sponsorship Related -->
     <string name="zh_request_sponsorship_title">ادعم تطويري</string>
     <string name="zh_request_sponsorship_message">معظم هذا البرنامج تم تطويره وصيانته بواسطة شخص واحد. إذا وجدت هذا البرنامج مفيدًا وكان بإمكانك ذلك، يرجى النظر في دعمي لمنحي المزيد من الحافز لمواصلة تطويره وتحسينه. شكرًا لدعمك!</string>

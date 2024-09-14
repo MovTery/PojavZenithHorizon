@@ -321,6 +321,7 @@
     <string name="zh_about_version_status_other_branch">其他分支</string>
     <string name="zh_about_version_status_debug">測試版</string>
     <string name="zh_about_version_status_release">正式版</string>
+    <string name="zh_about_version_status_pre_release">預發布版</string>
     <!-- Sponsorship Related -->
     <string name="zh_request_sponsorship_title">支持我的開發</string>
     <string name="zh_request_sponsorship_message">這款軟體的大部分內容都是我一個人開發和維護的。如果你覺得這款軟體對你有幫助，並且條件允許的話，希望你能考慮贊助我，讓我有更多動力繼續開發和改進，謝謝你的支持！</string>

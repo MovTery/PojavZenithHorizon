@@ -321,6 +321,7 @@
     <string name="zh_about_version_status_other_branch">Outros Ramos</string>
     <string name="zh_about_version_status_debug">Versão de Teste</string>
     <string name="zh_about_version_status_release">Versão Oficial</string>
+    <string name="zh_about_version_status_pre_release">Pré-lançamento</string>
     <!-- Sponsorship Related -->
     <string name="zh_request_sponsorship_title">Apoie o Meu Desenvolvimento</string>
     <string name="zh_request_sponsorship_message">A maior parte deste software foi desenvolvida e mantida por mim sozinho. Se você acha que este software é útil para você e, se possível, considere patrocinar-me para que eu possa ter mais motivação para continuar desenvolvendo e melhorando, obrigado pelo seu apoio!</string>

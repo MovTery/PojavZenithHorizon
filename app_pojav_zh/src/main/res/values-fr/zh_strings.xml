@@ -321,6 +321,7 @@
     <string name="zh_about_version_status_other_branch">Autres branches</string>
     <string name="zh_about_version_status_debug">Version bêta</string>
     <string name="zh_about_version_status_release">Version officielle</string>
+    <string name="zh_about_version_status_pre_release">Préversion</string>
     <!-- Sponsorship Related -->
     <string name="zh_request_sponsorship_title">Soutenez mon développement</string>
     <string name="zh_request_sponsorship_message">La plupart du contenu de ce logiciel est développé et maintenu par moi seul. Si vous trouvez ce logiciel utile et que vos conditions le permettent, j\'espère que vous pourrez envisager de me sponsoriser, afin que j\'aie plus de motivation pour continuer à développer et à améliorer, merci pour votre soutien !</string>
