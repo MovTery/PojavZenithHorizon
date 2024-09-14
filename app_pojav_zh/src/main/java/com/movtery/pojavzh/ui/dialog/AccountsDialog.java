@@ -19,6 +19,7 @@ import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.PojavProfile;
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
@@ -72,7 +73,11 @@ public class AccountsDialog extends FullScreenDialog implements TaskCountListene
     private void initView() {
         SelectAccountListener selectAccountListener = account -> {
             if (account != null) {
-                PojavProfile.setCurrentProfile(getContext(), account.username);
+                if (!isTaskRunning) {
+                    PojavProfile.setCurrentProfile(getContext(), account.username);
+                } else {
+                    Tools.runOnUiThread(() -> Toast.makeText(getContext(), R.string.tasks_ongoing, Toast.LENGTH_SHORT).show());
+                }
             } else {
                 ExtraCore.setValue(ExtraConstants.SELECT_AUTH_METHOD, true);
             }
@@ -90,7 +95,7 @@ public class AccountsDialog extends FullScreenDialog implements TaskCountListene
             @Override
             public void onRefresh(MinecraftAccount account) {
                 if (!isTaskRunning) {
-                    accountsManager.forcedLogin(account);
+                    accountsManager.performLogin(account);
                 } else {
                     Toast.makeText(getContext(), R.string.tasks_ongoing, Toast.LENGTH_SHORT).show();
                 }

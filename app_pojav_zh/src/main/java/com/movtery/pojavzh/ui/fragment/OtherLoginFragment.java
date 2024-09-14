@@ -137,8 +137,6 @@ public class OtherLoginFragment extends FragmentWithAnim {
                                 account.clientToken = authResult.getClientToken();
                                 account.baseUrl = mCurrentBaseUrl;
                                 account.account = mUserEditText.getText().toString();
-                                account.password = mPassEditText.getText().toString();
-                                account.expiresAt = ZHTools.getCurrentTimeMillis() + 30 * 60 * 1000;
                                 if (!Objects.isNull(authResult.getSelectedProfile())) {
                                     account.username = authResult.getSelectedProfile().getName();
                                     account.profileId = authResult.getSelectedProfile().getId();
@@ -156,13 +154,13 @@ public class OtherLoginFragment extends FragmentWithAnim {
                                                     if (profiles.getName().equals(items[i])) {
                                                         account.profileId = profiles.getId();
                                                         account.username = profiles.getName();
+                                                        refresh(account);
                                                     }
                                                 }
                                                 ExtraCore.setValue(ZHExtraConstants.OTHER_LOGIN_TODO, account);
                                                 Tools.backToMainMenu(requireActivity());
                                             })
-                                            .setNegativeButton(getString(android.R.string.cancel), null)
-                                            .create();
+                                            .setNegativeButton(android.R.string.cancel, null).create();
                                     dialog.show();
                                 }
                             });
@@ -277,6 +275,33 @@ public class OtherLoginFragment extends FragmentWithAnim {
                     }
                 }
             });
+        });
+    }
+
+    private void refresh(MinecraftAccount account) {
+        PojavApplication.sExecutorService.execute(() -> {
+            try {
+                OtherLoginApi.getINSTANCE().refresh(requireContext(), account, true, new OtherLoginApi.Listener() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        account.accessToken = authResult.getAccessToken();
+                        ExtraCore.setValue(ZHExtraConstants.OTHER_LOGIN_TODO, account);
+                        requireActivity().runOnUiThread(() -> Tools.backToMainMenu(requireActivity()));
+                    }
+
+                    @Override
+                    public void onFailed(String error) {
+                        requireActivity().runOnUiThread(() -> new TipDialog.Builder(requireContext())
+                                .setTitle(R.string.zh_warning)
+                                .setMessage(getString(R.string.zh_other_login_error) + error)
+                                .setCancel(android.R.string.copy)
+                                .setCancelClickListener(() -> StringUtils.copyText("error", error, requireContext()))
+                                .buildDialog());
+                    }
+                });
+            } catch (IOException e) {
+                Logging.e("other login", Tools.printToString(e));
+            }
         });
     }
 

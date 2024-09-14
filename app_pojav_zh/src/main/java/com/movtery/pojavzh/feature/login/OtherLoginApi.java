@@ -5,24 +5,20 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
-import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.value.MinecraftAccount;
+
+import okhttp3.*;
 
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.UUID;
 
-import okhttp3.Call;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-
 public class OtherLoginApi {
-    private static final OtherLoginApi INSTANCE = new OtherLoginApi();
     private static OkHttpClient client;
+    private static final OtherLoginApi INSTANCE = new OtherLoginApi();
     private String baseUrl;
 
     private OtherLoginApi() {
@@ -55,9 +51,37 @@ public class OtherLoginApi {
         authRequest.setAgent(agent);
         authRequest.setRequestUser(true);
         authRequest.setClientToken(UUID.randomUUID().toString().toLowerCase(Locale.ROOT));
-        System.out.println(new Gson().toJson(authRequest));
-        RequestBody body = RequestBody.create(MediaType.parse("application/json"), new Gson().toJson(authRequest));
-        Call call = client.newCall(PathAndUrlManager.createRequestBuilder(baseUrl + "/authserver/authenticate", body).build());
+        String data = new Gson().toJson(authRequest);
+        System.out.println(data);
+        login(data, "/authserver/authenticate", listener);
+    }
+
+    public void refresh(Context context, MinecraftAccount account, boolean select, Listener listener) throws IOException {
+        if (Objects.isNull(baseUrl)) {
+            listener.onFailed(context.getString(R.string.zh_other_login_baseurl_not_set));
+            return;
+        }
+        Refresh refresh = new Refresh();
+        refresh.setClientToken(account.clientToken);
+        refresh.setAccessToken(account.accessToken);
+        if (select) {
+            Refresh.SelectedProfile selectedProfile = new Refresh.SelectedProfile();
+            selectedProfile.setName(account.username);
+            selectedProfile.setId(account.profileId);
+            refresh.setSelectedProfile(selectedProfile);
+        }
+        String data = new Gson().toJson(refresh);
+        System.out.println(data);
+        login(data, "/authserver/refresh", listener);
+    }
+
+    private void login(String data, String url, Listener listener) throws IOException {
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), data);
+        Call call = client.newCall(PathAndUrlManager.createRequestBuilder(baseUrl + url, body).build());
+        callLogin(call, listener);
+    }
+
+    private void callLogin(Call call, Listener listener) throws IOException {
         Response response = call.execute();
         String res = response.body().string();
         System.out.println(res);
@@ -65,7 +89,7 @@ public class OtherLoginApi {
             AuthResult result = new Gson().fromJson(res, AuthResult.class);
             listener.onSuccess(result);
         } else {
-            listener.onFailed(StringUtils.insertSpace(context.getString(R.string.zh_other_login_error_code), StringUtils.insertNewline(response.code(), res)));
+            listener.onFailed("error code：" + response.code() + "\n" + res);
         }
     }
 

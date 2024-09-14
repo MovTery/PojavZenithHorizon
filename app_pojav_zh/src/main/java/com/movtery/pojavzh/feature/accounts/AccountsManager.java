@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
-import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.LauncherActivity;
 import net.kdt.pojavlaunch.PojavApplication;
@@ -49,7 +48,7 @@ public class AccountsManager {
                     //确保完全初始化，初始化完成之后，初始化监听器，然后执行刷新与登录操作
                     accountsManager.initListener();
                     accountsManager.reload();
-                    accountsManager.performLogin(accountsManager.getCurrentAccount());
+//                    accountsManager.performLogin(accountsManager.getCurrentAccount());
                 }
                 return accountsManager;
             }
@@ -72,7 +71,7 @@ public class AccountsManager {
         };
 
         mDoneListener = account -> {
-            Toast.makeText(context, R.string.main_login_done, Toast.LENGTH_SHORT).show();
+            Tools.runOnUiThread(() -> Toast.makeText(context, R.string.main_login_done, Toast.LENGTH_SHORT).show());
 
             //检查账号是否已存在
             if (getAllAccount().contains(account)) return;
@@ -100,8 +99,7 @@ public class AccountsManager {
         };
     }
 
-    //强制登录（忽略账号是否未到期）
-    public void forcedLogin(MinecraftAccount minecraftAccount) {
+    public void performLogin(MinecraftAccount minecraftAccount) {
         if (AccountUtils.isNoLoginRequired(minecraftAccount)) return;
 
         if (AccountUtils.isOtherLoginAccount(minecraftAccount)) {
@@ -111,24 +109,6 @@ public class AccountsManager {
 
         if (minecraftAccount.isMicrosoft) {
             AccountUtils.microsoftLogin(minecraftAccount);
-        }
-    }
-
-    //普通登录
-    public void performLogin(MinecraftAccount minecraftAccount) {
-        if (AccountUtils.isNoLoginRequired(minecraftAccount)) {
-            return;
-        }
-
-        if (AccountUtils.isOtherLoginAccount(minecraftAccount) && ZHTools.getCurrentTimeMillis() > minecraftAccount.expiresAt) {
-            AccountUtils.otherLogin(context, minecraftAccount);
-            return;
-        }
-
-        if (minecraftAccount.isMicrosoft) {
-            if (ZHTools.getCurrentTimeMillis() > minecraftAccount.expiresAt) {
-                AccountUtils.microsoftLogin(minecraftAccount);
-            }
         }
     }
 
