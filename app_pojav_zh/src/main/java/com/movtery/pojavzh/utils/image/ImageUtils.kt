@@ -1,5 +1,12 @@
 package com.movtery.pojavzh.utils.image
 
+import android.content.Context
+import android.graphics.drawable.Drawable
+import android.view.View
+import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestBuilder
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
@@ -50,6 +57,75 @@ class ImageUtils {
             val newHeight = (imageHeight * ratio).toInt()
 
             return Dimension(newWidth, newHeight)
+        }
+
+        /**
+         * 将图片自动缩放至合适的大小，并应用于View的背景中
+         * @param view 需要设置背景的View
+         * @param file 可用的图片文件
+         */
+        @JvmStatic
+        fun loadImageIntoView(context: Context, view: View, file: File) {
+            if (!isImage(file)) return
+
+            loadDrawableFromImage(context, file,
+                object : ImageCallback {
+                    override fun onImageLoaded(drawable: Drawable?) {
+                        view.background = drawable
+                    }
+
+                    override fun onImageFailed(errorDrawable: Drawable?) {
+                        view.background = errorDrawable
+                    }
+                }, view.width, view.height)
+        }
+
+        /**
+         * 将图片自动缩放至合适的大小，加载为Drawable对象
+         * @param file 可用的图片文件
+         * @param callback 加载完成后，通过接口回调使用
+         */
+        @JvmStatic
+        fun loadDrawableFromImage(context: Context, file: File, callback: ImageCallback, width: Int = 200, height: Int = 200) {
+            val requestBuilder = Glide.with(context)
+                .load(file)
+                .override(width, height)
+                .centerCrop()
+
+            loadImage(requestBuilder, callback)
+        }
+
+        /**
+         * 将图片自动缩放至合适的大小，让图片刚好能被装在指定的范围内，并加载为Drawable对象
+         * @param file 可用的图片文件
+         * @param callback 加载完成后，通过接口回调使用
+         */
+        @JvmStatic
+        fun loadDrawableFromImageFit(context: Context, file: File, callback: ImageCallback, width: Int = 200, height: Int = 200) {
+            val requestBuilder = Glide.with(context)
+                .load(file)
+                .override(width, height)
+                .fitCenter()
+
+            loadImage(requestBuilder, callback)
+        }
+
+        private fun loadImage(requestBuilder: RequestBuilder<Drawable>, callback: ImageCallback) {
+            requestBuilder.into(object : CustomTarget<Drawable?>() {
+                override fun onResourceReady(
+                    resource: Drawable,
+                    transition: Transition<in Drawable?>?
+                ) {
+                    callback.onImageLoaded(resource)
+                }
+
+                override fun onLoadCleared(placeholder: Drawable?) {
+                }
+
+                override fun onLoadFailed(errorDrawable: Drawable?) {
+                    callback.onImageFailed(errorDrawable)
+                }
+            })
         }
     }
 }

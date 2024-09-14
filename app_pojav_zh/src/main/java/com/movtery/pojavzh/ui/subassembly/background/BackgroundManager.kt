@@ -1,37 +1,15 @@
 package com.movtery.pojavzh.ui.subassembly.background
 
-import android.graphics.drawable.Drawable
-import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.file.FileTools.Companion.mkdirs
-import net.kdt.pojavlaunch.Tools
 import java.io.File
 import java.io.FileReader
 import java.io.FileWriter
 import java.util.Properties
-import java.util.concurrent.ConcurrentHashMap
 
 class BackgroundManager {
     companion object {
         private val FILE_BACKGROUND_PROPERTIES: File = File(PathAndUrlManager.DIR_GAME_HOME, "background.properties")
-        private val backgroundDrawable: MutableMap<String, Drawable?> = ConcurrentHashMap()
-
-        @JvmStatic
-        fun getBackgroundDrawable(name: String, imageFile: File): Drawable? {
-            val hasDrawable = backgroundDrawable.containsKey(name)
-            if (hasDrawable) {
-                return backgroundDrawable[name]
-            } else {
-                runCatching {
-                    val drawable = Drawable.createFromPath(imageFile.absolutePath)
-                    backgroundDrawable[name] = drawable
-                    return drawable
-                }.getOrElse { e ->
-                    Logging.e("Create Drawable", Tools.printToString(e))
-                    return null
-                }
-            }
-        }
 
         @JvmStatic
         val properties: Properties

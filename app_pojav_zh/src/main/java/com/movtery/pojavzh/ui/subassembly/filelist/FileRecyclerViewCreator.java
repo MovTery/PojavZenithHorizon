@@ -66,7 +66,7 @@ public class FileRecyclerViewCreator {
                 }
                 itemBean.file = file;
                 itemBean.name = null;
-                itemBean.image = getIcon(context, file, fileIcon, resources);
+                itemBean.image = getIcon(context, itemBean, file, fileIcon, resources);
                 itemBeans.add(itemBean);
             }
         }
@@ -79,12 +79,13 @@ public class FileRecyclerViewCreator {
         return !file.isFile() || showFile;
     }
 
-    private static Drawable getIcon(Context context, File file, FileIcon fileIcon, Resources resources) {
+    private static Drawable getIcon(Context context, FileItemBean itemBean, File file, FileIcon fileIcon, Resources resources) {
         if (file.isFile()) {
             switch (fileIcon) {
                 case IMAGE:
                     if (ImageUtils.isImage(file)) {
-                        return Drawable.createFromPath(file.getAbsolutePath());
+                        itemBean.fileIcon = FileIcon.IMAGE;
+                        return null;
                     } else {
                         return getFileIcon(file, resources);
                     }

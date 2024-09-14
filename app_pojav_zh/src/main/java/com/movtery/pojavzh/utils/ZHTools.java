@@ -59,11 +59,10 @@ public class ZHTools {
     }
 
     public synchronized static Drawable customMouse(Context context) {
-        String customMouse = DEFAULT_PREF.getString("custom_mouse", null);
-        if (customMouse == null) {
+        File mouseFile = getCustomMouse();
+        if (mouseFile == null) {
             return ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_mouse_pointer, context.getTheme());
         }
-        File mouseFile = new File(PathAndUrlManager.DIR_CUSTOM_MOUSE, customMouse);
 
         // 鼠标：自定义鼠标图片
         if (mouseFile.exists()) {
@@ -71,6 +70,14 @@ public class ZHTools {
         } else {
             return ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_mouse_pointer, context.getTheme());
         }
+    }
+
+    public static File getCustomMouse() {
+        String customMouse = DEFAULT_PREF.getString("custom_mouse", null);
+        if (customMouse == null) {
+            return null;
+        }
+        return new File(PathAndUrlManager.DIR_CUSTOM_MOUSE, customMouse);
     }
 
     public static void setBackgroundImage(Context context, BackgroundType backgroundType, View backgroundView) {
@@ -81,10 +88,7 @@ public class ZHTools {
             return;
         }
 
-        Drawable drawable = BackgroundManager.getBackgroundDrawable(backgroundImage.getName(), backgroundImage);
-        if (drawable != null) {
-            backgroundView.post(() -> backgroundView.setBackground(drawable));
-        }
+        ImageUtils.loadImageIntoView(context, backgroundView, backgroundImage);
     }
 
     public static File getBackgroundImage(BackgroundType backgroundType) {
