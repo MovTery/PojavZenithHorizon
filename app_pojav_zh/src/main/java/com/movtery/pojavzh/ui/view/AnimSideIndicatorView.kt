@@ -65,7 +65,7 @@ class AnimSideIndicatorView : View {
         val translateX = ObjectAnimator.ofFloat(this, "translationX", x.toFloat())
         val translateY = ObjectAnimator.ofFloat(this, "translationY", y.toFloat())
 
-        val animSpeed = (LauncherPreferences.PREF_ANIMATION_SPEED * 0.8).toLong()
+        val animSpeed = (LauncherPreferences.PREF_ANIMATION_SPEED * 0.2).toLong()
         translateX.setDuration(animSpeed)
         translateY.setDuration(animSpeed)
 
