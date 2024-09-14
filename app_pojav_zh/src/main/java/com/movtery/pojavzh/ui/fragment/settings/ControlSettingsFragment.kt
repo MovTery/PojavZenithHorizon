@@ -7,12 +7,14 @@ import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.viewpager2.widget.ViewPager2
+import com.movtery.pojavzh.ui.fragment.CustomMouseFragment
+import com.movtery.pojavzh.utils.ZHTools
 import fr.spse.gamepad_remapper.Remapper
 import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.fragments.GamepadMapperFragment
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
 
-class ControlSettingsFragment(private val viewPage: ViewPager2) : AbstractSettingsFragment(R.layout.settings_fragment_control) {
+class ControlSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment_control) {
     private var mainView: View? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -127,7 +129,14 @@ class ControlSettingsFragment(private val viewPage: ViewPager2) : AbstractSettin
             R.id.zh_custom_mouse_title,
             R.id.zh_custom_mouse_summary
         )
-        customMouse.mainView.setOnClickListener { viewPage.setCurrentItem(6, false) }
+        customMouse.mainView.setOnClickListener {
+            ZHTools.swapFragmentWithAnim(
+                this,
+                CustomMouseFragment::class.java,
+                CustomMouseFragment.TAG,
+                null
+            )
+        }
         initSwitchView(
             bindSwitchView(
                 gyroCategory,
@@ -204,7 +213,14 @@ class ControlSettingsFragment(private val viewPage: ViewPager2) : AbstractSettin
             R.id.changeControllerBindings_title,
             R.id.changeControllerBindings_summary
         )
-        changeControllerBindings.mainView.setOnClickListener { viewPage.setCurrentItem(8, false) }
+        changeControllerBindings.mainView.setOnClickListener {
+            ZHTools.swapFragmentWithAnim(
+                this,
+                GamepadMapperFragment::class.java,
+                GamepadMapperFragment.TAG,
+                null
+            )
+        }
 
         val resetControllerBindings = bindView(
             controllerCategory,

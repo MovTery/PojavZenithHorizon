@@ -21,7 +21,6 @@ import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
-import net.kdt.pojavlaunch.fragments.GamepadMapperFragment
 
 class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
     companion object {
@@ -48,7 +47,7 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
 
     private fun initViewPager() {
         mSettingsViewpager?.apply {
-            adapter = ViewPagerAdapter(this, requireActivity())
+            adapter = ViewPagerAdapter(requireActivity())
             isUserInputEnabled = false
             orientation = ViewPager2.ORIENTATION_VERTICAL
             offscreenPageLimit = 1
@@ -63,7 +62,6 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
     }
 
     private fun onFragmentSelect(position: Int) {
-        if (position > 5) return
         mSideIndicator?.apply { setSelectedView(mButtons[position], -Tools.dpToPx(3F).toInt()) }
     }
 
@@ -100,19 +98,15 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
         return array
     }
 
-    private class ViewPagerAdapter(private val viewPager: ViewPager2, fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {
-        override fun getItemCount(): Int = 9
+    private class ViewPagerAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {
+        override fun getItemCount(): Int = 6
         override fun createFragment(position: Int): Fragment {
             return when(position) {
-                0 -> VideoSettingsFragment()
-                1 -> ControlSettingsFragment(viewPager)
+                1 -> ControlSettingsFragment()
                 2 -> JavaSettingsFragment()
                 3 -> MiscellaneousSettingsFragment()
-                4 -> LauncherSettingsFragment(viewPager)
+                4 -> LauncherSettingsFragment()
                 5 -> ExperimentalSettingsFragment()
-                6 -> CustomMouseFragment(viewPager)
-                7 -> CustomBackgroundFragment(viewPager)
-                8 -> GamepadMapperFragment(viewPager)
                 else -> VideoSettingsFragment()
             }
         }

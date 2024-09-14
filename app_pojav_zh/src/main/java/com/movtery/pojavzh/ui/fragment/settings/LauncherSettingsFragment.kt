@@ -3,16 +3,16 @@ package com.movtery.pojavzh.ui.fragment.settings
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
-import androidx.viewpager2.widget.ViewPager2
 import com.movtery.pojavzh.extra.ZHExtraConstants
 import com.movtery.pojavzh.feature.UpdateLauncher
+import com.movtery.pojavzh.ui.fragment.CustomBackgroundFragment
 import com.movtery.pojavzh.utils.CleanUpCache.Companion.start
 import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.extra.ExtraCore
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
 
-class LauncherSettingsFragment(private val viewPager: ViewPager2) : AbstractSettingsFragment(R.layout.settings_fragment_launcher) {
+class LauncherSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment_launcher) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val downloadCategory = bindCategory(view.findViewById(R.id.download_category))
         val languageCategory = bindCategory(view.findViewById(R.id.language_category))
@@ -122,7 +122,14 @@ class LauncherSettingsFragment(private val viewPager: ViewPager2) : AbstractSett
             R.id.zh_custom_background_title,
             R.id.zh_custom_background_summary
         )
-        customBackground.mainView.setOnClickListener { viewPager.setCurrentItem(7, false) }
+        customBackground.mainView.setOnClickListener {
+            ZHTools.swapFragmentWithAnim(
+                this,
+                CustomBackgroundFragment::class.java,
+                CustomBackgroundFragment.TAG,
+            null
+            )
+        }
 
         initSwitchView(
             bindSwitchView(
