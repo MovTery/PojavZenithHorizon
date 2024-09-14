@@ -100,9 +100,7 @@
     <string name="zh_account_local_account">Conta Offline</string>
     <string name="zh_account_local_account_empty">O nome de usuário não pode estar vazio!</string>
     <string name="zh_account_local_account_exists">O nome de usuário está em conflito com uma conta existente, por favor, insira um novo nome!</string>
-    <string name="zh_account_local_account_less">Nome de usuário muito curto!</string>
-    <string name="zh_account_local_account_greater">Nome de usuário muito longo!</string>
-    <string name="zh_account_local_account_illegal">O nome de usuário contém caracteres ilegais! Apenas letras (maiúsculas e minúsculas), números e sublinhados são suportados como nome de usuário.</string>
+    <string name="zh_account_local_account_invalid">Um nome de usuário válido suporta apenas letras (maiúsculas e minúsculas), números e sublinhados. O comprimento não pode ser inferior a 2 caracteres ou exceder 16 caracteres.\nExemplos de nomes de usuário corretos: Name, Name_, Name123\nExemplos de nomes de usuário incorretos: Name@, N ame, Name(123)\nNo entanto, se você estiver usando um mod ou plugin relacionado que desativa esse mecanismo, pode continuar usando este nome. Caso contrário, renomeie-o!</string>
     <string name="zh_account_login_local_name">Nome de Usuário</string>
     <string name="zh_account_login_start">Iniciar Login!</string>
     <string name="zh_account_no_microsoft_account">Por favor, faça login com pelo menos uma conta oficial do Minecraft, não incentivamos o lançamento do Minecraft sem uma conta oficial.</string>

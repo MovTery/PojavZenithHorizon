@@ -100,9 +100,7 @@
     <string name="zh_account_local_account">離線帳號</string>
     <string name="zh_account_local_account_empty">用戶名不能為空！</string>
     <string name="zh_account_local_account_exists">用戶名與現有帳戶衝突，請重新填寫一個新的名稱！</string>
-    <string name="zh_account_local_account_less">用戶名過短！</string>
-    <string name="zh_account_local_account_greater">用戶名過長！</string>
-    <string name="zh_account_local_account_illegal">用戶名包含非法字符！僅支持英文字母（大小寫均可）、數字以及下劃線作為用戶名</string>
+    <string name="zh_account_local_account_invalid">正常的用戶名僅支援英文字母（大小寫均可）、數字以及底線作為使用者名稱，長度不允許低於 2 字元，超過 16 字元\n正確的用戶名範例：Name、Name_、Name123\n錯誤的用戶名範例：Name@、N ame、Name(123)\n但如果你使用了相關 Mod 或插件能夠解除這一機制，那麼你可以繼續使用這個名字，否則請重新命名！</string>
     <string name="zh_account_login_local_name">用戶名</string>
     <string name="zh_account_login_start">開始登入！</string>
     <string name="zh_account_no_microsoft_account">請至少登入一個 Minecraft 正版帳號，我們不提倡使用者在沒有正版帳號的情況下啟動 Minecraft。</string>

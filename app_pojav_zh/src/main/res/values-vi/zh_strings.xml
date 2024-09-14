@@ -100,9 +100,7 @@
     <string name="zh_account_local_account">Tài khoản ngoại tuyến</string>
     <string name="zh_account_local_account_empty">Tên người dùng không được để trống!</string>
     <string name="zh_account_local_account_exists">Tên người dùng xung đột với tài khoản hiện có, vui lòng điền một tên mới!</string>
-    <string name="zh_account_local_account_less">Tên người dùng quá ngắn!</string>
-    <string name="zh_account_local_account_greater">Tên người dùng quá dài!</string>
-    <string name="zh_account_local_account_illegal">Tên người dùng chứa ký tự không hợp lệ! Chỉ hỗ trợ chữ cái tiếng Anh (cả viết hoa và viết thường), số và dấu gạch dưới làm tên người dùng</string>
+    <string name="zh_account_local_account_invalid">Tên người dùng hợp lệ chỉ hỗ trợ các chữ cái (chữ hoa và chữ thường), số và dấu gạch dưới. Độ dài phải không được ít hơn 2 ký tự và không được vượt quá 16 ký tự.\nVí dụ tên người dùng đúng: Name, Name_, Name123\nVí dụ tên người dùng sai: Name@, N ame, Name(123)\nTuy nhiên, nếu bạn sử dụng mod hoặc plugin có thể vô hiệu hóa cơ chế này, bạn có thể tiếp tục sử dụng tên này, nếu không hãy đổi tên lại!</string>
     <string name="zh_account_login_local_name">Tên người dùng</string>
     <string name="zh_account_login_start">Bắt đầu đăng nhập!</string>
     <string name="zh_account_no_microsoft_account">Vui lòng đăng nhập ít nhất một tài khoản Minecraft chính hãng, chúng tôi không khuyến khích người dùng khởi động Minecraft mà không có tài khoản chính hãng.</string>

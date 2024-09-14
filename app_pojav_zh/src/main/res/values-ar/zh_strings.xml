@@ -100,10 +100,7 @@
     <string name="zh_account_local_account">حساب في حالة الخطو</string>
     <string name="zh_account_local_account_empty">لا يمكن أن يكون اسم المستخدم فارغًا!</string>
     <string name="zh_account_local_account_exists">اسم المستخدم يتعارض مع حساب موجود، يرجى إعادة ملء اسم جديد!</string>
-    <string name="zh_account_local_account_less">اسم المستخدم قصير جداً!</string>
-    <string name="zh_account_local_account_greater">اسم المستخدم طويل جداً!</string>
-    <string name="zh_account_local_account_illegal">اسم المستخدم يحتوي على أحرف غير قانونية! يتم دعم الأحرف الإنجليزية (كبيرة وصغيرة) والأرقام والشرطة السفلية فقط كاسم مستخدم</string>
-    <string name="zh_account_login_local_name">اسم المستخدم</string>
+    <string name="zh_account_local_account_invalid">اسم المستخدم الصالح يدعم الأحرف الإنجليزية (كلا الأحرف الكبيرة والصغيرة)، الأرقام، والشرطات السفلية فقط. يجب ألا يقل الطول عن حرفين أو يتجاوز 16 حرفًا.\nأمثلة لأسماء مستخدم صحيحة: Name، Name_، Name123\nأمثلة لأسماء مستخدم غير صحيحة: Name@، N ame، Name(123)\nولكن إذا كنت تستخدم مودًا أو إضافة تعطل هذه الآلية، يمكنك الاستمرار في استخدام هذا الاسم، وإلا يرجى إعادة التسمية!</string>
     <string name="zh_account_login_start">ابدأ الدخول!</string>
     <string name="zh_account_no_microsoft_account">يرجى تسجيل الدخول بحساب Minecraft رسمي واحد على الأقل، لا نشجع على تشغيل Minecraft دون حساب رسمي.</string>
     <string name="zh_account_no_microsoft_account_local">يبدو أنك لم تسجل الدخول بحساب رسمي! حساب الاتصال المحلي هو خيار بديل للاعبين عندما لا يمكنهم الاتصال بالإنترنت، وليس للاعبين دون حساب رسمي.</string>

@@ -100,9 +100,7 @@
     <string name="zh_account_local_account">Локальный аккаунт</string>
     <string name="zh_account_local_account_empty">Имя пользователя не может быть пустым!</string>
     <string name="zh_account_local_account_exists">Имя пользователя конфликтует с существующей учетной записью, пожалуйста, введите новое имя!</string>
-    <string name="zh_account_local_account_less">Имя пользователя слишком короткое!</string>
-    <string name="zh_account_local_account_greater">Имя пользователя слишком длинное!</string>
-    <string name="zh_account_local_account_illegal">Имя пользователя содержит недопустимые символы! Поддерживаются только латинские буквы (в любом регистре), цифры и подчеркивание.</string>
+    <string name="zh_account_local_account_invalid">Допустимое имя пользователя поддерживает только буквы (как заглавные, так и строчные), цифры и символы подчеркивания. Длина не должна быть меньше 2 символов и не может превышать 16 символов.\nПримеры правильных имен пользователей: Name, Name_, Name123\nПримеры неверных имен пользователей: Name@, N ame, Name(123)\nОднако, если вы используете мод или плагин, который обходит этот механизм, вы можете продолжить использовать это имя, иначе, пожалуйста, переименуйте его!</string>
     <string name="zh_account_login_local_name">Имя пользователя</string>
     <string name="zh_account_login_start">Начать вход!</string>
     <string name="zh_account_no_microsoft_account">Пожалуйста, войдите хотя бы в одну лицензионную учетную запись Minecraft, мы не рекомендуем запускать Minecraft без лицензионной учетной записи.</string>
