@@ -14,5 +14,7 @@ class ZHExtraConstants {
         const val ACCOUNT_UPDATE: String = "account_update"
         //用于监听页面不透明度设置
         const val PAGE_OPACITY_CHANGE: String = "page_opacity_change"
+        //用于监听LauncherActivity的背景图片变更
+        const val MAIN_BACKGROUND_CHANGE: String = "main_background_change"
     }
 }
