@@ -95,7 +95,7 @@ public class AccountsDialog extends FullScreenDialog implements TaskCountListene
             @Override
             public void onRefresh(MinecraftAccount account) {
                 if (!isTaskRunning) {
-                    accountsManager.performLogin(account);
+                    accountsManager.performLogin(account, true);
                 } else {
                     Toast.makeText(getContext(), R.string.tasks_ongoing, Toast.LENGTH_SHORT).show();
                 }
