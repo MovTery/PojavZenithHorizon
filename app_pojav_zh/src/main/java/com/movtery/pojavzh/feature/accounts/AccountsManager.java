@@ -48,7 +48,7 @@ public class AccountsManager {
                     //确保完全初始化，初始化完成之后，初始化监听器，然后执行刷新与登录操作
                     accountsManager.initListener();
                     accountsManager.reload();
-//                    accountsManager.performLogin(accountsManager.getCurrentAccount());
+                    accountsManager.performLogin(accountsManager.getCurrentAccount(), false);
                 }
                 return accountsManager;
             }
@@ -99,11 +99,11 @@ public class AccountsManager {
         };
     }
 
-    public void performLogin(MinecraftAccount minecraftAccount) {
+    public void performLogin(MinecraftAccount minecraftAccount, boolean refresh) {
         if (AccountUtils.isNoLoginRequired(minecraftAccount)) return;
 
         if (AccountUtils.isOtherLoginAccount(minecraftAccount)) {
-            AccountUtils.otherLogin(context, minecraftAccount);
+            AccountUtils.otherLogin(context, minecraftAccount, refresh);
             return;
         }
 
