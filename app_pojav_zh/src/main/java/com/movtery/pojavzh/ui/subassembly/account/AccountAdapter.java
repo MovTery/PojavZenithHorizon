@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.pojavzh.feature.accounts.AccountUtils;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.R;
@@ -20,7 +21,6 @@ import net.kdt.pojavlaunch.value.MinecraftAccount;
 
 import java.io.File;
 import java.util.List;
-import java.util.Objects;
 
 public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.Holder> {
     private final List<MinecraftAccount> mData;
@@ -102,7 +102,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.Holder> 
                     if (iconFile.exists()) {
                         drawable = Drawable.createFromPath(iconFile.getAbsolutePath());
                     }
-                } else if (!Objects.isNull(account.baseUrl) && !account.baseUrl.equals("0")) {
+                } else if (AccountUtils.isOtherLoginAccount(account)) {
                     setButtonClickable(mRefreshButton, true);
                     loginType = R.string.zh_other_login_api;
                 } else {

@@ -1,7 +1,5 @@
 package net.kdt.pojavlaunch.value;
 
-import android.graphics.BitmapFactory;
-
 import net.kdt.pojavlaunch.*;
 
 import java.io.*;
@@ -9,14 +7,10 @@ import com.google.gson.*;
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 
-import android.graphics.Bitmap;
-import android.util.Base64;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import org.apache.commons.io.FileUtils;
-
 
 @Keep
 public class MinecraftAccount {
@@ -28,13 +22,9 @@ public class MinecraftAccount {
     public boolean isMicrosoft = false;
     public String msaRefreshToken = "0";
     public String xuid;
-    public long expiresAt;
     public String baseUrl;
     public String account;
-    public String password;
-    public String skinFaceBase64;
-    private Bitmap mFaceCache;
-    
+
     void updateSkinFace(String uuid) {
         try {
             File skinFile = getSkinFaceFile(username);
@@ -99,59 +89,12 @@ public class MinecraftAccount {
         }
     }
 
-    public Bitmap getSkinFace(){
-        if(isLocal()) return null;
-
-        File skinFaceFile = getSkinFaceFile(username);
-        if (!skinFaceFile.exists()) {
-            // Legacy version, storing the head inside the json as base 64
-            if(skinFaceBase64 == null) return null;
-            byte[] faceIconBytes = Base64.decode(skinFaceBase64, Base64.DEFAULT);
-            return BitmapFactory.decodeByteArray(faceIconBytes, 0, faceIconBytes.length);
-        } else {
-            if(mFaceCache == null) {
-                mFaceCache = BitmapFactory.decodeFile(skinFaceFile.getAbsolutePath());
-            }
-        }
-
-        return mFaceCache;
-    }
-
-    public static Bitmap getSkinFace(String username) {
-        return BitmapFactory.decodeFile(getSkinFaceFile(username).getAbsolutePath());
-    }
-
     private static File getSkinFaceFile(String username) {
         return new File(PathAndUrlManager.DIR_USER_ICON, username + ".png");
     }
 
     private static boolean accountExists(String username){
         return new File(PathAndUrlManager.DIR_ACCOUNT_NEW + "/" + username + ".json").exists();
-    }
-
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-
-    public String getBaseUrl() {
-        return baseUrl;
-    }
-
-    public void setBaseUrl(String baseUrl) {
-        this.baseUrl = baseUrl;
     }
 
     @NonNull
