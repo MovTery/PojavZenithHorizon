@@ -73,11 +73,8 @@ public class AccountsDialog extends FullScreenDialog implements TaskCountListene
     private void initView() {
         SelectAccountListener selectAccountListener = account -> {
             if (account != null) {
-                if (!isTaskRunning) {
-                    PojavProfile.setCurrentProfile(getContext(), account.username);
-                } else {
-                    Tools.runOnUiThread(() -> Toast.makeText(getContext(), R.string.tasks_ongoing, Toast.LENGTH_SHORT).show());
-                }
+                if (!isTaskRunning) PojavProfile.setCurrentProfile(getContext(), account.username);
+                else Tools.runOnUiThread(() -> Toast.makeText(getContext(), R.string.tasks_ongoing, Toast.LENGTH_SHORT).show());
             } else {
                 ExtraCore.setValue(ExtraConstants.SELECT_AUTH_METHOD, true);
             }
@@ -95,7 +92,7 @@ public class AccountsDialog extends FullScreenDialog implements TaskCountListene
             @Override
             public void onRefresh(MinecraftAccount account) {
                 if (!isTaskRunning) {
-                    accountsManager.performLogin(account, true);
+                    accountsManager.forcedLogin(account);
                 } else {
                     Toast.makeText(getContext(), R.string.tasks_ongoing, Toast.LENGTH_SHORT).show();
                 }

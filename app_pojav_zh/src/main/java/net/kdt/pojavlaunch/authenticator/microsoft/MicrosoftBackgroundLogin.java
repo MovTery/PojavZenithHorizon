@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
+import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -62,6 +63,7 @@ public class MicrosoftBackgroundLogin {
     public String mcToken;
     public String mcUuid;
     public boolean doesOwnGame;
+    public long expiresAt;
 
     public MicrosoftBackgroundLogin(boolean isRefresh, String authCode){
         mIsRefresh = isRefresh;
@@ -96,6 +98,7 @@ public class MicrosoftBackgroundLogin {
                     acc.profileId = mcUuid;
                     acc.isMicrosoft = true;
                     acc.msaRefreshToken = msRefreshToken;
+                    acc.expiresAt = expiresAt;
                     acc.updateSkinFace();
                 }
                 acc.save();
@@ -239,6 +242,7 @@ public class MicrosoftBackgroundLogin {
         }
 
         if(conn.getResponseCode() >= 200 && conn.getResponseCode() < 300) {
+            expiresAt = ZHTools.getCurrentTimeMillis() + 86400000;
             JSONObject jo = new JSONObject(Tools.read(conn.getInputStream()));
             conn.disconnect();
             mcToken = jo.getString("access_token");

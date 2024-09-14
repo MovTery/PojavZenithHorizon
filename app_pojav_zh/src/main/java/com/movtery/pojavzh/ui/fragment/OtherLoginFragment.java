@@ -137,6 +137,7 @@ public class OtherLoginFragment extends FragmentWithAnim {
                                 account.clientToken = authResult.getClientToken();
                                 account.baseUrl = mCurrentBaseUrl;
                                 account.account = mUserEditText.getText().toString();
+                                account.expiresAt = ZHTools.getCurrentTimeMillis() + 30 * 60 * 1000;
                                 if (!Objects.isNull(authResult.getSelectedProfile())) {
                                     account.username = authResult.getSelectedProfile().getName();
                                     account.profileId = authResult.getSelectedProfile().getId();
