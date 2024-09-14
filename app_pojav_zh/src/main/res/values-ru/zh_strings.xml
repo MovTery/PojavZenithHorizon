@@ -321,6 +321,7 @@
     <string name="zh_about_version_status_other_branch">Другая ветка</string>
     <string name="zh_about_version_status_debug">Тестовая версия</string>
     <string name="zh_about_version_status_release">Релизная версия</string>
+    <string name="zh_about_version_status_pre_release">Предварительная версия</string>
     <!-- Sponsorship Related -->
     <string name="zh_request_sponsorship_title">Поддержите Мое Развитие</string>
     <string name="zh_request_sponsorship_message">Большую часть этого программного обеспечения разрабатываю и поддерживаю я один. Если вы считаете это программное обеспечение полезным и у вас есть возможность, пожалуйста, рассмотрите возможность спонсирования меня, чтобы дать мне больше мотивации продолжать разработку и улучшение. Спасибо за вашу поддержку!</string>

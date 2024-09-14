@@ -175,7 +175,8 @@ public class ZHTools {
                 context.getString(R.string.zh_about_version_status_other_branch);
 
         String status;
-        if (Objects.equals(BuildConfig.BUILD_TYPE, "release")) status = context.getString(R.string.zh_about_version_status_release);
+        if (getVersionName().contains("pre-release")) status = context.getString(R.string.zh_about_version_status_pre_release);
+        else if (Objects.equals(BuildConfig.BUILD_TYPE, "release")) status = context.getString(R.string.zh_about_version_status_release);
         else status = context.getString(R.string.zh_about_version_status_debug);
 
         return "[" + branch + "] " + status;

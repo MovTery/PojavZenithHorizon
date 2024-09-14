@@ -321,6 +321,7 @@
     <string name="zh_about_version_status_other_branch">Nhánh khác</string>
     <string name="zh_about_version_status_debug">Phiên bản thử nghiệm</string>
     <string name="zh_about_version_status_release">Phiên bản chính thức</string>
+    <string name="zh_about_version_status_pre_release">Phiên bản phát hành trước</string>
     <!-- Sponsorship Related -->
     <string name="zh_request_sponsorship_title">Hỗ Trợ Phát Triển Của Tôi</string>
     <string name="zh_request_sponsorship_message">Phần lớn phần mềm này được phát triển và duy trì bởi một mình tôi. Nếu bạn thấy phần mềm này hữu ích và có khả năng, hãy xem xét tài trợ cho tôi để tôi có thêm động lực tiếp tục phát triển và cải tiến nó. Cảm ơn bạn đã hỗ trợ!</string>

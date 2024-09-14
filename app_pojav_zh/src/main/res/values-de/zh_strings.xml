@@ -321,6 +321,7 @@
     <string name="zh_about_version_status_other_branch">Anderer Zweig</string>
     <string name="zh_about_version_status_debug">Testversion</string>
     <string name="zh_about_version_status_release">Stabile Version</string>
+    <string name="zh_about_version_status_pre_release">Vorabversion</string>
     <!-- Sponsorship Related -->
     <string name="zh_request_sponsorship_title">Unterstütze meine Entwicklung</string>
     <string name="zh_request_sponsorship_message">Der Großteil dieser Software wurde von mir allein entwickelt und gewartet. Wenn Sie diese Software hilfreich finden und es Ihnen möglich ist, würde ich mich freuen, wenn Sie meine Entwicklung unterstützen könnten, damit ich mehr Motivation habe, weiter zu entwickeln und zu verbessern. Vielen Dank für Ihre Unterstützung!</string>
