@@ -49,7 +49,7 @@
     <string name="zh_profile_mods_download_mod_failed">Failed to download Mod file</string>
     <string name="zh_profile_mods_download_mod_release_version">Show only Minecraft release versions</string>
     <string name="zh_profile_mods_download_mod_custom_name">Custom Name</string>
-    <string name="zh_profile_mods_download_mod_custom_name_invalid">Name contains invalid characters: "%s"</string>
+    <string name="zh_profile_mods_download_mod_custom_name_invalid">Name contains invalid characters: \"%s\"</string>
     <string name="zh_profile_mods_search_mod_failed">Failed to search for Mod</string>
     <string name="zh_profile_mods_search_mod_no_result">No relevant Mod found</string>
     <string name="zh_profile_mods_search_mod">Search Mod</string>

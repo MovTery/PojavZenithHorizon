@@ -49,7 +49,7 @@
     <string name="zh_profile_mods_download_mod_failed">Не удалось скачать файл Mod</string>
     <string name="zh_profile_mods_download_mod_release_version">Показывать только официальные версии Minecraft</string>
     <string name="zh_profile_mods_download_mod_custom_name">Пользовательское имя</string>
-    <string name="zh_profile_mods_download_mod_custom_name_invalid">Имя содержит недопустимые символы: "%s"</string>
+    <string name="zh_profile_mods_download_mod_custom_name_invalid">Имя содержит недопустимые символы: \"%s\"</string>
     <string name="zh_profile_mods_search_mod_failed">Не удалось выполнить поиск Mod</string>
     <string name="zh_profile_mods_search_mod_no_result">Mod не найден</string>
     <string name="zh_profile_mods_search_mod">Поиск Mod</string>

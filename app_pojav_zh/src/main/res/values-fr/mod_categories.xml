@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Mod -->
+    <string name="mods_category_worldgen">Éléments du Monde</string>
+    <string name="mods_category_biomes">Biomes</string>
+    <string name="mods_category_dimensions">Dimensions</string>
+    <string name="mods_category_ores_resources">Minerais &amp; Ressources</string>
+    <string name="mods_category_structures">Structures</string>
+    <string name="mods_category_technology">Technologie</string>
+    <string name="mods_category_item_fluid_energy_transport">Tuyaux &amp; Logistique</string>
+    <string name="mods_category_automation">Automatisation</string>
+    <string name="mods_category_energy">Énergie</string>
+    <string name="mods_category_redstone">Redstone</string>
+    <string name="mods_category_food">Nourriture &amp; Cuisine</string>
+    <string name="mods_category_farming">Agriculture</string>
+    <string name="mods_category_transport">Transport</string>
+    <string name="mods_category_storage">Stockage</string>
+    <string name="mods_category_magic">Magie</string>
+    <string name="mods_category_adventure">Aventure</string>
+    <string name="mods_category_decoration">Décoration</string>
+    <string name="mods_category_mobs">Créatures</string>
+    <string name="mods_category_equipment">Équipement</string>
+    <string name="mods_category_information">Information</string>
+    <string name="mods_category_social">Serveur</string>
+    <string name="mods_category_utility">Utilitaire</string>
+    <string name="mods_category_library">Bibliothèque</string>
+    <string name="mods_category_game_mechanics">Mécaniques de Jeu</string>
+    <string name="mods_category_optimization">Optimisation</string>
+    <!-- Modpack -->
+    <string name="modpacks_category_multiplayer">Multijoueur</string>
+    <string name="modpacks_category_challenging">Hardcore</string>
+    <string name="modpacks_category_combat">Combat</string>
+    <string name="modpacks_category_quests">Quêtes</string>
+    <string name="modpacks_category_technology">Technologie</string>
+    <string name="modpacks_category_magic">Magie</string>
+    <string name="modpacks_category_adventure">Aventure</string>
+    <string name="modpacks_category_exploration">Exploration</string>
+    <string name="modpacks_category_mini_game">Mini-Jeux</string>
+    <string name="modpacks_category_sci_fi">Sci-Fi</string>
+    <string name="modpacks_category_skyblock">Skyblock</string>
+    <string name="modpacks_category_vanilla">Améliorations Vanilla</string>
+    <string name="modpacks_category_map_based">Basé sur la Carte</string>
+    <string name="modpacks_category_lightweight">Léger</string>
+    <string name="modpacks_category_extra_large">Très Grand</string>
+    <string name="modpacks_category_optimization">Optimisation</string>
+    <string name="modpacks_category_kitchen_sink">Tout-en-un</string>
+</resources>

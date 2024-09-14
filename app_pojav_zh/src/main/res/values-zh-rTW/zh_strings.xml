@@ -31,13 +31,13 @@
     <!-- Dialog -->
     <string name="zh_dialog_select_jar">選擇 Jar 檔案</string>
     <!-- Profiles Path -->
-    <string name="zh_permissions_manage_external_storage">Pojav Zenith Horizon 需要管理設備所有檔案的權限，以便自訂儲存遊戲檔案位置，請為 Pojav Zenith Horizon 開啟權限！</string>
+    <string name="zh_permissions_manage_external_storage">Pojav Zenith Horizon 需要管理設備所有檔案的權限，以便自訂保存遊戲檔案位置，請為 Pojav Zenith Horizon 開啟權限！</string>
     <string name="zh_profiles_path_title">遊戲路徑管理</string>
     <string name="zh_profiles_path_default">預設路徑</string>
-    <string name="zh_profiles_path_create_new">新增路徑</string>
+    <string name="zh_profiles_path_create_new">新增新路徑</string>
     <string name="zh_profiles_path_create_new_title">為此路徑命名</string>
     <string name="zh_profiles_path_delete_title">刪除此路徑</string>
-    <string name="zh_profiles_path_delete_message">啟動器將刪除此路徑，但不會刪除對應路徑內儲存的檔案，刪除之後仍然可以重新新增此路徑</string>
+    <string name="zh_profiles_path_delete_message">啟動器將刪除此路徑，但不會刪除對應路徑內保存的檔案，刪除之後仍然可以重新新增此路徑</string>
     <string name="zh_profiles_path_task_in_progress">任務執行中，暫時無法使用路徑管理功能</string>
     <!-- Profile -->
     <string name="zh_profile_custom_path">自訂路徑</string>
@@ -45,19 +45,19 @@
     <string name="zh_profile_mods_platform">搜尋平台</string>
     <string name="zh_profile_mods_sort_by">排序方式</string>
     <string name="zh_profile_mods_category">類別</string>
-    <string name="zh_profile_mods_modloader">Mod 加載器</string>
+    <string name="zh_profile_mods_modloader">Mod 載入器</string>
     <string name="zh_profile_mods_download_mod_failed">下載 Mod 檔案時失敗</string>
-    <string name="zh_profile_mods_download_mod_release_version">僅顯示 Minecraft 正式版本</string>
+    <string name="zh_profile_mods_download_mod_release_version">僅展示 Minecraft 正式版本</string>
     <string name="zh_profile_mods_download_mod_custom_name">自訂名稱</string>
-    <string name="zh_profile_mods_download_mod_custom_name_invalid">名稱包含無效字元："%s"</string>
+    <string name="zh_profile_mods_download_mod_custom_name_invalid">名稱內包含無效字元：\"%s\"</string>
     <string name="zh_profile_mods_search_mod_failed">搜尋 Mod 時失敗</string>
     <string name="zh_profile_mods_search_mod_no_result">未找到相關 Mod</string>
     <string name="zh_profile_mods_search_mod">搜尋 Mod</string>
     <string name="zh_profile_mods_search_platform_both">混合</string>
     <string name="zh_profile_mods_search_sort_by_relevant">相關性</string>
-    <string name="zh_profile_mods_search_sort_by_total_downloads">總下載數</string>
-    <string name="zh_profile_mods_search_sort_by_popularity">受歡迎程度</string>
-    <string name="zh_profile_mods_search_sort_by_recently_created">最新創建</string>
+    <string name="zh_profile_mods_search_sort_by_total_downloads">總下載量</string>
+    <string name="zh_profile_mods_search_sort_by_popularity">人氣</string>
+    <string name="zh_profile_mods_search_sort_by_recently_created">最近創建</string>
     <string name="zh_profile_mods_search_sort_by_recently_updated">最新更新</string>
     <string name="zh_profile_mods_information_download_count">下載量:</string>
     <string name="zh_profile_mods_information_modloader">適用於:</string>
@@ -68,7 +68,7 @@
     <string name="zh_profile_mods_dependencies_dialog_title">%s 有以下的依賴 Mod</string>
     <string name="zh_profile_mods_dependencies_dialog_tip">請根據需求下載對應的依賴 Mod，缺少必要的依賴 Mod 將導致遊戲無法運行！</string>
     <string name="zh_profile_mods_dependencies_dialog_this_mod">下載 %s</string>
-    <string name="zh_profile_mods_dependencies_required">必須</string>
+    <string name="zh_profile_mods_dependencies_required">需裝</string>
     <string name="zh_profile_mods_dependencies_optional">可選</string>
     <string name="zh_profile_mods_dependencies_incompatible">不相容</string>
     <string name="zh_profile_mods_dependencies_embedded">嵌入式</string>
@@ -78,7 +78,7 @@
     <string name="zh_profile_mods_added_mod">成功添加 Mod</string>
     <string name="zh_profile_mods_disable">停用</string>
     <string name="zh_profile_mods_enable">啟用</string>
-    <string name="zh_profile_mods_disable_or_enable">停用/啟用</string>
+    <string name="zh_profile_mods_disable_or_enable">禁用/啟用</string>
     <!-- Profile Manager -->
     <string name="zh_profile_manager_shortcuts">快速功能</string>
     <string name="zh_profile_manager_shortcuts_mods">模組管理</string>
@@ -91,12 +91,12 @@
     <string name="zh_profile_manager_delete">刪除實例</string>
     <string name="zh_profile_manager_delete_message">此操作將會刪除此實例，但並不會刪除實例關聯的遊戲檔案</string>
     <string name="zh_profile_manager_download_optifine">安裝 OptiFine Mod</string>
-    <string name="zh_profile_manager_download_optifine_message">僅將 OptiFine 作為 Mod 下載並安裝，請確保所選實例支持運行 OptiFine Mod</string>
+    <string name="zh_profile_manager_download_optifine_message">僅將 OptiFine 作為 Mod 下載並安裝，請確保所選實例支援運行 OptiFine Mod</string>
     <!-- Account -->
     <string name="zh_account_manager">帳號管理</string>
-    <string name="zh_account_text">請選擇一種登錄方式</string>
+    <string name="zh_account_text">請選擇一種登入方式</string>
     <string name="zh_account_microsoft_account">微軟帳號</string>
-    <string name="zh_account_microsoft_xerr_unauthorized">你的微軟帳號登入資訊似乎已經過期，這種情況常出現在帳號密碼被修改之後，請移除目前帳號並重新登入你的帳號，以重置你的登入資訊。</string>
+    <string name="zh_account_microsoft_xerr_unauthorized">你的微軟帳號登入資訊貌似已經過期，這種情況常出現在帳戶密碼被修改之後，請移除當前帳號並重新登入你的帳號，以重置的你的登入資訊。</string>
     <string name="zh_account_local_account">離線帳號</string>
     <string name="zh_account_local_account_empty">用戶名不能為空！</string>
     <string name="zh_account_local_account_exists">用戶名與現有帳戶衝突，請重新填寫一個新的名稱！</string>
@@ -105,10 +105,10 @@
     <string name="zh_account_local_account_illegal">用戶名包含非法字符！僅支持英文字母（大小寫均可）、數字以及下劃線作為用戶名</string>
     <string name="zh_account_login_local_name">用戶名</string>
     <string name="zh_account_login_start">開始登入！</string>
-    <string name="zh_account_no_microsoft_account">請至少登入一個 Minecraft 正版帳號，我們不建議在沒有正版帳號的情況下啟動 Minecraft。</string>
+    <string name="zh_account_no_microsoft_account">請至少登入一個 Minecraft 正版帳號，我們不提倡使用者在沒有正版帳號的情況下啟動 Minecraft。</string>
     <string name="zh_account_no_microsoft_account_local">你似乎沒有登入正版帳號！離線帳號是為玩家在無法連網時提供的一種備用方案，而不是給沒有正版帳號的玩家使用的。</string>
     <string name="zh_account_no_microsoft_account_local_confirm">仍然使用離線帳號</string>
-    <string name="zh_account_no_microsoft_account_other">你似乎沒有登入正版帳號！你確定要在沒有登入正版帳號的情況下使用外部登入嗎？</string>
+    <string name="zh_account_no_microsoft_account_other">你似乎沒有登入正版帳號！你確定要在沒有登入正版帳號的情況下使用外置登入嗎？</string>
     <string name="zh_account_no_microsoft_account_other_confirm">仍然使用外置登入</string>
     <string name="zh_account_continue_to_launch_the_game">仍然啟動遊戲</string>
     <string name="zh_account_purchase_minecraft_account">購買 Minecraft 正版帳號</string>
@@ -123,18 +123,18 @@
     <!-- Custom Controls -->
     <string name="zh_controls_add_control_button">按鍵</string>
     <string name="zh_controls_add_control_drawer">組合鍵</string>
-    <string name="zh_controls_visibility">可見度</string>
+    <string name="zh_controls_visibility">可見性</string>
     <string name="zh_controls_in_game">遊戲內</string>
-    <string name="zh_controls_in_menu">菜單內</string>
+    <string name="zh_controls_in_menu">選單內</string>
     <string name="zh_controls_orientation_up">朝上</string>
     <string name="zh_controls_orientation_down">朝下</string>
     <string name="zh_controls_orientation_left">朝左</string>
     <string name="zh_controls_orientation_right">朝右</string>
     <string name="zh_controls_orientation_free">自由</string>
-    <string name="zh_controls_load_failed">加載失敗！</string>
+    <string name="zh_controls_load_failed">載入失敗！</string>
     <string name="zh_controls_unsupported_layout_version">不支援的控制佈局版本！</string>
     <string name="zh_controls_create_new">創建新的控制佈局</string>
-    <string name="zh_controls_import_control">導入控制佈局</string>
+    <string name="zh_controls_import_control">匯入控制佈局</string>
     <string name="zh_controls_settings_title">控制佈局編輯器設定</string>
     <string name="zh_controls_settings_button_snapping">按鍵吸附功能</string>
     <string name="zh_controls_settings_button_snapping_distance">按鍵吸附距離</string>
@@ -147,8 +147,8 @@
     <string name="zh_controls_info_view">查看資訊</string>
     <string name="zh_controls_info_no_info">此控制佈局沒有描述說明…</string>
     <string name="zh_controls_info_invalid">無效的檔案:</string>
-    <string name="zh_controls_info_default_title">預設控制配置</string>
-    <string name="zh_controls_info_default_desc">這是預設的控制配置檔案，點擊可管理此控制配置。</string>
+    <string name="zh_controls_info_default_title">預設的控制佈局</string>
+    <string name="zh_controls_info_default_desc">這是預設的控制佈局檔案，點擊可操作此控制佈局。</string>
     <string name="zh_controls_set_default_message">你確定要將此控制佈局設定為預設控制佈局嗎？</string>
     <string name="zh_controls_nothing">這裡沒有任何控制佈局，重新啟動應用程式將生成一份新的默認控制佈局</string>
     <string name="zh_replacement_customcontrol">更換控制佈局</string>
@@ -161,12 +161,12 @@
     <string name="zh_custom_mouse_added">成功設定虛擬滑鼠:</string>
     <string name="zh_custom_mouse_default">預設虛擬滑鼠</string>
     <string name="zh_custom_mouse_title">自訂虛擬滑鼠</string>
-    <string name="zh_custom_mouse_desc">打開虛擬滑鼠管理界面，您可以自行添加您喜歡的虛擬滑鼠貼圖，並使用它們</string>
+    <string name="zh_custom_mouse_desc">開啟虛擬滑鼠管理介面，你能夠自行新增你喜歡的虛擬滑鼠圖示，並使用它們</string>
     <string name="zh_custom_mouse_message_default">當前選中的虛擬滑鼠為預設的虛擬滑鼠，不支持進行分享、重命名、刪除操作</string>
     <string name="zh_custom_background_add">添加背景圖片</string>
     <string name="zh_custom_background_title">自訂啟動器背景圖片</string>
-    <string name="zh_custom_background_desc">打開啟動器背景圖示管理界面，你可以自行添加你喜歡的背景圖片，並為各個不同的界面設定不同的背景</string>
-    <string name="zh_custom_background_main_menu">主菜單</string>
+    <string name="zh_custom_background_desc">開啟啟動器背景圖示管理介面，你能夠自行新增你喜歡的背景圖片，並為各個不同的介面設定不同的背景</string>
+    <string name="zh_custom_background_main_menu">主選單</string>
     <string name="zh_custom_background_controls">控制佈局</string>
     <string name="zh_custom_background_in_game">遊戲內</string>
     <string name="zh_custom_background_dialog_message">點擊 “選擇” 按鈕，將此圖片設定為 %s 的背景圖片</string>
@@ -174,17 +174,17 @@
     <string name="zh_custom_background_reset">已重置 %s 的背景圖片</string>
     <string name="zh_custom_background_nothing">這裡沒有任何背景圖片，請先添加一些圖片！</string>
     <!-- File -->
-    <string name="zh_file_add_file">新增檔案</string>
-    <string name="zh_file_add_file_tip">請選擇一個後綴名為 %s 的檔案</string>
-    <string name="zh_file_does_not_exist">這個資料夾（或檔案）不存在</string>
+    <string name="zh_file_add_file">添加檔案</string>
+    <string name="zh_file_add_file_tip">請選擇一個副檔名為 %s 的檔案</string>
+    <string name="zh_file_does_not_exist">這個資料夾(或檔案)不存在</string>
     <string name="zh_file_tips">操作此檔案</string>
     <string name="zh_file_folder_tips">操作此資料夾</string>
     <string name="zh_file_message">請選擇你要對此檔案執行的操作</string>
     <string name="zh_file_folder_message">請選擇你要對此資料夾執行的操作</string>
-    <string name="zh_file_added">成功新增檔案</string>
+    <string name="zh_file_added">成功添加檔案</string>
     <string name="zh_file_delete">你確定要刪除此檔案嗎？</string>
     <string name="zh_file_delete_dir">你確定要刪除此資料夾嗎？</string>
-    <string name="zh_file_delete_dir_message">刪除資料夾時，將會一併刪除此資料夾內所有檔案，如果這個資料夾內有重要的檔案，請取消此操作！</string>
+    <string name="zh_file_delete_dir_message">刪除資料夾時，會將此資料夾內部全部檔案一併刪除，如果這個資料夾內含有重要的檔案，那麼請取消此操作！</string>
     <string name="zh_file_delete_multiple_items_title">你確定要刪除已選的項目嗎？</string>
     <string name="zh_file_delete_multiple_items_message">此操作將永久刪除全部已選擇的項目，請謹慎操作！</string>
     <string name="zh_file_rename_empty">檔案名稱不能為空！</string>
@@ -193,22 +193,22 @@
     <string name="zh_file_software_private">軟體私有目錄</string>
     <string name="zh_file_multi_select_mode">開啟多選模式</string>
     <string name="zh_file_multi_select_mode_title">多選項目</string>
-    <string name="zh_file_multi_select_mode_message">目前共選擇了 %d 個項目</string>
+    <string name="zh_file_multi_select_mode_message">當前總共選擇了 %d 個項目</string>
     <string name="zh_file_operation_file">正在處理檔案中… (%s / %s, %d)</string>
-    <string name="zh_file_jump_to_path">跳至路徑</string>
-    <string name="zh_file_nothing">沒有找到任何文件哦！</string>
+    <string name="zh_file_jump_to_path">跳轉至路徑</string>
+    <string name="zh_file_nothing">沒有找到任何檔案哦！</string>
     <!-- Search View -->
     <string name="zh_search_case_sensitive">大小寫區分</string>
-    <string name="zh_search_only_show_results">僅顯示搜尋結果</string>
+    <string name="zh_search_only_show_results">僅展示搜尋結果</string>
     <string name="zh_search_count">%d 個搜尋結果</string>
     <!-- Modloader -->
     <string name="zh_neoforge_dl_searching">正在搜尋 NeoForge 版本號</string>
-    <string name="zh_modloader_dl_install_neoforge">建立 NeoForge 實例</string>
+    <string name="zh_modloader_dl_install_neoforge">創建 NeoForge 實例</string>
     <!-- Main Page & Preferce Settings -->
     <string name="zh_main_open_main_dir">打開主目錄</string>
     <string name="zh_main_share_crash_report">分享崩潰報告</string>
-    <string name="zh_main_share_log_title">請選擇日誌文件類型</string>
-    <string name="zh_main_share_launcher_log">啟動器日誌文件</string>
+    <string name="zh_main_share_log_title">請選擇日誌檔案類型</string>
+    <string name="zh_main_share_launcher_log">啟動器日誌檔案</string>
     <string name="zh_main_share_game_log">上一次遊戲運行日誌</string>
     <string name="zh_main_notice_title">通知欄</string>
     <string name="zh_preference_category_language">語言</string>
@@ -220,9 +220,9 @@
     <string name="zh_setting_java_memory_desc">控制分配給 Minecraft 的記憶體大小</string>
     <string name="zh_setting_java_memory_info">目前記憶體使用：%s / %s ，空閒記憶體大小：%s</string>
     <string name="zh_setting_java_memory_max">可設定的最大記憶體大小：%s</string>
-    <string name="zh_setting_java_memory_exceeded">目前設定的記憶體大小超過了可用的記憶體大小</string>
-    <string name="zh_setting_mod_info_mirror">Mod 資訊取得來源</string>
-    <string name="zh_setting_mod_download_mirror">Mod 下載來源</string>
+    <string name="zh_setting_java_memory_exceeded">當前設定的記憶體空間超出了可用記憶體大小</string>
+    <string name="zh_setting_mod_info_mirror">Mod 資訊獲取源</string>
+    <string name="zh_setting_mod_download_mirror">Mod 下載源</string>
     <string name="zh_setting_set_game_language_desc">在遊戲啟動時，自動設定遊戲語言為選定的語言</string>
     <string name="zh_setting_set_game_language_title">自動設定遊戲語言</string>
     <string name="zh_setting_set_game_language_list">設定遊戲語言</string>
@@ -233,7 +233,7 @@
     <string name="zh_setting_launcher_theme_system">跟隨系統變化</string>
     <string name="zh_setting_launcher_theme_light">浅色模式</string>
     <string name="zh_setting_launcher_theme_dark">深色模式</string>
-    <string name="zh_setting_enable_log_output_desc">在應用正式開始執行遊戲時，開啟日誌輸出介面</string>
+    <string name="zh_setting_enable_log_output_desc">在應用正式開始運行遊戲時，開啟日誌輸出介面</string>
     <string name="zh_setting_enable_log_output_title">啟動遊戲時打開日誌輸出</string>
     <string name="zh_setting_animation_desc">設定啟動器切換介面時是否播放動畫</string>
     <string name="zh_setting_animation_title">啟用動畫</string>
@@ -241,13 +241,13 @@
     <string name="zh_setting_animation_speed_title">動畫速率</string>
     <string name="zh_setting_page_opacity_title">頁面不透明度</string>
     <string name="zh_setting_page_opacity_desc">設定啟動器主要頁面的不透明度</string>
-    <string name="zh_setting_quit_launcher_desc">在應用正式開始執行遊戲時，是否退出啟動器</string>
+    <string name="zh_setting_quit_launcher_desc">在應用正式開始運行遊戲時，是否退出啟動器</string>
     <string name="zh_setting_quit_launcher_title">退出啟動器</string>
     <string name="zh_setting_reboot_tip">這項設定已被更改，但是需要重新啟動應用程式才能生效！</string>
     <!-- Game -->
     <string name="zh_game_exit_message">應用程式/遊戲以代碼 %d 結束，詳細錯誤原因請查看日誌檔或崩潰報告。若您無法親自解決此問題，請將日誌檔或崩潰報告寄給能夠解決問題的人協助您處理！\n\n請不要只是截圖目前應用程式介面，否則無法得知發生了什麼事，請分享您的日誌檔或崩潰報告！</string>
-    <string name="zh_game_autopick_runtime_failed">未找到合適的執行環境，已設定為當前實例選擇的執行環境</string>
-    <string name="zh_game_tip">遊戲正在執行中，可以透過選單開啟日誌輸出，查看遊戲執行狀況</string>
+    <string name="zh_game_autopick_runtime_failed">未找到合適的運行環境，已設置為當前實例選擇的運行環境</string>
+    <string name="zh_game_tip">遊戲正在運行中，可以通過菜單開啟日誌輸出，查看遊戲運行狀況</string>
     <string name="zh_game_tip_version">當前啟動的遊戲版本:</string>
     <!-- ModPack -->
     <string name="zh_select_modpack_search">搜索模組包</string>
@@ -262,42 +262,42 @@
     <string name="zh_clear_up_cache_clean_up">清理完畢，本次總共清除了 %s 的快取檔案</string>
     <!-- Check Update -->
     <string name="zh_update">檢查更新</string>
-    <string name="zh_update_dialog_title">檢測到新版本</string>
+    <string name="zh_update_dialog_title">偵測到新版本</string>
     <string name="zh_update_dialog_version">版本:</string>
     <string name="zh_update_dialog_time">日期:</string>
     <string name="zh_update_dialog_file_size">安裝包大小:</string>
     <string name="zh_update_dialog_yes">更新</string>
     <string name="zh_update_dialog_ignore">忽略這次更新</string>
-    <string name="zh_update_summary">取得並更新至最新版本</string>
-    <string name="zh_update_without">目前已經是最新版本</string>
-    <string name="zh_update_fail">網路異常，暫時無法取得更新！</string>
-    <string name="zh_update_fail_code">網絡異常，暫時無法獲取更新！錯誤碼: %d</string>
+    <string name="zh_update_summary">獲取並更新到最新的版本</string>
+    <string name="zh_update_without">當前已是最新版本</string>
+    <string name="zh_update_fail">網路異常，暫時無法獲取更新！</string>
+    <string name="zh_update_fail_code">網路異常，暫時無法獲取更新！錯誤碼: %d</string>
     <string name="zh_update_success">最新的安裝包已經下載完成，是否安裝？\n安裝包位置:</string>
-    <string name="zh_update_update_source">選擇更新來源</string>
+    <string name="zh_update_update_source">選擇更新源</string>
     <string name="zh_update_update_source_ghproxy">Ghproxy 加速源</string>
     <string name="zh_update_downloading">正在下載安裝包… (%s / %s)</string>
-    <string name="zh_update_downloading_tip">正在下載中，更新來源：%s</string>
+    <string name="zh_update_downloading_tip">正在獲取中，更新源：%s</string>
     <!-- Other Login -->
-    <string name="zh_other_login_api">外部登錄</string>
-    <string name="zh_other_login_authentication_server">身份驗證服務器</string>
+    <string name="zh_other_login_api">外置登入</string>
+    <string name="zh_other_login_authentication_server">身份驗證伺服器</string>
     <string name="zh_other_login_register">註冊</string>
-    <string name="zh_other_login_email">電子郵件或用戶名</string>
+    <string name="zh_other_login_email">郵箱或使用者名稱</string>
     <string name="zh_other_login_password">密碼</string>
-    <string name="zh_other_login_add_server">請選擇身份驗證服務器類型</string>
-    <string name="zh_other_login_external_login">外部登錄</string>
+    <string name="zh_other_login_add_server">請選擇身份驗證伺服器類型</string>
+    <string name="zh_other_login_external_login">外置登入</string>
     <string name="zh_other_login_uniform_pass">統一通行證</string>
-    <string name="zh_other_login_yggdrasil_api">請輸入 Yggdrasil API 認證服務器地址</string>
-    <string name="zh_other_login_32_bit_server">請輸入32位服務器ID</string>
-    <string name="zh_other_login_error">登錄時出現錯誤：\n</string>
-    <string name="zh_other_login_no_server">無認證服務器</string>
+    <string name="zh_other_login_yggdrasil_api">請輸入 Yggdrasil API 認證伺服器地址</string>
+    <string name="zh_other_login_32_bit_server">請輸入32位伺服器ID</string>
+    <string name="zh_other_login_error">登入時出現錯誤：\n</string>
+    <string name="zh_other_login_no_server">無認證伺服器</string>
     <string name="zh_other_login_baseurl_not_set">未設定基礎URL</string>
     <string name="zh_other_login_client">客戶端</string>
     <string name="zh_other_login_error_code">錯誤代碼:</string>
     <string name="zh_other_login_server_not_empty">伺服器不能為空，請檢查身份驗證伺服器設定！</string>
     <!-- About -->
     <string name="zh_about_tab">關於 Pojav Zenith Horizon</string>
-    <string name="zh_about_dec1">Pojav Zenith Horizon 是一款基於 PojavLauncher 魔改的 Minecraft 啟動器，它能夠在 Android 設備上執行 Minecraft：Java Edition。\nPojav Zenith Horizon 致力於優化使用者體驗，重新設計了應用介面，新增了更多實用的功能，旨在最大程度地降低遊玩門檻，讓更多人能夠輕鬆體驗 Minecraft 的樂趣。</string>
-    <string name="zh_about_dec2">Pojav Zenith Horizon 由墨北MovTery 個人精心製作，在 PojavLauncher 的基礎上進行了深入的魔改工作。</string>
+    <string name="zh_about_dec1">Pojav Zenith Horizon 是一款基於 PojavLauncher 魔改的 Minecraft 啟動器，它能在 Android 設備上運行 Minecraft: Java Edition。\nPojav Zenith Horizon 致力於優化使用者體驗，重新設計了應用介面，新增了更多實用的功能，旨在最大程度地降低遊玩門檻，讓更多人能夠輕鬆體驗 Minecraft 的樂趣。</string>
+    <string name="zh_about_dec2">Pojav Zenith Horizon 由 墨北MovTery 個人精心製作，在 PojavLauncher 的基礎上進行了深入的魔改工作。</string>
     <string name="zh_about_dec3">由於 PojavLauncher 使用的是 GPL 3.0 開源協議，這一協議具有 “傳染性”，任何使用、修改或衍生自 GPL 類庫或軟體的代碼也必須採用 GPL 協議進行開源。因此，Pojav Zenith Horizon 也只能遵循 GPL 3.0 開源協議。如果你打算傳播或分發本軟體，請務必遵守 GPL 3.0 開源協議的相關規定。</string>
     <string name="zh_about_dec4">貢獻者與鳴謝:</string>
     <string name="zh_about_dec5">贊助者鳴謝:</string>
@@ -310,12 +310,12 @@
     <string name="zh_about_verafirefly_desc">為 Pojav Zenith Horizon 提供渲染方面的技術支援</string>
     <string name="zh_about_lingmuqiuzhu_desc">為 Pojav Zenith Horizon 提供了技術支援</string>
     <string name="zh_about_bangbang93_desc">Pojav Zenith Horizon 使用了其創作的 BMCLAPI 鏡像源</string>
-    <string name="zh_about_z0z0r4_desc">Pojav Zenith Horizon 使用了其創作的 MCIM Mod 資訊鏡像源</string>
+    <string name="zh_about_z0z0r4_desc">Pojav Zenith Horizon 使用了其創作的 MCIM Mod 信息鏡像源</string>
     <string name="zh_about_access_space">訪問空間</string>
-    <string name="zh_about_access_link">訪問鏈接</string>
-    <string name="zh_about_version_name">軟體版本名稱:</string>
+    <string name="zh_about_access_link">訪問連結</string>
+    <string name="zh_about_version_name">軟體版本名:</string>
     <string name="zh_about_version_code">軟體版本碼:</string>
-    <string name="zh_about_last_update_time">上次更新時間:</string>
+    <string name="zh_about_last_update_time">上一次更新時間:</string>
     <string name="zh_about_version_status">版本狀態:</string>
     <string name="zh_about_version_status_main_branch">主要分支</string>
     <string name="zh_about_version_status_other_branch">其他分支</string>
