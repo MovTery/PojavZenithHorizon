@@ -27,13 +27,13 @@ class AccountUtils {
         }
 
         @JvmStatic
-        fun otherLogin(context: Context, account: MinecraftAccount, refresh: Boolean) {
+        fun otherLogin(context: Context, account: MinecraftAccount) {
             val errorListener = AccountsManager.getInstance().errorListener
 
             OtherLoginApi.getINSTANCE().setBaseUrl(account.baseUrl)
             PojavApplication.sExecutorService.execute {
                 runCatching {
-                    OtherLoginApi.getINSTANCE().refresh(context, account, !refresh, object : OtherLoginApi.Listener {
+                    OtherLoginApi.getINSTANCE().refresh(context, account, false, object : OtherLoginApi.Listener {
                         override fun onSuccess(authResult: AuthResult) {
                             account.accessToken = authResult.accessToken
                             Tools.runOnUiThread {
