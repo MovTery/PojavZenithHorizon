@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.viewpager2.widget.ViewPager2
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo.YoYoString
 import com.google.android.material.tabs.TabLayout
@@ -35,7 +34,7 @@ import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import java.io.File
 
-class CustomBackgroundFragment(private val viewPage: ViewPager2) : FragmentWithAnim(R.layout.fragment_custom_background) {
+class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_background) {
     companion object {
         const val TAG: String = "CustomBackgroundFragment"
     }
@@ -130,7 +129,7 @@ class CustomBackgroundFragment(private val viewPage: ViewPager2) : FragmentWithA
             Toast.makeText(requireActivity(), getString(R.string.zh_custom_background_reset, currentStatusName), Toast.LENGTH_SHORT).show()
         }
 
-        mReturnButton?.setOnClickListener { viewPage.setCurrentItem(4, false) }
+        mReturnButton?.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
         mAddFileButton?.setOnClickListener { openDocumentLauncher?.launch(arrayOf("image/*")) }
         mRefreshButton?.setOnClickListener {
             refreshType(mTabLayout!!.selectedTabPosition)
