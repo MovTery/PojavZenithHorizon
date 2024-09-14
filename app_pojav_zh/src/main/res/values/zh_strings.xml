@@ -100,9 +100,7 @@
     <string name="zh_account_local_account">Local account</string>
     <string name="zh_account_local_account_empty">Username cannot be empty!</string>
     <string name="zh_account_local_account_exists">Username conflicts with an existing account, please choose a new name!</string>
-    <string name="zh_account_local_account_less">Username is too short!</string>
-    <string name="zh_account_local_account_greater">Username is too long!</string>
-    <string name="zh_account_local_account_illegal">Username contains illegal characters! Only English letters (both uppercase and lowercase), numbers, and underscores are allowed in the username.</string>
+    <string name="zh_account_local_account_invalid">A valid username supports only letters (both uppercase and lowercase), numbers, and underscores. The length must not be less than 2 characters or exceed 16 characters.\nCorrect username examples: Name, Name_, Name123\nIncorrect username examples: Name@, N ame, Name(123)\nHowever, if you are using a related mod or plugin that bypasses this mechanism, you can continue using this name, otherwise, please rename it!</string>
     <string name="zh_account_login_local_name">Username</string>
     <string name="zh_account_login_start">Login started !</string>
     <string name="zh_account_no_microsoft_account">Please log in with at least one official Minecraft account. We do not recommend launching Minecraft without a legitimate account.</string>

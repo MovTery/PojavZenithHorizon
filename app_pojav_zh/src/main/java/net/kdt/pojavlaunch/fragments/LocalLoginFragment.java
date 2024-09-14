@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.movtery.pojavzh.extra.ZHExtraConstants;
+import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.ZHTools;
@@ -42,38 +43,31 @@ public class LocalLoginFragment extends FragmentWithAnim {
         ImageView mReturnButton = view.findViewById(R.id.zh_login_return);
 
         mLoginButton.setOnClickListener(v -> {
-            if(!checkEditText()) return;
+            String text = mUsernameEditText.getText().toString().trim();
 
-            ExtraCore.setValue(ZHExtraConstants.LOCAL_LOGIN_TODO, new String[]{
-                    mUsernameEditText.getText().toString(), "" });
+            if (!checkEditText(text)) return;
 
-            Tools.backToMainMenu(requireActivity());
+            Pattern pattern = Pattern.compile("[^a-zA-Z0-9_]");
+            Matcher matcher = pattern.matcher(text);
+
+            if (matcher.find()) {
+                new TipDialog.Builder(requireContext())
+                        .setTitle(R.string.zh_warning)
+                        .setMessage(R.string.zh_account_local_account_invalid)
+                        .setConfirmClickListener(this::startLogin)
+                        .buildDialog();
+            } else startLogin();
         });
+
         mReturnButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
 
         ViewAnimUtils.slideInAnim(this);
     }
 
-
     /** @return Whether the mail (and password) text are eligible to make an auth request  */
-    private boolean checkEditText(){
-
-        String text = mUsernameEditText.getText().toString();
-
-        Pattern pattern = Pattern.compile("[^a-zA-Z0-9_]");
-        Matcher matcher = pattern.matcher(text);
-
-        if (text.isEmpty()) {
+    private boolean checkEditText(String text) {
+        if (text.isBlank() || text.isEmpty()) {
             mUsernameEditText.setError(getString(R.string.zh_account_local_account_empty));
-            return false;
-        } else if (text.length() < 3) {
-            mUsernameEditText.setError(getString(R.string.zh_account_local_account_less));
-            return false;
-        } else if (text.length() > 16) {
-            mUsernameEditText.setError(getString(R.string.zh_account_local_account_greater));
-            return false;
-        } else if (matcher.find()) {
-            mUsernameEditText.setError(getString(R.string.zh_account_local_account_illegal));
             return false;
         }
 
@@ -82,6 +76,12 @@ public class LocalLoginFragment extends FragmentWithAnim {
             mUsernameEditText.setError(getString(R.string.zh_account_local_account_exists));
         }
         return !(exists);
+    }
+
+    private void startLogin() {
+        ExtraCore.setValue(ZHExtraConstants.LOCAL_LOGIN_TODO, new String[]{
+                mUsernameEditText.getText().toString().trim(), "" });
+        Tools.backToMainMenu(requireActivity());
     }
 
     @Override
