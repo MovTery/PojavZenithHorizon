@@ -1,6 +1,7 @@
 package com.movtery.pojavzh.ui.fragment
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -23,6 +24,8 @@ import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
 import com.movtery.pojavzh.utils.file.FileTools.Companion.copyFileInBackground
 import com.movtery.pojavzh.utils.file.FileTools.Companion.mkdirs
+import com.movtery.pojavzh.utils.image.ImageCallback
+import com.movtery.pojavzh.utils.image.ImageUtils
 import com.movtery.pojavzh.utils.image.ImageUtils.Companion.isImage
 import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.PojavApplication
@@ -100,10 +103,21 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
     }
 
     private fun refreshIcon() {
-        PojavApplication.sExecutorService.execute {
-            Tools.runOnUiThread {
-                mMouseView?.setImageDrawable(ZHTools.customMouse(requireActivity()))
+        mMouseView?.apply {
+            ZHTools.getCustomMouse()?.let { file ->
+                ImageUtils.loadDrawableFromImageFit(requireContext(), file,
+                    object : ImageCallback {
+                        override fun onImageLoaded(drawable: Drawable?) {
+                            setImageDrawable(drawable)
+                        }
+
+                        override fun onImageFailed(errorDrawable: Drawable?) {
+                            setImageDrawable(errorDrawable)
+                        }
+                    }, width, height)
+                return@apply
             }
+            setImageDrawable(ZHTools.customMouse(context))
         }
     }
 

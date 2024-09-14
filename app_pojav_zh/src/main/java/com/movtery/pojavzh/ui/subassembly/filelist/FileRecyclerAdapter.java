@@ -1,7 +1,9 @@
 package com.movtery.pojavzh.ui.subassembly.filelist;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.movtery.pojavzh.utils.image.ImageCallback;
+import com.movtery.pojavzh.utils.image.ImageUtils;
 
 import net.kdt.pojavlaunch.R;
 
@@ -113,6 +119,7 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
     }
 
     public class InnerHolder extends RecyclerView.ViewHolder {
+        private final Context context;
         private final ImageView icon;
         private final TextView name;
         private final CheckBox checkBox;
@@ -121,6 +128,7 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
 
         public InnerHolder(@NonNull View itemView) {
             super(itemView);
+            context = itemView.getContext();
             icon = itemView.findViewById(R.id.zh_file_image);
             name = itemView.findViewById(R.id.zh_file_name);
             checkBox = itemView.findViewById(R.id.zh_file_check);
@@ -154,7 +162,6 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
         public void setData(FileItemBean fileItemBean, int position) {
             this.mPosition = position;
             this.mFileItemBean = fileItemBean;
-            this.icon.setImageDrawable(fileItemBean.image);
             this.name.setText(fileItemBean.name == null ? fileItemBean.file.getName() : fileItemBean.name);
 
             int color;
@@ -170,6 +177,22 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
                 checkBox.setChecked(selectedFiles.contains(fileItemBean));
             } else {
                 checkBox.setVisibility(View.GONE);
+            }
+
+            if (fileItemBean.fileIcon == FileIcon.IMAGE && fileItemBean.image == null && fileItemBean.file != null) {
+                ImageUtils.loadDrawableFromImage(context, fileItemBean.file, new ImageCallback() {
+                    @Override
+                    public void onImageLoaded(@Nullable Drawable drawable) {
+                        icon.setImageDrawable(drawable);
+                    }
+
+                    @Override
+                    public void onImageFailed(@Nullable Drawable errorDrawable) {
+                        icon.setImageDrawable(errorDrawable);
+                    }
+                }, icon.getWidth(), icon.getHeight());
+            } else {
+                this.icon.setImageDrawable(fileItemBean.image);
             }
         }
     }

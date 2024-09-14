@@ -8,6 +8,8 @@ class FileItemBean : Comparable<FileItemBean?> {
     @JvmField
     var image: Drawable? = null
     @JvmField
+    var fileIcon: FileIcon = FileIcon.FILE
+    @JvmField
     var file: File? = null
     @JvmField
     var name: String? = null
