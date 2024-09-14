@@ -215,6 +215,11 @@ public class LauncherActivity extends BaseActivity {
         return false;
     };
 
+    private final ExtraListener<Boolean> mBackgroundChangeListener = (key, value) -> {
+        refreshBackground();
+        return false;
+    };
+
     private final ExtraListener<Boolean> mLaunchGameListener = (key, value) -> {
         if(mProgressLayout.hasProcesses()){
             Toast.makeText(this, R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
@@ -306,7 +311,7 @@ public class LauncherActivity extends BaseActivity {
         );
         bindViews();
         setPageOpacity();
-        ZHTools.setBackgroundImage(this, BackgroundType.MAIN_MENU, mBackgroundView);
+        refreshBackground();
 
         checkNotificationPermission();
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -323,6 +328,7 @@ public class LauncherActivity extends BaseActivity {
         ExtraCore.addExtraListener(ZHExtraConstants.OTHER_LOGIN_TODO, mOtherLoginListener);
         ExtraCore.addExtraListener(ZHExtraConstants.ACCOUNT_UPDATE, mAccountUpdateListener);
         ExtraCore.addExtraListener(ZHExtraConstants.PAGE_OPACITY_CHANGE, mPageOpacityChangeListener);
+        ExtraCore.addExtraListener(ZHExtraConstants.MAIN_BACKGROUND_CHANGE, mBackgroundChangeListener);
 
         ExtraCore.addExtraListener(ExtraConstants.SELECT_AUTH_METHOD, mSelectAuthMethod);
 
@@ -388,6 +394,7 @@ public class LauncherActivity extends BaseActivity {
         ExtraCore.removeExtraListenerFromValue(ZHExtraConstants.OTHER_LOGIN_TODO, mOtherLoginListener);
         ExtraCore.removeExtraListenerFromValue(ZHExtraConstants.ACCOUNT_UPDATE, mAccountUpdateListener);
         ExtraCore.removeExtraListenerFromValue(ZHExtraConstants.PAGE_OPACITY_CHANGE, mPageOpacityChangeListener);
+        ExtraCore.removeExtraListenerFromValue(ZHExtraConstants.MAIN_BACKGROUND_CHANGE, mBackgroundChangeListener);
 
         getSupportFragmentManager().unregisterFragmentLifecycleCallbacks(mFragmentCallbackListener);
     }
@@ -420,6 +427,10 @@ public class LauncherActivity extends BaseActivity {
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         LauncherActivity.activity = this;
+    }
+
+    private void refreshBackground() {
+        ZHTools.setBackgroundImage(this, BackgroundType.MAIN_MENU, mBackgroundView);
     }
 
     private void launchGame(MinecraftProfile prof) {

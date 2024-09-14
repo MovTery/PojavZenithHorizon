@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo.YoYoString
 import com.google.android.material.tabs.TabLayout
+import com.movtery.pojavzh.extra.ZHExtraConstants
 import com.movtery.pojavzh.ui.dialog.FilesDialog
 import com.movtery.pojavzh.ui.dialog.FilesDialog.FilesButton
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundManager.Companion.properties
@@ -32,6 +33,7 @@ import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.extra.ExtraCore
 import java.io.File
 
 class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_background) {
@@ -102,6 +104,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
                 filesDialog.setMoreButtonClick {
                     backgroundMap[backgroundType] = fileName
                     saveProperties(backgroundMap)
+                    refreshMainBackground()
 
                     Toast.makeText(requireActivity(),
                         StringUtils.insertSpace(getString(R.string.zh_custom_background_selected, currentStatusName), fileName),
@@ -127,6 +130,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
             backgroundMap[backgroundType] = "null"
             saveProperties(backgroundMap)
             Toast.makeText(requireActivity(), getString(R.string.zh_custom_background_reset, currentStatusName), Toast.LENGTH_SHORT).show()
+            refreshMainBackground()
         }
 
         mReturnButton?.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
@@ -157,6 +161,10 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
         val dirBackground = PathAndUrlManager.DIR_BACKGROUND
         if (!dirBackground!!.exists()) mkdirs(dirBackground)
         return dirBackground
+    }
+
+    private fun refreshMainBackground() {
+        if (backgroundType == BackgroundType.MAIN_MENU) ExtraCore.setValue(ZHExtraConstants.MAIN_BACKGROUND_CHANGE, true)
     }
 
     private val currentStatusName: String
