@@ -285,7 +285,6 @@ public class JREUtils {
         List<String> userArgs = getJavaArgs(runtimeHome, userArgsString);
 
         //Remove arguments that can interfere with the good working of the launcher
-        purgeArg(userArgs,"-Xms");
         purgeArg(userArgs,"-Xmx");
         purgeArg(userArgs,"-d32");
         purgeArg(userArgs,"-d64");
@@ -298,7 +297,6 @@ public class JREUtils {
         purgeArg(userArgs, "-Dorg.lwjgl.freetype.libname");
 
         //Add automatically generated args
-        userArgs.add("-Xms" + LauncherPreferences.PREF_RAM_ALLOCATION + "M");
         userArgs.add("-Xmx" + LauncherPreferences.PREF_RAM_ALLOCATION + "M");
         if(LOCAL_RENDERER != null) userArgs.add("-Dorg.lwjgl.opengl.libname=" + graphicsLib);
 
@@ -450,9 +448,22 @@ public class JREUtils {
         String renderLibrary;
         switch (LOCAL_RENDERER){
             case "opengles2":
-            case "opengles2_5":
-            case "opengles3":
                 renderLibrary = "libgl4es_114.so"; break;
+            case "opengles2_ptitseb":
+                renderLibrary = "libgl4es_ptitseb.so";
+                break;
+            case "opengles2_fcl":
+                renderLibrary = "libgl4es_fcl.so";
+                break;
+            case "opengles2_vgpu":
+                renderLibrary = "libvgpu.so";
+                break;
+            case "opengles2_vgpu_1":
+                renderLibrary = "libvgpu_1368.so";
+                break;
+            case "opengles2_vgpu_fcl":
+                renderLibrary = "libvgpu_fcl.so";
+                break;
             case "vulkan_zink": renderLibrary = "libOSMesa.so"; break;
             case "opengles3_desktopgl_angle_vulkan" : renderLibrary = "libtinywrapper.so"; break;
             default:
