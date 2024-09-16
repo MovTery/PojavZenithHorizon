@@ -462,6 +462,7 @@ public final class Tools {
                     displayMetrics.widthPixels -= PREF_NOTCH_SIZE;
             }
         }
+        displayMetrics.widthPixels -= 66;
         currentDisplayMetrics = displayMetrics;
         return displayMetrics;
     }
