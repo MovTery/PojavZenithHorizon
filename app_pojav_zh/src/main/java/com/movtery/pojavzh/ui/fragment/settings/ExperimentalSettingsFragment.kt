@@ -33,5 +33,17 @@ class ExperimentalSettingsFragment :
                 R.id.bigCoreAffinity
             )
         )
+        
+        initSwitchView(
+            bindSwitchView(
+                experimentalCategory,
+                "renderTweaks",
+                LauncherPreferences.PREF_RENDER_TWEAKS,
+                view.findViewById(R.id.renderTweaks_layout),
+                R.id.renderTweaks_title,
+                R.id.renderTweaks_summary,
+                R.id.renderTweaks
+            )
+        )
     }
 }
