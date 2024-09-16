@@ -123,7 +123,7 @@ android {
             variant.mergeAssetsProvider.get().doLast {
                 def arch = System.getProperty("arch", "all")
                 def assetsDir = mergeAssetsProvider.get().outputDir.get()
-                def javaVersions = ['jre-8', 'jre-17', 'jre-21']
+                def javaVersions = ['jre-8']
 
                 javaVersions.each { javaVersion ->
                     def runtimeDir = new File([assetsDir, "components/${javaVersion}"].join(File.separator))
