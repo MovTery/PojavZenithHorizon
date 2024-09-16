@@ -292,6 +292,8 @@
     <string name="zh_other_login_client">Client</string>
     <string name="zh_other_login_error_code">Fehlercode:</string>
     <string name="zh_other_login_server_not_empty">Server darf nicht leer sein, bitte überprüfen Sie die Einstellungen des Authentifizierungsservers!</string>
+    <string name="zh_other_login_select_role_title">Rolle auswählen</string>
+    <string name="zh_other_login_select_role_message">Das aktuelle Konto hat mehrere Rollen. Bitte wählen Sie die Rolle aus, die Sie verwenden möchten.</string>
     <!-- About -->
     <string name="zh_about_tab">Über Pojav Zenith Horizon</string>
     <string name="zh_about_dec1">Pojav Zenith Horizon ist ein modifizierter Minecraft-Launcher basierend auf PojavLauncher, der es ermöglicht, Minecraft: Java Edition auf Android-Geräten auszuführen.\nPojav Zenith Horizon zielt darauf ab, die Benutzererfahrung zu optimieren, die Benutzeroberfläche neu zu gestalten und zusätzliche nützliche Funktionen hinzuzufügen, um die Spielbarrieren so weit wie möglich zu senken und mehr Menschen die Möglichkeit zu geben, das Spiel zu genießen.</string>

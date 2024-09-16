@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -27,6 +26,7 @@ import com.movtery.pojavzh.feature.login.OtherLoginApi;
 import com.movtery.pojavzh.feature.login.Servers;
 import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 import com.movtery.pojavzh.ui.dialog.ProgressDialog;
+import com.movtery.pojavzh.ui.dialog.SelectRoleDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.ZHTools;
@@ -91,7 +91,7 @@ public class OtherLoginFragment extends FragmentWithAnim {
                     if (server.getServerName().equals(mServerList.get(i1))) {
                         mCurrentBaseUrl = server.getBaseUrl();
                         mCurrentRegisterUrl = server.getRegister();
-                        Logging.e("test", "currentRegisterUrl:" + mCurrentRegisterUrl);
+                        Logging.e("Other Login", "currentRegisterUrl:" + mCurrentRegisterUrl);
                     }
                 }
             }
@@ -144,25 +144,19 @@ public class OtherLoginFragment extends FragmentWithAnim {
                                     ExtraCore.setValue(ZHExtraConstants.OTHER_LOGIN_TODO, account);
                                     Tools.backToMainMenu(requireActivity());
                                 } else {
-                                    List<String> list = new ArrayList<>();
-                                    for (AuthResult.AvailableProfiles profiles : authResult.getAvailableProfiles()) {
-                                        list.add(profiles.getName());
-                                    }
-                                    String[] items = list.toArray(new String[0]);
-                                    AlertDialog dialog = new AlertDialog.Builder(requireContext())
-                                            .setItems(items, (d, i) -> {
-                                                for (AuthResult.AvailableProfiles profiles : authResult.getAvailableProfiles()) {
-                                                    if (profiles.getName().equals(items[i])) {
-                                                        account.profileId = profiles.getId();
-                                                        account.username = profiles.getName();
-                                                        refresh(account);
-                                                    }
-                                                }
-                                                ExtraCore.setValue(ZHExtraConstants.OTHER_LOGIN_TODO, account);
-                                                Tools.backToMainMenu(requireActivity());
-                                            })
-                                            .setNegativeButton(android.R.string.cancel, null).create();
-                                    dialog.show();
+                                    SelectRoleDialog selectRoleDialog = new SelectRoleDialog(requireContext(), authResult.getAvailableProfiles());
+                                    selectRoleDialog.setOnSelectedListener(selectedProfile -> {
+                                        for (AuthResult.AvailableProfiles authProfile : authResult.getAvailableProfiles()) {
+                                            if (Objects.equals(authProfile.getName(), selectedProfile.getName())) {
+                                                account.profileId = selectedProfile.getId();
+                                                account.username = selectedProfile.getName();
+                                                refresh(account);
+                                            }
+                                        }
+                                        ExtraCore.setValue(ZHExtraConstants.OTHER_LOGIN_TODO, account);
+                                        Tools.backToMainMenu(requireActivity());
+                                    });
+                                    selectRoleDialog.show();
                                 }
                             });
                         }

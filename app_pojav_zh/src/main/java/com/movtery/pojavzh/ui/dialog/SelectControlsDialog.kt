@@ -1,53 +1,39 @@
-package com.movtery.pojavzh.ui.dialog;
+package com.movtery.pojavzh.ui.dialog
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.widget.ImageButton;
+import android.content.Context
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlsListViewCreator
+import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener
+import java.io.File
 
-import androidx.annotation.NonNull;
+class SelectControlsDialog(context: Context) : AbstractSelectDialog(context) {
+    private var controlsListViewCreator: ControlsListViewCreator? = null
 
-import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlsListViewCreator;
-import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
-
-import net.kdt.pojavlaunch.R;
-
-import java.io.File;
-
-public class SelectControlsDialog extends FullScreenDialog {
-    private ControlsListViewCreator controlsListViewCreator;
-
-    public SelectControlsDialog(@NonNull Context context) {
-        super(context);
-
-        this.setContentView(R.layout.dialog_select_item);
-        init();
+    override fun initDialog(
+        recyclerView: RecyclerView,
+        titleView: TextView,
+        messageView: TextView
+    ) {
+        controlsListViewCreator = ControlsListViewCreator(context, recyclerView)
+        controlsListViewCreator?.listAtPath()
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private void init() {
-        controlsListViewCreator = new ControlsListViewCreator(getContext(), findViewById(R.id.zh_select_view));
-        ImageButton mCloseButton = findViewById(R.id.zh_select_item_close_button);
+    fun setOnSelectedListener(controlSelectedListener: ControlSelectedListener) {
+        controlsListViewCreator?.apply {
+            setFileSelectedListener(object : FileSelectedListener() {
+                override fun onFileSelected(file: File?, path: String?) {
+                    controlSelectedListener.onSelectedListener(file)
+                    dismiss()
+                }
 
-        controlsListViewCreator.listAtPath();
-
-        mCloseButton.setOnClickListener(v -> this.dismiss());
+                override fun onItemLongClick(file: File?, path: String?) {
+                }
+            })
+        }
     }
 
-    public void setOnSelectedListener(ControlSelectedListener controlSelectedListener) {
-        this.controlsListViewCreator.setFileSelectedListener(new FileSelectedListener() {
-            @Override
-            public void onFileSelected(File file, String path) {
-                controlSelectedListener.onSelectedListener(file);
-                dismiss();
-            }
-
-            @Override
-            public void onItemLongClick(File file, String path) {
-            }
-        });
-    }
-
-    public interface ControlSelectedListener {
-        void onSelectedListener(File file);
+    interface ControlSelectedListener {
+        fun onSelectedListener(file: File?)
     }
 }
