@@ -290,6 +290,6 @@ Nếu bạn muốn sử dụng nguồn tải xuống chính thức, nhấn vào 
     <string name="controller_dpad_right">D-Pad phải</string>
     <string name="controller_remapper_operating_mode">Chế độ hiện tại</string>
     <string name="controller_remapper_expand_entry">Mở rộng để thay đổi mã phím</string>
-    <string name="preference_remap_controller_title">Thay đổi ánh xạ phím điều khiển</string>
-    <string name="preference_remap_controller_description">Cho phép bạn sửa đổi các phím bàn phím được gán cho mỗi nút điều khiển</string>
+    <string name="preference_remap_controller_title">Thay đổi ánh xạ nút của bộ điều khiển</string>
+    <string name="preference_remap_controller_description">Cho phép bạn chỉnh sửa phím bàn phím được ánh xạ vào mỗi nút của bộ điều khiển</string>
 </resources>

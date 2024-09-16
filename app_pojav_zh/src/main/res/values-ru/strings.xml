@@ -287,6 +287,6 @@
     <string name="controller_dpad_right">D-Pad вправо</string>
     <string name="controller_remapper_operating_mode">Текущий режим</string>
     <string name="controller_remapper_expand_entry">Раскрыть, чтобы изменить коды клавиш</string>
-    <string name="preference_remap_controller_title">Изменить привязку клавиш контроллера</string>
-    <string name="preference_remap_controller_description">Позволяет вам изменить клавиши клавиатуры, связанные с каждой кнопкой контроллера</string>
+    <string name="preference_remap_controller_title">Изменить привязку кнопок контроллера</string>
+    <string name="preference_remap_controller_description">Позволяет вам изменить клавишу клавиатуры, привязанную к каждой кнопке контроллера</string>
 </resources>

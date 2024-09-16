@@ -287,6 +287,6 @@ Se você deseja usar a fonte de download oficial, clique em "Alternar para a fon
     <string name="controller_dpad_right">D-Pad Para Direita</string>
     <string name="controller_remapper_operating_mode">Modo Atual</string>
     <string name="controller_remapper_expand_entry">Expanda para alterar os códigos das teclas</string>
-    <string name="preference_remap_controller_title">Alterar Mapeamento de Teclas do Controlador</string>
-    <string name="preference_remap_controller_description">Permite que você modifique as teclas do teclado vinculadas a cada botão do controlador</string>
+    <string name="preference_remap_controller_title">Alterar mapeamento de botões do controle</string>
+    <string name="preference_remap_controller_description">Permite que você modifique a tecla do teclado atribuída a cada botão do controle</string>
 </resources>
