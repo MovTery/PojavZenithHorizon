@@ -1,117 +1,116 @@
-package com.movtery.pojavzh.feature.login;
+package com.movtery.pojavzh.feature.login
 
-import android.content.Context;
+import android.content.Context
+import com.google.gson.Gson
+import com.movtery.pojavzh.feature.log.Logging.e
+import com.movtery.pojavzh.utils.PathAndUrlManager.Companion.createRequestBuilder
+import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.value.MinecraftAccount
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.OkHttpClient
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.apache.commons.text.StringEscapeUtils
+import org.json.JSONObject
+import java.io.IOException
+import java.util.Objects
+import java.util.UUID
 
-import com.google.gson.Gson;
-import com.movtery.pojavzh.feature.log.Logging;
-import com.movtery.pojavzh.utils.PathAndUrlManager;
+object OtherLoginApi {
+    private var client: OkHttpClient = OkHttpClient()
+    private var baseUrl: String? = null
 
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.value.MinecraftAccount;
-
-import okhttp3.*;
-
-import java.io.IOException;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.UUID;
-
-public class OtherLoginApi {
-    private static OkHttpClient client;
-    private static final OtherLoginApi INSTANCE = new OtherLoginApi();
-    private String baseUrl;
-
-    private OtherLoginApi() {
-        client = new OkHttpClient();
-    }
-
-    public static OtherLoginApi getINSTANCE() {
-        return INSTANCE;
-    }
-
-    public void setBaseUrl(String baseUrl) {
+    fun setBaseUrl(baseUrl: String) {
+        var url = baseUrl
         if (baseUrl.endsWith("/")) {
-            baseUrl = baseUrl.substring(0, baseUrl.length() - 1);
+            url = baseUrl.substring(0, baseUrl.length - 1)
         }
-        this.baseUrl = baseUrl;
-        System.out.println(this.baseUrl);
+        this.baseUrl = url
     }
 
-    public void login(Context context, String userName, String password, Listener listener) throws IOException {
+    @Throws(IOException::class)
+    fun login(context: Context, userName: String?, password: String?, listener: Listener) {
         if (Objects.isNull(baseUrl)) {
-            listener.onFailed(context.getString(R.string.zh_other_login_baseurl_not_set));
-            return;
+            listener.onFailed(context.getString(R.string.zh_other_login_baseurl_not_set))
+            return
         }
-        AuthRequest authRequest = new AuthRequest();
-        authRequest.setUsername(userName);
-        authRequest.setPassword(password);
-        AuthRequest.Agent agent = new AuthRequest.Agent();
-        agent.setName(context.getString(R.string.zh_other_login_client));
-        agent.setVersion(1.0);
-        authRequest.setAgent(agent);
-        authRequest.setRequestUser(true);
-        authRequest.setClientToken(UUID.randomUUID().toString().toLowerCase(Locale.ROOT));
-        String data = new Gson().toJson(authRequest);
-        System.out.println(data);
-        login(data, "/authserver/authenticate", listener);
+        val agent = AuthRequest.Agent().apply {
+            this.name = "Client"
+            this.version = 1.0
+        }
+        val authRequest = AuthRequest().apply {
+            this.username = userName
+            this.password = password
+            this.agent = agent
+            this.requestUser = true
+            this.clientToken = UUID.randomUUID().toString().lowercase()
+        }
+        val data = Gson().toJson(authRequest)
+        callLogin(context, data, "/authserver/authenticate", listener)
     }
 
-    public void refresh(Context context, MinecraftAccount account, boolean select, Listener listener) throws IOException {
+    @Throws(IOException::class)
+    fun refresh(context: Context, account: MinecraftAccount, select: Boolean, listener: Listener) {
         if (Objects.isNull(baseUrl)) {
-            listener.onFailed(context.getString(R.string.zh_other_login_baseurl_not_set));
-            return;
+            listener.onFailed(context.getString(R.string.zh_other_login_baseurl_not_set))
+            return
         }
-        Refresh refresh = new Refresh();
-        refresh.setClientToken(account.clientToken);
-        refresh.setAccessToken(account.accessToken);
+        val refresh = Refresh().apply {
+            this.clientToken = account.clientToken
+            this.accessToken = account.accessToken
+        }
         if (select) {
-            Refresh.SelectedProfile selectedProfile = new Refresh.SelectedProfile();
-            selectedProfile.setName(account.username);
-            selectedProfile.setId(account.profileId);
-            refresh.setSelectedProfile(selectedProfile);
-        }
-        String data = new Gson().toJson(refresh);
-        System.out.println(data);
-        login(data, "/authserver/refresh", listener);
-    }
-
-    private void login(String data, String url, Listener listener) throws IOException {
-        RequestBody body = RequestBody.create(MediaType.parse("application/json"), data);
-        Call call = client.newCall(PathAndUrlManager.createRequestBuilder(baseUrl + url, body).build());
-        callLogin(call, listener);
-    }
-
-    private void callLogin(Call call, Listener listener) throws IOException {
-        Response response = call.execute();
-        String res = response.body().string();
-        System.out.println(res);
-        if (response.code() == 200) {
-            AuthResult result = new Gson().fromJson(res, AuthResult.class);
-            listener.onSuccess(result);
-        } else {
-            listener.onFailed("error code：" + response.code() + "\n" + res);
-        }
-    }
-
-    public String getServeInfo(String url) {
-        try {
-            Call call = client.newCall(PathAndUrlManager.createRequestBuilder(url).get().build());
-            Response response = call.execute();
-            String res = response.body().string();
-            System.out.println(res);
-            if (response.code() == 200) {
-                return res;
+            val selectedProfile = Refresh.SelectedProfile().apply {
+                this.name = account.username
+                this.id = account.profileId
             }
-        } catch (Exception e) {
-            Logging.e("test", e.toString());
+            refresh.selectedProfile = selectedProfile
         }
-        return null;
+        val data = Gson().toJson(refresh)
+        callLogin(context, data, "/authserver/refresh", listener)
     }
 
-    public interface Listener {
-        void onSuccess(AuthResult authResult);
+    @Throws(IOException::class)
+    private fun callLogin(context: Context, data: String, url: String, listener: Listener) {
+        val body = data.toRequestBody("application/json".toMediaTypeOrNull())
+        val call = client.newCall(createRequestBuilder(baseUrl + url, body).build())
 
-        void onFailed(String error);
+        call.execute().use { response ->
+            val res = response.body?.string()
+            if (response.code == 200) {
+                val result = Gson().fromJson(res, AuthResult::class.java)
+                listener.onSuccess(result)
+            } else {
+                var errorMessage: String? = null
+                runCatching {
+                    res?.apply {
+                        val jsonObject = JSONObject(this)
+                        errorMessage = jsonObject.getString("errorMessage") ?: apply {
+                            if (contains("\\u")) errorMessage = StringEscapeUtils.unescapeJava(replace("\\\\u", "\\u"))
+                        }
+                    }
+                }.getOrElse { e -> e("Other Login", Tools.printToString(e)) }
+                listener.onFailed(context.getString(R.string.zh_other_login_error) +
+                        String.format("(%s) ", response.code) +
+                        (errorMessage ?: res)
+                )
+            }
+        }
     }
 
+    fun getServeInfo(url: String): String? {
+        val call = client.newCall(createRequestBuilder(url).get().build())
+        runCatching {
+            call.execute().use { response ->
+                val res = response.body?.string()
+                if (response.code == 200) return res
+            }
+        }.getOrElse { e -> e("Other Login", e.toString()) }
+        return null
+    }
+
+    interface Listener {
+        fun onSuccess(authResult: AuthResult)
+        fun onFailed(error: String)
+    }
 }

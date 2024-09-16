@@ -289,7 +289,6 @@
     <string name="zh_other_login_error">登录时出现错误：\n</string>
     <string name="zh_other_login_no_server">无认证服务器</string>
     <string name="zh_other_login_baseurl_not_set">未设置基础URL</string>
-    <string name="zh_other_login_client">客户端</string>
     <string name="zh_other_login_error_code">错误代码:</string>
     <string name="zh_other_login_server_not_empty">服务器不能为空，请检查身份验证服务器设置！</string>
     <string name="zh_other_login_select_role_title">选择角色</string>

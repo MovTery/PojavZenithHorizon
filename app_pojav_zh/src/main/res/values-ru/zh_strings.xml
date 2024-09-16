@@ -289,7 +289,6 @@
     <string name="zh_other_login_error">Ошибка при входе:\n</string>
     <string name="zh_other_login_no_server">Нет сервера аутентификации</string>
     <string name="zh_other_login_baseurl_not_set">Базовый URL не установлен</string>
-    <string name="zh_other_login_client">Клиент</string>
     <string name="zh_other_login_error_code">Код ошибки:</string>
     <string name="zh_other_login_server_not_empty">Сервер не может быть пустым, проверьте настройки сервера аутентификации!</string>
     <string name="zh_other_login_select_role_title">Выбор роли</string>

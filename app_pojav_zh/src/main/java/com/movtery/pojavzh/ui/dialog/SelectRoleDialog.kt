@@ -69,7 +69,7 @@ class SelectRoleDialog(context: Context, private val mProfiles: List<AvailablePr
         }
     }
 
-    interface RoleSelectedListener {
+    fun interface RoleSelectedListener {
         fun onSelectedListener(profile: AvailableProfiles)
     }
 }

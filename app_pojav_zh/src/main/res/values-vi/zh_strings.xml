@@ -289,7 +289,6 @@
     <string name="zh_other_login_error">Lỗi xảy ra khi đăng nhập: \n</string>
     <string name="zh_other_login_no_server">Không có máy chủ xác thực</string>
     <string name="zh_other_login_baseurl_not_set">Chưa đặt URL cơ sở</string>
-    <string name="zh_other_login_client">Máy khách</string>
     <string name="zh_other_login_error_code">Mã lỗi:</string>
     <string name="zh_other_login_server_not_empty">Máy chủ không được để trống, vui lòng kiểm tra cài đặt máy chủ xác thực!</string>
     <string name="zh_other_login_select_role_title">Chọn vai trò</string>

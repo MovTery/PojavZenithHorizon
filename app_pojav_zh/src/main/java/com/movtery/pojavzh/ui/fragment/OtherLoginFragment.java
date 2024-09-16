@@ -126,10 +126,10 @@ public class OtherLoginFragment extends FragmentWithAnim {
             if (!(baseUrl == null || baseUrl.isEmpty())) {
                 requireActivity().runOnUiThread(() -> mProgressDialog.show());
                 try {
-                    OtherLoginApi.getINSTANCE().setBaseUrl(mCurrentBaseUrl);
-                    OtherLoginApi.getINSTANCE().login(getContext(), user, pass, new OtherLoginApi.Listener() {
+                    OtherLoginApi.INSTANCE.setBaseUrl(mCurrentBaseUrl);
+                    OtherLoginApi.INSTANCE.login(requireContext(), user, pass, new OtherLoginApi.Listener() {
                         @Override
-                        public void onSuccess(AuthResult authResult) {
+                        public void onSuccess(@NonNull AuthResult authResult) {
                             requireActivity().runOnUiThread(() -> {
                                 mProgressDialog.dismiss();
                                 MinecraftAccount account = new MinecraftAccount();
@@ -162,7 +162,7 @@ public class OtherLoginFragment extends FragmentWithAnim {
                         }
 
                         @Override
-                        public void onFailed(String error) {
+                        public void onFailed(@NonNull String error) {
                             requireActivity().runOnUiThread(() -> {
                                 mProgressDialog.dismiss();
                                 new TipDialog.Builder(requireContext())
@@ -237,7 +237,7 @@ public class OtherLoginFragment extends FragmentWithAnim {
     private void addServer(EditText editText, int type) {
         requireActivity().runOnUiThread(() -> mProgressDialog.show());
         PojavApplication.sExecutorService.execute(() -> {
-            String data = OtherLoginApi.getINSTANCE().getServeInfo(type == 0 ? editText.getText().toString() : "https://auth.mc-user.com:233/" + editText.getText().toString());
+            String data = OtherLoginApi.INSTANCE.getServeInfo(type == 0 ? editText.getText().toString() : "https://auth.mc-user.com:233/" + editText.getText().toString());
             requireActivity().runOnUiThread(() -> {
                 mProgressDialog.dismiss();
                 if (!Objects.isNull(data)) {
@@ -276,16 +276,16 @@ public class OtherLoginFragment extends FragmentWithAnim {
     private void refresh(MinecraftAccount account) {
         PojavApplication.sExecutorService.execute(() -> {
             try {
-                OtherLoginApi.getINSTANCE().refresh(requireContext(), account, true, new OtherLoginApi.Listener() {
+                OtherLoginApi.INSTANCE.refresh(requireContext(), account, true, new OtherLoginApi.Listener() {
                     @Override
-                    public void onSuccess(AuthResult authResult) {
+                    public void onSuccess(@NonNull AuthResult authResult) {
                         account.accessToken = authResult.getAccessToken();
                         ExtraCore.setValue(ZHExtraConstants.OTHER_LOGIN_TODO, account);
                         requireActivity().runOnUiThread(() -> Tools.backToMainMenu(requireActivity()));
                     }
 
                     @Override
-                    public void onFailed(String error) {
+                    public void onFailed(@NonNull String error) {
                         requireActivity().runOnUiThread(() -> new TipDialog.Builder(requireContext())
                                 .setTitle(R.string.zh_warning)
                                 .setMessage(getString(R.string.zh_other_login_error) + error)

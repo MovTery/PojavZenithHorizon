@@ -289,7 +289,6 @@
     <string name="zh_other_login_error">حدث خطأ أثناء تسجيل الدخول:\n</string>
     <string name="zh_other_login_no_server">لا يوجد خادم توثيق</string>
     <string name="zh_other_login_baseurl_not_set">لم يتم تعيين العنوان الأساسي URL</string>
-    <string name="zh_other_login_client">العميل</string>
     <string name="zh_other_login_error_code">رمز الخطأ:</string>
     <string name="zh_other_login_server_not_empty">لا يمكن أن يكون الخادم فارغًا، يرجى التحقق من إعدادات خادم التوثيق!</string>
     <string name="zh_other_login_select_role_title">اختر الدور</string>
