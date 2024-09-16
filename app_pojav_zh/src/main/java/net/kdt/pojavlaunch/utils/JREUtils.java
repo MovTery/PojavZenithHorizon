@@ -5,6 +5,7 @@ import static net.kdt.pojavlaunch.Architecture.ARCH_X86;
 import static net.kdt.pojavlaunch.Architecture.is64BitsDevice;
 import static net.kdt.pojavlaunch.Tools.LOCAL_RENDERER;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_RENDER_TWEAKS;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_DUMP_SHADERS;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_VSYNC_IN_ZINK;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ZINK_PREFER_SYSTEM_DRIVER;
@@ -191,7 +192,9 @@ public class JREUtils {
         envMap.put("LIBGL_NOINTOVLHACK", "1");
 
         // Fix white color on banner and sheep, since GL4ES 1.1.5
+        if (!PREF_RENDER_TWEAKS) {
         envMap.put("LIBGL_NORMALIZE", "1");
+        }
 
         if(PREF_DUMP_SHADERS)
             envMap.put("LIBGL_VGPU_DUMP", "1");
@@ -202,7 +205,11 @@ public class JREUtils {
 
 
         // The OPEN GL version is changed according
-        envMap.put("LIBGL_ES", (String) ExtraCore.getValue(ExtraConstants.OPEN_GL_VERSION));
+        if (!PREF_RENDER_TWEAKS) {
+            envMap.put("LIBGL_ES", (String) ExtraCore.getValue(ExtraConstants.OPEN_GL_VERSION));
+        } else {
+            envMap.put("LIBGL_ES", "3");
+        }
 
         envMap.put("FORCE_VSYNC", String.valueOf(LauncherPreferences.PREF_FORCE_VSYNC));
 
@@ -245,7 +252,9 @@ public class JREUtils {
             int glesMajor = getDetectedVersion();
             Logging.i("glesDetect","GLES version detected: "+glesMajor);
 
-            if (glesMajor < 3) {
+            if (PREF_RENDER_TWEAKS) {
+                envMap.put("LIBGL_ES", "3");
+            } else if (glesMajor < 3) {
                 //fallback to 2 since it's the minimum for the entire app
                 envMap.put("LIBGL_ES","2");
             } else if (LOCAL_RENDERER.startsWith("opengles")) {
