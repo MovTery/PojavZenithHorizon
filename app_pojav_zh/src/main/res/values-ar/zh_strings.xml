@@ -101,6 +101,7 @@
     <string name="zh_account_local_account_empty">لا يمكن أن يكون اسم المستخدم فارغًا!</string>
     <string name="zh_account_local_account_exists">اسم المستخدم يتعارض مع حساب موجود، يرجى إعادة ملء اسم جديد!</string>
     <string name="zh_account_local_account_invalid">اسم المستخدم الصالح يدعم الأحرف الإنجليزية (كلا الأحرف الكبيرة والصغيرة)، الأرقام، والشرطات السفلية فقط. يجب ألا يقل الطول عن حرفين أو يتجاوز 16 حرفًا.\nأمثلة لأسماء مستخدم صحيحة: Name، Name_، Name123\nأمثلة لأسماء مستخدم غير صحيحة: Name@، N ame، Name(123)\nولكن إذا كنت تستخدم مودًا أو إضافة تعطل هذه الآلية، يمكنك الاستمرار في استخدام هذا الاسم، وإلا يرجى إعادة التسمية!</string>
+    <string name="zh_account_login_local_name">اسم المستخدم</string>
     <string name="zh_account_login_start">ابدأ الدخول!</string>
     <string name="zh_account_no_microsoft_account">يرجى تسجيل الدخول بحساب Minecraft رسمي واحد على الأقل، لا نشجع على تشغيل Minecraft دون حساب رسمي.</string>
     <string name="zh_account_no_microsoft_account_local">يبدو أنك لم تسجل الدخول بحساب رسمي! حساب الاتصال المحلي هو خيار بديل للاعبين عندما لا يمكنهم الاتصال بالإنترنت، وليس للاعبين دون حساب رسمي.</string>
@@ -291,6 +292,8 @@
     <string name="zh_other_login_client">العميل</string>
     <string name="zh_other_login_error_code">رمز الخطأ:</string>
     <string name="zh_other_login_server_not_empty">لا يمكن أن يكون الخادم فارغًا، يرجى التحقق من إعدادات خادم التوثيق!</string>
+    <string name="zh_other_login_select_role_title">اختر الدور</string>
+    <string name="zh_other_login_select_role_message">الحساب الحالي يحتوي على أدوار متعددة. يرجى اختيار الدور الذي ترغب في استخدامه.</string>
     <!-- About -->
     <string name="zh_about_tab">حول Pojav Zenith Horizon</string>
     <string name="zh_about_dec1">Pojav Zenith Horizon هو مشغل Minecraft معدل بناءً على PojavLauncher، ويمكنه تشغيل Minecraft: Java Edition على أجهزة Android.\nPojav Zenith Horizon يهدف إلى تحسين تجربة المستخدم، حيث تم إعادة تصميم واجهة التطبيق وإضافة المزيد من الميزات العملية، بهدف تقليل عتبة اللعب وجعل المزيد من الناس يتمكنون من تجربة سعادة Minecraft بسهولة.</string>

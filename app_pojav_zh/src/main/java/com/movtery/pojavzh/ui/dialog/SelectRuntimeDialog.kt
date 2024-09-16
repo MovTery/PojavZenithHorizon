@@ -1,54 +1,42 @@
-package com.movtery.pojavzh.ui.dialog;
+package com.movtery.pojavzh.ui.dialog
 
-import android.content.Context;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.TextView;
+import android.content.Context
+import android.view.View
+import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.multirt.MultiRTUtils
+import net.kdt.pojavlaunch.multirt.RTRecyclerViewAdapter
+import net.kdt.pojavlaunch.multirt.Runtime
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+class SelectRuntimeDialog(context: Context) : AbstractSelectDialog(context) {
+    private var recyclerView: RecyclerView? = null
 
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.multirt.MultiRTUtils;
-import net.kdt.pojavlaunch.multirt.RTRecyclerViewAdapter;
-import net.kdt.pojavlaunch.multirt.Runtime;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class SelectRuntimeDialog extends FullScreenDialog {
-    private RecyclerView recyclerView;
-
-    public SelectRuntimeDialog(@NonNull Context context) {
-        super(context);
-
-        this.setCancelable(false);
-        this.setContentView(R.layout.dialog_select_item);
-        init(context);
+    init {
+        this.setCancelable(false)
     }
 
-    private void init(Context context) {
-        recyclerView = findViewById(R.id.zh_select_view);
-        TextView mTitleText = findViewById(R.id.zh_select_item_title);
-        TextView mMessageText = findViewById(R.id.zh_select_item_message);
-        mTitleText.setText(R.string.zh_install_select_jre_environment);
-        mMessageText.setText(R.string.zh_install_recommend_use_jre8);
-        mMessageText.setVisibility(View.VISIBLE);
-        ImageButton mCloseButton = findViewById(R.id.zh_select_item_close_button);
-
-        mCloseButton.setOnClickListener(v -> this.dismiss());
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+    override fun initDialog(
+        recyclerView: RecyclerView,
+        titleView: TextView,
+        messageView: TextView
+    ) {
+        this.recyclerView = recyclerView
+        titleView.setText(R.string.zh_install_select_jre_environment)
+        messageView.setText(R.string.zh_install_recommend_use_jre8)
+        messageView.visibility = View.VISIBLE
+        recyclerView.layoutManager = LinearLayoutManager(context)
     }
 
-    public void setListener(RuntimeSelectedListener listener) {
-        List<Runtime> runtimes = new ArrayList<>(MultiRTUtils.getRuntimes());
-        if (!runtimes.isEmpty()) runtimes.add(new Runtime("auto"));
-        RTRecyclerViewAdapter adapter = new RTRecyclerViewAdapter(runtimes, listener);
-        recyclerView.setAdapter(adapter);
+    fun setListener(listener: RuntimeSelectedListener?) {
+        val runtimes: MutableList<Runtime> = ArrayList(MultiRTUtils.getRuntimes())
+        if (runtimes.isNotEmpty()) runtimes.add(Runtime("auto"))
+        val adapter = RTRecyclerViewAdapter(runtimes, listener)
+        recyclerView?.adapter = adapter
     }
 
-    public interface RuntimeSelectedListener {
-        void onSelected(String jreName);
+    fun interface RuntimeSelectedListener {
+        fun onSelected(jreName: String?)
     }
 }

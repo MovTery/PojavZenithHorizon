@@ -292,6 +292,8 @@
     <string name="zh_other_login_client">Máy khách</string>
     <string name="zh_other_login_error_code">Mã lỗi:</string>
     <string name="zh_other_login_server_not_empty">Máy chủ không được để trống, vui lòng kiểm tra cài đặt máy chủ xác thực!</string>
+    <string name="zh_other_login_select_role_title">Chọn vai trò</string>
+    <string name="zh_other_login_select_role_message">Tài khoản hiện tại có nhiều vai trò. Vui lòng chọn vai trò bạn muốn sử dụng.</string>
     <!-- About -->
     <string name="zh_about_tab">Về Pojav Zenith Horizon</string>
     <string name="zh_about_dec1">Pojav Zenith Horizon là một trình khởi chạy Minecraft được chỉnh sửa dựa trên PojavLauncher, cho phép chạy Minecraft: Java Edition trên thiết bị Android. \nPojav Zenith Horizon tập trung vào tối ưu hóa trải nghiệm người dùng, thiết kế lại giao diện ứng dụng và thêm nhiều tính năng hữu ích, nhằm giảm thiểu ngưỡng cửa trải nghiệm Minecraft, giúp mọi người dễ dàng trải nghiệm niềm vui từ Minecraft.</string>

@@ -292,6 +292,8 @@
     <string name="zh_other_login_client">客戶端</string>
     <string name="zh_other_login_error_code">錯誤代碼:</string>
     <string name="zh_other_login_server_not_empty">伺服器不能為空，請檢查身份驗證伺服器設定！</string>
+    <string name="zh_other_login_select_role_title">選擇角色</string>
+    <string name="zh_other_login_select_role_message">當前帳號存在多個角色，請選擇想要使用的角色。</string>
     <!-- About -->
     <string name="zh_about_tab">關於 Pojav Zenith Horizon</string>
     <string name="zh_about_dec1">Pojav Zenith Horizon 是一款基於 PojavLauncher 魔改的 Minecraft 啟動器，它能在 Android 設備上運行 Minecraft: Java Edition。\nPojav Zenith Horizon 致力於優化使用者體驗，重新設計了應用介面，新增了更多實用的功能，旨在最大程度地降低遊玩門檻，讓更多人能夠輕鬆體驗 Minecraft 的樂趣。</string>
