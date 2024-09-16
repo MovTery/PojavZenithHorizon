@@ -50,7 +50,6 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
             adapter = ViewPagerAdapter(requireActivity())
             isUserInputEnabled = false
             orientation = ViewPager2.ORIENTATION_VERTICAL
-            offscreenPageLimit = 1
             setPageTransformer(MarginPageTransformer(Tools.dpToPx(12F).toInt()))
             registerOnPageChangeCallback(object: OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
