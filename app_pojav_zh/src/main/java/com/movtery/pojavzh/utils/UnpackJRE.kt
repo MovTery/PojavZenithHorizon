@@ -14,8 +14,6 @@ class UnpackJRE {
         fun unpackAllJre(assetManager: AssetManager) {
             PojavApplication.sExecutorService.execute {
                 checkInternalRuntime(assetManager, InternalRuntime.JRE_8)
-                checkInternalRuntime(assetManager, InternalRuntime.JRE_17)
-                checkInternalRuntime(assetManager, InternalRuntime.JRE_21)
                 LauncherPreferences.reloadRuntime()
             }
         }
@@ -52,8 +50,6 @@ class UnpackJRE {
     }
 
     enum class InternalRuntime(val majorVersion: Int, val jreName: String, val jrePath: String) {
-        JRE_8(8, "Internal-8", "components/jre-8"),
-        JRE_17(17, "Internal-17", "components/jre-17"),
-        JRE_21(21, "Internal-21", "components/jre-21")
+        JRE_8(8, "Internal-8", "components/jre-8")
     }
 }
