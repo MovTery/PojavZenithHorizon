@@ -321,6 +321,6 @@
     <string name="controller_dpad_right">方向键右</string>
     <string name="controller_remapper_operating_mode">当前模式</string>
     <string name="controller_remapper_expand_entry">展开以更改按键码</string>
-    <string name="preference_remap_controller_title">更改控制器按键绑定</string>
-    <string name="preference_remap_controller_description">允许你修改绑定到每个控制器按钮的键盘按键</string>
+    <string name="preference_remap_controller_title">更改手柄按键绑定</string>
+    <string name="preference_remap_controller_description">允许你修改绑定到每个手柄按钮的键盘按键</string>
 </resources>

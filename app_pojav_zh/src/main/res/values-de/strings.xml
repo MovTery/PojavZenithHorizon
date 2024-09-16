@@ -290,5 +290,5 @@ Wenn du die offizielle Downloadquelle verwenden möchtest, drücke auf \"Zur off
     <string name="controller_remapper_operating_mode">Aktueller Modus</string>
     <string name="controller_remapper_expand_entry">Erweitern, um Tastencodes zu ändern</string>
     <string name="preference_remap_controller_title">Controller-Tastenbelegung ändern</string>
-    <string name="preference_remap_controller_description">Ermöglicht das Ändern der Tastaturtasten, die jedem Controller-Button zugeordnet sind</string>
+    <string name="preference_remap_controller_description">Ermöglicht es dir, die Tastaturtaste zu ändern, die jeder Controller-Taste zugeordnet ist</string>
 </resources>

@@ -285,6 +285,6 @@
     <string name="controller_dpad_right">زر الاتجاه لليمين</string>
     <string name="controller_remapper_operating_mode">الوضع الحالي</string>
     <string name="controller_remapper_expand_entry">توسيع إدخال إعادة تعيين وحدة التحكم</string>
-    <string name="preference_remap_controller_title">تغيير إعدادات مفاتيح التحكم</string>
-    <string name="preference_remap_controller_description">يتيح لك تعديل مفاتيح لوحة المفاتيح المرتبطة بكل زر تحكم</string>
+    <string name="preference_remap_controller_title">تغيير تخصيص أزرار وحدة التحكم</string>
+    <string name="preference_remap_controller_description">يسمح لك بتعديل المفتاح المخصص لكل زر في وحدة التحكم</string>
 </resources>

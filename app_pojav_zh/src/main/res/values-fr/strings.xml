@@ -287,6 +287,6 @@
     <string name="controller_dpad_right">D-Pad vers la droite</string>
     <string name="controller_remapper_operating_mode">Mode actuel</string>
     <string name="controller_remapper_expand_entry">Développer pour changer les codes de touches</string>
-    <string name="preference_remap_controller_title">Modifier les raccourcis du contrôleur</string>
-    <string name="preference_remap_controller_description">Vous permet de modifier les touches du clavier associées à chaque bouton du contrôleur</string>
+    <string name="preference_remap_controller_title">Modifier la configuration des boutons de la manette</string>
+    <string name="preference_remap_controller_description">Vous permet de modifier la touche du clavier associée à chaque bouton de la manette</string>
 </resources>
