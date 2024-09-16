@@ -65,6 +65,7 @@ public class LauncherPreferences {
     public static boolean PREF_DUMP_SHADERS = false;
     public static float PREF_DEADZONE_SCALE = 1f;
     public static boolean PREF_BIG_CORE_AFFINITY = false;
+    public static boolean PREF_RENDER_TWEAKS = false;
     public static boolean PREF_ZINK_PREFER_SYSTEM_DRIVER = false;
 
     public static boolean PREF_VERIFY_MANIFEST = true;
