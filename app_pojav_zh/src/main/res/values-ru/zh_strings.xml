@@ -321,6 +321,23 @@
     <string name="zh_about_version_status_debug">Тестовая версия</string>
     <string name="zh_about_version_status_release">Релизная версия</string>
     <string name="zh_about_version_status_pre_release">Предварительная версия</string>
+    <!-- Newbie Guide -->
+    <string name="zh_newbie_guide_general_close">Нажмите эту кнопку, чтобы закрыть и вернуться к предыдущему интерфейсу.</string>
+    <string name="zh_newbie_guide_general_refresh">Нажмите эту кнопку, чтобы обновить текущее содержимое.</string>
+    <string name="zh_newbie_guide_control_search">Если у вас слишком много макетов управления, нажмите эту кнопку, чтобы вызвать поисковую строку и использовать её для поиска нужного макета управления!</string>
+    <string name="zh_newbie_guide_control_import">Нажмите, чтобы открыть файловый менеджер Android, выберите свой файл макета управления и импортируйте его в лаунчер!</string>
+    <string name="zh_newbie_guide_control_create">Нажмите эту кнопку, чтобы быстро создать новый макет управления!</string>
+    <string name="zh_newbie_guide_background_reset">Нажмите эту кнопку, чтобы быстро сбросить фоновое изображение текущего выбранного интерфейса.</string>
+    <string name="zh_newbie_guide_background_import">Нажмите, чтобы открыть файловый менеджер Android, выберите свой файл фонового изображения и импортируйте его в лаунчер!</string>
+    <string name="zh_newbie_guide_mouse_import">Нажмите, чтобы войти в родной файловый менеджер, выберите свой файл изображения виртуальной мыши и импортируйте его в лаунчер!</string>
+    <string name="zh_newbie_guide_file_search">Хотите быстро найти файлы? Нажмите эту кнопку, чтобы вызвать поисковую строку и использовать её для поиска файлов.</string>
+    <string name="zh_newbie_guide_file_import">Нажмите, чтобы войти в файловый менеджер Android, выберите файл, который хотите импортировать, и импортируйте его в лаунчер!</string>
+    <string name="zh_newbie_guide_file_create_folder">Нажмите эту кнопку, чтобы создать новую папку в текущем каталоге.</string>
+    <string name="zh_newbie_guide_file_select">Нажмите, чтобы подтвердить выбор этого каталога.</string>
+    <string name="zh_newbie_guide_mod_search">Нажмите, чтобы вызвать поисковую строку и использовать её для быстрого поиска нужного мода.</string>
+    <string name="zh_newbie_guide_mod_import">В файловом менеджере выберите мод и импортируйте его в текущую папку с модами.</string>
+    <string name="zh_newbie_guide_mod_download">Нажмите, чтобы войти на страницу загрузки модов, где вы можете найти и скачать моды онлайн.</string>
+    <string name="zh_newbie_guide_profiles_path_create">Нажмите эту кнопку, чтобы создать новый путь игры.</string>
     <!-- Sponsorship Related -->
     <string name="zh_request_sponsorship_title">Поддержите Мое Развитие</string>
     <string name="zh_request_sponsorship_message">Большую часть этого программного обеспечения разрабатываю и поддерживаю я один. Если вы считаете это программное обеспечение полезным и у вас есть возможность, пожалуйста, рассмотрите возможность спонсирования меня, чтобы дать мне больше мотивации продолжать разработку и улучшение. Спасибо за вашу поддержку!</string>

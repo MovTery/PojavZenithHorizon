@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo.YoYoString
+import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathJsonObject
@@ -19,6 +20,7 @@ import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager.Companio
 import com.movtery.pojavzh.ui.dialog.EditTextDialog
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfileItem
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathAdapter
+import com.movtery.pojavzh.utils.NewbieGuideUtils
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
@@ -103,6 +105,15 @@ class ProfilePathManagerFragment : FragmentWithAnim(R.layout.fragment_profile_pa
         returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
 
         slideInAnim(this)
+
+        if (NewbieGuideUtils.showOnlyOne(TAG)) return
+        val fragmentActivity = requireActivity()
+        TapTargetSequence(fragmentActivity)
+            .targets(
+                NewbieGuideUtils.getSimpleTarget(fragmentActivity, refreshButton, getString(R.string.zh_refresh), getString(R.string.zh_newbie_guide_general_refresh)),
+                NewbieGuideUtils.getSimpleTarget(fragmentActivity, createNewButton, getString(R.string.zh_profiles_path_create_new), getString(R.string.zh_newbie_guide_profiles_path_create)),
+                NewbieGuideUtils.getSimpleTarget(fragmentActivity, returnButton, getString(R.string.zh_close), getString(R.string.zh_newbie_guide_general_close)))
+            .start()
     }
 
     private fun refresh() {

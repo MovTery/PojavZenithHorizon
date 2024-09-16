@@ -207,7 +207,7 @@ dependencies {
     implementation 'androidx.preference:preference-ktx:1.2.0'
     implementation 'androidx.drawerlayout:drawerlayout:1.2.0'
     implementation 'androidx.viewpager2:viewpager2:1.1.0-beta01'
-    implementation 'androidx.annotation:annotation:1.6.0'
+    implementation 'androidx.annotation:annotation:1.7.0'
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
     implementation 'androidx.core:core-ktx:1.13.0'
 
@@ -239,6 +239,7 @@ dependencies {
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
 
     implementation 'com.daimajia.androidanimations:library:2.4@aar'
+    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.14.0'
 
     implementation('org.apache.commons:commons-text:1.12.0') {
         exclude group: 'org.apache.commons', module: 'commons-lang3'

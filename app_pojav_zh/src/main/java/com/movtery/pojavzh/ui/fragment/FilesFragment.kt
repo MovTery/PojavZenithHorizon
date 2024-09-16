@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo.YoYoString
+import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.movtery.pojavzh.ui.dialog.EditTextDialog
 import com.movtery.pojavzh.ui.dialog.FilesDialog
 import com.movtery.pojavzh.ui.dialog.FilesDialog.FilesButton
@@ -21,6 +22,7 @@ import com.movtery.pojavzh.ui.subassembly.filelist.FileItemBean
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerView
 import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener
 import com.movtery.pojavzh.ui.subassembly.view.SearchViewWrapper
+import com.movtery.pojavzh.utils.NewbieGuideUtils
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.anim.AnimUtils.Companion.setVisibilityAnim
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
@@ -260,6 +262,28 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
         }
 
         slideInAnim(this)
+        startNewbieGuide()
+    }
+
+    private fun startNewbieGuide() {
+        if (NewbieGuideUtils.showOnlyOne("${TAG}${if (mSelectFolderMode) "_select" else ""}")) return
+        val fragmentActivity = requireActivity()
+        val refresh = NewbieGuideUtils.getSimpleTarget(fragmentActivity, mRefreshButton, getString(R.string.zh_refresh), getString(R.string.zh_newbie_guide_general_refresh))
+        val search = NewbieGuideUtils.getSimpleTarget(fragmentActivity, mSearchSummonButton, getString(R.string.zh_search), getString(R.string.zh_newbie_guide_file_search))
+        val createFolder = NewbieGuideUtils.getSimpleTarget(fragmentActivity, mCreateFolderButton, getString(R.string.folder_fragment_create), getString(R.string.zh_newbie_guide_file_create_folder))
+        if (mSelectFolderMode) {
+            TapTargetSequence(fragmentActivity)
+                .targets(refresh, search, createFolder,
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, mReturnButton, getString(R.string.folder_fragment_select), getString(R.string.zh_newbie_guide_file_select)))
+                .start()
+        } else {
+            TapTargetSequence(fragmentActivity)
+                .targets(refresh, search,
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, mAddFileButton, getString(R.string.zh_file_add_file), getString(R.string.zh_newbie_guide_file_import)),
+                    createFolder,
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, mReturnButton, getString(R.string.zh_close), getString(R.string.zh_newbie_guide_general_close)))
+                .start()
+        }
     }
 
     private fun closeMultiSelect() {

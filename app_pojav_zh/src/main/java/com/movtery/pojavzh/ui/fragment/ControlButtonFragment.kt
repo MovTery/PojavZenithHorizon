@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo.YoYoString
+import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.movtery.pojavzh.ui.dialog.EditControlInfoDialog
 import com.movtery.pojavzh.ui.dialog.FilesDialog
 import com.movtery.pojavzh.ui.dialog.FilesDialog.FilesButton
@@ -20,6 +21,7 @@ import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlsListViewCreator
 import com.movtery.pojavzh.ui.subassembly.customcontrols.EditControlData.Companion.createNewControlFile
 import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener
 import com.movtery.pojavzh.ui.subassembly.view.SearchViewWrapper
+import com.movtery.pojavzh.utils.NewbieGuideUtils
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.anim.AnimUtils.Companion.setVisibilityAnim
@@ -148,6 +150,7 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
         controlsListViewCreator?.listAtPath()
 
         slideInAnim(this)
+        startNewbieGuide()
     }
 
     private fun removeLockPath(path: String?): String {
@@ -224,6 +227,19 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
         ZHTools.setTooltipText(mPasteButton, mPasteButton?.contentDescription)
         ZHTools.setTooltipText(mSearchSummonButton, mSearchSummonButton?.contentDescription)
         ZHTools.setTooltipText(mRefreshButton, mRefreshButton?.contentDescription)
+    }
+
+    private fun startNewbieGuide() {
+        if (NewbieGuideUtils.showOnlyOne(TAG)) return
+        val fragmentActivity = requireActivity()
+        TapTargetSequence(fragmentActivity)
+            .targets(
+                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mRefreshButton, getString(R.string.zh_refresh), getString(R.string.zh_newbie_guide_general_refresh)),
+                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mSearchSummonButton, getString(R.string.zh_search), getString(R.string.zh_newbie_guide_control_search)),
+                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mImportControlButton, getString(R.string.zh_controls_import_control), getString(R.string.zh_newbie_guide_control_import)),
+                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mAddControlButton, getString(R.string.zh_controls_create_new), getString(R.string.zh_newbie_guide_control_create)),
+                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mReturnButton, getString(R.string.zh_return), getString(R.string.zh_newbie_guide_general_close)))
+            .start()
     }
 
     override fun slideIn(): Array<YoYoString?> {

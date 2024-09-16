@@ -321,6 +321,23 @@
     <string name="zh_about_version_status_debug">Phiên bản thử nghiệm</string>
     <string name="zh_about_version_status_release">Phiên bản chính thức</string>
     <string name="zh_about_version_status_pre_release">Phiên bản phát hành trước</string>
+    <!-- Newbie Guide -->
+    <string name="zh_newbie_guide_general_close">Nhấn vào nút này để đóng và quay lại giao diện trước đó.</string>
+    <string name="zh_newbie_guide_general_refresh">Nhấn vào nút này để làm mới nội dung hiện tại.</string>
+    <string name="zh_newbie_guide_control_search">Khi có quá nhiều bố cục điều khiển, nhấn vào nút này để gọi ra hộp tìm kiếm và sử dụng nó để tìm bố cục điều khiển mong muốn!</string>
+    <string name="zh_newbie_guide_control_import">Nhấn để mở trình quản lý tệp của Android, chọn tệp bố cục điều khiển của bạn và nhập nó vào trình khởi động!</string>
+    <string name="zh_newbie_guide_control_create">Nhấn vào nút này để tạo nhanh bố cục điều khiển mới!</string>
+    <string name="zh_newbie_guide_background_reset">Nhấn vào nút này để đặt lại nhanh chóng hình nền của giao diện được chọn hiện tại.</string>
+    <string name="zh_newbie_guide_background_import">Nhấn để mở trình quản lý tệp của Android, chọn tệp hình nền của bạn và nhập nó vào trình khởi động!</string>
+    <string name="zh_newbie_guide_mouse_import">Nhấn để vào trình quản lý tệp gốc, chọn tệp hình ảnh chuột ảo của bạn và nhập nó vào trình khởi động!</string>
+    <string name="zh_newbie_guide_file_search">Muốn tìm kiếm tệp nhanh chóng? Nhấn vào nút này để gọi ra hộp tìm kiếm và sử dụng nó để tìm kiếm tệp.</string>
+    <string name="zh_newbie_guide_file_import">Nhấn để vào trình quản lý tệp của Android, chọn tệp bạn muốn nhập và nhập nó vào trình khởi động!</string>
+    <string name="zh_newbie_guide_file_create_folder">Nhấn vào nút này để tạo thư mục mới trong thư mục hiện tại.</string>
+    <string name="zh_newbie_guide_file_select">Nhấn để xác nhận lựa chọn thư mục này.</string>
+    <string name="zh_newbie_guide_mod_search">Nhấn để gọi ra hộp tìm kiếm và sử dụng nó để tìm nhanh Mod mà bạn đang tìm kiếm.</string>
+    <string name="zh_newbie_guide_mod_import">Trong trình quản lý tệp gốc, chọn một tệp Mod và nhập nó vào thư mục Mod hiện tại.</string>
+    <string name="zh_newbie_guide_mod_download">Nhấn để vào trang tải xuống Mod, nơi bạn có thể tìm kiếm và tải Mod trực tuyến.</string>
+    <string name="zh_newbie_guide_profiles_path_create">Nhấn vào nút này để tạo đường dẫn trò chơi mới.</string>
     <!-- Sponsorship Related -->
     <string name="zh_request_sponsorship_title">Hỗ Trợ Phát Triển Của Tôi</string>
     <string name="zh_request_sponsorship_message">Phần lớn phần mềm này được phát triển và duy trì bởi một mình tôi. Nếu bạn thấy phần mềm này hữu ích và có khả năng, hãy xem xét tài trợ cho tôi để tôi có thêm động lực tiếp tục phát triển và cải tiến nó. Cảm ơn bạn đã hỗ trợ!</string>

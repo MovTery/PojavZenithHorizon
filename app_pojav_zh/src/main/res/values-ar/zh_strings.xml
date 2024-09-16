@@ -321,6 +321,23 @@
     <string name="zh_about_version_status_debug">نسخة تجريبية</string>
     <string name="zh_about_version_status_release">نسخة رسمية</string>
     <string name="zh_about_version_status_pre_release">إصدار ما قبل النشر</string>
+    <!-- Newbie Guide -->
+    <string name="zh_newbie_guide_general_close">انقر على هذا الزر لإغلاق والعودة إلى الواجهة السابقة.</string>
+    <string name="zh_newbie_guide_general_refresh">انقر على هذا الزر لتحديث المحتوى الحالي.</string>
+    <string name="zh_newbie_guide_control_search">عندما يكون هناك العديد من تخطيطات التحكم، انقر على هذا الزر لاستدعاء مربع البحث واستخدمه للبحث عن تخطيط التحكم المطلوب!</string>
+    <string name="zh_newbie_guide_control_import">انقر لفتح مدير الملفات في Android، اختر ملف تخطيط التحكم الخاص بك واستورده إلى المشغل!</string>
+    <string name="zh_newbie_guide_control_create">انقر على هذا الزر لإنشاء تخطيط تحكم جديد بسرعة!</string>
+    <string name="zh_newbie_guide_background_reset">انقر على هذا الزر لإعادة تعيين صورة الخلفية للواجهة المحددة حاليًا بسرعة.</string>
+    <string name="zh_newbie_guide_background_import">انقر لفتح مدير ملفات Android، اختر ملف صورة الخلفية الخاص بك واستورده إلى المشغل!</string>
+    <string name="zh_newbie_guide_mouse_import">انقر للدخول إلى مدير الملفات الأصلي، اختر ملف صورة الماوس الافتراضي واستورده إلى المشغل!</string>
+    <string name="zh_newbie_guide_file_search">تريد البحث عن الملفات بسرعة؟ انقر على هذا الزر لاستدعاء مربع البحث واستخدمه للبحث عن الملفات.</string>
+    <string name="zh_newbie_guide_file_import">انقر للدخول إلى مدير ملفات Android، اختر الملف الذي تريد استيراده واستورده إلى المشغل!</string>
+    <string name="zh_newbie_guide_file_create_folder">انقر على هذا الزر لإنشاء مجلد جديد في الدليل الحالي.</string>
+    <string name="zh_newbie_guide_file_select">انقر لتأكيد اختيار هذا الدليل.</string>
+    <string name="zh_newbie_guide_mod_search">انقر لاستدعاء مربع البحث واستخدمه للبحث بسرعة عن التعديل الذي تبحث عنه.</string>
+    <string name="zh_newbie_guide_mod_import">في مدير الملفات الأصلي، اختر ملف تعديل واستورده إلى مجلد التعديلات الحالي.</string>
+    <string name="zh_newbie_guide_mod_download">انقر للدخول إلى صفحة تنزيل التعديلات، حيث يمكنك البحث عن التعديلات وتنزيلها عبر الإنترنت.</string>
+    <string name="zh_newbie_guide_profiles_path_create">انقر على هذا الزر لإنشاء مسار لعبة جديد.</string>
     <!-- Sponsorship Related -->
     <string name="zh_request_sponsorship_title">ادعم تطويري</string>
     <string name="zh_request_sponsorship_message">معظم هذا البرنامج تم تطويره وصيانته بواسطة شخص واحد. إذا وجدت هذا البرنامج مفيدًا وكان بإمكانك ذلك، يرجى النظر في دعمي لمنحي المزيد من الحافز لمواصلة تطويره وتحسينه. شكرًا لدعمك!</string>

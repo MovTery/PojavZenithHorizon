@@ -20,4 +20,3 @@ include ':app_pojav_zh'
 
 include ':arc_dns_injector'
 include ':forge_installer'
-include ':zh_library'

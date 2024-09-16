@@ -321,6 +321,23 @@
     <string name="zh_about_version_status_debug">Debug</string>
     <string name="zh_about_version_status_release">Release</string>
     <string name="zh_about_version_status_pre_release">Pre-release</string>
+    <!-- Newbie Guide -->
+    <string name="zh_newbie_guide_general_close">Click this button to close and return to the previous interface.</string>
+    <string name="zh_newbie_guide_general_refresh">Click this button to refresh the current content.</string>
+    <string name="zh_newbie_guide_control_search">When there are too many control layouts, click this button to summon a search box and use it to search for the desired control layout!</string>
+    <string name="zh_newbie_guide_control_import">Click to open Android\'s file manager, select your control layout file, and import it into the launcher!</string>
+    <string name="zh_newbie_guide_control_create">Click this button to quickly create a new control layout!</string>
+    <string name="zh_newbie_guide_background_reset">Click this button to quickly reset the background image of the currently selected interface.</string>
+    <string name="zh_newbie_guide_background_import">Click to open Android\'s file manager, select your background image file, and import it into the launcher!</string>
+    <string name="zh_newbie_guide_mouse_import">Click to enter the native file manager, select your virtual mouse image file, and import it into the launcher!</string>
+    <string name="zh_newbie_guide_file_search">Want to search files quickly? Click this button to summon a search box and use it to search for files.</string>
+    <string name="zh_newbie_guide_file_import">Click to enter Android\'s file manager, select the file you want to import, and import it into the launcher!</string>
+    <string name="zh_newbie_guide_file_create_folder">Click this button to create a new folder in the current directory.</string>
+    <string name="zh_newbie_guide_file_select">Click to confirm selection of this directory.</string>
+    <string name="zh_newbie_guide_mod_search">Click to summon a search box and use it to quickly search for the Mod you\'re looking for.</string>
+    <string name="zh_newbie_guide_mod_import">In the native file manager, select a Mod file and import it into the current Mod folder.</string>
+    <string name="zh_newbie_guide_mod_download">Click to enter the Mod download page, where you can search and download Mods online.</string>
+    <string name="zh_newbie_guide_profiles_path_create">Click this button to create a new game path.</string>
     <!-- Sponsorship Related -->
     <string name="zh_request_sponsorship_title">Support My Development</string>
     <string name="zh_request_sponsorship_message">Most of this software is developed and maintained by me alone. If you find this software helpful and are in a position to do so, please consider sponsoring me to give me more motivation to continue developing and improving it. Thank you for your support!</string>

@@ -321,6 +321,23 @@
     <string name="zh_about_version_status_debug">测试版</string>
     <string name="zh_about_version_status_release">正式版</string>
     <string name="zh_about_version_status_pre_release">预发布版</string>
+    <!-- Newbie Guide -->
+    <string name="zh_newbie_guide_general_close">可点击此按钮以关闭并返回上一个界面。</string>
+    <string name="zh_newbie_guide_general_refresh">可点击此按钮以刷新当前的内容。</string>
+    <string name="zh_newbie_guide_control_search">当控制布局数量太多时，可点击此按钮召唤出搜索框，利用它来搜索想要的控制布局！</string>
+    <string name="zh_newbie_guide_control_import">点击可拉起 Android 的文件管理器，选择你的控制布局文件，以导入进入启动器！</string>
+    <string name="zh_newbie_guide_control_create">可点击此按钮快速创建新的控制布局！</string>
+    <string name="zh_newbie_guide_background_reset">点击此按钮，快速重置当前选中的界面的背景图片。</string>
+    <string name="zh_newbie_guide_background_import">点击可拉起 Android 的文件管理器，选择你的背景图片文件，以导入进入启动器！</string>
+    <string name="zh_newbie_guide_mouse_import">点击可进入原生的文件管理器，选择你的虚拟鼠标图片文件，以导入进入启动器！</string>
+    <string name="zh_newbie_guide_file_search">想要快速搜索文件？点击此按钮，召唤搜索框，使用它来进行文件搜索。</string>
+    <string name="zh_newbie_guide_file_import">点击可进入 Android 的文件管理器，选择你想要导入的文件，即可导入进入启动器！</string>
+    <string name="zh_newbie_guide_file_create_folder">点击此按钮，可以在当前所在的目录内新建一个文件夹。</string>
+    <string name="zh_newbie_guide_file_select">点击以确认选择为此目录。</string>
+    <string name="zh_newbie_guide_mod_search">点击可召唤搜索框，使用它可以快速搜寻到你想要寻找的 Mod。</string>
+    <string name="zh_newbie_guide_mod_import">在原生的文件管理器内选择一个 Mod 文件，可将其导入当前 Mod 文件夹。</string>
+    <string name="zh_newbie_guide_mod_download">点击可以进入 Mod 下载页面，你可以在那里在线搜索与下载 Mod。</string>
+    <string name="zh_newbie_guide_profiles_path_create">点击此按钮可创建新的游戏路径。</string>
     <!-- Sponsorship Related -->
     <string name="zh_request_sponsorship_title">支持我的开发</string>
     <string name="zh_request_sponsorship_message">这款软件的大部分内容都是我一个人开发和维护的。如果你觉得这款软件对你有帮助，并且条件允许的话，希望你能考虑赞助我，让我有更多动力继续开发和改进，谢谢你的支持！</string>
