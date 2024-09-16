@@ -13,11 +13,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo.YoYoString
+import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.movtery.pojavzh.ui.dialog.FilesDialog
 import com.movtery.pojavzh.ui.dialog.FilesDialog.FilesButton
 import com.movtery.pojavzh.ui.subassembly.filelist.FileIcon
 import com.movtery.pojavzh.ui.subassembly.filelist.FileItemBean
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerViewCreator
+import com.movtery.pojavzh.utils.NewbieGuideUtils
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
@@ -76,6 +78,18 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
         loadData()
 
         slideInAnim(this)
+        startNewbieGuide()
+    }
+
+    private fun startNewbieGuide() {
+        if (NewbieGuideUtils.showOnlyOne(TAG)) return
+        val fragmentActivity = requireActivity()
+        TapTargetSequence(fragmentActivity)
+            .targets(
+                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mRefreshButton, getString(R.string.zh_refresh), getString(R.string.zh_newbie_guide_general_refresh)),
+                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mAddFileButton, getString(R.string.zh_custom_mouse_add), getString(R.string.zh_newbie_guide_mouse_import)),
+                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mReturnButton, getString(R.string.zh_close), getString(R.string.zh_newbie_guide_general_close)))
+            .start()
     }
 
     override fun onResume() {

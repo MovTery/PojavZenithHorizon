@@ -321,6 +321,23 @@
     <string name="zh_about_version_status_debug">測試版</string>
     <string name="zh_about_version_status_release">正式版</string>
     <string name="zh_about_version_status_pre_release">預發布版</string>
+    <!-- Newbie Guide -->
+    <string name="zh_newbie_guide_general_close">點擊此按鈕關閉並返回上一個介面。</string>
+    <string name="zh_newbie_guide_general_refresh">點擊此按鈕重新整理當前內容。</string>
+    <string name="zh_newbie_guide_control_search">當有過多的控制佈局時，點擊此按鈕以喚出搜尋框，並使用它來搜尋所需的控制佈局！</string>
+    <string name="zh_newbie_guide_control_import">點擊以開啟 Android 的檔案管理器，選擇您的控制佈局檔案，並將其匯入到啟動器中！</string>
+    <string name="zh_newbie_guide_control_create">點擊此按鈕以快速建立新的控制佈局！</string>
+    <string name="zh_newbie_guide_background_reset">點擊此按鈕以快速重置當前所選介面的背景圖片。</string>
+    <string name="zh_newbie_guide_background_import">點擊以開啟 Android 的檔案管理器，選擇您的背景圖片檔案，並將其匯入到啟動器中！</string>
+    <string name="zh_newbie_guide_mouse_import">點擊以進入本機檔案管理器，選擇您的虛擬滑鼠圖片檔案，並將其匯入到啟動器中！</string>
+    <string name="zh_newbie_guide_file_search">想要快速搜尋檔案嗎？點擊此按鈕以喚出搜尋框，並使用它來搜尋檔案。</string>
+    <string name="zh_newbie_guide_file_import">點擊以進入 Android 的檔案管理器，選擇要匯入的檔案，並將其匯入到啟動器中！</string>
+    <string name="zh_newbie_guide_file_create_folder">點擊此按鈕以在當前目錄中建立新資料夾。</string>
+    <string name="zh_newbie_guide_file_select">點擊以確認選擇此目錄。</string>
+    <string name="zh_newbie_guide_mod_search">點擊以喚出搜尋框，並使用它快速搜尋您正在尋找的 Mod。</string>
+    <string name="zh_newbie_guide_mod_import">在本機檔案管理器中選擇 Mod 檔案，並將其匯入到當前的 Mod 資料夾中。</string>
+    <string name="zh_newbie_guide_mod_download">點擊以進入 Mod 下載頁面，您可以在那裡搜尋並下載 Mod。</string>
+    <string name="zh_newbie_guide_profiles_path_create">點擊此按鈕以建立新的遊戲路徑。</string>
     <!-- Sponsorship Related -->
     <string name="zh_request_sponsorship_title">支持我的開發</string>
     <string name="zh_request_sponsorship_message">這款軟體的大部分內容都是我一個人開發和維護的。如果你覺得這款軟體對你有幫助，並且條件允許的話，希望你能考慮贊助我，讓我有更多動力繼續開發和改進，謝謝你的支持！</string>

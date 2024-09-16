@@ -6,6 +6,7 @@
     <color name="background_overlay">#464646</color>
     <color name="background_status_bar">#242424</color>
     <color name="background_bottom_bar">#232323</color>
+    <color name="background_newbie_guide">#1F7281</color>
 
     <color name="button_background">#3C3C3C</color>
     <color name="button_background_selected">#5B5B5B</color>

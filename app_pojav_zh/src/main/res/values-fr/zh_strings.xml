@@ -321,6 +321,23 @@
     <string name="zh_about_version_status_debug">Version bêta</string>
     <string name="zh_about_version_status_release">Version officielle</string>
     <string name="zh_about_version_status_pre_release">Préversion</string>
+    <!-- Newbie Guide -->
+    <string name="zh_newbie_guide_general_close">Cliquez sur ce bouton pour fermer et revenir à l\'interface précédente.</string>
+    <string name="zh_newbie_guide_general_refresh">Cliquez sur ce bouton pour actualiser le contenu actuel.</string>
+    <string name="zh_newbie_guide_control_search">Lorsque vous avez trop de mises en page de contrôle, cliquez sur ce bouton pour faire apparaître la boîte de recherche et l\'utiliser pour rechercher la mise en page de contrôle souhaitée !</string>
+    <string name="zh_newbie_guide_control_import">Cliquez pour ouvrir le gestionnaire de fichiers d\'Android, sélectionnez votre fichier de mise en page de contrôle et importez-le dans le lanceur !</string>
+    <string name="zh_newbie_guide_control_create">Cliquez sur ce bouton pour créer rapidement une nouvelle mise en page de contrôle !</string>
+    <string name="zh_newbie_guide_background_reset">Cliquez sur ce bouton pour réinitialiser rapidement l\'image d\'arrière-plan de l\'interface sélectionnée.</string>
+    <string name="zh_newbie_guide_background_import">Cliquez pour ouvrir le gestionnaire de fichiers Android, sélectionnez votre fichier d\'image d\'arrière-plan et importez-le dans le lanceur !</string>
+    <string name="zh_newbie_guide_mouse_import">Cliquez pour entrer dans le gestionnaire de fichiers natif, sélectionnez votre fichier d\'image de souris virtuelle et importez-le dans le lanceur !</string>
+    <string name="zh_newbie_guide_file_search">Vous voulez rechercher des fichiers rapidement ? Cliquez sur ce bouton pour faire apparaître la boîte de recherche et l\'utiliser pour rechercher des fichiers.</string>
+    <string name="zh_newbie_guide_file_import">Cliquez pour entrer dans le gestionnaire de fichiers d\'Android, sélectionnez le fichier que vous souhaitez importer et importez-le dans le lanceur !</string>
+    <string name="zh_newbie_guide_file_create_folder">Cliquez sur ce bouton pour créer un nouveau dossier dans le répertoire actuel.</string>
+    <string name="zh_newbie_guide_file_select">Cliquez pour confirmer la sélection de ce répertoire.</string>
+    <string name="zh_newbie_guide_mod_search">Cliquez pour faire apparaître la boîte de recherche et l\'utiliser pour rechercher rapidement le Mod que vous recherchez.</string>
+    <string name="zh_newbie_guide_mod_import">Dans le gestionnaire de fichiers natif, sélectionnez un fichier Mod et importez-le dans le dossier Mod actuel.</string>
+    <string name="zh_newbie_guide_mod_download">Cliquez pour accéder à la page de téléchargement des Mods, où vous pourrez rechercher et télécharger des Mods en ligne.</string>
+    <string name="zh_newbie_guide_profiles_path_create">Cliquez sur ce bouton pour créer un nouveau chemin de jeu.</string>
     <!-- Sponsorship Related -->
     <string name="zh_request_sponsorship_title">Soutenez mon développement</string>
     <string name="zh_request_sponsorship_message">La plupart du contenu de ce logiciel est développé et maintenu par moi seul. Si vous trouvez ce logiciel utile et que vos conditions le permettent, j\'espère que vous pourrez envisager de me sponsoriser, afin que j\'aie plus de motivation pour continuer à développer et à améliorer, merci pour votre soutien !</string>

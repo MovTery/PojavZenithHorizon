@@ -321,6 +321,23 @@
     <string name="zh_about_version_status_debug">Testversion</string>
     <string name="zh_about_version_status_release">Stabile Version</string>
     <string name="zh_about_version_status_pre_release">Vorabversion</string>
+    <!-- Newbie Guide -->
+    <string name="zh_newbie_guide_general_close">Klicken Sie auf diese Schaltfläche, um zu schließen und zum vorherigen Bildschirm zurückzukehren.</string>
+    <string name="zh_newbie_guide_general_refresh">Klicken Sie auf diese Schaltfläche, um den aktuellen Inhalt zu aktualisieren.</string>
+    <string name="zh_newbie_guide_control_search">Wenn es zu viele Steuerlayouts gibt, klicken Sie auf diese Schaltfläche, um das Suchfeld aufzurufen und es zu verwenden, um das gewünschte Steuerlayout zu suchen!</string>
+    <string name="zh_newbie_guide_control_import">Klicken Sie, um den Android-Dateimanager zu öffnen, wählen Sie Ihre Steuerlayout-Datei aus und importieren Sie sie in den Launcher!</string>
+    <string name="zh_newbie_guide_control_create">Klicken Sie auf diese Schaltfläche, um schnell ein neues Steuerlayout zu erstellen!</string>
+    <string name="zh_newbie_guide_background_reset">Klicken Sie auf diese Schaltfläche, um das Hintergrundbild der aktuell ausgewählten Benutzeroberfläche schnell zurückzusetzen.</string>
+    <string name="zh_newbie_guide_background_import">Klicken Sie, um den Android-Dateimanager zu öffnen, wählen Sie Ihre Hintergrundbilddatei aus und importieren Sie sie in den Launcher!</string>
+    <string name="zh_newbie_guide_mouse_import">Klicken Sie, um den nativen Dateimanager zu öffnen, wählen Sie Ihre virtuelle Mausbilddatei aus und importieren Sie sie in den Launcher!</string>
+    <string name="zh_newbie_guide_file_search">Möchten Sie Dateien schnell durchsuchen? Klicken Sie auf diese Schaltfläche, um das Suchfeld aufzurufen und es für die Dateisuche zu verwenden.</string>
+    <string name="zh_newbie_guide_file_import">Klicken Sie, um den Android-Dateimanager zu öffnen, wählen Sie die Datei aus, die Sie importieren möchten, und importieren Sie sie in den Launcher!</string>
+    <string name="zh_newbie_guide_file_create_folder">Klicken Sie auf diese Schaltfläche, um einen neuen Ordner im aktuellen Verzeichnis zu erstellen.</string>
+    <string name="zh_newbie_guide_file_select">Klicken Sie, um dieses Verzeichnis auszuwählen.</string>
+    <string name="zh_newbie_guide_mod_search">Klicken Sie, um das Suchfeld aufzurufen und es zu verwenden, um schnell nach dem gesuchten Mod zu suchen.</string>
+    <string name="zh_newbie_guide_mod_import">Wählen Sie im nativen Dateimanager eine Mod-Datei aus und importieren Sie sie in den aktuellen Mod-Ordner.</string>
+    <string name="zh_newbie_guide_mod_download">Klicken Sie, um die Mod-Download-Seite aufzurufen, auf der Sie Mods online suchen und herunterladen können.</string>
+    <string name="zh_newbie_guide_profiles_path_create">Klicken Sie auf diese Schaltfläche, um einen neuen Spielpfad zu erstellen.</string>
     <!-- Sponsorship Related -->
     <string name="zh_request_sponsorship_title">Unterstütze meine Entwicklung</string>
     <string name="zh_request_sponsorship_message">Der Großteil dieser Software wurde von mir allein entwickelt und gewartet. Wenn Sie diese Software hilfreich finden und es Ihnen möglich ist, würde ich mich freuen, wenn Sie meine Entwicklung unterstützen könnten, damit ich mehr Motivation habe, weiter zu entwickeln und zu verbessern. Vielen Dank für Ihre Unterstützung!</string>

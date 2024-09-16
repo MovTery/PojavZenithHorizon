@@ -12,6 +12,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.core.content.ContextCompat
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo.YoYoString
+import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.movtery.pojavzh.feature.mod.ModUtils
 import com.movtery.pojavzh.ui.dialog.FilesDialog
 import com.movtery.pojavzh.ui.dialog.FilesDialog.FilesButton
@@ -28,6 +29,7 @@ import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
 import com.movtery.pojavzh.utils.file.FileCopyHandler
 import com.movtery.pojavzh.utils.file.FileTools.Companion.copyFileInBackground
 import com.movtery.pojavzh.feature.mod.ModToggleHandler
+import com.movtery.pojavzh.utils.NewbieGuideUtils
 import com.movtery.pojavzh.utils.file.PasteFile
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
@@ -251,6 +253,20 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
         mFileRecyclerView?.lockAndListAt(mRootPath?.let { File(it) }, mRootPath?.let { File(it) })
 
         slideInAnim(this)
+        startNewbieGuide()
+    }
+
+    private fun startNewbieGuide() {
+        if (NewbieGuideUtils.showOnlyOne(TAG)) return
+        val fragmentActivity = requireActivity()
+        TapTargetSequence(fragmentActivity)
+            .targets(
+                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mRefreshButton, getString(R.string.zh_refresh), getString(R.string.zh_newbie_guide_general_refresh)),
+                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mSearchSummonButton, getString(R.string.zh_search), getString(R.string.zh_newbie_guide_mod_search)),
+                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mAddModButton, getString(R.string.zh_profile_mods_add_mod), getString(R.string.zh_newbie_guide_mod_import)),
+                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mDownloadButton, getString(R.string.zh_profile_mods_download_mod), getString(R.string.zh_newbie_guide_mod_download)),
+                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mReturnButton, getString(R.string.zh_close), getString(R.string.zh_newbie_guide_general_close)))
+            .start()
     }
 
     private fun closeMultiSelect() {

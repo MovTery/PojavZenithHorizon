@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo.YoYoString
+import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.google.android.material.tabs.TabLayout
 import com.movtery.pojavzh.extra.ZHExtraConstants
 import com.movtery.pojavzh.ui.dialog.FilesDialog
@@ -21,6 +22,7 @@ import com.movtery.pojavzh.ui.subassembly.background.BackgroundType
 import com.movtery.pojavzh.ui.subassembly.filelist.FileIcon
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerView
 import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener
+import com.movtery.pojavzh.utils.NewbieGuideUtils
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.anim.AnimUtils.Companion.setVisibilityAnim
@@ -143,6 +145,19 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
         mFileRecyclerView?.lockAndListAt(backgroundPath(), backgroundPath())
 
         slideInAnim(this)
+        startNewbieGuide()
+    }
+
+    private fun startNewbieGuide() {
+        if (NewbieGuideUtils.showOnlyOne(TAG)) return
+        val fragmentActivity = requireActivity()
+        TapTargetSequence(fragmentActivity)
+            .targets(
+                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mRefreshButton, getString(R.string.zh_refresh), getString(R.string.zh_newbie_guide_general_refresh)),
+                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mResetButton, getString(R.string.cropper_reset), getString(R.string.zh_newbie_guide_background_reset)),
+                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mAddFileButton, getString(R.string.zh_custom_background_add), getString(R.string.zh_newbie_guide_background_import)),
+                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mReturnButton, getString(R.string.zh_return), getString(R.string.zh_newbie_guide_general_close)))
+            .start()
     }
 
     override fun onResume() {

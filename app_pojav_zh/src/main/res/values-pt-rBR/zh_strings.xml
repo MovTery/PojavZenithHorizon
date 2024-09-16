@@ -321,6 +321,23 @@
     <string name="zh_about_version_status_debug">Versão de Teste</string>
     <string name="zh_about_version_status_release">Versão Oficial</string>
     <string name="zh_about_version_status_pre_release">Pré-lançamento</string>
+    <!-- Newbie Guide -->
+    <string name="zh_newbie_guide_general_close">Clique neste botão para fechar e voltar à interface anterior.</string>
+    <string name="zh_newbie_guide_general_refresh">Clique neste botão para atualizar o conteúdo atual.</string>
+    <string name="zh_newbie_guide_control_search">Quando houver muitos layouts de controle, clique neste botão para chamar uma caixa de pesquisa e usá-la para procurar o layout de controle desejado!</string>
+    <string name="zh_newbie_guide_control_import">Clique para abrir o gerenciador de arquivos do Android, selecione seu arquivo de layout de controle e importe-o para o lançador!</string>
+    <string name="zh_newbie_guide_control_create">Clique neste botão para criar rapidamente um novo layout de controle!</string>
+    <string name="zh_newbie_guide_background_reset">Clique neste botão para redefinir rapidamente a imagem de fundo da interface atualmente selecionada.</string>
+    <string name="zh_newbie_guide_background_import">Clique para abrir o gerenciador de arquivos do Android, selecione o arquivo da imagem de fundo e importe-o para o lançador!</string>
+    <string name="zh_newbie_guide_mouse_import">Clique para entrar no gerenciador de arquivos nativo, selecione o arquivo da imagem do mouse virtual e importe-o para o lançador!</string>
+    <string name="zh_newbie_guide_file_search">Quer pesquisar arquivos rapidamente? Clique neste botão para chamar uma caixa de pesquisa e usá-la para pesquisar arquivos.</string>
+    <string name="zh_newbie_guide_file_import">Clique para entrar no gerenciador de arquivos do Android, selecione o arquivo que deseja importar e importe-o para o lançador!</string>
+    <string name="zh_newbie_guide_file_create_folder">Clique neste botão para criar uma nova pasta no diretório atual.</string>
+    <string name="zh_newbie_guide_file_select">Clique para confirmar a seleção deste diretório.</string>
+    <string name="zh_newbie_guide_mod_search">Clique para chamar uma caixa de pesquisa e usá-la para procurar rapidamente o Mod que você está procurando.</string>
+    <string name="zh_newbie_guide_mod_import">No gerenciador de arquivos nativo, selecione um arquivo de Mod e importe-o para a pasta de Mods atual.</string>
+    <string name="zh_newbie_guide_mod_download">Clique para acessar a página de download de Mods, onde você pode procurar e baixar Mods online.</string>
+    <string name="zh_newbie_guide_profiles_path_create">Clique neste botão para criar um novo caminho de jogo.</string>
     <!-- Sponsorship Related -->
     <string name="zh_request_sponsorship_title">Apoie o Meu Desenvolvimento</string>
     <string name="zh_request_sponsorship_message">A maior parte deste software foi desenvolvida e mantida por mim sozinho. Se você acha que este software é útil para você e, se possível, considere patrocinar-me para que eu possa ter mais motivação para continuar desenvolvendo e melhorando, obrigado pelo seu apoio!</string>
