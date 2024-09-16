@@ -289,7 +289,6 @@
     <string name="zh_other_login_error">Fehler bei der Anmeldung:\n</string>
     <string name="zh_other_login_no_server">Kein Authentifizierungsserver</string>
     <string name="zh_other_login_baseurl_not_set">Basis-URL nicht festgelegt</string>
-    <string name="zh_other_login_client">Client</string>
     <string name="zh_other_login_error_code">Fehlercode:</string>
     <string name="zh_other_login_server_not_empty">Server darf nicht leer sein, bitte überprüfen Sie die Einstellungen des Authentifizierungsservers!</string>
     <string name="zh_other_login_select_role_title">Rolle auswählen</string>

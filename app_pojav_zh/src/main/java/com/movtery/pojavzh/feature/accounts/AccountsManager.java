@@ -49,7 +49,7 @@ public class AccountsManager {
                     //确保完全初始化，初始化完成之后，初始化监听器，然后执行刷新与登录操作
                     accountsManager.initListener();
                     accountsManager.reload();
-                    accountsManager.performLogin(accountsManager.getCurrentAccount());
+                    accountsManager.performLogin(accountsManager.getCurrentAccount(), false);
                 }
                 return accountsManager;
             }
@@ -100,33 +100,21 @@ public class AccountsManager {
         };
     }
 
-    public void forcedLogin(MinecraftAccount minecraftAccount) {
-        if (commonLogin(minecraftAccount)) return;
+    public void performLogin(MinecraftAccount minecraftAccount, boolean force) {
+        if (AccountUtils.isNoLoginRequired(minecraftAccount)) return;
 
-        if (minecraftAccount.isMicrosoft) {
-            AccountUtils.microsoftLogin(minecraftAccount);
+        if (AccountUtils.isOtherLoginAccount(minecraftAccount)) {
+            if (force || ZHTools.getCurrentTimeMillis() > minecraftAccount.expiresAt) {
+                AccountUtils.otherLogin(context, minecraftAccount);
+                return;
+            }
         }
-    }
-
-    public void performLogin(MinecraftAccount minecraftAccount) {
-        if (commonLogin(minecraftAccount)) return;
 
         if (minecraftAccount.isMicrosoft) {
-            if (ZHTools.getCurrentTimeMillis() > minecraftAccount.expiresAt) {
+            if (force || ZHTools.getCurrentTimeMillis() > minecraftAccount.expiresAt) {
                 AccountUtils.microsoftLogin(minecraftAccount);
             }
         }
-    }
-
-    private boolean commonLogin(MinecraftAccount minecraftAccount) {
-        if (AccountUtils.isNoLoginRequired(minecraftAccount)) return true;
-
-        if (AccountUtils.isOtherLoginAccount(minecraftAccount) && ZHTools.getCurrentTimeMillis() > minecraftAccount.expiresAt) {
-            AccountUtils.otherLogin(context, minecraftAccount);
-            return true;
-        }
-
-        return false;
     }
 
     public void reload() {

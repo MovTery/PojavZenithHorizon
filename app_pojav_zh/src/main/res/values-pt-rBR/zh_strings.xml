@@ -289,7 +289,6 @@
     <string name="zh_other_login_error">Erro durante o login:\n</string>
     <string name="zh_other_login_no_server">Sem Servidor de Autenticação</string>
     <string name="zh_other_login_baseurl_not_set">URL Base não definida</string>
-    <string name="zh_other_login_client">Cliente</string>
     <string name="zh_other_login_error_code">Código de Erro:</string>
     <string name="zh_other_login_server_not_empty">O servidor não pode estar vazio, por favor verifique as configurações do servidor de autenticação!</string>
     <string name="zh_other_login_select_role_title">Selecionar Papel</string>

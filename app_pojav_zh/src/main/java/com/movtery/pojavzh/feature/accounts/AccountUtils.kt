@@ -30,10 +30,10 @@ class AccountUtils {
         fun otherLogin(context: Context, account: MinecraftAccount) {
             val errorListener = AccountsManager.getInstance().errorListener
 
-            OtherLoginApi.getINSTANCE().setBaseUrl(account.baseUrl)
+            OtherLoginApi.setBaseUrl(account.baseUrl)
             PojavApplication.sExecutorService.execute {
                 runCatching {
-                    OtherLoginApi.getINSTANCE().refresh(context, account, false, object : OtherLoginApi.Listener {
+                    OtherLoginApi.refresh(context, account, false, object : OtherLoginApi.Listener {
                         override fun onSuccess(authResult: AuthResult) {
                             account.accessToken = authResult.accessToken
                             Tools.runOnUiThread {

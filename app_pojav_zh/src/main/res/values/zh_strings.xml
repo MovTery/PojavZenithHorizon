@@ -289,7 +289,6 @@
     <string name="zh_other_login_error">An error occurred while logging in：\n</string>
     <string name="zh_other_login_no_server">No authentication server</string>
     <string name="zh_other_login_baseurl_not_set">BaseUrl is not set</string>
-    <string name="zh_other_login_client">Client</string>
     <string name="zh_other_login_error_code">Error code：</string>
     <string name="zh_other_login_server_not_empty">Server can not be empty, please check the authentication server settings!</string>
     <string name="zh_other_login_select_role_title">Select Role</string>

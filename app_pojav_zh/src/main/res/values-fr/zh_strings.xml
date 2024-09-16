@@ -289,7 +289,6 @@
     <string name="zh_other_login_error">Erreur lors de la connexion :\n</string>
     <string name="zh_other_login_no_server">Aucun serveur d\'authentification</string>
     <string name="zh_other_login_baseurl_not_set">URL de base non définie</string>
-    <string name="zh_other_login_client">Client</string>
     <string name="zh_other_login_error_code">Code d\'erreur :</string>
     <string name="zh_other_login_server_not_empty">Le serveur ne peut pas être vide, veuillez vérifier les paramètres du serveur d\'authentification !</string>
     <string name="zh_other_login_select_role_title">Sélectionner un rôle</string>
