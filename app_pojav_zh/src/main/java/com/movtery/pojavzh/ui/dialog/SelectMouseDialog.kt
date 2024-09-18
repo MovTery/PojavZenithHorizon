@@ -11,12 +11,10 @@ import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.file.FileTools.Companion.mkdirs
 import com.movtery.pojavzh.utils.image.ImageUtils.Companion.isImage
 import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
 import java.io.File
 
 class SelectMouseDialog(context: Context) : AbstractSelectDialog(context) {
-    private val mData: List<FileItemBean> = ArrayList()
     private var mouseSelectedListener: MouseSelectedListener? = null
 
     override fun initDialog(
@@ -29,7 +27,7 @@ class SelectMouseDialog(context: Context) : AbstractSelectDialog(context) {
     }
 
     private fun initView(mMouseListView: RecyclerView) {
-        val fileRecyclerViewCreator = FileRecyclerViewCreator(
+        FileRecyclerViewCreator(
             context,
             mMouseListView,
             { position: Int, fileItemBean: FileItemBean ->
@@ -48,14 +46,12 @@ class SelectMouseDialog(context: Context) : AbstractSelectDialog(context) {
                 }
             },
             null,
-            mData
+            getItems()
         )
-
-        loadData(fileRecyclerViewCreator)
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun loadData(fileRecyclerViewCreator: FileRecyclerViewCreator) {
+    private fun getItems(): List<FileItemBean> {
         val fileItemBeans = FileRecyclerViewCreator.loadItemBeansFromPath(
             context,
             mousePath(),
@@ -71,7 +67,7 @@ class SelectMouseDialog(context: Context) : AbstractSelectDialog(context) {
                 context.getString(R.string.zh_custom_mouse_default)
             )
         )
-        Tools.runOnUiThread { fileRecyclerViewCreator.loadData(fileItemBeans) }
+        return fileItemBeans
     }
 
     private fun mousePath(): File {
