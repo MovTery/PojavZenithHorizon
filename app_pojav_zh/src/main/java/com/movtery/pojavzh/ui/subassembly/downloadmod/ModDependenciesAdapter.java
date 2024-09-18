@@ -1,7 +1,7 @@
 package com.movtery.pojavzh.ui.subassembly.downloadmod;
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,15 +21,16 @@ import com.movtery.pojavzh.ui.fragment.DownloadModFragment;
 import com.movtery.pojavzh.ui.subassembly.viewmodel.ModApiViewModel;
 import com.movtery.pojavzh.utils.NumberWithUnits;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.image.ImageUtils;
+import com.movtery.pojavzh.utils.image.UrlImageCallback;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ImageReceiver;
-import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ModIconCache;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.Constants;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.concurrent.Future;
 
@@ -57,6 +57,18 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
     }
 
     @Override
+    public void onViewAttachedToWindow(@NonNull InnerHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        holder.setItemShow(true);
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(@NonNull InnerHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+        holder.setItemShow(false);
+    }
+
+    @Override
     public int getItemCount() {
         return mData != null ? mData.size() : 0;
     }
@@ -75,10 +87,8 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
         private final ImageView mSourceImage, mModIcon;
         private final FlexboxLayout mCategoriesLayout;
         private final TextView mTitle, mSubTitle, mDesc, mDependencies, mDownloadCount, mModloaders;
-        private final ModIconCache mIconCache = new ModIconCache();
         private Future<?> mExtensionFuture;
-        private ImageReceiver mImageReceiver;
-        private Bitmap mThumbnailBitmap;
+        private ModItem item;
 
         public InnerHolder(@NonNull View itemView) {
             super(itemView);
@@ -96,26 +106,14 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
         }
 
         public void setData(ModDependencies modVersionItem) {
-            ModItem item = modVersionItem.item;
-            if (mThumbnailBitmap != null) {
-                mModIcon.setImageBitmap(null);
-                mThumbnailBitmap.recycle();
-            }
-            if (mImageReceiver != null) {
-                mIconCache.cancelImage(mImageReceiver);
-            }
+            item = modVersionItem.item;
             if (mExtensionFuture != null) {
                 mExtensionFuture.cancel(true);
                 mExtensionFuture = null;
             }
 
-            mImageReceiver = bm -> {
-                mImageReceiver = null;
-                mThumbnailBitmap = bm;
-                RoundedBitmapDrawable drawable = RoundedBitmapDrawableFactory.create(mainView.getResources(), bm);
-                mModIcon.setImageDrawable(drawable);
-            };
-            if (item.imageUrl != null) mIconCache.getImage(mImageReceiver, item.getIconCacheTag(), item.imageUrl);
+            mModIcon.setImageDrawable(null);
+
             mSourceImage.setImageResource(getSourceDrawable(item.apiSource));
 
             if (item.subTitle != null) {
@@ -182,6 +180,22 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
             textView.setText(text);
 
             layout.addView(textView);
+        }
+
+        public void setItemShow(boolean b) {
+            if (b) {
+                if (item.imageUrl != null) ImageUtils.loadDrawableFromUrl(context, item.imageUrl, new UrlImageCallback() {
+                    @Override
+                    public void onImageCleared(@Nullable Drawable placeholder, @NonNull String url) {
+                        if (Objects.equals(item.imageUrl, url)) mModIcon.setImageDrawable(placeholder);
+                    }
+
+                    @Override
+                    public void onImageLoaded(@Nullable Drawable drawable, @NonNull String url) {
+                        if (Objects.equals(item.imageUrl, url)) mModIcon.setImageDrawable(drawable);
+                    }
+                });
+            }
         }
     }
 }
