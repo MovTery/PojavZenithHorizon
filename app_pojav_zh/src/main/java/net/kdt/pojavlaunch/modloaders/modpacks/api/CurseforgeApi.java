@@ -55,7 +55,7 @@ public class CurseforgeApi implements ModpackApi{
     private static final int CURSEFORGE_MODPACK_CLASS_ID = 4471;
     // https://api.curseforge.com/v1/categories?gameId=432 and search for "Mods" (case-sensitive)
     private static final int CURSEFORGE_MOD_CLASS_ID = 6;
-    private static final int CURSEFORGE_PAGINATION_SIZE = 50;
+    private static final int CURSEFORGE_PAGINATION_SIZE = 500;
     private static final int CURSEFORGE_PAGINATION_END_REACHED = -1;
 
     private final ApiHandler mApiHandler;
