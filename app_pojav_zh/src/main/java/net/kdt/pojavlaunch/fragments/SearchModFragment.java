@@ -102,7 +102,7 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
         // You can only access resources after attaching to current context
         mModItemAdapter = new ModItemAdapter(new ModDependencies.SelectedMod(SearchModFragment.this,
                 null, modpackApi, isModpack, mModsPath),
-                mRecyclerview, getResources(), this);
+                mRecyclerview, this);
         mModItemAdapter.setOnAddFragmentListener(this::closeSpinner);
         mRecyclerview.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.fade_downwards)));
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));

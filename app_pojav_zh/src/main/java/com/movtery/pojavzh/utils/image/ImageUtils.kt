@@ -110,6 +110,29 @@ class ImageUtils {
             loadImage(requestBuilder, callback)
         }
 
+        /**
+         * 通过链接获取图片
+         * @param url 有效的图片链接
+         * @param callback 加载完成后，通过接口回调使用，同时返还传入时的url，以作识别
+         */
+        @JvmStatic
+        fun loadDrawableFromUrl(context: Context, url: String, callback: UrlImageCallback) {
+            Glide.with(context)
+                .load(url)
+                .into(object : CustomTarget<Drawable?>() {
+                    override fun onResourceReady(
+                        resource: Drawable,
+                        transition: Transition<in Drawable?>?
+                    ) {
+                        callback.onImageLoaded(resource, url)
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                        callback.onImageCleared(placeholder, url)
+                    }
+                })
+        }
+
         private fun loadImage(requestBuilder: RequestBuilder<Drawable>, callback: ImageCallback) {
             requestBuilder.into(object : CustomTarget<Drawable?>() {
                 override fun onResourceReady(
