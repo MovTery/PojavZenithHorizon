@@ -1,7 +1,6 @@
 package com.movtery.pojavzh.ui.fragment
 
 import android.annotation.SuppressLint
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -11,6 +10,8 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo.YoYoString
 import com.getkeepsafe.taptargetview.TapTargetSequence
@@ -26,8 +27,6 @@ import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
 import com.movtery.pojavzh.utils.file.FileTools.Companion.copyFileInBackground
 import com.movtery.pojavzh.utils.file.FileTools.Companion.mkdirs
-import com.movtery.pojavzh.utils.image.ImageCallback
-import com.movtery.pojavzh.utils.image.ImageUtils
 import com.movtery.pojavzh.utils.image.ImageUtils.Companion.isImage
 import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.PojavApplication
@@ -100,7 +99,7 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun loadData() {
         val fileItemBeans = FileRecyclerViewCreator.loadItemBeansFromPath(requireActivity(),
-            mousePath(), FileIcon.IMAGE, true, false)
+            mousePath(), FileIcon.FILE, true, false)
         fileItemBeans.add(
             0, FileItemBean(requireActivity().getDrawable(R.drawable.ic_mouse_pointer), null, getString(R.string.zh_custom_mouse_default)))
         Tools.runOnUiThread {
@@ -119,16 +118,11 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
     private fun refreshIcon() {
         mMouseView?.apply {
             ZHTools.getCustomMouse()?.let { file ->
-                ImageUtils.loadDrawableFromImageFit(requireContext(), file,
-                    object : ImageCallback {
-                        override fun onImageLoaded(drawable: Drawable?) {
-                            setImageDrawable(drawable)
-                        }
-
-                        override fun onImageFailed(errorDrawable: Drawable?) {
-                            setImageDrawable(errorDrawable)
-                        }
-                    }, width, height)
+                Glide.with(requireActivity())
+                    .load(file)
+                    .override(width, height)
+                    .fitCenter()
+                    .into(DrawableImageViewTarget(this))
                 return@apply
             }
             setImageDrawable(ZHTools.customMouse(context))

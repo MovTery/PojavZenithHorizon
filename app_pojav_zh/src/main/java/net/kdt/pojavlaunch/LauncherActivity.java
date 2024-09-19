@@ -88,7 +88,6 @@ public class LauncherActivity extends BaseActivity {
                 if(data != null) Tools.launchModInstaller(this, data);
             });
 
-    private View mBackgroundView;
     private TextView mAppTitle;
     private FragmentContainerView mFragmentView;
     private SettingsButtonWrapper mSettingsButtonWrapper;
@@ -430,7 +429,7 @@ public class LauncherActivity extends BaseActivity {
     }
 
     private void refreshBackground() {
-        ZHTools.setBackgroundImage(this, BackgroundType.MAIN_MENU, mBackgroundView);
+        ZHTools.setBackgroundImage(this, BackgroundType.MAIN_MENU, findViewById(R.id.background_view));
     }
 
     private void launchGame(MinecraftProfile prof) {
@@ -523,13 +522,14 @@ public class LauncherActivity extends BaseActivity {
     }
 
     private void setPageOpacity() {
-        if (mFragmentView != null) mFragmentView.setAlpha((float) LauncherPreferences.PREF_PAGE_OPACITY / 100);
+        if (mFragmentView != null) {
+            float v = (float) LauncherPreferences.PREF_PAGE_OPACITY / 100;
+            if (mFragmentView.getAlpha() != v) mFragmentView.setAlpha(v);
+        }
     }
 
     /** Stuff all the view boilerplate here */
     private void bindViews(){
-        mBackgroundView = findViewById(R.id.background_view);
-
         mFragmentView = findViewById(R.id.container_fragment);
         mSettingsButton = findViewById(R.id.setting_button);
         mProgressLayout = findViewById(R.id.progress_layout);

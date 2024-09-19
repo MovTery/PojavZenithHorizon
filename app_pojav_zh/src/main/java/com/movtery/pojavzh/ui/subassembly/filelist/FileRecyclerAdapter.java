@@ -3,7 +3,6 @@ package com.movtery.pojavzh.ui.subassembly.filelist;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +11,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.movtery.pojavzh.utils.image.ImageCallback;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.movtery.pojavzh.utils.image.ImageUtils;
 
 import net.kdt.pojavlaunch.R;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -162,7 +162,11 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
         public void setData(FileItemBean fileItemBean, int position) {
             this.mPosition = position;
             this.mFileItemBean = fileItemBean;
-            this.name.setText(fileItemBean.name == null ? fileItemBean.file.getName() : fileItemBean.name);
+            File file = fileItemBean.file;
+
+            this.name.setText(fileItemBean.name == null ?
+                    file == null ? "" : file.getName() :
+                    fileItemBean.name);
 
             int color;
             if (fileItemBean.isHighlighted) {
@@ -179,18 +183,11 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
                 checkBox.setVisibility(View.GONE);
             }
 
-            if (fileItemBean.fileIcon == FileIcon.IMAGE && fileItemBean.image == null && fileItemBean.file != null) {
-                ImageUtils.loadDrawableFromImage(context, fileItemBean.file, new ImageCallback() {
-                    @Override
-                    public void onImageLoaded(@Nullable Drawable drawable) {
-                        icon.setImageDrawable(drawable);
-                    }
-
-                    @Override
-                    public void onImageFailed(@Nullable Drawable errorDrawable) {
-                        icon.setImageDrawable(errorDrawable);
-                    }
-                }, icon.getWidth(), icon.getHeight());
+            if (file != null && file.isFile() && ImageUtils.isImage(file)) {
+                Glide.with(context).load(file)
+                        .override(icon.getWidth(), icon.getHeight())
+                        .centerCrop()
+                        .into(new DrawableImageViewTarget(icon));
             } else {
                 this.icon.setImageDrawable(fileItemBean.image);
             }

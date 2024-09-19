@@ -1,7 +1,6 @@
 package com.movtery.pojavzh.ui.fragment
 
-import android.graphics.Bitmap
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
+import android.graphics.drawable.Drawable
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,12 +14,11 @@ import com.movtery.pojavzh.ui.subassembly.modlist.ModListItemBean
 import com.movtery.pojavzh.ui.subassembly.viewmodel.ModApiViewModel
 import com.movtery.pojavzh.ui.subassembly.viewmodel.RecyclerViewModel
 import com.movtery.pojavzh.utils.MCVersionRegex.Companion.RELEASE_REGEX
+import com.movtery.pojavzh.utils.image.ImageUtils
+import com.movtery.pojavzh.utils.image.UrlImageCallback
 import net.kdt.pojavlaunch.PojavApplication
-import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi
-import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ImageReceiver
-import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ModIconCache
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem
 import org.jackhuang.hmcl.util.versioning.VersionNumber
@@ -33,11 +31,9 @@ class DownloadModFragment : ModListFragment() {
         const val TAG: String = "DownloadModFragment"
     }
 
-    private val mIconCache = ModIconCache()
     private var mParentUIRecyclerView: RecyclerView? = null
     private var mModItem: ModItem? = null
     private var mModApi: ModpackApi? = null
-    private var mImageReceiver: ImageReceiver? = null
     private var mIsModpack = false
     private var mModsPath: String? = null
     private var linkGetSubmit: Future<*>? = null
@@ -167,12 +163,16 @@ class DownloadModFragment : ModListFragment() {
             setSubTitleText(item.subTitle?.let { item.title })
         }
 
-        mImageReceiver = ImageReceiver { bm: Bitmap ->
-            mImageReceiver = null
-            val drawable = RoundedBitmapDrawableFactory.create(fragmentActivity!!.resources, bm)
-            drawable.cornerRadius = fragmentActivity!!.resources.getDimension(R.dimen._1sdp) / 250 * bm.height
-            setIcon(drawable)
+        mModItem?.imageUrl?.apply {
+            ImageUtils.loadDrawableFromUrl(fragmentActivity!!, this, object : UrlImageCallback {
+                override fun onImageLoaded(drawable: Drawable?, url: String) {
+                    setIcon(drawable)
+                }
+
+                override fun onImageCleared(placeholder: Drawable?, url: String) {
+                    setIcon(placeholder)
+                }
+            })
         }
-        mModItem!!.imageUrl?.let{ mIconCache.getImage(mImageReceiver, mModItem!!.iconCacheTag, it) }
     }
 }

@@ -2,8 +2,7 @@ package net.kdt.pojavlaunch.modloaders.modpacks;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,17 +27,18 @@ import com.movtery.pojavzh.utils.NumberWithUnits;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import com.movtery.pojavzh.utils.ZHTools;
+import com.movtery.pojavzh.utils.image.ImageUtils;
+import com.movtery.pojavzh.utils.image.UrlImageCallback;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ImageReceiver;
-import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ModIconCache;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.Constants;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchResult;
 
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 import java.util.StringJoiner;
 import java.util.WeakHashMap;
@@ -52,13 +51,9 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private static final int VIEW_TYPE_LOADING = 1;
 
     private final Set<ViewHolder> mViewHolderSet = Collections.newSetFromMap(new WeakHashMap<>());
-    private final ModIconCache mIconCache = new ModIconCache();
     private final SearchResultCallback mSearchResultCallback;
     private final RecyclerView modsRecyclerView;
     private ModItem[] mModItems;
-
-    /* Cache for ever so slightly rounding the image for the corner not to stick out of the layout */
-    private final float mCornerDimensionCache;
 
     private Future<?> mTaskInProgress;
     private ModFilters mModFilters;
@@ -67,8 +62,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private OnAddFragmentListener onAddFragmentListener;
 
 
-    public ModItemAdapter(ModDependencies.SelectedMod mod, RecyclerView modsRecyclerView, Resources resources, SearchResultCallback callback) {
-        mCornerDimensionCache = resources.getDimension(R.dimen._1sdp) / 250;
+    public ModItemAdapter(ModDependencies.SelectedMod mod, RecyclerView modsRecyclerView, SearchResultCallback callback) {
         mModItems = new ModItem[]{};
         mSearchResultCallback = callback;
 
@@ -121,6 +115,18 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     @Override
+    public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        if (holder instanceof ModItemAdapter.ViewHolder) ((ViewHolder) holder).setItemShow(true);
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(@NonNull RecyclerView.ViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+        if (holder instanceof ModItemAdapter.ViewHolder) ((ViewHolder) holder).setItemShow(false);
+    }
+
+    @Override
     public int getItemCount() {
         if(mLastPage || mModItems.length == 0) return mModItems.length;
         return mModItems.length+1;
@@ -152,8 +158,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private final TextView mTitle, mSubTitle, mDescription, mDownloadCount, mModloader;
         private final ImageView mIconView, mSourceView;
         private Future<?> mExtensionFuture;
-        private Bitmap mThumbnailBitmap;
-        private ImageReceiver mImageReceiver;
+        private ModItem item;
 
         public ViewHolder(View view) {
             super(view);
@@ -174,6 +179,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         /** Display basic info about the moditem */
         public void setStateLimited(ModItem item) {
+            this.item = item;
             this.view.setOnClickListener(v -> {
                 //防止用户同时点击多个Item
                 if (!modsRecyclerView.isEnabled()) return;
@@ -192,13 +198,6 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 ZHTools.addFragment(mod.fragment, DownloadModFragment.class, DownloadModFragment.TAG, null);
             });
 
-            if(mThumbnailBitmap != null) {
-                mIconView.setImageBitmap(null);
-                mThumbnailBitmap.recycle();
-            }
-            if(mImageReceiver != null) {
-                mIconCache.cancelImage(mImageReceiver);
-            }
             if(mExtensionFuture != null) {
                 /*
                  * Since this method reinitializes the ViewHolder for a new mod, this Future stops being ours, so we cancel it
@@ -208,15 +207,8 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 mExtensionFuture = null;
             }
 
-            // here the previous reference to the image receiver will disappear
-            mImageReceiver = bm->{
-                mImageReceiver = null;
-                mThumbnailBitmap = bm;
-                RoundedBitmapDrawable drawable = RoundedBitmapDrawableFactory.create(mIconView.getResources(), bm);
-                drawable.setCornerRadius(mCornerDimensionCache * bm.getHeight());
-                mIconView.setImageDrawable(drawable);
-            };
-            if (item.imageUrl != null) mIconCache.getImage(mImageReceiver, item.getIconCacheTag(), item.imageUrl);
+            mIconView.setImageDrawable(null);
+
             mSourceView.setImageResource(getSourceDrawable(item.apiSource));
             mDescription.setText(item.description);
 
@@ -267,6 +259,22 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             textView.setText(text);
 
             layout.addView(textView);
+        }
+
+        public void setItemShow(boolean b) {
+            if (b && item.imageUrl != null) {
+                ImageUtils.loadDrawableFromUrl(context, item.imageUrl, new UrlImageCallback() {
+                    @Override
+                    public void onImageCleared(@Nullable Drawable placeholder, @NonNull String url) {
+                        if (Objects.equals(item.imageUrl, url)) mIconView.setImageDrawable(placeholder);
+                    }
+
+                    @Override
+                    public void onImageLoaded(@Nullable Drawable drawable, @NonNull String url) {
+                        if (Objects.equals(item.imageUrl, url)) mIconView.setImageDrawable(drawable);
+                    }
+                });
+            }
         }
     }
 

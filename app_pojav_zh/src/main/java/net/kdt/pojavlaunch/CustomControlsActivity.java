@@ -48,7 +48,7 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 		mDrawerNavigationView = findViewById(R.id.customctrl_navigation_view);
 		View mPullDrawerButton = findViewById(R.id.drawer_button);
 
-		ZHTools.setBackgroundImage(this, BackgroundType.CUSTOM_CONTROLS, mDrawerLayout);
+		ZHTools.setBackgroundImage(this, BackgroundType.CUSTOM_CONTROLS, findViewById(R.id.background_view));
 
 		mPullDrawerButton.setOnClickListener(v -> mDrawerLayout.openDrawer(mDrawerNavigationView));
 		mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);

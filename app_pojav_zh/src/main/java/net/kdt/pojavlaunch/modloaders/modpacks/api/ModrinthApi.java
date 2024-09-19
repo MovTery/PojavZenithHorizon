@@ -115,6 +115,7 @@ public class ModrinthApi implements ModpackApi{
 
                 if (Objects.equals(string, "datapack")) {
                     isDataPack = true; //老是能搜到数据包我不理解...
+                    break;
                 }
 
                 ModLoaderList.addModLoaderToList(modLoaders, string);
@@ -156,6 +157,8 @@ public class ModrinthApi implements ModpackApi{
         if (response == null) return null;
 
         List<ModVersionItem> modItems = new ArrayList<>();
+        //如果第一次获取依赖Mod信息失败，则记录其id，之后不再尝试获取
+        List<String> invalidDependencies = new ArrayList<>();
 
         for (JsonElement element : response) {
             JsonObject version = element.getAsJsonObject();
@@ -170,7 +173,52 @@ public class ModrinthApi implements ModpackApi{
             List<ModLoaderList.ModLoader> modloaderList = getModLoaderList(version.getAsJsonArray("loaders"));
             String[] mcVersionsArray = getMcVersions(version.getAsJsonArray("game_versions"));
 
-            List<ModDependencies> modDependencies = getDependencies(item, version);
+            //获取依赖Mod信息
+            JsonArray dependencies = version.get("dependencies").getAsJsonArray();
+            List<ModDependencies> modDependencies = new ArrayList<>();
+            if (!item.isModpack && dependencies.size() != 0) {
+                for (JsonElement dependency : dependencies) {
+                    JsonObject object = dependency.getAsJsonObject();
+                    String projectId = object.get("project_id").getAsString();
+                    String dependencyType = object.get("dependency_type").getAsString();
+
+                    if (invalidDependencies.contains(projectId)) continue;
+
+                    if (!ModCache.ModItemCache.INSTANCE.containsKey(this, projectId)) {
+                        JsonObject hit = searchModFromID(projectId);
+
+                        if (hit != null) {
+                            JsonArray modLoaders = hit.get("loaders").getAsJsonArray();
+                            List<ModLoaderList.ModLoader> modLoadersList = new ArrayList<>();
+                            for (JsonElement loader : modLoaders) {
+                                String string = loader.getAsString();
+                                ModLoaderList.addModLoaderToList(modLoadersList, string);
+                            }
+
+                            String iconUrl = fetchIconUrl(hit);
+
+                            String title = hit.get("title").getAsString();
+                            String subTitle = getSubTitle(title, item.isModpack);
+
+                            ModCache.ModItemCache.INSTANCE.put(this, projectId, new ModItem(
+                                    Constants.SOURCE_MODRINTH,
+                                    hit.get("project_type").getAsString().equals("modpack"),
+                                    projectId,
+                                    title,
+                                    subTitle,
+                                    hit.get("description").getAsString(),
+                                    hit.get("downloads").getAsInt(),
+                                    getAllCategories(hit),
+                                    modLoadersList.toArray(new ModLoaderList.ModLoader[]{}),
+                                    iconUrl
+                            ));
+                        } else invalidDependencies.add(projectId);
+                    }
+
+                    ModItem cacheMod = ModCache.ModItemCache.INSTANCE.get(this, projectId);
+                    if (cacheMod != null) modDependencies.add(new ModDependencies(cacheMod, ModDependencies.getDependencyType(dependencyType)));
+                }
+            }
 
             modItems.add(new ModVersionItem(mcVersionsArray, filename, name,
                     modloaderList.toArray(new ModLoaderList.ModLoader[0]), modDependencies,
@@ -201,54 +249,6 @@ public class ModrinthApi implements ModpackApi{
             mcVersions.add(gameVersion.getAsString());
         }
         return mcVersions.toArray(new String[0]);
-    }
-
-    private List<ModDependencies> getDependencies(ModItem item, JsonObject version) {
-        JsonArray dependencies = version.get("dependencies").getAsJsonArray();
-        List<ModDependencies> modDependencies = new ArrayList<>();
-        if (!item.isModpack && dependencies.size() != 0) {
-            for (JsonElement dependency : dependencies) {
-                JsonObject object = dependency.getAsJsonObject();
-                String projectId = object.get("project_id").getAsString();
-                String dependencyType = object.get("dependency_type").getAsString();
-
-                if (!ModCache.ModItemCache.INSTANCE.containsKey(this, projectId)) {
-                    JsonObject hit = searchModFromID(projectId);
-
-                    if (hit != null) {
-                        JsonArray modLoaders = hit.get("loaders").getAsJsonArray();
-                        List<ModLoaderList.ModLoader> modLoadersList = new ArrayList<>();
-                        for (JsonElement loader : modLoaders) {
-                            String string = loader.getAsString();
-                            ModLoaderList.addModLoaderToList(modLoadersList, string);
-                        }
-
-                        String iconUrl = fetchIconUrl(hit);
-
-                        String title = hit.get("title").getAsString();
-                        String subTitle = getSubTitle(title, item.isModpack);
-
-                        ModCache.ModItemCache.INSTANCE.put(this, projectId, new ModItem(
-                                Constants.SOURCE_MODRINTH,
-                                hit.get("project_type").getAsString().equals("modpack"),
-                                projectId,
-                                title,
-                                subTitle,
-                                hit.get("description").getAsString(),
-                                hit.get("downloads").getAsInt(),
-                                getAllCategories(hit),
-                                modLoadersList.toArray(new ModLoaderList.ModLoader[]{}),
-                                iconUrl
-                        ));
-                    }
-                }
-
-                ModItem cacheMod = ModCache.ModItemCache.INSTANCE.get(this, projectId);
-                if (cacheMod != null) modDependencies.add(new ModDependencies(cacheMod, ModDependencies.getDependencyType(dependencyType)));
-            }
-        }
-
-        return modDependencies;
     }
 
     private JsonObject searchModFromID(String id) {
