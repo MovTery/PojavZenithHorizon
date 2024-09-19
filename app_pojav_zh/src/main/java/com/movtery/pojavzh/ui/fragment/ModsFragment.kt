@@ -56,7 +56,7 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
     private var mDownloadButton: ImageButton? = null
     private var mSearchSummonButton: ImageButton? = null
     private var mRefreshButton: ImageButton? = null
-    private var mNothingTip: TextView? = null
+    private var mNothingTip: View? = null
     private var mSearchViewWrapper: SearchViewWrapper? = null
     private var mMultiSelectCheck: CheckBox? = null
     private var mSelectAllCheck: CheckBox? = null
@@ -215,18 +215,7 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
                 }
             }
         }
-        mDownloadButton?.setOnClickListener {
-            closeMultiSelect()
-            val bundle = Bundle()
-            bundle.putBoolean(SearchModFragment.BUNDLE_SEARCH_MODPACK, false)
-            bundle.putString(SearchModFragment.BUNDLE_MOD_PATH, mRootPath)
-            ZHTools.swapFragmentWithAnim(
-                this,
-                SearchModFragment::class.java,
-                SearchModFragment.TAG,
-                bundle
-            )
-        }
+        mDownloadButton?.setOnClickListener { goDownloadMod() }
         mDownloadOptiFine?.setOnClickListener {
             TipDialog.Builder(requireContext())
                 .setMessage(R.string.zh_profile_manager_download_optifine_message)
@@ -287,6 +276,19 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
         }
     }
 
+    private fun goDownloadMod() {
+        closeMultiSelect()
+        val bundle = Bundle()
+        bundle.putBoolean(SearchModFragment.BUNDLE_SEARCH_MODPACK, false)
+        bundle.putString(SearchModFragment.BUNDLE_MOD_PATH, mRootPath)
+        ZHTools.swapFragmentWithAnim(
+            this,
+            SearchModFragment::class.java,
+            SearchModFragment.TAG,
+            bundle
+        )
+    }
+
     private fun parseBundle() {
         val bundle = arguments ?: return
         mRootPath = bundle.getString(BUNDLE_ROOT_PATH, mRootPath)
@@ -305,6 +307,8 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
         mSearchSummonButton = view.findViewById(R.id.zh_search_button)
         mRefreshButton = view.findViewById(R.id.zh_refresh_button)
         mNothingTip = view.findViewById(R.id.zh_mods_nothing)
+        view.findViewById<TextView>(R.id.zh_mods_nothing_go_download)
+            .setOnClickListener { goDownloadMod() }
 
         mAddModButton?.setContentDescription(getString(R.string.zh_profile_mods_add_mod))
         mDownloadButton?.setContentDescription(getString(R.string.zh_profile_mods_download_mod))
