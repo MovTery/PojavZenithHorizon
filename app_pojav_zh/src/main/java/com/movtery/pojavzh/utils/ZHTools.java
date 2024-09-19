@@ -13,14 +13,18 @@ import android.os.LocaleList;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
 import com.movtery.pojavzh.ui.subassembly.background.BackgroundManager;
@@ -80,15 +84,18 @@ public class ZHTools {
         return new File(PathAndUrlManager.DIR_CUSTOM_MOUSE, customMouse);
     }
 
-    public static void setBackgroundImage(Context context, BackgroundType backgroundType, View backgroundView) {
-        backgroundView.setBackgroundColor(context.getResources().getColor(R.color.background_app, context.getTheme()));
+    public static void setBackgroundImage(Context context, BackgroundType backgroundType, ImageView backgroundView) {
+        backgroundView.setImageDrawable(ContextCompat.getDrawable(context, R.color.background_app));
 
         File backgroundImage = getBackgroundImage(backgroundType);
         if (backgroundImage == null) {
             return;
         }
 
-        ImageUtils.loadImageIntoView(context, backgroundView, backgroundImage);
+        Glide.with(context).load(backgroundImage)
+                .override(backgroundView.getWidth(), backgroundView.getHeight())
+                .centerCrop()
+                .into(new DrawableImageViewTarget(backgroundView));
     }
 
     public static File getBackgroundImage(BackgroundType backgroundType) {

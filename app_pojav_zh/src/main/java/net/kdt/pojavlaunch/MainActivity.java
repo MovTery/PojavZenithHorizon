@@ -167,7 +167,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     protected void initLayout() {
         setContentView(R.layout.activity_basemain);
         bindValues();
-        ZHTools.setBackgroundImage(this, BackgroundType.IN_GAME, mControlLayout);
+        ZHTools.setBackgroundImage(this, BackgroundType.IN_GAME, findViewById(R.id.background_view));
 
         keyboardDialog = new KeyboardDialog(this).setShowSpecialButtons(false);
 
