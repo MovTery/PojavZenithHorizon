@@ -168,6 +168,8 @@ public class CurseforgeApi implements ModpackApi{
         }
 
         List<ModVersionItem> modVersionItems = new ArrayList<>();
+        //用于记录获取失败的依赖Mod，如果获取失败，则不再尝试获取此Mod
+        List<String> invalidDependencies = new ArrayList<>();
 
         for (JsonObject modDetail : allModDetails) {
             //获取信息
@@ -194,7 +196,54 @@ public class CurseforgeApi implements ModpackApi{
             });
             if (!nonMCVersion.isEmpty()) mcVersions.removeAll(nonMCVersion);
 
-            List<ModDependencies> modDependencies = getDependencies(item, modDetail);
+            //获取依赖Mod信息
+            JsonArray dependencies = modDetail.get("dependencies").getAsJsonArray();
+            List<ModDependencies> modDependencies = new ArrayList<>();
+            if (!item.isModpack && dependencies.size() != 0) {
+                for (JsonElement dependency : dependencies) {
+                    JsonObject object = dependency.getAsJsonObject();
+                    String modId = object.get("modId").getAsString();
+                    String dependencyType = object.get("relationType").getAsString();
+
+                    if (invalidDependencies.contains(modId)) continue;
+
+                    if (!ModCache.ModItemCache.INSTANCE.containsKey(this, modId)) {
+                        JsonObject response = searchModFromID(modId);
+                        JsonObject hit = GsonJsonUtils.getJsonObjectSafe(response, "data");
+
+                        if (hit != null) {
+                            JsonArray itemsGameVersions = modDetail.getAsJsonArray("gameVersions");
+                            Set<ModLoaderList.ModLoader> itemsModloaderNames = new TreeSet<>();
+                            for(JsonElement jsonElement : itemsGameVersions) {
+                                String gameVersion = jsonElement.getAsString();
+
+                                ModLoaderList.addModLoaderToList(itemsModloaderNames, gameVersion);
+                            }
+
+                            String iconUrl = fetchIconUrl(hit);
+
+                            String title = hit.get("name").getAsString();
+                            String subTitle = getSubTitle(title, item.isModpack);
+
+                            ModCache.ModItemCache.INSTANCE.put(this, modId, new ModItem(
+                                    Constants.SOURCE_CURSEFORGE,
+                                    hit.get("categories").getAsJsonArray().get(0).getAsJsonObject().get("classId").getAsInt() != CURSEFORGE_MOD_CLASS_ID,
+                                    modId,
+                                    title,
+                                    subTitle,
+                                    hit.get("summary").getAsString(),
+                                    hit.get("downloadCount").getAsInt(),
+                                    getAllCategories(hit),
+                                    itemsModloaderNames.toArray(new ModLoaderList.ModLoader[]{}),
+                                    iconUrl
+                            ));
+                        } else invalidDependencies.add(modId);
+                    }
+
+                    ModItem cacheMod = ModCache.ModItemCache.INSTANCE.get(this, modId);
+                    if (cacheMod != null) modDependencies.add(new ModDependencies(cacheMod, ModDependencies.getDependencyType(dependencyType)));
+                }
+            }
 
             modVersionItems.add(new ModVersionItem(
                     mcVersions.toArray(new String[0]),
@@ -211,55 +260,6 @@ public class CurseforgeApi implements ModpackApi{
 
         ModCache.ModInfoCache.INSTANCE.put(this, item.id, modVersionItems);
         return new ModDetail(item, modVersionItems);
-    }
-
-    private List<ModDependencies> getDependencies(ModItem item, JsonObject modDetail) {
-        JsonArray dependencies = modDetail.get("dependencies").getAsJsonArray();
-        List<ModDependencies> modDependencies = new ArrayList<>();
-        if (!item.isModpack && dependencies.size() != 0) {
-            for (JsonElement dependency : dependencies) {
-                JsonObject object = dependency.getAsJsonObject();
-                String modId = object.get("modId").getAsString();
-                String dependencyType = object.get("relationType").getAsString();
-
-                if (!ModCache.ModItemCache.INSTANCE.containsKey(this, modId)) {
-                    JsonObject response = searchModFromID(modId);
-                    JsonObject hit = GsonJsonUtils.getJsonObjectSafe(response, "data");
-
-                    if (hit != null) {
-                        JsonArray itemsGameVersions = modDetail.getAsJsonArray("gameVersions");
-                        Set<ModLoaderList.ModLoader> itemsModloaderNames = new TreeSet<>();
-                        for(JsonElement jsonElement : itemsGameVersions) {
-                            String gameVersion = jsonElement.getAsString();
-
-                            ModLoaderList.addModLoaderToList(itemsModloaderNames, gameVersion);
-                        }
-
-                        String iconUrl = fetchIconUrl(hit);
-
-                        String title = hit.get("name").getAsString();
-                        String subTitle = getSubTitle(title, item.isModpack);
-
-                        ModCache.ModItemCache.INSTANCE.put(this, modId, new ModItem(
-                                Constants.SOURCE_CURSEFORGE,
-                                hit.get("categories").getAsJsonArray().get(0).getAsJsonObject().get("classId").getAsInt() != CURSEFORGE_MOD_CLASS_ID,
-                                modId,
-                                title,
-                                subTitle,
-                                hit.get("summary").getAsString(),
-                                hit.get("downloadCount").getAsInt(),
-                                getAllCategories(hit),
-                                itemsModloaderNames.toArray(new ModLoaderList.ModLoader[]{}),
-                                iconUrl
-                        ));
-                    }
-                }
-
-                ModItem cacheMod = ModCache.ModItemCache.INSTANCE.get(this, modId);
-                if (cacheMod != null) modDependencies.add(new ModDependencies(cacheMod, ModDependencies.getDependencyType(dependencyType)));
-            }
-        }
-        return modDependencies;
     }
 
     private String fetchIconUrl(JsonObject hit) {
