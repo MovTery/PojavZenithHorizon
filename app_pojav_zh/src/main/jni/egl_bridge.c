@@ -11,7 +11,10 @@
 
 #include <EGL/egl.h>
 #include <GL/osmesa.h>
+#include "ctxbridges/egl_loader.h"
 #include "ctxbridges/osmesa_loader.h"
+#include "ctxbridges/renderer_config.h"
+#include "ctxbridges/virgl_bridge.h"
 #include "driver_helper/nsbypass.h"
 
 #ifdef GLES_TEST
@@ -38,26 +41,9 @@
 // This means that you are forced to have this function/variable for ABI compatibility
 #define ABI_COMPAT __attribute__((unused))
 
-
-struct PotatoBridge {
-
-    /* EGLContext */ void* eglContext;
-    /* EGLDisplay */ void* eglDisplay;
-    /* EGLSurface */ void* eglSurface;
-/*
-    void* eglSurfaceRead;
-    void* eglSurfaceDraw;
-*/
-};
 EGLConfig config;
 struct PotatoBridge potatoBridge;
 
-#include "ctxbridges/egl_loader.h"
-#include "ctxbridges/osmesa_loader.h"
-
-#define RENDERER_GL4ES 1
-#define RENDERER_VK_ZINK 2
-#define RENDERER_VULKAN 4
 
 EXTERNAL_API void pojavTerminate() {
     printf("EGLBridge: Terminating\n");
@@ -84,9 +70,8 @@ EXTERNAL_API void pojavTerminate() {
 
 JNIEXPORT void JNICALL Java_net_kdt_pojavlaunch_utils_JREUtils_setupBridgeWindow(JNIEnv* env, ABI_COMPAT jclass clazz, jobject surface) {
     pojav_environ->pojavWindow = ANativeWindow_fromSurface(env, surface);
-    if(br_setup_window != NULL) br_setup_window();
+    if (br_setup_window) br_setup_window();
 }
-
 
 JNIEXPORT void JNICALL
 Java_net_kdt_pojavlaunch_utils_JREUtils_releaseBridgeWindow(ABI_COMPAT JNIEnv *env, ABI_COMPAT jclass clazz) {
@@ -94,6 +79,9 @@ Java_net_kdt_pojavlaunch_utils_JREUtils_releaseBridgeWindow(ABI_COMPAT JNIEnv *e
 }
 
 EXTERNAL_API void* pojavGetCurrentContext() {
+    if (pojav_environ->config_renderer == RENDERER_VIRGL)
+        return virglGetCurrentContext();
+
     return br_get_current();
 }
 
@@ -190,25 +178,58 @@ void load_vulkan() {
 }
 
 int pojavInitOpenGL() {
-    // Only affects GL4ES as of now
     const char *forceVsync = getenv("FORCE_VSYNC");
-    if (strcmp(forceVsync, "true") == 0)
+    if (!strcmp(forceVsync, "true"))
         pojav_environ->force_vsync = true;
 
-    // NOTE: Override for now.
     const char *renderer = getenv("POJAV_RENDERER");
-    if (strncmp("opengles", renderer, 8) == 0) {
+
+    if (!strncmp("opengles", renderer, 8))
+    {
         pojav_environ->config_renderer = RENDERER_GL4ES;
         set_gl_bridge_tbl();
-    } else if (strcmp(renderer, "vulkan_zink") == 0) {
+    }
+
+    if (!strcmp(renderer, "vulkan_zink"))
+    {
         pojav_environ->config_renderer = RENDERER_VK_ZINK;
         load_vulkan();
-        setenv("GALLIUM_DRIVER","zink",1);
+        setenv("GALLIUM_DRIVER", "zink", 1);
         set_osm_bridge_tbl();
     }
-    if(br_init()) {
-        br_setup_window();
+
+    if (!strcmp(renderer, "gallium_freedteno"))
+    {
+        pojav_environ->config_renderer = RENDERER_VK_ZINK;
+        setenv("MESA_LOADER_DRIVER_OVERRIDE", "kgsl", 1);
+        setenv("GALLIUM_DRIVER", "freedreno", 1);
+        set_osm_bridge_tbl();
     }
+
+    if (!strcmp(renderer, "gallium_panfrost"))
+    {
+        pojav_environ->config_renderer = RENDERER_VK_ZINK;
+        setenv("GALLIUM_DRIVER", "panfrost", 1);
+        setenv("MESA_DISK_CACHE_SINGLE_FILE", "1", 1);
+        set_osm_bridge_tbl();
+    }
+
+    if (!strcmp(renderer, "gallium_virgl"))
+    {
+        pojav_environ->config_renderer = RENDERER_VIRGL;
+        setenv("GALLIUM_DRIVER", "virpipe", 1);
+        setenv("OSMESA_NO_FLUSH_FRONTBUFFER", "1", false);
+        setenv("MESA_GL_VERSION_OVERRIDE", "4.3", 1);
+        setenv("MESA_GLSL_VERSION_OVERRIDE", "430", 1);
+        if (!strcmp(getenv("OSMESA_NO_FLUSH_FRONTBUFFER"), "1"))
+            printf("VirGL: OSMesa buffer flush is DISABLED!\n");
+        loadSymbolsVirGL();
+        virglInit();
+        return 0;
+    }
+
+    if (br_init()) br_setup_window();
+
     return 0;
 }
 
@@ -240,18 +261,30 @@ EXTERNAL_API void pojavSetWindowHint(int hint, int value) {
 }
 
 EXTERNAL_API void pojavSwapBuffers() {
-    br_swap_buffers();
+    if (pojav_environ->config_renderer == RENDERER_VIRGL)
+    {
+        virglSwapBuffers();
+    } else {
+        br_swap_buffers();
+    }
 }
 
-
 EXTERNAL_API void pojavMakeCurrent(void* window) {
-    br_make_current((basic_render_window_t*)window);
+    if (pojav_environ->config_renderer == RENDERER_VIRGL)
+    {
+        virglMakeCurrent(window);
+    } else {
+        br_make_current((basic_render_window_t*)window);
+    }
 }
 
 EXTERNAL_API void* pojavCreateContext(void* contextSrc) {
-    if (pojav_environ->config_renderer == RENDERER_VULKAN) {
+    if (pojav_environ->config_renderer == RENDERER_VULKAN)
         return (void *) pojav_environ->pojavWindow;
-    }
+
+    if (pojav_environ->config_renderer == RENDERER_VIRGL)
+        return virglCreateContext(contextSrc);
+
     return br_init_context((basic_render_window_t*)contextSrc);
 }
 
@@ -266,6 +299,11 @@ Java_org_lwjgl_vulkan_VK_getVulkanDriverHandle(ABI_COMPAT JNIEnv *env, ABI_COMPA
 }
 
 EXTERNAL_API void pojavSwapInterval(int interval) {
-    br_swap_interval(interval);
+    if (pojav_environ->config_renderer == RENDERER_VIRGL)
+    {
+        virglSwapInterval(interval);
+    } else {
+        br_swap_interval(interval);
+    }
 }
 

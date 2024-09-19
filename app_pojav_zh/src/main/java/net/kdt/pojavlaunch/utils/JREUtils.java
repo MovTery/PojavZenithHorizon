@@ -5,6 +5,7 @@ import static net.kdt.pojavlaunch.Architecture.ARCH_X86;
 import static net.kdt.pojavlaunch.Architecture.is64BitsDevice;
 import static net.kdt.pojavlaunch.Tools.LOCAL_RENDERER;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_BIG_CORE_AFFINITY;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_DUMP_SHADERS;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_VSYNC_IN_ZINK;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ZINK_PREFER_SYSTEM_DRIVER;
@@ -47,7 +48,7 @@ public class JREUtils {
     public static String jvmLibraryPath;
 
     public static String findInLdLibPath(String libName) {
-        if(Os.getenv("LD_LIBRARY_PATH")==null) {
+        if (Os.getenv("LD_LIBRARY_PATH")==null) {
             try {
                 if (LD_LIBRARY_PATH != null) {
                     Os.setenv("LD_LIBRARY_PATH", LD_LIBRARY_PATH, true);
@@ -69,11 +70,11 @@ public class JREUtils {
     public static ArrayList<File> locateLibs(File path) {
         ArrayList<File> returnValue = new ArrayList<>();
         File[] list = path.listFiles();
-        if(list != null) {
+        if (list != null) {
             for(File f : list) {
-                if(f.isFile() && f.getName().endsWith(".so")) {
+                if (f.isFile() && f.getName().endsWith(".so")) {
                     returnValue.add(f);
-                }else if(f.isDirectory()) {
+                }else if (f.isDirectory()) {
                     returnValue.addAll(locateLibs(f));
                 }
             }
@@ -83,7 +84,7 @@ public class JREUtils {
 
     public static void initJavaRuntime(String jreHome) {
         dlopen(findInLdLibPath("libjli.so"));
-        if(!dlopen("libjvm.so")){
+        if (!dlopen("libjvm.so")) {
             Logging.w("DynamicLoader","Failed to load with no path, trying with full path");
             dlopen(jvmLibraryPath+"/libjvm.so");
         }
@@ -96,7 +97,7 @@ public class JREUtils {
         dlopen(findInLdLibPath("libawt_headless.so"));
         dlopen(findInLdLibPath("libfreetype.so"));
         dlopen(findInLdLibPath("libfontmanager.so"));
-        for(File f : locateLibs(new File(jreHome, Tools.DIRNAME_HOME_JRE))) {
+        for (File f : locateLibs(new File(jreHome, Tools.DIRNAME_HOME_JRE))) {
             dlopen(f.getAbsolutePath());
         }
         dlopen(DIR_NATIVE_LIB + "/libopenal.so");
@@ -162,7 +163,7 @@ public class JREUtils {
 
         String libName = is64BitsDevice() ? "lib64" : "lib";
         StringBuilder ldLibraryPath = new StringBuilder();
-        if(FFmpegPlugin.isAvailable) {
+        if (FFmpegPlugin.isAvailable) {
             ldLibraryPath.append(FFmpegPlugin.libraryPath).append(":");
         }
         ldLibraryPath.append(jreHome)
@@ -177,6 +178,8 @@ public class JREUtils {
     }
 
     public static void setJavaEnvironment(Activity activity, String jreHome) throws Throwable {
+        final String localLibrary = loadGraphicsLibrary();
+
         Map<String, String> envMap = new ArrayMap<>();
         envMap.put("POJAV_NATIVEDIR", DIR_NATIVE_LIB);
         envMap.put("JAVA_HOME", jreHome);
@@ -193,14 +196,6 @@ public class JREUtils {
         // Fix white color on banner and sheep, since GL4ES 1.1.5
         envMap.put("LIBGL_NORMALIZE", "1");
 
-        if(PREF_DUMP_SHADERS)
-            envMap.put("LIBGL_VGPU_DUMP", "1");
-        if(PREF_ZINK_PREFER_SYSTEM_DRIVER)
-            envMap.put("POJAV_ZINK_PREFER_SYSTEM_DRIVER", "1");
-        if(PREF_VSYNC_IN_ZINK)
-            envMap.put("POJAV_VSYNC_IN_ZINK", "1");
-
-
         // The OPEN GL version is changed according
         envMap.put("LIBGL_ES", (String) ExtraCore.getValue(ExtraConstants.OPEN_GL_VERSION));
 
@@ -211,24 +206,44 @@ public class JREUtils {
         envMap.put("allow_higher_compat_version", "true");
         envMap.put("allow_glsl_extension_directive_midshader", "true");
         envMap.put("MESA_LOADER_DRIVER_OVERRIDE", "zink");
-        envMap.put("VTEST_SOCKET_NAME", new File(PathAndUrlManager.DIR_CACHE, ".virgl_test").getAbsolutePath());
 
         envMap.put("LD_LIBRARY_PATH", LD_LIBRARY_PATH);
         envMap.put("PATH", jreHome + "/bin:" + Os.getenv("PATH"));
-        if(FFmpegPlugin.isAvailable) {
-            envMap.put("PATH", FFmpegPlugin.libraryPath+":"+envMap.get("PATH"));
-        }
-
-        if(LOCAL_RENDERER != null) {
-            envMap.put("POJAV_RENDERER", LOCAL_RENDERER);
-            if(LOCAL_RENDERER.equals("opengles3_desktopgl_angle_vulkan")) {
-                envMap.put("LIBGL_ES", "3");
-                envMap.put("POJAVEXEC_EGL","libEGL_angle.so"); // Use ANGLE EGL
-            }
-        }
-        if(LauncherPreferences.PREF_BIG_CORE_AFFINITY) envMap.put("POJAV_BIG_CORE_AFFINITY", "1");
         envMap.put("AWTSTUB_WIDTH", Integer.toString(CallbackBridge.windowWidth > 0 ? CallbackBridge.windowWidth : CallbackBridge.physicalWidth));
         envMap.put("AWTSTUB_HEIGHT", Integer.toString(CallbackBridge.windowHeight > 0 ? CallbackBridge.windowHeight : CallbackBridge.physicalHeight));
+
+        if (PREF_DUMP_SHADERS)
+            envMap.put("LIBGL_VGPU_DUMP", "1");
+        if (PREF_ZINK_PREFER_SYSTEM_DRIVER)
+            envMap.put("POJAV_ZINK_PREFER_SYSTEM_DRIVER", "1");
+        if (PREF_VSYNC_IN_ZINK)
+            envMap.put("POJAV_VSYNC_IN_ZINK", "1");
+        if (PREF_BIG_CORE_AFFINITY)
+            envMap.put("POJAV_BIG_CORE_AFFINITY", "1");
+        if (FFmpegPlugin.isAvailable)
+            envMap.put("PATH", FFmpegPlugin.libraryPath+":"+envMap.get("PATH"));
+
+        if (LOCAL_RENDERER != null) {
+            switch (LOCAL_RENDERER) {
+                case "vulkan_zink":
+                case "gallium_freedreno":
+                case "gallium_panfrost":
+                    envMap.put("MESA_LIBRARY", localLibrary);
+                    break;
+                case "opengles3_desktopgl_angle_vulkan": {
+                    envMap.put("LIBGL_ES", "3");
+                    envMap.put("POJAVEXEC_EGL","libEGL_angle.so"); // Use ANGLE EGL
+                } break;
+                case "gallium_virgl": {
+                    envMap.put("VTEST_SOCKET_NAME", new File(PathAndUrlManager.DIR_CACHE, ".virgl_test").getAbsolutePath());
+                    envMap.put("MESA_LIBRARY", localLibrary);
+                } break;
+                default:
+                    // Nothing to do here
+                    break;
+            }
+            envMap.put("POJAV_RENDERER", LOCAL_RENDERER);
+        }
 
         File customEnvFile = new File(PathAndUrlManager.DIR_GAME_HOME, "custom_env.txt");
         if (customEnvFile.exists() && customEnvFile.isFile()) {
@@ -241,7 +256,7 @@ public class JREUtils {
             }
             reader.close();
         }
-        if(!envMap.containsKey("LIBGL_ES") && LOCAL_RENDERER != null) {
+        if (!envMap.containsKey("LIBGL_ES") && LOCAL_RENDERER != null) {
             int glesMajor = getDetectedVersion();
             Logging.i("glesDetect","GLES version detected: "+glesMajor);
 
@@ -300,7 +315,7 @@ public class JREUtils {
         //Add automatically generated args
         userArgs.add("-Xms" + LauncherPreferences.PREF_RAM_ALLOCATION + "M");
         userArgs.add("-Xmx" + LauncherPreferences.PREF_RAM_ALLOCATION + "M");
-        if(LOCAL_RENDERER != null) userArgs.add("-Dorg.lwjgl.opengl.libname=" + graphicsLib);
+        if (LOCAL_RENDERER != null) userArgs.add("-Dorg.lwjgl.opengl.libname=" + graphicsLib);
 
         // Force LWJGL to use the Freetype library intended for it, instead of using the one
         // that we ship with Java (since it may be older than what's needed)
@@ -361,20 +376,20 @@ public class JREUtils {
                 "-Dfml.earlyprogresswindow=false", //Forge 1.14+ workaround
                 "-Dloader.disable_forked_guis=true"
         ));
-        if(LauncherPreferences.PREF_ARC_CAPES) {
+        if (LauncherPreferences.PREF_ARC_CAPES)
             overridableArguments.add("-javaagent:"+new File(PathAndUrlManager.DIR_DATA,"arc_dns_injector/arc_dns_injector.jar").getAbsolutePath()+"=23.95.137.176");
-        }
+
         List<String> additionalArguments = new ArrayList<>();
-        for(String arg : overridableArguments) {
+        for (String arg : overridableArguments) {
             String strippedArg = arg.substring(0,arg.indexOf('='));
             boolean add = true;
-            for(String uarg : userArguments) {
-                if(uarg.startsWith(strippedArg)) {
+            for (String uarg : userArguments) {
+                if (uarg.startsWith(strippedArg)) {
                     add = false;
                     break;
                 }
             }
-            if(add)
+            if (add)
                 additionalArguments.add(arg);
             else
                 Logging.i("ArgProcessor","Arg skipped: "+arg);
@@ -398,36 +413,36 @@ public class JREUtils {
         args = args.trim().replace(" ", "");
         //For each prefixes, we separate args.
         String[] separators = new String[]{"-XX:-","-XX:+", "-XX:","--", "-D", "-X", "-javaagent:", "-verbose"};
-        for(String prefix : separators){
-            while (true){
+        for (String prefix : separators){
+            while (true) {
                 int start = args.indexOf(prefix);
-                if(start == -1) break;
+                if (start == -1) break;
                 //Get the end of the current argument by checking the nearest separator
                 int end = -1;
-                for(String separator: separators){
+                for (String separator: separators) {
                     int tempEnd = args.indexOf(separator, start + prefix.length());
-                    if(tempEnd == -1) continue;
-                    if(end == -1){
+                    if (tempEnd == -1) continue;
+                    if (end == -1) {
                         end = tempEnd;
                         continue;
                     }
                     end = Math.min(end, tempEnd);
                 }
                 //Fallback
-                if(end == -1) end = args.length();
+                if (end == -1) end = args.length();
 
                 //Extract it
                 String parsedSubString = args.substring(start, end);
                 args = args.replace(parsedSubString, "");
 
                 //Check if two args aren't bundled together by mistake
-                if(parsedSubString.indexOf('=') == parsedSubString.lastIndexOf('=')) {
+                if (parsedSubString.indexOf('=') == parsedSubString.lastIndexOf('=')) {
                     int arraySize = parsedArguments.size();
-                    if(arraySize > 0){
+                    if (arraySize > 0) {
                         String lastString = parsedArguments.get(arraySize - 1);
                         // Looking for list elements
-                        if(lastString.charAt(lastString.length() - 1) == ',' ||
-                                parsedSubString.contains(",")){
+                        if (lastString.charAt(lastString.length() - 1) == ',' ||
+                                parsedSubString.contains(",")) {
                             parsedArguments.set(arraySize - 1, lastString + parsedSubString);
                             continue;
                         }
@@ -446,15 +461,25 @@ public class JREUtils {
      * @return The name of the loaded library
      */
     public static String loadGraphicsLibrary(){
-        if(LOCAL_RENDERER == null) return null;
+        if (LOCAL_RENDERER == null) return null;
         String renderLibrary;
         switch (LOCAL_RENDERER){
             case "opengles2":
-            case "opengles2_5":
-            case "opengles3":
-                renderLibrary = "libgl4es_114.so"; break;
-            case "vulkan_zink": renderLibrary = "libOSMesa.so"; break;
-            case "opengles3_desktopgl_angle_vulkan" : renderLibrary = "libtinywrapper.so"; break;
+                renderLibrary = "libgl4es_114.so";
+                break;
+            case "vulkan_zink":
+            case "gallium_freedreno":
+                renderLibrary = "libOSMesa_8.so";
+                break;
+            case "gallium_virgl":
+                renderLibrary = "libOSMesa_2205.so";
+                break;
+            case "gallium_panfrost":
+                renderLibrary = "libOSMesa_2300d.so";
+                break;
+            case "opengles3_desktopgl_angle_vulkan":
+                renderLibrary = "libtinywrapper.so";
+                break;
             default:
                 Logging.w("RENDER_LIBRARY", "No renderer selected, defaulting to opengles2");
                 renderLibrary = "libgl4es_114.so";
