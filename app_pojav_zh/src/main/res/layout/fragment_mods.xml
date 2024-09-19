@@ -40,18 +40,34 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/zh_mods_title_layout" />
 
-            <TextView
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/zh_mods_nothing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/zh_file_nothing"
                 android:background="@drawable/background_item"
-                android:paddingHorizontal="@dimen/_12sdp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <com.movtery.pojavzh.ui.view.AnimTextView
+                    android:id="@+id/zh_mods_nothing_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/zh_file_nothing"
+                    android:layout_marginStart="@dimen/_8sdp" />
+
+                <com.movtery.pojavzh.ui.view.AnimTextView
+                    android:id="@+id/zh_mods_nothing_go_download"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_background"
+                    android:text="@string/zh_profile_mods_download_mod"
+                    android:layout_marginHorizontal="@dimen/_8sdp" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/zh_mods_title_layout"
