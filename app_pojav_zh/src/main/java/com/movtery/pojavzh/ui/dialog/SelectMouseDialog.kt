@@ -55,7 +55,7 @@ class SelectMouseDialog(context: Context) : AbstractSelectDialog(context) {
         val fileItemBeans = FileRecyclerViewCreator.loadItemBeansFromPath(
             context,
             mousePath(),
-            FileIcon.IMAGE,
+            FileIcon.FILE,
             true,
             false
         )

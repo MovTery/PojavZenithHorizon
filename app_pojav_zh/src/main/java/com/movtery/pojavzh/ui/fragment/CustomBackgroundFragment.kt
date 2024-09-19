@@ -218,7 +218,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
         view.findViewById<View>(R.id.zh_search_button).visibility = View.GONE
 
         mFileRecyclerView = view.findViewById(R.id.zh_custom_background)
-        mFileRecyclerView?.setFileIcon(FileIcon.IMAGE)
+        mFileRecyclerView?.setFileIcon(FileIcon.FILE)
 
         ZHTools.setTooltipText(mReturnButton, mReturnButton?.contentDescription)
         ZHTools.setTooltipText(mAddFileButton, mAddFileButton?.contentDescription)

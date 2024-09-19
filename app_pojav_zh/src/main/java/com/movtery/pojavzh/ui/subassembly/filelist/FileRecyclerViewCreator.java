@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.pojavzh.feature.mod.ModUtils;
-import com.movtery.pojavzh.utils.image.ImageUtils;
 import com.movtery.pojavzh.utils.stringutils.StringFilter;
 
 import net.kdt.pojavlaunch.R;
@@ -66,7 +65,7 @@ public class FileRecyclerViewCreator {
                 }
                 itemBean.file = file;
                 itemBean.name = null;
-                itemBean.image = getIcon(context, itemBean, file, fileIcon, resources);
+                itemBean.image = getIcon(context, file, fileIcon, resources);
                 itemBeans.add(itemBean);
             }
         }
@@ -79,16 +78,9 @@ public class FileRecyclerViewCreator {
         return !file.isFile() || showFile;
     }
 
-    private static Drawable getIcon(Context context, FileItemBean itemBean, File file, FileIcon fileIcon, Resources resources) {
+    private static Drawable getIcon(Context context, File file, FileIcon fileIcon, Resources resources) {
         if (file.isFile()) {
             switch (fileIcon) {
-                case IMAGE:
-                    if (ImageUtils.isImage(file)) {
-                        itemBean.fileIcon = FileIcon.IMAGE;
-                        return null;
-                    } else {
-                        return getFileIcon(file, resources);
-                    }
                 case MOD:
                     if (file.getName().endsWith(ModUtils.JAR_FILE_SUFFIX)) {
                         return ContextCompat.getDrawable(context, R.drawable.ic_java);

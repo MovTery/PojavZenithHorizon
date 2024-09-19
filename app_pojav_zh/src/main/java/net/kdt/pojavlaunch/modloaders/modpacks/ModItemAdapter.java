@@ -262,8 +262,8 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         public void setItemShow(boolean b) {
-            if (b) {
-                if (item.imageUrl != null) ImageUtils.loadDrawableFromUrl(context, item.imageUrl, new UrlImageCallback() {
+            if (b && item.imageUrl != null) {
+                ImageUtils.loadDrawableFromUrl(context, item.imageUrl, new UrlImageCallback() {
                     @Override
                     public void onImageCleared(@Nullable Drawable placeholder, @NonNull String url) {
                         if (Objects.equals(item.imageUrl, url)) mIconView.setImageDrawable(placeholder);

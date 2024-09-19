@@ -9,6 +9,11 @@
     android:background="@drawable/no_focus_shown"
     android:keepScreenOn="true">
 
+    <ImageView
+        android:id="@+id/background_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
