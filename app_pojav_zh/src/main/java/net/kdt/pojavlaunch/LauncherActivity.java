@@ -522,7 +522,10 @@ public class LauncherActivity extends BaseActivity {
     }
 
     private void setPageOpacity() {
-        if (mFragmentView != null) mFragmentView.setAlpha((float) LauncherPreferences.PREF_PAGE_OPACITY / 100);
+        if (mFragmentView != null) {
+            float v = (float) LauncherPreferences.PREF_PAGE_OPACITY / 100;
+            if (mFragmentView.getAlpha() != v) mFragmentView.setAlpha(v);
+        }
     }
 
     /** Stuff all the view boilerplate here */
