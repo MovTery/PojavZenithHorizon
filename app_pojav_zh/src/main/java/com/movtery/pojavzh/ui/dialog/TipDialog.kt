@@ -1,223 +1,192 @@
-package com.movtery.pojavzh.ui.dialog;
+package com.movtery.pojavzh.ui.dialog
 
-import android.content.Context;
-import android.view.Gravity;
-import android.view.View;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.TextView;
+import android.content.Context
+import android.view.Gravity
+import android.view.View
+import android.view.Window
+import android.widget.Button
+import android.widget.TextView
+import androidx.appcompat.widget.LinearLayoutCompat
+import com.movtery.pojavzh.ui.dialog.DraggableDialog.DialogInitializationListener
+import net.kdt.pojavlaunch.R
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.LinearLayoutCompat;
-
-import net.kdt.pojavlaunch.R;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class TipDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
-    private final String title, message, confirm, cancel;
-    private final View[] moreView;
-    private final boolean showCancel, showConfirm, centerMessage;
-    private final OnCancelClickListener cancelListener;
-    private final OnConfirmClickListener confirmListener;
-    private final OnDialogDismissListener dismissListener;
-
-    private TipDialog(@NonNull Context context,
-                      String title, String message, String confirm, String cancel,
-                      View[] moreView,
-                      boolean showCancel, boolean showConfirm, boolean centerMessage,
-                      OnCancelClickListener cancelListener, OnConfirmClickListener confirmListener, OnDialogDismissListener dismissListener) {
-        super(context);
-        this.title = title;
-        this.message = message;
-        this.confirm = confirm;
-        this.cancel = cancel;
-
-        this.moreView = moreView;
-
-        this.showCancel = showCancel;
-        this.showConfirm = showConfirm;
-        this.centerMessage = centerMessage;
-
-        this.cancelListener = cancelListener;
-        this.confirmListener = confirmListener;
-        this.dismissListener = dismissListener;
-
-        init();
-        DraggableDialog.initDialog(this);
+class TipDialog private constructor(
+    context: Context,
+    private val title: String?,
+    private val message: String?,
+    private val confirm: String?,
+    private val cancel: String?,
+    private val moreView: Array<View>,
+    private val showCancel: Boolean,
+    private val showConfirm: Boolean,
+    private val centerMessage: Boolean,
+    private val cancelListener: OnCancelClickListener?,
+    private val confirmListener: OnConfirmClickListener?,
+    private val dismissListener: OnDialogDismissListener?
+) : FullScreenDialog(context), DialogInitializationListener {
+    init {
+        init()
+        DraggableDialog.initDialog(this)
     }
 
-    private void init() {
-        setContentView(R.layout.dialog_tip);
+    private fun init() {
+        setContentView(R.layout.dialog_tip)
 
-        TextView titleView = findViewById(R.id.zh_tip_title);
-        TextView messageView = findViewById(R.id.zh_tip_message);
-        LinearLayoutCompat moreViewLayout = findViewById(R.id.zh_tip_more);
-        Button cancelButton = findViewById(R.id.zh_tip_cancel);
-        Button confirmButton = findViewById(R.id.zh_tip_confirm);
+        val titleView = findViewById<TextView>(R.id.zh_tip_title)
+        val messageView = findViewById<TextView>(R.id.zh_tip_message)
+        val moreViewLayout = findViewById<LinearLayoutCompat>(R.id.zh_tip_more)
+        val cancelButton = findViewById<Button>(R.id.zh_tip_cancel)
+        val confirmButton = findViewById<Button>(R.id.zh_tip_confirm)
 
-        if (title != null) titleView.setText(title);
-        if (message != null) messageView.setText(message);
-        if (centerMessage) messageView.setGravity(Gravity.CENTER_HORIZONTAL);
-        if (moreView.length >= 1) {
-            for (View view : moreView) {
-                moreViewLayout.addView(view);
+        title?.apply { titleView.text = this }
+        message?.apply { messageView.text = this }
+        cancel?.apply { cancelButton.text = this }
+        confirm?.apply { confirmButton.text = this }
+        if (centerMessage) messageView.gravity = Gravity.CENTER_HORIZONTAL
+        if (moreView.isNotEmpty()) {
+            for (view in moreView) {
+                moreViewLayout.addView(view)
             }
         }
-        if (cancel != null) cancelButton.setText(cancel);
-        if (confirm != null) confirmButton.setText(confirm);
 
-        if (cancelListener != null) {
-            cancelButton.setOnClickListener(v -> {
-                cancelListener.onCancelClick();
-                this.dismiss();
-            });
-        } else {
-            cancelButton.setOnClickListener(v -> this.dismiss());
+        cancelButton.setOnClickListener {
+            cancelListener?.onCancelClick()
+            this.dismiss()
         }
-        if (confirmListener != null) {
-            confirmButton.setOnClickListener(v -> {
-                confirmListener.onConfirmClick();
-                this.dismiss();
-            });
-        } else {
-            confirmButton.setOnClickListener(v -> this.dismiss());
+        confirmButton.setOnClickListener {
+            confirmListener?.onConfirmClick()
+            this.dismiss()
         }
 
-        cancelButton.setVisibility(showCancel ? View.VISIBLE : View.GONE);
-        confirmButton.setVisibility(showConfirm ? View.VISIBLE : View.GONE);
+        cancelButton.visibility = if (showCancel) View.VISIBLE else View.GONE
+        confirmButton.visibility = if (showConfirm) View.VISIBLE else View.GONE
     }
 
-    @Override
-    public void dismiss() {
-        if (dismissListener != null) {
-            if (!dismissListener.onDismiss()) return;
-        }
-        super.dismiss();
+    override fun dismiss() {
+        if (dismissListener?.onDismiss() == false) return
+        super.dismiss()
     }
 
-    @Override
-    public Window onInit() {
-        return getWindow();
+    override fun onInit(): Window {
+        return window!!
     }
 
-    public interface OnCancelClickListener {
-        void onCancelClick();
+    fun interface OnCancelClickListener {
+        fun onCancelClick()
     }
 
-    public interface OnConfirmClickListener {
-        void onConfirmClick();
+    fun interface OnConfirmClickListener {
+        fun onConfirmClick()
     }
 
-    public interface OnDialogDismissListener {
-        boolean onDismiss();
+    fun interface OnDialogDismissListener {
+        fun onDismiss(): Boolean
     }
 
-    public static class Builder {
-        private final Context context;
-        private final List<View> moreView = new ArrayList<>();
-        private String title, message, cancel, confirm;
-        private OnCancelClickListener cancelClickListener;
-        private OnConfirmClickListener confirmClickListener;
-        private OnDialogDismissListener dialogDismissListener;
-        private boolean cancelable = true;
-        private boolean showCancel = true;
-        private boolean showConfirm = true;
-        private boolean centerMessage = true;
+    open class Builder(private val context: Context) {
+        private val moreView: MutableList<View> = ArrayList()
+        private var title: String? = null
+        private var message: String? = null
+        private var cancel: String? = null
+        private var confirm: String? = null
+        private var cancelClickListener: OnCancelClickListener? = null
+        private var confirmClickListener: OnConfirmClickListener? = null
+        private var dialogDismissListener: OnDialogDismissListener? = null
+        private var cancelable = true
+        private var showCancel = true
+        private var showConfirm = true
+        private var centerMessage = true
 
-        public Builder(Context context) {
-            this.context = context;
+        fun buildDialog() {
+            val tipDialog = TipDialog(
+                this.context,
+                title, message, confirm, cancel,
+                moreView.toTypedArray<View>(),
+                showCancel, showConfirm, centerMessage,
+                cancelClickListener, confirmClickListener, dialogDismissListener
+            )
+            tipDialog.setCancelable(cancelable)
+            tipDialog.show()
         }
 
-        public void buildDialog() {
-            TipDialog tipDialog = new TipDialog(this.context,
-                    title, message, confirm, cancel,
-                    moreView.toArray(new View[0]),
-                    showCancel, showConfirm, centerMessage,
-                    cancelClickListener, confirmClickListener, dialogDismissListener);
-            tipDialog.setCancelable(cancelable);
-            tipDialog.show();
+        fun setTitle(title: String?): Builder {
+            this.title = title
+            return this
         }
 
-        public Builder setTitle(String title) {
-            this.title = title;
-            return this;
+        fun setTitle(title: Int): Builder {
+            this.title = context.getString(title)
+            return this
         }
 
-        public Builder setTitle(int title) {
-            this.title = this.context.getString(title);
-            return this;
+        fun setMessage(message: String?): Builder {
+            this.message = message
+            return this
         }
 
-        public Builder setMessage(String message) {
-            this.message = message;
-            return this;
+        fun setMessage(message: Int): Builder {
+            this.message = context.getString(message)
+            return this
         }
 
-        public Builder setMessage(int message) {
-            this.message = this.context.getString(message);
-            return this;
+        fun setCancel(cancel: String?): Builder {
+            this.cancel = cancel
+            return this
         }
 
-        public Builder setCancel(String cancel) {
-            this.cancel = cancel;
-            return this;
+        fun setCancel(cancel: Int): Builder {
+            this.cancel = context.getString(cancel)
+            return this
         }
 
-        public Builder setCancel(int cancel) {
-            this.cancel = this.context.getString(cancel);
-            return this;
+        fun setConfirm(confirm: String?): Builder {
+            this.confirm = confirm
+            return this
         }
 
-        public Builder setConfirm(String confirm) {
-            this.confirm = confirm;
-            return this;
+        fun setConfirm(confirm: Int): Builder {
+            this.confirm = context.getString(confirm)
+            return this
         }
 
-        public Builder setConfirm(int confirm) {
-            this.confirm = this.context.getString(confirm);
-            return this;
+        fun addView(view: View): Builder {
+            moreView.add(view)
+            return this
         }
 
-        public Builder addView(View view) {
-            this.moreView.add(view);
-            return this;
+        fun setCancelClickListener(cancelClickListener: OnCancelClickListener?): Builder {
+            this.cancelClickListener = cancelClickListener
+            return this
         }
 
-        public Builder setCancelClickListener(OnCancelClickListener cancelClickListener) {
-            this.cancelClickListener = cancelClickListener;
-            return this;
+        fun setConfirmClickListener(confirmClickListener: OnConfirmClickListener?): Builder {
+            this.confirmClickListener = confirmClickListener
+            return this
         }
 
-        public Builder setConfirmClickListener(OnConfirmClickListener confirmClickListener) {
-            this.confirmClickListener = confirmClickListener;
-            return this;
+        fun setDialogDismissListener(dialogDismissListener: OnDialogDismissListener?): Builder {
+            this.dialogDismissListener = dialogDismissListener
+            return this
         }
 
-        public Builder setDialogDismissListener(OnDialogDismissListener dialogDismissListener) {
-            this.dialogDismissListener = dialogDismissListener;
-            return this;
+        fun setCancelable(cancelable: Boolean): Builder {
+            this.cancelable = cancelable
+            return this
         }
 
-        public Builder setCancelable(boolean cancelable) {
-            this.cancelable = cancelable;
-            return this;
+        fun setShowCancel(showCancel: Boolean): Builder {
+            this.showCancel = showCancel
+            return this
         }
 
-        public Builder setShowCancel(boolean showCancel) {
-            this.showCancel = showCancel;
-            return this;
+        fun setShowConfirm(showConfirm: Boolean): Builder {
+            this.showConfirm = showConfirm
+            return this
         }
 
-        public Builder setShowConfirm(boolean showConfirm) {
-            this.showConfirm = showConfirm;
-            return this;
-        }
-
-        public Builder setCenterMessage(boolean center) {
-            this.centerMessage = center;
-            return this;
+        fun setCenterMessage(center: Boolean): Builder {
+            this.centerMessage = center
+            return this
         }
     }
 }
