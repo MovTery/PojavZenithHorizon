@@ -17,7 +17,7 @@
 - [x] Refactored app layout for improved aesthetics and usability.
 - [x] Built-in simple file manager to eliminate worries about Android permission restrictions!
 - [x] Customizable game directory location, with support for external storage directories.
-- [x] Built-in Jre8, Jre17, and Jre21.
+- [x] Add more renderers!
 - [x] Download Mods and get Mod dependency reminders within the launcher.
 - [x] Customizable virtual mouse icon and launcher background image.
 - [x] Automatically set the game language on first launch.
