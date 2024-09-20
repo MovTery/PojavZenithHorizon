@@ -75,18 +75,19 @@ void *virglCreateContext(void *contextSrc) {
 }
 
 void *egl_make_current(void *window) {
-    EGLBoolean success = eglMakeCurrent_p(
-            potatoBridge.eglDisplay,
-            window==0 ? (EGLSurface *) 0 : potatoBridge.eglSurface,
-            window==0 ? (EGLSurface *) 0 : potatoBridge.eglSurface,
-            /* window==0 ? EGL_NO_CONTEXT : */ (EGLContext *) window
-    );
+    if (pojav_environ->config_renderer == RENDERER_VIRGL)
+    {
+        EGLBoolean success = eglMakeCurrent_p(
+                potatoBridge.eglDisplay,
+                window==0 ? (EGLSurface *) 0 : potatoBridge.eglSurface,
+                window==0 ? (EGLSurface *) 0 : potatoBridge.eglSurface,
+                /* window==0 ? EGL_NO_CONTEXT : */ (EGLContext *) window
+        );
 
-    if (success == EGL_FALSE)
-        printf("EGLBridge: Error: eglMakeCurrent() failed: %p\n", eglGetError_p());
-    else printf("EGLBridge: eglMakeCurrent() succeed!\n");
+        if (success == EGL_FALSE)
+            printf("EGLBridge: Error: eglMakeCurrent() failed: %p\n", eglGetError_p());
+        else printf("EGLBridge: eglMakeCurrent() succeed!\n");
 
-    if (pojav_environ->config_renderer == RENDERER_VIRGL) {
         printf("VirGL: vtest_main = %p\n", vtest_main_p);
         printf("VirGL: Calling VTest server's main function\n");
         vtest_main_p(3, (const char*[]){"vtest", "--no-loop-or-fork", "--use-gles", NULL, NULL});
@@ -98,6 +99,9 @@ void virglSwapInterval(int interval) {
 }
 
 int virglInit() {
+    if (pojav_environ->config_renderer != RENDERER_VIRGL)
+        return 0;
+
     if (potatoBridge.eglDisplay == NULL || potatoBridge.eglDisplay == EGL_NO_DISPLAY) {
         potatoBridge.eglDisplay = eglGetDisplay_p(EGL_DEFAULT_DISPLAY);
         if (potatoBridge.eglDisplay == EGL_NO_DISPLAY) {

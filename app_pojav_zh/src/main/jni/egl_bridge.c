@@ -261,21 +261,31 @@ EXTERNAL_API void pojavSetWindowHint(int hint, int value) {
 }
 
 EXTERNAL_API void pojavSwapBuffers() {
+    if (pojav_environ->config_renderer == RENDERER_VK_ZINK
+     || pojav_environ->config_renderer == RENDERER_GL4ES)
+    {
+        br_swap_buffers();
+    }
+
     if (pojav_environ->config_renderer == RENDERER_VIRGL)
     {
         virglSwapBuffers();
-    } else {
-        br_swap_buffers();
     }
+
 }
 
 EXTERNAL_API void pojavMakeCurrent(void* window) {
+    if (pojav_environ->config_renderer == RENDERER_VK_ZINK
+     || pojav_environ->config_renderer == RENDERER_GL4ES)
+    {
+        br_make_current((basic_render_window_t*)window);
+    }
+
     if (pojav_environ->config_renderer == RENDERER_VIRGL)
     {
         virglMakeCurrent(window);
-    } else {
-        br_make_current((basic_render_window_t*)window);
     }
+
 }
 
 EXTERNAL_API void* pojavCreateContext(void* contextSrc) {
@@ -299,11 +309,16 @@ Java_org_lwjgl_vulkan_VK_getVulkanDriverHandle(ABI_COMPAT JNIEnv *env, ABI_COMPA
 }
 
 EXTERNAL_API void pojavSwapInterval(int interval) {
+    if (pojav_environ->config_renderer == RENDERER_VK_ZINK
+     || pojav_environ->config_renderer == RENDERER_GL4ES)
+    {
+        br_swap_interval(interval);
+    }
+
     if (pojav_environ->config_renderer == RENDERER_VIRGL)
     {
         virglSwapInterval(interval);
-    } else {
-        br_swap_interval(interval);
     }
+
 }
 
