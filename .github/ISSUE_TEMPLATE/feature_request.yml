@@ -1,0 +1,31 @@
+name: Feature Request / 功能建议
+description: 'Share your thoughts with me / 将你的想法分享给我'
+labels: [建议]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Feature Description / 功能描述
+      description: |
+        Please describe your idea in detail here.
+        请在这里详细地描述出你的好点子。
+    validations:
+      required: true
+
+  - type: textarea
+    id: more-info
+    attributes:
+      label: Additional Information / 其他信息
+      description: |
+        If possible, you can also provide images to help me better understand your idea.
+        如果可以的话，你也可以提供图片，帮助我更好的理解你的好想法。
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: check-issue
+    attributes:
+      label: This feature request has not been proposed before / 这个功能建议还没有人提出过
+      options:
+        - label: I have checked the Issues and found no similar feature request / 我已经查看过 Issues，并且没有发现与之类似的功能建议被提出
+          required: true
