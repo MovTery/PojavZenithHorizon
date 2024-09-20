@@ -8,14 +8,13 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo.YoYoString
+import com.movtery.anim.AnimPlayer
+import com.movtery.anim.animations.Animations
 import com.movtery.pojavzh.extra.ZHExtraConstants
 import com.movtery.pojavzh.feature.mod.modpack.install.InstallExtra
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
 import com.movtery.pojavzh.utils.file.FileTools.Companion.copyFileInBackground
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
@@ -56,7 +55,6 @@ class SelectModPackFragment : FragmentWithAnim(R.layout.fragment_select_modpack)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         mMainView = view
         ProgressKeeper.addTaskCountListener(this)
 
@@ -70,7 +68,7 @@ class SelectModPackFragment : FragmentWithAnim(R.layout.fragment_select_modpack)
                 bundle.putString(SearchModFragment.BUNDLE_MOD_PATH, null)
                 ZHTools.swapFragmentWithAnim(this, SearchModFragment::class.java, SearchModFragment.TAG, bundle)
             } else {
-                setViewAnim(mSearch, Techniques.Shake)
+                setViewAnim(mSearch, Animations.Shake)
                 Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
             }
         }
@@ -80,29 +78,21 @@ class SelectModPackFragment : FragmentWithAnim(R.layout.fragment_select_modpack)
                 Toast.makeText(requireActivity(), getString(R.string.zh_select_modpack_local_tip), Toast.LENGTH_SHORT).show()
                 openDocumentLauncher?.launch(null)
             } else {
-                setViewAnim(mLocal, Techniques.Shake)
+                setViewAnim(mLocal, Animations.Shake)
                 Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
             }
         }
-
-        slideInAnim(this)
     }
 
     override fun onUpdateTaskCount(taskCount: Int) {
         mTasksRunning = taskCount != 0
     }
 
-    override fun slideIn(): Array<YoYoString?> {
-        val yoYoString = setViewAnim(mMainView!!, Techniques.BounceInDown)
-        val array = arrayOf(yoYoString)
-        super.yoYos = array
-        return array
+    override fun slideIn(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(mMainView!!, Animations.BounceInDown))
     }
 
-    override fun slideOut(): Array<YoYoString?> {
-        val yoYoString = setViewAnim(mMainView!!, Techniques.FadeOutUp)
-        val array = arrayOf(yoYoString)
-        super.yoYos = array
-        return array
+    override fun slideOut(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(mMainView!!, Animations.FadeOutUp))
     }
 }

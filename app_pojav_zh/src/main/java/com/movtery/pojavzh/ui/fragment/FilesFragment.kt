@@ -12,9 +12,9 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo.YoYoString
 import com.getkeepsafe.taptargetview.TapTargetSequence
+import com.movtery.anim.AnimPlayer
+import com.movtery.anim.animations.Animations
 import com.movtery.pojavzh.ui.dialog.EditTextDialog
 import com.movtery.pojavzh.ui.dialog.FilesDialog
 import com.movtery.pojavzh.ui.dialog.FilesDialog.FilesButton
@@ -25,8 +25,6 @@ import com.movtery.pojavzh.ui.subassembly.view.SearchViewWrapper
 import com.movtery.pojavzh.utils.NewbieGuideUtils
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.anim.AnimUtils.Companion.setVisibilityAnim
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
 import com.movtery.pojavzh.utils.file.FileTools.Companion.copyFileInBackground
 import com.movtery.pojavzh.utils.file.PasteFile
 import net.kdt.pojavlaunch.PojavApplication
@@ -261,7 +259,6 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
             lockAndListAt(File(mLockPath!!), File(mLockPath!!))
         }
 
-        slideInAnim(this)
         startNewbieGuide()
     }
 
@@ -387,23 +384,15 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
         mRemoveLockPath = bundle.getBoolean(BUNDLE_REMOVE_LOCK_PATH, true)
     }
 
-    override fun slideIn(): Array<YoYoString?> {
-        val yoYos: MutableList<YoYoString?> = ArrayList()
-        yoYos.add(setViewAnim(mFilesLayout!!, Techniques.BounceInDown))
-        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.BounceInLeft))
-        yoYos.add(setViewAnim(mOperateView!!, Techniques.FadeInLeft))
-        val array = yoYos.toTypedArray()
-        super.yoYos = array
-        return array
+    override fun slideIn(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(mFilesLayout!!, Animations.BounceInDown))
+            .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.BounceInLeft))
+            .apply(AnimPlayer.Entry(mOperateView!!, Animations.FadeInLeft))
     }
 
-    override fun slideOut(): Array<YoYoString?> {
-        val yoYos: MutableList<YoYoString?> = ArrayList()
-        yoYos.add(setViewAnim(mFilesLayout!!, Techniques.FadeOutUp))
-        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.FadeOutRight))
-        val array = yoYos.toTypedArray()
-        super.yoYos = array
-        return array
+    override fun slideOut(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(mFilesLayout!!, Animations.FadeOutUp))
+            .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.FadeOutRight))
     }
 }
 

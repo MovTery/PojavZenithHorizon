@@ -1,8 +1,7 @@
 package com.movtery.pojavzh.utils.anim
 
 import android.view.View
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo
+import com.movtery.anim.animations.Animations
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
@@ -39,12 +38,10 @@ class AnimUtils {
             val targetVisibility = if (visible) View.VISIBLE else View.GONE
             if (view.visibility == targetVisibility) return
 
-            setViewAnim(view, if (visible) Techniques.FadeIn else Techniques.FadeOut,
+            setViewAnim(view, if (visible) Animations.FadeIn else Animations.FadeOut,
                 (LauncherPreferences.PREF_ANIMATION_SPEED * 0.7).toLong(),
-                YoYo.AnimatorCallback { view.visibility = View.VISIBLE },
-                YoYo.AnimatorCallback {
-                    view.visibility = if (visible) View.VISIBLE else View.GONE
-                })
+                { view.visibility = View.VISIBLE },
+                { view.visibility = if (visible) View.VISIBLE else View.GONE })
         }
 
         /**

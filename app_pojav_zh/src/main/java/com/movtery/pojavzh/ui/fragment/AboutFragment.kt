@@ -8,8 +8,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo.YoYoString
+import com.movtery.anim.AnimPlayer
+import com.movtery.anim.animations.Animations
 import com.movtery.pojavzh.feature.CheckSponsor
 import com.movtery.pojavzh.feature.CheckSponsor.Companion.check
 import com.movtery.pojavzh.feature.CheckSponsor.Companion.getSponsorData
@@ -21,8 +21,6 @@ import com.movtery.pojavzh.ui.subassembly.about.SponsorItemBean
 import com.movtery.pojavzh.ui.subassembly.about.SponsorRecyclerAdapter
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
 import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
@@ -50,7 +48,6 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
         loadSponsorData()
         loadAboutData(requireContext().resources)
 
-        mAppTitleView?.setOnClickListener { setViewAnim(mAppTitleView!!, Techniques.Pulse) }
         mReturnButton?.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
         mGithubButton?.setOnClickListener { Tools.openURL(requireActivity(), PathAndUrlManager.URL_HOME) }
         mPojavLauncherButton?.setOnClickListener { Tools.openURL(requireActivity(), PathAndUrlManager.URL_GITHUB_POJAVLAUNCHER) }
@@ -60,8 +57,6 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
         val aboutAdapter = AboutRecyclerAdapter(this.mAboutData)
         mAboutRecyclerView?.layoutManager = LinearLayoutManager(requireContext())
         mAboutRecyclerView?.adapter = aboutAdapter
-
-        slideInAnim(this)
     }
 
     private fun bindViews(view: View) {
@@ -191,26 +186,17 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
         }
     }
 
-    override fun slideIn(): Array<YoYoString?> {
-        val yoYos: MutableList<YoYoString?> = ArrayList()
-        yoYos.add(setViewAnim(mInfoLayout!!, Techniques.BounceInDown))
-        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.BounceInLeft))
-
-        yoYos.add(setViewAnim(mReturnButton!!, Techniques.FadeInLeft))
-        yoYos.add(setViewAnim(mGithubButton!!, Techniques.FadeInLeft))
-        yoYos.add(setViewAnim(mSupportButton!!, Techniques.FadeInLeft))
-        val array = yoYos.toTypedArray()
-        super.yoYos = array
-        return array
+    override fun slideIn(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(mInfoLayout!!, Animations.BounceInDown))
+            .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.BounceInLeft))
+            .apply(AnimPlayer.Entry(mReturnButton!!, Animations.FadeInLeft))
+            .apply(AnimPlayer.Entry(mGithubButton!!, Animations.FadeInLeft))
+            .apply(AnimPlayer.Entry(mSupportButton!!, Animations.FadeInLeft))
     }
 
-    override fun slideOut(): Array<YoYoString?> {
-        val yoYos: MutableList<YoYoString?> = ArrayList()
-        yoYos.add(setViewAnim(mInfoLayout!!, Techniques.FadeOutUp))
-        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.FadeOutRight))
-        val array = yoYos.toTypedArray()
-        super.yoYos = array
-        return array
+    override fun slideOut(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(mInfoLayout!!, Animations.FadeOutUp))
+        animPlayer.apply(AnimPlayer.Entry(mOperateLayout!!, Animations.FadeOutRight))
     }
 }
 

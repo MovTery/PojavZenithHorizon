@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.daimajia.androidanimations.library.Techniques;
+import com.movtery.anim.animations.Animations;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
 import net.kdt.pojavlaunch.Logger;
@@ -48,10 +48,10 @@ public class LoggerView extends ConstraintLayout {
 
     public void setVisibilityWithAnim(boolean visibility) {
         ViewAnimUtils.setViewAnim(this,
-                visibility ? Techniques.BounceInUp : Techniques.SlideOutDown,
+                visibility ? Animations.BounceInUp : Animations.SlideOutDown,
                 (long) (LauncherPreferences.PREF_ANIMATION_SPEED * 0.7),
-                animator -> setVisibility(VISIBLE),
-                animator -> setVisibility(visibility ? VISIBLE : GONE));
+                () -> setVisibility(VISIBLE),
+                () -> setVisibility(visibility ? VISIBLE : GONE));
     }
 
     /**

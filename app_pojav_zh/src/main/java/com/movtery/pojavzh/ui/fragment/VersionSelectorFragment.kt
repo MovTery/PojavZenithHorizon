@@ -4,18 +4,16 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo.YoYoString
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import com.movtery.anim.AnimPlayer
+import com.movtery.anim.animations.Animations
 import com.movtery.pojavzh.extra.ZHExtraConstants
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome.Companion.gameHome
 import com.movtery.pojavzh.ui.subassembly.versionlist.VersionListView
 import com.movtery.pojavzh.ui.subassembly.versionlist.VersionSelectedListener
 import com.movtery.pojavzh.ui.subassembly.versionlist.VersionType
 import com.movtery.pojavzh.utils.ZHTools
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.extra.ExtraCore
 import java.io.File
@@ -68,8 +66,6 @@ class VersionSelectorFragment : FragmentWithAnim(R.layout.fragment_version) {
                 ZHTools.onBackPressed(requireActivity())
             }
         })
-
-        slideInAnim(this)
     }
 
     private fun refresh(tab: TabLayout.Tab?) {
@@ -132,23 +128,15 @@ class VersionSelectorFragment : FragmentWithAnim(R.layout.fragment_version) {
         mTabLayout?.selectTab(release)
     }
 
-    override fun slideIn(): Array<YoYoString?> {
-        val yoYos: MutableList<YoYoString?> = ArrayList()
-        yoYos.add(setViewAnim(mVersionLayout!!, Techniques.BounceInDown))
-        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.BounceInLeft))
-        yoYos.add(setViewAnim(mRefreshButton!!, Techniques.FadeInLeft))
-        yoYos.add(setViewAnim(mReturnButton!!, Techniques.FadeInLeft))
-        val array = yoYos.toTypedArray()
-        super.yoYos = array
-        return array
+    override fun slideIn(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(mVersionLayout!!, Animations.BounceInDown))
+            .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.BounceInLeft))
+            .apply(AnimPlayer.Entry(mRefreshButton!!, Animations.FadeInLeft))
+            .apply(AnimPlayer.Entry(mReturnButton!!, Animations.FadeInLeft))
     }
 
-    override fun slideOut(): Array<YoYoString?> {
-        val yoYos: MutableList<YoYoString?> = ArrayList()
-        yoYos.add(setViewAnim(mVersionLayout!!, Techniques.FadeOutUp))
-        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.FadeOutRight))
-        val array = yoYos.toTypedArray()
-        super.yoYos = array
-        return array
+    override fun slideOut(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(mVersionLayout!!, Animations.FadeOutUp))
+            .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.FadeOutRight))
     }
 }

@@ -12,9 +12,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.DrawableImageViewTarget
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo.YoYoString
 import com.getkeepsafe.taptargetview.TapTargetSequence
+import com.movtery.anim.AnimPlayer
+import com.movtery.anim.animations.Animations
 import com.movtery.pojavzh.ui.dialog.FilesDialog
 import com.movtery.pojavzh.ui.dialog.FilesDialog.FilesButton
 import com.movtery.pojavzh.ui.subassembly.filelist.FileIcon
@@ -23,8 +23,6 @@ import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerViewCreator
 import com.movtery.pojavzh.utils.NewbieGuideUtils
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
 import com.movtery.pojavzh.utils.file.FileTools.Companion.copyFileInBackground
 import com.movtery.pojavzh.utils.file.FileTools.Companion.mkdirs
 import com.movtery.pojavzh.utils.image.ImageUtils.Companion.isImage
@@ -76,7 +74,6 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
 
         loadData()
 
-        slideInAnim(this)
         startNewbieGuide()
     }
 
@@ -89,11 +86,6 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
                 NewbieGuideUtils.getSimpleTarget(fragmentActivity, mAddFileButton, getString(R.string.zh_custom_mouse_add), getString(R.string.zh_newbie_guide_mouse_import)),
                 NewbieGuideUtils.getSimpleTarget(fragmentActivity, mReturnButton, getString(R.string.zh_close), getString(R.string.zh_newbie_guide_general_close)))
             .start()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        slideInAnim(this)
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -183,21 +175,13 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
         )
     }
 
-    override fun slideIn(): Array<YoYoString?> {
-        val yoYos: MutableList<YoYoString?> = ArrayList()
-        yoYos.add(setViewAnim(mMouseLayout!!, Techniques.BounceInDown))
-        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.BounceInLeft))
-        val array = yoYos.toTypedArray()
-        super.yoYos = array
-        return array
+    override fun slideIn(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(mMouseLayout!!, Animations.BounceInDown))
+            .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.BounceInLeft))
     }
 
-    override fun slideOut(): Array<YoYoString?> {
-        val yoYos: MutableList<YoYoString?> = ArrayList()
-        yoYos.add(setViewAnim(mMouseLayout!!, Techniques.FadeOutUp))
-        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.FadeOutRight))
-        val array = yoYos.toTypedArray()
-        super.yoYos = array
-        return array
+    override fun slideOut(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(mMouseLayout!!, Animations.FadeOutUp))
+            .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.FadeOutRight))
     }
 }

@@ -22,7 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
-import com.daimajia.androidanimations.library.Techniques;
+import com.movtery.anim.animations.Animations;
 import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
@@ -118,7 +118,7 @@ public class mcVersionSpinner extends ExtendedTextView {
             final int offset = -getContext().getResources().getDimensionPixelOffset(R.dimen._4sdp);
             @Override
             public void onClick(View v) {
-                ViewAnimUtils.setViewAnim(mcVersionSpinner.this, Techniques.Pulse);
+                ViewAnimUtils.setViewAnim(mcVersionSpinner.this, Animations.Pulse);
 
                 if(mPopupWindow == null) getPopupWindow();
 

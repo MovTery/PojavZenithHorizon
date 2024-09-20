@@ -3,13 +3,11 @@ package com.movtery.pojavzh.ui.fragment
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo.YoYoString
+import com.movtery.anim.AnimPlayer
+import com.movtery.anim.animations.Animations
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager.Companion.currentProfile
 import com.movtery.pojavzh.ui.dialog.TipDialog
 import com.movtery.pojavzh.utils.ZHTools
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
 import com.movtery.pojavzh.utils.file.FileTools.Companion.mkdirs
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
@@ -32,13 +30,6 @@ class ProfileManagerFragment : FragmentWithAnim(R.layout.fragment_profile_manage
     private var mProfileKey: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        init(view)
-
-        slideInAnim(this)
-    }
-
-    private fun init(view: View) {
         val gameDirPath = ZHTools.getGameDirPath(LauncherProfiles.getCurrentProfile().gameDir)
         mProfileKey = LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, "")
 
@@ -106,21 +97,13 @@ class ProfileManagerFragment : FragmentWithAnim(R.layout.fragment_profile_manage
         ZHTools.swapFragmentWithAnim(this, FilesFragment::class.java, FilesFragment.TAG, bundle)
     }
 
-    override fun slideIn(): Array<YoYoString?> {
-        val yoYos: MutableList<YoYoString?> = ArrayList()
-        yoYos.add(setViewAnim(mShortcutsLayout!!, Techniques.BounceInRight))
-        yoYos.add(setViewAnim(mModdedLayout!!, Techniques.BounceInLeft))
-        val array = yoYos.toTypedArray()
-        super.yoYos = array
-        return array
+    override fun slideIn(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(mShortcutsLayout!!, Animations.BounceInRight))
+            .apply(AnimPlayer.Entry(mModdedLayout!!, Animations.BounceInLeft))
     }
 
-    override fun slideOut(): Array<YoYoString?> {
-        val yoYos: MutableList<YoYoString?> = ArrayList()
-        yoYos.add(setViewAnim(mShortcutsLayout!!, Techniques.FadeOutLeft))
-        yoYos.add(setViewAnim(mModdedLayout!!, Techniques.FadeOutRight))
-        val array = yoYos.toTypedArray()
-        super.yoYos = array
-        return array
+    override fun slideOut(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(mShortcutsLayout!!, Animations.FadeOutLeft))
+            .apply(AnimPlayer.Entry(mModdedLayout!!, Animations.FadeOutRight))
     }
 }

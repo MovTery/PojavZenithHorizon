@@ -18,18 +18,14 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
+import com.movtery.anim.AnimPlayer;
+import com.movtery.anim.animations.Animations;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
 import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.customcontrols.gamepad.Gamepad;
 import net.kdt.pojavlaunch.customcontrols.gamepad.GamepadMapperAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import fr.spse.gamepad_remapper.RemapperManager;
 import fr.spse.gamepad_remapper.RemapperView;
@@ -68,7 +64,6 @@ public class GamepadMapperFragment extends FragmentWithAnim implements
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         mControllerLayout = view.findViewById(R.id.controller_layout);
         mOperateLayout = view.findViewById(R.id.operate_layout);
         Button backButton = view.findViewById(R.id.back_button);
@@ -87,13 +82,6 @@ public class GamepadMapperFragment extends FragmentWithAnim implements
         grabStateSpinner.setAdapter(mGrabStateAdapter);
         grabStateSpinner.setSelection(0);
         grabStateSpinner.setOnItemSelectedListener(this);
-        ViewAnimUtils.slideInAnim(this);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        ViewAnimUtils.slideInAnim(this);
     }
 
     private void createGamepad(View mainView, InputDevice inputDevice) {
@@ -142,25 +130,15 @@ public class GamepadMapperFragment extends FragmentWithAnim implements
 
     }
 
-    @Nullable
     @Override
-    public YoYo.YoYoString[] slideIn() {
-        List<YoYo.YoYoString> yoYos = new ArrayList<>();
-        yoYos.add(ViewAnimUtils.setViewAnim(mControllerLayout, Techniques.BounceInDown));
-        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
-        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
-        super.setYoYos(array);
-        return array;
+    public void slideIn(AnimPlayer animPlayer) {
+        animPlayer.apply(new AnimPlayer.Entry(mControllerLayout, Animations.BounceInDown))
+                .apply(new AnimPlayer.Entry(mOperateLayout, Animations.BounceInLeft));
     }
 
-    @Nullable
     @Override
-    public YoYo.YoYoString[] slideOut() {
-        List<YoYo.YoYoString> yoYos = new ArrayList<>();
-        yoYos.add(ViewAnimUtils.setViewAnim(mControllerLayout, Techniques.FadeOutUp));
-        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight));
-        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
-        super.setYoYos(array);
-        return array;
+    public void slideOut(AnimPlayer animPlayer) {
+        animPlayer.apply(new AnimPlayer.Entry(mControllerLayout, Animations.FadeOutUp))
+                .apply(new AnimPlayer.Entry(mOperateLayout, Animations.FadeOutRight));
     }
 }

@@ -16,9 +16,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.google.gson.Gson;
+import com.movtery.anim.AnimPlayer;
+import com.movtery.anim.animations.Animations;
 import com.movtery.pojavzh.extra.ZHExtraConstants;
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.feature.login.AuthResult;
@@ -30,7 +30,6 @@ import com.movtery.pojavzh.ui.dialog.SelectRoleDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 import com.skydoves.powerspinner.DefaultSpinnerAdapter;
 import com.skydoves.powerspinner.OnSpinnerItemSelectedListener;
@@ -73,7 +72,6 @@ public class OtherLoginFragment extends FragmentWithAnim {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         bindViews(view);
 
         mServersFile = new File(PathAndUrlManager.DIR_GAME_HOME, "servers.json");
@@ -182,8 +180,6 @@ public class OtherLoginFragment extends FragmentWithAnim {
                 runOnUiThread(() -> Toast.makeText(requireContext(), getString(R.string.zh_other_login_server_not_empty), Toast.LENGTH_SHORT).show());
             }
         }));
-
-        ViewAnimUtils.slideInAnim(this);
     }
 
     @Override
@@ -335,18 +331,12 @@ public class OtherLoginFragment extends FragmentWithAnim {
     }
 
     @Override
-    public YoYo.YoYoString[] slideIn() {
-        YoYo.YoYoString yoYoString = ViewAnimUtils.setViewAnim(mMainView, Techniques.BounceInDown);
-        YoYo.YoYoString[] array = {yoYoString};
-        super.setYoYos(array);
-        return array;
+    public void slideIn(AnimPlayer animPlayer) {
+        animPlayer.apply(new AnimPlayer.Entry(mMainView, Animations.BounceInDown));
     }
 
     @Override
-    public YoYo.YoYoString[] slideOut() {
-        YoYo.YoYoString yoYoString = ViewAnimUtils.setViewAnim(mMainView, Techniques.FadeOutUp);
-        YoYo.YoYoString[] array = {yoYoString};
-        super.setYoYos(array);
-        return array;
+    public void slideOut(AnimPlayer animPlayer) {
+        animPlayer.apply(new AnimPlayer.Entry(mMainView, Animations.FadeOutUp));
     }
 }

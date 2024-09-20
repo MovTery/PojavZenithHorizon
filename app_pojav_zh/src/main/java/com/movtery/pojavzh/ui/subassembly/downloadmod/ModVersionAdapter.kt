@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.daimajia.androidanimations.library.Techniques
+import com.movtery.anim.animations.Animations
 import com.movtery.pojavzh.ui.dialog.EditTextDialog
 import com.movtery.pojavzh.ui.dialog.ModDependenciesDialog
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies.SelectedMod
@@ -85,7 +85,7 @@ class ModVersionAdapter(
 
             mainView.setOnClickListener { _: View? ->
                 if (mTasksRunning) {
-                    setViewAnim(mainView, Techniques.Shake)
+                    setViewAnim(mainView, Animations.Shake)
                     Toast.makeText(context, context.getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }

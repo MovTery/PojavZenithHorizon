@@ -5,7 +5,7 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
-import com.daimajia.androidanimations.library.Techniques
+import com.movtery.anim.animations.Animations
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
 import net.kdt.pojavlaunch.R
 
@@ -37,6 +37,6 @@ class AnimEditText @JvmOverloads constructor(
     }
 
     private fun setErrorAnim() {
-        setViewAnim(this, Techniques.Shake)
+        setViewAnim(this, Animations.Shake)
     }
 }

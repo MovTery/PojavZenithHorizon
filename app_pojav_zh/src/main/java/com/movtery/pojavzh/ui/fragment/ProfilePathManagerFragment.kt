@@ -10,11 +10,11 @@ import android.widget.EditText
 import android.widget.ImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo.YoYoString
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.google.gson.Gson
 import com.google.gson.JsonParser
+import com.movtery.anim.AnimPlayer
+import com.movtery.anim.animations.Animations
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathJsonObject
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager.Companion.save
 import com.movtery.pojavzh.ui.dialog.EditTextDialog
@@ -23,8 +23,6 @@ import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathAdapter
 import com.movtery.pojavzh.utils.NewbieGuideUtils
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.extra.ExtraConstants
@@ -104,8 +102,6 @@ class ProfilePathManagerFragment : FragmentWithAnim(R.layout.fragment_profile_pa
         }
         returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
 
-        slideInAnim(this)
-
         if (NewbieGuideUtils.showOnlyOne(TAG)) return
         val fragmentActivity = requireActivity()
         TapTargetSequence(fragmentActivity)
@@ -150,22 +146,14 @@ class ProfilePathManagerFragment : FragmentWithAnim(R.layout.fragment_profile_pa
         return false
     }
 
-    override fun slideIn(): Array<YoYoString?> {
-        val yoYos: MutableList<YoYoString?> = ArrayList()
-        yoYos.add(setViewAnim(mPathLayout!!, Techniques.BounceInDown))
-        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.BounceInLeft))
-        yoYos.add(setViewAnim(mOperateView!!, Techniques.FadeInLeft))
-        val array = yoYos.toTypedArray()
-        super.yoYos = array
-        return array
+    override fun slideIn(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(mPathLayout!!, Animations.BounceInDown))
+            .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.BounceInLeft))
+            .apply(AnimPlayer.Entry(mOperateView!!, Animations.FadeInLeft))
     }
 
-    override fun slideOut(): Array<YoYoString?> {
-        val yoYos: MutableList<YoYoString?> = ArrayList()
-        yoYos.add(setViewAnim(mPathLayout!!, Techniques.FadeOutUp))
-        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.FadeOutRight))
-        val array = yoYos.toTypedArray()
-        super.yoYos = array
-        return array
+    override fun slideOut(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(mPathLayout!!, Animations.FadeOutUp))
+            .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.FadeOutRight))
     }
 }

@@ -1,42 +1,32 @@
 package com.movtery.pojavzh.utils.anim
 
 import android.view.View
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo
-import com.movtery.pojavzh.ui.fragment.FragmentWithAnim
-import net.kdt.pojavlaunch.prefs.LauncherPreferences
+import com.movtery.anim.AnimCallback
+import com.movtery.anim.AnimPlayer
+import com.movtery.anim.animations.Animations
 
 class ViewAnimUtils {
     companion object {
         @JvmStatic
-        fun setViewAnim(view: View, techniques: Techniques): YoYo.YoYoString? {
-            return setViewAnim(view, techniques, LauncherPreferences.PREF_ANIMATION_SPEED.toLong())
+        fun setViewAnim(view: View, animations: Animations) {
+            getAnimPlayer(view, animations).start()
         }
 
         @JvmStatic
-        fun setViewAnim(view: View, techniques: Techniques, duration: Long): YoYo.YoYoString? {
-            return YoYo.with(techniques)
-                .duration(duration)
-                .playOn(view)
+        fun setViewAnim(view: View, animations: Animations, duration: Long) {
+            getAnimPlayer(view, animations).duration(duration).start()
         }
 
         @JvmStatic
-        fun setViewAnim(view: View, techniques: Techniques, onStart: YoYo.AnimatorCallback, onEnd: YoYo.AnimatorCallback): YoYo.YoYoString? {
-            return setViewAnim(view, techniques, LauncherPreferences.PREF_ANIMATION_SPEED.toLong(), onStart, onEnd)
+        fun setViewAnim(view: View, animations: Animations, onStart: AnimCallback, onEnd: AnimCallback) {
+            getAnimPlayer(view, animations).setOnStart(onStart).setOnEnd(onEnd).start()
         }
 
         @JvmStatic
-        fun setViewAnim(view: View, techniques: Techniques, duration: Long, onStart: YoYo.AnimatorCallback, onEnd: YoYo.AnimatorCallback): YoYo.YoYoString? {
-            return YoYo.with(techniques)
-                .duration(duration)
-                .onStart(onStart)
-                .onEnd(onEnd)
-                .playOn(view)
+        fun setViewAnim(view: View, animations: Animations, duration: Long, onStart: AnimCallback, onEnd: AnimCallback) {
+            getAnimPlayer(view, animations).duration(duration).setOnStart(onStart).setOnEnd(onEnd).start()
         }
 
-        @JvmStatic
-        fun slideInAnim(fragmentWithAnim: FragmentWithAnim) {
-            if (LauncherPreferences.PREF_ANIMATION) fragmentWithAnim.slideIn()
-        }
+        private fun getAnimPlayer(view: View, animations: Animations) = AnimPlayer.play().apply(AnimPlayer.Entry(view, animations))
     }
 }
