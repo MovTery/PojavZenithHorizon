@@ -1,38 +1,32 @@
 package com.movtery.pojavzh.utils.image
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import java.io.File
-import java.io.FileInputStream
-import java.io.IOException
 import kotlin.math.min
 
 class ImageUtils {
     companion object {
-        /***
-         * 通过读取文件的头部信息来判断文件是否为图片
-         * @param filePath 文件路径
+        /**
+         * 通过 BitmapFactory 检查一个文件是否为一个图片
+         * @param file 文件
          * @return 返回是否为图片
          */
+        //使用源代码：https://github.com/lamba92/KImageCheck/blob/master/src/androidMain/kotlin/com/github/lamba92/utils/KImageCheck.kt#L12
         @JvmStatic
-        fun isImage(filePath: File?): Boolean {
-            try {
-                FileInputStream(filePath).use { input ->
-                    val header = ByteArray(4)
-                    if (input.read(header, 0, 4) != -1) {
-                        return (header[0] == 0xFF.toByte() && header[1] == 0xD8.toByte() && header[2] == 0xFF.toByte()) ||  //JPEG
-                                (header[0] == 0x89.toByte() && header[1] == 0x50.toByte() && header[2] == 0x4E.toByte() && header[3] == 0x47.toByte()) ||  //PNG
-                                (header[0] == 0x47.toByte() && header[1] == 0x49.toByte() && header[2] == 0x46.toByte()) ||  //GIF
-                                (header[0] == 0x42.toByte() && header[1] == 0x4D.toByte()) ||  //BMP
-                                ((header[0] == 0x49.toByte() && header[1] == 0x49.toByte() && header[2] == 0x2A.toByte() && header[3] == 0x00.toByte()) ||  //TIFF
-                                        (header[0] == 0x4D.toByte() && header[1] == 0x4D.toByte() && header[2] == 0x00.toByte() && header[3] == 0x2A.toByte())) //TIFF
-                    }
+        fun isImage(file: File?): Boolean {
+            file?.apply {
+                if (isDirectory) return false
+                runCatching {
+                    val options = BitmapFactory.Options()
+                    options.inJustDecodeBounds = true
+                    BitmapFactory.decodeFile(path, options)
+                    return options.outWidth != -1 || options.outHeight != -1
                 }
-            } catch (e: IOException) {
-                return false
             }
             return false
         }
