@@ -289,6 +289,7 @@ public class OtherLoginFragment extends FragmentWithAnim {
                         requireActivity().runOnUiThread(() -> new TipDialog.Builder(requireContext())
                                 .setTitle(R.string.zh_warning)
                                 .setMessage(getString(R.string.zh_other_login_error) + error)
+                                .setCenterMessage(false)
                                 .setCancel(android.R.string.copy)
                                 .setCancelClickListener(() -> StringUtils.copyText("error", error, requireContext()))
                                 .buildDialog());

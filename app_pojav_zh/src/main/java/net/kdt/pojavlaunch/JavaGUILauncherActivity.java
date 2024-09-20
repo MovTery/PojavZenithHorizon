@@ -276,6 +276,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
         runOnUiThread(()-> new TipDialog.Builder(this)
                 .setTitle(R.string.global_error)
                 .setMessage(msg.toString())
+                .setCenterMessage(false)
                 .setConfirmClickListener(this::finish)
                 .setCancelable(false)
                 .buildDialog());
