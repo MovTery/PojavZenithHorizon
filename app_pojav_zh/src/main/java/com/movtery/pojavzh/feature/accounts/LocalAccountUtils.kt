@@ -29,10 +29,9 @@ class LocalAccountUtils {
             message: String?,
             confirm: Int
         ) {
-            val inflater = activity.layoutInflater
             val edit = LauncherPreferences.DEFAULT_PREF.edit()
             //不再提醒
-            val checkBox = inflater.inflate(R.layout.item_check_box, null) as CheckBox
+            val checkBox = CheckBox(activity)
             checkBox.setText(R.string.zh_no_more_reminders)
             checkBox.setOnCheckedChangeListener { _: Button?, isChecked: Boolean ->
                 edit.putBoolean(
