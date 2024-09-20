@@ -1,33 +1,33 @@
 package com.movtery.pojavzh.ui.fragment
 
 import androidx.fragment.app.Fragment
-import com.daimajia.androidanimations.library.YoYo.YoYoString
+import com.movtery.anim.AnimPlayer
 import com.movtery.pojavzh.utils.anim.SlideAnimation
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
 
 abstract class FragmentWithAnim : Fragment, SlideAnimation {
-    var yoYos: Array<YoYoString?>? = null
+    private var animPlayer: AnimPlayer = AnimPlayer()
 
     constructor()
 
     constructor(contentLayoutId: Int) : super(contentLayoutId)
 
     override fun onResume() {
-        if (LauncherPreferences.PREF_ANIMATION) {
-            //如果恢复视图时结束动画仍在运行，则停止它们
-            var isRunning = false
-            yoYos?.let {
-                for (yoYo in yoYos!!) {
-                    yoYo?.let {
-                        if (yoYo.isStarted && yoYo.isRunning) {
-                            if (!isRunning) isRunning = true
-                            yoYo.stop(true)
-                        }
-                    }
-                }
-            }
-            if (isRunning) slideIn()
-        }
         super.onResume()
+        playAnimation { slideIn(it) }
+    }
+
+    fun slideOut() {
+        playAnimation { slideOut(it) }
+    }
+
+    private fun playAnimation(animationAction: (AnimPlayer) -> Unit) {
+        if (LauncherPreferences.PREF_ANIMATION) {
+            animPlayer.clearEntries()
+            animPlayer.apply {
+                animationAction(this)
+                start()
+            }
+        }
     }
 }

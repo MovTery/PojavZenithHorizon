@@ -9,14 +9,13 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
+import com.movtery.anim.AnimPlayer;
+import com.movtery.anim.animations.Animations;
 import com.movtery.pojavzh.extra.ZHExtraConstants;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -61,8 +60,6 @@ public class LocalLoginFragment extends FragmentWithAnim {
         });
 
         mReturnButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
-
-        ViewAnimUtils.slideInAnim(this);
     }
 
     /** @return Whether the mail (and password) text are eligible to make an auth request  */
@@ -86,18 +83,12 @@ public class LocalLoginFragment extends FragmentWithAnim {
     }
 
     @Override
-    public YoYo.YoYoString[] slideIn() {
-        YoYo.YoYoString yoYoString = ViewAnimUtils.setViewAnim(mMainMenu, Techniques.BounceInDown);
-        YoYo.YoYoString[] array = {yoYoString};
-        super.setYoYos(array);
-        return array;
+    public void slideIn(AnimPlayer animPlayer) {
+        animPlayer.apply(new AnimPlayer.Entry(mMainMenu, Animations.BounceInDown));
     }
 
     @Override
-    public YoYo.YoYoString[] slideOut() {
-        YoYo.YoYoString yoYoString = ViewAnimUtils.setViewAnim(mMainMenu, Techniques.FadeOutUp);
-        YoYo.YoYoString[] array = {yoYoString};
-        super.setYoYos(array);
-        return array;
+    public void slideOut(AnimPlayer animPlayer) {
+        animPlayer.apply(new AnimPlayer.Entry(mMainMenu, Animations.FadeOutUp));
     }
 }

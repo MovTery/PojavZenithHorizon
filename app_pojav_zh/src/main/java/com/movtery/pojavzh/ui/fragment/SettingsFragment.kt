@@ -8,8 +8,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo.YoYoString
+import com.movtery.anim.AnimPlayer
+import com.movtery.anim.animations.Animations
 import com.movtery.pojavzh.ui.fragment.settings.ControlSettingsFragment
 import com.movtery.pojavzh.ui.fragment.settings.ExperimentalSettingsFragment
 import com.movtery.pojavzh.ui.fragment.settings.JavaSettingsFragment
@@ -17,8 +17,6 @@ import com.movtery.pojavzh.ui.fragment.settings.LauncherSettingsFragment
 import com.movtery.pojavzh.ui.fragment.settings.MiscellaneousSettingsFragment
 import com.movtery.pojavzh.ui.fragment.settings.VideoSettingsFragment
 import com.movtery.pojavzh.ui.view.AnimSideIndicatorView
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 
@@ -41,8 +39,6 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
                 mSettingsViewpager?.currentItem = index
             }
         }
-
-        slideInAnim(this)
     }
 
     private fun initViewPager() {
@@ -80,22 +76,14 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
         )
     }
 
-    override fun slideIn(): Array<YoYoString?> {
-        val yoYos: MutableList<YoYoString?> = ArrayList()
-        yoYos.add(setViewAnim(mSettingsLayout!!, Techniques.BounceInRight))
-        yoYos.add(setViewAnim(mSettingsViewpager!!, Techniques.BounceInDown))
-        val array = yoYos.toTypedArray()
-        super.yoYos = array
-        return array
+    override fun slideIn(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(mSettingsLayout!!, Animations.BounceInRight))
+            .apply(AnimPlayer.Entry(mSettingsViewpager!!, Animations.BounceInDown))
     }
 
-    override fun slideOut(): Array<YoYoString?> {
-        val yoYos: MutableList<YoYoString?> = ArrayList()
-        yoYos.add(setViewAnim(mSettingsLayout!!, Techniques.FadeOutLeft))
-        yoYos.add(setViewAnim(mSettingsViewpager!!, Techniques.FadeOutUp))
-        val array = yoYos.toTypedArray()
-        super.yoYos = array
-        return array
+    override fun slideOut(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(mSettingsLayout!!, Animations.FadeOutLeft))
+            .apply(AnimPlayer.Entry(mSettingsViewpager!!, Animations.FadeOutUp))
     }
 
     private class ViewPagerAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {

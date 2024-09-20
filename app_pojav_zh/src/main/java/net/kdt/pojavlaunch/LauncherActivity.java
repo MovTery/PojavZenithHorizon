@@ -28,8 +28,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 
-import com.daimajia.androidanimations.library.Techniques;
 import com.kdt.mcgui.ProgressLayout;
+import com.movtery.anim.animations.Animations;
 import com.movtery.pojavzh.extra.ZHExtraConstants;
 import com.movtery.pojavzh.feature.UpdateLauncher;
 import com.movtery.pojavzh.feature.accounts.AccountUpdateListener;
@@ -155,7 +155,7 @@ public class LauncherActivity extends BaseActivity {
 
     /* Listener for the settings fragment */
     private final View.OnClickListener mSettingButtonListener = v -> {
-        ViewAnimUtils.setViewAnim(mSettingsButton, Techniques.Pulse);
+        ViewAnimUtils.setViewAnim(mSettingsButton, Animations.Pulse);
         Fragment fragment = getSupportFragmentManager().findFragmentById(mFragmentView.getId());
         if(fragment instanceof MainMenuFragment){
             ZHTools.swapFragmentWithAnim(fragment, SettingsFragment.class, SettingsFragment.TAG, null);
@@ -536,7 +536,7 @@ public class LauncherActivity extends BaseActivity {
         mAppTitle = findViewById(R.id.app_title_text);
 
         mSettingsButtonWrapper = new SettingsButtonWrapper(mSettingsButton);
-        mSettingsButtonWrapper.setOnTypeChangeListener(type -> ViewAnimUtils.setViewAnim(mSettingsButton, Techniques.Pulse));
+        mSettingsButtonWrapper.setOnTypeChangeListener(type -> ViewAnimUtils.setViewAnim(mSettingsButton, Animations.Pulse));
 
         mHair = findViewById(R.id.zh_hair);
     }

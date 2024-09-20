@@ -9,10 +9,10 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo.YoYoString
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.google.android.material.tabs.TabLayout
+import com.movtery.anim.AnimPlayer
+import com.movtery.anim.animations.Animations
 import com.movtery.pojavzh.extra.ZHExtraConstants
 import com.movtery.pojavzh.ui.dialog.FilesDialog
 import com.movtery.pojavzh.ui.dialog.FilesDialog.FilesButton
@@ -26,8 +26,6 @@ import com.movtery.pojavzh.utils.NewbieGuideUtils
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.anim.AnimUtils.Companion.setVisibilityAnim
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
 import com.movtery.pojavzh.utils.file.FileTools.Companion.copyFileInBackground
 import com.movtery.pojavzh.utils.file.FileTools.Companion.mkdirs
 import com.movtery.pojavzh.utils.image.ImageUtils.Companion.isImage
@@ -144,7 +142,6 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
 
         mFileRecyclerView?.lockAndListAt(backgroundPath(), backgroundPath())
 
-        slideInAnim(this)
         startNewbieGuide()
     }
 
@@ -158,11 +155,6 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
                 NewbieGuideUtils.getSimpleTarget(fragmentActivity, mAddFileButton, getString(R.string.zh_custom_background_add), getString(R.string.zh_newbie_guide_background_import)),
                 NewbieGuideUtils.getSimpleTarget(fragmentActivity, mReturnButton, getString(R.string.zh_return), getString(R.string.zh_newbie_guide_general_close)))
             .start()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        slideInAnim(this)
     }
 
     private fun initBackgroundMap() {
@@ -242,21 +234,13 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
         mTabLayout?.selectTab(mainMenu)
     }
 
-    override fun slideIn(): Array<YoYoString?> {
-        val yoYos: MutableList<YoYoString?> = ArrayList()
-        yoYos.add(setViewAnim(mBackgroundLayout!!, Techniques.BounceInDown))
-        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.BounceInLeft))
-        val array = yoYos.toTypedArray()
-        super.yoYos = array
-        return array
+    override fun slideIn(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(mBackgroundLayout!!, Animations.BounceInDown))
+            .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.BounceInLeft))
     }
 
-    override fun slideOut(): Array<YoYoString?> {
-        val yoYos: MutableList<YoYoString?> = ArrayList()
-        yoYos.add(setViewAnim(mBackgroundLayout!!, Techniques.FadeOutUp))
-        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.FadeOutRight))
-        val array = yoYos.toTypedArray()
-        super.yoYos = array
-        return array
+    override fun slideOut(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(mBackgroundLayout!!, Animations.FadeOutUp))
+            .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.FadeOutRight))
     }
 }

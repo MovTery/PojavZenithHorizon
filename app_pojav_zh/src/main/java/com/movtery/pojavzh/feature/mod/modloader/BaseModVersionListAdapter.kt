@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.daimajia.androidanimations.library.Techniques
+import com.movtery.anim.animations.Animations
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.modloaders.FabricVersion
@@ -69,7 +69,7 @@ open class BaseModVersionListAdapter(private val mData: List<*>?) :
             }
             mainView.setOnClickListener { _: View? ->
                 if (mTasksRunning) {
-                    ViewAnimUtils.setViewAnim(mainView, Techniques.Shake)
+                    ViewAnimUtils.setViewAnim(mainView, Animations.Shake)
                     Toast.makeText(context, context.getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT)
                         .show()
                     return@setOnClickListener

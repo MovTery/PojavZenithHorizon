@@ -14,14 +14,13 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo.YoYoString
+import com.movtery.anim.AnimPlayer
+import com.movtery.anim.animations.Animations
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.anim.AnimUtils
 import com.movtery.pojavzh.utils.anim.AnimUtils.Companion.setVisibilityAnimYoYo
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
 import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
@@ -52,8 +51,6 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         bindViews(view)
         init()
-
-        slideInAnim(this)
     }
 
     protected open fun init() {
@@ -100,9 +97,9 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
         mRefreshButton?.isClickable = !hide
         releaseCheckBox?.isClickable = !hide
 
-        setViewAnim(mSelectTitle!!, if (hide) Techniques.FadeIn else Techniques.FadeOut, (LauncherPreferences.PREF_ANIMATION_SPEED * 0.7).toLong())
-        setViewAnim(mRefreshButton!!, if (hide) Techniques.FadeOut else Techniques.FadeIn, (LauncherPreferences.PREF_ANIMATION_SPEED * 0.7).toLong())
-        if (releaseCheckBoxVisible) setViewAnim(releaseCheckBox!!, if (hide) Techniques.FadeOut else Techniques.FadeIn, (LauncherPreferences.PREF_ANIMATION_SPEED * 0.7).toLong())
+        setViewAnim(mSelectTitle!!, if (hide) Animations.FadeIn else Animations.FadeOut, (LauncherPreferences.PREF_ANIMATION_SPEED * 0.7).toLong())
+        setViewAnim(mRefreshButton!!, if (hide) Animations.FadeOut else Animations.FadeIn, (LauncherPreferences.PREF_ANIMATION_SPEED * 0.7).toLong())
+        if (releaseCheckBoxVisible) setViewAnim(releaseCheckBox!!, if (hide) Animations.FadeOut else Animations.FadeIn, (LauncherPreferences.PREF_ANIMATION_SPEED * 0.7).toLong())
     }
 
     private fun cancelTask() {
@@ -206,27 +203,18 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
         }
     }
 
-    override fun slideIn(): Array<YoYoString?> {
-        val yoYos: MutableList<YoYoString?> = ArrayList()
-        yoYos.add(setViewAnim(mModsLayout!!, Techniques.BounceInDown))
-        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.BounceInLeft))
-
-        yoYos.add(setViewAnim(mIcon!!, Techniques.Wobble))
-        yoYos.add(setViewAnim(mTitleLayout!!, Techniques.FadeInLeft))
-        yoYos.add(setViewAnim(mReturnButton!!, Techniques.FadeInLeft))
-        yoYos.add(setViewAnim(mRefreshButton!!, Techniques.FadeInLeft))
-        yoYos.add(setViewAnim(releaseCheckBox!!, Techniques.FadeInLeft))
-        val array = yoYos.toTypedArray()
-        super.yoYos = array
-        return array
+    override fun slideIn(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(mModsLayout!!, Animations.BounceInDown))
+            .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.BounceInLeft))
+            .apply(AnimPlayer.Entry(mIcon!!, Animations.Wobble))
+            .apply(AnimPlayer.Entry(mTitleLayout!!, Animations.FadeInLeft))
+            .apply(AnimPlayer.Entry(mReturnButton!!, Animations.FadeInLeft))
+            .apply(AnimPlayer.Entry(mRefreshButton!!, Animations.FadeInLeft))
+            .apply(AnimPlayer.Entry(releaseCheckBox!!, Animations.FadeInLeft))
     }
 
-    override fun slideOut(): Array<YoYoString?> {
-        val yoYos: MutableList<YoYoString?> = ArrayList()
-        yoYos.add(setViewAnim(mModsLayout!!, Techniques.FadeOutUp))
-        yoYos.add(setViewAnim(mOperateLayout!!, Techniques.FadeOutRight))
-        val array = yoYos.toTypedArray()
-        super.yoYos = array
-        return array
+    override fun slideOut(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(mModsLayout!!, Animations.FadeOutUp))
+            .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.FadeOutRight))
     }
 }

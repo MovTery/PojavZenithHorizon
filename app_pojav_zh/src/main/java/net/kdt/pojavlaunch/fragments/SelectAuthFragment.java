@@ -11,13 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
+import com.movtery.anim.AnimPlayer;
+import com.movtery.anim.animations.Animations;
 import com.movtery.pojavzh.feature.accounts.LocalAccountUtils;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
 import com.movtery.pojavzh.ui.fragment.OtherLoginFragment;
 import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
 import net.kdt.pojavlaunch.R;
 
@@ -76,23 +75,15 @@ public class SelectAuthFragment extends FragmentWithAnim {
                 }
             }
         }));
-
-        ViewAnimUtils.slideInAnim(this);
     }
 
     @Override
-    public YoYo.YoYoString[] slideIn() {
-        YoYo.YoYoString yoYoString = ViewAnimUtils.setViewAnim(mMainView, Techniques.BounceInDown);
-        YoYo.YoYoString[] array = {yoYoString};
-        super.setYoYos(array);
-        return array;
+    public void slideIn(AnimPlayer animPlayer) {
+        animPlayer.apply(new AnimPlayer.Entry(mMainView, Animations.BounceInDown));
     }
 
     @Override
-    public YoYo.YoYoString[] slideOut() {
-        YoYo.YoYoString yoYoString = ViewAnimUtils.setViewAnim(mMainView, Techniques.FadeOutUp);
-        YoYo.YoYoString[] array = {yoYoString};
-        super.setYoYos(array);
-        return array;
+    public void slideOut(AnimPlayer animPlayer) {
+        animPlayer.apply(new AnimPlayer.Entry(mMainView, Animations.FadeOutUp));
     }
 }

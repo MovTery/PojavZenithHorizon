@@ -19,8 +19,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
+import com.movtery.anim.AnimPlayer;
+import com.movtery.anim.animations.Animations;
 import com.movtery.pojavzh.feature.mod.ModCategory;
 import com.movtery.pojavzh.feature.mod.ModFilters;
 import com.movtery.pojavzh.feature.mod.ModLoaderList;
@@ -35,7 +35,6 @@ import com.movtery.pojavzh.ui.subassembly.versionlist.VersionSelectedListener;
 import com.movtery.pojavzh.utils.anim.AnimUtils;
 import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 import com.skydoves.powerspinner.DefaultSpinnerAdapter;
 import com.skydoves.powerspinner.OnSpinnerItemSelectedListener;
@@ -132,8 +131,6 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
         mBackButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
 
         searchMods(null); //自动搜索一次
-
-        ViewAnimUtils.slideInAnim(this);
     }
 
     @Override
@@ -295,22 +292,14 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
     }
 
     @Override
-    public YoYo.YoYoString[] slideIn() {
-        List<YoYo.YoYoString> yoYos = new ArrayList<>();
-        yoYos.add(ViewAnimUtils.setViewAnim(mModsLayout, Techniques.BounceInDown));
-        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
-        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
-        super.setYoYos(array);
-        return array;
+    public void slideIn(AnimPlayer animPlayer) {
+        animPlayer.apply(new AnimPlayer.Entry(mModsLayout, Animations.BounceInDown))
+                .apply(new AnimPlayer.Entry(mOperateLayout, Animations.BounceInLeft));
     }
 
     @Override
-    public YoYo.YoYoString[] slideOut() {
-        List<YoYo.YoYoString> yoYos = new ArrayList<>();
-        yoYos.add(ViewAnimUtils.setViewAnim(mModsLayout, Techniques.FadeOutUp));
-        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight));
-        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
-        super.setYoYos(array);
-        return array;
+    public void slideOut(AnimPlayer animPlayer) {
+        animPlayer.apply(new AnimPlayer.Entry(mModsLayout, Animations.FadeOutUp))
+                .apply(new AnimPlayer.Entry(mOperateLayout, Animations.FadeOutRight));
     }
 }

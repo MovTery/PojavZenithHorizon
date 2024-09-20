@@ -18,8 +18,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
+import com.movtery.anim.AnimPlayer;
+import com.movtery.anim.animations.Animations;
 import com.movtery.pojavzh.extra.ZHExtraConstants;
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
@@ -29,7 +29,6 @@ import com.movtery.pojavzh.ui.fragment.VersionSelectorFragment;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 import com.movtery.pojavzh.utils.file.FileTools;
 import com.skydoves.powerspinner.DefaultSpinnerAdapter;
 import com.skydoves.powerspinner.OnSpinnerItemSelectedListener;
@@ -139,8 +138,6 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
         mProfileLayout.setOnClickListener(v -> CropperUtils.startCropper(mCropperLauncher));
 
         loadValues(LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, ""), view.getContext());
-
-        ViewAnimUtils.slideInAnim(this);
     }
 
     @Override
@@ -293,26 +290,15 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
     }
 
     @Override
-    public YoYo.YoYoString[] slideIn() {
-        List<YoYo.YoYoString> yoYos = new ArrayList<>();
-        yoYos.add(ViewAnimUtils.setViewAnim(mEditorLayout, Techniques.BounceInDown));
-        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.BounceInLeft));
-
-        yoYos.add(ViewAnimUtils.setViewAnim(mProfileLayout, Techniques.Wobble));
-        yoYos.add(ViewAnimUtils.setViewAnim(mCancelButton, Techniques.FadeInLeft));
-        yoYos.add(ViewAnimUtils.setViewAnim(mSaveButton, Techniques.FadeInLeft));
-        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
-        super.setYoYos(array);
-        return array;
+    public void slideIn(AnimPlayer animPlayer) {
+        animPlayer.apply(new AnimPlayer.Entry(mEditorLayout, Animations.BounceInDown))
+                .apply(new AnimPlayer.Entry(mOperateLayout, Animations.BounceInLeft))
+                .apply(new AnimPlayer.Entry(mProfileLayout, Animations.Wobble));
     }
 
     @Override
-    public YoYo.YoYoString[] slideOut() {
-        List<YoYo.YoYoString> yoYos = new ArrayList<>();
-        yoYos.add(ViewAnimUtils.setViewAnim(mEditorLayout, Techniques.FadeOutUp));
-        yoYos.add(ViewAnimUtils.setViewAnim(mOperateLayout, Techniques.FadeOutRight));
-        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
-        super.setYoYos(array);
-        return array;
+    public void slideOut(AnimPlayer animPlayer) {
+        animPlayer.apply(new AnimPlayer.Entry(mEditorLayout, Animations.FadeOutUp))
+                .apply(new AnimPlayer.Entry(mOperateLayout, Animations.FadeOutRight));
     }
 }

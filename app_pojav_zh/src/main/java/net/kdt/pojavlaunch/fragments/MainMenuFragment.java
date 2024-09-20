@@ -22,9 +22,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.kdt.mcgui.mcVersionSpinner;
+import com.movtery.anim.AnimPlayer;
+import com.movtery.anim.animations.Animations;
 import com.movtery.pojavzh.feature.accounts.AccountUpdateListener;
 import com.movtery.pojavzh.ui.fragment.AboutFragment;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
@@ -49,8 +49,6 @@ import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Future;
 
 public class MainMenuFragment extends FragmentWithAnim implements TaskCountListener, AccountUpdateListener {
@@ -97,15 +95,15 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
         });
         mPathManagerButton.setOnClickListener(v -> {
             if (!mTasksRunning) {
-                ViewAnimUtils.setViewAnim(mPathManagerButton, Techniques.Pulse);
+                ViewAnimUtils.setViewAnim(mPathManagerButton, Animations.Pulse);
                 ZHTools.swapFragmentWithAnim(this, ProfilePathManagerFragment.class, ProfilePathManagerFragment.TAG, null);
             } else {
-                ViewAnimUtils.setViewAnim(mPathManagerButton, Techniques.Shake);
+                ViewAnimUtils.setViewAnim(mPathManagerButton, Animations.Shake);
                 runOnUiThread(() -> Toast.makeText(requireContext(), R.string.zh_profiles_path_task_in_progress, Toast.LENGTH_SHORT).show());
             }
         });
         mManagerProfileButton.setOnClickListener(v -> {
-            ViewAnimUtils.setViewAnim(mManagerProfileButton, Techniques.Pulse);
+            ViewAnimUtils.setViewAnim(mManagerProfileButton, Animations.Pulse);
             ZHTools.swapFragmentWithAnim(this, ProfileManagerFragment.class, ProfileManagerFragment.TAG, null);
         });
 
@@ -123,8 +121,6 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
         });
 
         initNotice(view);
-
-        ViewAnimUtils.slideInAnim(this);
     }
 
     private void initNotice(View view) {
@@ -268,28 +264,15 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
     }
 
     @Override
-    public YoYo.YoYoString[] slideIn() {
-        List<YoYo.YoYoString> yoYos = new ArrayList<>();
-        yoYos.add(ViewAnimUtils.setViewAnim(mMenuLayout, Techniques.BounceInDown));
-        yoYos.add(ViewAnimUtils.setViewAnim(mPlayLayout, Techniques.BounceInLeft));
-
-        yoYos.add(ViewAnimUtils.setViewAnim(accountViewWrapper.getMainView(), Techniques.Wobble));
-        yoYos.add(ViewAnimUtils.setViewAnim(mPathManagerButton, Techniques.FadeInLeft));
-        yoYos.add(ViewAnimUtils.setViewAnim(mManagerProfileButton, Techniques.FadeInLeft));
-        yoYos.add(ViewAnimUtils.setViewAnim(mVersionSpinner, Techniques.FadeInLeft));
-        yoYos.add(ViewAnimUtils.setViewAnim(mPlayButton, Techniques.FadeInLeft));
-        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
-        super.setYoYos(array);
-        return array;
+    public void slideIn(AnimPlayer animPlayer) {
+        animPlayer.apply(new AnimPlayer.Entry(mMenuLayout, Animations.BounceInDown))
+                .apply(new AnimPlayer.Entry(mPlayLayout, Animations.BounceInLeft))
+                .apply(new AnimPlayer.Entry(accountViewWrapper.getMainView(), Animations.Wobble));
     }
 
     @Override
-    public YoYo.YoYoString[] slideOut() {
-        List<YoYo.YoYoString> yoYos = new ArrayList<>();
-        yoYos.add(ViewAnimUtils.setViewAnim(mMenuLayout, Techniques.FadeOutUp));
-        yoYos.add(ViewAnimUtils.setViewAnim(mPlayLayout, Techniques.FadeOutRight));
-        YoYo.YoYoString[] array = yoYos.toArray(new YoYo.YoYoString[]{});
-        super.setYoYos(array);
-        return array;
+    public void slideOut(AnimPlayer animPlayer) {
+        animPlayer.apply(new AnimPlayer.Entry(mMenuLayout, Animations.FadeOutUp))
+                .apply(new AnimPlayer.Entry(mPlayLayout, Animations.FadeOutRight));
     }
 }
