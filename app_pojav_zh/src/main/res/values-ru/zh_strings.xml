@@ -270,7 +270,7 @@
     <string name="zh_update_without">Текущая версия уже последняя</string>
     <string name="zh_update_fail">Ошибка сети, обновления временно недоступны!</string>
     <string name="zh_update_fail_code">Сетевая ошибка, временно невозможно получить обновления! Код ошибки: %d</string>
-    <string name="zh_update_success">Последний установочный пакет загружен, установить?\nРасположение пакета:</string>
+    <string name="zh_update_success">Последний установочный пакет был загружен. Вы хотите его установить? Местоположение пакета:</string>
     <string name="zh_update_update_source">Выбрать источник обновления</string>
     <string name="zh_update_update_source_ghproxy">Ускоренный источник Ghproxy</string>
     <string name="zh_update_downloading">Загрузка установочного пакета… (%s / %s)</string>

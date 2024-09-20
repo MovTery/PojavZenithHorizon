@@ -270,7 +270,7 @@
     <string name="zh_update_without">Sie haben bereits die neueste Version</string>
     <string name="zh_update_fail">Netzwerkfehler, Updates können derzeit nicht abgerufen werden!</string>
     <string name="zh_update_fail_code">Netzwerkfehler, Updates können derzeit nicht abgerufen werden! Fehlercode: %d</string>
-    <string name="zh_update_success">Das neueste Installationspaket wurde heruntergeladen, möchten Sie es installieren?\nSpeicherort des Installationspakets:</string>
+    <string name="zh_update_success">Das neueste Installationspaket wurde heruntergeladen. Möchten Sie es installieren? Paketstandort:</string>
     <string name="zh_update_update_source">Update-Quelle auswählen</string>
     <string name="zh_update_update_source_ghproxy">Ghproxy Beschleunigungsquelle</string>
     <string name="zh_update_downloading">Installationspaket wird heruntergeladen… (%s / %s)</string>

@@ -270,7 +270,7 @@
     <string name="zh_update_without">Vous avez déjà la dernière version</string>
     <string name="zh_update_fail">Problème de réseau, impossible de vérifier les mises à jour pour le moment !</string>
     <string name="zh_update_fail_code">Problème de réseau, impossible de vérifier les mises à jour pour le moment ! Code d\'erreur : %d</string>
-    <string name="zh_update_success">Le paquet d\'installation le plus récent a été téléchargé, voulez-vous l\'installer ?\nEmplacement du paquet d\'installation :</string>
+    <string name="zh_update_success">Le dernier package d\'installation a été téléchargé. Voulez-vous l\'installer ? Emplacement du package :</string>
     <string name="zh_update_update_source">Sélectionner la source de mise à jour</string>
     <string name="zh_update_update_source_ghproxy">Source accélérée Ghproxy</string>
     <string name="zh_update_downloading">Téléchargement du paquet d\'installation… (%s / %s)</string>

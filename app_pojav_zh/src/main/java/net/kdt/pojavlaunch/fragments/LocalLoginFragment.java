@@ -54,6 +54,7 @@ public class LocalLoginFragment extends FragmentWithAnim {
                 new TipDialog.Builder(requireContext())
                         .setTitle(R.string.zh_warning)
                         .setMessage(R.string.zh_account_local_account_invalid)
+                        .setCenterMessage(false)
                         .setConfirmClickListener(this::startLogin)
                         .buildDialog();
             } else startLogin();

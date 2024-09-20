@@ -1,6 +1,7 @@
 package com.movtery.pojavzh.ui.dialog;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -17,7 +18,7 @@ import java.util.List;
 public class TipDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final String title, message, confirm, cancel;
     private final View[] moreView;
-    private final boolean showCancel, showConfirm;
+    private final boolean showCancel, showConfirm, centerMessage;
     private final OnCancelClickListener cancelListener;
     private final OnConfirmClickListener confirmListener;
     private final OnDialogDismissListener dismissListener;
@@ -25,7 +26,7 @@ public class TipDialog extends FullScreenDialog implements DraggableDialog.Dialo
     private TipDialog(@NonNull Context context,
                       String title, String message, String confirm, String cancel,
                       View[] moreView,
-                      boolean showCancel, boolean showConfirm,
+                      boolean showCancel, boolean showConfirm, boolean centerMessage,
                       OnCancelClickListener cancelListener, OnConfirmClickListener confirmListener, OnDialogDismissListener dismissListener) {
         super(context);
         this.title = title;
@@ -37,6 +38,7 @@ public class TipDialog extends FullScreenDialog implements DraggableDialog.Dialo
 
         this.showCancel = showCancel;
         this.showConfirm = showConfirm;
+        this.centerMessage = centerMessage;
 
         this.cancelListener = cancelListener;
         this.confirmListener = confirmListener;
@@ -57,6 +59,7 @@ public class TipDialog extends FullScreenDialog implements DraggableDialog.Dialo
 
         if (title != null) titleView.setText(title);
         if (message != null) messageView.setText(message);
+        if (centerMessage) messageView.setGravity(Gravity.CENTER_HORIZONTAL);
         if (moreView.length >= 1) {
             for (View view : moreView) {
                 moreViewLayout.addView(view);
@@ -121,6 +124,7 @@ public class TipDialog extends FullScreenDialog implements DraggableDialog.Dialo
         private boolean cancelable = true;
         private boolean showCancel = true;
         private boolean showConfirm = true;
+        private boolean centerMessage = true;
 
         public Builder(Context context) {
             this.context = context;
@@ -130,7 +134,7 @@ public class TipDialog extends FullScreenDialog implements DraggableDialog.Dialo
             TipDialog tipDialog = new TipDialog(this.context,
                     title, message, confirm, cancel,
                     moreView.toArray(new View[0]),
-                    showCancel, showConfirm,
+                    showCancel, showConfirm, centerMessage,
                     cancelClickListener, confirmClickListener, dialogDismissListener);
             tipDialog.setCancelable(cancelable);
             tipDialog.show();
@@ -208,6 +212,11 @@ public class TipDialog extends FullScreenDialog implements DraggableDialog.Dialo
 
         public Builder setShowConfirm(boolean showConfirm) {
             this.showConfirm = showConfirm;
+            return this;
+        }
+
+        public Builder setCenterMessage(boolean center) {
+            this.centerMessage = center;
             return this;
         }
     }
