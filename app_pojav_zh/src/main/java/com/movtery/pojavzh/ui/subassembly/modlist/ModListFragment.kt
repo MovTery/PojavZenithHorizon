@@ -19,7 +19,7 @@ import com.movtery.anim.animations.Animations
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.anim.AnimUtils
-import com.movtery.pojavzh.utils.anim.AnimUtils.Companion.setVisibilityAnimYoYo
+import com.movtery.pojavzh.utils.anim.AnimUtils.Companion.playVisibilityAnim
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
 import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.R
@@ -114,7 +114,7 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
     protected abstract fun refresh(): Future<*>?
 
     protected fun componentProcessing(state: Boolean) {
-        setVisibilityAnimYoYo(mLoadingView!!, state)
+        playVisibilityAnim(mLoadingView!!, state)
         recyclerView?.visibility = if (state) View.GONE else View.VISIBLE
 
         mRefreshButton?.isClickable = !state
@@ -177,11 +177,11 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
     protected fun setFailedToLoad(reasons: String?) {
         val text = fragmentActivity!!.getString(R.string.modloader_dl_failed_to_load_list)
         mFailedToLoad?.text = if (reasons == null) text else StringUtils.insertNewline(text, reasons)
-        setVisibilityAnimYoYo(mFailedToLoad!!, true)
+        playVisibilityAnim(mFailedToLoad!!, true)
     }
 
     protected fun cancelFailedToLoad() {
-        setVisibilityAnimYoYo(mFailedToLoad!!, false)
+        playVisibilityAnim(mFailedToLoad!!, false)
     }
 
     protected fun setLink(link: String?) {
