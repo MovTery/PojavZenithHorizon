@@ -3,7 +3,6 @@ package com.movtery.pojavzh.ui.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
@@ -43,7 +42,7 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
 
     private fun initViewPager() {
         mSettingsViewpager?.apply {
-            adapter = ViewPagerAdapter(requireActivity())
+            adapter = ViewPagerAdapter(this@SettingsFragment)
             isUserInputEnabled = false
             orientation = ViewPager2.ORIENTATION_VERTICAL
             offscreenPageLimit = 1
@@ -86,14 +85,14 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
             .apply(AnimPlayer.Entry(mSettingsViewpager!!, Animations.FadeOutUp))
     }
 
-    private class ViewPagerAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {
+    private class ViewPagerAdapter(val fragment: FragmentWithAnim): FragmentStateAdapter(fragment.requireActivity()) {
         override fun getItemCount(): Int = 6
         override fun createFragment(position: Int): Fragment {
             return when(position) {
-                1 -> ControlSettingsFragment()
+                1 -> ControlSettingsFragment(fragment)
                 2 -> JavaSettingsFragment()
                 3 -> MiscellaneousSettingsFragment()
-                4 -> LauncherSettingsFragment()
+                4 -> LauncherSettingsFragment(fragment)
                 5 -> ExperimentalSettingsFragment()
                 else -> VideoSettingsFragment()
             }

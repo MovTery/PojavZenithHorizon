@@ -12,8 +12,8 @@ abstract class FragmentWithAnim : Fragment, SlideAnimation {
 
     constructor(contentLayoutId: Int) : super(contentLayoutId)
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         playAnimation { slideIn(it) }
     }
 

@@ -8,13 +8,14 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.movtery.pojavzh.ui.fragment.CustomMouseFragment
+import com.movtery.pojavzh.ui.fragment.FragmentWithAnim
 import com.movtery.pojavzh.utils.ZHTools
 import fr.spse.gamepad_remapper.Remapper
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.fragments.GamepadMapperFragment
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
 
-class ControlSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment_control) {
+class ControlSettingsFragment(val parent: FragmentWithAnim) : AbstractSettingsFragment(R.layout.settings_fragment_control) {
     private var mainView: View? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -131,7 +132,7 @@ class ControlSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragm
         )
         customMouse.mainView.setOnClickListener {
             ZHTools.swapFragmentWithAnim(
-                this,
+                parent,
                 CustomMouseFragment::class.java,
                 CustomMouseFragment.TAG,
                 null
@@ -215,7 +216,7 @@ class ControlSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragm
         )
         changeControllerBindings.mainView.setOnClickListener {
             ZHTools.swapFragmentWithAnim(
-                this,
+                parent,
                 GamepadMapperFragment::class.java,
                 GamepadMapperFragment.TAG,
                 null
