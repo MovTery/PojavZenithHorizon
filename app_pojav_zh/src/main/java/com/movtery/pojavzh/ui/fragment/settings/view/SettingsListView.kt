@@ -1,6 +1,5 @@
 package com.movtery.pojavzh.ui.fragment.settings.view
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -11,7 +10,6 @@ import com.movtery.pojavzh.ui.layout.AnimRelativeLayout
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF
 
-@SuppressLint("Recycle", "StringFormatInvalid", "UseSwitchCompatOrMaterialCode")
 class SettingsListView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -55,12 +53,18 @@ class SettingsListView @JvmOverloads constructor(
         val valuesID = attributes.getResourceId(R.styleable.SettingsListView_listViewValues, 0)
         mEntries = if (namesID != 0) context.resources.getStringArray(namesID) else emptyArray()
         mEntryValues = if (valuesID != 0) context.resources.getStringArray(valuesID) else emptyArray()
+        checkEntries()
 
-        mDefaultValue = attributes.getString(R.styleable.SettingsListView_listViewDefaultValue) ?: mEntryValues[0]
+        mDefaultValue =
+            if (mEntryValues.isNotEmpty()) attributes.getString(R.styleable.SettingsListView_listViewDefaultValue)
+                ?: mEntryValues[0]
+            else throw IllegalArgumentException("Entry values cannot be empty.")
 
-        mLayout.setOnClickListener { createAListDialog(mEntries, mEntryValues) }
+        attributes.recycle()
 
-        updateListViewValue(mEntries, mEntryValues)
+        mLayout.setOnClickListener { createAListDialog() }
+
+        updateListViewValue()
     }
 
     fun setTitle(text: String?): SettingsListView {
@@ -77,22 +81,26 @@ class SettingsListView @JvmOverloads constructor(
         mEntries = names
         mEntryValues = values
 
-        updateListViewValue(mEntries, mEntryValues)
+        checkEntries()
+
+        updateListViewValue()
         return this
     }
 
-    private fun createAListDialog(
-        entries: Array<String>,
-        entryValues: Array<String>
-    ) {
-        val index = entryValues.indexOf(DEFAULT_PREF.getString(mKey, mDefaultValue))
+    private fun checkEntries() {
+        if (mEntries.size == mEntryValues.size) return
+        throw IllegalArgumentException("Array lengths are inconsistent.")
+    }
+
+    private fun createAListDialog() {
+        val index = mEntryValues.indexOf(DEFAULT_PREF.getString(mKey, mDefaultValue))
         AlertDialog.Builder(context)
             .setTitle(mTitleTextView.text)
-            .setSingleChoiceItems(entries, index) { dialog, which ->
+            .setSingleChoiceItems(mEntries, index) { dialog, which ->
                 if (which != index) {
-                    val selectedValue = entryValues[which]
+                    val selectedValue = mEntryValues[which]
                     DEFAULT_PREF.edit().putString(mKey, selectedValue).apply()
-                    updateListViewValue(entries, entryValues)
+                    updateListViewValue()
                     if (mRequiresReboot) Utils.checkShowRebootDialog(context)
                 }
                 dialog.dismiss()
@@ -101,17 +109,14 @@ class SettingsListView @JvmOverloads constructor(
             .show()
     }
 
-    private fun updateListViewValue(
-        entries: Array<String>,
-        entryValues: Array<String>
-    ) {
-        if (entries.isNotEmpty() && entryValues.isNotEmpty()) {
+    private fun updateListViewValue() {
+        if (mEntries.isNotEmpty() && mEntryValues.isNotEmpty()) {
             val value = DEFAULT_PREF.getString(mKey, mDefaultValue)
-            val index = entryValues.indexOf(value).takeIf { it in entryValues.indices } ?: run {
+            val index = mEntryValues.indexOf(value).takeIf { it in mEntryValues.indices } ?: run {
                 DEFAULT_PREF.edit().putString(mKey, mDefaultValue).apply()
                 0
             }
-            mValueTextView.text = entries[index]
+            mValueTextView.text = mEntries[index]
         }
     }
 }

@@ -49,7 +49,8 @@
                 app:seekbarViewSummary="@string/mcl_setting_subtitle_longpresstrigger"
                 app:seekbarViewSeekBarMax="1000"
                 app:seekbarViewSeekBarMin="100"
-                app:seekbarViewSuffix="ms"/>
+                app:seekbarViewSuffix="ms"
+                app:seekbarViewDefaultValue="300"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -75,7 +76,8 @@
                 app:seekbarViewSummary="@string/mcl_setting_subtitle_buttonscale"
                 app:seekbarViewSeekBarMax="250"
                 app:seekbarViewSeekBarMin="80"
-                app:seekbarViewSuffix="%"/>
+                app:seekbarViewSuffix="%"
+                app:seekbarViewDefaultValue="100"/>
 
             <com.movtery.pojavzh.ui.fragment.settings.view.SettingsSwitchView
                 android:id="@+id/buttonAllCaps_layout"
@@ -110,7 +112,8 @@
                 app:seekbarViewSummary="@string/mcl_setting_subtitle_mousescale"
                 app:seekbarViewSeekBarMax="300"
                 app:seekbarViewSeekBarMin="25"
-                app:seekbarViewSuffix="%"/>
+                app:seekbarViewSuffix="%"
+                app:seekbarViewDefaultValue="100"/>
 
             <com.movtery.pojavzh.ui.fragment.settings.view.SettingsSeekBarView
                 android:id="@+id/mousespeed_layout"
@@ -121,7 +124,8 @@
                 app:seekbarViewSummary="@string/mcl_setting_subtitle_mousespeed"
                 app:seekbarViewSeekBarMax="300"
                 app:seekbarViewSeekBarMin="25"
-                app:seekbarViewSuffix="%"/>
+                app:seekbarViewSuffix="%"
+                app:seekbarViewDefaultValue="100"/>
 
             <com.movtery.pojavzh.ui.fragment.settings.view.SettingsSwitchView
                 android:id="@+id/mouse_start_layout"
@@ -171,7 +175,8 @@
                 app:seekbarViewSummary="@string/preference_gyro_sensitivity_description"
                 app:seekbarViewSeekBarMax="300"
                 app:seekbarViewSeekBarMin="25"
-                app:seekbarViewSuffix="%"/>
+                app:seekbarViewSuffix="%"
+                app:seekbarViewDefaultValue="100"/>
 
             <com.movtery.pojavzh.ui.fragment.settings.view.SettingsSeekBarView
                 android:id="@+id/gyroSampleRate_layout"
@@ -182,7 +187,8 @@
                 app:seekbarViewSummary="@string/preference_gyro_sample_rate_description"
                 app:seekbarViewSeekBarMax="50"
                 app:seekbarViewSeekBarMin="5"
-                app:seekbarViewSuffix="ms"/>
+                app:seekbarViewSuffix="ms"
+                app:seekbarViewDefaultValue="16"/>
 
             <com.movtery.pojavzh.ui.fragment.settings.view.SettingsSwitchView
                 android:id="@+id/gyroSmoothing_layout"
@@ -247,7 +253,8 @@
                 app:seekbarViewSummary="@string/preference_deadzone_scale_description"
                 app:seekbarViewSeekBarMax="200"
                 app:seekbarViewSeekBarMin="50"
-                app:seekbarViewSuffix="%"/>
+                app:seekbarViewSuffix="%"
+                app:seekbarViewDefaultValue="100"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

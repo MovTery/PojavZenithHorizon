@@ -1,6 +1,5 @@
 package com.movtery.pojavzh.ui.fragment.settings.view
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.widget.TextView
 import com.movtery.pojavzh.ui.layout.AnimRelativeLayout
 import net.kdt.pojavlaunch.R
 
-@SuppressLint("Recycle", "StringFormatInvalid", "UseSwitchCompatOrMaterialCode")
 class SettingsBaseView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -36,6 +34,8 @@ class SettingsBaseView @JvmOverloads constructor(
         val summaryString = attributes.getString(R.styleable.SettingsBaseView_baseViewSummary)
         summaryString?.apply { mSummaryTextView.text = this }
         summaryString ?: apply { mSummaryTextView.visibility = View.GONE }
+
+        attributes.recycle()
     }
 
     fun setTitle(text: String?): SettingsBaseView {

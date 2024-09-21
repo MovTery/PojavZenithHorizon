@@ -23,6 +23,15 @@
         android:layout_alignParentEnd="true"
         android:layout_marginHorizontal="@dimen/_12sdp" />
 
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/summary"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="@dimen/_12sdp" />
+
     <SeekBar
         android:id="@+id/seekbar"
         android:layout_width="wrap_content"
@@ -36,11 +45,11 @@
         android:id="@+id/value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/summary"
+        android:layout_below="@+id/info"
         android:layout_alignParentEnd="true"
         android:layout_marginVertical="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_12sdp"
         android:background="@drawable/background_text"
-        android:paddingHorizontal="@dimen/_16sdp"
+        android:paddingHorizontal="@dimen/_8sdp"
         tools:text="0" />
 </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>

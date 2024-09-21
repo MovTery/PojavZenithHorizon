@@ -70,16 +70,16 @@ class JavaSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
 
     private fun updateMemoryInfo() {
         allocation?.apply {
-            val value = getProgress() * 1024 * 1024
+            val value = getProgress().toLong() * 1024 * 1024
             val freeDeviceMemory = getFreeDeviceMemory(context)
 
             val isMemorySizeExceeded = value > freeDeviceMemory
 
-            var summary = StringUtils.insertNewline(getString(R.string.zh_setting_java_memory_desc), getMemoryInfoText(context, freeDeviceMemory))
+            var summary = getMemoryInfoText(context, freeDeviceMemory)
             if (isMemorySizeExceeded) summary =
                 StringUtils.insertNewline(summary, getString(R.string.zh_setting_java_memory_exceeded))
 
-            Tools.runOnUiThread { setSummary(summary) }
+            Tools.runOnUiThread { setInfo(summary) }
         }
     }
 

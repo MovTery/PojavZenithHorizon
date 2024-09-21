@@ -142,6 +142,9 @@ public class LauncherPreferences {
         PREF_MOD_INFO_SOURCE = DEFAULT_PREF.getString("modInfoSource", "original");
         PREF_MOD_DOWNLOAD_SOURCE = DEFAULT_PREF.getString("modDownloadSource", "original");
 
+        if (!DEFAULT_PREF.contains("allocation"))
+            DEFAULT_PREF.edit().putInt("allocation", findBestRAMAllocation(ctx)).apply();
+
         String argLwjglLibname = "-Dorg.lwjgl.opengl.libname=";
         for (String arg : JREUtils.parseJavaArguments(PREF_CUSTOM_JAVA_ARGS)) {
             if (arg.startsWith(argLwjglLibname)) {

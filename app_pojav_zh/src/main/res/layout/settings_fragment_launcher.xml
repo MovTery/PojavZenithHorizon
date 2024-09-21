@@ -127,7 +127,8 @@
                 app:listViewTitle="@string/zh_setting_launcher_theme"
                 app:listViewDefaultValue="system"
                 app:listViewNames="@array/launcher_theme_names"
-                app:listViewValues="@array/launcher_theme_values"/>
+                app:listViewValues="@array/launcher_theme_values"
+                app:listViewRequiresReboot="true"/>
 
             <com.movtery.pojavzh.ui.fragment.settings.view.SettingsBaseView
                 android:id="@+id/zh_custom_background_layout"
@@ -155,7 +156,8 @@
                 app:seekbarViewSummary="@string/zh_setting_animation_speed_desc"
                 app:seekbarViewSeekBarMax="1500"
                 app:seekbarViewSeekBarMin="300"
-                app:seekbarViewSuffix="ms"/>
+                app:seekbarViewSuffix="ms"
+                app:seekbarViewDefaultValue="600"/>
 
             <com.movtery.pojavzh.ui.fragment.settings.view.SettingsSeekBarView
                 android:id="@+id/pageOpacity_layout"
@@ -167,7 +169,8 @@
                 app:seekbarViewSummary="@string/zh_setting_page_opacity_desc"
                 app:seekbarViewSeekBarMax="100"
                 app:seekbarViewSeekBarMin="50"
-                app:seekbarViewSuffix="%"/>
+                app:seekbarViewSuffix="%"
+                app:seekbarViewDefaultValue="100"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
