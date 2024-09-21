@@ -14,6 +14,7 @@ import com.movtery.pojavzh.feature.CheckSponsor
 import com.movtery.pojavzh.feature.CheckSponsor.Companion.check
 import com.movtery.pojavzh.feature.CheckSponsor.Companion.getSponsorData
 import com.movtery.pojavzh.feature.log.Logging
+import com.movtery.pojavzh.ui.dialog.TipDialog
 import com.movtery.pojavzh.ui.subassembly.about.AboutItemBean
 import com.movtery.pojavzh.ui.subassembly.about.AboutItemBean.AboutItemButtonBean
 import com.movtery.pojavzh.ui.subassembly.about.AboutRecyclerAdapter
@@ -52,7 +53,14 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
         mGithubButton?.setOnClickListener { Tools.openURL(requireActivity(), PathAndUrlManager.URL_HOME) }
         mPojavLauncherButton?.setOnClickListener { Tools.openURL(requireActivity(), PathAndUrlManager.URL_GITHUB_POJAVLAUNCHER) }
         mLicenseButton?.setOnClickListener { Tools.openURL(requireActivity(), "https://www.gnu.org/licenses/gpl-3.0.html") }
-        mSupportButton?.setOnClickListener { Tools.openURL(requireActivity(), PathAndUrlManager.URL_SUPPORT) }
+        mSupportButton?.setOnClickListener {
+            TipDialog.Builder(requireActivity())
+                .setTitle(R.string.zh_request_sponsorship_title)
+                .setMessage(R.string.zh_request_sponsorship_message)
+                .setConfirm(R.string.zh_about_button_support_development)
+                .setConfirmClickListener { Tools.openURL(requireActivity(), PathAndUrlManager.URL_SUPPORT) }
+                .buildDialog()
+        }
 
         val aboutAdapter = AboutRecyclerAdapter(this.mAboutData)
         mAboutRecyclerView?.layoutManager = LinearLayoutManager(requireContext())
