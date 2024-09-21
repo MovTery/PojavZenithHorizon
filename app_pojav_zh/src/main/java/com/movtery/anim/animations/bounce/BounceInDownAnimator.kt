@@ -9,6 +9,6 @@ class BounceInDownAnimator: BaseAnimator() {
     override fun getAnimators(target: View): Array<Animator> {
         return arrayOf(
             ObjectAnimator.ofFloat(target, "alpha", 0f, 1f, 1f, 1f),
-            ObjectAnimator.ofFloat(target, "translationY", -target.height.toFloat(), 25f, -5f, 0f))
+            ObjectAnimator.ofFloat(target, "translationY", -60f, 12f, -6f, 0f))
     }
 }

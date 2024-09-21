@@ -9,6 +9,6 @@ class SlideOutUpAnimator: BaseAnimator() {
     override fun getAnimators(target: View): Array<Animator> {
         return arrayOf(
             ObjectAnimator.ofFloat(target, "alpha", 1f, 0f),
-            ObjectAnimator.ofFloat(target, "translationY", 0f, -target.bottom.toFloat()))
+            ObjectAnimator.ofFloat(target, "translationY", 0f, -100f))
     }
 }
