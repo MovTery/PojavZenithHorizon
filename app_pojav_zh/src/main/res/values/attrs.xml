@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SettingsBaseView">
+        <attr name="baseViewTitle" format="string" />
+        <attr name="baseViewSummary" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="SettingsListView">
+        <attr name="listViewKey" format="string" />
+        <attr name="listViewTitle" format="string" />
+        <attr name="listViewSummary" format="string" />
+        <attr name="listViewDefaultValue" format="string" />
+        <attr name="listViewNames" format="reference" />
+        <attr name="listViewValues" format="reference" />
+        <attr name="listViewRequiresReboot" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="SettingsSeekBarView">
+        <attr name="seekbarViewKey" format="string" />
+        <attr name="seekbarViewTitle" format="string" />
+        <attr name="seekbarViewSummary" format="string" />
+        <attr name="seekbarViewSeekBarMax" format="integer" />
+        <attr name="seekbarViewSeekBarMin" format="integer" />
+        <attr name="seekbarViewSuffix" format="string" />
+        <attr name="seekbarViewRequiresReboot" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="SettingsSwitchView">
+        <attr name="switchViewKey" format="string" />
+        <attr name="switchViewTitle" format="string" />
+        <attr name="switchViewSummary" format="string" />
+        <attr name="switchViewSwitchCheck" format="boolean" />
+        <attr name="switchViewRequiresReboot" format="boolean" />
+    </declare-styleable>
+</resources>
