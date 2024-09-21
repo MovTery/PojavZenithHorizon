@@ -97,7 +97,7 @@ class LauncherSettingsFragment : AbstractSettingsFragment(R.layout.settings_frag
                 null,
                 R.id.setGameLanguage_value
             ),
-            ZHTools.getSystemLanguage(),
+            "system",
             R.array.all_game_language,
             R.array.all_game_language_value
         )

@@ -16,10 +16,8 @@ import com.movtery.pojavzh.ui.dialog.EditTextDialog
 import com.movtery.pojavzh.ui.dialog.TipDialog
 import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
 import net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF
-
 
 abstract class AbstractSettingsFragment(layoutId: Int) : Fragment(layoutId),
     SharedPreferences.OnSharedPreferenceChangeListener {
@@ -320,14 +318,12 @@ abstract class AbstractSettingsFragment(layoutId: Int) : Fragment(layoutId),
         entries: Array<String>,
         entryValues: Array<String>
     ) {
-        runCatching {
-            val value = DEFAULT_PREF.getString(item.key, defaultValue)
-            item.getValueView().text = entries[entryValues.indexOf(value)]
-        }.getOrElse { e ->
-            e("Settings", Tools.printToString(e))
+        val value = DEFAULT_PREF.getString(item.key, defaultValue)
+        val index = entryValues.indexOf(value).takeIf { it in entryValues.indices } ?: run {
             DEFAULT_PREF.edit().putString(item.key, defaultValue).apply()
-            item.getValueView().text = entries[entryValues.indexOf(defaultValue)]
+            0
         }
+        item.getValueView().text = entries[index]
     }
 
     private fun checkShowRebootDialog(item: SettingsViewWrapper) {

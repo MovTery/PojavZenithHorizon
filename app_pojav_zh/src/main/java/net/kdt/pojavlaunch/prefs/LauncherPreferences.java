@@ -73,7 +73,7 @@ public class LauncherPreferences {
     public static boolean PREF_VSYNC_IN_ZINK = false;
     public static boolean PREF_AUTOMATICALLY_SET_GAME_LANGUAGE = true;
     public static boolean PREF_GAME_LANGUAGE_OVERRIDDEN = false;
-    public static String PREF_GAME_LANGUAGE = ZHTools.getSystemLanguage();
+    public static String PREF_GAME_LANGUAGE = "system";
     public static String PREF_LAUNCHER_THEME = "system";
     public static boolean PREF_ENABLE_LOG_OUTPUT = false;
     public static boolean PREF_ANIMATION = true;
@@ -130,7 +130,7 @@ public class LauncherPreferences {
         PREF_VSYNC_IN_ZINK = DEFAULT_PREF.getBoolean("vsync_in_zink", false);
         PREF_AUTOMATICALLY_SET_GAME_LANGUAGE = DEFAULT_PREF.getBoolean("autoSetGameLanguage", true);
         PREF_GAME_LANGUAGE_OVERRIDDEN = DEFAULT_PREF.getBoolean("gameLanguageOverridden", false);
-        PREF_GAME_LANGUAGE = DEFAULT_PREF.getString("setGameLanguage", ZHTools.getSystemLanguage());
+        PREF_GAME_LANGUAGE = DEFAULT_PREF.getString("setGameLanguage", "system");
         PREF_LAUNCHER_THEME = DEFAULT_PREF.getString("launcherTheme", "system");
         PREF_ENABLE_LOG_OUTPUT = DEFAULT_PREF.getBoolean("enableLogOutput", false);
         PREF_ANIMATION = DEFAULT_PREF.getBoolean("animation", true);
