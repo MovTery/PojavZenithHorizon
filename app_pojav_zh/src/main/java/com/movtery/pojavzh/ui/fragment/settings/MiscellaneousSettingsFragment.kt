@@ -59,7 +59,7 @@ class MiscellaneousSettingsFragment :
                 R.id.force_english_title,
                 R.id.force_english_summary,
                 R.id.force_english
-            )
+            ).setRequiresReboot(true)
         )
 
         val notificationPermissionRequest = bindSwitchView(

@@ -91,7 +91,7 @@ class JavaSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
             initSeekBarView(this)
 
             allocationMemory = view.findViewById(R.id.allocation_memory)
-            updateMemoryInfo(requireContext(), seekBarView.progress, allocationMemory!!)
+            updateMemoryInfo(requireContext(), seekBarView.progress.toLong(), allocationMemory!!)
         }
 
         initSwitchView(
@@ -111,16 +111,16 @@ class JavaSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
         super.onSharedPreferenceChanged(sharedPreferences, key)
         updateMemoryInfo(
             requireContext(),
-            allocationItem!!.getSeekBarView().progress,
+            allocationItem!!.getSeekBarView().progress.toLong(),
             allocationMemory!!
         )
     }
 
-    private fun updateMemoryInfo(context: Context, value: Int, textView: TextView) {
-        val seekValue = value * 1024 * 1024
+    private fun updateMemoryInfo(context: Context, seekValue: Long, textView: TextView) {
+        val value = seekValue * 1024 * 1024
         val freeDeviceMemory = getFreeDeviceMemory(context)
 
-        val isMemorySizeExceeded = seekValue > freeDeviceMemory
+        val isMemorySizeExceeded = value > freeDeviceMemory
 
         var summary = getMemoryInfoText(context, freeDeviceMemory)
         if (isMemorySizeExceeded) summary =
