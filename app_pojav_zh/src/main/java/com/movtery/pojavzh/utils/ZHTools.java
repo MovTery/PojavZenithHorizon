@@ -43,9 +43,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Properties;
 
-public class ZHTools {
-    public static long LAST_UPDATE_CHECK_TIME = 0;
-
+public final class ZHTools {
     private ZHTools() {
     }
 

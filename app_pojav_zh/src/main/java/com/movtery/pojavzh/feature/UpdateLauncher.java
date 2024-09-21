@@ -1,7 +1,10 @@
 package com.movtery.pojavzh.feature;
 
 import static com.movtery.pojavzh.utils.file.FileTools.formatFileSize;
-import static net.kdt.pojavlaunch.Architecture.*;
+import static net.kdt.pojavlaunch.Architecture.ARCH_ARM;
+import static net.kdt.pojavlaunch.Architecture.ARCH_ARM64;
+import static net.kdt.pojavlaunch.Architecture.ARCH_X86;
+import static net.kdt.pojavlaunch.Architecture.ARCH_X86_64;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
@@ -12,6 +15,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.movtery.pojavzh.feature.log.Logging;
@@ -23,6 +27,7 @@ import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.http.CallUtils;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
+import net.kdt.pojavlaunch.BuildConfig;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 
@@ -44,15 +49,16 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
-public class UpdateLauncher {
+public final class UpdateLauncher {
     private static final File sApkFile = new File(PathAndUrlManager.DIR_APP_CACHE, "cache.apk");
+    public static long LAST_UPDATE_CHECK_TIME = 0;
     private final Context context;
     private final UpdateSource updateSource;
     private final String versionName, tagName, fileSizeString;
     private final long fileSize;
+    private final String destinationFilePath;
+    private final Call call;
     private ProgressDialog dialog;
-    private String destinationFilePath;
-    private Call call;
     private Timer timer;
 
     public UpdateLauncher(Context context, String versionName, String tagName, long fileSize, UpdateSource updateSource) {
@@ -62,10 +68,16 @@ public class UpdateLauncher {
         this.tagName = tagName;
         this.fileSizeString = formatFileSize(fileSize);
         this.fileSize = fileSize;
-        init();
+
+        this.destinationFilePath = sApkFile.getAbsolutePath();
+        this.call = new OkHttpClient().newCall(
+                PathAndUrlManager.createRequestBuilder(getDownloadUrl()).build()
+        ); //获取请求对象
     }
 
     public static void CheckDownloadedPackage(Context context, boolean ignore) {
+        if (!Objects.equals(BuildConfig.BUILD_TYPE, "release")) return;
+
         if (sApkFile.exists()) {
             PackageManager packageManager = context.getPackageManager();
             PackageInfo packageInfo = packageManager.getPackageArchiveInfo(sApkFile.getAbsolutePath(), 0);
@@ -73,9 +85,7 @@ public class UpdateLauncher {
             if (packageInfo != null) {
                 String packageName = packageInfo.packageName;
                 int versionCode = packageInfo.versionCode;
-
                 int thisVersionCode = ZHTools.getVersionCode();
-                DEFAULT_PREF.edit().putInt("launcherVersionCode", thisVersionCode).apply();
 
                 if (Objects.equals(packageName, ZHTools.getPackageName()) && versionCode > thisVersionCode) {
                     installApk(context, sApkFile);
@@ -107,8 +117,8 @@ public class UpdateLauncher {
     }
 
     public static synchronized void updateCheckerMainProgram(Context context, boolean ignore) {
-        if (ZHTools.getCurrentTimeMillis() - ZHTools.LAST_UPDATE_CHECK_TIME <= 5000) return;
-        ZHTools.LAST_UPDATE_CHECK_TIME = ZHTools.getCurrentTimeMillis();
+        if (ZHTools.getCurrentTimeMillis() - LAST_UPDATE_CHECK_TIME <= 5000) return;
+        LAST_UPDATE_CHECK_TIME = ZHTools.getCurrentTimeMillis();
 
         String token = context.getString(R.string.zh_api_token);
         new CallUtils(new CallUtils.CallbackListener() {
@@ -179,10 +189,13 @@ public class UpdateLauncher {
         runOnUiThread(() -> Toast.makeText(context, resString, Toast.LENGTH_SHORT).show());
     }
 
-    private void init() {
-        this.destinationFilePath = sApkFile.getAbsolutePath();
-        OkHttpClient client = new OkHttpClient();
-        this.call = client.newCall(PathAndUrlManager.createRequestBuilder(getDownloadUrl()).build()); //获取请求对象
+    private static String getArchModel() {
+        int arch = Tools.DEVICE_ARCHITECTURE;
+        if (arch == ARCH_ARM64) return "arm64-v8a";
+        if (arch == ARCH_ARM) return "armeabi-v7a";
+        if (arch == ARCH_X86_64) return "x86_64";
+        if (arch == ARCH_X86) return "x86";
+        return null;
     }
 
     private String getDownloadUrl() {
@@ -202,24 +215,15 @@ public class UpdateLauncher {
         return fileUrl;
     }
 
-    private String getArchModel() {
-        int arch = Tools.DEVICE_ARCHITECTURE;
-        if(arch == ARCH_ARM64) return "arm64-v8a";
-        if(arch == ARCH_ARM) return "armeabi-v7a";
-        if(arch == ARCH_X86_64) return "x86_64";
-        if(arch == ARCH_X86) return "x86";
-        return null;
-    }
-
     public void start() {
         this.call.enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 showFailToast(context, context.getString(R.string.zh_update_fail));
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (!response.isSuccessful()) {
                     showFailToast(context, context.getString(R.string.zh_update_fail_code, response.code()));
                     throw new IOException("Unexpected code " + response);
@@ -286,7 +290,6 @@ public class UpdateLauncher {
     }
 
     private void stop() {
-        if (this.call == null) return;
         this.call.cancel();
         this.timer.cancel();
         FileUtils.deleteQuietly(sApkFile);
