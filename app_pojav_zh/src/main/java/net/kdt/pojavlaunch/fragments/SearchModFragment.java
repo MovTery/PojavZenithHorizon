@@ -135,7 +135,7 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
 
     @Override
     public void onSearchFinished() {
-        AnimUtils.setVisibilityAnimYoYo(mLoadingView, false);
+        AnimUtils.playVisibilityAnim(mLoadingView, false);
         AnimUtils.setVisibilityAnim(mStatusTextView, false);
         mRecyclerview.setVisibility(View.VISIBLE);
     }
@@ -143,7 +143,7 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
     @Override
     public void onSearchError(int error) {
         mRecyclerview.setVisibility(View.GONE);
-        AnimUtils.setVisibilityAnimYoYo(mLoadingView, false);
+        AnimUtils.playVisibilityAnim(mLoadingView, false);
         AnimUtils.setVisibilityAnim(mStatusTextView, true);
         switch (error) {
             case ERROR_INTERNAL:
@@ -173,8 +173,8 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
     private void searchMods(String name) {
         mRecyclerview.scrollToPosition(0);
         mRecyclerview.setVisibility(View.GONE);
-        AnimUtils.setVisibilityAnimYoYo(mLoadingView, true);
-        AnimUtils.setVisibilityAnimYoYo(mStatusTextView, false);
+        AnimUtils.playVisibilityAnim(mLoadingView, true);
+        AnimUtils.playVisibilityAnim(mStatusTextView, false);
 
         if (ZHTools.areaChecks("zh") && StringUtils.containsChinese(name)) {
             name = this.isModpack ?

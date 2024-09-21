@@ -9,7 +9,7 @@ class BounceInAnimator: BaseAnimator() {
     override fun getAnimators(target: View): Array<Animator> {
         return arrayOf(
             ObjectAnimator.ofFloat(target, "alpha", 0f, 1f, 1f, 1f),
-            ObjectAnimator.ofFloat(target, "scaleX", 0.3f, 1.05f, 0.9f, 1f),
-            ObjectAnimator.ofFloat(target, "scaleY", 0.3f, 1.05f, 0.9f, 1f))
+            ObjectAnimator.ofFloat(target, "scaleX", 0.3f, 1.05f, 1.03f, 1f),
+            ObjectAnimator.ofFloat(target, "scaleY", 0.3f, 1.05f, 1.03f, 1f))
     }
 }

@@ -8,18 +8,18 @@ import net.kdt.pojavlaunch.prefs.LauncherPreferences
 
 class AnimPlayer {
     private var mAnimatorSet: AnimatorSet = AnimatorSet()
-    private var mAnimEntries: MutableList<Entry> = ArrayList()
+    private var mAnimators: MutableList<Animator> = ArrayList()
     private var mOnStartCallback: AnimCallback? = null
     private var mOnEndCallback: AnimCallback? = null
     private var mDuration: Long? = null
     private var mDelay: Long? = null
 
     fun clearEntries() {
-        mAnimEntries.clear()
+        mAnimators.clear()
     }
 
     fun apply(entry: Entry): AnimPlayer {
-        mAnimEntries.add(entry)
+        mAnimators.addAll(entry.animations.animator.getAnimators(entry.target))
         return this
     }
 
@@ -48,13 +48,6 @@ class AnimPlayer {
             stop()
         }
 
-        mOnStartCallback?.call()
-        val finalAnimators: MutableList<Animator> = ArrayList()
-
-        for (entry in mAnimEntries) {
-            finalAnimators.addAll(entry.animations.animator.getAnimators(entry.target))
-        }
-
         mAnimatorSet.apply {
             duration = mDuration ?: LauncherPreferences.PREF_ANIMATION_SPEED.toLong()
             startDelay = mDelay ?: 0
@@ -77,9 +70,9 @@ class AnimPlayer {
                 override fun onAnimationRepeat(animation: Animator) {
                 }
             })
-            playTogether(finalAnimators)
+            playTogether(mAnimators)
+            start()
         }
-        mAnimatorSet.start()
     }
 
     fun stop() {
@@ -89,10 +82,7 @@ class AnimPlayer {
         }
     }
 
-    //清理动画状态，防止重复调用问题
     private fun clearState() {
-        mAnimatorSet.removeAllListeners()
-        mAnimatorSet.end()
         mAnimatorSet = AnimatorSet()
     }
 

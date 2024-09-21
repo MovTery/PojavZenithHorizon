@@ -34,7 +34,7 @@ class AnimUtils {
         }
 
         @JvmStatic
-        fun setVisibilityAnimYoYo(view: View, visible: Boolean) {
+        fun playVisibilityAnim(view: View, visible: Boolean) {
             val targetVisibility = if (visible) View.VISIBLE else View.GONE
             if (view.visibility == targetVisibility) return
 

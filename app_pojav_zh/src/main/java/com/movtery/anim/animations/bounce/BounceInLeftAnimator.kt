@@ -9,6 +9,6 @@ class BounceInLeftAnimator: BaseAnimator() {
     override fun getAnimators(target: View): Array<Animator> {
         return arrayOf(
             ObjectAnimator.ofFloat(target, "alpha", 0f, 1f, 1f, 1f),
-            ObjectAnimator.ofFloat(target, "translationX", -target.width.toFloat(), 30f, -10f, 0f))
+            ObjectAnimator.ofFloat(target, "translationX", -target.width.toFloat(), 25f, -8f, 0f))
     }
 }
