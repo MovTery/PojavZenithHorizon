@@ -47,7 +47,8 @@
                 app:seekbarViewSummary="@string/zh_setting_java_memory_desc"
                 app:seekbarViewSeekBarMin="256"
                 app:seekbarViewSeekBarMax="2048"
-                app:seekbarViewSuffix="MB"/>
+                app:seekbarViewSuffix="MB"
+                app:seekbarViewDefaultValue="300"/>
 
             <com.movtery.pojavzh.ui.fragment.settings.view.SettingsSwitchView
                 android:id="@+id/java_sandbox_layout"
