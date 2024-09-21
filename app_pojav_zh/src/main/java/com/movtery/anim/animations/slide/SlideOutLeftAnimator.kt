@@ -9,6 +9,6 @@ class SlideOutLeftAnimator: BaseAnimator() {
     override fun getAnimators(target: View): Array<Animator> {
         return arrayOf(
             ObjectAnimator.ofFloat(target, "alpha", 1f, 0f),
-            ObjectAnimator.ofFloat(target, "translationX", 0f, -target.right.toFloat()))
+            ObjectAnimator.ofFloat(target, "translationX", 0f, -100f))
     }
 }
