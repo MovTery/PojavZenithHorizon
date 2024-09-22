@@ -35,13 +35,14 @@ import com.movtery.pojavzh.feature.UpdateLauncher;
 import com.movtery.pojavzh.feature.accounts.AccountUpdateListener;
 import com.movtery.pojavzh.feature.accounts.AccountsManager;
 import com.movtery.pojavzh.feature.accounts.LocalAccountUtils;
+import com.movtery.pojavzh.feature.background.BackgroundManager;
+import com.movtery.pojavzh.feature.background.BackgroundType;
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.feature.mod.modpack.install.InstallExtra;
 import com.movtery.pojavzh.feature.mod.modpack.install.InstallLocalModPack;
 import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.fragment.SettingsFragment;
-import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
 import com.movtery.pojavzh.ui.subassembly.settingsbutton.ButtonType;
 import com.movtery.pojavzh.ui.subassembly.settingsbutton.SettingsButtonWrapper;
 import com.movtery.pojavzh.utils.ZHTools;
@@ -425,7 +426,10 @@ public class LauncherActivity extends BaseActivity {
     }
 
     private void refreshBackground() {
-        ZHTools.setBackgroundImage(this, BackgroundType.MAIN_MENU, findViewById(R.id.background_view));
+        BackgroundManager instance = BackgroundManager.getInstance();
+        if (instance != null) {
+            instance.setBackgroundImage(BackgroundType.MAIN_MENU, findViewById(R.id.background_view));
+        }
     }
 
     private void launchGame(MinecraftProfile prof) {

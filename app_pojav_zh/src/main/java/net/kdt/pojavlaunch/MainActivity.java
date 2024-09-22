@@ -48,17 +48,17 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.kdt.LoggerView;
 import com.movtery.pojavzh.feature.ProfileLanguageSelector;
 import com.movtery.pojavzh.feature.accounts.AccountsManager;
+import com.movtery.pojavzh.feature.background.BackgroundManager;
+import com.movtery.pojavzh.feature.background.BackgroundType;
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.ui.dialog.ControlSettingsDialog;
 import com.movtery.pojavzh.ui.dialog.KeyboardDialog;
 import com.movtery.pojavzh.ui.dialog.MouseSettingsDialog;
 import com.movtery.pojavzh.ui.dialog.SelectControlsDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
-import com.movtery.pojavzh.ui.subassembly.background.BackgroundType;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.anim.AnimUtils;
-import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.customcontrols.ControlButtonMenuListener;
@@ -167,7 +167,9 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     protected void initLayout() {
         setContentView(R.layout.activity_basemain);
         bindValues();
-        ZHTools.setBackgroundImage(this, BackgroundType.IN_GAME, findViewById(R.id.background_view));
+
+        BackgroundManager instance = BackgroundManager.getInstance();
+        if (instance != null) instance.setBackgroundImage(BackgroundType.IN_GAME, findViewById(R.id.background_view));
 
         keyboardDialog = new KeyboardDialog(this).setShowSpecialButtons(false);
 

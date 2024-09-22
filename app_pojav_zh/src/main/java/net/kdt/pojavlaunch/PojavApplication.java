@@ -17,6 +17,7 @@ import androidx.core.app.*;
 
 import android.util.*;
 
+import com.movtery.pojavzh.feature.background.BackgroundManager;
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.ui.activity.ErrorActivity;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
@@ -97,6 +98,8 @@ public class PojavApplication extends Application {
 					break;
 			}
 		}
+
+		BackgroundManager.setContext(this);
 	}
 
 	@Override
