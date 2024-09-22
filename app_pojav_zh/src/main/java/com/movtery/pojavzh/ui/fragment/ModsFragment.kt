@@ -46,8 +46,8 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
     private var openDocumentLauncher: ActivityResultLauncher<Any>? = null
     private var mModsLayout: View? = null
     private var mOperateLayout: View? = null
+    private var mOperateButtonsView: View? = null
     private var mDownloadOptiFine: View? = null
-    private var mOperateView: View? = null
     private var mReturnButton: ImageButton? = null
     private var mAddModButton: ImageButton? = null
     private var mPasteButton: ImageButton? = null
@@ -294,8 +294,7 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
     private fun bindViews(view: View) {
         mModsLayout = view.findViewById(R.id.mods_layout)
         mOperateLayout = view.findViewById(R.id.operate_layout)
-
-        mOperateView = view.findViewById(R.id.operate_view)
+        mOperateButtonsView = view.findViewById(R.id.operate_buttons_layout)
 
         mReturnButton = view.findViewById(R.id.zh_return_button)
         mAddModButton = view.findViewById(R.id.zh_add_file_button)
@@ -348,12 +347,13 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
     override fun slideIn(animPlayer: AnimPlayer) {
         animPlayer.apply(AnimPlayer.Entry(mModsLayout!!, Animations.BounceInDown))
             .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.BounceInLeft))
-            .apply(AnimPlayer.Entry(mOperateView!!, Animations.FadeInLeft))
+            .apply(AnimPlayer.Entry(mOperateButtonsView!!, Animations.FadeInLeft))
     }
 
     override fun slideOut(animPlayer: AnimPlayer) {
         animPlayer.apply(AnimPlayer.Entry(mModsLayout!!, Animations.FadeOutUp))
             .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.FadeOutRight))
+            .apply(AnimPlayer.Entry(mOperateButtonsView!!, Animations.BounceShrink))
     }
 }
 

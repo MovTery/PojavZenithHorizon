@@ -58,7 +58,7 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
     private ImageButton mPathManagerButton, mManagerProfileButton;
     private Button mPlayButton;
     private mcVersionSpinner mVersionSpinner;
-    private View mMenuLayout, mPlayLayout;
+    private View mMenuLayout, mPlayLayout, mPlayButtonsLayout;
     private View mLauncherNoticeView, mDividingLineView;
     private Button mNoticeCloseButton;
     private boolean mTasksRunning;
@@ -151,6 +151,7 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
     private void bindValues(View view) {
         mMenuLayout = view.findViewById(R.id.launcher_menu);
         mPlayLayout = view.findViewById(R.id.play_layout);
+        mPlayButtonsLayout = view.findViewById(R.id.play_buttons_layout);
         mPathManagerButton = view.findViewById(R.id.path_manager_button);
         mManagerProfileButton = view.findViewById(R.id.manager_profile_button);
         mPlayButton = view.findViewById(R.id.play_button);
@@ -267,12 +268,13 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
     public void slideIn(AnimPlayer animPlayer) {
         animPlayer.apply(new AnimPlayer.Entry(mMenuLayout, Animations.BounceInDown))
                 .apply(new AnimPlayer.Entry(mPlayLayout, Animations.BounceInLeft))
-                .apply(new AnimPlayer.Entry(accountViewWrapper.getMainView(), Animations.Wobble));
+                .apply(new AnimPlayer.Entry(mPlayButtonsLayout, Animations.BounceEnlarge));
     }
 
     @Override
     public void slideOut(AnimPlayer animPlayer) {
         animPlayer.apply(new AnimPlayer.Entry(mMenuLayout, Animations.FadeOutUp))
-                .apply(new AnimPlayer.Entry(mPlayLayout, Animations.FadeOutRight));
+                .apply(new AnimPlayer.Entry(mPlayLayout, Animations.FadeOutRight))
+                .apply(new AnimPlayer.Entry(mPlayButtonsLayout, Animations.BounceShrink));
     }
 }
