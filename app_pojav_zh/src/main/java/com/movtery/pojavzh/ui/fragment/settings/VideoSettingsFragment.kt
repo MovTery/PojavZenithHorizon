@@ -36,7 +36,7 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
             R.id.ignoreNotch_title,
             R.id.ignoreNotch_summary,
             R.id.ignoreNotch
-        )
+        ).setRequiresReboot(true)
         ignoreNotch.mainView.visibility =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && LauncherPreferences.PREF_NOTCH_SIZE > 0)
                 View.VISIBLE else View.GONE
