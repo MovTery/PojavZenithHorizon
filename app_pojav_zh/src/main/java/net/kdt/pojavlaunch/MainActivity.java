@@ -227,7 +227,6 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             navDrawer.setOnItemClickListener(gameActionClickListener);
             drawerLayout.closeDrawers();
 
-
             final String finalVersion = version;
             minecraftGLView.setSurfaceReadyListener(() -> {
                 try {
@@ -235,30 +234,24 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                     if (PREF_VIRTUAL_MOUSE_START) {
                         touchpad.post(() -> touchpad.switchState());
                     }
-                    if(PREF_ENABLE_LOG_OUTPUT) {
-                        runOnUiThread(this::openLogOutput);
-                    }
-
-                    runOnUiThread(() -> {
-                        // 淡入游戏内提示
-                        String tipString = StringUtils.insertNewline(mGameTipTextView.getText(), StringUtils.insertSpace(getString(R.string.zh_game_tip_version), minecraftProfile.lastVersionId));
-                        mGameTipTextView.setText(tipString);
-                        //显示动画
-                        AnimUtils.setVisibilityAnim(mGameTipView, 1000, true, 300, new AnimUtils.AnimationListener() {
-                            @Override
-                            public void onStart() {
-                            }
-                            @Override
-                            public void onEnd() {
-                                //隐藏此提示文本
-                                AnimUtils.setVisibilityAnim(mGameTipView, 15000, false, 300, null);
-                            }
-                        });
-                    });
 
                     runCraft(finalVersion, mVersionInfo);
                 }catch (Throwable e){
                     Tools.showErrorRemote(e);
+                }
+            });
+
+            if (PREF_ENABLE_LOG_OUTPUT) openLogOutput();
+
+            String tipString = StringUtils.insertNewline(mGameTipTextView.getText(), StringUtils.insertSpace(getString(R.string.zh_game_tip_version), minecraftProfile.lastVersionId));
+            mGameTipTextView.setText(tipString);
+            AnimUtils.setVisibilityAnim(mGameTipView, 1000, true, 300, new AnimUtils.AnimationListener() {
+                @Override
+                public void onStart() {
+                }
+                @Override
+                public void onEnd() {
+                    AnimUtils.setVisibilityAnim(mGameTipView, 15000, false, 300, null);
                 }
             });
         } catch (Throwable e) {

@@ -62,11 +62,12 @@ public class AccountsManager {
         mProgressListener = step -> {
             // Animate the login bar, cosmetic purposes only
             float mLoginBarWidth = -1;
+            float value = (float) Tools.currentDisplayMetrics.widthPixels / MAX_LOGIN_STEP;
             if (mLoginBarAnimator != null) {
                 mLoginBarAnimator.cancel();
-                mLoginBarAnimator.setFloatValues(mLoginBarWidth, ((float) Tools.currentDisplayMetrics.widthPixels / MAX_LOGIN_STEP * step));
+                mLoginBarAnimator.setFloatValues(mLoginBarWidth, value * step);
             } else {
-                mLoginBarAnimator = ObjectAnimator.ofFloat(this, "LoginBarWidth", mLoginBarWidth, ((float) Tools.currentDisplayMetrics.widthPixels / MAX_LOGIN_STEP * step));
+                mLoginBarAnimator = ObjectAnimator.ofFloat(this, "LoginBarWidth", mLoginBarWidth, value * step);
             }
             mLoginBarAnimator.start();
         };
