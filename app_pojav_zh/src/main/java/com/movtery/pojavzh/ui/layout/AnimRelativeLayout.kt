@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import android.widget.RelativeLayout
 import net.kdt.pojavlaunch.R
 
-open class AnimRelativeLayout @JvmOverloads constructor(
+class AnimRelativeLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
