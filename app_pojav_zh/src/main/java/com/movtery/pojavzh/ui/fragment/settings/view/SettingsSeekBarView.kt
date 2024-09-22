@@ -15,7 +15,7 @@ import com.movtery.pojavzh.ui.layout.AnimRelativeLayout
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF
 
-@SuppressLint("StringFormatInvalid")
+@SuppressLint("Recycle", "StringFormatInvalid")
 class SettingsSeekBarView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -27,7 +27,6 @@ class SettingsSeekBarView @JvmOverloads constructor(
     private val mLayout: View
     private val mTitleTextView: TextView
     private val mSummaryTextView: TextView
-    private val mInfoTextView: TextView
     private val mSeekBar: SeekBar
     private val mValueTextView: TextView
     private var mSuffix: String = ""
@@ -38,7 +37,6 @@ class SettingsSeekBarView @JvmOverloads constructor(
         mLayout = findViewById(R.id.layout)
         mTitleTextView = findViewById(R.id.title)
         mSummaryTextView = findViewById(R.id.summary)
-        mInfoTextView = findViewById(R.id.info)
         mSeekBar = findViewById(R.id.seekbar)
         mValueTextView = findViewById(R.id.value)
 
@@ -57,17 +55,12 @@ class SettingsSeekBarView @JvmOverloads constructor(
         val suffixString = attributes.getString(R.styleable.SettingsSeekBarView_seekbarViewSuffix)
         suffixString?.apply { mSuffix = this }
 
-        val defaultValue = attributes.getInt(R.styleable.SettingsSeekBarView_seekbarViewDefaultValue, 0)
         val max = attributes.getInt(R.styleable.SettingsSeekBarView_seekbarViewSeekBarMax, 100)
         val min = attributes.getInt(R.styleable.SettingsSeekBarView_seekbarViewSeekBarMin, 0)
-        mSeekBar.apply {
+        mSeekBar?.apply {
             this.max = max
             this.min = min
-            progress = DEFAULT_PREF.getInt(mKey, defaultValue)
-            updateValueText()
         }
-
-        attributes.recycle()
 
         mLayout.setOnClickListener {
             val builder = EditTextDialog.Builder(context)
@@ -120,6 +113,9 @@ class SettingsSeekBarView @JvmOverloads constructor(
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
+
+        mSeekBar.progress = DEFAULT_PREF.getInt(mKey, 0)
+        updateValueText()
     }
 
     @SuppressLint("SetTextI18n")
@@ -133,22 +129,7 @@ class SettingsSeekBarView @JvmOverloads constructor(
     }
 
     fun setSummary(text: String?): SettingsSeekBarView {
-        text?.let {
-            mSummaryTextView.text = it
-            mSummaryTextView.visibility = View.VISIBLE
-        } ?: apply {
-            mSummaryTextView.visibility = View.GONE
-        }
-        return this
-    }
-
-    fun setInfo(text: String?): SettingsSeekBarView {
-        text?.let {
-            mInfoTextView.text = it
-            mInfoTextView.visibility = View.VISIBLE
-        } ?: apply {
-            mInfoTextView.visibility = View.GONE
-        }
+        mSummaryTextView.text = text
         return this
     }
 

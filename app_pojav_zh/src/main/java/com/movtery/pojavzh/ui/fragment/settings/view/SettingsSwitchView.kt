@@ -13,7 +13,7 @@ import com.movtery.pojavzh.ui.layout.AnimRelativeLayout
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF
 
-@SuppressLint("UseSwitchCompatOrMaterialCode")
+@SuppressLint("Recycle", "StringFormatInvalid", "UseSwitchCompatOrMaterialCode")
 class SettingsSwitchView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -52,8 +52,6 @@ class SettingsSwitchView @JvmOverloads constructor(
         mSwitch.isChecked = DEFAULT_PREF.getBoolean(mKey, check)
 
         val requiresReboot = attributes.getBoolean(R.styleable.SettingsSwitchView_switchViewRequiresReboot, false)
-
-        attributes.recycle()
 
         mSwitch.setOnCheckedChangeListener { v, b ->
             DEFAULT_PREF.edit().putBoolean(mKey, b).apply()

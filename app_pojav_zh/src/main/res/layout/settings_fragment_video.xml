@@ -30,9 +30,7 @@
                 android:layout_height="wrap_content"
                 app:listViewKey="renderer"
                 app:listViewTitle="@string/mcl_setting_category_renderer"
-                app:listViewDefaultValue="opengles2"
-                app:listViewNames="@array/renderer"
-                app:listViewValues="@array/renderer_values"/>
+                app:listViewDefaultValue="opengles2"/>
 
             <com.movtery.pojavzh.ui.fragment.settings.view.SettingsSwitchView
                 android:id="@+id/ignoreNotch_layout"
@@ -41,8 +39,7 @@
                 app:switchViewKey="ignoreNotch"
                 app:switchViewTitle="@string/mcl_setting_title_ignore_notch"
                 app:switchViewSummary="@string/mcl_setting_subtitle_ignore_notch"
-                app:switchViewSwitchCheck="true"
-                app:switchViewRequiresReboot="true"/>
+                app:switchViewSwitchCheck="true"/>
 
             <com.movtery.pojavzh.ui.fragment.settings.view.SettingsSeekBarView
                 android:id="@+id/resolutionRatio_layout"
@@ -53,8 +50,7 @@
                 app:seekbarViewSummary="@string/mcl_setting_subtitle_resolution_scaler"
                 app:seekbarViewSeekBarMax="300"
                 app:seekbarViewSeekBarMin="25"
-                app:seekbarViewSuffix="%"
-                app:seekbarViewDefaultValue="100"/>
+                app:seekbarViewSuffix="%"/>
 
             <com.movtery.pojavzh.ui.fragment.settings.view.SettingsSwitchView
                 android:id="@+id/sustainedPerformance_layout"

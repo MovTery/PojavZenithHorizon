@@ -19,11 +19,9 @@
         <attr name="seekbarViewKey" format="string" />
         <attr name="seekbarViewTitle" format="string" />
         <attr name="seekbarViewSummary" format="string" />
-        <attr name="seekbarViewInfo" format="string" />
         <attr name="seekbarViewSeekBarMax" format="integer" />
         <attr name="seekbarViewSeekBarMin" format="integer" />
         <attr name="seekbarViewSuffix" format="string" />
-        <attr name="seekbarViewDefaultValue" format="integer" />
         <attr name="seekbarViewRequiresReboot" format="boolean" />
     </declare-styleable>
 
