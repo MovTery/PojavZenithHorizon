@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,46 +23,166 @@
                 android:text="@string/preference_category_miscellaneous"
                 android:textColor="@color/settings_category" />
 
-            <com.movtery.pojavzh.ui.fragment.settings.view.SettingsSwitchView
+            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
                 android:id="@+id/arc_capes_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:switchViewKey="arc_capes"
-                app:switchViewTitle="@string/arc_capes_title"
-                app:switchViewSummary="@string/arc_capes_desc"/>
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="@dimen/_12sdp">
 
-            <com.movtery.pojavzh.ui.fragment.settings.view.SettingsSwitchView
+                <TextView
+                    android:id="@+id/arc_capes_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/arc_capes_title"
+                    android:textColor="@color/black_or_white" />
+
+                <TextView
+                    android:id="@+id/arc_capes_summary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/arc_capes_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/arc_capes"
+                    android:text="@string/arc_capes_desc" />
+
+                <Switch
+                    android:id="@+id/arc_capes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
+
+            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
                 android:id="@+id/verifyManifest_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:switchViewKey="verifyManifest"
-                app:switchViewTitle="@string/preference_verify_manifest_title"
-                app:switchViewSummary="@string/preference_verify_manifest_description"
-                app:switchViewSwitchCheck="true"/>
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="@dimen/_12sdp">
 
-            <com.movtery.pojavzh.ui.fragment.settings.view.SettingsSwitchView
+                <TextView
+                    android:id="@+id/verifyManifest_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/preference_verify_manifest_title"
+                    android:textColor="@color/black_or_white" />
+
+                <TextView
+                    android:id="@+id/verifyManifest_summary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/verifyManifest_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/verifyManifest"
+                    android:text="@string/preference_verify_manifest_description" />
+
+                <Switch
+                    android:id="@+id/verifyManifest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:checked="true"/>
+            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
+
+            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
                 android:id="@+id/zinkPreferSystemDriver_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:switchViewKey="zinkPreferSystemDriver"
-                app:switchViewTitle="@string/preference_vulkan_driver_system_title"
-                app:switchViewSummary="@string/preference_vulkan_driver_system_description"/>
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="@dimen/_12sdp">
 
-            <com.movtery.pojavzh.ui.fragment.settings.view.SettingsSwitchView
+                <TextView
+                    android:id="@+id/zinkPreferSystemDriver_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/preference_vulkan_driver_system_title"
+                    android:textColor="@color/black_or_white" />
+
+                <TextView
+                    android:id="@+id/zinkPreferSystemDriver_summary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/zinkPreferSystemDriver_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/zinkPreferSystemDriver"
+                    android:text="@string/preference_vulkan_driver_system_description" />
+
+                <Switch
+                    android:id="@+id/zinkPreferSystemDriver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
+
+            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
                 android:id="@+id/force_english_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:switchViewKey="force_english"
-                app:switchViewTitle="@string/preference_force_english_title"
-                app:switchViewSummary="@string/preference_force_english_description"/>
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="@dimen/_12sdp">
 
-            <com.movtery.pojavzh.ui.fragment.settings.view.SettingsSwitchView
+                <TextView
+                    android:id="@+id/force_english_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/preference_force_english_title"
+                    android:textColor="@color/black_or_white" />
+
+                <TextView
+                    android:id="@+id/force_english_summary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/force_english_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/force_english"
+                    android:text="@string/preference_force_english_description" />
+
+                <Switch
+                    android:id="@+id/force_english"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
+
+            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
                 android:id="@+id/notification_permission_request_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:switchViewKey="notification_permission_request"
-                app:switchViewTitle="@string/preference_ask_for_notification_title"
-                app:switchViewSummary="@string/preference_ask_for_notification_description" />
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="@dimen/_12sdp">
+
+                <TextView
+                    android:id="@+id/notification_permission_request_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/preference_ask_for_notification_title"
+                    android:textColor="@color/black_or_white" />
+
+                <TextView
+                    android:id="@+id/notification_permission_request_summary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/notification_permission_request_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/notification_permission_request"
+                    android:text="@string/preference_ask_for_notification_description" />
+
+                <Switch
+                    android:id="@+id/notification_permission_request"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
