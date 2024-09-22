@@ -55,8 +55,7 @@
                 android:layout_height="wrap_content"
                 app:switchViewKey="force_english"
                 app:switchViewTitle="@string/preference_force_english_title"
-                app:switchViewSummary="@string/preference_force_english_description"
-                app:switchViewRequiresReboot="true"/>
+                app:switchViewSummary="@string/preference_force_english_description"/>
 
             <com.movtery.pojavzh.ui.fragment.settings.view.SettingsSwitchView
                 android:id="@+id/notification_permission_request_layout"
