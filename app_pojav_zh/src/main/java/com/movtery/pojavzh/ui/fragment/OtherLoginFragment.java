@@ -144,15 +144,9 @@ public class OtherLoginFragment extends FragmentWithAnim {
                                 } else {
                                     SelectRoleDialog selectRoleDialog = new SelectRoleDialog(requireContext(), authResult.getAvailableProfiles());
                                     selectRoleDialog.setOnSelectedListener(selectedProfile -> {
-                                        for (AuthResult.AvailableProfiles authProfile : authResult.getAvailableProfiles()) {
-                                            if (Objects.equals(authProfile.getName(), selectedProfile.getName())) {
-                                                account.profileId = selectedProfile.getId();
-                                                account.username = selectedProfile.getName();
-                                                refresh(account);
-                                            }
-                                        }
-                                        ExtraCore.setValue(ZHExtraConstants.OTHER_LOGIN_TODO, account);
-                                        Tools.backToMainMenu(requireActivity());
+                                        account.profileId = selectedProfile.getId();
+                                        account.username = selectedProfile.getName();
+                                        refresh(account);
                                     });
                                     selectRoleDialog.show();
                                 }
