@@ -7,11 +7,12 @@ import com.movtery.anim.animations.slide.*
 
 enum class Animations(val animator: BaseAnimator) {
     //Bounce
-    BounceIn(BounceInAnimator()),
     BounceInDown(BounceInDownAnimator()),
     BounceInLeft(BounceInLeftAnimator()),
     BounceInRight(BounceInRightAnimator()),
     BounceInUp(BounceInUpAnimator()),
+    BounceEnlarge(BounceEnlargeAnimator()),
+    BounceShrink(BounceShrinkAnimator()),
 
     //Fade in
     FadeIn(FadeInAnimator()),

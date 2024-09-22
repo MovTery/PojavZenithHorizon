@@ -68,7 +68,7 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
     private var mSelectAllCheck: CheckBox? = null
     private var mFilesLayout: View? = null
     private var mOperateLayout: View? = null
-    private var mOperateView: View? = null
+    private var mOperateButtonsLayout: View? = null
     private var mExternalStorage: View? = null
     private var mSoftwarePrivate: View? = null
     private var mFileRecyclerView: FileRecyclerView? = null
@@ -318,8 +318,7 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
     private fun bindViews(view: View) {
         mFilesLayout = view.findViewById(R.id.files_layout)
         mOperateLayout = view.findViewById(R.id.operate_layout)
-
-        mOperateView = view.findViewById(R.id.operate_view)
+        mOperateButtonsLayout = view.findViewById(R.id.operate_buttons_layout)
 
         mReturnButton = view.findViewById(R.id.zh_return_button)
         mAddFileButton = view.findViewById(R.id.zh_add_file_button)
@@ -387,12 +386,13 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
     override fun slideIn(animPlayer: AnimPlayer) {
         animPlayer.apply(AnimPlayer.Entry(mFilesLayout!!, Animations.BounceInDown))
             .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.BounceInLeft))
-            .apply(AnimPlayer.Entry(mOperateView!!, Animations.FadeInLeft))
+            .apply(AnimPlayer.Entry(mOperateButtonsLayout!!, Animations.FadeInLeft))
     }
 
     override fun slideOut(animPlayer: AnimPlayer) {
         animPlayer.apply(AnimPlayer.Entry(mFilesLayout!!, Animations.FadeOutUp))
             .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.FadeOutRight))
+            .apply(AnimPlayer.Entry(mOperateButtonsLayout!!, Animations.BounceShrink))
     }
 }
 
