@@ -81,7 +81,6 @@
             android:ellipsize="marquee"
             android:textAlignment="inherit"
             android:gravity="center"
-            android:minHeight="48dp"
             app:layout_constraintBottom_toBottomOf="@+id/controller_mapper_key_spinner1"
             app:layout_constraintTop_toTopOf="@+id/controller_mapper_key_spinner1"
             app:layout_constraintStart_toStartOf="@+id/controller_mapper_key_spinner1"
@@ -94,7 +93,7 @@
             android:layout_marginHorizontal="@dimen/_8sdp"
             android:background="@null"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/controller_mapper_plus_label2"
             app:layout_constraintStart_toEndOf="@id/controller_mapper_plus_label1" />
 
         <TextView
@@ -106,22 +105,20 @@
             android:ellipsize="marquee"
             android:textAlignment="inherit"
             android:gravity="center"
-            android:minHeight="48dp"
-            app:layout_constraintBottom_toBottomOf="@+id/controller_mapper_key_spinner2"
-            app:layout_constraintTop_toTopOf="@+id/controller_mapper_key_spinner2"
-            app:layout_constraintStart_toStartOf="@+id/controller_mapper_key_spinner2"
-            app:layout_constraintEnd_toEndOf="@+id/controller_mapper_key_spinner2"/>
+            app:layout_constraintBottom_toBottomOf="@id/controller_mapper_key_spinner2"
+            app:layout_constraintTop_toTopOf="@id/controller_mapper_key_spinner2"
+            app:layout_constraintStart_toStartOf="@id/controller_mapper_key_spinner2"
+            app:layout_constraintEnd_toEndOf="@id/controller_mapper_key_spinner2"/>
 
         <Spinner
             android:id="@+id/controller_mapper_key_spinner3"
             android:layout_width="0dp"
             android:layout_height="@dimen/_32sdp"
-            android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginHorizontal="@dimen/_8sdp"
             android:background="@null"
-            app:layout_constraintTop_toBottomOf="@id/controller_mapper_key_spinner1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/controller_mapper_plus_label2"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/controller_mapper_plus_label2"
+            app:layout_constraintEnd_toStartOf="@id/controller_mapper_plus_label3"/>
 
         <TextView
             android:id="@+id/controller_mapper_key_textView3"
@@ -132,22 +129,20 @@
             android:ellipsize="marquee"
             android:textAlignment="inherit"
             android:gravity="center"
-            android:minHeight="48dp"
-            app:layout_constraintBottom_toBottomOf="@+id/controller_mapper_key_spinner3"
-            app:layout_constraintTop_toTopOf="@+id/controller_mapper_key_spinner3"
-            app:layout_constraintStart_toStartOf="@+id/controller_mapper_key_spinner3"
-            app:layout_constraintEnd_toEndOf="@+id/controller_mapper_key_spinner3"/>
+            app:layout_constraintBottom_toBottomOf="@id/controller_mapper_key_spinner3"
+            app:layout_constraintTop_toTopOf="@id/controller_mapper_key_spinner3"
+            app:layout_constraintStart_toStartOf="@id/controller_mapper_key_spinner3"
+            app:layout_constraintEnd_toEndOf="@id/controller_mapper_key_spinner3"/>
 
         <Spinner
             android:id="@+id/controller_mapper_key_spinner4"
             android:layout_width="0dp"
             android:layout_height="@dimen/_32sdp"
-            android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginHorizontal="@dimen/_8sdp"
             android:background="@null"
-            app:layout_constraintTop_toBottomOf="@id/controller_mapper_key_spinner2"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/controller_mapper_plus_label2"/>
+            app:layout_constraintStart_toEndOf="@id/controller_mapper_plus_label3"/>
 
         <TextView
             android:id="@+id/controller_mapper_key_textView4"
@@ -158,7 +153,6 @@
             android:ellipsize="marquee"
             android:textAlignment="inherit"
             android:gravity="center"
-            android:minHeight="48dp"
             app:layout_constraintBottom_toBottomOf="@+id/controller_mapper_key_spinner4"
             app:layout_constraintTop_toTopOf="@+id/controller_mapper_key_spinner4"
             app:layout_constraintStart_toStartOf="@+id/controller_mapper_key_spinner4"
@@ -172,8 +166,8 @@
             android:text="+"
             android:textColor="@color/primary_text"
             app:layout_constraintBottom_toBottomOf="@id/controller_mapper_key_spinner1"
-            app:layout_constraintEnd_toEndOf="@id/guideline3"
-            app:layout_constraintStart_toStartOf="@id/guideline3"
+            app:layout_constraintEnd_toEndOf="@id/guideline2"
+            app:layout_constraintStart_toStartOf="@id/guideline2"
             app:layout_constraintTop_toTopOf="@id/controller_mapper_key_spinner1"
             tools:ignore="HardcodedText" />
 
@@ -183,11 +177,30 @@
             android:layout_height="wrap_content"
             android:text="+"
             android:textColor="@color/primary_text"
-            app:layout_constraintBottom_toBottomOf="@id/controller_mapper_key_spinner3"
+            app:layout_constraintBottom_toBottomOf="@id/controller_mapper_key_spinner1"
             app:layout_constraintEnd_toEndOf="@id/guideline3"
             app:layout_constraintStart_toStartOf="@id/guideline3"
-            app:layout_constraintTop_toTopOf="@id/controller_mapper_key_spinner3"
+            app:layout_constraintTop_toTopOf="@id/controller_mapper_key_spinner1"
             tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/controller_mapper_plus_label3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:textColor="@color/primary_text"
+            app:layout_constraintBottom_toBottomOf="@id/controller_mapper_key_spinner1"
+            app:layout_constraintEnd_toEndOf="@id/guideline4"
+            app:layout_constraintStart_toStartOf="@id/guideline4"
+            app:layout_constraintTop_toTopOf="@id/controller_mapper_key_spinner1"
+            tools:ignore="HardcodedText" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"
@@ -196,16 +209,24 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
+
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/controller_mapper_toggleable_switch"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:text="@string/customctrl_toggle"
-            android:layout_marginTop="@dimen/padding_moderate"
-            android:layout_marginHorizontal="@dimen/padding_moderate"
+            android:layout_marginVertical="@dimen/_8sdp"
+            android:layout_marginHorizontal="@dimen/_8sdp"
             android:paddingHorizontal="@dimen/padding_medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/controller_mapper_key_spinner3" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
