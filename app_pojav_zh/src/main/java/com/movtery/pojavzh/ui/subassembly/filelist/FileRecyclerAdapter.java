@@ -26,7 +26,6 @@ import java.util.List;
 public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapter.InnerHolder> {
     private final List<FileItemBean> mData;
     private final List<FileItemBean> selectedFiles = new ArrayList<>();
-    private final int textColor = Color.rgb(69, 179, 162);
     private boolean isMultiSelectMode = false;
     private OnItemClickListener mOnItemClickListener;
     private OnItemLongClickListener mOnItemLongClickListener;
@@ -164,17 +163,13 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
             this.mFileItemBean = fileItemBean;
             File file = fileItemBean.file;
 
-            this.name.setText(fileItemBean.name == null ?
-                    file == null ? "" : file.getName() :
-                    fileItemBean.name);
+            this.name.setText(fileItemBean.name);
 
-            int color;
             if (fileItemBean.isHighlighted) {
-                color = textColor; //设置高亮
+                this.name.setTextColor(Color.rgb(69, 179, 162)); //设置高亮
             } else {
-                color = this.name.getResources().getColor(R.color.black_or_white, this.name.getContext().getTheme());
+                this.name.setTextColor(this.name.getResources().getColor(R.color.black_or_white, this.name.getContext().getTheme()));
             }
-            this.name.setTextColor(color);
 
             if (fileItemBean.isCanCheck) {
                 checkBox.setVisibility(isMultiSelectMode ? View.VISIBLE : View.GONE);

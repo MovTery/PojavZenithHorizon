@@ -124,11 +124,11 @@ public class FileRecyclerView extends LinearLayout {
     }
 
     public FileRecyclerAdapter getAdapter() {
-        return fileRecyclerViewCreator.getFileRecyclerAdapter();
+        return fileRecyclerViewCreator.fileRecyclerAdapter;
     }
 
     public int getItemCount() {
-        return fileRecyclerViewCreator.getFileRecyclerAdapter().getItemCount();
+        return fileRecyclerViewCreator.fileRecyclerAdapter.getItemCount();
     }
 
     public void lockAndListAt(File lockPath, File listPath) {
@@ -147,9 +147,10 @@ public class FileRecyclerView extends LinearLayout {
                 filterString = "";
 
                 if (!path.equals(lockPath)) {
-                    FileItemBean itemBean = new FileItemBean();
-                    itemBean.image = context.getResources().getDrawable(R.drawable.ic_folder, context.getTheme());
-                    itemBean.name = "..";
+                    FileItemBean itemBean = new FileItemBean(
+                            "..",
+                            context.getResources().getDrawable(R.drawable.ic_folder, context.getTheme())
+                    );
                     itemBean.isCanCheck = false;
                     itemBeans.add(0, itemBean);
                 }

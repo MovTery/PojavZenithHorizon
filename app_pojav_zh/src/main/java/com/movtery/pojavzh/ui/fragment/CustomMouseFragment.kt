@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.DrawableImageViewTarget
@@ -38,7 +39,6 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
         const val TAG: String = "CustomMouseFragment"
     }
 
-    private val mData: List<FileItemBean> = ArrayList()
     private var mMouseLayout: View? = null
     private var mOperateLayout: View? = null
     private var openDocumentLauncher: ActivityResultLauncher<Array<String>>? = null
@@ -90,10 +90,17 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun loadData() {
-        val fileItemBeans = FileRecyclerViewCreator.loadItemBeansFromPath(requireActivity(),
-            mousePath(), FileIcon.FILE, true, false)
-        fileItemBeans.add(
-            0, FileItemBean(requireActivity().getDrawable(R.drawable.ic_mouse_pointer), null, getString(R.string.zh_custom_mouse_default)))
+        val fileItemBeans = FileRecyclerViewCreator.loadItemBeansFromPath(
+            requireActivity(),
+            mousePath(),
+            FileIcon.FILE,
+            showFile = true,
+            showFolder = false
+        )
+        fileItemBeans.add(0, FileItemBean(
+            getString(R.string.zh_custom_mouse_default),
+            ContextCompat.getDrawable(requireActivity(), R.drawable.ic_mouse_pointer)
+        ))
         Tools.runOnUiThread {
             fileRecyclerViewCreator?.loadData(fileItemBeans)
             //默认显示当前选中的鼠标
@@ -171,7 +178,7 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
                 filesDialog.show()
             },
             null,
-            mData
+            ArrayList()
         )
     }
 
