@@ -177,9 +177,7 @@ public class JREUtils {
         LD_LIBRARY_PATH = ldLibraryPath.toString();
     }
 
-    public static void setJavaEnvironment(Activity activity, String jreHome) throws Throwable {
-        final String localLibrary = loadGraphicsLibrary();
-
+    public static void setJavaEnvironment(String jreHome) throws Throwable {
         Map<String, String> envMap = new ArrayMap<>();
         envMap.put("POJAV_NATIVEDIR", DIR_NATIVE_LIB);
         envMap.put("JAVA_HOME", jreHome);
@@ -224,25 +222,11 @@ public class JREUtils {
             envMap.put("PATH", FFmpegPlugin.libraryPath+":"+envMap.get("PATH"));
 
         if (LOCAL_RENDERER != null) {
-            switch (LOCAL_RENDERER) {
-                case "vulkan_zink":
-                case "gallium_freedreno":
-                case "gallium_panfrost":
-                    envMap.put("MESA_LIBRARY", localLibrary);
-                    break;
-                case "opengles3_desktopgl_angle_vulkan": {
-                    envMap.put("LIBGL_ES", "3");
-                    envMap.put("POJAVEXEC_EGL","libEGL_angle.so"); // Use ANGLE EGL
-                } break;
-                case "gallium_virgl": {
-                    envMap.put("VTEST_SOCKET_NAME", new File(PathAndUrlManager.DIR_CACHE, ".virgl_test").getAbsolutePath());
-                    envMap.put("MESA_LIBRARY", localLibrary);
-                } break;
-                default:
-                    // Nothing to do here
-                    break;
-            }
             envMap.put("POJAV_RENDERER", LOCAL_RENDERER);
+            if (LOCAL_RENDERER.equals("opengles3_desktopgl_angle_vulkan")) {
+                envMap.put("LIBGL_ES", "3");
+                envMap.put("POJAVEXEC_EGL","libEGL_angle.so"); // Use ANGLE EGL
+            }
         }
 
         File customEnvFile = new File(PathAndUrlManager.DIR_GAME_HOME, "custom_env.txt");
@@ -289,16 +273,38 @@ public class JREUtils {
         // return ldLibraryPath;
     }
 
+    public static void setRendererConfig(String localLibrary) throws Throwable {
+        Map<String, String> envMap = new ArrayMap<>();
+
+        envMap.put("MESA_LIBRARY", localLibrary);
+
+        if (LOCAL_RENDERER.equals("gallium_virgl"))
+            envMap.put("VTEST_SOCKET_NAME", new File(PathAndUrlManager.DIR_CACHE, ".virgl_test").getAbsolutePath());
+
+        for (Map.Entry<String, String> env : envMap.entrySet()) {
+            Logger.appendToLog("Added custom env: " + env.getKey() + "=" + env.getValue());
+            try {
+                Os.setenv(env.getKey(), env.getValue(), true);
+            } catch (NullPointerException exception) {
+                Logging.e("JREUtils", exception.toString());
+            }
+        }
+
+    }
+
     public static void launchJavaVM(final AppCompatActivity activity, final Runtime runtime, File gameDirectory, final List<String> JVMArgs, final String userArgsString) throws Throwable {
         String runtimeHome = MultiRTUtils.getRuntimeHome(runtime.name).getAbsolutePath();
 
         JREUtils.relocateLibPath(runtime, runtimeHome);
 
-        setJavaEnvironment(activity, runtimeHome);
+        setJavaEnvironment(runtimeHome);
 
         final String graphicsLib = loadGraphicsLibrary();
-        List<String> userArgs = getJavaArgs(runtimeHome, userArgsString);
 
+        if (LOCAL_RENDERER != null && !LOCAL_RENDERER.startsWith("opengles"))
+            setRendererConfig(graphicsLib);
+
+        List<String> userArgs = getJavaArgs(runtimeHome, userArgsString);
         //Remove arguments that can interfere with the good working of the launcher
         purgeArg(userArgs,"-Xms");
         purgeArg(userArgs,"-Xmx");
