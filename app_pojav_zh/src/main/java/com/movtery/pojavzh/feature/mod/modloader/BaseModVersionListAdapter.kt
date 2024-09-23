@@ -60,12 +60,10 @@ open class BaseModVersionListAdapter(private val mData: List<*>?) :
         }
 
         fun setView(version: Any?) {
-            if (version is OptiFineVersion) {
-                versionName.text = version.versionName
-            } else if (version is String) {
-                versionName.text = version
-            } else if (version is FabricVersion) {
-                versionName.text = version.version
+            when (version) {
+                is OptiFineVersion -> versionName.text = version.versionName
+                is FabricVersion -> versionName.text = version.version
+                is String -> versionName.text = version
             }
             mainView.setOnClickListener { _: View? ->
                 if (mTasksRunning) {
