@@ -51,22 +51,18 @@ class SelectMouseDialog(context: Context) : AbstractSelectDialog(context) {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun getItems(): List<FileItemBean> {
+    private fun getItems(): MutableList<FileItemBean> {
         val fileItemBeans = FileRecyclerViewCreator.loadItemBeansFromPath(
             context,
             mousePath(),
             FileIcon.FILE,
-            true,
-            false
+            showFile = true,
+            showFolder = false
         )
-        fileItemBeans.add(
-            0,
-            FileItemBean(
-                context.getDrawable(R.drawable.ic_mouse_pointer),
-                null,
-                context.getString(R.string.zh_custom_mouse_default)
-            )
-        )
+        fileItemBeans.add(0, FileItemBean(
+            context.getString(R.string.zh_custom_mouse_default),
+            context.getDrawable(R.drawable.ic_mouse_pointer)
+        ))
         return fileItemBeans
     }
 

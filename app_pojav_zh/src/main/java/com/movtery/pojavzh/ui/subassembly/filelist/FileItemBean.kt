@@ -4,31 +4,32 @@ import android.graphics.drawable.Drawable
 import com.movtery.pojavzh.utils.stringutils.SortStrings.Companion.compareChar
 import java.io.File
 
-class FileItemBean : Comparable<FileItemBean?> {
+class FileItemBean(
+    @JvmField
+    val name: String
+) : Comparable<FileItemBean?> {
     @JvmField
     var image: Drawable? = null
     @JvmField
     var file: File? = null
     @JvmField
-    var name: String? = null
-    @JvmField
     var isHighlighted: Boolean = false
     @JvmField
     var isCanCheck: Boolean = true
 
-    constructor()
-
-    constructor(image: Drawable?, file: File?, name: String?) {
-        this.image = image
+    constructor(file: File) : this(file.name) {
         this.file = file
-        this.name = name
+    }
+
+    constructor(name: String, image: Drawable?) : this(name) {
+        this.image = image
     }
 
     override fun compareTo(other: FileItemBean?): Int {
         other ?: run { throw NullPointerException("Cannot compare to null.") }
 
-        val thisName = file?.name ?: name!!
-        val otherName = other.file?.name ?: other.name!!
+        val thisName = file?.name ?: name
+        val otherName = other.file?.name ?: other.name
 
         //首先检查文件是否为目录
         if (this.file != null && file!!.isDirectory) {
