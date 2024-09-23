@@ -264,28 +264,16 @@ class ControlSettingsFragment(val parent: FragmentWithAnim) : AbstractSettingsFr
 
     private fun computeVisibility() {
         mainView?.apply {
-            findViewById<View>(R.id.timeLongPressTrigger_layout).visibility =
-                if (!LauncherPreferences.PREF_DISABLE_GESTURES) View.VISIBLE else View.GONE
+            setViewVisibility(findViewById(R.id.timeLongPressTrigger_layout), !LauncherPreferences.PREF_DISABLE_GESTURES)
+            setViewVisibility(findViewById(R.id.gyroSensitivity_layout), LauncherPreferences.PREF_ENABLE_GYRO)
+            setViewVisibility(findViewById(R.id.gyroSampleRate_layout), LauncherPreferences.PREF_ENABLE_GYRO)
+            setViewVisibility(findViewById(R.id.gyroInvertX_layout), LauncherPreferences.PREF_ENABLE_GYRO)
+            setViewVisibility(findViewById(R.id.gyroInvertY_layout), LauncherPreferences.PREF_ENABLE_GYRO)
+            setViewVisibility(findViewById(R.id.gyroSmoothing_layout), LauncherPreferences.PREF_ENABLE_GYRO)
         }
-        mainView?.apply {
-            findViewById<View>(R.id.gyroSensitivity_layout).visibility =
-                if (LauncherPreferences.PREF_ENABLE_GYRO) View.VISIBLE else View.GONE
-        }
-        mainView?.apply {
-            findViewById<View>(R.id.gyroSampleRate_layout).visibility =
-                if (LauncherPreferences.PREF_ENABLE_GYRO) View.VISIBLE else View.GONE
-        }
-        mainView?.apply {
-            findViewById<View>(R.id.gyroInvertX_layout).visibility =
-                if (LauncherPreferences.PREF_ENABLE_GYRO) View.VISIBLE else View.GONE
-        }
-        mainView?.apply {
-            findViewById<View>(R.id.gyroInvertY_layout).visibility =
-                if (LauncherPreferences.PREF_ENABLE_GYRO) View.VISIBLE else View.GONE
-        }
-        mainView?.apply {
-            findViewById<View>(R.id.gyroSmoothing_layout).visibility =
-                if (LauncherPreferences.PREF_ENABLE_GYRO) View.VISIBLE else View.GONE
-        }
+    }
+
+    private fun setViewVisibility(view: View, visible: Boolean) {
+        view.visibility = if (visible) View.VISIBLE else View.GONE
     }
 }
