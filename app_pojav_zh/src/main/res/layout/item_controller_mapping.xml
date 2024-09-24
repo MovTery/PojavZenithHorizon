@@ -72,15 +72,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/controller_mapper_plus_label1" />
 
-        <TextView
-            android:id="@+id/controller_mapper_key_textView1"
+        <View
+            android:id="@+id/controller_mapper_key_view1"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            style="?android:attr/spinnerItemStyle"
-            android:singleLine="true"
-            android:ellipsize="marquee"
-            android:textAlignment="inherit"
-            android:gravity="center"
+            android:background="?android:attr/selectableItemBackground"
             app:layout_constraintBottom_toBottomOf="@+id/controller_mapper_key_spinner1"
             app:layout_constraintTop_toTopOf="@+id/controller_mapper_key_spinner1"
             app:layout_constraintStart_toStartOf="@+id/controller_mapper_key_spinner1"
@@ -96,15 +92,11 @@
             app:layout_constraintEnd_toStartOf="@id/controller_mapper_plus_label2"
             app:layout_constraintStart_toEndOf="@id/controller_mapper_plus_label1" />
 
-        <TextView
-            android:id="@+id/controller_mapper_key_textView2"
+        <View
+            android:id="@+id/controller_mapper_key_view2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            style="?android:attr/spinnerItemStyle"
-            android:singleLine="true"
-            android:ellipsize="marquee"
-            android:textAlignment="inherit"
-            android:gravity="center"
+            android:background="?android:attr/selectableItemBackground"
             app:layout_constraintBottom_toBottomOf="@id/controller_mapper_key_spinner2"
             app:layout_constraintTop_toTopOf="@id/controller_mapper_key_spinner2"
             app:layout_constraintStart_toStartOf="@id/controller_mapper_key_spinner2"
@@ -120,15 +112,11 @@
             app:layout_constraintStart_toEndOf="@id/controller_mapper_plus_label2"
             app:layout_constraintEnd_toStartOf="@id/controller_mapper_plus_label3"/>
 
-        <TextView
-            android:id="@+id/controller_mapper_key_textView3"
+        <View
+            android:id="@+id/controller_mapper_key_view3"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            style="?android:attr/spinnerItemStyle"
-            android:singleLine="true"
-            android:ellipsize="marquee"
-            android:textAlignment="inherit"
-            android:gravity="center"
+            android:background="?android:attr/selectableItemBackground"
             app:layout_constraintBottom_toBottomOf="@id/controller_mapper_key_spinner3"
             app:layout_constraintTop_toTopOf="@id/controller_mapper_key_spinner3"
             app:layout_constraintStart_toStartOf="@id/controller_mapper_key_spinner3"
@@ -144,15 +132,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/controller_mapper_plus_label3"/>
 
-        <TextView
-            android:id="@+id/controller_mapper_key_textView4"
+        <View
+            android:id="@+id/controller_mapper_key_view4"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            style="?android:attr/spinnerItemStyle"
-            android:singleLine="true"
-            android:ellipsize="marquee"
-            android:textAlignment="inherit"
-            android:gravity="center"
+            android:background="?android:attr/selectableItemBackground"
             app:layout_constraintBottom_toBottomOf="@+id/controller_mapper_key_spinner4"
             app:layout_constraintTop_toTopOf="@+id/controller_mapper_key_spinner4"
             app:layout_constraintStart_toStartOf="@+id/controller_mapper_key_spinner4"
