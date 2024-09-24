@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.pojavzh.ui.dialog.DeleteDialog;
-import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener;
 import com.movtery.pojavzh.ui.subassembly.filelist.RefreshListener;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.file.FileTools;
@@ -35,7 +34,7 @@ public class ControlsListViewCreator {
     private final AtomicInteger searchCount = new AtomicInteger(0);
 
     private ControlListAdapter controlListAdapter;
-    private FileSelectedListener fileSelectedListener;
+    private ControlSelectedListener selectedListener;
     private RefreshListener refreshListener;
     private File fullPath = new File(PathAndUrlManager.DIR_CTRLMAP_PATH);
     private String filterString = "";
@@ -55,15 +54,13 @@ public class ControlsListViewCreator {
             @Override
             public void onItemClick(String name) {
                 File file = new File(fullPath, name);
-                if (ControlsListViewCreator.this.fileSelectedListener != null)
-                    fileSelectedListener.onFileSelected(file, file.getAbsolutePath());
+                if (selectedListener != null) selectedListener.onItemSelected(file);
             }
 
             @Override
             public void onLongClick(String name) {
                 File file = new File(fullPath, name);
-                if (ControlsListViewCreator.this.fileSelectedListener != null)
-                    fileSelectedListener.onItemLongClick(file, file.getAbsolutePath());
+                if (selectedListener != null) selectedListener.onItemLongClick(file);
             }
 
             @Override
@@ -81,8 +78,8 @@ public class ControlsListViewCreator {
         mainListView.setAdapter(controlListAdapter);
     }
 
-    public void setFileSelectedListener(FileSelectedListener listener) {
-        this.fileSelectedListener = listener;
+    public void setSelectedListener(ControlSelectedListener listener) {
+        this.selectedListener = listener;
     }
 
     public void setRefreshListener(RefreshListener listener) {
