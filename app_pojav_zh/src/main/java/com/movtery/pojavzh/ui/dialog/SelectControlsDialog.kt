@@ -3,8 +3,8 @@ package com.movtery.pojavzh.ui.dialog
 import android.content.Context
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlSelectedListener
 import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlsListViewCreator
-import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener
 import java.io.File
 
 class SelectControlsDialog(context: Context) : AbstractSelectDialog(context) {
@@ -19,21 +19,21 @@ class SelectControlsDialog(context: Context) : AbstractSelectDialog(context) {
         controlsListViewCreator?.listAtPath()
     }
 
-    fun setOnSelectedListener(controlSelectedListener: ControlSelectedListener) {
+    fun setOnSelectedListener(selectedListener: SelectedListener) {
         controlsListViewCreator?.apply {
-            setFileSelectedListener(object : FileSelectedListener() {
-                override fun onFileSelected(file: File?, path: String?) {
-                    controlSelectedListener.onSelectedListener(file)
+            setSelectedListener(object : ControlSelectedListener() {
+                override fun onItemSelected(file: File) {
+                    selectedListener.onSelected(file)
                     dismiss()
                 }
 
-                override fun onItemLongClick(file: File?, path: String?) {
+                override fun onItemLongClick(file: File) {
                 }
             })
         }
     }
 
-    interface ControlSelectedListener {
-        fun onSelectedListener(file: File?)
+    interface SelectedListener {
+        fun onSelected(file: File)
     }
 }
