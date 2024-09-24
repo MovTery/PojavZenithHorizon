@@ -101,7 +101,7 @@ public class FilesDialog extends FullScreenDialog implements DraggableDialog.Dia
         if (selectedFiles.size() == 1) { //单选模式
             File file = selectedFiles.get(0);
             mShareButton.setOnClickListener(view -> {
-                FileTools.shareFile(getContext(), file.getName(), file.getAbsolutePath());
+                FileTools.shareFile(getContext(), file);
                 closeDialog();
             });
             mRenameButton.setOnClickListener(view -> {

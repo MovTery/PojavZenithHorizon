@@ -89,18 +89,23 @@ class FileTools {
         }
 
         @JvmStatic
-        fun shareFile(context: Context, fileName: String?, filePath: String?) {
+        fun shareFile(context: Context, file: File) {
+            shareFile(context, file.name, file.absolutePath)
+        }
+
+        @JvmStatic
+        fun shareFile(context: Context, fileName: String, filePath: String) {
             val contentUri = DocumentsContract.buildDocumentUri(
                 context.getString(R.string.storageProviderAuthorities),
                 filePath
             )
 
-            val shareIntent = Intent()
-            shareIntent.setAction(Intent.ACTION_SEND)
+            val shareIntent = Intent(Intent.ACTION_SEND)
             shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri)
+            shareIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
             shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            shareIntent.setType("text/plain")
+            shareIntent.setDataAndType(contentUri, "*/*")
 
             val sendIntent = Intent.createChooser(shareIntent, fileName)
             context.startActivity(sendIntent)
