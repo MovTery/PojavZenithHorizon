@@ -187,15 +187,15 @@ public class GamepadMapperAdapter extends RecyclerView.Adapter<GamepadMapperAdap
             mKeySpinners[1] = itemView.findViewById(R.id.controller_mapper_key_spinner2);
             mKeySpinners[2] = itemView.findViewById(R.id.controller_mapper_key_spinner3);
             mKeySpinners[3] = itemView.findViewById(R.id.controller_mapper_key_spinner4);
-            TextView[] mKeyTextViews = new TextView[4];
-            mKeyTextViews[0] = itemView.findViewById(R.id.controller_mapper_key_textView1);
-            mKeyTextViews[1] = itemView.findViewById(R.id.controller_mapper_key_textView2);
-            mKeyTextViews[2] = itemView.findViewById(R.id.controller_mapper_key_textView3);
-            mKeyTextViews[3] = itemView.findViewById(R.id.controller_mapper_key_textView4);
+            View[] mKeyClickViews = new View[4];
+            mKeyClickViews[0] = itemView.findViewById(R.id.controller_mapper_key_view1);
+            mKeyClickViews[1] = itemView.findViewById(R.id.controller_mapper_key_view2);
+            mKeyClickViews[2] = itemView.findViewById(R.id.controller_mapper_key_view3);
+            mKeyClickViews[3] = itemView.findViewById(R.id.controller_mapper_key_view4);
             for (int i = 0; i < mKeySpinners.length; i++) {
                 mKeySpinners[i].setAdapter(mKeyAdapter);
                 int finalI = i;
-                mKeyTextViews[i].setOnClickListener(v -> keyboardDialog.setOnKeycodeSelectListener(mKeySpinners[finalI]::setSelection).show());
+                mKeyClickViews[i].setOnClickListener(v -> keyboardDialog.setOnKeycodeSelectListener(mKeySpinners[finalI]::setSelection).show());
                 mKeySpinners[i].setOnItemSelectedListener(this);
             }
         }
@@ -236,6 +236,7 @@ public class GamepadMapperAdapter extends RecyclerView.Adapter<GamepadMapperAdap
                 mKeySpinners[spinnerIndex].setEnabled(false);
             }
             updateKeycodeLabel();
+            updateIndicator(mExpandedView.getVisibility() != View.VISIBLE);
 
             mAttachedPosition = index;
         }
@@ -260,6 +261,10 @@ public class GamepadMapperAdapter extends RecyclerView.Adapter<GamepadMapperAdap
             }
             if(labelBuilder.length() == 0) labelBuilder.append(mKeyAdapter.getItem(unspecifiedPosition));
             mKeycodeLabel.setText(labelBuilder.toString());
+        }
+
+        private void updateIndicator(boolean rotation) {
+            mExpansionIndicator.setRotation(rotation ? 180 : 0);
         }
 
         @Override
@@ -294,11 +299,11 @@ public class GamepadMapperAdapter extends RecyclerView.Adapter<GamepadMapperAdap
             switch (visibility) {
                 case View.INVISIBLE:
                 case View.GONE:
-                    mExpansionIndicator.setRotation(0);
+                    updateIndicator(false);
                     mExpandedView.setVisibility(View.VISIBLE);
                     break;
                 case View.VISIBLE:
-                    mExpansionIndicator.setRotation(180);
+                    updateIndicator(true);
                     mExpandedView.setVisibility(View.GONE);
             }
         }
