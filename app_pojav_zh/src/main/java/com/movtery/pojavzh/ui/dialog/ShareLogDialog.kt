@@ -34,7 +34,7 @@ class ShareLogDialog(context: Context) : FullScreenDialog(context), DialogInitia
                         runCatching {
                             val zipFile = File(PathAndUrlManager.DIR_APP_CACHE, "logs.zip")
                             FileTools.packZip(launcherLogFiles, zipFile)
-                            Tools.runOnUiThread { FileTools.shareFile(context, zipFile.name, zipFile.absolutePath) }
+                            Tools.runOnUiThread { FileTools.shareFile(context, zipFile) }
                         }.getOrElse { e ->
                             Logging.e("ShareLauncherLog", Tools.printToString(e))
                         }
@@ -53,7 +53,7 @@ class ShareLogDialog(context: Context) : FullScreenDialog(context), DialogInitia
         findViewById<View>(R.id.zh_game_log)?.apply {
             setOnClickListener {
                 if (mGameLogFile.exists()) {
-                    FileTools.shareFile(context, mGameLogFile.name, mGameLogFile.absolutePath)
+                    FileTools.shareFile(context, mGameLogFile)
                     this@ShareLogDialog.dismiss()
                 }
             }

@@ -33,7 +33,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -59,6 +58,7 @@ import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.anim.AnimUtils;
+import com.movtery.pojavzh.utils.file.FileTools;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.customcontrols.ControlButtonMenuListener;
@@ -531,38 +531,28 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         b.show();
     }
 
-    private static void setUri(Context context, String input, Intent intent) {
+    private static void setUri(Context context, String input) {
         if(input.startsWith("file:")) {
             int truncLength = 5;
             if(input.startsWith("file://")) truncLength = 7;
             input = input.substring(truncLength);
             Logging.i("MainActivity", input);
-            boolean isDirectory = new File(input).isDirectory();
-            if(isDirectory) {
-                intent.setType(DocumentsContract.Document.MIME_TYPE_DIR);
-            }else{
-                String type = null;
-                String extension = MimeTypeMap.getFileExtensionFromUrl(input);
-                if(extension != null) type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
-                if(type == null) type = "*/*";
-                intent.setType(type);
-            }
-            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            intent.setData(DocumentsContract.buildDocumentUri(
-                    context.getString(R.string.storageProviderAuthorities), input
-            ));
-            return;
+
+            File inputFile = new File(input);
+            FileTools.shareFile(context, inputFile);
+            Logging.i("In-game Share File/Folder", "Start!");
+        } else {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(Uri.parse(input), "*/*");
+            context.startActivity(intent);
         }
-        intent.setDataAndType(Uri.parse(input), "*/*");
     }
 
     public static void openLink(String link) {
         Context ctx = touchpad.getContext(); // no more better way to obtain a context statically
         ((Activity)ctx).runOnUiThread(() -> {
             try {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                setUri(ctx, link, intent);
-                ctx.startActivity(intent);
+                setUri(ctx, link);
             } catch (Throwable th) {
                 Tools.showError(ctx, th);
             }

@@ -73,11 +73,9 @@ class ErrorActivity : BaseActivity() {
             if ((crashReportFile?.exists() == true)) View.VISIBLE else View.GONE
         mShareLogButton?.visibility = if (logFile.exists()) View.VISIBLE else View.GONE
 
-        crashReportFile?.let {
+        crashReportFile?.let { file ->
             mShareCrashReportButton?.setOnClickListener {
-                shareFile(
-                    this, crashReportFile.name, crashReportFile.absolutePath
-                )
+                shareFile(this, file)
             }
         }
         mShareLogButton?.setOnClickListener { Tools.shareLog(this) }
@@ -96,7 +94,7 @@ class ErrorActivity : BaseActivity() {
         strSavePath?.let{
             val crashFile = File(strSavePath)
             mShareButton?.setOnClickListener {
-                shareFile(this, crashFile.name, crashFile.absolutePath)
+                shareFile(this, crashFile)
             }
         }
     }
