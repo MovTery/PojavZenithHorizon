@@ -20,7 +20,6 @@ import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlInfoData
 import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlSelectedListener
 import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlsListViewCreator
 import com.movtery.pojavzh.ui.subassembly.customcontrols.EditControlData.Companion.createNewControlFile
-import com.movtery.pojavzh.ui.subassembly.filelist.FileSelectedListener
 import com.movtery.pojavzh.ui.subassembly.view.SearchViewWrapper
 import com.movtery.pojavzh.utils.NewbieGuideUtils
 import com.movtery.pojavzh.utils.PathAndUrlManager
