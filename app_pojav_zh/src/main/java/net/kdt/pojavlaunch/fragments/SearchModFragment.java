@@ -243,42 +243,30 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
         }
 
         List<String> platfromList = SearchModPlatform.getIndexList(context);
-        if (mPlatform != null) {
-            DefaultSpinnerAdapter adapter = new DefaultSpinnerAdapter(mPlatform);
-            adapter.setItems(platfromList);
-
-            mPlatform.setSpinnerAdapter(adapter);
-            mPlatform.selectItemByIndex(0);
-
-            mPlatform.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) ->
-                    mModFilters.setPlatform(SearchModPlatform.getPlatform(i1)));
-        }
+        DefaultSpinnerAdapter platformAdapter = new DefaultSpinnerAdapter(mPlatform);
+        platformAdapter.setItems(platfromList);
+        mPlatform.setSpinnerAdapter(platformAdapter);
+        mPlatform.selectItemByIndex(0);
+        mPlatform.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) ->
+                mModFilters.setPlatform(SearchModPlatform.getPlatform(i1)));
 
         List<String> sortList = new ArrayList<>(SearchModSort.getIndexList(context));
-        if (mSortBy != null) {
-            DefaultSpinnerAdapter adapter = new DefaultSpinnerAdapter(mSortBy);
-            adapter.setItems(sortList);
-
-            mSortBy.setSpinnerAdapter(adapter);
-            mSortBy.selectItemByIndex(0);
-
-            mSortBy.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> mModFilters.setSort(i1));
-        }
+        DefaultSpinnerAdapter sortAdapter = new DefaultSpinnerAdapter(mSortBy);
+        sortAdapter.setItems(sortList);
+        mSortBy.setSpinnerAdapter(sortAdapter);
+        mSortBy.selectItemByIndex(0);
+        mSortBy.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> mModFilters.setSort(i1));
 
         List<String> modloaderList = new ArrayList<>(ModLoaderList.modloaderList);
         modloaderList.add(0, getString(R.string.zh_all));
-        if (mModloader != null) {
-            DefaultSpinnerAdapter adapter = new DefaultSpinnerAdapter(mModloader);
-            adapter.setItems(modloaderList);
-
-            mModloader.setSpinnerAdapter(adapter);
-            mModloader.selectItemByIndex(0);
-
-            mModloader.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> {
-                if (i1 == 0) mModFilters.setModloader(null);
-                else mModFilters.setModloader(ModLoaderList.getModLoaderNameFromIndex(i1 - 1));
-            });
-        }
+        DefaultSpinnerAdapter modloaderAdapter = new DefaultSpinnerAdapter(mModloader);
+        modloaderAdapter.setItems(modloaderList);
+        mModloader.setSpinnerAdapter(modloaderAdapter);
+        mModloader.selectItemByIndex(0);
+        mModloader.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> {
+            if (i1 == 0) mModFilters.setModloader(null);
+            else mModFilters.setModloader(ModLoaderList.getModLoaderNameFromIndex(i1 - 1));
+        });
 
         mResetButton.setOnClickListener(v -> {
             //重置控件
