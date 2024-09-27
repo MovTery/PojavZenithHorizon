@@ -14,6 +14,7 @@ import android.os.Build;
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.feature.unpack.Jre;
 import com.movtery.pojavzh.setting.AllSettings;
+import com.movtery.pojavzh.setting.LegacySettingsSync;
 import com.movtery.pojavzh.setting.Settings;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 
@@ -28,6 +29,8 @@ public class LauncherPreferences {
     public static void loadPreferences(Context ctx) {
         //Required for the data folder.
         PathAndUrlManager.initContextConstants(ctx);
+
+        LegacySettingsSync.check(ctx);
 
         String argLwjglLibname = "-Dorg.lwjgl.opengl.libname=";
         String javaArgs = AllSettings.Companion.getJavaArgs();
