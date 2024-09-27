@@ -3,11 +3,11 @@ package com.movtery.pojavzh.feature
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome.Companion.versionsHome
 import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.feature.mod.modloader.NeoForgeUtils
+import com.movtery.pojavzh.setting.AllSettings
 import com.movtery.pojavzh.utils.MCVersionRegex
 import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.JMinecraftVersionList
 import net.kdt.pojavlaunch.Tools
-import net.kdt.pojavlaunch.prefs.LauncherPreferences
 import net.kdt.pojavlaunch.utils.MCOptionUtils
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile
 import org.jackhuang.hmcl.util.versioning.VersionNumber
@@ -93,7 +93,7 @@ class ProfileLanguageSelector {
         @JvmStatic
         fun setGameLanguage(minecraftProfile: MinecraftProfile, overridden: Boolean) {
             if (MCOptionUtils.containsKey("lang") && !overridden) return
-            val language = getLanguage(minecraftProfile.lastVersionId, LauncherPreferences.PREF_GAME_LANGUAGE)
+            val language = getLanguage(minecraftProfile.lastVersionId, AllSettings.setGameLanguage!!)
             Logging.i("ProfileLanguageSelector", "The game language has been set to: $language")
             MCOptionUtils.set("lang", language)
         }

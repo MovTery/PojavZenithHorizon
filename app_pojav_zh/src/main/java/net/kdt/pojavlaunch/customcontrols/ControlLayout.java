@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.google.gson.JsonSyntaxException;
 import com.movtery.pojavzh.feature.log.Logging;
+import com.movtery.pojavzh.setting.AllSettings;
+import com.movtery.pojavzh.setting.Settings;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlInfoData;
 
@@ -35,8 +37,6 @@ import net.kdt.pojavlaunch.customcontrols.handleview.EditControlPopup;
 import com.movtery.pojavzh.ui.dialog.EditControlInfoDialog;
 import com.movtery.pojavzh.ui.dialog.SelectControlsDialog;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
-
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import java.io.File;
 import java.io.IOException;
@@ -132,7 +132,7 @@ public class ControlLayout extends FrameLayout {
 			if(mModifiable) drawer.areButtonsVisible = true;
 		}
 
-		mLayout.scaledAt = LauncherPreferences.PREF_BUTTONSIZE;
+		mLayout.scaledAt = AllSettings.Companion.getButtonscale();
 
 		setModified(false);
 		mButtons = null;
@@ -542,8 +542,7 @@ public class ControlLayout extends FrameLayout {
 		dialog.setOnSelectedListener(file -> {
             String absolutePath = file.getAbsolutePath();
             try {
-				LauncherPreferences.DEFAULT_PREF.edit().putString("defaultCtrl", absolutePath).apply();
-				LauncherPreferences.PREF_DEFAULTCTRL_PATH = absolutePath;
+				Settings.Manager.Companion.put("defaultCtrl", absolutePath).save();
 				loadLayout(absolutePath);
             }catch (IOException|JsonSyntaxException e) {
                 Tools.showError(getContext(), e);

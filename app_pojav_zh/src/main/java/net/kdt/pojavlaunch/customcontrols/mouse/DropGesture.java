@@ -4,8 +4,9 @@ import static org.lwjgl.glfw.CallbackBridge.sendKeyPress;
 
 import android.os.Handler;
 
+import com.movtery.pojavzh.setting.AllSettings;
+
 import net.kdt.pojavlaunch.LwjglGlfwKeycode;
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 public class DropGesture implements Runnable{
     private final Handler mHandler;
@@ -18,7 +19,7 @@ public class DropGesture implements Runnable{
     public void submit() {
         if(!mActive) {
             mActive = true;
-            mHandler.postDelayed(this, LauncherPreferences.PREF_LONGPRESS_TRIGGER);
+            mHandler.postDelayed(this, AllSettings.Companion.getTimeLongPressTrigger());
         }
     }
 

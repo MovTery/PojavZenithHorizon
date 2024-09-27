@@ -2,8 +2,6 @@ package net.kdt.pojavlaunch.customcontrols.buttons;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_BUTTONSIZE;
 
 import android.annotation.SuppressLint;
 import android.graphics.drawable.GradientDrawable;
@@ -17,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.core.math.MathUtils;
 
 import com.movtery.pojavzh.feature.log.Logging;
+import com.movtery.pojavzh.setting.AllSettings;
 
 import net.kdt.pojavlaunch.GrabListener;
 import net.kdt.pojavlaunch.Tools;
@@ -80,8 +79,8 @@ public interface ControlInterface extends View.OnLongClickListener, GrabListener
      */
     default ControlData preProcessProperties(ControlData properties, ControlLayout layout) {
         //Size
-        properties.setWidth(properties.getWidth() / layout.getLayoutScale() * PREF_BUTTONSIZE);
-        properties.setHeight(properties.getHeight() / layout.getLayoutScale() * PREF_BUTTONSIZE);
+        properties.setWidth(properties.getWidth() / layout.getLayoutScale() * AllSettings.Companion.getButtonscale());
+        properties.setHeight(properties.getHeight() / layout.getLayoutScale() * AllSettings.Companion.getButtonscale());
 
         //Visibility
         properties.isHideable = !properties.containsKeycode(ControlData.SPECIALBTN_TOGGLECTRL) && !properties.containsKeycode(ControlData.SPECIALBTN_VIRTUALMOUSE);
@@ -195,8 +194,8 @@ public interface ControlInterface extends View.OnLongClickListener, GrabListener
         return equation
                 .replace("${right}", "(${screen_width} - ${width})")
                 .replace("${bottom}", "(${screen_height} - ${height})")
-                .replace("${height}", "(px(" + Tools.pxToDp(button.getProperties().getHeight()) + ") /" + PREF_BUTTONSIZE + " * ${preferred_scale})")
-                .replace("${width}", "(px(" + Tools.pxToDp(button.getProperties().getWidth()) + ") / " + PREF_BUTTONSIZE + " * ${preferred_scale})");
+                .replace("${height}", "(px(" + Tools.pxToDp(button.getProperties().getHeight()) + ") /" + AllSettings.Companion.getButtonscale() + " * ${preferred_scale})")
+                .replace("${width}", "(px(" + Tools.pxToDp(button.getProperties().getWidth()) + ") / " + AllSettings.Companion.getButtonscale() + " * ${preferred_scale})");
     }
 
 
@@ -240,14 +239,14 @@ public interface ControlInterface extends View.OnLongClickListener, GrabListener
      * @param y Coordinate on the y axis
      */
     default void snapAndAlign(float x, float y) {
-        float MIN_DISTANCE = Tools.dpToPx(DEFAULT_PREF.getInt("buttonSnappingDistance", 8));
+        float MIN_DISTANCE = Tools.dpToPx(AllSettings.Companion.getButtonSnappingDistance());
         String dynamicX = generateDynamicX(x);
         String dynamicY = generateDynamicY(y);
 
         getControlView().setX(x);
         getControlView().setY(y);
 
-        if (DEFAULT_PREF.getBoolean("buttonSnapping", true)) { //可开关按键吸附功能
+        if (AllSettings.Companion.getButtonSnapping()) { //可开关按键吸附功能
             for (ControlInterface button : ((ControlLayout) getControlView().getParent()).getButtonChildren()) {
                 //Step 1: Filter unwanted buttons
                 if (!canSnap(button)) continue;

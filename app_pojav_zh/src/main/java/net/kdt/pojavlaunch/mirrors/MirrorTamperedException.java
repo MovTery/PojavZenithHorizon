@@ -5,10 +5,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.text.Html;
 
+import com.movtery.pojavzh.setting.Settings;
+
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.ShowErrorActivity;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutorTask;
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 public class MirrorTamperedException extends Exception implements ContextExecutorTask {
     // Do not change. Android really hates when this value changes for some reason.
@@ -25,13 +26,11 @@ public class MirrorTamperedException extends Exception implements ContextExecuto
 
     private void addButtons(AlertDialog.Builder builder) {
         builder.setPositiveButton(R.string.dl_switch_to_official_site,(d,w)->{
-            LauncherPreferences.DEFAULT_PREF.edit().putString("downloadSource", "default").apply();
-            LauncherPreferences.PREF_DOWNLOAD_SOURCE = "default";
+            Settings.Manager.Companion.put("downloadSource", "default").save();
 
         });
         builder.setNegativeButton(R.string.dl_turn_off_manifest_checks,(d,w)->{
-            LauncherPreferences.DEFAULT_PREF.edit().putBoolean("verifyManifest", false).apply();
-            LauncherPreferences.PREF_VERIFY_MANIFEST = false;
+            Settings.Manager.Companion.put("verifyManifest", false).save();
         });
         builder.setNeutralButton(android.R.string.cancel, (d,w)->{});
     }

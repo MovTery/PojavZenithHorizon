@@ -3,7 +3,6 @@ package net.kdt.pojavlaunch;
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.P;
 import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_IGNORE_NOTCH;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_NOTCH_SIZE;
 
 import android.app.Activity;
@@ -39,6 +38,7 @@ import androidx.fragment.app.FragmentActivity;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.movtery.pojavzh.feature.log.Logging;
+import com.movtery.pojavzh.setting.AllSettings;
 import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
@@ -56,7 +56,6 @@ import net.kdt.pojavlaunch.memory.SelfMapsParser;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 import net.kdt.pojavlaunch.multirt.Runtime;
 import net.kdt.pojavlaunch.plugins.FFmpegPlugin;
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.utils.DateUtils;
 import net.kdt.pojavlaunch.utils.DownloadUtils;
 import net.kdt.pojavlaunch.utils.FileUtils;
@@ -137,10 +136,11 @@ public final class Tools {
             localeString = R.string.memory_warning_msg;
         }
 
-        if(LauncherPreferences.PREF_RAM_ALLOCATION > freeDeviceMemory) {
+        int ramAllocation = AllSettings.Companion.getRamAllocation();
+        if(ramAllocation > freeDeviceMemory) {
             int finalDeviceMemory = freeDeviceMemory;
             LifecycleAwareAlertDialog.DialogCreator dialogCreator = (dialog, builder) ->
-                builder.setMessage(activity.getString(localeString, finalDeviceMemory, LauncherPreferences.PREF_RAM_ALLOCATION))
+                builder.setMessage(activity.getString(localeString, finalDeviceMemory, ramAllocation))
                         .setPositiveButton(android.R.string.ok, (d, w)->{});
 
             if(LifecycleAwareAlertDialog.haltOnDialog(activity.getLifecycle(), activity, dialogCreator)) {
@@ -192,7 +192,7 @@ public final class Tools {
         javaArgList.add(versionInfo.mainClass);
         javaArgList.addAll(Arrays.asList(launchArgs));
         // ctx.appendlnToLog("full args: "+javaArgList.toString());
-        String args = LauncherPreferences.PREF_CUSTOM_JAVA_ARGS;
+        String args = AllSettings.Companion.getJavaArgs();
         if(Tools.isValidString(minecraftProfile.javaArgs)) args = minecraftProfile.javaArgs;
         FFmpegPlugin.discover(activity);
         JREUtils.launchJavaVM(activity, runtime, gamedir, javaArgList, args);
@@ -454,7 +454,7 @@ public final class Tools {
             } else { // Removed the clause for devices with unofficial notch support, since it also ruins all devices with virtual nav bars before P
                 activity.getWindowManager().getDefaultDisplay().getRealMetrics(displayMetrics);
             }
-            if(!PREF_IGNORE_NOTCH){
+            if(!AllSettings.Companion.getIgnoreNotch()){
                 //Remove notch width when it isn't ignored.
                 if(activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
                     displayMetrics.heightPixels -= PREF_NOTCH_SIZE;
@@ -466,20 +466,16 @@ public final class Tools {
         return displayMetrics;
     }
 
-    public static void setFullscreen(Activity activity, boolean fullscreen) {
+    public static void setFullscreen(Activity activity) {
         final View decorView = activity.getWindow().getDecorView();
         View.OnSystemUiVisibilityChangeListener visibilityChangeListener = visibility -> {
-            if(fullscreen){
-                if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
-                    decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-                }
-            }else{
-                decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+            if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
+                decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
             }
 
         };
@@ -1044,7 +1040,7 @@ public final class Tools {
     }
 
     public static String getSelectedRuntime(MinecraftProfile minecraftProfile) {
-        String runtime = LauncherPreferences.PREF_DEFAULT_RUNTIME;
+        String runtime = AllSettings.Companion.getDefaultRuntime();
         String profileRuntime = getRuntimeName(minecraftProfile.javaDir);
         if(profileRuntime != null) {
             if(MultiRTUtils.forceReread(profileRuntime).versionString != null) {

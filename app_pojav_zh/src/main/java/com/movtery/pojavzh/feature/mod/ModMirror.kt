@@ -1,7 +1,6 @@
 package com.movtery.pojavzh.feature.mod
 
-import net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_MOD_DOWNLOAD_SOURCE
-import net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_MOD_INFO_SOURCE
+import com.movtery.pojavzh.setting.AllSettings
 
 class ModMirror {
     companion object {
@@ -11,7 +10,7 @@ class ModMirror {
 
         @JvmStatic
         fun replaceMirrorInfoUrl(baseUrl: String): String {
-            return when (PREF_MOD_INFO_SOURCE) {
+            return when (AllSettings.modInfoSource) {
                 Source.ORIGINAL.name.lowercase() -> baseUrl
                 Source.MCIM.name.lowercase() -> replaceMCIM(baseUrl)
                 else -> baseUrl
@@ -20,7 +19,7 @@ class ModMirror {
 
         @JvmStatic
         fun replaceMirrorDownloadUrl(baseUrl: String): String {
-            return when(PREF_MOD_DOWNLOAD_SOURCE) {
+            return when(AllSettings.modDownloadSource) {
                 Source.ORIGINAL.name.lowercase() -> baseUrl
                 Source.MCIM.name.lowercase() -> replaceMCIM(baseUrl)
                 else -> baseUrl
@@ -29,7 +28,7 @@ class ModMirror {
 
         @JvmStatic
         fun isInfoMirrored(): Boolean {
-            return when (PREF_MOD_INFO_SOURCE) {
+            return when (AllSettings.modInfoSource) {
                 Source.ORIGINAL.name.lowercase() -> false
                 else -> true
             }
@@ -37,7 +36,7 @@ class ModMirror {
 
         @JvmStatic
         fun isDownloadUrlMirrored(): Boolean {
-            return when (PREF_MOD_DOWNLOAD_SOURCE) {
+            return when (AllSettings.modDownloadSource) {
                 Source.ORIGINAL.name.lowercase() -> false
                 else -> true
             }

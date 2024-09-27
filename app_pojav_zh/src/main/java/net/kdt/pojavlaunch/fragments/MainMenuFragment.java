@@ -1,13 +1,11 @@
 package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.method.LinkMovementMethod;
@@ -26,6 +24,8 @@ import com.kdt.mcgui.mcVersionSpinner;
 import com.movtery.anim.AnimPlayer;
 import com.movtery.anim.animations.Animations;
 import com.movtery.pojavzh.feature.accounts.AccountUpdateListener;
+import com.movtery.pojavzh.setting.AllSettings;
+import com.movtery.pojavzh.setting.Settings;
 import com.movtery.pojavzh.ui.fragment.AboutFragment;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
 import com.movtery.pojavzh.ui.fragment.ControlButtonFragment;
@@ -82,9 +82,7 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
         mAboutButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, AboutFragment.class, AboutFragment.TAG, null));
         mAboutButton.setOnLongClickListener(v -> {
             setNotice(true, true, view);
-            SharedPreferences.Editor editor = DEFAULT_PREF.edit();
-            editor.putBoolean("noticeDefault", true);
-            editor.apply();
+            Settings.Manager.Companion.put("noticeDefault", true).save();
             return true;
         });
         mCustomControlButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, ControlButtonFragment.class, ControlButtonFragment.TAG, null));
@@ -125,7 +123,7 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
 
     private void initNotice(View view) {
         mNoticeCloseButton.setOnClickListener(v -> {
-            DEFAULT_PREF.edit().putBoolean("noticeDefault", false).apply();
+            Settings.Manager.Companion.put("noticeDefault", false).save();
             setNotice(false, true, view);
         });
 
@@ -137,13 +135,13 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
             }
 
             //当偏好设置内是开启通知栏 或者 检测到通知编号不为偏好设置里保存的值时，显示通知栏
-            if (DEFAULT_PREF.getBoolean("noticeDefault", false) ||
-                    (noticeInfo.numbering != DEFAULT_PREF.getInt("noticeNumbering", 0))) {
+            if (AllSettings.Companion.getNoticeDefault() ||
+                    (noticeInfo.numbering != AllSettings.Companion.getNoticeNumbering())) {
                 runOnUiThread(() -> setNotice(true, false, view));
-                SharedPreferences.Editor editor = DEFAULT_PREF.edit();
-                editor.putBoolean("noticeDefault", true);
-                editor.putInt("noticeNumbering", noticeInfo.numbering);
-                editor.apply();
+                Settings.Manager.Companion
+                        .put("noticeDefault", true)
+                        .put("noticeNumbering", noticeInfo.numbering)
+                        .save();
             }
         }));
     }

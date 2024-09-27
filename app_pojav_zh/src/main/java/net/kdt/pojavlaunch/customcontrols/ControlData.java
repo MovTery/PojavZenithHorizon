@@ -8,11 +8,11 @@ import android.util.ArrayMap;
 
 import androidx.annotation.Keep;
 
+import com.movtery.pojavzh.setting.AllSettings;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.utils.JSONUtils;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import net.objecthunter.exp4j.function.Function;
@@ -304,7 +304,7 @@ public class ControlData {
         valueMap.put("height", Float.toString(getHeight()));
         valueMap.put("screen_width", Integer.toString(CallbackBridge.physicalWidth));
         valueMap.put("screen_height", Integer.toString(CallbackBridge.physicalHeight));
-        valueMap.put("preferred_scale", Float.toString(LauncherPreferences.PREF_BUTTONSIZE));
+        valueMap.put("preferred_scale", Float.toString(AllSettings.Companion.getButtonscale()));
 
         return valueMap;
     }

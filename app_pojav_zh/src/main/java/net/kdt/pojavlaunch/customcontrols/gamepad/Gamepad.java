@@ -23,7 +23,6 @@ import androidx.core.math.MathUtils;
 
 import net.kdt.pojavlaunch.GrabListener;
 import net.kdt.pojavlaunch.LwjglGlfwKeycode;
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.utils.MCOptionUtils;
 
 import org.lwjgl.glfw.CallbackBridge;
@@ -39,11 +38,11 @@ import static net.kdt.pojavlaunch.customcontrols.gamepad.GamepadJoystick.DIRECTI
 import static net.kdt.pojavlaunch.customcontrols.gamepad.GamepadJoystick.DIRECTION_SOUTH_WEST;
 import static net.kdt.pojavlaunch.customcontrols.gamepad.GamepadJoystick.DIRECTION_WEST;
 import static net.kdt.pojavlaunch.customcontrols.gamepad.GamepadJoystick.isJoystickEvent;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_DEADZONE_SCALE;
 import static net.kdt.pojavlaunch.utils.MCOptionUtils.getMcScale;
 import static org.lwjgl.glfw.CallbackBridge.sendKeyPress;
 import static org.lwjgl.glfw.CallbackBridge.sendMouseButton;
 
+import com.movtery.pojavzh.setting.AllSettings;
 import com.movtery.pojavzh.utils.ZHTools;
 
 import fr.spse.gamepad_remapper.GamepadHandler;
@@ -52,7 +51,7 @@ import fr.spse.gamepad_remapper.Settings;
 public class Gamepad implements GrabListener, GamepadHandler {
 
     /* Resolution scaler option, allow downsizing a window */
-    private final float mScaleFactor = LauncherPreferences.DEFAULT_PREF.getInt("resolutionRatio",100)/100f;
+    private final float mScaleFactor = AllSettings.Companion.getResolutionRatio() / 100f;
 
     /* Sensitivity, adjusted according to screen size */
     private final double mSensitivityFactor = (1.4 * (1080f/ currentDisplayMetrics.heightPixels));
@@ -90,7 +89,7 @@ public class Gamepad implements GrabListener, GamepadHandler {
     private final GamepadDataProvider mMapProvider;
 
     public Gamepad(View contextView, InputDevice inputDevice, GamepadDataProvider mapProvider, boolean showCursor){
-        Settings.setDeadzoneScale(PREF_DEADZONE_SCALE);
+        Settings.setDeadzoneScale(AllSettings.Companion.getDeadzoneScale());
 
         mScreenChoreographer = Choreographer.getInstance();
         Choreographer.FrameCallback frameCallback = new Choreographer.FrameCallback() {

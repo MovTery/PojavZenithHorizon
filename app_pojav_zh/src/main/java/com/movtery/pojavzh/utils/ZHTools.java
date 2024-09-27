@@ -1,8 +1,5 @@
 package com.movtery.pojavzh.utils;
 
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ANIMATION;
-
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -22,6 +19,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.setting.AllSettings;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
 
 import net.kdt.pojavlaunch.BuildConfig;
@@ -67,7 +65,7 @@ public final class ZHTools {
     }
 
     public static File getCustomMouse() {
-        String customMouse = DEFAULT_PREF.getString("custom_mouse", null);
+        String customMouse = AllSettings.Companion.getCustomMouse();
         if (customMouse == null) {
             return null;
         }
@@ -78,11 +76,12 @@ public final class ZHTools {
                                             @Nullable String fragmentTag, @Nullable Bundle bundle) {
         FragmentTransaction transaction = fragment.requireActivity().getSupportFragmentManager().beginTransaction();
 
-        if (PREF_ANIMATION) transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
+        boolean animation = AllSettings.Companion.getAnimation();
+        if (animation) transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
 
         transaction.setReorderingAllowed(true).replace(R.id.container_fragment, fragmentClass, bundle, fragmentTag);
         transaction.addToBackStack(fragmentClass.getName());
-        if (PREF_ANIMATION && fragment instanceof FragmentWithAnim) {
+        if (animation && fragment instanceof FragmentWithAnim) {
             ((FragmentWithAnim) fragment).slideOut();
         }
         transaction.commit();
@@ -92,7 +91,7 @@ public final class ZHTools {
                                    @Nullable String fragmentTag, @Nullable Bundle bundle) {
         FragmentTransaction transaction = fragment.requireActivity().getSupportFragmentManager().beginTransaction();
 
-        if (PREF_ANIMATION) transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
+        if (AllSettings.Companion.getAnimation()) transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
 
         transaction.setReorderingAllowed(true)
                 .addToBackStack(fragmentClass.getName())

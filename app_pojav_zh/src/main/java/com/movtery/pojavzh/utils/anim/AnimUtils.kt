@@ -2,9 +2,9 @@ package com.movtery.pojavzh.utils.anim
 
 import android.view.View
 import com.movtery.anim.animations.Animations
+import com.movtery.pojavzh.setting.AllSettings
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
 import net.kdt.pojavlaunch.PojavApplication
-import net.kdt.pojavlaunch.prefs.LauncherPreferences
 
 class AnimUtils {
     companion object {
@@ -39,7 +39,7 @@ class AnimUtils {
             if (view.visibility == targetVisibility) return
 
             setViewAnim(view, if (visible) Animations.FadeIn else Animations.FadeOut,
-                (LauncherPreferences.PREF_ANIMATION_SPEED * 0.7).toLong(),
+                (AllSettings.animationSpeed * 0.7).toLong(),
                 { view.visibility = View.VISIBLE },
                 { view.visibility = if (visible) View.VISIBLE else View.GONE })
         }

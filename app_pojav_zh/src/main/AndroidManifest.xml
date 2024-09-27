@@ -36,18 +36,11 @@
         android:theme="@style/AppTheme"
         tools:targetApi="r"
         tools:ignore="DiscouragedApi" >
-        <activity
-            android:name=".MissingStorageActivity"
-            android:exported="false"
-            android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
-            android:screenOrientation="sensorLandscape" />
-
         <meta-data
             android:name="android.max_aspect"
             android:value="ratio_float" />
-
         <activity
-            android:name=".TestStorageActivity"
+            android:name="com.movtery.pojavzh.ui.activity.SplashActivity"
             android:exported="true"
             android:label="@string/app_short_name"
             android:launchMode="singleTop"
@@ -59,6 +52,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MissingStorageActivity"
+            android:exported="false"
+            android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".LauncherActivity"
             android:label="@string/app_short_name"

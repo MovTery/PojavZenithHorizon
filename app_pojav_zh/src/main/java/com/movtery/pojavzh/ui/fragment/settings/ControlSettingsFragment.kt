@@ -1,19 +1,18 @@
 package com.movtery.pojavzh.ui.fragment.settings
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.movtery.pojavzh.setting.AllSettings
 import com.movtery.pojavzh.ui.fragment.CustomMouseFragment
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim
 import com.movtery.pojavzh.utils.ZHTools
 import fr.spse.gamepad_remapper.Remapper
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.fragments.GamepadMapperFragment
-import net.kdt.pojavlaunch.prefs.LauncherPreferences
 
 class ControlSettingsFragment(val parent: FragmentWithAnim) : AbstractSettingsFragment(R.layout.settings_fragment_control) {
     private var mainView: View? = null
@@ -31,7 +30,7 @@ class ControlSettingsFragment(val parent: FragmentWithAnim) : AbstractSettingsFr
             bindSwitchView(
                 customControlsCategory,
                 "disableGestures",
-                LauncherPreferences.PREF_DISABLE_GESTURES,
+                AllSettings.disableGestures,
                 view.findViewById(R.id.disableGestures_layout),
                 R.id.disableGestures_title,
                 R.id.disableGestures_summary,
@@ -43,7 +42,7 @@ class ControlSettingsFragment(val parent: FragmentWithAnim) : AbstractSettingsFr
             bindSwitchView(
                 customControlsCategory,
                 "disableDoubleTap",
-                LauncherPreferences.PREF_DISABLE_SWAP_HAND,
+                AllSettings.disableDoubleTap,
                 view.findViewById(R.id.disableDoubleTap_layout),
                 R.id.disableDoubleTap_title,
                 R.id.disableDoubleTap_summary,
@@ -54,7 +53,7 @@ class ControlSettingsFragment(val parent: FragmentWithAnim) : AbstractSettingsFr
             bindSeekBarView(
                 customControlsCategory,
                 "timeLongPressTrigger",
-                LauncherPreferences.PREF_LONGPRESS_TRIGGER,
+                AllSettings.timeLongPressTrigger,
                 "ms",
                 view.findViewById(R.id.timeLongPressTrigger_layout),
                 R.id.timeLongPressTrigger_title,
@@ -67,7 +66,7 @@ class ControlSettingsFragment(val parent: FragmentWithAnim) : AbstractSettingsFr
             bindSeekBarView(
                 controlsCategory,
                 "buttonscale",
-                LauncherPreferences.PREF_BUTTONSIZE.toInt(),
+                AllSettings.buttonscale,
                 "%",
                 view.findViewById(R.id.buttonscale_layout),
                 R.id.buttonscale_title,
@@ -80,7 +79,7 @@ class ControlSettingsFragment(val parent: FragmentWithAnim) : AbstractSettingsFr
             bindSwitchView(
                 controlsCategory,
                 "buttonAllCaps",
-                LauncherPreferences.PREF_BUTTON_ALL_CAPS,
+                AllSettings.buttonAllCaps,
                 view.findViewById(R.id.buttonAllCaps_layout),
                 R.id.buttonAllCaps_title,
                 R.id.buttonAllCaps_summary,
@@ -91,7 +90,7 @@ class ControlSettingsFragment(val parent: FragmentWithAnim) : AbstractSettingsFr
             bindSeekBarView(
                 mouseCategory,
                 "mousescale",
-                LauncherPreferences.DEFAULT_PREF.getInt("mousescale", 100),
+                AllSettings.mouseScale,
                 "%",
                 view.findViewById(R.id.mousescale_layout),
                 R.id.mousescale_title,
@@ -104,7 +103,7 @@ class ControlSettingsFragment(val parent: FragmentWithAnim) : AbstractSettingsFr
             bindSeekBarView(
                 mouseCategory,
                 "mousespeed",
-                LauncherPreferences.DEFAULT_PREF.getInt("mousespeed", 100),
+                AllSettings.mouseSpeed,
                 "%",
                 view.findViewById(R.id.mousespeed_layout),
                 R.id.mousespeed_title,
@@ -117,7 +116,7 @@ class ControlSettingsFragment(val parent: FragmentWithAnim) : AbstractSettingsFr
             bindSwitchView(
                 mouseCategory,
                 "mouse_start",
-                LauncherPreferences.PREF_VIRTUAL_MOUSE_START,
+                AllSettings.virtualMouseStart,
                 view.findViewById(R.id.mouse_start_layout),
                 R.id.mouse_start_title,
                 R.id.mouse_start_summary,
@@ -142,7 +141,7 @@ class ControlSettingsFragment(val parent: FragmentWithAnim) : AbstractSettingsFr
             bindSwitchView(
                 gyroCategory,
                 "enableGyro",
-                LauncherPreferences.PREF_ENABLE_GYRO,
+                AllSettings.enableGyro,
                 view.findViewById(R.id.enableGyro_layout),
                 R.id.enableGyro_title,
                 R.id.enableGyro_summary,
@@ -153,7 +152,7 @@ class ControlSettingsFragment(val parent: FragmentWithAnim) : AbstractSettingsFr
             bindSeekBarView(
                 gyroCategory,
                 "gyroSensitivity",
-                (LauncherPreferences.PREF_GYRO_SENSITIVITY * 100).toInt(),
+                (AllSettings.gyroSensitivity * 100).toInt(),
                 "%",
                 view.findViewById(R.id.gyroSensitivity_layout),
                 R.id.gyroSensitivity_title,
@@ -166,7 +165,7 @@ class ControlSettingsFragment(val parent: FragmentWithAnim) : AbstractSettingsFr
             bindSeekBarView(
                 gyroCategory,
                 "gyroSampleRate",
-                LauncherPreferences.PREF_GYRO_SAMPLE_RATE,
+                AllSettings.gyroSampleRate,
                 "ms",
                 view.findViewById(R.id.gyroSampleRate_layout),
                 R.id.gyroSampleRate_title,
@@ -179,7 +178,7 @@ class ControlSettingsFragment(val parent: FragmentWithAnim) : AbstractSettingsFr
             bindSwitchView(
                 gyroCategory,
                 "gyroSmoothing",
-                LauncherPreferences.PREF_GYRO_SMOOTHING,
+                AllSettings.gyroSmoothing,
                 view.findViewById(R.id.gyroSmoothing_layout),
                 R.id.gyroSmoothing_title,
                 R.id.gyroSmoothing_summary,
@@ -190,7 +189,7 @@ class ControlSettingsFragment(val parent: FragmentWithAnim) : AbstractSettingsFr
             bindSwitchView(
                 gyroCategory,
                 "gyroInvertX",
-                LauncherPreferences.PREF_GYRO_INVERT_X,
+                AllSettings.gyroInvertX,
                 view.findViewById(R.id.gyroInvertX_layout),
                 R.id.gyroInvertX_title,
                 R.id.gyroInvertX_summary,
@@ -201,7 +200,7 @@ class ControlSettingsFragment(val parent: FragmentWithAnim) : AbstractSettingsFr
             bindSwitchView(
                 gyroCategory,
                 "gyroInvertY",
-                LauncherPreferences.PREF_GYRO_INVERT_Y,
+                AllSettings.gyroInvertY,
                 view.findViewById(R.id.gyroInvertY_layout),
                 R.id.gyroInvertY_title,
                 R.id.gyroInvertY_summary,
@@ -238,7 +237,7 @@ class ControlSettingsFragment(val parent: FragmentWithAnim) : AbstractSettingsFr
             bindSeekBarView(
                 controllerCategory,
                 "gamepad_deadzone_scale",
-                (LauncherPreferences.PREF_DEADZONE_SCALE * 100F).toInt(),
+                (AllSettings.deadzoneScale * 100F).toInt(),
                 "%",
                 view.findViewById(R.id.gamepad_deadzone_scale_layout),
                 R.id.gamepad_deadzone_scale_title,
@@ -257,19 +256,19 @@ class ControlSettingsFragment(val parent: FragmentWithAnim) : AbstractSettingsFr
         computeVisibility()
     }
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        super.onSharedPreferenceChanged(sharedPreferences, key)
+    override fun onSettingsChange() {
+        super.onSettingsChange()
         computeVisibility()
     }
 
     private fun computeVisibility() {
         mainView?.apply {
-            setViewVisibility(findViewById(R.id.timeLongPressTrigger_layout), !LauncherPreferences.PREF_DISABLE_GESTURES)
-            setViewVisibility(findViewById(R.id.gyroSensitivity_layout), LauncherPreferences.PREF_ENABLE_GYRO)
-            setViewVisibility(findViewById(R.id.gyroSampleRate_layout), LauncherPreferences.PREF_ENABLE_GYRO)
-            setViewVisibility(findViewById(R.id.gyroInvertX_layout), LauncherPreferences.PREF_ENABLE_GYRO)
-            setViewVisibility(findViewById(R.id.gyroInvertY_layout), LauncherPreferences.PREF_ENABLE_GYRO)
-            setViewVisibility(findViewById(R.id.gyroSmoothing_layout), LauncherPreferences.PREF_ENABLE_GYRO)
+            setViewVisibility(findViewById(R.id.timeLongPressTrigger_layout), !AllSettings.disableGestures)
+            setViewVisibility(findViewById(R.id.gyroSensitivity_layout), AllSettings.enableGyro)
+            setViewVisibility(findViewById(R.id.gyroSampleRate_layout), AllSettings.enableGyro)
+            setViewVisibility(findViewById(R.id.gyroInvertX_layout), AllSettings.enableGyro)
+            setViewVisibility(findViewById(R.id.gyroInvertY_layout), AllSettings.enableGyro)
+            setViewVisibility(findViewById(R.id.gyroSmoothing_layout), AllSettings.enableGyro)
         }
     }
 

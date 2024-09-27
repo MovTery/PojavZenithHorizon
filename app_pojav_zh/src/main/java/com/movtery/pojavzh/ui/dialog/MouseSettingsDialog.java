@@ -1,7 +1,5 @@
 package com.movtery.pojavzh.ui.dialog;
 
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
@@ -11,6 +9,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+
+import com.movtery.pojavzh.setting.AllSettings;
 
 import net.kdt.pojavlaunch.R;
 
@@ -33,8 +33,8 @@ public class MouseSettingsDialog extends FullScreenDialog implements DraggableDi
         TextView mMouseScaleText = findViewById(R.id.zh_mouse_settings_scale_text);
         View mCustomMouseView = findViewById(R.id.zh_mouse_settings_custom_mouse);
 
-        final int[] mouseSpeed = {DEFAULT_PREF.getInt("mousespeed", 100)};
-        final int[] mouseScale = {DEFAULT_PREF.getInt("mousescale", 100)};
+        final int[] mouseSpeed = {AllSettings.Companion.getMouseSpeed()};
+        final int[] mouseScale = {AllSettings.Companion.getMouseScale()};
 
         mMouseSpeedSeekBar.setProgress(mouseSpeed[0]);
         mMouseScaleSeekBar.setProgress(mouseScale[0]);

@@ -12,7 +12,6 @@ import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.file.FileTools.Companion.getLatestFile
 import com.movtery.pojavzh.utils.file.FileTools.Companion.shareFile
 import com.movtery.pojavzh.utils.stringutils.StringUtils
-import net.kdt.pojavlaunch.BaseActivity
 import net.kdt.pojavlaunch.LauncherActivity
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools

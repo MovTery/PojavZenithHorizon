@@ -13,6 +13,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.movtery.pojavzh.feature.background.BackgroundManager;
 import com.movtery.pojavzh.feature.background.BackgroundType;
+import com.movtery.pojavzh.setting.AllSettings;
+import com.movtery.pojavzh.ui.activity.BaseActivity;
 import com.movtery.pojavzh.ui.dialog.ControlSettingsDialog;
 
 import net.kdt.pojavlaunch.customcontrols.ControlData;
@@ -20,10 +22,8 @@ import net.kdt.pojavlaunch.customcontrols.ControlDrawerData;
 import net.kdt.pojavlaunch.customcontrols.ControlJoystickData;
 import net.kdt.pojavlaunch.customcontrols.ControlLayout;
 import net.kdt.pojavlaunch.customcontrols.EditorExitable;
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import java.io.IOException;
-
 
 public class CustomControlsActivity extends BaseActivity implements EditorExitable {
 	public static final String BUNDLE_CONTROL_PATH = "control_path";
@@ -89,7 +89,7 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 		});
 		mControlLayout.setModifiable(true);
 		try {
-			if (mControlPath == null) mControlLayout.loadLayout(LauncherPreferences.PREF_DEFAULTCTRL_PATH);
+			if (mControlPath == null) mControlLayout.loadLayout(AllSettings.Companion.getDefaultCtrl());
 			else mControlLayout.loadLayout(mControlPath);
 		}catch (IOException e) {
 			Tools.showError(this, e);

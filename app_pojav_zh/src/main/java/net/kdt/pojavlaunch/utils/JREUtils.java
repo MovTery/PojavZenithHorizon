@@ -5,12 +5,7 @@ import static net.kdt.pojavlaunch.Architecture.ARCH_X86;
 import static net.kdt.pojavlaunch.Architecture.is64BitsDevice;
 import static net.kdt.pojavlaunch.Tools.LOCAL_RENDERER;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_BIG_CORE_AFFINITY;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_DUMP_SHADERS;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_VSYNC_IN_ZINK;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ZINK_PREFER_SYSTEM_DRIVER;
 
-import android.app.*;
 import android.content.*;
 import android.os.Build;
 import android.system.*;
@@ -20,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.movtery.pojavzh.feature.log.Logging;
+import com.movtery.pojavzh.setting.AllSettings;
 import com.movtery.pojavzh.ui.activity.ErrorActivity;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
@@ -33,7 +29,6 @@ import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 import net.kdt.pojavlaunch.multirt.Runtime;
 import net.kdt.pojavlaunch.plugins.FFmpegPlugin;
-import net.kdt.pojavlaunch.prefs.*;
 import org.lwjgl.glfw.*;
 
 import javax.microedition.khronos.egl.EGL10;
@@ -197,7 +192,7 @@ public class JREUtils {
         // The OPEN GL version is changed according
         envMap.put("LIBGL_ES", (String) ExtraCore.getValue(ExtraConstants.OPEN_GL_VERSION));
 
-        envMap.put("FORCE_VSYNC", String.valueOf(LauncherPreferences.PREF_FORCE_VSYNC));
+        envMap.put("FORCE_VSYNC", String.valueOf(AllSettings.Companion.getForceVsync()));
 
         envMap.put("MESA_GLSL_CACHE_DIR", PathAndUrlManager.DIR_CACHE.getAbsolutePath());
         envMap.put("force_glsl_extensions_warn", "true");
@@ -210,13 +205,13 @@ public class JREUtils {
         envMap.put("AWTSTUB_WIDTH", Integer.toString(CallbackBridge.windowWidth > 0 ? CallbackBridge.windowWidth : CallbackBridge.physicalWidth));
         envMap.put("AWTSTUB_HEIGHT", Integer.toString(CallbackBridge.windowHeight > 0 ? CallbackBridge.windowHeight : CallbackBridge.physicalHeight));
 
-        if (PREF_DUMP_SHADERS)
+        if (AllSettings.Companion.getDumpShaders())
             envMap.put("LIBGL_VGPU_DUMP", "1");
-        if (PREF_ZINK_PREFER_SYSTEM_DRIVER)
+        if (AllSettings.Companion.getZinkPreferSystemDriver())
             envMap.put("POJAV_ZINK_PREFER_SYSTEM_DRIVER", "1");
-        if (PREF_VSYNC_IN_ZINK)
+        if (AllSettings.Companion.getVsyncInZink())
             envMap.put("POJAV_VSYNC_IN_ZINK", "1");
-        if (PREF_BIG_CORE_AFFINITY)
+        if (AllSettings.Companion.getBigCoreAffinity())
             envMap.put("POJAV_BIG_CORE_AFFINITY", "1");
         if (FFmpegPlugin.isAvailable)
             envMap.put("PATH", FFmpegPlugin.libraryPath+":"+envMap.get("PATH"));
@@ -319,8 +314,8 @@ public class JREUtils {
         purgeArg(userArgs, "-Dorg.lwjgl.freetype.libname");
 
         //Add automatically generated args
-        userArgs.add("-Xms" + LauncherPreferences.PREF_RAM_ALLOCATION + "M");
-        userArgs.add("-Xmx" + LauncherPreferences.PREF_RAM_ALLOCATION + "M");
+        userArgs.add("-Xms" + AllSettings.Companion.getRamAllocation() + "M");
+        userArgs.add("-Xmx" + AllSettings.Companion.getRamAllocation() + "M");
         if (LOCAL_RENDERER != null) userArgs.add("-Dorg.lwjgl.opengl.libname=" + graphicsLib);
 
         // Force LWJGL to use the Freetype library intended for it, instead of using the one
@@ -328,7 +323,7 @@ public class JREUtils {
         userArgs.add("-Dorg.lwjgl.freetype.libname="+ DIR_NATIVE_LIB +"/libfreetype.so");
 
         userArgs.addAll(JVMArgs);
-        activity.runOnUiThread(() -> Toast.makeText(activity, activity.getString(R.string.autoram_info_msg,LauncherPreferences.PREF_RAM_ALLOCATION), Toast.LENGTH_SHORT).show());
+        activity.runOnUiThread(() -> Toast.makeText(activity, activity.getString(R.string.autoram_info_msg,AllSettings.Companion.getRamAllocation()), Toast.LENGTH_SHORT).show());
         System.out.println(JVMArgs);
 
         initJavaRuntime(runtimeHome);
@@ -372,8 +367,8 @@ public class JREUtils {
                 //"-Dorg.lwjgl.util.DebugFunctions=true",
                 //"-Dorg.lwjgl.util.DebugLoader=true",
                 // GLFW Stub width height
-                "-Dglfwstub.windowWidth=" + Tools.getDisplayFriendlyRes(currentDisplayMetrics.widthPixels, LauncherPreferences.PREF_SCALE_FACTOR/100F),
-                "-Dglfwstub.windowHeight=" + Tools.getDisplayFriendlyRes(currentDisplayMetrics.heightPixels, LauncherPreferences.PREF_SCALE_FACTOR/100F),
+                "-Dglfwstub.windowWidth=" + Tools.getDisplayFriendlyRes(currentDisplayMetrics.widthPixels, AllSettings.Companion.getResolutionRatio() / 100F),
+                "-Dglfwstub.windowHeight=" + Tools.getDisplayFriendlyRes(currentDisplayMetrics.heightPixels, AllSettings.Companion.getResolutionRatio() / 100F),
                 "-Dglfwstub.initEgl=false",
                 "-Dext.net.resolvPath=" +resolvFile,
                 "-Dlog4j2.formatMsgNoLookups=true", //Log4j RCE mitigation
@@ -383,7 +378,7 @@ public class JREUtils {
                 "-Dloader.disable_forked_guis=true",
                 "-Dsodium.checks.issue2561=false"
         ));
-        if (LauncherPreferences.PREF_ARC_CAPES)
+        if (AllSettings.Companion.getArcCapes())
             overridableArguments.add("-javaagent:"+new File(PathAndUrlManager.DIR_DATA,"arc_dns_injector/arc_dns_injector.jar").getAbsolutePath()+"=23.95.137.176");
 
         List<String> additionalArguments = new ArrayList<>();

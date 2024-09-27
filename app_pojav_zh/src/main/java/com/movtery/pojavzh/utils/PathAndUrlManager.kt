@@ -14,7 +14,6 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLConnection
 
-
 class PathAndUrlManager {
     companion object {
         private const val TIME_OUT = 8000
@@ -29,6 +28,7 @@ class PathAndUrlManager {
 
         //PojavLauncher
         @JvmField var DIR_NATIVE_LIB: String? = null
+        @JvmField var DIR_FILE: File? = null
         @JvmField var DIR_DATA: String? = null //Initialized later to get context
         @JvmField var DIR_CACHE: File? = null
         @JvmField var DIR_MULTIRT_HOME: String? = null
@@ -45,6 +45,7 @@ class PathAndUrlManager {
         @JvmField var DIR_APP_CACHE: File? = null
         @JvmField var DIR_USER_ICON: File? = null
 
+        @JvmField var FILE_SETTINGS: File? = null
         @JvmField var FILE_PROFILE_PATH: File? = null
         @JvmField var FILE_CTRLDEF_FILE: String? = null
         @JvmField var FILE_VERSION_LIST: String? = null
@@ -53,7 +54,8 @@ class PathAndUrlManager {
         @JvmStatic
         fun initContextConstants(context: Context) {
             DIR_NATIVE_LIB = context.applicationInfo.nativeLibraryDir
-            DIR_DATA = context.filesDir.getParent()
+            DIR_FILE = context.filesDir
+            DIR_DATA = DIR_FILE!!.getParent()
             DIR_CACHE = context.cacheDir
             DIR_MULTIRT_HOME = "$DIR_DATA/runtimes"
             DIR_GAME_HOME = Tools.getPojavStorageRoot(context).absolutePath
@@ -67,6 +69,7 @@ class PathAndUrlManager {
             FILE_VERSION_LIST = "$DIR_DATA/version_list.json"
             FILE_NEWBIE_GUIDE = File(DIR_DATA, "/newbie_guide.json")
 
+            FILE_SETTINGS = File(DIR_FILE, "/launcher_settings.json")
             DIR_GAME_DEFAULT = "$gameHome/instance/default"
             DIR_CUSTOM_MOUSE = "$DIR_GAME_HOME/mouse"
             DIR_LOGIN = "$DIR_GAME_HOME/login"

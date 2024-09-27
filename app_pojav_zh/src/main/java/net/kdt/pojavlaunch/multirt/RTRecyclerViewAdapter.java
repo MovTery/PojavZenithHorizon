@@ -16,13 +16,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.pojavzh.setting.AllSettings;
+import com.movtery.pojavzh.setting.Settings;
 import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 
 import net.kdt.pojavlaunch.Architecture;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import java.io.IOException;
 import java.util.List;
@@ -78,7 +79,7 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     public boolean isDefaultRuntime(Runtime rt) {
-        return LauncherPreferences.PREF_DEFAULT_RUNTIME.equals(rt.name);
+        return Objects.equals(AllSettings.Companion.getDefaultRuntime(), rt.name);
     }
 
     @Override
@@ -88,8 +89,7 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @SuppressLint("NotifyDataSetChanged") //not a problem, given the typical size of the list
     public void setDefault(Runtime rt){
-        LauncherPreferences.PREF_DEFAULT_RUNTIME = rt.name;
-        LauncherPreferences.DEFAULT_PREF.edit().putString("defaultRuntime",LauncherPreferences.PREF_DEFAULT_RUNTIME).apply();
+        Settings.Manager.Companion.put("defaultRuntime", rt.name).save();
         notifyDataSetChanged();
     }
 

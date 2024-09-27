@@ -1,7 +1,5 @@
 package com.movtery.pojavzh.ui.subassembly.customprofilepath;
 
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
@@ -17,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.setting.AllSettings;
 import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
@@ -41,7 +40,7 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
         this.fragment = fragment;
         this.mData = mData;
         this.view = view;
-        this.currentId = DEFAULT_PREF.getString("launcherProfile", "default");
+        this.currentId = AllSettings.Companion.getLauncherProfile();
     }
 
     @NonNull

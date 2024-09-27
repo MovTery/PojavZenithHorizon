@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch;
 
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -41,6 +40,9 @@ import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.feature.mod.modpack.install.InstallExtra;
 import com.movtery.pojavzh.feature.mod.modpack.install.InstallLocalModPack;
 import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
+import com.movtery.pojavzh.setting.AllSettings;
+import com.movtery.pojavzh.setting.Settings;
+import com.movtery.pojavzh.ui.activity.BaseActivity;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.fragment.SettingsFragment;
 import com.movtery.pojavzh.ui.subassembly.settingsbutton.ButtonType;
@@ -225,7 +227,7 @@ public class LauncherActivity extends BaseActivity {
             return false;
         }
 
-        String selectedProfile = DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE,"");
+        String selectedProfile = AllSettings.Companion.getCurrentProfile();
         if (LauncherProfiles.mainProfileJson == null || !LauncherProfiles.mainProfileJson.profiles.containsKey(selectedProfile)){
             Toast.makeText(this, R.string.error_no_version, Toast.LENGTH_LONG).show();
             return false;
@@ -250,7 +252,7 @@ public class LauncherActivity extends BaseActivity {
 
             @Override
             public void onUsageDenied() {
-                if (!DEFAULT_PREF.getBoolean("localAccountReminders", true)) {
+                if (!AllSettings.Companion.getLocalAccountReminders()) {
                     launchGame(prof);
                 } else {
                     LocalAccountUtils.openDialog(LauncherActivity.this, () -> launchGame(prof),
@@ -461,7 +463,7 @@ public class LauncherActivity extends BaseActivity {
     }
 
     private void checkNotificationPermission() {
-        if(LauncherPreferences.PREF_SKIP_NOTIFICATION_PERMISSION_CHECK ||
+        if(AllSettings.Companion.getSkipNotificationPermissionCheck() ||
             checkForNotificationPermission()) {
             return;
         }
@@ -485,10 +487,9 @@ public class LauncherActivity extends BaseActivity {
     }
 
     private void handleNoNotificationPermission() {
-        LauncherPreferences.PREF_SKIP_NOTIFICATION_PERMISSION_CHECK = true;
-        DEFAULT_PREF.edit()
-                .putBoolean(LauncherPreferences.PREF_KEY_SKIP_NOTIFICATION_CHECK, true)
-                .apply();
+        Settings.Manager.Companion
+                .put("skipNotificationPermissionCheck", true)
+                .save();
         Toast.makeText(this, R.string.notification_permission_toast, Toast.LENGTH_LONG).show();
     }
 
@@ -508,7 +509,7 @@ public class LauncherActivity extends BaseActivity {
 
     private void setPageOpacity() {
         if (mFragmentView != null) {
-            float v = (float) LauncherPreferences.PREF_PAGE_OPACITY / 100;
+            float v = (float) AllSettings.Companion.getPageOpacity() / 100;
             if (mFragmentView.getAlpha() != v) mFragmentView.setAlpha(v);
         }
     }

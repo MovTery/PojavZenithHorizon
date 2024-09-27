@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch.customcontrols.mouse;
 
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -12,6 +11,8 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import net.kdt.pojavlaunch.GrabListener;
+
+import com.movtery.pojavzh.setting.AllSettings;
 import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.image.Dimension;
 import com.movtery.pojavzh.utils.image.ImageUtils;
@@ -28,7 +29,7 @@ public class Touchpad extends View implements GrabListener, AbstractTouchpad {
     private Drawable mMousePointerDrawable;
     private float mMouseX, mMouseY;
     /* Resolution scaler option, allow downsizing a window */
-    private final float mScaleFactor = DEFAULT_PREF.getInt("resolutionRatio",100)/100f;
+    private final float mScaleFactor = AllSettings.Companion.getResolutionRatio() / 100f;
     public Touchpad(@NonNull Context context) {
         this(context, null);
     }
@@ -102,7 +103,7 @@ public class Touchpad extends View implements GrabListener, AbstractTouchpad {
 
     public void updateMouseScale() {
         Dimension mousescale = ImageUtils.resizeWithRatio(mMousePointerDrawable.getIntrinsicWidth(), mMousePointerDrawable.getIntrinsicHeight(),
-                DEFAULT_PREF.getInt("mousescale", 100));
+                AllSettings.Companion.getMouseScale());
         mMousePointerDrawable.setBounds(0, 0, (int) (mousescale.width * 0.5), (int) (mousescale.height * 0.5));
     }
 
@@ -130,8 +131,8 @@ public class Touchpad extends View implements GrabListener, AbstractTouchpad {
 
     @Override
     public void applyMotionVector(float x, float y) {
-        mMouseX = Math.max(0, Math.min(currentDisplayMetrics.widthPixels, mMouseX + x * (DEFAULT_PREF.getInt("mousespeed", 100) / 100f)));
-        mMouseY = Math.max(0, Math.min(currentDisplayMetrics.heightPixels, mMouseY + y * (DEFAULT_PREF.getInt("mousespeed",100) / 100f)));
+        mMouseX = Math.max(0, Math.min(currentDisplayMetrics.widthPixels, mMouseX + x * (AllSettings.Companion.getMouseSpeed() / 100f)));
+        mMouseY = Math.max(0, Math.min(currentDisplayMetrics.heightPixels, mMouseY + y * (AllSettings.Companion.getMouseSpeed() / 100f)));
         updateMousePosition();
     }
 

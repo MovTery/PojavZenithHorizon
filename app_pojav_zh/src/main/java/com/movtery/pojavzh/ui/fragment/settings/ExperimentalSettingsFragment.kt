@@ -2,8 +2,8 @@ package com.movtery.pojavzh.ui.fragment.settings
 
 import android.os.Bundle
 import android.view.View
+import com.movtery.pojavzh.setting.AllSettings
 import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.prefs.LauncherPreferences
 
 class ExperimentalSettingsFragment :
     AbstractSettingsFragment(R.layout.settings_fragment_experimental) {
@@ -14,7 +14,7 @@ class ExperimentalSettingsFragment :
             bindSwitchView(
                 experimentalCategory,
                 "dump_shaders",
-                LauncherPreferences.PREF_DUMP_SHADERS,
+                AllSettings.dumpShaders,
                 view.findViewById(R.id.dump_shaders_layout),
                 R.id.dump_shaders_title,
                 R.id.dump_shaders_summary,
@@ -26,7 +26,7 @@ class ExperimentalSettingsFragment :
             bindSwitchView(
                 experimentalCategory,
                 "bigCoreAffinity",
-                LauncherPreferences.PREF_BIG_CORE_AFFINITY,
+                AllSettings.bigCoreAffinity,
                 view.findViewById(R.id.bigCoreAffinity_layout),
                 R.id.bigCoreAffinity_title,
                 R.id.bigCoreAffinity_summary,

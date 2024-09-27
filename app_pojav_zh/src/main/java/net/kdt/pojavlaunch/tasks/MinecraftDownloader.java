@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.feature.log.Logging;
+import com.movtery.pojavzh.setting.AllSettings;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.JAssetInfo;
@@ -17,7 +18,6 @@ import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.mirrors.DownloadMirror;
 import net.kdt.pojavlaunch.mirrors.MirrorTamperedException;
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.utils.DownloadUtils;
 import net.kdt.pojavlaunch.utils.FileUtils;
 import net.kdt.pojavlaunch.value.DependentLibrary;
@@ -146,7 +146,7 @@ public class MinecraftDownloader {
             return targetFile;
         FileUtils.ensureParentDirectory(targetFile);
         try {
-            DownloadUtils.ensureSha1(targetFile, LauncherPreferences.PREF_VERIFY_MANIFEST ? verInfo.sha1 : null, () -> {
+            DownloadUtils.ensureSha1(targetFile, AllSettings.Companion.getVerifyManifest() ? verInfo.sha1 : null, () -> {
                 ProgressLayout.setProgress(ProgressLayout.DOWNLOAD_MINECRAFT, 0,
                         R.string.newdl_downloading_metadata, targetFile.getName());
                 DownloadMirror.downloadFileMirrored(DownloadMirror.DOWNLOAD_CLASS_METADATA, verInfo.url, targetFile);
@@ -257,7 +257,7 @@ public class MinecraftDownloader {
                         : dependentLibrary.url.replace("http://","https://")) + libArtifactPath;
                 skipIfFailed = true;
             }
-            if(!LauncherPreferences.PREF_CHECK_LIBRARY_SHA) sha1 = null;
+            if(!AllSettings.Companion.getCheckLibraries()) sha1 = null;
             scheduleDownload(new File(ProfilePathHome.getLibrariesHome(), libArtifactPath),
                     DownloadMirror.DOWNLOAD_CLASS_LIBRARIES,
                     url, sha1, size, skipIfFailed
@@ -281,7 +281,7 @@ public class MinecraftDownloader {
             } else {
                 targetFile = new File(basePath, "objects" + File.separator + hashedPath);
             }
-            String sha1 = LauncherPreferences.PREF_CHECK_LIBRARY_SHA ? assetInfo.hash : null;
+            String sha1 = AllSettings.Companion.getCheckLibraries() ? assetInfo.hash : null;
             scheduleDownload(targetFile,
                     DownloadMirror.DOWNLOAD_CLASS_ASSETS,
                     MINECRAFT_RES + hashedPath,
@@ -308,7 +308,7 @@ public class MinecraftDownloader {
 
     private void scheduleGameJarDownload(MinecraftClientInfo minecraftClientInfo, String versionName) throws IOException {
         File clientJar = createGameJarPath(versionName);
-        String clientSha1 = LauncherPreferences.PREF_CHECK_LIBRARY_SHA ?
+        String clientSha1 = AllSettings.Companion.getCheckLibraries() ?
                 minecraftClientInfo.sha1 : null;
         growDownloadList(1);
         scheduleDownload(clientJar,

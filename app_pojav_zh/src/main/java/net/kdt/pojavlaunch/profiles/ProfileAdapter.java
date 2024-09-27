@@ -10,10 +10,10 @@ import android.widget.BaseAdapter;
 import androidx.core.graphics.ColorUtils;
 
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.setting.AllSettings;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import fr.spse.extended_view.ExtendedTextView;
 
@@ -115,8 +116,8 @@ public class ProfileAdapter extends BaseAdapter {
 
         // Set selected background if needed
         if(displaySelection){
-            String selectedProfile = LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE,"");
-            extendedTextView.setBackgroundColor(selectedProfile.equals(nm) ? ColorUtils.setAlphaComponent(Color.WHITE,60) : Color.TRANSPARENT);
+            String selectedProfile = AllSettings.Companion.getCurrentProfile();
+            extendedTextView.setBackgroundColor(Objects.equals(selectedProfile, nm) ? ColorUtils.setAlphaComponent(Color.WHITE,60) : Color.TRANSPARENT);
         }else extendedTextView.setBackgroundColor(Color.TRANSPARENT);
     }
 

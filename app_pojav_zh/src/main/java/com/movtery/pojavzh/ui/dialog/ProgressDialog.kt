@@ -6,10 +6,10 @@ import android.view.Window
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
+import com.movtery.pojavzh.setting.AllSettings
 import com.movtery.pojavzh.ui.dialog.DraggableDialog.DialogInitializationListener
 import com.movtery.pojavzh.utils.file.FileTools.Companion.formatFileSize
 import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.prefs.LauncherPreferences
 
 class ProgressDialog(context: Context, listener: OnCancelListener) : FullScreenDialog(context),
     DialogInitializationListener {
@@ -52,7 +52,7 @@ class ProgressDialog(context: Context, listener: OnCancelListener) : FullScreenD
         val intValue = doubleValue.toInt()
 
         progressBar?.visibility = if (doubleValue > 0) View.VISIBLE else View.GONE
-        progressBar?.setProgress(intValue, LauncherPreferences.PREF_ANIMATION)
+        progressBar?.setProgress(intValue, AllSettings.animation)
     }
 
     override fun onInit(): Window? {

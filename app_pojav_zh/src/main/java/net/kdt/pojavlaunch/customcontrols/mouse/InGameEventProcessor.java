@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.MotionEvent;
 
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
+import com.movtery.pojavzh.setting.AllSettings;
 
 import org.lwjgl.glfw.CallbackBridge;
 
@@ -25,7 +25,7 @@ public class InGameEventProcessor implements TouchEventProcessor {
         switch (motionEvent.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
                 mTracker.startTracking(motionEvent);
-                if(LauncherPreferences.PREF_DISABLE_GESTURES) break;
+                if(AllSettings.Companion.getDisableGestures()) break;
                 mEventTransitioned = false;
                 checkGestures();
                 break;
@@ -35,7 +35,7 @@ public class InGameEventProcessor implements TouchEventProcessor {
                 CallbackBridge.mouseX += motionVector[0] * mSensitivity;
                 CallbackBridge.mouseY += motionVector[1] * mSensitivity;
                 CallbackBridge.sendCursorPos(CallbackBridge.mouseX, CallbackBridge.mouseY);
-                if(LauncherPreferences.PREF_DISABLE_GESTURES) break;
+                if(AllSettings.Companion.getDisableGestures()) break;
                 checkGestures();
                 break;
             case MotionEvent.ACTION_UP:

@@ -6,7 +6,6 @@ import static net.kdt.pojavlaunch.Architecture.ARCH_ARM64;
 import static net.kdt.pojavlaunch.Architecture.ARCH_X86;
 import static net.kdt.pojavlaunch.Architecture.ARCH_X86_64;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.movtery.pojavzh.feature.log.Logging;
+import com.movtery.pojavzh.setting.AllSettings;
 import com.movtery.pojavzh.ui.dialog.ProgressDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.dialog.UpdateDialog;
@@ -139,7 +139,7 @@ public final class UpdateLauncher {
                         JSONObject jsonObject = new JSONObject(responseBody);
                         String versionName = jsonObject.getString("name");
 
-                        if (ignore && versionName.equals(DEFAULT_PREF.getString("ignoreUpdate", null)))
+                        if (ignore && Objects.equals(versionName, AllSettings.Companion.getIgnoreUpdate()))
                             return; //忽略此版本
 
                         String tagName = jsonObject.getString("tag_name");

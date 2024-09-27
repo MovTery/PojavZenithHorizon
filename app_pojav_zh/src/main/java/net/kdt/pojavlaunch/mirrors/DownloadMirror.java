@@ -3,14 +3,15 @@ package net.kdt.pojavlaunch.mirrors;
 import androidx.annotation.Nullable;
 
 import com.movtery.pojavzh.feature.log.Logging;
+import com.movtery.pojavzh.setting.AllSettings;
 
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.utils.DownloadUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Objects;
 
 public class DownloadMirror {
     public static final int DOWNLOAD_CLASS_LIBRARIES = 0;
@@ -72,11 +73,11 @@ public class DownloadMirror {
      * @return true if the source is a mirror, false otherwise
      */
     public static boolean isMirrored() {
-        return !LauncherPreferences.PREF_DOWNLOAD_SOURCE.equals("default");
+        return !Objects.equals(AllSettings.Companion.getDownloadSource(), "default");
     }
 
     private static String[] getMirrorSettings() {
-        switch (LauncherPreferences.PREF_DOWNLOAD_SOURCE) {
+        switch (Objects.requireNonNull(AllSettings.Companion.getDownloadSource())) {
             case "bmclapi": return MIRROR_BMCLAPI;
             case "default":
             default:

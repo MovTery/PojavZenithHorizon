@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.movtery.pojavzh.feature.log.Logging;
+import com.movtery.pojavzh.setting.AllSettings;
 
 import net.kdt.pojavlaunch.customcontrols.ControlLayout;
 import net.kdt.pojavlaunch.customcontrols.gamepad.DefaultDataProvider;
@@ -33,7 +34,6 @@ import net.kdt.pojavlaunch.customcontrols.mouse.AndroidPointerCapture;
 import net.kdt.pojavlaunch.customcontrols.mouse.InGUIEventProcessor;
 import net.kdt.pojavlaunch.customcontrols.mouse.InGameEventProcessor;
 import net.kdt.pojavlaunch.customcontrols.mouse.TouchEventProcessor;
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.utils.JREUtils;
 import net.kdt.pojavlaunch.utils.MCOptionUtils;
 
@@ -66,7 +66,7 @@ public class MinecraftGLSurface extends View implements GrabListener {
             .remapDpad(true));
 
     /* Resolution scaler option, allow downsizing a window */
-    private final float mScaleFactor = LauncherPreferences.PREF_SCALE_FACTOR/100f;
+    private final float mScaleFactor = AllSettings.Companion.getResolutionRatio() / 100f;
     /* Sensitivity, adjusted according to screen size */
     private final double mSensitivityFactor = (1.4 * (1080f/ Tools.getDisplayMetrics((Activity) getContext()).heightPixels));
 
@@ -105,7 +105,7 @@ public class MinecraftGLSurface extends View implements GrabListener {
     public void start(boolean isAlreadyRunning, AbstractTouchpad touchpad){
         setUpPointerCapture(touchpad);
         mInGUIProcessor.setAbstractTouchpad(touchpad);
-        if(LauncherPreferences.PREF_USE_ALTERNATE_SURFACE){
+        if(AllSettings.Companion.getAlternateSurface()){
             SurfaceView surfaceView = new SurfaceView(getContext());
             mSurface = surfaceView;
 
@@ -335,7 +335,7 @@ public class MinecraftGLSurface extends View implements GrabListener {
             Logging.w("MGLSurface", "Attempt to refresh size on null surface");
             return;
         }
-        if(LauncherPreferences.PREF_USE_ALTERNATE_SURFACE){
+        if(AllSettings.Companion.getAlternateSurface()){
             SurfaceView view = (SurfaceView) mSurface;
             if(view.getHolder() != null){
                 view.getHolder().setFixedSize(windowWidth, windowHeight);
