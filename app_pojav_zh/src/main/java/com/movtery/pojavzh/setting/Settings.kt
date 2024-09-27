@@ -1,5 +1,7 @@
 package com.movtery.pojavzh.setting
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.utils.PathAndUrlManager
@@ -10,6 +12,8 @@ import java.util.Objects
 
 class Settings {
     companion object {
+        private val GSON: Gson = GsonBuilder().disableHtmlEscaping().create()
+
         private var settings: List<SettingAttribute> = refresh()
 
         private fun refresh(): List<SettingAttribute> {
@@ -17,7 +21,7 @@ class Settings {
                 try {
                     val jsonString = Tools.read(file)
                     val listType: Type = object : TypeToken<List<SettingAttribute>>() {}.type
-                    Tools.GLOBAL_GSON.fromJson(jsonString, listType)
+                    GSON.fromJson(jsonString, listType)
                 } catch (e: Throwable) {
                     Logging.e("Settings", Tools.printToString(e))
                     emptyList()
@@ -104,7 +108,7 @@ class Settings {
 
                 currentSettings.removeAll(nullValueList)
 
-                val json = Tools.GLOBAL_GSON.toJson(currentSettings)
+                val json = GSON.toJson(currentSettings)
 
                 runCatching {
                     FileUtils.write(settingsFile, json)
