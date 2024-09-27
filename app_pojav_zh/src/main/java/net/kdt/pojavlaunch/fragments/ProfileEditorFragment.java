@@ -2,6 +2,7 @@ package net.kdt.pojavlaunch.fragments;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Base64;
@@ -15,9 +16,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.movtery.anim.AnimPlayer;
 import com.movtery.anim.animations.Animations;
 import com.movtery.pojavzh.extra.ZHExtraConstants;
@@ -42,22 +45,34 @@ import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 import net.kdt.pojavlaunch.multirt.Runtime;
 import net.kdt.pojavlaunch.profiles.ProfileIconCache;
-import net.kdt.pojavlaunch.utils.CropperUtils;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class ProfileEditorFragment extends FragmentWithAnim implements CropperUtils.CropperListener{
+public class ProfileEditorFragment extends FragmentWithAnim {
     public static final String TAG = "ProfileEditorFragment";
     public static final String DELETED_PROFILE = "deleted_profile";
+
+    private final ActivityResultLauncher<String[]> openDocumentLauncher =
+            registerForActivityResult(new ActivityResultContracts.OpenDocument(), result -> {
+                try (
+                        InputStream inputStream = requireActivity().getContentResolver().openInputStream(result)
+                ) {
+                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                    onImageSelected(bitmap);
+                } catch (Exception e) {
+                    Logging.e("ProfileEditorFragment", Tools.printToString(e));
+                }
+            });
 
     private String mProfileKey;
     private MinecraftProfile mTempProfile = null;
@@ -68,7 +83,6 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
     private EditText mDefaultName, mDefaultJvmArgument;
     private TextView mDefaultPath, mDefaultVersion, mDefaultControl;
     private ImageView mProfileIcon;
-    private final ActivityResultLauncher<?> mCropperLauncher = CropperUtils.registerCropper(this, this);
 
     private List<String> mRenderNames;
 
@@ -136,7 +150,7 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
                 VersionSelectorFragment.class, VersionSelectorFragment.TAG, null));
 
         // Set up the icon change click listener
-        mProfileLayout.setOnClickListener(v -> CropperUtils.startCropper(mCropperLauncher));
+        mProfileLayout.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
 
         loadValues(Objects.requireNonNull(AllSettings.Companion.getCurrentProfile()), view.getContext());
     }
@@ -257,37 +271,34 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
         ExtraCore.setValue(ExtraConstants.REFRESH_VERSION_SPINNER, mProfileKey);
     }
 
-    @Override
-    public void onCropped(Bitmap contentBitmap) {
-        mProfileIcon.setImageBitmap(contentBitmap);
-        Logging.i("bitmap", "w="+contentBitmap.getWidth() +" h="+contentBitmap.getHeight());
+    private void onImageSelected(Bitmap bitmap) {
+        Glide.with(requireContext())
+                .load(bitmap)
+                .into(mProfileIcon);
+
+        Logging.i("ProfileEditorFragment", "The icon has been updated");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try (Base64OutputStream base64OutputStream = new Base64OutputStream(byteArrayOutputStream, Base64.NO_WRAP)) {
-            contentBitmap.compress(
-                Build.VERSION.SDK_INT < Build.VERSION_CODES.R ?
-                    // On Android < 30, there was no distinction between "lossy" and "lossless",
-                    // and the type is picked by the quality parameter. We set the quality to 60.
-                    // so it should be lossy,
-                    Bitmap.CompressFormat.WEBP:
-                    // On Android >= 30, we can explicitly specify that we want lossy compression
-                    // with the visual quality of 60.
-                    Bitmap.CompressFormat.WEBP_LOSSY,
-                60,
-                base64OutputStream
+            bitmap.compress(
+                    Build.VERSION.SDK_INT < Build.VERSION_CODES.R ?
+                            // On Android < 30, there was no distinction between "lossy" and "lossless",
+                            // and the type is picked by the quality parameter. We set the quality to 60.
+                            // so it should be lossy,
+                            Bitmap.CompressFormat.WEBP :
+                            // On Android >= 30, we can explicitly specify that we want lossy compression
+                            // with the visual quality of 60.
+                            Bitmap.CompressFormat.WEBP_LOSSY,
+                    60,
+                    base64OutputStream
             );
             base64OutputStream.flush();
             byteArrayOutputStream.flush();
-        }catch (IOException e) {
+        } catch (IOException e) {
             Tools.showErrorRemote(e);
             return;
         }
         String iconLine = new String(byteArrayOutputStream.toByteArray(), StandardCharsets.UTF_8);
         mTempProfile.icon = "data:image/webp;base64," + iconLine;
-    }
-
-    @Override
-    public void onFailed(Exception exception) {
-        Tools.showErrorRemote(exception);
     }
 
     @Override
