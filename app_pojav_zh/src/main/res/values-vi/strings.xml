@@ -259,10 +259,7 @@ Nếu bạn muốn sử dụng nguồn tải xuống chính thức, nhấn vào 
     <string name="newdl_starting">Đang đọc siêu dữ liệu trò chơi…</string>
     <string name="newdl_downloading_metadata">Đang tải xuống siêu dữ liệu trò chơi (%s)</string>
     <string name="newdl_downloading_game_files">Đang tải xuống tệp trò chơi… (%d/%d, %.2f MB)</string>
-    <string name="cropper_lock_vertical">Khóa trục dọc</string>
-    <string name="cropper_lock_horizontal">Khóa trục ngang</string>
     <string name="cropper_reset">Đặt lại</string>
-    <string name="cropper_select_cancelled">Lựa chọn đã bị hủy</string>
     <string name="log_view_button_scroll_off">Tự động cuộn: Tắt</string>
     <string name="log_view_button_scroll_on">Tự động cuộn: Bật</string>
     <string name="log_view_button_output_off">Đầu ra: Tắt</string>

@@ -254,10 +254,7 @@
     <string name="newdl_starting">قراءة بيانات تعريف اللعبة…</string>
     <string name="newdl_downloading_metadata">تحميل بيانات تعريف اللعبة (%s)</string>
     <string name="newdl_downloading_game_files">تنزيل ملفات اللعبة… (%d/%d, %.2f MB)</string>
-    <string name="cropper_lock_vertical">تأمين المحور العمودي</string>
-    <string name="cropper_lock_horizontal">تأمين المحور الأفقي</string>
     <string name="cropper_reset">إعادة تعيين</string>
-    <string name="cropper_select_cancelled">الاختيار تم إلغاؤه</string>
     <string name="log_view_button_scroll_off">التمرير التلقائي: مغلق</string>
     <string name="log_view_button_scroll_on">التمرير التلقائي: مفتوح</string>
     <string name="log_view_button_output_off">الإخراج: مغلق</string>

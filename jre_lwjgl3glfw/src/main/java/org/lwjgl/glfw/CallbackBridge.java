@@ -1,5 +1,4 @@
 package org.lwjgl.glfw;
-import java.util.*;
 
 public class CallbackBridge {
     public static final int CLIPBOARD_COPY = 2000;

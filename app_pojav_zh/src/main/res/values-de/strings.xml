@@ -258,10 +258,7 @@ Wenn du die offizielle Downloadquelle verwenden möchtest, drücke auf \"Zur off
     <string name="newdl_starting">Lese Spiel-Metadaten…</string>
     <string name="newdl_downloading_metadata">Lade Spiel-Metadaten herunter (%s)</string>
     <string name="newdl_downloading_game_files">Lade Spiel-Dateien herunter… (%d/%d, %.2f MB)</string>
-    <string name="cropper_lock_vertical">V. Sperre</string>
-    <string name="cropper_lock_horizontal">H. Sperre</string>
     <string name="cropper_reset">Zurücksetzen</string>
-    <string name="cropper_select_cancelled">Auswahl abgebrochen</string>
     <string name="log_view_button_scroll_off">Automatischer Bildlauf: AUS</string>
     <string name="log_view_button_scroll_on">Automatischer Bildlauf: EIN</string>
     <string name="log_view_button_output_off">Ausgabe: AUS</string>

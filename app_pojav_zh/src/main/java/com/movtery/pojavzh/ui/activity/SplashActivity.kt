@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -51,6 +52,7 @@ class SplashActivity : BaseActivity() {
             findViewById(R.id.background_view)
         )
 
+        val splashText = findViewById<TextView>(R.id.splash_text)
         startButton = findViewById(R.id.start_button)
         recyclerView = findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -60,6 +62,7 @@ class SplashActivity : BaseActivity() {
             setOnClickListener {
                 if (isStarted) return@setOnClickListener
                 isStarted = true
+                splashText.setText(R.string.splash_screen_installing)
                 adapter.startAllTasks()
             }
             isClickable = false

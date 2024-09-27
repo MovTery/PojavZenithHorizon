@@ -290,10 +290,7 @@
     <string name="newdl_starting">读取游戏元数据中…</string>
     <string name="newdl_downloading_metadata">下载游戏元数据中 (%s)</string>
     <string name="newdl_downloading_game_files">下载游戏文件中… (%d/%d, %.2f MB)</string>
-    <string name="cropper_lock_vertical">锁定纵轴</string>
-    <string name="cropper_lock_horizontal">锁定横轴</string>
     <string name="cropper_reset">重置</string>
-    <string name="cropper_select_cancelled">选择已取消</string>
     <string name="log_view_button_scroll_off">自动滚动: 关闭</string>
     <string name="log_view_button_scroll_on">自动滚动: 开启</string>
     <string name="log_view_button_output_off">输出: 关闭</string>

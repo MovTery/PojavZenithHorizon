@@ -217,7 +217,6 @@
     <string name="zh_preference_category_experimental_patches">实验性的补丁</string>
     <string name="zh_setting_java_memory_desc">控制给 Minecraft 分配多少内存</string>
     <string name="zh_setting_java_memory_info">当前内存使用信息：%s / %s ，空闲内存大小：%s</string>
-    <string name="zh_setting_java_memory_max">最大可设置的内存大小：%s</string>
     <string name="zh_setting_java_memory_exceeded">当前设置的内存空间超出了可用内存大小</string>
     <string name="zh_setting_mod_info_mirror">Mod 信息获取源</string>
     <string name="zh_setting_mod_download_mirror">Mod 下载源</string>
@@ -289,7 +288,6 @@
     <string name="zh_other_login_error">登录时出现错误：\n</string>
     <string name="zh_other_login_no_server">无认证服务器</string>
     <string name="zh_other_login_baseurl_not_set">未设置基础URL</string>
-    <string name="zh_other_login_error_code">错误代码:</string>
     <string name="zh_other_login_server_not_empty">服务器不能为空，请检查身份验证服务器设置！</string>
     <string name="zh_other_login_select_role_title">选择角色</string>
     <string name="zh_other_login_select_role_message">当前账号存在多个角色，请选择想要使用的角色</string>

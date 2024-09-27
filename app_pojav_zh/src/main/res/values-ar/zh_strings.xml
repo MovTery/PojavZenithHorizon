@@ -217,7 +217,6 @@
     <string name="zh_preference_category_experimental_patches">تصحيحات تجريبية</string>
     <string name="zh_setting_java_memory_desc">التحكم في كمية الذاكرة التي يتم تخصيصها لـ Minecraft</string>
     <string name="zh_setting_java_memory_info">معلومات استخدام الذاكرة الحالية: %s / %s ، حجم الذاكرة الحرة: %s</string>
-    <string name="zh_setting_java_memory_max">الحد الأقصى لحجم الذاكرة القابل للضبط: %s</string>
     <string name="zh_setting_java_memory_exceeded">حجم الذاكرة المعين حاليًا يتجاوز حجم الذاكرة المتاحة</string>
     <string name="zh_setting_mod_info_mirror">مصدر معلومات Mod</string>
     <string name="zh_setting_mod_download_mirror">مصدر تنزيل Mod</string>
@@ -289,7 +288,6 @@
     <string name="zh_other_login_error">حدث خطأ أثناء تسجيل الدخول:\n</string>
     <string name="zh_other_login_no_server">لا يوجد خادم توثيق</string>
     <string name="zh_other_login_baseurl_not_set">لم يتم تعيين العنوان الأساسي URL</string>
-    <string name="zh_other_login_error_code">رمز الخطأ:</string>
     <string name="zh_other_login_server_not_empty">لا يمكن أن يكون الخادم فارغًا، يرجى التحقق من إعدادات خادم التوثيق!</string>
     <string name="zh_other_login_select_role_title">اختر الدور</string>
     <string name="zh_other_login_select_role_message">الحساب الحالي يحتوي على أدوار متعددة. يرجى اختيار الدور الذي ترغب في استخدامه.</string>

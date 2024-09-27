@@ -256,10 +256,7 @@
     <string name="newdl_starting">Lecture des métadonnées du jeu…</string>
     <string name="newdl_downloading_metadata">Téléchargement des métadonnées du jeu (%s)</string>
     <string name="newdl_downloading_game_files">Téléchargement des fichiers du jeu… (%d/%d, %.2f MB)</string>
-    <string name="cropper_lock_vertical">Verrouillage vertical</string>
-    <string name="cropper_lock_horizontal">Verrouillage horizontal</string>
     <string name="cropper_reset">Réinitialiser</string>
-    <string name="cropper_select_cancelled">Sélection annulée</string>
     <string name="log_view_button_scroll_off">Défilement automatique : DÉSACTIVÉ</string>
     <string name="log_view_button_scroll_on">Défilement automatique : ACTIVÉ</string>
     <string name="log_view_button_output_off">Sortie : DÉSACTIVÉE</string>
