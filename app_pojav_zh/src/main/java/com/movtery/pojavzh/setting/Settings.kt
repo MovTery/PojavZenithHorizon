@@ -86,7 +86,7 @@ class Settings {
                 if (!settingsFile.exists()) settingsFile.createNewFile()
 
                 val currentSettings = settings.toMutableList()
-                val nullValueList: MutableList<SettingAttribute> = ArrayList()
+                val nullValueList: MutableSet<SettingAttribute> = HashSet()
 
                 valueMap.forEach { (key, value) ->
                     val attribute = currentSettings.find { it.key == key }

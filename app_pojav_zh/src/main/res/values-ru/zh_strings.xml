@@ -217,7 +217,6 @@
     <string name="zh_preference_category_experimental_patches">Экспериментальные патчи</string>
     <string name="zh_setting_java_memory_desc">Управление объемом памяти, выделяемой для Minecraft</string>
     <string name="zh_setting_java_memory_info">Текущая информация о памяти: %s / %s, свободной памяти: %s</string>
-    <string name="zh_setting_java_memory_max">Максимальный доступный объем памяти: %s</string>
     <string name="zh_setting_java_memory_exceeded">Установленный объем памяти превышает доступный</string>
     <string name="zh_setting_mod_info_mirror">Источник информации о модах</string>
     <string name="zh_setting_mod_download_mirror">Источник загрузки модов</string>
@@ -289,7 +288,6 @@
     <string name="zh_other_login_error">Ошибка при входе:\n</string>
     <string name="zh_other_login_no_server">Нет сервера аутентификации</string>
     <string name="zh_other_login_baseurl_not_set">Базовый URL не установлен</string>
-    <string name="zh_other_login_error_code">Код ошибки:</string>
     <string name="zh_other_login_server_not_empty">Сервер не может быть пустым, проверьте настройки сервера аутентификации!</string>
     <string name="zh_other_login_select_role_title">Выбор роли</string>
     <string name="zh_other_login_select_role_message">На текущем аккаунте есть несколько ролей. Пожалуйста, выберите роль, которую хотите использовать.</string>

@@ -7,7 +7,6 @@ import net.kdt.pojavlaunch.customcontrols.CustomControls
 import net.kdt.pojavlaunch.customcontrols.LayoutConverter
 import org.json.JSONObject
 import java.io.File
-import java.io.IOException
 
 class EditControlData {
     companion object {

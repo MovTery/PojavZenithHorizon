@@ -256,10 +256,7 @@
     <string name="newdl_starting">Чтение метаданных игры…</string>
     <string name="newdl_downloading_metadata">Загрузка метаданных игры (%s)</string>
     <string name="newdl_downloading_game_files">Загрузка файлов… (%d/%d, %.2f МБ)</string>
-    <string name="cropper_lock_vertical">Заблокировать вертикальную ось</string>
-    <string name="cropper_lock_horizontal">Заблокировать горизонтальную ось</string>
     <string name="cropper_reset">Сбросить</string>
-    <string name="cropper_select_cancelled">Выбор отменен</string>
     <string name="log_view_button_scroll_off">Автопрокрутка: выключена</string>
     <string name="log_view_button_scroll_on">Автопрокрутка: включена</string>
     <string name="log_view_button_output_off">Вывод: выключен</string>

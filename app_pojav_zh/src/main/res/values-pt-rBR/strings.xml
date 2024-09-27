@@ -256,10 +256,7 @@ Se você deseja usar a fonte de download oficial, clique em "Alternar para a fon
     <string name="newdl_starting">Lendo metadados do jogo…</string>
     <string name="newdl_downloading_metadata">Baixando metadados do jogo (%s)</string>
     <string name="newdl_downloading_game_files">Baixando arquivos do jogo… (%d/%d, %.2f MB)</string>
-    <string name="cropper_lock_vertical">Travar eixo vertical</string>
-    <string name="cropper_lock_horizontal">Travar eixo horizontal</string>
     <string name="cropper_reset">Redefinir</string>
-    <string name="cropper_select_cancelled">Seleção cancelada</string>
     <string name="log_view_button_scroll_off">Rolagem automática: Desligada</string>
     <string name="log_view_button_scroll_on">Rolagem automática: Ligada</string>
     <string name="log_view_button_output_off">Saída: Desligada</string>

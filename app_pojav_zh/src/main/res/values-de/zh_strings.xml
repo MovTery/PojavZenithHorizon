@@ -217,7 +217,6 @@
     <string name="zh_preference_category_experimental_patches">Experimentelle Patches</string>
     <string name="zh_setting_java_memory_desc">Steuert, wie viel Speicher Minecraft zugewiesen wird</string>
     <string name="zh_setting_java_memory_info">Aktuelle Speichernutzung: %s / %s, freier Speicher: %s</string>
-    <string name="zh_setting_java_memory_max">Maximal einstellbarer Speicher: %s</string>
     <string name="zh_setting_java_memory_exceeded">Der aktuell eingestellte Speicher überschreitet die verfügbare Speichergröße</string>
     <string name="zh_setting_mod_info_mirror">Mod-Informationsquelle</string>
     <string name="zh_setting_mod_download_mirror">Mod-Downloadquelle</string>
@@ -289,7 +288,6 @@
     <string name="zh_other_login_error">Fehler bei der Anmeldung:\n</string>
     <string name="zh_other_login_no_server">Kein Authentifizierungsserver</string>
     <string name="zh_other_login_baseurl_not_set">Basis-URL nicht festgelegt</string>
-    <string name="zh_other_login_error_code">Fehlercode:</string>
     <string name="zh_other_login_server_not_empty">Server darf nicht leer sein, bitte überprüfen Sie die Einstellungen des Authentifizierungsservers!</string>
     <string name="zh_other_login_select_role_title">Rolle auswählen</string>
     <string name="zh_other_login_select_role_message">Das aktuelle Konto hat mehrere Rollen. Bitte wählen Sie die Rolle aus, die Sie verwenden möchten.</string>

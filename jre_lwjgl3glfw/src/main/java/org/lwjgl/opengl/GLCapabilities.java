@@ -10,7 +10,6 @@ import java.util.Set;
 import org.lwjgl.*;
 import java.util.function.IntFunction;
 
-import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryUtil.*;
 

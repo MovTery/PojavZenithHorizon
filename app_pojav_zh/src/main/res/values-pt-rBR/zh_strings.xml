@@ -217,7 +217,6 @@
     <string name="zh_preference_category_experimental_patches">Patches experimentais</string>
     <string name="zh_setting_java_memory_desc">Controla a quantidade de memória alocada para o Minecraft</string>
     <string name="zh_setting_java_memory_info">Informações de uso de memória atual: %s / %s, memória livre: %s</string>
-    <string name="zh_setting_java_memory_max">Memória máxima configurável: %s</string>
     <string name="zh_setting_java_memory_exceeded">O espaço de memória configurado excede a memória disponível</string>
     <string name="zh_setting_mod_info_mirror">Fonte de Informações do Mod</string>
     <string name="zh_setting_mod_download_mirror">Fonte de Download do Mod</string>
@@ -289,7 +288,6 @@
     <string name="zh_other_login_error">Erro durante o login:\n</string>
     <string name="zh_other_login_no_server">Sem Servidor de Autenticação</string>
     <string name="zh_other_login_baseurl_not_set">URL Base não definida</string>
-    <string name="zh_other_login_error_code">Código de Erro:</string>
     <string name="zh_other_login_server_not_empty">O servidor não pode estar vazio, por favor verifique as configurações do servidor de autenticação!</string>
     <string name="zh_other_login_select_role_title">Selecionar Papel</string>
     <string name="zh_other_login_select_role_message">A conta atual possui vários papéis. Selecione o papel que deseja usar.</string>

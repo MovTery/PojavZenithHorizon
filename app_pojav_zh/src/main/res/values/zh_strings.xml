@@ -217,7 +217,6 @@
     <string name="zh_preference_category_experimental_patches">Experimental Patches</string>
     <string name="zh_setting_java_memory_desc">Control how much memory is allocated to Minecraft</string>
     <string name="zh_setting_java_memory_info">Current memory usage: %s / %s, Free memory size: %s</string>
-    <string name="zh_setting_java_memory_max">Maximum allowable memory size: %s</string>
     <string name="zh_setting_java_memory_exceeded">The current memory allocation exceeds available memory size</string>
     <string name="zh_setting_mod_info_mirror">Mod Information Source</string>
     <string name="zh_setting_mod_download_mirror">Mod Download Source</string>
@@ -289,7 +288,6 @@
     <string name="zh_other_login_error">An error occurred while logging in：\n</string>
     <string name="zh_other_login_no_server">No authentication server</string>
     <string name="zh_other_login_baseurl_not_set">BaseUrl is not set</string>
-    <string name="zh_other_login_error_code">Error code：</string>
     <string name="zh_other_login_server_not_empty">Server can not be empty, please check the authentication server settings!</string>
     <string name="zh_other_login_select_role_title">Select Role</string>
     <string name="zh_other_login_select_role_message">The current account has multiple roles. Please select the role you want to use.</string>
