@@ -1,17 +1,16 @@
 package com.movtery.pojavzh.ui.fragment.settings
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import com.movtery.pojavzh.extra.ZHExtraConstants
 import com.movtery.pojavzh.feature.UpdateLauncher
+import com.movtery.pojavzh.setting.AllSettings
 import com.movtery.pojavzh.ui.fragment.CustomBackgroundFragment
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim
 import com.movtery.pojavzh.utils.CleanUpCache.Companion.start
 import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.extra.ExtraCore
-import net.kdt.pojavlaunch.prefs.LauncherPreferences
 
 class LauncherSettingsFragment(val parent: FragmentWithAnim): AbstractSettingsFragment(R.layout.settings_fragment_launcher) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -24,7 +23,7 @@ class LauncherSettingsFragment(val parent: FragmentWithAnim): AbstractSettingsFr
             bindSwitchView(
                 downloadCategory,
                 "checkLibraries",
-                LauncherPreferences.PREF_CHECK_LIBRARY_SHA,
+                AllSettings.checkLibraries,
                 view.findViewById(R.id.checkLibraries_layout),
                 R.id.checkLibraries_title,
                 R.id.checkLibraries_summary,
@@ -69,7 +68,7 @@ class LauncherSettingsFragment(val parent: FragmentWithAnim): AbstractSettingsFr
             bindSwitchView(
                 languageCategory,
                 "autoSetGameLanguage",
-                LauncherPreferences.PREF_AUTOMATICALLY_SET_GAME_LANGUAGE,
+                AllSettings.autoSetGameLanguage,
                 view.findViewById(R.id.autoSetGameLanguage_layout),
                 R.id.autoSetGameLanguage_title,
                 R.id.autoSetGameLanguage_summary,
@@ -81,7 +80,7 @@ class LauncherSettingsFragment(val parent: FragmentWithAnim): AbstractSettingsFr
             bindSwitchView(
                 languageCategory,
                 "gameLanguageOverridden",
-                LauncherPreferences.PREF_GAME_LANGUAGE_OVERRIDDEN,
+                AllSettings.gameLanguageOverridden,
                 view.findViewById(R.id.gameLanguageOverridden_layout),
                 R.id.gameLanguageOverridden_title,
                 R.id.gameLanguageOverridden_summary,
@@ -136,7 +135,7 @@ class LauncherSettingsFragment(val parent: FragmentWithAnim): AbstractSettingsFr
             bindSwitchView(
                 personalizationCategory,
                 "animation",
-                LauncherPreferences.PREF_ANIMATION,
+                AllSettings.animation,
                 view.findViewById(R.id.animation_layout),
                 R.id.animation_title,
                 R.id.animation_summary,
@@ -148,7 +147,7 @@ class LauncherSettingsFragment(val parent: FragmentWithAnim): AbstractSettingsFr
             bindSeekBarView(
                 personalizationCategory,
                 "animationSpeed",
-                LauncherPreferences.PREF_ANIMATION_SPEED,
+                AllSettings.animationSpeed,
                 "ms",
                 view.findViewById(R.id.animationSpeed_layout),
                 R.id.animationSpeed_title,
@@ -162,7 +161,7 @@ class LauncherSettingsFragment(val parent: FragmentWithAnim): AbstractSettingsFr
             bindSeekBarView(
                 personalizationCategory,
                 "pageOpacity",
-                LauncherPreferences.PREF_PAGE_OPACITY,
+                AllSettings.pageOpacity,
                 "%",
                 view.findViewById(R.id.pageOpacity_layout),
                 R.id.pageOpacity_title,
@@ -176,7 +175,7 @@ class LauncherSettingsFragment(val parent: FragmentWithAnim): AbstractSettingsFr
             bindSwitchView(
                 launcherCategory,
                 "enableLogOutput",
-                LauncherPreferences.PREF_ENABLE_LOG_OUTPUT,
+                AllSettings.enableLogOutput,
                 view.findViewById(R.id.enableLogOutput_layout),
                 R.id.enableLogOutput_title,
                 R.id.enableLogOutput_summary,
@@ -188,7 +187,7 @@ class LauncherSettingsFragment(val parent: FragmentWithAnim): AbstractSettingsFr
             bindSwitchView(
                 launcherCategory,
                 "quitLauncher",
-                LauncherPreferences.PREF_QUILT_LAUNCHER,
+                AllSettings.quitLauncher,
                 view.findViewById(R.id.quitLauncher_layout),
                 R.id.quitLauncher_title,
                 R.id.quitLauncher_summary,
@@ -215,8 +214,8 @@ class LauncherSettingsFragment(val parent: FragmentWithAnim): AbstractSettingsFr
         }
     }
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        super.onSharedPreferenceChanged(sharedPreferences, key)
+    override fun onSettingsChange() {
+        super.onSettingsChange()
         ExtraCore.setValue(ZHExtraConstants.PAGE_OPACITY_CHANGE, true)
     }
 }

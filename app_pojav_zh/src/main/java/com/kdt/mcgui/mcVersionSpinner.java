@@ -23,6 +23,8 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.movtery.anim.animations.Animations;
+import com.movtery.pojavzh.setting.AllSettings;
+import com.movtery.pojavzh.setting.Settings;
 import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
@@ -30,7 +32,6 @@ import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.fragments.ProfileTypeSelectFragment;
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.profiles.ProfileAdapter;
 import net.kdt.pojavlaunch.profiles.ProfileAdapterExtra;
 
@@ -72,10 +73,9 @@ public class mcVersionSpinner extends ExtendedTextView {
     /** Set the selection AND saves it as a shared preference */
     public void setProfileSelection(int position){
         setSelection(position);
-        LauncherPreferences.DEFAULT_PREF.edit()
-                .putString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE,
-                        mProfileAdapter.getItem(position).toString())
-                .apply();
+        Settings.Manager.Companion
+                .put("currentProfile", mProfileAdapter.getItem(position).toString())
+                .save();
     }
 
     public void setSelection(int position){
@@ -108,8 +108,7 @@ public class mcVersionSpinner extends ExtendedTextView {
             profileIndex = extra_value.equals(DELETED_PROFILE) ? 0
                     : getProfileAdapter().resolveProfileIndex(extra_value);
         }else
-            profileIndex = mProfileAdapter.resolveProfileIndex(
-                    LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE,""));
+            profileIndex = mProfileAdapter.resolveProfileIndex(AllSettings.Companion.getCurrentProfile());
 
         setProfileSelection(Math.max(0,profileIndex));
 

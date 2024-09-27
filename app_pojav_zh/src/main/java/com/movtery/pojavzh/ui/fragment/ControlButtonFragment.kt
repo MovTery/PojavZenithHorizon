@@ -12,6 +12,7 @@ import androidx.activity.result.ActivityResultLauncher
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
+import com.movtery.pojavzh.setting.Settings
 import com.movtery.pojavzh.ui.dialog.EditControlInfoDialog
 import com.movtery.pojavzh.ui.dialog.FilesDialog
 import com.movtery.pojavzh.ui.dialog.FilesDialog.FilesButton
@@ -34,7 +35,6 @@ import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
 import net.kdt.pojavlaunch.extra.ExtraConstants
 import net.kdt.pojavlaunch.extra.ExtraCore
-import net.kdt.pojavlaunch.prefs.LauncherPreferences
 import java.io.File
 
 class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager) {
@@ -96,9 +96,7 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
                     .setMessage(R.string.zh_controls_set_default_message)
                     .setConfirmClickListener {
                         val absolutePath = file.absolutePath
-                        LauncherPreferences.DEFAULT_PREF.edit()
-                            .putString("defaultCtrl", absolutePath).apply()
-                        LauncherPreferences.PREF_DEFAULTCTRL_PATH = absolutePath
+                        Settings.Manager.put("defaultCtrl", absolutePath).save()
                     }.buildDialog()
             }
         })

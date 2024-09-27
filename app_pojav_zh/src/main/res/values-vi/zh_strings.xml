@@ -293,6 +293,15 @@
     <string name="zh_other_login_server_not_empty">Máy chủ không được để trống, vui lòng kiểm tra cài đặt máy chủ xác thực!</string>
     <string name="zh_other_login_select_role_title">Chọn vai trò</string>
     <string name="zh_other_login_select_role_message">Tài khoản hiện tại có nhiều vai trò. Vui lòng chọn vai trò bạn muốn sử dụng.</string>
+    <!-- Splash -->
+    <string name="splash_screen_desc">Trình khởi chạy cần cài đặt các thành phần này để đảm bảo Minecraft có thể chạy đúng cách. Nhấp vào nút bên dưới để bắt đầu cài đặt hoặc cập nhật các thành phần này.</string>
+    <string name="splash_screen_installing">Trình khởi chạy đang cài đặt các thành phần cần thiết. Sau khi hoàn tất cài đặt, nó sẽ tự động vào giao diện chính. Vui lòng kiên nhẫn chờ đợi.</string>
+    <string name="splash_screen_lwjgl">Thư viện Trò chơi Java nhẹ, Minecraft phụ thuộc vào nó để chạy trò chơi.</string>
+    <string name="splash_screen_cacio">Cung cấp giao diện đồ họa di động cho OpenJDK.</string>
+    <string name="splash_screen_jre8">Môi trường Java 8, Minecraft 1.16- phụ thuộc vào Java 8.</string>
+    <string name="splash_screen_jre17">Môi trường Java 17, Minecraft 1.17+ phụ thuộc vào Java 17.</string>
+    <string name="splash_screen_jre21">Môi trường Java 21, Minecraft 1.20.5+ phụ thuộc vào Java 21.</string>
+    <string name="splash_screen_apply">Đồng ý và Cài đặt</string>
     <!-- About -->
     <string name="zh_about_tab">Về Pojav Zenith Horizon</string>
     <string name="zh_about_dec1">Pojav Zenith Horizon là một trình khởi chạy Minecraft được chỉnh sửa dựa trên PojavLauncher, cho phép chạy Minecraft: Java Edition trên thiết bị Android. \nPojav Zenith Horizon tập trung vào tối ưu hóa trải nghiệm người dùng, thiết kế lại giao diện ứng dụng và thêm nhiều tính năng hữu ích, nhằm giảm thiểu ngưỡng cửa trải nghiệm Minecraft, giúp mọi người dễ dàng trải nghiệm niềm vui từ Minecraft.</string>

@@ -13,11 +13,11 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.movtery.anim.animations.Animations;
+import com.movtery.pojavzh.setting.AllSettings;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
 import net.kdt.pojavlaunch.Logger;
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 /**
  * A class able to display logs to the user.
@@ -49,7 +49,7 @@ public class LoggerView extends ConstraintLayout {
     public void setVisibilityWithAnim(boolean visibility) {
         ViewAnimUtils.setViewAnim(this,
                 visibility ? Animations.BounceInUp : Animations.SlideOutDown,
-                (long) (LauncherPreferences.PREF_ANIMATION_SPEED * 0.7),
+                (long) (AllSettings.Companion.getAnimationSpeed() * 0.7),
                 () -> setVisibility(VISIBLE),
                 () -> setVisibility(visibility ? VISIBLE : GONE));
     }

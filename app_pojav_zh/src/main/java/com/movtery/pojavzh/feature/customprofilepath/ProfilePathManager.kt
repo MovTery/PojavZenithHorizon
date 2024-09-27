@@ -5,11 +5,12 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome.Companion.gameHome
 import com.movtery.pojavzh.feature.log.Logging
+import com.movtery.pojavzh.setting.AllSettings
+import com.movtery.pojavzh.setting.Settings
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfileItem
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.Tools
-import net.kdt.pojavlaunch.prefs.LauncherPreferences
 import java.io.File
 import java.io.FileWriter
 import java.io.IOException
@@ -20,14 +21,14 @@ class ProfilePathManager {
 
         @JvmStatic
         fun setCurrentPathId(id: String?) {
-            LauncherPreferences.DEFAULT_PREF.edit().putString("launcherProfile", id).apply()
+            Settings.Manager.put("launcherProfile", id).save()
         }
 
         @JvmStatic
         val currentPath: String
             get() {
                 //通过选中的id来获取当前路径
-                val id = LauncherPreferences.DEFAULT_PREF.getString("launcherProfile", "default")
+                val id = AllSettings.launcherProfile
                 if (id == "default") {
                     return defaultPath
                 }

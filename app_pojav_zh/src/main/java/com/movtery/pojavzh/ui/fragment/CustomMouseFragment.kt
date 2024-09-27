@@ -16,6 +16,7 @@ import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
+import com.movtery.pojavzh.setting.Settings
 import com.movtery.pojavzh.ui.dialog.FilesDialog
 import com.movtery.pojavzh.ui.dialog.FilesDialog.FilesButton
 import com.movtery.pojavzh.ui.subassembly.filelist.FileIcon
@@ -31,7 +32,6 @@ import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
-import net.kdt.pojavlaunch.prefs.LauncherPreferences
 import java.io.File
 
 class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
@@ -168,7 +168,7 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
 
                 val filesDialog = FilesDialog(requireActivity(), filesButton, { this.loadData() }, mousePath(), file)
                 filesDialog.setMoreButtonClick {
-                    LauncherPreferences.DEFAULT_PREF.edit().putString("custom_mouse", fileName).apply()
+                    Settings.Manager.put("custom_mouse", fileName).save()
                     refreshIcon()
                     Toast.makeText(requireActivity(),
                         StringUtils.insertSpace(getString(R.string.zh_custom_mouse_added), (fileName ?: getString(R.string.zh_custom_mouse_default))),

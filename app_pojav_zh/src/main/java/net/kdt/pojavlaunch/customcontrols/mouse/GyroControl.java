@@ -10,8 +10,9 @@ import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.WindowManager;
 
+import com.movtery.pojavzh.setting.AllSettings;
+
 import net.kdt.pojavlaunch.GrabListener;
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import org.lwjgl.glfw.CallbackBridge;
 
@@ -40,7 +41,7 @@ public class GyroControl implements SensorEventListener, GrabListener {
 
     /* Used to average the last values, if smoothing is enabled */
     private final float[][] mAngleBuffer = new float[
-            LauncherPreferences.PREF_GYRO_SMOOTHING ? 2 : 1
+            AllSettings.Companion.getGyroSmoothing() ? 2 : 1
             ][3];
     private float xTotal = 0;
     private float yTotal = 0;
@@ -65,7 +66,7 @@ public class GyroControl implements SensorEventListener, GrabListener {
     public void enable() {
         if(mSensor == null) return;
         mFirstPass = true;
-        mSensorManager.registerListener(this, mSensor, 1000 * LauncherPreferences.PREF_GYRO_SAMPLE_RATE);
+        mSensorManager.registerListener(this, mSensor, 1000 * AllSettings.Companion.getGyroSampleRate());
         mCorrectionListener.enable();
         mShouldHandleEvents = CallbackBridge.isGrabbing();
         CallbackBridge.addGrabListener(this);
@@ -93,8 +94,8 @@ public class GyroControl implements SensorEventListener, GrabListener {
         }
         SensorManager.getAngleChange(mAngleDifference, mCurrentRotation, mPreviousRotation);
         damperValue(mAngleDifference);
-        mStoredX += xAverage * 1000 * LauncherPreferences.PREF_GYRO_SENSITIVITY;
-        mStoredY += yAverage * 1000 * LauncherPreferences.PREF_GYRO_SENSITIVITY;
+        mStoredX += xAverage * 1000 * AllSettings.Companion.getGyroSensitivity();
+        mStoredY += yAverage * 1000 * AllSettings.Companion.getGyroSensitivity();
 
         boolean updatePosition = false;
         float absX = Math.abs(mStoredX);
@@ -152,8 +153,8 @@ public class GyroControl implements SensorEventListener, GrabListener {
                 break;
         }
 
-        if(LauncherPreferences.PREF_GYRO_INVERT_X) xFactor *= -1;
-        if(LauncherPreferences.PREF_GYRO_INVERT_Y) yFactor *= -1;
+        if(AllSettings.Companion.getGyroInvertX()) xFactor *= -1;
+        if(AllSettings.Companion.getGyroInvertY()) yFactor *= -1;
     }
 
     @Override
@@ -243,8 +244,8 @@ public class GyroControl implements SensorEventListener, GrabListener {
                     break;
             }
 
-            if(LauncherPreferences.PREF_GYRO_INVERT_X) xFactor *= -1;
-            if(LauncherPreferences.PREF_GYRO_INVERT_Y) yFactor *= -1;
+            if(AllSettings.Companion.getGyroInvertX()) xFactor *= -1;
+            if(AllSettings.Companion.getGyroInvertY()) yFactor *= -1;
         }
     }
 }

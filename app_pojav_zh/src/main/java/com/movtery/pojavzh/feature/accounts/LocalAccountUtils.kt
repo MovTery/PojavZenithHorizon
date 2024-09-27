@@ -4,11 +4,11 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.widget.Button
 import android.widget.CheckBox
+import com.movtery.pojavzh.setting.Settings
 import com.movtery.pojavzh.ui.dialog.TipDialog
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
-import net.kdt.pojavlaunch.prefs.LauncherPreferences
 
 class LocalAccountUtils {
     companion object {
@@ -29,15 +29,13 @@ class LocalAccountUtils {
             message: String?,
             confirm: Int
         ) {
-            val edit = LauncherPreferences.DEFAULT_PREF.edit()
             //不再提醒
             val checkBox = CheckBox(activity)
             checkBox.setText(R.string.zh_no_more_reminders)
             checkBox.setOnCheckedChangeListener { _: Button?, isChecked: Boolean ->
-                edit.putBoolean(
-                    "localAccountReminders",
-                    !isChecked
-                ).apply()
+                Settings.Manager
+                    .put("localAccountReminders", !isChecked)
+                    .save()
             }
 
             TipDialog.Builder(activity)

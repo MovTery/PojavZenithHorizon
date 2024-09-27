@@ -4,9 +4,9 @@ import androidx.annotation.NonNull;
 
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.feature.log.Logging;
+import com.movtery.pojavzh.setting.AllSettings;
 
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,7 +54,7 @@ public class LauncherProfiles {
 
     public static @NonNull MinecraftProfile getCurrentProfile() {
         if(mainProfileJson == null) LauncherProfiles.load(ProfilePathManager.getCurrentProfile());
-        String defaultProfileName = LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, "");
+        String defaultProfileName = AllSettings.Companion.getCurrentProfile();
         MinecraftProfile profile = mainProfileJson.profiles.get(defaultProfileName);
         if(profile == null) throw new RuntimeException("The current profile stopped existing :(");
         return profile;

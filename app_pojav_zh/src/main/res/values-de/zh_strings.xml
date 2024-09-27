@@ -293,6 +293,15 @@
     <string name="zh_other_login_server_not_empty">Server darf nicht leer sein, bitte überprüfen Sie die Einstellungen des Authentifizierungsservers!</string>
     <string name="zh_other_login_select_role_title">Rolle auswählen</string>
     <string name="zh_other_login_select_role_message">Das aktuelle Konto hat mehrere Rollen. Bitte wählen Sie die Rolle aus, die Sie verwenden möchten.</string>
+    <!-- Splash -->
+    <string name="splash_screen_desc">Der Launcher muss diese Komponenten installieren, um sicherzustellen, dass Minecraft ordnungsgemäß läuft. Klicken Sie unten auf die Schaltfläche, um die Installation oder Aktualisierung dieser Komponenten zu starten.</string>
+    <string name="splash_screen_installing">Der Launcher installiert die erforderlichen Komponenten. Nach Abschluss der Installation wird automatisch die Hauptoberfläche aufgerufen. Bitte warten Sie geduldig.</string>
+    <string name="splash_screen_lwjgl">Leichte Java-Spielebibliothek, Minecraft benötigt sie, um das Spiel auszuführen.</string>
+    <string name="splash_screen_cacio">Bietet ein portables GUI-Backend für OpenJDK.</string>
+    <string name="splash_screen_jre8">Java 8 Umgebung, Minecraft 1.16- erfordert Java 8.</string>
+    <string name="splash_screen_jre17">Java 17 Umgebung, Minecraft 1.17+ erfordert Java 17.</string>
+    <string name="splash_screen_jre21">Java 21 Umgebung, Minecraft 1.20.5+ erfordert Java 21.</string>
+    <string name="splash_screen_apply">Zustimmen und Installieren</string>
     <!-- About -->
     <string name="zh_about_tab">Über Pojav Zenith Horizon</string>
     <string name="zh_about_dec1">Pojav Zenith Horizon ist ein modifizierter Minecraft-Launcher basierend auf PojavLauncher, der es ermöglicht, Minecraft: Java Edition auf Android-Geräten auszuführen.\nPojav Zenith Horizon zielt darauf ab, die Benutzererfahrung zu optimieren, die Benutzeroberfläche neu zu gestalten und zusätzliche nützliche Funktionen hinzuzufügen, um die Spielbarrieren so weit wie möglich zu senken und mehr Menschen die Möglichkeit zu geben, das Spiel zu genießen.</string>

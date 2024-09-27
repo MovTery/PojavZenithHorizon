@@ -293,6 +293,15 @@
     <string name="zh_other_login_server_not_empty">O servidor não pode estar vazio, por favor verifique as configurações do servidor de autenticação!</string>
     <string name="zh_other_login_select_role_title">Selecionar Papel</string>
     <string name="zh_other_login_select_role_message">A conta atual possui vários papéis. Selecione o papel que deseja usar.</string>
+    <!-- Splash -->
+    <string name="splash_screen_desc">O launcher precisa instalar esses componentes para garantir que o Minecraft funcione corretamente. Clique no botão abaixo para iniciar a instalação ou atualização desses componentes.</string>
+    <string name="splash_screen_installing">O launcher está instalando os componentes necessários. Quando a instalação for concluída, ele entrará automaticamente na interface principal. Aguarde pacientemente.</string>
+    <string name="splash_screen_lwjgl">Biblioteca de Jogos Java Leve, Minecraft depende dela para rodar o jogo.</string>
+    <string name="splash_screen_cacio">Fornece uma interface gráfica portátil para o OpenJDK.</string>
+    <string name="splash_screen_jre8">Ambiente Java 8, Minecraft 1.16- depende do Java 8.</string>
+    <string name="splash_screen_jre17">Ambiente Java 17, Minecraft 1.17+ depende do Java 17.</string>
+    <string name="splash_screen_jre21">Ambiente Java 21, Minecraft 1.20.5+ depende do Java 21.</string>
+    <string name="splash_screen_apply">Concordar e Instalar</string>
     <!-- About -->
     <string name="zh_about_tab">Sobre Pojav Zenith Horizon</string>
     <string name="zh_about_dec1">Pojav Zenith Horizon é um lançador de Minecraft baseado em modificações do PojavLauncher, capaz de executar Minecraft: Java Edition em dispositivos Android.\nPojav Zenith Horizon tem como objetivo otimizar a experiência do usuário, redesenhar a interface do aplicativo e adicionar mais funcionalidades úteis, visando reduzir ao máximo as barreiras para jogar e permitir que mais pessoas possam desfrutar do Minecraft com facilidade.</string>

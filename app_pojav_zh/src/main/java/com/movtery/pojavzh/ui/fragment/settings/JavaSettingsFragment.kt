@@ -1,12 +1,13 @@
 package com.movtery.pojavzh.ui.fragment.settings
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import com.movtery.pojavzh.setting.AllSettings
+import com.movtery.pojavzh.setting.Settings
 import com.movtery.pojavzh.ui.dialog.EditTextDialog
 import com.movtery.pojavzh.utils.file.FileTools.Companion.formatFileSize
 import com.movtery.pojavzh.utils.platform.MemoryUtils.Companion.getFreeDeviceMemory
@@ -18,7 +19,6 @@ import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
 import net.kdt.pojavlaunch.multirt.MultiRTConfigDialog
-import net.kdt.pojavlaunch.prefs.LauncherPreferences
 import kotlin.math.min
 
 class JavaSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment_java) {
@@ -52,11 +52,10 @@ class JavaSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
             EditTextDialog.Builder(requireContext())
                 .setTitle(R.string.mcl_setting_title_javaargs)
                 .setMessage(R.string.mcl_setting_subtitle_javaargs)
-                .setEditText(LauncherPreferences.DEFAULT_PREF.getString("javaArgs", ""))
+                .setEditText(AllSettings.javaArgs)
                 .setConfirmListener { editBox: EditText ->
-                    LauncherPreferences.DEFAULT_PREF.edit()
-                        .putString("javaArgs", editBox.text.toString())
-                        .apply()
+                    Settings.Manager.put("javaArgs", editBox.text.toString())
+                        .save()
                     true
                 }.buildDialog()
         }
@@ -64,7 +63,7 @@ class JavaSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
         allocationItem = bindSeekBarView(
             javaCategory,
             "allocation",
-            LauncherPreferences.PREF_RAM_ALLOCATION,
+            AllSettings.ramAllocation,
             "MB",
             view.findViewById(R.id.allocation_layout),
             R.id.allocation_title,
@@ -82,7 +81,7 @@ class JavaSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
         allocationItem?.apply {
             val seekBarView = getSeekBarView()
             seekBarView.max = maxRAM
-            seekBarView.progress = LauncherPreferences.PREF_RAM_ALLOCATION
+            seekBarView.progress = AllSettings.ramAllocation
             setSeekBarValueTextView(
                 getSeekBarValueView(),
                 seekBarView.progress,
@@ -98,7 +97,7 @@ class JavaSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
             bindSwitchView(
                 javaCategory,
                 "java_sandbox",
-                LauncherPreferences.PREF_JAVA_SANDBOX,
+                AllSettings.javaSandbox,
                 view.findViewById(R.id.java_sandbox_layout),
                 R.id.java_sandbox_title,
                 R.id.java_sandbox_summary,
@@ -107,8 +106,8 @@ class JavaSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
         )
     }
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        super.onSharedPreferenceChanged(sharedPreferences, key)
+    override fun onSettingsChange() {
+        super.onSettingsChange()
         updateMemoryInfo(
             requireContext(),
             allocationItem!!.getSeekBarView().progress.toLong(),

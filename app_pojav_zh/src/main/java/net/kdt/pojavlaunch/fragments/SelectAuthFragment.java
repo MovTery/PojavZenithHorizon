@@ -1,7 +1,5 @@
 package net.kdt.pojavlaunch.fragments;
 
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +12,7 @@ import androidx.fragment.app.FragmentActivity;
 import com.movtery.anim.AnimPlayer;
 import com.movtery.anim.animations.Animations;
 import com.movtery.pojavzh.feature.accounts.LocalAccountUtils;
+import com.movtery.pojavzh.setting.AllSettings;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
 import com.movtery.pojavzh.ui.fragment.OtherLoginFragment;
 import com.movtery.pojavzh.utils.ZHTools;
@@ -48,7 +47,7 @@ public class SelectAuthFragment extends FragmentWithAnim {
 
             @Override
             public void onUsageDenied() {
-                if (!DEFAULT_PREF.getBoolean("localAccountReminders", true)) {
+                if (!AllSettings.Companion.getLocalAccountReminders()) {
                     ZHTools.swapFragmentWithAnim(fragment, OtherLoginFragment.class, OtherLoginFragment.TAG, null);
                 } else {
                     LocalAccountUtils.openDialog(fragmentActivity, () -> ZHTools.swapFragmentWithAnim(fragment, OtherLoginFragment.class, OtherLoginFragment.TAG, null),
@@ -66,7 +65,7 @@ public class SelectAuthFragment extends FragmentWithAnim {
 
             @Override
             public void onUsageDenied() {
-                if (!DEFAULT_PREF.getBoolean("localAccountReminders", true)) {
+                if (!AllSettings.Companion.getLocalAccountReminders()) {
                     ZHTools.swapFragmentWithAnim(fragment, LocalLoginFragment.class, LocalLoginFragment.TAG, null);
                 } else {
                     LocalAccountUtils.openDialog(fragmentActivity, () -> ZHTools.swapFragmentWithAnim(fragment, LocalLoginFragment.class, LocalLoginFragment.TAG, null),

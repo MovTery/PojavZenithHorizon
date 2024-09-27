@@ -6,6 +6,7 @@ import android.widget.Button
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager.Companion.currentProfile
+import com.movtery.pojavzh.setting.AllSettings
 import com.movtery.pojavzh.ui.dialog.TipDialog
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.file.FileTools.Companion.mkdirs
@@ -14,7 +15,6 @@ import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.extra.ExtraConstants
 import net.kdt.pojavlaunch.extra.ExtraCore
 import net.kdt.pojavlaunch.fragments.ProfileEditorFragment
-import net.kdt.pojavlaunch.prefs.LauncherPreferences
 import net.kdt.pojavlaunch.profiles.ProfileIconCache
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles
 import java.io.File
@@ -31,7 +31,7 @@ class ProfileManagerFragment : FragmentWithAnim(R.layout.fragment_profile_manage
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val gameDirPath = ZHTools.getGameDirPath(LauncherProfiles.getCurrentProfile().gameDir)
-        mProfileKey = LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, "")
+        mProfileKey = AllSettings.currentProfile
 
         mShortcutsLayout = view.findViewById(R.id.shortcuts_layout)
         mModdedLayout = view.findViewById(R.id.modded_layout)

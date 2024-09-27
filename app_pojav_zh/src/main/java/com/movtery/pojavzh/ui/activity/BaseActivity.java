@@ -1,4 +1,4 @@
-package net.kdt.pojavlaunch;
+package com.movtery.pojavzh.ui.activity;
 
 import android.content.*;
 import android.content.res.Configuration;
@@ -6,28 +6,26 @@ import android.os.*;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.*;
-import net.kdt.pojavlaunch.utils.*;
 
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_IGNORE_NOTCH;
+import net.kdt.pojavlaunch.MissingStorageActivity;
+import net.kdt.pojavlaunch.Tools;
+
+import com.movtery.pojavzh.context.LocaleHelper;
+import com.movtery.pojavzh.setting.AllSettings;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(LocaleUtils.setLocale(newBase));
+        super.attachBaseContext(LocaleHelper.Companion.setLocale(newBase));
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LocaleUtils.setLocale(this);
-        Tools.setFullscreen(this, setFullscreen());
+        LocaleHelper.Companion.setLocale(this);
+        Tools.setFullscreen(this);
         Tools.updateWindowSize(this);
-    }
-
-    /** @return Whether the activity should be set as a fullscreen one */
-    public boolean setFullscreen(){
-        return true;
     }
 
     @Override
@@ -42,7 +40,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        Tools.setFullscreen(this, setFullscreen());
+        Tools.setFullscreen(this);
         Tools.ignoreNotch(shouldIgnoreNotch(),this);
     }
 
@@ -54,6 +52,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /** @return Whether or not the notch should be ignored */
     protected boolean shouldIgnoreNotch(){
-        return PREF_IGNORE_NOTCH;
+        return AllSettings.Companion.getIgnoreNotch();
     }
 }

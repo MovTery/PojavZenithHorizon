@@ -1,7 +1,5 @@
 package com.movtery.pojavzh.ui.dialog;
 
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.Window;
@@ -11,6 +9,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+
+import com.movtery.pojavzh.setting.AllSettings;
+import com.movtery.pojavzh.setting.Settings;
 
 import net.kdt.pojavlaunch.R;
 
@@ -32,17 +33,17 @@ public class ControlSettingsDialog extends FullScreenDialog implements Draggable
         TextView mButtonSnappingDistanceText = findViewById(R.id.zh_controls_settings_button_snapping_distance_text);
 
         //设置值
-        mButtonSnappingSwitch.setChecked(DEFAULT_PREF.getBoolean("buttonSnapping", true));
-        mButtonSnappingDistanceSeekBar.setProgress(DEFAULT_PREF.getInt("buttonSnappingDistance", 8));
-        String text = DEFAULT_PREF.getInt("buttonSnappingDistance", 8) + "dp";
+        mButtonSnappingSwitch.setChecked(AllSettings.Companion.getButtonSnapping());
+        mButtonSnappingDistanceSeekBar.setProgress(AllSettings.Companion.getButtonSnappingDistance());
+        String text = AllSettings.Companion.getButtonSnappingDistance() + "dp";
         mButtonSnappingDistanceText.setText(text);
 
         mConfirmButton.setOnClickListener(v -> this.dismiss());
-        mButtonSnappingSwitch.setOnCheckedChangeListener((compoundButton, b) -> DEFAULT_PREF.edit().putBoolean("buttonSnapping", b).apply());
+        mButtonSnappingSwitch.setOnCheckedChangeListener((compoundButton, b) -> Settings.Manager.Companion.put("buttonSnapping", b).save());
         mButtonSnappingDistanceSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                DEFAULT_PREF.edit().putInt("buttonSnappingDistance", i).apply();
+                Settings.Manager.Companion.put("buttonSnappingDistance", i).save();
                 String text = i + "dp";
                 mButtonSnappingDistanceText.setText(text);
             }

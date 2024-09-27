@@ -3,11 +3,6 @@ package net.kdt.pojavlaunch;
 import static com.movtery.pojavzh.utils.ZHTools.getVersionCode;
 import static com.movtery.pojavzh.utils.ZHTools.getVersionName;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_ENABLE_LOG_OUTPUT;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_SUSTAINED_PERFORMANCE;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_USE_ALTERNATE_SURFACE;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_VIRTUAL_MOUSE_START;
 import static org.lwjgl.glfw.CallbackBridge.sendKeyPress;
 import static org.lwjgl.glfw.CallbackBridge.windowHeight;
 import static org.lwjgl.glfw.CallbackBridge.windowWidth;
@@ -50,6 +45,9 @@ import com.movtery.pojavzh.feature.accounts.AccountsManager;
 import com.movtery.pojavzh.feature.background.BackgroundManager;
 import com.movtery.pojavzh.feature.background.BackgroundType;
 import com.movtery.pojavzh.feature.log.Logging;
+import com.movtery.pojavzh.setting.AllSettings;
+import com.movtery.pojavzh.setting.Settings;
+import com.movtery.pojavzh.ui.activity.BaseActivity;
 import com.movtery.pojavzh.ui.dialog.ControlSettingsDialog;
 import com.movtery.pojavzh.ui.dialog.KeyboardDialog;
 import com.movtery.pojavzh.ui.dialog.MouseSettingsDialog;
@@ -118,8 +116,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         super.onCreate(savedInstanceState);
         minecraftProfile = LauncherProfiles.getCurrentProfile();
         MCOptionUtils.load(Tools.getGameDirPath(minecraftProfile).getAbsolutePath());
-        if (LauncherPreferences.PREF_AUTOMATICALLY_SET_GAME_LANGUAGE)
-            ProfileLanguageSelector.setGameLanguage(minecraftProfile, LauncherPreferences.PREF_GAME_LANGUAGE_OVERRIDDEN);
+        if (AllSettings.Companion.getAutoSetGameLanguage())
+            ProfileLanguageSelector.setGameLanguage(minecraftProfile, AllSettings.Companion.getGameLanguageOverridden());
 
         Intent gameServiceIntent = new Intent(this, GameService.class);
         // Start the service a bit early
@@ -127,14 +125,14 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         initLayout();
         CallbackBridge.addGrabListener(touchpad);
         CallbackBridge.addGrabListener(minecraftGLView);
-        if(LauncherPreferences.PREF_ENABLE_GYRO) mGyroControl = new GyroControl(this);
+        if(AllSettings.Companion.getEnableGyro()) mGyroControl = new GyroControl(this);
 
         // Enabling this on TextureView results in a broken white result
-        if(PREF_USE_ALTERNATE_SURFACE) getWindow().setBackgroundDrawable(null);
+        if(AllSettings.Companion.getAlternateSurface()) getWindow().setBackgroundDrawable(null);
         else getWindow().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
 
         // Set the sustained performance mode for available APIs
-        getWindow().setSustainedPerformanceMode(PREF_SUSTAINED_PERFORMANCE);
+        getWindow().setSustainedPerformanceMode(AllSettings.Companion.getSustainedPerformance());
 
         ingameControlsEditorArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.menu_customcontrol));
@@ -231,7 +229,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             minecraftGLView.setSurfaceReadyListener(() -> {
                 try {
                     // Setup virtual mouse right before launching
-                    if (PREF_VIRTUAL_MOUSE_START) {
+                    if (AllSettings.Companion.getVirtualMouseStart()) {
                         touchpad.post(() -> touchpad.switchState());
                     }
 
@@ -241,7 +239,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                 }
             });
 
-            if (PREF_ENABLE_LOG_OUTPUT) openLogOutput();
+            if (AllSettings.Companion.getEnableLogOutput()) openLogOutput();
 
             String tipString = StringUtils.insertNewline(mGameTipTextView.getText(), StringUtils.insertSpace(getString(R.string.zh_game_tip_version), minecraftProfile.lastVersionId));
             mGameTipTextView.setText(tipString);
@@ -264,7 +262,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             // Load keys
             mControlLayout.loadLayout(
                     minecraftProfile.controlFile == null
-                            ? LauncherPreferences.PREF_DEFAULTCTRL_PATH
+                            ? AllSettings.Companion.getDefaultCtrl()
                             : PathAndUrlManager.DIR_CTRLMAP_PATH + "/" + minecraftProfile.controlFile);
         } catch(IOException e) {
             try {
@@ -359,10 +357,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
-            // Reload PREF_DEFAULTCTRL_PATH
-            LauncherPreferences.loadPreferences(getApplicationContext());
             try {
-                mControlLayout.loadLayout(LauncherPreferences.PREF_DEFAULTCTRL_PATH);
+                mControlLayout.loadLayout(AllSettings.Companion.getDefaultCtrl());
             } catch (IOException e) {
                 Logging.e("LoadLayout", Tools.printToString(e));
             }
@@ -375,7 +371,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
     private void runCraft(String versionId, JMinecraftVersionList.Version version) throws Throwable {
         if(Tools.LOCAL_RENDERER == null) {
-            Tools.LOCAL_RENDERER = LauncherPreferences.PREF_RENDERER;
+            Tools.LOCAL_RENDERER = AllSettings.Companion.getRenderer();
         }
         if(!Tools.checkRendererCompatible(this, Tools.LOCAL_RENDERER)) {
             Tools.RenderersList renderersList = Tools.getCompatibleRenderers(this);
@@ -386,7 +382,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         }
         MinecraftAccount minecraftAccount = AccountsManager.getInstance().getCurrentAccount();
         Logger.appendToLog("--------- beginning with launcher debug");
-        printLauncherInfo(versionId, Tools.isValidString(minecraftProfile.javaArgs) ? minecraftProfile.javaArgs : LauncherPreferences.PREF_CUSTOM_JAVA_ARGS, minecraftProfile.javaDir == null ? "Default" : minecraftProfile.javaDir);
+        printLauncherInfo(versionId, Tools.isValidString(minecraftProfile.javaArgs) ? minecraftProfile.javaArgs : AllSettings.Companion.getJavaArgs(), minecraftProfile.javaDir == null ? "Default" : minecraftProfile.javaDir);
         JREUtils.redirectAndPrintJRELog();
         LauncherProfiles.load(ProfilePathManager.getCurrentProfile());
         int requiredJavaVersion = 8;
@@ -485,15 +481,15 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
     public void adjustMouseSpeedLive() {
         new MouseSettingsDialog(this, (mouseSpeed, mouseScale) -> {
-            DEFAULT_PREF.edit().putInt("mousespeed", mouseSpeed).apply();
-            DEFAULT_PREF.edit().putInt("mousescale", mouseScale).apply();
+            Settings.Manager.Companion.put("mousespeed", mouseSpeed).save();
+            Settings.Manager.Companion.put("mousescale", mouseScale).save();
             touchpad.updateMouseScale();
         }, () -> touchpad.updateMouseDrawable()).show();
     }
 
     int tmpGyroSensitivity;
     public void adjustGyroSensitivityLive() {
-        if(!LauncherPreferences.PREF_ENABLE_GYRO) {
+        if(!AllSettings.Companion.getEnableGyro()) {
             Toast.makeText(this, R.string.toast_turn_on_gyro, Toast.LENGTH_LONG).show();
             return;
         }
@@ -503,7 +499,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         final SeekBar sb = v.findViewById(R.id.mouseSpeed);
         final TextView tv = v.findViewById(R.id.mouseSpeedTV);
         sb.setMax(275);
-        tmpGyroSensitivity = (int) ((LauncherPreferences.PREF_GYRO_SENSITIVITY*100));
+        tmpGyroSensitivity = (int) (AllSettings.Companion.getGyroSensitivity() * 100);
         sb.setProgress(tmpGyroSensitivity -25);
         tv.setText(getString(R.string.percent_format, tmpGyroSensitivity));
         sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -519,8 +515,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         });
         b.setView(v);
         b.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
-            LauncherPreferences.PREF_GYRO_SENSITIVITY = ((float) tmpGyroSensitivity)/100f;
-            DEFAULT_PREF.edit().putInt("gyroSensitivity", tmpGyroSensitivity).apply();
+            Settings.Manager.Companion.put("gyroSensitivity", tmpGyroSensitivity).save();
             dialogInterface.dismiss();
             System.gc();
         });
@@ -618,7 +613,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             System.gc();
             MainActivity.mControlLayout.loadLayout(
                     minecraftProfile.controlFile == null
-                            ? LauncherPreferences.PREF_DEFAULTCTRL_PATH
+                            ? AllSettings.Companion.getDefaultCtrl()
                             : PathAndUrlManager.DIR_CTRLMAP_PATH + "/" + minecraftProfile.controlFile);
             mDrawerPullButton.setVisibility(mControlLayout.hasMenuButton() ? View.GONE : View.VISIBLE);
         } catch (IOException e) {

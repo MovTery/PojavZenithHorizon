@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.movtery.pojavzh.setting.Settings
 import com.movtery.pojavzh.ui.subassembly.filelist.FileIcon
 import com.movtery.pojavzh.ui.subassembly.filelist.FileItemBean
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerViewCreator
@@ -11,7 +12,6 @@ import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.file.FileTools.Companion.mkdirs
 import com.movtery.pojavzh.utils.image.ImageUtils.Companion.isImage
 import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.prefs.LauncherPreferences
 import java.io.File
 
 class SelectMouseDialog(context: Context) : AbstractSelectDialog(context) {
@@ -34,13 +34,13 @@ class SelectMouseDialog(context: Context) : AbstractSelectDialog(context) {
                 val file = fileItemBean.file
                 file?.apply {
                     if (exists() && isImage(this)) {
-                        LauncherPreferences.DEFAULT_PREF.edit().putString("custom_mouse", name).apply()
+                        Settings.Manager.put("custom_mouse", name).save()
                         mouseSelectedListener!!.onSelectedListener()
                         dismiss()
                     }
                 }
                 if (position == 0) {
-                    LauncherPreferences.DEFAULT_PREF.edit().putString("custom_mouse", null).apply()
+                    Settings.Manager.put("custom_mouse", null).save()
                     mouseSelectedListener!!.onSelectedListener()
                     this.dismiss()
                 }

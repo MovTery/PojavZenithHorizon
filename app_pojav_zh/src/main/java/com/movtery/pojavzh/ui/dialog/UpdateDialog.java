@@ -2,7 +2,6 @@ package com.movtery.pojavzh.ui.dialog;
 
 import static com.movtery.pojavzh.utils.stringutils.StringUtils.markdownToHtml;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -15,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.movtery.pojavzh.feature.UpdateLauncher;
+import com.movtery.pojavzh.setting.Settings;
 import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.file.FileTools;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
@@ -83,7 +83,7 @@ public class UpdateDialog extends FullScreenDialog implements DraggableDialog.Di
         });
         mCancelButton.setOnClickListener(view -> this.dismiss());
         mIgnoreButton.setOnClickListener(view -> {
-            DEFAULT_PREF.edit().putString("ignoreUpdate", this.versionName).apply();
+            Settings.Manager.Companion.put("ignoreUpdate", this.versionName).save();
             this.dismiss();
         });
     }

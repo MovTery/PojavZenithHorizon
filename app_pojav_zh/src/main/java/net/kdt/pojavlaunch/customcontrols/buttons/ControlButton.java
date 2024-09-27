@@ -14,13 +14,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.movtery.pojavzh.setting.AllSettings;
+
 import net.kdt.pojavlaunch.LwjglGlfwKeycode;
 import net.kdt.pojavlaunch.MainActivity;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.customcontrols.ControlData;
 import net.kdt.pojavlaunch.customcontrols.ControlLayout;
 import net.kdt.pojavlaunch.customcontrols.handleview.EditControlPopup;
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import org.lwjgl.glfw.CallbackBridge;
 
@@ -40,7 +41,7 @@ public class ControlButton extends TextView implements ControlInterface {
         super(layout.getContext());
         mControlLayout = layout;
         setGravity(Gravity.CENTER);
-        setAllCaps(LauncherPreferences.PREF_BUTTON_ALL_CAPS);
+        setAllCaps(AllSettings.Companion.getButtonAllCaps());
         setTextColor(Color.WHITE);
         setPadding(4, 4, 4, 4);
         setTextSize(14); // Nullify the default size setting

@@ -2,7 +2,6 @@ package net.kdt.pojavlaunch;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.movtery.pojavzh.utils.ZHTools.getVersionName;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_LAUNCHER_THEME;
 
 import android.annotation.SuppressLint;
 import android.app.*;
@@ -17,8 +16,10 @@ import androidx.core.app.*;
 
 import android.util.*;
 
+import com.movtery.pojavzh.context.LocaleHelper;
 import com.movtery.pojavzh.feature.background.BackgroundManager;
 import com.movtery.pojavzh.feature.log.Logging;
+import com.movtery.pojavzh.setting.AllSettings;
 import com.movtery.pojavzh.ui.activity.ErrorActivity;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 
@@ -31,7 +32,6 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
-import net.kdt.pojavlaunch.utils.*;
 import net.kdt.pojavlaunch.utils.FileUtils;
 
 public class PojavApplication extends Application {
@@ -88,8 +88,10 @@ public class PojavApplication extends Application {
 		}
 
 		//设置主题
-		if (!PREF_LAUNCHER_THEME.equals("system")) {
-			switch (PREF_LAUNCHER_THEME) {
+		String launcherTheme = AllSettings.Companion.getLauncherTheme();
+		Objects.requireNonNull(launcherTheme);
+		if (!Objects.equals(launcherTheme, "system")) {
+			switch (launcherTheme) {
 				case "light" :
 					AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 					break;
@@ -110,14 +112,14 @@ public class PojavApplication extends Application {
 
 	@Override
     protected void attachBaseContext(Context base) {
-        super.attachBaseContext(LocaleUtils.setLocale(base));
+        super.attachBaseContext(LocaleHelper.Companion.setLocale(base));
 		PojavApplication.context = base;
     }
 
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        LocaleUtils.setLocale(this);
+		LocaleHelper.Companion.setLocale(this);
 		PojavApplication.context = this;
     }
 

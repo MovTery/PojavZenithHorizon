@@ -1,9 +1,9 @@
 package com.movtery.pojavzh.ui.fragment.settings
 
-import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import com.movtery.pojavzh.setting.AllSettings
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
@@ -31,7 +31,7 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
         val ignoreNotch = bindSwitchView(
             videoCategory,
             "ignoreNotch",
-            LauncherPreferences.PREF_IGNORE_NOTCH,
+            AllSettings.ignoreNotch,
             view.findViewById(R.id.ignoreNotch_layout),
             R.id.ignoreNotch_title,
             R.id.ignoreNotch_summary,
@@ -46,7 +46,7 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
             bindSeekBarView(
                 videoCategory,
                 "resolutionRatio",
-                LauncherPreferences.PREF_SCALE_FACTOR,
+                AllSettings.resolutionRatio,
                 "%",
                 view.findViewById(R.id.resolutionRatio_layout),
                 R.id.resolutionRatio_title,
@@ -60,7 +60,7 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
             bindSwitchView(
                 videoCategory,
                 "sustainedPerformance",
-                LauncherPreferences.PREF_SUSTAINED_PERFORMANCE,
+                AllSettings.sustainedPerformance,
                 view.findViewById(R.id.sustainedPerformance_layout),
                 R.id.sustainedPerformance_title,
                 R.id.sustainedPerformance_summary,
@@ -72,7 +72,7 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
             bindSwitchView(
                 videoCategory,
                 "alternate_surface",
-                LauncherPreferences.PREF_USE_ALTERNATE_SURFACE,
+                AllSettings.alternateSurface,
                 view.findViewById(R.id.alternate_surface_layout),
                 R.id.alternate_surface_title,
                 R.id.alternate_surface_summary,
@@ -84,7 +84,7 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
             bindSwitchView(
                 videoCategory,
                 "force_vsync",
-                LauncherPreferences.PREF_FORCE_VSYNC,
+                AllSettings.forceVsync,
                 view.findViewById(R.id.force_vsync_layout),
                 R.id.force_vsync_title,
                 R.id.force_vsync_summary,
@@ -96,7 +96,7 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
             bindSwitchView(
                 videoCategory,
                 "vsync_in_zink",
-                LauncherPreferences.PREF_VSYNC_IN_ZINK,
+                AllSettings.vsyncInZink,
                 view.findViewById(R.id.vsync_in_zink_layout),
                 R.id.vsync_in_zink_title,
                 R.id.vsync_in_zink_summary,
@@ -107,15 +107,15 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
         computeVisibility()
     }
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        super.onSharedPreferenceChanged(sharedPreferences, key)
+    override fun onSettingsChange() {
+        super.onSettingsChange()
         computeVisibility()
     }
 
     private fun computeVisibility() {
         mainView?.apply {
             findViewById<View>(R.id.force_vsync_layout).visibility =
-                if (LauncherPreferences.PREF_USE_ALTERNATE_SURFACE) View.VISIBLE else View.GONE
+                if (AllSettings.alternateSurface) View.VISIBLE else View.GONE
         }
     }
 }

@@ -8,8 +8,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
+import com.movtery.pojavzh.setting.AllSettings
 import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.prefs.LauncherPreferences
 
 class AnimSideIndicatorView : View {
     private var targetView: View? = null
@@ -22,13 +22,6 @@ class AnimSideIndicatorView : View {
         attrs,
         defStyleAttr
     )
-
-    constructor(
-        context: Context?,
-        attrs: AttributeSet?,
-        defStyleAttr: Int,
-        defStyleRes: Int
-    ) : super(context, attrs, defStyleAttr, defStyleRes)
 
 
     init {
@@ -65,7 +58,7 @@ class AnimSideIndicatorView : View {
         val translateX = ObjectAnimator.ofFloat(this, "translationX", x.toFloat())
         val translateY = ObjectAnimator.ofFloat(this, "translationY", y.toFloat())
 
-        val animSpeed = (LauncherPreferences.PREF_ANIMATION_SPEED * 0.2).toLong()
+        val animSpeed = (AllSettings.animationSpeed * 0.2).toLong()
         translateX.setDuration(animSpeed)
         translateY.setDuration(animSpeed)
 

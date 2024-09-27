@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
+import com.movtery.pojavzh.setting.AllSettings
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.anim.AnimUtils
@@ -24,7 +25,6 @@ import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
 import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
-import net.kdt.pojavlaunch.prefs.LauncherPreferences
 import java.util.concurrent.Future
 
 abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download) {
@@ -97,9 +97,9 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
         mRefreshButton?.isClickable = !hide
         releaseCheckBox?.isClickable = !hide
 
-        setViewAnim(mSelectTitle!!, if (hide) Animations.FadeIn else Animations.FadeOut, (LauncherPreferences.PREF_ANIMATION_SPEED * 0.7).toLong())
-        setViewAnim(mRefreshButton!!, if (hide) Animations.FadeOut else Animations.FadeIn, (LauncherPreferences.PREF_ANIMATION_SPEED * 0.7).toLong())
-        if (releaseCheckBoxVisible) setViewAnim(releaseCheckBox!!, if (hide) Animations.FadeOut else Animations.FadeIn, (LauncherPreferences.PREF_ANIMATION_SPEED * 0.7).toLong())
+        setViewAnim(mSelectTitle!!, if (hide) Animations.FadeIn else Animations.FadeOut, (AllSettings.animationSpeed * 0.7).toLong())
+        setViewAnim(mRefreshButton!!, if (hide) Animations.FadeOut else Animations.FadeIn, (AllSettings.animationSpeed * 0.7).toLong())
+        if (releaseCheckBoxVisible) setViewAnim(releaseCheckBox!!, if (hide) Animations.FadeOut else Animations.FadeIn, (AllSettings.animationSpeed * 0.7).toLong())
     }
 
     private fun cancelTask() {

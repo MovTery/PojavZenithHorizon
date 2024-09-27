@@ -1,39 +1,25 @@
 package com.movtery.pojavzh.ui.fragment.settings
 
 import android.annotation.SuppressLint
-import android.content.SharedPreferences
 import android.text.InputType
 import android.view.View
 import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
+import androidx.annotation.CallSuper
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.movtery.pojavzh.feature.log.Logging.e
+import com.movtery.pojavzh.setting.Settings
 import com.movtery.pojavzh.ui.dialog.EditTextDialog
 import com.movtery.pojavzh.ui.dialog.TipDialog
 import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
-import net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF
 
-abstract class AbstractSettingsFragment(layoutId: Int) : Fragment(layoutId),
-    SharedPreferences.OnSharedPreferenceChangeListener {
-    override fun onResume() {
-        super.onResume()
-        DEFAULT_PREF.registerOnSharedPreferenceChangeListener(this)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        DEFAULT_PREF.unregisterOnSharedPreferenceChangeListener(this)
-    }
-
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        LauncherPreferences.loadPreferences(requireContext())
-    }
+abstract class AbstractSettingsFragment(layoutId: Int) : Fragment(layoutId) {
 
     /**
      * 绑定类别标签
@@ -165,12 +151,13 @@ abstract class AbstractSettingsFragment(layoutId: Int) : Fragment(layoutId),
 
         seekBarView.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                DEFAULT_PREF.edit().putInt(item.key, progress).apply()
+                Settings.Manager.put(item.key!!, progress).save()
                 setSeekBarValueTextView(
                     seekBarValueView,
                     progress,
                     item.getSeekBarValueSuffix()
                 )
+                onSettingsChange()
                 checkShowRebootDialog(item)
             }
 
@@ -239,7 +226,8 @@ abstract class AbstractSettingsFragment(layoutId: Int) : Fragment(layoutId),
     fun initSwitchView(item: SettingsViewWrapper) {
         val switchView = item.getSwitchView()
         switchView.setOnCheckedChangeListener { _, b ->
-            DEFAULT_PREF.edit().putBoolean(item.key, b).apply()
+            Settings.Manager.put(item.key!!, b).save()
+            onSettingsChange()
             checkShowRebootDialog(item)
         }
         item.mainView.setOnClickListener {
@@ -290,20 +278,26 @@ abstract class AbstractSettingsFragment(layoutId: Int) : Fragment(layoutId),
         textView.text = text
     }
 
+    @CallSuper
+    open fun onSettingsChange() {
+        LauncherPreferences.loadPreferences(context)
+    }
+
     private fun createAListDialog(
         item: SettingsViewWrapper,
         defaultValue: String,
         entries: Array<String>,
         entryValues: Array<String>
     ) {
-        val index = entryValues.indexOf(DEFAULT_PREF.getString(item.key, defaultValue))
+        val index = entryValues.indexOf(Settings.Manager.getString(item.key!!, defaultValue))
         AlertDialog.Builder(requireContext())
             .setTitle(item.getTitleView().text)
             .setSingleChoiceItems(entries, index) { dialog, which ->
                 if (which != index) {
                     val selectedValue = entryValues[which]
-                    DEFAULT_PREF.edit().putString(item.key, selectedValue).apply()
+                    Settings.Manager.put(item.key, selectedValue).save()
                     updateListViewValue(item, defaultValue, entries, entryValues)
+                    onSettingsChange()
                     checkShowRebootDialog(item)
                 }
                 dialog.dismiss()
@@ -318,9 +312,10 @@ abstract class AbstractSettingsFragment(layoutId: Int) : Fragment(layoutId),
         entries: Array<String>,
         entryValues: Array<String>
     ) {
-        val value = DEFAULT_PREF.getString(item.key, defaultValue)
+        val value = Settings.Manager.getString(item.key!!, defaultValue)
         val index = entryValues.indexOf(value).takeIf { it in entryValues.indices } ?: run {
-            DEFAULT_PREF.edit().putString(item.key, defaultValue).apply()
+            Settings.Manager.put(item.key, defaultValue).save()
+            onSettingsChange()
             0
         }
         item.getValueView().text = entries[index]

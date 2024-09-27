@@ -4,7 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorSet
 import android.view.View
 import com.movtery.anim.animations.Animations
-import net.kdt.pojavlaunch.prefs.LauncherPreferences
+import com.movtery.pojavzh.setting.AllSettings
 
 class AnimPlayer {
     private var mAnimatorSet: AnimatorSet = AnimatorSet()
@@ -49,7 +49,7 @@ class AnimPlayer {
         }
 
         mAnimatorSet.apply {
-            duration = mDuration ?: LauncherPreferences.PREF_ANIMATION_SPEED.toLong()
+            duration = mDuration ?: AllSettings.animationSpeed.toLong()
             startDelay = mDelay ?: 0
 
             removeAllListeners()

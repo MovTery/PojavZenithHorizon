@@ -11,8 +11,9 @@ import android.view.ViewParent;
 
 import androidx.annotation.Nullable;
 
+import com.movtery.pojavzh.setting.AllSettings;
+
 import net.kdt.pojavlaunch.LwjglGlfwKeycode;
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.utils.MCOptionUtils;
 import net.kdt.pojavlaunch.utils.MathUtils;
 
@@ -26,7 +27,7 @@ public class HotbarView extends View implements MCOptionUtils.MCOptionListener, 
             LwjglGlfwKeycode.GLFW_KEY_4, LwjglGlfwKeycode.GLFW_KEY_5,   LwjglGlfwKeycode.GLFW_KEY_6,
             LwjglGlfwKeycode.GLFW_KEY_7, LwjglGlfwKeycode.GLFW_KEY_8, LwjglGlfwKeycode.GLFW_KEY_9};
     private final DropGesture mDropGesture = new DropGesture(new Handler(Looper.getMainLooper()));
-    private final float mScaleFactor = LauncherPreferences.PREF_SCALE_FACTOR/100f;
+    private final float mScaleFactor = AllSettings.Companion.getResolutionRatio() / 100f;
     private int mWidth;
     private int mLastIndex;
     private int mGuiScale;
@@ -104,7 +105,7 @@ public class HotbarView extends View implements MCOptionUtils.MCOptionListener, 
         // Check if the slot changed and we need to make a key press
         if(hotbarIndex == mLastIndex) {
             // Only check for doubletapping if the slot has not changed
-            if(hasDoubleTapped && !LauncherPreferences.PREF_DISABLE_SWAP_HAND) CallbackBridge.sendKeyPress(LwjglGlfwKeycode.GLFW_KEY_F);
+            if(hasDoubleTapped && !AllSettings.Companion.getDisableDoubleTap()) CallbackBridge.sendKeyPress(LwjglGlfwKeycode.GLFW_KEY_F);
             return true;
         }
         mLastIndex = hotbarIndex;

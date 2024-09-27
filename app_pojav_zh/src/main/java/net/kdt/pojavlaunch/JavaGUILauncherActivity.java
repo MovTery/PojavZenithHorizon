@@ -1,7 +1,5 @@
 package net.kdt.pojavlaunch;
 
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.DEFAULT_PREF;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ClipboardManager;
@@ -20,6 +18,8 @@ import androidx.activity.OnBackPressedCallback;
 
 import com.kdt.LoggerView;
 import com.movtery.pojavzh.feature.log.Logging;
+import com.movtery.pojavzh.setting.AllSettings;
+import com.movtery.pojavzh.ui.activity.BaseActivity;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.ZHTools;
@@ -30,7 +30,6 @@ import net.kdt.pojavlaunch.customcontrols.keyboard.AwtCharSender;
 import net.kdt.pojavlaunch.customcontrols.keyboard.TouchCharInput;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 import net.kdt.pojavlaunch.multirt.Runtime;
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.utils.JREUtils;
 import net.kdt.pojavlaunch.utils.MathUtils;
 
@@ -100,7 +99,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
             ViewGroup.LayoutParams params = mMousePointerImageView.getLayoutParams();
             Drawable drawable = mMousePointerImageView.getDrawable();
             Dimension mousescale = ImageUtils.resizeWithRatio(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
-                    DEFAULT_PREF.getInt("mousescale", 100));
+                    AllSettings.Companion.getMouseScale());
             params.width = (int) (mousescale.width * 0.5);
             params.height = (int) (mousescale.height * 0.5);
         });
@@ -258,7 +257,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
             if (jreName == null) {
                 if (selectedMod == null) {
                     // We were unable to find out the path to the mod. In that case, use the default runtime.
-                    selectedRuntime = MultiRTUtils.forceReread(LauncherPreferences.PREF_DEFAULT_RUNTIME);
+                    selectedRuntime = MultiRTUtils.forceReread(AllSettings.Companion.getDefaultRuntime());
                 } else {
                     // Autoselect it properly in the other case.
                     selectedRuntime = selectRuntime(selectedMod);
@@ -384,7 +383,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
                 javaArgList.add(modFile.getAbsolutePath());
             }
             
-            if (LauncherPreferences.PREF_JAVA_SANDBOX) {
+            if (AllSettings.Companion.getJavaSandbox()) {
                 Collections.reverse(javaArgList);
                 javaArgList.add("-Xbootclasspath/a:" + PathAndUrlManager.DIR_DATA + "/security/pro-grade.jar");
                 javaArgList.add("-Djava.security.manager=net.sourceforge.prograde.sm.ProGradeJSM");
@@ -394,7 +393,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
 
             Logger.appendToLog("Info: Java arguments: " + Arrays.toString(javaArgList.toArray(new String[0])));
 
-            JREUtils.launchJavaVM(this, runtime,null,javaArgList, LauncherPreferences.PREF_CUSTOM_JAVA_ARGS);
+            JREUtils.launchJavaVM(this, runtime,null,javaArgList, AllSettings.Companion.getJavaArgs());
         } catch (Throwable th) {
             Tools.showError(this, th, true);
         }
