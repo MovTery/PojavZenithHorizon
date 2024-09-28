@@ -20,108 +20,18 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/zh_menu_notice"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
-            android:background="@drawable/background_card"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/dividing_line"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/zh_menu_notice_title"
-                style="@style/TextAppearance.AppCompat.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:gravity="center_horizontal"
-                android:text="@string/zh_main_notice_title"
-                android:textColor="@color/primary_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ScrollView
-                android:id="@+id/zh_menu_notice_view_substance"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginHorizontal="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:layout_marginBottom="@dimen/_8sdp"
-                app:layout_constraintBottom_toTopOf="@+id/zh_menu_notice_close_button"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/zh_menu_notice_title">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/zh_menu_notice_substance"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_4sdp"
-                        android:text="@string/zh_unknown"
-                        android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold"
-                        android:textIsSelectable="true"
-                        tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:id="@+id/zh_menu_notice_date"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:gravity="end"
-                        android:text="@string/zh_unknown"
-                        android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold"
-                        tools:ignore="HardcodedText" />
-                </LinearLayout>
-
-            </ScrollView>
-
-            <com.movtery.pojavzh.ui.view.AnimButton
-                android:id="@+id/zh_menu_notice_close_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_4sdp"
-                android:layout_marginBottom="@dimen/_8sdp"
-                android:text="@string/zh_ok"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-            android:id="@+id/dividing_line"
-            android:layout_width="8dp"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/launcher_menu"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/dividing_line"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/_8sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_weight="1"
@@ -137,9 +47,7 @@
                         android:id="@+id/about_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_4sdp"
                         android:layout_marginTop="@dimen/_12sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
                         android:textAllCaps="false"
                         android:background="@drawable/background_item"
                         android:drawableStart="@drawable/ic_about"
@@ -150,9 +58,7 @@
                         android:id="@+id/custom_control_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_4sdp"
                         android:layout_marginTop="@dimen/_12sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
                         android:textAllCaps="false"
                         android:background="@drawable/background_item"
                         android:drawableStart="@drawable/ic_menu_custom_controls"
@@ -163,9 +69,7 @@
                         android:id="@+id/zh_open_main_dir_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_4sdp"
                         android:layout_marginTop="@dimen/_12sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
                         android:textAllCaps="false"
                         android:background="@drawable/background_item"
                         android:drawableStart="@drawable/ic_folder"
@@ -176,9 +80,7 @@
                         android:id="@+id/install_jar_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_4sdp"
                         android:layout_marginTop="@dimen/_12sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
                         android:textAllCaps="false"
                         android:background="@drawable/background_item"
                         android:drawableStart="@drawable/ic_java"
@@ -189,9 +91,7 @@
                         android:id="@+id/share_logs_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_4sdp"
                         android:layout_marginTop="@dimen/_12sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
                         android:layout_marginBottom="@dimen/_8sdp"
                         android:textAllCaps="false"
                         android:background="@drawable/background_item"
