@@ -9,6 +9,9 @@ import android.widget.TextView
 import com.movtery.pojavzh.setting.AllSettings
 import com.movtery.pojavzh.setting.Settings
 import com.movtery.pojavzh.ui.dialog.EditTextDialog
+import com.movtery.pojavzh.ui.fragment.settings.wrapper.BaseSettingsWrapper
+import com.movtery.pojavzh.ui.fragment.settings.wrapper.SeekBarSettingsWrapper
+import com.movtery.pojavzh.ui.fragment.settings.wrapper.SwitchSettingsWrapper
 import com.movtery.pojavzh.utils.file.FileTools.Companion.formatFileSize
 import com.movtery.pojavzh.utils.platform.MemoryUtils.Companion.getFreeDeviceMemory
 import com.movtery.pojavzh.utils.platform.MemoryUtils.Companion.getTotalDeviceMemory
@@ -28,28 +31,24 @@ class JavaSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
         if (data != null) Tools.installRuntimeFromUri(context, data)
     }
     private var mDialogScreen: MultiRTConfigDialog? = null
-    private var allocationItem: SettingsViewWrapper? = null
+    private var allocationItem: SeekBarSettingsWrapper? = null
     private var allocationMemory: TextView? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val javaCategory = bindCategory(view.findViewById(R.id.java_category))
+        val context = requireContext()
 
-        val installJre = bindView(
-            javaCategory,
-            view.findViewById(R.id.install_jre_layout),
-            R.id.install_jre_title,
-            R.id.install_jre_summary
-        )
-        installJre.mainView.setOnClickListener { openMultiRTDialog() }
+        BaseSettingsWrapper(
+            context,
+            view.findViewById(R.id.install_jre_layout)
+        ) {
+            openMultiRTDialog()
+        }
 
-        val javaArgs = bindView(
-            javaCategory,
-            view.findViewById(R.id.javaArgs_layout),
-            R.id.javaArgs_title,
-            R.id.javaArgs_summary
-        )
-        javaArgs.mainView.setOnClickListener {
-            EditTextDialog.Builder(requireContext())
+        BaseSettingsWrapper(
+            context,
+            view.findViewById(R.id.javaArgs_layout)
+        ) {
+            EditTextDialog.Builder(context)
                 .setTitle(R.string.mcl_setting_title_javaargs)
                 .setMessage(R.string.mcl_setting_subtitle_javaargs)
                 .setEditText(AllSettings.javaArgs)
@@ -60,57 +59,46 @@ class JavaSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
                 }.buildDialog()
         }
 
-        allocationItem = bindSeekBarView(
-            javaCategory,
-            "allocation",
-            AllSettings.ramAllocation,
-            "MB",
-            view.findViewById(R.id.allocation_layout),
-            R.id.allocation_title,
-            R.id.allocation_summary,
-            R.id.allocation,
-            R.id.allocation_value
-        )
-        val deviceRam = Tools.getTotalDeviceMemory(requireContext())
+        val deviceRam = Tools.getTotalDeviceMemory(context)
         val maxRAM = if (Architecture.is32BitsDevice() || deviceRam < 2048) min(
             1024.0,
             deviceRam.toDouble()
         ).toInt()
         else deviceRam - (if (deviceRam < 3064) 800 else 1024) //To have a minimum for the device to breathe
 
-        allocationItem?.apply {
-            val seekBarView = getSeekBarView()
-            seekBarView.max = maxRAM
-            seekBarView.progress = AllSettings.ramAllocation
-            setSeekBarValueTextView(
-                getSeekBarValueView(),
-                seekBarView.progress,
-                getSeekBarValueSuffix()
-            )
-            initSeekBarView(this)
+        allocationItem = SeekBarSettingsWrapper(
+            context,
+            "allocation",
+            AllSettings.ramAllocation,
+            view.findViewById(R.id.allocation_layout),
+            view.findViewById(R.id.allocation_title),
+            view.findViewById(R.id.allocation_summary),
+            view.findViewById(R.id.allocation_value),
+            view.findViewById(R.id.allocation),
+            "MB"
+        ) { wrapper ->
+            wrapper.seekbarView.max = maxRAM
+            wrapper.seekbarView.progress = AllSettings.ramAllocation
+            wrapper.setSeekBarValueTextView()
 
             allocationMemory = view.findViewById(R.id.allocation_memory)
-            updateMemoryInfo(requireContext(), seekBarView.progress.toLong(), allocationMemory!!)
+            updateMemoryInfo(context, wrapper.seekbarView.progress.toLong(), allocationMemory!!)
         }
 
-        initSwitchView(
-            bindSwitchView(
-                javaCategory,
-                "java_sandbox",
-                AllSettings.javaSandbox,
-                view.findViewById(R.id.java_sandbox_layout),
-                R.id.java_sandbox_title,
-                R.id.java_sandbox_summary,
-                R.id.java_sandbox
-            )
+        SwitchSettingsWrapper(
+            context,
+            "java_sandbox",
+            AllSettings.javaSandbox,
+            view.findViewById(R.id.java_sandbox_layout),
+            view.findViewById(R.id.java_sandbox)
         )
     }
 
-    override fun onSettingsChange() {
-        super.onSettingsChange()
+    override fun onChange() {
+        super.onChange()
         updateMemoryInfo(
             requireContext(),
-            allocationItem!!.getSeekBarView().progress.toLong(),
+            allocationItem!!.seekbarView.progress.toLong(),
             allocationMemory!!
         )
     }

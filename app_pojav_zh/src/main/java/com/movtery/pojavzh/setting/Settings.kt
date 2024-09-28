@@ -15,6 +15,7 @@ class Settings {
         private val GSON: Gson = GsonBuilder().disableHtmlEscaping().create()
 
         private var settings: List<SettingAttribute> = refresh()
+        private val listeners: MutableSet<OnSettingsChangeListener> = HashSet()
 
         private fun refresh(): List<SettingAttribute> {
             return PathAndUrlManager.FILE_SETTINGS?.takeIf { it.exists() }?.let { file ->
@@ -71,6 +72,14 @@ class Settings {
 
             fun put(key: String, value: Any?): SettingBuilder =
                 SettingBuilder().put(key, value)
+
+            fun addListener(listener: OnSettingsChangeListener) {
+                listeners.add(listener)
+            }
+
+            fun removeListener(listener: OnSettingsChangeListener) {
+                listeners.remove(listener)
+            }
         }
 
         class SettingBuilder {
@@ -116,6 +125,8 @@ class Settings {
                 }.getOrElse { e ->
                     Logging.e("SettingBuilder", Tools.printToString(e))
                 }
+
+                listeners.forEach { it.onChange() }
             }
         }
     }

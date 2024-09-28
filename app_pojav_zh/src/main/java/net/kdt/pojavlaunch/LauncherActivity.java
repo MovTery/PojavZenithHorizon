@@ -357,7 +357,11 @@ public class LauncherActivity extends BaseActivity {
         mProgressLayout.observe(ProgressLayout.DOWNLOAD_VERSION_LIST);
 
         noticeLayout = findViewById(R.id.notice_layout);
-        noticeLayout.findViewById(R.id.notice_got_button).setOnClickListener(v -> setNotice(false));
+        noticeLayout.findViewById(R.id.notice_got_button).setOnClickListener(v -> {
+            setNotice(false);
+            Settings.Manager.Companion.put("noticeDefault", false)
+                    .save();
+        });
         new DraggableViewWrapper(noticeLayout, new DraggableViewWrapper.AttributesFetcher() {
             @NonNull
             @Override
