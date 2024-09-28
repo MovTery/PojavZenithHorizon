@@ -7,215 +7,171 @@ import com.movtery.pojavzh.feature.UpdateLauncher
 import com.movtery.pojavzh.setting.AllSettings
 import com.movtery.pojavzh.ui.fragment.CustomBackgroundFragment
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim
+import com.movtery.pojavzh.ui.fragment.settings.wrapper.BaseSettingsWrapper
+import com.movtery.pojavzh.ui.fragment.settings.wrapper.ListSettingsWrapper
+import com.movtery.pojavzh.ui.fragment.settings.wrapper.SeekBarSettingsWrapper
+import com.movtery.pojavzh.ui.fragment.settings.wrapper.SwitchSettingsWrapper
 import com.movtery.pojavzh.utils.CleanUpCache.Companion.start
 import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.extra.ExtraCore
 
-class LauncherSettingsFragment(val parent: FragmentWithAnim): AbstractSettingsFragment(R.layout.settings_fragment_launcher) {
+class LauncherSettingsFragment(val parent: FragmentWithAnim) :
+    AbstractSettingsFragment(R.layout.settings_fragment_launcher) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val downloadCategory = bindCategory(view.findViewById(R.id.download_category))
-        val languageCategory = bindCategory(view.findViewById(R.id.language_category))
-        val personalizationCategory = bindCategory(view.findViewById(R.id.personalization_category))
-        val launcherCategory = bindCategory(view.findViewById(R.id.launcher_category))
+        val context = requireContext()
 
-        initSwitchView(
-            bindSwitchView(
-                downloadCategory,
-                "checkLibraries",
-                AllSettings.checkLibraries,
-                view.findViewById(R.id.checkLibraries_layout),
-                R.id.checkLibraries_title,
-                R.id.checkLibraries_summary,
-                R.id.checkLibraries
-            )
+        SwitchSettingsWrapper(
+            context,
+            "checkLibraries",
+            AllSettings.checkLibraries,
+            view.findViewById(R.id.checkLibraries_layout),
+            view.findViewById(R.id.checkLibraries)
         )
 
-        initListView(
-            bindListView(
-                downloadCategory,
-                "downloadSource",
-                view.findViewById(R.id.downloadSource_layout),
-                R.id.downloadSource_title,
-                R.id.downloadSource_summary,
-                R.id.downloadSource_value
-            ), "default", R.array.download_source_names, R.array.download_source_values
+        ListSettingsWrapper(
+            context,
+            "downloadSource",
+            "default",
+            view.findViewById(R.id.downloadSource_layout),
+            view.findViewById(R.id.downloadSource_title),
+            view.findViewById(R.id.downloadSource_value),
+            R.array.download_source_names, R.array.download_source_values
         )
 
-        initListView(
-            bindListView(
-                downloadCategory,
-                "modInfoSource",
-                view.findViewById(R.id.modInfoSource_layout),
-                R.id.modInfoSource_title,
-                null,
-                R.id.modInfoSource_value
-            ), "original", R.array.mod_source_names, R.array.mod_source_values
+        ListSettingsWrapper(
+            context,
+            "modInfoSource",
+            "original",
+            view.findViewById(R.id.modInfoSource_layout),
+            view.findViewById(R.id.modInfoSource_title),
+            view.findViewById(R.id.modInfoSource_value),
+            R.array.mod_source_names, R.array.mod_source_values
         )
 
-        initListView(
-            bindListView(
-                downloadCategory,
-                "modDownloadSource",
-                view.findViewById(R.id.modDownloadSource_layout),
-                R.id.modDownloadSource_title,
-                null,
-                R.id.modDownloadSource_value
-            ), "original", R.array.mod_source_names, R.array.mod_source_values
+        ListSettingsWrapper(
+            context,
+            "modDownloadSource",
+            "original",
+            view.findViewById(R.id.modDownloadSource_layout),
+            view.findViewById(R.id.modDownloadSource_title),
+            view.findViewById(R.id.modDownloadSource_value),
+            R.array.mod_source_names, R.array.mod_source_values
         )
 
-        initSwitchView(
-            bindSwitchView(
-                languageCategory,
-                "autoSetGameLanguage",
-                AllSettings.autoSetGameLanguage,
-                view.findViewById(R.id.autoSetGameLanguage_layout),
-                R.id.autoSetGameLanguage_title,
-                R.id.autoSetGameLanguage_summary,
-                R.id.autoSetGameLanguage
-            )
+        SwitchSettingsWrapper(
+            context,
+            "autoSetGameLanguage",
+            AllSettings.autoSetGameLanguage,
+            view.findViewById(R.id.autoSetGameLanguage_layout),
+            view.findViewById(R.id.autoSetGameLanguage)
         )
 
-        initSwitchView(
-            bindSwitchView(
-                languageCategory,
-                "gameLanguageOverridden",
-                AllSettings.gameLanguageOverridden,
-                view.findViewById(R.id.gameLanguageOverridden_layout),
-                R.id.gameLanguageOverridden_title,
-                R.id.gameLanguageOverridden_summary,
-                R.id.gameLanguageOverridden
-            )
+        SwitchSettingsWrapper(
+            context,
+            "gameLanguageOverridden",
+            AllSettings.autoSetGameLanguage,
+            view.findViewById(R.id.gameLanguageOverridden_layout),
+            view.findViewById(R.id.gameLanguageOverridden)
         )
 
-        initListView(
-            bindListView(
-                languageCategory,
-                "setGameLanguage",
-                view.findViewById(R.id.setGameLanguage_layout),
-                R.id.setGameLanguage_title,
-                null,
-                R.id.setGameLanguage_value
-            ),
+        ListSettingsWrapper(
+            context,
+            "setGameLanguage",
             "system",
-            R.array.all_game_language,
-            R.array.all_game_language_value
+            view.findViewById(R.id.setGameLanguage_layout),
+            view.findViewById(R.id.setGameLanguage_title),
+            view.findViewById(R.id.setGameLanguage_value),
+            R.array.all_game_language, R.array.all_game_language_value
         )
 
-        initListView(
-            bindListView(
-                personalizationCategory,
-                "launcherTheme",
-                view.findViewById(R.id.launcherTheme_layout),
-                R.id.launcherTheme_title,
-                null,
-                R.id.launcherTheme_value
-            ).setRequiresReboot(true),
+        ListSettingsWrapper(
+            context,
+            "launcherTheme",
             "system",
-            R.array.launcher_theme_names,
-            R.array.launcher_theme_values
+            view.findViewById(R.id.launcherTheme_layout),
+            view.findViewById(R.id.launcherTheme_title),
+            view.findViewById(R.id.launcherTheme_value),
+            R.array.launcher_theme_names, R.array.launcher_theme_values
         )
 
-        val customBackground = bindView(
-            personalizationCategory,
-            view.findViewById(R.id.zh_custom_background_layout),
-            R.id.zh_custom_background_title,
-            R.id.zh_custom_background_summary
-        )
-        customBackground.mainView.setOnClickListener {
+        BaseSettingsWrapper(
+            context,
+            view.findViewById(R.id.zh_custom_background_layout)
+        ) {
             ZHTools.swapFragmentWithAnim(
                 parent,
                 CustomBackgroundFragment::class.java,
                 CustomBackgroundFragment.TAG,
-            null
+                null
             )
         }
 
-        initSwitchView(
-            bindSwitchView(
-                personalizationCategory,
-                "animation",
-                AllSettings.animation,
-                view.findViewById(R.id.animation_layout),
-                R.id.animation_title,
-                R.id.animation_summary,
-                R.id.animation
-            )
+        SwitchSettingsWrapper(
+            context,
+            "animation",
+            AllSettings.animation,
+            view.findViewById(R.id.animation_layout),
+            view.findViewById(R.id.animation)
         )
 
-        initSeekBarView(
-            bindSeekBarView(
-                personalizationCategory,
-                "animationSpeed",
-                AllSettings.animationSpeed,
-                "ms",
-                view.findViewById(R.id.animationSpeed_layout),
-                R.id.animationSpeed_title,
-                R.id.animationSpeed_summary,
-                R.id.animationSpeed,
-                R.id.animationSpeed_value
-            )
+        SeekBarSettingsWrapper(
+            context,
+            "animationSpeed",
+            AllSettings.animationSpeed,
+            view.findViewById(R.id.animationSpeed_layout),
+            view.findViewById(R.id.animationSpeed_title),
+            view.findViewById(R.id.animationSpeed_summary),
+            view.findViewById(R.id.animationSpeed_value),
+            view.findViewById(R.id.animationSpeed),
+            "ms"
         )
 
-        initSeekBarView(
-            bindSeekBarView(
-                personalizationCategory,
-                "pageOpacity",
-                AllSettings.pageOpacity,
-                "%",
-                view.findViewById(R.id.pageOpacity_layout),
-                R.id.pageOpacity_title,
-                R.id.pageOpacity_summary,
-                R.id.pageOpacity,
-                R.id.pageOpacity_value
-            )
+        SeekBarSettingsWrapper(
+            context,
+            "pageOpacity",
+            AllSettings.pageOpacity,
+            view.findViewById(R.id.pageOpacity_layout),
+            view.findViewById(R.id.pageOpacity_title),
+            view.findViewById(R.id.pageOpacity_summary),
+            view.findViewById(R.id.pageOpacity_value),
+            view.findViewById(R.id.pageOpacity),
+            "%"
         )
 
-        initSwitchView(
-            bindSwitchView(
-                launcherCategory,
-                "enableLogOutput",
-                AllSettings.enableLogOutput,
-                view.findViewById(R.id.enableLogOutput_layout),
-                R.id.enableLogOutput_title,
-                R.id.enableLogOutput_summary,
-                R.id.enableLogOutput
-            )
+        SwitchSettingsWrapper(
+            context,
+            "enableLogOutput",
+            AllSettings.enableLogOutput,
+            view.findViewById(R.id.enableLogOutput_layout),
+            view.findViewById(R.id.enableLogOutput)
         )
 
-        initSwitchView(
-            bindSwitchView(
-                launcherCategory,
-                "quitLauncher",
-                AllSettings.quitLauncher,
-                view.findViewById(R.id.quitLauncher_layout),
-                R.id.quitLauncher_title,
-                R.id.quitLauncher_summary,
-                R.id.quitLauncher
-            )
+        SwitchSettingsWrapper(
+            context,
+            "quitLauncher",
+            AllSettings.quitLauncher,
+            view.findViewById(R.id.quitLauncher_layout),
+            view.findViewById(R.id.quitLauncher)
         )
 
-        val clearUpCache = bindView(
-            personalizationCategory,
-            view.findViewById(R.id.zh_clean_up_cache_layout),
-            R.id.zh_clean_up_cache_title,
-            R.id.zh_clean_up_cache_summary
-        )
-        clearUpCache.mainView.setOnClickListener { start(requireContext()) }
+        BaseSettingsWrapper(
+            context,
+            view.findViewById(R.id.zh_clean_up_cache_layout)
+        ) {
+            start(context)
+        }
 
-        val checkUpdate = bindView(
-            personalizationCategory,
-            view.findViewById(R.id.zh_check_update_layout),
-            R.id.zh_check_update_title,
-            R.id.zh_check_update_summary
-        )
-        checkUpdate.mainView.setOnClickListener {
-            UpdateLauncher.CheckDownloadedPackage(requireContext(), false)
+        BaseSettingsWrapper(
+            context,
+            view.findViewById(R.id.zh_check_update_layout)
+        ) {
+            UpdateLauncher.CheckDownloadedPackage(context, false)
         }
     }
 
-    override fun onSettingsChange() {
-        super.onSettingsChange()
+    override fun onChange() {
+        super.onChange()
         ExtraCore.setValue(ZHExtraConstants.PAGE_OPACITY_CHANGE, true)
     }
 }
