@@ -2,39 +2,26 @@ package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.kdt.mcgui.mcVersionSpinner;
 import com.movtery.anim.AnimPlayer;
 import com.movtery.anim.animations.Animations;
 import com.movtery.pojavzh.feature.accounts.AccountUpdateListener;
-import com.movtery.pojavzh.setting.AllSettings;
-import com.movtery.pojavzh.setting.Settings;
 import com.movtery.pojavzh.ui.fragment.AboutFragment;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
 import com.movtery.pojavzh.ui.fragment.ControlButtonFragment;
 import com.movtery.pojavzh.ui.fragment.FilesFragment;
 
-import com.movtery.pojavzh.feature.CheckNewNotice;
 import com.movtery.pojavzh.ui.fragment.ProfileManagerFragment;
 
-import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import com.movtery.pojavzh.ui.dialog.ShareLogDialog;
@@ -49,20 +36,14 @@ import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
 
-import java.util.concurrent.Future;
-
 public class MainMenuFragment extends FragmentWithAnim implements TaskCountListener, AccountUpdateListener {
     public static final String TAG = "MainMenuFragment";
     private AccountViewWrapper accountViewWrapper;
-    private CheckNewNotice.NoticeInfo noticeInfo = null;
     private ImageButton mPathManagerButton, mManagerProfileButton;
     private Button mPlayButton;
     private mcVersionSpinner mVersionSpinner;
     private View mMenuLayout, mPlayLayout, mPlayButtonsLayout;
-    private View mLauncherNoticeView, mDividingLineView;
-    private Button mNoticeCloseButton;
     private boolean mTasksRunning;
-    private Future<?> future;
 
     public MainMenuFragment() {
         super(R.layout.fragment_launcher);
@@ -80,11 +61,6 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
         Button mOpenMainDirButton = view.findViewById(R.id.zh_open_main_dir_button);
 
         mAboutButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, AboutFragment.class, AboutFragment.TAG, null));
-        mAboutButton.setOnLongClickListener(v -> {
-            setNotice(true, true, view);
-            Settings.Manager.Companion.put("noticeDefault", true).save();
-            return true;
-        });
         mCustomControlButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, ControlButtonFragment.class, ControlButtonFragment.TAG, null));
         mInstallJarButton.setOnClickListener(v -> runInstallerWithConfirmation(false));
         mInstallJarButton.setOnLongClickListener(v -> {
@@ -117,33 +93,6 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
             bundle.putString(FilesFragment.BUNDLE_LIST_PATH, PathAndUrlManager.DIR_GAME_HOME);
             ZHTools.swapFragmentWithAnim(this, FilesFragment.class, FilesFragment.TAG, bundle);
         });
-
-        initNotice(view);
-    }
-
-    private void initNotice(View view) {
-        mNoticeCloseButton.setOnClickListener(v -> {
-            Settings.Manager.Companion.put("noticeDefault", false).save();
-            setNotice(false, true, view);
-        });
-
-        setNotice(false, false, view);
-
-        future = PojavApplication.sExecutorService.submit(() -> CheckNewNotice.checkNewNotice(requireContext(), noticeInfo -> {
-            if (future.isCancelled() || noticeInfo == null) {
-                return;
-            }
-
-            //当偏好设置内是开启通知栏 或者 检测到通知编号不为偏好设置里保存的值时，显示通知栏
-            if (AllSettings.Companion.getNoticeDefault() ||
-                    (noticeInfo.numbering != AllSettings.Companion.getNoticeNumbering())) {
-                runOnUiThread(() -> setNotice(true, false, view));
-                Settings.Manager.Companion
-                        .put("noticeDefault", true)
-                        .put("noticeNumbering", noticeInfo.numbering)
-                        .save();
-            }
-        }));
     }
 
     private void bindValues(View view) {
@@ -156,11 +105,6 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
         mVersionSpinner = view.findViewById(R.id.mc_version_spinner);
         accountViewWrapper = new AccountViewWrapper(view.findViewById(R.id.view_account));
         accountViewWrapper.refreshAccountInfo();
-
-        mLauncherNoticeView = view.findViewById(R.id.zh_menu_notice);
-        mDividingLineView = view.findViewById(R.id.dividing_line);
-        mNoticeCloseButton = view.findViewById(R.id.zh_menu_notice_close_button);
-
         mVersionSpinner.setParentFragment(this);
     }
 
@@ -170,86 +114,11 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
         if (mVersionSpinner != null) mVersionSpinner.reloadProfiles();
     }
 
-    @Override
-    public void onDestroy() {
-        if (future != null) future.cancel(true);
-        super.onDestroy();
-    }
-
     private void runInstallerWithConfirmation(boolean isCustomArgs) {
         if (ProgressKeeper.getTaskCount() == 0)
             Tools.installMod(requireActivity(), isCustomArgs);
         else
             Toast.makeText(requireContext(), R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
-    }
-
-    private void setNotice(boolean show, boolean anim, View view) {
-        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) mDividingLineView.getLayoutParams();
-        if ((params.horizontalBias == 0 && !show) || ((params.horizontalBias > 0 && params.horizontalBias <= 0.5) && show)) return;
-        mNoticeCloseButton.setClickable(false);
-
-        if (anim) {
-            //通过分割线来设置通知栏划出动画
-            mLauncherNoticeView.setVisibility(View.VISIBLE);
-
-            @SuppressLint("ObjectAnimatorBinding")
-            ObjectAnimator animator = ObjectAnimator.ofFloat(params, "horizontalBias", show ? 0f : 0.5f, show ? 0.5f : 0f);
-            animator.setDuration(200);
-            animator.addUpdateListener(animation -> {
-                params.horizontalBias = (float) animation.getAnimatedValue();
-                mDividingLineView.setLayoutParams(params);
-            });
-            animator.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                    if (!show) mLauncherNoticeView.setVisibility(View.GONE); //关闭通知栏隐藏通知栏
-                }
-            });
-            animator.start();
-
-            Handler handler = new Handler();
-            handler.postDelayed(() -> {
-                if (show) {
-                    checkNewNotice(view);
-                }
-                mNoticeCloseButton.setClickable(show);
-            }, 250);
-        } else {
-            mLauncherNoticeView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mNoticeCloseButton.setClickable(show);
-            //设置分割线位置
-            params.horizontalBias = show ? 0.5f : 0f;
-            mDividingLineView.setLayoutParams(params);
-            checkNewNotice(view);
-        }
-    }
-
-    @SuppressLint("SetJavaScriptEnabled")
-    private void checkNewNotice(View view) {
-        noticeInfo = CheckNewNotice.getNoticeInfo();
-
-        if (noticeInfo == null) {
-            return;
-        }
-
-        runOnUiThread(() -> {
-            //初始化
-            TextView noticeTitleView = view.findViewById(R.id.zh_menu_notice_title);
-            TextView noticeDateView = view.findViewById(R.id.zh_menu_notice_date);
-            TextView noticeSubstanceTextView = view.findViewById(R.id.zh_menu_notice_substance);
-
-            if (!noticeInfo.rawTitle.equals("NONE")) {
-                noticeTitleView.setText(noticeInfo.rawTitle);
-            }
-
-            noticeDateView.setText(noticeInfo.rawDate);
-            noticeSubstanceTextView.setText(noticeInfo.substance);
-
-            //文本内的网址可以被点击
-            Linkify.addLinks(noticeSubstanceTextView, Linkify.WEB_URLS);
-            noticeSubstanceTextView.setMovementMethod(LinkMovementMethod.getInstance());
-        });
     }
 
     @Override

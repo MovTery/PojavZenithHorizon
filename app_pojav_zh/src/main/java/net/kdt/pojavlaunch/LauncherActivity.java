@@ -2,6 +2,8 @@ package net.kdt.pojavlaunch;
 
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 
+import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -12,6 +14,8 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -28,8 +32,10 @@ import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 
 import com.kdt.mcgui.ProgressLayout;
+import com.movtery.anim.AnimPlayer;
 import com.movtery.anim.animations.Animations;
 import com.movtery.pojavzh.extra.ZHExtraConstants;
+import com.movtery.pojavzh.feature.CheckNewNotice;
 import com.movtery.pojavzh.feature.UpdateLauncher;
 import com.movtery.pojavzh.feature.accounts.AccountUpdateListener;
 import com.movtery.pojavzh.feature.accounts.AccountsManager;
@@ -47,6 +53,8 @@ import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.fragment.SettingsFragment;
 import com.movtery.pojavzh.ui.subassembly.settingsbutton.ButtonType;
 import com.movtery.pojavzh.ui.subassembly.settingsbutton.SettingsButtonWrapper;
+import com.movtery.pojavzh.ui.subassembly.view.DraggableViewWrapper;
+import com.movtery.pojavzh.ui.view.AnimButton;
 import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 import com.movtery.pojavzh.utils.stringutils.ShiftDirection;
@@ -81,6 +89,7 @@ import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.concurrent.Future;
 
 public class LauncherActivity extends BaseActivity {
     @SuppressLint("StaticFieldLeak") private static Activity activity;
@@ -99,6 +108,9 @@ public class LauncherActivity extends BaseActivity {
     private ProgressServiceKeeper mProgressServiceKeeper;
     private ModloaderInstallTracker mInstallTracker;
     private NotificationManager mNotificationManager;
+    private final AnimPlayer noticeAnimPlayer = new AnimPlayer();
+    private View noticeLayout;
+    private Future<?> checkNotice;
 
     public static Activity getActivity() {
         return LauncherActivity.activity;
@@ -330,11 +342,8 @@ public class LauncherActivity extends BaseActivity {
         ExtraCore.addExtraListener(ZHExtraConstants.ACCOUNT_UPDATE, mAccountUpdateListener);
         ExtraCore.addExtraListener(ZHExtraConstants.PAGE_OPACITY_CHANGE, mPageOpacityChangeListener);
         ExtraCore.addExtraListener(ZHExtraConstants.MAIN_BACKGROUND_CHANGE, mBackgroundChangeListener);
-
         ExtraCore.addExtraListener(ExtraConstants.SELECT_AUTH_METHOD, mSelectAuthMethod);
-
         ExtraCore.addExtraListener(ExtraConstants.LAUNCH_GAME, mLaunchGameListener);
-
         ExtraCore.addExtraListener(ZHExtraConstants.INSTALL_LOCAL_MODPACK, mInstallLocalModpack);
 
         new AsyncVersionList().getVersionList(versions -> ExtraCore.setValue(ExtraConstants.RELEASE_TABLE, versions), false);
@@ -346,6 +355,32 @@ public class LauncherActivity extends BaseActivity {
         mProgressLayout.observe(ProgressLayout.INSTALL_MODPACK);
         mProgressLayout.observe(ProgressLayout.AUTHENTICATE_MICROSOFT);
         mProgressLayout.observe(ProgressLayout.DOWNLOAD_VERSION_LIST);
+
+        noticeLayout = findViewById(R.id.notice_layout);
+        noticeLayout.findViewById(R.id.notice_got_button).setOnClickListener(v -> setNotice(false));
+        new DraggableViewWrapper(noticeLayout, new DraggableViewWrapper.AttributesFetcher() {
+            @NonNull
+            @Override
+            public DraggableViewWrapper.ScreenPixels getScreenPixels() {
+                return new DraggableViewWrapper.ScreenPixels(0, 0,
+                        currentDisplayMetrics.widthPixels - noticeLayout.getWidth(),
+                        currentDisplayMetrics.heightPixels - noticeLayout.getHeight());
+            }
+
+            @NonNull
+            @Override
+            public int[] get() {
+                return new int[]{(int) noticeLayout.getX(), (int) noticeLayout.getY()};
+            }
+
+            @Override
+            public void set(int x, int y) {
+                noticeLayout.setX(x);
+                noticeLayout.setY(y);
+            }
+        }).init();
+
+        checkNotice();
 
         // 愚人节彩蛋
         if (ZHTools.checkDate(4, 1)) mHair.setVisibility(View.VISIBLE);
@@ -425,6 +460,57 @@ public class LauncherActivity extends BaseActivity {
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         LauncherActivity.activity = this;
+    }
+
+    private void checkNotice() {
+        checkNotice = PojavApplication.sExecutorService.submit(() -> CheckNewNotice.checkNewNotice(this, noticeInfo -> {
+            if (checkNotice.isCancelled() || noticeInfo == null) {
+                return;
+            }
+            //当偏好设置内是开启通知栏 或者 检测到通知编号不为偏好设置里保存的值时，显示通知栏
+            if (AllSettings.Companion.getNoticeDefault() ||
+                    (noticeInfo.numbering != AllSettings.Companion.getNoticeNumbering())) {
+                Tools.runOnUiThread(() -> setNotice(true));
+                Settings.Manager.Companion.put("noticeDefault", true)
+                        .put("noticeNumbering", noticeInfo.numbering)
+                        .save();
+            }
+        }));
+    }
+
+    private void setNotice(boolean show) {
+        AnimButton gotButton = noticeLayout.findViewById(R.id.notice_got_button);
+
+        if (show) {
+            CheckNewNotice.NoticeInfo noticeInfo = CheckNewNotice.getNoticeInfo();
+            if (noticeInfo != null) {
+                TextView title = noticeLayout.findViewById(R.id.notice_title_view);
+                TextView message = noticeLayout.findViewById(R.id.notice_message_view);
+                TextView date = noticeLayout.findViewById(R.id.notice_date_view);
+
+                gotButton.setClickable(true);
+
+                title.setText(noticeInfo.rawTitle);
+                message.setText(noticeInfo.substance);
+                date.setText(noticeInfo.rawDate);
+
+                Linkify.addLinks(message, Linkify.WEB_URLS);
+                message.setMovementMethod(LinkMovementMethod.getInstance());
+
+                noticeAnimPlayer.clearEntries();
+                noticeAnimPlayer.apply(new AnimPlayer.Entry(noticeLayout, Animations.BounceEnlarge))
+                        .setOnStart(() -> noticeLayout.setVisibility(View.VISIBLE))
+                        .start();
+            }
+        } else {
+            gotButton.setClickable(false);
+
+            noticeAnimPlayer.clearEntries();
+            noticeAnimPlayer.apply(new AnimPlayer.Entry(noticeLayout, Animations.BounceShrink))
+                    .setOnStart(() -> noticeLayout.setVisibility(View.VISIBLE))
+                    .setOnEnd(() -> noticeLayout.setVisibility(View.GONE))
+                    .start();
+        }
     }
 
     private void refreshBackground() {

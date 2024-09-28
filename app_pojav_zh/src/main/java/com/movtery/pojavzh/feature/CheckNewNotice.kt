@@ -92,7 +92,7 @@ class CheckNewNotice {
         }
     }
 
-    interface CheckListener {
+    fun interface CheckListener {
         fun onSuccessful(noticeInfo: NoticeInfo?)
     }
 
