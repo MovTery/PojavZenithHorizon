@@ -4,13 +4,17 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.pojavzh.extra.ZHExtraConstants
@@ -50,6 +54,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
     private var mRefreshButton: ImageButton? = null
     private var mNothingTip: TextView? = null
     private var mTabLayout: TabLayout? = null
+    private var mBackgroundPreview: ImageView? = null
     private var mFileRecyclerView: FileRecyclerView? = null
     private var backgroundType: BackgroundType? = null
 
@@ -80,8 +85,6 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
 
         mFileRecyclerView?.setFileSelectedListener(object : FileSelectedListener() {
             override fun onFileSelected(file: File?, path: String?) {
-                refreshType(mTabLayout!!.selectedTabPosition)
-
                 val fileName = file!!.name
 
                 val image = isImage(file)
@@ -126,8 +129,19 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
             setVisibilityAnim(mNothingTip!!, show)
         }
 
+        mTabLayout?.addOnTabSelectedListener(object : OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                refreshType(mTabLayout!!.selectedTabPosition)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+        })
+
         mResetButton?.setOnClickListener { _: View? ->
-            refreshType(mTabLayout!!.selectedTabPosition)
             backgroundMap[backgroundType] = "null"
             BackgroundManager.getInstance()?.apply {
                 saveProperties(backgroundMap)
@@ -139,11 +153,12 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
         mReturnButton?.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
         mAddFileButton?.setOnClickListener { openDocumentLauncher?.launch(arrayOf("image/*")) }
         mRefreshButton?.setOnClickListener {
-            refreshType(mTabLayout!!.selectedTabPosition)
             mFileRecyclerView?.listFileAt(backgroundPath())
         }
 
         mFileRecyclerView?.lockAndListAt(backgroundPath(), backgroundPath())
+
+        refreshType(mTabLayout!!.selectedTabPosition)
 
         startNewbieGuide()
     }
@@ -176,6 +191,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
 
     private fun refreshBackground() {
         if (backgroundType == BackgroundType.MAIN_MENU) ExtraCore.setValue(ZHExtraConstants.MAIN_BACKGROUND_CHANGE, true)
+        refreshBackgroundPreview()
     }
 
     private val currentStatusName: String
@@ -193,27 +209,46 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
             0 -> this.backgroundType = BackgroundType.MAIN_MENU
             else -> this.backgroundType = BackgroundType.MAIN_MENU
         }
+
+        refreshBackgroundPreview()
+    }
+
+    private fun refreshBackgroundPreview() {
+        mBackgroundPreview?.let {
+            BackgroundManager.getInstance()?.getBackgroundImage(backgroundType!!)?.apply {
+                Glide.with(requireActivity())
+                    .load(this)
+                    .fitCenter()
+                    .into(DrawableImageViewTarget(it))
+                return
+            }
+
+            it.setImageDrawable(null)
+        }
     }
 
     private fun bindViews(view: View) {
-        mBackgroundLayout = view.findViewById(R.id.background_layout)
-        mOperateLayout = view.findViewById(R.id.operate_layout)
-        mTabLayout = view.findViewById(R.id.zh_custom_background_tab)
+        view.apply {
+            mBackgroundLayout = findViewById(R.id.background_layout)
+            mOperateLayout = findViewById(R.id.operate_layout)
+            mTabLayout = findViewById(R.id.zh_custom_background_tab)
+            mBackgroundPreview = findViewById(R.id.zh_custom_background_preview)
 
-        mReturnButton = view.findViewById(R.id.zh_return_button)
-        mAddFileButton = view.findViewById(R.id.zh_add_file_button)
-        mResetButton = view.findViewById(R.id.zh_paste_button)
-        mRefreshButton = view.findViewById(R.id.zh_refresh_button)
-        mNothingTip = view.findViewById(R.id.zh_custom_background_nothing)
+            mReturnButton = findViewById(R.id.zh_return_button)
+            mAddFileButton = findViewById(R.id.zh_add_file_button)
+            mResetButton = findViewById(R.id.zh_paste_button)
+            mRefreshButton = findViewById(R.id.zh_refresh_button)
+            mNothingTip = findViewById(R.id.zh_custom_background_nothing)
+
+            findViewById<View>(R.id.zh_create_folder_button).visibility = View.GONE
+            findViewById<View>(R.id.zh_search_button).visibility = View.GONE
+
+            mFileRecyclerView = findViewById(R.id.zh_custom_background)
+        }
 
         mResetButton?.setContentDescription(getString(R.string.cropper_reset))
         mAddFileButton?.setContentDescription(getString(R.string.zh_custom_background_add))
         mResetButton?.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_reset))
-
-        view.findViewById<View>(R.id.zh_create_folder_button).visibility = View.GONE
-        view.findViewById<View>(R.id.zh_search_button).visibility = View.GONE
-
-        mFileRecyclerView = view.findViewById(R.id.zh_custom_background)
         mFileRecyclerView?.setFileIcon(FileIcon.FILE)
 
         ZHTools.setTooltipText(mReturnButton, mReturnButton?.contentDescription)

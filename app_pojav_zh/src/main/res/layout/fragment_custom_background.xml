@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@android:color/transparent"
     android:orientation="vertical">
 
@@ -111,6 +112,18 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
+
+            <ImageView
+                android:id="@+id/zh_custom_background_preview"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="@dimen/_45sdp"
+                android:layout_marginHorizontal="@dimen/_24sdp"
+                app:layout_constraintEnd_toEndOf="@+id/operate_main_layout"
+                app:layout_constraintStart_toStartOf="@+id/operate_main_layout"
+                app:layout_constraintTop_toTopOf="@+id/operate_main_layout"
+                tools:srcCompat="@tools:sample/avatars"
+                tools:ignore="ContentDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

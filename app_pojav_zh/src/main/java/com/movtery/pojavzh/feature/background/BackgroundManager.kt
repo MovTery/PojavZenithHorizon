@@ -74,7 +74,7 @@ class BackgroundManager private constructor(val context: Context) {
             .into(DrawableImageViewTarget(backgroundView))
     }
 
-    private fun getBackgroundImage(backgroundType: BackgroundType): File? {
+    fun getBackgroundImage(backgroundType: BackgroundType): File? {
         val pngName = properties[backgroundType.name] as String?
         if (pngName == null || pngName == "null") return null
 
