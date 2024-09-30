@@ -4,10 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager
 import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.setting.AllSettings
+import com.movtery.pojavzh.ui.dialog.LifecycleAwareTipDialog
+import com.movtery.pojavzh.ui.dialog.TipDialog
 import net.kdt.pojavlaunch.Architecture
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
-import net.kdt.pojavlaunch.lifecycle.LifecycleAwareAlertDialog
 import net.kdt.pojavlaunch.multirt.MultiRTUtils
 import net.kdt.pojavlaunch.plugins.FFmpegPlugin
 import net.kdt.pojavlaunch.utils.JREUtils
@@ -65,11 +66,12 @@ class LaunchGame {
             } else R.string.memory_warning_msg
 
             if (AllSettings.ramAllocation > freeDeviceMemory) {
-                val creator = LifecycleAwareAlertDialog.DialogCreator { _, builder ->
-                    builder.setMessage(activity.getString(stringId, freeDeviceMemory, AllSettings.ramAllocation))
-                        .setPositiveButton(android.R.string.ok, null)
-                }
-                if (LifecycleAwareAlertDialog.haltOnDialog(activity.lifecycle, activity, creator)) return
+                val builder = TipDialog.Builder(activity)
+                    .setTitle(R.string.zh_warning)
+                    .setMessage(activity.getString(stringId, freeDeviceMemory, AllSettings.ramAllocation))
+                    .setCenterMessage(false)
+                    .setShowCancel(false)
+                if (LifecycleAwareTipDialog.haltOnDialog(activity.lifecycle, builder)) return
                 // If the dialog's lifecycle has ended, return without
                 // actually launching the game, thus giving us the opportunity
                 // to start after the activity is shown again
