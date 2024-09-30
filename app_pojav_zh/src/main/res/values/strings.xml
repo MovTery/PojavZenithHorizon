@@ -2,7 +2,6 @@
 <resources>
     <!-- App name part -->
     <string name="app_name" translatable="false">Pojav Zenith Horizon</string>
-    <string name="app_short_name" translatable="false">Pojav Zenith Horizon</string>
     <!-- Action bar part -->
     <!-- Languages list part -->
     <!-- Login strings -->

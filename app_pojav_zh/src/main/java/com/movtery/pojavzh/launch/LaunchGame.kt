@@ -44,7 +44,15 @@ class LaunchGame {
             OldVersionsUtils.selectOpenGlVersion(versionInfo)
             val launchClassPath = Tools.generateLaunchClassPath(versionInfo, versionId)
 
-            val launchArgs = LaunchArgs.getAllArgs(account, gameDirPath, versionId, versionInfo, runtime, launchClassPath)
+            val launchArgs = LaunchArgs(
+                activity,
+                account,
+                gameDirPath,
+                versionId,
+                versionInfo,
+                runtime,
+                launchClassPath
+            ).getAllArgs()
             val customArgs = AllSettings.javaArgs.takeIf { it.isNullOrBlank() } ?: minecraftProfile.javaArgs
 
             FFmpegPlugin.discover(activity)

@@ -42,7 +42,6 @@
         <activity
             android:name="com.movtery.pojavzh.ui.activity.SplashActivity"
             android:exported="true"
-            android:label="@string/app_short_name"
             android:launchMode="singleTop"
             android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
             android:screenOrientation="sensorLandscape" >
@@ -59,7 +58,6 @@
             android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".LauncherActivity"
-            android:label="@string/app_short_name"
             android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
             android:screenOrientation="sensorLandscape" />
         <activity
