@@ -1,5 +1,6 @@
 package com.movtery.pojavzh.launch
 
+import android.content.Context
 import androidx.collection.ArrayMap
 import com.movtery.pojavzh.feature.accounts.AccountUtils
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome
@@ -8,131 +9,134 @@ import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.AWTCanvasView
 import net.kdt.pojavlaunch.JMinecraftVersionList.Version
+import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.multirt.Runtime
 import net.kdt.pojavlaunch.utils.JSONUtils
 import net.kdt.pojavlaunch.value.MinecraftAccount
 import java.io.File
 
-class LaunchArgs {
+class LaunchArgs(
+    private val context: Context,
+    private val account: MinecraftAccount,
+    private val gameDirPath: File,
+    private val versionId: String,
+    private val versionInfo: Version,
+    private val runtime: Runtime,
+    private val launchClassPath: String
+) {
+    fun getAllArgs(): List<String> {
+        val argsList: MutableList<String> = ArrayList()
+
+        argsList.addAll(getJavaArgs())
+
+        versionInfo.logging?.apply {
+            var configFilePath = "${PathAndUrlManager.DIR_DATA}/security/${client.file.id.replace("client", "log4j-rce-patch")}"
+            if (!File(configFilePath).exists()) {
+                configFilePath = "${ProfilePathHome.gameHome}/${client.file.id}"
+            }
+            argsList.add("-Dlog4j.configurationFile=$configFilePath")
+        }
+
+        argsList.addAll(getMinecraftJVMArgs())
+        argsList.add("-cp")
+        argsList.add("${Tools.getLWJGL3ClassPath()}:$launchClassPath")
+
+        argsList.add(versionInfo.mainClass)
+        argsList.addAll(getMinecraftClientArgs())
+
+        return argsList
+    }
+
+    private fun getJavaArgs(): List<String> {
+        val argsList: MutableList<String> = ArrayList()
+
+        if (AccountUtils.isOtherLoginAccount(account)) {
+            if (account.baseUrl.contains("auth.mc-user.com")) {
+                argsList.add("-javaagent:${PathAndUrlManager.DIR_GAME_HOME}/other_login/nide8auth.jar=${account.baseUrl.replace("https://auth.mc-user.com:233/", "")}")
+                argsList.add("-Dnide8auth.client=true")
+            } else {
+                argsList.add("-javaagent:${PathAndUrlManager.DIR_GAME_HOME}/other_login/authlib-injector.jar=${account.baseUrl}")
+            }
+        }
+
+        argsList.addAll(getCacioJavaArgs(runtime.javaVersion == 8))
+
+        return argsList
+    }
+
+    private fun getMinecraftJVMArgs(): Array<String> {
+        val versionInfo = Tools.getVersionInfo(versionId, true)
+
+        // Parse Forge 1.17+ additional JVM Arguments
+        if (versionInfo.inheritsFrom == null || versionInfo.arguments == null || versionInfo.arguments.jvm == null) {
+            return emptyArray()
+        }
+
+        val varArgMap: MutableMap<String, String?> = android.util.ArrayMap()
+        varArgMap["classpath_separator"] = ":"
+        varArgMap["library_directory"] = librariesHome
+        varArgMap["version_name"] = versionInfo.id
+        varArgMap["natives_directory"] = PathAndUrlManager.DIR_NATIVE_LIB
+
+        val minecraftArgs: MutableList<String> = java.util.ArrayList()
+        if (versionInfo.arguments != null) {
+            for (arg in versionInfo.arguments.jvm) {
+                if (arg is String) {
+                    minecraftArgs.add(arg)
+                }
+            }
+        }
+        return JSONUtils.insertJSONValueList(minecraftArgs.toTypedArray<String>(), varArgMap)
+    }
+
+    private fun getMinecraftClientArgs(): Array<String> {
+        val verArgMap: MutableMap<String, String> = ArrayMap()
+        verArgMap["auth_session"] = account.accessToken
+        verArgMap["auth_access_token"] = account.accessToken
+        verArgMap["auth_player_name"] = account.username
+        verArgMap["auth_uuid"] = account.profileId.replace("-", "")
+        verArgMap["auth_xuid"] = account.xuid
+        verArgMap["assets_root"] = ProfilePathHome.assetsHome
+        verArgMap["assets_index_name"] = versionInfo.assets
+        verArgMap["game_assets"] = ProfilePathHome.assetsHome
+        verArgMap["game_directory"] = gameDirPath.absolutePath
+        verArgMap["user_properties"] = "{}"
+        verArgMap["user_type"] = "msa"
+        verArgMap["version_name"] = versionInfo.inheritsFrom ?: versionInfo.id
+
+        setLauncherInfo(verArgMap)
+
+        val minecraftArgs: MutableList<String> = ArrayList()
+        versionInfo.arguments?.apply {
+            // Support Minecraft 1.13+
+            game.forEach { if (it is String) minecraftArgs.add(it) }
+        }
+
+        return JSONUtils.insertJSONValueList(
+            splitAndFilterEmpty(
+                versionInfo.minecraftArguments ?:
+                Tools.fromStringArray(minecraftArgs.toTypedArray())
+            ), verArgMap
+        )
+    }
+
+    private fun setLauncherInfo(verArgMap: MutableMap<String, String>) {
+        val launcherName = context.getString(R.string.app_name).replace("\\s+".toRegex(), "")
+        verArgMap["launcher_name"] = launcherName
+        verArgMap["launcher_version"] = ZHTools.getVersionName()
+        verArgMap["version_type"] = launcherName
+    }
+
+    private fun splitAndFilterEmpty(arg: String): Array<String> {
+        val list: MutableList<String> = ArrayList()
+        arg.split(" ").forEach {
+            if (it.isNotEmpty()) list.add(it)
+        }
+        return list.toTypedArray()
+    }
+
     companion object {
-        fun getAllArgs(
-            account: MinecraftAccount,
-            gameDirPath: File,
-            versionId: String,
-            versionInfo: Version,
-            runtime: Runtime,
-            launchClassPath: String
-        ): List<String> {
-            val argsList: MutableList<String> = ArrayList()
-
-            argsList.addAll(getJavaArgs(account, runtime))
-
-            versionInfo.logging?.apply {
-                var configFilePath = "${PathAndUrlManager.DIR_DATA}/security/${client.file.id.replace("client", "log4j-rce-patch")}"
-                if (!File(configFilePath).exists()) {
-                    configFilePath = "${ProfilePathHome.gameHome}/${client.file.id}"
-                }
-                argsList.add("-Dlog4j.configurationFile=$configFilePath")
-            }
-
-            argsList.addAll(getMinecraftJVMArgs(versionId))
-            argsList.add("-cp")
-            argsList.add("${Tools.getLWJGL3ClassPath()}:$launchClassPath")
-
-            argsList.add(versionInfo.mainClass)
-            argsList.addAll(getMinecraftClientArgs(account, versionInfo, gameDirPath))
-
-            return argsList
-        }
-
-        private fun getJavaArgs(
-            account: MinecraftAccount,
-            runtime: Runtime
-        ): List<String> {
-            val argsList: MutableList<String> = ArrayList()
-
-            if (AccountUtils.isOtherLoginAccount(account)) {
-                if (account.baseUrl.contains("auth.mc-user.com")) {
-                    argsList.add("-javaagent:${PathAndUrlManager.DIR_GAME_HOME}/other_login/nide8auth.jar=${account.baseUrl.replace("https://auth.mc-user.com:233/", "")}")
-                    argsList.add("-Dnide8auth.client=true")
-                } else {
-                    argsList.add("-javaagent:${PathAndUrlManager.DIR_GAME_HOME}/other_login/authlib-injector.jar=${account.baseUrl}")
-                }
-            }
-
-            argsList.addAll(getCacioJavaArgs(runtime.javaVersion == 8))
-
-            return argsList
-        }
-
-        private fun getMinecraftJVMArgs(versionName: String): Array<String> {
-            val versionInfo = Tools.getVersionInfo(versionName, true)
-
-            // Parse Forge 1.17+ additional JVM Arguments
-            if (versionInfo.inheritsFrom == null || versionInfo.arguments == null || versionInfo.arguments.jvm == null) {
-                return emptyArray()
-            }
-
-            val varArgMap: MutableMap<String, String?> = android.util.ArrayMap()
-            varArgMap["classpath_separator"] = ":"
-            varArgMap["library_directory"] = librariesHome
-            varArgMap["version_name"] = versionInfo.id
-            varArgMap["natives_directory"] = PathAndUrlManager.DIR_NATIVE_LIB
-
-            val minecraftArgs: MutableList<String> = java.util.ArrayList()
-            if (versionInfo.arguments != null) {
-                for (arg in versionInfo.arguments.jvm) {
-                    if (arg is String) {
-                        minecraftArgs.add(arg)
-                    } //TODO: implement (?maybe?)
-                }
-            }
-            return JSONUtils.insertJSONValueList(minecraftArgs.toTypedArray<String>(), varArgMap)
-        }
-
-        private fun getMinecraftClientArgs(
-            account: MinecraftAccount,
-            versionInfo: Version,
-            gameDirPath: File
-        ): Array<String> {
-            val verArgMap: MutableMap<String, String> = ArrayMap()
-            verArgMap["auth_session"] = account.accessToken
-            verArgMap["auth_access_token"] = account.accessToken
-            verArgMap["auth_player_name"] = account.username
-            verArgMap["auth_uuid"] = account.profileId.replace("-", "")
-            verArgMap["auth_xuid"] = account.xuid
-            verArgMap["assets_root"] = ProfilePathHome.assetsHome
-            verArgMap["assets_index_name"] = versionInfo.assets
-            verArgMap["game_assets"] = ProfilePathHome.assetsHome
-            verArgMap["game_directory"] = gameDirPath.absolutePath
-            verArgMap["user_properties"] = "{}"
-            verArgMap["user_type"] = "msa"
-            verArgMap["version_name"] = versionInfo.inheritsFrom ?: versionInfo.id
-
-            setLauncherArgs(verArgMap)
-
-            val minecraftArgs: MutableList<String> = ArrayList()
-            versionInfo.arguments?.apply {
-                // Support Minecraft 1.13+
-                game.forEach { if (it is String) minecraftArgs.add(it) }
-            }
-
-            return JSONUtils.insertJSONValueList(
-                splitAndFilterEmpty(
-                    versionInfo.minecraftArguments ?:
-                    Tools.fromStringArray(minecraftArgs.toTypedArray())
-                ), verArgMap
-            )
-        }
-
-        private fun setLauncherArgs(verArgMap: MutableMap<String, String>) {
-            val launcherName = "PZH"
-            verArgMap["launcher_name"] = launcherName
-            verArgMap["launcher_version"] = ZHTools.getVersionName()
-            verArgMap["version_type"] = launcherName
-        }
-
         @JvmStatic
         fun getCacioJavaArgs(isJava8: Boolean): List<String> {
             val argsList: MutableList<String> = ArrayList()
@@ -174,23 +178,13 @@ class LaunchArgs {
             val cacioClassPath = StringBuilder()
             cacioClassPath.append("-Xbootclasspath/").append(if (isJava8) "p" else "a")
             val cacioFiles = File(PathAndUrlManager.DIR_GAME_HOME, "/caciocavallo${if (isJava8) "" else "17"}")
-            cacioFiles.listFiles()?.apply {
-                this.forEach {
-                    if (it.name.endsWith(".jar")) cacioClassPath.append(":").append(it.absolutePath)
-                }
+            cacioFiles.listFiles()?.onEach {
+                if (it.name.endsWith(".jar")) cacioClassPath.append(":").append(it.absolutePath)
             }
 
             argsList.add(cacioClassPath.toString())
 
             return argsList
-        }
-
-        private fun splitAndFilterEmpty(arg: String): Array<String> {
-            val list: MutableList<String> = ArrayList()
-            arg.split(" ").forEach {
-                if (it.isNotEmpty()) list.add(it)
-            }
-            return list.toTypedArray()
         }
     }
 }
