@@ -18,6 +18,7 @@ import androidx.activity.OnBackPressedCallback;
 
 import com.kdt.LoggerView;
 import com.movtery.pojavzh.feature.log.Logging;
+import com.movtery.pojavzh.launch.LaunchArgs;
 import com.movtery.pojavzh.setting.AllSettings;
 import com.movtery.pojavzh.ui.activity.BaseActivity;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
@@ -371,10 +372,8 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
     public void launchJavaRuntime(Runtime runtime, File modFile, List<String> javaArgs) {
         JREUtils.redirectAndPrintJRELog();
         try {
-            List<String> javaArgList = new ArrayList<>();
-
             // Enable Caciocavallo
-            Tools.getCacioJavaArgs(javaArgList,runtime.javaVersion == 8);
+            List<String> javaArgList = new ArrayList<>(LaunchArgs.getCacioJavaArgs(runtime.javaVersion == 8));
             if(javaArgs != null) {
                 javaArgList.addAll(javaArgs);
             }

@@ -22,7 +22,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.OpenableColumns;
-import android.util.ArrayMap;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
@@ -31,7 +30,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.FragmentActivity;
 
@@ -50,22 +48,14 @@ import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutorTask;
-import net.kdt.pojavlaunch.lifecycle.LifecycleAwareAlertDialog;
 import net.kdt.pojavlaunch.memory.MemoryHoleFinder;
 import net.kdt.pojavlaunch.memory.SelfMapsParser;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 import net.kdt.pojavlaunch.multirt.Runtime;
-import net.kdt.pojavlaunch.plugins.FFmpegPlugin;
-import net.kdt.pojavlaunch.utils.DateUtils;
 import net.kdt.pojavlaunch.utils.DownloadUtils;
 import net.kdt.pojavlaunch.utils.FileUtils;
-import net.kdt.pojavlaunch.utils.JREUtils;
-import net.kdt.pojavlaunch.utils.JSONUtils;
-import net.kdt.pojavlaunch.utils.OldVersionsUtils;
 import net.kdt.pojavlaunch.value.DependentLibrary;
-import net.kdt.pojavlaunch.value.MinecraftAccount;
 import net.kdt.pojavlaunch.value.MinecraftLibraryArtifact;
-import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
 import org.apache.commons.codec.binary.Hex;
@@ -83,13 +73,9 @@ import java.io.StringWriter;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 @SuppressWarnings("IOStreamConstructor")
 public final class Tools {
@@ -121,83 +107,6 @@ public final class Tools {
         File externalFilesDir = new File(PathAndUrlManager.DIR_GAME_HOME);
         //externalFilesDir == null when the storage is not mounted if it was obtained with the context call
         return Environment.getExternalStorageState(externalFilesDir).equals(Environment.MEDIA_MOUNTED);
-    }
-
-    public static void launchMinecraft(final AppCompatActivity activity, MinecraftAccount minecraftAccount,
-                                       MinecraftProfile minecraftProfile, String versionId, int versionJavaRequirement) throws Throwable {
-        int freeDeviceMemory = getFreeDeviceMemory(activity);
-        int localeString;
-        int freeAddressSpace = Architecture.is32BitsDevice() ? getMaxContinuousAddressSpaceSize() : -1;
-        Logging.i("MemStat", "Free RAM: " + freeDeviceMemory + " Addressable: " + freeAddressSpace);
-        if(freeDeviceMemory > freeAddressSpace && freeAddressSpace != -1) {
-            freeDeviceMemory = freeAddressSpace;
-            localeString = R.string.address_memory_warning_msg;
-        } else {
-            localeString = R.string.memory_warning_msg;
-        }
-
-        int ramAllocation = AllSettings.Companion.getRamAllocation();
-        if(ramAllocation > freeDeviceMemory) {
-            int finalDeviceMemory = freeDeviceMemory;
-            LifecycleAwareAlertDialog.DialogCreator dialogCreator = (dialog, builder) ->
-                builder.setMessage(activity.getString(localeString, finalDeviceMemory, ramAllocation))
-                        .setPositiveButton(android.R.string.ok, (d, w)->{});
-
-            if(LifecycleAwareAlertDialog.haltOnDialog(activity.getLifecycle(), activity, dialogCreator)) {
-                return; // If the dialog's lifecycle has ended, return without
-                // actually launching the game, thus giving us the opportunity
-                // to start after the activity is shown again
-            }
-        }
-        Runtime runtime = MultiRTUtils.forceReread(Tools.pickRuntime(activity, minecraftProfile, versionJavaRequirement));
-        JMinecraftVersionList.Version versionInfo = Tools.getVersionInfo(versionId);
-        LauncherProfiles.load(ProfilePathManager.getCurrentProfile());
-        File gamedir = Tools.getGameDirPath(minecraftProfile);
-
-
-        // Pre-process specific files
-        disableSplash(gamedir);
-        String[] launchArgs = getMinecraftClientArgs(minecraftAccount, versionInfo, gamedir);
-
-        // Select the appropriate openGL version
-        OldVersionsUtils.selectOpenGlVersion(versionInfo);
-
-
-        String launchClassPath = generateLaunchClassPath(versionInfo, versionId);
-
-        List<String> javaArgList = new ArrayList<>();
-
-        if (!Objects.isNull(minecraftAccount.baseUrl) && !minecraftAccount.baseUrl.equals("0")) {
-            if (minecraftAccount.baseUrl.contains("auth.mc-user.com")) {
-                javaArgList.add("-javaagent:" + PathAndUrlManager.DIR_GAME_HOME + "/other_login/nide8auth.jar=" + minecraftAccount.baseUrl.replace("https://auth.mc-user.com:233/", ""));
-                javaArgList.add("-Dnide8auth.client=true");
-            } else {
-                javaArgList.add("-javaagent:" + PathAndUrlManager.DIR_GAME_HOME + "/other_login/authlib-injector.jar=" + minecraftAccount.baseUrl);
-            }
-        }
-
-        getCacioJavaArgs(javaArgList, runtime.javaVersion == 8);
-
-        if (versionInfo.logging != null) {
-            String configFile = PathAndUrlManager.DIR_DATA + "/security/" + versionInfo.logging.client.file.id.replace("client", "log4j-rce-patch");
-            if (!new File(configFile).exists()) {
-                configFile = ProfilePathHome.getGameHome() + "/" + versionInfo.logging.client.file.id;
-            }
-            javaArgList.add("-Dlog4j.configurationFile=" + configFile);
-        }
-        javaArgList.addAll(Arrays.asList(getMinecraftJVMArgs(versionId, gamedir)));
-        javaArgList.add("-cp");
-        javaArgList.add(getLWJGL3ClassPath() + ":" + launchClassPath);
-
-        javaArgList.add(versionInfo.mainClass);
-        javaArgList.addAll(Arrays.asList(launchArgs));
-        // ctx.appendlnToLog("full args: "+javaArgList.toString());
-        String args = AllSettings.Companion.getJavaArgs();
-        if(Tools.isValidString(minecraftProfile.javaArgs)) args = minecraftProfile.javaArgs;
-        FFmpegPlugin.discover(activity);
-        JREUtils.launchJavaVM(activity, runtime, gamedir, javaArgList, args);
-        // If we returned, this means that the JVM exit dialog has been shown and we don't need to be active anymore.
-        // We never return otherwise. The process will be killed anyway, and thus we will become inactive
     }
 
     public static File getGameDirPath(@NonNull MinecraftProfile minecraftProfile){
@@ -238,134 +147,6 @@ public final class Tools {
         }
     }
 
-    public static void getCacioJavaArgs(List<String> javaArgList, boolean isJava8) {
-        // Caciocavallo config AWT-enabled version
-        javaArgList.add("-Djava.awt.headless=false");
-        javaArgList.add("-Dcacio.managed.screensize=" + AWTCanvasView.AWT_CANVAS_WIDTH + "x" + AWTCanvasView.AWT_CANVAS_HEIGHT);
-        javaArgList.add("-Dcacio.font.fontmanager=sun.awt.X11FontManager");
-        javaArgList.add("-Dcacio.font.fontscaler=sun.font.FreetypeFontScaler");
-        javaArgList.add("-Dswing.defaultlaf=javax.swing.plaf.metal.MetalLookAndFeel");
-        if (isJava8) {
-            javaArgList.add("-Dawt.toolkit=net.java.openjdk.cacio.ctc.CTCToolkit");
-            javaArgList.add("-Djava.awt.graphicsenv=net.java.openjdk.cacio.ctc.CTCGraphicsEnvironment");
-        } else {
-            javaArgList.add("-Dawt.toolkit=com.github.caciocavallosilano.cacio.ctc.CTCToolkit");
-            javaArgList.add("-Djava.awt.graphicsenv=com.github.caciocavallosilano.cacio.ctc.CTCGraphicsEnvironment");
-            javaArgList.add("-Djava.system.class.loader=com.github.caciocavallosilano.cacio.ctc.CTCPreloadClassLoader");
-
-            javaArgList.add("--add-exports=java.desktop/java.awt=ALL-UNNAMED");
-            javaArgList.add("--add-exports=java.desktop/java.awt.peer=ALL-UNNAMED");
-            javaArgList.add("--add-exports=java.desktop/sun.awt.image=ALL-UNNAMED");
-            javaArgList.add("--add-exports=java.desktop/sun.java2d=ALL-UNNAMED");
-            javaArgList.add("--add-exports=java.desktop/java.awt.dnd.peer=ALL-UNNAMED");
-            javaArgList.add("--add-exports=java.desktop/sun.awt=ALL-UNNAMED");
-            javaArgList.add("--add-exports=java.desktop/sun.awt.event=ALL-UNNAMED");
-            javaArgList.add("--add-exports=java.desktop/sun.awt.datatransfer=ALL-UNNAMED");
-            javaArgList.add("--add-exports=java.desktop/sun.font=ALL-UNNAMED");
-            javaArgList.add("--add-exports=java.base/sun.security.action=ALL-UNNAMED");
-            javaArgList.add("--add-opens=java.base/java.util=ALL-UNNAMED");
-            javaArgList.add("--add-opens=java.desktop/java.awt=ALL-UNNAMED");
-            javaArgList.add("--add-opens=java.desktop/sun.font=ALL-UNNAMED");
-            javaArgList.add("--add-opens=java.desktop/sun.java2d=ALL-UNNAMED");
-            javaArgList.add("--add-opens=java.base/java.lang.reflect=ALL-UNNAMED");
-
-            // Opens the java.net package to Arc DNS injector on Java 9+
-            javaArgList.add("--add-opens=java.base/java.net=ALL-UNNAMED");
-        }
-
-        StringBuilder cacioClasspath = new StringBuilder();
-        cacioClasspath.append("-Xbootclasspath/").append(isJava8 ? "p" : "a");
-        File cacioDir = new File(PathAndUrlManager.DIR_GAME_HOME + "/caciocavallo" + (isJava8 ? "" : "17"));
-        File[] cacioFiles = cacioDir.listFiles();
-        if (cacioFiles != null) {
-            for (File file : cacioFiles) {
-                if (file.getName().endsWith(".jar")) {
-                    cacioClasspath.append(":").append(file.getAbsolutePath());
-                }
-            }
-        }
-        javaArgList.add(cacioClasspath.toString());
-    }
-
-    public static String[] getMinecraftJVMArgs(String versionName, File gameDir) {
-        JMinecraftVersionList.Version versionInfo = Tools.getVersionInfo(versionName, true);
-        // Parse Forge 1.17+ additional JVM Arguments
-        if (versionInfo.inheritsFrom == null || versionInfo.arguments == null || versionInfo.arguments.jvm == null) {
-            return new String[0];
-        }
-
-        Map<String, String> varArgMap = new ArrayMap<>();
-        varArgMap.put("classpath_separator", ":");
-        varArgMap.put("library_directory", ProfilePathHome.getLibrariesHome());
-        varArgMap.put("version_name", versionInfo.id);
-        varArgMap.put("natives_directory", PathAndUrlManager.DIR_NATIVE_LIB);
-
-        List<String> minecraftArgs = new ArrayList<>();
-        if (versionInfo.arguments != null) {
-            for (Object arg : versionInfo.arguments.jvm) {
-                if (arg instanceof String) {
-                    minecraftArgs.add((String) arg);
-                } //TODO: implement (?maybe?)
-            }
-        }
-        return JSONUtils.insertJSONValueList(minecraftArgs.toArray(new String[0]), varArgMap);
-    }
-
-    public static String[] getMinecraftClientArgs(MinecraftAccount profile, JMinecraftVersionList.Version versionInfo, File gameDir) {
-        String username = profile.username;
-        String versionName = versionInfo.id;
-        if (versionInfo.inheritsFrom != null) {
-            versionName = versionInfo.inheritsFrom;
-        }
-
-        String userType = "mojang";
-        try {
-            Date creationDate = DateUtils.getOriginalReleaseDate(versionInfo);
-            // Minecraft 22w43a which adds chat reporting (and signing) was released on
-            // 26th October 2022. So, if the date is not before that (meaning it is equal or higher)
-            // change the userType to MSA to fix the missing signature
-            if(creationDate != null && !DateUtils.dateBefore(creationDate, 2022, 9, 26)) {
-                userType = "msa";
-            }
-        }catch (ParseException e) {
-            Logging.e("CheckForProfileKey", "Failed to determine profile creation date, using \"mojang\"", e);
-        }
-
-
-        Map<String, String> varArgMap = new ArrayMap<>();
-        varArgMap.put("auth_session", profile.accessToken); // For legacy versions of MC
-        varArgMap.put("auth_access_token", profile.accessToken);
-        varArgMap.put("auth_player_name", username);
-        varArgMap.put("auth_uuid", profile.profileId.replace("-", ""));
-        varArgMap.put("auth_xuid", profile.xuid);
-        varArgMap.put("assets_root", ProfilePathHome.getAssetsHome());
-        varArgMap.put("assets_index_name", versionInfo.assets);
-        varArgMap.put("game_assets", ProfilePathHome.getAssetsHome());
-        varArgMap.put("game_directory", gameDir.getAbsolutePath());
-        varArgMap.put("user_properties", "{}");
-        varArgMap.put("user_type", userType);
-        varArgMap.put("version_name", versionName);
-        varArgMap.put("version_type", versionInfo.type);
-
-        List<String> minecraftArgs = new ArrayList<>();
-        if (versionInfo.arguments != null) {
-            // Support Minecraft 1.13+
-            for (Object arg : versionInfo.arguments.game) {
-                if (arg instanceof String) {
-                    minecraftArgs.add((String) arg);
-                } //TODO: implement else clause
-            }
-        }
-
-        return JSONUtils.insertJSONValueList(
-                splitAndFilterEmpty(
-                        versionInfo.minecraftArguments == null ?
-                                fromStringArray(minecraftArgs.toArray(new String[0])):
-                                versionInfo.minecraftArguments
-                ), varArgMap
-        );
-    }
-
     public static String fromStringArray(String[] strArr) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < strArr.length; i++) {
@@ -374,17 +155,6 @@ public final class Tools {
         }
 
         return builder.toString();
-    }
-
-    private static String[] splitAndFilterEmpty(String argStr) {
-        List<String> strList = new ArrayList<>();
-        for (String arg : argStr.split(" ")) {
-            if (!arg.isEmpty()) {
-                strList.add(arg);
-            }
-        }
-        //strList.add("--fullscreen");
-        return strList.toArray(new String[0]);
     }
 
     public static String artifactToPath(DependentLibrary library) {
@@ -400,7 +170,7 @@ public final class Tools {
         return ProfilePathHome.getVersionsHome() + "/" + version + "/" + version + ".jar";
     }
 
-    private static String getLWJGL3ClassPath() {
+    public static String getLWJGL3ClassPath() {
         StringBuilder libStr = new StringBuilder();
         File lwjgl3Folder = new File(PathAndUrlManager.DIR_GAME_HOME, "lwjgl3");
         File[] lwjgl3Files = lwjgl3Folder.listFiles();
@@ -615,12 +385,6 @@ public final class Tools {
 
         // Add your Context-related rage here
         ContextExecutor.execute(new ShowErrorActivity.RemoteErrorTask(e, rolledMessage));
-    }
-
-
-
-    public static void dialogOnUiThread(final Activity activity, final CharSequence title, final CharSequence message) {
-        activity.runOnUiThread(()->dialog(activity, title, message));
     }
 
     public static void dialog(final Context context, final CharSequence title, final CharSequence message) {

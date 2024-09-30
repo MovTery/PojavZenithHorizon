@@ -45,6 +45,7 @@ import com.movtery.pojavzh.feature.accounts.AccountsManager;
 import com.movtery.pojavzh.feature.background.BackgroundManager;
 import com.movtery.pojavzh.feature.background.BackgroundType;
 import com.movtery.pojavzh.feature.log.Logging;
+import com.movtery.pojavzh.launch.LaunchGame;
 import com.movtery.pojavzh.setting.AllSettings;
 import com.movtery.pojavzh.setting.Settings;
 import com.movtery.pojavzh.ui.activity.BaseActivity;
@@ -387,7 +388,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         LauncherProfiles.load(ProfilePathManager.getCurrentProfile());
         int requiredJavaVersion = 8;
         if(version.javaVersion != null) requiredJavaVersion = version.javaVersion.majorVersion;
-        Tools.launchMinecraft(this, minecraftAccount, minecraftProfile, versionId, requiredJavaVersion);
+        LaunchGame.launch(this, minecraftAccount, minecraftProfile, versionId, requiredJavaVersion);
         //Note that we actually stall in the above function, even if the game crashes. But let's be safe.
         Tools.runOnUiThread(()-> mServiceBinder.isActive = false);
     }
