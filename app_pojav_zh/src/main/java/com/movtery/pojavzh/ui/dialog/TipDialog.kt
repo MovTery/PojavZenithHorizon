@@ -97,7 +97,7 @@ class TipDialog private constructor(
         private var showConfirm = true
         private var centerMessage = true
 
-        fun buildDialog() {
+        fun buildDialog(): TipDialog {
             val tipDialog = TipDialog(
                 this.context,
                 title, message, confirm, cancel,
@@ -107,6 +107,7 @@ class TipDialog private constructor(
             )
             tipDialog.setCancelable(cancelable)
             tipDialog.show()
+            return tipDialog
         }
 
         fun setTitle(title: String?): Builder {
