@@ -5,6 +5,7 @@ import com.movtery.pojavzh.feature.accounts.AccountUtils
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome.Companion.librariesHome
 import com.movtery.pojavzh.utils.PathAndUrlManager
+import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.AWTCanvasView
 import net.kdt.pojavlaunch.JMinecraftVersionList.Version
 import net.kdt.pojavlaunch.Tools
@@ -108,7 +109,8 @@ class LaunchArgs {
             verArgMap["user_properties"] = "{}"
             verArgMap["user_type"] = "msa"
             verArgMap["version_name"] = versionInfo.inheritsFrom ?: versionInfo.id
-            verArgMap["version_type"] = versionInfo.type
+
+            setLauncherArgs(verArgMap)
 
             val minecraftArgs: MutableList<String> = ArrayList()
             versionInfo.arguments?.apply {
@@ -122,6 +124,13 @@ class LaunchArgs {
                     Tools.fromStringArray(minecraftArgs.toTypedArray())
                 ), verArgMap
             )
+        }
+
+        private fun setLauncherArgs(verArgMap: MutableMap<String, String>) {
+            val launcherName = "PZH"
+            verArgMap["launcher_name"] = launcherName
+            verArgMap["launcher_version"] = ZHTools.getVersionName()
+            verArgMap["version_type"] = launcherName
         }
 
         @JvmStatic
