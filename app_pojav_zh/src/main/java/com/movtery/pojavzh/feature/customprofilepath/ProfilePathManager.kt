@@ -33,19 +33,20 @@ class ProfilePathManager {
                     return defaultPath
                 }
 
-                if (PathAndUrlManager.FILE_PROFILE_PATH!!.exists()) {
-                    try {
-                        val read = Tools.read(PathAndUrlManager.FILE_PROFILE_PATH)
-                        val jsonObject = JsonParser.parseString(read).asJsonObject
-                        if (jsonObject.has(id)) {
-                            val profilePathJsonObject =
-                                Gson().fromJson(jsonObject[id], ProfilePathJsonObject::class.java)
-                            return profilePathJsonObject.path
-                        }
-                    } catch (e: IOException) {
-                        Logging.e("Read Profile", e.toString())
+                PathAndUrlManager.FILE_PROFILE_PATH?.apply {
+                    if (exists()) {
+                        runCatching {
+                            val read = Tools.read(this)
+                            val jsonObject = JsonParser.parseString(read).asJsonObject
+                            if (jsonObject.has(id)) {
+                                val profilePathJsonObject =
+                                    Gson().fromJson(jsonObject[id], ProfilePathJsonObject::class.java)
+                                return profilePathJsonObject.path
+                            }
+                        }.getOrElse { e -> Logging.e("Read Profile", e.toString()) }
                     }
                 }
+
                 return defaultPath
             }
 
