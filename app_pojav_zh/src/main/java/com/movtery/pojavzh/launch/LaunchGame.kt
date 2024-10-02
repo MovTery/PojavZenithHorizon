@@ -53,7 +53,8 @@ class LaunchGame {
                 runtime,
                 launchClassPath
             ).getAllArgs()
-            val customArgs = AllSettings.javaArgs.takeIf { it.isNullOrBlank() } ?: minecraftProfile.javaArgs
+            val customArgs = minecraftProfile.javaArgs.takeIf { it.isNullOrBlank() } ?:
+            AllSettings.javaArgs.takeIf { it.isNullOrBlank() } ?: ""
 
             FFmpegPlugin.discover(activity)
             JREUtils.launchJavaVM(activity, runtime, gameDirPath, launchArgs, customArgs)
