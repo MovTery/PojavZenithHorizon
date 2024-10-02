@@ -17,9 +17,13 @@ import fr.spse.gamepad_remapper.Remapper
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.fragments.GamepadMapperFragment
 
-class ControlSettingsFragment(val parent: FragmentWithAnim) :
-    AbstractSettingsFragment(R.layout.settings_fragment_control) {
+class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fragment_control) {
+    private var parentFragment: FragmentWithAnim? = null
     private var mainView: View? = null
+
+    constructor(parentFragment: FragmentWithAnim?) : this() {
+        this.parentFragment = parentFragment
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val context = requireContext()
@@ -109,12 +113,14 @@ class ControlSettingsFragment(val parent: FragmentWithAnim) :
             context,
             view.findViewById(R.id.zh_custom_mouse_layout)
         ) {
-            ZHTools.swapFragmentWithAnim(
-                parent,
-                CustomMouseFragment::class.java,
-                CustomMouseFragment.TAG,
-                null
-            )
+            parentFragment?.apply {
+                ZHTools.swapFragmentWithAnim(
+                    this,
+                    CustomMouseFragment::class.java,
+                    CustomMouseFragment.TAG,
+                    null
+                )
+            }
         }
 
         SwitchSettingsWrapper(
@@ -177,12 +183,14 @@ class ControlSettingsFragment(val parent: FragmentWithAnim) :
             context,
             view.findViewById(R.id.changeControllerBindings_layout)
         ) {
-            ZHTools.swapFragmentWithAnim(
-                parent,
-                GamepadMapperFragment::class.java,
-                GamepadMapperFragment.TAG,
-                null
-            )
+            parentFragment?.apply {
+                ZHTools.swapFragmentWithAnim(
+                    this,
+                    GamepadMapperFragment::class.java,
+                    GamepadMapperFragment.TAG,
+                    null
+                )
+            }
         }
 
         BaseSettingsWrapper(

@@ -16,8 +16,13 @@ import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.extra.ExtraCore
 
-class LauncherSettingsFragment(val parent: FragmentWithAnim) :
-    AbstractSettingsFragment(R.layout.settings_fragment_launcher) {
+class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fragment_launcher) {
+    private var parentFragment: FragmentWithAnim? = null
+
+    constructor(parentFragment: FragmentWithAnim?) : this() {
+        this.parentFragment = parentFragment
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val context = requireContext()
 
@@ -99,12 +104,14 @@ class LauncherSettingsFragment(val parent: FragmentWithAnim) :
             context,
             view.findViewById(R.id.zh_custom_background_layout)
         ) {
-            ZHTools.swapFragmentWithAnim(
-                parent,
-                CustomBackgroundFragment::class.java,
-                CustomBackgroundFragment.TAG,
-                null
-            )
+            parentFragment?.apply {
+                ZHTools.swapFragmentWithAnim(
+                    this,
+                    CustomBackgroundFragment::class.java,
+                    CustomBackgroundFragment.TAG,
+                    null
+                )
+            }
         }
 
         SwitchSettingsWrapper(
