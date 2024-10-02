@@ -167,8 +167,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         setContentView(R.layout.activity_basemain);
         bindValues();
 
-        BackgroundManager instance = BackgroundManager.getInstance();
-        if (instance != null) instance.setBackgroundImage(BackgroundType.IN_GAME, findViewById(R.id.background_view));
+        BackgroundManager.setBackgroundImage(this, BackgroundType.IN_GAME, findViewById(R.id.background_view));
 
         keyboardDialog = new KeyboardDialog(this).setShowSpecialButtons(false);
 

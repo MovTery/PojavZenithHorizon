@@ -105,9 +105,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
                     backgroundPath(), file)
                 filesDialog.setMoreButtonClick {
                     backgroundMap[backgroundType] = fileName
-                    BackgroundManager.getInstance()?.apply {
-                        saveProperties(backgroundMap)
-                    }
+                    BackgroundManager.saveProperties(backgroundMap)
                     refreshBackground()
 
                     Toast.makeText(requireActivity(),
@@ -143,9 +141,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
 
         mResetButton?.setOnClickListener { _: View? ->
             backgroundMap[backgroundType] = "null"
-            BackgroundManager.getInstance()?.apply {
-                saveProperties(backgroundMap)
-            }
+            BackgroundManager.saveProperties(backgroundMap)
             Toast.makeText(requireActivity(), getString(R.string.zh_custom_background_reset, currentStatusName), Toast.LENGTH_SHORT).show()
             refreshBackground()
         }
@@ -176,7 +172,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
     }
 
     private fun initBackgroundMap() {
-        BackgroundManager.getInstance()?.apply {
+        BackgroundManager.apply {
             backgroundMap[BackgroundType.MAIN_MENU] = properties[BackgroundType.MAIN_MENU.name] as String?
             backgroundMap[BackgroundType.CUSTOM_CONTROLS] = properties[BackgroundType.CUSTOM_CONTROLS.name] as String?
             backgroundMap[BackgroundType.IN_GAME] = properties[BackgroundType.IN_GAME.name] as String?
@@ -215,7 +211,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
 
     private fun refreshBackgroundPreview() {
         mBackgroundPreview?.let {
-            BackgroundManager.getInstance()?.getBackgroundImage(backgroundType!!)?.apply {
+            BackgroundManager.getBackgroundImage(backgroundType!!)?.apply {
                 Glide.with(requireActivity())
                     .load(this)
                     .fitCenter()

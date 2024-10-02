@@ -518,10 +518,7 @@ public class LauncherActivity extends BaseActivity {
     }
 
     private void refreshBackground() {
-        BackgroundManager instance = BackgroundManager.getInstance();
-        if (instance != null) {
-            instance.setBackgroundImage(BackgroundType.MAIN_MENU, findViewById(R.id.background_view));
-        }
+        BackgroundManager.setBackgroundImage(this, BackgroundType.MAIN_MENU, findViewById(R.id.background_view));
     }
 
     private void launchGame(MinecraftProfile prof) {

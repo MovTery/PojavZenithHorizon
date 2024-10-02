@@ -1,6 +1,5 @@
 package com.movtery.pojavzh.feature.background
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
@@ -17,20 +16,8 @@ import java.io.FileReader
 import java.io.FileWriter
 import java.util.Properties
 
-class BackgroundManager private constructor(val context: Context) {
-    companion object {
-        private val FILE_BACKGROUND_PROPERTIES: File = File(PathAndUrlManager.DIR_DATA, "background.properties")
-        @SuppressLint("StaticFieldLeak")
-        private var sBackgroundManager: BackgroundManager? = null
-
-        @JvmStatic
-        fun setContext(context: Context) {
-            sBackgroundManager = BackgroundManager(context)
-        }
-
-        @JvmStatic
-        fun getInstance() = sBackgroundManager
-    }
+object BackgroundManager {
+    private val FILE_BACKGROUND_PROPERTIES: File = File(PathAndUrlManager.DIR_DATA, "background.properties")
 
     private val defaultProperties: Properties
         get() {
@@ -64,7 +51,9 @@ class BackgroundManager private constructor(val context: Context) {
             return defaultProperties
         }
 
+    @JvmStatic
     fun setBackgroundImage(
+        context: Context,
         backgroundType: BackgroundType,
         backgroundView: ImageView
     ) {
