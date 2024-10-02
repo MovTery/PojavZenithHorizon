@@ -3,7 +3,6 @@ package com.movtery.pojavzh.utils
 import android.content.Context
 import android.os.Environment
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome.Companion.gameHome
-import com.movtery.pojavzh.utils.file.FileTools.Companion.mkdirs
 import net.kdt.pojavlaunch.BuildConfig
 import net.kdt.pojavlaunch.Tools
 import okhttp3.Request
@@ -76,9 +75,6 @@ class PathAndUrlManager {
             DIR_BACKGROUND = File("$DIR_GAME_HOME/background")
             DIR_APP_CACHE = context.externalCacheDir
             DIR_USER_ICON = File(DIR_DATA, "/user_icon")
-
-            createDefaultPath(DIR_LAUNCHER_LOG)
-            createDefaultPath(DIR_BACKGROUND)
         }
 
         @JvmStatic
@@ -108,16 +104,6 @@ class PathAndUrlManager {
             body?.let{ request.post(it) }
 
             return request
-        }
-
-        private fun createDefaultPath(path: String?) {
-            createDefaultPath(File(path!!))
-        }
-
-        private fun createDefaultPath(path: File?) {
-            if (!path!!.exists()) {
-                mkdirs(path)
-            }
         }
     }
 }

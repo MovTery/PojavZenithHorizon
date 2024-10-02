@@ -6,10 +6,12 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.DrawableImageViewTarget
+import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.file.FileTools.Companion.mkdirs
 import com.movtery.pojavzh.utils.image.ImageUtils.Companion.isImage
 import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.Tools
 import java.io.File
 import java.io.FileReader
 import java.io.FileWriter
@@ -17,7 +19,7 @@ import java.util.Properties
 
 class BackgroundManager private constructor(val context: Context) {
     companion object {
-        private val FILE_BACKGROUND_PROPERTIES: File = File(PathAndUrlManager.DIR_GAME_HOME, "background.properties")
+        private val FILE_BACKGROUND_PROPERTIES: File = File(PathAndUrlManager.DIR_DATA, "background.properties")
         @SuppressLint("StaticFieldLeak")
         private var sBackgroundManager: BackgroundManager? = null
 
@@ -36,26 +38,30 @@ class BackgroundManager private constructor(val context: Context) {
             properties.setProperty(BackgroundType.MAIN_MENU.name, "null")
             properties.setProperty(BackgroundType.CUSTOM_CONTROLS.name, "null")
             properties.setProperty(BackgroundType.IN_GAME.name, "null")
-
-            saveProperties(properties)
             return properties
         }
 
     val properties: Properties
         get() {
-            if (!FILE_BACKGROUND_PROPERTIES.exists()) {
-                return defaultProperties
-            }
-            val properties = Properties()
-            try {
-                FileReader(FILE_BACKGROUND_PROPERTIES).use { fileReader ->
-                    properties.load(fileReader)
+            FILE_BACKGROUND_PROPERTIES.apply {
+                if (!exists()) {
+                    return@apply
                 }
-            } catch (e: Exception) {
-                throw RuntimeException(e)
+
+                val properties = Properties()
+                runCatching {
+                    FileReader(this).use { fileReader ->
+                        properties.load(fileReader)
+                    }
+                }.getOrElse { e ->
+                    Logging.e("BackgroundManager", Tools.printToString(e))
+                    return@apply
+                }
+
+                return properties
             }
 
-            return properties
+            return defaultProperties
         }
 
     fun setBackgroundImage(
@@ -84,17 +90,16 @@ class BackgroundManager private constructor(val context: Context) {
     }
 
     private fun saveProperties(properties: Properties) {
-        val dirBackground = PathAndUrlManager.DIR_BACKGROUND
-        if (!dirBackground!!.exists()) mkdirs(dirBackground)
+        PathAndUrlManager.DIR_BACKGROUND?.apply {
+            if (!exists()) mkdirs(this)
+        }
 
-        try {
+        runCatching {
             properties.store(
                 FileWriter(FILE_BACKGROUND_PROPERTIES),
                 "Pojav Zenith Horizon Background Properties File"
             )
-        } catch (e: Exception) {
-            throw RuntimeException(e)
-        }
+        }.getOrElse { e -> Logging.e("saveProperties", Tools.printToString(e)) }
     }
 
     fun saveProperties(map: Map<BackgroundType?, String?>) {
