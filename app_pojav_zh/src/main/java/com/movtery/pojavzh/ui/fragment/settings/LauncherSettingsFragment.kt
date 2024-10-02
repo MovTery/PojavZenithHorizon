@@ -98,7 +98,7 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
             view.findViewById(R.id.launcherTheme_title),
             view.findViewById(R.id.launcherTheme_value),
             R.array.launcher_theme_names, R.array.launcher_theme_values
-        )
+        ).setRequiresReboot()
 
         BaseSettingsWrapper(
             context,
