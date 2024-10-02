@@ -16,7 +16,7 @@ import java.io.File
 class ShareLogDialog(context: Context) : FullScreenDialog(context), DialogInitializationListener {
     //启动器的日志文件集合，这里只会提取带有"log"名称的日志文件
     private val mLauncherLogFiles: Array<File>
-        get() = PathAndUrlManager.DIR_LAUNCHER_LOG?.let { logDir ->
+        get() = PathAndUrlManager.DIR_LAUNCHER_LOG.let { logDir ->
             File(logDir).listFiles()?.filter { it.name.contains("log") }?.toTypedArray()
         } ?: emptyArray()
 

@@ -123,7 +123,7 @@ class ProfilePathManagerFragment : FragmentWithAnim(R.layout.fragment_profile_pa
 
         try {
             val json: String
-            if (PathAndUrlManager.FILE_PROFILE_PATH!!.exists()) {
+            if (PathAndUrlManager.FILE_PROFILE_PATH.exists()) {
                 json = Tools.read(PathAndUrlManager.FILE_PROFILE_PATH)
                 if (json.isEmpty()) return
             } else return

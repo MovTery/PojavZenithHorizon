@@ -20,7 +20,7 @@ class UnpackComponentsTask(val context: Context, val component: Components) : Ab
     init {
         runCatching {
             am = context.assets
-            rootDir = if (component.privateDirectory) PathAndUrlManager.DIR_DATA!! else PathAndUrlManager.DIR_GAME_HOME
+            rootDir = if (component.privateDirectory) PathAndUrlManager.DIR_DATA else PathAndUrlManager.DIR_GAME_HOME
             versionFile = File("$rootDir/${component.component}/version")
             input = am.open("components/${component.component}/version")
         }.getOrElse {

@@ -25,36 +25,34 @@ class PathAndUrlManager {
         const val URL_SUPPORT: String = "https://afdian.com/a/MovTery"
         const val URL_HOME: String = "https://github.com/MovTery/PojavZenithHorizon"
 
-        //PojavLauncher
-        @JvmField var DIR_NATIVE_LIB: String? = null
-        @JvmField var DIR_FILE: File? = null
-        @JvmField var DIR_DATA: String? = null //Initialized later to get context
-        @JvmField var DIR_CACHE: File? = null
-        @JvmField var DIR_MULTIRT_HOME: String? = null
+        lateinit var DIR_NATIVE_LIB: String
+        lateinit var DIR_FILE: File
+        lateinit var DIR_DATA: String //Initialized later to get context
+        lateinit var DIR_CACHE: File
+        lateinit var DIR_MULTIRT_HOME: String
         @JvmField var DIR_GAME_HOME: String = Environment.getExternalStorageDirectory().absolutePath + "/games/PojavZenithHorizon"
-        @JvmField var DIR_LAUNCHER_LOG: String? = null
-        @JvmField var DIR_CTRLMAP_PATH: String? = null
-        @JvmField var DIR_ACCOUNT_NEW: String? = null
-        @JvmField var DIR_CACHE_STRING: String? = null
+        lateinit var DIR_LAUNCHER_LOG: String
+        lateinit var DIR_CTRLMAP_PATH: String
+        lateinit var DIR_ACCOUNT_NEW: String
+        lateinit var DIR_CACHE_STRING: String
 
-        @JvmField var DIR_GAME_DEFAULT: String? = null
-        @JvmField var DIR_CUSTOM_MOUSE: String? = null
-        @JvmField var DIR_LOGIN: String? = null
-        @JvmField var DIR_BACKGROUND: File? = null
-        @JvmField var DIR_APP_CACHE: File? = null
-        @JvmField var DIR_USER_ICON: File? = null
+        lateinit var DIR_GAME_DEFAULT: String
+        lateinit var DIR_CUSTOM_MOUSE: String
+        lateinit var DIR_BACKGROUND: File
+        lateinit var DIR_APP_CACHE: File
+        lateinit var DIR_USER_ICON: File
 
-        @JvmField var FILE_SETTINGS: File? = null
-        @JvmField var FILE_PROFILE_PATH: File? = null
-        @JvmField var FILE_CTRLDEF_FILE: String? = null
-        @JvmField var FILE_VERSION_LIST: String? = null
-        @JvmField var FILE_NEWBIE_GUIDE: File? = null
+        lateinit var FILE_SETTINGS: File
+        lateinit var FILE_PROFILE_PATH: File
+        lateinit var FILE_CTRLDEF_FILE: String
+        lateinit var FILE_VERSION_LIST: String
+        lateinit var FILE_NEWBIE_GUIDE: File
 
         @JvmStatic
         fun initContextConstants(context: Context) {
             DIR_NATIVE_LIB = context.applicationInfo.nativeLibraryDir
             DIR_FILE = context.filesDir
-            DIR_DATA = DIR_FILE!!.getParent()
+            DIR_DATA = DIR_FILE.getParent()!!
             DIR_CACHE = context.cacheDir
             DIR_MULTIRT_HOME = "$DIR_DATA/runtimes"
             DIR_GAME_HOME = Tools.getPojavStorageRoot(context).absolutePath
@@ -71,9 +69,8 @@ class PathAndUrlManager {
             FILE_SETTINGS = File(DIR_FILE, "/launcher_settings.json")
             DIR_GAME_DEFAULT = "$gameHome/instance/default"
             DIR_CUSTOM_MOUSE = "$DIR_GAME_HOME/mouse"
-            DIR_LOGIN = "$DIR_GAME_HOME/login"
             DIR_BACKGROUND = File("$DIR_GAME_HOME/background")
-            DIR_APP_CACHE = context.externalCacheDir
+            DIR_APP_CACHE = context.externalCacheDir!!
             DIR_USER_ICON = File(DIR_DATA, "/user_icon")
         }
 

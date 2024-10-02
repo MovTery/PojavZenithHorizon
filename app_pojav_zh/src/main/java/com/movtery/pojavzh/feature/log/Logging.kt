@@ -29,7 +29,7 @@ object Logging {
         val logSuffix = ".txt"
         val maxLogIndex = 10
 
-        val launcherLogDir = File(DIR_LAUNCHER_LOG!!).apply { if (!exists()) mkdirs() }
+        val launcherLogDir = File(DIR_LAUNCHER_LOG).apply { if (!exists()) mkdirs() }
 
         val logFiles = launcherLogDir.listFiles { file ->
             file.isFile && file.name.startsWith(logPrefix) && file.name.endsWith(logSuffix)

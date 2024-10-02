@@ -181,7 +181,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
 
     private fun backgroundPath(): File {
         val dirBackground = PathAndUrlManager.DIR_BACKGROUND
-        if (!dirBackground!!.exists()) mkdirs(dirBackground)
+        if (!dirBackground.exists()) mkdirs(dirBackground)
         return dirBackground
     }
 

@@ -18,7 +18,7 @@ class Settings {
         private val listeners: MutableSet<OnSettingsChangeListener> = HashSet()
 
         private fun refresh(): List<SettingAttribute> {
-            return PathAndUrlManager.FILE_SETTINGS?.takeIf { it.exists() }?.let { file ->
+            return PathAndUrlManager.FILE_SETTINGS.takeIf { it.exists() }?.let { file ->
                 try {
                     val jsonString = Tools.read(file)
                     val listType: Type = object : TypeToken<List<SettingAttribute>>() {}.type
@@ -91,7 +91,7 @@ class Settings {
             }
 
             fun save() {
-                val settingsFile = PathAndUrlManager.FILE_SETTINGS!!
+                val settingsFile = PathAndUrlManager.FILE_SETTINGS
                 if (!settingsFile.exists()) settingsFile.createNewFile()
 
                 val currentSettings = settings.toMutableList()

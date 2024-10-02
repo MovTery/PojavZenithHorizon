@@ -45,7 +45,7 @@ class SelectModPackFragment : FragmentWithAnim(R.layout.fragment_select_modpack)
                         .setCancelable(false)
                         .show()
                     PojavApplication.sExecutorService.execute {
-                        modPackFile = copyFileInBackground(requireContext(), result, PathAndUrlManager.DIR_CACHE!!.absolutePath)
+                        modPackFile = copyFileInBackground(requireContext(), result, PathAndUrlManager.DIR_CACHE.absolutePath)
                         ExtraCore.setValue(ZHExtraConstants.INSTALL_LOCAL_MODPACK,
                             InstallExtra(true, modPackFile!!.absolutePath, dialog))
                     }

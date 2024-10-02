@@ -22,13 +22,13 @@ class CleanUpCache {
             var fileCount = 0
             try {
                 PojavApplication.sExecutorService.execute {
-                    val list = PathAndUrlManager.DIR_CACHE!!.listFiles()?.let {
-                        PathAndUrlManager.DIR_APP_CACHE!!.listFiles()?.let { it1 ->
+                    val list = PathAndUrlManager.DIR_CACHE.listFiles()?.let {
+                        PathAndUrlManager.DIR_APP_CACHE.listFiles()?.let { it1 ->
                             getList(it, it1)
                         }
                     }
 
-                    PathAndUrlManager.FILE_VERSION_LIST?.let {
+                    PathAndUrlManager.FILE_VERSION_LIST.let {
                         val file = File(it)
                         if (file.exists()) list?.add(file)
                     }

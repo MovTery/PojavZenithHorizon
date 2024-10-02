@@ -65,7 +65,7 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
                 Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
 
                 PojavApplication.sExecutorService.execute {
-                    copyFileInBackground(requireContext(), result, File(PathAndUrlManager.DIR_CTRLMAP_PATH!!).absolutePath)
+                    copyFileInBackground(requireContext(), result, File(PathAndUrlManager.DIR_CTRLMAP_PATH).absolutePath)
                     Tools.runOnUiThread {
                         Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show()
                         controlsListViewCreator?.refresh()
@@ -109,7 +109,7 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
 
         mReturnButton?.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
         mPasteButton?.setOnClickListener {
-            PasteFile.getInstance().pasteFiles(requireActivity(), File(PathAndUrlManager.DIR_CTRLMAP_PATH!!), null) {
+            PasteFile.getInstance().pasteFiles(requireActivity(), File(PathAndUrlManager.DIR_CTRLMAP_PATH), null) {
                 Tools.runOnUiThread {
                     mPasteButton?.visibility = View.GONE
                     controlsListViewCreator?.refresh()
@@ -125,7 +125,7 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
             val editControlInfoDialog = EditControlInfoDialog(requireContext(), true, null, ControlInfoData())
             editControlInfoDialog.setTitle(getString(R.string.zh_controls_create_new))
             editControlInfoDialog.setOnConfirmClickListener { fileName: String, controlInfoData: ControlInfoData? ->
-                val file = File(File(PathAndUrlManager.DIR_CTRLMAP_PATH!!).absolutePath, "$fileName.json")
+                val file = File(File(PathAndUrlManager.DIR_CTRLMAP_PATH).absolutePath, "$fileName.json")
                 if (file.exists()) { //检查文件是否已经存在
                     editControlInfoDialog.fileNameEditBox.error =
                         getString(R.string.zh_file_rename_exitis)
@@ -149,7 +149,7 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
     }
 
     private fun removeLockPath(path: String?): String {
-        return path!!.replace(PathAndUrlManager.DIR_CTRLMAP_PATH!!, ".")
+        return path!!.replace(PathAndUrlManager.DIR_CTRLMAP_PATH, ".")
     }
 
     private fun showDialog(file: File) {
