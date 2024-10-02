@@ -22,7 +22,7 @@ class NewbieGuideUtils {
         private val NEWBIE_TAGS: MutableList<String> = ArrayList()
 
         init {
-            PathAndUrlManager.FILE_NEWBIE_GUIDE?.apply {
+            PathAndUrlManager.FILE_NEWBIE_GUIDE.apply {
                 runCatching {
                     if (!exists()) createNewFile()
 

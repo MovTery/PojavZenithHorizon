@@ -79,7 +79,7 @@ object BackgroundManager {
     }
 
     private fun saveProperties(properties: Properties) {
-        PathAndUrlManager.DIR_BACKGROUND?.apply {
+        PathAndUrlManager.DIR_BACKGROUND.apply {
             if (!exists()) mkdirs(this)
         }
 

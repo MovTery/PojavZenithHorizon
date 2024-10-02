@@ -67,7 +67,7 @@ class SelectMouseDialog(context: Context) : AbstractSelectDialog(context) {
     }
 
     private fun mousePath(): File {
-        val path = File(PathAndUrlManager.DIR_CUSTOM_MOUSE!!)
+        val path = File(PathAndUrlManager.DIR_CUSTOM_MOUSE)
         if (!path.exists()) mkdirs(path)
         return path
     }

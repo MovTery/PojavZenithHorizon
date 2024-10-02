@@ -109,7 +109,7 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
     }
 
     private fun mousePath(): File {
-        val path = File(PathAndUrlManager.DIR_CUSTOM_MOUSE!!)
+        val path = File(PathAndUrlManager.DIR_CUSTOM_MOUSE)
         if (!path.exists()) mkdirs(path)
         return path
     }

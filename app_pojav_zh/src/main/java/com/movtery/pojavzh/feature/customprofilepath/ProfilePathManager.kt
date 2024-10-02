@@ -33,7 +33,7 @@ class ProfilePathManager {
                     return defaultPath
                 }
 
-                PathAndUrlManager.FILE_PROFILE_PATH?.apply {
+                PathAndUrlManager.FILE_PROFILE_PATH.apply {
                     if (exists()) {
                         runCatching {
                             val read = Tools.read(this)
