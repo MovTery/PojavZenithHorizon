@@ -24,6 +24,8 @@ class NewbieGuideUtils {
         init {
             PathAndUrlManager.FILE_NEWBIE_GUIDE?.apply {
                 runCatching {
+                    if (!exists()) createNewFile()
+
                     val read = Tools.read(this)
                     val jsonArray = JsonParser.parseString(read).asJsonArray
                     val tags: MutableList<String> = ArrayList()
