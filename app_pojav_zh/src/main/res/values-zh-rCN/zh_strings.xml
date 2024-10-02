@@ -31,7 +31,7 @@
     <!-- Dialog -->
     <string name="zh_dialog_select_jar">选择 Jar 文件</string>
     <!-- Profiles Path -->
-    <string name="zh_permissions_manage_external_storage">Pojav Zenith Horizon 需要管理设备所有文件的权限，以便自定义保存游戏文件位置，请为 Pojav Zenith Horizon 开启权限！</string>
+    <string name="zh_permissions_manage_external_storage">Pojav Zenith Horizon 需要管理设备所有文件的权限，以便正常使用这个功能，请开启权限！</string>
     <string name="zh_profiles_path_title">游戏路径管理</string>
     <string name="zh_profiles_path_default">默认路径</string>
     <string name="zh_profiles_path_create_new">添加新路径</string>

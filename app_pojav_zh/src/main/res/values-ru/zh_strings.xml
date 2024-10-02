@@ -31,7 +31,7 @@
     <!-- Dialog -->
     <string name="zh_dialog_select_jar">Выбрать файл Jar</string>
     <!-- Profiles Path -->
-    <string name="zh_permissions_manage_external_storage">Pojav Zenith Horizon требует разрешения на управление всеми файлами устройства для настройки места сохранения игровых файлов. Пожалуйста, включите разрешение для Pojav Zenith Horizon!</string>
+    <string name="zh_permissions_manage_external_storage">Pojav Zenith Horizon требует разрешение на управление всеми файлами на устройстве, чтобы правильно использовать эту функцию. Пожалуйста, включите разрешение!</string>
     <string name="zh_profiles_path_title">Управление путями игры</string>
     <string name="zh_profiles_path_default">Путь по умолчанию</string>
     <string name="zh_profiles_path_create_new">Добавить новый путь</string>

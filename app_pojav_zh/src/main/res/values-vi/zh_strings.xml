@@ -31,7 +31,7 @@
     <!-- Dialog -->
     <string name="zh_dialog_select_jar">Chọn tệp Jar</string>
     <!-- Profiles Path -->
-    <string name="zh_permissions_manage_external_storage">Pojav Zenith Horizon cần quyền quản lý tất cả các tệp trên thiết bị để tùy chỉnh vị trí lưu trữ tệp trò chơi, hãy bật quyền cho Pojav Zenith Horizon!</string>
+    <string name="zh_permissions_manage_external_storage">Pojav Zenith Horizon cần quyền quản lý tất cả các tệp trên thiết bị để sử dụng tính năng này đúng cách. Vui lòng bật quyền!</string>
     <string name="zh_profiles_path_title">Quản lý đường dẫn trò chơi</string>
     <string name="zh_profiles_path_default">Đường dẫn mặc định</string>
     <string name="zh_profiles_path_create_new">Thêm đường dẫn mới</string>
