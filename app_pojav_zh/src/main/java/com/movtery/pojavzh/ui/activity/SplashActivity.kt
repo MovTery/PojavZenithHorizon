@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.movtery.pojavzh.feature.background.BackgroundManager
+import com.movtery.pojavzh.feature.background.BackgroundManager.setBackgroundImage
 import com.movtery.pojavzh.feature.background.BackgroundType
 import com.movtery.pojavzh.feature.unpack.Components
 import com.movtery.pojavzh.feature.unpack.Jre
@@ -55,11 +55,7 @@ class SplashActivity : BaseActivity() {
             startActivity(Intent(this, MissingStorageActivity::class.java))
             return
         } else {
-            BackgroundManager.getInstance()?.setBackgroundImage(
-                BackgroundType.MAIN_MENU,
-                findViewById(R.id.background_view)
-            )
-
+            setBackgroundImage(this, BackgroundType.MAIN_MENU, findViewById(R.id.background_view))
             checkEnd()
         }
     }
