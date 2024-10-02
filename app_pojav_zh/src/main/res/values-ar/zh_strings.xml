@@ -31,7 +31,7 @@
     <!-- Dialog -->
     <string name="zh_dialog_select_jar">اختر ملف Jar</string>
     <!-- Profiles Path -->
-    <string name="zh_permissions_manage_external_storage">يحتاج Pojav Zenith Horizon إلى إذن إدارة جميع ملفات الجهاز لتخصيص موقع حفظ ملفات اللعبة، يرجى تفعيل الإذن لـ Pojav Zenith Horizon!</string>
+    <string name="zh_permissions_manage_external_storage">تحتاج Pojav Zenith Horizon إلى إذن لإدارة جميع الملفات على الجهاز لاستخدام هذه الميزة بشكل صحيح. يرجى تمكين الإذن!</string>
     <string name="zh_profiles_path_title">إدارة مسارات اللعبة</string>
     <string name="zh_profiles_path_default">المسار الافتراضي</string>
     <string name="zh_profiles_path_create_new">إضافة مسار جديد</string>

@@ -31,7 +31,7 @@
     <!-- Dialog -->
     <string name="zh_dialog_select_jar">Select Jar file</string>
     <!-- Profiles Path -->
-    <string name="zh_permissions_manage_external_storage">Pojav Zenith Horizon requires permission to manage all files on the device in order to customize the location where game files are saved. Please grant permission to Pojav Zenith Horizon!</string>
+    <string name="zh_permissions_manage_external_storage">Pojav Zenith Horizon needs permission to manage all files on the device to use this feature properly. Please enable the permission!</string>
     <string name="zh_profiles_path_title">Game Path Management</string>
     <string name="zh_profiles_path_default">Default Path</string>
     <string name="zh_profiles_path_create_new">Add New Path</string>

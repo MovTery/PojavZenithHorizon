@@ -34,6 +34,7 @@ import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
 import net.kdt.pojavlaunch.extra.ExtraConstants
 import net.kdt.pojavlaunch.extra.ExtraCore
 import java.io.File
+import java.util.Objects
 import java.util.function.Consumer
 
 class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
@@ -97,9 +98,61 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
         parseBundle()
         bindViews(view)
 
-        mFileRecyclerView?.setShowFiles(mShowFiles)
-        mFileRecyclerView?.setShowFolders(mShowFolders)
-        mFileRecyclerView?.setTitleListener { title: String? -> mFilePathView?.text = removeLockPath(title!!) }
+        val storageDirectory = Environment.getExternalStorageDirectory()
+
+        mFileRecyclerView?.apply {
+            setShowFiles(mShowFiles)
+            setShowFolders(mShowFolders)
+            setTitleListener { title: String? -> mFilePathView?.text = removeLockPath(title!!) }
+
+            setFileSelectedListener(object : FileSelectedListener() {
+                override fun onFileSelected(file: File?, path: String?) {
+                    file?.let { showDialog(it) }
+                }
+
+                override fun onItemLongClick(file: File?, path: String?) {
+                    file?.let { if (it.isDirectory) showDialog(it) }
+                }
+            })
+
+            setOnMultiSelectListener { itemBeans: List<FileItemBean> ->
+                if (itemBeans.isNotEmpty()) {
+                    PojavApplication.sExecutorService.execute {
+                        //取出全部文件
+                        val selectedFiles: MutableList<File> = ArrayList()
+                        itemBeans.forEach(Consumer { value: FileItemBean ->
+                            val file = value.file
+                            file?.apply { selectedFiles.add(this) }
+                        })
+                        val filesButton = FilesButton()
+                        filesButton.setButtonVisibility(true, true, false, false, true, false)
+                        filesButton.setDialogText(
+                            getString(R.string.zh_file_multi_select_mode_title),
+                            getString(R.string.zh_file_multi_select_mode_message, itemBeans.size), null
+                        )
+                        Tools.runOnUiThread {
+                            val filesDialog = FilesDialog(requireContext(), filesButton, {
+                                Tools.runOnUiThread {
+                                    closeMultiSelect()
+                                    refreshPath()
+                                }
+                            }, fullPath, selectedFiles)
+                            filesDialog.setCopyButtonClick { mPasteButton?.visibility = View.VISIBLE }
+                            filesDialog.show()
+                        }
+                    }
+                }
+            }
+
+            setRefreshListener {
+                val show = itemCount <= 1
+                setVisibilityAnim(mNothingTip!!, show)
+                // 如果目录变更到了外部存储，则会检查权限
+                if (Objects.equals(fullPath.absolutePath, storageDirectory.absolutePath)) {
+                    checkPermissions(R.string.zh_file_external_storage, null)
+                }
+            }
+        }
 
         mFilePathView?.setOnClickListener {
             val builder = EditTextDialog.Builder(requireContext())
@@ -125,52 +178,9 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
             builder.buildDialog()
         }
 
-        mFileRecyclerView?.setFileSelectedListener(object : FileSelectedListener() {
-            override fun onFileSelected(file: File?, path: String?) {
-                file?.let { showDialog(it) }
-            }
-
-            override fun onItemLongClick(file: File?, path: String?) {
-                file?.let { if (it.isDirectory) showDialog(it) }
-            }
-        })
-
-        mFileRecyclerView?.setOnMultiSelectListener { itemBeans: List<FileItemBean> ->
-            if (itemBeans.isNotEmpty()) {
-                PojavApplication.sExecutorService.execute {
-                    //取出全部文件
-                    val selectedFiles: MutableList<File> = ArrayList()
-                    itemBeans.forEach(Consumer { value: FileItemBean ->
-                        val file = value.file
-                        file?.apply { selectedFiles.add(this) }
-                    })
-                    val filesButton = FilesButton()
-                    filesButton.setButtonVisibility(true, true, false, false, true, false)
-                    filesButton.setDialogText(
-                        getString(R.string.zh_file_multi_select_mode_title),
-                        getString(R.string.zh_file_multi_select_mode_message, itemBeans.size), null
-                    )
-                    Tools.runOnUiThread {
-                        val filesDialog = FilesDialog(requireContext(), filesButton, {
-                            Tools.runOnUiThread {
-                                closeMultiSelect()
-                                mFileRecyclerView?.refreshPath()
-                            }
-                        }, mFileRecyclerView!!.fullPath, selectedFiles)
-                        filesDialog.setCopyButtonClick { mPasteButton?.visibility = View.VISIBLE }
-                        filesDialog.show()
-                    }
-                }
-            }
-        }
-        mFileRecyclerView?.setRefreshListener {
-            val itemCount = mFileRecyclerView!!.itemCount
-            val show = itemCount <= 1
-            setVisibilityAnim(mNothingTip!!, show)
-        }
         mExternalStorage?.setOnClickListener {
             closeMultiSelect()
-            mFileRecyclerView?.listFileAt(Environment.getExternalStorageDirectory())
+            mFileRecyclerView?.listFileAt(storageDirectory)
         }
         mSoftwarePrivate?.setOnClickListener {
             closeMultiSelect()
