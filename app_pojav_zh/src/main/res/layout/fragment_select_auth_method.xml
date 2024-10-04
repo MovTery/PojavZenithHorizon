@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/zh_login_return"
+            android:id="@+id/return_button"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginTop="@dimen/_12sdp"

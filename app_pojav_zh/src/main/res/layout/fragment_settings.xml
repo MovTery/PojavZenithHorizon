@@ -7,7 +7,7 @@
     tools:context="com.movtery.pojavzh.ui.fragment.SettingsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/scroll_settings_layout"
+        android:id="@+id/settings_layout"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -233,7 +233,7 @@
         android:background="@drawable/background_card"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/scroll_settings_layout"
+        app:layout_constraintStart_toEndOf="@+id/settings_layout"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

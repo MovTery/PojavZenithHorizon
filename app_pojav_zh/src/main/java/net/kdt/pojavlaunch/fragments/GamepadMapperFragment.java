@@ -6,17 +6,16 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.InputDevice;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.anim.AnimPlayer;
 import com.movtery.anim.animations.Animations;
@@ -26,6 +25,7 @@ import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.customcontrols.gamepad.Gamepad;
 import net.kdt.pojavlaunch.customcontrols.gamepad.GamepadMapperAdapter;
+import net.kdt.pojavlaunch.databinding.FragmentControllerRemapperBinding;
 
 import fr.spse.gamepad_remapper.RemapperManager;
 import fr.spse.gamepad_remapper.RemapperView;
@@ -33,7 +33,7 @@ import fr.spse.gamepad_remapper.RemapperView;
 public class GamepadMapperFragment extends FragmentWithAnim implements
         View.OnKeyListener, View.OnGenericMotionListener, AdapterView.OnItemSelectedListener {
     public static final String TAG = "GamepadMapperFragment";
-    private View mControllerLayout, mOperateLayout;
+    private FragmentControllerRemapperBinding binding;
     private final RemapperView.Builder mRemapperViewBuilder = new RemapperView.Builder(null)
             .remapA(true)
             .remapB(true)
@@ -62,26 +62,32 @@ public class GamepadMapperFragment extends FragmentWithAnim implements
         super(R.layout.fragment_controller_remapper);
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = FragmentControllerRemapperBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        mControllerLayout = view.findViewById(R.id.controller_layout);
-        mOperateLayout = view.findViewById(R.id.operate_layout);
-        Button backButton = view.findViewById(R.id.back_button);
-        backButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
-        RecyclerView buttonRecyclerView = view.findViewById(R.id.gamepad_remapper_recycler);
+        binding.backButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
+
         mMapperAdapter = new GamepadMapperAdapter(view.getContext());
-        buttonRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        buttonRecyclerView.setAdapter(mMapperAdapter);
-        buttonRecyclerView.setOnKeyListener(this);
-        buttonRecyclerView.setOnGenericMotionListener(this);
-        buttonRecyclerView.requestFocus();
+        binding.gamepadRemapperRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        binding.gamepadRemapperRecycler.setAdapter(mMapperAdapter);
+        binding.gamepadRemapperRecycler.setOnKeyListener(this);
+        binding.gamepadRemapperRecycler.setOnGenericMotionListener(this);
+        binding.gamepadRemapperRecycler.requestFocus();
+
         mInputManager = new RemapperManager(view.getContext(), mRemapperViewBuilder);
-        Spinner grabStateSpinner = view.findViewById(R.id.gamepad_remapper_mode_spinner);
+
         ArrayAdapter<String> mGrabStateAdapter = new ArrayAdapter<>(view.getContext(), R.layout.support_simple_spinner_dropdown_item);
         mGrabStateAdapter.addAll(getString(R.string.zh_controls_in_menu), getString(R.string.zh_controls_in_game));
-        grabStateSpinner.setAdapter(mGrabStateAdapter);
-        grabStateSpinner.setSelection(0);
-        grabStateSpinner.setOnItemSelectedListener(this);
+
+        binding.gamepadRemapperModeSpinner.setAdapter(mGrabStateAdapter);
+        binding.gamepadRemapperModeSpinner.setSelection(0);
+        binding.gamepadRemapperModeSpinner.setOnItemSelectedListener(this);
     }
 
     private void createGamepad(View mainView, InputDevice inputDevice) {
@@ -132,13 +138,13 @@ public class GamepadMapperFragment extends FragmentWithAnim implements
 
     @Override
     public void slideIn(AnimPlayer animPlayer) {
-        animPlayer.apply(new AnimPlayer.Entry(mControllerLayout, Animations.BounceInDown))
-                .apply(new AnimPlayer.Entry(mOperateLayout, Animations.BounceInLeft));
+        animPlayer.apply(new AnimPlayer.Entry(binding.controllerLayout, Animations.BounceInDown))
+                .apply(new AnimPlayer.Entry(binding.operateLayout, Animations.BounceInLeft));
     }
 
     @Override
     public void slideOut(AnimPlayer animPlayer) {
-        animPlayer.apply(new AnimPlayer.Entry(mControllerLayout, Animations.FadeOutUp))
-                .apply(new AnimPlayer.Entry(mOperateLayout, Animations.FadeOutRight));
+        animPlayer.apply(new AnimPlayer.Entry(binding.controllerLayout, Animations.FadeOutUp))
+                .apply(new AnimPlayer.Entry(binding.operateLayout, Animations.FadeOutRight));
     }
 }

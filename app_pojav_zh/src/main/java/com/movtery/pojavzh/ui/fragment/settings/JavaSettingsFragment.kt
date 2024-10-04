@@ -3,7 +3,9 @@ package com.movtery.pojavzh.ui.fragment.settings
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import com.movtery.pojavzh.setting.AllSettings
@@ -21,10 +23,12 @@ import net.kdt.pojavlaunch.Architecture
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
+import net.kdt.pojavlaunch.databinding.SettingsFragmentJavaBinding
 import net.kdt.pojavlaunch.multirt.MultiRTConfigDialog
 import kotlin.math.min
 
 class JavaSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment_java) {
+    private lateinit var binding: SettingsFragmentJavaBinding
     private val mVmInstallLauncher = registerForActivityResult(
         OpenDocumentWithExtension("xz")
     ) { data: Uri? ->
@@ -34,19 +38,28 @@ class JavaSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
     private var allocationItem: SeekBarSettingsWrapper? = null
     private var allocationMemory: TextView? = null
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = SettingsFragmentJavaBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val context = requireContext()
 
         BaseSettingsWrapper(
             context,
-            view.findViewById(R.id.install_jre_layout)
+            binding.installJreLayout
         ) {
             openMultiRTDialog()
         }
 
         BaseSettingsWrapper(
             context,
-            view.findViewById(R.id.javaArgs_layout)
+            binding.javaArgsLayout
         ) {
             EditTextDialog.Builder(context)
                 .setTitle(R.string.mcl_setting_title_javaargs)
@@ -70,18 +83,18 @@ class JavaSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
             context,
             "allocation",
             AllSettings.ramAllocation,
-            view.findViewById(R.id.allocation_layout),
-            view.findViewById(R.id.allocation_title),
-            view.findViewById(R.id.allocation_summary),
-            view.findViewById(R.id.allocation_value),
-            view.findViewById(R.id.allocation),
+            binding.allocationLayout,
+            binding.allocationTitle,
+            binding.allocationSummary,
+            binding.allocationValue,
+            binding.allocation,
             "MB"
         ) { wrapper ->
             wrapper.seekbarView.max = maxRAM
             wrapper.seekbarView.progress = AllSettings.ramAllocation
             wrapper.setSeekBarValueTextView()
 
-            allocationMemory = view.findViewById(R.id.allocation_memory)
+            allocationMemory = binding.allocationMemory
             updateMemoryInfo(context, wrapper.seekbarView.progress.toLong(), allocationMemory!!)
         }
 
@@ -89,8 +102,8 @@ class JavaSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
             context,
             "java_sandbox",
             AllSettings.javaSandbox,
-            view.findViewById(R.id.java_sandbox_layout),
-            view.findViewById(R.id.java_sandbox)
+            binding.javaSandboxLayout,
+            binding.javaSandbox
         )
     }
 

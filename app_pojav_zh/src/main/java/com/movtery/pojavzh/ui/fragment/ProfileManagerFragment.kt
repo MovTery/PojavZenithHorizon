@@ -1,8 +1,9 @@
 package com.movtery.pojavzh.ui.fragment
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
+import android.view.ViewGroup
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager.Companion.currentProfile
@@ -12,6 +13,7 @@ import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.file.FileTools.Companion.mkdirs
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.databinding.FragmentProfileManagerBinding
 import net.kdt.pojavlaunch.extra.ExtraConstants
 import net.kdt.pojavlaunch.extra.ExtraCore
 import net.kdt.pojavlaunch.fragments.ProfileEditorFragment
@@ -25,59 +27,56 @@ class ProfileManagerFragment : FragmentWithAnim(R.layout.fragment_profile_manage
         const val DELETED_PROFILE: String = "deleted_profile"
     }
 
-    private var mShortcutsLayout: View? = null
-    private var mModdedLayout: View? = null
+    private lateinit var binding: FragmentProfileManagerBinding
     private var mProfileKey: String? = null
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentProfileManagerBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val gameDirPath = ZHTools.getGameDirPath(LauncherProfiles.getCurrentProfile().gameDir)
         mProfileKey = AllSettings.currentProfile
 
-        mShortcutsLayout = view.findViewById(R.id.shortcuts_layout)
-        mModdedLayout = view.findViewById(R.id.modded_layout)
+        binding.apply {
+            shortcutsMods.setOnClickListener {
+                val modsPath = File(gameDirPath, "/mods")
+                if (!modsPath.exists()) {
+                    mkdirs(modsPath)
+                }
 
-        val modsButton = view.findViewById<Button>(R.id.zh_shortcuts_mods)
-        val instanceButton = view.findViewById<Button>(R.id.zh_instance_path)
-        val resourceButton = view.findViewById<Button>(R.id.zh_resource_path)
-        val worldButton = view.findViewById<Button>(R.id.zh_world_path)
-        val logsButton = view.findViewById<Button>(R.id.zh_logs_path)
-        val crashReportButton = view.findViewById<Button>(R.id.zh_crash_report_path)
-
-        val editButton = view.findViewById<Button>(R.id.zh_profile_edit)
-        val deleteButton = view.findViewById<Button>(R.id.zh_profile_delete)
-
-        modsButton.setOnClickListener {
-            val modsPath = File(gameDirPath, "/mods")
-            if (!modsPath.exists()) {
-                mkdirs(modsPath)
+                val bundle = Bundle()
+                bundle.putString(ModsFragment.BUNDLE_ROOT_PATH, modsPath.absolutePath)
+                ZHTools.swapFragmentWithAnim(this@ProfileManagerFragment, ModsFragment::class.java, ModsFragment.TAG, bundle)
             }
 
-            val bundle = Bundle()
-            bundle.putString(ModsFragment.BUNDLE_ROOT_PATH, modsPath.absolutePath)
-            ZHTools.swapFragmentWithAnim(this, ModsFragment::class.java, ModsFragment.TAG, bundle)
-        }
+            instancePath.setOnClickListener { swapFilesFragment(gameDirPath, gameDirPath) }
+            resourcePath.setOnClickListener { swapFilesFragment(gameDirPath, File(gameDirPath, "/resourcepacks")) }
+            worldPath.setOnClickListener { swapFilesFragment(gameDirPath, File(gameDirPath, "/saves")) }
+            logsPath.setOnClickListener { swapFilesFragment(gameDirPath, File(gameDirPath, "/logs")) }
+            crashReportPath.setOnClickListener { swapFilesFragment(gameDirPath, File(gameDirPath, "/crash-reports")) }
 
-        instanceButton.setOnClickListener { swapFilesFragment(gameDirPath, gameDirPath) }
-        resourceButton.setOnClickListener { swapFilesFragment(gameDirPath, File(gameDirPath, "/resourcepacks")) }
-        worldButton.setOnClickListener { swapFilesFragment(gameDirPath, File(gameDirPath, "/saves")) }
-        logsButton.setOnClickListener { swapFilesFragment(gameDirPath, File(gameDirPath, "/logs")) }
-        crashReportButton.setOnClickListener { swapFilesFragment(gameDirPath, File(gameDirPath, "/crash-reports")) }
-
-        editButton.setOnClickListener { ZHTools.swapFragmentWithAnim(this, ProfileEditorFragment::class.java, ProfileEditorFragment.TAG, null) }
-        deleteButton.setOnClickListener {
-            TipDialog.Builder(requireContext())
-                .setTitle(R.string.zh_warning)
-                .setMessage(R.string.zh_profile_manager_delete_message)
-                .setConfirmClickListener {
-                    if (LauncherProfiles.mainProfileJson.profiles.size > 1) {
-                        ProfileIconCache.dropIcon(mProfileKey!!)
-                        LauncherProfiles.mainProfileJson.profiles.remove(mProfileKey)
-                        LauncherProfiles.write(currentProfile)
-                        ExtraCore.setValue(ExtraConstants.REFRESH_VERSION_SPINNER, DELETED_PROFILE)
+            profileEdit.setOnClickListener { ZHTools.swapFragmentWithAnim(this@ProfileManagerFragment, ProfileEditorFragment::class.java, ProfileEditorFragment.TAG, null) }
+            profileDelete.setOnClickListener {
+                TipDialog.Builder(requireContext())
+                    .setTitle(R.string.zh_warning)
+                    .setMessage(R.string.zh_profile_manager_delete_message)
+                    .setConfirmClickListener {
+                        if (LauncherProfiles.mainProfileJson.profiles.size > 1) {
+                            ProfileIconCache.dropIcon(mProfileKey!!)
+                            LauncherProfiles.mainProfileJson.profiles.remove(mProfileKey)
+                            LauncherProfiles.write(currentProfile)
+                            ExtraCore.setValue(ExtraConstants.REFRESH_VERSION_SPINNER, DELETED_PROFILE)
+                        }
+                        Tools.removeCurrentFragment(requireActivity())
                     }
-                    Tools.removeCurrentFragment(requireActivity())
-                }
-                .buildDialog()
+                    .buildDialog()
+            }
         }
     }
 
@@ -98,12 +97,16 @@ class ProfileManagerFragment : FragmentWithAnim(R.layout.fragment_profile_manage
     }
 
     override fun slideIn(animPlayer: AnimPlayer) {
-        animPlayer.apply(AnimPlayer.Entry(mShortcutsLayout!!, Animations.BounceInRight))
-            .apply(AnimPlayer.Entry(mModdedLayout!!, Animations.BounceInLeft))
+        binding.apply {
+            animPlayer.apply(AnimPlayer.Entry(shortcutsLayout, Animations.BounceInRight))
+                .apply(AnimPlayer.Entry(moddedLayout, Animations.BounceInLeft))
+        }
     }
 
     override fun slideOut(animPlayer: AnimPlayer) {
-        animPlayer.apply(AnimPlayer.Entry(mShortcutsLayout!!, Animations.FadeOutLeft))
-            .apply(AnimPlayer.Entry(mModdedLayout!!, Animations.FadeOutRight))
+        binding.apply {
+            animPlayer.apply(AnimPlayer.Entry(shortcutsLayout, Animations.FadeOutLeft))
+                .apply(AnimPlayer.Entry(moddedLayout, Animations.FadeOutRight))
+        }
     }
 }

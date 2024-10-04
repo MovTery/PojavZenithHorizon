@@ -43,7 +43,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/zh_mods_loading"
+                android:id="@+id/loading_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -54,7 +54,7 @@
                 app:layout_constraintTop_toTopOf="parent" >
 
                 <ProgressBar
-                    android:id="@+id/zh_mod_loading_progress"
+                    android:id="@+id/loading_progress"
                     style="?android:attr/progressBarStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -69,12 +69,12 @@
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/zh_mod_loading_progress" />
+                    app:layout_constraintTop_toBottomOf="@+id/loading_progress" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/search_mod_status_text"
+                android:id="@+id/status_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
@@ -88,7 +88,7 @@
                 tools:ignore="HardcodedText" />
 
             <ImageButton
-                android:id="@+id/search_mod_back_to_top"
+                android:id="@+id/back_to_top"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginEnd="@dimen/_18sdp"
@@ -99,7 +99,8 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_spinner_arrow_right"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="ContentDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -134,17 +135,16 @@
             app:layout_constraintStart_toEndOf="@+id/shadowView">
 
             <TextView
-                android:id="@+id/search_mod_title"
-                android:layout_width="wrap_content"
+                android:id="@+id/search_title"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginHorizontal="@dimen/_8sdp"
                 android:text="@string/zh_profile_mods_search_mod"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.movtery.pojavzh.ui.view.AnimEditText
-                android:id="@+id/search_mod_edittext"
+                android:id="@+id/name_edit"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginHorizontal="@dimen/_8sdp"
@@ -152,21 +152,21 @@
                 android:inputType="textPersonName"
                 android:paddingHorizontal="@dimen/padding_heavy"
                 android:textSize="@dimen/_13ssp"
-                app:layout_constraintEnd_toStartOf="@id/zh_search_mod_search"
+                app:layout_constraintEnd_toStartOf="@id/search_view"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/search_mod_title" />
+                app:layout_constraintTop_toBottomOf="@+id/search_title" />
 
             <ImageButton
-                android:id="@+id/zh_search_mod_search"
+                android:id="@+id/search_view"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginEnd="@dimen/_8sdp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:minWidth="@dimen/_38sdp"
                 android:src="@drawable/ic_mod_search"
-                app:layout_constraintBottom_toBottomOf="@+id/search_mod_edittext"
+                app:layout_constraintBottom_toBottomOf="@+id/name_edit"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/search_mod_title"
+                app:layout_constraintTop_toBottomOf="@+id/search_title"
                 tools:ignore="ContentDescription" />
 
             <androidx.core.widget.NestedScrollView
@@ -175,8 +175,8 @@
                 android:layout_marginVertical="@dimen/_8sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/search_mod_edittext"
-                app:layout_constraintBottom_toTopOf="@+id/search_mod_back">
+                app:layout_constraintTop_toBottomOf="@+id/name_edit"
+                app:layout_constraintBottom_toTopOf="@+id/return_button">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -186,14 +186,13 @@
                     <!-- Version filter -->
                     <TextView
                         android:id="@+id/search_mod_mc_version_textview"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/profiles_profile_version"
-                        app:layout_constraintStart_toStartOf="@+id/search_mod_selected_mc_version_textview"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/search_mod_selected_mc_version_textview"
+                        android:id="@+id/selected_mc_version_view"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_marginEnd="@dimen/_4sdp"
@@ -201,31 +200,30 @@
                         android:hint="@string/version_select_hint"
                         android:paddingHorizontal="@dimen/padding_heavy"
                         android:textSize="@dimen/_13ssp"
-                        app:layout_constraintEnd_toStartOf="@+id/search_mod_mc_version_button"
+                        app:layout_constraintEnd_toStartOf="@+id/mc_version_button"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/search_mod_mc_version_textview" />
 
                     <com.movtery.pojavzh.ui.view.AnimButton
-                        android:id="@+id/search_mod_mc_version_button"
+                        android:id="@+id/mc_version_button"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:paddingHorizontal="@dimen/padding_large"
                         android:text="@string/global_select"
-                        app:layout_constraintBottom_toBottomOf="@+id/search_mod_selected_mc_version_textview"
+                        app:layout_constraintBottom_toBottomOf="@+id/selected_mc_version_view"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/search_mod_selected_mc_version_textview" />
+                        app:layout_constraintTop_toTopOf="@+id/selected_mc_version_view" />
 
                     <TextView
                         android:id="@+id/search_mod_platform_textview"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:text="@string/zh_profile_mods_platform"
-                        app:layout_constraintStart_toStartOf="@+id/zh_search_mod_platform"
-                        app:layout_constraintTop_toBottomOf="@+id/search_mod_selected_mc_version_textview" />
+                        app:layout_constraintTop_toBottomOf="@+id/selected_mc_version_view" />
 
                     <com.skydoves.powerspinner.PowerSpinnerView
-                        android:id="@+id/zh_search_mod_platform"
+                        android:id="@+id/platform_spinner"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_40sdp"
                         android:background="@drawable/background_edit_box"
@@ -240,15 +238,14 @@
 
                     <TextView
                         android:id="@+id/search_mod_sort_textview"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:text="@string/zh_profile_mods_sort_by"
-                        app:layout_constraintStart_toStartOf="@+id/zh_search_mod_sort"
-                        app:layout_constraintTop_toBottomOf="@+id/zh_search_mod_platform" />
+                        app:layout_constraintTop_toBottomOf="@+id/platform_spinner" />
 
                     <com.skydoves.powerspinner.PowerSpinnerView
-                        android:id="@+id/zh_search_mod_sort"
+                        android:id="@+id/sort_spinner"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_40sdp"
                         android:background="@drawable/background_edit_box"
@@ -263,15 +260,14 @@
 
                     <TextView
                         android:id="@+id/search_mod_category_textview"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:text="@string/zh_profile_mods_category"
-                        app:layout_constraintStart_toStartOf="@+id/zh_search_mod_category"
-                        app:layout_constraintTop_toBottomOf="@+id/zh_search_mod_sort" />
+                        app:layout_constraintTop_toBottomOf="@+id/sort_spinner" />
 
                     <com.skydoves.powerspinner.PowerSpinnerView
-                        android:id="@+id/zh_search_mod_category"
+                        android:id="@+id/category_spinner"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_40sdp"
                         android:background="@drawable/background_edit_box"
@@ -286,15 +282,14 @@
 
                     <TextView
                         android:id="@+id/search_mod_modloader_textview"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:text="@string/zh_profile_mods_modloader"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/zh_search_mod_category" />
+                        app:layout_constraintTop_toBottomOf="@+id/category_spinner" />
 
                     <com.skydoves.powerspinner.PowerSpinnerView
-                        android:id="@+id/zh_search_mod_modloader"
+                        android:id="@+id/modloader_spinner"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_40sdp"
                         android:background="@drawable/background_edit_box"
@@ -317,11 +312,11 @@
                 android:layout_marginVertical="@dimen/_8sdp"
                 android:text="@string/cropper_reset"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/search_mod_back"
+                app:layout_constraintEnd_toStartOf="@+id/return_button"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <com.movtery.pojavzh.ui.view.AnimButton
-                android:id="@+id/search_mod_back"
+                android:id="@+id/return_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_4sdp"

@@ -1,10 +1,9 @@
 package net.kdt.pojavlaunch.fragments;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +18,7 @@ import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
+import net.kdt.pojavlaunch.databinding.FragmentLocalLoginBinding;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 
 import java.io.File;
@@ -27,22 +27,23 @@ import java.util.regex.Pattern;
 
 public class LocalLoginFragment extends FragmentWithAnim {
     public static final String TAG = "LOCAL_LOGIN_FRAGMENT";
-    private View mMainMenu;
-    private EditText mUsernameEditText;
+    private FragmentLocalLoginBinding binding;
 
     public LocalLoginFragment(){
         super(R.layout.fragment_local_login);
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = FragmentLocalLoginBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        mMainMenu = view;
-        mUsernameEditText = view.findViewById(R.id.login_edit_name);
-        Button mLoginButton = view.findViewById(R.id.login_button);
-        ImageView mReturnButton = view.findViewById(R.id.zh_login_return);
-
-        mLoginButton.setOnClickListener(v -> {
-            String text = mUsernameEditText.getText().toString().trim();
+        binding.loginButton.setOnClickListener(v -> {
+            String text = binding.loginEditName.getText().toString().trim();
 
             if (!checkEditText(text)) return;
 
@@ -59,36 +60,36 @@ public class LocalLoginFragment extends FragmentWithAnim {
             } else startLogin();
         });
 
-        mReturnButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
+        binding.returnButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
     }
 
     /** @return Whether the mail (and password) text are eligible to make an auth request  */
     private boolean checkEditText(String text) {
         if (text.isBlank() || text.isEmpty()) {
-            mUsernameEditText.setError(getString(R.string.zh_account_local_account_empty));
+            binding.loginEditName.setError(getString(R.string.zh_account_local_account_empty));
             return false;
         }
 
         boolean exists = new File(PathAndUrlManager.DIR_ACCOUNT_NEW + "/" + text + ".json").exists();
         if (exists) {
-            mUsernameEditText.setError(getString(R.string.zh_account_local_account_exists));
+            binding.loginEditName.setError(getString(R.string.zh_account_local_account_exists));
         }
         return !(exists);
     }
 
     private void startLogin() {
         ExtraCore.setValue(ZHExtraConstants.LOCAL_LOGIN_TODO, new String[]{
-                mUsernameEditText.getText().toString().trim(), "" });
+                binding.loginEditName.getText().toString().trim(), "" });
         Tools.backToMainMenu(requireActivity());
     }
 
     @Override
     public void slideIn(AnimPlayer animPlayer) {
-        animPlayer.apply(new AnimPlayer.Entry(mMainMenu, Animations.BounceInDown));
+        animPlayer.apply(new AnimPlayer.Entry(binding.getRoot(), Animations.BounceInDown));
     }
 
     @Override
     public void slideOut(AnimPlayer animPlayer) {
-        animPlayer.apply(new AnimPlayer.Entry(mMainMenu, Animations.FadeOutUp));
+        animPlayer.apply(new AnimPlayer.Entry(binding.getRoot(), Animations.FadeOutUp));
     }
 }

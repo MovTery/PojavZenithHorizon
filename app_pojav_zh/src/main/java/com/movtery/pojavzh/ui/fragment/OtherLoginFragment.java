@@ -5,12 +5,10 @@ import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,11 +31,11 @@ import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 import com.skydoves.powerspinner.DefaultSpinnerAdapter;
 import com.skydoves.powerspinner.OnSpinnerItemSelectedListener;
-import com.skydoves.powerspinner.PowerSpinnerView;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
+import net.kdt.pojavlaunch.databinding.FragmentOtherLoginBinding;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
 
@@ -52,14 +50,8 @@ import java.util.Objects;
 public class OtherLoginFragment extends FragmentWithAnim {
     public static final String TAG = "OtherLoginFragment";
     public String mCurrentBaseUrl;
-    private View mMainView;
+    private FragmentOtherLoginBinding binding;
     private ProgressDialog mProgressDialog;
-    private PowerSpinnerView mServerSpinner;
-    private EditText mUserEditText, mPassEditText;
-    private Button mLoginButton;
-    private TextView mRegister;
-    private ImageButton mAddServer;
-    private ImageView mReturnButton;
     private File mServersFile;
     private Servers mServers;
     private List<String> mServerList;
@@ -70,10 +62,15 @@ public class OtherLoginFragment extends FragmentWithAnim {
         super(R.layout.fragment_other_login);
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = FragmentOtherLoginBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        bindViews(view);
-
         mServersFile = new File(PathAndUrlManager.DIR_GAME_HOME, "servers.json");
         mProgressDialog = new ProgressDialog(requireContext(), () -> true);
         mProgressDialog.updateText(getString(R.string.zh_account_login_start));
@@ -81,9 +78,9 @@ public class OtherLoginFragment extends FragmentWithAnim {
         refreshServer();
         showRegisterButton(); //刷新注册按钮
 
-        mReturnButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
-        mServerSpinner.setSpinnerAdapter(mServerSpinnerAdapter);
-        mServerSpinner.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> {
+        binding.returnButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
+        binding.serverSpinner.setSpinnerAdapter(mServerSpinnerAdapter);
+        binding.serverSpinner.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> {
             if (!Objects.isNull(mServers)) {
                 for (Servers.Server server : mServers.getServer()) {
                     if (server.getServerName().equals(mServerList.get(i1))) {
@@ -94,9 +91,9 @@ public class OtherLoginFragment extends FragmentWithAnim {
                 }
             }
         });
-        mServerSpinner.selectItemByIndex(0);
+        binding.serverSpinner.selectItemByIndex(0);
 
-        mAddServer.setOnClickListener(v -> new TipDialog.Builder(requireContext())
+        binding.addServer.setOnClickListener(v -> new TipDialog.Builder(requireContext())
                 .setMessage(getString(R.string.zh_other_login_add_server))
                 .setCancel(R.string.zh_other_login_external_login)
                 .setConfirm(R.string.zh_other_login_uniform_pass)
@@ -104,7 +101,7 @@ public class OtherLoginFragment extends FragmentWithAnim {
                 .setConfirmClickListener(() -> showServerTypeSelectDialog(R.string.zh_other_login_32_bit_server, 1))
                 .buildDialog());
 
-        mRegister.setOnClickListener(v -> {
+        binding.register.setOnClickListener(v -> {
             if (!Objects.isNull(mCurrentRegisterUrl)) {
                 Intent intent = new Intent();
                 intent.setAction("android.intent.action.VIEW");
@@ -114,9 +111,9 @@ public class OtherLoginFragment extends FragmentWithAnim {
             }
         });
 
-        mLoginButton.setOnClickListener(v -> PojavApplication.sExecutorService.execute(() -> {
-            String user = mUserEditText.getText().toString();
-            String pass = mPassEditText.getText().toString();
+        binding.otherLoginButton.setOnClickListener(v -> PojavApplication.sExecutorService.execute(() -> {
+            String user = binding.loginEditEmail.getText().toString();
+            String pass = binding.loginEditPassword.getText().toString();
             String baseUrl = mCurrentBaseUrl;
 
             if (!checkAccountInformation(user, pass)) return;
@@ -134,7 +131,7 @@ public class OtherLoginFragment extends FragmentWithAnim {
                                 account.accessToken = authResult.getAccessToken();
                                 account.clientToken = authResult.getClientToken();
                                 account.baseUrl = mCurrentBaseUrl;
-                                account.account = mUserEditText.getText().toString();
+                                account.account = binding.loginEditEmail.getText().toString();
                                 account.expiresAt = ZHTools.getCurrentTimeMillis() + 30 * 60 * 1000;
                                 if (!Objects.isNull(authResult.getSelectedProfile())) {
                                     account.username = authResult.getSelectedProfile().getName();
@@ -178,19 +175,8 @@ public class OtherLoginFragment extends FragmentWithAnim {
 
     @Override
     public void onPause() {
-        mServerSpinner.dismiss();
+        binding.serverSpinner.dismiss();
         super.onPause();
-    }
-
-    private void bindViews(@NonNull View view) {
-        mMainView = view;
-        mServerSpinner = view.findViewById(R.id.server_spinner);
-        mUserEditText = view.findViewById(R.id.login_edit_email);
-        mPassEditText = view.findViewById(R.id.login_edit_password);
-        mLoginButton = view.findViewById(R.id.other_login_button);
-        mRegister = view.findViewById(R.id.register);
-        mAddServer = view.findViewById(R.id.add_server);
-        mReturnButton = view.findViewById(R.id.zh_login_return);
     }
 
     private void showServerTypeSelectDialog(int stringId, int type) {
@@ -213,10 +199,10 @@ public class OtherLoginFragment extends FragmentWithAnim {
 
         if (userTextEmpty || passTextEmpty) {
             if (userTextEmpty) {
-                runOnUiThread(() -> mUserEditText.setError(getString(R.string.global_error_field_empty)));
+                runOnUiThread(() -> binding.loginEditEmail.setError(getString(R.string.global_error_field_empty)));
             }
             if (passTextEmpty) {
-                runOnUiThread(() -> mPassEditText.setError(getString(R.string.global_error_field_empty)));
+                runOnUiThread(() -> binding.loginEditPassword.setError(getString(R.string.global_error_field_empty)));
             }
             return false;
         } else {
@@ -312,25 +298,25 @@ public class OtherLoginFragment extends FragmentWithAnim {
             mServerList.add(getString(R.string.zh_other_login_no_server));
         }
         if (Objects.isNull(mServerSpinnerAdapter)) {
-            mServerSpinnerAdapter = new DefaultSpinnerAdapter(mServerSpinner);
+            mServerSpinnerAdapter = new DefaultSpinnerAdapter(binding.serverSpinner);
         }
         mServerSpinnerAdapter.setItems(mServerList);
     }
 
     private void showRegisterButton() {
         //当服务器列表为空、服务器列表没有可用服务器时，注册按钮将被隐藏
-        mRegister.setVisibility((mServerList == null ||
+        binding.register.setVisibility((mServerList == null ||
                 (mServerList.size() == 1 && mServerList.get(0).equals(getString(R.string.zh_other_login_no_server))))
                 ? View.GONE : View.VISIBLE);
     }
 
     @Override
     public void slideIn(AnimPlayer animPlayer) {
-        animPlayer.apply(new AnimPlayer.Entry(mMainView, Animations.BounceInDown));
+        animPlayer.apply(new AnimPlayer.Entry(binding.getRoot(), Animations.BounceInDown));
     }
 
     @Override
     public void slideOut(AnimPlayer animPlayer) {
-        animPlayer.apply(new AnimPlayer.Entry(mMainView, Animations.FadeOutUp));
+        animPlayer.apply(new AnimPlayer.Entry(binding.getRoot(), Animations.FadeOutUp));
     }
 }

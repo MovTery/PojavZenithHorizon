@@ -3,14 +3,13 @@ package com.movtery.pojavzh.ui.fragment
 import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageButton
-import android.widget.ImageView
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
@@ -32,6 +31,7 @@ import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.databinding.FragmentCustomMouseBinding
 import java.io.File
 
 class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
@@ -39,13 +39,8 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
         const val TAG: String = "CustomMouseFragment"
     }
 
-    private var mMouseLayout: View? = null
-    private var mOperateLayout: View? = null
+    private lateinit var binding: FragmentCustomMouseBinding
     private var openDocumentLauncher: ActivityResultLauncher<Array<String>>? = null
-    private var mReturnButton: ImageButton? = null
-    private var mAddFileButton: ImageButton? = null
-    private var mRefreshButton: ImageButton? = null
-    private var mMouseView: ImageView? = null
     private var fileRecyclerViewCreator: FileRecyclerViewCreator? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,12 +60,23 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        bindViews(view)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentCustomMouseBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
-        mReturnButton?.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
-        mAddFileButton?.setOnClickListener { openDocumentLauncher?.launch(arrayOf("image/*")) }
-        mRefreshButton?.setOnClickListener { loadData() }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initViews()
+
+        binding.actionBar.apply {
+            returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
+            addFileButton.setOnClickListener { openDocumentLauncher?.launch(arrayOf("image/*")) }
+            refreshButton.setOnClickListener { loadData() }
+        }
 
         loadData()
 
@@ -80,12 +86,14 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
     private fun startNewbieGuide() {
         if (NewbieGuideUtils.showOnlyOne(TAG)) return
         val fragmentActivity = requireActivity()
-        TapTargetSequence(fragmentActivity)
-            .targets(
-                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mRefreshButton, getString(R.string.zh_refresh), getString(R.string.zh_newbie_guide_general_refresh)),
-                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mAddFileButton, getString(R.string.zh_custom_mouse_add), getString(R.string.zh_newbie_guide_mouse_import)),
-                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mReturnButton, getString(R.string.zh_close), getString(R.string.zh_newbie_guide_general_close)))
-            .start()
+        binding.actionBar.apply {
+            TapTargetSequence(fragmentActivity)
+                .targets(
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, refreshButton, getString(R.string.zh_refresh), getString(R.string.zh_newbie_guide_general_refresh)),
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, addFileButton, getString(R.string.zh_custom_mouse_add), getString(R.string.zh_newbie_guide_mouse_import)),
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, returnButton, getString(R.string.zh_close), getString(R.string.zh_newbie_guide_general_close)))
+                .start()
+        }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -115,7 +123,7 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
     }
 
     private fun refreshIcon() {
-        mMouseView?.apply {
+        binding.mouseIcon.apply {
             ZHTools.getCustomMouse()?.let { file ->
                 Glide.with(requireActivity())
                     .load(file)
@@ -128,27 +136,21 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
         }
     }
 
-    private fun bindViews(view: View) {
-        mMouseLayout = view.findViewById(R.id.mouse_layout)
-        mOperateLayout = view.findViewById(R.id.operate_layout)
+    private fun initViews() {
+        binding.actionBar.apply {
+            addFileButton.setContentDescription(getString(R.string.zh_custom_mouse_add))
+            searchButton.visibility = View.GONE
+            pasteButton.visibility = View.GONE
+            createFolderButton.visibility = View.GONE
 
-        mReturnButton = view.findViewById(R.id.zh_return_button)
-        mAddFileButton = view.findViewById(R.id.zh_add_file_button)
-        mRefreshButton = view.findViewById(R.id.zh_refresh_button)
+            ZHTools.setTooltipText(
+                returnButton,
+                addFileButton,
+                refreshButton
+            )
+        }
 
-        mAddFileButton?.setContentDescription(getString(R.string.zh_custom_mouse_add))
-        view.findViewById<View>(R.id.zh_search_button).visibility = View.GONE
-        view.findViewById<View>(R.id.zh_paste_button).visibility = View.GONE
-        view.findViewById<View>(R.id.zh_create_folder_button).visibility = View.GONE
-
-        mMouseView = view.findViewById(R.id.zh_custom_mouse_icon)
-
-        ZHTools.setTooltipText(mReturnButton, mReturnButton?.contentDescription)
-        ZHTools.setTooltipText(mAddFileButton, mAddFileButton?.contentDescription)
-        ZHTools.setTooltipText(mRefreshButton, mRefreshButton?.contentDescription)
-
-        val mMouseListView = view.findViewById<RecyclerView>(R.id.zh_custom_mouse)
-        fileRecyclerViewCreator = FileRecyclerViewCreator(requireActivity(), mMouseListView, { position: Int, fileItemBean: FileItemBean ->
+        fileRecyclerViewCreator = FileRecyclerViewCreator(requireActivity(), binding.recyclerView, { position: Int, fileItemBean: FileItemBean ->
                 val file = fileItemBean.file
                 val fileName = file?.name
                 val isDefaultMouse = position == 0
@@ -183,12 +185,12 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
     }
 
     override fun slideIn(animPlayer: AnimPlayer) {
-        animPlayer.apply(AnimPlayer.Entry(mMouseLayout!!, Animations.BounceInDown))
-            .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.BounceInLeft))
+        animPlayer.apply(AnimPlayer.Entry(binding.mouseLayout, Animations.BounceInDown))
+            .apply(AnimPlayer.Entry(binding.operateLayout, Animations.BounceInLeft))
     }
 
     override fun slideOut(animPlayer: AnimPlayer) {
-        animPlayer.apply(AnimPlayer.Entry(mMouseLayout!!, Animations.FadeOutUp))
-            .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.FadeOutRight))
+        animPlayer.apply(AnimPlayer.Entry(binding.mouseLayout, Animations.FadeOutUp))
+            .apply(AnimPlayer.Entry(binding.operateLayout, Animations.FadeOutRight))
     }
 }

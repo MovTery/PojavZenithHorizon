@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import android.widget.EditText
-import android.widget.ImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.google.gson.Gson
 import com.google.gson.JsonParser
@@ -17,6 +15,7 @@ import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathJsonObject
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager.Companion.save
+import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.ui.dialog.EditTextDialog
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfileItem
 import com.movtery.pojavzh.ui.subassembly.customprofilepath.ProfilePathAdapter
@@ -25,6 +24,7 @@ import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.databinding.FragmentProfilePathManagerBinding
 import net.kdt.pojavlaunch.extra.ExtraConstants
 import net.kdt.pojavlaunch.extra.ExtraCore
 import java.util.UUID
@@ -34,11 +34,9 @@ class ProfilePathManagerFragment : FragmentWithAnim(R.layout.fragment_profile_pa
         const val TAG: String = "ProfilePathManagerFragment"
     }
 
+    private lateinit var binding: FragmentProfilePathManagerBinding
     private val mData: MutableList<ProfileItem> = ArrayList()
-    private var mPathLayout: View? = null
-    private var mOperateLayout: View? = null
-    private var mOperateView: View? = null
-    private var adapter: ProfilePathAdapter? = null
+    private var profilePathAdapter: ProfilePathAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,62 +64,60 @@ class ProfilePathManagerFragment : FragmentWithAnim(R.layout.fragment_profile_pa
             }
         }
 
-        return super.onCreateView(inflater, container, savedInstanceState)
+        binding = FragmentProfilePathManagerBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         refreshData()
 
-        mPathLayout = view.findViewById(R.id.path_layout)
-        mOperateLayout = view.findViewById(R.id.operate_layout)
-        mOperateView = view.findViewById(R.id.operate_view)
+        binding.apply {
+            profilePathAdapter = ProfilePathAdapter(this@ProfilePathManagerFragment, recyclerView, mData)
+            recyclerView.apply {
+                layoutAnimation = LayoutAnimationController(
+                    AnimationUtils.loadAnimation(view.context, R.anim.fade_downwards)
+                )
+                layoutManager = LinearLayoutManager(requireContext())
+                this.adapter = profilePathAdapter
+            }
 
-        val pathList = view.findViewById<RecyclerView>(R.id.zh_profile_path)
-        val refreshButton = view.findViewById<ImageButton>(R.id.zh_profile_path_refresh_button)
-        val createNewButton = view.findViewById<ImageButton>(R.id.zh_profile_path_create_new_button)
-        val returnButton = view.findViewById<ImageButton>(R.id.zh_profile_path_return_button)
+            refreshButton.setOnClickListener { refresh() }
+            createNewButton.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putBoolean(FilesFragment.BUNDLE_SELECT_FOLDER_MODE, true)
+                bundle.putBoolean(FilesFragment.BUNDLE_SHOW_FILE, false)
+                bundle.putBoolean(FilesFragment.BUNDLE_REMOVE_LOCK_PATH, false)
+                ZHTools.swapFragmentWithAnim(this@ProfilePathManagerFragment, FilesFragment::class.java, FilesFragment.TAG, bundle)
+            }
+            returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
 
-        ZHTools.setTooltipText(refreshButton, refreshButton.contentDescription)
-        ZHTools.setTooltipText(createNewButton, createNewButton.contentDescription)
-        ZHTools.setTooltipText(returnButton, returnButton.contentDescription)
+            ZHTools.setTooltipText(
+                refreshButton,
+                createNewButton,
+                returnButton
+            )
 
-        adapter = ProfilePathAdapter(this, pathList, this.mData)
-        pathList.layoutAnimation = LayoutAnimationController(
-            AnimationUtils.loadAnimation(view.context, R.anim.fade_downwards)
-        )
-        pathList.layoutManager = LinearLayoutManager(requireContext())
-        pathList.adapter = adapter
-
-        refreshButton.setOnClickListener { refresh() }
-        createNewButton.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putBoolean(FilesFragment.BUNDLE_SELECT_FOLDER_MODE, true)
-            bundle.putBoolean(FilesFragment.BUNDLE_SHOW_FILE, false)
-            bundle.putBoolean(FilesFragment.BUNDLE_REMOVE_LOCK_PATH, false)
-            ZHTools.swapFragmentWithAnim(this, FilesFragment::class.java, FilesFragment.TAG, bundle)
+            if (NewbieGuideUtils.showOnlyOne(TAG)) return
+            val fragmentActivity = requireActivity()
+            TapTargetSequence(fragmentActivity)
+                .targets(
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, refreshButton, getString(R.string.zh_refresh), getString(R.string.zh_newbie_guide_general_refresh)),
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, createNewButton, getString(R.string.zh_profiles_path_create_new), getString(R.string.zh_newbie_guide_profiles_path_create)),
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, returnButton, getString(R.string.zh_close), getString(R.string.zh_newbie_guide_general_close)))
+                .start()
         }
-        returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
-
-        if (NewbieGuideUtils.showOnlyOne(TAG)) return
-        val fragmentActivity = requireActivity()
-        TapTargetSequence(fragmentActivity)
-            .targets(
-                NewbieGuideUtils.getSimpleTarget(fragmentActivity, refreshButton, getString(R.string.zh_refresh), getString(R.string.zh_newbie_guide_general_refresh)),
-                NewbieGuideUtils.getSimpleTarget(fragmentActivity, createNewButton, getString(R.string.zh_profiles_path_create_new), getString(R.string.zh_newbie_guide_profiles_path_create)),
-                NewbieGuideUtils.getSimpleTarget(fragmentActivity, returnButton, getString(R.string.zh_close), getString(R.string.zh_newbie_guide_general_close)))
-            .start()
     }
 
     private fun refresh() {
         refreshData()
-        adapter?.updateData(this.mData)
+        profilePathAdapter?.updateData(this.mData)
     }
 
     private fun refreshData() {
         mData.clear()
         mData.add(ProfileItem("default", getString(R.string.zh_profiles_path_default), PathAndUrlManager.DIR_GAME_HOME))
 
-        try {
+        runCatching {
             val json: String
             if (PathAndUrlManager.FILE_PROFILE_PATH.exists()) {
                 json = Tools.read(PathAndUrlManager.FILE_PROFILE_PATH)
@@ -135,8 +131,7 @@ class ProfilePathManagerFragment : FragmentWithAnim(R.layout.fragment_profile_pa
                 val item = ProfileItem(key, profilePathId.title, profilePathId.path)
                 mData.add(item)
             }
-        } catch (ignored: Exception) {
-        }
+        }.getOrElse { e -> Logging.e("refresh profile data", Tools.printToString(e)) }
     }
 
     private fun isAddedPath(path: String): Boolean {
@@ -147,13 +142,17 @@ class ProfilePathManagerFragment : FragmentWithAnim(R.layout.fragment_profile_pa
     }
 
     override fun slideIn(animPlayer: AnimPlayer) {
-        animPlayer.apply(AnimPlayer.Entry(mPathLayout!!, Animations.BounceInDown))
-            .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.BounceInLeft))
-            .apply(AnimPlayer.Entry(mOperateView!!, Animations.FadeInLeft))
+        binding.apply {
+            animPlayer.apply(AnimPlayer.Entry(pathLayout, Animations.BounceInDown))
+                .apply(AnimPlayer.Entry(operateLayout, Animations.BounceInLeft))
+                .apply(AnimPlayer.Entry(operateView, Animations.FadeInLeft))
+        }
     }
 
     override fun slideOut(animPlayer: AnimPlayer) {
-        animPlayer.apply(AnimPlayer.Entry(mPathLayout!!, Animations.FadeOutUp))
-            .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.FadeOutRight))
+        binding.apply {
+            animPlayer.apply(AnimPlayer.Entry(pathLayout, Animations.FadeOutUp))
+                .apply(AnimPlayer.Entry(operateLayout, Animations.FadeOutRight))
+        }
     }
 }

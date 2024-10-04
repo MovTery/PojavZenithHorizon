@@ -3,9 +3,9 @@ package com.movtery.pojavzh.ui.fragment
 import android.app.AlertDialog
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import com.movtery.anim.AnimPlayer
@@ -19,6 +19,7 @@ import com.movtery.pojavzh.utils.file.FileTools.Companion.copyFileInBackground
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
+import net.kdt.pojavlaunch.databinding.FragmentSelectModpackBinding
 import net.kdt.pojavlaunch.extra.ExtraCore
 import net.kdt.pojavlaunch.fragments.SearchModFragment
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper
@@ -30,7 +31,7 @@ class SelectModPackFragment : FragmentWithAnim(R.layout.fragment_select_modpack)
         const val TAG: String = "SelectModPackFragment"
     }
 
-    private var mMainView: View? = null
+    private lateinit var binding: FragmentSelectModpackBinding
     private var openDocumentLauncher: ActivityResultLauncher<Any?>? = null
     private var modPackFile: File? = null
     private var mTasksRunning = false
@@ -54,31 +55,36 @@ class SelectModPackFragment : FragmentWithAnim(R.layout.fragment_select_modpack)
         }
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentSelectModpackBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        mMainView = view
         ProgressKeeper.addTaskCountListener(this)
 
-        val mReturnButton = view.findViewById<ImageView>(R.id.zh_modpack_return)
-        mReturnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
-        val mSearch = view.findViewById<Button>(R.id.zh_modpack_button_search_modpack)
-        mSearch.setOnClickListener {
+        binding.returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
+        binding.searchButton.setOnClickListener {
             if (!mTasksRunning) {
                 val bundle = Bundle()
                 bundle.putBoolean(SearchModFragment.BUNDLE_SEARCH_MODPACK, true)
                 bundle.putString(SearchModFragment.BUNDLE_MOD_PATH, null)
                 ZHTools.swapFragmentWithAnim(this, SearchModFragment::class.java, SearchModFragment.TAG, bundle)
             } else {
-                setViewAnim(mSearch, Animations.Shake)
+                setViewAnim(binding.searchButton, Animations.Shake)
                 Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
             }
         }
-        val mLocal = view.findViewById<Button>(R.id.zh_modpack_button_local_modpack)
-        mLocal.setOnClickListener {
+        binding.localButton.setOnClickListener {
             if (!mTasksRunning) {
                 Toast.makeText(requireActivity(), getString(R.string.zh_select_modpack_local_tip), Toast.LENGTH_SHORT).show()
                 openDocumentLauncher?.launch(null)
             } else {
-                setViewAnim(mLocal, Animations.Shake)
+                setViewAnim(binding.localButton, Animations.Shake)
                 Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
             }
         }
@@ -89,10 +95,10 @@ class SelectModPackFragment : FragmentWithAnim(R.layout.fragment_select_modpack)
     }
 
     override fun slideIn(animPlayer: AnimPlayer) {
-        animPlayer.apply(AnimPlayer.Entry(mMainView!!, Animations.BounceInDown))
+        animPlayer.apply(AnimPlayer.Entry(binding.root, Animations.BounceInDown))
     }
 
     override fun slideOut(animPlayer: AnimPlayer) {
-        animPlayer.apply(AnimPlayer.Entry(mMainView!!, Animations.FadeOutUp))
+        animPlayer.apply(AnimPlayer.Entry(binding.root, Animations.FadeOutUp))
     }
 }

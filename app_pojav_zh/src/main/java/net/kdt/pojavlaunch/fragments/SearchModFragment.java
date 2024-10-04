@@ -9,10 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,8 +34,8 @@ import net.kdt.pojavlaunch.R;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 import com.skydoves.powerspinner.DefaultSpinnerAdapter;
 import com.skydoves.powerspinner.OnSpinnerItemSelectedListener;
-import com.skydoves.powerspinner.PowerSpinnerView;
 
+import net.kdt.pojavlaunch.databinding.FragmentModSearchBinding;
 import net.kdt.pojavlaunch.modloaders.modpacks.ModItemAdapter;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.CommonApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi;
@@ -51,17 +47,12 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
     public static final String TAG = "SearchModFragment";
     public static final String BUNDLE_SEARCH_MODPACK = "BundleSearchModPack";
     public static final String BUNDLE_MOD_PATH = "BundleModPath";
+    private FragmentModSearchBinding binding;
     private ModFilters mModFilters;
     private boolean isModpack;
     private String mModsPath;
-    private View mModsLayout, mOperateLayout, mLoadingView;
-    private EditText mSearchEditText;
-    private RecyclerView mRecyclerview;
-    private ImageButton mBackToTop;
     private ModItemAdapter mModItemAdapter;
-    private TextView mStatusTextView;
     private ColorStateList mDefaultTextColor;
-    private PowerSpinnerView mSortBy, mPlatform, mCategory, mModloader;
     private ModpackApi modpackApi;
 
     public SearchModFragment() {
@@ -77,37 +68,30 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        binding = FragmentModSearchBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         parseBundle();
-        mModsLayout = view.findViewById(R.id.mods_layout);
-        mOperateLayout = view.findViewById(R.id.operate_layout);
         mModFilters = new ModFilters();
         mModFilters.setModpack(this.isModpack);
 
-        mRecyclerview = view.findViewById(R.id.search_mod_list);
-        mBackToTop = view.findViewById(R.id.search_mod_back_to_top);
-        mLoadingView = view.findViewById(R.id.zh_mods_loading);
-        mStatusTextView = view.findViewById(R.id.search_mod_status_text);
-        Button mBackButton = view.findViewById(R.id.search_mod_back);
+        initFilterView(requireContext());
 
-        initFilterView(requireContext(), view);
-
-        mDefaultTextColor = mStatusTextView.getTextColors();
+        mDefaultTextColor = binding.statusText.getTextColors();
 
         // You can only access resources after attaching to current context
         mModItemAdapter = new ModItemAdapter(new ModDependencies.SelectedMod(SearchModFragment.this,
                 null, modpackApi, isModpack, mModsPath),
-                mRecyclerview, this);
+                binding.searchModList, this);
         mModItemAdapter.setOnAddFragmentListener(this::closeSpinner);
-        mRecyclerview.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.fade_downwards)));
-        mRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerview.setAdapter(mModItemAdapter);
+        binding.searchModList.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.fade_downwards)));
+        binding.searchModList.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.searchModList.setAdapter(mModItemAdapter);
 
-        mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        binding.searchModList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -116,43 +100,43 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
                     int lastPosition = layoutManager.findLastVisibleItemPosition();
                     boolean b = lastPosition >= 12;
 
-                    AnimUtils.setVisibilityAnim(mBackToTop, b);
+                    AnimUtils.setVisibilityAnim(binding.backToTop, b);
                 }
             }
         });
 
-        mSearchEditText.setOnEditorActionListener((v, actionId, event) -> {
-            searchMods(mSearchEditText.getText().toString());
-            mSearchEditText.clearFocus();
+        binding.nameEdit.setOnEditorActionListener((v, actionId, event) -> {
+            searchMods(binding.nameEdit.getText().toString());
+            binding.nameEdit.clearFocus();
             return false;
         });
 
-        mBackToTop.setOnClickListener(v -> mRecyclerview.smoothScrollToPosition(0));
-        mBackButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
+        binding.backToTop.setOnClickListener(v -> binding.searchModList.smoothScrollToPosition(0));
+        binding.returnButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
 
         searchMods(null); //自动搜索一次
     }
 
     @Override
     public void onSearchFinished() {
-        AnimUtils.playVisibilityAnim(mLoadingView, false);
-        AnimUtils.setVisibilityAnim(mStatusTextView, false);
-        mRecyclerview.setVisibility(View.VISIBLE);
+        AnimUtils.playVisibilityAnim(binding.loadingLayout, false);
+        AnimUtils.setVisibilityAnim(binding.statusText, false);
+        binding.searchModList.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onSearchError(int error) {
-        mRecyclerview.setVisibility(View.GONE);
-        AnimUtils.playVisibilityAnim(mLoadingView, false);
-        AnimUtils.setVisibilityAnim(mStatusTextView, true);
+        binding.searchModList.setVisibility(View.GONE);
+        AnimUtils.playVisibilityAnim(binding.loadingLayout, false);
+        AnimUtils.setVisibilityAnim(binding.statusText, true);
         switch (error) {
             case ERROR_INTERNAL:
-                mStatusTextView.setTextColor(Color.RED);
-                mStatusTextView.setText(isModpack ? R.string.search_modpack_error : R.string.zh_profile_mods_search_mod_failed);
+                binding.statusText.setTextColor(Color.RED);
+                binding.statusText.setText(isModpack ? R.string.search_modpack_error : R.string.zh_profile_mods_search_mod_failed);
                 break;
             case ERROR_NO_RESULTS:
-                mStatusTextView.setTextColor(mDefaultTextColor);
-                mStatusTextView.setText(isModpack ? R.string.search_modpack_no_result : R.string.zh_profile_mods_search_mod_no_result);
+                binding.statusText.setTextColor(mDefaultTextColor);
+                binding.statusText.setText(isModpack ? R.string.search_modpack_no_result : R.string.zh_profile_mods_search_mod_no_result);
                 break;
         }
     }
@@ -164,17 +148,17 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
     }
 
     private void closeSpinner() {
-        mSortBy.dismiss();
-        mPlatform.dismiss();
-        mCategory.dismiss();
-        mModloader.dismiss();
+        binding.sortSpinner.dismiss();
+        binding.platformSpinner.dismiss();
+        binding.categorySpinner.dismiss();
+        binding.modloaderSpinner.dismiss();
     }
 
     private void searchMods(String name) {
-        mRecyclerview.scrollToPosition(0);
-        mRecyclerview.setVisibility(View.GONE);
-        AnimUtils.playVisibilityAnim(mLoadingView, true);
-        AnimUtils.playVisibilityAnim(mStatusTextView, false);
+        binding.searchModList.scrollToPosition(0);
+        binding.searchModList.setVisibility(View.GONE);
+        AnimUtils.playVisibilityAnim(binding.loadingLayout, true);
+        AnimUtils.playVisibilityAnim(binding.statusText, false);
 
         if (ZHTools.areaChecks("zh") && StringUtils.containsChinese(name)) {
             name = this.isModpack ?
@@ -193,31 +177,20 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
         mModsPath = bundle.getString(BUNDLE_MOD_PATH, null);
     }
 
-    private void initFilterView(Context context, View view) {
-        mSearchEditText = view.findViewById(R.id.search_mod_edittext);
-        mSortBy = view.findViewById(R.id.zh_search_mod_sort);
-        mPlatform = view.findViewById(R.id.zh_search_mod_platform);
-        mCategory = view.findViewById(R.id.zh_search_mod_category);
-        mModloader = view.findViewById(R.id.zh_search_mod_modloader);
-        TextView mTitleTextView = view.findViewById(R.id.search_mod_title);
-        ImageButton mSearchButton = view.findViewById(R.id.zh_search_mod_search);
-        TextView mSelectedVersion = view.findViewById(R.id.search_mod_selected_mc_version_textview);
-        Button mSelectVersionButton = view.findViewById(R.id.search_mod_mc_version_button);
-        Button mResetButton = view.findViewById(R.id.search_mod_reset);
-
+    private void initFilterView(Context context) {
         if (this.isModpack) {
-            mTitleTextView.setText(R.string.hint_search_modpack);
+            binding.searchTitle.setText(R.string.hint_search_modpack);
         }
 
-        mSearchButton.setOnClickListener(v -> searchMods(mSearchEditText.getText().toString()));
+        binding.searchView.setOnClickListener(v -> searchMods(binding.nameEdit.getText().toString()));
 
         // 打开版本选择弹窗
-        mSelectVersionButton.setOnClickListener(v -> {
+        binding.mcVersionButton.setOnClickListener(v -> {
             SelectVersionDialog selectVersionDialog = new SelectVersionDialog(context);
             selectVersionDialog.setOnVersionSelectedListener(new VersionSelectedListener() {
                 @Override
                 public void onVersionSelected(String version) {
-                    mSelectedVersion.setText(version);
+                    binding.selectedMcVersionView.setText(version);
                     mModFilters.setMcVersion(version);
                     selectVersionDialog.dismiss();
                 }
@@ -226,68 +199,66 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
             selectVersionDialog.show();
         });
 
-        mSelectedVersion.setText(mModFilters.getMcVersion());
+        binding.selectedMcVersionView.setText(mModFilters.getMcVersion());
 
         List<String> categoriesList = this.isModpack ? ModCategory.getModPackCategories(context) : ModCategory.getModCategories(context);
-        if (mCategory != null) {
-            DefaultSpinnerAdapter adapter = new DefaultSpinnerAdapter(mCategory);
-            adapter.setItems(categoriesList);
+        DefaultSpinnerAdapter adapter = new DefaultSpinnerAdapter(binding.categorySpinner);
+        adapter.setItems(categoriesList);
 
-            mCategory.setSpinnerAdapter(adapter);
-            mCategory.selectItemByIndex(0);
+        binding.categorySpinner.setSpinnerAdapter(adapter);
+        binding.categorySpinner.selectItemByIndex(0);
 
-            mCategory.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) ->
-                    mModFilters.setCategory(isModpack ?
-                    ModCategory.getModPackCategoryFromIndex(i1) :
-                    ModCategory.getModCategoryFromIndex(i1)));
-        }
+        binding.categorySpinner.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) ->
+                mModFilters.setCategory(isModpack ?
+                        ModCategory.getModPackCategoryFromIndex(i1) :
+                        ModCategory.getModCategoryFromIndex(i1)));
 
         List<String> platfromList = SearchModPlatform.getIndexList(context);
-        DefaultSpinnerAdapter platformAdapter = new DefaultSpinnerAdapter(mPlatform);
+        DefaultSpinnerAdapter platformAdapter = new DefaultSpinnerAdapter(binding.platformSpinner);
         platformAdapter.setItems(platfromList);
-        mPlatform.setSpinnerAdapter(platformAdapter);
-        mPlatform.selectItemByIndex(0);
-        mPlatform.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) ->
+        binding.platformSpinner.setSpinnerAdapter(platformAdapter);
+        binding.platformSpinner.selectItemByIndex(0);
+        binding.platformSpinner.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) ->
                 mModFilters.setPlatform(SearchModPlatform.getPlatform(i1)));
 
         List<String> sortList = new ArrayList<>(SearchModSort.getIndexList(context));
-        DefaultSpinnerAdapter sortAdapter = new DefaultSpinnerAdapter(mSortBy);
+        DefaultSpinnerAdapter sortAdapter = new DefaultSpinnerAdapter(binding.sortSpinner);
         sortAdapter.setItems(sortList);
-        mSortBy.setSpinnerAdapter(sortAdapter);
-        mSortBy.selectItemByIndex(0);
-        mSortBy.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> mModFilters.setSort(i1));
+        binding.sortSpinner.setSpinnerAdapter(sortAdapter);
+        binding.sortSpinner.selectItemByIndex(0);
+        binding.sortSpinner.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> mModFilters.setSort(i1));
 
         List<String> modloaderList = new ArrayList<>(ModLoaderList.modloaderList);
         modloaderList.add(0, getString(R.string.zh_all));
-        DefaultSpinnerAdapter modloaderAdapter = new DefaultSpinnerAdapter(mModloader);
+        DefaultSpinnerAdapter modloaderAdapter = new DefaultSpinnerAdapter(binding.modloaderSpinner);
         modloaderAdapter.setItems(modloaderList);
-        mModloader.setSpinnerAdapter(modloaderAdapter);
-        mModloader.selectItemByIndex(0);
-        mModloader.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> {
+        binding.modloaderSpinner.setSpinnerAdapter(modloaderAdapter);
+        binding.modloaderSpinner.selectItemByIndex(0);
+        binding.modloaderSpinner.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> {
             if (i1 == 0) mModFilters.setModloader(null);
             else mModFilters.setModloader(ModLoaderList.getModLoaderNameFromIndex(i1 - 1));
         });
 
-        mResetButton.setOnClickListener(v -> {
+        binding.searchModReset.setOnClickListener(v -> {
             //重置控件
-            mSearchEditText.setText("");
-            mSelectedVersion.setText("");
-            if (mPlatform != null) mPlatform.selectItemByIndex(0);
-            if (mSortBy != null) mSortBy.selectItemByIndex(0);
-            if (mCategory != null) mCategory.selectItemByIndex(0);
-            if (mModloader != null) mModloader.selectItemByIndex(0);
+            binding.nameEdit.setText("");
+            binding.selectedMcVersionView.setText("");
+            binding.platformSpinner.selectItemByIndex(0);
+            binding.sortSpinner.selectItemByIndex(0);
+            binding.categorySpinner.selectItemByIndex(0);
+            binding.modloaderSpinner.selectItemByIndex(0);
         });
     }
 
     @Override
     public void slideIn(AnimPlayer animPlayer) {
-        animPlayer.apply(new AnimPlayer.Entry(mModsLayout, Animations.BounceInDown))
-                .apply(new AnimPlayer.Entry(mOperateLayout, Animations.BounceInLeft));
+        animPlayer.apply(new AnimPlayer.Entry(binding.modsLayout, Animations.BounceInDown))
+                .apply(new AnimPlayer.Entry(binding.operateLayout, Animations.BounceInLeft));
     }
 
     @Override
     public void slideOut(AnimPlayer animPlayer) {
-        animPlayer.apply(new AnimPlayer.Entry(mModsLayout, Animations.FadeOutUp))
-                .apply(new AnimPlayer.Entry(mOperateLayout, Animations.FadeOutRight));
+        animPlayer.apply(new AnimPlayer.Entry(binding.modsLayout, Animations.FadeOutUp))
+                .apply(new AnimPlayer.Entry(binding.operateLayout, Animations.FadeOutRight));
     }
 }

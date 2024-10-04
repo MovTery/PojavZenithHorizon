@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.tabs.TabLayout
-                android:id="@+id/zh_version_tab"
+                android:id="@+id/version_tab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_8sdp"
@@ -52,7 +52,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/zh_version_tab" />
+                app:layout_constraintTop_toBottomOf="@+id/version_tab" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -88,7 +88,7 @@
             app:layout_constraintStart_toEndOf="@+id/shadowView">
 
             <com.movtery.pojavzh.ui.view.AnimButton
-                android:id="@+id/zh_version_return_button"
+                android:id="@+id/return_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_8sdp"
@@ -100,12 +100,12 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <com.movtery.pojavzh.ui.view.AnimButton
-                android:id="@+id/zh_version_refresh_button"
+                android:id="@+id/refresh_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_8sdp"
                 android:text="@string/zh_refresh"
-                app:layout_constraintBottom_toTopOf="@+id/zh_version_return_button"
+                app:layout_constraintBottom_toTopOf="@+id/return_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"

@@ -1,7 +1,9 @@
 package com.movtery.pojavzh.ui.fragment.settings
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.movtery.pojavzh.extra.ZHExtraConstants
 import com.movtery.pojavzh.feature.UpdateLauncher
 import com.movtery.pojavzh.setting.AllSettings
@@ -14,13 +16,24 @@ import com.movtery.pojavzh.ui.fragment.settings.wrapper.SwitchSettingsWrapper
 import com.movtery.pojavzh.utils.CleanUpCache.Companion.start
 import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.databinding.SettingsFragmentLauncherBinding
 import net.kdt.pojavlaunch.extra.ExtraCore
 
 class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fragment_launcher) {
+    private lateinit var binding: SettingsFragmentLauncherBinding
     private var parentFragment: FragmentWithAnim? = null
 
     constructor(parentFragment: FragmentWithAnim?) : this() {
         this.parentFragment = parentFragment
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = SettingsFragmentLauncherBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,17 +43,17 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
             context,
             "checkLibraries",
             AllSettings.checkLibraries,
-            view.findViewById(R.id.checkLibraries_layout),
-            view.findViewById(R.id.checkLibraries)
+            binding.checkLibrariesLayout,
+            binding.checkLibraries
         )
 
         ListSettingsWrapper(
             context,
             "downloadSource",
             "default",
-            view.findViewById(R.id.downloadSource_layout),
-            view.findViewById(R.id.downloadSource_title),
-            view.findViewById(R.id.downloadSource_value),
+            binding.downloadSourceLayout,
+            binding.downloadSourceTitle,
+            binding.downloadSourceValue,
             R.array.download_source_names, R.array.download_source_values
         )
 
@@ -48,9 +61,9 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
             context,
             "modInfoSource",
             "original",
-            view.findViewById(R.id.modInfoSource_layout),
-            view.findViewById(R.id.modInfoSource_title),
-            view.findViewById(R.id.modInfoSource_value),
+            binding.modInfoSourceLayout,
+            binding.modInfoSourceTitle,
+            binding.modInfoSourceValue,
             R.array.mod_source_names, R.array.mod_source_values
         )
 
@@ -58,9 +71,9 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
             context,
             "modDownloadSource",
             "original",
-            view.findViewById(R.id.modDownloadSource_layout),
-            view.findViewById(R.id.modDownloadSource_title),
-            view.findViewById(R.id.modDownloadSource_value),
+            binding.modDownloadSourceLayout,
+            binding.modDownloadSourceTitle,
+            binding.modDownloadSourceValue,
             R.array.mod_source_names, R.array.mod_source_values
         )
 
@@ -68,25 +81,25 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
             context,
             "autoSetGameLanguage",
             AllSettings.autoSetGameLanguage,
-            view.findViewById(R.id.autoSetGameLanguage_layout),
-            view.findViewById(R.id.autoSetGameLanguage)
+            binding.autoSetGameLanguageLayout,
+            binding.autoSetGameLanguage
         )
 
         SwitchSettingsWrapper(
             context,
             "gameLanguageOverridden",
             AllSettings.autoSetGameLanguage,
-            view.findViewById(R.id.gameLanguageOverridden_layout),
-            view.findViewById(R.id.gameLanguageOverridden)
+            binding.gameLanguageOverriddenLayout,
+            binding.gameLanguageOverridden
         )
 
         ListSettingsWrapper(
             context,
             "setGameLanguage",
             "system",
-            view.findViewById(R.id.setGameLanguage_layout),
-            view.findViewById(R.id.setGameLanguage_title),
-            view.findViewById(R.id.setGameLanguage_value),
+            binding.setGameLanguageLayout,
+            binding.setGameLanguageTitle,
+            binding.setGameLanguageValue,
             R.array.all_game_language, R.array.all_game_language_value
         )
 
@@ -94,15 +107,15 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
             context,
             "launcherTheme",
             "system",
-            view.findViewById(R.id.launcherTheme_layout),
-            view.findViewById(R.id.launcherTheme_title),
-            view.findViewById(R.id.launcherTheme_value),
+            binding.launcherThemeLayout,
+            binding.launcherThemeTitle,
+            binding.launcherThemeValue,
             R.array.launcher_theme_names, R.array.launcher_theme_values
         ).setRequiresReboot()
 
         BaseSettingsWrapper(
             context,
-            view.findViewById(R.id.zh_custom_background_layout)
+            binding.customBackgroundLayout
         ) {
             parentFragment?.apply {
                 ZHTools.swapFragmentWithAnim(
@@ -118,19 +131,19 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
             context,
             "animation",
             AllSettings.animation,
-            view.findViewById(R.id.animation_layout),
-            view.findViewById(R.id.animation)
+            binding.animationLayout,
+            binding.animation
         )
 
         SeekBarSettingsWrapper(
             context,
             "animationSpeed",
             AllSettings.animationSpeed,
-            view.findViewById(R.id.animationSpeed_layout),
-            view.findViewById(R.id.animationSpeed_title),
-            view.findViewById(R.id.animationSpeed_summary),
-            view.findViewById(R.id.animationSpeed_value),
-            view.findViewById(R.id.animationSpeed),
+            binding.animationSpeedLayout,
+            binding.animationSpeedTitle,
+            binding.animationSpeedSummary,
+            binding.animationSpeedValue,
+            binding.animationSpeed,
             "ms"
         )
 
@@ -138,11 +151,11 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
             context,
             "pageOpacity",
             AllSettings.pageOpacity,
-            view.findViewById(R.id.pageOpacity_layout),
-            view.findViewById(R.id.pageOpacity_title),
-            view.findViewById(R.id.pageOpacity_summary),
-            view.findViewById(R.id.pageOpacity_value),
-            view.findViewById(R.id.pageOpacity),
+            binding.pageOpacityLayout,
+            binding.pageOpacityTitle,
+            binding.pageOpacitySummary,
+            binding.pageOpacityValue,
+            binding.pageOpacity,
             "%"
         )
 
@@ -150,28 +163,28 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
             context,
             "enableLogOutput",
             AllSettings.enableLogOutput,
-            view.findViewById(R.id.enableLogOutput_layout),
-            view.findViewById(R.id.enableLogOutput)
+            binding.enableLogOutputLayout,
+            binding.enableLogOutput
         )
 
         SwitchSettingsWrapper(
             context,
             "quitLauncher",
             AllSettings.quitLauncher,
-            view.findViewById(R.id.quitLauncher_layout),
-            view.findViewById(R.id.quitLauncher)
+            binding.quitLauncherLayout,
+            binding.quitLauncher
         )
 
         BaseSettingsWrapper(
             context,
-            view.findViewById(R.id.zh_clean_up_cache_layout)
+            binding.cleanUpCacheLayout
         ) {
             start(context)
         }
 
         BaseSettingsWrapper(
             context,
-            view.findViewById(R.id.zh_check_update_layout)
+            binding.checkUpdateLayout
         ) {
             UpdateLauncher.CheckDownloadedPackage(context, false)
         }

@@ -1,15 +1,29 @@
 package com.movtery.pojavzh.ui.fragment.settings
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.movtery.pojavzh.setting.AllSettings
 import com.movtery.pojavzh.ui.fragment.settings.wrapper.SwitchSettingsWrapper
 import net.kdt.pojavlaunch.LauncherActivity
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.databinding.SettingsFragmentMiscellaneousBinding
 
 class MiscellaneousSettingsFragment :
     AbstractSettingsFragment(R.layout.settings_fragment_miscellaneous) {
+    private lateinit var binding: SettingsFragmentMiscellaneousBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = SettingsFragmentMiscellaneousBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val context = requireContext()
 
@@ -17,24 +31,24 @@ class MiscellaneousSettingsFragment :
             context,
             "arc_capes",
             AllSettings.arcCapes,
-            view.findViewById(R.id.arc_capes_layout),
-            view.findViewById(R.id.arc_capes)
+            binding.arcCapesLayout,
+            binding.arcCapes
         )
 
         SwitchSettingsWrapper(
             context,
             "verifyManifest",
             AllSettings.verifyManifest,
-            view.findViewById(R.id.verifyManifest_layout),
-            view.findViewById(R.id.verifyManifest)
+            binding.verifyManifestLayout,
+            binding.verifyManifest
         )
 
         val zinkPreferSystemDriver = SwitchSettingsWrapper(
             context,
             "zinkPreferSystemDriver",
             AllSettings.zinkPreferSystemDriver,
-            view.findViewById(R.id.zinkPreferSystemDriver_layout),
-            view.findViewById(R.id.zinkPreferSystemDriver)
+            binding.zinkPreferSystemDriverLayout,
+            binding.zinkPreferSystemDriver
         )
         if (!Tools.checkVulkanSupport(context.packageManager)) {
             zinkPreferSystemDriver.setGone()
@@ -44,16 +58,16 @@ class MiscellaneousSettingsFragment :
             context,
             "force_english",
             AllSettings.forceEnglish,
-            view.findViewById(R.id.force_english_layout),
-            view.findViewById(R.id.force_english)
+            binding.forceEnglishLayout,
+            binding.forceEnglish
         ).setRequiresReboot()
 
         val notificationPermissionRequest = SwitchSettingsWrapper(
             context,
             "notification_permission_request",
             false,
-            view.findViewById(R.id.notification_permission_request_layout),
-            view.findViewById(R.id.notification_permission_request)
+            binding.notificationPermissionRequestLayout,
+            binding.notificationPermissionRequest
         )
         setupNotificationRequestPreference(notificationPermissionRequest)
     }

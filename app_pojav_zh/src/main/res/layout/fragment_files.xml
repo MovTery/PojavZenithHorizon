@@ -30,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerView
-                android:id="@+id/zh_files"
+                android:id="@+id/file_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="@dimen/_8sdp"
@@ -38,10 +38,10 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/zh_files_title_layout" />
+                app:layout_constraintTop_toBottomOf="@+id/title_layout" />
 
             <TextView
-                android:id="@+id/zh_files_nothing"
+                android:id="@+id/nothing_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/zh_file_nothing"
@@ -54,7 +54,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/zh_files_title_layout"
+                android:id="@+id/title_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
@@ -62,7 +62,7 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <com.movtery.pojavzh.ui.view.AnimTextView
-                    android:id="@+id/zh_files_current_path"
+                    android:id="@+id/current_path"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8sdp"
@@ -71,12 +71,12 @@
                     android:textColor="@color/primary_text"
                     android:background="?android:attr/selectableItemBackground"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/zh_file_select_all"
+                    app:layout_constraintEnd_toStartOf="@+id/select_all"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="HardcodedText" />
 
                 <com.movtery.pojavzh.ui.view.AnimCheckBox
-                    android:id="@+id/zh_file_select_all"
+                    android:id="@+id/select_all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_16sdp"
@@ -126,7 +126,7 @@
                 android:layout_height="match_parent">
 
                 <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
-                    android:id="@+id/zh_files_external_storage"
+                    android:id="@+id/external_storage"
                     android:layout_width="0dp"
                     android:layout_height="42dp"
                     android:layout_marginBottom="@dimen/_16sdp"
@@ -155,11 +155,11 @@
                 </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
                 <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
-                    android:id="@+id/zh_files_software_private"
+                    android:id="@+id/software_private"
                     android:layout_width="0dp"
                     android:layout_height="42dp"
                     android:background="?android:attr/selectableItemBackground"
-                    app:layout_constraintBottom_toTopOf="@+id/zh_files_external_storage"
+                    app:layout_constraintBottom_toTopOf="@+id/external_storage"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
                     <ImageView
@@ -183,14 +183,14 @@
                 </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
                 <com.movtery.pojavzh.ui.view.AnimCheckBox
-                    android:id="@+id/zh_file_multi_select_files"
+                    android:id="@+id/multi_select_files"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_16sdp"
                     android:layout_marginBottom="@dimen/_4sdp"
                     android:paddingStart="@dimen/_8sdp"
                     android:text="@string/zh_file_multi_select_mode"
-                    app:layout_constraintBottom_toTopOf="@+id/zh_files_software_private"
+                    app:layout_constraintBottom_toTopOf="@+id/software_private"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     tools:ignore="RtlSymmetry" />
@@ -211,7 +211,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
-        android:id="@+id/zh_search_view"
+        android:id="@+id/search_view"
         layout="@layout/view_search"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
