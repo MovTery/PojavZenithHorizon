@@ -10,10 +10,6 @@ import android.util.Base64OutputStream;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -36,10 +32,10 @@ import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.file.FileTools;
 import com.skydoves.powerspinner.DefaultSpinnerAdapter;
 import com.skydoves.powerspinner.OnSpinnerItemSelectedListener;
-import com.skydoves.powerspinner.PowerSpinnerView;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
+import net.kdt.pojavlaunch.databinding.FragmentProfileEditorBinding;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
@@ -74,15 +70,10 @@ public class ProfileEditorFragment extends FragmentWithAnim {
                 }
             });
 
+    private FragmentProfileEditorBinding binding;
     private String mProfileKey;
     private MinecraftProfile mTempProfile = null;
     private String mValueToConsume = "";
-    private View mEditorLayout, mOperateLayout, mProfileLayout;
-    private Button mCancelButton, mSaveButton, mControlSelectButton, mGameDirButton, mVersionSelectButton;
-    private PowerSpinnerView mDefaultRuntime, mDefaultRenderer;
-    private EditText mDefaultName, mDefaultJvmArgument;
-    private TextView mDefaultPath, mDefaultVersion, mDefaultControl;
-    private ImageView mProfileIcon;
 
     private List<String> mRenderNames;
 
@@ -106,25 +97,25 @@ public class ProfileEditorFragment extends FragmentWithAnim {
         //选择版本
         if (version != null) {
             mTempProfile.lastVersionId = version;
-            mDefaultVersion.setText(version);
+            binding.vprofEditorVersionSpinner.setText(version);
         }
-        return super.onCreateView(inflater, container, savedInstanceState);
+        
+        binding = FragmentProfileEditorBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        bindViews(view);
-
         // Set up behaviors
-        mCancelButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
+        binding.vprofEditorCancelButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
 
-        mSaveButton.setOnClickListener(v -> {
+        binding.vprofEditorSaveButton.setOnClickListener(v -> {
             ProfileIconCache.dropIcon(mProfileKey);
             save();
             Tools.backToMainMenu(requireActivity());
         });
 
-        mGameDirButton.setOnClickListener(v -> {
+        binding.vprofEditorPathButton.setOnClickListener(v -> {
             File dir = new File(PathAndUrlManager.DIR_GAME_DEFAULT);
             if (!dir.exists()) FileTools.mkdirs(dir);
             Bundle bundle = new Bundle();
@@ -137,7 +128,7 @@ public class ProfileEditorFragment extends FragmentWithAnim {
             ZHTools.swapFragmentWithAnim(this, FilesFragment.class, FilesFragment.TAG, bundle);
         });
 
-        mControlSelectButton.setOnClickListener(v -> {
+        binding.vprofEditorCtrlButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putBoolean(ControlButtonFragment.BUNDLE_SELECT_CONTROL, true);
             mValueToConsume = ControlButtonFragment.BUNDLE_SELECT_CONTROL;
@@ -146,19 +137,19 @@ public class ProfileEditorFragment extends FragmentWithAnim {
         });
 
         // 切换至版本选择界面
-        mVersionSelectButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this,
+        binding.vprofEditorVersionButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this,
                 VersionSelectorFragment.class, VersionSelectorFragment.TAG, null));
 
         // Set up the icon change click listener
-        mProfileLayout.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
+        binding.vprofEditorProfileLayout.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
 
         loadValues(Objects.requireNonNull(AllSettings.Companion.getCurrentProfile()), view.getContext());
     }
 
     @Override
     public void onPause() {
-        mDefaultRuntime.dismiss();
-        mDefaultRenderer.dismiss();
+        binding.vprofEditorSpinnerRuntime.dismiss();
+        binding.vprofEditorProfileRenderer.dismiss();
         super.onPause();
     }
 
@@ -166,7 +157,7 @@ public class ProfileEditorFragment extends FragmentWithAnim {
         if(mTempProfile == null){
             mTempProfile = getProfile(profile);
         }
-        mProfileIcon.setImageDrawable(
+        binding.vprofEditorProfileIcon.setImageDrawable(
                 ProfileIconCache.fetchIcon(getResources(), mProfileKey, mTempProfile.icon)
         );
 
@@ -181,11 +172,11 @@ public class ProfileEditorFragment extends FragmentWithAnim {
             int nindex = runtimes.indexOf(new Runtime(selectedRuntime));
             if (nindex != -1) jvmIndex = nindex;
         }
-        DefaultSpinnerAdapter runtimeAdapter = new DefaultSpinnerAdapter(mDefaultRuntime);
+        DefaultSpinnerAdapter runtimeAdapter = new DefaultSpinnerAdapter(binding.vprofEditorSpinnerRuntime);
         runtimeAdapter.setItems(runtimeNames);
-        mDefaultRuntime.setSpinnerAdapter(runtimeAdapter);
-        mDefaultRuntime.selectItemByIndex(jvmIndex);
-        mDefaultRuntime.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> {
+        binding.vprofEditorSpinnerRuntime.setSpinnerAdapter(runtimeAdapter);
+        binding.vprofEditorSpinnerRuntime.selectItemByIndex(jvmIndex);
+        binding.vprofEditorSpinnerRuntime.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> {
             if (i1 == runtimeNames.size() - 1) mTempProfile.javaDir = null;
             else {
                 Runtime runtime = runtimes.get(i1);
@@ -204,20 +195,20 @@ public class ProfileEditorFragment extends FragmentWithAnim {
             int nindex = mRenderNames.indexOf(mTempProfile.pojavRendererName);
             if(nindex != -1) rendererIndex = nindex;
         }
-        DefaultSpinnerAdapter rendererAdapter = new DefaultSpinnerAdapter(mDefaultRenderer);
+        DefaultSpinnerAdapter rendererAdapter = new DefaultSpinnerAdapter(binding.vprofEditorProfileRenderer);
         rendererAdapter.setItems(renderList);
-        mDefaultRenderer.setSpinnerAdapter(rendererAdapter);
-        mDefaultRenderer.selectItemByIndex(rendererIndex);
-        mDefaultRenderer.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> {
+        binding.vprofEditorProfileRenderer.setSpinnerAdapter(rendererAdapter);
+        binding.vprofEditorProfileRenderer.selectItemByIndex(rendererIndex);
+        binding.vprofEditorProfileRenderer.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> {
             if(i1 == renderList.size() - 1) mTempProfile.pojavRendererName = null;
             else mTempProfile.pojavRendererName = mRenderNames.get(i1);
         });
 
-        mDefaultVersion.setText(mTempProfile.lastVersionId);
-        mDefaultJvmArgument.setText(mTempProfile.javaArgs == null ? "" : mTempProfile.javaArgs);
-        mDefaultName.setText(mTempProfile.name);
-        mDefaultPath.setText(mTempProfile.gameDir == null ? "" : mTempProfile.gameDir);
-        mDefaultControl.setText(mTempProfile.controlFile == null ? "" : mTempProfile.controlFile);
+        binding.vprofEditorVersionSpinner.setText(mTempProfile.lastVersionId);
+        binding.vprofEditorJreArgs.setText(mTempProfile.javaArgs == null ? "" : mTempProfile.javaArgs);
+        binding.vprofEditorProfileName.setText(mTempProfile.name);
+        binding.vprofEditorPath.setText(mTempProfile.gameDir == null ? "" : mTempProfile.gameDir);
+        binding.vprofEditorCtrlSpinner.setText(mTempProfile.controlFile == null ? "" : mTempProfile.controlFile);
     }
 
     private MinecraftProfile getProfile(@NonNull String profile){
@@ -232,35 +223,13 @@ public class ProfileEditorFragment extends FragmentWithAnim {
         return minecraftProfile;
     }
 
-    private void bindViews(@NonNull View view){
-        mEditorLayout = view.findViewById(R.id.editor_layout);
-        mOperateLayout = view.findViewById(R.id.operate_layout);
-
-        mDefaultControl = view.findViewById(R.id.vprof_editor_ctrl_spinner);
-        mDefaultRuntime = view.findViewById(R.id.vprof_editor_spinner_runtime);
-        mDefaultRenderer = view.findViewById(R.id.vprof_editor_profile_renderer);
-        mDefaultVersion = view.findViewById(R.id.vprof_editor_version_spinner);
-
-        mDefaultPath = view.findViewById(R.id.vprof_editor_path);
-        mDefaultName = view.findViewById(R.id.vprof_editor_profile_name);
-        mDefaultJvmArgument = view.findViewById(R.id.vprof_editor_jre_args);
-
-        mCancelButton = view.findViewById(R.id.vprof_editor_cancel_button);
-        mSaveButton = view.findViewById(R.id.vprof_editor_save_button);
-        mControlSelectButton = view.findViewById(R.id.vprof_editor_ctrl_button);
-        mVersionSelectButton = view.findViewById(R.id.vprof_editor_version_button);
-        mGameDirButton = view.findViewById(R.id.vprof_editor_path_button);
-        mProfileIcon = view.findViewById(R.id.vprof_editor_profile_icon);
-        mProfileLayout = view.findViewById(R.id.vprof_editor_profile_layout);
-    }
-
     private void save(){
         //First, check for potential issues in the inputs
-        mTempProfile.lastVersionId = mDefaultVersion.getText().toString();
-        mTempProfile.controlFile = mDefaultControl.getText().toString();
-        mTempProfile.name = mDefaultName.getText().toString();
-        mTempProfile.javaArgs = mDefaultJvmArgument.getText().toString();
-        mTempProfile.gameDir = mDefaultPath.getText().toString();
+        mTempProfile.lastVersionId = binding.vprofEditorVersionSpinner.getText().toString();
+        mTempProfile.controlFile = binding.vprofEditorCtrlSpinner.getText().toString();
+        mTempProfile.name = binding.vprofEditorProfileName.getText().toString();
+        mTempProfile.javaArgs = binding.vprofEditorJreArgs.getText().toString();
+        mTempProfile.gameDir = binding.vprofEditorPath.getText().toString();
 
         if(mTempProfile.controlFile.isEmpty()) mTempProfile.controlFile = null;
         if(mTempProfile.javaArgs.isEmpty()) mTempProfile.javaArgs = null;
@@ -274,7 +243,7 @@ public class ProfileEditorFragment extends FragmentWithAnim {
     private void onImageSelected(Bitmap bitmap) {
         Glide.with(requireContext())
                 .load(bitmap)
-                .into(mProfileIcon);
+                .into(binding.vprofEditorProfileIcon);
 
         Logging.i("ProfileEditorFragment", "The icon has been updated");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -303,14 +272,14 @@ public class ProfileEditorFragment extends FragmentWithAnim {
 
     @Override
     public void slideIn(AnimPlayer animPlayer) {
-        animPlayer.apply(new AnimPlayer.Entry(mEditorLayout, Animations.BounceInDown))
-                .apply(new AnimPlayer.Entry(mOperateLayout, Animations.BounceInLeft))
-                .apply(new AnimPlayer.Entry(mProfileLayout, Animations.Wobble));
+        animPlayer.apply(new AnimPlayer.Entry(binding.editorLayout, Animations.BounceInDown))
+                .apply(new AnimPlayer.Entry(binding.operateLayout, Animations.BounceInLeft))
+                .apply(new AnimPlayer.Entry(binding.vprofEditorProfileLayout, Animations.Wobble));
     }
 
     @Override
     public void slideOut(AnimPlayer animPlayer) {
-        animPlayer.apply(new AnimPlayer.Entry(mEditorLayout, Animations.FadeOutUp))
-                .apply(new AnimPlayer.Entry(mOperateLayout, Animations.FadeOutRight));
+        animPlayer.apply(new AnimPlayer.Entry(binding.editorLayout, Animations.FadeOutUp))
+                .apply(new AnimPlayer.Entry(binding.operateLayout, Animations.FadeOutRight));
     }
 }

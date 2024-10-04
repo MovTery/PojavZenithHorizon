@@ -30,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.tabs.TabLayout
-                android:id="@+id/zh_custom_background_tab"
+                android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_8sdp"
@@ -46,7 +46,7 @@
                 app:tabMode="fixed" />
 
             <com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerView
-                android:id="@+id/zh_custom_background"
+                android:id="@+id/file_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="@dimen/_8sdp"
@@ -55,10 +55,10 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/zh_custom_background_tab" />
+                app:layout_constraintTop_toBottomOf="@+id/tab_layout" />
 
             <TextView
-                android:id="@+id/zh_custom_background_nothing"
+                android:id="@+id/nothing_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/zh_custom_background_nothing"
@@ -104,6 +104,7 @@
             app:layout_constraintStart_toEndOf="@+id/shadowView">
 
             <include
+                android:id="@+id/action_bar"
                 layout="@layout/view_file_action_bar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -114,7 +115,7 @@
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <ImageView
-                android:id="@+id/zh_custom_background_preview"
+                android:id="@+id/preview"
                 android:layout_width="0dp"
                 android:layout_height="120dp"
                 android:layout_marginTop="@dimen/_45sdp"

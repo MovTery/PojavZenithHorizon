@@ -4,7 +4,9 @@ import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import com.movtery.pojavzh.setting.AllSettings
 import com.movtery.pojavzh.ui.fragment.CustomMouseFragment
@@ -15,45 +17,53 @@ import com.movtery.pojavzh.ui.fragment.settings.wrapper.SwitchSettingsWrapper
 import com.movtery.pojavzh.utils.ZHTools
 import fr.spse.gamepad_remapper.Remapper
 import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.databinding.SettingsFragmentControlBinding
 import net.kdt.pojavlaunch.fragments.GamepadMapperFragment
 
 class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fragment_control) {
+    private lateinit var binding: SettingsFragmentControlBinding
     private var parentFragment: FragmentWithAnim? = null
-    private var mainView: View? = null
 
     constructor(parentFragment: FragmentWithAnim?) : this() {
         this.parentFragment = parentFragment
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = SettingsFragmentControlBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val context = requireContext()
-        mainView = view
-
         SwitchSettingsWrapper(
             context,
             "disableGestures",
             AllSettings.disableGestures,
-            view.findViewById(R.id.disableGestures_layout),
-            view.findViewById(R.id.disableGestures)
+            binding.disableGesturesLayout,
+            binding.disableGestures
         )
 
         SwitchSettingsWrapper(
             context,
             "disableDoubleTap",
             AllSettings.disableDoubleTap,
-            view.findViewById(R.id.disableDoubleTap_layout),
-            view.findViewById(R.id.disableDoubleTap)
+            binding.disableDoubleTapLayout,
+            binding.disableDoubleTap
         )
 
         SeekBarSettingsWrapper(
             context,
             "timeLongPressTrigger",
             AllSettings.timeLongPressTrigger,
-            view.findViewById(R.id.timeLongPressTrigger_layout),
-            view.findViewById(R.id.timeLongPressTrigger_title),
-            view.findViewById(R.id.timeLongPressTrigger_summary),
-            view.findViewById(R.id.timeLongPressTrigger_value),
-            view.findViewById(R.id.timeLongPressTrigger),
+            binding.timeLongPressTriggerLayout,
+            binding.timeLongPressTriggerTitle,
+            binding.timeLongPressTriggerSummary,
+            binding.timeLongPressTriggerValue,
+            binding.timeLongPressTrigger,
             "ms"
         )
 
@@ -61,11 +71,11 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
             context,
             "buttonscale",
             AllSettings.buttonscale,
-            view.findViewById(R.id.buttonscale_layout),
-            view.findViewById(R.id.buttonscale_title),
-            view.findViewById(R.id.buttonscale_summary),
-            view.findViewById(R.id.buttonscale_value),
-            view.findViewById(R.id.buttonscale),
+            binding.buttonscaleLayout,
+            binding.buttonscaleTitle,
+            binding.buttonscaleSummary,
+            binding.buttonscaleValue,
+            binding.buttonscale,
             "%"
         )
 
@@ -73,19 +83,19 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
             context,
             "buttonAllCaps",
             AllSettings.buttonAllCaps,
-            view.findViewById(R.id.buttonAllCaps_layout),
-            view.findViewById(R.id.buttonAllCaps)
+            binding.buttonAllCapsLayout,
+            binding.buttonAllCaps
         )
 
         SeekBarSettingsWrapper(
             context,
             "mousescale",
             AllSettings.mouseScale,
-            view.findViewById(R.id.mousescale_layout),
-            view.findViewById(R.id.mousescale_title),
-            view.findViewById(R.id.mousescale_summary),
-            view.findViewById(R.id.mousescale_value),
-            view.findViewById(R.id.mousescale),
+            binding.mousescaleLayout,
+            binding.mousescaleTitle,
+            binding.mousescaleSummary,
+            binding.mousescaleValue,
+            binding.mousescale,
             "%"
         )
 
@@ -93,11 +103,11 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
             context,
             "mousespeed",
             AllSettings.mouseSpeed,
-            view.findViewById(R.id.mousespeed_layout),
-            view.findViewById(R.id.mousespeed_title),
-            view.findViewById(R.id.mousespeed_summary),
-            view.findViewById(R.id.mousespeed_value),
-            view.findViewById(R.id.mousespeed),
+            binding.mousespeedLayout,
+            binding.mousespeedTitle,
+            binding.mousespeedSummary,
+            binding.mousespeedValue,
+            binding.mousespeed,
             "%"
         )
 
@@ -105,13 +115,13 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
             context,
             "mouse_start",
             AllSettings.virtualMouseStart,
-            view.findViewById(R.id.mouse_start_layout),
-            view.findViewById(R.id.mouse_start)
+            binding.mouseStartLayout,
+            binding.mouseStart
         )
 
         BaseSettingsWrapper(
             context,
-            view.findViewById(R.id.zh_custom_mouse_layout)
+            binding.customMouseLayout
         ) {
             parentFragment?.apply {
                 ZHTools.swapFragmentWithAnim(
@@ -127,19 +137,19 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
             context,
             "enableGyro",
             AllSettings.enableGyro,
-            view.findViewById(R.id.enableGyro_layout),
-            view.findViewById(R.id.enableGyro)
+            binding.enableGyroLayout,
+            binding.enableGyro
         )
 
         SeekBarSettingsWrapper(
             context,
             "gyroSensitivity",
             (AllSettings.gyroSensitivity * 100).toInt(),
-            view.findViewById(R.id.gyroSensitivity_layout),
-            view.findViewById(R.id.gyroSensitivity_title),
-            view.findViewById(R.id.gyroSensitivity_summary),
-            view.findViewById(R.id.gyroSensitivity_value),
-            view.findViewById(R.id.gyroSensitivity),
+            binding.gyroSensitivityLayout,
+            binding.gyroSensitivityTitle,
+            binding.gyroSensitivitySummary,
+            binding.gyroSensitivityValue,
+            binding.gyroSensitivity,
             "%"
         )
 
@@ -147,11 +157,11 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
             context,
             "gyroSampleRate",
             AllSettings.gyroSampleRate,
-            view.findViewById(R.id.gyroSampleRate_layout),
-            view.findViewById(R.id.gyroSampleRate_title),
-            view.findViewById(R.id.gyroSampleRate_summary),
-            view.findViewById(R.id.gyroSampleRate_value),
-            view.findViewById(R.id.gyroSampleRate),
+            binding.gyroSampleRateLayout,
+            binding.gyroSampleRateTitle,
+            binding.gyroSampleRateSummary,
+            binding.gyroSampleRateValue,
+            binding.gyroSampleRate,
             "ms"
         )
 
@@ -159,29 +169,29 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
             context,
             "gyroSmoothing",
             AllSettings.gyroSmoothing,
-            view.findViewById(R.id.gyroSmoothing_layout),
-            view.findViewById(R.id.gyroSmoothing)
+            binding.gyroSmoothingLayout,
+            binding.gyroSmoothing
         )
 
         SwitchSettingsWrapper(
             context,
             "gyroInvertX",
             AllSettings.gyroInvertX,
-            view.findViewById(R.id.gyroInvertX_layout),
-            view.findViewById(R.id.gyroInvertX)
+            binding.gyroInvertXLayout,
+            binding.gyroInvertX
         )
 
         SwitchSettingsWrapper(
             context,
             "gyroInvertY",
             AllSettings.gyroInvertY,
-            view.findViewById(R.id.gyroInvertY_layout),
-            view.findViewById(R.id.gyroInvertY)
+            binding.gyroInvertYLayout,
+            binding.gyroInvertY
         )
 
         BaseSettingsWrapper(
             context,
-            view.findViewById(R.id.changeControllerBindings_layout)
+            binding.changeControllerBindingsLayout
         ) {
             parentFragment?.apply {
                 ZHTools.swapFragmentWithAnim(
@@ -195,7 +205,7 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
 
         BaseSettingsWrapper(
             context,
-            view.findViewById(R.id.resetControllerBindings_layout)
+            binding.resetControllerBindingsLayout
         ) {
             Remapper.wipePreferences(context)
             Toast.makeText(context, R.string.preference_controller_map_wiped, Toast.LENGTH_SHORT)
@@ -206,11 +216,11 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
             context,
             "gamepad_deadzone_scale",
             (AllSettings.deadzoneScale * 100F).toInt(),
-            view.findViewById(R.id.gamepad_deadzone_scale_layout),
-            view.findViewById(R.id.gamepad_deadzone_scale_title),
-            view.findViewById(R.id.gamepad_deadzone_scale_summary),
-            view.findViewById(R.id.gamepad_deadzone_scale_value),
-            view.findViewById(R.id.gamepad_deadzone_scale),
+            binding.gamepadDeadzoneScaleLayout,
+            binding.gamepadDeadzoneScaleTitle,
+            binding.gamepadDeadzoneScaleSummary,
+            binding.gamepadDeadzoneScaleValue,
+            binding.gamepadDeadzoneScale,
             "%"
         )
 
@@ -218,8 +228,7 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
             (context.getSystemService(Context.SENSOR_SERVICE) as SensorManager).getDefaultSensor(
                 Sensor.TYPE_GYROSCOPE
             ) != null
-        view.findViewById<View>(R.id.enableGyro_category)
-            .visibility = if (mGyroAvailable) View.VISIBLE else View.GONE
+        binding.enableGyroCategory.visibility = if (mGyroAvailable) View.VISIBLE else View.GONE
 
         computeVisibility()
     }
@@ -230,16 +239,16 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
     }
 
     private fun computeVisibility() {
-        mainView?.apply {
+        binding.apply {
             setViewVisibility(
-                findViewById(R.id.timeLongPressTrigger_layout),
+                timeLongPressTriggerLayout,
                 !AllSettings.disableGestures
             )
-            setViewVisibility(findViewById(R.id.gyroSensitivity_layout), AllSettings.enableGyro)
-            setViewVisibility(findViewById(R.id.gyroSampleRate_layout), AllSettings.enableGyro)
-            setViewVisibility(findViewById(R.id.gyroInvertX_layout), AllSettings.enableGyro)
-            setViewVisibility(findViewById(R.id.gyroInvertY_layout), AllSettings.enableGyro)
-            setViewVisibility(findViewById(R.id.gyroSmoothing_layout), AllSettings.enableGyro)
+            setViewVisibility(gyroSensitivityLayout, AllSettings.enableGyro)
+            setViewVisibility(gyroSampleRateLayout, AllSettings.enableGyro)
+            setViewVisibility(gyroInvertXLayout, AllSettings.enableGyro)
+            setViewVisibility(gyroInvertYLayout, AllSettings.enableGyro)
+            setViewVisibility(gyroSmoothingLayout, AllSettings.enableGyro)
         }
     }
 

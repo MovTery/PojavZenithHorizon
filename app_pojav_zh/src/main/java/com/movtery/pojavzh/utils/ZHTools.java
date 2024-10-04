@@ -10,6 +10,7 @@ import android.os.LocaleList;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.TooltipCompat;
@@ -44,6 +45,12 @@ public final class ZHTools {
     public static boolean isEnglish(Context context) {
         LocaleList locales = context.getResources().getConfiguration().getLocales();
         return locales.get(0).getLanguage().equals("en");
+    }
+
+    public static void setTooltipText(ImageView... views) {
+        for (ImageView view : views) {
+            setTooltipText(view, view.getContentDescription());
+        }
     }
 
     public static void setTooltipText(View view, CharSequence tooltip) {

@@ -182,13 +182,13 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="@dimen/_16sdp"
-                app:layout_constraintBottom_toBottomOf="@+id/zh_modded_profile_neoforge"
+                app:layout_constraintBottom_toBottomOf="@+id/modded_profile_neoforge"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/zh_modded_profile_neoforge"
+                app:layout_constraintTop_toTopOf="@+id/modded_profile_neoforge"
                 app:srcCompat="@drawable/ic_neoforge" />
 
             <com.movtery.pojavzh.ui.view.AnimButton
-                android:id="@+id/zh_modded_profile_neoforge"
+                android:id="@+id/modded_profile_neoforge"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
@@ -217,7 +217,7 @@
                 android:text="@string/modpack_install_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/modpack_icon"
-                app:layout_constraintTop_toBottomOf="@+id/zh_modded_profile_neoforge" />
+                app:layout_constraintTop_toBottomOf="@+id/modded_profile_neoforge" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

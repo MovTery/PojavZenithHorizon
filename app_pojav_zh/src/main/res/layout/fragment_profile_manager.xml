@@ -44,13 +44,13 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="@dimen/_16sdp"
-                app:layout_constraintBottom_toBottomOf="@+id/zh_shortcuts_mods"
+                app:layout_constraintBottom_toBottomOf="@+id/shortcuts_mods"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/zh_shortcuts_mods"
+                app:layout_constraintTop_toTopOf="@+id/shortcuts_mods"
                 app:srcCompat="@drawable/ic_profile_mods" />
 
             <com.movtery.pojavzh.ui.view.AnimButton
-                android:id="@+id/zh_shortcuts_mods"
+                android:id="@+id/shortcuts_mods"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
@@ -66,13 +66,13 @@
                 android:layout_height="32dp"
                 android:layout_marginStart="@dimen/_16sdp"
                 android:scaleType="centerInside"
-                app:layout_constraintBottom_toBottomOf="@+id/zh_instance_path"
+                app:layout_constraintBottom_toBottomOf="@+id/instance_path"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/zh_instance_path"
+                app:layout_constraintTop_toTopOf="@+id/instance_path"
                 app:srcCompat="@drawable/ic_profile_folder" />
 
             <com.movtery.pojavzh.ui.view.AnimButton
-                android:id="@+id/zh_instance_path"
+                android:id="@+id/instance_path"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
@@ -80,7 +80,7 @@
                 android:text="@string/zh_profile_manager_shortcuts_instance_path"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/icon2"
-                app:layout_constraintTop_toBottomOf="@+id/zh_shortcuts_mods" />
+                app:layout_constraintTop_toBottomOf="@+id/shortcuts_mods" />
             
             <ImageView
                 android:id="@+id/icon3"
@@ -88,13 +88,13 @@
                 android:layout_height="32dp"
                 android:layout_marginStart="@dimen/_16sdp"
                 android:scaleType="centerInside"
-                app:layout_constraintBottom_toBottomOf="@+id/zh_resource_path"
+                app:layout_constraintBottom_toBottomOf="@+id/resource_path"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/zh_resource_path"
+                app:layout_constraintTop_toTopOf="@+id/resource_path"
                 app:srcCompat="@drawable/ic_profile_resource_pack" />
 
             <com.movtery.pojavzh.ui.view.AnimButton
-                android:id="@+id/zh_resource_path"
+                android:id="@+id/resource_path"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
@@ -102,7 +102,7 @@
                 android:text="@string/zh_profile_manager_shortcuts_resource_path"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/icon2"
-                app:layout_constraintTop_toBottomOf="@+id/zh_instance_path" />
+                app:layout_constraintTop_toBottomOf="@+id/instance_path" />
             
             <ImageView
                 android:id="@+id/icon4"
@@ -110,13 +110,13 @@
                 android:layout_height="32dp"
                 android:layout_marginStart="@dimen/_16sdp"
                 android:scaleType="centerInside"
-                app:layout_constraintBottom_toBottomOf="@+id/zh_world_path"
+                app:layout_constraintBottom_toBottomOf="@+id/world_path"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/zh_world_path"
+                app:layout_constraintTop_toTopOf="@+id/world_path"
                 app:srcCompat="@drawable/ic_profile_saves" />
 
             <com.movtery.pojavzh.ui.view.AnimButton
-                android:id="@+id/zh_world_path"
+                android:id="@+id/world_path"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
@@ -124,7 +124,7 @@
                 android:text="@string/zh_profile_manager_shortcuts_world_path"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/icon2"
-                app:layout_constraintTop_toBottomOf="@+id/zh_resource_path" />
+                app:layout_constraintTop_toBottomOf="@+id/resource_path" />
             
             <ImageView
                 android:id="@+id/icon5"
@@ -132,13 +132,13 @@
                 android:layout_height="32dp"
                 android:layout_marginStart="@dimen/_16sdp"
                 android:scaleType="centerInside"
-                app:layout_constraintBottom_toBottomOf="@+id/zh_logs_path"
+                app:layout_constraintBottom_toBottomOf="@+id/logs_path"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/zh_logs_path"
+                app:layout_constraintTop_toTopOf="@+id/logs_path"
                 app:srcCompat="@drawable/ic_profile_logs" />
 
             <com.movtery.pojavzh.ui.view.AnimButton
-                android:id="@+id/zh_logs_path"
+                android:id="@+id/logs_path"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
@@ -146,20 +146,20 @@
                 android:text="@string/zh_profile_manager_shortcuts_logs_path"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/icon2"
-                app:layout_constraintTop_toBottomOf="@+id/zh_world_path" />
+                app:layout_constraintTop_toBottomOf="@+id/world_path" />
             
             <ImageView
                 android:id="@+id/icon6"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="@dimen/_16sdp"
-                app:layout_constraintBottom_toBottomOf="@+id/zh_crash_report_path"
+                app:layout_constraintBottom_toBottomOf="@+id/crash_report_path"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/zh_crash_report_path"
+                app:layout_constraintTop_toTopOf="@+id/crash_report_path"
                 app:srcCompat="@drawable/ic_profile_crash_report" />
 
             <com.movtery.pojavzh.ui.view.AnimButton
-                android:id="@+id/zh_crash_report_path"
+                android:id="@+id/crash_report_path"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
@@ -167,7 +167,7 @@
                 android:text="@string/zh_profile_manager_shortcuts_crash_report_path"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/icon2"
-                app:layout_constraintTop_toBottomOf="@+id/zh_logs_path" />
+                app:layout_constraintTop_toBottomOf="@+id/logs_path" />
             
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -209,13 +209,13 @@
                 android:layout_height="32dp"
                 android:layout_marginStart="@dimen/_16sdp"
                 android:scaleType="centerInside"
-                app:layout_constraintBottom_toBottomOf="@+id/zh_profile_edit"
+                app:layout_constraintBottom_toBottomOf="@+id/profile_edit"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/zh_profile_edit"
+                app:layout_constraintTop_toTopOf="@+id/profile_edit"
                 app:srcCompat="@drawable/ic_edit" />
 
             <com.movtery.pojavzh.ui.view.AnimButton
-                android:id="@+id/zh_profile_edit"
+                android:id="@+id/profile_edit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
@@ -231,13 +231,13 @@
                 android:layout_height="32dp"
                 android:layout_marginStart="@dimen/_16sdp"
                 android:scaleType="centerInside"
-                app:layout_constraintBottom_toBottomOf="@+id/zh_profile_delete"
+                app:layout_constraintBottom_toBottomOf="@+id/profile_delete"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/zh_profile_delete"
+                app:layout_constraintTop_toTopOf="@+id/profile_delete"
                 app:srcCompat="@drawable/ic_menu_delete_forever" />
 
             <com.movtery.pojavzh.ui.view.AnimButton
-                android:id="@+id/zh_profile_delete"
+                android:id="@+id/profile_delete"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
@@ -245,7 +245,7 @@
                 android:text="@string/zh_profile_manager_delete"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/icon8"
-                app:layout_constraintTop_toBottomOf="@+id/zh_profile_edit" />
+                app:layout_constraintTop_toBottomOf="@+id/profile_edit" />
             
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

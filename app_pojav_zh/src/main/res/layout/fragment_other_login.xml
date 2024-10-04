@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/zh_login_return"
+            android:id="@+id/return_button"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginTop="@dimen/_12sdp"
@@ -31,7 +31,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/a"
+            android:id="@+id/server_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/zh_other_login_authentication_server"
@@ -80,7 +80,7 @@
             app:srcCompat="@drawable/ic_add" />
 
         <TextView
-            android:id="@+id/b"
+            android:id="@+id/email_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/zh_other_login_email"
@@ -108,7 +108,7 @@
             tools:ignore="LabelFor" />
 
         <TextView
-            android:id="@+id/c"
+            android:id="@+id/password_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/zh_other_login_password"

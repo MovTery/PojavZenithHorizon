@@ -4,8 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageButton
+import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -33,6 +34,7 @@ import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
+import net.kdt.pojavlaunch.databinding.FragmentControlManagerBinding
 import net.kdt.pojavlaunch.extra.ExtraConstants
 import net.kdt.pojavlaunch.extra.ExtraCore
 import java.io.File
@@ -43,19 +45,10 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
         const val BUNDLE_SELECT_CONTROL: String = "bundle_select_control"
     }
 
+    private lateinit var binding: FragmentControlManagerBinding
+    private lateinit var controlsListViewCreator: ControlsListViewCreator
+    private lateinit var mSearchViewWrapper: SearchViewWrapper
     private var openDocumentLauncher: ActivityResultLauncher<Any>? = null
-    private var mControlLayout: View? = null
-    private var mOperateLayout: View? = null
-    private var mOperateView: View? = null
-    private var mReturnButton: ImageButton? = null
-    private var mAddControlButton: ImageButton? = null
-    private var mImportControlButton: ImageButton? = null
-    private var mPasteButton: ImageButton? = null
-    private var mSearchSummonButton: ImageButton? = null
-    private var mRefreshButton: ImageButton? = null
-    private var mNothingTip: TextView? = null
-    private var mSearchViewWrapper: SearchViewWrapper? = null
-    private var controlsListViewCreator: ControlsListViewCreator? = null
     private var mSelectControl = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,82 +61,100 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
                     copyFileInBackground(requireContext(), result, File(PathAndUrlManager.DIR_CTRLMAP_PATH).absolutePath)
                     Tools.runOnUiThread {
                         Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show()
-                        controlsListViewCreator?.refresh()
+                        controlsListViewCreator.refresh()
                     }
                 }
             }
         }
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentControlManagerBinding.inflate(layoutInflater)
+        controlsListViewCreator = ControlsListViewCreator(requireContext(), binding.recyclerView)
+        mSearchViewWrapper = SearchViewWrapper(binding.root, binding.searchView.root)
+        return binding.root
+    }
+
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        bindViews(view)
+        initViews()
         parseBundle()
 
-        controlsListViewCreator?.setSelectedListener(object : ControlSelectedListener() {
-            override fun onItemSelected(file: File) {
-                if (mSelectControl) {
-                    ExtraCore.setValue(ExtraConstants.FILE_SELECTOR, removeLockPath(file.absolutePath))
-                    Tools.removeCurrentFragment(requireActivity())
-                } else {
-                    if (file.isFile) showDialog(file)
+        controlsListViewCreator.apply {
+            setSelectedListener(object : ControlSelectedListener() {
+                override fun onItemSelected(file: File) {
+                    if (mSelectControl) {
+                        ExtraCore.setValue(ExtraConstants.FILE_SELECTOR, removeLockPath(file.absolutePath))
+                        Tools.removeCurrentFragment(requireActivity())
+                    } else {
+                        if (file.isFile) showDialog(file)
+                    }
+                }
+
+                override fun onItemLongClick(file: File) {
+                    TipDialog.Builder(requireContext())
+                        .setTitle(R.string.default_control)
+                        .setMessage(R.string.zh_controls_set_default_message)
+                        .setConfirmClickListener {
+                            val absolutePath = file.absolutePath
+                            Settings.Manager.put("defaultCtrl", absolutePath).save()
+                        }.buildDialog()
+                }
+            })
+
+            setRefreshListener {
+                val show = itemCount == 0
+                setVisibilityAnim(binding.nothingText, show)
+            }
+        }
+
+        binding.operateView.apply {
+            returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
+
+            pasteButton.setOnClickListener {
+                PasteFile.getInstance().pasteFiles(requireActivity(), File(PathAndUrlManager.DIR_CTRLMAP_PATH), null) {
+                    Tools.runOnUiThread {
+                        pasteButton.visibility = View.GONE
+                        controlsListViewCreator.refresh()
+                    }
                 }
             }
 
-            override fun onItemLongClick(file: File) {
-                TipDialog.Builder(requireContext())
-                    .setTitle(R.string.default_control)
-                    .setMessage(R.string.zh_controls_set_default_message)
-                    .setConfirmClickListener {
-                        val absolutePath = file.absolutePath
-                        Settings.Manager.put("defaultCtrl", absolutePath).save()
-                    }.buildDialog()
-            }
-        })
+            addFileButton.setOnClickListener {
+                val suffix = ".json"
+                Toast.makeText(requireActivity(), String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show()
+                openDocumentLauncher?.launch(suffix)
+            } //限制.json文件
 
-        controlsListViewCreator?.setRefreshListener {
-            val itemCount = controlsListViewCreator!!.itemCount
-            val show = itemCount == 0
-            setVisibilityAnim(mNothingTip!!, show)
-        }
+            createFolderButton.setOnClickListener {
+                val editControlInfoDialog = EditControlInfoDialog(requireContext(), true, null, ControlInfoData())
+                editControlInfoDialog.setTitle(getString(R.string.zh_controls_create_new))
+                editControlInfoDialog.setOnConfirmClickListener { fileName: String, controlInfoData: ControlInfoData? ->
+                    val file = File(File(PathAndUrlManager.DIR_CTRLMAP_PATH).absolutePath, "$fileName.json")
+                    if (file.exists()) { //检查文件是否已经存在
+                        editControlInfoDialog.fileNameEditBox.error =
+                            getString(R.string.zh_file_rename_exitis)
+                        return@setOnConfirmClickListener
+                    }
 
-        mReturnButton?.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
-        mPasteButton?.setOnClickListener {
-            PasteFile.getInstance().pasteFiles(requireActivity(), File(PathAndUrlManager.DIR_CTRLMAP_PATH), null) {
-                Tools.runOnUiThread {
-                    mPasteButton?.visibility = View.GONE
-                    controlsListViewCreator?.refresh()
+                    //创建布局文件
+                    createNewControlFile(requireContext(), file, controlInfoData)
+
+                    controlsListViewCreator.refresh()
+                    editControlInfoDialog.dismiss()
                 }
+                editControlInfoDialog.show()
             }
+
+            searchButton.setOnClickListener { mSearchViewWrapper.setVisibility() }
+            refreshButton.setOnClickListener { controlsListViewCreator.refresh() }
         }
-        mImportControlButton?.setOnClickListener {
-            val suffix = ".json"
-            Toast.makeText(requireActivity(), String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show()
-            openDocumentLauncher?.launch(suffix)
-        } //限制.json文件
-        mAddControlButton?.setOnClickListener {
-            val editControlInfoDialog = EditControlInfoDialog(requireContext(), true, null, ControlInfoData())
-            editControlInfoDialog.setTitle(getString(R.string.zh_controls_create_new))
-            editControlInfoDialog.setOnConfirmClickListener { fileName: String, controlInfoData: ControlInfoData? ->
-                val file = File(File(PathAndUrlManager.DIR_CTRLMAP_PATH).absolutePath, "$fileName.json")
-                if (file.exists()) { //检查文件是否已经存在
-                    editControlInfoDialog.fileNameEditBox.error =
-                        getString(R.string.zh_file_rename_exitis)
-                    return@setOnConfirmClickListener
-                }
 
-                //创建布局文件
-                createNewControlFile(requireContext(), file, controlInfoData)
-
-                controlsListViewCreator?.refresh()
-                editControlInfoDialog.dismiss()
-            }
-            editControlInfoDialog.show()
-        }
-        mSearchSummonButton?.setOnClickListener { mSearchViewWrapper?.setVisibility() }
-        mRefreshButton?.setOnClickListener { controlsListViewCreator?.refresh() }
-
-        controlsListViewCreator?.listAtPath()
+        controlsListViewCreator.listAtPath()
 
         startNewbieGuide()
     }
@@ -159,11 +170,11 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
         filesButton.setMoreButtonText(getString(R.string.global_load))
 
         val filesDialog = FilesDialog(requireContext(), filesButton,
-            { Tools.runOnUiThread { controlsListViewCreator?.refresh() } },
-            controlsListViewCreator!!.fullPath, file
+            { Tools.runOnUiThread { controlsListViewCreator.refresh() } },
+            controlsListViewCreator.fullPath, file
         )
 
-        filesDialog.setCopyButtonClick { mPasteButton?.visibility = View.VISIBLE }
+        filesDialog.setCopyButtonClick { binding.operateView.pasteButton.visibility = View.VISIBLE }
 
         filesDialog.setMoreButtonClick {
             val intent = Intent(requireContext(), CustomControlsActivity::class.java)
@@ -182,70 +193,61 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
         mSelectControl = bundle.getBoolean(BUNDLE_SELECT_CONTROL, mSelectControl)
     }
 
-    private fun bindViews(view: View) {
-        mControlLayout = view.findViewById(R.id.control_layout)
-        mOperateLayout = view.findViewById(R.id.operate_layout)
+    private fun initViews() {
+        mSearchViewWrapper.apply {
+            setAsynchronousUpdatesListener(object : SearchViewWrapper.SearchAsynchronousUpdatesListener {
+                override fun onSearch(searchCount: TextView?, string: String?, caseSensitive: Boolean) {
+                    controlsListViewCreator.searchControls(searchCount, string, caseSensitive)
+                }
+            })
 
-        mOperateView = view.findViewById(R.id.operate_view)
+            setShowSearchResultsListener(object : SearchViewWrapper.ShowSearchResultsListener {
+                override fun onSearch(show: Boolean) {
+                    controlsListViewCreator.setShowSearchResultsOnly(show)
+                }
+            })
+        }
 
-        mReturnButton = view.findViewById(R.id.zh_return_button)
-        mImportControlButton = view.findViewById(R.id.zh_add_file_button)
-        mAddControlButton = view.findViewById(R.id.zh_create_folder_button)
-        mPasteButton = view.findViewById(R.id.zh_paste_button)
-        mRefreshButton = view.findViewById(R.id.zh_refresh_button)
-        mSearchSummonButton = view.findViewById(R.id.zh_search_button)
-        mNothingTip = view.findViewById(R.id.zh_controls_nothing)
+        binding.operateView.apply {
+            addFileButton.setContentDescription(getString(R.string.zh_controls_import_control))
+            createFolderButton.setContentDescription(getString(R.string.zh_controls_create_new))
 
-        mImportControlButton?.setContentDescription(getString(R.string.zh_controls_import_control))
-        mAddControlButton?.setContentDescription(getString(R.string.zh_controls_create_new))
+            pasteButton.setVisibility(if (PasteFile.getInstance().pasteType != null) View.VISIBLE else View.GONE)
 
-        controlsListViewCreator =
-            ControlsListViewCreator(requireContext(), view.findViewById(R.id.zh_controls_list))
-
-        mSearchViewWrapper = SearchViewWrapper(view, view.findViewById(R.id.zh_search_view))
-        mSearchViewWrapper?.setAsynchronousUpdatesListener(object : SearchViewWrapper.SearchAsynchronousUpdatesListener {
-            override fun onSearch(searchCount: TextView?, string: String?, caseSensitive: Boolean) {
-                controlsListViewCreator?.searchControls(searchCount, string, caseSensitive)
-            }
-        })
-        mSearchViewWrapper?.setShowSearchResultsListener(object : SearchViewWrapper.ShowSearchResultsListener {
-            override fun onSearch(show: Boolean) {
-                controlsListViewCreator?.setShowSearchResultsOnly(show)
-            }
-        })
-
-        mPasteButton?.setVisibility(if (PasteFile.getInstance().pasteType != null) View.VISIBLE else View.GONE)
-
-        ZHTools.setTooltipText(mReturnButton, mReturnButton?.contentDescription)
-        ZHTools.setTooltipText(mImportControlButton, mImportControlButton?.contentDescription)
-        ZHTools.setTooltipText(mAddControlButton, mAddControlButton?.contentDescription)
-        ZHTools.setTooltipText(mPasteButton, mPasteButton?.contentDescription)
-        ZHTools.setTooltipText(mSearchSummonButton, mSearchSummonButton?.contentDescription)
-        ZHTools.setTooltipText(mRefreshButton, mRefreshButton?.contentDescription)
+            ZHTools.setTooltipText(
+                returnButton,
+                addFileButton,
+                createFolderButton,
+                pasteButton,
+                searchButton,
+                refreshButton
+            )
+        }
     }
 
     private fun startNewbieGuide() {
         if (NewbieGuideUtils.showOnlyOne(TAG)) return
-        val fragmentActivity = requireActivity()
-        TapTargetSequence(fragmentActivity)
-            .targets(
-                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mRefreshButton, getString(R.string.zh_refresh), getString(R.string.zh_newbie_guide_general_refresh)),
-                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mSearchSummonButton, getString(R.string.zh_search), getString(R.string.zh_newbie_guide_control_search)),
-                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mImportControlButton, getString(R.string.zh_controls_import_control), getString(R.string.zh_newbie_guide_control_import)),
-                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mAddControlButton, getString(R.string.zh_controls_create_new), getString(R.string.zh_newbie_guide_control_create)),
-                NewbieGuideUtils.getSimpleTarget(fragmentActivity, mReturnButton, getString(R.string.zh_return), getString(R.string.zh_newbie_guide_general_close)))
-            .start()
+        binding.operateView.apply {
+            val fragmentActivity = requireActivity()
+            TapTargetSequence(fragmentActivity)
+                .targets(
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, refreshButton, getString(R.string.zh_refresh), getString(R.string.zh_newbie_guide_general_refresh)),
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, searchButton, getString(R.string.zh_search), getString(R.string.zh_newbie_guide_control_search)),
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, addFileButton, getString(R.string.zh_controls_import_control), getString(R.string.zh_newbie_guide_control_import)),
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, createFolderButton, getString(R.string.zh_controls_create_new), getString(R.string.zh_newbie_guide_control_create)),
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, returnButton, getString(R.string.zh_return), getString(R.string.zh_newbie_guide_general_close)))
+                .start()
+        }
     }
 
     override fun slideIn(animPlayer: AnimPlayer) {
-        animPlayer.apply(AnimPlayer.Entry(mControlLayout!!, Animations.BounceInDown))
-            .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.BounceInLeft))
-            .apply(AnimPlayer.Entry(mOperateView!!, Animations.FadeInLeft))
+        animPlayer.apply(AnimPlayer.Entry(binding.controlLayout, Animations.BounceInDown))
+            .apply(AnimPlayer.Entry(binding.operateLayout, Animations.BounceInLeft))
     }
 
     override fun slideOut(animPlayer: AnimPlayer) {
-        animPlayer.apply(AnimPlayer.Entry(mControlLayout!!, Animations.FadeOutUp))
-            .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.FadeOutRight))
+        animPlayer.apply(AnimPlayer.Entry(binding.controlLayout, Animations.FadeOutUp))
+            .apply(AnimPlayer.Entry(binding.operateLayout, Animations.FadeOutRight))
     }
 }
 

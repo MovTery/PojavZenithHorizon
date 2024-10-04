@@ -8,7 +8,7 @@
     android:orientation="horizontal">
 
     <ImageButton
-        android:id="@+id/zh_refresh_button"
+        android:id="@+id/refresh_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -18,7 +18,7 @@
         android:src="@drawable/ic_refresh" />
 
     <ImageButton
-        android:id="@+id/zh_search_button"
+        android:id="@+id/search_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -28,7 +28,7 @@
         android:src="@drawable/ic_search" />
 
     <ImageButton
-        android:id="@+id/zh_paste_button"
+        android:id="@+id/paste_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -38,7 +38,7 @@
         android:src="@drawable/ic_paste" />
 
     <ImageButton
-        android:id="@+id/zh_add_file_button"
+        android:id="@+id/add_file_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -48,7 +48,7 @@
         android:src="@drawable/ic_add_new" />
 
     <ImageButton
-        android:id="@+id/zh_create_folder_button"
+        android:id="@+id/create_folder_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -58,7 +58,7 @@
         android:src="@drawable/ic_add" />
 
     <ImageButton
-        android:id="@+id/zh_return_button"
+        android:id="@+id/return_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
