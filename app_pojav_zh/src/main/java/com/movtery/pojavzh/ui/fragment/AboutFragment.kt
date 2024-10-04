@@ -97,7 +97,7 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
             AboutItemBean(
                 resources.getDrawable(R.drawable.ic_pojav_full, requireContext().theme),
                 "PojavLauncherTeam",
-                getString(R.string.zh_about_pojavlauncher_desc),
+                getString(R.string.zh_about_PojavLauncher_desc),
                 AboutItemButtonBean(requireActivity(), "Github", PathAndUrlManager.URL_GITHUB_POJAVLAUNCHER)
             )
         )
@@ -105,7 +105,7 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
             AboutItemBean(
                 resources.getDrawable(R.drawable.image_about_movtery, requireContext().theme),
                 "墨北MovTery",
-                getString(R.string.zh_about_movtery_desc),
+                getString(R.string.zh_about_MovTery_desc),
                 AboutItemButtonBean(
                     requireActivity(),
                     getString(R.string.zh_about_access_space),
@@ -128,7 +128,7 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
             AboutItemBean(
                 resources.getDrawable(R.drawable.image_about_verafirefly, requireContext().theme),
                 "Vera-Firefly",
-                getString(R.string.zh_about_verafirefly_desc),
+                getString(R.string.zh_about_VeraFirefly_desc),
                 AboutItemButtonBean(
                     requireActivity(),
                     getString(R.string.zh_about_access_space),
@@ -140,11 +140,23 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
             AboutItemBean(
                 resources.getDrawable(R.drawable.image_about_lingmuqiuzhu, requireContext().theme),
                 "柃木湫竹",
-                getString(R.string.zh_about_lingmuqiuzhu_desc),
+                getString(R.string.zh_about_LingMuQiuZhu_desc),
                 AboutItemButtonBean(
                     requireActivity(),
                     getString(R.string.zh_about_access_space),
                     "https://space.bilibili.com/515165764"
+                )
+            )
+        )
+        mAboutData.add(
+            AboutItemBean(
+                resources.getDrawable(R.drawable.image_about_shirosakimio, requireContext().theme),
+                "ShirosakiMio",
+                getString(R.string.zh_about_ShirosakiMio_desc),
+                AboutItemButtonBean(
+                    requireActivity(),
+                    getString(R.string.zh_about_access_space),
+                    "https://space.bilibili.com/35801833"
                 )
             )
         )
