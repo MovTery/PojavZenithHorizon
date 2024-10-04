@@ -202,6 +202,9 @@ public class JREUtils {
 
         envMap.put("LD_LIBRARY_PATH", LD_LIBRARY_PATH);
         envMap.put("PATH", jreHome + "/bin:" + Os.getenv("PATH"));
+        if (FFmpegPlugin.isAvailable) {
+            envMap.put("PATH", FFmpegPlugin.libraryPath + ":" + Os.getenv("PATH"));
+        }
         envMap.put("AWTSTUB_WIDTH", Integer.toString(CallbackBridge.windowWidth > 0 ? CallbackBridge.windowWidth : CallbackBridge.physicalWidth));
         envMap.put("AWTSTUB_HEIGHT", Integer.toString(CallbackBridge.windowHeight > 0 ? CallbackBridge.windowHeight : CallbackBridge.physicalHeight));
 
@@ -293,6 +296,10 @@ public class JREUtils {
         JREUtils.relocateLibPath(runtime, runtimeHome);
 
         setJavaEnvironment(runtimeHome);
+        if (runtime.javaVersion > 8) {
+            String libName = runtime.javaVersion == 17 ? "/libjsph17.so" : "/libjsph21.so";
+            Os.setenv("JSP", DIR_NATIVE_LIB + libName, true);
+        }
 
         final String graphicsLib = loadGraphicsLibrary();
 
