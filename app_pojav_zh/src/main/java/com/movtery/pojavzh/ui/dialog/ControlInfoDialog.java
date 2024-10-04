@@ -2,8 +2,6 @@ package com.movtery.pojavzh.ui.dialog;
 
 import android.content.Context;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,10 +13,12 @@ import com.movtery.pojavzh.utils.PathAndUrlManager;
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.customcontrols.CustomControls;
+import net.kdt.pojavlaunch.databinding.DialogControlInfoBinding;
 
 import java.io.File;
 
 public class ControlInfoDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
+    private final DialogControlInfoBinding binding = DialogControlInfoBinding.inflate(getLayoutInflater());
     private final ControlInfoData controlInfoData;
     private final Runnable runnable;
 
@@ -28,24 +28,21 @@ public class ControlInfoDialog extends FullScreenDialog implements DraggableDial
         this.controlInfoData = controlInfoData;
 
         setCancelable(false);
-        setContentView(R.layout.dialog_control_info);
+        setContentView(binding.getRoot());
 
         init(context);
         DraggableDialog.initDialog(this);
     }
 
     private void init(Context context) {
-        setTextOrDefault(R.id.zh_control_info_name_text, R.string.zh_controls_info_name, controlInfoData.name);
-        setTextOrDefault(R.id.zh_control_info_file_name_text, R.string.zh_controls_info_file_name, controlInfoData.fileName);
-        setTextOrDefault(R.id.zh_control_info_author_text, R.string.zh_controls_info_author, controlInfoData.author);
-        setTextOrDefault(R.id.zh_control_info_version_text, R.string.zh_controls_info_version, controlInfoData.version);
-        setTextOrDefault(R.id.zh_control_info_desc_text, R.string.zh_controls_info_desc, controlInfoData.desc);
+        setTextOrDefault(binding.nameText, R.string.zh_controls_info_name, controlInfoData.name);
+        setTextOrDefault(binding.fileNameText, R.string.zh_controls_info_file_name, controlInfoData.fileName);
+        setTextOrDefault(binding.authorText, R.string.zh_controls_info_author, controlInfoData.author);
+        setTextOrDefault(binding.versionText, R.string.zh_controls_info_version, controlInfoData.version);
+        setTextOrDefault(binding.descText, R.string.zh_controls_info_desc, controlInfoData.desc);
 
-        Button closeButton = findViewById(R.id.zh_control_info_close);
-        ImageButton editButton = findViewById(R.id.zh_control_info_edit);
-
-        closeButton.setOnClickListener(v -> this.dismiss());
-        editButton.setOnClickListener(v -> {
+        binding.closeButton.setOnClickListener(v -> this.dismiss());
+        binding.editButton.setOnClickListener(v -> {
             EditControlInfoDialog editControlInfoDialog = new EditControlInfoDialog(context, false, controlInfoData.fileName, controlInfoData);
             editControlInfoDialog.setTitle(context.getString(R.string.zh_edit));
             editControlInfoDialog.setOnConfirmClickListener((fileName, controlInfoData) -> {
@@ -71,8 +68,7 @@ public class ControlInfoDialog extends FullScreenDialog implements DraggableDial
         });
     }
 
-    private void setTextOrDefault(int textViewId, int stringId, String value) {
-        TextView textView = findViewById(textViewId);
+    private void setTextOrDefault(TextView textView, int stringId, String value) {
         String text = getContext().getString(stringId);
         text += " ";
         if (value != null && !value.isEmpty() && !value.equals("null")) {

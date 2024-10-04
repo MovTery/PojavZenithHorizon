@@ -4,62 +4,51 @@ import android.content.Context
 import android.view.Gravity
 import android.view.View
 import android.view.Window
-import android.widget.Button
-import android.widget.TextView
-import androidx.appcompat.widget.LinearLayoutCompat
 import com.movtery.pojavzh.ui.dialog.DraggableDialog.DialogInitializationListener
-import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.databinding.DialogTipBinding
 
 class TipDialog private constructor(
     context: Context,
-    private val title: String?,
-    private val message: String?,
-    private val confirm: String?,
-    private val cancel: String?,
-    private val moreView: Array<View>,
-    private val showCancel: Boolean,
-    private val showConfirm: Boolean,
-    private val centerMessage: Boolean,
+    title: String?,
+    message: String?,
+    confirm: String?,
+    cancel: String?,
+    moreView: Array<View>,
+    showCancel: Boolean,
+    showConfirm: Boolean,
+    centerMessage: Boolean,
     private val cancelListener: OnCancelClickListener?,
     private val confirmListener: OnConfirmClickListener?,
     private val dismissListener: OnDialogDismissListener?
 ) : FullScreenDialog(context), DialogInitializationListener {
+    private val binding = DialogTipBinding.inflate(layoutInflater)
+
     init {
-        init()
+        setContentView(binding.root)
         DraggableDialog.initDialog(this)
-    }
 
-    private fun init() {
-        setContentView(R.layout.dialog_tip)
-
-        val titleView = findViewById<TextView>(R.id.zh_tip_title)
-        val messageView = findViewById<TextView>(R.id.zh_tip_message)
-        val moreViewLayout = findViewById<LinearLayoutCompat>(R.id.zh_tip_more)
-        val cancelButton = findViewById<Button>(R.id.zh_tip_cancel)
-        val confirmButton = findViewById<Button>(R.id.zh_tip_confirm)
-
-        title?.apply { titleView.text = this }
-        message?.apply { messageView.text = this }
-        cancel?.apply { cancelButton.text = this }
-        confirm?.apply { confirmButton.text = this }
-        if (centerMessage) messageView.gravity = Gravity.CENTER_HORIZONTAL
+        title?.apply { binding.titleView.text = this }
+        message?.apply { binding.messageView.text = this }
+        cancel?.apply { binding.cancelButton.text = this }
+        confirm?.apply { binding.confirmButton.text = this }
+        if (centerMessage) binding.messageView.gravity = Gravity.CENTER_HORIZONTAL
         if (moreView.isNotEmpty()) {
             for (view in moreView) {
-                moreViewLayout.addView(view)
+                binding.moreView.addView(view)
             }
         }
 
-        cancelButton.setOnClickListener {
+        binding.cancelButton.setOnClickListener {
             cancelListener?.onCancelClick()
             this.dismiss()
         }
-        confirmButton.setOnClickListener {
+        binding.confirmButton.setOnClickListener {
             confirmListener?.onConfirmClick()
             this.dismiss()
         }
 
-        cancelButton.visibility = if (showCancel) View.VISIBLE else View.GONE
-        confirmButton.visibility = if (showConfirm) View.VISIBLE else View.GONE
+        binding.cancelButton.visibility = if (showCancel) View.VISIBLE else View.GONE
+        binding.confirmButton.visibility = if (showConfirm) View.VISIBLE else View.GONE
     }
 
     override fun dismiss() {

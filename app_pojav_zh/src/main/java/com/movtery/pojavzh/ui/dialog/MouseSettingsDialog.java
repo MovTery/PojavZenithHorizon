@@ -2,54 +2,46 @@ package com.movtery.pojavzh.ui.dialog;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.SeekBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import com.movtery.pojavzh.setting.AllSettings;
 
-import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.databinding.DialogMouseSettingsBinding;
 
 public class MouseSettingsDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
+    private final DialogMouseSettingsBinding binding = DialogMouseSettingsBinding.inflate(getLayoutInflater());
+
     public MouseSettingsDialog(@NonNull Context context, OnConfirmListener confirmListener, SelectMouseDialog.MouseSelectedListener mouseSelectedListener) {
         super(context);
 
         this.setCancelable(false);
-        setContentView(R.layout.dialog_mouse_settings);
+        setContentView(binding.getRoot());
         init(confirmListener, mouseSelectedListener);
         DraggableDialog.initDialog(this);
     }
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private void init(OnConfirmListener listener, SelectMouseDialog.MouseSelectedListener mouseSelectedListener) {
-        Button mConfirmButton = findViewById(R.id.zh_mouse_settings_confirm_button);
-        SeekBar mMouseSpeedSeekBar = findViewById(R.id.zh_mouse_settings_speed_seek);
-        SeekBar mMouseScaleSeekBar = findViewById(R.id.zh_mouse_settings_scale_seek);
-        TextView mMouseSpeedText = findViewById(R.id.zh_mouse_settings_speed_text);
-        TextView mMouseScaleText = findViewById(R.id.zh_mouse_settings_scale_text);
-        View mCustomMouseView = findViewById(R.id.zh_mouse_settings_custom_mouse);
-
         final int[] mouseSpeed = {AllSettings.Companion.getMouseSpeed()};
         final int[] mouseScale = {AllSettings.Companion.getMouseScale()};
 
-        mMouseSpeedSeekBar.setProgress(mouseSpeed[0]);
-        mMouseScaleSeekBar.setProgress(mouseScale[0]);
+        binding.speedSeek.setProgress(mouseSpeed[0]);
+        binding.scaleSeek.setProgress(mouseScale[0]);
         String speedText = mouseSpeed[0] + " %";
         String scaleText = mouseScale[0] + " %";
-        mMouseSpeedText.setText(speedText);
-        mMouseScaleText.setText(scaleText);
+        binding.speedText.setText(speedText);
+        binding.scaleText.setText(scaleText);
 
         //设置值
-        mMouseSpeedSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        binding.speedSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mouseSpeed[0] = progress;
                 String text = progress + " %";
-                mMouseSpeedText.setText(text);
+                binding.speedText.setText(text);
             }
 
             @Override
@@ -61,12 +53,12 @@ public class MouseSettingsDialog extends FullScreenDialog implements DraggableDi
             }
         });
 
-        mMouseScaleSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        binding.scaleSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mouseScale[0] = progress;
                 String text = progress + " %";
-                mMouseScaleText.setText(text);
+                binding.scaleText.setText(text);
             }
 
             @Override
@@ -80,13 +72,13 @@ public class MouseSettingsDialog extends FullScreenDialog implements DraggableDi
             }
         });
 
-        mCustomMouseView.setOnClickListener(v -> {
+        binding.customMouse.setOnClickListener(v -> {
             SelectMouseDialog selectMouseDialog = new SelectMouseDialog(getContext());
             selectMouseDialog.setOnSelectedListener(mouseSelectedListener);
             selectMouseDialog.show();
         });
 
-        mConfirmButton.setOnClickListener(v -> {
+        binding.confirmButton.setOnClickListener(v -> {
             if (listener != null) listener.onConfirm(mouseSpeed[0], mouseScale[0]);
             this.dismiss();
         });

@@ -10,7 +10,7 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/zh_edit_text_title"
+        android:id="@+id/title_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -20,7 +20,7 @@
         android:textStyle="bold" />
 
     <ScrollView
-        android:id="@+id/zh_edit_text_scroll"
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/_8sdp"
@@ -34,7 +34,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/zh_edit_text_message"
+                android:id="@+id/message_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -45,7 +45,7 @@
     </ScrollView>
 
     <com.movtery.pojavzh.ui.view.AnimEditText
-        android:id="@+id/zh_edit_text_edit"
+        android:id="@+id/text_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_8sdp"
@@ -65,14 +65,14 @@
         android:orientation="horizontal">
 
         <com.movtery.pojavzh.ui.view.AnimButton
-            android:id="@+id/zh_edit_text_cancel_button"
+            android:id="@+id/cancel_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@android:string/cancel" />
 
         <com.movtery.pojavzh.ui.view.AnimButton
-            android:id="@+id/zh_edit_text_confirm_button"
+            android:id="@+id/confirm_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

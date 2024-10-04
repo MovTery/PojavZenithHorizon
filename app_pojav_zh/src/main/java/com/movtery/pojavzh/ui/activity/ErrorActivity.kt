@@ -5,8 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.TextView
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.file.FileTools.Companion.getLatestFile
@@ -15,23 +13,17 @@ import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.LauncherActivity
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.databinding.ActivityErrorBinding
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles
 import java.io.File
 
 class ErrorActivity : BaseActivity() {
-    private var mErrorText: TextView? = null
-    private var mTitleText: TextView? = null
-    private var mConfirmButton: Button? = null
-    private var mRestartButton: Button? = null
-    private var mCopyButton: Button? = null
-    private var mShareButton: Button? = null
-    private var mShareLogButton: Button? = null
-    private var mShareCrashReportButton: Button? = null
+    private lateinit var binding: ActivityErrorBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_error)
-        bindValues()
+        binding = ActivityErrorBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val extras = intent.extras
         extras ?: run {
@@ -39,8 +31,8 @@ class ErrorActivity : BaseActivity() {
             return
         }
 
-        mConfirmButton?.setOnClickListener { finish() }
-        mRestartButton?.setOnClickListener {
+        binding.zhErrorConfirm.setOnClickListener { finish() }
+        binding.zhErrorRestart.setOnClickListener {
             startActivity(Intent(this@ErrorActivity, LauncherActivity::class.java))
         }
 
@@ -61,23 +53,25 @@ class ErrorActivity : BaseActivity() {
         }
 
         findViewById<View>(R.id.zh_error_buttons).visibility = View.GONE
-        mTitleText?.setText(R.string.zh_wrong_tip)
+        binding.zhErrorTitle.setText(R.string.zh_wrong_tip)
 
         val crashReportFile = getLatestFile(extras.getString(BUNDLE_CRASH_REPORTS_PATH), 15)
         val logFile = File(PathAndUrlManager.DIR_GAME_HOME, "latestlog.txt")
 
-        mErrorText?.text = getString(R.string.zh_game_exit_message, code)
-        mErrorText?.textSize = 14f
-        mShareCrashReportButton?.visibility =
+        binding.zhErrorText.apply {
+            text = getString(R.string.zh_game_exit_message, code)
+            textSize = 14f
+        }
+        binding.zhCrashShareCrashReport.visibility =
             if ((crashReportFile?.exists() == true)) View.VISIBLE else View.GONE
-        mShareLogButton?.visibility = if (logFile.exists()) View.VISIBLE else View.GONE
+        binding.zhCrashShareLog.visibility = if (logFile.exists()) View.VISIBLE else View.GONE
 
         crashReportFile?.let { file ->
-            mShareCrashReportButton?.setOnClickListener {
+            binding.zhCrashShareCrashReport.setOnClickListener {
                 shareFile(this, file)
             }
         }
-        mShareLogButton?.setOnClickListener { Tools.shareLog(this) }
+        binding.zhCrashShareLog.setOnClickListener { Tools.shareLog(this) }
     }
 
     private fun showError(extras: Bundle) {
@@ -88,26 +82,14 @@ class ErrorActivity : BaseActivity() {
         val strSavePath = extras.getString(BUNDLE_SAVE_PATH)
         val errorText = "$strSavePath :\r\n\r\n$stackTrace"
 
-        mErrorText?.text = errorText
-        mCopyButton?.setOnClickListener { StringUtils.copyText("error", stackTrace, this@ErrorActivity) }
+        binding.zhErrorText.text = errorText
+        binding.zhErrorCopy.setOnClickListener { StringUtils.copyText("error", stackTrace, this@ErrorActivity) }
         strSavePath?.let{
             val crashFile = File(strSavePath)
-            mShareButton?.setOnClickListener {
+            binding.zhErrorShare.setOnClickListener {
                 shareFile(this, crashFile)
             }
         }
-    }
-
-    private fun bindValues() {
-        mErrorText = findViewById(R.id.zh_error_text)
-        mTitleText = findViewById(R.id.zh_error_title)
-        mConfirmButton = findViewById(R.id.zh_error_confirm)
-        mRestartButton = findViewById(R.id.zh_error_restart)
-        mCopyButton = findViewById(R.id.zh_error_copy)
-        mShareButton = findViewById(R.id.zh_error_share)
-
-        mShareLogButton = findViewById(R.id.zh_crash_share_log)
-        mShareCrashReportButton = findViewById(R.id.zh_crash_share_crash_report)
     }
 
     companion object {

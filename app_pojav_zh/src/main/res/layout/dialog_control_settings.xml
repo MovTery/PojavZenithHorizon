@@ -11,7 +11,7 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/zh_controls_settings_title"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -21,7 +21,6 @@
         android:textStyle="bold" />
 
     <ScrollView
-        android:id="@+id/zh_controls_settings_scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/_8sdp"
@@ -36,7 +35,7 @@
             android:orientation="vertical">
 
             <Switch
-                android:id="@+id/zh_controls_settings_button_snapping"
+                android:id="@+id/snapping_switch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_edit_box"
@@ -53,7 +52,7 @@
                 android:background="@drawable/background_edit_box">
 
                 <TextView
-                    android:id="@+id/zh_controls_settings_button_snapping_distance_name"
+                    android:id="@+id/snapping_distance_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8sdp"
@@ -64,19 +63,19 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <SeekBar
-                    android:id="@+id/zh_controls_settings_button_snapping_distance"
+                    android:id="@+id/snapping_distance_seek"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_8sdp"
                     android:max="30"
                     android:progress="8"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/zh_controls_settings_button_snapping_distance_text"
-                    app:layout_constraintStart_toEndOf="@+id/zh_controls_settings_button_snapping_distance_name"
+                    app:layout_constraintEnd_toStartOf="@+id/snapping_distance_text"
+                    app:layout_constraintStart_toEndOf="@+id/snapping_distance_name"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/zh_controls_settings_button_snapping_distance_text"
+                    android:id="@+id/snapping_distance_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_8sdp"
@@ -94,7 +93,7 @@
     </ScrollView>
 
     <com.movtery.pojavzh.ui.view.AnimButton
-        android:id="@+id/zh_controls_settings_confirm_button"
+        android:id="@+id/confirm_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_4sdp"

@@ -8,7 +8,7 @@
     android:minWidth="@dimen/_480sdp">
 
     <ImageButton
-        android:id="@+id/zh_control_info_edit"
+        android:id="@+id/editButton"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginTop="@dimen/_12sdp"
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/zh_control_info_name_text"
+        android:id="@+id/nameText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_20sdp"
@@ -44,7 +44,7 @@
         tools:ignore="HardcodedText" />
 
     <TextView
-        android:id="@+id/zh_control_info_file_name_text"
+        android:id="@+id/fileNameText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_20sdp"
@@ -52,11 +52,11 @@
         android:text="File Name"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zh_control_info_name_text"
+        app:layout_constraintTop_toBottomOf="@+id/nameText"
         tools:ignore="HardcodedText" />
 
     <TextView
-        android:id="@+id/zh_control_info_author_text"
+        android:id="@+id/authorText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_20sdp"
@@ -64,11 +64,11 @@
         android:text="Author"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zh_control_info_file_name_text"
+        app:layout_constraintTop_toBottomOf="@+id/fileNameText"
         tools:ignore="HardcodedText" />
 
     <TextView
-        android:id="@+id/zh_control_info_version_text"
+        android:id="@+id/versionText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_20sdp"
@@ -76,11 +76,11 @@
         android:text="Version"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zh_control_info_author_text"
+        app:layout_constraintTop_toBottomOf="@+id/authorText"
         tools:ignore="HardcodedText" />
 
     <TextView
-        android:id="@+id/zh_control_info_desc_text"
+        android:id="@+id/descText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_20sdp"
@@ -88,11 +88,11 @@
         android:text="Desc"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zh_control_info_version_text"
+        app:layout_constraintTop_toBottomOf="@+id/versionText"
         tools:ignore="HardcodedText" />
 
     <com.movtery.pojavzh.ui.view.AnimButton
-        android:id="@+id/zh_control_info_close"
+        android:id="@+id/closeButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_16sdp"
@@ -100,6 +100,6 @@
         android:text="@string/zh_close"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zh_control_info_desc_text" />
+        app:layout_constraintTop_toBottomOf="@+id/descText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

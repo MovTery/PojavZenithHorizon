@@ -9,7 +9,7 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/zh_select_item_title"
+        android:id="@+id/titleView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/zh_select_item_message"
+        android:id="@+id/messageView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="14sp"
@@ -29,10 +29,10 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zh_select_item_title"/>
+        app:layout_constraintTop_toBottomOf="@+id/titleView"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/zh_select_view"
+        android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/background_edit_box"
@@ -40,19 +40,19 @@
         android:paddingVertical="@dimen/_4sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zh_select_item_message"
+        app:layout_constraintTop_toBottomOf="@+id/messageView"
         app:layout_constraintHeight_max="@dimen/_240sdp" />
 
     <ImageButton
-        android:id="@+id/zh_select_item_close_button"
+        android:id="@+id/closeButton"
         android:layout_width="18dp"
         android:layout_height="18dp"
         android:layout_marginEnd="@dimen/_12sdp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/zh_close"
         android:src="@drawable/ic_close"
-        app:layout_constraintBottom_toTopOf="@+id/zh_select_item_message"
+        app:layout_constraintBottom_toTopOf="@+id/messageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/zh_select_item_title" />
+        app:layout_constraintTop_toTopOf="@+id/titleView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

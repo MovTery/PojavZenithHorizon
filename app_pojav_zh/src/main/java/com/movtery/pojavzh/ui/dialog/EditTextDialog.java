@@ -3,21 +3,18 @@ package com.movtery.pojavzh.ui.dialog;
 import android.content.Context;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.databinding.DialogEditTextBinding;
 
 public class EditTextDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
+    private final DialogEditTextBinding binding = DialogEditTextBinding.inflate(getLayoutInflater());
     private final String title, message, editText, hintText;
     private final View.OnClickListener cancelListener;
     private final ConfirmListener confirmListener;
     private final int inputType;
-    private EditText mEditBox;
 
     private EditTextDialog(@NonNull Context context, String title, String message, String editText, String hintText,
                            int inputType,
@@ -25,7 +22,7 @@ public class EditTextDialog extends FullScreenDialog implements DraggableDialog.
         super(context);
 
         this.setCancelable(false);
-        this.setContentView(R.layout.dialog_edit_text);
+        this.setContentView(binding.getRoot());
 
         this.title = title;
         this.message = message;
@@ -41,39 +38,28 @@ public class EditTextDialog extends FullScreenDialog implements DraggableDialog.
     }
 
     private void init() {
-        TextView mTitle = findViewById(R.id.zh_edit_text_title);
-        TextView mMessage = findViewById(R.id.zh_edit_text_message);
-        ScrollView mScrollTextView = findViewById(R.id.zh_edit_text_scroll);
-        mEditBox = findViewById(R.id.zh_edit_text_edit);
-
-        Button mConfirmButton = findViewById(R.id.zh_edit_text_confirm_button);
-        Button mCancelButton = findViewById(R.id.zh_edit_text_cancel_button);
-
         if (this.title != null) {
-            mTitle.setText(this.title);
+            binding.titleView.setText(this.title);
         }
         if (this.message != null) {
-            mMessage.setText(this.message);
+            binding.messageView.setText(this.message);
         } else {
-            mScrollTextView.setVisibility(View.GONE);
+            binding.scrollView.setVisibility(View.GONE);
         }
 
-        if (editText != null) mEditBox.setText(editText);
-        if (hintText != null) mEditBox.setHint(hintText);
+        if (editText != null) binding.textEdit.setText(editText);
+        if (hintText != null) binding.textEdit.setHint(hintText);
 
-        if (inputType != -1) mEditBox.setInputType(inputType);
+        if (inputType != -1) binding.textEdit.setInputType(inputType);
 
         if (this.confirmListener != null) {
-            mConfirmButton.setOnClickListener(v -> {
-                boolean dismissDialog = confirmListener.onConfirm(mEditBox);
+            binding.confirmButton.setOnClickListener(v -> {
+                boolean dismissDialog = confirmListener.onConfirm(binding.textEdit);
                 if (dismissDialog) this.dismiss();
             });
         }
-        if (this.cancelListener != null) {
-            mCancelButton.setOnClickListener(this.cancelListener);
-        } else {
-            mCancelButton.setOnClickListener(view -> this.dismiss());
-        }
+        View.OnClickListener cancelListener = this.cancelListener != null ? this.cancelListener : view -> this.dismiss();
+        binding.cancelButton.setOnClickListener(cancelListener);
     }
 
     @Override
