@@ -3,11 +3,10 @@ package com.movtery.pojavzh.ui.fragment
 import android.annotation.SuppressLint
 import android.content.res.Resources
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
+import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.pojavzh.feature.CheckSponsor
@@ -25,35 +24,40 @@ import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.databinding.FragmentAboutBinding
 
 class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
     companion object {
         const val TAG: String = "AboutFragment"
     }
 
+    private lateinit var binding: FragmentAboutBinding
     private val mAboutData: MutableList<AboutItemBean> = ArrayList()
-    private var mReturnButton: Button? = null
-    private var mGithubButton: Button? = null
-    private var mPojavLauncherButton: Button? = null
-    private var mLicenseButton: Button? = null
-    private var mSupportButton: Button? = null
-    private var mAboutRecyclerView: RecyclerView? = null
-    private var mSponsorRecyclerView: RecyclerView? = null
-    private var mInfoLayout: View? = null
-    private var mOperateLayout: View? = null
-    private var mAppTitleView: View? = null
-    private var mSponsorView: View? = null
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentAboutBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        bindViews(view)
         loadSponsorData()
         loadAboutData(requireContext().resources)
 
-        mReturnButton?.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
-        mGithubButton?.setOnClickListener { Tools.openURL(requireActivity(), PathAndUrlManager.URL_HOME) }
-        mPojavLauncherButton?.setOnClickListener { Tools.openURL(requireActivity(), PathAndUrlManager.URL_GITHUB_POJAVLAUNCHER) }
-        mLicenseButton?.setOnClickListener { Tools.openURL(requireActivity(), "https://www.gnu.org/licenses/gpl-3.0.html") }
-        mSupportButton?.setOnClickListener {
+        binding.appInfo.text = StringUtils.insertNewline(StringUtils.insertSpace(getString(R.string.zh_about_version_name), ZHTools.getVersionName()),
+            StringUtils.insertSpace(getString(R.string.zh_about_version_code), ZHTools.getVersionCode()),
+            StringUtils.insertSpace(getString(R.string.zh_about_last_update_time), ZHTools.getLastUpdateTime(requireContext())),
+            StringUtils.insertSpace(getString(R.string.zh_about_version_status), ZHTools.getVersionStatus(requireContext())))
+        binding.appInfo.setOnClickListener{ StringUtils.copyText("text", binding.appInfo.text.toString(), requireContext()) }
+
+        binding.returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
+        binding.githubButton.setOnClickListener { Tools.openURL(requireActivity(), PathAndUrlManager.URL_HOME) }
+        binding.pojavlauncherButton.setOnClickListener { Tools.openURL(requireActivity(), PathAndUrlManager.URL_GITHUB_POJAVLAUNCHER) }
+        binding.licenseButton.setOnClickListener { Tools.openURL(requireActivity(), "https://www.gnu.org/licenses/gpl-3.0.html") }
+        binding.supportDevelopment.setOnClickListener {
             TipDialog.Builder(requireActivity())
                 .setTitle(R.string.zh_request_sponsorship_title)
                 .setMessage(R.string.zh_request_sponsorship_message)
@@ -63,30 +67,10 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
         }
 
         val aboutAdapter = AboutRecyclerAdapter(this.mAboutData)
-        mAboutRecyclerView?.layoutManager = LinearLayoutManager(requireContext())
-        mAboutRecyclerView?.adapter = aboutAdapter
-    }
-
-    private fun bindViews(view: View) {
-        mInfoLayout = view.findViewById(R.id.info_layout)
-        mOperateLayout = view.findViewById(R.id.operate_layout)
-        mAppTitleView = view.findViewById(R.id.zh_about_title)
-
-        mReturnButton = view.findViewById(R.id.zh_about_return_button)
-        mGithubButton = view.findViewById(R.id.zh_about_github_button)
-        mPojavLauncherButton = view.findViewById(R.id.zh_about_pojavlauncher_button)
-        mLicenseButton = view.findViewById(R.id.zh_about_license_button)
-        mSupportButton = view.findViewById(R.id.zh_about_support_development)
-        mAboutRecyclerView = view.findViewById(R.id.zh_about_about_recycler)
-        mSponsorRecyclerView = view.findViewById(R.id.zh_about_sponsor_recycler)
-        mSponsorView = view.findViewById(R.id.constraintLayout5)
-
-        val mVersionInfo = view.findViewById<TextView>(R.id.zh_about_info)
-        mVersionInfo.text = StringUtils.insertNewline(StringUtils.insertSpace(getString(R.string.zh_about_version_name), ZHTools.getVersionName()),
-            StringUtils.insertSpace(getString(R.string.zh_about_version_code), ZHTools.getVersionCode()),
-            StringUtils.insertSpace(getString(R.string.zh_about_last_update_time), ZHTools.getLastUpdateTime(requireContext())),
-            StringUtils.insertSpace(getString(R.string.zh_about_version_status), ZHTools.getVersionStatus(requireContext())))
-        mVersionInfo.setOnClickListener{ StringUtils.copyText("text", mVersionInfo.text.toString(), requireContext()) }
+        binding.aboutRecycler.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = aboutAdapter
+        }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -192,10 +176,10 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
     private fun setSponsorVisible(visible: Boolean) {
         Tools.runOnUiThread {
             try {
-                mSponsorView?.visibility = if (visible) View.VISIBLE else View.GONE
+                binding.sponsorLayout.visibility = if (visible) View.VISIBLE else View.GONE
 
                 if (visible) {
-                    mSponsorRecyclerView?.apply {
+                    binding.sponsorRecycler.apply {
                         layoutManager = LinearLayoutManager(requireContext())
                         adapter = SponsorRecyclerAdapter(getSponsorData())
                     }
@@ -207,16 +191,16 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
     }
 
     override fun slideIn(animPlayer: AnimPlayer) {
-        animPlayer.apply(AnimPlayer.Entry(mInfoLayout!!, Animations.BounceInDown))
-            .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.BounceInLeft))
-            .apply(AnimPlayer.Entry(mReturnButton!!, Animations.FadeInLeft))
-            .apply(AnimPlayer.Entry(mGithubButton!!, Animations.FadeInLeft))
-            .apply(AnimPlayer.Entry(mSupportButton!!, Animations.FadeInLeft))
+        animPlayer.apply(AnimPlayer.Entry(binding.infoLayout, Animations.BounceInDown))
+            .apply(AnimPlayer.Entry(binding.operateLayout, Animations.BounceInLeft))
+            .apply(AnimPlayer.Entry(binding.returnButton, Animations.FadeInLeft))
+            .apply(AnimPlayer.Entry(binding.githubButton, Animations.FadeInLeft))
+            .apply(AnimPlayer.Entry(binding.supportDevelopment, Animations.FadeInLeft))
     }
 
     override fun slideOut(animPlayer: AnimPlayer) {
-        animPlayer.apply(AnimPlayer.Entry(mInfoLayout!!, Animations.FadeOutUp))
-        animPlayer.apply(AnimPlayer.Entry(mOperateLayout!!, Animations.FadeOutRight))
+        animPlayer.apply(AnimPlayer.Entry(binding.infoLayout, Animations.FadeOutUp))
+        animPlayer.apply(AnimPlayer.Entry(binding.operateLayout, Animations.FadeOutRight))
     }
 }
 

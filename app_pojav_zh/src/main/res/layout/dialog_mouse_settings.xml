@@ -11,7 +11,7 @@
     android:padding="@dimen/_8sdp">
 
     <TextView
-        android:id="@+id/zh_mouse_settings_title"
+        android:id="@+id/title_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -21,7 +21,7 @@
         android:textStyle="bold" />
 
     <ScrollView
-        android:id="@+id/zh_mouse_settings_scroll"
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/_8sdp"
@@ -41,7 +41,7 @@
                 android:background="@drawable/background_edit_box">
 
                 <TextView
-                    android:id="@+id/zh_mouse_settings_speed_name"
+                    android:id="@+id/speed_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8sdp"
@@ -52,7 +52,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <SeekBar
-                    android:id="@+id/zh_mouse_settings_speed_seek"
+                    android:id="@+id/speed_seek"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_8sdp"
@@ -60,12 +60,12 @@
                     android:max="300"
                     android:progress="100"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/zh_mouse_settings_speed_text"
-                    app:layout_constraintStart_toEndOf="@+id/zh_mouse_settings_speed_name"
+                    app:layout_constraintEnd_toStartOf="@+id/speed_text"
+                    app:layout_constraintStart_toEndOf="@+id/speed_name"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/zh_mouse_settings_speed_text"
+                    android:id="@+id/speed_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_8sdp"
@@ -85,7 +85,7 @@
                 android:background="@drawable/background_edit_box">
 
                 <TextView
-                    android:id="@+id/zh_mouse_settings_scale_name"
+                    android:id="@+id/scale_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8sdp"
@@ -96,7 +96,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <SeekBar
-                    android:id="@+id/zh_mouse_settings_scale_seek"
+                    android:id="@+id/scale_seek"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_8sdp"
@@ -104,12 +104,12 @@
                     android:max="300"
                     android:progress="100"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/zh_mouse_settings_scale_text"
-                    app:layout_constraintStart_toEndOf="@+id/zh_mouse_settings_scale_name"
+                    app:layout_constraintEnd_toStartOf="@+id/scale_text"
+                    app:layout_constraintStart_toEndOf="@+id/scale_name"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/zh_mouse_settings_scale_text"
+                    android:id="@+id/scale_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_8sdp"
@@ -123,7 +123,7 @@
             </com.movtery.pojavzh.ui.layout.AnimConstraintLayout>
 
             <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
-                android:id="@+id/zh_mouse_settings_custom_mouse"
+                android:id="@+id/custom_mouse"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
@@ -143,7 +143,7 @@
     </ScrollView>
 
     <com.movtery.pojavzh.ui.view.AnimButton
-        android:id="@+id/zh_mouse_settings_confirm_button"
+        android:id="@+id/confirm_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_4sdp"

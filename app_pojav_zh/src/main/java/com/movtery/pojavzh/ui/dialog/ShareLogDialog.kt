@@ -65,7 +65,7 @@ class ShareLogDialog(context: Context) : FullScreenDialog(context), DialogInitia
             } else mGameLogFilePath.text = mGameLogFile.absolutePath
         }
 
-        findViewById<View>(R.id.zh_operation_close)?.setOnClickListener { dismiss() }
+        findViewById<View>(R.id.close_button)?.setOnClickListener { dismiss() }
 
         DraggableDialog.initDialog(this)
     }

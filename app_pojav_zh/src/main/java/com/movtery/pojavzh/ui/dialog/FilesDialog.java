@@ -2,9 +2,7 @@ package com.movtery.pojavzh.ui.dialog;
 
 import android.content.Context;
 import android.view.Window;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -12,20 +10,20 @@ import com.movtery.pojavzh.utils.file.FileTools;
 import com.movtery.pojavzh.utils.file.PasteFile;
 
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.databinding.DialogOperationFileBinding;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FilesDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
+    private final DialogOperationFileBinding binding = DialogOperationFileBinding.inflate(getLayoutInflater());
     private final Runnable runnable;
     private final File root;
     private final List<File> selectedFiles;
-    private TextView mTitle, mMessage, moreText;
     private String mFileSuffix;
     private OnCopyButtonClickListener mCopyClick;
     private OnMoreButtonClickListener mMoreClick;
-    private RelativeLayout mShareButton, mRenameButton, mDeleteButton, mMoveButton, mCopyButton, mMoreButton;
 
     public FilesDialog(@NonNull Context context, FilesButton filesButton, Runnable runnable, File root, List<File> selectedFiles) {
         super(context);
@@ -51,23 +49,12 @@ public class FilesDialog extends FullScreenDialog implements DraggableDialog.Dia
 
     private void init(FilesButton filesButton) {
         this.setCancelable(true);
-        this.setContentView(R.layout.dialog_operation_file);
+        this.setContentView(binding.getRoot());
 
-        mTitle = findViewById(R.id.zh_operation_title);
-        mMessage = findViewById(R.id.zh_operation_message);
-        moreText = findViewById(R.id.zh_file_more_text);
-        mShareButton = findViewById(R.id.zh_file_share);
-        mRenameButton = findViewById(R.id.zh_file_rename);
-        mDeleteButton = findViewById(R.id.zh_file_delete);
-        mCopyButton = findViewById(R.id.zh_file_copy);
-        mMoveButton = findViewById(R.id.zh_file_move);
-        mMoreButton = findViewById(R.id.zh_file_more);
-
-        ImageView mCloseButton = findViewById(R.id.zh_operation_close);
-        mCloseButton.setOnClickListener(v -> this.dismiss());
+        binding.closeButton.setOnClickListener(v -> this.dismiss());
 
         if (filesButton.more) {
-            mMoreButton.setOnClickListener(v -> {
+            binding.moreView.setOnClickListener(v -> {
                 if (this.mMoreClick != null) this.mMoreClick.onButtonClick();
                 closeDialog();
             });
@@ -76,21 +63,21 @@ public class FilesDialog extends FullScreenDialog implements DraggableDialog.Dia
     }
 
     private void handleButtons(FilesButton filesButton) {
-        mDeleteButton.setOnClickListener(view -> {
+        binding.deleteView.setOnClickListener(view -> {
             DeleteDialog deleteDialog = new DeleteDialog(getContext(), this.runnable, selectedFiles);
             deleteDialog.show();
             closeDialog();
         });
 
         PasteFile pasteFile = PasteFile.getInstance();
-        mCopyButton.setOnClickListener(v -> {
+        binding.copyView.setOnClickListener(v -> {
             if (this.mCopyClick != null) {
                 pasteFile.setPaste(root, selectedFiles, PasteFile.PasteType.COPY); // 复制模式
                 this.mCopyClick.onButtonClick();
             }
             closeDialog();
         });
-        mMoveButton.setOnClickListener(v -> {
+        binding.moveView.setOnClickListener(v -> {
             if (this.mCopyClick != null) {
                 pasteFile.setPaste(root, selectedFiles, PasteFile.PasteType.MOVE); // 移动模式
                 this.mCopyClick.onButtonClick();
@@ -100,11 +87,11 @@ public class FilesDialog extends FullScreenDialog implements DraggableDialog.Dia
 
         if (selectedFiles.size() == 1) { //单选模式
             File file = selectedFiles.get(0);
-            mShareButton.setOnClickListener(view -> {
+            binding.shareView.setOnClickListener(view -> {
                 FileTools.shareFile(getContext(), file);
                 closeDialog();
             });
-            mRenameButton.setOnClickListener(view -> {
+            binding.renameView.setOnClickListener(view -> {
                 if (file.isFile()) {
                     FileTools.renameFileListener(getContext(), runnable, file, mFileSuffix == null ? file.getName().substring(file.getName().lastIndexOf('.')) : mFileSuffix);
                 } else if (file.isDirectory()) {
@@ -113,28 +100,28 @@ public class FilesDialog extends FullScreenDialog implements DraggableDialog.Dia
                 closeDialog();
             });
 
-            setButtonClickable(filesButton.share, mShareButton);
-            setButtonClickable(filesButton.rename, mRenameButton);
+            setButtonClickable(filesButton.share, binding.shareView);
+            setButtonClickable(filesButton.rename, binding.renameView);
         } else {
             //多选模式禁止使用分享、重命名
-            setButtonClickable(false, mShareButton);
-            setButtonClickable(false, mRenameButton);
+            setButtonClickable(false, binding.shareView);
+            setButtonClickable(false, binding.renameView);
         }
 
         setDialogTexts(filesButton, selectedFiles.get(0));
 
-        setButtonClickable(filesButton.delete, mDeleteButton);
-        setButtonClickable(filesButton.copy, mCopyButton);
-        setButtonClickable(filesButton.move, mMoveButton);
-        setButtonClickable(filesButton.more, mMoreButton);
+        setButtonClickable(filesButton.delete, binding.deleteView);
+        setButtonClickable(filesButton.copy, binding.copyView);
+        setButtonClickable(filesButton.move, binding.moveView);
+        setButtonClickable(filesButton.more, binding.moreView);
     }
 
     private void setDialogTexts(FilesButton filesButton, File file) {
-        if (filesButton.titleText != null) mTitle.setText(filesButton.titleText);
-        if (filesButton.messageText != null) mMessage.setText(filesButton.messageText);
-        if (filesButton.moreButtonText != null) moreText.setText(filesButton.moreButtonText);
+        if (filesButton.titleText != null) binding.titleView.setText(filesButton.titleText);
+        if (filesButton.messageText != null) binding.messageView.setText(filesButton.messageText);
+        if (filesButton.moreButtonText != null) binding.moreTextView.setText(filesButton.moreButtonText);
         if (file != null && file.isDirectory())
-            mTitle.setText(getContext().getString(R.string.zh_file_folder_tips));
+            binding.titleView.setText(getContext().getString(R.string.zh_file_folder_tips));
     }
 
     private void closeDialog() {

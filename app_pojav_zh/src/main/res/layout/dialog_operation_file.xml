@@ -8,7 +8,7 @@
     android:minWidth="@dimen/_480sdp">
 
     <ImageView
-        android:id="@+id/zh_operation_close"
+        android:id="@+id/close_button"
         android:layout_width="18dp"
         android:layout_height="18dp"
         android:layout_marginTop="@dimen/_12sdp"
@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/zh_operation_title"
+            android:id="@+id/title_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
@@ -48,7 +48,7 @@
             android:layout_weight="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/zh_operation_title">
+            app:layout_constraintTop_toBottomOf="@+id/title_view">
 
             <LinearLayout
                 android:id="@+id/layout1"
@@ -57,7 +57,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/zh_operation_message"
+                    android:id="@+id/message_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="@dimen/_8sdp"
@@ -79,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/layout">
 
         <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
-            android:id="@+id/zh_file_copy"
+            android:id="@+id/copy_view"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="?android:attr/selectableItemBackground">
@@ -106,7 +106,7 @@
         </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
         <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
-            android:id="@+id/zh_file_rename"
+            android:id="@+id/rename_view"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="?android:attr/selectableItemBackground">
@@ -135,7 +135,7 @@
         </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
         <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
-            android:id="@+id/zh_file_share"
+            android:id="@+id/share_view"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="?android:attr/selectableItemBackground">
@@ -173,7 +173,7 @@
         app:layout_constraintTop_toBottomOf="@+id/layout">
 
         <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
-            android:id="@+id/zh_file_move"
+            android:id="@+id/move_view"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="?android:attr/selectableItemBackground">
@@ -200,7 +200,7 @@
         </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
         <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
-            android:id="@+id/zh_file_delete"
+            android:id="@+id/delete_view"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="?android:attr/selectableItemBackground">
@@ -227,7 +227,7 @@
         </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
         <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
-            android:id="@+id/zh_file_more"
+            android:id="@+id/more_view"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="?android:attr/selectableItemBackground">
@@ -242,7 +242,7 @@
                 android:src="@drawable/ic_more" />
 
             <TextView
-                android:id="@+id/zh_file_more_text"
+                android:id="@+id/more_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"

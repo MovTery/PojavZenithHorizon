@@ -8,29 +8,28 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependenciesAdapter;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.databinding.DialogModDependenciesBinding;
 
 import java.util.Collections;
 import java.util.List;
 
 public class ModDependenciesDialog extends FullScreenDialog {
+    private final DialogModDependenciesBinding binding = DialogModDependenciesBinding.inflate(getLayoutInflater());
 
     public ModDependenciesDialog(@NonNull Context context, ModDependencies.SelectedMod mod, List<ModDependencies> mData, Runnable downloadRunnable) {
         super(context);
 
         this.setCancelable(false);
-        this.setContentView(R.layout.dialog_mod_dependencies);
+        this.setContentView(binding.getRoot());
         init(context, mod, mData, downloadRunnable);
     }
 
@@ -55,23 +54,18 @@ public class ModDependenciesDialog extends FullScreenDialog {
     }
 
     private void init(Context context, ModDependencies.SelectedMod mod, List<ModDependencies> mData, Runnable downloadRunnable) {
-        TextView mTitle = findViewById(R.id.zh_mod_dependencies_title);
-        RecyclerView modRecyclerView = findViewById(R.id.zh_mod_dependencies);
-        Button mCloseButton = findViewById(R.id.zh_mod_dependencies_close_button);
-        Button mDownloadButton = findViewById(R.id.zh_mod_dependencies_download_button);
-
-        mTitle.setText(context.getString(R.string.zh_profile_mods_dependencies_dialog_title, mod.modName));
-        mDownloadButton.setText(context.getString(R.string.zh_profile_mods_dependencies_dialog_this_mod, mod.modName));
+        binding.titleView.setText(context.getString(R.string.zh_profile_mods_dependencies_dialog_title, mod.modName));
+        binding.downloadButton.setText(context.getString(R.string.zh_profile_mods_dependencies_dialog_this_mod, mod.modName));
 
         Collections.sort(mData);
         ModDependenciesAdapter adapter = new ModDependenciesAdapter(mod, mData);
         adapter.setOnItemCLickListener(this::dismiss);
-        modRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        modRecyclerView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(context, R.anim.fade_downwards)));
-        modRecyclerView.setAdapter(adapter);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        binding.recyclerView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(context, R.anim.fade_downwards)));
+        binding.recyclerView.setAdapter(adapter);
 
-        mCloseButton.setOnClickListener(v -> this.dismiss());
-        mDownloadButton.setOnClickListener(v -> {
+        binding.closeButton.setOnClickListener(v -> this.dismiss());
+        binding.downloadButton.setOnClickListener(v -> {
             PojavApplication.sExecutorService.execute(downloadRunnable);
             this.dismiss();
         });

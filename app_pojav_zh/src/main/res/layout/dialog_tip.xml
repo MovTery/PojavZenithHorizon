@@ -8,7 +8,7 @@
     android:padding="@dimen/_8sdp">
 
     <TextView
-        android:id="@+id/zh_tip_title"
+        android:id="@+id/title_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/zh_tip_message"
+        android:id="@+id/message_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_8sdp"
@@ -29,15 +29,15 @@
         android:textSize="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zh_tip_title" />
+        app:layout_constraintTop_toBottomOf="@+id/title_view" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/zh_tip_more"
+        android:id="@+id/more_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zh_tip_message" />
+        app:layout_constraintTop_toBottomOf="@+id/message_view" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearLayoutCompat4"
@@ -48,17 +48,17 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zh_tip_more">
+        app:layout_constraintTop_toBottomOf="@+id/more_view">
 
         <com.movtery.pojavzh.ui.view.AnimButton
-            android:id="@+id/zh_tip_cancel"
+            android:id="@+id/cancel_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@android:string/cancel" />
 
         <com.movtery.pojavzh.ui.view.AnimButton
-            android:id="@+id/zh_tip_confirm"
+            android:id="@+id/confirm_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

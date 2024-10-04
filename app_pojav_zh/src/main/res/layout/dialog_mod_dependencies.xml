@@ -9,7 +9,7 @@
     android:padding="@dimen/_8sdp">
 
     <TextView
-        android:id="@+id/zh_mod_dependencies_title"
+        android:id="@+id/title_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -22,17 +22,17 @@
         tools:layout_editor_absoluteY="8dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/zh_mod_constraintLayout"
+        android:id="@+id/mod_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginVertical="@dimen/_8sdp"
-        app:layout_constraintBottom_toTopOf="@id/zh_mod_dependencies_tip"
+        app:layout_constraintBottom_toTopOf="@id/tip_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/zh_mod_dependencies_title">
+        app:layout_constraintTop_toBottomOf="@id/title_view">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/zh_mod_dependencies"
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingVertical="@dimen/_4sdp"
@@ -47,7 +47,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/zh_mod_dependencies_tip"
+        android:id="@+id/tip_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_12sdp"
@@ -72,7 +72,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <com.movtery.pojavzh.ui.view.AnimButton
-            android:id="@+id/zh_mod_dependencies_close_button"
+            android:id="@+id/close_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/_8sdp"
@@ -80,7 +80,7 @@
             android:text="@string/zh_close" />
 
         <com.movtery.pojavzh.ui.view.AnimButton
-            android:id="@+id/zh_mod_dependencies_download_button"
+            android:id="@+id/download_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/_8sdp"

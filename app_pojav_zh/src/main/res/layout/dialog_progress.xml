@@ -9,17 +9,17 @@
     android:minWidth="@dimen/_450sdp">
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progressView"
         style="?android:attr/progressBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/_12sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/zh_download_upload_textView"
-        app:layout_constraintEnd_toStartOf="@+id/zh_download_upload_textView"
-        app:layout_constraintTop_toTopOf="@+id/zh_download_upload_textView" />
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toStartOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
 
     <TextView
-        android:id="@+id/zh_download_upload_textView"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -31,15 +31,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/zh_download_upload_layout"
+        android:id="@+id/upload_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/zh_download_cancel_button"
-        app:layout_constraintStart_toStartOf="@+id/zh_download_cancel_button"
-        app:layout_constraintTop_toBottomOf="@+id/zh_download_upload_textView">
+        app:layout_constraintEnd_toEndOf="@+id/cancel_button"
+        app:layout_constraintStart_toStartOf="@+id/cancel_button"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <TextView
-            android:id="@+id/zh_download_upload_rate"
+            android:id="@+id/upload_rate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_4sdp"
@@ -50,12 +50,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/progressBar2"
+            app:layout_constraintEnd_toStartOf="@+id/progressBar"
             app:layout_constraintHorizontal_weight="1.5"
             tools:ignore="HardcodedText" />
 
         <ProgressBar
-            android:id="@+id/progressBar2"
+            android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -63,14 +63,14 @@
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/zh_download_upload_rate"
+            app:layout_constraintStart_toEndOf="@+id/upload_rate"
             app:layout_constraintHorizontal_weight="5"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.movtery.pojavzh.ui.view.AnimButton
-        android:id="@+id/zh_download_cancel_button"
+        android:id="@+id/cancel_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_4sdp"
@@ -81,5 +81,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zh_download_upload_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/upload_layout" />
 </androidx.constraintlayout.widget.ConstraintLayout>

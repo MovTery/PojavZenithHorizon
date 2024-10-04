@@ -6,9 +6,6 @@ import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.Window;
-import android.webkit.WebView;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,8 +17,10 @@ import com.movtery.pojavzh.utils.file.FileTools;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.databinding.DialogUpdateBinding;
 
 public class UpdateDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
+    private final DialogUpdateBinding binding = DialogUpdateBinding.inflate(getLayoutInflater());
     private final String versionName;
     private final String tagName;
     private final String createdTime;
@@ -37,38 +36,29 @@ public class UpdateDialog extends FullScreenDialog implements DraggableDialog.Di
         this.description = updateInformation.description;
 
         this.setCancelable(false);
-        this.setContentView(R.layout.dialog_update);
+        this.setContentView(binding.getRoot());
         init();
         DraggableDialog.initDialog(this);
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     private void init() {
-        TextView mVersionName = findViewById(R.id.zh_update_version_name);
-        TextView mCreatedTime = findViewById(R.id.zh_update_time);
-        TextView mFileSize = findViewById(R.id.zh_update_file_size);
-        WebView mDescription = findViewById(R.id.zh_update_description);
-
         String version = StringUtils.insertSpace(getContext().getString(R.string.zh_update_dialog_version), this.versionName);
         String time = StringUtils.insertSpace(getContext().getString(R.string.zh_update_dialog_time), this.createdTime);
         String size = StringUtils.insertSpace(getContext().getString(R.string.zh_update_dialog_file_size), FileTools.formatFileSize(this.fileSize));
 
-        mVersionName.setText(version);
-        mCreatedTime.setText(time);
-        mFileSize.setText(size);
+        binding.versionName.setText(version);
+        binding.updateTime.setText(time);
+        binding.fileSize.setText(size);
 
         String descriptionHtml = markdownToHtml(this.description);
 
-        ZHTools.getWebViewAfterProcessing(mDescription);
+        ZHTools.getWebViewAfterProcessing(binding.description);
 
-        mDescription.getSettings().setJavaScriptEnabled(true);
-        mDescription.loadDataWithBaseURL(null, descriptionHtml, "text/html", "UTF-8", null);
+        binding.description.getSettings().setJavaScriptEnabled(true);
+        binding.description.loadDataWithBaseURL(null, descriptionHtml, "text/html", "UTF-8", null);
 
-        Button mUpdateButton = findViewById(R.id.zh_update_update_button);
-        Button mCancelButton = findViewById(R.id.zh_update_cancel_button);
-        Button mIgnoreButton = findViewById(R.id.zh_update_ignore_button);
-
-        mUpdateButton.setOnClickListener(view -> {
+        binding.updateButton.setOnClickListener(view -> {
             this.dismiss();
             if (ZHTools.areaChecks("zh")) {
                 runOnUiThread(() -> {
@@ -81,8 +71,8 @@ public class UpdateDialog extends FullScreenDialog implements DraggableDialog.Di
                 updateLauncher.start();
             }
         });
-        mCancelButton.setOnClickListener(view -> this.dismiss());
-        mIgnoreButton.setOnClickListener(view -> {
+        binding.cancelButton.setOnClickListener(view -> this.dismiss());
+        binding.ignoreButton.setOnClickListener(view -> {
             Settings.Manager.Companion.put("ignoreUpdate", this.versionName).save();
             this.dismiss();
         });
