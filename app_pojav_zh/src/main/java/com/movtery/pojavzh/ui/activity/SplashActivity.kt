@@ -23,7 +23,7 @@ import net.kdt.pojavlaunch.databinding.ActivitySplashBinding
 class SplashActivity : BaseActivity() {
     private var isStarted: Boolean = false
     private lateinit var binding: ActivitySplashBinding
-    private lateinit var adapter: InstallableAdapter
+    private lateinit var installableAdapter: InstallableAdapter
     private val items: MutableList<InstallableItem> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +37,7 @@ class SplashActivity : BaseActivity() {
         val splashText = findViewById<TextView>(R.id.splash_text)
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@SplashActivity)
-            adapter = adapter
+            adapter = installableAdapter
         }
 
         binding.startButton.apply {
@@ -45,7 +45,7 @@ class SplashActivity : BaseActivity() {
                 if (isStarted) return@setOnClickListener
                 isStarted = true
                 splashText.setText(R.string.splash_screen_installing)
-                adapter.startAllTasks()
+                installableAdapter.startAllTasks()
             }
             isClickable = false
         }
@@ -85,13 +85,13 @@ class SplashActivity : BaseActivity() {
                 )
             }
         }
-        adapter = InstallableAdapter(items) {
+        installableAdapter = InstallableAdapter(items) {
             toMain()
         }
     }
     
     private fun checkEnd() {
-        adapter.checkAllTask()
+        installableAdapter.checkAllTask()
         PojavApplication.sExecutorService.execute {
             UnpackSingleFilesTask(this).run()
         }
