@@ -292,8 +292,8 @@
     <string name="zh_other_login_select_role_title">选择角色</string>
     <string name="zh_other_login_select_role_message">当前账号存在多个角色，请选择想要使用的角色</string>
     <!-- Splash -->
-    <string name="splash_screen_desc">启动器需要安装这些内容，才能够确保 Minecraft 能够正常启动。点击下方按钮，开始安装或者更新这些内容。</string>
-    <string name="splash_screen_installing">启动器正在安装需要的内容，安装完成后将自动进入主界面，请耐心等待。</string>
+    <string name="splash_screen_desc">启动器需要安装这些内容，才能够确保 Minecraft 能够正常启动。这些内容已经包含在应用中，需要解压之后才能正常使用，点击下方按钮，开始解压并更新这些内容。</string>
+    <string name="splash_screen_installing">启动器正在解压这些内容，解压完成后将自动进入主界面，请耐心等待。</string>
     <string name="splash_screen_lwjgl">轻量级 Java 游戏库，Minecraft 依赖它运行游戏。</string>
     <string name="splash_screen_cacio">为 OpenJDK 提供可移植的 GUI 后端。</string>
     <string name="splash_screen_jre8">Java 8 环境，Minecraft 1.16- 依赖 Java 8。</string>

@@ -292,8 +292,8 @@
     <string name="zh_other_login_select_role_title">Rolle auswählen</string>
     <string name="zh_other_login_select_role_message">Das aktuelle Konto hat mehrere Rollen. Bitte wählen Sie die Rolle aus, die Sie verwenden möchten.</string>
     <!-- Splash -->
-    <string name="splash_screen_desc">Der Launcher muss diese Komponenten installieren, um sicherzustellen, dass Minecraft ordnungsgemäß läuft. Klicken Sie unten auf die Schaltfläche, um die Installation oder Aktualisierung dieser Komponenten zu starten.</string>
-    <string name="splash_screen_installing">Der Launcher installiert die erforderlichen Komponenten. Nach Abschluss der Installation wird automatisch die Hauptoberfläche aufgerufen. Bitte warten Sie geduldig.</string>
+    <string name="splash_screen_desc">Der Launcher muss diese Komponenten installieren, um sicherzustellen, dass Minecraft ordnungsgemäß startet. Diese Komponenten sind in der App enthalten und müssen extrahiert werden, um normal verwendet zu werden. Klicken Sie auf die Schaltfläche unten, um mit der Extraktion und Aktualisierung dieser Komponenten zu beginnen.</string>
+    <string name="splash_screen_installing">Der Launcher extrahiert diese Komponenten. Nach Abschluss der Extraktion wird automatisch die Hauptoberfläche angezeigt. Bitte haben Sie Geduld.</string>
     <string name="splash_screen_lwjgl">Leichte Java-Spielebibliothek, Minecraft benötigt sie, um das Spiel auszuführen.</string>
     <string name="splash_screen_cacio">Bietet ein portables GUI-Backend für OpenJDK.</string>
     <string name="splash_screen_jre8">Java 8 Umgebung, Minecraft 1.16- erfordert Java 8.</string>
