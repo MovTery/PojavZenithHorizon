@@ -29,7 +29,7 @@
     <string name="mcl_setting_title_javaargs">JVM-Startargumente</string>
     <string name="mcl_setting_subtitle_javaargs">Sei vorsichtig, dies kann das Spiel zum Absturz bringen, wenn es ohne Kenntnisse geändert wird.</string>
     <string name="mcl_setting_category_renderer">Renderer</string>
-    <string name="mcl_setting_renderer_angle">ANGLE (nur 1.17+)</string>
+    <string name="mcl_setting_renderer_ltw">LTW (nur 1.17+)</string>
     <string name="mcl_setting_veroption_release">Release</string>
     <string name="mcl_setting_veroption_snapshot">Snapshot</string>
     <string name="mcl_setting_veroption_oldalpha">Old-alpha</string>

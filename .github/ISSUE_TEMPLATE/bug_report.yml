@@ -97,7 +97,7 @@ body:
         - 'VirGLRenderer'
         - 'Freedreno'
         - 'Panfrost'
-        - 'ANGLE'
+        - 'LTW'
     validations:
       required: false
 
