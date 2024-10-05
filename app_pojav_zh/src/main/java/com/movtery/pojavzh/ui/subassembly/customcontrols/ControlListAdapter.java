@@ -8,18 +8,22 @@ import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.flexbox.FlexboxLayout;
 import com.movtery.pojavzh.ui.dialog.ControlInfoDialog;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.databinding.ItemControlListViewBinding;
 import net.kdt.pojavlaunch.databinding.ItemFileListViewBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -131,6 +135,9 @@ public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 ControlInfoDialog controlInfoDialog = new ControlInfoDialog(mContext, () -> runOnUiThread(ControlListAdapter.this::notifyDataSetChanged), controlInfoData);
                 controlInfoDialog.show();
             });
+            binding.infoLayout.removeAllViews();
+
+            List<TextView> infoViews = new ArrayList<>();
 
             //初始化控制布局名称，如果为空，那么将设置为文件名
             if (!controlInfoData.name.isEmpty() && !controlInfoData.name.equals("null")) {
@@ -138,12 +145,9 @@ public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     controlInfoData.name = mContext.getString(R.string.zh_controls_info_default_title);
                 }
                 binding.title.setText(controlInfoData.name);
-                String fileNameString = StringUtils.insertSpace(mContext.getString(R.string.zh_controls_info_file_name), controlInfoData.fileName);
-                binding.fileName.setVisibility(View.VISIBLE);
-                binding.fileName.setText(fileNameString);
+                infoViews.add(getAInfoTextView(R.string.zh_controls_info_file_name, controlInfoData.fileName));
             } else {
                 binding.title.setText(controlInfoData.fileName);
-                binding.fileName.setVisibility(View.GONE);
             }
 
             //设置高亮
@@ -154,20 +158,12 @@ public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             //初始化作者名，如果没有填写，那么就隐藏它
             if (!controlInfoData.author.isEmpty() && !controlInfoData.author.equals("null")) {
-                String authorString = StringUtils.insertSpace(mContext.getString(R.string.zh_controls_info_author), controlInfoData.author);
-                binding.author.setVisibility(View.VISIBLE);
-                binding.author.setText(authorString);
-            } else {
-                binding.author.setVisibility(View.GONE);
+                infoViews.add(getAInfoTextView(R.string.zh_controls_info_author, controlInfoData.author));
             }
 
             //初始化版本
             if (!controlInfoData.version.isEmpty() && !controlInfoData.version.equals("null")) {
-                String versionString = StringUtils.insertSpace(mContext.getString(R.string.zh_controls_info_version), controlInfoData.version);
-                binding.version.setVisibility(View.VISIBLE);
-                binding.version.setText(versionString);
-            } else {
-                binding.version.setVisibility(View.GONE);
+                infoViews.add(getAInfoTextView(R.string.zh_controls_info_version, controlInfoData.version));
             }
 
             //初始化描述说明
@@ -179,6 +175,21 @@ public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             } else {
                 binding.desc.setText(R.string.zh_controls_info_no_info);
             }
+
+            if (!infoViews.isEmpty()) {
+                for (TextView infoView : infoViews) {
+                    binding.infoLayout.addView(infoView);
+                }
+            }
+        }
+
+        private TextView getAInfoTextView(int string, String value) {
+            TextView textView = new TextView(mContext);
+            textView.setText(StringUtils.insertSpace(mContext.getString(string), value));
+            FlexboxLayout.LayoutParams layoutParams = new FlexboxLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(0, 0, (int) Tools.dpToPx(8), 0);
+            textView.setLayoutParams(layoutParams);
+            return textView;
         }
     }
 }
