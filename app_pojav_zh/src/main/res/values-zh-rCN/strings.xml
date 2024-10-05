@@ -36,7 +36,7 @@
     <string name="mcl_setting_title_javaargs">JVM 启动参数</string>
     <string name="mcl_setting_subtitle_javaargs">注意，非专业人士修改此值可能导致游戏崩溃</string>
     <string name="mcl_setting_category_renderer">渲染器</string>
-    <string name="mcl_setting_renderer_angle">ANGLE (仅限 1.17+)</string>
+    <string name="mcl_setting_renderer_ltw">LTW (仅限 1.17+)</string>
     <string name="mcl_setting_veroption_release">正式版</string>
     <string name="mcl_setting_veroption_snapshot">快照版</string>
     <string name="mcl_setting_veroption_oldalpha">Alpha 版</string>

@@ -30,7 +30,7 @@
     <string name="mcl_setting_title_javaargs">حجج إطلاق JVM</string>
     <string name="mcl_setting_subtitle_javaargs">كن حذرا، قد يجعل هذا اللعبة تتوقف إذا تم تعديلها بدون علم.</string>
     <string name="mcl_setting_category_renderer">عارض الرسوميات</string>
-    <string name="mcl_setting_renderer_angle">ANGLE (فقط 1.17+)</string>
+    <string name="mcl_setting_renderer_ltw">LTW (فقط 1.17+)</string>
     <string name="mcl_setting_veroption_release">إصدار نهائي</string>
     <string name="mcl_setting_veroption_snapshot">اللمحات (سنابشوت)</string>
     <string name="mcl_setting_veroption_oldalpha">نسخ ألفا قديمة</string>
