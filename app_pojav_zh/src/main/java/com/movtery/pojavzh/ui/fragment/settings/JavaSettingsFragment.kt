@@ -6,12 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.TextView
 import com.movtery.pojavzh.setting.AllSettings
-import com.movtery.pojavzh.setting.Settings
-import com.movtery.pojavzh.ui.dialog.EditTextDialog
 import com.movtery.pojavzh.ui.fragment.settings.wrapper.BaseSettingsWrapper
+import com.movtery.pojavzh.ui.fragment.settings.wrapper.EditTextSettingsWrapper
 import com.movtery.pojavzh.ui.fragment.settings.wrapper.SeekBarSettingsWrapper
 import com.movtery.pojavzh.ui.fragment.settings.wrapper.SwitchSettingsWrapper
 import com.movtery.pojavzh.utils.file.FileTools.Companion.formatFileSize
@@ -57,20 +55,12 @@ class JavaSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
             openMultiRTDialog()
         }
 
-        BaseSettingsWrapper(
-            context,
-            binding.javaArgsLayout
-        ) {
-            EditTextDialog.Builder(context)
-                .setTitle(R.string.mcl_setting_title_javaargs)
-                .setMessage(R.string.mcl_setting_subtitle_javaargs)
-                .setEditText(AllSettings.javaArgs)
-                .setConfirmListener { editBox: EditText ->
-                    Settings.Manager.put("javaArgs", editBox.text.toString())
-                        .save()
-                    true
-                }.buildDialog()
-        }
+        EditTextSettingsWrapper(
+            "javaArgs",
+            AllSettings.javaArgs,
+            binding.javaArgsLayout,
+            binding.javaArgsEdittext
+        )
 
         val deviceRam = Tools.getTotalDeviceMemory(context)
         val maxRAM = if (Architecture.is32BitsDevice() || deviceRam < 2048) min(
