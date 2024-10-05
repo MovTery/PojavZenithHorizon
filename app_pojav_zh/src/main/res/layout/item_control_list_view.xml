@@ -43,50 +43,23 @@
         android:maxLines="2"
         android:text="@string/zh_controls_info_no_info"
         android:textSize="@dimen/_12sdp"
-        app:layout_constraintEnd_toEndOf="@+id/file_name"
+        app:layout_constraintEnd_toEndOf="@+id/title"
         app:layout_constraintStart_toStartOf="@+id/title"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
-    <TextView
-        android:id="@+id/author"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="@dimen/_2sdp"
-        android:paddingEnd="@dimen/_8sdp"
-        android:singleLine="true"
-        android:text="@string/zh_controls_info_author"
-        android:textSize="@dimen/_11sdp"
-        app:layout_constraintStart_toStartOf="@+id/title"
-        app:layout_constraintTop_toBottomOf="@+id/desc"
-        tools:ignore="RtlSymmetry" />
-
-    <TextView
-        android:id="@+id/version"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="@dimen/_2sdp"
-        android:paddingEnd="@dimen/_8sdp"
-        android:singleLine="true"
-        android:text="@string/zh_controls_info_version"
-        android:textSize="@dimen/_11sdp"
-        app:layout_constraintStart_toEndOf="@+id/author"
-        app:layout_constraintTop_toBottomOf="@+id/desc"
-        tools:ignore="RtlSymmetry" />
-
-    <TextView
-        android:id="@+id/file_name"
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/info_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_marginTop="@dimen/_2sdp"
-        android:singleLine="true"
-        android:text="@string/zh_controls_info_file_name"
-        android:textSize="@dimen/_11sdp"
-        app:layout_constraintEnd_toEndOf="@+id/title"
-        app:layout_constraintStart_toEndOf="@+id/version"
-        app:layout_constraintTop_toBottomOf="@+id/desc" />
+        android:orientation="horizontal"
+        app:flexDirection="row"
+        app:flexWrap="wrap"
+        app:alignItems="flex_start"
+        app:justifyContent="flex_start"
+        app:layout_constraintTop_toBottomOf="@+id/desc"
+        app:layout_constraintStart_toStartOf="@+id/desc"
+        app:layout_constraintEnd_toEndOf="@+id/desc"/>
 
     <com.movtery.pojavzh.ui.view.AnimButton
         android:id="@+id/info_button"
