@@ -292,8 +292,8 @@
     <string name="zh_other_login_select_role_title">Selecionar Papel</string>
     <string name="zh_other_login_select_role_message">A conta atual possui vários papéis. Selecione o papel que deseja usar.</string>
     <!-- Splash -->
-    <string name="splash_screen_desc">O launcher precisa instalar esses componentes para garantir que o Minecraft funcione corretamente. Clique no botão abaixo para iniciar a instalação ou atualização desses componentes.</string>
-    <string name="splash_screen_installing">O launcher está instalando os componentes necessários. Quando a instalação for concluída, ele entrará automaticamente na interface principal. Aguarde pacientemente.</string>
+    <string name="splash_screen_desc">O launcher precisa instalar esses componentes para garantir que o Minecraft inicie corretamente. Esses componentes estão incluídos no aplicativo e precisam ser extraídos para uso normal. Clique no botão abaixo para começar a extrair e atualizar esses componentes.</string>
+    <string name="splash_screen_installing">O launcher está extraindo esses componentes. Assim que a extração for concluída, ele entrará automaticamente na interface principal. Por favor, seja paciente.</string>
     <string name="splash_screen_lwjgl">Biblioteca de Jogos Java Leve, Minecraft depende dela para rodar o jogo.</string>
     <string name="splash_screen_cacio">Fornece uma interface gráfica portátil para o OpenJDK.</string>
     <string name="splash_screen_jre8">Ambiente Java 8, Minecraft 1.16- depende do Java 8.</string>

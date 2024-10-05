@@ -292,8 +292,8 @@
     <string name="zh_other_login_select_role_title">Chọn vai trò</string>
     <string name="zh_other_login_select_role_message">Tài khoản hiện tại có nhiều vai trò. Vui lòng chọn vai trò bạn muốn sử dụng.</string>
     <!-- Splash -->
-    <string name="splash_screen_desc">Trình khởi chạy cần cài đặt các thành phần này để đảm bảo Minecraft có thể chạy đúng cách. Nhấp vào nút bên dưới để bắt đầu cài đặt hoặc cập nhật các thành phần này.</string>
-    <string name="splash_screen_installing">Trình khởi chạy đang cài đặt các thành phần cần thiết. Sau khi hoàn tất cài đặt, nó sẽ tự động vào giao diện chính. Vui lòng kiên nhẫn chờ đợi.</string>
+    <string name="splash_screen_desc">Trình khởi chạy cần cài đặt các thành phần này để đảm bảo Minecraft khởi động bình thường. Các thành phần này đã được bao gồm trong ứng dụng và cần được giải nén để sử dụng bình thường. Nhấp vào nút bên dưới để bắt đầu giải nén và cập nhật các thành phần này.</string>
+    <string name="splash_screen_installing">Trình khởi chạy đang giải nén các thành phần này. Khi việc giải nén hoàn tất, nó sẽ tự động chuyển đến giao diện chính. Vui lòng kiên nhẫn.</string>
     <string name="splash_screen_lwjgl">Thư viện Trò chơi Java nhẹ, Minecraft phụ thuộc vào nó để chạy trò chơi.</string>
     <string name="splash_screen_cacio">Cung cấp giao diện đồ họa di động cho OpenJDK.</string>
     <string name="splash_screen_jre8">Môi trường Java 8, Minecraft 1.16- phụ thuộc vào Java 8.</string>

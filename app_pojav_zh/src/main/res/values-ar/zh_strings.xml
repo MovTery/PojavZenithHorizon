@@ -292,8 +292,8 @@
     <string name="zh_other_login_select_role_title">اختر الدور</string>
     <string name="zh_other_login_select_role_message">الحساب الحالي يحتوي على أدوار متعددة. يرجى اختيار الدور الذي ترغب في استخدامه.</string>
     <!-- Splash -->
-    <string name="splash_screen_desc">يحتاج المشغل إلى تثبيت هذه المكونات لضمان تشغيل Minecraft بشكل صحيح. انقر فوق الزر أدناه لبدء تثبيت أو تحديث هذه المكونات.</string>
-    <string name="splash_screen_installing">يقوم المشغل بتثبيت المكونات المطلوبة. بمجرد اكتمال التثبيت، سيتم الدخول تلقائيًا إلى الواجهة الرئيسية. يرجى الانتظار بصبر.</string>
+    <string name="splash_screen_desc">يحتاج المشغل إلى تثبيت هذه المحتويات لضمان بدء تشغيل Minecraft بشكل صحيح. هذه المحتويات مضمنة في التطبيق وتحتاج إلى فك الضغط لاستخدامها بشكل صحيح. انقر على الزر أدناه لبدء فك الضغط وتحديث هذه المحتويات.</string>
+    <string name="splash_screen_installing">المشغل يقوم بفك ضغط هذه المحتويات. بمجرد الانتهاء من فك الضغط، سيدخل تلقائيًا إلى الواجهة الرئيسية. يرجى التحلي بالصبر.</string>
     <string name="splash_screen_lwjgl">مكتبة Java الخفيفة للألعاب، يعتمد Minecraft عليها لتشغيل اللعبة.</string>
     <string name="splash_screen_cacio">يوفر واجهة مستخدم رسومية محمولة لـ OpenJDK.</string>
     <string name="splash_screen_jre8">بيئة Java 8، تعتمد Minecraft 1.16- على Java 8.</string>

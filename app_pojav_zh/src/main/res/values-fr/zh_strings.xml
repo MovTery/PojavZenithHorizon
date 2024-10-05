@@ -292,8 +292,8 @@
     <string name="zh_other_login_select_role_title">Sélectionner un rôle</string>
     <string name="zh_other_login_select_role_message">Le compte actuel a plusieurs rôles. Veuillez sélectionner le rôle que vous souhaitez utiliser.</string>
     <!-- Splash -->
-    <string name="splash_screen_desc">Le lanceur doit installer ces composants pour garantir le bon fonctionnement de Minecraft. Cliquez sur le bouton ci-dessous pour commencer l\'installation ou la mise à jour de ces composants.</string>
-    <string name="splash_screen_installing">Le lanceur installe les composants requis. Une fois l\'installation terminée, il entrera automatiquement dans l\'interface principale. Veuillez patienter.</string>
+    <string name="splash_screen_desc">Le lanceur doit installer ces composants pour garantir le bon démarrage de Minecraft. Ces composants sont inclus dans l\'application et doivent être extraits pour un usage normal. Cliquez sur le bouton ci-dessous pour commencer à extraire et à mettre à jour ces composants.</string>
+    <string name="splash_screen_installing">Le lanceur est en train d\'extraire ces composants. Une fois l\'extraction terminée, il passera automatiquement à l\'interface principale. Veuillez être patient.</string>
     <string name="splash_screen_lwjgl">Bibliothèque de jeux Java légère, Minecraft en dépend pour exécuter le jeu.</string>
     <string name="splash_screen_cacio">Fournit une interface graphique portable pour OpenJDK.</string>
     <string name="splash_screen_jre8">Environnement Java 8, Minecraft 1.16- dépend de Java 8.</string>
