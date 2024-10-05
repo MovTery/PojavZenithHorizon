@@ -4705,7 +4705,7 @@ public final class GLCapabilities {
     /**
      * When true, the <a target="_blank" href="https://www.khronos.org/registry/OpenGL/extensions/NV/NV_texture_rectangle_compressed.txt">NV_texture_rectangle_compressed</a> extension is supported.
      *
-     * <p>This extension allows applications to use compressed texture formats with the {@link GL31#GL_TEXTURE_RECTLTW TEXTURE_RECTLTW} texture target, removing an old limitation that
+     * <p>This extension allows applications to use compressed texture formats with the {@link GL31#GL_TEXTURE_RECTANGLE TEXTURE_RECTLTW} texture target, removing an old limitation that
      * prohibited such usage globally for rectangle textures.</p>
      */
     public final boolean GL_NV_texture_rectangle_compressed;
