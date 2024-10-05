@@ -8,7 +8,7 @@
     android:background="@drawable/background_item">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/zh_about_image"
+        android:id="@+id/image_view"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="@dimen/_15sdp"
@@ -22,7 +22,7 @@
         app:shapeAppearanceOverlay="@style/RoundImageView" />
 
     <TextView
-        android:id="@+id/zh_about_title"
+        android:id="@+id/title_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_15sdp"
@@ -31,26 +31,26 @@
         android:textSize="@dimen/_12sdp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/zh_about_button"
-        app:layout_constraintStart_toEndOf="@+id/zh_about_image"
-        app:layout_constraintTop_toTopOf="@+id/zh_about_image"
+        app:layout_constraintEnd_toStartOf="@+id/button_view"
+        app:layout_constraintStart_toEndOf="@+id/image_view"
+        app:layout_constraintTop_toTopOf="@+id/image_view"
         tools:ignore="HardcodedText" />
 
     <TextView
-        android:id="@+id/zh_about_desc"
+        android:id="@+id/desc_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/_15sdp"
         android:text="About Desc"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/zh_about_button"
-        app:layout_constraintStart_toStartOf="@+id/zh_about_title"
-        app:layout_constraintTop_toBottomOf="@+id/zh_about_title"
+        app:layout_constraintEnd_toStartOf="@+id/button_view"
+        app:layout_constraintStart_toStartOf="@+id/title_view"
+        app:layout_constraintTop_toBottomOf="@+id/title_view"
         tools:ignore="HardcodedText" />
 
     <com.movtery.pojavzh.ui.view.AnimButton
-        android:id="@+id/zh_about_button"
+        android:id="@+id/button_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/_15sdp"

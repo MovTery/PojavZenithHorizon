@@ -8,7 +8,7 @@
     android:background="@drawable/background_item">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/zh_control_image"
+        android:id="@+id/image"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="@dimen/_15sdp"
@@ -21,7 +21,7 @@
         app:shapeAppearanceOverlay="@style/RoundedCornersImageView" />
 
     <TextView
-        android:id="@+id/zh_control_title"
+        android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_15sdp"
@@ -30,25 +30,25 @@
         android:textSize="@dimen/_14sdp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/zh_control_info_button"
-        app:layout_constraintStart_toEndOf="@+id/zh_control_image"
+        app:layout_constraintEnd_toStartOf="@+id/info_button"
+        app:layout_constraintStart_toEndOf="@+id/image"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
 
     <TextView
-        android:id="@+id/zh_control_desc"
+        android:id="@+id/desc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:maxLines="2"
         android:text="@string/zh_controls_info_no_info"
         android:textSize="@dimen/_12sdp"
-        app:layout_constraintEnd_toEndOf="@+id/zh_control_file_name"
-        app:layout_constraintStart_toStartOf="@+id/zh_control_title"
-        app:layout_constraintTop_toBottomOf="@+id/zh_control_title" />
+        app:layout_constraintEnd_toEndOf="@+id/file_name"
+        app:layout_constraintStart_toStartOf="@+id/title"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <TextView
-        android:id="@+id/zh_control_author"
+        android:id="@+id/author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -57,12 +57,12 @@
         android:singleLine="true"
         android:text="@string/zh_controls_info_author"
         android:textSize="@dimen/_11sdp"
-        app:layout_constraintStart_toStartOf="@+id/zh_control_title"
-        app:layout_constraintTop_toBottomOf="@+id/zh_control_desc"
+        app:layout_constraintStart_toStartOf="@+id/title"
+        app:layout_constraintTop_toBottomOf="@+id/desc"
         tools:ignore="RtlSymmetry" />
 
     <TextView
-        android:id="@+id/zh_control_version"
+        android:id="@+id/version"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -71,12 +71,12 @@
         android:singleLine="true"
         android:text="@string/zh_controls_info_version"
         android:textSize="@dimen/_11sdp"
-        app:layout_constraintStart_toEndOf="@+id/zh_control_author"
-        app:layout_constraintTop_toBottomOf="@+id/zh_control_desc"
+        app:layout_constraintStart_toEndOf="@+id/author"
+        app:layout_constraintTop_toBottomOf="@+id/desc"
         tools:ignore="RtlSymmetry" />
 
     <TextView
-        android:id="@+id/zh_control_file_name"
+        android:id="@+id/file_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -84,12 +84,12 @@
         android:singleLine="true"
         android:text="@string/zh_controls_info_file_name"
         android:textSize="@dimen/_11sdp"
-        app:layout_constraintEnd_toEndOf="@+id/zh_control_title"
-        app:layout_constraintStart_toEndOf="@+id/zh_control_version"
-        app:layout_constraintTop_toBottomOf="@+id/zh_control_desc" />
+        app:layout_constraintEnd_toEndOf="@+id/title"
+        app:layout_constraintStart_toEndOf="@+id/version"
+        app:layout_constraintTop_toBottomOf="@+id/desc" />
 
     <com.movtery.pojavzh.ui.view.AnimButton
-        android:id="@+id/zh_control_info_button"
+        android:id="@+id/info_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/_15sdp"

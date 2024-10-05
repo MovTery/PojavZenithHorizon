@@ -3,16 +3,12 @@ package com.movtery.pojavzh.ui.subassembly.about;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.imageview.ShapeableImageView;
-
-import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
+import net.kdt.pojavlaunch.databinding.ItemAboutViewBinding;
 
 import java.util.List;
 
@@ -26,8 +22,7 @@ public class AboutRecyclerAdapter extends RecyclerView.Adapter<AboutRecyclerAdap
     @NonNull
     @Override
     public AboutRecyclerAdapter.InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_about_view, parent, false);
-        return new InnerHolder(view);
+        return new InnerHolder(ItemAboutViewBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
@@ -44,35 +39,30 @@ public class AboutRecyclerAdapter extends RecyclerView.Adapter<AboutRecyclerAdap
     }
 
     public static class InnerHolder extends RecyclerView.ViewHolder {
-        private final ShapeableImageView mIcon;
-        private final TextView mTitle, mDesc;
-        private final Button mButton;
+        private final ItemAboutViewBinding binding;
 
-        public InnerHolder(@NonNull View itemView) {
-            super(itemView);
-            this.mIcon = itemView.findViewById(R.id.zh_about_image);
-            this.mTitle = itemView.findViewById(R.id.zh_about_title);
-            this.mDesc = itemView.findViewById(R.id.zh_about_desc);
-            this.mButton = itemView.findViewById(R.id.zh_about_button);
+        public InnerHolder(@NonNull ItemAboutViewBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
 
         public void setData(AboutItemBean data) {
-            this.mIcon.setImageDrawable(data.getIcon());
-            this.mTitle.setText(data.getTitle());
-            this.mDesc.setText(data.getDesc());
+            binding.imageView.setImageDrawable(data.getIcon());
+            binding.titleView.setText(data.getTitle());
+            binding.descView.setText(data.getDesc());
 
             if (data.getButtonBean() != null) {
                 AboutItemBean.AboutItemButtonBean buttonBean = data.getButtonBean();
                 String buttonName = buttonBean.getName();
 
-                this.mButton.setText(buttonName);
+                binding.buttonView.setText(buttonName);
 
-                this.mButton.setOnClickListener(v -> {
+                binding.buttonView.setOnClickListener(v -> {
                     String url = buttonBean.getUrl();
                     Tools.openURL(buttonBean.getActivity(), url);
                 });
             } else {
-                this.mButton.setVisibility(View.GONE);
+                binding.buttonView.setVisibility(View.GONE);
             }
         }
     }

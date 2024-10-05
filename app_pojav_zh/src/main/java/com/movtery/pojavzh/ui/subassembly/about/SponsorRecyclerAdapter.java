@@ -2,14 +2,13 @@ package com.movtery.pojavzh.ui.subassembly.about;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.databinding.ItemSponsorViewBinding;
 
 import java.util.List;
 
@@ -23,8 +22,7 @@ public class SponsorRecyclerAdapter extends RecyclerView.Adapter<SponsorRecycler
     @NonNull
     @Override
     public SponsorRecyclerAdapter.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sponsor_view, parent, false);
-        return new Holder(view);
+        return new Holder(ItemSponsorViewBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
@@ -41,26 +39,21 @@ public class SponsorRecyclerAdapter extends RecyclerView.Adapter<SponsorRecycler
     }
 
     public static class Holder extends RecyclerView.ViewHolder {
-        private final View mainView;
-        private final TextView name, time, amount;
+        private final ItemSponsorViewBinding binding;
 
-        public Holder(@NonNull View itemView) {
-            super(itemView);
-            this.mainView = itemView;
-
-            this.name = itemView.findViewById(R.id.zh_sponsor_name);
-            this.time = itemView.findViewById(R.id.zh_sponsor_time);
-            this.amount = itemView.findViewById(R.id.zh_sponsor_amount);
+        public Holder(@NonNull ItemSponsorViewBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
 
         @SuppressLint("UseCompatLoadingForDrawables")
         public void setData(SponsorItemBean itemBean) {
-            this.name.setText(itemBean.getName());
-            this.time.setText(itemBean.getTime());
-            this.amount.setText(String.format("￥%s", itemBean.getAmount()));
+            binding.nameView.setText(itemBean.getName());
+            binding.timeView.setText(itemBean.getTime());
+            binding.amountView.setText(String.format("￥%s", itemBean.getAmount()));
 
             if (itemBean.getAmount() >= 12.0f) {
-                mainView.setBackground(mainView.getContext().getDrawable(R.drawable.background_sponsor_advanced));
+                binding.getRoot().setBackground(binding.getRoot().getContext().getDrawable(R.drawable.background_sponsor_advanced));
             }
         }
     }
