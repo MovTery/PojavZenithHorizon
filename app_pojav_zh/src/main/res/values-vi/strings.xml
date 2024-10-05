@@ -29,7 +29,7 @@
     <string name="mcl_setting_title_javaargs">Tham số khởi động JVM</string>
     <string name="mcl_setting_subtitle_javaargs">Cẩn thận, điều này có thể khiến trò chơi bị sập nếu sửa đổi mà không có kiến thức.</string>
     <string name="mcl_setting_category_renderer">Trình kết xuất</string>
-    <string name="mcl_setting_renderer_angle">ANGLE (chỉ 1.17+)</string>
+    <string name="mcl_setting_renderer_ltw">LTW (chỉ 1.17+)</string>
     <string name="mcl_setting_veroption_release">Phiên bản chính thức</string>
     <string name="mcl_setting_veroption_snapshot">Phiên bản ảnh chụp nhanh</string>
     <string name="mcl_setting_veroption_oldalpha">Phiên bản Alpha</string>

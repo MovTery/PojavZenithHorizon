@@ -221,9 +221,9 @@ public class JREUtils {
 
         if (LOCAL_RENDERER != null) {
             envMap.put("POJAV_RENDERER", LOCAL_RENDERER);
-            if (LOCAL_RENDERER.equals("opengles3_desktopgl_angle_vulkan")) {
+            if (LOCAL_RENDERER.equals("opengles3_ltw")) {
                 envMap.put("LIBGL_ES", "3");
-                envMap.put("POJAVEXEC_EGL","libEGL_angle.so"); // Use ANGLE EGL
+                envMap.put("POJAVEXEC_EGL","libltw.so");
             }
         }
 
@@ -486,8 +486,8 @@ public class JREUtils {
             case "gallium_panfrost":
                 renderLibrary = "libOSMesa_2300d.so";
                 break;
-            case "opengles3_desktopgl_angle_vulkan":
-                renderLibrary = "libtinywrapper.so";
+            case "opengles3_ltw":
+                renderLibrary = "libltw.so";
                 break;
             default:
                 Logging.w("RENDER_LIBRARY", "No renderer selected, defaulting to opengles2");
