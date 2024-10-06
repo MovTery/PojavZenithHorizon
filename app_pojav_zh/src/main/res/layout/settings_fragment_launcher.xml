@@ -8,6 +8,7 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/_12sdp"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -15,12 +16,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_card"
+            android:paddingVertical="@dimen/_12sdp"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginHorizontal="@dimen/_12sdp"
                 android:text="@string/zh_preference_category_download"
                 android:textColor="@color/settings_category" />
@@ -145,13 +146,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
+            android:paddingVertical="@dimen/_12sdp"
             android:background="@drawable/background_card"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginHorizontal="@dimen/_12sdp"
                 android:text="@string/zh_preference_category_language"
                 android:textColor="@color/settings_category" />
@@ -252,13 +253,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
+            android:paddingVertical="@dimen/_12sdp"
             android:background="@drawable/background_card"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginHorizontal="@dimen/_12sdp"
                 android:text="@string/zh_preference_category_personalization"
                 android:textColor="@color/settings_category" />
@@ -445,13 +446,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
+            android:paddingVertical="@dimen/_12sdp"
             android:background="@drawable/background_card"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginHorizontal="@dimen/_12sdp"
                 android:text="@string/zh_preference_category_launcher"
                 android:textColor="@color/settings_category" />
