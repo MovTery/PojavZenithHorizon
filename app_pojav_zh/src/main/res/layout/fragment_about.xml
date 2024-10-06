@@ -22,7 +22,6 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginVertical="@dimen/_12sdp"
             android:layout_marginEnd="@dimen/_8sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +30,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingVertical="@dimen/_12sdp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout3"
@@ -96,7 +96,7 @@
                     <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/pojavlauncher_button"
                         android:layout_width="0dp"
-                        android:layout_height="35dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/_8sdp"
                         android:text="PojavLauncher"
                         app:layout_constraintBottom_toBottomOf="@+id/license_button"
@@ -107,7 +107,7 @@
                     <com.movtery.pojavzh.ui.view.AnimButton
                         android:id="@+id/license_button"
                         android:layout_width="0dp"
-                        android:layout_height="35dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginVertical="@dimen/_8sdp"
                         android:layout_marginEnd="@dimen/_8sdp"
                         android:text="GPL v3"
