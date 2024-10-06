@@ -230,7 +230,6 @@
         android:layout_marginVertical="@dimen/_12sdp"
         android:layout_marginEnd="@dimen/_12sdp"
         android:layout_marginStart="@dimen/_8sdp"
-        android:background="@drawable/background_card"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/settings_layout"

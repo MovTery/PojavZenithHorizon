@@ -14,12 +14,14 @@
             android:id="@+id/custom_controls_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/background_card"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
                 android:text="@string/preference_control_title"
                 android:textColor="@color/settings_category" />
 
@@ -140,12 +142,15 @@
             android:id="@+id/controls_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:background="@drawable/background_card"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
                 android:text="@string/preference_category_buttons"
                 android:textColor="@color/settings_category" />
 
@@ -235,12 +240,15 @@
             android:id="@+id/mouse_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:background="@drawable/background_card"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
                 android:text="@string/preference_category_virtual_mouse"
                 android:textColor="@color/settings_category" />
 
@@ -401,12 +409,15 @@
             android:id="@+id/enableGyro_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:background="@drawable/background_card"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
                 android:text="@string/preference_category_gyro_controls"
                 android:textColor="@color/settings_category" />
 
@@ -639,12 +650,15 @@
             android:id="@+id/controller_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:background="@drawable/background_card"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
                 android:text="@string/preference_category_controller_settings"
                 android:textColor="@color/settings_category" />
 
