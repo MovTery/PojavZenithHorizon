@@ -227,7 +227,6 @@
         android:id="@+id/settings_viewpager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginVertical="@dimen/_12sdp"
         android:layout_marginEnd="@dimen/_12sdp"
         android:layout_marginStart="@dimen/_8sdp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -8,19 +8,20 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/_12sdp"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/custom_controls_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_12sdp"
             android:background="@drawable/background_card"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginHorizontal="@dimen/_12sdp"
                 android:text="@string/preference_control_title"
                 android:textColor="@color/settings_category" />
@@ -143,13 +144,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
+            android:paddingVertical="@dimen/_12sdp"
             android:background="@drawable/background_card"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginHorizontal="@dimen/_12sdp"
                 android:text="@string/preference_category_buttons"
                 android:textColor="@color/settings_category" />
@@ -241,13 +242,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
+            android:paddingVertical="@dimen/_12sdp"
             android:background="@drawable/background_card"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginHorizontal="@dimen/_12sdp"
                 android:text="@string/preference_category_virtual_mouse"
                 android:textColor="@color/settings_category" />
@@ -410,13 +411,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
+            android:paddingVertical="@dimen/_12sdp"
             android:background="@drawable/background_card"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginHorizontal="@dimen/_12sdp"
                 android:text="@string/preference_category_gyro_controls"
                 android:textColor="@color/settings_category" />
@@ -651,13 +652,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
+            android:paddingVertical="@dimen/_12sdp"
             android:background="@drawable/background_card"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginHorizontal="@dimen/_12sdp"
                 android:text="@string/preference_category_controller_settings"
                 android:textColor="@color/settings_category" />
