@@ -85,6 +85,7 @@ class SplashActivity : BaseActivity() {
                 )
             }
         }
+        items.sort()
         installableAdapter = InstallableAdapter(items) {
             toMain()
         }
