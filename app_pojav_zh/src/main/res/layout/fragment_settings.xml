@@ -134,41 +134,12 @@
                 </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
                 <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
-                    android:id="@+id/misc_settings"
+                    android:id="@+id/launcher_settings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_8sdp"
                     app:layout_constraintStart_toStartOf="@+id/java_settings"
                     app:layout_constraintTop_toBottomOf="@+id/java_settings">
-                    <ImageView
-                        android:id="@+id/misc_image"
-                        android:layout_width="@dimen/_28sdp"
-                        android:layout_height="@dimen/_28sdp"
-                        android:background="@android:color/transparent"
-                        android:contentDescription="@string/preference_category_miscellaneous"
-                        android:scaleType="fitCenter"
-                        android:scaleX="0.92"
-                        android:scaleY="0.92"
-                        app:srcCompat="@drawable/ic_setting_misc" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/misc_image"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:maxLines="2"
-                        android:maxWidth="@dimen/_90sdp"
-                        android:textColor="@color/black_or_white"
-                        android:text="@string/preference_category_miscellaneous"/>
-                </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
-
-                <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
-                    android:id="@+id/launcher_settings"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/_8sdp"
-                    app:layout_constraintStart_toStartOf="@+id/misc_settings"
-                    app:layout_constraintTop_toBottomOf="@+id/misc_settings">
                     <ImageView
                         android:id="@+id/launcher_image"
                         android:layout_width="@dimen/_28sdp"
@@ -192,12 +163,41 @@
                 </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
                 <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
-                    android:id="@+id/experimental_settings"
+                    android:id="@+id/misc_settings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_8sdp"
                     app:layout_constraintStart_toStartOf="@+id/launcher_settings"
                     app:layout_constraintTop_toBottomOf="@+id/launcher_settings">
+                    <ImageView
+                        android:id="@+id/misc_image"
+                        android:layout_width="@dimen/_28sdp"
+                        android:layout_height="@dimen/_28sdp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/preference_category_miscellaneous"
+                        android:scaleType="fitCenter"
+                        android:scaleX="0.92"
+                        android:scaleY="0.92"
+                        app:srcCompat="@drawable/ic_setting_misc" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/misc_image"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:maxLines="2"
+                        android:maxWidth="@dimen/_90sdp"
+                        android:textColor="@color/black_or_white"
+                        android:text="@string/preference_category_miscellaneous"/>
+                </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
+
+                <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
+                    android:id="@+id/experimental_settings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_8sdp"
+                    app:layout_constraintStart_toStartOf="@+id/misc_settings"
+                    app:layout_constraintTop_toBottomOf="@+id/misc_settings">
                     <ImageView
                         android:id="@+id/experimental_image"
                         android:layout_width="@dimen/_28sdp"

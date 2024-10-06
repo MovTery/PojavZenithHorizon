@@ -74,8 +74,8 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
             0 to binding.videoSettings,
             1 to binding.controlsSettings,
             2 to binding.javaSettings,
-            3 to binding.miscSettings,
-            4 to binding.launcherSettings,
+            3 to binding.launcherSettings,
+            4 to binding.miscSettings,
             5 to binding.experimentalSettings
         )
     }
@@ -96,8 +96,8 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
             return when(position) {
                 1 -> ControlSettingsFragment(fragment)
                 2 -> JavaSettingsFragment()
-                3 -> MiscellaneousSettingsFragment()
-                4 -> LauncherSettingsFragment(fragment)
+                3 -> LauncherSettingsFragment(fragment)
+                4 -> MiscellaneousSettingsFragment()
                 5 -> ExperimentalSettingsFragment()
                 else -> VideoSettingsFragment()
             }
