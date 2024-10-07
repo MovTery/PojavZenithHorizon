@@ -88,7 +88,7 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
         SwitchSettingsWrapper(
             context,
             "gameLanguageOverridden",
-            AllSettings.autoSetGameLanguage,
+            AllSettings.gameLanguageOverridden,
             binding.gameLanguageOverriddenLayout,
             binding.gameLanguageOverridden
         )
