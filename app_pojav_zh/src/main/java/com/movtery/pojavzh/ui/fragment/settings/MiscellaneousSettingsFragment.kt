@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.movtery.pojavzh.setting.AllSettings
+import com.movtery.pojavzh.ui.dialog.TipDialog
 import com.movtery.pojavzh.ui.fragment.settings.wrapper.SwitchSettingsWrapper
+import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.LauncherActivity
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
@@ -52,6 +54,20 @@ class MiscellaneousSettingsFragment :
         )
         if (!Tools.checkVulkanSupport(context.packageManager)) {
             zinkPreferSystemDriver.setGone()
+        } else {
+            zinkPreferSystemDriver.setOnCheckedChangeListener { buttonView, isChecked, listener ->
+                if (isChecked and ZHTools.isAdrenoGPU()) {
+                    TipDialog.Builder(requireActivity())
+                        .setTitle(R.string.zh_warning)
+                        .setMessage(R.string.zh_setting_zink_driver_adreno)
+                        .setCancelable(false)
+                        .setConfirmClickListener { listener.onSave() }
+                        .setCancelClickListener { buttonView.isChecked = false }
+                        .buildDialog()
+                } else {
+                    listener.onSave()
+                }
+            }
         }
 
         SwitchSettingsWrapper(

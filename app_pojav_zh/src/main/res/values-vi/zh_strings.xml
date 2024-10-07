@@ -241,6 +241,7 @@
     <string name="zh_setting_quit_launcher_desc">Có thoát trình khởi chạy khi ứng dụng bắt đầu chạy trò chơi chính thức không</string>
     <string name="zh_setting_quit_launcher_title">Thoát khỏi trình khởi động</string>
     <string name="zh_setting_reboot_tip">Cài đặt này đã được thay đổi, nhưng cần khởi động lại ứng dụng để có hiệu lực!</string>
+    <string name="zh_setting_zink_driver_adreno">Trình khởi chạy đã phát hiện rằng thiết bị của bạn có GPU Adreno. Bật tùy chọn này có thể khiến trình render Zink không hoạt động đúng cách. Bạn có chắc chắn muốn bật tùy chọn này không?</string>
     <!-- Game -->
     <string name="zh_game_exit_message">Ứng dụng/trò chơi đã thoát với mã %d, vui lòng kiểm tra tệp nhật ký hoặc báo cáo sự cố để biết lý do chi tiết. Nếu bạn không thể tự giải quyết vấn đề này, hãy gửi tệp nhật ký hoặc báo cáo sự cố cho người có khả năng giải quyết giúp bạn!\n\nXin vui lòng không chỉ chụp màn hình ứng dụng hiện tại, vì vậy không ai biết chuyện gì đã xảy ra, hãy chia sẻ tệp nhật ký hoặc báo cáo sự cố của bạn!</string>
     <string name="zh_game_autopick_runtime_failed">Không tìm thấy môi trường chạy phù hợp, đã đặt là môi trường chạy được chọn cho thể hiện hiện tại</string>

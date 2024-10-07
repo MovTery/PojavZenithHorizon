@@ -241,6 +241,7 @@
     <string name="zh_setting_quit_launcher_desc">Quitter le lanceur lorsque l\'application commence à exécuter le jeu</string>
     <string name="zh_setting_quit_launcher_title">Quitter le lanceur</string>
     <string name="zh_setting_reboot_tip">Ce paramètre a été modifié, mais il nécessite un redémarrage de l\'application pour prendre effet !</string>
+    <string name="zh_setting_zink_driver_adreno">Le lanceur a détecté que votre appareil dispose d\'un GPU Adreno. Activer cette option peut entraîner un dysfonctionnement du rendu Zink. Êtes-vous sûr de vouloir activer cette option ?</string>
     <!-- Game -->
     <string name="zh_game_exit_message">L\'application/jeu s\'est terminé avec le code %d, veuillez consulter le fichier journal ou le rapport de crash pour plus de détails. Si vous ne pouvez pas résoudre ce problème vous-même, veuillez envoyer le fichier journal ou le rapport de crash à quelqu\'un qui peut vous aider à résoudre le problème !\n\nVeuillez ne pas simplement prendre une capture d\'écran de l\'interface actuelle de l\'application, sinon personne ne saura ce qui s\'est réellement passé, veuillez partager votre fichier journal ou votre rapport de crash !</string>
     <string name="zh_game_autopick_runtime_failed">Aucun environnement d\'exécution approprié n\'a été trouvé, il a été défini sur l\'environnement d\'exécution sélectionné pour l\'instance actuelle</string>
