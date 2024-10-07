@@ -1,10 +1,9 @@
 {
   "profiles": {
-    "(Default)": {
-      "name": "(默认)",
+    "default": {
       "gameDir": "./.minecraft/instance/default",
       "lastVersionId": "1.7.10"
     }
   },
-  "selectedProfile": "(默认)"
+  "selectedProfile": "default"
 }
