@@ -241,6 +241,7 @@
     <string name="zh_setting_quit_launcher_desc">Sair do launcher quando o aplicativo começar a executar o jogo</string>
     <string name="zh_setting_quit_launcher_title">Sair do Launcher</string>
     <string name="zh_setting_reboot_tip">Esta configuração foi alterada, mas requer um reinício do aplicativo para entrar em vigor!</string>
+    <string name="zh_setting_zink_driver_adreno">O launcher detectou que seu dispositivo possui uma GPU Adreno. Ativar esta opção pode fazer com que o renderizador Zink não funcione corretamente. Você tem certeza de que deseja ativar esta opção?</string>
     <!-- Game -->
     <string name="zh_game_exit_message">O aplicativo/jogo saiu com o código %d. Para detalhes do erro, consulte o arquivo de log ou o relatório de falha. Se você não conseguir resolver isso sozinho, envie o arquivo de log ou o relatório de falha para alguém que possa ajudar a resolver o problema!\n\nPor favor, não apenas tire um screenshot da interface atual do aplicativo, caso contrário, ninguém saberá o que realmente aconteceu. Compartilhe seu arquivo de log ou relatório de falha!</string>
     <string name="zh_game_autopick_runtime_failed">Ambiente de execução adequado não encontrado, definido como o ambiente de execução escolhido pela instância atual</string>

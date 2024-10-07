@@ -241,6 +241,7 @@
     <string name="zh_setting_quit_launcher_desc">Legt fest, ob der Launcher beim Start des Spiels beendet werden soll</string>
     <string name="zh_setting_quit_launcher_title">Launcher beenden</string>
     <string name="zh_setting_reboot_tip">Diese Einstellung wurde geändert, aber sie wird erst nach einem Neustart der Anwendung wirksam!</string>
+    <string name="zh_setting_zink_driver_adreno">Der Launcher hat festgestellt, dass Ihr Gerät über eine Adreno-GPU verfügt. Das Aktivieren dieser Option kann dazu führen, dass der Zink-Renderer nicht richtig funktioniert. Sind Sie sicher, dass Sie diese Option aktivieren möchten?</string>
     <!-- Game -->
     <string name="zh_game_exit_message">Die Anwendung/das Spiel wurde mit dem Code %d beendet. Bitte überprüfen Sie die Protokolldatei oder den Absturzbericht für weitere Informationen. Wenn Sie dieses Problem nicht selbst beheben können, senden Sie bitte die Protokolldatei oder den Absturzbericht an jemanden, der Ihnen dabei helfen kann!\n\nBitte machen Sie keinen Screenshot der aktuellen Anwendungsoberfläche, da sonst niemand weiß, was genau passiert ist. Bitte teilen Sie Ihre Protokolldatei oder den Absturzbericht!</string>
     <string name="zh_game_autopick_runtime_failed">Es wurde keine geeignete Laufzeitumgebung gefunden. Es wurde die für die aktuelle Instanz ausgewählte Laufzeitumgebung festgelegt.</string>

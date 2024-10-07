@@ -241,6 +241,7 @@
     <string name="zh_setting_quit_launcher_desc">在應用正式開始運行遊戲時，是否退出啟動器</string>
     <string name="zh_setting_quit_launcher_title">退出啟動器</string>
     <string name="zh_setting_reboot_tip">這項設定已被更改，但是需要重新啟動應用程式才能生效！</string>
+    <string name="zh_setting_zink_driver_adreno">啟動器檢測到你的設備為 Adreno GPU，開啟這個選項可能會導致 Zink 渲染器無法正常工作，你確定要打開這個選項嗎？</string>
     <!-- Game -->
     <string name="zh_game_exit_message">應用程式/遊戲以代碼 %d 結束，詳細錯誤原因請查看日誌檔或崩潰報告。若您無法親自解決此問題，請將日誌檔或崩潰報告寄給能夠解決問題的人協助您處理！\n\n請不要只是截圖目前應用程式介面，否則無法得知發生了什麼事，請分享您的日誌檔或崩潰報告！</string>
     <string name="zh_game_autopick_runtime_failed">未找到合適的運行環境，已設置為當前實例選擇的運行環境</string>
