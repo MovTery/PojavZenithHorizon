@@ -167,7 +167,7 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
         val filesButton = FilesButton()
         filesButton.setButtonVisibility(true, true, true, true, true, true)
         filesButton.setMessageText(getString(R.string.zh_file_message))
-        filesButton.setMoreButtonText(getString(R.string.global_load))
+        filesButton.setMoreButtonText(getString(R.string.zh_edit))
 
         val filesDialog = FilesDialog(requireContext(), filesButton,
             { Tools.runOnUiThread { controlsListViewCreator.refresh() } },
