@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:width="512dp"
     android:height="512dp"
+    android:tint="@color/black_or_white"
     android:viewportWidth="512"
     android:viewportHeight="512"
     tools:ignore="VectorRaster">
