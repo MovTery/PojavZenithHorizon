@@ -29,6 +29,10 @@ class Settings {
                 }
             } ?: emptyList()
         }
+
+        fun refreshSettings() {
+            settings = refresh()
+        }
     }
 
     class Manager {
@@ -121,7 +125,7 @@ class Settings {
 
                 runCatching {
                     FileUtils.write(settingsFile, json)
-                    settings = refresh()
+                    refreshSettings()
                 }.getOrElse { e ->
                     Logging.e("SettingBuilder", Tools.printToString(e))
                 }
