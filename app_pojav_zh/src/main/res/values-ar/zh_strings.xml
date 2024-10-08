@@ -243,6 +243,8 @@
     <string name="zh_setting_quit_launcher_title">إغلاق المشغل</string>
     <string name="zh_setting_game_menu_show_memory_desc">عرض معلومات الذاكرة في الوقت الحقيقي على نافذة القائمة العائمة للعبة. اضغط باستمرار على نافذة القائمة العائمة للعبة للتبديل السريع لهذا الخيار.</string>
     <string name="zh_setting_game_menu_show_memory_title">معلومات الذاكرة في الوقت الحقيقي</string>
+    <string name="zh_setting_game_menu_memory_text_desc">يمكنك تخصيص نص البادئة هذا وفقًا لاحتياجاتك.</string>
+    <string name="zh_setting_game_menu_memory_text_title">نص بادئة معلومات الذاكرة</string>
     <string name="zh_setting_game_menu_alpha_desc">تعيين شفافية نافذة القائمة العائمة للعبة.</string>
     <string name="zh_setting_game_menu_alpha_title">شفافية النافذة العائمة</string>
     <string name="zh_setting_reboot_tip">تم تغيير هذا الإعداد، ولكن يلزم إعادة تشغيل التطبيق ليتم تفعيله!</string>

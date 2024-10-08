@@ -10,6 +10,7 @@ import com.movtery.pojavzh.setting.AllSettings
 import com.movtery.pojavzh.ui.fragment.CustomBackgroundFragment
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim
 import com.movtery.pojavzh.ui.fragment.settings.wrapper.BaseSettingsWrapper
+import com.movtery.pojavzh.ui.fragment.settings.wrapper.EditTextSettingsWrapper
 import com.movtery.pojavzh.ui.fragment.settings.wrapper.ListSettingsWrapper
 import com.movtery.pojavzh.ui.fragment.settings.wrapper.SeekBarSettingsWrapper
 import com.movtery.pojavzh.ui.fragment.settings.wrapper.SwitchSettingsWrapper
@@ -195,6 +196,13 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
             AllSettings.gameMenuShowMemory,
             binding.gameMenuShowMemoryLayout,
             binding.gameMenuShowMemory
+        )
+
+        EditTextSettingsWrapper(
+            "gameMenuMemoryText",
+            AllSettings.gameMenuMemoryText,
+            binding.gameMenuMemoryTextLayout,
+            binding.gameMenuMemoryText
         )
 
         SeekBarSettingsWrapper(

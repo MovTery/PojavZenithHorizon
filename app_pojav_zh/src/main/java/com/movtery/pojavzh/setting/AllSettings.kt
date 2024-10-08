@@ -113,7 +113,10 @@ class AllSettings {
             get() = Settings.Manager.getBoolean("quitLauncher", true)
 
         val gameMenuShowMemory: Boolean
-            get() = Settings.Manager.getBoolean("gameMenuShowMemory", true)
+            get() = Settings.Manager.getBoolean("gameMenuShowMemory", false)
+
+        val gameMenuMemoryText: String?
+            get() = Settings.Manager.getString("gameMenuMemoryText", "M:")
 
         val gameMenuAlpha: Int
             get() = Settings.Manager.getInt("gameMenuAlpha", 100)

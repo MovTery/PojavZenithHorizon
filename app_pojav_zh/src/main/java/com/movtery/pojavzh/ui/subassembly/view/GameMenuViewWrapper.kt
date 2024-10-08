@@ -28,12 +28,10 @@ class GameMenuViewWrapper(
         setOnClickListener(0L, listener)
         setOnLongClickListener {
             showMemory = !showMemory
-            Settings.Manager.put("gameMenuShowMemory", showMemory).save()
             setShowMemory()
             true
         }
         setEnableEdgeAdsorption(false)
-        setGravity(FxGravity.CENTER)
         addViewLifecycle(object : IFxViewLifecycle {
             override fun initView(holder: FxViewHolder) {
                 holder.view.alpha = (AllSettings.gameMenuAlpha.toFloat() / 100f).toFloat()
@@ -44,6 +42,7 @@ class GameMenuViewWrapper(
                 }
             }
         })
+        setGravity(FxGravity.CENTER)
         build().toControl(activity)
     }
 
@@ -70,9 +69,9 @@ class GameMenuViewWrapper(
                 timer?.schedule(object : TimerTask() {
                     override fun run() {
                         val memoryText =
-                            "M: ${formatFileSize(MemoryUtils.getUsedDeviceMemory(activity))}/${
+                            "${AllSettings.gameMenuMemoryText} ${formatFileSize(MemoryUtils.getUsedDeviceMemory(activity))}/${
                                 formatFileSize(MemoryUtils.getTotalDeviceMemory(activity))
-                            }"
+                            }".trim()
                         Tools.runOnUiThread {
                             text = memoryText
                         }

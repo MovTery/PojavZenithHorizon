@@ -243,6 +243,8 @@
     <string name="zh_setting_quit_launcher_title">Launcher beenden</string>
     <string name="zh_setting_game_menu_show_memory_desc">Speicherinformationen in Echtzeit im Spielmenü-Floating-Fenster anzeigen. Halten Sie das Spielmenü-Floating-Fenster gedrückt, um diese Option schnell umzuschalten.</string>
     <string name="zh_setting_game_menu_show_memory_title">Echtzeit-Speicherinformationen</string>
+    <string name="zh_setting_game_menu_memory_text_desc">Sie können diesen Präfixtext nach Ihren Wünschen anpassen.</string>
+    <string name="zh_setting_game_menu_memory_text_title">Präfixtext für Speicherinformationen</string>
     <string name="zh_setting_game_menu_alpha_desc">Die Opazität des Spielmenü-Floating-Fensters festlegen.</string>
     <string name="zh_setting_game_menu_alpha_title">Opazität des Floating-Fensters</string>
     <string name="zh_setting_reboot_tip">Diese Einstellung wurde geändert, aber sie wird erst nach einem Neustart der Anwendung wirksam!</string>

@@ -243,6 +243,8 @@
     <string name="zh_setting_quit_launcher_title">Выход из лаунчера</string>
     <string name="zh_setting_game_menu_show_memory_desc">Отображение информации о памяти в реальном времени на всплывающем окне игрового меню. Долгий нажмите на всплывающее окно игрового меню, чтобы быстро переключить этот параметр.</string>
     <string name="zh_setting_game_menu_show_memory_title">Информация о памяти в реальном времени</string>
+    <string name="zh_setting_game_menu_memory_text_desc">Вы можете настроить этот префиксный текст в соответствии с вашими потребностями.</string>
+    <string name="zh_setting_game_menu_memory_text_title">Префиксный текст информации о памяти</string>
     <string name="zh_setting_game_menu_alpha_desc">Настройка непрозрачности всплывающего окна игрового меню.</string>
     <string name="zh_setting_game_menu_alpha_title">Непрозрачность всплывающего окна</string>
     <string name="zh_setting_reboot_tip">Этот параметр был изменен, но для его применения необходимо перезапустить приложение!</string>

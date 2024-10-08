@@ -243,6 +243,8 @@
     <string name="zh_setting_quit_launcher_title">Sair do Launcher</string>
     <string name="zh_setting_game_menu_show_memory_desc">Exibir informações de memória em tempo real na janela flutuante do menu do jogo. Pressione longamente a janela flutuante do menu do jogo para alternar rapidamente esta opção.</string>
     <string name="zh_setting_game_menu_show_memory_title">Informações de Memória em Tempo Real</string>
+    <string name="zh_setting_game_menu_memory_text_desc">Você pode personalizar este texto de prefixo de acordo com suas necessidades.</string>
+    <string name="zh_setting_game_menu_memory_text_title">Texto de Prefixo de Informações de Memória</string>
     <string name="zh_setting_game_menu_alpha_desc">Definir a opacidade da janela flutuante do menu do jogo.</string>
     <string name="zh_setting_game_menu_alpha_title">Opacidade da Janela Flutuante</string>
     <string name="zh_setting_reboot_tip">Esta configuração foi alterada, mas requer um reinício do aplicativo para entrar em vigor!</string>
