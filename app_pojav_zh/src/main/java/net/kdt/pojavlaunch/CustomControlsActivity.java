@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -16,20 +15,20 @@ import com.movtery.pojavzh.feature.background.BackgroundType;
 import com.movtery.pojavzh.setting.AllSettings;
 import com.movtery.pojavzh.ui.activity.BaseActivity;
 import com.movtery.pojavzh.ui.dialog.ControlSettingsDialog;
+import com.movtery.pojavzh.ui.subassembly.view.GameMenuViewWrapper;
 
 import net.kdt.pojavlaunch.customcontrols.ControlData;
 import net.kdt.pojavlaunch.customcontrols.ControlDrawerData;
 import net.kdt.pojavlaunch.customcontrols.ControlJoystickData;
 import net.kdt.pojavlaunch.customcontrols.ControlLayout;
 import net.kdt.pojavlaunch.customcontrols.EditorExitable;
+import net.kdt.pojavlaunch.databinding.ActivityCustomControlsBinding;
 
 import java.io.IOException;
 
 public class CustomControlsActivity extends BaseActivity implements EditorExitable {
 	public static final String BUNDLE_CONTROL_PATH = "control_path";
-	private DrawerLayout mDrawerLayout;
-	private ListView mDrawerNavigationView;
-	private ControlLayout mControlLayout;
+	private ActivityCustomControlsBinding binding;
 	private String mControlPath = null;
 
 	@Override
@@ -41,32 +40,38 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 			mControlPath = bundle.getString(BUNDLE_CONTROL_PATH);
 		}
 
-		setContentView(R.layout.activity_custom_controls);
+		binding = ActivityCustomControlsBinding.inflate(getLayoutInflater());
+		setContentView(binding.getRoot());
 
-		mControlLayout = findViewById(R.id.customctrl_controllayout);
-		mDrawerLayout = findViewById(R.id.customctrl_drawerlayout);
-		mDrawerNavigationView = findViewById(R.id.customctrl_navigation_view);
-		View mPullDrawerButton = findViewById(R.id.drawer_button);
+		ControlLayout controlLayout = binding.customctrlControllayout;
+		DrawerLayout drawerLayout = binding.customctrlDrawerlayout;
+		ListView drawerNavigationView = binding.customctrlNavigationView;
 
-		BackgroundManager.setBackgroundImage(this, BackgroundType.CUSTOM_CONTROLS, findViewById(R.id.background_view));
+		new GameMenuViewWrapper(this, v -> {
+			boolean open = drawerLayout.isDrawerOpen(drawerNavigationView);
 
-		mPullDrawerButton.setOnClickListener(v -> mDrawerLayout.openDrawer(mDrawerNavigationView));
-		mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+			if (open) drawerLayout.closeDrawer(drawerNavigationView);
+			else drawerLayout.openDrawer(drawerNavigationView);
+		}).setVisibility(true);
 
-		mDrawerNavigationView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.menu_customcontrol_customactivity)));
-		mDrawerNavigationView.setOnItemClickListener((parent, view, position, id) -> {
+		BackgroundManager.setBackgroundImage(this, BackgroundType.CUSTOM_CONTROLS, binding.backgroundView);
+
+		drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+		drawerNavigationView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.menu_customcontrol_customactivity)));
+		drawerNavigationView.setOnItemClickListener((parent, view, position, id) -> {
 			switch(position) {
-				case 0: mControlLayout.addControlButton(new ControlData(getString(R.string.zh_controls_add_control_button))); break;
-				case 1: mControlLayout.addDrawer(new ControlDrawerData()); break;
-				case 2: mControlLayout.addJoystickButton(new ControlJoystickData()); break;
+				case 0: controlLayout.addControlButton(new ControlData(getString(R.string.zh_controls_add_control_button))); break;
+				case 1: controlLayout.addDrawer(new ControlDrawerData()); break;
+				case 2: controlLayout.addJoystickButton(new ControlJoystickData()); break;
 				case 3: new ControlSettingsDialog(this).show(); break;
-				case 4: mControlLayout.openLoadDialog(); break;
-				case 5: mControlLayout.openSaveDialog(); break;
-				case 6: mControlLayout.openSaveAndExitDialog(this); break;
-				case 7: mControlLayout.openSetDefaultDialog(); break;
+				case 4: controlLayout.openLoadDialog(); break;
+				case 5: controlLayout.openSaveDialog(); break;
+				case 6: controlLayout.openSaveAndExitDialog(this); break;
+				case 7: controlLayout.openSetDefaultDialog(); break;
 				case 8: // Saving the currently shown control
 					try {
-						Uri contentUri = DocumentsContract.buildDocumentUri(getString(R.string.storageProviderAuthorities), mControlLayout.saveToDirectory(mControlLayout.mLayoutFileName));
+						Uri contentUri = DocumentsContract.buildDocumentUri(getString(R.string.storageProviderAuthorities), controlLayout.saveToDirectory(controlLayout.mLayoutFileName));
 
 						Intent shareIntent = new Intent();
 						shareIntent.setAction(Intent.ACTION_SEND);
@@ -75,19 +80,19 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 						shareIntent.setType("application/json");
 						startActivity(shareIntent);
 
-						Intent sendIntent = Intent.createChooser(shareIntent, mControlLayout.mLayoutFileName);
+						Intent sendIntent = Intent.createChooser(shareIntent, controlLayout.mLayoutFileName);
 						startActivity(sendIntent);
 					}catch (Exception e) {
 						Tools.showError(this, e);
 					}
 					break;
 			}
-			mDrawerLayout.closeDrawers();
+			drawerLayout.closeDrawers();
 		});
-		mControlLayout.setModifiable(true);
+		controlLayout.setModifiable(true);
 		try {
-			if (mControlPath == null) mControlLayout.loadLayout(AllSettings.Companion.getDefaultCtrl());
-			else mControlLayout.loadLayout(mControlPath);
+			if (mControlPath == null) controlLayout.loadLayout(AllSettings.Companion.getDefaultCtrl());
+			else controlLayout.loadLayout(mControlPath);
 		}catch (IOException e) {
 			Tools.showError(this, e);
 		}
@@ -96,7 +101,7 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 	@SuppressLint("MissingSuperCall")
 	@Override
 	public void onBackPressed() {
-		mControlLayout.askToExit(this);
+		binding.customctrlControllayout.askToExit(this);
 	}
 
 	@Override

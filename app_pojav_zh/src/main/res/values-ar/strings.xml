@@ -5,8 +5,7 @@
     <!-- Login strings -->
     <string name="login_online_login_label">تسجيل الدخول</string>
     <!-- Hint -->
-    <string name="hint_control_mapping">أضغط على أيقونة الإعداد لفتح قائمة التعديلات أضغط على زر \n ⚙: للتعديل، تغير الحجم، حذف 
-، أو تعديل ازرار التحكم.</string>
+    <string name="hint_control_mapping">اضغط على نافذة الترس العائمة لفتح القائمة ⚙\nاضغط على مفتاح لتخصيص: تحرير، تغيير الحجم، حذف أو تخصيص ربطه</string>
     <!-- Warnings -->
     <string name="warning_remove_account">سيتم إزالة هذا الحساب!</string>
     <!-- Error messages -->

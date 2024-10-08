@@ -5,7 +5,7 @@
     <!-- Login strings -->
     <string name="login_online_login_label">Connexion</string>
     <!-- Hint -->
-    <string name="hint_control_mapping">Appuyez sur l\'icône en forme de roue dentée en haut au centre pour ouvrir le menu contextuel ⚙\nAppuyez sur un bouton pour le personnaliser : éditer, redimensionner, supprimer ou personnaliser sa liaison de touche.</string>
+    <string name="hint_control_mapping">Cliquez sur l\'icône d\'engrenage flottante pour ouvrir le menu ⚙\nCliquez sur une touche pour la personnaliser : modifier, redimensionner, supprimer ou personnaliser son attribution</string>
     <!-- Warnings -->
     <string name="warning_remove_account">Ce compte sera supprimé !</string>
     <!-- Error messages -->

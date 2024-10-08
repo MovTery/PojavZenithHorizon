@@ -5,7 +5,7 @@
     <!-- Login strings -->
     <string name="login_online_login_label">Войти</string>
     <!-- Hint -->
-    <string name="hint_control_mapping">Нажмите значок ⚙, чтобы открыть панель действий.\nВыберите кнопку, чтобы создать её копию или удалить;\nизменить свойства, размер или привязанную клавишу.</string>
+    <string name="hint_control_mapping">Нажмите на плавающее окно с шестеренкой, чтобы открыть меню ⚙\nНажмите на клавишу, чтобы настроить: изменить, изменить размер, удалить или настроить её привязку</string>
     <!-- Warnings -->
     <string name="warning_remove_account">Эта учётная запись будет удалена!</string>
     <!-- Error messages -->
