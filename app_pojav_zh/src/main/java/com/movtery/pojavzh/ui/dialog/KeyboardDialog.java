@@ -4,10 +4,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
+
+import com.google.android.flexbox.FlexboxLayout;
+import com.movtery.pojavzh.ui.view.AnimButton;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.databinding.DialogKeyboardBinding;
@@ -56,40 +60,26 @@ public class KeyboardDialog extends FullScreenDialog {
         List<View> specialButtons = new ArrayList<>();
 
         if (isGamepadMapper) {
-            binding.keyboardUnknown.setText(R.string.zh_keycode_unspecified);
-            binding.keyboardSpecialPri.setText(R.string.zh_keycode_mouse_right);
-            binding.keyboardSpecialSec.setText(R.string.zh_keycode_mouse_middle);
-            binding.keyboardSpecialMenu.setText(R.string.zh_keycode_mouse_left);
-            binding.keyboardSpecialScrolldown.setText(R.string.zh_keycode_scroll_up);
-            binding.keyboardSpecialScrollup.setText(R.string.zh_keycode_scroll_down);
-
-            specialButtons.addAll(List.of(
-                    binding.keyboardSpecialScrollup,
-                    binding.keyboardSpecialScrolldown,
-                    binding.keyboardSpecialMenu,
-                    binding.keyboardSpecialSec,
-                    binding.keyboardSpecialPri,
-                    binding.keyboardUnknown));
-
-            binding.keyboardSpecialKeyboard.setVisibility(View.GONE);
-            binding.keyboardSpecialGui.setVisibility(View.GONE);
-            binding.keyboardSpecialMouse.setVisibility(View.GONE);
-            binding.keyboardSpecialMid.setVisibility(View.GONE);
+            specialButtons.add(getKey(getString(R.string.zh_keycode_unspecified)));
+            specialButtons.add(getKey(getString(R.string.zh_keycode_mouse_right)));
+            specialButtons.add(getKey(getString(R.string.zh_keycode_mouse_middle)));
+            specialButtons.add(getKey(getString(R.string.zh_keycode_mouse_left)));
+            specialButtons.add(getKey(getString(R.string.zh_keycode_scroll_up)));
+            specialButtons.add(getKey(getString(R.string.zh_keycode_scroll_down)));
         } else {
-            specialButtons.addAll(List.of(
-                    binding.keyboardSpecialKeyboard,
-                    binding.keyboardSpecialGui,
-                    binding.keyboardSpecialPri,
-                    binding.keyboardSpecialSec,
-                    binding.keyboardSpecialMouse,
-                    binding.keyboardSpecialMid,
-                    binding.keyboardSpecialScrollup,
-                    binding.keyboardSpecialScrolldown,
-                    binding.keyboardSpecialMenu));
+            specialButtons.add(getKey(getString(R.string.zh_keycode_special_keyboard)));
+            specialButtons.add(getKey("GUI"));
+            specialButtons.add(getKey(getString(R.string.zh_keycode_special_pri)));
+            specialButtons.add(getKey(getString(R.string.zh_keycode_special_sec)));
+            specialButtons.add(getKey(getString(R.string.zh_keycode_special_mouse)));
+            specialButtons.add(getKey(getString(R.string.zh_keycode_special_mid)));
+            specialButtons.add(getKey(getString(R.string.zh_keycode_special_scrollup)));
+            specialButtons.add(getKey(getString(R.string.zh_keycode_special_scrolldown)));
+            specialButtons.add(getKey(getString(R.string.zh_keycode_special_menu)));
         }
 
         List<View> buttons = new ArrayList<>(List.of(
-                binding.keyboardUnknown, binding.keyboardHome, binding.keyboardEsc,
+                binding.keyboardHome, binding.keyboardEsc,
                 binding.keyboard0, binding.keyboard1, binding.keyboard2,
                 binding.keyboard3, binding.keyboard4, binding.keyboard5,
                 binding.keyboard6, binding.keyboard7, binding.keyboard8,
@@ -129,17 +119,22 @@ public class KeyboardDialog extends FullScreenDialog {
                 binding.keyboardKpMultiply, binding.keyboardKpSubract,
                 binding.keyboardKpDecimal, binding.keyboardKpEnter));
 
+        if (!isGamepadMapper) buttons.add(0, getKey(getString(R.string.zh_keycode_unspecified)));
+
         if (showSpecialButtons) {
-            //这里的按键比较特殊，它的顺序就是反着的
-            int specialCount = specialButtons.size();
+            //此处如果不是手柄映射模式，那么将反着加入
+            int specialCount = isGamepadMapper ? 0 : specialButtons.size() - 1;
             for (View specialButton : specialButtons) {
-                specialCount -= 1;
                 int finalSpecialCount = specialCount;
                 specialButton.setOnClickListener(v -> onKeycodeSelect(finalSpecialCount));
+                if (isGamepadMapper) specialCount += 1;
+                else specialCount -= 1;
             }
         }
 
         int buttonCount = showSpecialButtons ? (specialButtons.size() - 1) : -1;
+        if (isGamepadMapper) buttonCount++;
+
         for (View button : buttons) {
             buttonCount += 1;
             int finalButtonCount = buttonCount;
@@ -157,8 +152,21 @@ public class KeyboardDialog extends FullScreenDialog {
         }
 
         if (!showSpecialButtons) {
-            findViewById(R.id.layout_0).setVisibility(View.GONE);
+            findViewById(R.id.special_key).setVisibility(View.GONE);
         }
+    }
+
+    private AnimButton getKey(String text) {
+        AnimButton key = new AnimButton(getContext());
+        FlexboxLayout.LayoutParams layoutParams = new FlexboxLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        key.setLayoutParams(layoutParams);
+        key.setText(text);
+        binding.specialKey.addView(key);
+        return key;
+    }
+
+    private String getString(int resId) {
+        return getContext().getString(resId);
     }
 
     private void onKeycodeSelect(int index) {
