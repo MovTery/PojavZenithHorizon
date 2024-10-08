@@ -28,7 +28,7 @@ public class LoggerView extends ConstraintLayout {
     private ToggleButton mLogToggle;
     private DefocusableScrollView mScrollView;
     private TextView mLogTextView;
-
+    private boolean isShowing = false;
 
     public LoggerView(@NonNull Context context) {
         this(context, null);
@@ -47,6 +47,9 @@ public class LoggerView extends ConstraintLayout {
     }
 
     public void setVisibilityWithAnim(boolean visibility) {
+        if (isShowing == visibility) return;
+        isShowing = visibility;
+
         ViewAnimUtils.setViewAnim(this,
                 visibility ? Animations.BounceInUp : Animations.SlideOutDown,
                 (long) (AllSettings.Companion.getAnimationSpeed() * 0.7),

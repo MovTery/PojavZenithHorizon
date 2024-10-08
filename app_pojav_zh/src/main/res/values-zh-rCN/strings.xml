@@ -8,7 +8,7 @@
     <string name="login_online_login_label">登录</string>
     
     <!-- Hint -->
-    <string name="hint_control_mapping">点击顶部中央齿轮图标打开菜单⚙\n点击一个按键进行自定义：编辑、缩放、删除或自定义其映射绑定</string>
+    <string name="hint_control_mapping">点击齿轮悬浮窗打开菜单⚙\n点击一个按键进行自定义：编辑、缩放、删除或自定义其映射绑定</string>
     
     <!-- Warnings -->
     <string name="warning_remove_account">此账户将被移除！</string>

@@ -5,7 +5,7 @@
     <!-- Login strings -->
     <string name="login_online_login_label">登入</string>
     <!-- Hint -->
-    <string name="hint_control_mapping">點擊頂部中央齒輪圖示打開菜單 ⚙\n點擊一個按鍵進行自訂：編輯、縮放、刪除或自訂其映射綁定</string>
+    <string name="hint_control_mapping">點擊齒輪懸浮窗打開菜單⚙\n點擊一個按鍵進行自訂：編輯、縮放、刪除或自訂其映射綁定</string>
     <!-- Warnings -->
     <string name="warning_remove_account">此帳戶將被移除！</string>
     <!-- Error messages -->

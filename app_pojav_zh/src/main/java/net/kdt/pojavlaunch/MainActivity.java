@@ -7,6 +7,7 @@ import static org.lwjgl.glfw.CallbackBridge.sendKeyPress;
 import static org.lwjgl.glfw.CallbackBridge.windowHeight;
 import static org.lwjgl.glfw.CallbackBridge.windowWidth;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ClipData;
@@ -39,7 +40,6 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.kdt.LoggerView;
 import com.movtery.pojavzh.feature.ProfileLanguageSelector;
 import com.movtery.pojavzh.feature.accounts.AccountsManager;
 import com.movtery.pojavzh.feature.background.BackgroundManager;
@@ -55,6 +55,7 @@ import com.movtery.pojavzh.ui.dialog.MouseSettingsDialog;
 import com.movtery.pojavzh.ui.dialog.SelectControlsDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.ui.subassembly.view.GameMenuViewWrapper;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.anim.AnimUtils;
 import com.movtery.pojavzh.utils.file.FileTools;
@@ -70,7 +71,7 @@ import net.kdt.pojavlaunch.customcontrols.EditorExitable;
 import net.kdt.pojavlaunch.customcontrols.keyboard.LwjglCharSender;
 import net.kdt.pojavlaunch.customcontrols.keyboard.TouchCharInput;
 import net.kdt.pojavlaunch.customcontrols.mouse.GyroControl;
-import net.kdt.pojavlaunch.customcontrols.mouse.Touchpad;
+import net.kdt.pojavlaunch.databinding.ActivityBasemainBinding;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.services.GameService;
@@ -91,17 +92,12 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
     volatile public static boolean isInputStackCall;
 
-    public static TouchCharInput touchCharInput;
-    private MinecraftGLSurface minecraftGLView;
-    private static Touchpad touchpad;
-    private LoggerView loggerView;
-    private DrawerLayout drawerLayout;
-    private ListView navDrawer;
-    private View mDrawerPullButton;
-    private View mGameTipView;
-    private TextView mGameTipTextView;
+    @SuppressLint("StaticFieldLeak")
+    private static ActivityBasemainBinding binding = null;
+    private GameMenuViewWrapper mGameMenuWrapper;
     private GyroControl mGyroControl = null;
     private KeyboardDialog keyboardDialog;
+    public static TouchCharInput touchCharInput;
     public static ControlLayout mControlLayout;
 
     MinecraftProfile minecraftProfile;
@@ -124,8 +120,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         // Start the service a bit early
         ContextCompat.startForegroundService(this, gameServiceIntent);
         initLayout();
-        CallbackBridge.addGrabListener(touchpad);
-        CallbackBridge.addGrabListener(minecraftGLView);
+        CallbackBridge.addGrabListener(binding.mainTouchpad);
+        CallbackBridge.addGrabListener(binding.mainGameRenderView);
         if(AllSettings.Companion.getEnableGyro()) mGyroControl = new GyroControl(this);
 
         // Enabling this on TextureView results in a broken white result
@@ -138,23 +134,24 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         ingameControlsEditorArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.menu_customcontrol));
         ingameControlsEditorListener = (parent, view, position, id) -> {
+            ControlLayout controlLayout = binding.mainControlLayout;
             switch(position) {
-                case 0: mControlLayout.addControlButton(new ControlData(getString(R.string.zh_controls_add_control_button))); break;
-                case 1: mControlLayout.addDrawer(new ControlDrawerData()); break;
-                case 2: mControlLayout.addJoystickButton(new ControlJoystickData()); break;
+                case 0: controlLayout.addControlButton(new ControlData(getString(R.string.zh_controls_add_control_button))); break;
+                case 1: controlLayout.addDrawer(new ControlDrawerData()); break;
+                case 2: controlLayout.addJoystickButton(new ControlJoystickData()); break;
                 case 3: new ControlSettingsDialog(this).show(); break;
-                case 4: mControlLayout.openLoadDialog(); break;
-                case 5: mControlLayout.openSaveDialog(); break;
-                case 6: mControlLayout.openSaveAndExitDialog(this); break;
-                case 7: mControlLayout.openSetDefaultDialog(); break;
-                case 8: mControlLayout.openExitDialog(this);
+                case 4: controlLayout.openLoadDialog(); break;
+                case 5: controlLayout.openSaveDialog(); break;
+                case 6: controlLayout.openSaveAndExitDialog(this); break;
+                case 7: controlLayout.openSetDefaultDialog(); break;
+                case 8: controlLayout.openExitDialog(this);
             }
         };
 
         // Recompute the gui scale when options are changed
         MCOptionUtils.MCOptionListener optionListener = MCOptionUtils::getMcScale;
         MCOptionUtils.addMCOptionListener(optionListener);
-        mControlLayout.setModifiable(false);
+        binding.mainControlLayout.setModifiable(false);
 
         // Set the activity for the executor. Must do this here, or else Tools.showErrorRemote() may not
         // execute the correct method
@@ -164,17 +161,20 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     }
 
     protected void initLayout() {
-        setContentView(R.layout.activity_basemain);
-        bindValues();
+        binding = ActivityBasemainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        mGameMenuWrapper = new GameMenuViewWrapper(this, v -> onClickedMenu());
+        touchCharInput = binding.mainTouchCharInput;
+        mControlLayout = binding.mainControlLayout;
 
         BackgroundManager.setBackgroundImage(this, BackgroundType.IN_GAME, findViewById(R.id.background_view));
 
         keyboardDialog = new KeyboardDialog(this).setShowSpecialButtons(false);
 
-        mControlLayout.setMenuListener(this);
+        binding.mainControlLayout.setMenuListener(this);
 
-        mDrawerPullButton.setOnClickListener(v -> onClickedMenu());
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        binding.mainDrawerOptions.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
         try {
             File latestLogFile = new File(PathAndUrlManager.DIR_GAME_HOME, "latestlog.txt");
@@ -183,7 +183,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             Logger.begin(latestLogFile.getAbsolutePath());
             // FIXME: is it safe for multi thread?
             GLOBAL_CLIPBOARD = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-            touchCharInput.setCharacterSender(new LwjglCharSender());
+            binding.mainTouchCharInput.setCharacterSender(new LwjglCharSender());
 
             if(minecraftProfile.pojavRendererName != null) {
                 Logging.i("RdrDebug","__P_renderer="+minecraftProfile.pojavRendererName);
@@ -219,18 +219,18 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                     case 5: replacementCustomControls(); break;
                     case 6: openCustomControls(); break;
                 }
-                drawerLayout.closeDrawers();
+                binding.mainDrawerOptions.closeDrawers();
             };
-            navDrawer.setAdapter(gameActionArrayAdapter);
-            navDrawer.setOnItemClickListener(gameActionClickListener);
-            drawerLayout.closeDrawers();
+            binding.mainNavigationView.setAdapter(gameActionArrayAdapter);
+            binding.mainNavigationView.setOnItemClickListener(gameActionClickListener);
+            binding.mainDrawerOptions.closeDrawers();
 
             final String finalVersion = version;
-            minecraftGLView.setSurfaceReadyListener(() -> {
+            binding.mainGameRenderView.setSurfaceReadyListener(() -> {
                 try {
                     // Setup virtual mouse right before launching
                     if (AllSettings.Companion.getVirtualMouseStart()) {
-                        touchpad.post(() -> touchpad.switchState());
+                        binding.mainTouchpad.post(() -> binding.mainTouchpad.switchState());
                     }
 
                     runCraft(finalVersion, mVersionInfo);
@@ -241,15 +241,15 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
             if (AllSettings.Companion.getEnableLogOutput()) openLogOutput();
 
-            String tipString = StringUtils.insertNewline(mGameTipTextView.getText(), StringUtils.insertSpace(getString(R.string.zh_game_tip_version), minecraftProfile.lastVersionId));
-            mGameTipTextView.setText(tipString);
-            AnimUtils.setVisibilityAnim(mGameTipView, 1000, true, 300, new AnimUtils.AnimationListener() {
+            String tipString = StringUtils.insertNewline(binding.gameTip.getText(), StringUtils.insertSpace(getString(R.string.zh_game_tip_version), minecraftProfile.lastVersionId));
+            binding.gameTip.setText(tipString);
+            AnimUtils.setVisibilityAnim(binding.gameTipView, 1000, true, 300, new AnimUtils.AnimationListener() {
                 @Override
                 public void onStart() {
                 }
                 @Override
                 public void onEnd() {
-                    AnimUtils.setVisibilityAnim(mGameTipView, 15000, false, 300, null);
+                    AnimUtils.setVisibilityAnim(binding.gameTipView, 15000, false, 300, null);
                 }
             });
         } catch (Throwable e) {
@@ -260,42 +260,28 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     private void loadControls() {
         try {
             // Load keys
-            mControlLayout.loadLayout(
+            binding.mainControlLayout.loadLayout(
                     minecraftProfile.controlFile == null
                             ? AllSettings.Companion.getDefaultCtrl()
                             : PathAndUrlManager.DIR_CTRLMAP_PATH + "/" + minecraftProfile.controlFile);
         } catch(IOException e) {
             try {
                 Logging.w("MainActivity", "Unable to load the control file, loading the default now", e);
-                mControlLayout.loadLayout((String) null);
+                binding.mainControlLayout.loadLayout((String) null);
             } catch (IOException ioException) {
                 Tools.showError(this, ioException);
             }
         } catch (Throwable th) {
             Tools.showError(this, th);
         }
-        mDrawerPullButton.setVisibility(mControlLayout.hasMenuButton() ? View.GONE : View.VISIBLE);
-        mControlLayout.toggleControlVisible();
+        mGameMenuWrapper.setVisibility(!binding.mainControlLayout.hasMenuButton());
+        binding.mainControlLayout.toggleControlVisible();
     }
 
     @Override
     public void onAttachedToWindow() {
         LauncherPreferences.computeNotchSize(this);
         loadControls();
-    }
-
-    /** Boilerplate binding */
-    private void bindValues(){
-        mControlLayout = findViewById(R.id.main_control_layout);
-        minecraftGLView = findViewById(R.id.main_game_render_view);
-        touchpad = findViewById(R.id.main_touchpad);
-        drawerLayout = findViewById(R.id.main_drawer_options);
-        navDrawer = findViewById(R.id.main_navigation_view);
-        loggerView = findViewById(R.id.mainLoggerView);
-        touchCharInput = findViewById(R.id.mainTouchCharInput);
-        mDrawerPullButton = findViewById(R.id.drawer_button);
-        mGameTipView = findViewById(R.id.zh_game_tip_view);
-        mGameTipTextView = findViewById(R.id.zh_game_tip);
     }
 
     @Override
@@ -330,8 +316,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        CallbackBridge.removeGrabListener(touchpad);
-        CallbackBridge.removeGrabListener(minecraftGLView);
+        CallbackBridge.removeGrabListener(binding.mainTouchpad);
+        CallbackBridge.removeGrabListener(binding.mainGameRenderView);
         ContextExecutor.clearActivity();
     }
 
@@ -341,15 +327,14 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
         if(mGyroControl != null) mGyroControl.updateOrientation();
         Tools.updateWindowSize(this);
-        minecraftGLView.refreshSize();
-        runOnUiThread(() -> mControlLayout.refreshControlButtonPositions());
+        binding.mainGameRenderView.refreshSize();
+        runOnUiThread(() -> binding.mainControlLayout.refreshControlButtonPositions());
     }
 
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        if(minecraftGLView != null)  // Useful when backing out of the app
-            Tools.MAIN_HANDLER.postDelayed(() -> minecraftGLView.refreshSize(), 500);
+        Tools.MAIN_HANDLER.postDelayed(() -> binding.mainGameRenderView.refreshSize(), 500);
     }
 
     @Override
@@ -358,7 +343,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             try {
-                mControlLayout.loadLayout(AllSettings.Companion.getDefaultCtrl());
+                binding.mainControlLayout.loadLayout(AllSettings.Companion.getDefaultCtrl());
             } catch (IOException e) {
                 Logging.e("LoadLayout", Tools.printToString(e));
             }
@@ -410,9 +395,9 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         SelectControlsDialog dialog = new SelectControlsDialog(this);
         dialog.setOnSelectedListener(file -> {
             try {
-                mControlLayout.loadLayout(file.getAbsolutePath());
+                binding.mainControlLayout.loadLayout(file.getAbsolutePath());
                 //刷新：是否隐藏菜单按钮
-                mDrawerPullButton.setVisibility(mControlLayout.hasMenuButton() ? View.GONE : View.VISIBLE);
+                mGameMenuWrapper.setVisibility(!binding.mainControlLayout.hasMenuButton());
             } catch (IOException ignored) {}
             dialog.dismiss();
         });
@@ -423,23 +408,25 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     private void openCustomControls() {
         if(ingameControlsEditorListener == null || ingameControlsEditorArrayAdapter == null) return;
 
-        mControlLayout.setModifiable(true);
-        navDrawer.setAdapter(ingameControlsEditorArrayAdapter);
-        navDrawer.setOnItemClickListener(ingameControlsEditorListener);
-        mDrawerPullButton.setVisibility(View.VISIBLE);
+        binding.mainControlLayout.setModifiable(true);
+        binding.mainNavigationView.setAdapter(ingameControlsEditorArrayAdapter);
+        binding.mainNavigationView.setOnItemClickListener(ingameControlsEditorListener);
+        mGameMenuWrapper.setVisibility(true);
         isInEditor = true;
     }
 
     private void openLogOutput() {
-        loggerView.setVisibilityWithAnim(true);
+        binding.mainLoggerView.setVisibilityWithAnim(true);
     }
 
     public static void toggleMouse(Context ctx) {
         if (CallbackBridge.isGrabbing()) return;
 
-        Toast.makeText(ctx, touchpad.switchState()
-                        ? R.string.control_mouseon : R.string.control_mouseoff,
-                Toast.LENGTH_SHORT).show();
+        if (binding != null) {
+            Toast.makeText(ctx, binding.mainTouchpad.switchState()
+                            ? R.string.control_mouseon : R.string.control_mouseoff,
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     public static void dialogForceClose(Context ctx) {
@@ -458,14 +445,14 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     public boolean dispatchKeyEvent(KeyEvent event) {
         if(isInEditor) {
             if(event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-                if(event.getAction() == KeyEvent.ACTION_DOWN) mControlLayout.askToExit(this);
+                if(event.getAction() == KeyEvent.ACTION_DOWN) binding.mainControlLayout.askToExit(this);
                 return true;
             }
             return super.dispatchKeyEvent(event);
         }
         boolean handleEvent;
-        if(!(handleEvent = minecraftGLView.processKeyEvent(event))) {
-            if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && !touchCharInput.isEnabled()) {
+        if(!(handleEvent = binding.mainGameRenderView.processKeyEvent(event))) {
+            if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && !binding.mainTouchCharInput.isEnabled()) {
                 if(event.getAction() != KeyEvent.ACTION_UP) return true; // We eat it anyway
                 sendKeyPress(LwjglGlfwKeycode.GLFW_KEY_ESCAPE);
                 return true;
@@ -475,16 +462,15 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     }
 
     public static void switchKeyboardState() {
-        if(touchCharInput != null) touchCharInput.switchKeyboardState();
+        if (binding != null) binding.mainTouchCharInput.switchKeyboardState();
     }
-
 
     public void adjustMouseSpeedLive() {
         new MouseSettingsDialog(this, (mouseSpeed, mouseScale) -> {
             Settings.Manager.Companion.put("mousespeed", mouseSpeed).save();
             Settings.Manager.Companion.put("mousescale", mouseScale).save();
-            touchpad.updateMouseScale();
-        }, () -> touchpad.updateMouseDrawable()).show();
+            binding.mainTouchpad.updateMouseScale();
+        }, () -> binding.mainTouchpad.updateMouseDrawable()).show();
     }
 
     int tmpGyroSensitivity;
@@ -544,7 +530,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     }
 
     public static void openLink(String link) {
-        Context ctx = touchpad.getContext(); // no more better way to obtain a context statically
+        Context ctx = binding.mainTouchpad.getContext(); // no more better way to obtain a context statically
         ((Activity)ctx).runOnUiThread(() -> {
             try {
                 setUri(ctx, link);
@@ -555,7 +541,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     }
     @SuppressWarnings("unused") //TODO: actually use it
     public static void openPath(String path) {
-        Context ctx = touchpad.getContext(); // no more better way to obtain a context statically
+        Context ctx = binding.mainTouchpad.getContext(); // no more better way to obtain a context statically
         ((Activity)ctx).runOnUiThread(() -> {
             try {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -601,27 +587,32 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
     @Override
     public void onClickedMenu() {
-        drawerLayout.openDrawer(navDrawer);
-        navDrawer.requestLayout();
+        DrawerLayout drawerLayout = binding.mainDrawerOptions;
+        ListView navigationView = binding.mainNavigationView;
+
+        boolean open = drawerLayout.isDrawerOpen(navigationView);
+        if (open) drawerLayout.closeDrawer(navigationView);
+        else drawerLayout.openDrawer(navigationView);
+
+        navigationView.requestLayout();
     }
 
     @Override
     public void exitEditor() {
         try {
-            MainActivity.mControlLayout.loadLayout((CustomControls)null);
-            MainActivity.mControlLayout.setModifiable(false);
+            MainActivity.binding.mainControlLayout.loadLayout((CustomControls)null);
+            MainActivity.binding.mainControlLayout.setModifiable(false);
             System.gc();
-            MainActivity.mControlLayout.loadLayout(
+            MainActivity.binding.mainControlLayout.loadLayout(
                     minecraftProfile.controlFile == null
                             ? AllSettings.Companion.getDefaultCtrl()
                             : PathAndUrlManager.DIR_CTRLMAP_PATH + "/" + minecraftProfile.controlFile);
-            mDrawerPullButton.setVisibility(mControlLayout.hasMenuButton() ? View.GONE : View.VISIBLE);
+            mGameMenuWrapper.setVisibility(!binding.mainControlLayout.hasMenuButton());
         } catch (IOException e) {
             Tools.showError(this,e);
         }
-        //((MainActivity) this).mControlLayout.loadLayout((CustomControls)null);
-        navDrawer.setAdapter(gameActionArrayAdapter);
-        navDrawer.setOnItemClickListener(gameActionClickListener);
+        binding.mainNavigationView.setAdapter(gameActionArrayAdapter);
+        binding.mainNavigationView.setOnItemClickListener(gameActionClickListener);
         isInEditor = false;
     }
 
@@ -629,7 +620,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     public void onServiceConnected(ComponentName name, IBinder service) {
         GameService.LocalBinder localBinder = (GameService.LocalBinder) service;
         mServiceBinder = localBinder;
-        minecraftGLView.start(localBinder.isActive, touchpad);
+        binding.mainGameRenderView.start(localBinder.isActive, binding.mainTouchpad);
         localBinder.isActive = true;
     }
 
@@ -655,7 +646,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     @Override
     public boolean dispatchTrackballEvent(MotionEvent ev) {
         if(checkCaptureDispatchConditions(ev))
-            return minecraftGLView.dispatchCapturedPointerEvent(ev);
+            return binding.mainGameRenderView.dispatchCapturedPointerEvent(ev);
         else return super.dispatchTrackballEvent(ev);
     }
 }

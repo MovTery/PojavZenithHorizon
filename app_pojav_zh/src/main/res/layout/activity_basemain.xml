@@ -25,7 +25,7 @@
             android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/zh_game_tip_view"
+                android:id="@+id/game_tip_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -34,7 +34,7 @@
                 android:background="@drawable/background_item">
 
                 <TextView
-                    android:id="@+id/zh_game_tip"
+                    android:id="@+id/game_tip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/zh_game_tip"
@@ -73,13 +73,6 @@
                 android:imeOptions="flagNoFullscreen|flagNoExtractUi|flagNoPersonalizedLearning|actionDone"
                 android:inputType="textFilter|textImeMultiLine|textAutoComplete|textAutoCorrect"
                 tools:ignore="TouchTargetSizeCheck" />
-
-            <net.kdt.pojavlaunch.customcontrols.handleview.DrawerPullButton
-                android:id="@+id/drawer_button"
-                android:layout_width="@dimen/_28sdp"
-                android:layout_height="@dimen/_14sdp"
-                android:layout_gravity="center_horizontal"
-                android:elevation="10dp" />
 
             <net.kdt.pojavlaunch.customcontrols.mouse.HotbarView
                 android:layout_width="0px"

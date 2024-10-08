@@ -32,10 +32,10 @@ class DraggableViewWrapper(private val mainView: View, private val fetcher: Attr
                     if (updateRateLimits()) return@setOnTouchListener false
 
                     val x = max(fetcher.screenPixels.minX.toDouble(), min(fetcher.screenPixels.maxX.toDouble(),
-                            (initialX + (event.rawX - touchX)).toDouble())
+                        (initialX + (event.rawX - touchX)).toDouble())
                     ).toInt()
                     val y = max(fetcher.screenPixels.minY.toDouble(), min(fetcher.screenPixels.maxY.toDouble(),
-                            (initialY + (event.rawY - touchY)).toDouble())
+                        (initialY + (event.rawY - touchY)).toDouble())
                     ).toInt()
                     fetcher.set(x, y)
                     return@setOnTouchListener true

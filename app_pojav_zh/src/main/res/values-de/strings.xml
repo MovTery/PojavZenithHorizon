@@ -5,7 +5,7 @@
     <!-- Login strings -->
     <string name="login_online_login_label">Anmelden</string>
     <!-- Hint -->
-    <string name="hint_control_mapping">Tippe auf das Zahnrad-Symbol oben in der Mitte, um das Kontextmenü zu öffnen ⚙\nTippe auf eine Taste, um sie anzupassen: bearbeiten, vergrößern, löschen oder ihre Tastenbelegung anpassen.</string>
+    <string name="hint_control_mapping">Klicken Sie auf das Zahnradsymbol im schwebenden Fenster, um das Menü zu öffnen ⚙\nKlicken Sie auf eine Taste, um sie anzupassen: bearbeiten, skalieren, löschen oder deren Zuordnung anpassen</string>
     <!-- Warnings -->
     <string name="warning_remove_account">Dieser Account wird entfernt!</string>
     <!-- Error messages -->

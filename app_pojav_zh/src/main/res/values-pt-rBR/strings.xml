@@ -5,7 +5,7 @@
     <!-- Login strings -->
     <string name="login_online_login_label">Login</string>
     <!-- Hint -->
-    <string name="hint_control_mapping">Toque no ícone de engrenagem central superior para abrir o menu de contexto ⚙\nToque em um botão para personalizar: editar, redimensionar, excluir ou personalizar sua tecla de atalho.</string>
+    <string name="hint_control_mapping">Clique na janela flutuante de engrenagem para abrir o menu ⚙\nClique em uma tecla para personalizar: editar, redimensionar, excluir ou personalizar seu mapeamento</string>
     <!-- Warnings -->
     <string name="warning_remove_account">Esta conta será removida!</string>
     <!-- Error messages -->
