@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
+import com.movtery.pojavzh.setting.Settings
 import com.movtery.pojavzh.ui.fragment.settings.ControlSettingsFragment
 import com.movtery.pojavzh.ui.fragment.settings.ExperimentalSettingsFragment
 import com.movtery.pojavzh.ui.fragment.settings.JavaSettingsFragment
@@ -47,6 +48,11 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
                 binding.settingsViewpager.currentItem = index
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Settings.refreshSettings()
     }
 
     private fun initViewPager() {

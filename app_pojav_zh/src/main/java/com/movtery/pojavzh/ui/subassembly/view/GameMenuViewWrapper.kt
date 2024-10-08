@@ -28,6 +28,7 @@ class GameMenuViewWrapper(
         setOnClickListener(0L, listener)
         setOnLongClickListener {
             showMemory = !showMemory
+            Settings.Manager.put("gameMenuShowMemory", showMemory).save()
             setShowMemory()
             true
         }
