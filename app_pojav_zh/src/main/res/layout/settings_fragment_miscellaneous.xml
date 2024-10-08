@@ -8,16 +8,16 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="@dimen/_12sdp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingVertical="@dimen/_12sdp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/miscellaneous_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/_12sdp"
             android:background="@drawable/background_card"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/_12sdp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:checked="true"/>
+                    android:checked="true" />
             </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
             <com.movtery.pojavzh.ui.layout.AnimRelativeLayout

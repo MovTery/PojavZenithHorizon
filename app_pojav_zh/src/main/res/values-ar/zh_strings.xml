@@ -213,6 +213,7 @@
     <string name="zh_preference_category_personalization">تخصيص</string>
     <string name="zh_preference_category_download">تنزيل</string>
     <string name="zh_preference_category_launcher">المشغل</string>
+    <string name="zh_preference_category_game_menu">قائمة اللعبة</string>
     <string name="zh_preference_category_experimental">تجريبي</string>
     <string name="zh_preference_category_experimental_patches">تصحيحات تجريبية</string>
     <string name="zh_setting_java_memory_desc">التحكم في كمية الذاكرة التي يتم تخصيصها لـ Minecraft</string>
@@ -240,6 +241,10 @@
     <string name="zh_setting_page_opacity_desc">تعيين شفافية الصفحة الرئيسية للمنطلق</string>
     <string name="zh_setting_quit_launcher_desc">ما إذا كان سيتم إغلاق المشغل عند بدء تشغيل اللعبة الرسمي</string>
     <string name="zh_setting_quit_launcher_title">إغلاق المشغل</string>
+    <string name="zh_setting_game_menu_show_memory_desc">عرض معلومات الذاكرة في الوقت الحقيقي على نافذة القائمة العائمة للعبة. اضغط باستمرار على نافذة القائمة العائمة للعبة للتبديل السريع لهذا الخيار.</string>
+    <string name="zh_setting_game_menu_show_memory_title">معلومات الذاكرة في الوقت الحقيقي</string>
+    <string name="zh_setting_game_menu_alpha_desc">تعيين شفافية نافذة القائمة العائمة للعبة.</string>
+    <string name="zh_setting_game_menu_alpha_title">شفافية النافذة العائمة</string>
     <string name="zh_setting_reboot_tip">تم تغيير هذا الإعداد، ولكن يلزم إعادة تشغيل التطبيق ليتم تفعيله!</string>
     <string name="zh_setting_zink_driver_adreno">اكتشف المشغل أن جهازك يحتوي على وحدة معالجة الرسوميات Adreno. قد يؤدي تمكين هذا الخيار إلى عدم عمل محرك Zink بشكل صحيح. هل أنت متأكد أنك تريد تمكين هذا الخيار؟</string>
     <!-- Game -->

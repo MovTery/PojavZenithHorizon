@@ -3,16 +3,23 @@ package com.movtery.pojavzh.ui.subassembly.view
 import android.app.Activity
 import android.view.View
 import android.widget.TextView
+import com.movtery.pojavzh.setting.AllSettings
+import com.movtery.pojavzh.setting.Settings
 import com.movtery.pojavzh.utils.file.FileTools.Companion.formatFileSize
 import com.movtery.pojavzh.utils.platform.MemoryUtils
+import com.petterp.floatingx.assist.FxGravity
+import com.petterp.floatingx.listener.IFxViewLifecycle
 import com.petterp.floatingx.util.createFx
+import com.petterp.floatingx.view.FxViewHolder
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
-import net.kdt.pojavlaunch.Tools.currentDisplayMetrics
 import java.util.Timer
 import java.util.TimerTask
 
-class GameMenuViewWrapper(private val activity: Activity, private val listener: View.OnClickListener) {
+class GameMenuViewWrapper(
+    private val activity: Activity,
+    private val listener: View.OnClickListener
+) {
     private var timer: Timer? = null
     private var showMemory: Boolean = false
 
@@ -21,18 +28,28 @@ class GameMenuViewWrapper(private val activity: Activity, private val listener: 
         setOnClickListener(0L, listener)
         setOnLongClickListener {
             showMemory = !showMemory
-            setShowMemory(showMemory)
+            Settings.Manager.put("gameMenuShowMemory", showMemory).save()
+            setShowMemory()
             true
         }
         setEnableEdgeAdsorption(false)
-        setX((currentDisplayMetrics.widthPixels / 2).toFloat())
-        setY((currentDisplayMetrics.heightPixels / 2).toFloat())
+        setGravity(FxGravity.CENTER)
+        addViewLifecycle(object : IFxViewLifecycle {
+            override fun initView(holder: FxViewHolder) {
+                holder.view.alpha = (AllSettings.gameMenuAlpha.toFloat() / 100f).toFloat()
+                showMemory = AllSettings.gameMenuShowMemory
+
+                holder.getView<TextView>(R.id.memory_text).apply {
+                    updateMemoryText(this)
+                }
+            }
+        })
         build().toControl(activity)
     }
 
     fun setVisibility(visible: Boolean) {
         if (visible) {
-            setShowMemory(showMemory)
+            setShowMemory()
             scopeFx.show()
         } else {
             scopeFx.hide()
@@ -40,13 +57,22 @@ class GameMenuViewWrapper(private val activity: Activity, private val listener: 
         }
     }
 
-    fun setShowMemory(show: Boolean) {
+    fun setShowMemory() {
         scopeFx.getView()?.findViewById<TextView>(R.id.memory_text)?.apply {
-            visibility = if (show) {
+            updateMemoryText(this)
+        }
+    }
+
+    private fun updateMemoryText(memoryText: TextView) {
+        memoryText.apply {
+            visibility = if (showMemory) {
                 timer = Timer()
                 timer?.schedule(object : TimerTask() {
                     override fun run() {
-                        val memoryText = "M: ${formatFileSize(MemoryUtils.getUsedDeviceMemory(activity))}/${formatFileSize(MemoryUtils.getTotalDeviceMemory(activity))}"
+                        val memoryText =
+                            "M: ${formatFileSize(MemoryUtils.getUsedDeviceMemory(activity))}/${
+                                formatFileSize(MemoryUtils.getTotalDeviceMemory(activity))
+                            }"
                         Tools.runOnUiThread {
                             text = memoryText
                         }

@@ -8,16 +8,16 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="@dimen/_12sdp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingVertical="@dimen/_12sdp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/custom_controls_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/_12sdp"
             android:background="@drawable/background_card"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/_12sdp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -144,9 +144,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
-            android:paddingVertical="@dimen/_12sdp"
             android:background="@drawable/background_card"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/_12sdp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -242,9 +242,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
-            android:paddingVertical="@dimen/_12sdp"
             android:background="@drawable/background_card"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/_12sdp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -411,9 +411,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
-            android:paddingVertical="@dimen/_12sdp"
             android:background="@drawable/background_card"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/_12sdp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -652,9 +652,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
-            android:paddingVertical="@dimen/_12sdp"
             android:background="@drawable/background_card"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/_12sdp">
 
             <TextView
                 android:layout_width="wrap_content"

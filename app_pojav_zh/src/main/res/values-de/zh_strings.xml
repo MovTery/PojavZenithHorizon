@@ -213,6 +213,7 @@
     <string name="zh_preference_category_personalization">Personalisierung</string>
     <string name="zh_preference_category_download">Download</string>
     <string name="zh_preference_category_launcher">Launcher</string>
+    <string name="zh_preference_category_game_menu">Spielmenü</string>
     <string name="zh_preference_category_experimental">Experimentell</string>
     <string name="zh_preference_category_experimental_patches">Experimentelle Patches</string>
     <string name="zh_setting_java_memory_desc">Steuert, wie viel Speicher Minecraft zugewiesen wird</string>
@@ -240,6 +241,10 @@
     <string name="zh_setting_page_opacity_desc">Legt die Opazität der Hauptseiten des Launchers fest</string>
     <string name="zh_setting_quit_launcher_desc">Legt fest, ob der Launcher beim Start des Spiels beendet werden soll</string>
     <string name="zh_setting_quit_launcher_title">Launcher beenden</string>
+    <string name="zh_setting_game_menu_show_memory_desc">Speicherinformationen in Echtzeit im Spielmenü-Floating-Fenster anzeigen. Halten Sie das Spielmenü-Floating-Fenster gedrückt, um diese Option schnell umzuschalten.</string>
+    <string name="zh_setting_game_menu_show_memory_title">Echtzeit-Speicherinformationen</string>
+    <string name="zh_setting_game_menu_alpha_desc">Die Opazität des Spielmenü-Floating-Fensters festlegen.</string>
+    <string name="zh_setting_game_menu_alpha_title">Opazität des Floating-Fensters</string>
     <string name="zh_setting_reboot_tip">Diese Einstellung wurde geändert, aber sie wird erst nach einem Neustart der Anwendung wirksam!</string>
     <string name="zh_setting_zink_driver_adreno">Der Launcher hat festgestellt, dass Ihr Gerät über eine Adreno-GPU verfügt. Das Aktivieren dieser Option kann dazu führen, dass der Zink-Renderer nicht richtig funktioniert. Sind Sie sicher, dass Sie diese Option aktivieren möchten?</string>
     <!-- Game -->

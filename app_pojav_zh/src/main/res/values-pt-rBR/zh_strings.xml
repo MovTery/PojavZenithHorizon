@@ -213,6 +213,7 @@
     <string name="zh_preference_category_personalization">Personalização</string>
     <string name="zh_preference_category_download">Download</string>
     <string name="zh_preference_category_launcher">Launcher</string>
+    <string name="zh_preference_category_game_menu">Menu do Jogo</string>
     <string name="zh_preference_category_experimental">Experimental</string>
     <string name="zh_preference_category_experimental_patches">Patches experimentais</string>
     <string name="zh_setting_java_memory_desc">Controla a quantidade de memória alocada para o Minecraft</string>
@@ -240,6 +241,10 @@
     <string name="zh_setting_page_opacity_desc">Defina a opacidade da página principal do lançador</string>
     <string name="zh_setting_quit_launcher_desc">Sair do launcher quando o aplicativo começar a executar o jogo</string>
     <string name="zh_setting_quit_launcher_title">Sair do Launcher</string>
+    <string name="zh_setting_game_menu_show_memory_desc">Exibir informações de memória em tempo real na janela flutuante do menu do jogo. Pressione longamente a janela flutuante do menu do jogo para alternar rapidamente esta opção.</string>
+    <string name="zh_setting_game_menu_show_memory_title">Informações de Memória em Tempo Real</string>
+    <string name="zh_setting_game_menu_alpha_desc">Definir a opacidade da janela flutuante do menu do jogo.</string>
+    <string name="zh_setting_game_menu_alpha_title">Opacidade da Janela Flutuante</string>
     <string name="zh_setting_reboot_tip">Esta configuração foi alterada, mas requer um reinício do aplicativo para entrar em vigor!</string>
     <string name="zh_setting_zink_driver_adreno">O launcher detectou que seu dispositivo possui uma GPU Adreno. Ativar esta opção pode fazer com que o renderizador Zink não funcione corretamente. Você tem certeza de que deseja ativar esta opção?</string>
     <!-- Game -->

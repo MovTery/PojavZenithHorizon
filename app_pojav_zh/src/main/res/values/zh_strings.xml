@@ -213,6 +213,7 @@
     <string name="zh_preference_category_personalization">Personalization</string>
     <string name="zh_preference_category_download">Download</string>
     <string name="zh_preference_category_launcher">Launcher</string>
+    <string name="zh_preference_category_game_menu">Game Menu</string>
     <string name="zh_preference_category_experimental">Experimental</string>
     <string name="zh_preference_category_experimental_patches">Experimental Patches</string>
     <string name="zh_setting_java_memory_desc">Control how much memory is allocated to Minecraft</string>
@@ -240,6 +241,10 @@
     <string name="zh_setting_page_opacity_desc">Set the opacity of the main page of the launcher</string>
     <string name="zh_setting_quit_launcher_desc">Should the launcher exit when the game officially begins running?</string>
     <string name="zh_setting_quit_launcher_title">Exit Launcher</string>
+    <string name="zh_setting_game_menu_show_memory_desc">Display memory information in real-time on the game menu floating window. Long-press the game menu floating window to quickly toggle this option.</string>
+    <string name="zh_setting_game_menu_show_memory_title">Real-time Memory Information</string>
+    <string name="zh_setting_game_menu_alpha_desc">Set the opacity of the game menu floating window.</string>
+    <string name="zh_setting_game_menu_alpha_title">Floating Window Opacity</string>
     <string name="zh_setting_reboot_tip">This setting has been changed, but requires the app to be restarted to take effect!</string>
     <string name="zh_setting_zink_driver_adreno">The launcher has detected that your device has an Adreno GPU. Enabling this option may cause the Zink renderer to not function properly. Are you sure you want to enable this option?</string>
     <!-- Game -->
