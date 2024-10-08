@@ -188,6 +188,26 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
         ) {
             UpdateLauncher.CheckDownloadedPackage(context, false)
         }
+
+        SwitchSettingsWrapper(
+            context,
+            "gameMenuShowMemory",
+            AllSettings.gameMenuShowMemory,
+            binding.gameMenuShowMemoryLayout,
+            binding.gameMenuShowMemory
+        )
+
+        SeekBarSettingsWrapper(
+            context,
+            "gameMenuAlpha",
+            AllSettings.gameMenuAlpha,
+            binding.gameMenuAlphaLayout,
+            binding.gameMenuAlphaTitle,
+            binding.gameMenuAlphaSummary,
+            binding.gameMenuAlphaValue,
+            binding.gameMenuAlpha,
+            "%"
+        )
     }
 
     override fun onChange() {

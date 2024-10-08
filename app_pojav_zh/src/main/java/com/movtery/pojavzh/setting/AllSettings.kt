@@ -112,6 +112,12 @@ class AllSettings {
         val quitLauncher: Boolean
             get() = Settings.Manager.getBoolean("quitLauncher", true)
 
+        val gameMenuShowMemory: Boolean
+            get() = Settings.Manager.getBoolean("gameMenuShowMemory", true)
+
+        val gameMenuAlpha: Int
+            get() = Settings.Manager.getInt("gameMenuAlpha", 100)
+
         // Miscellaneous
         val arcCapes: Boolean
             get() = Settings.Manager.getBoolean("arc_capes", false)

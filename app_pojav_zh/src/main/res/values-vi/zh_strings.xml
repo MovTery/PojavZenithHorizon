@@ -213,6 +213,7 @@
     <string name="zh_preference_category_personalization">Cá nhân hóa</string>
     <string name="zh_preference_category_download">Tải xuống</string>
     <string name="zh_preference_category_launcher">Trình khởi chạy</string>
+    <string name="zh_preference_category_game_menu">Menu trò chơi</string>
     <string name="zh_preference_category_experimental">Thử nghiệm</string>
     <string name="zh_preference_category_experimental_patches">Bản vá thử nghiệm</string>
     <string name="zh_setting_java_memory_desc">Kiểm soát bộ nhớ được phân bổ cho Minecraft</string>
@@ -240,6 +241,10 @@
     <string name="zh_setting_page_opacity_desc">Cài đặt độ mờ của trang chính của trình khởi động</string>
     <string name="zh_setting_quit_launcher_desc">Có thoát trình khởi chạy khi ứng dụng bắt đầu chạy trò chơi chính thức không</string>
     <string name="zh_setting_quit_launcher_title">Thoát khỏi trình khởi động</string>
+    <string name="zh_setting_game_menu_show_memory_desc">Hiển thị thông tin bộ nhớ theo thời gian thực trên cửa sổ nổi của menu trò chơi. Nhấn và giữ cửa sổ nổi của menu trò chơi để nhanh chóng bật hoặc tắt tùy chọn này.</string>
+    <string name="zh_setting_game_menu_show_memory_title">Thông Tin Bộ Nhớ Theo Thời Gian Thực</string>
+    <string name="zh_setting_game_menu_alpha_desc">Đặt độ mờ của cửa sổ nổi của menu trò chơi.</string>
+    <string name="zh_setting_game_menu_alpha_title">Độ Mờ Của Cửa Sổ Nổi</string>
     <string name="zh_setting_reboot_tip">Cài đặt này đã được thay đổi, nhưng cần khởi động lại ứng dụng để có hiệu lực!</string>
     <string name="zh_setting_zink_driver_adreno">Trình khởi chạy đã phát hiện rằng thiết bị của bạn có GPU Adreno. Bật tùy chọn này có thể khiến trình render Zink không hoạt động đúng cách. Bạn có chắc chắn muốn bật tùy chọn này không?</string>
     <!-- Game -->

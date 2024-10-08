@@ -8,16 +8,16 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="@dimen/_12sdp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingVertical="@dimen/_12sdp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/download_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_card"
-            android:paddingVertical="@dimen/_12sdp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/_12sdp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -146,9 +146,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
-            android:paddingVertical="@dimen/_12sdp"
             android:background="@drawable/background_card"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/_12sdp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -253,9 +253,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
-            android:paddingVertical="@dimen/_12sdp"
             android:background="@drawable/background_card"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/_12sdp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -446,9 +446,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
-            android:paddingVertical="@dimen/_12sdp"
             android:background="@drawable/background_card"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/_12sdp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -568,6 +568,104 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:text="@string/zh_update_summary" />
+            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/game_menu_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:background="@drawable/background_card"
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/_12sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:text="@string/zh_preference_category_game_menu"
+                android:textColor="@color/settings_category" />
+
+            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
+                android:id="@+id/gameMenuShowMemory_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="@dimen/_12sdp">
+
+                <TextView
+                    android:id="@+id/gameMenuShowMemory_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/zh_setting_game_menu_show_memory_title"
+                    android:textColor="@color/black_or_white" />
+
+                <TextView
+                    android:id="@+id/gameMenuShowMemory_summary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/gameMenuShowMemory_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/gameMenuShowMemory"
+                    android:text="@string/zh_setting_game_menu_show_memory_desc" />
+
+                <Switch
+                    android:id="@+id/gameMenuShowMemory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:checked="true" />
+            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
+
+            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
+                android:id="@+id/gameMenuAlpha_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground">
+
+                <TextView
+                    android:id="@+id/gameMenuAlpha_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:text="@string/zh_setting_game_menu_alpha_title"
+                    android:textColor="@color/black_or_white" />
+
+                <TextView
+                    android:id="@+id/gameMenuAlpha_summary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/gameMenuAlpha_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:text="@string/zh_setting_game_menu_alpha_desc" />
+
+                <SeekBar
+                    android:id="@+id/gameMenuAlpha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/gameMenuAlpha_value"
+                    android:layout_alignBottom="@+id/gameMenuAlpha_value"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/gameMenuAlpha_value"
+                    android:max="100"
+                    android:min="20" />
+
+                <TextView
+                    android:id="@+id/gameMenuAlpha_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/gameMenuAlpha_summary"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    tools:text="0" />
             </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
         </androidx.appcompat.widget.LinearLayoutCompat>

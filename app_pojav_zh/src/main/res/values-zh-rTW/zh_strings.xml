@@ -213,6 +213,7 @@
     <string name="zh_preference_category_personalization">個性化</string>
     <string name="zh_preference_category_download">下載</string>
     <string name="zh_preference_category_launcher">啟動器</string>
+    <string name="zh_preference_category_game_menu">遊戲菜單</string>
     <string name="zh_preference_category_experimental">實驗性</string>
     <string name="zh_preference_category_experimental_patches">實驗性的補丁</string>
     <string name="zh_setting_java_memory_desc">控制分配給 Minecraft 的記憶體大小</string>
@@ -240,6 +241,10 @@
     <string name="zh_setting_page_opacity_desc">設定啟動器主要頁面的不透明度</string>
     <string name="zh_setting_quit_launcher_desc">在應用正式開始運行遊戲時，是否退出啟動器</string>
     <string name="zh_setting_quit_launcher_title">退出啟動器</string>
+    <string name="zh_setting_game_menu_show_memory_desc">在遊戲菜單懸浮窗上實時顯示內存資訊，通過長按遊戲菜單懸浮窗，可以快捷開關此選項</string>
+    <string name="zh_setting_game_menu_show_memory_title">實時顯示內存資訊</string>
+    <string name="zh_setting_game_menu_alpha_desc">設定遊戲菜單懸浮窗的不透明度</string>
+    <string name="zh_setting_game_menu_alpha_title">懸浮窗不透明度</string>
     <string name="zh_setting_reboot_tip">這項設定已被更改，但是需要重新啟動應用程式才能生效！</string>
     <string name="zh_setting_zink_driver_adreno">啟動器檢測到你的設備為 Adreno GPU，開啟這個選項可能會導致 Zink 渲染器無法正常工作，你確定要打開這個選項嗎？</string>
     <!-- Game -->
