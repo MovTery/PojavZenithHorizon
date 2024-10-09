@@ -261,7 +261,10 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                 .setMax(300)
                 .setSuffix("%")
                 .setValue(AllSettings.Companion.getResolutionRatio())
-                .setOnSeekbarChangeListener(value -> binding.mainGameRenderView.refreshSize(value))
+                .setOnSeekbarChangeListener(value -> {
+                    binding.mainGameRenderView.refreshSize(value);
+                    binding.hotbarView.refreshScaleFactor(value / 100f);
+                })
                 .setOnSeekbarStopTrackingTouch(value -> Settings.Manager.Companion.put("resolutionRatio", value).save())
                 .buildDialog();
     }
