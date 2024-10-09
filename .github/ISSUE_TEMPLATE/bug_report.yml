@@ -80,7 +80,7 @@ body:
       description: |
         Which version of Pojav Zenith Horizon did you encounter this issue in? You can check this on the "About Pojav Zenith Horizon" page.
         遇到此问题的版本是？你可以在“关于 Pojav Zenith Horizon”页面内查看。
-      placeholder: 1.3.3
+      placeholder: 1.3.4
     validations:
       required: true
 
