@@ -42,6 +42,10 @@ class GameMenuViewWrapper(
                     updateMemoryText(this)
                 }
             }
+
+            override fun detached(view: View) {
+                cancelMemoryTimer()
+            }
         })
         setGravity(FxGravity.CENTER)
         build().toControl(activity)
