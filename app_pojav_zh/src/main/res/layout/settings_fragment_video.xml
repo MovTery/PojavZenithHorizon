@@ -115,9 +115,20 @@
                     android:layout_alignTop="@+id/resolutionRatio_value"
                     android:layout_alignBottom="@+id/resolutionRatio_value"
                     android:layout_alignParentStart="true"
-                    android:layout_toStartOf="@id/resolutionRatio_value"
+                    android:layout_toStartOf="@id/resolutionRatio_preview"
                     android:max="300"
                     android:min="25" />
+
+                <TextView
+                    android:id="@+id/resolutionRatio_preview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/resolutionRatio_summary"
+                    android:layout_toStartOf="@id/resolutionRatio_value"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:background="@drawable/background_text"
+                    tools:text="0 x 0" />
 
                 <TextView
                     android:id="@+id/resolutionRatio_value"
@@ -127,6 +138,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginVertical="@dimen/_8sdp"
                     android:layout_marginEnd="@dimen/_12sdp"
+                    android:background="@drawable/background_text"
                     tools:text="0" />
             </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
