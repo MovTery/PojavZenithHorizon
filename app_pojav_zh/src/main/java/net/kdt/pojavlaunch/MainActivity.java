@@ -9,7 +9,6 @@ import static org.lwjgl.glfw.CallbackBridge.windowWidth;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
@@ -26,14 +25,10 @@ import android.os.IBinder;
 import android.provider.DocumentsContract;
 import android.view.InputDevice;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -52,6 +47,7 @@ import com.movtery.pojavzh.ui.activity.BaseActivity;
 import com.movtery.pojavzh.ui.dialog.ControlSettingsDialog;
 import com.movtery.pojavzh.ui.dialog.KeyboardDialog;
 import com.movtery.pojavzh.ui.dialog.MouseSettingsDialog;
+import com.movtery.pojavzh.ui.dialog.SeekbarDialog;
 import com.movtery.pojavzh.ui.dialog.SelectControlsDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
@@ -215,9 +211,10 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                     case 1: openLogOutput(); break;
                     case 2: dialogSendCustomKey(); break;
                     case 3: adjustMouseSpeedLive(); break;
-                    case 4: adjustGyroSensitivityLive(); break;
-                    case 5: replacementCustomControls(); break;
-                    case 6: openCustomControls(); break;
+                    case 4: openResolutionAdjuster(); break;
+                    case 5: adjustGyroSensitivityLive(); break;
+                    case 6: replacementCustomControls(); break;
+                    case 7: openCustomControls(); break;
                 }
                 binding.mainDrawerOptions.closeDrawers();
             };
@@ -255,6 +252,18 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         } catch (Throwable e) {
             Tools.showError(this, e, true);
         }
+    }
+
+    private void openResolutionAdjuster() {
+        new SeekbarDialog.Builder(this)
+                .setTitle(R.string.mcl_setting_title_resolution_scaler)
+                .setMessage(R.string.mcl_setting_subtitle_resolution_scaler)
+                .setMax(300)
+                .setSuffix("%")
+                .setValue(AllSettings.Companion.getResolutionRatio())
+                .setOnSeekbarChangeListener(value -> binding.mainGameRenderView.refreshSize(value))
+                .setOnSeekbarStopTrackingTouch(value -> Settings.Manager.Companion.put("resolutionRatio", value).save())
+                .buildDialog();
     }
 
     private void loadControls() {
@@ -473,43 +482,18 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         }, () -> binding.mainTouchpad.updateMouseDrawable()).show();
     }
 
-    int tmpGyroSensitivity;
     public void adjustGyroSensitivityLive() {
         if(!AllSettings.Companion.getEnableGyro()) {
             Toast.makeText(this, R.string.toast_turn_on_gyro, Toast.LENGTH_LONG).show();
             return;
         }
-        AlertDialog.Builder b = new AlertDialog.Builder(this);
-        b.setTitle(R.string.preference_gyro_sensitivity_title);
-        View v = LayoutInflater.from(this).inflate(R.layout.dialog_live_mouse_speed_editor,null);
-        final SeekBar sb = v.findViewById(R.id.mouseSpeed);
-        final TextView tv = v.findViewById(R.id.mouseSpeedTV);
-        sb.setMax(275);
-        tmpGyroSensitivity = (int) (AllSettings.Companion.getGyroSensitivity() * 100);
-        sb.setProgress(tmpGyroSensitivity -25);
-        tv.setText(getString(R.string.percent_format, tmpGyroSensitivity));
-        sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                tmpGyroSensitivity = i+25;
-                tv.setText(getString(R.string.percent_format, tmpGyroSensitivity));
-            }
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {}
-        });
-        b.setView(v);
-        b.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
-            Settings.Manager.Companion.put("gyroSensitivity", tmpGyroSensitivity).save();
-            dialogInterface.dismiss();
-            System.gc();
-        });
-        b.setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> {
-            dialogInterface.dismiss();
-            System.gc();
-        });
-        b.show();
+        new SeekbarDialog.Builder(this)
+                .setTitle(R.string.preference_gyro_sensitivity_title)
+                .setMax(300)
+                .setValue((int) (AllSettings.Companion.getGyroSensitivity() * 100))
+                .setSuffix("%")
+                .setOnSeekbarStopTrackingTouch(value -> Settings.Manager.Companion.put("gyroSensitivity", value).save())
+                .buildDialog();
     }
 
     private static void setUri(Context context, String input) {

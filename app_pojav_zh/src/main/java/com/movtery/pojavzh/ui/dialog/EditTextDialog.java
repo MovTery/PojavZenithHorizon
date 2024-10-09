@@ -88,8 +88,7 @@ public class EditTextDialog extends FullScreenDialog implements DraggableDialog.
         }
 
         public Builder setTitle(int title) {
-            this.title = context.getString(title);
-            return this;
+            return setTitle(context.getString(title));
         }
 
         public Builder setMessage(String message) {
@@ -98,8 +97,7 @@ public class EditTextDialog extends FullScreenDialog implements DraggableDialog.
         }
 
         public Builder setMessage(int message) {
-            this.message = context.getString(message);
-            return this;
+            return setMessage(context.getString(message));
         }
 
         public Builder setEditText(String editText) {
