@@ -314,8 +314,8 @@ public class Gamepad implements GrabListener, GamepadHandler {
 
     /** Place the pointer on the screen, offsetting the image size */
     private void placePointerView(int x, int y){
-        mPointerImageView.setX(x - mPointerImageView.getWidth()/2f);
-        mPointerImageView.setY(y - mPointerImageView.getHeight()/2f);
+        mPointerImageView.setX(x);
+        mPointerImageView.setY(y);
     }
 
     /** Update the grabbing state, and change the currentMap, mouse position and sensibility */
