@@ -14,12 +14,12 @@ public class AndroidPointerCapture implements ViewTreeObserver.OnWindowFocusChan
     private static final float TOUCHPAD_SCROLL_THRESHOLD = 1;
     private final AbstractTouchpad mTouchpad;
     private final View mHostView;
-    private final float mScaleFactor;
     private final float mMousePrescale = Tools.dpToPx(1);
     private final PointerTracker mPointerTracker = new PointerTracker();
     private final Scroller mScroller = new Scroller(TOUCHPAD_SCROLL_THRESHOLD);
     private final float[] mVector = mPointerTracker.getMotionVector();
 
+    private float mScaleFactor;
     private int mInputDeviceIdentifier;
     private boolean mDeviceSupportsRelativeAxis;
 
@@ -29,6 +29,11 @@ public class AndroidPointerCapture implements ViewTreeObserver.OnWindowFocusChan
         this.mHostView = hostView;
         hostView.setOnCapturedPointerListener(this);
         hostView.getViewTreeObserver().addOnWindowFocusChangeListener(this);
+    }
+
+    public void refreshScaleFactor(float scaleFactor) {
+        this.mScaleFactor = scaleFactor;
+        this.mTouchpad.refreshScaleFactor(scaleFactor);
     }
 
     private void enableTouchpadIfNecessary() {

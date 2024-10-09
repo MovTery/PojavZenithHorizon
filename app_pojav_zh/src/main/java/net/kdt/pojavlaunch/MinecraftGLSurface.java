@@ -93,6 +93,9 @@ public class MinecraftGLSurface extends View implements GrabListener {
 
     public void refreshSize(int value) {
         mScaleFactor = value / 100f;
+        mInGUIProcessor.refreshScaleFactor(mScaleFactor);
+        if (mPointerCapture != null) mPointerCapture.refreshScaleFactor(mScaleFactor);
+        if (mGamepad != null) mGamepad.refreshScaleFactor(mScaleFactor);
         refreshSize();
     }
 

@@ -75,6 +75,7 @@
                 tools:ignore="TouchTargetSizeCheck" />
 
             <net.kdt.pojavlaunch.customcontrols.mouse.HotbarView
+                android:id="@+id/hotbar_view"
                 android:layout_width="0px"
                 android:layout_height="0px" />
 

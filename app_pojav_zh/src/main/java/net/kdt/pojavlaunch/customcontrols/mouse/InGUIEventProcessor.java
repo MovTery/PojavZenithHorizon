@@ -18,12 +18,16 @@ public class InGUIEventProcessor implements TouchEventProcessor {
     private AbstractTouchpad mTouchpad;
     private boolean mIsMouseDown = false;
     private float mStartX, mStartY;
-    private final float mScaleFactor;
     private final Scroller mScroller = new Scroller(FINGER_SCROLL_THRESHOLD);
+    private float mScaleFactor;
 
     public InGUIEventProcessor(float scaleFactor) {
         mSingleTapDetector = new TapDetector(1, TapDetector.DETECTION_METHOD_BOTH);
         mScaleFactor = scaleFactor;
+    }
+
+    public void refreshScaleFactor(float scaleFactor) {
+        this.mScaleFactor = scaleFactor;
     }
 
     @Override

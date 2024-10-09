@@ -51,7 +51,7 @@ import fr.spse.gamepad_remapper.Settings;
 public class Gamepad implements GrabListener, GamepadHandler {
 
     /* Resolution scaler option, allow downsizing a window */
-    private final float mScaleFactor = AllSettings.Companion.getResolutionRatio() / 100f;
+    private float mScaleFactor = AllSettings.Companion.getResolutionRatio() / 100f;
 
     /* Sensitivity, adjusted according to screen size */
     private final double mSensitivityFactor = (1.4 * (1080f/ currentDisplayMetrics.heightPixels));
@@ -132,6 +132,9 @@ public class Gamepad implements GrabListener, GamepadHandler {
         mMapProvider.attachGrabListener(this);
     }
 
+    public void refreshScaleFactor(float scaleFactor) {
+        this.mScaleFactor = scaleFactor;
+    }
 
     public void reloadGamepadMaps() {
         if(mGameMap != null) mGameMap.resetPressedState();
