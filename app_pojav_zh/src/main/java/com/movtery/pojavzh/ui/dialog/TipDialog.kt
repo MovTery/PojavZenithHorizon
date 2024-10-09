@@ -105,8 +105,7 @@ class TipDialog private constructor(
         }
 
         fun setTitle(title: Int): Builder {
-            this.title = context.getString(title)
-            return this
+            return setTitle(context.getString(title))
         }
 
         fun setMessage(message: String?): Builder {
@@ -115,8 +114,7 @@ class TipDialog private constructor(
         }
 
         fun setMessage(message: Int): Builder {
-            this.message = context.getString(message)
-            return this
+            return setMessage(context.getString(message))
         }
 
         fun setCancel(cancel: String?): Builder {
@@ -125,8 +123,7 @@ class TipDialog private constructor(
         }
 
         fun setCancel(cancel: Int): Builder {
-            this.cancel = context.getString(cancel)
-            return this
+            return setCancel(context.getString(cancel))
         }
 
         fun setConfirm(confirm: String?): Builder {
@@ -135,8 +132,7 @@ class TipDialog private constructor(
         }
 
         fun setConfirm(confirm: Int): Builder {
-            this.confirm = context.getString(confirm)
-            return this
+            return setConfirm(context.getString(confirm))
         }
 
         fun addView(view: View): Builder {
