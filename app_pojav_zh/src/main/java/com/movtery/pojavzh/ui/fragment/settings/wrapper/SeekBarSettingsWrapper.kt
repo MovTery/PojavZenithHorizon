@@ -27,6 +27,7 @@ class SeekBarSettingsWrapper(
     val suffix: String,
     onStartListener: OnStartInit?
 ) : AbstractSettingsWrapper(mainView) {
+    private var listener: OnSeekBarProgressChangeListener? = null
 
     constructor(
         context: Context,
@@ -60,6 +61,7 @@ class SeekBarSettingsWrapper(
 
         seekbarView.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                listener?.onChange(progress)
                 Settings.Manager.put(key, progress).save()
                 setSeekBarValueTextView()
                 checkShowRebootDialog(context)
@@ -121,8 +123,16 @@ class SeekBarSettingsWrapper(
         valueView.text = text
     }
 
+    fun setOnSeekBarProgressChangeListener(listener: OnSeekBarProgressChangeListener) {
+        this.listener = listener
+    }
+
     //部分场景需要在seekbar被包装前，完成一些操作，比如动态调整最大值或最小值
     fun interface OnStartInit {
         fun onStart(wrapper: SeekBarSettingsWrapper)
+    }
+
+    fun interface OnSeekBarProgressChangeListener {
+        fun onChange(progress: Int)
     }
 }
