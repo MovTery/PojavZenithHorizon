@@ -113,7 +113,7 @@ public final class ZHTools {
                 .commit();
     }
 
-    public static void killApp() {
+    public static void killProcess() {
         android.os.Process.killProcess(android.os.Process.myPid());
     }
 
