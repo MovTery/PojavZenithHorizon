@@ -1,6 +1,7 @@
 package com.movtery.pojavzh.feature.mod.modloader
 
 import android.content.Intent
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome
 import net.kdt.pojavlaunch.JavaGUILauncherActivity
 import net.kdt.pojavlaunch.modloaders.ForgeVersionListHandler
 import net.kdt.pojavlaunch.utils.DownloadUtils
@@ -70,8 +71,9 @@ class NeoForgeUtils {
 
         @JvmStatic
         fun addAutoInstallArgs(intent: Intent, modInstallerJar: File) {
-            intent.putExtra("javaArgs", "-jar " + modInstallerJar.absolutePath)
+            intent.putExtra("javaArgs", "-jar " + modInstallerJar.absolutePath + " --installClient " + ProfilePathHome.gameHome)
             intent.putExtra(JavaGUILauncherActivity.SUBSCRIBE_JVM_EXIT_EVENT, true)
+            intent.putExtra(JavaGUILauncherActivity.FORCE_SHOW_LOG, true)
         }
 
         @JvmStatic
