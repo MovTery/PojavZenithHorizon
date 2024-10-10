@@ -223,11 +223,10 @@
     <string name="preference_force_big_core_title">强制渲染器在大核上运行</string>
     <string name="preference_force_big_core_desc">强制 Minecraft 渲染线程在最高频率的核心运行</string>
     <string name="version_select_hint">选择版本</string>
-    <string name="forge_dl_progress">正在下载 %s 的安装程序</string>
+    <string name="modloader_dl_progress">正在下载 %s 的安装程序</string>
     <string name="forge_dl_searching">正在搜索 Forge 版本号</string>
     <string name="modloader_dl_failed_to_load_list">加载版本列表失败！</string>
     <string name="forge_dl_no_installer">抱歉，此版本的 Forge 没有安装程序，尚不支持</string>
-    <string name="fabric_dl_progress">正在下载 %s 加载器元数据</string>
     <string name="fabric_dl_cant_read_meta">读取 %s 加载器元数据失败，请稍后再试</string>
     <string name="modloader_dl_install_fabric">创建 Fabric 实例</string>
     <string name="modloader_dl_install_quilt">创建 Quilt 实例</string>

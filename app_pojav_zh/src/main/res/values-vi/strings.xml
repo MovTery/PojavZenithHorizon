@@ -196,11 +196,10 @@
     <string name="preference_force_big_core_title">Buộc trình kết xuất chạy trên lõi lớn</string>
     <string name="preference_force_big_core_desc">Buộc luồng kết xuất Minecraft chạy trên lõi có tần số cao nhất</string>
     <string name="version_select_hint">Chọn phiên bản</string>
-    <string name="forge_dl_progress">Đang tải xuống trình cài đặt cho %s</string>
+    <string name="modloader_dl_progress">Đang tải xuống trình cài đặt cho %s</string>
     <string name="forge_dl_searching">Đang tìm kiếm số phiên bản Forge</string>
     <string name="modloader_dl_failed_to_load_list">Không thể tải danh sách phiên bản!</string>
     <string name="forge_dl_no_installer">Xin lỗi, phiên bản Forge này không có trình cài đặt, chưa được hỗ trợ</string>
-    <string name="fabric_dl_progress">Đang tải xuống siêu dữ liệu trình nạp %s</string>
     <string name="fabric_dl_cant_read_meta">Không thể đọc siêu dữ liệu trình nạp %s, vui lòng thử lại sau</string>
     <string name="modloader_dl_install_fabric">Tạo hồ sơ Fabric</string>
     <string name="modloader_dl_install_quilt">Tạo hồ sơ Quilt</string>

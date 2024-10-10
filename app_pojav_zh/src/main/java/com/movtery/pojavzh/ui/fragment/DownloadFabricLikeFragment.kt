@@ -1,13 +1,16 @@
 package com.movtery.pojavzh.ui.fragment
 
+import android.content.Intent
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.movtery.pojavzh.feature.log.Logging.e
 import com.movtery.pojavzh.feature.mod.modloader.ModVersionListAdapter
+import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog
 import com.movtery.pojavzh.ui.subassembly.modlist.ModListAdapter
 import com.movtery.pojavzh.ui.subassembly.modlist.ModListFragment
 import com.movtery.pojavzh.ui.subassembly.modlist.ModListItemBean
 import com.movtery.pojavzh.utils.MCVersionRegex
+import net.kdt.pojavlaunch.JavaGUILauncherActivity
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
@@ -22,6 +25,8 @@ import java.util.concurrent.Future
 
 abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: Int) : ModListFragment(), ModloaderDownloadListener {
     private val modloaderListenerProxy = ModloaderListenerProxy()
+    private var selectedGameVersion: String = ""
+    private var selectedLoaderVersion: String = ""
 
     override fun init() {
         setIcon(ContextCompat.getDrawable(fragmentActivity!!, icon))
@@ -97,11 +102,9 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
                 //为整理好的Fabric版本设置Adapter
                 val adapter = ModVersionListAdapter(modloaderListenerProxy, this, icon, loaderVersions)
                 adapter.setOnItemClickListener { version ->
-                    val fabricVersion = version as FabricVersion
-                    Thread(
-                        FabriclikeDownloadTask(modloaderListenerProxy, utils,
-                            gameVersion, fabricVersion.version, true)
-                    ).start()
+                    selectedGameVersion = gameVersion
+                    selectedLoaderVersion = (version as FabricVersion).version
+                    Thread(FabriclikeDownloadTask(modloaderListenerProxy, utils)).start()
                 }
 
                 mData.add(ModListItemBean("Minecraft $gameVersion", adapter))
@@ -129,10 +132,19 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
         }
     }
 
-    override fun onDownloadFinished(downloadedFile: File?) {
+    override fun onDownloadFinished(downloadedFile: File) {
         Tools.runOnUiThread {
-            modloaderListenerProxy.detachListener()
-            Tools.backToMainMenu(fragmentActivity!!)
+            val modInstallerStartIntent = Intent(fragmentActivity!!, JavaGUILauncherActivity::class.java)
+            utils.addAutoInstallArgs(modInstallerStartIntent, selectedGameVersion, selectedLoaderVersion, downloadedFile)
+            val selectRuntimeDialog = SelectRuntimeDialog(fragmentActivity!!)
+            selectRuntimeDialog.setListener { jreName: String? ->
+                modloaderListenerProxy.detachListener()
+                modInstallerStartIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
+                selectRuntimeDialog.dismiss()
+                Tools.backToMainMenu(fragmentActivity!!)
+                fragmentActivity?.startActivity(modInstallerStartIntent)
+            }
+            selectRuntimeDialog.show()
         }
     }
 

@@ -28,6 +28,7 @@ public class LoggerView extends ConstraintLayout {
     private ToggleButton mLogToggle;
     private DefocusableScrollView mScrollView;
     private TextView mLogTextView;
+    private ImageButton mCancelButton;
     private boolean isShowing = false;
 
     public LoggerView(@NonNull Context context) {
@@ -58,6 +59,15 @@ public class LoggerView extends ConstraintLayout {
     }
 
     /**
+     * 强制展示日志
+     */
+    public void forceShow() {
+        setVisibilityWithAnim(true);
+        mCancelButton.setVisibility(View.GONE);
+        mLogToggle.setVisibility(View.GONE);
+    }
+
+    /**
      * Inflate the layout, and add component behaviors
      */
     private void init(){
@@ -85,8 +95,8 @@ public class LoggerView extends ConstraintLayout {
         mLogToggle.setChecked(false);
 
         // Remove the loggerView from the user View
-        ImageButton cancelButton = findViewById(R.id.log_view_cancel);
-        cancelButton.setOnClickListener(view -> setVisibilityWithAnim(false));
+        mCancelButton = findViewById(R.id.log_view_cancel);
+        mCancelButton.setOnClickListener(view -> setVisibilityWithAnim(false));
 
         // Set the scroll view
         mScrollView = findViewById(R.id.content_log_scroll);

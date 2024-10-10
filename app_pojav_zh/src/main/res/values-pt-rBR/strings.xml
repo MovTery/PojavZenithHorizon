@@ -196,11 +196,10 @@
     <string name="preference_force_big_core_title">Forçar renderizador a rodar no núcleo grande</string>
     <string name="preference_force_big_core_desc">Forçar o thread de renderização do Minecraft a rodar no núcleo de maior frequência</string>
     <string name="version_select_hint">Selecionar versão</string>
-    <string name="forge_dl_progress">Baixando instalador para %s</string>
+    <string name="modloader_dl_progress">Baixando instalador para %s</string>
     <string name="forge_dl_searching">Procurando número de versão do Forge</string>
     <string name="modloader_dl_failed_to_load_list">Falha ao carregar lista de versões!</string>
     <string name="forge_dl_no_installer">Desculpe, esta versão do Forge não possui um instalador, ainda não é suportada</string>
-    <string name="fabric_dl_progress">Baixando metadados do carregador %s</string>
     <string name="fabric_dl_cant_read_meta">Falha ao ler metadados do carregador %s, por favor, tente novamente mais tarde</string>
     <string name="modloader_dl_install_fabric">Criar instância Fabric</string>
     <string name="modloader_dl_install_quilt">Criar instância Quilt</string>

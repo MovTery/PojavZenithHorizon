@@ -196,11 +196,10 @@
     <string name="preference_force_big_core_title">إجبار عارض الرسوميات على تشغيل النواة الكبيرة</string>
     <string name="preference_force_big_core_desc">يجبر عارض رسوميات Minecraft للعمل على نواة ذات التردد الأعلى على اقصى تردد لها.</string>
     <string name="version_select_hint">إختر إصدار</string>
-    <string name="forge_dl_progress">تنزيل المثبت لـ%s</string>
+    <string name="modloader_dl_progress">تنزيل المثبت لـ%s</string>
     <string name="forge_dl_searching">البحث عن رقم إصدار Forge</string>
     <string name="modloader_dl_failed_to_load_list">فشل تحميل قائمة الإصدارات!</string>
     <string name="forge_dl_no_installer">عذراً، لكن هذا الإصدار من Forge لا يحتوي على مثبت، الذي لم يتم دعمه بعد.</string>
-    <string name="fabric_dl_progress">تنزيل البيانات التعريفية لمحمل %s</string>
     <string name="fabric_dl_cant_read_meta">فشل قراءة البيانات التعريفية ل%s. الرجاء المحاولة في وقت لاحق.</string>
     <string name="modloader_dl_install_fabric">إنشاء ملف شخصي جديد لFabric</string>
     <string name="modloader_dl_install_quilt">إنشاء ملف شخصي جديد لQuilt</string>

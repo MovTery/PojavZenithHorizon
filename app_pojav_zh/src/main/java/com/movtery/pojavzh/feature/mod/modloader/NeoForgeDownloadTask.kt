@@ -47,7 +47,7 @@ class NeoForgeDownloadTask(listener: ModloaderDownloadListener, neoforgeVersion:
         ProgressKeeper.submitProgress(
             ProgressLayout.INSTALL_MODPACK,
             progress100,
-            R.string.forge_dl_progress,
+            R.string.modloader_dl_progress,
             mLoaderVersion
         )
     }
@@ -56,7 +56,7 @@ class NeoForgeDownloadTask(listener: ModloaderDownloadListener, neoforgeVersion:
         ProgressKeeper.submitProgress(
             ProgressLayout.INSTALL_MODPACK,
             0,
-            R.string.forge_dl_progress,
+            R.string.modloader_dl_progress,
             mLoaderVersion
         )
         try {
@@ -64,7 +64,7 @@ class NeoForgeDownloadTask(listener: ModloaderDownloadListener, neoforgeVersion:
             val buffer = ByteArray(8192)
             DownloadUtils.downloadFileMonitored(mDownloadUrl, destinationFile, buffer, this)
             mListener.onDownloadFinished(destinationFile)
-        } catch (e: FileNotFoundException) {
+        } catch (_: FileNotFoundException) {
             mListener.onDataNotAvailable()
         } catch (e: IOException) {
             mListener.onDownloadError(e)

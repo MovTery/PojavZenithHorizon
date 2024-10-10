@@ -130,6 +130,6 @@ public class ModLoader {
     }
 
     private FabriclikeDownloadTask createFabriclikeTask(ModloaderDownloadListener modloaderDownloadListener, FabriclikeUtils utils) {
-        return new FabriclikeDownloadTask(modloaderDownloadListener, utils, minecraftVersion, modLoaderVersion, false);
+        return new FabriclikeDownloadTask(modloaderDownloadListener, utils);
     }
 }

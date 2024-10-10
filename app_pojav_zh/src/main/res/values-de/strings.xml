@@ -196,11 +196,10 @@
     <string name="preference_force_big_core_title">Erzwinge die Ausführung des Renderers auf dem großen Kern</string>
     <string name="preference_force_big_core_desc">Erzwingt, dass der Minecraft-Render-Thread auf dem Kern mit der höchsten maximalen Frequenz ausgeführt wird.</string>
     <string name="version_select_hint">Wähle eine Version</string>
-    <string name="forge_dl_progress">Installationsprogramm für %s wird heruntergeladen</string>
+    <string name="modloader_dl_progress">Installationsprogramm für %s wird heruntergeladen</string>
     <string name="forge_dl_searching">Suche nach Forge-Versionsnummer</string>
     <string name="modloader_dl_failed_to_load_list">Fehler beim Laden der Versionsliste!</string>
     <string name="forge_dl_no_installer">Leider hat diese Version von Forge kein Installationsprogramm, das noch nicht unterstützt wird.</string>
-    <string name="fabric_dl_progress">%s Loader-Metadaten werden heruntergeladen</string>
     <string name="fabric_dl_cant_read_meta">Fehler beim Lesen der %s Loader-Metadaten. Bitte versuche es später erneut.</string>
     <string name="modloader_dl_install_fabric">Fabric-Profil erstellen</string>
     <string name="modloader_dl_install_quilt">Quilt-Profil erstellen</string>
