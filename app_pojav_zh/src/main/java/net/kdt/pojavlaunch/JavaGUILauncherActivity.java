@@ -66,7 +66,6 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
 
     private boolean mIsVirtualMouseEnabled;
     private boolean mSubscribeJvmExitEvent;
-    private boolean mForceShowLog;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -209,7 +208,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
 
     @Subscribe()
     public void onJvmExitEvent(JvmExitEvent event) {
-        if (mSubscribeJvmExitEvent && event.getExitCode() == 0) {
+        if (mSubscribeJvmExitEvent) {
             finish();
         }
     }
