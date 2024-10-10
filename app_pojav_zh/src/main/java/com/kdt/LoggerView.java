@@ -64,7 +64,6 @@ public class LoggerView extends ConstraintLayout {
     public void forceShow(OnCloseClickListener listener) {
         setVisibilityWithAnim(true);
         mCancelButton.setOnClickListener(v -> listener.onClick());
-        mLogToggle.setVisibility(View.GONE);
     }
 
     /**
