@@ -48,14 +48,42 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_8sdp">
 
+        <TextView
+            android:id="@+id/remove"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_horizontal"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:text="-"
+            android:textSize="@dimen/_16sdp"
+            tools:ignore="HardcodedText" />
+
         <SeekBar
             android:id="@+id/seekbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_centerVertical="true"
-            android:layout_alignParentStart="true"
-            android:layout_toStartOf="@id/seekbar_some_preview"/>
+            android:layout_toEndOf="@id/remove"
+            android:layout_toStartOf="@id/add"/>
+
+        <TextView
+            android:id="@+id/add"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/seekbar_some_preview"
+            android:gravity="center_horizontal"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:text="+"
+            android:textSize="@dimen/_16sdp"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/seekbar_some_preview"

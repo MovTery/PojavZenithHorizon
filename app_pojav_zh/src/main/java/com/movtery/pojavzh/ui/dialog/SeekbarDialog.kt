@@ -52,9 +52,18 @@ class SeekbarDialog(
                 }
 
                 override fun onStopTrackingTouch(seekBar: SeekBar) {
-                    stopListener?.onStop(seekBar.progress)
+                    stopListener?.onStop(progress)
                 }
             })
+
+            binding.remove.setOnClickListener {
+                progress = (progress - 1).coerceAtLeast(min)
+                stopListener?.onStop(progress)
+            }
+            binding.add.setOnClickListener {
+                progress = (progress + 1).coerceAtMost(max)
+                stopListener?.onStop(progress)
+            }
         }
 
         binding.confirmButton.setOnClickListener { this.dismiss() }
