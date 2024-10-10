@@ -86,7 +86,6 @@ import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.io.IOException;
@@ -160,7 +159,7 @@ public class LauncherActivity extends BaseActivity {
         return getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT || super.shouldIgnoreNotch();
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe()
     public void onAccountUpdate(AccountUpdateEvent event) {
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             if (fragment instanceof AccountUpdateListener) {
@@ -170,17 +169,17 @@ public class LauncherActivity extends BaseActivity {
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe()
     public void onPageOpacityChange(PageOpacityChangeEvent event) {
         setPageOpacity();
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe()
     public void onPageOpacityChange(MainBackgroundChangeEvent event) {
         refreshBackground();
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe()
     public void onSelectAuthMethod(SelectAuthMethodEvent event) {
         Fragment fragment = getSupportFragmentManager().findFragmentById(mFragmentView.getId());
         // Allow starting the add account only from the main menu, should it be moved to fragment itself ?
@@ -188,7 +187,7 @@ public class LauncherActivity extends BaseActivity {
         ZHTools.swapFragmentWithAnim(fragment, SelectAuthFragment.class, SelectAuthFragment.TAG, null);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe()
     public void onLaunchGameEvent(LaunchGameEvent event) {
         if (mProgressLayout.hasProcesses()) {
             Toast.makeText(this, R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
@@ -231,13 +230,13 @@ public class LauncherActivity extends BaseActivity {
         });
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe()
     public void onMicrosoftLogin(MicrosoftLoginEvent event) {
         new MicrosoftBackgroundLogin(false, event.getUri().getQueryParameter("code")).performLogin(
                 accountsManager.getProgressListener(), accountsManager.getDoneListener(), accountsManager.getErrorListener());
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe()
     public void onOtherLogin(OtherLoginEvent event) {
         try {
             event.getAccount().save();
@@ -248,7 +247,7 @@ public class LauncherActivity extends BaseActivity {
         accountsManager.getDoneListener().onLoginDone(event.getAccount());
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe()
     public void onLocalLogin(LocalLoginEvent event) {
         String userName = event.getUserName();
         MinecraftAccount localAccount = new MinecraftAccount();
@@ -263,7 +262,7 @@ public class LauncherActivity extends BaseActivity {
         accountsManager.getDoneListener().onLoginDone(localAccount);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe()
     public void onInstallLocalModpack(InstallLocalModpackEvent event) {
         InstallExtra installExtra = event.getInstallExtra();
         if (!installExtra.startInstall) return;

@@ -6,10 +6,9 @@ import com.movtery.pojavzh.event.single.SettingsChangeEvent
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 
 abstract class AbstractSettingsFragment(layoutId: Int) : Fragment(layoutId) {
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe()
     fun onSettingsChange(event: SettingsChangeEvent) {
         onChange()
     }
