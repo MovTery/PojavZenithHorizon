@@ -158,7 +158,9 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
             binding.pageOpacityValue,
             binding.pageOpacity,
             "%"
-        )
+        ).setOnSeekBarProgressChangeListener {
+            EventBus.getDefault().post(PageOpacityChangeEvent())
+        }
 
         SwitchSettingsWrapper(
             context,
@@ -216,10 +218,5 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
             binding.gameMenuAlpha,
             "%"
         )
-    }
-
-    override fun onChange() {
-        super.onChange()
-        EventBus.getDefault().post(PageOpacityChangeEvent())
     }
 }

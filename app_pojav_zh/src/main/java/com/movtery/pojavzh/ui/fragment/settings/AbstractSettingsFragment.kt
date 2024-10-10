@@ -2,24 +2,30 @@ package com.movtery.pojavzh.ui.fragment.settings
 
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
-import com.movtery.pojavzh.setting.OnSettingsChangeListener
-import com.movtery.pojavzh.setting.Settings
+import com.movtery.pojavzh.event.single.SettingsChangeEvent
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
-abstract class AbstractSettingsFragment(layoutId: Int) : Fragment(layoutId),
-    OnSettingsChangeListener {
-    override fun onResume() {
-        super.onResume()
-        Settings.Manager.addListener(this)
+abstract class AbstractSettingsFragment(layoutId: Int) : Fragment(layoutId) {
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onSettingsChange(event: SettingsChangeEvent) {
+        onChange()
     }
 
-    override fun onPause() {
-        super.onPause()
-        Settings.Manager.removeListener(this)
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
     }
 
     @CallSuper
-    override fun onChange() {
+    protected open fun onChange() {
         LauncherPreferences.loadPreferences(context)
     }
 }
