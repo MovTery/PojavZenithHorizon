@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:ignore="HardcodedText,NestedWeights,TooManyViews,ContentDescription">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,9 +18,9 @@
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="340dp"
-                android:scrollbars="none"
                 android:paddingHorizontal="@dimen/_12sdp"
-                android:paddingVertical="@dimen/_8sdp">
+                android:paddingVertical="@dimen/_8sdp"
+                android:scrollbars="none">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
@@ -48,104 +49,106 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="Esc"
-                                tools:ignore="HardcodedText,NestedWeights" />
+                                android:text="Esc" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_f1"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="F1"
-                                tools:ignore="HardcodedText" />
+                                android:text="F1" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_f2"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="F2"
-                                tools:ignore="HardcodedText" />
+                                android:text="F2" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_f3"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="F3"
-                                tools:ignore="HardcodedText" />
+                                android:text="F3" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_f4"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="F4"
-                                tools:ignore="HardcodedText" />
+                                android:text="F4" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_f5"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="F5"
-                                tools:ignore="HardcodedText" />
+                                android:text="F5" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_f6"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="F6"
-                                tools:ignore="HardcodedText" />
+                                android:text="F6" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_f7"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="F7"
-                                tools:ignore="HardcodedText" />
+                                android:text="F7" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_f8"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="F8"
-                                tools:ignore="HardcodedText" />
+                                android:text="F8" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_f9"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="F9"
-                                tools:ignore="HardcodedText" />
+                                android:text="F9" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_f10"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="F10"
-                                tools:ignore="HardcodedText" />
+                                android:text="F10" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_f11"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="F11"
-                                tools:ignore="HardcodedText" />
+                                android:text="F11" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_f12"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="F12"
-                                tools:ignore="HardcodedText" />
+                                android:text="F12" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -159,112 +162,98 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="~\n`"
-                                tools:ignore="HardcodedText,NestedWeights" />
+                                android:text="~\n`" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_1"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="!\n1"
-                                tools:ignore="HardcodedText" />
+                                android:text="!\n1" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_2"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="\@\n2"
-                                tools:ignore="HardcodedText" />
+                                android:text="\@\n2" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_3"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="#\n3"
-                                tools:ignore="HardcodedText" />
+                                android:text="#\n3" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_4"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="$\n4"
-                                tools:ignore="HardcodedText" />
+                                android:text="$\n4" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_5"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="%\n5"
-                                tools:ignore="HardcodedText" />
+                                android:text="%\n5" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_6"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="^\n6"
-                                tools:ignore="HardcodedText" />
+                                android:text="^\n6" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_7"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="&amp;\n7"
-                                tools:ignore="HardcodedText" />
+                                android:text="&amp;\n7" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_8"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="*\n8"
-                                tools:ignore="HardcodedText" />
+                                android:text="*\n8" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_9"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="(\n9"
-                                tools:ignore="HardcodedText" />
+                                android:text="(\n9" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_0"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text=")\n0"
-                                tools:ignore="HardcodedText" />
+                                android:text=")\n0" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_minus"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="_\n-"
-                                tools:ignore="HardcodedText" />
+                                android:text="_\n-" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_equals"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="+\n="
-                                tools:ignore="HardcodedText" />
+                                android:text="+\n=" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_backspace"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1.9"
-                                android:text="backspace"
-                                tools:ignore="HardcodedText" />
+                                android:text="backspace" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -278,112 +267,98 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1.2"
-                                android:text="tab"
-                                tools:ignore="HardcodedText,NestedWeights" />
+                                android:text="tab" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_q"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="Q"
-                                tools:ignore="HardcodedText" />
+                                android:text="Q" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_w"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="W"
-                                tools:ignore="HardcodedText" />
+                                android:text="W" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_e"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="E"
-                                tools:ignore="HardcodedText" />
+                                android:text="E" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_r"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="R"
-                                tools:ignore="HardcodedText" />
+                                android:text="R" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_t"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="T"
-                                tools:ignore="HardcodedText" />
+                                android:text="T" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_y"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="Y"
-                                tools:ignore="HardcodedText" />
+                                android:text="Y" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_u"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="U"
-                                tools:ignore="HardcodedText" />
+                                android:text="U" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_i"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="I"
-                                tools:ignore="HardcodedText" />
+                                android:text="I" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_o"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="O"
-                                tools:ignore="HardcodedText" />
+                                android:text="O" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_p"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="P"
-                                tools:ignore="HardcodedText" />
+                                android:text="P" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_left_bracket"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="{\n["
-                                tools:ignore="HardcodedText" />
+                                android:text="{\n[" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_right_bracket"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="}\n]"
-                                tools:ignore="HardcodedText" />
+                                android:text="}\n]" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_backslash"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1.2"
-                                android:text="|\n\\"
-                                tools:ignore="HardcodedText" />
+                                android:text="|\n\\" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -397,104 +372,91 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1.4"
-                                android:text="Caps Lock"
-                                tools:ignore="HardcodedText,NestedWeights" />
+                                android:text="Caps Lock" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_a"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="A"
-                                tools:ignore="HardcodedText" />
+                                android:text="A" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_s"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="S"
-                                tools:ignore="HardcodedText" />
+                                android:text="S" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_d"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="D"
-                                tools:ignore="HardcodedText" />
+                                android:text="D" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_f"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="F"
-                                tools:ignore="HardcodedText" />
+                                android:text="F" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_g"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="G"
-                                tools:ignore="HardcodedText" />
+                                android:text="G" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_h"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="H"
-                                tools:ignore="HardcodedText" />
+                                android:text="H" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_j"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="J"
-                                tools:ignore="HardcodedText" />
+                                android:text="J" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_k"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="K"
-                                tools:ignore="HardcodedText" />
+                                android:text="K" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_l"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="L"
-                                tools:ignore="HardcodedText" />
+                                android:text="L" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_semicolon"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text=":\n;"
-                                tools:ignore="HardcodedText" />
+                                android:text=":\n;" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_apostrophe"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="&quot;\n'"
-                                tools:ignore="HardcodedText" />
+                                android:text="&quot;\n'" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_enter"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="2.1"
-                                android:text="Enter"
-                                tools:ignore="HardcodedText" />
+                                android:text="Enter" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -508,96 +470,84 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="2.3"
-                                android:text="Shift"
-                                tools:ignore="HardcodedText,NestedWeights" />
+                                android:text="Shift" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_z"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="Z"
-                                tools:ignore="HardcodedText" />
+                                android:text="Z" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_x"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="X"
-                                tools:ignore="HardcodedText" />
+                                android:text="X" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_c"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="C"
-                                tools:ignore="HardcodedText,TooManyViews" />
+                                android:text="C" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_v"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="V"
-                                tools:ignore="HardcodedText" />
+                                android:text="V" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_b"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="B"
-                                tools:ignore="HardcodedText" />
+                                android:text="B" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_n"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="N"
-                                tools:ignore="HardcodedText" />
+                                android:text="N" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_m"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="M"
-                                tools:ignore="HardcodedText" />
+                                android:text="M" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_comma"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="&lt;\n,"
-                                tools:ignore="HardcodedText" />
+                                android:text="&lt;\n," />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_period"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="&gt;\n."
-                                tools:ignore="HardcodedText" />
+                                android:text="&gt;\n." />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_slash"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="\?\n/"
-                                tools:ignore="HardcodedText" />
+                                android:text="\?\n/" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_right_shift"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1.2"
-                                android:text="Shift"
-                                tools:ignore="HardcodedText" />
+                                android:text="Shift" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -611,40 +561,35 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1.05"
-                                android:text="Ctrl"
-                                tools:ignore="HardcodedText,NestedWeights" />
+                                android:text="Ctrl" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_left_alt"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1.05"
-                                android:text="Alt"
-                                tools:ignore="HardcodedText" />
+                                android:text="Alt" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_space"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="7"
-                                android:text="Space"
-                                tools:ignore="HardcodedText" />
+                                android:text="Space" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_right_alt"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1.05"
-                                android:text="Alt"
-                                tools:ignore="HardcodedText" />
+                                android:text="Alt" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_right_ctrl"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1.05"
-                                android:text="Ctrl"
-                                tools:ignore="HardcodedText" />
+                                android:text="Ctrl" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -671,32 +616,28 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
-                                android:orientation="horizontal"
-                                tools:ignore="NestedWeights">
+                                android:orientation="horizontal">
 
                                 <com.movtery.pojavzh.ui.view.AnimButton
                                     android:id="@+id/keyboard_pause"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="Pause"
-                                    tools:ignore="HardcodedText,NestedWeights" />
+                                    android:text="Pause" />
 
                                 <com.movtery.pojavzh.ui.view.AnimButton
                                     android:id="@+id/keyboard_insert"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="Insert"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="Insert" />
 
                                 <com.movtery.pojavzh.ui.view.AnimButton
                                     android:id="@+id/keyboard_home"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="Home"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="Home" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -710,27 +651,24 @@
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="End"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="End" />
 
                                 <com.movtery.pojavzh.ui.view.AnimButton
                                     android:id="@+id/keyboard_page_up"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="PGUp"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="PGUp" />
 
                                 <com.movtery.pojavzh.ui.view.AnimButton
                                     android:id="@+id/keyboard_page_down"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="PGDn"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="PGDn" />
                             </LinearLayout>
 
-                            <View
+                            <Space
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="2" />
@@ -741,7 +679,7 @@
                                 android:layout_weight="1"
                                 android:orientation="horizontal">
 
-                                <View
+                                <Space
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1" />
@@ -751,10 +689,9 @@
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="↑"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="↑" />
 
-                                <View
+                                <Space
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1" />
@@ -771,24 +708,21 @@
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="←"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="←" />
 
                                 <com.movtery.pojavzh.ui.view.AnimButton
                                     android:id="@+id/keyboard_down"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="↓"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="↓" />
 
                                 <com.movtery.pojavzh.ui.view.AnimButton
                                     android:id="@+id/keyboard_right"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="→"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="→" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -799,11 +733,10 @@
                             android:layout_weight="1"
                             android:orientation="vertical">
 
-                            <View
+                            <Space
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1"
-                                tools:ignore="NestedWeights" />
+                                android:layout_weight="1" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -816,24 +749,21 @@
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="Num Lock"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="Num Lock" />
 
                                 <com.movtery.pojavzh.ui.view.AnimButton
                                     android:id="@+id/keyboard_kp_divide"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="/"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="/" />
 
                                 <com.movtery.pojavzh.ui.view.AnimButton
                                     android:id="@+id/keyboard_kp_multiply"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="*"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="*" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -847,24 +777,21 @@
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="7"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="7" />
 
                                 <com.movtery.pojavzh.ui.view.AnimButton
                                     android:id="@+id/keyboard_kp_8"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="8"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="8" />
 
                                 <com.movtery.pojavzh.ui.view.AnimButton
                                     android:id="@+id/keyboard_kp_9"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="9"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="9" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -878,24 +805,21 @@
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="4"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="4" />
 
                                 <com.movtery.pojavzh.ui.view.AnimButton
                                     android:id="@+id/keyboard_kp_5"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="5"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="5" />
 
                                 <com.movtery.pojavzh.ui.view.AnimButton
                                     android:id="@+id/keyboard_kp_6"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="6"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="6" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -909,24 +833,21 @@
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="1"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="1" />
 
                                 <com.movtery.pojavzh.ui.view.AnimButton
                                     android:id="@+id/keyboard_kp_2"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="2"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="2" />
 
                                 <com.movtery.pojavzh.ui.view.AnimButton
                                     android:id="@+id/keyboard_kp_3"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="3"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="3" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -940,17 +861,14 @@
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="2"
-                                    android:text="0"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="0" />
 
                                 <com.movtery.pojavzh.ui.view.AnimButton
                                     android:id="@+id/keyboard_kp_decimal"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:text="."
-                                    tools:ignore="HardcodedText" />
-
+                                    android:text="." />
 
                             </LinearLayout>
 
@@ -962,35 +880,31 @@
                             android:layout_weight="0.345"
                             android:orientation="vertical">
 
-                            <View
+                            <Space
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1"
-                                tools:ignore="NestedWeights" />
+                                android:layout_weight="1" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_kp_subract"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
-                                android:text="-"
-                                tools:ignore="HardcodedText" />
+                                android:text="-" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_kp_add"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="2"
-                                android:text="+"
-                                tools:ignore="HardcodedText" />
+                                android:text="+" />
 
                             <com.movtery.pojavzh.ui.view.AnimButton
                                 android:id="@+id/keyboard_kp_enter"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="2"
-                                android:text="Enter"
-                                tools:ignore="HardcodedText" />
+                                android:text="Enter" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -1001,13 +915,13 @@
                 android:id="@+id/special_key"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_12sdp"
                 android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_12sdp"
                 android:orientation="horizontal"
+                app:alignItems="flex_start"
                 app:flexDirection="row"
                 app:flexWrap="wrap"
-                app:alignItems="flex_start"
-                app:justifyContent="flex_start"/>
+                app:justifyContent="flex_start" />
         </LinearLayout>
     </ScrollView>
 
