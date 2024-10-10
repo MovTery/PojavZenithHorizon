@@ -23,6 +23,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.movtery.anim.animations.Animations;
+import com.movtery.pojavzh.event.sticky.RefreshVersionSpinnerEvent;
 import com.movtery.pojavzh.setting.AllSettings;
 import com.movtery.pojavzh.setting.Settings;
 import com.movtery.pojavzh.ui.fragment.ProfileTypeSelectFragment;
@@ -30,10 +31,10 @@ import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils;
 
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.extra.ExtraConstants;
-import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.profiles.ProfileAdapter;
 import net.kdt.pojavlaunch.profiles.ProfileAdapterExtra;
+
+import org.greenrobot.eventbus.EventBus;
 
 import fr.spse.extended_view.ExtendedTextView;
 
@@ -103,12 +104,15 @@ public class mcVersionSpinner extends ExtendedTextView {
         setCompoundDrawablePadding(padding);
 
         int profileIndex;
-        String extra_value = (String) ExtraCore.consumeValue(ExtraConstants.REFRESH_VERSION_SPINNER);
-        if(extra_value != null){
-            profileIndex = extra_value.equals(DELETED_PROFILE) ? 0
-                    : getProfileAdapter().resolveProfileIndex(extra_value);
-        }else
+        RefreshVersionSpinnerEvent versionSpinnerEvent = EventBus.getDefault().getStickyEvent(RefreshVersionSpinnerEvent.class);
+        if (versionSpinnerEvent != null && versionSpinnerEvent.getProfile() != null) {
+            String extraValue = versionSpinnerEvent.getProfile();
+            profileIndex = extraValue.equals(DELETED_PROFILE) ? 0
+                    : getProfileAdapter().resolveProfileIndex(extraValue);
+        } else
             profileIndex = mProfileAdapter.resolveProfileIndex(AllSettings.Companion.getCurrentProfile());
+
+        if (versionSpinnerEvent != null) EventBus.getDefault().removeStickyEvent(versionSpinnerEvent);
 
         setProfileSelection(Math.max(0,profileIndex));
 

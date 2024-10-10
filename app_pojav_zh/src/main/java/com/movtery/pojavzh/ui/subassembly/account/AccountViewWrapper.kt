@@ -6,13 +6,14 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.movtery.pojavzh.event.EventDispatcher
+import com.movtery.pojavzh.event.EventType
 import com.movtery.pojavzh.feature.accounts.AccountsManager
 import com.movtery.pojavzh.ui.dialog.AccountsDialog
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.extra.ExtraConstants
-import net.kdt.pojavlaunch.extra.ExtraCore
 import net.kdt.pojavlaunch.value.MinecraftAccount
+import org.greenrobot.eventbus.EventBus
 import java.io.File
 
 class AccountViewWrapper(val mainView: View) {
@@ -23,7 +24,7 @@ class AccountViewWrapper(val mainView: View) {
     init {
         mainView.setOnClickListener {
             currentAccount ?: run {
-                ExtraCore.setValue(ExtraConstants.SELECT_AUTH_METHOD, true)
+                EventBus.getDefault().post(EventDispatcher(EventType.SELECT_AUTH_METHOD))
                 return@setOnClickListener
             }
             AccountsDialog(mContext) { this.refreshAccountInfo() }.show()

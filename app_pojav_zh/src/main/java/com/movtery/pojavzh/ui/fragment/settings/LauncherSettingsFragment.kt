@@ -4,7 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.movtery.pojavzh.extra.ZHExtraConstants
+import com.movtery.pojavzh.event.EventDispatcher
+import com.movtery.pojavzh.event.EventType
 import com.movtery.pojavzh.feature.UpdateLauncher
 import com.movtery.pojavzh.setting.AllSettings
 import com.movtery.pojavzh.ui.fragment.CustomBackgroundFragment
@@ -18,7 +19,7 @@ import com.movtery.pojavzh.utils.CleanUpCache.Companion.start
 import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.databinding.SettingsFragmentLauncherBinding
-import net.kdt.pojavlaunch.extra.ExtraCore
+import org.greenrobot.eventbus.EventBus
 
 class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fragment_launcher) {
     private lateinit var binding: SettingsFragmentLauncherBinding
@@ -220,6 +221,6 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
 
     override fun onChange() {
         super.onChange()
-        ExtraCore.setValue(ZHExtraConstants.PAGE_OPACITY_CHANGE, true)
+        EventBus.getDefault().post(EventDispatcher(EventType.PAGE_OPACITY_CHANGE))
     }
 }

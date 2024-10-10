@@ -6,11 +6,13 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.movtery.pojavzh.extra.ZHExtraConstants;
+import com.movtery.pojavzh.event.EventDispatcher;
+import com.movtery.pojavzh.event.EventType;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 
-import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class PojavProfile {
 	private static final String PROFILE_PREF = "pojav_profile";
@@ -49,7 +51,7 @@ public class PojavProfile {
 			}
 		} finally {
 			pref.apply();
-			ExtraCore.setValue(ZHExtraConstants.ACCOUNT_UPDATE, true);
+			EventBus.getDefault().post(new EventDispatcher(EventType.ACCOUNT_UPDATE));
 		}
 	}
 }

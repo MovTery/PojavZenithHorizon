@@ -1,7 +1,5 @@
 package com.movtery.pojavzh.ui.subassembly.versionlist;
 
-import static net.kdt.pojavlaunch.extra.ExtraCore.getValue;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -11,6 +9,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.pojavzh.event.sticky.MinecraftVersionValueEvent;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileItemBean;
 import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerViewCreator;
@@ -18,8 +17,9 @@ import com.movtery.pojavzh.ui.subassembly.filelist.FileRecyclerViewCreator;
 import net.kdt.pojavlaunch.JMinecraftVersionList;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.utils.FilteredSubList;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.Arrays;
@@ -55,11 +55,15 @@ public class VersionListView extends LinearLayout {
 
         RecyclerView mainListView = new RecyclerView(context);
 
-        JMinecraftVersionList jMinecraftVersionList = (JMinecraftVersionList) getValue(ExtraConstants.RELEASE_TABLE);
         JMinecraftVersionList.Version[] versionArray;
-        if (jMinecraftVersionList == null || jMinecraftVersionList.versions == null)
+        MinecraftVersionValueEvent event = EventBus.getDefault().getStickyEvent(MinecraftVersionValueEvent.class);
+
+        if (event != null) {
+            JMinecraftVersionList jMinecraftVersionList = event.getList();
+            versionArray = (jMinecraftVersionList.versions != null) ? jMinecraftVersionList.versions : new JMinecraftVersionList.Version[0];
+        } else {
             versionArray = new JMinecraftVersionList.Version[0];
-        else versionArray = jMinecraftVersionList.versions;
+        }
 
         mInstalledVersions = new File(ProfilePathHome.getGameHome() + "/versions").list();
         if (mInstalledVersions != null)

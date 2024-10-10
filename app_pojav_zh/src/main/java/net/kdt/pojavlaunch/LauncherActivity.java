@@ -11,7 +11,6 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
@@ -34,7 +33,13 @@ import androidx.fragment.app.FragmentManager;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.anim.AnimPlayer;
 import com.movtery.anim.animations.Animations;
-import com.movtery.pojavzh.extra.ZHExtraConstants;
+import com.movtery.pojavzh.event.EventDispatcher;
+import com.movtery.pojavzh.event.EventType;
+import com.movtery.pojavzh.event.sticky.MinecraftVersionValueEvent;
+import com.movtery.pojavzh.event.value.InstallLocalModpackEvent;
+import com.movtery.pojavzh.event.value.LocalLoginEvent;
+import com.movtery.pojavzh.event.value.MicrosoftLoginEvent;
+import com.movtery.pojavzh.event.value.OtherLoginEvent;
 import com.movtery.pojavzh.feature.CheckNewNotice;
 import com.movtery.pojavzh.feature.UpdateLauncher;
 import com.movtery.pojavzh.feature.accounts.AccountUpdateListener;
@@ -63,9 +68,6 @@ import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.authenticator.microsoft.MicrosoftBackgroundLogin;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
-import net.kdt.pojavlaunch.extra.ExtraConstants;
-import net.kdt.pojavlaunch.extra.ExtraCore;
-import net.kdt.pojavlaunch.extra.ExtraListener;
 import net.kdt.pojavlaunch.fragments.MainMenuFragment;
 import net.kdt.pojavlaunch.fragments.MicrosoftLoginFragment;
 import net.kdt.pojavlaunch.lifecycle.ContextAwareDoneListener;
@@ -85,6 +87,10 @@ import net.kdt.pojavlaunch.utils.NotificationUtils;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.io.IOException;
@@ -128,45 +134,6 @@ public class LauncherActivity extends BaseActivity {
         }
     };
 
-    /* Listener for the auth method selection screen */
-    private final ExtraListener<Boolean> mSelectAuthMethod = (key, value) -> {
-        Fragment fragment = getSupportFragmentManager().findFragmentById(mFragmentView.getId());
-        // Allow starting the add account only from the main menu, should it be moved to fragment itself ?
-        if(!(fragment instanceof MainMenuFragment)) return false;
-
-        ZHTools.swapFragmentWithAnim(fragment, SelectAuthFragment.class, SelectAuthFragment.TAG, null);
-        return false;
-    };
-
-    private final ExtraListener<InstallExtra> mInstallLocalModpack = (key, value) -> {
-        if (!value.startInstall) return false;
-
-        if (mProgressLayout.hasProcesses()) {
-            Toast.makeText(this, R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
-            return false;
-        }
-
-        File dirGameModpackFile = new File(value.modpackPath);
-        ModPackUtils.ModPackEnum type;
-        type = ModPackUtils.determineModpack(dirGameModpackFile);
-
-        ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.global_waiting);
-        PojavApplication.sExecutorService.execute(() -> {
-            try {
-                ModLoader loaderInfo = InstallLocalModPack.installModPack(this, type, dirGameModpackFile, () -> runOnUiThread(value.dialog::dismiss));
-                if (loaderInfo == null) return;
-                loaderInfo.getDownloadTask(new NotificationDownloadListener(this, loaderInfo)).run();
-            }catch (Exception e) {
-                value.dialog.dismiss();
-                Tools.showErrorRemote(this, R.string.modpack_install_download_failed, e);
-            }finally {
-                ProgressLayout.clearProgress(ProgressLayout.INSTALL_MODPACK);
-            }
-        });
-
-        return false;
-    };
-
     /* Listener for the settings fragment */
     private final View.OnClickListener mSettingButtonListener = v -> {
         ViewAnimUtils.setViewAnim(mSettingsButton, Animations.Pulse);
@@ -177,104 +144,6 @@ public class LauncherActivity extends BaseActivity {
             // The setting button doubles as a home button now
             Tools.backToMainMenu(this);
         }
-    };
-
-    private final ExtraListener<Uri> mMicrosoftLoginListener = (key, value) -> {
-        new MicrosoftBackgroundLogin(false, value.getQueryParameter("code")).performLogin(
-                accountsManager.getProgressListener(), accountsManager.getDoneListener(), accountsManager.getErrorListener());
-        return false;
-    };
-
-    // Test mode
-    private final ExtraListener<String[]> mLocalLoginListener = (key, value) -> {
-        if (value[1].isEmpty()) { // Test mode
-            MinecraftAccount account = new MinecraftAccount();
-            account.username = value[0];
-            try {
-                account.save();
-                Logging.i("McAccountSpinner", "Saved the account : " + account.username);
-            } catch (IOException e) {
-                Logging.e("McAccountSpinner", "Failed to save the account : " + e);
-            }
-
-            accountsManager.getDoneListener().onLoginDone(account);
-        }
-        return false;
-    };
-
-    private final ExtraListener<MinecraftAccount> mOtherLoginListener = (key, value) -> {
-        try {
-            value.save();
-            Logging.i("McAccountSpinner", "Saved the account : " + value.username);
-        } catch (IOException e) {
-            Logging.e("McAccountSpinner", "Failed to save the account : " + e);
-        }
-        accountsManager.getDoneListener().onLoginDone(value);
-        return false;
-    };
-
-    private final ExtraListener<Boolean> mAccountUpdateListener = (key, value) -> {
-        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-            if (fragment instanceof AccountUpdateListener) {
-                ((AccountUpdateListener) fragment).onUpdate();
-                return false;
-            }
-        }
-        return false;
-    };
-
-    private final ExtraListener<Boolean> mPageOpacityChangeListener = (key, value) -> {
-        setPageOpacity();
-        return false;
-    };
-
-    private final ExtraListener<Boolean> mBackgroundChangeListener = (key, value) -> {
-        refreshBackground();
-        return false;
-    };
-
-    private final ExtraListener<Boolean> mLaunchGameListener = (key, value) -> {
-        if(mProgressLayout.hasProcesses()){
-            Toast.makeText(this, R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
-            return false;
-        }
-
-        String selectedProfile = AllSettings.Companion.getCurrentProfile();
-        if (LauncherProfiles.mainProfileJson == null || !LauncherProfiles.mainProfileJson.profiles.containsKey(selectedProfile)){
-            Toast.makeText(this, R.string.error_no_version, Toast.LENGTH_LONG).show();
-            return false;
-        }
-        MinecraftProfile prof = LauncherProfiles.mainProfileJson.profiles.get(selectedProfile);
-        if (prof == null || prof.lastVersionId == null || "Unknown".equals(prof.lastVersionId)){
-            Toast.makeText(this, R.string.error_no_version, Toast.LENGTH_LONG).show();
-            return false;
-        }
-
-        if (accountsManager.getAllAccount().isEmpty()) {
-            Toast.makeText(this, R.string.no_saved_accounts, Toast.LENGTH_LONG).show();
-            ExtraCore.setValue(ExtraConstants.SELECT_AUTH_METHOD, true);
-            return false;
-        }
-
-        LocalAccountUtils.checkUsageAllowed(new LocalAccountUtils.CheckResultListener() {
-            @Override
-            public void onUsageAllowed() {
-                launchGame(prof);
-            }
-
-            @Override
-            public void onUsageDenied() {
-                if (!AllSettings.Companion.getLocalAccountReminders()) {
-                    launchGame(prof);
-                } else {
-                    LocalAccountUtils.openDialog(LauncherActivity.this, () -> launchGame(prof),
-                            getString(R.string.zh_account_no_microsoft_account) + getString(R.string.zh_account_purchase_minecraft_account_tip),
-                            R.string.zh_account_continue_to_launch_the_game);
-                }
-            }
-        });
-
-        return false;
     };
 
     private final TaskCountListener mDoubleLaunchPreventionListener = taskCount -> {
@@ -293,6 +162,134 @@ public class LauncherActivity extends BaseActivity {
     @Override
     protected boolean shouldIgnoreNotch() {
         return getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT || super.shouldIgnoreNotch();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventDispatcher(EventDispatcher event) {
+        switch (event.getEvent()) {
+            case ACCOUNT_UPDATE:
+                for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                    if (fragment instanceof AccountUpdateListener) {
+                        ((AccountUpdateListener) fragment).onUpdate();
+                        return;
+                    }
+                }
+                break;
+            case PAGE_OPACITY_CHANGE:
+                setPageOpacity();
+                break;
+            case MAIN_BACKGROUND_CHANGE:
+                refreshBackground();
+                break;
+            case SELECT_AUTH_METHOD:
+                Fragment fragment = getSupportFragmentManager().findFragmentById(mFragmentView.getId());
+                // Allow starting the add account only from the main menu, should it be moved to fragment itself ?
+                if(!(fragment instanceof MainMenuFragment)) return;
+                ZHTools.swapFragmentWithAnim(fragment, SelectAuthFragment.class, SelectAuthFragment.TAG, null);
+                break;
+            case LAUNCH_GAME:
+                if(mProgressLayout.hasProcesses()){
+                    Toast.makeText(this, R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                String selectedProfile = AllSettings.Companion.getCurrentProfile();
+                if (LauncherProfiles.mainProfileJson == null || !LauncherProfiles.mainProfileJson.profiles.containsKey(selectedProfile)){
+                    Toast.makeText(this, R.string.error_no_version, Toast.LENGTH_LONG).show();
+                    return;
+                }
+                MinecraftProfile prof = LauncherProfiles.mainProfileJson.profiles.get(selectedProfile);
+                if (prof == null || prof.lastVersionId == null || "Unknown".equals(prof.lastVersionId)){
+                    Toast.makeText(this, R.string.error_no_version, Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if (accountsManager.getAllAccount().isEmpty()) {
+                    Toast.makeText(this, R.string.no_saved_accounts, Toast.LENGTH_LONG).show();
+                    EventBus.getDefault().post(new EventDispatcher(EventType.SELECT_AUTH_METHOD));
+                    return;
+                }
+
+                LocalAccountUtils.checkUsageAllowed(new LocalAccountUtils.CheckResultListener() {
+                    @Override
+                    public void onUsageAllowed() {
+                        launchGame(prof);
+                    }
+
+                    @Override
+                    public void onUsageDenied() {
+                        if (!AllSettings.Companion.getLocalAccountReminders()) {
+                            launchGame(prof);
+                        } else {
+                            LocalAccountUtils.openDialog(LauncherActivity.this, () -> launchGame(prof),
+                                    getString(R.string.zh_account_no_microsoft_account) + getString(R.string.zh_account_purchase_minecraft_account_tip),
+                                    R.string.zh_account_continue_to_launch_the_game);
+                        }
+                    }
+                });
+                break;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMicrosoftLogin(MicrosoftLoginEvent event) {
+        new MicrosoftBackgroundLogin(false, event.getUri().getQueryParameter("code")).performLogin(
+                accountsManager.getProgressListener(), accountsManager.getDoneListener(), accountsManager.getErrorListener());
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onOtherLogin(OtherLoginEvent event) {
+        try {
+            event.getAccount().save();
+            Logging.i("McAccountSpinner", "Saved the account : " + event.getAccount().username);
+        } catch (IOException e) {
+            Logging.e("McAccountSpinner", "Failed to save the account : " + e);
+        }
+        accountsManager.getDoneListener().onLoginDone(event.getAccount());
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLocalLogin(LocalLoginEvent event) {
+        String userName = event.getUserName();
+        MinecraftAccount localAccount = new MinecraftAccount();
+        localAccount.username = userName;
+        try {
+            localAccount.save();
+            Logging.i("McAccountSpinner", "Saved the account : " + localAccount.username);
+        } catch (IOException e) {
+            Logging.e("McAccountSpinner", "Failed to save the account : " + e);
+        }
+
+        accountsManager.getDoneListener().onLoginDone(localAccount);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onInstallLocalModpack(InstallLocalModpackEvent event) {
+        InstallExtra installExtra = event.getInstallExtra();
+        if (!installExtra.startInstall) return;
+
+        if (mProgressLayout.hasProcesses()) {
+            Toast.makeText(this, R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        File dirGameModpackFile = new File(installExtra.modpackPath);
+        ModPackUtils.ModPackEnum type;
+        type = ModPackUtils.determineModpack(dirGameModpackFile);
+
+        ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.global_waiting);
+        PojavApplication.sExecutorService.execute(() -> {
+            try {
+                ModLoader loaderInfo = InstallLocalModPack.installModPack(this, type, dirGameModpackFile, () -> runOnUiThread(installExtra.dialog::dismiss));
+                if (loaderInfo == null) return;
+                loaderInfo.getDownloadTask(new NotificationDownloadListener(this, loaderInfo)).run();
+            } catch (Exception e) {
+                installExtra.dialog.dismiss();
+                Tools.showErrorRemote(this, R.string.modpack_install_download_failed, e);
+            } finally {
+                ProgressLayout.clearProgress(ProgressLayout.INSTALL_MODPACK);
+            }
+        });
     }
 
     @Override
@@ -336,17 +333,10 @@ public class LauncherActivity extends BaseActivity {
 
         ProgressKeeper.addTaskCountListener(mProgressLayout);
 
-        ExtraCore.addExtraListener(ExtraConstants.MICROSOFT_LOGIN_TODO, mMicrosoftLoginListener);
-        ExtraCore.addExtraListener(ZHExtraConstants.LOCAL_LOGIN_TODO, mLocalLoginListener);
-        ExtraCore.addExtraListener(ZHExtraConstants.OTHER_LOGIN_TODO, mOtherLoginListener);
-        ExtraCore.addExtraListener(ZHExtraConstants.ACCOUNT_UPDATE, mAccountUpdateListener);
-        ExtraCore.addExtraListener(ZHExtraConstants.PAGE_OPACITY_CHANGE, mPageOpacityChangeListener);
-        ExtraCore.addExtraListener(ZHExtraConstants.MAIN_BACKGROUND_CHANGE, mBackgroundChangeListener);
-        ExtraCore.addExtraListener(ExtraConstants.SELECT_AUTH_METHOD, mSelectAuthMethod);
-        ExtraCore.addExtraListener(ExtraConstants.LAUNCH_GAME, mLaunchGameListener);
-        ExtraCore.addExtraListener(ZHExtraConstants.INSTALL_LOCAL_MODPACK, mInstallLocalModpack);
-
-        new AsyncVersionList().getVersionList(versions -> ExtraCore.setValue(ExtraConstants.RELEASE_TABLE, versions), false);
+        new AsyncVersionList().getVersionList(versions -> EventBus.getDefault().postSticky(
+                new MinecraftVersionValueEvent(versions)),
+                false
+        );
 
         mInstallTracker = new ModloaderInstallTracker(this);
 
@@ -415,6 +405,13 @@ public class LauncherActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
         getSupportFragmentManager().registerFragmentLifecycleCallbacks(mFragmentCallbackListener, true);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -423,15 +420,6 @@ public class LauncherActivity extends BaseActivity {
         mProgressLayout.cleanUpObservers();
         ProgressKeeper.removeTaskCountListener(mProgressLayout);
         ProgressKeeper.removeTaskCountListener(mProgressServiceKeeper);
-        ExtraCore.removeExtraListenerFromValue(ExtraConstants.SELECT_AUTH_METHOD, mSelectAuthMethod);
-        ExtraCore.removeExtraListenerFromValue(ExtraConstants.LAUNCH_GAME, mLaunchGameListener);
-        ExtraCore.removeExtraListenerFromValue(ZHExtraConstants.INSTALL_LOCAL_MODPACK, mInstallLocalModpack);
-        ExtraCore.removeExtraListenerFromValue(ExtraConstants.MICROSOFT_LOGIN_TODO, mMicrosoftLoginListener);
-        ExtraCore.removeExtraListenerFromValue(ZHExtraConstants.LOCAL_LOGIN_TODO, mLocalLoginListener);
-        ExtraCore.removeExtraListenerFromValue(ZHExtraConstants.OTHER_LOGIN_TODO, mOtherLoginListener);
-        ExtraCore.removeExtraListenerFromValue(ZHExtraConstants.ACCOUNT_UPDATE, mAccountUpdateListener);
-        ExtraCore.removeExtraListenerFromValue(ZHExtraConstants.PAGE_OPACITY_CHANGE, mPageOpacityChangeListener);
-        ExtraCore.removeExtraListenerFromValue(ZHExtraConstants.MAIN_BACKGROUND_CHANGE, mBackgroundChangeListener);
 
         getSupportFragmentManager().unregisterFragmentLifecycleCallbacks(mFragmentCallbackListener);
     }

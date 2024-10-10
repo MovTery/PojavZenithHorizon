@@ -14,6 +14,7 @@ import androidx.activity.result.ActivityResultLauncher
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
+import com.movtery.pojavzh.event.sticky.FileSelectorEvent
 import com.movtery.pojavzh.ui.dialog.EditTextDialog
 import com.movtery.pojavzh.ui.dialog.FilesDialog
 import com.movtery.pojavzh.ui.dialog.FilesDialog.FilesButton
@@ -30,8 +31,7 @@ import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
 import net.kdt.pojavlaunch.databinding.FragmentFilesBinding
-import net.kdt.pojavlaunch.extra.ExtraConstants
-import net.kdt.pojavlaunch.extra.ExtraCore
+import org.greenrobot.eventbus.EventBus
 import java.io.File
 import java.util.Objects
 import java.util.function.Consumer
@@ -202,10 +202,9 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
                     closeMultiSelect()
                     Tools.removeCurrentFragment(requireActivity())
                 } else {
-                    ExtraCore.setValue(
-                        ExtraConstants.FILE_SELECTOR,
+                    EventBus.getDefault().postSticky(FileSelectorEvent(
                         removeLockPath(fileRecyclerView.fullPath.absolutePath)
-                    )
+                    ))
                     Tools.removeCurrentFragment(requireActivity())
                 }
             }

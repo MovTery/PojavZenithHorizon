@@ -13,6 +13,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
+import com.movtery.pojavzh.event.sticky.FileSelectorEvent
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathJsonObject
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager.Companion.save
 import com.movtery.pojavzh.feature.log.Logging
@@ -25,8 +26,7 @@ import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.databinding.FragmentProfilePathManagerBinding
-import net.kdt.pojavlaunch.extra.ExtraConstants
-import net.kdt.pojavlaunch.extra.ExtraCore
+import org.greenrobot.eventbus.EventBus
 import java.util.UUID
 
 class ProfilePathManagerFragment : FragmentWithAnim(R.layout.fragment_profile_path_manager) {
@@ -43,7 +43,7 @@ class ProfilePathManagerFragment : FragmentWithAnim(R.layout.fragment_profile_pa
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val value = ExtraCore.consumeValue(ExtraConstants.FILE_SELECTOR) as String?
+        val value = EventBus.getDefault().getStickyEvent(FileSelectorEvent::class.java)?.path
 
         value?.let {
             if (value.isNotEmpty() && !isAddedPath(value)) {

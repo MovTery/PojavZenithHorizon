@@ -17,7 +17,7 @@ import androidx.annotation.Nullable;
 import com.google.gson.Gson;
 import com.movtery.anim.AnimPlayer;
 import com.movtery.anim.animations.Animations;
-import com.movtery.pojavzh.extra.ZHExtraConstants;
+import com.movtery.pojavzh.event.value.OtherLoginEvent;
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.feature.login.AuthResult;
 import com.movtery.pojavzh.feature.login.OtherLoginApi;
@@ -36,9 +36,9 @@ import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.databinding.FragmentOtherLoginBinding;
-import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -136,7 +136,7 @@ public class OtherLoginFragment extends FragmentWithAnim {
                                 if (!Objects.isNull(authResult.getSelectedProfile())) {
                                     account.username = authResult.getSelectedProfile().getName();
                                     account.profileId = authResult.getSelectedProfile().getId();
-                                    ExtraCore.setValue(ZHExtraConstants.OTHER_LOGIN_TODO, account);
+                                    EventBus.getDefault().post(new OtherLoginEvent(account));
                                     Tools.backToMainMenu(requireActivity());
                                 } else {
                                     SelectRoleDialog selectRoleDialog = new SelectRoleDialog(requireContext(), authResult.getAvailableProfiles());
@@ -256,7 +256,7 @@ public class OtherLoginFragment extends FragmentWithAnim {
                     @Override
                     public void onSuccess(@NonNull AuthResult authResult) {
                         account.accessToken = authResult.getAccessToken();
-                        ExtraCore.setValue(ZHExtraConstants.OTHER_LOGIN_TODO, account);
+                        EventBus.getDefault().post(new OtherLoginEvent(account));
                         requireActivity().runOnUiThread(() -> Tools.backToMainMenu(requireActivity()));
                     }
 

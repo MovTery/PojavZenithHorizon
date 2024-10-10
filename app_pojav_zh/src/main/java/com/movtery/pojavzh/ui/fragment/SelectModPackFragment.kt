@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
-import com.movtery.pojavzh.extra.ZHExtraConstants
+import com.movtery.pojavzh.event.value.InstallLocalModpackEvent
 import com.movtery.pojavzh.feature.mod.modpack.install.InstallExtra
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
@@ -20,10 +20,10 @@ import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
 import net.kdt.pojavlaunch.databinding.FragmentSelectModpackBinding
-import net.kdt.pojavlaunch.extra.ExtraCore
 import net.kdt.pojavlaunch.fragments.SearchModFragment
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener
+import org.greenrobot.eventbus.EventBus
 import java.io.File
 
 class SelectModPackFragment : FragmentWithAnim(R.layout.fragment_select_modpack), TaskCountListener {
@@ -47,8 +47,7 @@ class SelectModPackFragment : FragmentWithAnim(R.layout.fragment_select_modpack)
                         .show()
                     PojavApplication.sExecutorService.execute {
                         modPackFile = copyFileInBackground(requireContext(), result, PathAndUrlManager.DIR_CACHE.absolutePath)
-                        ExtraCore.setValue(ZHExtraConstants.INSTALL_LOCAL_MODPACK,
-                            InstallExtra(true, modPackFile!!.absolutePath, dialog))
+                        EventBus.getDefault().post(InstallLocalModpackEvent(InstallExtra(true, modPackFile!!.absolutePath, dialog)))
                     }
                 }
             }
