@@ -1,8 +1,15 @@
 package net.kdt.pojavlaunch.modloaders;
 
+import android.content.Intent;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.feature.log.Logging;
 
+import net.kdt.pojavlaunch.JavaGUILauncherActivity;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.utils.DownloadUtils;
 
@@ -10,33 +17,29 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FabriclikeUtils {
 
-    public static final FabriclikeUtils FABRIC_UTILS = new FabriclikeUtils("https://fabricmc.net/", "https://meta.fabricmc.net/v2", "fabric", "Fabric", "fabric");
-    public static final FabriclikeUtils QUILT_UTILS = new FabriclikeUtils("https://quiltmc.org/", "https://meta.quiltmc.org/v3", "quilt", "Quilt", "quilt");
+    public static final FabriclikeUtils FABRIC_UTILS = new FabriclikeUtils("https://fabricmc.net/", "https://meta.fabricmc.net/v2", "fabric", "Fabric");
+    public static final FabriclikeUtils QUILT_UTILS = new FabriclikeUtils("https://quiltmc.org/", "https://meta.quiltmc.org/v3", "quilt", "Quilt");
 
+    private static final String INSTALLER_METADATA_URL = "%s/versions/installer";
     private static final String LOADER_METADATA_URL = "%s/versions/loader";
     private static final String GAME_METADATA_URL = "%s/versions/game";
-
-    private static final String JSON_DOWNLOAD_URL = "%s/versions/loader/%s/%s/profile/json";
 
     private final String mWebUrl;
     private final String mApiUrl;
     private final String mCachePrefix;
     private final String mName;
-    private final String mIconName;
 
-    private FabriclikeUtils(String mWebUrl, String mApiUrl, String cachePrefix, String mName, String iconName) {
+    private FabriclikeUtils(String mWebUrl, String mApiUrl, String cachePrefix, String mName) {
         this.mWebUrl = mWebUrl;
         this.mApiUrl = mApiUrl;
         this.mCachePrefix = cachePrefix;
-        this.mIconName = iconName;
         this.mName = mName;
     }
 
@@ -66,14 +69,16 @@ public class FabriclikeUtils {
         return null;
     }
 
-    public String createJsonDownloadUrl(String gameVersion, String loaderVersion) {
-        try {
-            gameVersion = URLEncoder.encode(gameVersion, "UTF-8");
-            loaderVersion = URLEncoder.encode(loaderVersion, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
-        return String.format(JSON_DOWNLOAD_URL, mApiUrl, gameVersion, loaderVersion);
+    public String getInstallerDownloadUrl() throws Exception {
+        String jsonString = DownloadUtils.downloadStringCached(String.format(INSTALLER_METADATA_URL, mApiUrl),
+                mCachePrefix + "_installer", false, input -> input);
+
+        JsonArray jsonArray = new Gson().fromJson(jsonString, JsonArray.class);
+        JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();//始终获取最新的安装器信息
+        String url = jsonObject.get("url").getAsString();
+        System.out.println(url);
+
+        return url;
     }
 
     public String getWebUrl() {
@@ -82,9 +87,6 @@ public class FabriclikeUtils {
 
     public String getName() {
         return mName;
-    }
-    public String getIconName() {
-        return mIconName;
     }
 
     private static FabricVersion[] deserializeLoaderVersions(String input) throws JSONException {
@@ -109,5 +111,20 @@ public class FabriclikeUtils {
             Logging.e(FabriclikeUtils.class.getName(), Tools.printToString(e));
             throw new DownloadUtils.ParseException(null);
         }
+    }
+
+    public void addAutoInstallArgs(Intent intent, String gameVersion, String loaderVersion, File modInstallerJar) {
+        String installDir = ProfilePathHome.getGameHome();
+        String javaArgs = "-jar " + modInstallerJar.getAbsolutePath() +
+                " client" +
+                " -mcversion " + gameVersion +
+                " -loader " + loaderVersion +
+                " -dir " + installDir;
+
+        System.out.println(javaArgs);
+
+        intent.putExtra("javaArgs", javaArgs);
+        intent.putExtra(JavaGUILauncherActivity.SUBSCRIBE_JVM_EXIT_EVENT, true);
+        intent.putExtra(JavaGUILauncherActivity.FORCE_SHOW_LOG, true);
     }
 }

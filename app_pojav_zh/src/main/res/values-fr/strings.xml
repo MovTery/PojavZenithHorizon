@@ -196,11 +196,10 @@
     <string name="preference_force_big_core_title">Forcer le rendu à s\'exécuter sur le grand cœur</string>
     <string name="preference_force_big_core_desc">Force le thread de rendu de Minecraft à s\'exécuter sur le cœur avec la fréquence maximale la plus élevée.</string>
     <string name="version_select_hint">Sélectionnez une version</string>
-    <string name="forge_dl_progress">Téléchargement de l\'installateur pour %s</string>
+    <string name="modloader_dl_progress">Téléchargement de l\'installateur pour %s</string>
     <string name="forge_dl_searching">Recherche du numéro de version de Forge</string>
     <string name="modloader_dl_failed_to_load_list">Échec du chargement de la liste des versions !</string>
     <string name="forge_dl_no_installer">Désolé, mais cette version de Forge n\'a pas d\'installateur, ce qui n\'est pas encore pris en charge.</string>
-    <string name="fabric_dl_progress">Téléchargement des métadonnées du chargeur %s</string>
     <string name="fabric_dl_cant_read_meta">Échec de la lecture des métadonnées du chargeur %s. Veuillez réessayer plus tard.</string>
     <string name="modloader_dl_install_fabric">Créer un profil Fabric</string>
     <string name="modloader_dl_install_quilt">Créer un profil Quilt</string>

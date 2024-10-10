@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.movtery.pojavzh.event.value.JvmExitEvent;
 import com.movtery.pojavzh.event.sticky.LIBGLESValueEvent;
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.setting.AllSettings;
@@ -346,6 +347,7 @@ public class JREUtils {
             File crashReportPath = new File(gameDirectory, "crash-reports");
             ErrorActivity.showExitMessage(activity, exitCode, crashReportPath.getAbsolutePath());
         }
+        EventBus.getDefault().post(new JvmExitEvent(exitCode));
     }
 
     /**

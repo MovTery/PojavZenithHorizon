@@ -196,11 +196,10 @@
     <string name="preference_force_big_core_title">Запускать визуализатор на мощном ядре</string>
     <string name="preference_force_big_core_desc">Принудительно запускать поток графического движка на ядре ЦП с наибольшей тактовой частотой.</string>
     <string name="version_select_hint">Выберите версию</string>
-    <string name="forge_dl_progress">Загрузка установщика %s</string>
+    <string name="modloader_dl_progress">Загрузка установщика %s</string>
     <string name="forge_dl_searching">Поиск номера версии Forge</string>
     <string name="modloader_dl_failed_to_load_list">Не удалось загрузить список версий.</string>
     <string name="forge_dl_no_installer">К сожалению, у этой версии Forge отсутствует поддерживаемый установщик.</string>
-    <string name="fabric_dl_progress">Загрузка метаданных %s</string>
     <string name="fabric_dl_cant_read_meta">Не удалось прочитать метаданные %s. Повторите попытку позже.</string>
     <string name="modloader_dl_install_fabric">Версия с Fabric</string>
     <string name="modloader_dl_install_quilt">Версия с Quilt</string>

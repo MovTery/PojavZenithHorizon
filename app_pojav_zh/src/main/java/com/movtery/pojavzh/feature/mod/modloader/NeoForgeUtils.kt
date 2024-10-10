@@ -1,6 +1,7 @@
 package com.movtery.pojavzh.feature.mod.modloader
 
 import android.content.Intent
+import net.kdt.pojavlaunch.JavaGUILauncherActivity
 import net.kdt.pojavlaunch.modloaders.ForgeVersionListHandler
 import net.kdt.pojavlaunch.utils.DownloadUtils
 import org.xml.sax.InputSource
@@ -70,6 +71,7 @@ class NeoForgeUtils {
         @JvmStatic
         fun addAutoInstallArgs(intent: Intent, modInstallerJar: File) {
             intent.putExtra("javaArgs", "-jar " + modInstallerJar.absolutePath)
+            intent.putExtra(JavaGUILauncherActivity.SUBSCRIBE_JVM_EXIT_EVENT, true)
         }
 
         @JvmStatic
