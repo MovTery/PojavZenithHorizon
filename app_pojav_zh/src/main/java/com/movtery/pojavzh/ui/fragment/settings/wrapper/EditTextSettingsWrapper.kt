@@ -42,9 +42,5 @@ class EditTextSettingsWrapper(
                 }
             })
         }
-
-        mainView.setOnClickListener {
-            editText.requestFocus()
-        }
     }
 }
