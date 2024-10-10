@@ -6,8 +6,7 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.movtery.pojavzh.event.EventDispatcher;
-import com.movtery.pojavzh.event.EventType;
+import com.movtery.pojavzh.event.single.AccountUpdateEvent;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.value.MinecraftAccount;
@@ -51,7 +50,7 @@ public class PojavProfile {
 			}
 		} finally {
 			pref.apply();
-			EventBus.getDefault().post(new EventDispatcher(EventType.ACCOUNT_UPDATE));
+			EventBus.getDefault().post(new AccountUpdateEvent());
 		}
 	}
 }

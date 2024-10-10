@@ -6,8 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.movtery.pojavzh.event.EventDispatcher
-import com.movtery.pojavzh.event.EventType
+import com.movtery.pojavzh.event.single.SelectAuthMethodEvent
 import com.movtery.pojavzh.feature.accounts.AccountsManager
 import com.movtery.pojavzh.ui.dialog.AccountsDialog
 import com.movtery.pojavzh.utils.PathAndUrlManager
@@ -24,7 +23,7 @@ class AccountViewWrapper(val mainView: View) {
     init {
         mainView.setOnClickListener {
             currentAccount ?: run {
-                EventBus.getDefault().post(EventDispatcher(EventType.SELECT_AUTH_METHOD))
+                EventBus.getDefault().post(SelectAuthMethodEvent())
                 return@setOnClickListener
             }
             AccountsDialog(mContext) { this.refreshAccountInfo() }.show()

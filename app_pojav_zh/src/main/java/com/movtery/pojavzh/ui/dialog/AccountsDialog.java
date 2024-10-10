@@ -9,8 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.movtery.pojavzh.event.EventDispatcher;
-import com.movtery.pojavzh.event.EventType;
+import com.movtery.pojavzh.event.single.SelectAuthMethodEvent;
 import com.movtery.pojavzh.feature.accounts.AccountsManager;
 import com.movtery.pojavzh.ui.subassembly.account.AccountAdapter;
 import com.movtery.pojavzh.ui.subassembly.account.SelectAccountListener;
@@ -65,7 +64,7 @@ public class AccountsDialog extends FullScreenDialog implements TaskCountListene
                 if (!isTaskRunning) PojavProfile.setCurrentProfile(getContext(), account.username);
                 else Tools.runOnUiThread(() -> Toast.makeText(getContext(), R.string.tasks_ongoing, Toast.LENGTH_SHORT).show());
             } else {
-                EventBus.getDefault().post(new EventDispatcher(EventType.SELECT_AUTH_METHOD));
+                EventBus.getDefault().post(new SelectAuthMethodEvent());
             }
 
             this.dismiss();

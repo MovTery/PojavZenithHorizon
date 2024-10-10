@@ -14,8 +14,7 @@ import androidx.annotation.Nullable;
 
 import com.movtery.anim.AnimPlayer;
 import com.movtery.anim.animations.Animations;
-import com.movtery.pojavzh.event.EventDispatcher;
-import com.movtery.pojavzh.event.EventType;
+import com.movtery.pojavzh.event.single.LaunchGameEvent;
 import com.movtery.pojavzh.feature.accounts.AccountUpdateListener;
 import com.movtery.pojavzh.ui.fragment.AboutFragment;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
@@ -92,7 +91,7 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
             ZHTools.swapFragmentWithAnim(this, ProfileManagerFragment.class, ProfileManagerFragment.TAG, null);
         });
 
-        binding.playButton.setOnClickListener(v -> EventBus.getDefault().post(new EventDispatcher(EventType.LAUNCH_GAME)));
+        binding.playButton.setOnClickListener(v -> EventBus.getDefault().post(new LaunchGameEvent()));
 
         mShareLogsButton.setOnClickListener(v -> {
             ShareLogDialog shareLogDialog = new ShareLogDialog(requireContext());
