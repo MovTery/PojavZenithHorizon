@@ -209,7 +209,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
     @Subscribe()
     public void onJvmExitEvent(JvmExitEvent event) {
         if (mSubscribeJvmExitEvent) {
-            MainActivity.fullyExit();
+            ZHTools.killProcess();
         }
     }
 

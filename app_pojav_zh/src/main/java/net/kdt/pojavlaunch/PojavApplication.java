@@ -22,6 +22,7 @@ import com.movtery.pojavzh.setting.AllSettings;
 import com.movtery.pojavzh.setting.LegacySettingsSync;
 import com.movtery.pojavzh.ui.activity.ErrorActivity;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
+import com.movtery.pojavzh.utils.ZHTools;
 
 import java.io.*;
 import java.text.*;
@@ -65,7 +66,7 @@ public class PojavApplication extends Application {
 			}
 
 			ErrorActivity.showError(PojavApplication.this, crashFile.getAbsolutePath(), th);
-			MainActivity.fullyExit();
+			ZHTools.killProcess();
 		});
 		
 		try {

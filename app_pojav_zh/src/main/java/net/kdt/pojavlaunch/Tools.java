@@ -43,6 +43,7 @@ import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
+import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.file.FileTools;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
@@ -332,7 +333,7 @@ public final class Tools {
                     .setPositiveButton(android.R.string.ok, (p1, p2) -> {
                         if(exitIfOk) {
                             if (ctx instanceof MainActivity) {
-                                MainActivity.fullyExit();
+                                ZHTools.killProcess();
                             } else if (ctx instanceof Activity) {
                                 ((Activity) ctx).finish();
                             }
@@ -343,7 +344,7 @@ public final class Tools {
                         StringUtils.copyText("error", printToString(e), ctx);
                         if(exitIfOk) {
                             if (ctx instanceof MainActivity) {
-                                MainActivity.fullyExit();
+                                ZHTools.killProcess();
                             } else {
                                 ((Activity) ctx).finish();
                             }
