@@ -1,14 +1,13 @@
 package com.movtery.pojavzh.feature.accounts
 
 import android.content.Context
-import com.movtery.pojavzh.extra.ZHExtraConstants
+import com.movtery.pojavzh.event.value.OtherLoginEvent
 import com.movtery.pojavzh.feature.login.AuthResult
 import com.movtery.pojavzh.feature.login.OtherLoginApi
 import net.kdt.pojavlaunch.PojavApplication
-import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.authenticator.microsoft.MicrosoftBackgroundLogin
-import net.kdt.pojavlaunch.extra.ExtraCore
 import net.kdt.pojavlaunch.value.MinecraftAccount
+import org.greenrobot.eventbus.EventBus
 import java.util.Objects
 
 class AccountUtils {
@@ -36,9 +35,7 @@ class AccountUtils {
                     OtherLoginApi.refresh(context, account, false, object : OtherLoginApi.Listener {
                         override fun onSuccess(authResult: AuthResult) {
                             account.accessToken = authResult.accessToken
-                            Tools.runOnUiThread {
-                                ExtraCore.setValue(ZHExtraConstants.OTHER_LOGIN_TODO, account)
-                            }
+                            EventBus.getDefault().post(OtherLoginEvent(account))
                         }
 
                         override fun onFailed(error: String) {

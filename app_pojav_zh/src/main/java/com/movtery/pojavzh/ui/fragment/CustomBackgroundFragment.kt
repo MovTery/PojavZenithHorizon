@@ -16,7 +16,8 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
-import com.movtery.pojavzh.extra.ZHExtraConstants
+import com.movtery.pojavzh.event.EventDispatcher
+import com.movtery.pojavzh.event.EventType
 import com.movtery.pojavzh.feature.background.BackgroundManager
 import com.movtery.pojavzh.feature.background.BackgroundType
 import com.movtery.pojavzh.ui.dialog.FilesDialog
@@ -35,7 +36,7 @@ import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.databinding.FragmentCustomBackgroundBinding
-import net.kdt.pojavlaunch.extra.ExtraCore
+import org.greenrobot.eventbus.EventBus
 import java.io.File
 
 class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_background) {
@@ -192,7 +193,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
     }
 
     private fun refreshBackground() {
-        if (backgroundType == BackgroundType.MAIN_MENU) ExtraCore.setValue(ZHExtraConstants.MAIN_BACKGROUND_CHANGE, true)
+        if (backgroundType == BackgroundType.MAIN_MENU) EventBus.getDefault().post(EventDispatcher(EventType.MAIN_BACKGROUND_CHANGE))
         refreshBackgroundPreview()
     }
 

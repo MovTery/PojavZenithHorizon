@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.movtery.anim.AnimPlayer;
 import com.movtery.anim.animations.Animations;
-import com.movtery.pojavzh.extra.ZHExtraConstants;
+import com.movtery.pojavzh.event.value.LocalLoginEvent;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
@@ -19,7 +19,8 @@ import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.databinding.FragmentLocalLoginBinding;
-import net.kdt.pojavlaunch.extra.ExtraCore;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.regex.Matcher;
@@ -78,8 +79,7 @@ public class LocalLoginFragment extends FragmentWithAnim {
     }
 
     private void startLogin() {
-        ExtraCore.setValue(ZHExtraConstants.LOCAL_LOGIN_TODO, new String[]{
-                binding.loginEditName.getText().toString().trim(), "" });
+        EventBus.getDefault().post(new LocalLoginEvent(binding.loginEditName.getText().toString().trim()));
         Tools.backToMainMenu(requireActivity());
     }
 

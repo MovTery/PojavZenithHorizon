@@ -13,6 +13,7 @@ import androidx.activity.result.ActivityResultLauncher
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
+import com.movtery.pojavzh.event.sticky.FileSelectorEvent
 import com.movtery.pojavzh.setting.Settings
 import com.movtery.pojavzh.ui.dialog.EditControlInfoDialog
 import com.movtery.pojavzh.ui.dialog.FilesDialog
@@ -35,8 +36,7 @@ import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
 import net.kdt.pojavlaunch.databinding.FragmentControlManagerBinding
-import net.kdt.pojavlaunch.extra.ExtraConstants
-import net.kdt.pojavlaunch.extra.ExtraCore
+import org.greenrobot.eventbus.EventBus
 import java.io.File
 
 class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager) {
@@ -88,7 +88,7 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
             setSelectedListener(object : ControlSelectedListener() {
                 override fun onItemSelected(file: File) {
                     if (mSelectControl) {
-                        ExtraCore.setValue(ExtraConstants.FILE_SELECTOR, removeLockPath(file.absolutePath))
+                        EventBus.getDefault().postSticky(FileSelectorEvent(removeLockPath(file.absolutePath)))
                         Tools.removeCurrentFragment(requireActivity())
                     } else {
                         if (file.isFile) showDialog(file)

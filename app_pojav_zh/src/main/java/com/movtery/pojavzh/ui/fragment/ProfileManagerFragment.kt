@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
+import com.movtery.pojavzh.event.sticky.RefreshVersionSpinnerEvent
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager.Companion.currentProfile
 import com.movtery.pojavzh.setting.AllSettings
 import com.movtery.pojavzh.ui.dialog.TipDialog
@@ -14,11 +15,10 @@ import com.movtery.pojavzh.utils.file.FileTools.Companion.mkdirs
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.databinding.FragmentProfileManagerBinding
-import net.kdt.pojavlaunch.extra.ExtraConstants
-import net.kdt.pojavlaunch.extra.ExtraCore
 import net.kdt.pojavlaunch.fragments.ProfileEditorFragment
 import net.kdt.pojavlaunch.profiles.ProfileIconCache
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles
+import org.greenrobot.eventbus.EventBus
 import java.io.File
 
 class ProfileManagerFragment : FragmentWithAnim(R.layout.fragment_profile_manager) {
@@ -71,7 +71,7 @@ class ProfileManagerFragment : FragmentWithAnim(R.layout.fragment_profile_manage
                             ProfileIconCache.dropIcon(mProfileKey!!)
                             LauncherProfiles.mainProfileJson.profiles.remove(mProfileKey)
                             LauncherProfiles.write(currentProfile)
-                            ExtraCore.setValue(ExtraConstants.REFRESH_VERSION_SPINNER, DELETED_PROFILE)
+                            EventBus.getDefault().postSticky(RefreshVersionSpinnerEvent(DELETED_PROFILE))
                         }
                         Tools.removeCurrentFragment(requireActivity())
                     }

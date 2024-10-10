@@ -9,14 +9,14 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
-import com.movtery.pojavzh.extra.ZHExtraConstants
+import com.movtery.pojavzh.event.sticky.VersionSelectorEvent
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathHome.Companion.gameHome
 import com.movtery.pojavzh.ui.subassembly.versionlist.VersionSelectedListener
 import com.movtery.pojavzh.ui.subassembly.versionlist.VersionType
 import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.databinding.FragmentVersionBinding
-import net.kdt.pojavlaunch.extra.ExtraCore
+import org.greenrobot.eventbus.EventBus
 import java.io.File
 
 class VersionSelectorFragment : FragmentWithAnim(R.layout.fragment_version) {
@@ -67,7 +67,7 @@ class VersionSelectorFragment : FragmentWithAnim(R.layout.fragment_version) {
 
             zhVersion.setVersionSelectedListener(object : VersionSelectedListener() {
                 override fun onVersionSelected(version: String?) {
-                    ExtraCore.setValue(ZHExtraConstants.VERSION_SELECTOR, version)
+                    EventBus.getDefault().postSticky(VersionSelectorEvent(version))
                     ZHTools.onBackPressed(requireActivity())
                 }
             })

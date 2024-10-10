@@ -1,11 +1,12 @@
 package net.kdt.pojavlaunch.utils;
 
+import com.movtery.pojavzh.event.sticky.LIBGLESValueEvent;
 import com.movtery.pojavzh.feature.log.Logging;
 
 import net.kdt.pojavlaunch.JMinecraftVersionList;
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.extra.ExtraConstants;
-import net.kdt.pojavlaunch.extra.ExtraCore;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -19,7 +20,7 @@ public class OldVersionsUtils {
         // 1309989600 is 2011-07-07  2011-07-07T22:00:00+00:00
         String creationTime = version.time;
         if(!Tools.isValidString(creationTime)){
-            ExtraCore.setValue(ExtraConstants.OPEN_GL_VERSION, "2");
+            EventBus.getDefault().postSticky(new LIBGLESValueEvent("2"));
             return;
         }
 
@@ -27,15 +28,15 @@ public class OldVersionsUtils {
            Date creationDate = DateUtils.parseReleaseDate(creationTime);
             if(creationDate == null) {
                 Logging.e("GL_SELECT", "Failed to parse version date");
-                ExtraCore.setValue(ExtraConstants.OPEN_GL_VERSION, "2");
+                EventBus.getDefault().postSticky(new LIBGLESValueEvent("2"));
                 return;
             }
             String openGlVersion =  DateUtils.dateBefore(creationDate, 2011, 6, 8) ? "1" : "2";
             Logging.i("GL_SELECT", openGlVersion);
-            ExtraCore.setValue(ExtraConstants.OPEN_GL_VERSION, openGlVersion);
+            EventBus.getDefault().postSticky(new LIBGLESValueEvent(openGlVersion));
         }catch (ParseException exception){
             Logging.e("GL_SELECT", exception.toString());
-            ExtraCore.setValue(ExtraConstants.OPEN_GL_VERSION, "2");
+            EventBus.getDefault().postSticky(new LIBGLESValueEvent("2"));
         }
     }
 }

@@ -16,14 +16,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.movtery.pojavzh.event.value.MicrosoftLoginEvent;
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.databinding.FragmentMicrosoftLoginBinding;
-import net.kdt.pojavlaunch.extra.ExtraConstants;
-import net.kdt.pojavlaunch.extra.ExtraCore;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class MicrosoftLoginFragment extends Fragment {
     public static final String TAG = "MICROSOFT_LOGIN_FRAGMENT";
@@ -118,7 +119,7 @@ public class MicrosoftLoginFragment extends Fragment {
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             if(url.startsWith("ms-xal-00000000402b5328")) {
                 // Should be captured by the activity to kill the fragment and get
-                ExtraCore.setValue(ExtraConstants.MICROSOFT_LOGIN_TODO, Uri.parse(url));
+                EventBus.getDefault().post(new MicrosoftLoginEvent(Uri.parse(url)));
                 Toast.makeText(view.getContext(), getString(R.string.zh_account_login_start), Toast.LENGTH_SHORT).show();
                 Tools.backToMainMenu(requireActivity());
 

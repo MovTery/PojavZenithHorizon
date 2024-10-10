@@ -19,7 +19,9 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.movtery.anim.AnimPlayer;
 import com.movtery.anim.animations.Animations;
-import com.movtery.pojavzh.extra.ZHExtraConstants;
+import com.movtery.pojavzh.event.sticky.FileSelectorEvent;
+import com.movtery.pojavzh.event.sticky.RefreshVersionSpinnerEvent;
+import com.movtery.pojavzh.event.sticky.VersionSelectorEvent;
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.setting.AllSettings;
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim;
@@ -36,13 +38,13 @@ import com.skydoves.powerspinner.OnSpinnerItemSelectedListener;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.databinding.FragmentProfileEditorBinding;
-import net.kdt.pojavlaunch.extra.ExtraConstants;
-import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 import net.kdt.pojavlaunch.multirt.Runtime;
 import net.kdt.pojavlaunch.profiles.ProfileIconCache;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -85,21 +87,30 @@ public class ProfileEditorFragment extends FragmentWithAnim {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Paths, which can be changed
-        String value = (String) ExtraCore.consumeValue(ExtraConstants.FILE_SELECTOR);
-        String version = (String) ExtraCore.consumeValue(ZHExtraConstants.VERSION_SELECTOR);
-        if(value != null) {
-            if(mValueToConsume.equals(FilesFragment.BUNDLE_SELECT_FOLDER_MODE)){
-                mTempProfile.gameDir = value;
-            }else{
-                mTempProfile.controlFile = value;
+        FileSelectorEvent fileSelectorEvent = EventBus.getDefault().getStickyEvent(FileSelectorEvent.class);
+        VersionSelectorEvent versionSelectorEvent = EventBus.getDefault().getStickyEvent(VersionSelectorEvent.class);
+
+        if (mTempProfile != null) {
+            if (fileSelectorEvent != null && fileSelectorEvent.getPath() != null) {
+                String path = fileSelectorEvent.getPath();
+                if (mValueToConsume.equals(FilesFragment.BUNDLE_SELECT_FOLDER_MODE)) {
+                    mTempProfile.gameDir = path;
+                } else {
+                    mTempProfile.controlFile = path;
+                }
+            }
+
+            //选择版本
+            if (versionSelectorEvent != null && versionSelectorEvent.getVersion() != null) {
+                String version = versionSelectorEvent.getVersion();
+                mTempProfile.lastVersionId = version;
+                binding.vprofEditorVersionSpinner.setText(version);
             }
         }
-        //选择版本
-        if (version != null) {
-            mTempProfile.lastVersionId = version;
-            binding.vprofEditorVersionSpinner.setText(version);
-        }
-        
+
+        if (fileSelectorEvent != null) EventBus.getDefault().removeStickyEvent(fileSelectorEvent);
+        if (versionSelectorEvent != null) EventBus.getDefault().removeStickyEvent(versionSelectorEvent);
+
         binding = FragmentProfileEditorBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
@@ -237,7 +248,7 @@ public class ProfileEditorFragment extends FragmentWithAnim {
 
         LauncherProfiles.mainProfileJson.profiles.put(mProfileKey, mTempProfile);
         LauncherProfiles.write(ProfilePathManager.getCurrentProfile());
-        ExtraCore.setValue(ExtraConstants.REFRESH_VERSION_SPINNER, mProfileKey);
+        EventBus.getDefault().postSticky(new RefreshVersionSpinnerEvent(mProfileKey));
     }
 
     private void onImageSelected(Bitmap bitmap) {
