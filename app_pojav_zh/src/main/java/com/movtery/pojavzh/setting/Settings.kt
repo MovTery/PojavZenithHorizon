@@ -3,10 +3,12 @@ package com.movtery.pojavzh.setting
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import com.movtery.pojavzh.event.single.SettingsChangeEvent
 import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import net.kdt.pojavlaunch.Tools
 import org.apache.commons.io.FileUtils
+import org.greenrobot.eventbus.EventBus
 import java.lang.reflect.Type
 import java.util.Objects
 
@@ -15,7 +17,6 @@ class Settings {
         private val GSON: Gson = GsonBuilder().disableHtmlEscaping().create()
 
         private var settings: List<SettingAttribute> = refresh()
-        private val listeners: MutableSet<OnSettingsChangeListener> = HashSet()
 
         private fun refresh(): List<SettingAttribute> {
             return PathAndUrlManager.FILE_SETTINGS.takeIf { it.exists() }?.let { file ->
@@ -76,14 +77,6 @@ class Settings {
 
             fun put(key: String, value: Any?): SettingBuilder =
                 SettingBuilder().put(key, value)
-
-            fun addListener(listener: OnSettingsChangeListener) {
-                listeners.add(listener)
-            }
-
-            fun removeListener(listener: OnSettingsChangeListener) {
-                listeners.remove(listener)
-            }
         }
 
         class SettingBuilder {
@@ -130,7 +123,7 @@ class Settings {
                     Logging.e("SettingBuilder", Tools.printToString(e))
                 }
 
-                listeners.forEach { it.onChange() }
+                EventBus.getDefault().post(SettingsChangeEvent())
             }
         }
     }
