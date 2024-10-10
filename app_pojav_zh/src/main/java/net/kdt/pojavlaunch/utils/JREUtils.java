@@ -192,7 +192,7 @@ public class JREUtils {
 
         // The OPEN GL version is changed according
         LIBGLESValueEvent LIBGLESEvent = EventBus.getDefault().getStickyEvent(LIBGLESValueEvent.class);
-        envMap.put("LIBGL_ES", LIBGLESEvent.getVersion());
+        if (LIBGLESEvent != null) envMap.put("LIBGL_ES", LIBGLESEvent.getVersion());
 
         envMap.put("FORCE_VSYNC", String.valueOf(AllSettings.Companion.getForceVsync()));
 
