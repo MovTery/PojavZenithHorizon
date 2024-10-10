@@ -16,8 +16,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
-import com.movtery.pojavzh.event.EventDispatcher
-import com.movtery.pojavzh.event.EventType
+import com.movtery.pojavzh.event.single.MainBackgroundChangeEvent
 import com.movtery.pojavzh.feature.background.BackgroundManager
 import com.movtery.pojavzh.feature.background.BackgroundType
 import com.movtery.pojavzh.ui.dialog.FilesDialog
@@ -193,7 +192,8 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
     }
 
     private fun refreshBackground() {
-        if (backgroundType == BackgroundType.MAIN_MENU) EventBus.getDefault().post(EventDispatcher(EventType.MAIN_BACKGROUND_CHANGE))
+        if (backgroundType == BackgroundType.MAIN_MENU) EventBus.getDefault().post(
+            MainBackgroundChangeEvent())
         refreshBackgroundPreview()
     }
 

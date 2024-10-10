@@ -33,13 +33,9 @@ import androidx.fragment.app.FragmentManager;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.anim.AnimPlayer;
 import com.movtery.anim.animations.Animations;
-import com.movtery.pojavzh.event.EventDispatcher;
-import com.movtery.pojavzh.event.EventType;
-import com.movtery.pojavzh.event.sticky.MinecraftVersionValueEvent;
-import com.movtery.pojavzh.event.value.InstallLocalModpackEvent;
-import com.movtery.pojavzh.event.value.LocalLoginEvent;
-import com.movtery.pojavzh.event.value.MicrosoftLoginEvent;
-import com.movtery.pojavzh.event.value.OtherLoginEvent;
+import com.movtery.pojavzh.event.single.*;
+import com.movtery.pojavzh.event.sticky.*;
+import com.movtery.pojavzh.event.value.*;
 import com.movtery.pojavzh.feature.CheckNewNotice;
 import com.movtery.pojavzh.feature.UpdateLauncher;
 import com.movtery.pojavzh.feature.accounts.AccountUpdateListener;
@@ -165,70 +161,74 @@ public class LauncherActivity extends BaseActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventDispatcher(EventDispatcher event) {
-        switch (event.getEvent()) {
-            case ACCOUNT_UPDATE:
-                for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-                    if (fragment instanceof AccountUpdateListener) {
-                        ((AccountUpdateListener) fragment).onUpdate();
-                        return;
-                    }
-                }
-                break;
-            case PAGE_OPACITY_CHANGE:
-                setPageOpacity();
-                break;
-            case MAIN_BACKGROUND_CHANGE:
-                refreshBackground();
-                break;
-            case SELECT_AUTH_METHOD:
-                Fragment fragment = getSupportFragmentManager().findFragmentById(mFragmentView.getId());
-                // Allow starting the add account only from the main menu, should it be moved to fragment itself ?
-                if(!(fragment instanceof MainMenuFragment)) return;
-                ZHTools.swapFragmentWithAnim(fragment, SelectAuthFragment.class, SelectAuthFragment.TAG, null);
-                break;
-            case LAUNCH_GAME:
-                if(mProgressLayout.hasProcesses()){
-                    Toast.makeText(this, R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                String selectedProfile = AllSettings.Companion.getCurrentProfile();
-                if (LauncherProfiles.mainProfileJson == null || !LauncherProfiles.mainProfileJson.profiles.containsKey(selectedProfile)){
-                    Toast.makeText(this, R.string.error_no_version, Toast.LENGTH_LONG).show();
-                    return;
-                }
-                MinecraftProfile prof = LauncherProfiles.mainProfileJson.profiles.get(selectedProfile);
-                if (prof == null || prof.lastVersionId == null || "Unknown".equals(prof.lastVersionId)){
-                    Toast.makeText(this, R.string.error_no_version, Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                if (accountsManager.getAllAccount().isEmpty()) {
-                    Toast.makeText(this, R.string.no_saved_accounts, Toast.LENGTH_LONG).show();
-                    EventBus.getDefault().post(new EventDispatcher(EventType.SELECT_AUTH_METHOD));
-                    return;
-                }
-
-                LocalAccountUtils.checkUsageAllowed(new LocalAccountUtils.CheckResultListener() {
-                    @Override
-                    public void onUsageAllowed() {
-                        launchGame(prof);
-                    }
-
-                    @Override
-                    public void onUsageDenied() {
-                        if (!AllSettings.Companion.getLocalAccountReminders()) {
-                            launchGame(prof);
-                        } else {
-                            LocalAccountUtils.openDialog(LauncherActivity.this, () -> launchGame(prof),
-                                    getString(R.string.zh_account_no_microsoft_account) + getString(R.string.zh_account_purchase_minecraft_account_tip),
-                                    R.string.zh_account_continue_to_launch_the_game);
-                        }
-                    }
-                });
-                break;
+    public void onAccountUpdate(AccountUpdateEvent event) {
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            if (fragment instanceof AccountUpdateListener) {
+                ((AccountUpdateListener) fragment).onUpdate();
+                return;
+            }
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onPageOpacityChange(PageOpacityChangeEvent event) {
+        setPageOpacity();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onPageOpacityChange(MainBackgroundChangeEvent event) {
+        refreshBackground();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSelectAuthMethod(SelectAuthMethodEvent event) {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(mFragmentView.getId());
+        // Allow starting the add account only from the main menu, should it be moved to fragment itself ?
+        if (!(fragment instanceof MainMenuFragment)) return;
+        ZHTools.swapFragmentWithAnim(fragment, SelectAuthFragment.class, SelectAuthFragment.TAG, null);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLaunchGameEvent(LaunchGameEvent event) {
+        if (mProgressLayout.hasProcesses()) {
+            Toast.makeText(this, R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        String selectedProfile = AllSettings.Companion.getCurrentProfile();
+        if (LauncherProfiles.mainProfileJson == null || !LauncherProfiles.mainProfileJson.profiles.containsKey(selectedProfile)) {
+            Toast.makeText(this, R.string.error_no_version, Toast.LENGTH_LONG).show();
+            return;
+        }
+        MinecraftProfile prof = LauncherProfiles.mainProfileJson.profiles.get(selectedProfile);
+        if (prof == null || prof.lastVersionId == null || "Unknown".equals(prof.lastVersionId)) {
+            Toast.makeText(this, R.string.error_no_version, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (accountsManager.getAllAccount().isEmpty()) {
+            Toast.makeText(this, R.string.no_saved_accounts, Toast.LENGTH_LONG).show();
+            EventBus.getDefault().post(new SelectAuthMethodEvent());
+            return;
+        }
+
+        LocalAccountUtils.checkUsageAllowed(new LocalAccountUtils.CheckResultListener() {
+            @Override
+            public void onUsageAllowed() {
+                launchGame(prof);
+            }
+
+            @Override
+            public void onUsageDenied() {
+                if (!AllSettings.Companion.getLocalAccountReminders()) {
+                    launchGame(prof);
+                } else {
+                    LocalAccountUtils.openDialog(LauncherActivity.this, () -> launchGame(prof),
+                            getString(R.string.zh_account_no_microsoft_account) + getString(R.string.zh_account_purchase_minecraft_account_tip),
+                            R.string.zh_account_continue_to_launch_the_game);
+                }
+            }
+        });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

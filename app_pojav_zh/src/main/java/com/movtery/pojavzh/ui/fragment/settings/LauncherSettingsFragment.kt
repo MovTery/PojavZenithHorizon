@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.movtery.pojavzh.event.EventDispatcher
-import com.movtery.pojavzh.event.EventType
+import com.movtery.pojavzh.event.single.PageOpacityChangeEvent
 import com.movtery.pojavzh.feature.UpdateLauncher
 import com.movtery.pojavzh.setting.AllSettings
 import com.movtery.pojavzh.ui.fragment.CustomBackgroundFragment
@@ -221,6 +220,6 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
 
     override fun onChange() {
         super.onChange()
-        EventBus.getDefault().post(EventDispatcher(EventType.PAGE_OPACITY_CHANGE))
+        EventBus.getDefault().post(PageOpacityChangeEvent())
     }
 }
