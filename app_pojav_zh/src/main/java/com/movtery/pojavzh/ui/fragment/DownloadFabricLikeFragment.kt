@@ -15,7 +15,6 @@ import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.FabricVersion
-import net.kdt.pojavlaunch.modloaders.FabriclikeDownloadTask
 import net.kdt.pojavlaunch.modloaders.FabriclikeUtils
 import net.kdt.pojavlaunch.modloaders.ModloaderDownloadListener
 import net.kdt.pojavlaunch.modloaders.ModloaderListenerProxy
@@ -103,8 +102,9 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
                 val adapter = ModVersionListAdapter(modloaderListenerProxy, this, icon, loaderVersions)
                 adapter.setOnItemClickListener { version ->
                     selectedGameVersion = gameVersion
-                    selectedLoaderVersion = (version as FabricVersion).version
-                    Thread(FabriclikeDownloadTask(modloaderListenerProxy, utils)).start()
+                    val loaderVersion = (version as FabricVersion).version
+                    selectedLoaderVersion = loaderVersion
+                    Thread(utils.getDownloadTask(modloaderListenerProxy, gameVersion, loaderVersion)).start()
                 }
 
                 mData.add(ModListItemBean("Minecraft $gameVersion", adapter))
@@ -132,19 +132,23 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
         }
     }
 
-    override fun onDownloadFinished(downloadedFile: File) {
+    override fun onDownloadFinished(downloadedFile: File?) {
         Tools.runOnUiThread {
-            val modInstallerStartIntent = Intent(fragmentActivity!!, JavaGUILauncherActivity::class.java)
-            utils.addAutoInstallArgs(modInstallerStartIntent, selectedGameVersion, selectedLoaderVersion, downloadedFile)
-            val selectRuntimeDialog = SelectRuntimeDialog(fragmentActivity!!)
-            selectRuntimeDialog.setListener { jreName: String? ->
-                modloaderListenerProxy.detachListener()
-                modInstallerStartIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
-                selectRuntimeDialog.dismiss()
-                Tools.backToMainMenu(fragmentActivity!!)
-                fragmentActivity?.startActivity(modInstallerStartIntent)
+            downloadedFile?.apply {
+                val modInstallerStartIntent = Intent(fragmentActivity!!, JavaGUILauncherActivity::class.java)
+                utils.addAutoInstallArgs(modInstallerStartIntent, selectedGameVersion, selectedLoaderVersion, this)
+                val selectRuntimeDialog = SelectRuntimeDialog(fragmentActivity!!)
+                selectRuntimeDialog.setListener { jreName: String? ->
+                    modloaderListenerProxy.detachListener()
+                    modInstallerStartIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
+                    selectRuntimeDialog.dismiss()
+                    Tools.backToMainMenu(fragmentActivity!!)
+                    fragmentActivity?.startActivity(modInstallerStartIntent)
+                }
+                selectRuntimeDialog.show()
+                return@runOnUiThread
             }
-            selectRuntimeDialog.show()
+            Tools.backToMainMenu(fragmentActivity!!)
         }
     }
 

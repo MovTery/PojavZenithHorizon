@@ -19,6 +19,8 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,6 +33,8 @@ public class FabriclikeUtils {
     private static final String INSTALLER_METADATA_URL = "%s/versions/installer";
     private static final String LOADER_METADATA_URL = "%s/versions/loader";
     private static final String GAME_METADATA_URL = "%s/versions/game";
+
+    private static final String JSON_DOWNLOAD_URL = "%s/versions/loader/%s/%s/profile/json";
 
     private final String mWebUrl;
     private final String mApiUrl;
@@ -82,12 +86,32 @@ public class FabriclikeUtils {
         return url;
     }
 
+    public String createJsonDownloadUrl(String gameVersion, String loaderVersion) {
+        try {
+            gameVersion = URLEncoder.encode(gameVersion, "UTF-8");
+            loaderVersion = URLEncoder.encode(loaderVersion, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+        return String.format(JSON_DOWNLOAD_URL, mApiUrl, gameVersion, loaderVersion);
+    }
+
     public String getWebUrl() {
         return mWebUrl;
     }
 
     public String getName() {
         return mName;
+    }
+
+    public String getIconName() {
+        return mCachePrefix;
+    }
+
+    public FabriclikeDownloadTask getDownloadTask(ModloaderListenerProxy listenerProxy, String gameVersion, String loaderVersion) {
+        if (Objects.equals("Fabric", mName)) {
+            return new FabriclikeDownloadTask(listenerProxy, this);
+        } else return new FabriclikeDownloadTask(listenerProxy, this, gameVersion, loaderVersion);
     }
 
     private static FabricVersion[] deserializeLoaderVersions(String input) throws JSONException {
