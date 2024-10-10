@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class FabriclikeUtils {
 
@@ -115,11 +116,21 @@ public class FabriclikeUtils {
 
     public void addAutoInstallArgs(Intent intent, String gameVersion, String loaderVersion, File modInstallerJar) {
         String installDir = ProfilePathHome.getGameHome();
-        String javaArgs = "-jar " + modInstallerJar.getAbsolutePath() +
-                " client" +
-                " -mcversion " + gameVersion +
-                " -loader " + loaderVersion +
-                " -dir " + installDir;
+        String javaArgs = "-jar " + modInstallerJar.getAbsolutePath();
+
+        if (Objects.equals("Fabric", mName)) {
+            javaArgs +=
+                    " client" +
+                    " -mcversion " + gameVersion +
+                    " -loader " + loaderVersion +
+                    " -dir " + installDir;
+        } else if (Objects.equals("Quilt", mName)) {
+            javaArgs +=
+                    " install client " +
+                    gameVersion + " " +
+                    loaderVersion + " " +
+                    "--install-dir=" + installDir;
+        }
 
         System.out.println(javaArgs);
 
