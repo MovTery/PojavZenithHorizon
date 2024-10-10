@@ -59,11 +59,11 @@ public class LoggerView extends ConstraintLayout {
     }
 
     /**
-     * 强制展示日志
+     * 强制展示日志，如果点击关闭按钮，那么将进行回调
      */
-    public void forceShow() {
+    public void forceShow(OnCloseClickListener listener) {
         setVisibilityWithAnim(true);
-        mCancelButton.setVisibility(View.GONE);
+        mCancelButton.setOnClickListener(v -> listener.onClick());
         mLogToggle.setVisibility(View.GONE);
     }
 
@@ -121,5 +121,9 @@ public class LoggerView extends ConstraintLayout {
             });
 
         };
+    }
+
+    public interface OnCloseClickListener {
+        void onClick();
     }
 }

@@ -177,7 +177,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
             }
             mSubscribeJvmExitEvent = extras.getBoolean(SUBSCRIBE_JVM_EXIT_EVENT, false);
             if (extras.getBoolean(FORCE_SHOW_LOG, false)) {
-                mLoggerView.forceShow();
+                mLoggerView.forceShow(this::forceClose);
             }
 
             final String javaArgs = extras.getString("javaArgs");
@@ -201,7 +201,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
         getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                MainActivity.dialogForceClose(JavaGUILauncherActivity.this);
+                forceClose();
             }
         });
     }
@@ -384,6 +384,10 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
     }
 
     public void forceClose(View v) {
+        forceClose();
+    }
+
+    public void forceClose() {
         MainActivity.dialogForceClose(this);
     }
 
