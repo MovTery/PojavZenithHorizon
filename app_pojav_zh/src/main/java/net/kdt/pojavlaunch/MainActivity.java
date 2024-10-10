@@ -51,6 +51,7 @@ import com.movtery.pojavzh.ui.dialog.SeekbarDialog;
 import com.movtery.pojavzh.ui.dialog.SelectControlsDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
+import com.movtery.pojavzh.ui.fragment.settings.VideoSettingsFragment;
 import com.movtery.pojavzh.ui.subassembly.view.GameMenuViewWrapper;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.anim.AnimUtils;
@@ -262,6 +263,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                 .setMax(300)
                 .setSuffix("%")
                 .setValue(AllSettings.Companion.getResolutionRatio())
+                .setPreviewTextContentGetter(value -> VideoSettingsFragment.getResolutionRatioPreview(getResources(), value))
                 .setOnSeekbarChangeListener(value -> {
                     binding.mainGameRenderView.refreshSize(value);
                     binding.hotbarView.refreshScaleFactor(value / 100f);
