@@ -15,6 +15,7 @@ class SeekbarDialog(
     val value: Int,
     val min: Int,
     val max: Int,
+    val previewTextGetter: PreviewTextContentGetter?,
     val listener: OnSeekBarProgressChangeListener?,
     val stopListener: OnSeekBarStopTrackingTouch?
 ) : FullScreenDialog(context), DraggableDialog.DialogInitializationListener {
@@ -25,6 +26,10 @@ class SeekbarDialog(
 
         title?.apply { binding.titleView.text = this } ?: let { binding.titleView.visibility = View.GONE }
         message?.apply { binding.messageView.text = this } ?: let { binding.scrollView.visibility = View.GONE }
+        previewTextGetter?.let {
+            binding.seekbarSomePreview.visibility = View.VISIBLE
+            binding.seekbarSomePreview.text = it.onGet(value)
+        }
 
         binding.seekbar.apply {
             min = this@SeekbarDialog.min
@@ -39,6 +44,7 @@ class SeekbarDialog(
                     fromUser: Boolean
                 ) {
                     listener?.onChange(progress)
+                    previewTextGetter?.apply { binding.seekbarSomePreview.text = onGet(progress) }
                     updateValueText(progress)
                 }
 
@@ -74,13 +80,14 @@ class SeekbarDialog(
         private var value: Int = 0
         private var min: Int = 0
         private var max: Int = 0
+        private var previewTextGetter: PreviewTextContentGetter? = null
         private var progressListener: OnSeekBarProgressChangeListener? = null
         private var stopListener: OnSeekBarStopTrackingTouch? = null
 
         fun buildDialog(): SeekbarDialog {
             val dialog = SeekbarDialog(
                 context, title, message, suffix, value, min, max,
-                progressListener, stopListener
+                previewTextGetter, progressListener, stopListener
             )
             dialog.show()
             return dialog
@@ -124,6 +131,11 @@ class SeekbarDialog(
             return this
         }
 
+        fun setPreviewTextContentGetter(getter: PreviewTextContentGetter): Builder {
+            this.previewTextGetter = getter
+            return this
+        }
+
         fun setOnSeekbarChangeListener(listener: OnSeekBarProgressChangeListener): Builder {
             this.progressListener = listener
             return this
@@ -133,6 +145,10 @@ class SeekbarDialog(
             this.stopListener = listener
             return this
         }
+    }
+
+    fun interface PreviewTextContentGetter {
+        fun onGet(progress: Int): String
     }
 
     fun interface OnSeekBarProgressChangeListener {

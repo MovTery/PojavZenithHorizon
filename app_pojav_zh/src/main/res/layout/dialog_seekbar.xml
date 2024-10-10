@@ -55,7 +55,17 @@
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true"
-            android:layout_toStartOf="@id/seekbar_value"/>
+            android:layout_toStartOf="@id/seekbar_some_preview"/>
+
+        <TextView
+            android:id="@+id/seekbar_some_preview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/seekbar_value"
+            android:background="@drawable/background_text"
+            android:visibility="gone"
+            tools:text="0"/>
 
         <TextView
             android:id="@+id/seekbar_value"
@@ -64,6 +74,7 @@
             android:layout_marginHorizontal="@dimen/_8sdp"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
+            android:background="@drawable/background_text"
             tools:text="0"/>
 
     </RelativeLayout>
