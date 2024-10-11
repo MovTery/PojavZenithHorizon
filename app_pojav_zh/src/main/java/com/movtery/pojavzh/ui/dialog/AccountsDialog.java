@@ -94,9 +94,9 @@ public class AccountsDialog extends FullScreenDialog implements TaskCountListene
                         .setConfirm(R.string.global_delete)
                         .setConfirmClickListener(() -> {
                             File accountFile = new File(PathAndUrlManager.DIR_ACCOUNT_NEW, account.username + ".json");
-                            File userIconFile = new File(PathAndUrlManager.DIR_USER_ICON, account.username + ".png");
+                            File userSkinFile = new File(PathAndUrlManager.DIR_USER_SKIN, account.username + ".png");
                             if (accountFile.exists()) FileUtils.deleteQuietly(accountFile);
-                            if (userIconFile.exists()) FileUtils.deleteQuietly(userIconFile);
+                            if (userSkinFile.exists()) FileUtils.deleteQuietly(userSkinFile);
                             refresh();
                         }).buildDialog();
             }

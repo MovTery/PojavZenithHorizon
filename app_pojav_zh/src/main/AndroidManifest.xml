@@ -24,6 +24,7 @@
         android:name=".PojavApplication"
         android:allowBackup="true"
         android:allowNativeHeapPointerTagging="false"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:appCategory="game"
         android:hasFragileUserData="true"
         android:requestLegacyExternalStorage="true"

@@ -40,7 +40,7 @@ class PathAndUrlManager {
         lateinit var DIR_CUSTOM_MOUSE: String
         lateinit var DIR_BACKGROUND: File
         lateinit var DIR_APP_CACHE: File
-        lateinit var DIR_USER_ICON: File
+        lateinit var DIR_USER_SKIN: File
 
         lateinit var FILE_SETTINGS: File
         lateinit var FILE_PROFILE_PATH: File
@@ -71,7 +71,7 @@ class PathAndUrlManager {
             DIR_CUSTOM_MOUSE = "$DIR_GAME_HOME/mouse"
             DIR_BACKGROUND = File("$DIR_GAME_HOME/background")
             DIR_APP_CACHE = context.externalCacheDir!!
-            DIR_USER_ICON = File(DIR_DATA, "/user_icon")
+            DIR_USER_SKIN = File(DIR_DATA, "/user_skin")
         }
 
         @JvmStatic

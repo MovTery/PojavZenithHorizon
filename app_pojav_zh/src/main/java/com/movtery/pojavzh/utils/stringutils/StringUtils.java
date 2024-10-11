@@ -5,6 +5,7 @@ import static android.content.Context.CLIPBOARD_SERVICE;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.util.Base64;
 import android.widget.Toast;
 
 import net.kdt.pojavlaunch.R;
@@ -14,6 +15,7 @@ import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -149,5 +151,10 @@ public class StringUtils {
         ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
         clipboardManager.setPrimaryClip(ClipData.newPlainText(label, text));
         Tools.runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_copied), Toast.LENGTH_SHORT).show());
+    }
+
+    public static String decodeBase64(String rawValue) {
+        byte[] decodedBytes = Base64.decode(rawValue, Base64.DEFAULT);
+        return new String(decodedBytes, StandardCharsets.UTF_8);
     }
 }
