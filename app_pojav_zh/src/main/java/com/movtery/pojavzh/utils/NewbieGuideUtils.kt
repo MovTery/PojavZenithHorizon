@@ -12,13 +12,12 @@ import com.movtery.pojavzh.feature.log.Logging.e
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import java.io.FileWriter
-import kotlin.collections.ArrayList
 
 class NewbieGuideUtils {
     @SuppressLint("NonConstantResourceId")
     companion object {
-        private const val TEXT_COLOR = R.color.black_or_white
-        private const val TARGET_CIRCLE_COLOR = R.color.background_newbie_guide
+        private val TEXT_COLOR = R.color.black_or_white
+        private val TARGET_CIRCLE_COLOR = R.color.background_newbie_guide
         private val NEWBIE_TAGS: MutableList<String> = ArrayList()
 
         init {
