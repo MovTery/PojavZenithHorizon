@@ -99,7 +99,7 @@ public class MicrosoftBackgroundLogin {
                     acc.isMicrosoft = true;
                     acc.msaRefreshToken = msRefreshToken;
                     acc.expiresAt = expiresAt;
-                    acc.updateSkinFace();
+                    acc.updateSkin();
                 }
                 acc.save();
                 Logging.i("McAccountSpinner", "Saved the account : " + acc.username);

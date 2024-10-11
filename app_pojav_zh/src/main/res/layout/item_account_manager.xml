@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.movtery.pojavzh.ui.layout.AnimConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="@dimen/_4sdp"
-    android:background="@drawable/background_item">
+    android:background="@drawable/background_item"
+    tools:ignore="ContentDescription">
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <ImageView
         android:id="@+id/user_icon"
         android:layout_width="38dp"
         android:layout_height="38dp"
         android:layout_marginStart="@dimen/_16sdp"
-        android:padding="2.2dp"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_help"
-        app:strokeColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/RoundedCornersImageView"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/user_name"
@@ -29,7 +28,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/user_refresh"
         app:layout_constraintStart_toEndOf="@+id/user_icon"
-        app:layout_constraintTop_toTopOf="@+id/user_icon"/>
+        app:layout_constraintTop_toTopOf="@+id/user_icon" />
 
     <TextView
         android:id="@+id/user_login_type"
@@ -38,7 +37,7 @@
         android:layout_marginHorizontal="@dimen/_16sdp"
         app:layout_constraintEnd_toStartOf="@+id/user_refresh"
         app:layout_constraintStart_toEndOf="@+id/user_icon"
-        app:layout_constraintTop_toBottomOf="@+id/user_name"/>
+        app:layout_constraintTop_toBottomOf="@+id/user_name" />
 
     <TextView
         android:id="@+id/user_add"
@@ -46,13 +45,13 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_8sdp"
         android:text="@string/main_add_account"
-        android:textStyle="bold"
         android:textSize="14sp"
+        android:textStyle="bold"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/user_refresh"
         app:layout_constraintStart_toEndOf="@+id/user_icon"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/user_refresh"

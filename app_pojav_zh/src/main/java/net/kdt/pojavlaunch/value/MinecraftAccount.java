@@ -6,6 +6,7 @@ import java.io.*;
 import com.google.gson.*;
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
+import com.movtery.pojavzh.utils.skin.SkinFileDownloader;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -26,17 +27,14 @@ public class MinecraftAccount {
     public String baseUrl;
     public String account;
 
-    void updateSkinFace(String uuid) {
+    void updateSkin(String uuid) {
+        File skinFile = new File(PathAndUrlManager.DIR_USER_SKIN, username + ".png");
+        if(skinFile.exists()) FileUtils.deleteQuietly(skinFile); //清除一次皮肤文件
         try {
-            File skinFile = getSkinFaceFile(username);
-            if(skinFile.exists()) FileUtils.deleteQuietly(skinFile); //清除一次图标
-            Tools.downloadFile("https://crafthead.net/helm/" + uuid + "/100", skinFile.getAbsolutePath());
-
-            Logging.i("SkinLoader", "Update skin face success");
-        } catch (IOException e) {
-            // Skin refresh limit, no internet connection, etc...
-            // Simply ignore updating skin face
-            Logging.w("SkinLoader", "Could not update skin face", e);
+            SkinFileDownloader.microsoft(skinFile, uuid);
+            Logging.i("SkinLoader", "Update skin success");
+        } catch (Exception e) {
+            Logging.i("SkinLoader", "Could not update skin\n" + Tools.printToString(e));
         }
     }
 
@@ -44,8 +42,8 @@ public class MinecraftAccount {
         return accessToken.equals("0");
     }
     
-    public void updateSkinFace() {
-        updateSkinFace(profileId);
+    public void updateSkin() {
+        updateSkin(profileId);
     }
     
     public String save(String outPath) throws IOException {
@@ -88,10 +86,6 @@ public class MinecraftAccount {
             Logging.e(MinecraftAccount.class.getName(), "Caught an exception while loading the profile",e);
             return null;
         }
-    }
-
-    private static File getSkinFaceFile(String username) {
-        return new File(PathAndUrlManager.DIR_USER_ICON, username + ".png");
     }
 
     private static boolean accountExists(String username){

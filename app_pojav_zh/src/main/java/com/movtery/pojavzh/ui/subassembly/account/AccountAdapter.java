@@ -1,7 +1,6 @@
 package com.movtery.pojavzh.ui.subassembly.account;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +13,14 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.pojavzh.feature.accounts.AccountUtils;
-import com.movtery.pojavzh.utils.PathAndUrlManager;
+import com.movtery.pojavzh.feature.log.Logging;
+import com.movtery.pojavzh.utils.skin.SkinLoader;
 
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
 
-import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.Holder> {
@@ -93,15 +94,9 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.Holder> 
                 mUserName.setText(account.username);
 
                 int loginType;
-                Drawable drawable = null;
                 if (account.isMicrosoft) {
                     setButtonClickable(mRefreshButton, true);
                     loginType = R.string.zh_account_microsoft_account;
-
-                    File iconFile = new File(PathAndUrlManager.DIR_USER_ICON, account.username + ".png");
-                    if (iconFile.exists()) {
-                        drawable = Drawable.createFromPath(iconFile.getAbsolutePath());
-                    }
                 } else if (AccountUtils.isOtherLoginAccount(account)) {
                     setButtonClickable(mRefreshButton, true);
                     loginType = R.string.zh_other_login_api;
@@ -109,7 +104,13 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.Holder> 
                     setButtonClickable(mRefreshButton, false);
                     loginType = R.string.zh_account_local_account;
                 }
-                mUserIcon.setImageDrawable(drawable == null ? ContextCompat.getDrawable(mContext, R.drawable.ic_head_steve) : drawable);
+
+                try {
+                    mUserIcon.setImageDrawable(SkinLoader.getAvatarDrawable(mContext, account, (int) Tools.dpToPx(38f)));
+                } catch (IOException e) {
+                    Logging.e("AccountAdapter", Tools.printToString(e));
+                }
+
                 mUserLoginType.setText(loginType);
             } else {
                 mUserIcon.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_add));

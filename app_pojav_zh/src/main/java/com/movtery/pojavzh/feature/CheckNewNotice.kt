@@ -1,18 +1,17 @@
 package com.movtery.pojavzh.feature
 
 import android.content.Context
-import android.util.Base64
 import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
 import com.movtery.pojavzh.utils.http.CallUtils
 import com.movtery.pojavzh.utils.http.CallUtils.CallbackListener
+import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.R
 import okhttp3.Call
 import okhttp3.Response
 import org.json.JSONObject
 import java.io.IOException
-import java.nio.charset.StandardCharsets
 import java.util.Objects
 
 class CheckNewNotice {
@@ -52,8 +51,7 @@ class CheckNewNotice {
                             val originJson = JSONObject(responseBody)
                             val rawBase64 = originJson.getString("content")
                             //base64解码，因为这里读取的是一个经过Base64加密后的文本
-                            val decodedBytes = Base64.decode(rawBase64, Base64.DEFAULT)
-                            val rawJson = String(decodedBytes, StandardCharsets.UTF_8)
+                            val rawJson = StringUtils.decodeBase64(rawBase64)
 
                             val noticeJson = JSONObject(rawJson)
 

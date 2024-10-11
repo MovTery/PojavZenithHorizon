@@ -6,17 +6,16 @@
     android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackgroundBorderless">
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <ImageView
         android:id="@+id/user_icon"
         android:layout_width="52dp"
         android:layout_height="52dp"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_help"
-        app:strokeColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/RoundedCornersImageView"/>
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/user_name"
