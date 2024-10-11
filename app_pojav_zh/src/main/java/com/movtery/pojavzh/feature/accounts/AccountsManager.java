@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.movtery.pojavzh.event.single.AccountUpdateEvent;
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 import com.movtery.pojavzh.utils.ZHTools;
@@ -20,6 +21,8 @@ import net.kdt.pojavlaunch.authenticator.listener.ErrorListener;
 import net.kdt.pojavlaunch.authenticator.listener.ProgressListener;
 import net.kdt.pojavlaunch.authenticator.microsoft.PresentedException;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.io.IOException;
@@ -78,8 +81,8 @@ public class AccountsManager {
             //检查账号是否已存在
             if (getAllAccount().contains(account)) return;
 
-            if (getAllAccount().isEmpty())
-                PojavProfile.setCurrentProfile(context, account.username);
+            if (getAllAccount().isEmpty()) PojavProfile.setCurrentProfile(context, account.username);
+            else EventBus.getDefault().post(new AccountUpdateEvent());
             reload();
         };
 
