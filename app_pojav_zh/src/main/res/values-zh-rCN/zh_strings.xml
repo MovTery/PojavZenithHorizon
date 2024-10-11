@@ -102,7 +102,7 @@
     <string name="zh_account_local_account_exists">用户名与现有的账户冲突，请重新填写一个新的名称！</string>
     <string name="zh_account_local_account_invalid">正常的用户名称仅支持英文字母（大小写均可）、数字以及下划线作为用户名，长度不允许低于 2 字符，超过 16 字符\n正确的用户名举例：Name、Name_、Name123\n错误的用户名举例：Name@、N ame、name_name_name_name\n但如果你使用了相关 Mod 或者插件能够解除这一机制，那么你可以继续使用这个名字，否则请重新命名！</string>
     <string name="zh_account_login_local_name">用户名</string>
-    <string name="zh_account_login_start">开始登陆！</string>
+    <string name="zh_account_login_start">开始登录！</string>
     <string name="zh_account_no_microsoft_account">请至少登录一个 Minecraft 正版账号，我们不提倡用户在没有正版账号的情况下启动 Minecraft。</string>
     <string name="zh_account_no_microsoft_account_local">你似乎没有登录正版账号！离线账号是为玩家在无法联网时提供的一种备用方案，而不是给没有正版账号的玩家使用的。</string>
     <string name="zh_account_no_microsoft_account_local_confirm">仍然使用离线账号</string>

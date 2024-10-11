@@ -46,7 +46,7 @@ object OtherLoginApi {
             this.clientToken = UUID.randomUUID().toString().lowercase()
         }
         val data = Gson().toJson(authRequest)
-        callLogin(context, data, "/authserver/authenticate", listener)
+        callLogin(data, "/authserver/authenticate", listener)
     }
 
     @Throws(IOException::class)
@@ -67,11 +67,11 @@ object OtherLoginApi {
             refresh.selectedProfile = selectedProfile
         }
         val data = Gson().toJson(refresh)
-        callLogin(context, data, "/authserver/refresh", listener)
+        callLogin(data, "/authserver/refresh", listener)
     }
 
     @Throws(IOException::class)
-    private fun callLogin(context: Context, data: String, url: String, listener: Listener) {
+    private fun callLogin(data: String, url: String, listener: Listener) {
         val body = data.toRequestBody("application/json".toMediaTypeOrNull())
         val call = client.newCall(createRequestBuilder(baseUrl + url, body).build())
 
@@ -90,9 +90,7 @@ object OtherLoginApi {
                         }
                     }
                 }.getOrElse { e -> e("Other Login", Tools.printToString(e)) }
-                listener.onFailed(context.getString(R.string.zh_other_login_error) +
-                        String.format("(%s) ", response.code) +
-                        (errorMessage ?: res)
+                listener.onFailed(String.format("(%s) ", response.code) + (errorMessage ?: res)
                 )
             }
         }
