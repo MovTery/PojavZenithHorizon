@@ -60,4 +60,3 @@ This project uses several useful code libraries. Special thanks to them!
 >- [CommonMark](https://github.com/thephpleague/commonmark) (For rendering Markdown text): [BSD-3-Clause License](https://github.com/thephpleague/commonmark/blob/2.5/LICENSE).
 >- [AndroidViewAnimations](https://github.com/daimajia/AndroidViewAnimations) (Used part of the animation source code): [MIT License](https://github.com/daimajia/AndroidViewAnimations/blob/master/License).
 >- [TapTargetView](https://github.com/KeepSafe/TapTargetView) (for creating user guides): [Apache License 2.0](https://github.com/KeepSafe/TapTargetView/blob/master/LICENSE)。
->- Special thanks to [Crafthead](https://crafthead.net/) for providing Minecraft avatars.

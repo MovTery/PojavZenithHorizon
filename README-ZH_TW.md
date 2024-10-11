@@ -60,4 +60,3 @@
 >- [CommonMark](https://github.com/thephpleague/commonmark) (用於渲染 Markdown 文本): [BSD-3-Clause License](https://github.com/thephpleague/commonmark/blob/2.5/LICENSE)。
 >- [AndroidViewAnimations](https://github.com/daimajia/AndroidViewAnimations) (使用了部分動畫原始碼): [MIT License](https://github.com/daimajia/AndroidViewAnimations/blob/master/License)。
 >- [TapTargetView](https://github.com/KeepSafe/TapTargetView) (用於製作新手引導): [Apache License 2.0](https://github.com/KeepSafe/TapTargetView/blob/master/LICENSE)。
->- 感謝 [Crafthead](https://crafthead.net/) 提供 Minecraft 頭像。
