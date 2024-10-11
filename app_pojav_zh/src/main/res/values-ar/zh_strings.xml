@@ -116,7 +116,7 @@
     <string name="zh_activity_java_gui_keyboard">طريقة الإدخال</string>
     <!-- Install -->
     <string name="zh_install_select_jre_environment">اختر بيئة JRE</string>
-    <string name="zh_install_recommend_use_jre8">يوصى باستخدام JRE 8</string>
+    <string name="zh_install_recommend_use_jre8">ضمن بيئة التشغيل، يرجى محاولة استخدام JRE 8 لضمان الاستقرار.</string>
     <string name="zh_install_auto_select">دع المشغل يقرر</string>
     <!-- Custom Controls -->
     <string name="zh_controls_add_control_button">زر</string>

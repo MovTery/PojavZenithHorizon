@@ -116,7 +116,7 @@
     <string name="zh_activity_java_gui_keyboard">Método de Entrada</string>
     <!-- Install -->
     <string name="zh_install_select_jre_environment">Selecionar Ambiente JRE</string>
-    <string name="zh_install_recommend_use_jre8">Recomendado usar JRE 8</string>
+    <string name="zh_install_recommend_use_jre8">Dentro do ambiente de execução, tente usar o JRE 8 para garantir maior estabilidade.</string>
     <string name="zh_install_auto_select">Deixar o Iniciador Decidir</string>
     <!-- Custom Controls -->
     <string name="zh_controls_add_control_button">Botão</string>

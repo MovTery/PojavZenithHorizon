@@ -116,7 +116,7 @@
     <string name="zh_activity_java_gui_keyboard">Eingabemethode</string>
     <!-- Install -->
     <string name="zh_install_select_jre_environment">JRE-Umgebung auswählen</string>
-    <string name="zh_install_recommend_use_jre8">Empfehlung: JRE 8 verwenden</string>
+    <string name="zh_install_recommend_use_jre8">Innerhalb der Laufzeitumgebung sollten Sie nach Möglichkeit JRE 8 verwenden, um die Stabilität zu gewährleisten.</string>
     <string name="zh_install_auto_select">Lass den Launcher entscheiden</string>
     <!-- Custom Controls -->
     <string name="zh_controls_add_control_button">Taste</string>

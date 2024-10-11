@@ -116,7 +116,7 @@
     <string name="zh_activity_java_gui_keyboard">輸入法</string>
     <!-- Install -->
     <string name="zh_install_select_jre_environment">選擇 JRE 環境</string>
-    <string name="zh_install_recommend_use_jre8">推薦使用 JRE 8</string>
+    <string name="zh_install_recommend_use_jre8">在執行環境內，請盡量使用 JRE 8 以保證穩定性</string>
     <string name="zh_install_auto_select">讓啟動器決定</string>
     <!-- Custom Controls -->
     <string name="zh_controls_add_control_button">按鍵</string>

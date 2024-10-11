@@ -116,7 +116,7 @@
     <string name="zh_activity_java_gui_keyboard">Метод ввода</string>
     <!-- Install -->
     <string name="zh_install_select_jre_environment">Выбрать среду JRE</string>
-    <string name="zh_install_recommend_use_jre8">Рекомендуется использовать JRE 8</string>
+    <string name="zh_install_recommend_use_jre8">В рамках среды выполнения старайтесь использовать JRE 8 для большей стабильности.</string>
     <string name="zh_install_auto_select">Пусть лаунчер решит</string>
     <!-- Custom Controls -->
     <string name="zh_controls_add_control_button">Кнопка</string>
