@@ -38,7 +38,6 @@ import com.movtery.pojavzh.event.sticky.*;
 import com.movtery.pojavzh.event.value.*;
 import com.movtery.pojavzh.feature.CheckNewNotice;
 import com.movtery.pojavzh.feature.UpdateLauncher;
-import com.movtery.pojavzh.feature.accounts.AccountUpdateListener;
 import com.movtery.pojavzh.feature.accounts.AccountsManager;
 import com.movtery.pojavzh.feature.accounts.LocalAccountUtils;
 import com.movtery.pojavzh.feature.background.BackgroundManager;
@@ -157,16 +156,6 @@ public class LauncherActivity extends BaseActivity {
     @Override
     protected boolean shouldIgnoreNotch() {
         return getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT || super.shouldIgnoreNotch();
-    }
-
-    @Subscribe()
-    public void onAccountUpdate(AccountUpdateEvent event) {
-        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-            if (fragment instanceof AccountUpdateListener) {
-                ((AccountUpdateListener) fragment).onUpdate();
-                return;
-            }
-        }
     }
 
     @Subscribe()
