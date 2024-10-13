@@ -10,7 +10,6 @@ import com.movtery.pojavzh.setting.AllSettings
 import com.movtery.pojavzh.ui.fragment.CustomBackgroundFragment
 import com.movtery.pojavzh.ui.fragment.FragmentWithAnim
 import com.movtery.pojavzh.ui.fragment.settings.wrapper.BaseSettingsWrapper
-import com.movtery.pojavzh.ui.fragment.settings.wrapper.EditTextSettingsWrapper
 import com.movtery.pojavzh.ui.fragment.settings.wrapper.ListSettingsWrapper
 import com.movtery.pojavzh.ui.fragment.settings.wrapper.SeekBarSettingsWrapper
 import com.movtery.pojavzh.ui.fragment.settings.wrapper.SwitchSettingsWrapper
@@ -76,32 +75,6 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
             binding.modDownloadSourceTitle,
             binding.modDownloadSourceValue,
             R.array.mod_source_names, R.array.mod_source_values
-        )
-
-        SwitchSettingsWrapper(
-            context,
-            "autoSetGameLanguage",
-            AllSettings.autoSetGameLanguage,
-            binding.autoSetGameLanguageLayout,
-            binding.autoSetGameLanguage
-        )
-
-        SwitchSettingsWrapper(
-            context,
-            "gameLanguageOverridden",
-            AllSettings.gameLanguageOverridden,
-            binding.gameLanguageOverriddenLayout,
-            binding.gameLanguageOverridden
-        )
-
-        ListSettingsWrapper(
-            context,
-            "setGameLanguage",
-            "system",
-            binding.setGameLanguageLayout,
-            binding.setGameLanguageTitle,
-            binding.setGameLanguageValue,
-            R.array.all_game_language, R.array.all_game_language_value
         )
 
         ListSettingsWrapper(
@@ -191,32 +164,5 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
         ) {
             UpdateLauncher.CheckDownloadedPackage(context, false)
         }
-
-        SwitchSettingsWrapper(
-            context,
-            "gameMenuShowMemory",
-            AllSettings.gameMenuShowMemory,
-            binding.gameMenuShowMemoryLayout,
-            binding.gameMenuShowMemory
-        )
-
-        EditTextSettingsWrapper(
-            "gameMenuMemoryText",
-            AllSettings.gameMenuMemoryText,
-            binding.gameMenuMemoryTextLayout,
-            binding.gameMenuMemoryText
-        )
-
-        SeekBarSettingsWrapper(
-            context,
-            "gameMenuAlpha",
-            AllSettings.gameMenuAlpha,
-            binding.gameMenuAlphaLayout,
-            binding.gameMenuAlphaTitle,
-            binding.gameMenuAlphaSummary,
-            binding.gameMenuAlphaValue,
-            binding.gameMenuAlpha,
-            "%"
-        )
     }
 }

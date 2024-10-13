@@ -212,6 +212,7 @@
     <string name="zh_preference_category_language">اللغة</string>
     <string name="zh_preference_category_personalization">تخصيص</string>
     <string name="zh_preference_category_download">تنزيل</string>
+    <string name="zh_preference_category_game">إعدادات اللعبة</string>
     <string name="zh_preference_category_launcher">المشغل</string>
     <string name="zh_preference_category_game_menu">قائمة اللعبة</string>
     <string name="zh_preference_category_experimental">تجريبي</string>

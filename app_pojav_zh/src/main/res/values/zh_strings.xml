@@ -212,6 +212,7 @@
     <string name="zh_preference_category_language">Language</string>
     <string name="zh_preference_category_personalization">Personalization</string>
     <string name="zh_preference_category_download">Download</string>
+    <string name="zh_preference_category_game">Game Settings</string>
     <string name="zh_preference_category_launcher">Launcher</string>
     <string name="zh_preference_category_game_menu">Game Menu</string>
     <string name="zh_preference_category_experimental">Experimental</string>
