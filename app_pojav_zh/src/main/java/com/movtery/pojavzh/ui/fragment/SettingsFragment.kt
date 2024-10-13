@@ -14,7 +14,7 @@ import com.movtery.anim.animations.Animations
 import com.movtery.pojavzh.setting.Settings
 import com.movtery.pojavzh.ui.fragment.settings.ControlSettingsFragment
 import com.movtery.pojavzh.ui.fragment.settings.ExperimentalSettingsFragment
-import com.movtery.pojavzh.ui.fragment.settings.JavaSettingsFragment
+import com.movtery.pojavzh.ui.fragment.settings.GameSettingsFragment
 import com.movtery.pojavzh.ui.fragment.settings.LauncherSettingsFragment
 import com.movtery.pojavzh.ui.fragment.settings.MiscellaneousSettingsFragment
 import com.movtery.pojavzh.ui.fragment.settings.VideoSettingsFragment
@@ -79,7 +79,7 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
         mButtons = mapOf(
             0 to binding.videoSettings,
             1 to binding.controlsSettings,
-            2 to binding.javaSettings,
+            2 to binding.gameSettings,
             3 to binding.launcherSettings,
             4 to binding.miscSettings,
             5 to binding.experimentalSettings
@@ -101,7 +101,7 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
         override fun createFragment(position: Int): Fragment {
             return when(position) {
                 1 -> ControlSettingsFragment(fragment)
-                2 -> JavaSettingsFragment()
+                2 -> GameSettingsFragment()
                 3 -> LauncherSettingsFragment(fragment)
                 4 -> MiscellaneousSettingsFragment()
                 5 -> ExperimentalSettingsFragment()

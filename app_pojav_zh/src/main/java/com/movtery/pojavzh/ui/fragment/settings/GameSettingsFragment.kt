@@ -6,10 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.movtery.pojavzh.setting.AllSettings
 import com.movtery.pojavzh.ui.fragment.settings.wrapper.BaseSettingsWrapper
 import com.movtery.pojavzh.ui.fragment.settings.wrapper.EditTextSettingsWrapper
+import com.movtery.pojavzh.ui.fragment.settings.wrapper.ListSettingsWrapper
 import com.movtery.pojavzh.ui.fragment.settings.wrapper.SeekBarSettingsWrapper
 import com.movtery.pojavzh.ui.fragment.settings.wrapper.SwitchSettingsWrapper
 import com.movtery.pojavzh.utils.file.FileTools.Companion.formatFileSize
@@ -21,32 +21,56 @@ import net.kdt.pojavlaunch.Architecture
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
-import net.kdt.pojavlaunch.databinding.SettingsFragmentJavaBinding
+import net.kdt.pojavlaunch.databinding.SettingsFragmentGameBinding
 import net.kdt.pojavlaunch.multirt.MultiRTConfigDialog
 import kotlin.math.min
 
-class JavaSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment_java) {
-    private lateinit var binding: SettingsFragmentJavaBinding
+class GameSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment_game) {
+    private lateinit var binding: SettingsFragmentGameBinding
     private val mVmInstallLauncher = registerForActivityResult(
         OpenDocumentWithExtension("xz")
     ) { data: Uri? ->
         if (data != null) Tools.installRuntimeFromUri(context, data)
     }
     private var mDialogScreen: MultiRTConfigDialog? = null
-    private var allocationItem: SeekBarSettingsWrapper? = null
-    private var allocationMemory: TextView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = SettingsFragmentJavaBinding.inflate(layoutInflater)
+        binding = SettingsFragmentGameBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val context = requireContext()
+
+        SwitchSettingsWrapper(
+            context,
+            "autoSetGameLanguage",
+            AllSettings.autoSetGameLanguage,
+            binding.autoSetGameLanguageLayout,
+            binding.autoSetGameLanguage
+        )
+
+        SwitchSettingsWrapper(
+            context,
+            "gameLanguageOverridden",
+            AllSettings.gameLanguageOverridden,
+            binding.gameLanguageOverriddenLayout,
+            binding.gameLanguageOverridden
+        )
+
+        ListSettingsWrapper(
+            context,
+            "setGameLanguage",
+            "system",
+            binding.setGameLanguageLayout,
+            binding.setGameLanguageTitle,
+            binding.setGameLanguageValue,
+            R.array.all_game_language, R.array.all_game_language_value
+        )
 
         BaseSettingsWrapper(
             context,
@@ -69,7 +93,7 @@ class JavaSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
         ).toInt()
         else deviceRam - (if (deviceRam < 3064) 800 else 1024) //To have a minimum for the device to breathe
 
-        allocationItem = SeekBarSettingsWrapper(
+        SeekBarSettingsWrapper(
             context,
             "allocation",
             AllSettings.ramAllocation,
@@ -84,8 +108,14 @@ class JavaSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
             wrapper.seekbarView.progress = AllSettings.ramAllocation
             wrapper.setSeekBarValueTextView()
 
-            allocationMemory = binding.allocationMemory
-            updateMemoryInfo(context, wrapper.seekbarView.progress.toLong(), allocationMemory!!)
+            updateMemoryInfo(context, wrapper.seekbarView.progress.toLong())
+        }.apply {
+            setOnSeekBarProgressChangeListener {
+                updateMemoryInfo(
+                    requireContext(),
+                    seekbarView.progress.toLong()
+                )
+            }
         }
 
         SwitchSettingsWrapper(
@@ -95,18 +125,36 @@ class JavaSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
             binding.javaSandboxLayout,
             binding.javaSandbox
         )
-    }
 
-    override fun onChange() {
-        super.onChange()
-        updateMemoryInfo(
-            requireContext(),
-            allocationItem!!.seekbarView.progress.toLong(),
-            allocationMemory!!
+        SwitchSettingsWrapper(
+            context,
+            "gameMenuShowMemory",
+            AllSettings.gameMenuShowMemory,
+            binding.gameMenuShowMemoryLayout,
+            binding.gameMenuShowMemory
+        )
+
+        EditTextSettingsWrapper(
+            "gameMenuMemoryText",
+            AllSettings.gameMenuMemoryText,
+            binding.gameMenuMemoryTextLayout,
+            binding.gameMenuMemoryText
+        )
+
+        SeekBarSettingsWrapper(
+            context,
+            "gameMenuAlpha",
+            AllSettings.gameMenuAlpha,
+            binding.gameMenuAlphaLayout,
+            binding.gameMenuAlphaTitle,
+            binding.gameMenuAlphaSummary,
+            binding.gameMenuAlphaValue,
+            binding.gameMenuAlpha,
+            "%"
         )
     }
 
-    private fun updateMemoryInfo(context: Context, seekValue: Long, textView: TextView) {
+    private fun updateMemoryInfo(context: Context, seekValue: Long) {
         val value = seekValue * 1024 * 1024
         val freeDeviceMemory = getFreeDeviceMemory(context)
 
@@ -116,7 +164,7 @@ class JavaSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
         if (isMemorySizeExceeded) summary =
             StringUtils.insertNewline(summary, getString(R.string.zh_setting_java_memory_exceeded))
 
-        Tools.runOnUiThread { textView.text = summary }
+        Tools.runOnUiThread { binding.allocationMemory.text = summary }
     }
 
     private fun getMemoryInfoText(context: Context, freeDeviceMemory: Long): String {

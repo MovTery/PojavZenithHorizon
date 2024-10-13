@@ -212,6 +212,7 @@
     <string name="zh_preference_category_language">語言</string>
     <string name="zh_preference_category_personalization">個性化</string>
     <string name="zh_preference_category_download">下載</string>
+    <string name="zh_preference_category_game">遊戲設定</string>
     <string name="zh_preference_category_launcher">啟動器</string>
     <string name="zh_preference_category_game_menu">遊戲菜單</string>
     <string name="zh_preference_category_experimental">實驗性</string>
