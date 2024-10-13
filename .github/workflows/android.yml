@@ -7,7 +7,7 @@ on:
 
 jobs:
   BuildRelease:
-    if: github.repository_owner == 'MovTery' && github.ref_name == 'main'
+    if: github.repository_owner == 'MovTery' && !startsWith(github.ref, 'refs/pull/')
     runs-on: ubuntu-22.04
     strategy:
       matrix:
@@ -52,7 +52,7 @@ jobs:
           path: app_pojav_zh/build/outputs/apk/release/*
 
   BuildDebug:
-    if: github.repository_owner != 'MovTery' && github.ref_name != 'main'
+    if: github.repository_owner != 'MovTery' || startsWith(github.ref, 'refs/pull/')
     runs-on: ubuntu-22.04
     strategy:
       matrix:
@@ -60,9 +60,6 @@ jobs:
       fail-fast: false
 
     steps:
-      - name: Set IS_MAIN_BRANCH if on main branch
-        run: echo "IS_MAIN_BRANCH=true" >> $GITHUB_ENV
-
       - name: Checkout
         uses: actions/checkout@v4
 
