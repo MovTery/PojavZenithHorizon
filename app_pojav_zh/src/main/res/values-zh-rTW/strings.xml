@@ -144,8 +144,6 @@
     <string name="global_delete">刪除</string>
     <string name="pedit_java_runtime">Java 執行環境</string>
     <string name="pedit_renderer">渲染器</string>
-    <string name="arc_capes_title">Cosmetica 披風</string>
-    <string name="arc_capes_desc">啟用來自 Cosmetica（原 Arc）的披風，若需了解更多資訊，請至 https://arcapes.com ，需要 OptiFine</string>
     <string name="notif_channel_name">一般</string>
     <string name="lazy_service_default_title">Pojav 前景服務</string>
     <string name="mcl_setting_veroption_installed">已安裝</string>

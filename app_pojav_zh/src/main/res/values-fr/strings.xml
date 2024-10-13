@@ -144,8 +144,6 @@
     <string name="global_delete">Supprimer</string>
     <string name="pedit_java_runtime">Java Runtime</string>
     <string name="pedit_renderer">Rendu</string>
-    <string name="arc_capes_title">Capes Cosmetica</string>
-    <string name="arc_capes_desc">Active les capes de Cosmetica (anciennement Arc). Pour plus d\'informations, veuillez visiter https://cosmetica.cc. Nécessite OptiFine.</string>
     <string name="notif_channel_name">Général</string>
     <string name="lazy_service_default_title">Service en premier plan Pojav</string>
     <string name="mcl_setting_veroption_installed">Installé</string>

@@ -31,14 +31,6 @@ class MiscellaneousSettingsFragment :
 
         SwitchSettingsWrapper(
             context,
-            "arc_capes",
-            AllSettings.arcCapes,
-            binding.arcCapesLayout,
-            binding.arcCapes
-        )
-
-        SwitchSettingsWrapper(
-            context,
             "verifyManifest",
             AllSettings.verifyManifest,
             binding.verifyManifestLayout,

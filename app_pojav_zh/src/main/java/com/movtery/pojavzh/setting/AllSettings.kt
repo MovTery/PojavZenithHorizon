@@ -122,9 +122,6 @@ class AllSettings {
             get() = Settings.Manager.getInt("gameMenuAlpha", 100)
 
         // Miscellaneous
-        val arcCapes: Boolean
-            get() = Settings.Manager.getBoolean("arc_capes", false)
-
         val verifyManifest: Boolean
             get() = Settings.Manager.getBoolean("verifyManifest", true)
 

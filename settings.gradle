@@ -18,5 +18,4 @@ rootProject.name='Pojav Zenith Horizon'
 include ':jre_lwjgl3glfw'
 include ':app_pojav_zh'
 
-include ':arc_dns_injector'
 include ':forge_installer'

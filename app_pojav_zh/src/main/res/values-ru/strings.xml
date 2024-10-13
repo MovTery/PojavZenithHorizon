@@ -144,8 +144,6 @@
     <string name="global_delete">Удалить</string>
     <string name="pedit_java_runtime">Java Runtime</string>
     <string name="pedit_renderer">Визуализатор</string>
-    <string name="arc_capes_title">Плащи Cosmetica</string>
-    <string name="arc_capes_desc">Включает плащи от Cosmetica (ранее Arc). Для получения дополнительной информации посетите https://cosmetica.cc. Требуется OptiFine.</string>
     <string name="notif_channel_name">Общее</string>
     <string name="lazy_service_default_title">Активная служба Pojav</string>
     <string name="mcl_setting_veroption_installed">Установленные</string>
