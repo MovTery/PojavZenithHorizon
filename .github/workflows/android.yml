@@ -46,6 +46,7 @@ jobs:
           ./gradlew app_pojav_zh:assemblerelease -Darch=${{matrix.arch}}
 
       - name: Build Debug ${{matrix.arch}}
+        if: github.ref_name != 'main'
         run: |
           chmod +x gradlew
           ./gradlew app_pojav_zh:assembleDebug -Darch=${{matrix.arch}}
@@ -59,6 +60,7 @@ jobs:
           path: app_pojav_zh/build/outputs/apk/release/*
 
       - name: Upload Debug ${{matrix.arch}}
+        if: github.ref_name != 'main'
         uses: actions/upload-artifact@v4
         with:
           name: PojavZenithHorizon(Debug) ${{matrix.arch}}

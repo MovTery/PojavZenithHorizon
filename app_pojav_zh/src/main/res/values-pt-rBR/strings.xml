@@ -144,8 +144,6 @@
     <string name="global_delete">Excluir</string>
     <string name="pedit_java_runtime">Ambiente de execução Java</string>
     <string name="pedit_renderer">Renderizador</string>
-    <string name="arc_capes_title">Capa Cosmetica</string>
-    <string name="arc_capes_desc">Habilitar capas de Cosmetica (anteriormente Arc), para mais informações, visite https://arcapes.com, requer OptiFine</string>
     <string name="notif_channel_name">Geral</string>
     <string name="lazy_service_default_title">Serviço em primeiro plano Pojav</string>
     <string name="mcl_setting_veroption_installed">Instalado</string>

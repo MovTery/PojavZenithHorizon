@@ -144,8 +144,6 @@
     <string name="global_delete">Xóa</string>
     <string name="pedit_java_runtime">Môi trường chạy Java</string>
     <string name="pedit_renderer">Bộ kết xuất</string>
-    <string name="arc_capes_title">Áo choàng Cosmetica</string>
-    <string name="arc_capes_desc">Bật áo choàng từ Cosmetica (trước đây là Arc), để biết thêm thông tin, vui lòng truy cập https://arcapes.com, cần OptiFine</string>
     <string name="notif_channel_name">Thông thường</string>
     <string name="lazy_service_default_title">Dịch vụ nền Pojav</string>
     <string name="mcl_setting_veroption_installed">Đã cài đặt</string>

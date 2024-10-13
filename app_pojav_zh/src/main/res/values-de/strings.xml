@@ -144,8 +144,6 @@
     <string name="global_delete">Löschen</string>
     <string name="pedit_java_runtime">Java Runtime</string>
     <string name="pedit_renderer">Renderer</string>
-    <string name="arc_capes_title">Cosmetica-Umhänge</string>
-    <string name="arc_capes_desc">Aktiviert Umhänge von Cosmetica (früher Arc). Weitere Informationen finden Sie unter https://cosmetica.cc. Erfordert OptiFine.</string>
     <string name="notif_channel_name">Allgemein</string>
     <string name="lazy_service_default_title">Pojav Foreground Service</string>
     <string name="mcl_setting_veroption_installed">Installiert</string>

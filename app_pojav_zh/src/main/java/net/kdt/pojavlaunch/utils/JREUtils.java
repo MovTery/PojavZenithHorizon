@@ -392,8 +392,6 @@ public class JREUtils {
                 "-Dloader.disable_forked_guis=true",
                 "-Dsodium.checks.issue2561=false"
         ));
-        if (AllSettings.Companion.getArcCapes())
-            overridableArguments.add("-javaagent:"+new File(PathAndUrlManager.DIR_DATA,"arc_dns_injector/arc_dns_injector.jar").getAbsolutePath()+"=23.95.137.176");
 
         List<String> additionalArguments = new ArrayList<>();
         for (String arg : overridableArguments) {
