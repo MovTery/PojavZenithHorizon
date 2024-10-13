@@ -21,9 +21,6 @@ jobs:
       MY_PRIVATE_API_TOKEN: ${{ secrets.MY_PRIVATE_API_TOKEN }}
 
     steps:
-      - name: Set IS_MAIN_BRANCH if on main branch
-        run: echo "IS_MAIN_BRANCH=true" >> $GITHUB_ENV
-
       - name: Checkout
         uses: actions/checkout@v4
 

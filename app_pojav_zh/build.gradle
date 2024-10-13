@@ -9,14 +9,7 @@ static def getEnvOrDefault(String envVar, String defaultValue) {
 }
 
 def getVersionCode = {
-    def isMainBranch = System.getenv('IS_MAIN_BRANCH') == 'true'
-
-    def baseDateSeconds = 9939458
-    if (isMainBranch) {
-        baseDateSeconds += Integer.parseInt(System.getenv("GITHUB_RUN_NUMBER"))
-    }
-
-    return baseDateSeconds
+    return 9939458 + Integer.parseInt(System.getenv("GITHUB_RUN_NUMBER"))
 }
 
 def getCFApiKey = {
