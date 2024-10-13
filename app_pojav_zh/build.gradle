@@ -9,7 +9,13 @@ static def getEnvOrDefault(String envVar, String defaultValue) {
 }
 
 def getVersionCode = {
-    return 9939458 + Integer.parseInt(System.getenv("GITHUB_RUN_NUMBER"))
+    def baseNumber = 9939458
+    def runNumber = System.getenv("GITHUB_RUN_NUMBER")
+    if (runNumber != null && runNumber.isInteger()) {
+        return baseNumber + Integer.parseInt(runNumber)
+    } else {
+        return baseNumber
+    }
 }
 
 def getCFApiKey = {
