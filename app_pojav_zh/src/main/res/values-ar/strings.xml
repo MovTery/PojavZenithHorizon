@@ -7,7 +7,7 @@
     <!-- Hint -->
     <string name="hint_control_mapping">اضغط على نافذة الترس العائمة لفتح القائمة ⚙\nاضغط على مفتاح لتخصيص: تحرير، تغيير الحجم، حذف أو تخصيص ربطه</string>
     <!-- Warnings -->
-    <string name="warning_remove_account">سيتم إزالة هذا الحساب!</string>
+    <string name="warning_remove_account">سيتم إزالة هذا الحساب من المُشغّل. هل أنت متأكد من أنك تريد المتابعة؟</string>
     <!-- Error messages -->
     <string name="error_fatal">لقد توقف PojavLauncher بشكل غير متوقع</string>
     <string name="error_no_version">لا يوجد إصدار!</string>
@@ -243,7 +243,7 @@
     <string name="preference_ask_for_notification_title">السماح بالإشعارات</string>
     <string name="preference_ask_for_notification_description">.</string>
     <string name="preference_vsync_in_zink_title">السماح بالمزامنة العمودية مع Zink</string>
-    <string name="preference_vsync_in_zink_description">السماح للمشغل باستخدام واجهة برمجة تطبيقات النظام الداخلية لتمكين المزامنة العمودية لـ Zink. إذا كان المشغل يستخدم Zink وتحديث النظام الخاص بك تسبب في تعطل المشغل، يرجى إغلاق هذه الميزة</string>
+    <string name="preference_vsync_in_zink_description">يتيح للمشغل استخدام واجهة برمجة التطبيقات الداخلية للنظام لتمكين التزامن العمودي لـ Zink. إذا تعطل المشغل أثناء استخدام Zink بسبب تحديث النظام، يرجى تعطيل هذه الميزة.</string>
     <string name="newdl_starting">قراءة بيانات تعريف اللعبة…</string>
     <string name="newdl_downloading_metadata">تحميل بيانات تعريف اللعبة (%s)</string>
     <string name="newdl_downloading_game_files">تنزيل ملفات اللعبة… (%d/%d, %.2f MB)</string>
