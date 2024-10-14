@@ -7,7 +7,6 @@ import static org.lwjgl.glfw.CallbackBridge.windowHeight;
 import static org.lwjgl.glfw.CallbackBridge.windowWidth;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.SurfaceTexture;
 import android.util.AttributeSet;
@@ -25,6 +24,7 @@ import androidx.annotation.NonNull;
 
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.setting.AllSettings;
+import com.movtery.pojavzh.ui.activity.BaseActivity;
 
 import net.kdt.pojavlaunch.customcontrols.ControlLayout;
 import net.kdt.pojavlaunch.customcontrols.gamepad.DefaultDataProvider;
@@ -68,7 +68,7 @@ public class MinecraftGLSurface extends View implements GrabListener {
     /* Resolution scaler option, allow downsizing a window */
     private float mScaleFactor = AllSettings.Companion.getResolutionRatio() / 100f;
     /* Sensitivity, adjusted according to screen size */
-    private final double mSensitivityFactor = (1.4 * (1080f/ Tools.getDisplayMetrics((Activity) getContext()).heightPixels));
+    private final double mSensitivityFactor = (1.4 * (1080f/ Tools.getDisplayMetrics((BaseActivity) getContext()).heightPixels));
 
     /* Surface ready listener, used by the activity to launch minecraft */
     SurfaceReadyListener mSurfaceReadyListener = null;

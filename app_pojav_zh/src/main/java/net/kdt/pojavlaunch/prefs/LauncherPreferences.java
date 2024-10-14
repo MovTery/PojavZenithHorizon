@@ -5,7 +5,6 @@ import static android.os.Build.VERSION_CODES.P;
 
 import static net.kdt.pojavlaunch.Architecture.is32BitsDevice;
 
-import android.app.Activity;
 import android.content.*;
 import android.content.res.Configuration;
 import android.graphics.Rect;
@@ -15,6 +14,7 @@ import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.feature.unpack.Jre;
 import com.movtery.pojavzh.setting.AllSettings;
 import com.movtery.pojavzh.setting.Settings;
+import com.movtery.pojavzh.ui.activity.BaseActivity;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.*;
@@ -74,7 +74,7 @@ public class LauncherPreferences {
     }
 
     /** Compute the notch size to avoid being out of bounds */
-    public static void computeNotchSize(Activity activity) {
+    public static void computeNotchSize(BaseActivity activity) {
         if (Build.VERSION.SDK_INT < P) return;
         try {
             final Rect cutout;

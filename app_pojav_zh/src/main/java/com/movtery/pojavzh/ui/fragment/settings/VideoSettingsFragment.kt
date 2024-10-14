@@ -49,7 +49,7 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
             AllSettings.ignoreNotch,
             binding.ignoreNotchLayout,
             binding.ignoreNotch
-        ).setRequiresReboot()
+        )
         if (!(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && LauncherPreferences.PREF_NOTCH_SIZE > 0))
             ignoreNotch.setGone()
 
