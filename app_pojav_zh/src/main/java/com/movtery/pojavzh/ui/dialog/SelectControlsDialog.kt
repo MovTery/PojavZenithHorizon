@@ -1,7 +1,6 @@
 package com.movtery.pojavzh.ui.dialog
 
 import android.content.Context
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlSelectedListener
 import com.movtery.pojavzh.ui.subassembly.customcontrols.ControlsListViewCreator
@@ -10,11 +9,7 @@ import java.io.File
 class SelectControlsDialog(context: Context) : AbstractSelectDialog(context) {
     private var controlsListViewCreator: ControlsListViewCreator? = null
 
-    override fun initDialog(
-        recyclerView: RecyclerView,
-        titleView: TextView,
-        messageView: TextView
-    ) {
+    override fun initDialog(recyclerView: RecyclerView) {
         controlsListViewCreator = ControlsListViewCreator(context, recyclerView)
         controlsListViewCreator?.listAtPath()
     }

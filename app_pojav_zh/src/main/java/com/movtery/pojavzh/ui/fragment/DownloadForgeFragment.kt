@@ -126,15 +126,17 @@ class DownloadForgeFragment : ModListFragment(), ModloaderDownloadListener {
         Tools.runOnUiThread {
             val modInstallerStartIntent = Intent(fragmentActivity!!, JavaGUILauncherActivity::class.java)
             ForgeUtils.addAutoInstallArgs(modInstallerStartIntent, downloadedFile, true)
-            val selectRuntimeDialog = SelectRuntimeDialog(fragmentActivity!!)
-            selectRuntimeDialog.setListener { jreName: String? ->
-                modloaderListenerProxy.detachListener()
-                modInstallerStartIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
-                selectRuntimeDialog.dismiss()
-                Tools.backToMainMenu(fragmentActivity!!)
-                fragmentActivity?.startActivity(modInstallerStartIntent)
+            SelectRuntimeDialog(fragmentActivity!!).apply {
+                setListener { jreName: String? ->
+                    modloaderListenerProxy.detachListener()
+                    modInstallerStartIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
+                    dismiss()
+                    Tools.backToMainMenu(fragmentActivity!!)
+                    fragmentActivity?.startActivity(modInstallerStartIntent)
+                }
+                setTitleText(R.string.modloader_dl_install_forge)
+                show()
             }
-            selectRuntimeDialog.show()
         }
     }
 
