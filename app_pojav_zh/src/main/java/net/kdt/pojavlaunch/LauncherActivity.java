@@ -68,7 +68,6 @@ import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.modloaders.modpacks.ModloaderInstallTracker;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModLoader;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.NotificationDownloadListener;
-import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.IconCacheJanitor;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
@@ -289,7 +288,6 @@ public class LauncherActivity extends BaseActivity {
                     .add(R.id.container_fragment, MainMenuFragment.class, null, "ROOT").commit();
         }
 
-        IconCacheJanitor.runJanitor();
         mRequestNotificationPermissionLauncher = registerForActivityResult(
                 new ActivityResultContracts.RequestPermission(),
                 isAllowed -> {

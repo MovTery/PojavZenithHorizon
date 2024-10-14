@@ -1,13 +1,19 @@
 package com.movtery.pojavzh.feature.mod.modpack.install
 
+import android.graphics.Bitmap
+import android.util.Base64
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.FutureTarget
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager.Companion.currentProfile
 import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.feature.mod.models.MCBBSPackMeta
+import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.models.CurseManifest
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModrinthIndex
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.zip.ZipFile
 
@@ -86,6 +92,26 @@ class ModPackUtils {
             if (mcbbsPackMeta.addons == null) return false
             if (mcbbsPackMeta.addons[0].id == null) return false
             return (mcbbsPackMeta.addons[0].version != null)
+        }
+
+        @JvmStatic
+        fun getIcon(imageUrl: String): String? {
+            runCatching {
+                val context = PojavApplication.getContext()
+                val futureTarget: FutureTarget<Bitmap> = Glide.with(context)
+                    .asBitmap()
+                    .load(imageUrl)
+                    .submit()
+                val bitmap: Bitmap = futureTarget.get()
+
+                val byteArrayOutputStream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+                val byteArray = byteArrayOutputStream.toByteArray()
+
+                return "data:image/png;base64,${Base64.encodeToString(byteArray, Base64.DEFAULT)}"
+            }.getOrElse { e -> Logging.e("Load Image To Base64", Tools.printToString(e)) }
+
+            return null
         }
     }
 

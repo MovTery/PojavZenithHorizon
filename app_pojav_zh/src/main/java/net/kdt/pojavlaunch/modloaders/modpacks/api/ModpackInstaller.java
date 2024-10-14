@@ -3,11 +3,11 @@ package net.kdt.pojavlaunch.modloaders.modpacks.api;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.feature.log.Logging;
+import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.ModIconCache;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
 import net.kdt.pojavlaunch.progresskeeper.DownloaderProgressWrapper;
 import net.kdt.pojavlaunch.utils.DownloadUtils;
@@ -78,8 +78,7 @@ public class ModpackInstaller {
         profile.gameDir = "./custom_instances/" + modpackName;
         profile.name = modDetail.title;
         profile.lastVersionId = modLoaderInfo.getVersionId();
-        profile.icon = ModIconCache.getBase64Image(modDetail.getIconCacheTag());
-
+        profile.icon = ModPackUtils.getIcon(modDetail.imageUrl);
 
         LauncherProfiles.mainProfileJson.profiles.put(modpackName, profile);
         LauncherProfiles.write(ProfilePathManager.getCurrentProfile());
