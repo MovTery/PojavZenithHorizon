@@ -225,7 +225,7 @@
     <string name="notif_error_occured">發生了一個錯誤</string>
     <string name="notif_error_occured_desc">點擊查看詳細資訊</string>
     <string name="dl_tampered_manifest_title">文件校驗警告</string>
-    <string name="dl_tampered_manifest"><![CDATA[鏡像源上的遊戲版本清單與Mojang官方版本清單並不一致，這意味著它可能被篡改了<br/>
+    <string name="dl_tampered_manifest"><![CDATA[鏡像源上的遊戲版本清單與 Mojang 官方版本清單並不一致，這意味著它可能被篡改了<br/>
             <b>這樣做並不安全。如果你繼續，你的個人信息可能面臨風險！</b><br/>
             如果你仍想繼續使用鏡像源，點擊「關閉遊戲版本清單檢查」再次開始下載<br/>
             如果你想使用官方下載源，點擊「轉換至官方下載源」再次開始下載<br/>]]></string>
@@ -245,7 +245,7 @@
     <string name="notification_permission_toast">你可以隨時通過進入「系統設定」改變你的決心</string>
     <string name="preference_ask_for_notification_title">允許通知</string>
     <string name="preference_ask_for_notification_description">點擊可重新請求通知權限，這是 遊戲/模組包 在後臺正常下載所必需的</string>
-    <string name="preference_vsync_in_zink_title">允許與Zink進行垂直同步</string>
+    <string name="preference_vsync_in_zink_title">允許與 Zink 進行垂直同步</string>
     <string name="preference_vsync_in_zink_description">允許啟動器使用內部系統 API 為 Zink 啟用垂直同步。如果啟動器因系統更新導致 Zink 崩潰，請關閉此功能</string>
     <string name="newdl_starting">讀取遊戲元數據中…</string>
     <string name="newdl_downloading_metadata">下載遊戲元數據中 (%s)</string>
