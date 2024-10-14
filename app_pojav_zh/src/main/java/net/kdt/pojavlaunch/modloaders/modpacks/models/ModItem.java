@@ -54,8 +54,4 @@ public class ModItem extends ModSource {
                 ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
-
-    public String getIconCacheTag() {
-        return apiSource+"_"+id;
-    }
 }
