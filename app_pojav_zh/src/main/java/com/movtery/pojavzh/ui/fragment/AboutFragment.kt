@@ -55,7 +55,6 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
 
         binding.returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
         binding.githubButton.setOnClickListener { Tools.openURL(requireActivity(), PathAndUrlManager.URL_HOME) }
-        binding.pojavlauncherButton.setOnClickListener { Tools.openURL(requireActivity(), PathAndUrlManager.URL_GITHUB_POJAVLAUNCHER) }
         binding.licenseButton.setOnClickListener { Tools.openURL(requireActivity(), "https://www.gnu.org/licenses/gpl-3.0.html") }
         binding.supportDevelopment.setOnClickListener {
             TipDialog.Builder(requireActivity())
@@ -82,7 +81,7 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
                 resources.getDrawable(R.drawable.ic_pojav_full, requireContext().theme),
                 "PojavLauncherTeam",
                 getString(R.string.zh_about_PojavLauncher_desc),
-                AboutItemButtonBean(requireActivity(), "Github", PathAndUrlManager.URL_GITHUB_POJAVLAUNCHER)
+                AboutItemButtonBean(requireActivity(), "Github", "https://github.com/PojavLauncherTeam/PojavLauncher")
             )
         )
         mAboutData.add(

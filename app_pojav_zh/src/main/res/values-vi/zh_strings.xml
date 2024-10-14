@@ -313,7 +313,7 @@
     <string name="zh_about_tab">Về Pojav Zenith Horizon</string>
     <string name="zh_about_dec1">Pojav Zenith Horizon là một trình khởi chạy Minecraft được chỉnh sửa dựa trên PojavLauncher, cho phép chạy Minecraft: Java Edition trên thiết bị Android. \nPojav Zenith Horizon tập trung vào tối ưu hóa trải nghiệm người dùng, thiết kế lại giao diện ứng dụng và thêm nhiều tính năng hữu ích, nhằm giảm thiểu ngưỡng cửa trải nghiệm Minecraft, giúp mọi người dễ dàng trải nghiệm niềm vui từ Minecraft.</string>
     <string name="zh_about_dec2">Pojav Zenith Horizon được tạo ra cá nhân bởi 墨北MovTery, với nhiều cải tiến sâu trên nền tảng PojavLauncher.</string>
-    <string name="zh_about_dec3">Do PojavLauncher sử dụng giấy phép mã nguồn mở GPL 3.0, giấy phép này có tính \"lây nhiễm\", bất kỳ mã nguồn sử dụng, chỉnh sửa hoặc phát sinh từ các thư viện hoặc phần mềm GPL cũng phải áp dụng giấy phép GPL. Vì vậy, Pojav Zenith Horizon cũng phải tuân thủ giấy phép mã nguồn mở GPL 3.0. Nếu bạn dự định phát tán hoặc phân phối phần mềm này, vui lòng tuân thủ các quy định của giấy phép GPL 3.0.</string>
+    <string name="zh_about_dec3">Pojav Zenith Horizon sử dụng giấy phép mã nguồn mở GPL 3.0, đây là một giấy phép có tính chất "lây lan". Bất kỳ mã nào sử dụng, sửa đổi hoặc phát sinh từ các thư viện hoặc phần mềm GPL đều phải được mã nguồn mở theo giấy phép GPL. Nếu bạn dự định phân phối hoặc chia sẻ phần mềm này, vui lòng đảm bảo tuân thủ các yêu cầu của giấy phép GPL 3.0.</string>
     <string name="zh_about_dec4">Những người đóng góp và cảm ơn:</string>
     <string name="zh_about_dec5">Cảm ơn nhà tài trợ:</string>
     <string name="zh_about_dec6">Dưới đây là tất cả các nhà tài trợ hỗ trợ phát triển. Cảm ơn rất nhiều!</string>
