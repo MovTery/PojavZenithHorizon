@@ -128,9 +128,10 @@
                 <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
                     android:id="@+id/external_storage"
                     android:layout_width="0dp"
-                    android:layout_height="42dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_16sdp"
                     android:background="?android:attr/selectableItemBackground"
+                    android:minHeight="42dp"
                     app:layout_constraintBottom_toTopOf="@+id/operate_view"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
@@ -149,7 +150,6 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/_12sdp"
                         android:layout_toEndOf="@+id/imageView"
-                        android:singleLine="true"
                         android:textColor="@color/black_or_white"
                         android:text="@string/zh_file_external_storage" />
                 </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
@@ -157,8 +157,9 @@
                 <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
                     android:id="@+id/software_private"
                     android:layout_width="0dp"
-                    android:layout_height="42dp"
+                    android:layout_height="wrap_content"
                     android:background="?android:attr/selectableItemBackground"
+                    android:minHeight="42dp"
                     app:layout_constraintBottom_toTopOf="@+id/external_storage"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
@@ -177,7 +178,6 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/_12sdp"
                         android:layout_toEndOf="@+id/imageView1"
-                        android:singleLine="true"
                         android:textColor="@color/black_or_white"
                         android:text="@string/zh_file_software_private" />
                 </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>

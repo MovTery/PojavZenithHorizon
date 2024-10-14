@@ -9,7 +9,7 @@
     android:padding="@dimen/_8sdp">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/mod_thumbnail_imageview"
+        android:id="@+id/thumbnail_imageview"
         android:layout_width="60dp"
         android:layout_height="60dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,30 +19,30 @@
         tools:src="@mipmap/ic_launcher_foreground" />
 
     <ImageView
-        android:id="@+id/mod_source_imageview"
+        android:id="@+id/source_imageview"
         android:layout_width="17sp"
         android:layout_height="17sp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/mod_title_layout"
+        app:layout_constraintBottom_toBottomOf="@+id/title_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mod_title_layout"
+        app:layout_constraintTop_toTopOf="@+id/title_layout"
         tools:src="@mipmap/ic_launcher_foreground" />
 
     <RelativeLayout
-        android:id="@+id/mod_title_layout"
+        android:id="@+id/title_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:ellipsize="end"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toStartOf="@+id/mod_source_imageview"
+        app:layout_constraintEnd_toStartOf="@+id/source_imageview"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/mod_thumbnail_imageview"
-        app:layout_constraintTop_toTopOf="@+id/mod_thumbnail_imageview">
+        app:layout_constraintStart_toEndOf="@+id/thumbnail_imageview"
+        app:layout_constraintTop_toTopOf="@+id/thumbnail_imageview">
 
         <TextView
-            android:id="@+id/mod_title_textview"
+            android:id="@+id/title_textview"
             style="@style/TextAppearance.AppCompat.Body2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,11 +53,11 @@
             tools:text="Mod Title" />
 
         <TextView
-            android:id="@+id/mod_subtitle_textview"
+            android:id="@+id/subtitle_textview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@+id/mod_title_textview"
+            android:layout_toEndOf="@+id/title_textview"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_centerVertical="true"
             android:textSize="11sp"
@@ -67,7 +67,7 @@
     </RelativeLayout>
 
     <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/mod_categories_Layout"
+        android:id="@+id/categories_Layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
@@ -76,34 +76,34 @@
         app:flexWrap="wrap"
         app:alignItems="flex_start"
         app:justifyContent="flex_start"
-        app:layout_constraintEnd_toStartOf="@+id/mod_source_imageview"
-        app:layout_constraintStart_toEndOf="@+id/mod_thumbnail_imageview"
-        app:layout_constraintTop_toBottomOf="@+id/mod_title_layout"/>
+        app:layout_constraintEnd_toStartOf="@+id/source_imageview"
+        app:layout_constraintStart_toEndOf="@+id/thumbnail_imageview"
+        app:layout_constraintTop_toBottomOf="@+id/title_layout"/>
 
     <TextView
-        android:id="@+id/mod_body_textview"
+        android:id="@+id/body_textview"
         style="@style/TextAppearance.AppCompat.Body1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="2"
         android:textSize="11.5sp"
-        app:layout_constraintEnd_toEndOf="@+id/mod_title_layout"
+        app:layout_constraintEnd_toEndOf="@+id/title_layout"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/mod_title_layout"
-        app:layout_constraintTop_toBottomOf="@+id/mod_categories_Layout"
+        app:layout_constraintStart_toStartOf="@+id/title_layout"
+        app:layout_constraintTop_toBottomOf="@+id/categories_Layout"
         tools:text="Feed the beast - Reforged is a machine and magic focused modpack, with no respect for the minimum requirements of minecraft. Very long text"
         tools:ignore="SmallSp" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/mod_body_textview"
-        app:layout_constraintStart_toStartOf="@+id/mod_body_textview"
-        app:layout_constraintTop_toBottomOf="@+id/mod_body_textview">
+        app:layout_constraintEnd_toEndOf="@+id/body_textview"
+        app:layout_constraintStart_toStartOf="@+id/body_textview"
+        app:layout_constraintTop_toBottomOf="@+id/body_textview">
 
         <TextView
-            android:id="@+id/zh_mod_dependencies_textview"
+            android:id="@+id/dependencies_textview"
             style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
             tools:ignore="HardcodedText,SmallSp" />
 
         <TextView
-            android:id="@+id/zh_mod_download_count_textview"
+            android:id="@+id/download_count_textview"
             style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -127,7 +127,7 @@
             tools:ignore="HardcodedText,SmallSp" />
 
         <TextView
-            android:id="@+id/zh_mod_modloader_textview"
+            android:id="@+id/modloader_textview"
             style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -89,7 +89,7 @@ class DownloadModFragment : ModListFragment() {
     private fun processModDetails(mModDetail: ModDetail) {
         val pattern = RELEASE_REGEX
 
-        val releaseCheckBoxChecked = releaseCheckBox!!.isChecked
+        val releaseCheckBoxChecked = releaseCheckBox.isChecked
         val mModVersionsByMinecraftVersion: MutableMap<String, MutableList<ModVersionItem>> = HashMap()
 
         mModDetail.modVersionItems.forEach(Consumer { modVersionItem: ModVersionItem ->
@@ -132,7 +132,7 @@ class DownloadModFragment : ModListFragment() {
         Tools.runOnUiThread {
             val modVersionView = recyclerView
             runCatching {
-                var mModAdapter = modVersionView!!.adapter as ModListAdapter?
+                var mModAdapter = modVersionView.adapter as ModListAdapter?
                 mModAdapter ?: run {
                     mModAdapter = ModListAdapter(this, mData)
                     modVersionView.layoutManager = LinearLayoutManager(fragmentActivity!!)
@@ -145,7 +145,7 @@ class DownloadModFragment : ModListFragment() {
             }
 
             componentProcessing(false)
-            modVersionView?.scheduleLayoutAnimation()
+            modVersionView.scheduleLayoutAnimation()
         }
     }
 

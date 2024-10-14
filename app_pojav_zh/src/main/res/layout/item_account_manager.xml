@@ -9,7 +9,7 @@
     tools:ignore="ContentDescription">
 
     <ImageView
-        android:id="@+id/user_icon"
+        android:id="@+id/icon"
         android:layout_width="38dp"
         android:layout_height="38dp"
         android:layout_marginStart="@dimen/_16sdp"
@@ -20,27 +20,27 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/user_name"
+        android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_16sdp"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/user_refresh"
-        app:layout_constraintStart_toEndOf="@+id/user_icon"
-        app:layout_constraintTop_toTopOf="@+id/user_icon" />
+        app:layout_constraintEnd_toStartOf="@+id/refresh"
+        app:layout_constraintStart_toEndOf="@+id/icon"
+        app:layout_constraintTop_toTopOf="@+id/icon" />
 
     <TextView
-        android:id="@+id/user_login_type"
+        android:id="@+id/login_type"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_16sdp"
-        app:layout_constraintEnd_toStartOf="@+id/user_refresh"
-        app:layout_constraintStart_toEndOf="@+id/user_icon"
-        app:layout_constraintTop_toBottomOf="@+id/user_name" />
+        app:layout_constraintEnd_toStartOf="@+id/refresh"
+        app:layout_constraintStart_toEndOf="@+id/icon"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <TextView
-        android:id="@+id/user_add"
+        android:id="@+id/add"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_8sdp"
@@ -49,12 +49,12 @@
         android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/user_refresh"
-        app:layout_constraintStart_toEndOf="@+id/user_icon"
+        app:layout_constraintEnd_toStartOf="@+id/refresh"
+        app:layout_constraintStart_toEndOf="@+id/icon"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/user_refresh"
+        android:id="@+id/refresh"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginEnd="@dimen/_8sdp"
@@ -62,11 +62,11 @@
         android:scaleType="centerInside"
         android:src="@drawable/ic_refresh"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/user_delete"
+        app:layout_constraintEnd_toStartOf="@+id/delete"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/user_delete"
+        android:id="@+id/delete"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginEnd="@dimen/_16sdp"

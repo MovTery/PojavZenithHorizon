@@ -19,6 +19,10 @@ public class LauncherProfiles {
     public static MinecraftLauncherProfiles mainProfileJson;
 
     /** Reload the profile from the file, creating a default one if necessary */
+    public static void load() {
+        load(ProfilePathManager.getCurrentProfile());
+    }
+
     public static void load(File launcherProfilesFile) {
         if (launcherProfilesFile.exists()) {
             try {
@@ -53,7 +57,7 @@ public class LauncherProfiles {
     }
 
     public static @NonNull MinecraftProfile getCurrentProfile() {
-        if(mainProfileJson == null) LauncherProfiles.load(ProfilePathManager.getCurrentProfile());
+        if(mainProfileJson == null) LauncherProfiles.load();
         String defaultProfileName = AllSettings.Companion.getCurrentProfile();
         MinecraftProfile profile = mainProfileJson.profiles.get(defaultProfileName);
         if(profile == null) throw new RuntimeException("The current profile stopped existing :(");

@@ -70,7 +70,7 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
             return
         }
 
-        val releaseCheckBoxChecked = releaseCheckBox!!.isChecked
+        val releaseCheckBoxChecked = releaseCheckBox.isChecked
         val pattern = MCVersionRegex.RELEASE_REGEX
 
         val mFabricVersions: MutableMap<String, List<FabricVersion>> = HashMap()
@@ -115,7 +115,7 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
         Tools.runOnUiThread {
             val recyclerView = recyclerView
             runCatching {
-                var mModAdapter = recyclerView!!.adapter as ModListAdapter?
+                var mModAdapter = recyclerView.adapter as ModListAdapter?
                 mModAdapter ?: run {
                     mModAdapter = ModListAdapter(this, mData)
                     recyclerView.layoutManager = LinearLayoutManager(fragmentActivity!!)

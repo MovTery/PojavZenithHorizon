@@ -124,7 +124,7 @@ class DownloadNeoForgeFragment : ModListFragment(), ModloaderDownloadListener {
         Tools.runOnUiThread {
             val recyclerView = recyclerView
             runCatching {
-                var mModAdapter = recyclerView!!.adapter as ModListAdapter?
+                var mModAdapter = recyclerView.adapter as ModListAdapter?
                 mModAdapter ?: run {
                     mModAdapter = ModListAdapter(this, mData)
                     recyclerView.layoutManager = LinearLayoutManager(fragmentActivity!!)
@@ -137,7 +137,7 @@ class DownloadNeoForgeFragment : ModListFragment(), ModloaderDownloadListener {
             }
 
             componentProcessing(false)
-            recyclerView?.scheduleLayoutAnimation()
+            recyclerView.scheduleLayoutAnimation()
         }
     }
 

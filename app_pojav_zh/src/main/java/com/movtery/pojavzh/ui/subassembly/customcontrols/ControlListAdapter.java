@@ -103,18 +103,18 @@ public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             super(binding.getRoot());
             context = binding.getRoot().getContext();
             this.binding = binding;
-            binding.zhFileCheck.setVisibility(View.GONE);
-            binding.zhFileImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_disabled));
+            binding.check.setVisibility(View.GONE);
+            binding.image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_disabled));
         }
 
         public void setData(ControlItemBean controlItemBean) {
             String text = StringUtils.insertSpace(context.getString(R.string.zh_controls_info_invalid), controlItemBean.controlInfoData.fileName);
-            binding.zhFileName.setText(text);
+            binding.name.setText(text);
 
             //设置文本字体
-            binding.zhFileName.setTextColor(Color.rgb(255, 60, 60));
-            binding.zhFileName.setTypeface(null, Typeface.BOLD);
-            binding.zhFileName.setTextSize(14);
+            binding.name.setTextColor(Color.rgb(255, 60, 60));
+            binding.name.setTypeface(null, Typeface.BOLD);
+            binding.name.setTextSize(14);
         }
     }
 

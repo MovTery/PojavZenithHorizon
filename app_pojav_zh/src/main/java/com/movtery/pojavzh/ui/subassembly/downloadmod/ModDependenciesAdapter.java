@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,6 +25,7 @@ import com.movtery.pojavzh.utils.image.UrlImageCallback;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.databinding.ItemModDependenciesBinding;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.Constants;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
 
@@ -47,8 +47,7 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
     @NonNull
     @Override
     public ModDependenciesAdapter.InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_mod_dependencies, parent, false);
-        return new InnerHolder(view);
+        return new InnerHolder(ItemModDependenciesBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
@@ -83,26 +82,14 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
 
     public class InnerHolder extends RecyclerView.ViewHolder {
         private final Context context;
-        private final View mainView;
-        private final ImageView mSourceImage, mModIcon;
-        private final FlexboxLayout mCategoriesLayout;
-        private final TextView mTitle, mSubTitle, mDesc, mDependencies, mDownloadCount, mModloaders;
+        private final ItemModDependenciesBinding binding;
         private Future<?> mExtensionFuture;
         private ModItem item;
 
-        public InnerHolder(@NonNull View itemView) {
-            super(itemView);
-            context = itemView.getContext();
-            mainView = itemView;
-            mTitle = itemView.findViewById(R.id.mod_title_textview);
-            mSubTitle = itemView.findViewById(R.id.mod_subtitle_textview);
-            mCategoriesLayout = itemView.findViewById(R.id.mod_categories_Layout);
-            mSourceImage = itemView.findViewById(R.id.mod_source_imageview);
-            mModIcon = itemView.findViewById(R.id.mod_thumbnail_imageview);
-            mDesc = itemView.findViewById(R.id.mod_body_textview);
-            mDependencies = itemView.findViewById(R.id.zh_mod_dependencies_textview);
-            mDownloadCount = itemView.findViewById(R.id.zh_mod_download_count_textview);
-            mModloaders = itemView.findViewById(R.id.zh_mod_modloader_textview);
+        public InnerHolder(@NonNull ItemModDependenciesBinding binding) {
+            super(binding.getRoot());
+            context = binding.getRoot().getContext();
+            this.binding = binding;
         }
 
         public void setData(ModDependencies modVersionItem) {
@@ -112,34 +99,34 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
                 mExtensionFuture = null;
             }
 
-            mModIcon.setImageDrawable(null);
+            binding.thumbnailImageview.setImageDrawable(null);
 
-            mSourceImage.setImageResource(getSourceDrawable(item.apiSource));
+            binding.sourceImageview.setImageResource(getSourceDrawable(item.apiSource));
 
             if (item.subTitle != null) {
-                mSubTitle.setVisibility(View.VISIBLE);
-                mTitle.setText(item.subTitle);
-                mSubTitle.setText(item.title);
+                binding.subtitleTextview.setVisibility(View.VISIBLE);
+                binding.titleTextview.setText(item.subTitle);
+                binding.subtitleTextview.setText(item.title);
             } else {
-                mSubTitle.setVisibility(View.GONE);
-                mTitle.setText(item.title);
+                binding.subtitleTextview.setVisibility(View.GONE);
+                binding.titleTextview.setText(item.title);
             }
 
-            mCategoriesLayout.removeAllViews();
+            binding.categoriesLayout.removeAllViews();
             for (ModCategory.Category category : item.categories) {
-                addCategoryView(context, mCategoriesLayout, context.getString(category.getResNameID()));
+                addCategoryView(context, binding.categoriesLayout, context.getString(category.getResNameID()));
             }
 
             FragmentActivity fragmentActivity = mod.fragment.requireActivity();
             String dependencies = StringUtils.insertSpace(fragmentActivity.getString(R.string.zh_profile_mods_information_dependencies),
                     ModDependencies.getTextFromType(fragmentActivity, modVersionItem.dependencyType));
-            mDependencies.setText(dependencies);
-            mDesc.setText(item.description);
+            binding.dependenciesTextview.setText(dependencies);
+            binding.bodyTextview.setText(item.description);
 
             String downloaderCount = StringUtils.insertSpace(fragmentActivity.getString(R.string.zh_profile_mods_information_download_count), NumberWithUnits.formatNumberWithUnit(item.downloadCount,
                     //判断当前系统语言是否为英文
                     ZHTools.isEnglish(fragmentActivity)));
-            mDownloadCount.setText(downloaderCount);
+            binding.downloadCountTextview.setText(downloaderCount);
 
             StringJoiner sj = new StringJoiner(", ");
             for (ModLoaderList.ModLoader modloader : item.modloaders) {
@@ -149,9 +136,9 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
             if (sj.length() > 0) modloaderText = sj.toString();
             else modloaderText = fragmentActivity.getString(R.string.zh_unknown);
 
-            mModloaders.setText(StringUtils.insertSpace(fragmentActivity.getString(R.string.zh_profile_mods_information_modloader), modloaderText));
+            binding.modloaderTextview.setText(StringUtils.insertSpace(fragmentActivity.getString(R.string.zh_profile_mods_information_modloader), modloaderText));
 
-            mainView.setOnClickListener(v -> {
+            itemView.setOnClickListener(v -> {
                 ModApiViewModel viewModel = new ViewModelProvider(fragmentActivity).get(ModApiViewModel.class);
                 viewModel.setModApi(mod.api);
                 viewModel.setModItem(item);
@@ -187,12 +174,12 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
                 ImageUtils.loadDrawableFromUrl(context, item.imageUrl, new UrlImageCallback() {
                     @Override
                     public void onImageCleared(@Nullable Drawable placeholder, @NonNull String url) {
-                        if (Objects.equals(item.imageUrl, url)) mModIcon.setImageDrawable(placeholder);
+                        if (Objects.equals(item.imageUrl, url)) binding.thumbnailImageview.setImageDrawable(placeholder);
                     }
 
                     @Override
                     public void onImageLoaded(@Nullable Drawable drawable, @NonNull String url) {
-                        if (Objects.equals(item.imageUrl, url)) mModIcon.setImageDrawable(drawable);
+                        if (Objects.equals(item.imageUrl, url)) binding.thumbnailImageview.setImageDrawable(drawable);
                     }
                 });
             }

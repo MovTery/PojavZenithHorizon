@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/zh_error_title"
+            android:id="@+id/error_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/error_fatal"
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/zh_error_text"
+                    android:id="@+id/error_text"
                     android:text="Error"
                     android:textSize="12sp"
                     android:layout_width="0dp"
@@ -94,23 +94,23 @@
         app:layout_constraintTop_toBottomOf="@+id/top_view">
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/zh_crash_buttons"
+            android:id="@+id/crash_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/zh_error_restart"
+            app:layout_constraintBottom_toTopOf="@+id/error_restart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
             <com.movtery.pojavzh.ui.view.AnimButton
-                android:id="@+id/zh_crash_share_log"
+                android:id="@+id/crash_share_log"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_8sdp"
                 android:text="@string/main_share_logs"/>
 
             <com.movtery.pojavzh.ui.view.AnimButton
-                android:id="@+id/zh_crash_share_crash_report"
+                android:id="@+id/crash_share_crash_report"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_8sdp"
@@ -119,23 +119,23 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/zh_error_buttons"
+            android:id="@+id/error_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/zh_error_restart"
+            app:layout_constraintBottom_toTopOf="@+id/error_restart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
             <com.movtery.pojavzh.ui.view.AnimButton
-                android:id="@+id/zh_error_share"
+                android:id="@+id/error_share"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_8sdp"
                 android:text="@string/zh_share"/>
 
             <com.movtery.pojavzh.ui.view.AnimButton
-                android:id="@+id/zh_error_copy"
+                android:id="@+id/error_copy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_8sdp"
@@ -144,15 +144,15 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <com.movtery.pojavzh.ui.view.AnimButton
-            android:id="@+id/zh_error_restart"
+            android:id="@+id/error_restart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_8sdp"
             android:text="@string/global_restart"
-            app:layout_constraintBottom_toTopOf="@id/zh_error_confirm"/>
+            app:layout_constraintBottom_toTopOf="@id/error_confirm"/>
 
         <com.movtery.pojavzh.ui.view.AnimButton
-            android:id="@+id/zh_error_confirm"
+            android:id="@+id/error_confirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_8sdp"

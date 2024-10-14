@@ -8,7 +8,7 @@
     android:background="@drawable/background_item">
 
     <ImageView
-        android:id="@+id/zh_file_image"
+        android:id="@+id/image"
         android:layout_width="20dp"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/_12sdp"
@@ -19,21 +19,21 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/zh_file_name"
+        android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_8sdp"
         android:singleLine="true"
         android:text="File Name"
         android:textSize="@dimen/_12sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/zh_file_image"
-        app:layout_constraintEnd_toStartOf="@+id/zh_file_check"
-        app:layout_constraintStart_toEndOf="@+id/zh_file_image"
-        app:layout_constraintTop_toTopOf="@+id/zh_file_image"
+        app:layout_constraintBottom_toBottomOf="@+id/image"
+        app:layout_constraintEnd_toStartOf="@+id/check"
+        app:layout_constraintStart_toEndOf="@+id/image"
+        app:layout_constraintTop_toTopOf="@+id/image"
         tools:ignore="HardcodedText" />
 
     <CheckBox
-        android:id="@+id/zh_file_check"
+        android:id="@+id/check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/_8sdp"

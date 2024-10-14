@@ -50,7 +50,6 @@ import com.movtery.pojavzh.ui.dialog.MouseSettingsDialog;
 import com.movtery.pojavzh.ui.dialog.SeekbarDialog;
 import com.movtery.pojavzh.ui.dialog.SelectControlsDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
-import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.ui.fragment.settings.VideoSettingsFragment;
 import com.movtery.pojavzh.ui.subassembly.view.GameMenuViewWrapper;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
@@ -381,7 +380,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         Logger.appendToLog("--------- beginning with launcher debug");
         printLauncherInfo(versionId, Tools.isValidString(minecraftProfile.javaArgs) ? minecraftProfile.javaArgs : AllSettings.Companion.getJavaArgs(), minecraftProfile.javaDir == null ? "Default" : minecraftProfile.javaDir);
         JREUtils.redirectAndPrintJRELog();
-        LauncherProfiles.load(ProfilePathManager.getCurrentProfile());
+        LauncherProfiles.load();
         int requiredJavaVersion = 8;
         if(version.javaVersion != null) requiredJavaVersion = version.javaVersion.majorVersion;
         LaunchGame.launch(this, minecraftAccount, minecraftProfile, versionId, requiredJavaVersion);

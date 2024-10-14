@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +16,7 @@ import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.movtery.pojavzh.utils.image.ImageUtils;
 
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.databinding.ItemFileListViewBinding;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -38,8 +37,7 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
     @NonNull
     @Override
     public FileRecyclerAdapter.InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_file_list_view, parent, false);
-        return new InnerHolder(view);
+        return new InnerHolder(ItemFileListViewBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
@@ -119,28 +117,24 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
 
     public class InnerHolder extends RecyclerView.ViewHolder {
         private final Context context;
-        private final ImageView icon;
-        private final TextView name;
-        private final CheckBox checkBox;
+        private final ItemFileListViewBinding binding;
         private int mPosition;
         private FileItemBean mFileItemBean;
 
-        public InnerHolder(@NonNull View itemView) {
-            super(itemView);
+        public InnerHolder(@NonNull ItemFileListViewBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
             context = itemView.getContext();
-            icon = itemView.findViewById(R.id.zh_file_image);
-            name = itemView.findViewById(R.id.zh_file_name);
-            checkBox = itemView.findViewById(R.id.zh_file_check);
 
-            checkBox.setOnClickListener(v -> {
+            binding.check.setOnClickListener(v -> {
                 if (isMultiSelectMode) {
-                    toggleSelection(mFileItemBean, checkBox);
+                    toggleSelection(mFileItemBean, binding.check);
                 }
             });
             if (mOnItemClickListener != null) {
                 itemView.setOnClickListener(v -> {
                     if (isMultiSelectMode) {
-                        toggleSelection(mFileItemBean, checkBox);
+                        toggleSelection(mFileItemBean, binding.check);
                     } else {
                         mOnItemClickListener.onItemClick(mPosition, mFileItemBean);
                     }
@@ -159,32 +153,32 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
         }
 
         public void setData(FileItemBean fileItemBean, int position) {
-            this.mPosition = position;
-            this.mFileItemBean = fileItemBean;
+            mPosition = position;
+            mFileItemBean = fileItemBean;
             File file = fileItemBean.file;
 
-            this.name.setText(fileItemBean.name);
+            binding.name.setText(fileItemBean.name);
 
             if (fileItemBean.isHighlighted) {
-                this.name.setTextColor(Color.rgb(69, 179, 162)); //设置高亮
+                binding.name.setTextColor(Color.rgb(69, 179, 162)); //设置高亮
             } else {
-                this.name.setTextColor(this.name.getResources().getColor(R.color.black_or_white, this.name.getContext().getTheme()));
+                binding.name.setTextColor(binding.name.getResources().getColor(R.color.black_or_white, binding.name.getContext().getTheme()));
             }
 
             if (fileItemBean.isCanCheck) {
-                checkBox.setVisibility(isMultiSelectMode ? View.VISIBLE : View.GONE);
-                checkBox.setChecked(selectedFiles.contains(fileItemBean));
+                binding.check.setVisibility(isMultiSelectMode ? View.VISIBLE : View.GONE);
+                binding.check.setChecked(selectedFiles.contains(fileItemBean));
             } else {
-                checkBox.setVisibility(View.GONE);
+                binding.check.setVisibility(View.GONE);
             }
 
             if (file != null && file.isFile() && ImageUtils.isImage(file)) {
                 Glide.with(context).load(file)
-                        .override(icon.getWidth(), icon.getHeight())
+                        .override(binding.image.getWidth(), binding.image.getHeight())
                         .centerCrop()
-                        .into(new DrawableImageViewTarget(icon));
+                        .into(new DrawableImageViewTarget(binding.image));
             } else {
-                this.icon.setImageDrawable(fileItemBean.image);
+                binding.image.setImageDrawable(fileItemBean.image);
             }
         }
     }

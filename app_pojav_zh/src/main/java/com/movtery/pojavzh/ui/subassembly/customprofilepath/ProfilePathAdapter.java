@@ -7,9 +7,7 @@ import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +21,7 @@ import com.movtery.pojavzh.ui.fragment.FilesFragment;
 import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.databinding.ItemProfilePathBinding;
 
 import java.util.List;
 import java.util.Map;
@@ -46,8 +45,7 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
     @NonNull
     @Override
     public ProfilePathAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_profile_path, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(ItemProfilePathBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
@@ -87,35 +85,25 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private final RadioButton mRadioButton;
-        private final TextView mTitle, mPath;
-        private final ImageButton mRenameButton, mVisitButton, mDeleteButton;
-        private final View itemView;
+        private final ItemProfilePathBinding binding;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            this.itemView = itemView;
-
-            mRadioButton = itemView.findViewById(R.id.zh_profile_path_radio_button);
-            mTitle = itemView.findViewById(R.id.zh_profile_path_title);
-            mPath = itemView.findViewById(R.id.zh_profile_path_path);
-            mRenameButton = itemView.findViewById(R.id.zh_profile_path_rename);
-            mVisitButton = itemView.findViewById(R.id.zh_profile_path_visit);
-            mDeleteButton = itemView.findViewById(R.id.zh_profile_path_delete);
+        public ViewHolder(@NonNull ItemProfilePathBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
 
         public void setView(ProfileItem profileItem, int position) {
-            radioButtonMap.put(profileItem.id, mRadioButton);
-            mTitle.setText(profileItem.title);
-            mPath.setText(profileItem.path);
+            radioButtonMap.put(profileItem.id, binding.radioButton);
+            binding.title.setText(profileItem.title);
+            binding.path.setText(profileItem.path);
 
             View.OnClickListener onClickListener = v -> setPathId(profileItem.id);
             itemView.setOnClickListener(onClickListener);
-            mRadioButton.setOnClickListener(onClickListener);
+            binding.radioButton.setOnClickListener(onClickListener);
 
-            mRenameButton.setOnClickListener(v -> {
+            binding.rename.setOnClickListener(v -> {
                 if (!profileItem.id.equals("default")) {
-                    Context context = mRenameButton.getContext();
+                    Context context = binding.rename.getContext();
 
                     new EditTextDialog.Builder(context)
                             .setTitle(R.string.zh_rename)
@@ -134,16 +122,16 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
                 }
             });
 
-            mVisitButton.setOnClickListener(v -> {
+            binding.visit.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
                 bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, Environment.getExternalStorageDirectory().getAbsolutePath());
                 bundle.putString(FilesFragment.BUNDLE_LIST_PATH, profileItem.path);
                 ZHTools.swapFragmentWithAnim(fragment, FilesFragment.class, FilesFragment.TAG, bundle);
             });
 
-            mDeleteButton.setOnClickListener(v -> {
+            binding.delete.setOnClickListener(v -> {
                 if (!profileItem.id.equals("default")) {
-                    Context context = mDeleteButton.getContext();
+                    Context context = binding.delete.getContext();
                     new TipDialog.Builder(context)
                             .setTitle(context.getString(R.string.zh_profiles_path_delete_title))
                             .setMessage(R.string.zh_profiles_path_delete_message)
@@ -160,8 +148,8 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
             });
 
             if (profileItem.id.equals("default")) {
-                mRenameButton.setVisibility(View.GONE);
-                mDeleteButton.setVisibility(View.GONE);
+                binding.rename.setVisibility(View.GONE);
+                binding.delete.setVisibility(View.GONE);
             }
 
             if (Objects.equals(currentId, profileItem.id)) {
