@@ -162,7 +162,7 @@ class GameSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
 
         openGameMenuMemory()
         updateGameMenuMemoryText()
-        setGameMenuAlpha(AllSettings.gameMenuAlpha.toFloat())
+        setGameMenuAlpha(AllSettings.gameMenuAlpha.toFloat() / 100F)
     }
 
     private fun updateMemoryInfo(context: Context, seekValue: Long) {
