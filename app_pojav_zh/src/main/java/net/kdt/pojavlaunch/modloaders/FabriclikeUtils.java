@@ -108,7 +108,7 @@ public class FabriclikeUtils {
         return mCachePrefix;
     }
 
-    public FabriclikeDownloadTask getDownloadTask(ModloaderListenerProxy listenerProxy, String gameVersion, String loaderVersion) {
+    public FabriclikeDownloadTask getDownloadTask(ModloaderDownloadListener listenerProxy, String gameVersion, String loaderVersion) {
         if (Objects.equals("Fabric", mName)) {
             return new FabriclikeDownloadTask(listenerProxy, this);
         } else return new FabriclikeDownloadTask(listenerProxy, this, gameVersion, loaderVersion);
@@ -138,17 +138,17 @@ public class FabriclikeUtils {
         }
     }
 
-    public void addAutoInstallArgs(Intent intent, String gameVersion, String loaderVersion, File modInstallerJar) {
+    public static void addAutoInstallArgs(Intent intent, FabriclikeUtils utils, String gameVersion, String loaderVersion, File modInstallerJar) {
         String installDir = ProfilePathHome.getGameHome();
         String javaArgs = "-jar " + modInstallerJar.getAbsolutePath();
 
-        if (Objects.equals("Fabric", mName)) {
+        if (Objects.equals("Fabric", utils.mName)) {
             javaArgs +=
                     " client" +
                     " -mcversion " + gameVersion +
                     " -loader " + loaderVersion +
                     " -dir " + installDir;
-        } else if (Objects.equals("Quilt", mName)) {
+        } else if (Objects.equals("Quilt", utils.mName)) {
             javaArgs +=
                     " install client " +
                     gameVersion + " " +

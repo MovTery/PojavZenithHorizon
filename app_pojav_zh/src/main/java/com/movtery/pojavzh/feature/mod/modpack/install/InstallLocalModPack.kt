@@ -42,7 +42,7 @@ class InstallLocalModPack {
                                 ), CurseManifest::class.java
                             )
 
-                            modLoader = curseforgeModPack(context, zipFile, packName, onInstallStartListener)
+                            modLoader = curseforgeModPack(context, zipFile, packName, onInstallStartListener) ?: return null
                             ModPackUtils.createModPackProfiles(
                                 packName,
                                 curseManifest.name,
@@ -61,11 +61,11 @@ class InstallLocalModPack {
                                 ), MCBBSPackMeta::class.java
                             )
 
-                            modLoader = mcbbsModPack(context, zipFile, packName, onInstallStartListener)
+                            modLoader = mcbbsModPack(context, zipFile, packName, onInstallStartListener) ?: return null
                             MCBBSModPack.createModPackProfiles(
                                 packName,
                                 mcbbsPackMeta,
-                                modLoader?.versionId
+                                modLoader.versionId
                             )
 
                             return modLoader
@@ -82,7 +82,7 @@ class InstallLocalModPack {
                                 ModrinthIndex::class.java
                             ) // 用于获取创建实例所需的数据
 
-                            modLoader = modrinthModPack(zipFile, packName, onInstallStartListener)
+                            modLoader = modrinthModPack(zipFile, packName, onInstallStartListener) ?: return null
                             ModPackUtils.createModPackProfiles(
                                 packName,
                                 modrinthIndex.name,
@@ -115,7 +115,7 @@ class InstallLocalModPack {
             zipFile: File,
             packName: String,
             onInstallStartListener: OnInstallStartListener
-        ): ModLoader {
+        ): ModLoader? {
             val curseforgeApi = CurseforgeApi(context.getString(R.string.curseforge_api_key))
             return curseforgeApi.installCurseforgeZip(
                 zipFile,
@@ -129,7 +129,7 @@ class InstallLocalModPack {
             zipFile: File,
             packName: String,
             onInstallStartListener: OnInstallStartListener
-        ): ModLoader {
+        ): ModLoader? {
             val modrinthApi = ModrinthApi()
             return modrinthApi.installMrpack(
                 zipFile,

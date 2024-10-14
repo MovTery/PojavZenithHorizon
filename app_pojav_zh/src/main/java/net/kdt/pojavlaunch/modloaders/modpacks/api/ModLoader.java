@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import net.kdt.pojavlaunch.JavaGUILauncherActivity;
-import net.kdt.pojavlaunch.modloaders.FabriclikeDownloadTask;
 import net.kdt.pojavlaunch.modloaders.FabriclikeUtils;
 import net.kdt.pojavlaunch.modloaders.ForgeDownloadTask;
 import net.kdt.pojavlaunch.modloaders.ForgeUtils;
@@ -80,9 +79,9 @@ public class ModLoader {
             case MOD_LOADER_NEOFORGE:
                 return new NeoForgeDownloadTask(listener, modLoaderVersion);
             case MOD_LOADER_FABRIC:
-                return createFabriclikeTask(listener, FabriclikeUtils.FABRIC_UTILS);
+                return FabriclikeUtils.FABRIC_UTILS.getDownloadTask(listener, minecraftVersion, modLoaderVersion);
             case MOD_LOADER_QUILT:
-                return createFabriclikeTask(listener, FabriclikeUtils.QUILT_UTILS);
+                return FabriclikeUtils.QUILT_UTILS.getDownloadTask(listener, minecraftVersion, modLoaderVersion);
             default:
                 return null;
         }
@@ -106,8 +105,10 @@ public class ModLoader {
             case MOD_LOADER_NEOFORGE:
                 NeoForgeUtils.addAutoInstallArgs(baseIntent, modInstallerJar);
                 return baseIntent;
-            case MOD_LOADER_QUILT:
             case MOD_LOADER_FABRIC:
+                FabriclikeUtils.addAutoInstallArgs(baseIntent, FabriclikeUtils.FABRIC_UTILS, minecraftVersion, modLoaderVersion, modInstallerJar);
+                return baseIntent;
+            case MOD_LOADER_QUILT:
             default:
                 return null;
         }
@@ -121,15 +122,11 @@ public class ModLoader {
         switch (modLoaderType) {
             case MOD_LOADER_FORGE:
             case MOD_LOADER_NEOFORGE:
-                return true;
             case MOD_LOADER_FABRIC:
+                return true;
             case MOD_LOADER_QUILT:
             default:
                 return false;
         }
-    }
-
-    private FabriclikeDownloadTask createFabriclikeTask(ModloaderDownloadListener modloaderDownloadListener, FabriclikeUtils utils) {
-        return new FabriclikeDownloadTask(modloaderDownloadListener, utils);
     }
 }

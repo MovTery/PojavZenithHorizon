@@ -128,7 +128,7 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
             }
 
             componentProcessing(false)
-            recyclerView?.scheduleLayoutAnimation()
+            recyclerView.scheduleLayoutAnimation()
         }
     }
 
@@ -136,7 +136,7 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
         Tools.runOnUiThread {
             downloadedFile?.apply {
                 val modInstallerStartIntent = Intent(fragmentActivity!!, JavaGUILauncherActivity::class.java)
-                utils.addAutoInstallArgs(modInstallerStartIntent, selectedGameVersion, selectedLoaderVersion, this)
+                FabriclikeUtils.addAutoInstallArgs(modInstallerStartIntent, utils, selectedGameVersion, selectedLoaderVersion, this)
                 val selectRuntimeDialog = SelectRuntimeDialog(fragmentActivity!!)
                 selectRuntimeDialog.setListener { jreName: String? ->
                     modloaderListenerProxy.detachListener()

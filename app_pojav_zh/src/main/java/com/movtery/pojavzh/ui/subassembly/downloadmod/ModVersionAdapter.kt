@@ -85,36 +85,44 @@ class ModVersionAdapter(
 
                 if (modVersionItem.modDependencies.isNotEmpty()) {
                     val dependenciesDialog = ModDependenciesDialog(context, mod, modVersionItem.modDependencies) {
-                        Tools.runOnUiThread { customFileName(modVersionItem) }
+                        Tools.runOnUiThread { startInstall(modVersionItem) }
                     }
                     dependenciesDialog.show()
                     return@setOnClickListener
                 }
 
-                customFileName(modVersionItem)
+                startInstall(modVersionItem)
             }
         }
 
-        private fun customFileName(modVersionItem: ModVersionItem) {
-            EditTextDialog.Builder(context)
-                .setTitle(R.string.zh_profile_mods_download_mod_custom_name)
-                .setEditText(
-                    ("[${modDetail.subTitle ?: modDetail.title}] ${modVersionItem.name}")
-                        .replace("/", "-").removeSuffix(".jar")
-                )
-                .setConfirmListener { editText: EditText ->
-                    val string = editText.text.toString()
-                    if (string.contains("/")) {
-                        editText.error = context.getString(
-                            R.string.zh_profile_mods_download_mod_custom_name_invalid,
-                            "/"
-                        )
-                        return@setConfirmListener false
-                    }
+        private fun startInstall(modVersionItem: ModVersionItem) {
+            fun start(fileName: String) {
+                mod.api.handleInstallation(context, mod.isModpack, mod.modsPath, fileName, modDetail, modVersionItem)
+            }
 
-                    mod.api.handleInstallation(context, mod.isModpack, mod.modsPath, string, modDetail, modVersionItem)
-                    true
-                }.buildDialog()
+            if (mod.isModpack) {
+                start(modVersionItem.name)
+            } else {
+                EditTextDialog.Builder(context)
+                    .setTitle(R.string.zh_profile_mods_download_mod_custom_name)
+                    .setEditText(
+                        ("[${modDetail.subTitle ?: modDetail.title}] ${modVersionItem.name}")
+                            .replace("/", "-").removeSuffix(".jar")
+                    )
+                    .setConfirmListener { editText: EditText ->
+                        val string = editText.text.toString()
+                        if (string.contains("/")) {
+                            editText.error = context.getString(
+                                R.string.zh_profile_mods_download_mod_custom_name_invalid,
+                                "/"
+                            )
+                            return@setConfirmListener false
+                        }
+
+                        start(string)
+                        true
+                    }.buildDialog()
+            }
         }
 
         private fun getDownloadType(versionType: VersionTypeEnum): Int {
