@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_4sdp"
         android:layout_marginTop="@dimen/_4sdp"
-        android:layout_marginBottom="@dimen/_24sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
         android:layout_weight="1"
         android:text="@android:string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"

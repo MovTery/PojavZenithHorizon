@@ -1,8 +1,6 @@
 package com.movtery.pojavzh.ui.dialog
 
 import android.content.Context
-import android.view.View
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.kdt.pojavlaunch.R
@@ -17,15 +15,10 @@ class SelectRuntimeDialog(context: Context) : AbstractSelectDialog(context) {
         this.setCancelable(false)
     }
 
-    override fun initDialog(
-        recyclerView: RecyclerView,
-        titleView: TextView,
-        messageView: TextView
-    ) {
+    override fun initDialog(recyclerView: RecyclerView) {
         this.recyclerView = recyclerView
-        titleView.setText(R.string.zh_install_select_jre_environment)
-        messageView.setText(R.string.zh_install_recommend_use_jre8)
-        messageView.visibility = View.VISIBLE
+        setTitleText(R.string.zh_install_select_jre_environment)
+        setMessageText(R.string.zh_install_recommend_use_jre8)
         recyclerView.layoutManager = LinearLayoutManager(context)
     }
 

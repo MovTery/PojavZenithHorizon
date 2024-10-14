@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.movtery.pojavzh.feature.login.AuthResult.AvailableProfiles
@@ -15,14 +14,9 @@ class SelectRoleDialog(context: Context, private val mProfiles: List<AvailablePr
     AbstractSelectDialog(context) {
     private var selectedListener: RoleSelectedListener? = null
 
-    override fun initDialog(
-        recyclerView: RecyclerView,
-        titleView: TextView,
-        messageView: TextView
-    ) {
-        titleView.setText(R.string.zh_other_login_select_role_title)
-        messageView.setText(R.string.zh_other_login_select_role_message)
-        messageView.visibility = View.VISIBLE
+    override fun initDialog(recyclerView: RecyclerView) {
+        setTitleText(R.string.zh_other_login_select_role_title)
+        setMessageText(R.string.zh_other_login_select_role_message)
 
         val adapter = RoleAdapter()
         recyclerView.layoutManager = LinearLayoutManager(context)

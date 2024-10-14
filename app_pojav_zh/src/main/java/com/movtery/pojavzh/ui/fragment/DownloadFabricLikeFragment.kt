@@ -137,15 +137,17 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
             downloadedFile?.apply {
                 val modInstallerStartIntent = Intent(fragmentActivity!!, JavaGUILauncherActivity::class.java)
                 FabriclikeUtils.addAutoInstallArgs(modInstallerStartIntent, utils, selectedGameVersion, selectedLoaderVersion, this)
-                val selectRuntimeDialog = SelectRuntimeDialog(fragmentActivity!!)
-                selectRuntimeDialog.setListener { jreName: String? ->
-                    modloaderListenerProxy.detachListener()
-                    modInstallerStartIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
-                    selectRuntimeDialog.dismiss()
-                    Tools.backToMainMenu(fragmentActivity!!)
-                    fragmentActivity?.startActivity(modInstallerStartIntent)
+                SelectRuntimeDialog(fragmentActivity!!).apply {
+                    setListener { jreName: String? ->
+                        modloaderListenerProxy.detachListener()
+                        modInstallerStartIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
+                        dismiss()
+                        Tools.backToMainMenu(fragmentActivity!!)
+                        fragmentActivity?.startActivity(modInstallerStartIntent)
+                    }
+                    setTitleText(R.string.modloader_dl_install_fabric)
+                    show()
                 }
-                selectRuntimeDialog.show()
                 return@runOnUiThread
             }
             Tools.backToMainMenu(fragmentActivity!!)

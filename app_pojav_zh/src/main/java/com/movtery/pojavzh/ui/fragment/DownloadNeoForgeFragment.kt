@@ -145,15 +145,17 @@ class DownloadNeoForgeFragment : ModListFragment(), ModloaderDownloadListener {
         Tools.runOnUiThread {
             val modInstallerStartIntent = Intent(fragmentActivity!!, JavaGUILauncherActivity::class.java)
             addAutoInstallArgs(modInstallerStartIntent, downloadedFile)
-            val selectRuntimeDialog = SelectRuntimeDialog(fragmentActivity!!)
-            selectRuntimeDialog.setListener { jreName: String? ->
-                modloaderListenerProxy.detachListener()
-                modInstallerStartIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
-                selectRuntimeDialog.dismiss()
-                Tools.backToMainMenu(fragmentActivity!!)
-                fragmentActivity?.startActivity(modInstallerStartIntent)
+            SelectRuntimeDialog(fragmentActivity!!).apply {
+                setListener { jreName: String? ->
+                    modloaderListenerProxy.detachListener()
+                    modInstallerStartIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
+                    dismiss()
+                    Tools.backToMainMenu(fragmentActivity!!)
+                    fragmentActivity?.startActivity(modInstallerStartIntent)
+                }
+                setTitleText(R.string.zh_modloader_dl_install_neoforge)
+                show()
             }
-            selectRuntimeDialog.show()
         }
     }
 

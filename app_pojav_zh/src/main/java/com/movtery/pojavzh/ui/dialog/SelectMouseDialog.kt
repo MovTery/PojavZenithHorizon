@@ -2,7 +2,6 @@ package com.movtery.pojavzh.ui.dialog
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.movtery.pojavzh.setting.Settings
 import com.movtery.pojavzh.ui.subassembly.filelist.FileIcon
@@ -17,13 +16,9 @@ import java.io.File
 class SelectMouseDialog(context: Context) : AbstractSelectDialog(context) {
     private var mouseSelectedListener: MouseSelectedListener? = null
 
-    override fun initDialog(
-        recyclerView: RecyclerView,
-        titleView: TextView,
-        messageView: TextView
-    ) {
+    override fun initDialog(recyclerView: RecyclerView) {
         initView(recyclerView)
-        titleView.setText(R.string.zh_custom_mouse_title)
+        setTitleText(R.string.zh_custom_mouse_title)
     }
 
     private fun initView(mMouseListView: RecyclerView) {

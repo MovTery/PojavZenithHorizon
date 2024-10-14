@@ -1,12 +1,12 @@
 package com.movtery.pojavzh.ui.dialog
 
 import android.content.Context
-import android.widget.TextView
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import net.kdt.pojavlaunch.databinding.DialogSelectItemBinding
 
 abstract class AbstractSelectDialog(context: Context) : FullScreenDialog(context) {
-    private val binding = DialogSelectItemBinding.inflate(layoutInflater)
+    protected val binding = DialogSelectItemBinding.inflate(layoutInflater)
 
     init {
         this.setContentView(binding.root)
@@ -15,8 +15,25 @@ abstract class AbstractSelectDialog(context: Context) : FullScreenDialog(context
     }
 
     private fun setupDialog() {
-        initDialog(binding.recyclerView, binding.titleView, binding.messageView)
+        initDialog(binding.recyclerView)
     }
 
-    abstract fun initDialog(recyclerView: RecyclerView, titleView: TextView, messageView: TextView)
+    fun setTitleText(text: Int) {
+        setTitleText(context.getString(text))
+    }
+
+    fun setTitleText(text: String) {
+        binding.titleView.text = text
+    }
+
+    fun setMessageText(text: Int) {
+        setMessageText(context.getString(text))
+    }
+
+    fun setMessageText(text: String?) {
+        binding.messageView.text = text
+        binding.messageView.visibility = if (text != null) View.VISIBLE else View.GONE
+    }
+
+    abstract fun initDialog(recyclerView: RecyclerView)
 }
