@@ -104,8 +104,6 @@ public class VersionListView extends LinearLayout {
     @SuppressLint("UseCompatLoadingForDrawables")
     private List<FileItemBean> showVersions(VersionType versionType) {
         switch (versionType) {
-            case INSTALLED:
-                return getVersion(context.getDrawable(R.drawable.ic_pojav_full), mInstalledVersions);
             case RELEASE:
                 return getVersion(context.getDrawable(R.drawable.ic_minecraft), getVersionIds(releaseList));
             case SNAPSHOT:
@@ -114,8 +112,10 @@ public class VersionListView extends LinearLayout {
                 return getVersion(context.getDrawable(R.drawable.ic_old_cobblestone), getVersionIds(betaList));
             case ALPHA:
                 return getVersion(context.getDrawable(R.drawable.ic_old_grass_block), getVersionIds(alphaList));
+            case INSTALLED:
+            default:
+                return getVersion(context.getDrawable(R.drawable.ic_pojav_full), mInstalledVersions);
         }
-        return null;
     }
 
     private List<FileItemBean> getVersion(Drawable icon, String[] names) {

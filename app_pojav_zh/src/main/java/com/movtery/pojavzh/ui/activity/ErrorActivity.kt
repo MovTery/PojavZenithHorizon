@@ -31,8 +31,8 @@ class ErrorActivity : BaseActivity() {
             return
         }
 
-        binding.zhErrorConfirm.setOnClickListener { finish() }
-        binding.zhErrorRestart.setOnClickListener {
+        binding.errorConfirm.setOnClickListener { finish() }
+        binding.errorRestart.setOnClickListener {
             startActivity(Intent(this@ErrorActivity, LauncherActivity::class.java))
         }
 
@@ -52,41 +52,41 @@ class ErrorActivity : BaseActivity() {
             return
         }
 
-        findViewById<View>(R.id.zh_error_buttons).visibility = View.GONE
-        binding.zhErrorTitle.setText(R.string.zh_wrong_tip)
+        binding.errorButtons.visibility = View.GONE
+        binding.errorTitle.setText(R.string.zh_wrong_tip)
 
         val crashReportFile = getLatestFile(extras.getString(BUNDLE_CRASH_REPORTS_PATH), 15)
         val logFile = File(PathAndUrlManager.DIR_GAME_HOME, "latestlog.txt")
 
-        binding.zhErrorText.apply {
+        binding.errorText.apply {
             text = getString(R.string.zh_game_exit_message, code)
             textSize = 14f
         }
-        binding.zhCrashShareCrashReport.visibility =
+        binding.crashShareCrashReport.visibility =
             if ((crashReportFile?.exists() == true)) View.VISIBLE else View.GONE
-        binding.zhCrashShareLog.visibility = if (logFile.exists()) View.VISIBLE else View.GONE
+        binding.crashShareLog.visibility = if (logFile.exists()) View.VISIBLE else View.GONE
 
         crashReportFile?.let { file ->
-            binding.zhCrashShareCrashReport.setOnClickListener {
+            binding.crashShareCrashReport.setOnClickListener {
                 shareFile(this, file)
             }
         }
-        binding.zhCrashShareLog.setOnClickListener { Tools.shareLog(this) }
+        binding.crashShareLog.setOnClickListener { Tools.shareLog(this) }
     }
 
     private fun showError(extras: Bundle) {
-        findViewById<View>(R.id.zh_crash_buttons).visibility = View.GONE
+        binding.crashButtons.visibility = View.GONE
 
         val throwable = extras.getSerializable(BUNDLE_THROWABLE) as Throwable?
         val stackTrace = if (throwable != null) Tools.printToString(throwable) else "<null>"
         val strSavePath = extras.getString(BUNDLE_SAVE_PATH)
         val errorText = "$strSavePath :\r\n\r\n$stackTrace"
 
-        binding.zhErrorText.text = errorText
-        binding.zhErrorCopy.setOnClickListener { StringUtils.copyText("error", stackTrace, this@ErrorActivity) }
+        binding.errorText.text = errorText
+        binding.errorCopy.setOnClickListener { StringUtils.copyText("error", stackTrace, this@ErrorActivity) }
         strSavePath?.let{
             val crashFile = File(strSavePath)
-            binding.zhErrorShare.setOnClickListener {
+            binding.errorShare.setOnClickListener {
                 shareFile(this, crashFile)
             }
         }

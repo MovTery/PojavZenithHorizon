@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.movtery.anim.animations.Animations
@@ -20,6 +18,7 @@ import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
 import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.databinding.ItemModVersionBinding
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener
@@ -37,8 +36,7 @@ class ModVersionAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InnerHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_mod_version, parent, false)
-        return InnerHolder(view)
+        return InnerHolder(ItemModVersionBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: InnerHolder, position: Int) {
@@ -51,26 +49,21 @@ class ModVersionAdapter(
         mTasksRunning = taskCount != 0
     }
 
-    inner class InnerHolder(private val mainView: View) : RecyclerView.ViewHolder(
-        mainView
+    inner class InnerHolder(private val binding: ItemModVersionBinding) : RecyclerView.ViewHolder(
+        binding.root
     ) {
         private val context: Context = itemView.context
-        private val mImageView: ImageView = itemView.findViewById(R.id.mod_download_imageview)
-        private val mTitle: TextView = itemView.findViewById(R.id.mod_title_textview)
-        private val mDownloadCount: TextView = itemView.findViewById(R.id.zh_mod_download_count_textview)
-        private val mModloaders: TextView = itemView.findViewById(R.id.zh_mod_modloader_textview)
-        private val mReleaseType: TextView = itemView.findViewById(R.id.zh_mod_release_type_textview)
 
         fun setData(modVersionItem: ModVersionItem) {
-            mImageView.setImageResource(getDownloadType(modVersionItem.versionType))
+            binding.downloadImageview.setImageResource(getDownloadType(modVersionItem.versionType))
 
-            mTitle.text = modVersionItem.title
+            binding.titleTextview.text = modVersionItem.title
 
             val downloadCountText = StringUtils.insertSpace(
                 context.getString(R.string.zh_profile_mods_information_download_count),
                 formatNumberWithUnit(modVersionItem.download.toLong(), ZHTools.isEnglish(context))
             )
-            mDownloadCount.text = downloadCountText
+            binding.downloadCountTextview.text = downloadCountText
 
             val sj = StringJoiner(", ")
             for (modloader in modVersionItem.modloaders) {
@@ -79,13 +72,13 @@ class ModVersionAdapter(
             val modloaderText = if (sj.length() > 0) sj.toString()
             else context.getString(R.string.zh_unknown)
 
-            mModloaders.text = modloaderText
+            binding.modloaderTextview.text = modloaderText
 
-            mReleaseType.text = getDownloadTypeText(modVersionItem.versionType)
+            binding.releaseTypeTextview.text = getDownloadTypeText(modVersionItem.versionType)
 
-            mainView.setOnClickListener { _: View? ->
+            itemView.setOnClickListener { _: View? ->
                 if (mTasksRunning) {
-                    setViewAnim(mainView, Animations.Shake)
+                    setViewAnim(itemView, Animations.Shake)
                     Toast.makeText(context, context.getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
@@ -134,9 +127,9 @@ class ModVersionAdapter(
 
         private fun getDownloadTypeText(versionType: VersionTypeEnum): String {
             val text = when (versionType) {
-                VersionTypeEnum.RELEASE -> mainView.context.getString(R.string.zh_profile_mods_information_release_type_release)
-                VersionTypeEnum.BETA -> mainView.context.getString(R.string.zh_profile_mods_information_release_type_beta)
-                VersionTypeEnum.ALPHA -> mainView.context.getString(R.string.zh_profile_mods_information_release_type_alpha)
+                VersionTypeEnum.RELEASE -> context.getString(R.string.zh_profile_mods_information_release_type_release)
+                VersionTypeEnum.BETA -> context.getString(R.string.zh_profile_mods_information_release_type_beta)
+                VersionTypeEnum.ALPHA -> context.getString(R.string.zh_profile_mods_information_release_type_alpha)
             }
             return text
         }

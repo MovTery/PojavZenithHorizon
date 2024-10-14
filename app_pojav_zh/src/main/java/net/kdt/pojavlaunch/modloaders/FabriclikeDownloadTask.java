@@ -71,7 +71,7 @@ public class FabriclikeDownloadTask implements Runnable, Tools.DownloaderFeedbac
             FileUtils.ensureDirectory(versionJsonDir);
             Tools.write(versionJsonFile.getAbsolutePath(), jsonString);
 
-            LauncherProfiles.load(ProfilePathManager.getCurrentProfile());
+            LauncherProfiles.load();
             MinecraftProfile profile = new MinecraftProfile();
             profile.lastVersionId = versionId;
             profile.name = mUtils.getName();

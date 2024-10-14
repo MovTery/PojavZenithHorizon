@@ -1,7 +1,6 @@
 package com.movtery.pojavzh.launch
 
 import androidx.appcompat.app.AppCompatActivity
-import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager
 import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.setting.AllSettings
 import com.movtery.pojavzh.ui.dialog.LifecycleAwareTipDialog
@@ -36,7 +35,7 @@ class LaunchGame {
                 versionJavaRequirement))
 
             val versionInfo = Tools.getVersionInfo(versionId)
-            LauncherProfiles.load(ProfilePathManager.currentProfile)
+            LauncherProfiles.load()
             val gameDirPath = Tools.getGameDirPath(minecraftProfile)
 
             //预处理

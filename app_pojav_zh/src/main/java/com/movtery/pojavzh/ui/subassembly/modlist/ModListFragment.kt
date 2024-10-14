@@ -3,14 +3,12 @@ package com.movtery.pojavzh.ui.subassembly.modlist
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
-import android.widget.Button
 import android.widget.CheckBox
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,53 +23,67 @@ import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
 import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.databinding.FragmentModDownloadBinding
 import java.util.concurrent.Future
 
 abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download) {
+    private lateinit var binding: FragmentModDownloadBinding
+    protected lateinit var recyclerView: RecyclerView
+    protected lateinit var releaseCheckBox: CheckBox
     protected var fragmentActivity: FragmentActivity? = null
     private var parentAdapter: RecyclerView.Adapter<*>? = null
-    protected var recyclerView: RecyclerView? = null
-    private var mModsLayout: View? = null
-    private var mOperateLayout: View? = null
-    private var mLoadingView: View? = null
-    private var mTitleLayout: View? = null
-    private var mNameText: TextView? = null
-    private var mSubTitleText: TextView? = null
-    private var mSelectTitle: TextView? = null
-    private var mFailedToLoad: TextView? = null
-    private var mIcon: ImageView? = null
-    private var mLaunchLink: ImageView? = null
-    private var mBackToTop: ImageButton? = null
-    private var mReturnButton: Button? = null
-    private var mRefreshButton: Button? = null
-    protected var releaseCheckBox: CheckBox? = null
     protected var currentTask: Future<*>? = null
     private var releaseCheckBoxVisible = true
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentModDownloadBinding.inflate(layoutInflater)
+        recyclerView = binding.recyclerView
+        releaseCheckBox = binding.releaseVersion
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        bindViews(view)
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager?
+                if (layoutManager != null && recyclerView.adapter != null) {
+                    val lastPosition = layoutManager.findFirstVisibleItemPosition()
+                    val b = lastPosition >= 12
+
+                    AnimUtils.setVisibilityAnim(binding.backToTop, b)
+                }
+            }
+        })
+
         init()
     }
 
     protected open fun init() {
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
-        recyclerView?.layoutAnimation = LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.fade_downwards))
-        recyclerView?.layoutManager = layoutManager
+        binding.apply {
+            recyclerView.layoutAnimation = LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.fade_downwards))
+            recyclerView.layoutManager = layoutManager
 
-        mRefreshButton?.setOnClickListener { refreshTask() }
-        releaseCheckBox?.setOnClickListener { initRefresh() }
-        mReturnButton?.setOnClickListener {
-            parentAdapter?.apply {
-                hideParentElement(false)
-                recyclerView?.adapter = this
-                recyclerView?.scheduleLayoutAnimation()
-                parentAdapter = null
-                return@setOnClickListener
+            refreshButton.setOnClickListener { refreshTask() }
+            releaseVersion.setOnClickListener { initRefresh() }
+            returnButton.setOnClickListener {
+                parentAdapter?.apply {
+                    hideParentElement(false)
+                    recyclerView.adapter = this
+                    recyclerView.scheduleLayoutAnimation()
+                    parentAdapter = null
+                    return@setOnClickListener
+                }
+                ZHTools.onBackPressed(requireActivity())
             }
-            ZHTools.onBackPressed(requireActivity())
-        }
 
-        mBackToTop?.setOnClickListener { recyclerView?.smoothScrollToPosition(0) }
+            backToTop.setOnClickListener { recyclerView.smoothScrollToPosition(0) }
+        }
 
         currentTask = initRefresh()
     }
@@ -94,12 +106,14 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
     private fun hideParentElement(hide: Boolean) {
         cancelTask()
 
-        mRefreshButton?.isClickable = !hide
-        releaseCheckBox?.isClickable = !hide
+        binding.apply {
+            refreshButton.isClickable = !hide
+            releaseVersion.isClickable = !hide
 
-        setViewAnim(mSelectTitle!!, if (hide) Animations.FadeIn else Animations.FadeOut, (AllSettings.animationSpeed * 0.7).toLong())
-        setViewAnim(mRefreshButton!!, if (hide) Animations.FadeOut else Animations.FadeIn, (AllSettings.animationSpeed * 0.7).toLong())
-        if (releaseCheckBoxVisible) setViewAnim(releaseCheckBox!!, if (hide) Animations.FadeOut else Animations.FadeIn, (AllSettings.animationSpeed * 0.7).toLong())
+            setViewAnim(selectTitle, if (hide) Animations.FadeIn else Animations.FadeOut, (AllSettings.animationSpeed * 0.7).toLong())
+            setViewAnim(refreshButton, if (hide) Animations.FadeOut else Animations.FadeIn, (AllSettings.animationSpeed * 0.7).toLong())
+            if (releaseCheckBoxVisible) setViewAnim(releaseVersion, if (hide) Animations.FadeOut else Animations.FadeIn, (AllSettings.animationSpeed * 0.7).toLong())
+        }
     }
 
     private fun cancelTask() {
@@ -114,79 +128,47 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
     protected abstract fun refresh(): Future<*>?
 
     protected fun componentProcessing(state: Boolean) {
-        playVisibilityAnim(mLoadingView!!, state)
-        recyclerView?.visibility = if (state) View.GONE else View.VISIBLE
-
-        mRefreshButton?.isClickable = !state
-        releaseCheckBox?.isClickable = !state
-    }
-
-    private fun bindViews(view: View) {
-        mModsLayout = view.findViewById(R.id.mods_layout)
-        mOperateLayout = view.findViewById(R.id.operate_layout)
-
-        recyclerView = view.findViewById(R.id.zh_mod)
-        mBackToTop = view.findViewById(R.id.zh_mod_back_to_top)
-        mLoadingView = view.findViewById(R.id.zh_mod_loading)
-        mIcon = view.findViewById(R.id.zh_mod_icon)
-        mLaunchLink = view.findViewById(R.id.zh_launch_link)
-        mTitleLayout = view.findViewById(R.id.mod_title_layout)
-        mNameText = view.findViewById(R.id.zh_mod_name)
-        mSubTitleText = view.findViewById(R.id.zh_mod_subtitle)
-        mSelectTitle = view.findViewById(R.id.zh_select_title)
-        mFailedToLoad = view.findViewById(R.id.zh_mod_failed_to_load)
-
-        mReturnButton = view.findViewById(R.id.zh_mod_return_button)
-        mRefreshButton = view.findViewById(R.id.zh_mod_refresh_button)
-        releaseCheckBox = view.findViewById(R.id.zh_mod_release_version)
-
-        recyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val layoutManager = recyclerView.layoutManager as LinearLayoutManager?
-                if (layoutManager != null && recyclerView.adapter != null) {
-                    val lastPosition = layoutManager.findFirstVisibleItemPosition()
-                    val b = lastPosition >= 12
-
-                    AnimUtils.setVisibilityAnim(mBackToTop!!, b)
-                }
-            }
-        })
+        binding.apply {
+            playVisibilityAnim(loadingLayout, state)
+            recyclerView.visibility = if (state) View.GONE else View.VISIBLE
+            refreshButton.isClickable = !state
+            releaseVersion.isClickable = !state
+        }
     }
 
     protected fun setNameText(nameText: String?) {
-        mNameText?.text = nameText
+        binding.name.text = nameText
     }
 
     protected fun setSubTitleText(text: String?) {
-        mSubTitleText?.apply {
+        binding.subtitle.apply {
             visibility = if (text != null) View.VISIBLE else View.GONE
             text?.let { this.text = it }
         }
     }
 
     protected fun setIcon(icon: Drawable?) {
-        mIcon?.setImageDrawable(icon)
+        binding.icon.setImageDrawable(icon)
     }
 
     protected fun setReleaseCheckBoxGone() {
         releaseCheckBoxVisible = false
-        releaseCheckBox?.visibility = View.GONE
+        binding.releaseVersion.visibility = View.GONE
     }
 
     protected fun setFailedToLoad(reasons: String?) {
         val text = fragmentActivity!!.getString(R.string.modloader_dl_failed_to_load_list)
-        mFailedToLoad?.text = if (reasons == null) text else StringUtils.insertNewline(text, reasons)
-        playVisibilityAnim(mFailedToLoad!!, true)
+        binding.failedToLoad.text = if (reasons == null) text else StringUtils.insertNewline(text, reasons)
+        playVisibilityAnim(binding.failedToLoad, true)
     }
 
     protected fun cancelFailedToLoad() {
-        playVisibilityAnim(mFailedToLoad!!, false)
+        playVisibilityAnim(binding.failedToLoad, false)
     }
 
     protected fun setLink(link: String?) {
         if (link == null) return
-        mLaunchLink?.let { view ->
+        binding.launchLink.let { view ->
             view.setOnClickListener { Tools.openURL(fragmentActivity, link) }
             AnimUtils.setVisibilityAnim(view, true)
         }
@@ -194,27 +176,31 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
 
     fun switchToChild(adapter: RecyclerView.Adapter<*>?, title: String?) {
         if (currentTask!!.isDone && adapter != null) {
-            //保存父级，设置选中的标题文本，切换至子级
-            parentAdapter = recyclerView!!.adapter
-            mSelectTitle?.text = title
-            hideParentElement(true)
-            recyclerView?.adapter = adapter
-            recyclerView?.scheduleLayoutAnimation()
+            binding.apply {
+                //保存父级，设置选中的标题文本，切换至子级
+                parentAdapter = recyclerView.adapter
+                selectTitle.text = title
+                hideParentElement(true)
+                recyclerView.adapter = adapter
+                recyclerView.scheduleLayoutAnimation()
+            }
         }
     }
 
     override fun slideIn(animPlayer: AnimPlayer) {
-        animPlayer.apply(AnimPlayer.Entry(mModsLayout!!, Animations.BounceInDown))
-            .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.BounceInLeft))
-            .apply(AnimPlayer.Entry(mIcon!!, Animations.Wobble))
-            .apply(AnimPlayer.Entry(mTitleLayout!!, Animations.FadeInLeft))
-            .apply(AnimPlayer.Entry(mReturnButton!!, Animations.FadeInLeft))
-            .apply(AnimPlayer.Entry(mRefreshButton!!, Animations.FadeInLeft))
-            .apply(AnimPlayer.Entry(releaseCheckBox!!, Animations.FadeInLeft))
+        binding.apply {
+            animPlayer.apply(AnimPlayer.Entry(modsLayout, Animations.BounceInDown))
+                .apply(AnimPlayer.Entry(operateLayout, Animations.BounceInLeft))
+                .apply(AnimPlayer.Entry(icon, Animations.Wobble))
+                .apply(AnimPlayer.Entry(modTitleLayout, Animations.FadeInLeft))
+                .apply(AnimPlayer.Entry(returnButton, Animations.FadeInLeft))
+                .apply(AnimPlayer.Entry(refreshButton, Animations.FadeInLeft))
+                .apply(AnimPlayer.Entry(releaseVersion, Animations.FadeInLeft))
+        }
     }
 
     override fun slideOut(animPlayer: AnimPlayer) {
-        animPlayer.apply(AnimPlayer.Entry(mModsLayout!!, Animations.FadeOutUp))
-            .apply(AnimPlayer.Entry(mOperateLayout!!, Animations.FadeOutRight))
+        animPlayer.apply(AnimPlayer.Entry(binding.modsLayout, Animations.FadeOutUp))
+            .apply(AnimPlayer.Entry(binding.operateLayout, Animations.FadeOutRight))
     }
 }

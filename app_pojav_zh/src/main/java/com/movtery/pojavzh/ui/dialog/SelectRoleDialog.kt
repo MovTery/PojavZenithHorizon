@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.movtery.pojavzh.feature.login.AuthResult.AvailableProfiles
 import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.databinding.ItemFileListViewBinding
 
 class SelectRoleDialog(context: Context, private val mProfiles: List<AvailableProfiles>) :
     AbstractSelectDialog(context) {
@@ -34,9 +35,7 @@ class SelectRoleDialog(context: Context, private val mProfiles: List<AvailablePr
 
     private inner class RoleAdapter : RecyclerView.Adapter<RoleAdapter.ViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_file_list_view, parent, false)
-            return ViewHolder(view)
+            return ViewHolder(ItemFileListViewBinding.inflate(LayoutInflater.from(parent.context), parent, false))
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -47,20 +46,17 @@ class SelectRoleDialog(context: Context, private val mProfiles: List<AvailablePr
             return mProfiles.size
         }
 
-        inner class ViewHolder(private val mMainView: View) : RecyclerView.ViewHolder(mMainView) {
-            private val mNameView: TextView
-
+        inner class ViewHolder(private val binding: ItemFileListViewBinding) : RecyclerView.ViewHolder(binding.root) {
             init {
-                itemView.findViewById<View>(R.id.zh_file_image).visibility = View.GONE
-                itemView.findViewById<View>(R.id.zh_file_check).visibility = View.GONE
-                mNameView = itemView.findViewById(R.id.zh_file_name)
+                binding.image.visibility = View.GONE
+                binding.check.visibility = View.GONE
             }
 
             fun setProfile(availableProfiles: AvailableProfiles) {
                 val name = availableProfiles.name
-                mNameView.text = name
+                binding.name.text = name
                 selectedListener?.apply {
-                    mMainView.setOnClickListener {
+                    itemView.setOnClickListener {
                         onSelectedListener(availableProfiles)
                         dismiss()
                     }

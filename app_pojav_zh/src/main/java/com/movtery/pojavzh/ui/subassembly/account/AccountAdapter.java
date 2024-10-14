@@ -5,8 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -18,6 +16,7 @@ import com.movtery.pojavzh.utils.skin.SkinLoader;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
+import net.kdt.pojavlaunch.databinding.ItemAccountManagerBinding;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
 
 import java.io.IOException;
@@ -34,8 +33,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.Holder> 
     @NonNull
     @Override
     public AccountAdapter.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_account_manager, parent, false);
-        return new Holder(view);
+        return new Holder(ItemAccountManagerBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
@@ -65,61 +63,51 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.Holder> 
 
     public class Holder extends RecyclerView.ViewHolder {
         private final Context mContext;
-        private final View mMainView;
-        private final ImageView mUserIcon;
-        private final TextView mUserName, mUserLoginType, mUserAdd;
-        private final ImageButton mRefreshButton, mDeleteButton;
+        private final ItemAccountManagerBinding binding;
 
-        public Holder(@NonNull View itemView) {
-            super(itemView);
-            this.mContext = itemView.getContext();
-            this.mMainView = itemView;
-
-            this.mUserIcon = itemView.findViewById(R.id.user_icon);
-            this.mUserName = itemView.findViewById(R.id.user_name);
-            this.mUserLoginType = itemView.findViewById(R.id.user_login_type);
-            this.mUserAdd = itemView.findViewById(R.id.user_add);
-            this.mRefreshButton = itemView.findViewById(R.id.user_refresh);
-            this.mDeleteButton = itemView.findViewById(R.id.user_delete);
+        public Holder(@NonNull ItemAccountManagerBinding binding) {
+            super(binding.getRoot());
+            this.mContext = binding.getRoot().getContext();
+            this.binding = binding;
         }
 
         public void setData(MinecraftAccount account) {
             if (accountUpdateListener != null) {
-                mMainView.setOnClickListener(v -> accountUpdateListener.onViewClick(account));
-                mRefreshButton.setOnClickListener(v -> accountUpdateListener.onRefresh(account));
-                mDeleteButton.setOnClickListener(v -> accountUpdateListener.onDelete(account));
+                itemView.setOnClickListener(v -> accountUpdateListener.onViewClick(account));
+                binding.refresh.setOnClickListener(v -> accountUpdateListener.onRefresh(account));
+                binding.delete.setOnClickListener(v -> accountUpdateListener.onDelete(account));
             }
 
             if (account != null) {
-                mUserName.setText(account.username);
+                binding.name.setText(account.username);
 
                 int loginType;
                 if (account.isMicrosoft) {
-                    setButtonClickable(mRefreshButton, true);
+                    setButtonClickable(binding.refresh, true);
                     loginType = R.string.zh_account_microsoft_account;
                 } else if (AccountUtils.isOtherLoginAccount(account)) {
-                    setButtonClickable(mRefreshButton, true);
+                    setButtonClickable(binding.refresh, true);
                     loginType = R.string.zh_other_login_api;
                 } else {
-                    setButtonClickable(mRefreshButton, false);
+                    setButtonClickable(binding.refresh, false);
                     loginType = R.string.zh_account_local_account;
                 }
 
                 try {
-                    mUserIcon.setImageDrawable(SkinLoader.getAvatarDrawable(mContext, account, (int) Tools.dpToPx(38f)));
+                    binding.icon.setImageDrawable(SkinLoader.getAvatarDrawable(mContext, account, (int) Tools.dpToPx(38f)));
                 } catch (IOException e) {
                     Logging.e("AccountAdapter", Tools.printToString(e));
                 }
 
-                mUserLoginType.setText(loginType);
+                binding.loginType.setText(loginType);
             } else {
-                mUserIcon.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_add));
-                mUserName.setVisibility(View.GONE);
-                mUserLoginType.setVisibility(View.GONE);
-                mUserAdd.setVisibility(View.VISIBLE);
+                binding.icon.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_add));
+                binding.name.setVisibility(View.GONE);
+                binding.loginType.setVisibility(View.GONE);
+                binding.add.setVisibility(View.VISIBLE);
 
-                mRefreshButton.setVisibility(View.GONE);
-                mDeleteButton.setVisibility(View.GONE);
+                binding.refresh.setVisibility(View.GONE);
+                binding.delete.setVisibility(View.GONE);
             }
         }
 
