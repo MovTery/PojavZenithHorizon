@@ -1,10 +1,12 @@
 package com.movtery.pojavzh.ui.subassembly.about;
 
 import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.kdt.pojavlaunch.R;
@@ -53,7 +55,9 @@ public class SponsorRecyclerAdapter extends RecyclerView.Adapter<SponsorRecycler
             binding.amountView.setText(String.format("￥%s", itemBean.getAmount()));
 
             if (itemBean.getAmount() >= 12.0f) {
-                binding.getRoot().setBackground(binding.getRoot().getContext().getDrawable(R.drawable.background_sponsor_advanced));
+                Drawable background = itemView.getBackground();
+                background.setTint(ContextCompat.getColor(itemView.getContext(), R.color.background_sponsor_advanced));
+                itemView.setBackground(background);
             }
         }
     }

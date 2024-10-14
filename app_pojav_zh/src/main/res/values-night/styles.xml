@@ -15,4 +15,8 @@
         <item name="android:windowBackground">@drawable/dialog_background</item>
     </style>
 
+    <style name="CustomAlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/dialog_background</item>
+    </style>
+
 </resources>

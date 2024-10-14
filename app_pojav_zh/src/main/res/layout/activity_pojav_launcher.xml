@@ -12,7 +12,7 @@
         android:id="@+id/top_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
-        android:background="@color/background_bottom_bar"
+        android:background="@color/background_menu_top"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.movtery.pojavzh.ui.view.AnimTextView
