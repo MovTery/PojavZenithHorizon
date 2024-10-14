@@ -4,7 +4,7 @@
     <item>
         <shape
             android:shape="rectangle" >
-            <corners android:radius="@dimen/_4sdp" />
+            <corners android:radius="@dimen/_6sdp" />
             <solid android:color="@color/edit_box_fill_selected" />
         </shape>
     </item>

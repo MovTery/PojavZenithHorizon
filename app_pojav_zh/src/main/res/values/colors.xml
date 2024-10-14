@@ -5,7 +5,7 @@
     <color name="background_app">#BDD9DD</color>
     <color name="background_overlay">#CFCFCF</color>
     <color name="background_status_bar">#EDEDED</color>
-    <color name="background_bottom_bar">#2D8B9C</color>
+    <color name="background_menu_top">#2D8B9C</color>
     <color name="background_newbie_guide">#2D8B9C</color>
 
     <color name="button_background">#DDE0E1</color>

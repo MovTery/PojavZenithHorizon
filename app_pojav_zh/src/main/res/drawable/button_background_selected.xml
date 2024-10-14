@@ -6,7 +6,7 @@
     android:insetRight="@dimen/abc_button_inset_horizontal_material"
     android:insetBottom="@dimen/abc_button_inset_vertical_material">
     <shape android:shape="rectangle">
-        <corners android:radius="4sp" />
+        <corners android:radius="@dimen/_6sdp" />
         <solid android:color="@color/button_background" />
         <stroke
             android:width="@dimen/_1sdp"

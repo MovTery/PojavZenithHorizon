@@ -3,7 +3,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <corners android:radius="@dimen/_4sdp" />
+            <corners android:radius="@dimen/_6sdp" />
             <solid android:color="@color/background_item" />
             <padding
                 android:bottom="@dimen/padding_input_bottom"

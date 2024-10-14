@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.movtery.pojavzh.setting.Settings
+import net.kdt.pojavlaunch.R
 
 @SuppressLint("UseSwitchCompatOrMaterialCode")
 class ListSettingsWrapper(
@@ -41,7 +42,7 @@ class ListSettingsWrapper(
 
     private fun createAListDialog() {
         val index = entryValues.indexOf(Settings.Manager.getString(key, defaultValue))
-        AlertDialog.Builder(context)
+        AlertDialog.Builder(context, R.style.CustomAlertDialogTheme)
             .setTitle(titleView.text)
             .setSingleChoiceItems(entries, index) { dialog, which ->
                 if (which != index) {
