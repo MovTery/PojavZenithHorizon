@@ -43,7 +43,7 @@ public class GameService extends Service {
                 .setContentTitle(getString(R.string.lazy_service_default_title))
                 .setContentText(getString(R.string.notification_game_runs))
                 .addAction(android.R.drawable.ic_menu_close_clear_cancel,  getString(R.string.notification_terminate), pendingKillIntent)
-                .setSmallIcon(R.drawable.ic_pojav_full)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setNotificationSilent();
 
         Notification notification = notificationBuilder.build();
