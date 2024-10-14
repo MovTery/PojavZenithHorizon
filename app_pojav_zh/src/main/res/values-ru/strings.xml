@@ -126,8 +126,6 @@
     <string name="preference_sustained_performance_description">Уменьшает перегрев устройства за счёт ограничения максимальной производительности.</string>
     <string name="preference_force_vsync_title">Принудительная вертикальная синхронизация</string>
     <string name="preference_force_vsync_description">Уменьшает перегрев устройства за счёт ограничения максимальной производительности.</string>
-    <string name="preference_force_english_title">Принудительно включить английский</string>
-    <string name="preference_force_english_description">Позволяет увидеть оригинальные строки такими, какими их задумали разработчики. Требуется перезапуск.</string>
     <string name="preference_category_gyro_controls">Гироскоп</string>
     <string name="preference_category_virtual_mouse">Виртуальная мышь</string>
     <string name="preference_gyro_invert_x_axis">Инвертировать поворот</string>
@@ -241,7 +239,6 @@
     <string name="notif_download_finished_desc">Нажмите, чтобы запустить!</string>
     <string name="preference_category_buttons">Кнопки</string>
     <string name="preference_category_java_tweaks">Настройки Java</string>
-    <string name="preference_category_miscellaneous">Другие настройки</string>
     <string name="preference_category_video">Настойки графики</string>
     <string name="notification_permission_dialog_title">Запрос разрешения</string>
     <string name="notification_permission_dialog_text">Лаунчеру требуется разрешение на отправку уведомлений, чтобы предотвратить остановку игры/загрузки её данных при сворачивании приложения. Без этого разрешения Android может принудительно завершить работу PojavLauncher при переходе в фоновый режим.</string>

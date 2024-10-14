@@ -15,6 +15,7 @@ import com.movtery.pojavzh.ui.fragment.settings.wrapper.SeekBarSettingsWrapper
 import com.movtery.pojavzh.ui.fragment.settings.wrapper.SwitchSettingsWrapper
 import com.movtery.pojavzh.utils.CleanUpCache.Companion.start
 import com.movtery.pojavzh.utils.ZHTools
+import net.kdt.pojavlaunch.LauncherActivity
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.databinding.SettingsFragmentLauncherBinding
 import org.greenrobot.eventbus.EventBus
@@ -45,6 +46,14 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
             AllSettings.checkLibraries,
             binding.checkLibrariesLayout,
             binding.checkLibraries
+        )
+
+        SwitchSettingsWrapper(
+            context,
+            "verifyManifest",
+            AllSettings.verifyManifest,
+            binding.verifyManifestLayout,
+            binding.verifyManifest
         )
 
         ListSettingsWrapper(
@@ -163,6 +172,29 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
             binding.checkUpdateLayout
         ) {
             UpdateLauncher.CheckDownloadedPackage(context, false)
+        }
+
+        val notificationPermissionRequest = SwitchSettingsWrapper(
+            context,
+            "notification_permission_request",
+            false,
+            binding.notificationPermissionRequestLayout,
+            binding.notificationPermissionRequest
+        )
+        setupNotificationRequestPreference(notificationPermissionRequest)
+    }
+
+    private fun setupNotificationRequestPreference(notificationPermissionRequest: SwitchSettingsWrapper) {
+        val activity = requireActivity()
+        if (activity is LauncherActivity) {
+            if (activity.checkForNotificationPermission()) notificationPermissionRequest.setGone()
+            notificationPermissionRequest.switchView.setOnCheckedChangeListener { _, _ ->
+                activity.askForNotificationPermission {
+                    notificationPermissionRequest.mainView.visibility = View.GONE
+                }
+            }
+        } else {
+            notificationPermissionRequest.mainView.visibility = View.GONE
         }
     }
 }

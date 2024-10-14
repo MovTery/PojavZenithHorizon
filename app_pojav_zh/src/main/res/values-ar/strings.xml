@@ -126,8 +126,6 @@
     <string name="preference_sustained_performance_description">الحد من الاختناق الحراري عن طريق الحد من الأداء الأقصى.</string>
     <string name="preference_force_vsync_title">اجبر تفعيل Vsync</string>
     <string name="preference_force_vsync_description">الحد من الاختناق الحراري عن طريق الحد من الأداء الأقصى.</string>
-    <string name="preference_force_english_title">إجبار تحويل اللغة إلى اللغة الإنجليزية</string>
-    <string name="preference_force_english_description">يسمح لك برؤية النصوص الأصلية، مثلا ما ارادوه المطورين. يتطلب إعادة التشغيل.</string>
     <string name="preference_category_gyro_controls">تحكم باستخدام الجايروسكوب</string>
     <string name="preference_category_virtual_mouse">الفأرة الافتراضية</string>
     <string name="preference_gyro_invert_x_axis">عكس المحور الأفقي</string>
@@ -238,7 +236,6 @@
     <string name="notif_download_finished_desc">اضغط هنا للبدأ!</string>
     <string name="preference_category_buttons">الأزرار</string>
     <string name="preference_category_java_tweaks">تعديلات جافا</string>
-    <string name="preference_category_miscellaneous">أعدادات متنوعة</string>
     <string name="preference_category_video">إعدادات الفيديو</string>
     <string name="notification_permission_dialog_title">طلب السماح</string>
     <string name="notification_permission_dialog_text">يحتاج Pojav Zenith Horizon إلى إذن نشر الإشعارات لمنع إيقاف تنزيل اللعبة/حزمة الوحدات عندما تغادر التطبيق. بدون هذا الإذن، قد يقوم نظام Android بإيقاف تقدم التنزيل عندما تضع Pojav Zenith Horizon في الخلفية</string>
