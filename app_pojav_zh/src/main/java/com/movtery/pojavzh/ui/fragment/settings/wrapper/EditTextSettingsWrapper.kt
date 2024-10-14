@@ -14,6 +14,8 @@ class EditTextSettingsWrapper(
     val mainView: View,
     editText: EditText
 ) : AbstractSettingsWrapper(mainView) {
+    private var listener: OnTextChangedListener? = null
+
     init {
         editText.apply {
             setText(value)
@@ -39,8 +41,17 @@ class EditTextSettingsWrapper(
 
                 override fun afterTextChanged(s: Editable) {
                     Settings.Manager.put(key, s).save()
+                    listener?.onChanged(s.toString())
                 }
             })
         }
+    }
+
+    fun setOnTextChangedListener(listener: OnTextChangedListener) {
+        this.listener = listener
+    }
+
+    fun interface OnTextChangedListener {
+        fun onChanged(text: String)
     }
 }
