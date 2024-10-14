@@ -408,6 +408,13 @@
                     tools:text="0" />
             </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
+            <include
+                android:id="@+id/game_menu_preview"
+                layout="@layout/view_game_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"/>
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>

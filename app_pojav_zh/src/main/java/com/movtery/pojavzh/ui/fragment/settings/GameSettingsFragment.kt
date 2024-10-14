@@ -132,14 +132,19 @@ class GameSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
             AllSettings.gameMenuShowMemory,
             binding.gameMenuShowMemoryLayout,
             binding.gameMenuShowMemory
-        )
+        ).setOnCheckedChangeListener { _, _, listener ->
+            listener.onSave()
+            openGameMenuMemory()
+        }
 
         EditTextSettingsWrapper(
             "gameMenuMemoryText",
             AllSettings.gameMenuMemoryText,
             binding.gameMenuMemoryTextLayout,
             binding.gameMenuMemoryText
-        )
+        ).setOnTextChangedListener {
+            updateGameMenuMemoryText()
+        }
 
         SeekBarSettingsWrapper(
             context,
@@ -151,7 +156,13 @@ class GameSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
             binding.gameMenuAlphaValue,
             binding.gameMenuAlpha,
             "%"
-        )
+        ).setOnSeekBarProgressChangeListener { progress ->
+            setGameMenuAlpha(progress.toFloat() / 100F)
+        }
+
+        openGameMenuMemory()
+        updateGameMenuMemoryText()
+        setGameMenuAlpha(AllSettings.gameMenuAlpha.toFloat())
     }
 
     private fun updateMemoryInfo(context: Context, seekValue: Long) {
@@ -183,5 +194,18 @@ class GameSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
             }
         }
         mDialogScreen?.show()
+    }
+
+    private fun openGameMenuMemory() {
+        binding.gameMenuPreview.memoryText.visibility = if (AllSettings.gameMenuShowMemory) View.VISIBLE else View.GONE
+    }
+
+    private fun setGameMenuAlpha(alpha: Float) {
+        binding.gameMenuPreview.root.alpha = alpha
+    }
+
+    private fun updateGameMenuMemoryText() {
+        val text = "${AllSettings.gameMenuMemoryText} 0MB/0MB"
+        binding.gameMenuPreview.memoryText.text = text.trim()
     }
 }
