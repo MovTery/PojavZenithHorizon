@@ -136,6 +136,7 @@ public class ProgressLayout extends ConstraintLayout implements View.OnClickList
             post(()-> {
                 Logging.i("ProgressLayout", "onProgressStarted");
                 textView.setProgress(0);
+                textView.setText("");
                 mLinearLayout.addView(textView, params);
             });
         }
