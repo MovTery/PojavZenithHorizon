@@ -11,7 +11,7 @@
     <string name="hint_control_mapping">点击齿轮悬浮窗打开菜单⚙\n点击一个按键进行自定义：编辑、缩放、删除或自定义其映射绑定</string>
     
     <!-- Warnings -->
-    <string name="warning_remove_account">此账户将被移除！</string>
+    <string name="warning_remove_account">此账号将从启动器内移除，你确定要这么做吗？</string>
     
     <!-- Error messages -->
     <string name="error_fatal">Pojav Zenith Horizon 意外地崩溃了</string>
@@ -280,7 +280,7 @@
     <string name="preference_ask_for_notification_title">允许通知</string>
     <string name="preference_ask_for_notification_description">单击可重新请求通知权限，这是 游戏/整合包 在后台正常下载所必需的</string>
     <string name="preference_vsync_in_zink_title">允许与Zink进行垂直同步</string>
-    <string name="preference_vsync_in_zink_description">允许启动器使用内部系统API为Zink启用垂直同步。如果启动器正在使用Zink，你的系统更新导致启动器崩溃，请关闭此功能</string>
+    <string name="preference_vsync_in_zink_description">允许启动器使用内部系统 API 为 Zink 启用垂直同步。如果启动器正在使用 Zink，你的系统更新导致启动器崩溃，请关闭此功能</string>
     <string name="newdl_starting">读取游戏元数据中…</string>
     <string name="newdl_downloading_metadata">下载游戏元数据中 (%s)</string>
     <string name="newdl_downloading_game_files">下载游戏文件中… (%d/%d, %.2f MB)</string>

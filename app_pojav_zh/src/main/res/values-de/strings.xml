@@ -7,7 +7,7 @@
     <!-- Hint -->
     <string name="hint_control_mapping">Klicken Sie auf das Zahnradsymbol im schwebenden Fenster, um das Menü zu öffnen ⚙\nKlicken Sie auf eine Taste, um sie anzupassen: bearbeiten, skalieren, löschen oder deren Zuordnung anpassen</string>
     <!-- Warnings -->
-    <string name="warning_remove_account">Dieser Account wird entfernt!</string>
+    <string name="warning_remove_account">Dieses Konto wird aus dem Launcher entfernt. Sind Sie sicher, dass Sie fortfahren möchten?</string>
     <!-- Error messages -->
     <string name="error_fatal">Pojav Zenith Horizon ist unerwartet abgestürzt</string>
     <string name="error_no_version">Keine Version!</string>
@@ -248,7 +248,7 @@ Wenn du die offizielle Downloadquelle verwenden möchtest, drücke auf \"Zur off
     <string name="preference_ask_for_notification_title">Benachrichtigungen erlauben</string>
     <string name="preference_ask_for_notification_description">Klicke, um die Benachrichtigungsberechtigung erneut anzufordern, die für den ordnungsgemäßen Betrieb von Hintergrund-Downloads von Spielen/Modpacks erforderlich ist.</string>
     <string name="preference_vsync_in_zink_title">V-Sync mit Zink erlauben</string>
-    <string name="preference_vsync_in_zink_description">Ermöglicht dem Launcher die Verwendung interner System-APIs, um V-Sync für Zink zu aktivieren. Schalte dies aus, wenn dein Launcher nach einem Systemupdate plötzlich mit Zink abstürzt.</string>
+    <string name="preference_vsync_in_zink_description">Erlaubt dem Launcher, die interne System-API zu verwenden, um vertikale Synchronisation für Zink zu aktivieren. Wenn der Launcher beim Verwenden von Zink aufgrund eines Systemupdates abstürzt, deaktivieren Sie bitte diese Funktion.</string>
     <string name="newdl_starting">Lese Spiel-Metadaten…</string>
     <string name="newdl_downloading_metadata">Lade Spiel-Metadaten herunter (%s)</string>
     <string name="newdl_downloading_game_files">Lade Spiel-Dateien herunter… (%d/%d, %.2f MB)</string>

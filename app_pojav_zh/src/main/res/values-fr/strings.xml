@@ -7,7 +7,7 @@
     <!-- Hint -->
     <string name="hint_control_mapping">Cliquez sur l\'icône d\'engrenage flottante pour ouvrir le menu ⚙\nCliquez sur une touche pour la personnaliser : modifier, redimensionner, supprimer ou personnaliser son attribution</string>
     <!-- Warnings -->
-    <string name="warning_remove_account">Ce compte sera supprimé !</string>
+    <string name="warning_remove_account">Ce compte sera supprimé du lanceur. Êtes-vous sûr de vouloir continuer ?</string>
     <!-- Error messages -->
     <string name="error_fatal">Pojav Zenith Horizon a planté inopinément</string>
     <string name="error_no_version">Aucune version !</string>
@@ -246,7 +246,7 @@
     <string name="preference_ask_for_notification_title">Autoriser les notifications</string>
     <string name="preference_ask_for_notification_description">Cliquez pour redemander la permission de notification, nécessaire pour que les téléchargements de jeu/modpack en arrière-plan fonctionnent correctement.</string>
     <string name="preference_vsync_in_zink_title">Autoriser V-Sync avec Zink</string>
-    <string name="preference_vsync_in_zink_description">Permet au lanceur d\'utiliser les API système internes pour activer V-Sync pour Zink. Désactivez cette option si votre lanceur plante soudainement avec Zink après une mise à jour du système.</string>
+    <string name="preference_vsync_in_zink_description">Permet au lanceur d\'utiliser l\'API interne du système pour activer la synchronisation verticale pour Zink. Si le lanceur se bloque en utilisant Zink à cause d\'une mise à jour système, veuillez désactiver cette fonctionnalité.</string>
     <string name="newdl_starting">Lecture des métadonnées du jeu…</string>
     <string name="newdl_downloading_metadata">Téléchargement des métadonnées du jeu (%s)</string>
     <string name="newdl_downloading_game_files">Téléchargement des fichiers du jeu… (%d/%d, %.2f MB)</string>

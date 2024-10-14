@@ -7,7 +7,7 @@
     <!-- Hint -->
     <string name="hint_control_mapping">Clique na janela flutuante de engrenagem para abrir o menu ⚙\nClique em uma tecla para personalizar: editar, redimensionar, excluir ou personalizar seu mapeamento</string>
     <!-- Warnings -->
-    <string name="warning_remove_account">Esta conta será removida!</string>
+    <string name="warning_remove_account">Esta conta será removida do launcher. Você tem certeza de que deseja continuar?</string>
     <!-- Error messages -->
     <string name="error_fatal">Pojav Zenith Horizon falhou inesperadamente</string>
     <string name="error_no_version">Nenhuma versão!</string>
@@ -246,7 +246,7 @@ Se você deseja usar a fonte de download oficial, clique em "Alternar para a fon
     <string name="preference_ask_for_notification_title">Permitir Notificações</string>
     <string name="preference_ask_for_notification_description">Clique para solicitar novamente a permissão de notificação, necessária para que o jogo/modpack seja baixado normalmente em segundo plano.</string>
     <string name="preference_vsync_in_zink_title">Permitir VSync com Zink</string>
-    <string name="preference_vsync_in_zink_description">Permite que o launcher use APIs do sistema interno para habilitar VSync com Zink. Desative esta função se o launcher estiver usando Zink e seu sistema atualizado estiver causando falhas no launcher.</string>
+    <string name="preference_vsync_in_zink_description">Permite que o launcher use a API interna do sistema para ativar a sincronização vertical para Zink. Se o launcher travar ao usar o Zink devido a uma atualização do sistema, desative este recurso.</string>
     <string name="newdl_starting">Lendo metadados do jogo…</string>
     <string name="newdl_downloading_metadata">Baixando metadados do jogo (%s)</string>
     <string name="newdl_downloading_game_files">Baixando arquivos do jogo… (%d/%d, %.2f MB)</string>

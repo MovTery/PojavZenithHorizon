@@ -7,7 +7,7 @@
     <!-- Hint -->
     <string name="hint_control_mapping">點擊齒輪懸浮窗打開菜單⚙\n點擊一個按鍵進行自訂：編輯、縮放、刪除或自訂其映射綁定</string>
     <!-- Warnings -->
-    <string name="warning_remove_account">此帳戶將被移除！</string>
+    <string name="warning_remove_account">此帳號將從啟動器中移除，你確定要這麼做嗎？</string>
     <!-- Error messages -->
     <string name="error_fatal">Pojav Zenith Horizon 意外地崩潰了</string>
     <string name="error_no_version">沒有版本！</string>
@@ -246,7 +246,7 @@
     <string name="preference_ask_for_notification_title">允許通知</string>
     <string name="preference_ask_for_notification_description">點擊可重新請求通知權限，這是 遊戲/模組包 在後臺正常下載所必需的</string>
     <string name="preference_vsync_in_zink_title">允許與Zink進行垂直同步</string>
-    <string name="preference_vsync_in_zink_description">允許啟動器使用內部系統API為Zink啟用垂直同步。如果啟動器正在使用Zink，你的系統更新導致啟動器崩潰，請關閉此功能</string>
+    <string name="preference_vsync_in_zink_description">允許啟動器使用內部系統 API 為 Zink 啟用垂直同步。如果啟動器因系統更新導致 Zink 崩潰，請關閉此功能</string>
     <string name="newdl_starting">讀取遊戲元數據中…</string>
     <string name="newdl_downloading_metadata">下載遊戲元數據中 (%s)</string>
     <string name="newdl_downloading_game_files">下載遊戲文件中… (%d/%d, %.2f MB)</string>

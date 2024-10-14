@@ -7,7 +7,7 @@
     <!-- Hint -->
     <string name="hint_control_mapping">Nhấp vào biểu tượng bánh răng trong cửa sổ nổi để mở menu ⚙\nNhấp vào một phím để tùy chỉnh: chỉnh sửa, thay đổi kích thước, xóa hoặc tùy chỉnh ánh xạ của nó</string>
     <!-- Warnings -->
-    <string name="warning_remove_account">Tài khoản này sẽ bị xóa!</string>
+    <string name="warning_remove_account">Tài khoản này sẽ bị xóa khỏi trình khởi chạy. Bạn có chắc chắn muốn tiếp tục không?</string>
     <!-- Error messages -->
     <string name="error_fatal">Pojav Zenith Horizon đã gặp sự cố và đã dừng hoạt động</string>
     <string name="error_no_version">Không có phiên bản!</string>
@@ -249,7 +249,7 @@ Nếu bạn muốn sử dụng nguồn tải xuống chính thức, nhấn vào 
     <string name="preference_ask_for_notification_title">Cho phép thông báo</string>
     <string name="preference_ask_for_notification_description">Nhấp để yêu cầu lại quyền thông báo, điều này là cần thiết để trò chơi/gói tích hợp tải xuống bình thường ở chế độ nền</string>
     <string name="preference_vsync_in_zink_title">Cho phép đồng bộ dọc với Zink</string>
-    <string name="preference_vsync_in_zink_description">Cho phép trình khởi chạy sử dụng API hệ thống nội bộ để kích hoạt đồng bộ dọc cho Zink. Nếu trình khởi chạy đang sử dụng Zink và hệ thống của bạn cập nhật dẫn đến trình khởi chạy bị sập, vui lòng tắt tính năng này</string>
+    <string name="preference_vsync_in_zink_description">Cho phép trình khởi chạy sử dụng API nội bộ của hệ thống để kích hoạt đồng bộ dọc cho Zink. Nếu trình khởi chạy gặp sự cố khi sử dụng Zink do cập nhật hệ thống, vui lòng tắt tính năng này.</string>
     <string name="newdl_starting">Đang đọc siêu dữ liệu trò chơi…</string>
     <string name="newdl_downloading_metadata">Đang tải xuống siêu dữ liệu trò chơi (%s)</string>
     <string name="newdl_downloading_game_files">Đang tải xuống tệp trò chơi… (%d/%d, %.2f MB)</string>
