@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_item">
+    android:minWidth="@dimen/_280sdp"
+    android:background="@drawable/background_card"
+    android:paddingVertical="@dimen/_10sdp">
 
     <com.movtery.pojavzh.ui.view.AnimEditText
         android:id="@+id/zh_search_edit_text"

@@ -83,7 +83,7 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentFilesBinding.inflate(layoutInflater)
-        mSearchViewWrapper = SearchViewWrapper(binding.root, binding.searchView.root)
+        mSearchViewWrapper = SearchViewWrapper(this)
         return binding.root
     }
 

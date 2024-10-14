@@ -1,57 +1,64 @@
 package com.movtery.pojavzh.ui.subassembly.view
 
+import android.animation.Animator
+import android.animation.ObjectAnimator
 import android.view.View
 import android.widget.CheckBox
 import android.widget.CompoundButton
 import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.TextView
-import com.movtery.pojavzh.ui.subassembly.view.DraggableViewWrapper.AttributesFetcher
-import com.movtery.pojavzh.ui.subassembly.view.DraggableViewWrapper.ScreenPixels
-import com.movtery.pojavzh.utils.anim.AnimUtils.Companion.setVisibilityAnim
+import androidx.fragment.app.Fragment
+import com.petterp.floatingx.assist.FxAnimation
+import com.petterp.floatingx.assist.FxGravity
+import com.petterp.floatingx.listener.IFxViewLifecycle
+import com.petterp.floatingx.util.createFx
+import com.petterp.floatingx.view.FxViewHolder
 import net.kdt.pojavlaunch.R
 
-class SearchViewWrapper(private val parentView: View, private val mainView: View) {
-    private var mSearchEditText: EditText? = null
+class SearchViewWrapper(private val fragment: Fragment) {
+    private lateinit var mSearchEditText: EditText
     private var searchListener: SearchListener? = null
     private var showSearchResultsListener: ShowSearchResultsListener? = null
     private var searchAsynchronousUpdatesListener: SearchAsynchronousUpdatesListener? = null
+    private var isShow = false
 
-    init {
-        mSearchEditText = mainView.findViewById(R.id.zh_search_edit_text)
-        val mSearchButton = mainView.findViewById<ImageButton>(R.id.zh_search_search_button)
-        val mShowSearchResultsOnly = mainView.findViewById<CheckBox>(R.id.zh_search_show_search_results_only)
-        val mCaseSensitive = mainView.findViewById<CheckBox>(R.id.zh_search_case_sensitive)
-        val searchCountText = mainView.findViewById<TextView>(R.id.zh_search_text)
+    private val scopeFx by createFx {
+        setLayout(R.layout.view_search)
+        setEnableEdgeAdsorption(false)
+        addViewLifecycle(object : IFxViewLifecycle {
+            override fun initView(holder: FxViewHolder) {
+                mSearchEditText = holder.getView(R.id.zh_search_edit_text)
+                val caseSensitive = holder.getView<CheckBox>(R.id.zh_search_case_sensitive)
+                val searchCountText = holder.getView<TextView>(R.id.zh_search_text)
 
-        mSearchButton.setOnClickListener {
-            search(searchCountText, mCaseSensitive.isChecked)
-        }
-        mShowSearchResultsOnly.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
-            showSearchResultsListener?.apply { onSearch(isChecked) }
-            if (mSearchEditText?.getText().toString().isNotEmpty()) search(searchCountText, mCaseSensitive.isChecked)
-        }
-
-        val draggableViewWrapper = DraggableViewWrapper(mainView, object : AttributesFetcher {
-            override val screenPixels: ScreenPixels
-                get() = ScreenPixels(0, 0, parentView.width - mainView.width,
-                    parentView.height - mainView.height)
-
-            override fun get(): IntArray {
-                return intArrayOf(mainView.x.toInt(), mainView.y.toInt())
-            }
-
-            override fun set(x: Int, y: Int) {
-                mainView.x = x.toFloat()
-                mainView.y = y.toFloat()
+                holder.getView<ImageButton>(R.id.zh_search_search_button).setOnClickListener {
+                    search(searchCountText, caseSensitive.isChecked)
+                }
+                holder.getView<CheckBox>(R.id.zh_search_show_search_results_only).setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
+                    showSearchResultsListener?.apply { onSearch(isChecked) }
+                    if (mSearchEditText.getText().toString().isNotEmpty()) search(searchCountText, caseSensitive.isChecked)
+                }
             }
         })
-        draggableViewWrapper.init()
+        setGravity(FxGravity.TOP_OR_CENTER)
+        setEnableAnimation(true)
+        setAnimationImpl(object : FxAnimation() {
+            override fun fromAnimator(view: FrameLayout?): Animator {
+                return ObjectAnimator.ofFloat(view, "alpha", 0f, 1f)
+            }
+
+            override fun toAnimator(view: FrameLayout?): Animator {
+                return ObjectAnimator.ofFloat(view, "alpha", 1f, 0f)
+            }
+        })
+        build().toControl(fragment)
     }
 
     private fun search(searchCountText: TextView, caseSensitive: Boolean) {
         val searchCount: Int
-        val string = mSearchEditText!!.text.toString()
+        val string = mSearchEditText.text.toString()
         searchListener?.apply {
             searchCount = onSearch(string, caseSensitive)
             searchCountText.text = searchCountText.context.getString(R.string.zh_search_count, searchCount)
@@ -73,20 +80,16 @@ class SearchViewWrapper(private val parentView: View, private val mainView: View
         this.showSearchResultsListener = listener
     }
 
-    fun isVisible() = mainView.visibility == View.VISIBLE
+    fun isVisible() = isShow
 
     fun setVisibility() {
-        setVisibility(!isVisible())
+        isShow = !isShow
+        setVisibility(isShow)
     }
 
     fun setVisibility(visible: Boolean) {
-        setVisibilityAnim(mainView, visible, 150)
-    }
-
-    fun close() {
-        if (mainView.visibility != View.GONE) {
-            setVisibilityAnim(mainView, false, 150)
-        }
+        if (visible) scopeFx.show()
+        else scopeFx.hide()
     }
 
     interface SearchListener {

@@ -209,18 +209,4 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <include
-        android:id="@+id/search_view"
-        layout="@layout/view_search"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/operate_layout"
-        app:layout_constraintStart_toStartOf="@+id/operate_layout"
-        app:layout_constraintTop_toTopOf="@+id/operate_layout" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

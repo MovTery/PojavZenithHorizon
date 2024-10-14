@@ -75,7 +75,7 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
     ): View? {
         binding = FragmentControlManagerBinding.inflate(layoutInflater)
         controlsListViewCreator = ControlsListViewCreator(requireContext(), binding.recyclerView)
-        mSearchViewWrapper = SearchViewWrapper(binding.root, binding.searchView.root)
+        mSearchViewWrapper = SearchViewWrapper(this)
         return binding.root
     }
 

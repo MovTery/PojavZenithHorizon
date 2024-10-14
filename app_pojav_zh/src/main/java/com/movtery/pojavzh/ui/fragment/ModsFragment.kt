@@ -69,7 +69,7 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentModsBinding.inflate(layoutInflater)
-        mSearchViewWrapper = SearchViewWrapper(binding.root, binding.searchView.root)
+        mSearchViewWrapper = SearchViewWrapper(this)
         return binding.root
     }
 
