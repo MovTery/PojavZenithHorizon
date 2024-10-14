@@ -13,6 +13,7 @@ class AnimButton @JvmOverloads constructor(
     defStyleAttr: Int = android.R.attr.buttonStyle
 ) : AppCompatButton(context, attrs, defStyleAttr) {
     init {
+        isAllCaps = false
         background = ResourcesCompat.getDrawable(resources, R.drawable.button_background, context.theme)
         stateListAnimator = AnimatorInflater.loadStateListAnimator(context, R.xml.anim_scale)
     }
