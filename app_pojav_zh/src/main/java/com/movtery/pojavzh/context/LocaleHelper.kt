@@ -11,23 +11,7 @@ class LocaleHelper(context: Context) : ContextWrapper(context) {
     companion object {
         fun setLocale(context: Context): ContextWrapper {
             LauncherPreferences.loadPreferences(context)
-
-            return if (AllSettings.forceEnglish) {
-                val resources = context.resources
-                val configuration = resources.configuration
-
-                val locale = Locale.ENGLISH
-                configuration.setLocale(locale)
-                Locale.setDefault(locale)
-
-                val localeList = LocaleList(locale)
-                LocaleList.setDefault(localeList)
-                configuration.setLocales(localeList)
-
-                LocaleHelper(context.createConfigurationContext(configuration))
-            } else {
-                LocaleHelper(context)
-            }
+            return LocaleHelper(context)
         }
     }
 }

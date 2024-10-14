@@ -16,7 +16,6 @@ import com.movtery.pojavzh.ui.fragment.settings.ControlSettingsFragment
 import com.movtery.pojavzh.ui.fragment.settings.ExperimentalSettingsFragment
 import com.movtery.pojavzh.ui.fragment.settings.GameSettingsFragment
 import com.movtery.pojavzh.ui.fragment.settings.LauncherSettingsFragment
-import com.movtery.pojavzh.ui.fragment.settings.MiscellaneousSettingsFragment
 import com.movtery.pojavzh.ui.fragment.settings.VideoSettingsFragment
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
@@ -81,8 +80,7 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
             1 to binding.controlsSettings,
             2 to binding.gameSettings,
             3 to binding.launcherSettings,
-            4 to binding.miscSettings,
-            5 to binding.experimentalSettings
+            4 to binding.experimentalSettings
         )
     }
 
@@ -103,8 +101,7 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
                 1 -> ControlSettingsFragment(fragment)
                 2 -> GameSettingsFragment()
                 3 -> LauncherSettingsFragment(fragment)
-                4 -> MiscellaneousSettingsFragment()
-                5 -> ExperimentalSettingsFragment()
+                4 -> ExperimentalSettingsFragment()
                 else -> VideoSettingsFragment()
             }
         }

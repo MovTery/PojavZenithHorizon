@@ -128,8 +128,6 @@
     <string name="preference_sustained_performance_description">Limit thermal throttling by limiting peak performance.</string>
     <string name="preference_force_vsync_title">Force enable VSync</string>
     <string name="preference_force_vsync_description">Limit thermal throttling by limiting peak performance.</string>
-    <string name="preference_force_english_title">Force language to English</string>
-    <string name="preference_force_english_description">Allows you to see original strings, as intended by developers. Requires a restart.</string>
     <string name="preference_category_gyro_controls">Gyroscope controls</string>
     <string name="preference_category_virtual_mouse">Virtual mouse</string>
     <string name="preference_gyro_invert_x_axis">Invert X axis</string>
@@ -243,7 +241,6 @@
     <string name="notif_download_finished_desc">Click here to start it!</string>
     <string name="preference_category_buttons">Buttons</string>
     <string name="preference_category_java_tweaks">Java Tweaks</string>
-    <string name="preference_category_miscellaneous">Miscellaneous settings</string>
     <string name="preference_category_video">Video settings</string>
     <string name="notification_permission_dialog_title">Permission request</string>
     <string name="notification_permission_dialog_text">Pojav Zenith Horizon requires a permission to post notifications to prevent game/modpack downloads from stopping when you leave the app. Without this permission, Android may shut down your downloads when you put Pojav Zenith Horizon in background mode.</string>

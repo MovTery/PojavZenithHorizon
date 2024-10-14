@@ -126,8 +126,6 @@
     <string name="preference_sustained_performance_description">Giới hạn hiệu suất đỉnh để hạn chế giảm tần số do quá nhiệt</string>
     <string name="preference_force_vsync_title">Buộc bật đồng bộ dọc</string>
     <string name="preference_force_vsync_description">Giới hạn hiệu suất đỉnh để hạn chế giảm tần số do quá nhiệt</string>
-    <string name="preference_force_english_title">Buộc sử dụng tiếng Anh</string>
-    <string name="preference_force_english_description">Cho phép bạn thấy chuỗi gốc theo ý của nhà phát triển, việc này cần khởi động lại</string>
     <string name="preference_category_gyro_controls">Điều khiển con quay hồi chuyển</string>
     <string name="preference_category_virtual_mouse">Chuột ảo</string>
     <string name="preference_gyro_invert_x_axis">Đảo ngược trục X</string>
@@ -244,7 +242,6 @@ Nếu bạn muốn sử dụng nguồn tải xuống chính thức, nhấn vào 
     <string name="notif_download_finished_desc">Nhấn vào đây để khởi chạy nó!</string>
     <string name="preference_category_buttons">Bố cục điều khiển</string>
     <string name="preference_category_java_tweaks">Điều chỉnh Java</string>
-    <string name="preference_category_miscellaneous">Cài đặt khác</string>
     <string name="preference_category_video">Cài đặt video</string>
     <string name="notification_permission_dialog_title">Yêu cầu quyền</string>
     <string name="notification_permission_dialog_text">Pojav Zenith Horizon cần quyền để phát thông báo, để tránh việc dừng tải xuống game/gói tích hợp khi bạn rời khỏi ứng dụng. Nếu không có quyền này, hệ thống Android có thể dừng tiến trình tải xuống của bạn khi Pojav Zenith Horizon ở nền</string>

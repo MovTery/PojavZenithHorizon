@@ -8,9 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.movtery.pojavzh.setting.AllSettings
+import com.movtery.pojavzh.ui.dialog.TipDialog
 import com.movtery.pojavzh.ui.fragment.settings.wrapper.ListSettingsWrapper
 import com.movtery.pojavzh.ui.fragment.settings.wrapper.SeekBarSettingsWrapper
 import com.movtery.pojavzh.ui.fragment.settings.wrapper.SwitchSettingsWrapper
+import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.databinding.SettingsFragmentVideoBinding
@@ -98,6 +100,31 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
             binding.vsyncInZinkLayout,
             binding.vsyncInZink
         )
+
+        val zinkPreferSystemDriver = SwitchSettingsWrapper(
+            context,
+            "zinkPreferSystemDriver",
+            AllSettings.zinkPreferSystemDriver,
+            binding.zinkPreferSystemDriverLayout,
+            binding.zinkPreferSystemDriver
+        )
+        if (!Tools.checkVulkanSupport(context.packageManager)) {
+            zinkPreferSystemDriver.setGone()
+        } else {
+            zinkPreferSystemDriver.setOnCheckedChangeListener { buttonView, isChecked, listener ->
+                if (isChecked and ZHTools.isAdrenoGPU()) {
+                    TipDialog.Builder(requireActivity())
+                        .setTitle(R.string.zh_warning)
+                        .setMessage(R.string.zh_setting_zink_driver_adreno)
+                        .setCancelable(false)
+                        .setConfirmClickListener { listener.onSave() }
+                        .setCancelClickListener { buttonView.isChecked = false }
+                        .buildDialog()
+                } else {
+                    listener.onSave()
+                }
+            }
+        }
 
         changeResolutionRatioPreview(AllSettings.resolutionRatio)
         computeVisibility()

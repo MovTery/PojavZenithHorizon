@@ -28,6 +28,9 @@ class AllSettings {
         val vsyncInZink: Boolean
             get() = Settings.Manager.getBoolean("vsync_in_zink", false)
 
+        val zinkPreferSystemDriver: Boolean
+            get() = Settings.Manager.getBoolean("zinkPreferSystemDriver", false)
+
         // Control
         val disableGestures: Boolean
             get() = Settings.Manager.getBoolean("disableGestures", false)
@@ -77,7 +80,16 @@ class AllSettings {
         val deadzoneScale: Float
             get() = Settings.Manager.getInt("gamepad_deadzone_scale", 100) / 100f
 
-        // Java
+        // Game
+        val autoSetGameLanguage: Boolean
+            get() = Settings.Manager.getBoolean("autoSetGameLanguage", true)
+
+        val gameLanguageOverridden: Boolean
+            get() = Settings.Manager.getBoolean("gameLanguageOverridden", false)
+
+        val setGameLanguage: String?
+            get() = Settings.Manager.getString("setGameLanguage", "system")
+
         val javaArgs: String?
             get() = Settings.Manager.getString("javaArgs", "")
 
@@ -87,15 +99,33 @@ class AllSettings {
         val javaSandbox: Boolean
             get() = Settings.Manager.getBoolean("java_sandbox", true)
 
+        val gameMenuShowMemory: Boolean
+            get() = Settings.Manager.getBoolean("gameMenuShowMemory", false)
+
+        val gameMenuMemoryText: String?
+            get() = Settings.Manager.getString("gameMenuMemoryText", "M:")
+
+        val gameMenuAlpha: Int
+            get() = Settings.Manager.getInt("gameMenuAlpha", 100)
+
         // Launcher
         val checkLibraries: Boolean
             get() = Settings.Manager.getBoolean("checkLibraries", true)
 
-        val autoSetGameLanguage: Boolean
-            get() = Settings.Manager.getBoolean("autoSetGameLanguage", true)
+        val verifyManifest: Boolean
+            get() = Settings.Manager.getBoolean("verifyManifest", true)
 
-        val gameLanguageOverridden: Boolean
-            get() = Settings.Manager.getBoolean("gameLanguageOverridden", false)
+        val downloadSource: String?
+            get() = Settings.Manager.getString("downloadSource", "default")
+
+        val modInfoSource: String?
+            get() = Settings.Manager.getString("modInfoSource", "original")
+
+        val modDownloadSource: String?
+            get() = Settings.Manager.getString("modDownloadSource", "original")
+
+        val launcherTheme: String?
+            get() = Settings.Manager.getString("launcherTheme", "system")
 
         val animation: Boolean
             get() = Settings.Manager.getBoolean("animation", true)
@@ -111,25 +141,6 @@ class AllSettings {
 
         val quitLauncher: Boolean
             get() = Settings.Manager.getBoolean("quitLauncher", true)
-
-        val gameMenuShowMemory: Boolean
-            get() = Settings.Manager.getBoolean("gameMenuShowMemory", false)
-
-        val gameMenuMemoryText: String?
-            get() = Settings.Manager.getString("gameMenuMemoryText", "M:")
-
-        val gameMenuAlpha: Int
-            get() = Settings.Manager.getInt("gameMenuAlpha", 100)
-
-        // Miscellaneous
-        val verifyManifest: Boolean
-            get() = Settings.Manager.getBoolean("verifyManifest", true)
-
-        val zinkPreferSystemDriver: Boolean
-            get() = Settings.Manager.getBoolean("zinkPreferSystemDriver", false)
-
-        val forceEnglish: Boolean
-            get() = Settings.Manager.getBoolean("force_english", false)
 
         // Experimental
         val dumpShaders: Boolean
@@ -151,20 +162,11 @@ class AllSettings {
         val defaultRuntime: String?
             get() = Settings.Manager.getString("defaultRuntime", "")
 
-        val downloadSource: String?
-            get() = Settings.Manager.getString("downloadSource", "default")
-
         val skipNotificationPermissionCheck: Boolean
             get() = Settings.Manager.getBoolean("skipNotificationPermissionCheck", false)
 
-        val setGameLanguage: String?
-            get() = Settings.Manager.getString("setGameLanguage", "system")
-
         val localAccountReminders: Boolean
             get() = Settings.Manager.getBoolean("localAccountReminders", true)
-
-        val launcherTheme: String?
-            get() = Settings.Manager.getString("launcherTheme", "system")
 
         val ignoreUpdate: String?
             get() = Settings.Manager.getString("ignoreUpdate", null)
@@ -180,12 +182,5 @@ class AllSettings {
 
         val buttonSnappingDistance: Int
             get() = Settings.Manager.getInt("buttonSnappingDistance", 8)
-
-        val modInfoSource: String?
-            get() = Settings.Manager.getString("modInfoSource", "original")
-
-        val modDownloadSource: String?
-            get() = Settings.Manager.getString("modDownloadSource", "original")
-
     }
 }
