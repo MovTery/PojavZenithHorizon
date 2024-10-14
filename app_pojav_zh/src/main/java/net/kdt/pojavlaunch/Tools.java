@@ -37,6 +37,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.setting.AllSettings;
+import com.movtery.pojavzh.ui.activity.BaseActivity;
 import com.movtery.pojavzh.ui.dialog.EditTextDialog;
 import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
@@ -210,24 +211,21 @@ public final class Tools {
     }
 
 
-
-
-
-    public static DisplayMetrics getDisplayMetrics(Activity activity) {
+    public static DisplayMetrics getDisplayMetrics(BaseActivity activity) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
 
-        if(activity.isInMultiWindowMode() || activity.isInPictureInPictureMode()){
+        if (activity.isInMultiWindowMode() || activity.isInPictureInPictureMode()) {
             //For devices with free form/split screen, we need window size, not screen size.
             displayMetrics = activity.getResources().getDisplayMetrics();
-        }else{
+        } else {
             if (SDK_INT >= Build.VERSION_CODES.R) {
                 activity.getDisplay().getRealMetrics(displayMetrics);
             } else { // Removed the clause for devices with unofficial notch support, since it also ruins all devices with virtual nav bars before P
                 activity.getWindowManager().getDefaultDisplay().getRealMetrics(displayMetrics);
             }
-            if(!AllSettings.Companion.getIgnoreNotch()){
+            if (!activity.shouldIgnoreNotch()) {
                 //Remove notch width when it isn't ignored.
-                if(activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+                if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
                     displayMetrics.heightPixels -= PREF_NOTCH_SIZE;
                 else
                     displayMetrics.widthPixels -= PREF_NOTCH_SIZE;
@@ -256,7 +254,7 @@ public final class Tools {
 
     public static DisplayMetrics currentDisplayMetrics;
 
-    public static void updateWindowSize(Activity activity) {
+    public static void updateWindowSize(BaseActivity activity) {
         currentDisplayMetrics = getDisplayMetrics(activity);
 
         CallbackBridge.physicalWidth = currentDisplayMetrics.widthPixels;
@@ -634,15 +632,15 @@ public final class Tools {
         }
     }
 
-    public static void ignoreNotch(boolean shouldIgnore, Activity ctx){
+    public static void ignoreNotch(boolean shouldIgnore, BaseActivity activity){
         if (SDK_INT >= P) {
             if (shouldIgnore) {
-                ctx.getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+                activity.getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
             } else {
-                ctx.getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER;
+                activity.getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER;
             }
-            ctx.getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN, WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
-            Tools.updateWindowSize(ctx);
+            activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN, WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
+            Tools.updateWindowSize(activity);
         }
     }
 

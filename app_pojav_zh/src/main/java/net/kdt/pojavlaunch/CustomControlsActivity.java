@@ -98,6 +98,11 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 		}
 	}
 
+	@Override
+	public boolean shouldIgnoreNotch() {
+		return AllSettings.Companion.getIgnoreNotch();
+	}
+
 	@SuppressLint("MissingSuperCall")
 	@Override
 	public void onBackPressed() {

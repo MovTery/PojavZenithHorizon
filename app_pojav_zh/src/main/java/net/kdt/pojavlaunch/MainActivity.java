@@ -365,6 +365,11 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         }
     }
 
+    @Override
+    public boolean shouldIgnoreNotch() {
+        return AllSettings.Companion.getIgnoreNotch();
+    }
+
     private void runCraft(String versionId, JMinecraftVersionList.Version version) throws Throwable {
         if(Tools.LOCAL_RENDERER == null) {
             Tools.LOCAL_RENDERER = AllSettings.Companion.getRenderer();

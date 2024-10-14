@@ -11,7 +11,6 @@ import net.kdt.pojavlaunch.MissingStorageActivity;
 import net.kdt.pojavlaunch.Tools;
 
 import com.movtery.pojavzh.context.LocaleHelper;
-import com.movtery.pojavzh.setting.AllSettings;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -51,7 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /** @return Whether or not the notch should be ignored */
-    protected boolean shouldIgnoreNotch(){
-        return AllSettings.Companion.getIgnoreNotch();
+    public boolean shouldIgnoreNotch() {
+        return true;
     }
 }
