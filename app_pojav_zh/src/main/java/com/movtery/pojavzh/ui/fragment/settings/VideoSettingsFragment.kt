@@ -153,9 +153,9 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
             val height = metrics.heightPixels
             val isLandscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE || width > height
 
-            val progressDouble = progress.toDouble() / 100
-            val previewWidth = ((if (isLandscape) width else height) * progressDouble).toInt()
-            val previewHeight = ((if (isLandscape) height else width) * progressDouble).toInt()
+            val progressFloat = progress.toFloat() / 100F
+            val previewWidth = (Tools.getDisplayFriendlyRes((if (isLandscape) width else height), progressFloat)).toInt()
+            val previewHeight = (Tools.getDisplayFriendlyRes((if (isLandscape) height else width), progressFloat)).toInt()
 
             return "$previewWidth x $previewHeight"
         }
