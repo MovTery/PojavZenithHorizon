@@ -246,6 +246,14 @@
     <string name="zh_setting_game_menu_show_memory_title">Информация о памяти в реальном времени</string>
     <string name="zh_setting_game_menu_memory_text_desc">Вы можете настроить этот префиксный текст в соответствии с вашими потребностями.</string>
     <string name="zh_setting_game_menu_memory_text_title">Префиксный текст информации о памяти</string>
+    <string name="zh_setting_game_menu_location_title">Начальное положение плавающего окна игрового меню</string>
+    <string name="zh_setting_game_menu_location_center">Центр</string>
+    <string name="zh_setting_game_menu_location_bottom_or_center">Низ Центра</string>
+    <string name="zh_setting_game_menu_location_top_or_center">Верх Центра</string>
+    <string name="zh_setting_game_menu_location_left_or_top">Верх Левый Угол</string>
+    <string name="zh_setting_game_menu_location_left_or_bottom">Низ Левый Угол</string>
+    <string name="zh_setting_game_menu_location_right_or_top">Верх Правый Угол</string>
+    <string name="zh_setting_game_menu_location_right_or_bottom">Низ Правый Угол</string>
     <string name="zh_setting_game_menu_alpha_desc">Настройка непрозрачности всплывающего окна игрового меню.</string>
     <string name="zh_setting_game_menu_alpha_title">Непрозрачность всплывающего окна</string>
     <string name="zh_setting_reboot_tip">Этот параметр был изменен, но для его применения необходимо перезапустить приложение!</string>

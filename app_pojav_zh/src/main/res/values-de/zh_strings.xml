@@ -246,6 +246,14 @@
     <string name="zh_setting_game_menu_show_memory_title">Echtzeit-Speicherinformationen</string>
     <string name="zh_setting_game_menu_memory_text_desc">Sie können diesen Präfixtext nach Ihren Wünschen anpassen.</string>
     <string name="zh_setting_game_menu_memory_text_title">Präfixtext für Speicherinformationen</string>
+    <string name="zh_setting_game_menu_location_title">Anfangsposition des schwebenden Spielmenüfensters</string>
+    <string name="zh_setting_game_menu_location_center">Mitte</string>
+    <string name="zh_setting_game_menu_location_bottom_or_center">Unten Mitte</string>
+    <string name="zh_setting_game_menu_location_top_or_center">Oben Mitte</string>
+    <string name="zh_setting_game_menu_location_left_or_top">Oben Links</string>
+    <string name="zh_setting_game_menu_location_left_or_bottom">Unten Links</string>
+    <string name="zh_setting_game_menu_location_right_or_top">Oben Rechts</string>
+    <string name="zh_setting_game_menu_location_right_or_bottom">Unten Rechts</string>
     <string name="zh_setting_game_menu_alpha_desc">Die Opazität des Spielmenü-Floating-Fensters festlegen.</string>
     <string name="zh_setting_game_menu_alpha_title">Opazität des Floating-Fensters</string>
     <string name="zh_setting_reboot_tip">Diese Einstellung wurde geändert, aber sie wird erst nach einem Neustart der Anwendung wirksam!</string>

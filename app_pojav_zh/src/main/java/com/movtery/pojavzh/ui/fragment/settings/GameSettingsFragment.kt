@@ -146,6 +146,16 @@ class GameSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
             updateGameMenuMemoryText()
         }
 
+        ListSettingsWrapper(
+            context,
+            "gameMenuLocation",
+            "center",
+            binding.gameMenuLocationLayout,
+            binding.gameMenuLocationTitle,
+            binding.gameMenuLocationValue,
+            R.array.game_menu_location_names, R.array.game_menu_location_values
+        )
+
         SeekBarSettingsWrapper(
             context,
             "gameMenuAlpha",

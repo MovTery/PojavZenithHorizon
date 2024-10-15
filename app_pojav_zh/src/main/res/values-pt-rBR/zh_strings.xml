@@ -246,6 +246,14 @@
     <string name="zh_setting_game_menu_show_memory_title">Informações de Memória em Tempo Real</string>
     <string name="zh_setting_game_menu_memory_text_desc">Você pode personalizar este texto de prefixo de acordo com suas necessidades.</string>
     <string name="zh_setting_game_menu_memory_text_title">Texto de Prefixo de Informações de Memória</string>
+    <string name="zh_setting_game_menu_location_title">Posição Inicial da Janela Flutuante do Menu de Jogo</string>
+    <string name="zh_setting_game_menu_location_center">Centro</string>
+    <string name="zh_setting_game_menu_location_bottom_or_center">Centro Inferior</string>
+    <string name="zh_setting_game_menu_location_top_or_center">Centro Superior</string>
+    <string name="zh_setting_game_menu_location_left_or_top">Superior Esquerdo</string>
+    <string name="zh_setting_game_menu_location_left_or_bottom">Inferior Esquerdo</string>
+    <string name="zh_setting_game_menu_location_right_or_top">Superior Direito</string>
+    <string name="zh_setting_game_menu_location_right_or_bottom">Inferior Direito</string>
     <string name="zh_setting_game_menu_alpha_desc">Definir a opacidade da janela flutuante do menu do jogo.</string>
     <string name="zh_setting_game_menu_alpha_title">Opacidade da Janela Flutuante</string>
     <string name="zh_setting_reboot_tip">Esta configuração foi alterada, mas requer um reinício do aplicativo para entrar em vigor!</string>

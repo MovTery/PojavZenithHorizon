@@ -246,6 +246,14 @@
     <string name="zh_setting_game_menu_show_memory_title">Real-time Memory Information</string>
     <string name="zh_setting_game_menu_memory_text_desc">You can customize this prefix text according to your needs.</string>
     <string name="zh_setting_game_menu_memory_text_title">Memory Information Prefix Text</string>
+    <string name="zh_setting_game_menu_location_title">Initial Position of Game Menu Floating Window</string>
+    <string name="zh_setting_game_menu_location_center">Center</string>
+    <string name="zh_setting_game_menu_location_bottom_or_center">Bottom Center</string>
+    <string name="zh_setting_game_menu_location_top_or_center">Top Center</string>
+    <string name="zh_setting_game_menu_location_left_or_top">Top Left</string>
+    <string name="zh_setting_game_menu_location_left_or_bottom">Bottom Left</string>
+    <string name="zh_setting_game_menu_location_right_or_top">Top Right</string>
+    <string name="zh_setting_game_menu_location_right_or_bottom">Bottom Right</string>
     <string name="zh_setting_game_menu_alpha_desc">Set the opacity of the game menu floating window.</string>
     <string name="zh_setting_game_menu_alpha_title">Floating Window Opacity</string>
     <string name="zh_setting_reboot_tip">This setting has been changed, but requires the app to be restarted to take effect!</string>
