@@ -246,6 +246,14 @@
     <string name="zh_setting_game_menu_show_memory_title">معلومات الذاكرة في الوقت الحقيقي</string>
     <string name="zh_setting_game_menu_memory_text_desc">يمكنك تخصيص نص البادئة هذا وفقًا لاحتياجاتك.</string>
     <string name="zh_setting_game_menu_memory_text_title">نص بادئة معلومات الذاكرة</string>
+    <string name="zh_setting_game_menu_location_title">الموقع الأولي لنافذة القائمة العائمة</string>
+    <string name="zh_setting_game_menu_location_center">الوسط</string>
+    <string name="zh_setting_game_menu_location_bottom_or_center">أسفل الوسط</string>
+    <string name="zh_setting_game_menu_location_top_or_center">أعلى الوسط</string>
+    <string name="zh_setting_game_menu_location_left_or_top">أعلى اليسار</string>
+    <string name="zh_setting_game_menu_location_left_or_bottom">أسفل اليسار</string>
+    <string name="zh_setting_game_menu_location_right_or_top">أعلى اليمين</string>
+    <string name="zh_setting_game_menu_location_right_or_bottom">أسفل اليمين</string>
     <string name="zh_setting_game_menu_alpha_desc">تعيين شفافية نافذة القائمة العائمة للعبة.</string>
     <string name="zh_setting_game_menu_alpha_title">شفافية النافذة العائمة</string>
     <string name="zh_setting_reboot_tip">تم تغيير هذا الإعداد، ولكن يلزم إعادة تشغيل التطبيق ليتم تفعيله!</string>

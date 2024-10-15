@@ -105,6 +105,9 @@ class AllSettings {
         val gameMenuMemoryText: String?
             get() = Settings.Manager.getString("gameMenuMemoryText", "M:")
 
+        val gameMenuLocation: String?
+            get() = Settings.Manager.getString("gameMenuLocation", "center")
+
         val gameMenuAlpha: Int
             get() = Settings.Manager.getInt("gameMenuAlpha", 100)
 

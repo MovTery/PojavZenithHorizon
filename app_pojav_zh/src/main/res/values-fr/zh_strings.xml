@@ -246,6 +246,14 @@
     <string name="zh_setting_game_menu_show_memory_title">Informations sur la mémoire en temps réel</string>
     <string name="zh_setting_game_menu_memory_text_desc">Vous pouvez personnaliser ce texte de préfixe selon vos besoins.</string>
     <string name="zh_setting_game_menu_memory_text_title">Texte de préfixe pour les informations sur la mémoire</string>
+    <string name="zh_setting_game_menu_location_title">Position initiale de la fenêtre flottante du menu de jeu</string>
+    <string name="zh_setting_game_menu_location_center">Centre</string>
+    <string name="zh_setting_game_menu_location_bottom_or_center">Centre Bas</string>
+    <string name="zh_setting_game_menu_location_top_or_center">Centre Haut</string>
+    <string name="zh_setting_game_menu_location_left_or_top">Haut Gauche</string>
+    <string name="zh_setting_game_menu_location_left_or_bottom">Bas Gauche</string>
+    <string name="zh_setting_game_menu_location_right_or_top">Haut Droit</string>
+    <string name="zh_setting_game_menu_location_right_or_bottom">Bas Droit</string>
     <string name="zh_setting_game_menu_alpha_desc">Définir l\'opacité de la fenêtre flottante du menu de jeu.</string>
     <string name="zh_setting_game_menu_alpha_title">Opacité de la fenêtre flottante</string>
     <string name="zh_setting_reboot_tip">Ce paramètre a été modifié, mais il nécessite un redémarrage de l\'application pour prendre effet !</string>

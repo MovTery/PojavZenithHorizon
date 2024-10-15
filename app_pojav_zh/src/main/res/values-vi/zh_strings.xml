@@ -246,6 +246,14 @@
     <string name="zh_setting_game_menu_show_memory_title">Thông Tin Bộ Nhớ Theo Thời Gian Thực</string>
     <string name="zh_setting_game_menu_memory_text_desc">Bạn có thể tùy chỉnh văn bản tiền tố này theo nhu cầu của bạn.</string>
     <string name="zh_setting_game_menu_memory_text_title">Văn bản tiền tố thông tin bộ nhớ</string>
+    <string name="zh_setting_game_menu_location_title">Vị trí ban đầu của cửa sổ nổi Menu trò chơi</string>
+    <string name="zh_setting_game_menu_location_center">Chính giữa</string>
+    <string name="zh_setting_game_menu_location_bottom_or_center">Giữa phía dưới</string>
+    <string name="zh_setting_game_menu_location_top_or_center">Giữa phía trên</string>
+    <string name="zh_setting_game_menu_location_left_or_top">Trên trái</string>
+    <string name="zh_setting_game_menu_location_left_or_bottom">Dưới trái</string>
+    <string name="zh_setting_game_menu_location_right_or_top">Trên phải</string>
+    <string name="zh_setting_game_menu_location_right_or_bottom">Dưới phải</string>
     <string name="zh_setting_game_menu_alpha_desc">Đặt độ mờ của cửa sổ nổi của menu trò chơi.</string>
     <string name="zh_setting_game_menu_alpha_title">Độ Mờ Của Cửa Sổ Nổi</string>
     <string name="zh_setting_reboot_tip">Cài đặt này đã được thay đổi, nhưng cần khởi động lại ứng dụng để có hiệu lực!</string>

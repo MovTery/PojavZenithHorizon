@@ -47,7 +47,7 @@ class GameMenuViewWrapper(
                 cancelMemoryTimer()
             }
         })
-        setGravity(FxGravity.CENTER)
+        setGravity(getCurrentGravity())
         build().toControl(activity)
     }
 
@@ -94,5 +94,18 @@ class GameMenuViewWrapper(
     private fun cancelMemoryTimer() {
         timer?.cancel()
         timer = null
+    }
+
+    private fun getCurrentGravity(): FxGravity {
+        return when(AllSettings.gameMenuLocation) {
+            "left_or_top" -> FxGravity.LEFT_OR_TOP
+            "left_or_bottom" -> FxGravity.LEFT_OR_BOTTOM
+            "right_or_top" -> FxGravity.RIGHT_OR_TOP
+            "right_or_bottom" -> FxGravity.RIGHT_OR_BOTTOM
+            "top_or_center" -> FxGravity.TOP_OR_CENTER
+            "bottom_or_center" -> FxGravity.BOTTOM_OR_CENTER
+            "center" -> FxGravity.CENTER
+            else -> FxGravity.CENTER
+        }
     }
 }

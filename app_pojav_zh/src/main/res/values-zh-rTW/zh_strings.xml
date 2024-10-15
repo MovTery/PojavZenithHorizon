@@ -246,6 +246,14 @@
     <string name="zh_setting_game_menu_show_memory_title">實時顯示內存資訊</string>
     <string name="zh_setting_game_menu_memory_text_desc">你可以按照你自己的需求，自訂這個前綴文本</string>
     <string name="zh_setting_game_menu_memory_text_title">內存信息前綴文本</string>
+    <string name="zh_setting_game_menu_location_title">遊戲選單浮動視窗的初始位置</string>
+    <string name="zh_setting_game_menu_location_center">正中央</string>
+    <string name="zh_setting_game_menu_location_bottom_or_center">底部中央</string>
+    <string name="zh_setting_game_menu_location_top_or_center">頂部中央</string>
+    <string name="zh_setting_game_menu_location_left_or_top">左上角</string>
+    <string name="zh_setting_game_menu_location_left_or_bottom">左下角</string>
+    <string name="zh_setting_game_menu_location_right_or_top">右上角</string>
+    <string name="zh_setting_game_menu_location_right_or_bottom">右下角</string>
     <string name="zh_setting_game_menu_alpha_desc">設定遊戲菜單懸浮窗的不透明度</string>
     <string name="zh_setting_game_menu_alpha_title">懸浮窗不透明度</string>
     <string name="zh_setting_reboot_tip">這項設定已被更改，但是需要重新啟動應用程式才能生效！</string>
