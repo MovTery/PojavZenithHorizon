@@ -42,7 +42,7 @@
                     android:id="@+id/vprof_editor_profile_name_sub"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/profiles_profile_name"
+                    android:text="@string/generic_name"
                     app:layout_constraintStart_toStartOf="@+id/vprof_editor_profile_name"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,7 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:text="@string/profiles_profile_version"
+                    android:text="@string/pedit_profile_version"
                     app:layout_constraintStart_toStartOf="@+id/vprof_editor_version_spinner"
                     app:layout_constraintTop_toBottomOf="@+id/vprof_editor_profile_name" />
 
@@ -87,7 +87,7 @@
                     android:layout_height="0dp"
                     android:paddingHorizontal="@dimen/padding_large"
                     android:paddingVertical="0px"
-                    android:text="@string/global_select"
+                    android:text="@string/generic_select"
                     app:layout_constraintBottom_toBottomOf="@+id/vprof_editor_version_spinner"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/vprof_editor_version_spinner" />
@@ -98,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:text="@string/default_control"
+                    android:text="@string/pedit_control"
                     app:layout_constraintStart_toStartOf="@+id/vprof_editor_ctrl_spinner"
                     app:layout_constraintTop_toBottomOf="@+id/vprof_editor_version_spinner" />
 
@@ -108,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/padding_medium"
                     android:background="@drawable/background_item"
-                    android:hint="@string/use_global_default"
+                    android:hint="@string/pedit_default"
                     android:paddingHorizontal="@dimen/padding_heavy"
                     android:textSize="@dimen/_13ssp"
                     app:layout_constraintEnd_toStartOf="@id/vprof_editor_ctrl_button"
@@ -120,7 +120,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:paddingHorizontal="@dimen/padding_large"
-                    android:text="@string/global_select"
+                    android:text="@string/generic_select"
                     app:layout_constraintBottom_toBottomOf="@id/vprof_editor_ctrl_spinner"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/vprof_editor_ctrl_spinner" />
@@ -130,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:text="@string/pvc_jvmArgs"
+                    android:text="@string/setting_java_args_title"
                     app:layout_constraintStart_toStartOf="@+id/vprof_editor_jre_args"
                     app:layout_constraintTop_toBottomOf="@+id/vprof_editor_ctrl_spinner" />
 
@@ -140,7 +140,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_item"
                     android:ems="10"
-                    android:hint="@string/use_global_default"
+                    android:hint="@string/pedit_default"
                     android:inputType="text"
                     android:paddingHorizontal="@dimen/padding_heavy"
                     android:textSize="@dimen/_13ssp"
@@ -153,7 +153,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:text="@string/zh_profile_custom_path"
+                    android:text="@string/pedit_custom_path"
                     app:layout_constraintStart_toStartOf="@+id/vprof_editor_path"
                     app:layout_constraintTop_toBottomOf="@+id/vprof_editor_jre_args" />
 
@@ -177,7 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:paddingHorizontal="@dimen/padding_large"
-                    android:text="@string/global_select"
+                    android:text="@string/generic_select"
                     app:layout_constraintBottom_toBottomOf="@id/vprof_editor_path"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/vprof_editor_path" />
@@ -187,7 +187,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:text="@string/pedit_java_runtime"
+                    android:text="@string/multirt_config_title"
                     app:layout_constraintStart_toStartOf="@+id/vprof_editor_spinner_runtime"
                     app:layout_constraintTop_toBottomOf="@+id/vprof_editor_path" />
 
@@ -211,7 +211,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:text="@string/pedit_renderer"
+                    android:text="@string/setting_renderer_title"
                     app:layout_constraintStart_toStartOf="@+id/vprof_editor_profile_renderer"
                     app:layout_constraintTop_toBottomOf="@+id/vprof_editor_spinner_runtime" />
 
@@ -298,7 +298,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_8sdp"
-                android:text="@string/global_save"
+                android:text="@string/generic_save"
                 app:layout_constraintBottom_toTopOf="@+id/vprof_editor_cancel_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

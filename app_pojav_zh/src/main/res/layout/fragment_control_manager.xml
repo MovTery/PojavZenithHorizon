@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_8sdp"
-                android:text="@string/zh_controls_nothing"
+                android:text="@string/controls_nothing"
                 android:background="@drawable/background_item"
                 android:paddingHorizontal="@dimen/_12sdp"
                 android:visibility="gone"
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:text="@string/zh_custom_control_title"
+                android:text="@string/custom_control_title"
                 android:textColor="@color/primary_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

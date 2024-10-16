@@ -114,8 +114,8 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
             zinkPreferSystemDriver.setOnCheckedChangeListener { buttonView, isChecked, listener ->
                 if (isChecked and ZHTools.isAdrenoGPU()) {
                     TipDialog.Builder(requireActivity())
-                        .setTitle(R.string.zh_warning)
-                        .setMessage(R.string.zh_setting_zink_driver_adreno)
+                        .setTitle(R.string.generic_warning)
+                        .setMessage(R.string.setting_zink_driver_adreno)
                         .setCancelable(false)
                         .setConfirmClickListener { listener.onSave() }
                         .setCancelClickListener { buttonView.isChecked = false }

@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:onClick="forceClose"
-            android:text="@string/control_forceclose"
+            android:text="@string/option_force_close"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_toStartOf="@id/installmod_btn2"
             android:onClick="openLogOutput"
-            android:text="@string/control_viewout"
+            android:text="@string/option_log_out"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintRight_toLeftOf="@id/installmod_btn2"
             app:layout_constraintTop_toBottomOf="@+id/installmod_btn2" />
@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="toggleKeyboard"
-            android:text="@string/zh_activity_java_gui_keyboard"
+            android:text="@string/generic_keyboard"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="performCopy"
-            android:text="@string/mcl_version_clone"
+            android:text="@string/generic_clone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button" />
 
@@ -100,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="performPaste"
-            android:text="@string/zh_paste"
+            android:text="@string/generic_paste"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button3" />
 

@@ -42,7 +42,7 @@
                     android:textAllCaps="false"
                     android:background="@drawable/background_item"
                     android:drawableStart="@drawable/ic_about"
-                    android:text="@string/zh_about_tab"
+                    android:text="@string/about_tab"
                     android:textColor="@color/primary_text" />
 
                 <com.kdt.mcgui.LauncherMenuButton
@@ -55,7 +55,7 @@
                     android:textAllCaps="false"
                     android:background="@drawable/background_item"
                     android:drawableStart="@drawable/ic_menu_custom_controls"
-                    android:text="@string/zh_custom_control_title"
+                    android:text="@string/custom_control_title"
                     android:textColor="@color/primary_text" />
 
                 <com.kdt.mcgui.LauncherMenuButton
@@ -68,7 +68,7 @@
                     android:textAllCaps="false"
                     android:background="@drawable/background_item"
                     android:drawableStart="@drawable/ic_folder"
-                    android:text="@string/zh_main_open_main_dir"
+                    android:text="@string/main_open_main_dir"
                     android:textColor="@color/primary_text" />
 
                 <com.kdt.mcgui.LauncherMenuButton

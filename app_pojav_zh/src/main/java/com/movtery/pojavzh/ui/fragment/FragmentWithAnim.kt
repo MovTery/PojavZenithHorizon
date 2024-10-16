@@ -47,7 +47,7 @@ abstract class FragmentWithAnim : Fragment, SlideAnimation {
         }
     }
 
-    fun checkPermissions(title: Int = R.string.zh_warning, permissionGranted: PermissionGranted?) {
+    fun checkPermissions(title: Int = R.string.generic_warning, permissionGranted: PermissionGranted?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             handlePermissionsForAndroid11AndAbove(title, permissionGranted)
         } else {
@@ -98,7 +98,7 @@ abstract class FragmentWithAnim : Fragment, SlideAnimation {
     private fun showPermissionRequestDialog(title: Int, requestPermissions: RequestPermissions) {
         TipDialog.Builder(requireActivity())
             .setTitle(title)
-            .setMessage(getString(R.string.zh_permissions_manage_external_storage))
+            .setMessage(getString(R.string.permissions_manage_external_storage))
             .setConfirmClickListener { requestPermissions.onRequest() }
             .setCancelable(false)
             .buildDialog()

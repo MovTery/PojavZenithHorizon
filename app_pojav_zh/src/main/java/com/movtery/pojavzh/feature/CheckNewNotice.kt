@@ -33,7 +33,7 @@ class CheckNewNotice {
                 return
             }
 
-            val token = context.getString(R.string.zh_private_api_token)
+            val token = context.getString(R.string.private_api_token)
             CallUtils(object : CallbackListener {
                 override fun onFailure(call: Call?) {
                     isChecking = false

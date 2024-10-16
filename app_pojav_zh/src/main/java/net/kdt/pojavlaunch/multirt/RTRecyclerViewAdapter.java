@@ -141,7 +141,7 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 mFullJavaVersionTextView.setTextColor(Color.RED);
             } else {
                 //自动选择
-                mJavaVersionTextView.setText(R.string.zh_install_auto_select);
+                mJavaVersionTextView.setText(R.string.install_auto_select);
                 mFullJavaVersionTextView.setVisibility(View.GONE);
                 mainView.setOnClickListener(v -> mSelectedListener.onSelected(null));
             }
@@ -185,7 +185,7 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
                 if(MultiRTUtils.getRuntimes().size() < 2) {
                     new TipDialog.Builder(mContext)
-                            .setTitle(R.string.zh_warning)
+                            .setTitle(R.string.generic_warning)
                             .setMessage(R.string.multirt_config_removeerror_last)
                             .setShowCancel(false)
                             .buildDialog();
@@ -223,7 +223,7 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
                 boolean defaultRuntime = isDefaultRuntime(runtime);
                 mSetDefaultButton.setEnabled(!defaultRuntime);
-                mSetDefaultButton.setText(defaultRuntime ? R.string.multirt_config_setdefault_already:R.string.multirt_config_setdefault);
+                mSetDefaultButton.setText(defaultRuntime ? R.string.generic_default : R.string.multirt_config_setdefault);
                 return;
             }
 

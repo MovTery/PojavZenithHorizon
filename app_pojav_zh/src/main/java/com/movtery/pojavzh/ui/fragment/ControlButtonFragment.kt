@@ -60,7 +60,7 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
                 PojavApplication.sExecutorService.execute {
                     copyFileInBackground(requireContext(), result, File(PathAndUrlManager.DIR_CTRLMAP_PATH).absolutePath)
                     Tools.runOnUiThread {
-                        Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
                         controlsListViewCreator.refresh()
                     }
                 }
@@ -97,8 +97,8 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
 
                 override fun onItemLongClick(file: File) {
                     TipDialog.Builder(requireContext())
-                        .setTitle(R.string.default_control)
-                        .setMessage(R.string.zh_controls_set_default_message)
+                        .setTitle(R.string.pedit_control)
+                        .setMessage(R.string.controls_set_default_message)
                         .setConfirmClickListener {
                             val absolutePath = file.absolutePath
                             Settings.Manager.put("defaultCtrl", absolutePath).save()
@@ -126,18 +126,18 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
 
             addFileButton.setOnClickListener {
                 val suffix = ".json"
-                Toast.makeText(requireActivity(), String.format(getString(R.string.zh_file_add_file_tip), suffix), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), String.format(getString(R.string.file_add_file_tip), suffix), Toast.LENGTH_SHORT).show()
                 openDocumentLauncher?.launch(suffix)
             } //限制.json文件
 
             createFolderButton.setOnClickListener {
                 val editControlInfoDialog = EditControlInfoDialog(requireContext(), true, null, ControlInfoData())
-                editControlInfoDialog.setTitle(getString(R.string.zh_controls_create_new))
+                editControlInfoDialog.setTitle(getString(R.string.controls_create_new))
                 editControlInfoDialog.setOnConfirmClickListener { fileName: String, controlInfoData: ControlInfoData? ->
                     val file = File(File(PathAndUrlManager.DIR_CTRLMAP_PATH).absolutePath, "$fileName.json")
                     if (file.exists()) { //检查文件是否已经存在
                         editControlInfoDialog.fileNameEditBox.error =
-                            getString(R.string.zh_file_rename_exitis)
+                            getString(R.string.file_rename_exitis)
                         return@setOnConfirmClickListener
                     }
 
@@ -166,8 +166,8 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
     private fun showDialog(file: File) {
         val filesButton = FilesButton()
         filesButton.setButtonVisibility(true, true, true, true, true, true)
-        filesButton.setMessageText(getString(R.string.zh_file_message))
-        filesButton.setMoreButtonText(getString(R.string.zh_edit))
+        filesButton.setMessageText(getString(R.string.file_message))
+        filesButton.setMoreButtonText(getString(R.string.generic_edit))
 
         val filesDialog = FilesDialog(requireContext(), filesButton,
             { Tools.runOnUiThread { controlsListViewCreator.refresh() } },
@@ -209,8 +209,8 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
         }
 
         binding.operateView.apply {
-            addFileButton.setContentDescription(getString(R.string.zh_controls_import_control))
-            createFolderButton.setContentDescription(getString(R.string.zh_controls_create_new))
+            addFileButton.setContentDescription(getString(R.string.controls_import_control))
+            createFolderButton.setContentDescription(getString(R.string.controls_create_new))
 
             pasteButton.setVisibility(if (PasteFile.getInstance().pasteType != null) View.VISIBLE else View.GONE)
 
@@ -231,11 +231,11 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
             val fragmentActivity = requireActivity()
             TapTargetSequence(fragmentActivity)
                 .targets(
-                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, refreshButton, getString(R.string.zh_refresh), getString(R.string.zh_newbie_guide_general_refresh)),
-                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, searchButton, getString(R.string.zh_search), getString(R.string.zh_newbie_guide_control_search)),
-                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, addFileButton, getString(R.string.zh_controls_import_control), getString(R.string.zh_newbie_guide_control_import)),
-                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, createFolderButton, getString(R.string.zh_controls_create_new), getString(R.string.zh_newbie_guide_control_create)),
-                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, returnButton, getString(R.string.zh_return), getString(R.string.zh_newbie_guide_general_close)))
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, refreshButton, getString(R.string.generic_refresh), getString(R.string.newbie_guide_general_refresh)),
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, searchButton, getString(R.string.generic_search), getString(R.string.newbie_guide_control_search)),
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, addFileButton, getString(R.string.controls_import_control), getString(R.string.newbie_guide_control_import)),
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, createFolderButton, getString(R.string.controls_create_new), getString(R.string.newbie_guide_control_create)),
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, returnButton, getString(R.string.generic_return), getString(R.string.newbie_guide_general_close)))
                 .start()
         }
     }

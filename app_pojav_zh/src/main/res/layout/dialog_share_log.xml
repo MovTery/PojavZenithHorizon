@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_8sdp"
         android:singleLine="true"
-        android:text="@string/zh_main_share_log_title"
+        android:text="@string/main_share_log_title"
         android:textColor="@color/black_or_white"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -71,7 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:text="@string/zh_main_share_launcher_log"
+                    android:text="@string/main_share_launcher_log"
                     android:textColor="@color/black_or_white"
                     android:textSize="14sp" />
 
@@ -114,7 +114,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:text="@string/zh_main_share_game_log"
+                    android:text="@string/main_share_game_log"
                     android:textColor="@color/black_or_white"
                     android:textSize="14sp" />
 

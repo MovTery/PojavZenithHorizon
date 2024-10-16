@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="all_game_language">
-        <item>@string/zh_setting_set_game_language_system</item>
+        <item>@string/setting_set_game_language_system</item>
         <item>Afrikaans</item>
         <item>اللغة العربية</item>
         <item>Asturianu</item>

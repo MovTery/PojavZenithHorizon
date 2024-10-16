@@ -226,7 +226,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 addCategoryView(context, mCategoriesLayout, context.getString(category.getResNameID()));
             }
 
-            String downloaderCount = StringUtils.insertSpace(context.getString(R.string.zh_profile_mods_information_download_count), NumberWithUnits.formatNumberWithUnit(item.downloadCount,
+            String downloaderCount = StringUtils.insertSpace(context.getString(R.string.profile_mods_information_download_count), NumberWithUnits.formatNumberWithUnit(item.downloadCount,
                     //判断当前系统语言是否为英文
                     ZHTools.isEnglish(context)));
             mDownloadCount.setText(downloaderCount);
@@ -237,9 +237,9 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
             String modloaderText;
             if (sj.length() > 0) modloaderText = sj.toString();
-            else modloaderText = context.getString(R.string.zh_unknown);
+            else modloaderText = context.getString(R.string.generic_unknown);
 
-            mModloader.setText(StringUtils.insertSpace(context.getString(R.string.zh_profile_mods_information_modloader), modloaderText));
+            mModloader.setText(StringUtils.insertSpace(context.getString(R.string.profile_mods_information_modloader), modloaderText));
         }
 
         private int getSourceDrawable(int apiSource) {

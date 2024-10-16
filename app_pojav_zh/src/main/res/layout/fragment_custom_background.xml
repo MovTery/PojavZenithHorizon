@@ -61,7 +61,7 @@
                 android:id="@+id/nothing_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/zh_custom_background_nothing"
+                android:text="@string/custom_background_nothing"
                 android:background="@drawable/background_item"
                 android:paddingHorizontal="@dimen/_12sdp"
                 android:visibility="gone"

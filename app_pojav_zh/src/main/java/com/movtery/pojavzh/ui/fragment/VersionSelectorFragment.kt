@@ -104,11 +104,11 @@ class VersionSelectorFragment : FragmentWithAnim(R.layout.fragment_version) {
 
     private fun bindTab() {
         binding.apply {
-            installed = versionTab.newTab().setText(getString(R.string.mcl_setting_veroption_installed))
-            release = versionTab.newTab().setText(getString(R.string.mcl_setting_veroption_release))
-            snapshot = versionTab.newTab().setText(getString(R.string.mcl_setting_veroption_snapshot))
-            beta = versionTab.newTab().setText(getString(R.string.mcl_setting_veroption_oldbeta))
-            alpha = versionTab.newTab().setText(getString(R.string.mcl_setting_veroption_oldalpha))
+            installed = versionTab.newTab().setText(getString(R.string.version_installed))
+            release = versionTab.newTab().setText(getString(R.string.version_release))
+            snapshot = versionTab.newTab().setText(getString(R.string.version_snapshot))
+            beta = versionTab.newTab().setText(getString(R.string.version_beta))
+            alpha = versionTab.newTab().setText(getString(R.string.version_alpha))
 
             versionTab.addTab(installed!!)
             versionTab.addTab(release!!)

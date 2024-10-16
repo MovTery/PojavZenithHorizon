@@ -57,7 +57,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
                 PojavApplication.sExecutorService.execute {
                     copyFileInBackground(requireActivity(), result, binding.fileRecyclerView.fullPath.absolutePath)
                     Tools.runOnUiThread {
-                        Toast.makeText(requireActivity(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireActivity(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
                         binding.fileRecyclerView.listFileAt(backgroundPath())
                     }
                 }
@@ -93,13 +93,13 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
                         filesButton.setButtonVisibility(false, false, true, true, true, image)
                         //默认虚拟鼠标不支持分享、重命名、删除操作
                         val message = if (image) { //如果选中的不是一个图片，那么将显示默认的文件选择提示信息
-                            getString(R.string.zh_custom_background_dialog_message, currentStatusName)
+                            getString(R.string.custom_background_dialog_message, currentStatusName)
                         } else {
-                            getString(R.string.zh_file_message)
+                            getString(R.string.file_message)
                         }
 
                         filesButton.setMessageText(message)
-                        filesButton.setMoreButtonText(getString(R.string.global_select))
+                        filesButton.setMoreButtonText(getString(R.string.generic_select))
 
                         val filesDialog = FilesDialog(requireActivity(), filesButton,
                             { Tools.runOnUiThread { refreshPath() } },
@@ -110,7 +110,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
                             refreshBackground()
 
                             Toast.makeText(requireActivity(),
-                                StringUtils.insertSpace(getString(R.string.zh_custom_background_selected, currentStatusName), fileName),
+                                StringUtils.insertSpace(getString(R.string.custom_background_selected, currentStatusName), fileName),
                                 Toast.LENGTH_SHORT
                             ).show()
                             filesDialog.dismiss()
@@ -144,7 +144,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
                 pasteButton.setOnClickListener { _: View? ->
                     backgroundMap[backgroundType] = "null"
                     BackgroundManager.saveProperties(backgroundMap)
-                    Toast.makeText(requireActivity(), getString(R.string.zh_custom_background_reset, currentStatusName), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), getString(R.string.custom_background_reset, currentStatusName), Toast.LENGTH_SHORT).show()
                     refreshBackground()
                 }
 
@@ -169,10 +169,10 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
             val fragmentActivity = requireActivity()
             TapTargetSequence(fragmentActivity)
                 .targets(
-                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, refreshButton, getString(R.string.zh_refresh), getString(R.string.zh_newbie_guide_general_refresh)),
-                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, pasteButton, getString(R.string.cropper_reset), getString(R.string.zh_newbie_guide_background_reset)),
-                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, addFileButton, getString(R.string.zh_custom_background_add), getString(R.string.zh_newbie_guide_background_import)),
-                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, returnButton, getString(R.string.zh_return), getString(R.string.zh_newbie_guide_general_close)))
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, refreshButton, getString(R.string.generic_refresh), getString(R.string.newbie_guide_general_refresh)),
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, pasteButton, getString(R.string.generic_reset), getString(R.string.newbie_guide_background_reset)),
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, addFileButton, getString(R.string.custom_background_add), getString(R.string.newbie_guide_background_import)),
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, returnButton, getString(R.string.generic_return), getString(R.string.newbie_guide_general_close)))
                 .start()
         }
     }
@@ -199,10 +199,10 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
 
     private val currentStatusName: String
         get() = when (this.backgroundType) {
-            BackgroundType.MAIN_MENU -> getString(R.string.zh_custom_background_main_menu)
-            BackgroundType.CUSTOM_CONTROLS -> getString(R.string.zh_custom_background_controls)
-            BackgroundType.IN_GAME -> getString(R.string.zh_custom_background_in_game)
-            else -> getString(R.string.zh_unknown)
+            BackgroundType.MAIN_MENU -> getString(R.string.custom_background_main_menu)
+            BackgroundType.CUSTOM_CONTROLS -> getString(R.string.custom_background_controls)
+            BackgroundType.IN_GAME -> getString(R.string.custom_background_in_game)
+            else -> getString(R.string.generic_unknown)
         }
 
     private fun refreshType(index: Int) {
@@ -237,8 +237,8 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
             createFolderButton.visibility = View.GONE
             searchButton.visibility = View.GONE
 
-            pasteButton.setContentDescription(getString(R.string.cropper_reset))
-            addFileButton.setContentDescription(getString(R.string.zh_custom_background_add))
+            pasteButton.setContentDescription(getString(R.string.generic_reset))
+            addFileButton.setContentDescription(getString(R.string.custom_background_add))
             pasteButton.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_reset))
 
             ZHTools.setTooltipText(
@@ -256,9 +256,9 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
             val controls = newTab()
             val inGame = newTab()
 
-            mainMenu.setText(resources.getText(R.string.zh_custom_background_main_menu))
-            controls.setText(resources.getText(R.string.zh_custom_background_controls))
-            inGame.setText(resources.getText(R.string.zh_custom_background_in_game))
+            mainMenu.setText(resources.getText(R.string.custom_background_main_menu))
+            controls.setText(resources.getText(R.string.custom_background_controls))
+            inGame.setText(resources.getText(R.string.custom_background_in_game))
 
             addTab(mainMenu)
             addTab(controls)

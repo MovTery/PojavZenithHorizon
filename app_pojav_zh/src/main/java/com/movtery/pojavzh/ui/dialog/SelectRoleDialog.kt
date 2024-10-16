@@ -15,8 +15,8 @@ class SelectRoleDialog(context: Context, private val mProfiles: List<AvailablePr
     private var selectedListener: RoleSelectedListener? = null
 
     override fun initDialog(recyclerView: RecyclerView) {
-        setTitleText(R.string.zh_other_login_select_role_title)
-        setMessageText(R.string.zh_other_login_select_role_message)
+        setTitleText(R.string.other_login_select_role_title)
+        setMessageText(R.string.other_login_select_role_message)
 
         val adapter = RoleAdapter()
         recyclerView.layoutManager = LinearLayoutManager(context)

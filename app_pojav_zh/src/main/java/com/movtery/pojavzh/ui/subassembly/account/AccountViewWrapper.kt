@@ -33,7 +33,7 @@ class AccountViewWrapper(val mainView: View) {
         val account = currentAccount
         account ?: run {
             mUserIconView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_add))
-            mUserNameView.setText(R.string.main_add_account)
+            mUserNameView.setText(R.string.account_add)
             return
         }
         mUserIconView.setImageDrawable(SkinLoader.getAvatarDrawable(mainView.context, account, Tools.dpToPx(52f).toInt()))

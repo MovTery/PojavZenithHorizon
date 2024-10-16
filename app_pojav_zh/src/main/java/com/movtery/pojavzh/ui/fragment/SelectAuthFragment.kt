@@ -55,8 +55,8 @@ class SelectAuthFragment : FragmentWithAnim(R.layout.fragment_select_auth_method
                         openDialog(
                             fragmentActivity,
                             TipDialog.OnConfirmClickListener { swapToOther() },
-                            getString(R.string.zh_account_no_microsoft_account_other) + getString(R.string.zh_account_purchase_minecraft_account_tip),
-                            R.string.zh_account_no_microsoft_account_other_confirm
+                            getString(R.string.account_no_microsoft_account_other) + getString(R.string.account_purchase_minecraft_account_tip),
+                            R.string.account_no_microsoft_account_other_confirm
                         )
                     }
                 }
@@ -76,8 +76,8 @@ class SelectAuthFragment : FragmentWithAnim(R.layout.fragment_select_auth_method
                         openDialog(
                             fragmentActivity,
                             TipDialog.OnConfirmClickListener { swapToLocal() },
-                            getString(R.string.zh_account_no_microsoft_account_local) + getString(R.string.zh_account_purchase_minecraft_account_tip),
-                            R.string.zh_account_no_microsoft_account_local_confirm
+                            getString(R.string.account_no_microsoft_account_local) + getString(R.string.account_purchase_minecraft_account_tip),
+                            R.string.account_no_microsoft_account_local_confirm
                         )
                     }
                 }

@@ -133,7 +133,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         ingameControlsEditorListener = (parent, view, position, id) -> {
             ControlLayout controlLayout = binding.mainControlLayout;
             switch(position) {
-                case 0: controlLayout.addControlButton(new ControlData(getString(R.string.zh_controls_add_control_button))); break;
+                case 0: controlLayout.addControlButton(new ControlData(getString(R.string.controls_add_control_button))); break;
                 case 1: controlLayout.addDrawer(new ControlDrawerData()); break;
                 case 2: controlLayout.addJoystickButton(new ControlJoystickData()); break;
                 case 3: new ControlSettingsDialog(this).show(); break;
@@ -239,7 +239,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
             if (AllSettings.Companion.getEnableLogOutput()) openLogOutput();
 
-            String tipString = StringUtils.insertNewline(binding.gameTip.getText(), StringUtils.insertSpace(getString(R.string.zh_game_tip_version), minecraftProfile.lastVersionId));
+            String tipString = StringUtils.insertNewline(binding.gameTip.getText(), StringUtils.insertSpace(getString(R.string.game_tip_version), minecraftProfile.lastVersionId));
             binding.gameTip.setText(tipString);
             AnimUtils.setVisibilityAnim(binding.gameTipView, 1000, true, 300, new AnimUtils.AnimationListener() {
                 @Override
@@ -257,8 +257,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
     private void openResolutionAdjuster() {
         new SeekbarDialog.Builder(this)
-                .setTitle(R.string.mcl_setting_title_resolution_scaler)
-                .setMessage(R.string.mcl_setting_subtitle_resolution_scaler)
+                .setTitle(R.string.setting_resolution_scaler_title)
+                .setMessage(R.string.setting_resolution_scaler_desc)
                 .setMin(25)
                 .setMax(300)
                 .setSuffix("%")
@@ -447,7 +447,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
     public static void dialogForceClose(Context ctx) {
         new TipDialog.Builder(ctx)
-                .setMessage(R.string.mcn_exit_confirm)
+                .setMessage(R.string.force_exit_confirm)
                 .setConfirmClickListener(() -> {
                     try {
                         ZHTools.killProcess();
@@ -495,7 +495,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             return;
         }
         new SeekbarDialog.Builder(this)
-                .setTitle(R.string.preference_gyro_sensitivity_title)
+                .setTitle(R.string.setting_gyro_sensitivity_title)
                 .setMin(25)
                 .setMax(300)
                 .setValue((int) (AllSettings.Companion.getGyroSensitivity() * 100))

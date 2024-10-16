@@ -34,7 +34,7 @@
             android:id="@+id/server_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/zh_other_login_authentication_server"
+            android:text="@string/other_login_authentication_server"
             app:layout_constraintBottom_toTopOf="@+id/server_spinner"
             app:layout_constraintStart_toStartOf="@+id/server_spinner" />
 
@@ -62,7 +62,7 @@
             android:layout_marginEnd="@dimen/_16sdp"
             android:padding="@dimen/_8sdp"
             android:background="?android:attr/selectableItemBackground"
-            android:text="@string/zh_other_login_register"
+            android:text="@string/other_login_register"
             android:textColor="@android:color/holo_green_dark"
             app:layout_constraintBottom_toBottomOf="@+id/server_spinner"
             app:layout_constraintRight_toLeftOf="@id/add_server"
@@ -83,7 +83,7 @@
             android:id="@+id/email_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/zh_other_login_email"
+            android:text="@string/other_login_email"
             app:layout_constraintBottom_toTopOf="@+id/login_edit_email"
             app:layout_constraintStart_toStartOf="@+id/login_edit_email" />
 
@@ -111,7 +111,7 @@
             android:id="@+id/password_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/zh_other_login_password"
+            android:text="@string/other_login_password"
             app:layout_constraintBottom_toTopOf="@+id/login_edit_password"
             app:layout_constraintStart_toStartOf="@+id/login_edit_password" />
 
@@ -141,7 +141,7 @@
             android:layout_marginHorizontal="@dimen/_28sdp"
             android:layout_marginTop="@dimen/_24sdp"
             android:layout_marginBottom="@dimen/_38sdp"
-            android:text="@string/login_online_login_label"
+            android:text="@string/generic_login"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -301,16 +301,16 @@ public final class Tools {
     }
 
     public static void showError(final Context ctx, final Throwable e, final boolean exitIfOk) {
-        showError(ctx, R.string.global_error, null ,e, exitIfOk, false);
+        showError(ctx, R.string.generic_error, null ,e, exitIfOk, false);
     }
     public static void showError(final Context ctx, final int rolledMessage, final Throwable e) {
-        showError(ctx, R.string.global_error, ctx.getString(rolledMessage), e, false, false);
+        showError(ctx, R.string.generic_error, ctx.getString(rolledMessage), e, false, false);
     }
     public static void showError(final Context ctx, final String rolledMessage, final Throwable e) {
-        showError(ctx, R.string.global_error, rolledMessage, e, false, false);
+        showError(ctx, R.string.generic_error, rolledMessage, e, false, false);
     }
     public static void showError(final Context ctx, final String rolledMessage, final Throwable e, boolean exitIfOk) {
-        showError(ctx, R.string.global_error, rolledMessage, e, exitIfOk, false);
+        showError(ctx, R.string.generic_error, rolledMessage, e, exitIfOk, false);
     }
     public static void showError(final Context ctx, final int titleId, final Throwable e, final boolean exitIfOk) {
         showError(ctx, titleId, null, e, exitIfOk, false);
@@ -718,11 +718,11 @@ public final class Tools {
 
         // install mods with custom arguments
         new EditTextDialog.Builder(activity)
-                .setTitle(R.string.zh_dialog_select_jar)
+                .setTitle(R.string.dialog_select_jar)
                 .setHintText("-jar/-cp /path/to/file.jar ...")
                 .setConfirmListener(editBox -> {
                     if (editBox.getText().toString().isEmpty()) {
-                        editBox.setError(activity.getString(R.string.global_error_field_empty));
+                        editBox.setError(activity.getString(R.string.generic_error_field_empty));
                         return false;
                     }
 
@@ -824,7 +824,7 @@ public final class Tools {
         if (pickedRuntime.javaVersion == 0 || pickedRuntime.javaVersion < targetJavaVersion) {
             String preferredRuntime = MultiRTUtils.getNearestJreName(targetJavaVersion);
             if (preferredRuntime == null) {
-                activity.runOnUiThread(() -> Toast.makeText(activity, activity.getString(R.string.zh_game_autopick_runtime_failed), Toast.LENGTH_LONG).show());
+                activity.runOnUiThread(() -> Toast.makeText(activity, activity.getString(R.string.game_autopick_runtime_failed), Toast.LENGTH_LONG).show());
                 return runtime; //返回选择的runtime
             }
             if (profileRuntime != null)

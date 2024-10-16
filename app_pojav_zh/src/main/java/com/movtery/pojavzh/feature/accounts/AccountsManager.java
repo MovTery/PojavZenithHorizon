@@ -76,7 +76,7 @@ public class AccountsManager {
         };
 
         mDoneListener = account -> {
-            Tools.runOnUiThread(() -> Toast.makeText(context, R.string.main_login_done, Toast.LENGTH_SHORT).show());
+            Tools.runOnUiThread(() -> Toast.makeText(context, R.string.account_login_done, Toast.LENGTH_SHORT).show());
 
             //检查账号是否已存在
             if (getAllAccount().contains(account)) return;
@@ -93,7 +93,7 @@ public class AccountsManager {
                     PresentedException exception = (PresentedException) errorMessage;
                     Throwable cause = exception.getCause();
                     if (cause == null) {
-                        Tools.dialog(activity, activity.getString(R.string.global_error), exception.toString(activity));
+                        Tools.dialog(activity, activity.getString(R.string.generic_error), exception.toString(activity));
                     } else {
                         Tools.showError(activity, exception.toString(activity), exception.getCause());
                     }

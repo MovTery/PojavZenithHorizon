@@ -103,7 +103,7 @@ public final class UpdateLauncher {
 
     private static void installApk(Context context, File outputFile) {
         runOnUiThread(() -> new TipDialog.Builder(context)
-                .setMessage(StringUtils.insertNewline(context.getString(R.string.zh_update_success), outputFile.getAbsolutePath()))
+                .setMessage(StringUtils.insertNewline(context.getString(R.string.update_success), outputFile.getAbsolutePath()))
                 .setCenterMessage(false)
                 .setCancelable(false)
                 .setConfirmClickListener(() -> { //安装
@@ -120,17 +120,17 @@ public final class UpdateLauncher {
         if (ZHTools.getCurrentTimeMillis() - LAST_UPDATE_CHECK_TIME <= 5000) return;
         LAST_UPDATE_CHECK_TIME = ZHTools.getCurrentTimeMillis();
 
-        String token = context.getString(R.string.zh_api_token);
+        String token = context.getString(R.string.api_token);
         new CallUtils(new CallUtils.CallbackListener() {
             @Override
             public void onFailure(Call call) {
-                showFailToast(context, context.getString(R.string.zh_update_fail));
+                showFailToast(context, context.getString(R.string.update_fail));
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (!response.isSuccessful()) {
-                    showFailToast(context, context.getString(R.string.zh_update_fail_code, response.code()));
+                    showFailToast(context, context.getString(R.string.update_fail_code, response.code()));
                     Logging.e("UpdateLauncher", "Unexpected code " + response.code());
                 } else {
                     Objects.requireNonNull(response.body());
@@ -173,7 +173,7 @@ public final class UpdateLauncher {
                             runOnUiThread(() -> {
                                 String nowVersionName = ZHTools.getVersionName();
                                 runOnUiThread(() -> Toast.makeText(context,
-                                        StringUtils.insertSpace(context.getString(R.string.zh_update_without), nowVersionName),
+                                        StringUtils.insertSpace(context.getString(R.string.update_without), nowVersionName),
                                         Toast.LENGTH_SHORT).show());
                             });
                         }
@@ -219,13 +219,13 @@ public final class UpdateLauncher {
         this.call.enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                showFailToast(context, context.getString(R.string.zh_update_fail));
+                showFailToast(context, context.getString(R.string.update_fail));
             }
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (!response.isSuccessful()) {
-                    showFailToast(context, context.getString(R.string.zh_update_fail_code, response.code()));
+                    showFailToast(context, context.getString(R.string.update_fail_code, response.code()));
                     throw new IOException("Unexpected code " + response);
                 } else {
                     File outputFile = new File(UpdateLauncher.this.destinationFilePath);
@@ -266,7 +266,7 @@ public final class UpdateLauncher {
                                     String formattedDownloaded = formatFileSize(size);
                                     UpdateLauncher.this.dialog.updateProgress(size, fileSize);
                                     UpdateLauncher.this.dialog.updateRate(rate > 0 ? rate : 0L);
-                                    UpdateLauncher.this.dialog.updateText(String.format(context.getString(R.string.zh_update_downloading), formattedDownloaded, fileSizeString));
+                                    UpdateLauncher.this.dialog.updateText(String.format(context.getString(R.string.update_downloading), formattedDownloaded, fileSizeString));
                                 });
                             }
                         }, 0, 120);

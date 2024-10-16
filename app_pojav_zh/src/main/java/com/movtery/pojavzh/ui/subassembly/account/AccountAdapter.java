@@ -84,13 +84,13 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.Holder> 
                 int loginType;
                 if (account.isMicrosoft) {
                     setButtonClickable(binding.refresh, true);
-                    loginType = R.string.zh_account_microsoft_account;
+                    loginType = R.string.account_microsoft_account;
                 } else if (AccountUtils.isOtherLoginAccount(account)) {
                     setButtonClickable(binding.refresh, true);
-                    loginType = R.string.zh_other_login_api;
+                    loginType = R.string.other_login;
                 } else {
                     setButtonClickable(binding.refresh, false);
-                    loginType = R.string.zh_account_local_account;
+                    loginType = R.string.account_local_account;
                 }
 
                 try {

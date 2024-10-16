@@ -145,7 +145,7 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
                         Tools.backToMainMenu(fragmentActivity!!)
                         fragmentActivity?.startActivity(modInstallerStartIntent)
                     }
-                    setTitleText(R.string.modloader_dl_install_fabric)
+                    setTitleText(R.string.create_profile_fabric)
                     show()
                 }
                 return@runOnUiThread
@@ -158,8 +158,8 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
         Tools.runOnUiThread {
             val context = fragmentActivity!!
             modloaderListenerProxy.detachListener()
-            Tools.dialog(context, context.getString(R.string.global_error),
-                context.getString(R.string.fabric_dl_cant_read_meta, utils.name)
+            Tools.dialog(context, context.getString(R.string.generic_error),
+                context.getString(R.string.mod_fabric_cant_read_meta, utils.name)
             )
         }
     }

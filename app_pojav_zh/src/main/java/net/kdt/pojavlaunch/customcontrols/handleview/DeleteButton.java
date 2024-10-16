@@ -18,7 +18,7 @@ public class DeleteButton extends Button implements ActionButtonInterface {
     public void init() {
         setOnClickListener(this);
         setAllCaps(true);
-        setText(R.string.global_delete);
+        setText(R.string.generic_delete);
 
     }
 

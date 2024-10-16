@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/zh_refresh"
+        android:contentDescription="@string/generic_refresh"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_refresh" />
 
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/zh_search"
+        android:contentDescription="@string/generic_search"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_search" />
 
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/zh_paste"
+        android:contentDescription="@string/generic_paste"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_paste" />
 
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/zh_file_add_file"
+        android:contentDescription="@string/file_add_file"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_add_new" />
 
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/folder_fragment_create"
+        android:contentDescription="@string/file_create_folder"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_add" />
 
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/zh_return"
+        android:contentDescription="@string/generic_return"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_close" />
 

@@ -53,13 +53,13 @@ class ErrorActivity : BaseActivity() {
         }
 
         binding.errorButtons.visibility = View.GONE
-        binding.errorTitle.setText(R.string.zh_wrong_tip)
+        binding.errorTitle.setText(R.string.generic_wrong_tip)
 
         val crashReportFile = getLatestFile(extras.getString(BUNDLE_CRASH_REPORTS_PATH), 15)
         val logFile = File(PathAndUrlManager.DIR_GAME_HOME, "latestlog.txt")
 
         binding.errorText.apply {
-            text = getString(R.string.zh_game_exit_message, code)
+            text = getString(R.string.game_exit_message, code)
             textSize = 14f
         }
         binding.crashShareCrashReport.visibility =

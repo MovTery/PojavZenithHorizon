@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
             android:singleLine="true"
-            android:text="@string/zh_file_tips"
+            android:text="@string/file_tips"
             android:textColor="@color/black_or_white"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -129,7 +129,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_toEndOf="@+id/rename_image"
                 android:singleLine="true"
-                android:text="@string/zh_rename"
+                android:text="@string/generic_rename"
                 android:textColor="@color/black_or_white"
                 android:textSize="16sp" />
         </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
@@ -156,7 +156,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_toEndOf="@+id/share_image"
                 android:singleLine="true"
-                android:text="@string/zh_share"
+                android:text="@string/generic_share"
                 android:textColor="@color/black_or_white"
                 android:textSize="16sp" />
         </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
@@ -194,7 +194,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_toEndOf="@+id/move_image"
                 android:singleLine="true"
-                android:text="@string/zh_move"
+                android:text="@string/generic_move"
                 android:textColor="@color/black_or_white"
                 android:textSize="16sp" />
         </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
@@ -221,7 +221,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_toEndOf="@+id/delete_image"
                 android:singleLine="true"
-                android:text="@string/global_delete"
+                android:text="@string/generic_delete"
                 android:textColor="@color/black_or_white"
                 android:textSize="16sp" />
         </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
@@ -249,7 +249,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_toEndOf="@+id/more_image"
                 android:singleLine="true"
-                android:text="@string/zh_more"
+                android:text="@string/generic_move"
                 android:textColor="@color/black_or_white"
                 android:textSize="16sp" />
         </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>

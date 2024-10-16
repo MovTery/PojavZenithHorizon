@@ -120,7 +120,7 @@ public class MicrosoftLoginFragment extends Fragment {
             if(url.startsWith("ms-xal-00000000402b5328")) {
                 // Should be captured by the activity to kill the fragment and get
                 EventBus.getDefault().post(new MicrosoftLoginEvent(Uri.parse(url)));
-                Toast.makeText(view.getContext(), getString(R.string.zh_account_login_start), Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), getString(R.string.account_login_start), Toast.LENGTH_SHORT).show();
                 Tools.backToMainMenu(requireActivity());
 
                 return true;

@@ -10,7 +10,7 @@ class SearchModPlatform {
         @JvmStatic
         fun getIndexList(context: Context): List<String> {
             if (indexList.isEmpty()) {
-                indexList.add(context.getString(R.string.zh_profile_mods_search_platform_both))
+                indexList.add(context.getString(R.string.profile_mods_search_platform_both))
                 indexList.add("Modrinth")
                 indexList.add("CurseForge")
             }

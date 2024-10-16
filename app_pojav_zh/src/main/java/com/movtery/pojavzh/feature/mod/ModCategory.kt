@@ -74,7 +74,7 @@ class ModCategory {
      * 感谢龙腾猫跃!!!!
      */
     enum class Category(val classify: Classify, val resNameID: Int, val curseforgeID: String?, val modrinthName: String?, val retraction: Boolean = false) {
-        ALL(Classify.ALL, R.string.zh_all, null, null),
+        ALL(Classify.ALL, R.string.generic_all, null, null),
         //Mod类别
         WORLDGEN(Classify.MOD, R.string.mods_category_worldgen, "406", "worldgen"),
         BIOMES(Classify.MOD, R.string.mods_category_biomes, "407", null, true),

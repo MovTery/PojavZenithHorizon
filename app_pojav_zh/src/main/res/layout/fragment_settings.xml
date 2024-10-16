@@ -58,7 +58,7 @@
                         android:layout_width="@dimen/_28sdp"
                         android:layout_height="@dimen/_28sdp"
                         android:background="@android:color/transparent"
-                        android:contentDescription="@string/preference_category_video"
+                        android:contentDescription="@string/setting_category_video"
                         android:scaleType="fitCenter"
                         android:scaleX="0.92"
                         android:scaleY="0.92"
@@ -72,7 +72,7 @@
                         android:maxLines="2"
                         android:maxWidth="@dimen/_90sdp"
                         android:textColor="@color/black_or_white"
-                        android:text="@string/preference_category_video"/>
+                        android:text="@string/setting_category_video"/>
                 </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
                 <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -87,7 +87,7 @@
                         android:layout_width="@dimen/_28sdp"
                         android:layout_height="@dimen/_28sdp"
                         android:background="@android:color/transparent"
-                        android:contentDescription="@string/preference_category_buttons"
+                        android:contentDescription="@string/setting_category_control"
                         android:scaleType="fitCenter"
                         android:scaleX="0.92"
                         android:scaleY="0.92"
@@ -101,7 +101,7 @@
                         android:maxLines="2"
                         android:maxWidth="@dimen/_90sdp"
                         android:textColor="@color/black_or_white"
-                        android:text="@string/preference_category_buttons"/>
+                        android:text="@string/setting_category_control"/>
                 </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
                 <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -116,7 +116,7 @@
                         android:layout_width="@dimen/_28sdp"
                         android:layout_height="@dimen/_28sdp"
                         android:background="@android:color/transparent"
-                        android:contentDescription="@string/zh_preference_category_launcher"
+                        android:contentDescription="@string/setting_category_launcher"
                         android:scaleType="fitCenter"
                         android:scaleX="0.8"
                         android:scaleY="0.8"
@@ -130,7 +130,7 @@
                         android:maxLines="2"
                         android:maxWidth="@dimen/_90sdp"
                         android:textColor="@color/black_or_white"
-                        android:text="@string/zh_preference_category_game"/>
+                        android:text="@string/setting_category_game"/>
                 </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
                 <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -145,7 +145,7 @@
                         android:layout_width="@dimen/_28sdp"
                         android:layout_height="@dimen/_28sdp"
                         android:background="@android:color/transparent"
-                        android:contentDescription="@string/zh_preference_category_launcher"
+                        android:contentDescription="@string/setting_category_launcher"
                         android:scaleType="fitCenter"
                         android:scaleX="0.92"
                         android:scaleY="0.92"
@@ -159,7 +159,7 @@
                         android:maxLines="2"
                         android:maxWidth="@dimen/_90sdp"
                         android:textColor="@color/black_or_white"
-                        android:text="@string/zh_preference_category_launcher"/>
+                        android:text="@string/setting_category_launcher"/>
                 </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
                 <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -174,7 +174,7 @@
                         android:layout_width="@dimen/_28sdp"
                         android:layout_height="@dimen/_28sdp"
                         android:background="@android:color/transparent"
-                        android:contentDescription="@string/zh_preference_category_experimental"
+                        android:contentDescription="@string/setting_category_experimental"
                         android:scaleType="fitCenter"
                         android:scaleX="0.92"
                         android:scaleY="0.92"
@@ -188,7 +188,7 @@
                         android:maxLines="2"
                         android:maxWidth="@dimen/_90sdp"
                         android:textColor="@color/black_or_white"
-                        android:text="@string/zh_preference_category_experimental"/>
+                        android:text="@string/setting_category_experimental"/>
                 </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

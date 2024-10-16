@@ -36,13 +36,13 @@ public class UpdateSourceDialog extends FullScreenDialog implements DraggableDia
     @SuppressLint("UseCompatLoadingForDrawables")
     private void init() {
         binding.githubRelease.setOnClickListener(view -> {
-            runOnUiThread(() -> Toast.makeText(getContext(), getContext().getString(R.string.zh_update_downloading_tip, "Github Release"), Toast.LENGTH_SHORT).show());
+            runOnUiThread(() -> Toast.makeText(getContext(), getContext().getString(R.string.update_downloading_tip, "Github Release"), Toast.LENGTH_SHORT).show());
             UpdateLauncher updateLauncher = new UpdateLauncher(getContext(), versionName, tagName, fileSize, UpdateLauncher.UpdateSource.GITHUB_RELEASE);
             updateLauncher.start();
             UpdateSourceDialog.this.dismiss();
         });
         binding.ghproxy.setOnClickListener(view -> {
-            runOnUiThread(() -> Toast.makeText(getContext(), getContext().getString(R.string.zh_update_downloading_tip, getContext().getString(R.string.zh_update_update_source_ghproxy)), Toast.LENGTH_SHORT).show());
+            runOnUiThread(() -> Toast.makeText(getContext(), getContext().getString(R.string.update_downloading_tip, getContext().getString(R.string.update_update_source_ghproxy)), Toast.LENGTH_SHORT).show());
             UpdateLauncher updateLauncher = new UpdateLauncher(getContext(), versionName, tagName, fileSize, UpdateLauncher.UpdateSource.GHPROXY);
             updateLauncher.start();
             UpdateSourceDialog.this.dismiss();

@@ -61,7 +61,7 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 		drawerNavigationView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.menu_customcontrol_customactivity)));
 		drawerNavigationView.setOnItemClickListener((parent, view, position, id) -> {
 			switch(position) {
-				case 0: controlLayout.addControlButton(new ControlData(getString(R.string.zh_controls_add_control_button))); break;
+				case 0: controlLayout.addControlButton(new ControlData(getString(R.string.controls_add_control_button))); break;
 				case 1: controlLayout.addDrawer(new ControlDrawerData()); break;
 				case 2: controlLayout.addJoystickButton(new ControlJoystickData()); break;
 				case 3: new ControlSettingsDialog(this).show(); break;

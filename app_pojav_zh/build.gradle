@@ -81,9 +81,9 @@ android {
         versionName "1.3.5.1"
         multiDexEnabled true //important
         resValue 'string', 'curseforge_api_key', getCFApiKey()
-        resValue 'string', 'zh_branch_info', getBranchName()
-        resValue 'string', 'zh_api_token', getApiToken()
-        resValue 'string', 'zh_private_api_token', getPrivateApiToken()
+        resValue 'string', 'branch_info', getBranchName()
+        resValue 'string', 'api_token', getApiToken()
+        resValue 'string', 'private_api_token', getPrivateApiToken()
     }
 
     buildTypes {

@@ -118,12 +118,12 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
             }
 
             FragmentActivity fragmentActivity = mod.fragment.requireActivity();
-            String dependencies = StringUtils.insertSpace(fragmentActivity.getString(R.string.zh_profile_mods_information_dependencies),
+            String dependencies = StringUtils.insertSpace(fragmentActivity.getString(R.string.profile_mods_information_dependencies),
                     ModDependencies.getTextFromType(fragmentActivity, modVersionItem.dependencyType));
             binding.dependenciesTextview.setText(dependencies);
             binding.bodyTextview.setText(item.description);
 
-            String downloaderCount = StringUtils.insertSpace(fragmentActivity.getString(R.string.zh_profile_mods_information_download_count), NumberWithUnits.formatNumberWithUnit(item.downloadCount,
+            String downloaderCount = StringUtils.insertSpace(fragmentActivity.getString(R.string.profile_mods_information_download_count), NumberWithUnits.formatNumberWithUnit(item.downloadCount,
                     //判断当前系统语言是否为英文
                     ZHTools.isEnglish(fragmentActivity)));
             binding.downloadCountTextview.setText(downloaderCount);
@@ -134,9 +134,9 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
             }
             String modloaderText;
             if (sj.length() > 0) modloaderText = sj.toString();
-            else modloaderText = fragmentActivity.getString(R.string.zh_unknown);
+            else modloaderText = fragmentActivity.getString(R.string.generic_unknown);
 
-            binding.modloaderTextview.setText(StringUtils.insertSpace(fragmentActivity.getString(R.string.zh_profile_mods_information_modloader), modloaderText));
+            binding.modloaderTextview.setText(StringUtils.insertSpace(fragmentActivity.getString(R.string.profile_mods_information_modloader), modloaderText));
 
             itemView.setOnClickListener(v -> {
                 ModApiViewModel viewModel = new ViewModelProvider(fragmentActivity).get(ModApiViewModel.class);

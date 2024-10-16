@@ -29,12 +29,12 @@ public class DeleteDialog extends TipDialog.Builder {
         File file = files.get(0);
         boolean isFolder = file.isDirectory();
         setTitle(singleFile ? (isFolder ?
-                R.string.zh_file_delete_dir :
-                R.string.zh_file_tips) : R.string.zh_file_delete_multiple_items_title);
+                R.string.file_delete_dir :
+                R.string.file_tips) : R.string.file_delete_multiple_items_title);
         setMessage(singleFile ? (isFolder ?
-                R.string.zh_file_delete_dir_message :
-                R.string.zh_file_delete) : R.string.zh_file_delete_multiple_items_message);
-        setConfirm(R.string.global_delete);
+                R.string.file_delete_dir_message :
+                R.string.file_delete) : R.string.file_delete_multiple_items_message);
+        setConfirm(R.string.generic_delete);
 
         setConfirmClickListener(() -> new FileDeletionHandler(context, files, runnable).start());
     }

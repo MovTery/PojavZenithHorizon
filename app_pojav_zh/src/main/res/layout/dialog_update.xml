@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:singleLine="true"
-        android:text="@string/zh_update_dialog_title"
+        android:text="@string/update_dialog_title"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_weight="1"
-            android:text="@string/zh_update_dialog_ignore" />
+            android:text="@string/update_dialog_ignore" />
 
         <com.movtery.pojavzh.ui.view.AnimButton
             android:id="@+id/update_button"
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_weight="1"
-            android:text="@string/zh_update_dialog_yes" />
+            android:text="@string/update_dialog_yes" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

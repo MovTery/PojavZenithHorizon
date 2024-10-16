@@ -41,7 +41,7 @@ public class PasteFile {
 
     public void pasteFiles(Activity activity, File target, FileCopyHandler.FileExtensionGetter fileExtensionGetter, Runnable endRunnable) {
         if (copyFiles.isEmpty()) {
-            runOnUiThread(() -> Toast.makeText(activity, activity.getString(R.string.zh_file_does_not_exist), Toast.LENGTH_SHORT).show());
+            runOnUiThread(() -> Toast.makeText(activity, activity.getString(R.string.file_does_not_exist), Toast.LENGTH_SHORT).show());
             return;
         }
         new FileCopyHandler(activity, pasteType, copyFiles, mRoot, target, fileExtensionGetter, () -> {

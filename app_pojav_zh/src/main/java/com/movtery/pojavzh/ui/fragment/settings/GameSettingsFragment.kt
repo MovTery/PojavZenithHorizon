@@ -183,14 +183,14 @@ class GameSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
 
         var summary = getMemoryInfoText(context, freeDeviceMemory)
         if (isMemorySizeExceeded) summary =
-            StringUtils.insertNewline(summary, getString(R.string.zh_setting_java_memory_exceeded))
+            StringUtils.insertNewline(summary, getString(R.string.setting_java_memory_exceeded))
 
         Tools.runOnUiThread { binding.allocationMemory.text = summary }
     }
 
     private fun getMemoryInfoText(context: Context, freeDeviceMemory: Long): String {
         return getString(
-            R.string.zh_setting_java_memory_info,
+            R.string.setting_java_memory_info,
             formatFileSize(getUsedDeviceMemory(context)),
             formatFileSize(getTotalDeviceMemory(context)),
             formatFileSize(freeDeviceMemory)

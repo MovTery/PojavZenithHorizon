@@ -35,16 +35,16 @@ public class ControlInfoDialog extends FullScreenDialog implements DraggableDial
     }
 
     private void init(Context context) {
-        setTextOrDefault(binding.nameText, R.string.zh_controls_info_name, controlInfoData.name);
-        setTextOrDefault(binding.fileNameText, R.string.zh_controls_info_file_name, controlInfoData.fileName);
-        setTextOrDefault(binding.authorText, R.string.zh_controls_info_author, controlInfoData.author);
-        setTextOrDefault(binding.versionText, R.string.zh_controls_info_version, controlInfoData.version);
-        setTextOrDefault(binding.descText, R.string.zh_controls_info_desc, controlInfoData.desc);
+        setTextOrDefault(binding.nameText, R.string.controls_info_name, controlInfoData.name);
+        setTextOrDefault(binding.fileNameText, R.string.controls_info_file_name, controlInfoData.fileName);
+        setTextOrDefault(binding.authorText, R.string.controls_info_author, controlInfoData.author);
+        setTextOrDefault(binding.versionText, R.string.controls_info_version, controlInfoData.version);
+        setTextOrDefault(binding.descText, R.string.controls_info_desc, controlInfoData.desc);
 
         binding.closeButton.setOnClickListener(v -> this.dismiss());
         binding.editButton.setOnClickListener(v -> {
             EditControlInfoDialog editControlInfoDialog = new EditControlInfoDialog(context, false, controlInfoData.fileName, controlInfoData);
-            editControlInfoDialog.setTitle(context.getString(R.string.zh_edit));
+            editControlInfoDialog.setTitle(context.getString(R.string.generic_edit));
             editControlInfoDialog.setOnConfirmClickListener((fileName, controlInfoData) -> {
                 File controlFile = new File(PathAndUrlManager.DIR_CTRLMAP_PATH, fileName);
 
@@ -74,7 +74,7 @@ public class ControlInfoDialog extends FullScreenDialog implements DraggableDial
         if (value != null && !value.isEmpty() && !value.equals("null")) {
             text += value;
         } else {
-            text += getContext().getString(R.string.zh_unknown);
+            text += getContext().getString(R.string.generic_unknown);
         }
         textView.setText(text);
     }

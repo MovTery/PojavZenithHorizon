@@ -150,7 +150,7 @@ public class ControlsListViewCreator {
             runOnUiThread(() -> {
                 //展示搜索结果
                 int count = searchCount.get();
-                searchCountText.setText(searchCountText.getContext().getString(R.string.zh_search_count, count));
+                searchCountText.setText(searchCountText.getContext().getString(R.string.search_count, count));
                 if (count != 0) searchCountText.setVisibility(View.VISIBLE);
             });
         }

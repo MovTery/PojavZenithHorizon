@@ -60,7 +60,7 @@ public class GamepadMapperAdapter extends RecyclerView.Adapter<GamepadMapperAdap
         mSimulatedGamepadMap.BUTTON_X = mRebinderButtons[index++] = new RebinderButton(R.drawable.button_x, R.string.controller_button_x);
         mSimulatedGamepadMap.BUTTON_Y = mRebinderButtons[index++] = new RebinderButton(R.drawable.button_y, R.string.controller_button_y);
         mSimulatedGamepadMap.BUTTON_START = mRebinderButtons[index++] = new RebinderButton(R.drawable.button_start, R.string.controller_button_start);
-        mSimulatedGamepadMap.BUTTON_SELECT = mRebinderButtons[index++] = new RebinderButton(R.drawable.button_select, R.string.controller_button_select);
+        mSimulatedGamepadMap.BUTTON_SELECT = mRebinderButtons[index++] = new RebinderButton(R.drawable.button_select, R.string.generic_select);
         mSimulatedGamepadMap.TRIGGER_RIGHT = mRebinderButtons[index++] = new RebinderButton(R.drawable.trigger_right, R.string.controller_button_trigger_right);
         mSimulatedGamepadMap.TRIGGER_LEFT = mRebinderButtons[index++] = new RebinderButton(R.drawable.trigger_left, R.string.controller_button_trigger_left);
         mSimulatedGamepadMap.SHOULDER_RIGHT = mRebinderButtons[index++] = new RebinderButton(R.drawable.shoulder_right, R.string.controller_button_shoulder_right);

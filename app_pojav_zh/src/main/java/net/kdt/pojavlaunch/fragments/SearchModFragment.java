@@ -132,11 +132,11 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
         switch (error) {
             case ERROR_INTERNAL:
                 binding.statusText.setTextColor(Color.RED);
-                binding.statusText.setText(isModpack ? R.string.search_modpack_error : R.string.zh_profile_mods_search_mod_failed);
+                binding.statusText.setText(isModpack ? R.string.search_modpack_error : R.string.profile_mods_search_mod_failed);
                 break;
             case ERROR_NO_RESULTS:
                 binding.statusText.setTextColor(mDefaultTextColor);
-                binding.statusText.setText(isModpack ? R.string.search_modpack_no_result : R.string.zh_profile_mods_search_mod_no_result);
+                binding.statusText.setText(isModpack ? R.string.search_modpack_no_result : R.string.profile_mods_search_mod_no_result);
                 break;
         }
     }
@@ -179,7 +179,7 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
 
     private void initFilterView(Context context) {
         if (this.isModpack) {
-            binding.searchTitle.setText(R.string.hint_search_modpack);
+            binding.searchTitle.setText(R.string.search_modpack);
         }
 
         binding.searchView.setOnClickListener(v -> searchMods(binding.nameEdit.getText().toString()));
@@ -229,7 +229,7 @@ public class SearchModFragment extends FragmentWithAnim implements ModItemAdapte
         binding.sortSpinner.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> mModFilters.setSort(i1));
 
         List<String> modloaderList = new ArrayList<>(ModLoaderList.modloaderList);
-        modloaderList.add(0, getString(R.string.zh_all));
+        modloaderList.add(0, getString(R.string.generic_all));
         DefaultSpinnerAdapter modloaderAdapter = new DefaultSpinnerAdapter(binding.modloaderSpinner);
         modloaderAdapter.setItems(modloaderList);
         binding.modloaderSpinner.setSpinnerAdapter(modloaderAdapter);

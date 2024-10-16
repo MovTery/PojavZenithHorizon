@@ -56,7 +56,7 @@
                     android:id="@+id/nothing_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/zh_file_nothing"
+                    android:text="@string/file_nothing"
                     android:layout_marginStart="@dimen/_8sdp" />
 
                 <com.movtery.pojavzh.ui.view.AnimTextView
@@ -64,7 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button_background"
-                    android:text="@string/zh_profile_mods_download_mod"
+                    android:text="@string/profile_mods_download_mod"
                     android:layout_marginHorizontal="@dimen/_8sdp" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -83,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:text="@string/zh_profile_manager_shortcuts_mods"
+                    android:text="@string/profile_manager_shortcuts_mods"
                     android:textColor="@color/primary_text"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -145,7 +145,7 @@
                     android:layout_marginStart="@dimen/_16sdp"
                     android:layout_marginBottom="@dimen/_8sdp"
                     android:paddingStart="@dimen/_8sdp"
-                    android:text="@string/zh_file_multi_select_mode"
+                    android:text="@string/file_multi_select_mode"
                     app:layout_constraintBottom_toTopOf="@+id/download_optifine"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -166,7 +166,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_20sdp"
                         android:layout_centerVertical="true"
-                        android:contentDescription="@string/zh_profile_manager_download_optifine"
+                        android:contentDescription="@string/profile_manager_download_optifine"
                         android:src="@drawable/ic_download" />
                     <TextView
                         android:layout_width="wrap_content"
@@ -177,7 +177,7 @@
                         android:layout_toEndOf="@+id/imageView"
                         android:singleLine="true"
                         android:textColor="@color/black_or_white"
-                        android:text="@string/zh_profile_manager_download_optifine" />
+                        android:text="@string/profile_manager_download_optifine" />
                 </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
                 <include

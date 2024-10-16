@@ -55,7 +55,7 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
 
                 PojavApplication.sExecutorService.execute {
                     copyFileInBackground(requireContext(), result, mRootPath)
-                    Tools.runOnUiThread { Toast.makeText(requireContext(), getString(R.string.zh_profile_mods_added_mod), Toast.LENGTH_SHORT).show()
+                    Tools.runOnUiThread { Toast.makeText(requireContext(), getString(R.string.profile_mods_added_mod), Toast.LENGTH_SHORT).show()
                         binding.fileRecyclerView.refreshPath()
                     }
                 }
@@ -91,10 +91,10 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
                                 val filesButton = FilesButton()
                                 filesButton.setButtonVisibility(true, true, true, true, true,
                                     (fileName.endsWith(ModUtils.JAR_FILE_SUFFIX) || fileName.endsWith(ModUtils.DISABLE_JAR_FILE_SUFFIX)))
-                                filesButton.setMessageText(if (it.isDirectory) getString(R.string.zh_file_folder_message) else getString(R.string.zh_file_message))
+                                filesButton.setMessageText(if (it.isDirectory) getString(R.string.file_folder_message) else getString(R.string.file_message))
 
-                                if (fileName.endsWith(ModUtils.JAR_FILE_SUFFIX)) filesButton.setMoreButtonText(getString(R.string.zh_profile_mods_disable))
-                                else if (fileName.endsWith(ModUtils.DISABLE_JAR_FILE_SUFFIX)) filesButton.setMoreButtonText(getString(R.string.zh_profile_mods_enable))
+                                if (fileName.endsWith(ModUtils.JAR_FILE_SUFFIX)) filesButton.setMoreButtonText(getString(R.string.profile_mods_disable))
+                                else if (fileName.endsWith(ModUtils.DISABLE_JAR_FILE_SUFFIX)) filesButton.setMoreButtonText(getString(R.string.profile_mods_enable))
 
                                 val filesDialog = FilesDialog(requireContext(), filesButton,
                                     { Tools.runOnUiThread { refreshPath() } },
@@ -141,9 +141,9 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
                         val filesButton = FilesButton()
                         filesButton.setButtonVisibility(true, true, false, false, true, true)
                         filesButton.setDialogText(
-                            getString(R.string.zh_file_multi_select_mode_title),
-                            getString(R.string.zh_file_multi_select_mode_message, itemBeans.size),
-                            getString(R.string.zh_profile_mods_disable_or_enable)
+                            getString(R.string.file_multi_select_mode_title),
+                            getString(R.string.file_multi_select_mode_message, itemBeans.size),
+                            getString(R.string.profile_mods_disable_or_enable)
                         )
                         Tools.runOnUiThread {
                             val filesDialog = FilesDialog(requireContext(), filesButton, {
@@ -196,7 +196,7 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
                     val suffix = ".jar"
                     Toast.makeText(
                         requireActivity(),
-                        String.format(getString(R.string.zh_file_add_file_tip), suffix),
+                        String.format(getString(R.string.file_add_file_tip), suffix),
                         Toast.LENGTH_SHORT
                     ).show()
                     openDocumentLauncher?.launch(suffix)
@@ -224,7 +224,7 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
 
                 downloadOptifine.setOnClickListener {
                     TipDialog.Builder(requireContext())
-                        .setMessage(R.string.zh_profile_manager_download_optifine_message)
+                        .setMessage(R.string.profile_manager_download_optifine_message)
                         .setConfirmClickListener {
                             val bundle = Bundle()
                             bundle.putBoolean(DownloadOptiFineFragment.BUNDLE_DOWNLOAD_MOD, true)
@@ -262,11 +262,11 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
             val fragmentActivity = requireActivity()
             TapTargetSequence(fragmentActivity)
                 .targets(
-                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, refreshButton, getString(R.string.zh_refresh), getString(R.string.zh_newbie_guide_general_refresh)),
-                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, searchButton, getString(R.string.zh_search), getString(R.string.zh_newbie_guide_mod_search)),
-                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, addFileButton, getString(R.string.zh_profile_mods_add_mod), getString(R.string.zh_newbie_guide_mod_import)),
-                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, createFolderButton, getString(R.string.zh_profile_mods_download_mod), getString(R.string.zh_newbie_guide_mod_download)),
-                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, returnButton, getString(R.string.zh_close), getString(R.string.zh_newbie_guide_general_close)))
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, refreshButton, getString(R.string.generic_refresh), getString(R.string.newbie_guide_general_refresh)),
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, searchButton, getString(R.string.generic_search), getString(R.string.newbie_guide_mod_search)),
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, addFileButton, getString(R.string.profile_mods_add_mod), getString(R.string.newbie_guide_mod_import)),
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, createFolderButton, getString(R.string.profile_mods_download_mod), getString(R.string.newbie_guide_mod_download)),
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, returnButton, getString(R.string.generic_close), getString(R.string.newbie_guide_general_close)))
                 .start()
         }
     }
@@ -327,8 +327,8 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
             fileRecyclerView.setFileIcon(FileIcon.MOD)
 
             operateView.apply {
-                addFileButton.setContentDescription(getString(R.string.zh_profile_mods_add_mod))
-                createFolderButton.setContentDescription(getString(R.string.zh_profile_mods_download_mod))
+                addFileButton.setContentDescription(getString(R.string.profile_mods_add_mod))
+                createFolderButton.setContentDescription(getString(R.string.profile_mods_download_mod))
                 createFolderButton.setImageDrawable(
                     ContextCompat.getDrawable(
                         requireContext(),

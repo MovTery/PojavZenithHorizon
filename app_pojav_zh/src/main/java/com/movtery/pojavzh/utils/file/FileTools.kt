@@ -118,7 +118,7 @@ class FileTools {
             val fileName = file.name
 
             EditTextDialog.Builder(context)
-                .setTitle(R.string.zh_rename)
+                .setTitle(R.string.generic_rename)
                 .setEditText(getFileNameWithoutExtension(fileName, suffix))
                 .setConfirmListener(ConfirmListener { editBox: EditText ->
                     val newName = editBox.text.toString().replace("/", "")
@@ -127,13 +127,13 @@ class FileTools {
                     }
 
                     if (newName.isEmpty()) {
-                        editBox.error = context.getString(R.string.zh_file_rename_empty)
+                        editBox.error = context.getString(R.string.file_rename_empty)
                         return@ConfirmListener false
                     }
 
                     val newFile = File(fileParent, newName + suffix)
                     if (newFile.exists()) {
-                        editBox.error = context.getString(R.string.zh_file_rename_exitis)
+                        editBox.error = context.getString(R.string.file_rename_exitis)
                         return@ConfirmListener false
                     }
 
@@ -152,7 +152,7 @@ class FileTools {
             val fileName = file.name
 
             EditTextDialog.Builder(context)
-                .setTitle(R.string.zh_rename)
+                .setTitle(R.string.generic_rename)
                 .setEditText(fileName)
                 .setConfirmListener(ConfirmListener { editBox: EditText ->
                     val newName = editBox.text.toString().replace("/", "")
@@ -161,13 +161,13 @@ class FileTools {
                     }
 
                     if (newName.isEmpty()) {
-                        editBox.error = context.getString(R.string.zh_file_rename_empty)
+                        editBox.error = context.getString(R.string.file_rename_empty)
                         return@ConfirmListener false
                     }
 
                     val newFile = File(fileParent, newName)
                     if (newFile.exists()) {
-                        editBox.error = context.getString(R.string.zh_file_rename_exitis)
+                        editBox.error = context.getString(R.string.file_rename_exitis)
                         return@ConfirmListener false
                     }
 

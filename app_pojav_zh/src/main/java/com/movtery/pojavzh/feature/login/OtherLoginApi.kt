@@ -31,7 +31,7 @@ object OtherLoginApi {
     @Throws(IOException::class)
     fun login(context: Context, userName: String?, password: String?, listener: Listener) {
         if (Objects.isNull(baseUrl)) {
-            listener.onFailed(context.getString(R.string.zh_other_login_baseurl_not_set))
+            listener.onFailed(context.getString(R.string.other_login_baseurl_not_set))
             return
         }
         val agent = AuthRequest.Agent().apply {
@@ -52,7 +52,7 @@ object OtherLoginApi {
     @Throws(IOException::class)
     fun refresh(context: Context, account: MinecraftAccount, select: Boolean, listener: Listener) {
         if (Objects.isNull(baseUrl)) {
-            listener.onFailed(context.getString(R.string.zh_other_login_baseurl_not_set))
+            listener.onFailed(context.getString(R.string.other_login_baseurl_not_set))
             return
         }
         val refresh = Refresh().apply {

@@ -106,12 +106,12 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
                     Context context = binding.rename.getContext();
 
                     new EditTextDialog.Builder(context)
-                            .setTitle(R.string.zh_rename)
+                            .setTitle(R.string.generic_rename)
                             .setEditText(profileItem.title)
                             .setConfirmListener(editBox -> {
                                 String string = editBox.getText().toString();
                                 if (string.isEmpty()) {
-                                    editBox.setError(context.getString(R.string.global_error_field_empty));
+                                    editBox.setError(context.getString(R.string.generic_error_field_empty));
                                     return false;
                                 }
 
@@ -133,8 +133,8 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
                 if (!profileItem.id.equals("default")) {
                     Context context = binding.delete.getContext();
                     new TipDialog.Builder(context)
-                            .setTitle(context.getString(R.string.zh_profiles_path_delete_title))
-                            .setMessage(R.string.zh_profiles_path_delete_message)
+                            .setTitle(context.getString(R.string.profiles_path_delete_title))
+                            .setMessage(R.string.profiles_path_delete_message)
                             .setCancelable(false)
                             .setConfirmClickListener(() -> {
                                 if (Objects.equals(currentId, profileItem.id)) {

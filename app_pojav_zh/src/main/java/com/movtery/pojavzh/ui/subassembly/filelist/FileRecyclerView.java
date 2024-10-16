@@ -168,7 +168,7 @@ public class FileRecyclerView extends LinearLayout {
             }
         } else {
             listFileAt(Environment.getExternalStorageDirectory());
-            Toast.makeText(context, R.string.zh_file_does_not_exist, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.file_does_not_exist, Toast.LENGTH_SHORT).show();
         }
     }
 

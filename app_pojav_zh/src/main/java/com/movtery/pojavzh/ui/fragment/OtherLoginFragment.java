@@ -73,7 +73,7 @@ public class OtherLoginFragment extends FragmentWithAnim {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         mServersFile = new File(PathAndUrlManager.DIR_GAME_HOME, "servers.json");
         mProgressDialog = new ProgressDialog(requireContext(), () -> true);
-        mProgressDialog.updateText(getString(R.string.zh_account_login_start));
+        mProgressDialog.updateText(getString(R.string.account_login_start));
 
         refreshServer();
         showRegisterButton(); //刷新注册按钮
@@ -94,11 +94,11 @@ public class OtherLoginFragment extends FragmentWithAnim {
         binding.serverSpinner.selectItemByIndex(0);
 
         binding.addServer.setOnClickListener(v -> new TipDialog.Builder(requireContext())
-                .setMessage(getString(R.string.zh_other_login_add_server))
-                .setCancel(R.string.zh_other_login_external_login)
-                .setConfirm(R.string.zh_other_login_uniform_pass)
-                .setCancelClickListener(() -> showServerTypeSelectDialog(R.string.zh_other_login_yggdrasil_api, 0))
-                .setConfirmClickListener(() -> showServerTypeSelectDialog(R.string.zh_other_login_32_bit_server, 1))
+                .setMessage(getString(R.string.other_login_add_server))
+                .setCancel(R.string.other_login)
+                .setConfirm(R.string.other_login_uniform_pass)
+                .setCancelClickListener(() -> showServerTypeSelectDialog(R.string.other_login_yggdrasil_api, 0))
+                .setConfirmClickListener(() -> showServerTypeSelectDialog(R.string.other_login_32_bit_server, 1))
                 .buildDialog());
 
         binding.register.setOnClickListener(v -> {
@@ -155,8 +155,8 @@ public class OtherLoginFragment extends FragmentWithAnim {
                             requireActivity().runOnUiThread(() -> {
                                 mProgressDialog.dismiss();
                                 new TipDialog.Builder(requireContext())
-                                        .setTitle(R.string.zh_warning)
-                                        .setMessage(getString(R.string.zh_other_login_error) + error)
+                                        .setTitle(R.string.generic_warning)
+                                        .setMessage(getString(R.string.other_login_error) + error)
                                         .setCancel(android.R.string.copy)
                                         .setCancelClickListener(() -> StringUtils.copyText("error", error, requireContext()))
                                         .buildDialog();
@@ -168,7 +168,7 @@ public class OtherLoginFragment extends FragmentWithAnim {
                     Logging.e("login", e.toString());
                 }
             } else {
-                runOnUiThread(() -> Toast.makeText(requireContext(), getString(R.string.zh_other_login_server_not_empty), Toast.LENGTH_SHORT).show());
+                runOnUiThread(() -> Toast.makeText(requireContext(), getString(R.string.other_login_server_not_empty), Toast.LENGTH_SHORT).show());
             }
         }));
     }
@@ -184,7 +184,7 @@ public class OtherLoginFragment extends FragmentWithAnim {
                 .setTitle(stringId)
                 .setConfirmListener(editBox -> {
                     if (editBox.getText().toString().isEmpty()) {
-                        editBox.setError(getString(R.string.global_error_field_empty));
+                        editBox.setError(getString(R.string.generic_error_field_empty));
                         return false;
                     }
 
@@ -199,10 +199,10 @@ public class OtherLoginFragment extends FragmentWithAnim {
 
         if (userTextEmpty || passTextEmpty) {
             if (userTextEmpty) {
-                runOnUiThread(() -> binding.loginEditEmail.setError(getString(R.string.global_error_field_empty)));
+                runOnUiThread(() -> binding.loginEditEmail.setError(getString(R.string.generic_error_field_empty)));
             }
             if (passTextEmpty) {
-                runOnUiThread(() -> binding.loginEditPassword.setError(getString(R.string.global_error_field_empty)));
+                runOnUiThread(() -> binding.loginEditPassword.setError(getString(R.string.generic_error_field_empty)));
             }
             return false;
         } else {
@@ -263,8 +263,8 @@ public class OtherLoginFragment extends FragmentWithAnim {
                     @Override
                     public void onFailed(@NonNull String error) {
                         requireActivity().runOnUiThread(() -> new TipDialog.Builder(requireContext())
-                                .setTitle(R.string.zh_warning)
-                                .setMessage(getString(R.string.zh_other_login_error) + error)
+                                .setTitle(R.string.generic_warning)
+                                .setMessage(getString(R.string.other_login_error) + error)
                                 .setCenterMessage(false)
                                 .setCancel(android.R.string.copy)
                                 .setCancelClickListener(() -> StringUtils.copyText("error", error, requireContext()))
@@ -295,7 +295,7 @@ public class OtherLoginFragment extends FragmentWithAnim {
             }
         }
         if (Objects.isNull(mServers)) {
-            mServerList.add(getString(R.string.zh_other_login_no_server));
+            mServerList.add(getString(R.string.other_login_no_server));
         }
         if (Objects.isNull(mServerSpinnerAdapter)) {
             mServerSpinnerAdapter = new DefaultSpinnerAdapter(binding.serverSpinner);
@@ -306,7 +306,7 @@ public class OtherLoginFragment extends FragmentWithAnim {
     private void showRegisterButton() {
         //当服务器列表为空、服务器列表没有可用服务器时，注册按钮将被隐藏
         binding.register.setVisibility((mServerList == null ||
-                (mServerList.size() == 1 && mServerList.get(0).equals(getString(R.string.zh_other_login_no_server))))
+                (mServerList.size() == 1 && mServerList.get(0).equals(getString(R.string.other_login_no_server))))
                 ? View.GONE : View.VISIBLE);
     }
 

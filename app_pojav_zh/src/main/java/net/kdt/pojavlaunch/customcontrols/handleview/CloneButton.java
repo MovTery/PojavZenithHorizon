@@ -18,7 +18,7 @@ public class CloneButton extends Button implements ActionButtonInterface {
     public void init() {
         setOnClickListener(this);
         setAllCaps(true);
-        setText(R.string.global_clone);
+        setText(R.string.generic_clone);
     }
 
     private ControlInterface mCurrentlySelectedButton = null;

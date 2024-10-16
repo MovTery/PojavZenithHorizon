@@ -137,7 +137,7 @@
             android:id="@+id/notice_got_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/zh_ok"
+            android:text="@string/generic_ok"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

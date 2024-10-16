@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:singleLine="true"
-        android:text="@string/zh_tip"
+        android:text="@string/generic_tip"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -29,7 +29,7 @@
             android:id="@+id/textView_file_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/zh_controls_info_file_name"
+            android:text="@string/controls_info_file_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,7 +52,7 @@
             android:id="@+id/textView_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/zh_controls_info_name"
+            android:text="@string/controls_info_name"
             app:layout_constraintStart_toStartOf="@+id/name_edit"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -83,7 +83,7 @@
             android:id="@+id/textView_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/zh_controls_info_version"
+            android:text="@string/controls_info_version"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -106,7 +106,7 @@
             android:id="@+id/textView_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/zh_controls_info_author"
+            android:text="@string/controls_info_author"
             app:layout_constraintStart_toStartOf="@+id/author_edit"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -132,7 +132,7 @@
         android:layout_marginTop="@dimen/_8sdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/zh_controls_info_desc"/>
+        android:text="@string/controls_info_desc"/>
 
     <com.movtery.pojavzh.ui.view.AnimEditText
         android:id="@+id/desc_edit"
@@ -166,7 +166,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/zh_confirm" />
+            android:text="@string/generic_confirm" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

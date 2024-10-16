@@ -83,7 +83,7 @@ public class GamepadMapperFragment extends FragmentWithAnim implements
         mInputManager = new RemapperManager(view.getContext(), mRemapperViewBuilder);
 
         ArrayAdapter<String> mGrabStateAdapter = new ArrayAdapter<>(view.getContext(), R.layout.support_simple_spinner_dropdown_item);
-        mGrabStateAdapter.addAll(getString(R.string.zh_controls_in_menu), getString(R.string.zh_controls_in_game));
+        mGrabStateAdapter.addAll(getString(R.string.controls_in_menu), getString(R.string.controls_in_game));
 
         binding.gamepadRemapperModeSpinner.setAdapter(mGrabStateAdapter);
         binding.gamepadRemapperModeSpinner.setSelection(0);

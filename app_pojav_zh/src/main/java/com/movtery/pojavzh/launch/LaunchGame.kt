@@ -76,7 +76,7 @@ class LaunchGame {
 
             if (AllSettings.ramAllocation > freeDeviceMemory) {
                 val builder = TipDialog.Builder(activity)
-                    .setTitle(R.string.zh_warning)
+                    .setTitle(R.string.generic_warning)
                     .setMessage(activity.getString(stringId, freeDeviceMemory, AllSettings.ramAllocation))
                     .setCenterMessage(false)
                     .setShowCancel(false)

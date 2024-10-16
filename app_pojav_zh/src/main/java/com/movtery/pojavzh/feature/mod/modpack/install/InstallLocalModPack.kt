@@ -95,7 +95,7 @@ class InstallLocalModPack {
                         else -> {
                             Tools.runOnUiThread {
                                 TipDialog.Builder(context)
-                                    .setMessage(R.string.zh_select_modpack_local_not_supported) //弹窗提醒
+                                    .setMessage(R.string.select_modpack_local_not_supported) //弹窗提醒
                                     .setShowCancel(true)
                                     .setShowConfirm(false)
                                     .buildDialog()

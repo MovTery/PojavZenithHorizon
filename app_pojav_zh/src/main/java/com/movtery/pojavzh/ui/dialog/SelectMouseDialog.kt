@@ -18,7 +18,7 @@ class SelectMouseDialog(context: Context) : AbstractSelectDialog(context) {
 
     override fun initDialog(recyclerView: RecyclerView) {
         initView(recyclerView)
-        setTitleText(R.string.zh_custom_mouse_title)
+        setTitleText(R.string.custom_mouse_title)
     }
 
     private fun initView(mMouseListView: RecyclerView) {
@@ -55,7 +55,7 @@ class SelectMouseDialog(context: Context) : AbstractSelectDialog(context) {
             showFolder = false
         )
         fileItemBeans.add(0, FileItemBean(
-            context.getString(R.string.zh_custom_mouse_default),
+            context.getString(R.string.custom_mouse_default),
             context.getDrawable(R.drawable.ic_mouse_pointer)
         ))
         return fileItemBeans

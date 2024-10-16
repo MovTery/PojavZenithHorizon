@@ -304,7 +304,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
 
     private void finalErrorDialog(CharSequence msg) {
         runOnUiThread(()-> new TipDialog.Builder(this)
-                .setTitle(R.string.global_error)
+                .setTitle(R.string.generic_error)
                 .setMessage(msg.toString())
                 .setCenterMessage(false)
                 .setConfirmClickListener(this::finish)

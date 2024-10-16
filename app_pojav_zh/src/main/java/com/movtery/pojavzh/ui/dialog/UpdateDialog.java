@@ -43,9 +43,9 @@ public class UpdateDialog extends FullScreenDialog implements DraggableDialog.Di
 
     @SuppressLint("SetJavaScriptEnabled")
     private void init() {
-        String version = StringUtils.insertSpace(getContext().getString(R.string.zh_update_dialog_version), this.versionName);
-        String time = StringUtils.insertSpace(getContext().getString(R.string.zh_update_dialog_time), this.createdTime);
-        String size = StringUtils.insertSpace(getContext().getString(R.string.zh_update_dialog_file_size), FileTools.formatFileSize(this.fileSize));
+        String version = StringUtils.insertSpace(getContext().getString(R.string.update_dialog_version), this.versionName);
+        String time = StringUtils.insertSpace(getContext().getString(R.string.update_dialog_time), this.createdTime);
+        String size = StringUtils.insertSpace(getContext().getString(R.string.update_dialog_file_size), FileTools.formatFileSize(this.fileSize));
 
         binding.versionName.setText(version);
         binding.updateTime.setText(time);
@@ -66,7 +66,7 @@ public class UpdateDialog extends FullScreenDialog implements DraggableDialog.Di
                     updateSourceDialog.show();
                 });
             } else {
-                runOnUiThread(() -> Toast.makeText(getContext(), getContext().getString(R.string.zh_update_downloading_tip, "Github Release"), Toast.LENGTH_SHORT).show());
+                runOnUiThread(() -> Toast.makeText(getContext(), getContext().getString(R.string.update_downloading_tip, "Github Release"), Toast.LENGTH_SHORT).show());
                 UpdateLauncher updateLauncher = new UpdateLauncher(getContext(), versionName, tagName, fileSize, UpdateLauncher.UpdateSource.GITHUB_RELEASE);
                 updateLauncher.start();
             }

@@ -65,7 +65,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/zh_loading"
+                    android:text="@string/generic_loading"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -140,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginHorizontal="@dimen/_8sdp"
-                android:text="@string/zh_profile_mods_search_mod"
+                android:text="@string/profile_mods_search_mod"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.movtery.pojavzh.ui.view.AnimEditText
@@ -188,7 +188,7 @@
                         android:id="@+id/search_mod_mc_version_textview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/profiles_profile_version"
+                        android:text="@string/pedit_profile_version"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
@@ -209,7 +209,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:paddingHorizontal="@dimen/padding_large"
-                        android:text="@string/global_select"
+                        android:text="@string/generic_select"
                         app:layout_constraintBottom_toBottomOf="@+id/selected_mc_version_view"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/selected_mc_version_view" />
@@ -219,7 +219,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
-                        android:text="@string/zh_profile_mods_platform"
+                        android:text="@string/profile_mods_platform"
                         app:layout_constraintTop_toBottomOf="@+id/selected_mc_version_view" />
 
                     <com.skydoves.powerspinner.PowerSpinnerView
@@ -241,7 +241,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
-                        android:text="@string/zh_profile_mods_sort_by"
+                        android:text="@string/profile_mods_sort_by"
                         app:layout_constraintTop_toBottomOf="@+id/platform_spinner" />
 
                     <com.skydoves.powerspinner.PowerSpinnerView
@@ -263,7 +263,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
-                        android:text="@string/zh_profile_mods_category"
+                        android:text="@string/profile_mods_category"
                         app:layout_constraintTop_toBottomOf="@+id/sort_spinner" />
 
                     <com.skydoves.powerspinner.PowerSpinnerView
@@ -285,7 +285,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
-                        android:text="@string/zh_profile_mods_modloader"
+                        android:text="@string/profile_mods_modloader"
                         app:layout_constraintTop_toBottomOf="@+id/category_spinner" />
 
                     <com.skydoves.powerspinner.PowerSpinnerView
@@ -310,7 +310,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_4sdp"
                 android:layout_marginVertical="@dimen/_8sdp"
-                android:text="@string/cropper_reset"
+                android:text="@string/generic_reset"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/return_button"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -321,7 +321,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_4sdp"
                 android:layout_marginVertical="@dimen/_8sdp"
-                android:text="@string/zh_return"
+                android:text="@string/generic_return"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/search_mod_reset" />

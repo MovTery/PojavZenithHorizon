@@ -85,7 +85,7 @@ class SeekBarSettingsWrapper(
                 val string = editBox.text.toString()
 
                 if (string.isEmpty()) {
-                    editBox.error = context.getString(R.string.global_error_field_empty)
+                    editBox.error = context.getString(R.string.generic_error_field_empty)
                     return@setConfirmListener false
                 }
 
@@ -95,20 +95,20 @@ class SeekBarSettingsWrapper(
                 } catch (e: NumberFormatException) {
                     e("Custom Seek Bar", e.toString())
 
-                    editBox.error = context.getString(R.string.zh_input_invalid)
+                    editBox.error = context.getString(R.string.generic_input_invalid)
                     return@setConfirmListener false
                 }
 
                 if (value < seekbarView.min) {
                     val minValue =
                         String.format("%s %s", seekbarView.min, suffix)
-                    editBox.error = context.getString(R.string.zh_input_too_small, minValue)
+                    editBox.error = context.getString(R.string.generic_input_too_small, minValue)
                     return@setConfirmListener false
                 }
                 if (value > seekbarView.max) {
                     val maxValue =
                         String.format("%s %s", seekbarView.max, suffix)
-                    editBox.error = context.getString(R.string.zh_input_too_big, maxValue)
+                    editBox.error = context.getString(R.string.generic_input_too_big, maxValue)
                     return@setConfirmListener false
                 }
 

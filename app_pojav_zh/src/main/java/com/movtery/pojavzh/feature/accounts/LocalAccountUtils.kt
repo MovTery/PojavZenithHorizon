@@ -31,7 +31,7 @@ class LocalAccountUtils {
         ) {
             //不再提醒
             val checkBox = CheckBox(activity)
-            checkBox.setText(R.string.zh_no_more_reminders)
+            checkBox.setText(R.string.generic_no_more_reminders)
             checkBox.setOnCheckedChangeListener { _: Button?, isChecked: Boolean ->
                 Settings.Manager
                     .put("localAccountReminders", !isChecked)
@@ -39,13 +39,13 @@ class LocalAccountUtils {
             }
 
             TipDialog.Builder(activity)
-                .setTitle(R.string.zh_warning)
+                .setTitle(R.string.generic_warning)
                 .setMessage(message)
                 .addView(checkBox)
                 .setConfirmClickListener(confirmClickListener)
                 .setConfirm(confirm)
                 .setCancelClickListener { Tools.openURL(activity, PathAndUrlManager.URL_MINECRAFT) }
-                .setCancel(R.string.zh_account_purchase_minecraft_account)
+                .setCancel(R.string.account_purchase_minecraft_account)
                 .buildDialog()
         }
     }

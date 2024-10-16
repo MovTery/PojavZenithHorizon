@@ -44,12 +44,12 @@ class CleanUpCache {
                     Tools.runOnUiThread {
                         if (fileCount != 0) {
                             Toast.makeText(context,
-                                context.getString(R.string.zh_clear_up_cache_clean_up, FileTools.formatFileSize(totalSize)),
+                                context.getString(R.string.clear_up_cache_clean_up, FileTools.formatFileSize(totalSize)),
                                 Toast.LENGTH_SHORT
                             ).show()
                         } else {
                             Toast.makeText(context,
-                                context.getString(R.string.zh_clear_up_cache_not_found),
+                                context.getString(R.string.clear_up_cache_not_found),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }

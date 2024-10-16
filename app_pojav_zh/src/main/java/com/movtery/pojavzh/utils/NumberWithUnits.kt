@@ -12,8 +12,8 @@ class NumberWithUnits {
         private val UNITS_EN = arrayOf("", "K", "M") //英文单位：千、百万
         private val UNITS_ZH = arrayOf(
             "",
-            PojavApplication.getResString(R.string.zh_wan),
-            PojavApplication.getResString(R.string.zh_yi)
+            PojavApplication.getResString(R.string.generic_wan),
+            PojavApplication.getResString(R.string.generic_yi)
         ) //中文单位:万、亿
 
         @JvmStatic

@@ -61,7 +61,7 @@ class SearchViewWrapper(private val fragment: Fragment) {
         val string = mSearchEditText.text.toString()
         searchListener?.apply {
             searchCount = onSearch(string, caseSensitive)
-            searchCountText.text = searchCountText.context.getString(R.string.zh_search_count, searchCount)
+            searchCountText.text = searchCountText.context.getString(R.string.search_count, searchCount)
             if (searchCount != 0) searchCountText.visibility = View.VISIBLE
             return
         }

@@ -44,18 +44,18 @@ public class ModDependencies implements Comparable<ModDependencies> {
     public static String getTextFromType(Context context, DependencyType type) {
         switch (type) {
             case OPTIONAL:
-                return context.getString(R.string.zh_profile_mods_dependencies_optional);
+                return context.getString(R.string.profile_mods_dependencies_optional);
             case INCOMPATIBLE:
-                return context.getString(R.string.zh_profile_mods_dependencies_incompatible);
+                return context.getString(R.string.profile_mods_dependencies_incompatible);
             case EMBEDDED:
-                return context.getString(R.string.zh_profile_mods_dependencies_embedded);
+                return context.getString(R.string.profile_mods_dependencies_embedded);
             case TOOL:
-                return context.getString(R.string.zh_profile_mods_dependencies_tool);
+                return context.getString(R.string.profile_mods_dependencies_tool);
             case INCLUDE:
-                return context.getString(R.string.zh_profile_mods_dependencies_include);
-            default:
+                return context.getString(R.string.profile_mods_dependencies_include);
             case REQUIRED:
-                return context.getString(R.string.zh_profile_mods_dependencies_required);
+            default:
+                return context.getString(R.string.profile_mods_dependencies_required);
         }
     }
 

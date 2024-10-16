@@ -506,7 +506,7 @@ public class ControlLayout extends FrameLayout {
 		infoDialog.setOnConfirmClickListener((fileName, controlInfoData) -> {
 			try {
 				String jsonPath = saveToDirectory(fileName);
-				Toast.makeText(getContext(), getContext().getString(R.string.global_save) + ": " + jsonPath, Toast.LENGTH_SHORT).show();
+				Toast.makeText(getContext(), getContext().getString(R.string.generic_save) + ": " + jsonPath, Toast.LENGTH_SHORT).show();
 				if (confirmRunnable != null) PojavApplication.sExecutorService.execute(confirmRunnable);
 			} catch (Throwable th) {
 				Tools.showError(getContext(), th, true);
@@ -518,7 +518,7 @@ public class ControlLayout extends FrameLayout {
 	}
 
 	public void openSaveDialog() {
-		saveDialog(getContext().getString(R.string.global_save), null);
+		saveDialog(getContext().getString(R.string.generic_save), null);
 	}
 
 	public void openSaveAndExitDialog(EditorExitable editorExitable) {

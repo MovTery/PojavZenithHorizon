@@ -80,7 +80,7 @@ class MCBBSModPack(private val context: Context, private val zipFile: File?) {
                                 Tools.runOnUiThread {
                                     installDialog?.updateText(
                                         context.getString(
-                                            R.string.zh_select_modpack_local_installing_files,
+                                            R.string.select_modpack_local_installing_files,
                                             fileCount,
                                             length
                                         )

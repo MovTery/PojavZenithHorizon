@@ -37,7 +37,7 @@
                     android:id="@+id/game_tip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/zh_game_tip"
+                    android:text="@string/game_tip"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintTop_toTopOf="parent"

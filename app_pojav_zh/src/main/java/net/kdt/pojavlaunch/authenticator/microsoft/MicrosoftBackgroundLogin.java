@@ -54,7 +54,7 @@ public class MicrosoftBackgroundLogin {
         XSTS_ERRORS.put(2148916236L ,R.string.xerr_adult_verification);
         XSTS_ERRORS.put(2148916237L ,R.string.xerr_adult_verification);
         XSTS_ERRORS.put(2148916238L ,R.string.xerr_child);
-        XSTS_ERRORS.put(2148074255L ,R.string.zh_account_microsoft_xerr_unauthorized);
+        XSTS_ERRORS.put(2148074255L ,R.string.account_microsoft_xerr_unauthorized);
     }
 
     /* Fields used to fill the account  */

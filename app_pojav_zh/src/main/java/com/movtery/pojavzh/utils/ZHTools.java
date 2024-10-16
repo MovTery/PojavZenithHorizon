@@ -155,14 +155,14 @@ public final class ZHTools {
 
     //获取版本状态信息
     public static String getVersionStatus(Context context) {
-        String branch = Objects.equals(context.getString(R.string.zh_branch_info), "main") ?
-                context.getString(R.string.zh_about_version_status_main_branch) :
-                context.getString(R.string.zh_about_version_status_other_branch);
+        String branch = Objects.equals(context.getString(R.string.branch_info), "main") ?
+                context.getString(R.string.about_version_status_main_branch) :
+                context.getString(R.string.about_version_status_other_branch);
 
         String status;
-        if (getVersionName().contains("pre-release")) status = context.getString(R.string.zh_about_version_status_pre_release);
-        else if (Objects.equals(BuildConfig.BUILD_TYPE, "release")) status = context.getString(R.string.zh_about_version_status_release);
-        else status = context.getString(R.string.zh_about_version_status_debug);
+        if (getVersionName().contains("pre-release")) status = context.getString(R.string.about_version_status_pre_release);
+        else if (Objects.equals(BuildConfig.BUILD_TYPE, "release")) status = context.getString(R.string.version_release);
+        else status = context.getString(R.string.about_version_status_debug);
 
         return "[" + branch + "] " + status;
     }

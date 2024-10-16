@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_12sdp"
-                android:text="@string/preference_control_title"
+                android:text="@string/setting_category_control"
                 android:textColor="@color/settings_category" />
 
             <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -37,7 +37,7 @@
                     android:id="@+id/disableGestures_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/mcl_disable_gestures"
+                    android:text="@string/setting_disable_gestures_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -48,7 +48,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_toStartOf="@+id/disableGestures"
-                    android:text="@string/mcl_disable_gestures_subtitle" />
+                    android:text="@string/setting_disable_gestures_desc" />
 
                 <Switch
                     android:id="@+id/disableGestures"
@@ -69,7 +69,7 @@
                     android:id="@+id/disableDoubleTap_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/mcl_disable_swap_hand"
+                    android:text="@string/setting_disable_swap_hand_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -80,7 +80,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_toStartOf="@+id/disableDoubleTap"
-                    android:text="@string/mcl_disable_swap_hand_subtitle" />
+                    android:text="@string/setting_disable_swap_hand_desc" />
 
                 <Switch
                     android:id="@+id/disableDoubleTap"
@@ -102,7 +102,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_12sdp"
-                    android:text="@string/mcl_setting_title_longpresstrigger"
+                    android:text="@string/setting_longpress_trigger_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -113,7 +113,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="@dimen/_12sdp"
-                    android:text="@string/mcl_setting_subtitle_longpresstrigger" />
+                    android:text="@string/setting_longpress_trigger_desc" />
 
                 <SeekBar
                     android:id="@+id/timeLongPressTrigger"
@@ -152,7 +152,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_12sdp"
-                android:text="@string/preference_category_buttons"
+                android:text="@string/pedit_control"
                 android:textColor="@color/settings_category" />
 
             <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -167,7 +167,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_12sdp"
-                    android:text="@string/mcl_setting_title_buttonscale"
+                    android:text="@string/setting_button_scale_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -178,7 +178,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="@dimen/_12sdp"
-                    android:text="@string/mcl_setting_subtitle_buttonscale" />
+                    android:text="@string/setting_button_scale_desc" />
 
                 <SeekBar
                     android:id="@+id/buttonscale"
@@ -213,7 +213,7 @@
                     android:id="@+id/buttonAllCaps_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/mcl_setting_title_buttonallcaps"
+                    android:text="@string/setting_button_allcaps_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -224,7 +224,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_toStartOf="@+id/buttonAllCaps"
-                    android:text="@string/mcl_setting_subtitle_buttonallcaps" />
+                    android:text="@string/setting_button_allcaps_desc" />
 
                 <Switch
                     android:id="@+id/buttonAllCaps"
@@ -250,7 +250,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_12sdp"
-                android:text="@string/preference_category_virtual_mouse"
+                android:text="@string/setting_category_virtual_mouse"
                 android:textColor="@color/settings_category" />
 
             <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -265,7 +265,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_12sdp"
-                    android:text="@string/zh_mouse_settings_scale_name"
+                    android:text="@string/mouse_settings_scale_name"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -276,7 +276,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="@dimen/_12sdp"
-                    android:text="@string/mcl_setting_subtitle_mousescale" />
+                    android:text="@string/setting_mouse_scale_desc" />
 
                 <SeekBar
                     android:id="@+id/mousescale"
@@ -312,7 +312,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_12sdp"
-                    android:text="@string/zh_mouse_settings_speed_name"
+                    android:text="@string/mouse_settings_speed_name"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -323,7 +323,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="@dimen/_12sdp"
-                    android:text="@string/mcl_setting_subtitle_mousespeed" />
+                    android:text="@string/setting_mouse_speed_desc" />
 
                 <SeekBar
                     android:id="@+id/mousespeed"
@@ -358,7 +358,7 @@
                     android:id="@+id/mouse_start_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/preference_mouse_start_title"
+                    android:text="@string/setting_mouse_start_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -369,7 +369,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_toStartOf="@+id/mouse_start"
-                    android:text="@string/preference_mouse_start_description" />
+                    android:text="@string/setting_mouse_start_desc" />
 
                 <Switch
                     android:id="@+id/mouse_start"
@@ -391,7 +391,7 @@
                     android:id="@+id/custom_mouse_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/zh_custom_mouse_title"
+                    android:text="@string/custom_mouse_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -401,7 +401,7 @@
                     android:layout_below="@+id/custom_mouse_title"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
-                    android:text="@string/zh_custom_mouse_desc" />
+                    android:text="@string/custom_mouse_desc" />
             </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -419,7 +419,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_12sdp"
-                android:text="@string/preference_category_gyro_controls"
+                android:text="@string/setting_category_gyro_controls"
                 android:textColor="@color/settings_category" />
 
             <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -433,7 +433,7 @@
                     android:id="@+id/enableGyro_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/preference_enable_gyro_title"
+                    android:text="@string/setting_enable_gyro_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -444,7 +444,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_toStartOf="@+id/enableGyro"
-                    android:text="@string/preference_enable_gyro_description" />
+                    android:text="@string/setting_enable_gyro_desc" />
 
                 <Switch
                     android:id="@+id/enableGyro"
@@ -466,7 +466,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_12sdp"
-                    android:text="@string/preference_gyro_sensitivity_title"
+                    android:text="@string/setting_gyro_sensitivity_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -477,7 +477,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="@dimen/_12sdp"
-                    android:text="@string/preference_gyro_sensitivity_description" />
+                    android:text="@string/setting_gyro_sensitivity_desc" />
 
                 <SeekBar
                     android:id="@+id/gyroSensitivity"
@@ -513,7 +513,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_12sdp"
-                    android:text="@string/preference_gyro_sample_rate_title"
+                    android:text="@string/setting_gyro_sample_rate_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -524,7 +524,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="@dimen/_12sdp"
-                    android:text="@string/preference_gyro_sample_rate_description" />
+                    android:text="@string/setting_gyro_sample_rate_description" />
 
                 <SeekBar
                     android:id="@+id/gyroSampleRate"
@@ -559,7 +559,7 @@
                     android:id="@+id/gyroSmoothing_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/preference_gyro_smoothing_title"
+                    android:text="@string/setting_gyro_smoothing_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -570,7 +570,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_toStartOf="@+id/gyroSmoothing"
-                    android:text="@string/preference_gyro_smoothing_description" />
+                    android:text="@string/setting_gyro_smoothing_desc" />
 
                 <Switch
                     android:id="@+id/gyroSmoothing"
@@ -592,7 +592,7 @@
                     android:id="@+id/gyroInvertX_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/preference_gyro_invert_x_axis"
+                    android:text="@string/setting_gyro_invert_x_axis"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -603,7 +603,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_toStartOf="@+id/gyroInvertX"
-                    android:text="@string/preference_gyro_invert_x_axis_description" />
+                    android:text="@string/setting_gyro_invert_x_axis_description" />
 
                 <Switch
                     android:id="@+id/gyroInvertX"
@@ -624,7 +624,7 @@
                     android:id="@+id/gyroInvertY_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/preference_gyro_invert_y_axis"
+                    android:text="@string/setting_gyro_invert_y_axis"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -635,7 +635,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_toStartOf="@+id/gyroInvertY"
-                    android:text="@string/preference_gyro_invert_y_axis_description" />
+                    android:text="@string/setting_gyro_invert_y_axis_description" />
 
                 <Switch
                     android:id="@+id/gyroInvertY"
@@ -660,7 +660,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_12sdp"
-                android:text="@string/preference_category_controller_settings"
+                android:text="@string/setting_category_controller_settings"
                 android:textColor="@color/settings_category" />
 
             <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -674,7 +674,7 @@
                     android:id="@+id/changeControllerBindings_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/preference_remap_controller_title"
+                    android:text="@string/setting_remap_controller_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -684,7 +684,7 @@
                     android:layout_below="@+id/changeControllerBindings_title"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
-                    android:text="@string/preference_remap_controller_description" />
+                    android:text="@string/setting_remap_controller_desc" />
             </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
             <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -698,7 +698,7 @@
                     android:id="@+id/resetControllerBindings_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/preference_wipe_controller_title"
+                    android:text="@string/setting_wipe_controller_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -708,7 +708,7 @@
                     android:layout_below="@+id/resetControllerBindings_title"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
-                    android:text="@string/preference_wipe_controller_description" />
+                    android:text="@string/setting_wipe_controller_desc" />
             </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
             <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -723,7 +723,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_12sdp"
-                    android:text="@string/preference_deadzone_scale_title"
+                    android:text="@string/setting_deadzone_scale_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -734,7 +734,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="@dimen/_12sdp"
-                    android:text="@string/preference_deadzone_scale_description" />
+                    android:text="@string/setting_deadzone_scale_desc" />
 
                 <SeekBar
                     android:id="@+id/gamepad_deadzone_scale"

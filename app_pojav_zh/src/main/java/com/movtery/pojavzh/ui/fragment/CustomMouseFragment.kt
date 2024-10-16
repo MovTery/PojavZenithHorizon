@@ -52,7 +52,7 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
                 PojavApplication.sExecutorService.execute {
                     copyFileInBackground(requireActivity(), result, mousePath().absolutePath)
                     Tools.runOnUiThread {
-                        Toast.makeText(requireActivity(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireActivity(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
                         loadData()
                     }
                 }
@@ -89,9 +89,9 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
         binding.actionBar.apply {
             TapTargetSequence(fragmentActivity)
                 .targets(
-                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, refreshButton, getString(R.string.zh_refresh), getString(R.string.zh_newbie_guide_general_refresh)),
-                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, addFileButton, getString(R.string.zh_custom_mouse_add), getString(R.string.zh_newbie_guide_mouse_import)),
-                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, returnButton, getString(R.string.zh_close), getString(R.string.zh_newbie_guide_general_close)))
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, refreshButton, getString(R.string.generic_refresh), getString(R.string.newbie_guide_general_refresh)),
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, addFileButton, getString(R.string.custom_mouse_add), getString(R.string.newbie_guide_mouse_import)),
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, returnButton, getString(R.string.generic_close), getString(R.string.newbie_guide_general_close)))
                 .start()
         }
     }
@@ -106,7 +106,7 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
             showFolder = false
         )
         fileItemBeans.add(0, FileItemBean(
-            getString(R.string.zh_custom_mouse_default),
+            getString(R.string.custom_mouse_default),
             ContextCompat.getDrawable(requireActivity(), R.drawable.ic_mouse_pointer)
         ))
         Tools.runOnUiThread {
@@ -138,7 +138,7 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
 
     private fun initViews() {
         binding.actionBar.apply {
-            addFileButton.setContentDescription(getString(R.string.zh_custom_mouse_add))
+            addFileButton.setContentDescription(getString(R.string.custom_mouse_add))
             searchButton.visibility = View.GONE
             pasteButton.visibility = View.GONE
             createFolderButton.visibility = View.GONE
@@ -160,20 +160,20 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
                     !isDefaultMouse, !isDefaultMouse, !isDefaultMouse, (isDefaultMouse || isImage(file))) //默认虚拟鼠标不支持分享、重命名、删除操作
 
                 //如果选中的虚拟鼠标是默认的虚拟鼠标，那么将加上额外的提醒
-                var message = getString(R.string.zh_file_message)
+                var message = getString(R.string.file_message)
                 if (isDefaultMouse) message += """
      
-     ${getString(R.string.zh_custom_mouse_message_default)}
+     ${getString(R.string.custom_mouse_message_default)}
      """.trimIndent()
                 filesButton.setMessageText(message)
-                filesButton.setMoreButtonText(getString(R.string.global_select))
+                filesButton.setMoreButtonText(getString(R.string.generic_select))
 
                 val filesDialog = FilesDialog(requireActivity(), filesButton, { this.loadData() }, mousePath(), file)
                 filesDialog.setMoreButtonClick {
                     Settings.Manager.put("custom_mouse", fileName).save()
                     refreshIcon()
                     Toast.makeText(requireActivity(),
-                        StringUtils.insertSpace(getString(R.string.zh_custom_mouse_added), (fileName ?: getString(R.string.zh_custom_mouse_default))),
+                        StringUtils.insertSpace(getString(R.string.custom_mouse_added), (fileName ?: getString(R.string.custom_mouse_default))),
                         Toast.LENGTH_SHORT).show()
                     filesDialog.dismiss()
                 }

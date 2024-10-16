@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:singleLine="true"
-        android:text="@string/zh_tip"
+        android:text="@string/generic_tip"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -113,6 +113,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_4sdp"
         android:layout_marginTop="@dimen/_8sdp"
-        android:text="@string/zh_confirm" />
+        android:text="@string/generic_confirm" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

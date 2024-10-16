@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_12sdp"
-                android:text="@string/zh_preference_category_experimental_patches"
+                android:text="@string/setting_category_experimental_patches"
                 android:textColor="@color/settings_category" />
 
             <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -37,7 +37,7 @@
                     android:id="@+id/dump_shaders_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/preference_shader_dump_title"
+                    android:text="@string/setting_shader_dump_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -48,7 +48,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_toStartOf="@+id/dump_shaders"
-                    android:text="@string/preference_shader_dump_description" />
+                    android:text="@string/setting_shader_dump_desc" />
 
                 <Switch
                     android:id="@+id/dump_shaders"
@@ -69,7 +69,7 @@
                     android:id="@+id/bigCoreAffinity_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/preference_force_big_core_title"
+                    android:text="@string/setting_force_big_core_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -80,7 +80,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_toStartOf="@+id/bigCoreAffinity"
-                    android:text="@string/preference_force_big_core_desc" />
+                    android:text="@string/setting_force_big_core_desc" />
 
                 <Switch
                     android:id="@+id/bigCoreAffinity"

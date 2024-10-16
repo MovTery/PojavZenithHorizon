@@ -189,11 +189,11 @@ public class GamepadMap {
 
     public static String[] getSpecialKeycodeNames(Context context) {
         return new String[]{
-                context.getString(R.string.zh_keycode_unspecified),
-                context.getString(R.string.zh_keycode_mouse_right),
-                context.getString(R.string.zh_keycode_mouse_middle),
-                context.getString(R.string.zh_keycode_mouse_left),
-                context.getString(R.string.zh_keycode_scroll_up),
-                context.getString(R.string.zh_keycode_scroll_down)};
+                context.getString(R.string.keycode_unspecified),
+                context.getString(R.string.keycode_mouse_right),
+                context.getString(R.string.keycode_mouse_middle),
+                context.getString(R.string.keycode_mouse_left),
+                context.getString(R.string.keycode_scroll_up),
+                context.getString(R.string.keycode_scroll_down)};
     }
 }

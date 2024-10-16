@@ -53,8 +53,8 @@ public class LocalLoginFragment extends FragmentWithAnim {
 
             if (matcher.find()) {
                 new TipDialog.Builder(requireContext())
-                        .setTitle(R.string.zh_warning)
-                        .setMessage(R.string.zh_account_local_account_invalid)
+                        .setTitle(R.string.generic_warning)
+                        .setMessage(R.string.account_local_account_invalid)
                         .setCenterMessage(false)
                         .setConfirmClickListener(this::startLogin)
                         .buildDialog();
@@ -67,13 +67,13 @@ public class LocalLoginFragment extends FragmentWithAnim {
     /** @return Whether the mail (and password) text are eligible to make an auth request  */
     private boolean checkEditText(String text) {
         if (text.isBlank() || text.isEmpty()) {
-            binding.loginEditName.setError(getString(R.string.zh_account_local_account_empty));
+            binding.loginEditName.setError(getString(R.string.account_local_account_empty));
             return false;
         }
 
         boolean exists = new File(PathAndUrlManager.DIR_ACCOUNT_NEW + "/" + text + ".json").exists();
         if (exists) {
-            binding.loginEditName.setError(getString(R.string.zh_account_local_account_exists));
+            binding.loginEditName.setError(getString(R.string.account_local_account_exists));
         }
         return !(exists);
     }

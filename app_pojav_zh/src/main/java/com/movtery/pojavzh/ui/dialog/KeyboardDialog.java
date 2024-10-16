@@ -60,22 +60,22 @@ public class KeyboardDialog extends FullScreenDialog {
         List<View> specialButtons = new ArrayList<>();
 
         if (isGamepadMapper) {
-            specialButtons.add(getKey(getString(R.string.zh_keycode_unspecified)));
-            specialButtons.add(getKey(getString(R.string.zh_keycode_mouse_right)));
-            specialButtons.add(getKey(getString(R.string.zh_keycode_mouse_middle)));
-            specialButtons.add(getKey(getString(R.string.zh_keycode_mouse_left)));
-            specialButtons.add(getKey(getString(R.string.zh_keycode_scroll_up)));
-            specialButtons.add(getKey(getString(R.string.zh_keycode_scroll_down)));
+            specialButtons.add(getKey(getString(R.string.keycode_unspecified)));
+            specialButtons.add(getKey(getString(R.string.keycode_mouse_right)));
+            specialButtons.add(getKey(getString(R.string.keycode_mouse_middle)));
+            specialButtons.add(getKey(getString(R.string.keycode_mouse_left)));
+            specialButtons.add(getKey(getString(R.string.keycode_scroll_up)));
+            specialButtons.add(getKey(getString(R.string.keycode_scroll_down)));
         } else {
-            specialButtons.add(getKey(getString(R.string.zh_keycode_special_keyboard)));
+            specialButtons.add(getKey(getString(R.string.keycode_special_keyboard)));
             specialButtons.add(getKey("GUI"));
-            specialButtons.add(getKey(getString(R.string.zh_keycode_special_pri)));
-            specialButtons.add(getKey(getString(R.string.zh_keycode_special_sec)));
-            specialButtons.add(getKey(getString(R.string.zh_keycode_special_mouse)));
-            specialButtons.add(getKey(getString(R.string.zh_keycode_special_mid)));
-            specialButtons.add(getKey(getString(R.string.zh_keycode_special_scrollup)));
-            specialButtons.add(getKey(getString(R.string.zh_keycode_special_scrolldown)));
-            specialButtons.add(getKey(getString(R.string.zh_keycode_special_menu)));
+            specialButtons.add(getKey(getString(R.string.keycode_special_pri)));
+            specialButtons.add(getKey(getString(R.string.keycode_special_sec)));
+            specialButtons.add(getKey(getString(R.string.keycode_special_mouse)));
+            specialButtons.add(getKey(getString(R.string.keycode_special_mid)));
+            specialButtons.add(getKey(getString(R.string.keycode_special_scrollup)));
+            specialButtons.add(getKey(getString(R.string.keycode_special_scrolldown)));
+            specialButtons.add(getKey(getString(R.string.keycode_special_menu)));
         }
 
         List<View> buttons = new ArrayList<>(List.of(
@@ -119,7 +119,7 @@ public class KeyboardDialog extends FullScreenDialog {
                 binding.keyboardKpMultiply, binding.keyboardKpSubract,
                 binding.keyboardKpDecimal, binding.keyboardKpEnter));
 
-        if (!isGamepadMapper) buttons.add(0, getKey(getString(R.string.zh_keycode_unspecified)));
+        if (!isGamepadMapper) buttons.add(0, getKey(getString(R.string.keycode_unspecified)));
 
         if (showSpecialButtons) {
             //此处如果不是手柄映射模式，那么将反着加入

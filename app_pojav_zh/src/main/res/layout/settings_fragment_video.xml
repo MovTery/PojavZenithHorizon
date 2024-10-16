@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_12sdp"
-                android:text="@string/preference_category_video"
+                android:text="@string/setting_category_video"
                 android:textColor="@color/settings_category" />
 
             <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -37,7 +37,7 @@
                     android:id="@+id/renderer_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/mcl_setting_category_renderer"
+                    android:text="@string/setting_renderer_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -47,7 +47,7 @@
                     android:layout_below="@+id/renderer_title"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
-                    android:text="@string/global_default" />
+                    android:text="@string/generic_default" />
             </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
             <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -61,7 +61,7 @@
                     android:id="@+id/ignoreNotch_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/mcl_setting_title_ignore_notch"
+                    android:text="@string/setting_ignore_notch_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -72,7 +72,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_toStartOf="@+id/ignoreNotch"
-                    android:text="@string/mcl_setting_subtitle_ignore_notch" />
+                    android:text="@string/setting_ignore_notch_desc" />
 
                 <Switch
                     android:id="@+id/ignoreNotch"
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_12sdp"
-                    android:text="@string/mcl_setting_title_resolution_scaler"
+                    android:text="@string/setting_resolution_scaler_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -106,7 +106,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="@dimen/_12sdp"
-                    android:text="@string/mcl_setting_subtitle_resolution_scaler" />
+                    android:text="@string/setting_resolution_scaler_desc" />
 
                 <SeekBar
                     android:id="@+id/resolutionRatio"
@@ -153,7 +153,7 @@
                     android:id="@+id/sustainedPerformance_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/preference_sustained_performance_title"
+                    android:text="@string/setting_sustained_performance_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -164,7 +164,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_toStartOf="@+id/sustainedPerformance"
-                    android:text="@string/preference_sustained_performance_description" />
+                    android:text="@string/setting_sustained_performance_desc" />
 
                 <Switch
                     android:id="@+id/sustainedPerformance"
@@ -185,7 +185,7 @@
                     android:id="@+id/alternate_surface_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/mcl_setting_title_use_surface_view"
+                    android:text="@string/setting_use_surface_view_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -196,7 +196,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_toStartOf="@+id/alternate_surface"
-                    android:text="@string/mcl_setting_subtitle_use_surface_view" />
+                    android:text="@string/setting_use_surface_view_desc" />
 
                 <Switch
                     android:id="@+id/alternate_surface"
@@ -217,7 +217,7 @@
                     android:id="@+id/force_vsync_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/preference_force_vsync_title"
+                    android:text="@string/setting_force_vsync_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -228,7 +228,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_toStartOf="@+id/force_vsync"
-                    android:text="@string/preference_force_vsync_description" />
+                    android:text="@string/setting_force_vsync_description" />
 
                 <Switch
                     android:id="@+id/force_vsync"
@@ -249,7 +249,7 @@
                     android:id="@+id/vsync_in_zink_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/preference_vsync_in_zink_title"
+                    android:text="@string/setting_vsync_in_zink_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -260,7 +260,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_toStartOf="@+id/vsync_in_zink"
-                    android:text="@string/preference_vsync_in_zink_description" />
+                    android:text="@string/setting_vsync_in_zink_desc" />
 
                 <Switch
                     android:id="@+id/vsync_in_zink"
@@ -281,7 +281,7 @@
                     android:id="@+id/zinkPreferSystemDriver_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/preference_vulkan_driver_system_title"
+                    android:text="@string/setting_vulkan_driver_system_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -292,7 +292,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_toStartOf="@+id/zinkPreferSystemDriver"
-                    android:text="@string/preference_vulkan_driver_system_description" />
+                    android:text="@string/setting_vulkan_driver_system_desc" />
 
                 <Switch
                     android:id="@+id/zinkPreferSystemDriver"

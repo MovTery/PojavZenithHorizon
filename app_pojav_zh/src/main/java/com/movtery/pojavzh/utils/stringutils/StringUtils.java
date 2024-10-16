@@ -121,7 +121,7 @@ public class StringUtils {
     public static void copyText(String label, String text, Context context) {
         ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
         clipboardManager.setPrimaryClip(ClipData.newPlainText(label, text));
-        Tools.runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.zh_copied), Toast.LENGTH_SHORT).show());
+        Tools.runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.generic_copied), Toast.LENGTH_SHORT).show());
     }
 
     public static String decodeBase64(String rawValue) {

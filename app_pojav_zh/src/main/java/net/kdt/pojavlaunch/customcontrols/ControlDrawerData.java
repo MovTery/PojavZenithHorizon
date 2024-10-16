@@ -32,11 +32,11 @@ public class ControlDrawerData {
 
     public static String[] getOrientations(Context context) {
         return new String[]{
-                context.getString(R.string.zh_controls_orientation_down),
-                context.getString(R.string.zh_controls_orientation_left),
-                context.getString(R.string.zh_controls_orientation_up),
-                context.getString(R.string.zh_controls_orientation_right),
-                context.getString(R.string.zh_controls_orientation_free)
+                context.getString(R.string.controls_orientation_down),
+                context.getString(R.string.controls_orientation_left),
+                context.getString(R.string.controls_orientation_up),
+                context.getString(R.string.controls_orientation_right),
+                context.getString(R.string.controls_orientation_free)
         };
     }
 
@@ -67,7 +67,7 @@ public class ControlDrawerData {
     }
 
     public ControlDrawerData(ArrayList<ControlData> buttonProperties){
-        this(buttonProperties, new ControlData(getResString(R.string.zh_controls_add_control_drawer), new int[] {}, Tools.currentDisplayMetrics.widthPixels/2f, Tools.currentDisplayMetrics.heightPixels/2f));
+        this(buttonProperties, new ControlData(getResString(R.string.controls_add_control_drawer), new int[] {}, Tools.currentDisplayMetrics.widthPixels/2f, Tools.currentDisplayMetrics.heightPixels/2f));
     }
 
     public ControlDrawerData(ArrayList<ControlData> buttonProperties, ControlData properties){

@@ -108,7 +108,7 @@ public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
 
         public void setData(ControlItemBean controlItemBean) {
-            String text = StringUtils.insertSpace(context.getString(R.string.zh_controls_info_invalid), controlItemBean.controlInfoData.fileName);
+            String text = StringUtils.insertSpace(context.getString(R.string.controls_info_invalid), controlItemBean.controlInfoData.fileName);
             binding.name.setText(text);
 
             //设置文本字体
@@ -142,10 +142,10 @@ public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             //初始化控制布局名称，如果为空，那么将设置为文件名
             if (!controlInfoData.name.isEmpty() && !controlInfoData.name.equals("null")) {
                 if (controlInfoData.name.equals("control.default.title.text")) {
-                    controlInfoData.name = mContext.getString(R.string.zh_controls_info_default_title);
+                    controlInfoData.name = mContext.getString(R.string.controls_info_default_title);
                 }
                 binding.title.setText(controlInfoData.name);
-                infoViews.add(getAInfoTextView(R.string.zh_controls_info_file_name, controlInfoData.fileName));
+                infoViews.add(getAInfoTextView(R.string.controls_info_file_name, controlInfoData.fileName));
             } else {
                 binding.title.setText(controlInfoData.fileName);
             }
@@ -158,22 +158,22 @@ public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             //初始化作者名，如果没有填写，那么就隐藏它
             if (!controlInfoData.author.isEmpty() && !controlInfoData.author.equals("null")) {
-                infoViews.add(getAInfoTextView(R.string.zh_controls_info_author, controlInfoData.author));
+                infoViews.add(getAInfoTextView(R.string.controls_info_author, controlInfoData.author));
             }
 
             //初始化版本
             if (!controlInfoData.version.isEmpty() && !controlInfoData.version.equals("null")) {
-                infoViews.add(getAInfoTextView(R.string.zh_controls_info_version, controlInfoData.version));
+                infoViews.add(getAInfoTextView(R.string.controls_info_version, controlInfoData.version));
             }
 
             //初始化描述说明
             if (!controlInfoData.desc.isEmpty() && !controlInfoData.desc.equals("null")) {
                 if (controlInfoData.desc.equals("control.default.desc.text")) {
-                    controlInfoData.desc = mContext.getString(R.string.zh_controls_info_default_desc);
+                    controlInfoData.desc = mContext.getString(R.string.controls_info_default_desc);
                 }
                 binding.desc.setText(controlInfoData.desc);
             } else {
-                binding.desc.setText(R.string.zh_controls_info_no_info);
+                binding.desc.setText(R.string.controls_info_no_info);
             }
 
             if (!infoViews.isEmpty()) {

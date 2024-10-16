@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:singleLine="true"
-        android:text="@string/zh_mouse_settings_title"
+        android:text="@string/mouse_settings_title"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -44,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8sdp"
-                    android:text="@string/zh_mouse_settings_speed_name"
+                    android:text="@string/mouse_settings_speed_name"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8sdp"
-                    android:text="@string/zh_mouse_settings_scale_name"
+                    android:text="@string/mouse_settings_scale_name"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -129,7 +129,7 @@
                 android:background="@drawable/background_edit_box">
 
                 <TextView
-                    android:text="@string/zh_custom_mouse_title"
+                    android:text="@string/custom_mouse_title"
                     android:textStyle="bold"
                     android:layout_marginStart="@dimen/_8sdp"
                     android:layout_width="wrap_content"
@@ -146,6 +146,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_4sdp"
-        android:text="@string/zh_confirm" />
+        android:text="@string/generic_confirm" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

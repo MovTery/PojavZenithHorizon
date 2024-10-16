@@ -45,7 +45,7 @@ public class AccountsDialog extends FullScreenDialog implements TaskCountListene
         this.setContentView(binding.getRoot());
         this.dismissListener = dismissListener;
 
-        binding.titleView.setText(R.string.zh_account_manager);
+        binding.titleView.setText(R.string.account_manager);
         binding.closeButton.setOnClickListener(v -> this.dismiss());
 
         initView();
@@ -90,8 +90,8 @@ public class AccountsDialog extends FullScreenDialog implements TaskCountListene
             @Override
             public void onDelete(MinecraftAccount account) {
                 new TipDialog.Builder(getContext())
-                        .setMessage(R.string.warning_remove_account)
-                        .setConfirm(R.string.global_delete)
+                        .setMessage(R.string.account_remove)
+                        .setConfirm(R.string.generic_delete)
                         .setConfirmClickListener(() -> {
                             File accountFile = new File(PathAndUrlManager.DIR_ACCOUNT_NEW, account.username + ".json");
                             File userSkinFile = new File(PathAndUrlManager.DIR_USER_SKIN, account.username + ".png");

@@ -47,7 +47,7 @@ class NeoForgeDownloadTask(listener: ModloaderDownloadListener, neoforgeVersion:
         ProgressKeeper.submitProgress(
             ProgressLayout.INSTALL_MODPACK,
             progress100,
-            R.string.modloader_dl_progress,
+            R.string.mod_download_progress,
             mLoaderVersion
         )
     }
@@ -56,7 +56,7 @@ class NeoForgeDownloadTask(listener: ModloaderDownloadListener, neoforgeVersion:
         ProgressKeeper.submitProgress(
             ProgressLayout.INSTALL_MODPACK,
             0,
-            R.string.modloader_dl_progress,
+            R.string.mod_download_progress,
             mLoaderVersion
         )
         try {
@@ -76,7 +76,7 @@ class NeoForgeDownloadTask(listener: ModloaderDownloadListener, neoforgeVersion:
         ProgressKeeper.submitProgress(
             ProgressLayout.INSTALL_MODPACK,
             0,
-            R.string.zh_neoforge_dl_searching
+            R.string.mod_neoforge_searching
         )
         if (!findVersion) {
             mListener.onDataNotAvailable()

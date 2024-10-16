@@ -25,7 +25,7 @@ abstract class FileHandler(
                 onEnd()
                 true
             }
-            dialog.updateText(context.getString(R.string.zh_file_operation_file, "0 B", "0 B", 0))
+            dialog.updateText(context.getString(R.string.file_operation_file, "0 B", "0 B", 0))
 
             currentTask = PojavApplication.sExecutorService.submit {
                 Tools.runOnUiThread { dialog.show() }
@@ -48,7 +48,7 @@ abstract class FileHandler(
                         Tools.runOnUiThread {
                             dialog.updateText(
                                 context.getString(
-                                    R.string.zh_file_operation_file,
+                                    R.string.file_operation_file,
                                     FileTools.formatFileSize(pendingSize),
                                     FileTools.formatFileSize(totalSize),
                                     progress.getCurrentFileCount()

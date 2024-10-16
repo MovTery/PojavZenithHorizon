@@ -73,7 +73,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
             android:screenOrientation="sensorLandscape" >
             <intent-filter
-                android:label="@string/import_control_label"
+                android:label="@string/controls_import_control"
                 android:scheme="content"
                 tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />

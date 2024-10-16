@@ -44,7 +44,7 @@
                 android:id="@+id/nothing_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/zh_file_nothing"
+                android:text="@string/file_nothing"
                 android:background="@drawable/background_item"
                 android:paddingHorizontal="@dimen/_12sdp"
                 android:visibility="gone"
@@ -141,7 +141,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_20sdp"
                         android:layout_centerVertical="true"
-                        android:contentDescription="@string/zh_file_external_storage"
+                        android:contentDescription="@string/file_external_storage"
                         android:src="@drawable/ic_folder" />
                     <TextView
                         android:layout_width="wrap_content"
@@ -151,7 +151,7 @@
                         android:layout_marginStart="@dimen/_12sdp"
                         android:layout_toEndOf="@+id/imageView"
                         android:textColor="@color/black_or_white"
-                        android:text="@string/zh_file_external_storage" />
+                        android:text="@string/file_external_storage" />
                 </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
                 <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -169,7 +169,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_20sdp"
                         android:layout_centerVertical="true"
-                        android:contentDescription="@string/zh_file_software_private"
+                        android:contentDescription="@string/file_software_private"
                         android:src="@drawable/ic_folder" />
                     <TextView
                         android:layout_width="wrap_content"
@@ -179,7 +179,7 @@
                         android:layout_marginStart="@dimen/_12sdp"
                         android:layout_toEndOf="@+id/imageView1"
                         android:textColor="@color/black_or_white"
-                        android:text="@string/zh_file_software_private" />
+                        android:text="@string/file_software_private" />
                 </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
                 <com.movtery.pojavzh.ui.view.AnimCheckBox
@@ -189,7 +189,7 @@
                     android:layout_marginStart="@dimen/_16sdp"
                     android:layout_marginBottom="@dimen/_4sdp"
                     android:paddingStart="@dimen/_8sdp"
-                    android:text="@string/zh_file_multi_select_mode"
+                    android:text="@string/file_multi_select_mode"
                     app:layout_constraintBottom_toTopOf="@+id/software_private"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

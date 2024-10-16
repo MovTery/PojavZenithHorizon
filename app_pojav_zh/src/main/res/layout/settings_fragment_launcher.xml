@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_12sdp"
-                android:text="@string/zh_preference_category_download"
+                android:text="@string/setting_category_download"
                 android:textColor="@color/settings_category" />
 
             <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -37,7 +37,7 @@
                     android:id="@+id/checkLibraries_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/mcl_setting_check_libraries"
+                    android:text="@string/setting_check_libraries_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -48,7 +48,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_toStartOf="@+id/checkLibraries"
-                    android:text="@string/mcl_setting_check_libraries_subtitle" />
+                    android:text="@string/setting_check_libraries_desc" />
 
                 <Switch
                     android:id="@+id/checkLibraries"
@@ -70,7 +70,7 @@
                     android:id="@+id/verifyManifest_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/preference_verify_manifest_title"
+                    android:text="@string/setting_verify_manifest_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -81,7 +81,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_toStartOf="@+id/verifyManifest"
-                    android:text="@string/preference_verify_manifest_description" />
+                    android:text="@string/setting_verify_manifest_desc" />
 
                 <Switch
                     android:id="@+id/verifyManifest"
@@ -103,7 +103,7 @@
                     android:id="@+id/downloadSource_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/preference_download_source_title"
+                    android:text="@string/setting_download_source_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -113,7 +113,7 @@
                     android:layout_below="@+id/downloadSource_title"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
-                    android:text="@string/preference_download_source_description" />
+                    android:text="@string/setting_download_source_desc" />
 
                 <TextView
                     android:id="@+id/downloadSource_value"
@@ -122,7 +122,7 @@
                     android:layout_below="@+id/downloadSource_summary"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
-                    android:text="@string/global_default" />
+                    android:text="@string/generic_default" />
             </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
             <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -136,7 +136,7 @@
                     android:id="@+id/modInfoSource_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/zh_setting_mod_info_mirror"
+                    android:text="@string/setting_mod_info_mirror_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -146,7 +146,7 @@
                     android:layout_below="@+id/modInfoSource_title"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
-                    android:text="@string/global_default" />
+                    android:text="@string/generic_default" />
             </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
             <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -160,7 +160,7 @@
                     android:id="@+id/modDownloadSource_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/zh_setting_mod_download_mirror"
+                    android:text="@string/setting_mod_download_mirror_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -170,7 +170,7 @@
                     android:layout_below="@+id/modDownloadSource_title"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
-                    android:text="@string/global_default" />
+                    android:text="@string/generic_default" />
             </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -188,7 +188,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_12sdp"
-                android:text="@string/zh_preference_category_personalization"
+                android:text="@string/setting_category_personalization"
                 android:textColor="@color/settings_category" />
 
             <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -202,7 +202,7 @@
                     android:id="@+id/launcherTheme_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/zh_setting_launcher_theme"
+                    android:text="@string/setting_launcher_theme"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -212,7 +212,7 @@
                     android:layout_below="@+id/launcherTheme_title"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
-                    android:text="@string/global_default" />
+                    android:text="@string/generic_default" />
             </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
             <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -226,7 +226,7 @@
                     android:id="@+id/custom_background_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/zh_custom_background_title"
+                    android:text="@string/custom_background_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -236,7 +236,7 @@
                     android:layout_below="@+id/custom_background_title"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
-                    android:text="@string/zh_custom_background_desc" />
+                    android:text="@string/custom_background_desc" />
             </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
             <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -250,7 +250,7 @@
                     android:id="@+id/animation_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/zh_setting_animation_title"
+                    android:text="@string/setting_animation_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -261,7 +261,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_toStartOf="@+id/animation"
-                    android:text="@string/zh_setting_animation_desc" />
+                    android:text="@string/setting_animation_desc" />
 
                 <Switch
                     android:id="@+id/animation"
@@ -284,7 +284,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_12sdp"
-                    android:text="@string/zh_setting_animation_speed_title"
+                    android:text="@string/setting_animation_speed_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -295,7 +295,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="@dimen/_12sdp"
-                    android:text="@string/zh_setting_animation_speed_desc" />
+                    android:text="@string/setting_animation_speed_desc" />
 
                 <SeekBar
                     android:id="@+id/animationSpeed"
@@ -331,7 +331,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_12sdp"
-                    android:text="@string/zh_setting_page_opacity_title"
+                    android:text="@string/setting_page_opacity_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -342,7 +342,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="@dimen/_12sdp"
-                    android:text="@string/zh_setting_page_opacity_desc" />
+                    android:text="@string/setting_page_opacity_desc" />
 
                 <SeekBar
                     android:id="@+id/pageOpacity"
@@ -381,7 +381,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_12sdp"
-                android:text="@string/zh_preference_category_launcher"
+                android:text="@string/setting_category_launcher"
                 android:textColor="@color/settings_category" />
 
             <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -395,7 +395,7 @@
                     android:id="@+id/enableLogOutput_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/zh_setting_enable_log_output_title"
+                    android:text="@string/setting_enable_log_output_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -406,7 +406,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_toStartOf="@+id/enableLogOutput"
-                    android:text="@string/zh_setting_enable_log_output_desc" />
+                    android:text="@string/setting_enable_log_output_desc" />
 
                 <Switch
                     android:id="@+id/enableLogOutput"
@@ -427,7 +427,7 @@
                     android:id="@+id/quitLauncher_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/zh_setting_quit_launcher_title"
+                    android:text="@string/setting_quit_launcher_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -438,7 +438,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_toStartOf="@+id/quitLauncher"
-                    android:text="@string/zh_setting_quit_launcher_desc" />
+                    android:text="@string/setting_quit_launcher_desc" />
 
                 <Switch
                     android:id="@+id/quitLauncher"
@@ -460,7 +460,7 @@
                     android:id="@+id/clean_up_cache_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/zh_clear_up_cache"
+                    android:text="@string/clear_up_cache"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -470,7 +470,7 @@
                     android:layout_below="@+id/clean_up_cache_title"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
-                    android:text="@string/zh_clear_up_cache_desc" />
+                    android:text="@string/clear_up_cache_desc" />
             </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
             <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -484,7 +484,7 @@
                     android:id="@+id/check_update_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/zh_update"
+                    android:text="@string/update"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -494,7 +494,7 @@
                     android:layout_below="@+id/check_update_title"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
-                    android:text="@string/zh_update_summary" />
+                    android:text="@string/update_summary" />
             </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
             <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
@@ -508,7 +508,7 @@
                     android:id="@+id/notification_permission_request_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/preference_ask_for_notification_title"
+                    android:text="@string/setting_ask_for_notification_title"
                     android:textColor="@color/black_or_white" />
 
                 <TextView
@@ -519,7 +519,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_toStartOf="@+id/notification_permission_request"
-                    android:text="@string/preference_ask_for_notification_description" />
+                    android:text="@string/setting_ask_for_notification_desc" />
 
                 <Switch
                     android:id="@+id/notification_permission_request"

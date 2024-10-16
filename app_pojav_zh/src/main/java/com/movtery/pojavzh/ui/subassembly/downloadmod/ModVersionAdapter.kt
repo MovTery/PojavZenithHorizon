@@ -60,7 +60,7 @@ class ModVersionAdapter(
             binding.titleTextview.text = modVersionItem.title
 
             val downloadCountText = StringUtils.insertSpace(
-                context.getString(R.string.zh_profile_mods_information_download_count),
+                context.getString(R.string.profile_mods_information_download_count),
                 formatNumberWithUnit(modVersionItem.download.toLong(), ZHTools.isEnglish(context))
             )
             binding.downloadCountTextview.text = downloadCountText
@@ -70,7 +70,7 @@ class ModVersionAdapter(
                 sj.add(modloader.loaderName)
             }
             val modloaderText = if (sj.length() > 0) sj.toString()
-            else context.getString(R.string.zh_unknown)
+            else context.getString(R.string.generic_unknown)
 
             binding.modloaderTextview.text = modloaderText
 
@@ -104,7 +104,7 @@ class ModVersionAdapter(
                 start(modVersionItem.name)
             } else {
                 EditTextDialog.Builder(context)
-                    .setTitle(R.string.zh_profile_mods_download_mod_custom_name)
+                    .setTitle(R.string.profile_mods_download_mod_custom_name)
                     .setEditText(
                         ("[${modDetail.subTitle ?: modDetail.title}] ${modVersionItem.name}")
                             .replace("/", "-").removeSuffix(".jar")
@@ -113,7 +113,7 @@ class ModVersionAdapter(
                         val string = editText.text.toString()
                         if (string.contains("/")) {
                             editText.error = context.getString(
-                                R.string.zh_profile_mods_download_mod_custom_name_invalid,
+                                R.string.profile_mods_download_mod_custom_name_invalid,
                                 "/"
                             )
                             return@setConfirmListener false
@@ -135,9 +135,9 @@ class ModVersionAdapter(
 
         private fun getDownloadTypeText(versionType: VersionTypeEnum): String {
             val text = when (versionType) {
-                VersionTypeEnum.RELEASE -> context.getString(R.string.zh_profile_mods_information_release_type_release)
-                VersionTypeEnum.BETA -> context.getString(R.string.zh_profile_mods_information_release_type_beta)
-                VersionTypeEnum.ALPHA -> context.getString(R.string.zh_profile_mods_information_release_type_alpha)
+                VersionTypeEnum.RELEASE -> context.getString(R.string.version_release)
+                VersionTypeEnum.BETA -> context.getString(R.string.profile_mods_information_release_type_beta)
+                VersionTypeEnum.ALPHA -> context.getString(R.string.profile_mods_information_release_type_alpha)
             }
             return text
         }

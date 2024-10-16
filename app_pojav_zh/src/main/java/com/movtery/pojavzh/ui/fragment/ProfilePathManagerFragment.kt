@@ -48,11 +48,11 @@ class ProfilePathManagerFragment : FragmentWithAnim(R.layout.fragment_profile_pa
         value?.let {
             if (value.isNotEmpty() && !isAddedPath(value)) {
                 EditTextDialog.Builder(requireContext())
-                    .setTitle(R.string.zh_profiles_path_create_new_title)
+                    .setTitle(R.string.profiles_path_create_new_title)
                     .setConfirmListener { editBox: EditText ->
                         val string = editBox.text.toString()
                         if (string.isEmpty()) {
-                            editBox.error = getString(R.string.global_error_field_empty)
+                            editBox.error = getString(R.string.generic_error_field_empty)
                             return@setConfirmListener false
                         }
 
@@ -101,9 +101,9 @@ class ProfilePathManagerFragment : FragmentWithAnim(R.layout.fragment_profile_pa
             val fragmentActivity = requireActivity()
             TapTargetSequence(fragmentActivity)
                 .targets(
-                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, refreshButton, getString(R.string.zh_refresh), getString(R.string.zh_newbie_guide_general_refresh)),
-                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, createNewButton, getString(R.string.zh_profiles_path_create_new), getString(R.string.zh_newbie_guide_profiles_path_create)),
-                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, returnButton, getString(R.string.zh_close), getString(R.string.zh_newbie_guide_general_close)))
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, refreshButton, getString(R.string.generic_refresh), getString(R.string.newbie_guide_general_refresh)),
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, createNewButton, getString(R.string.profiles_path_create_new), getString(R.string.newbie_guide_profiles_path_create)),
+                    NewbieGuideUtils.getSimpleTarget(fragmentActivity, returnButton, getString(R.string.generic_close), getString(R.string.newbie_guide_general_close)))
                 .start()
         }
     }
@@ -115,7 +115,7 @@ class ProfilePathManagerFragment : FragmentWithAnim(R.layout.fragment_profile_pa
 
     private fun refreshData() {
         mData.clear()
-        mData.add(ProfileItem("default", getString(R.string.zh_profiles_path_default), PathAndUrlManager.DIR_GAME_HOME))
+        mData.add(ProfileItem("default", getString(R.string.profiles_path_default), PathAndUrlManager.DIR_GAME_HOME))
 
         runCatching {
             val json: String

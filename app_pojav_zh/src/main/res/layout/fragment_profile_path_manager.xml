@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:text="@string/zh_profiles_path_title"
+                android:text="@string/profiles_path_title"
                 android:textColor="@color/primary_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -102,7 +102,7 @@
                     android:layout_weight="1"
                     android:scaleType="fitCenter"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/zh_refresh"
+                    android:contentDescription="@string/generic_refresh"
                     android:src="@drawable/ic_refresh" />
 
                 <ImageButton
@@ -112,7 +112,7 @@
                     android:layout_weight="1"
                     android:scaleType="fitCenter"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/zh_profiles_path_create_new"
+                    android:contentDescription="@string/profiles_path_create_new"
                     android:src="@drawable/ic_add" />
 
                 <ImageButton
@@ -122,7 +122,7 @@
                     android:layout_weight="1"
                     android:scaleType="fitCenter"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/zh_return"
+                    android:contentDescription="@string/generic_return"
                     android:src="@drawable/ic_close" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>

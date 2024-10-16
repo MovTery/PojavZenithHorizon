@@ -176,7 +176,7 @@ public class ProfileEditorFragment extends FragmentWithAnim {
         List<Runtime> runtimes = MultiRTUtils.getRuntimes();
         List<String> runtimeNames = new ArrayList<>();
         runtimes.forEach(v -> runtimeNames.add(String.format("%s - %s", v.name, v.versionString == null ? getString(R.string.multirt_runtime_corrupt) : v.versionString)));
-        runtimeNames.add(getString(R.string.global_default));
+        runtimeNames.add(getString(R.string.generic_default));
         int jvmIndex = runtimeNames.size() - 1;
         if (mTempProfile.javaDir != null) {
             String selectedRuntime = mTempProfile.javaDir.substring(Tools.LAUNCHERPROFILES_RTPREFIX.length());
@@ -200,7 +200,7 @@ public class ProfileEditorFragment extends FragmentWithAnim {
         mRenderNames = renderersList.rendererIds;
         List<String> renderList = new ArrayList<>(renderersList.rendererDisplayNames.length + 1);
         renderList.addAll(Arrays.asList(renderersList.rendererDisplayNames));
-        renderList.add(context.getString(R.string.global_default));
+        renderList.add(context.getString(R.string.generic_default));
         int rendererIndex = renderList.size() - 1;
         if(mTempProfile.pojavRendererName != null) {
             int nindex = mRenderNames.indexOf(mTempProfile.pojavRendererName);

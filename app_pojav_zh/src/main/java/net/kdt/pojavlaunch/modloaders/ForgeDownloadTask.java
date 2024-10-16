@@ -41,11 +41,11 @@ public class ForgeDownloadTask implements Runnable, Tools.DownloaderFeedback {
     @Override
     public void updateProgress(int curr, int max) {
         int progress100 = (int)(((float)curr / (float)max)*100f);
-        ProgressKeeper.submitProgress(ProgressLayout.INSTALL_MODPACK, progress100, R.string.modloader_dl_progress, mFullVersion);
+        ProgressKeeper.submitProgress(ProgressLayout.INSTALL_MODPACK, progress100, R.string.mod_download_progress, mFullVersion);
     }
 
     private void downloadForge() {
-        ProgressKeeper.submitProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.modloader_dl_progress, mFullVersion);
+        ProgressKeeper.submitProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.mod_download_progress, mFullVersion);
         try {
             File destinationFile = new File(PathAndUrlManager.DIR_CACHE, "forge-installer.jar");
             byte[] buffer = new byte[8192];
@@ -60,7 +60,7 @@ public class ForgeDownloadTask implements Runnable, Tools.DownloaderFeedback {
 
     public boolean determineDownloadUrl() {
         if(mDownloadUrl != null && mFullVersion != null) return true;
-        ProgressKeeper.submitProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.forge_dl_searching);
+        ProgressKeeper.submitProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.mod_forge_searching);
         try {
             if(!findVersion()) {
                 mListener.onDataNotAvailable();

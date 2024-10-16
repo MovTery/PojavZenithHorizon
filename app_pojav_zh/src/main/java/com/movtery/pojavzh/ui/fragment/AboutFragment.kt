@@ -47,10 +47,10 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
         loadSponsorData()
         loadAboutData(requireContext().resources)
 
-        binding.appInfo.text = StringUtils.insertNewline(StringUtils.insertSpace(getString(R.string.zh_about_version_name), ZHTools.getVersionName()),
-            StringUtils.insertSpace(getString(R.string.zh_about_version_code), ZHTools.getVersionCode()),
-            StringUtils.insertSpace(getString(R.string.zh_about_last_update_time), ZHTools.getLastUpdateTime(requireContext())),
-            StringUtils.insertSpace(getString(R.string.zh_about_version_status), ZHTools.getVersionStatus(requireContext())))
+        binding.appInfo.text = StringUtils.insertNewline(StringUtils.insertSpace(getString(R.string.about_version_name), ZHTools.getVersionName()),
+            StringUtils.insertSpace(getString(R.string.about_version_code), ZHTools.getVersionCode()),
+            StringUtils.insertSpace(getString(R.string.about_last_update_time), ZHTools.getLastUpdateTime(requireContext())),
+            StringUtils.insertSpace(getString(R.string.about_version_status), ZHTools.getVersionStatus(requireContext())))
         binding.appInfo.setOnClickListener{ StringUtils.copyText("text", binding.appInfo.text.toString(), requireContext()) }
 
         binding.returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
@@ -58,9 +58,9 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
         binding.licenseButton.setOnClickListener { Tools.openURL(requireActivity(), "https://www.gnu.org/licenses/gpl-3.0.html") }
         binding.supportDevelopment.setOnClickListener {
             TipDialog.Builder(requireActivity())
-                .setTitle(R.string.zh_request_sponsorship_title)
-                .setMessage(R.string.zh_request_sponsorship_message)
-                .setConfirm(R.string.zh_about_button_support_development)
+                .setTitle(R.string.request_sponsorship_title)
+                .setMessage(R.string.request_sponsorship_message)
+                .setConfirm(R.string.about_button_support_development)
                 .setConfirmClickListener { Tools.openURL(requireActivity(), PathAndUrlManager.URL_SUPPORT) }
                 .buildDialog()
         }
@@ -80,7 +80,7 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
             AboutItemBean(
                 resources.getDrawable(R.drawable.ic_pojav_full, requireContext().theme),
                 "PojavLauncherTeam",
-                getString(R.string.zh_about_PojavLauncher_desc),
+                getString(R.string.about_PojavLauncher_desc),
                 AboutItemButtonBean(requireActivity(), "Github", "https://github.com/PojavLauncherTeam/PojavLauncher")
             )
         )
@@ -88,10 +88,10 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
             AboutItemBean(
                 resources.getDrawable(R.drawable.image_about_movtery, requireContext().theme),
                 "墨北MovTery",
-                getString(R.string.zh_about_MovTery_desc),
+                getString(R.string.about_MovTery_desc),
                 AboutItemButtonBean(
                     requireActivity(),
-                    getString(R.string.zh_about_access_space),
+                    getString(R.string.about_access_space),
                     "https://space.bilibili.com/2008204513"
                 )
             )
@@ -100,10 +100,10 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
             AboutItemBean(
                 resources.getDrawable(R.drawable.image_about_mcmod, requireContext().theme),
                 "MC 百科",
-                getString(R.string.zh_about_mcmod_desc),
+                getString(R.string.about_mcmod_desc),
                 AboutItemButtonBean(
                     requireActivity(),
-                    getString(R.string.zh_about_access_link),
+                    getString(R.string.about_access_link),
                     PathAndUrlManager.URL_MCMOD)
             )
         )
@@ -111,10 +111,10 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
             AboutItemBean(
                 resources.getDrawable(R.drawable.image_about_verafirefly, requireContext().theme),
                 "Vera-Firefly",
-                getString(R.string.zh_about_VeraFirefly_desc),
+                getString(R.string.about_VeraFirefly_desc),
                 AboutItemButtonBean(
                     requireActivity(),
-                    getString(R.string.zh_about_access_space),
+                    getString(R.string.about_access_space),
                     "https://space.bilibili.com/1412062866"
                 )
             )
@@ -123,10 +123,10 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
             AboutItemBean(
                 resources.getDrawable(R.drawable.image_about_lingmuqiuzhu, requireContext().theme),
                 "柃木湫竹",
-                getString(R.string.zh_about_LingMuQiuZhu_desc),
+                getString(R.string.about_LingMuQiuZhu_desc),
                 AboutItemButtonBean(
                     requireActivity(),
-                    getString(R.string.zh_about_access_space),
+                    getString(R.string.about_access_space),
                     "https://space.bilibili.com/515165764"
                 )
             )
@@ -135,10 +135,10 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
             AboutItemBean(
                 resources.getDrawable(R.drawable.image_about_shirosakimio, requireContext().theme),
                 "ShirosakiMio",
-                getString(R.string.zh_about_ShirosakiMio_desc),
+                getString(R.string.about_ShirosakiMio_desc),
                 AboutItemButtonBean(
                     requireActivity(),
-                    getString(R.string.zh_about_access_space),
+                    getString(R.string.about_access_space),
                     "https://space.bilibili.com/35801833"
                 )
             )
@@ -147,10 +147,10 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
             AboutItemBean(
                 resources.getDrawable(R.drawable.image_about_bangbang93, requireContext().theme),
                 "bangbang93",
-                getString(R.string.zh_about_bangbang93_desc),
+                getString(R.string.about_bangbang93_desc),
                 AboutItemButtonBean(
                     requireActivity(),
-                    getString(R.string.zh_about_button_support_development),
+                    getString(R.string.about_button_support_development),
                     "https://afdian.com/a/bangbang93"
                 )
             )
@@ -159,7 +159,7 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
             AboutItemBean(
                 resources.getDrawable(R.drawable.image_about_z0z0r4, requireContext().theme),
                 "z0z0r4",
-                getString(R.string.zh_about_z0z0r4_desc),
+                getString(R.string.about_z0z0r4_desc),
                 null
             )
         )

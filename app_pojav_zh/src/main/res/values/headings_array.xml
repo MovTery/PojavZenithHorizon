@@ -6,7 +6,7 @@
         <item name="3">VirGLRenderer</item>
         <item name="4">Freedreno (Adreno)</item>
         <item name="5">Panfrost (Mali)</item>
-        <item name="6">@string/mcl_setting_renderer_ltw</item>
+        <item name="6">@string/setting_renderer_name_ltw</item>
     </string-array>
 
     <string-array name="renderer_values">
@@ -22,9 +22,9 @@
         <item name="0">@string/customctrl_addbutton</item>
         <item name="1">@string/customctrl_addbutton_drawer</item>
         <item name="2">@string/customctrl_addbutton_joystick</item>
-        <item name="3">@string/zh_controls_settings_title</item>
-        <item name="4">@string/global_load</item>
-        <item name="5">@string/global_save</item>
+        <item name="3">@string/controls_settings_title</item>
+        <item name="4">@string/generic_load</item>
+        <item name="5">@string/generic_save</item>
         <item name="6">@string/global_save_and_exit</item>
         <item name="7">@string/customctrl_selectdefault</item>
         <item name="8">@string/customctrl_editor_exit</item>
@@ -34,27 +34,27 @@
         <item name="0">@string/customctrl_addbutton</item>
         <item name="1">@string/customctrl_addbutton_drawer</item>
         <item name="2">@string/customctrl_addbutton_joystick</item>
-        <item name="3">@string/zh_controls_settings_title</item>
-        <item name="4">@string/global_load</item>
-        <item name="5">@string/global_save</item>
+        <item name="3">@string/controls_settings_title</item>
+        <item name="4">@string/generic_load</item>
+        <item name="5">@string/generic_save</item>
         <item name="6">@string/global_save_and_exit</item>
         <item name="7">@string/customctrl_selectdefault</item>
         <item name="8">@string/customctrl_export</item>
     </string-array>
 
     <string-array name="menu_ingame">
-        <item>@string/control_forceclose</item>
-        <item>@string/control_viewout</item>
-        <item>@string/control_customkey</item>
-        <item>@string/zh_mouse_settings_title</item>
-        <item>@string/mcl_setting_title_resolution_scaler</item>
-        <item>@string/preference_gyro_sensitivity_title</item>
-        <item>@string/zh_replacement_customcontrol</item>
-        <item>@string/mcl_option_customcontrol</item>
+        <item>@string/option_force_close</item>
+        <item>@string/option_log_out</item>
+        <item>@string/option_send_custom_key</item>
+        <item>@string/mouse_settings_title</item>
+        <item>@string/setting_resolution_scaler_title</item>
+        <item>@string/setting_gyro_sensitivity_title</item>
+        <item>@string/replacement_customcontrol</item>
+        <item>@string/option_custom_control</item>
     </string-array>
 
     <string-array name="download_source_names">
-        <item>@string/global_default</item>
+        <item>@string/generic_default</item>
         <item>BMCLAPI</item>
     </string-array>
     <string-array name="download_source_values">
@@ -62,7 +62,7 @@
         <item>bmclapi</item>
     </string-array>
     <string-array name="mod_source_names">
-        <item>@string/global_default</item>
+        <item>@string/generic_default</item>
         <item>MCIM</item>
     </string-array>
     <string-array name="mod_source_values">
@@ -71,9 +71,9 @@
     </string-array>
 
     <string-array name="launcher_theme_names">
-        <item>@string/zh_setting_launcher_theme_system</item>
-        <item>@string/zh_setting_launcher_theme_light</item>
-        <item>@string/zh_setting_launcher_theme_dark</item>
+        <item>@string/setting_launcher_theme_system</item>
+        <item>@string/setting_launcher_theme_light</item>
+        <item>@string/setting_launcher_theme_dark</item>
     </string-array>
 
     <string-array name="launcher_theme_values">
@@ -83,13 +83,13 @@
     </string-array>
 
     <string-array name="game_menu_location_names">
-        <item>@string/zh_setting_game_menu_location_center</item>
-        <item>@string/zh_setting_game_menu_location_left_or_top</item>
-        <item>@string/zh_setting_game_menu_location_left_or_bottom</item>
-        <item>@string/zh_setting_game_menu_location_right_or_top</item>
-        <item>@string/zh_setting_game_menu_location_right_or_bottom</item>
-        <item>@string/zh_setting_game_menu_location_top_or_center</item>
-        <item>@string/zh_setting_game_menu_location_bottom_or_center</item>
+        <item>@string/setting_game_menu_location_center</item>
+        <item>@string/setting_game_menu_location_left_or_top</item>
+        <item>@string/setting_game_menu_location_left_or_bottom</item>
+        <item>@string/setting_game_menu_location_right_or_top</item>
+        <item>@string/setting_game_menu_location_right_or_bottom</item>
+        <item>@string/setting_game_menu_location_top_or_center</item>
+        <item>@string/setting_game_menu_location_bottom_or_center</item>
     </string-array>
 
     <string-array name="game_menu_location_values">

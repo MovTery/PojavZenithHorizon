@@ -27,7 +27,7 @@ public class LayoutConverter {
             JSONObject layoutJobj = new JSONObject(jsonLayoutData);
             return loadAndConvertIfNecessary(ctx, layoutJobj, jsonLayoutData, jsonPath, true);
         } catch (Exception e) {
-            Tools.showError(ctx, ctx.getString(R.string.zh_controls_load_failed), e);
+            Tools.showError(ctx, ctx.getString(R.string.controls_load_failed), e);
             return null;
         }
     }
@@ -39,7 +39,7 @@ public class LayoutConverter {
             JSONObject layoutJobj = new JSONObject(string);
             return loadAndConvertIfNecessary(context, layoutJobj, string, null, true);
         } catch (Exception e) {
-            Tools.showError(context, context.getString(R.string.zh_controls_load_failed), e);
+            Tools.showError(context, context.getString(R.string.controls_load_failed), e);
             return null;
         }
     }
@@ -48,7 +48,7 @@ public class LayoutConverter {
         try {
             return loadAndConvertIfNecessary(ctx, layoutJobj, jsonString, jsonPath, showError);
         } catch (Exception e) {
-            if (showError) Tools.showError(ctx, ctx.getString(R.string.zh_controls_load_failed), e);
+            if (showError) Tools.showError(ctx, ctx.getString(R.string.controls_load_failed), e);
             return null;
         }
     }
@@ -69,7 +69,7 @@ public class LayoutConverter {
         } else {
             if (showError) {
                 IOException ioException = new IOException();
-                Tools.showError(ctx, ctx.getString(R.string.zh_controls_unsupported_layout_version), ioException);
+                Tools.showError(ctx, ctx.getString(R.string.controls_unsupported_layout_version), ioException);
             }
             return null;
         }

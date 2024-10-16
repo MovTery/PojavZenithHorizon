@@ -73,7 +73,7 @@ public class ControlData {
     private float height;        //Dp instead of Px now
 
     public ControlData() {
-        this(getResString(R.string.zh_controls_add_control_button));
+        this(getResString(R.string.controls_add_control_button));
     }
 
     public ControlData(String name) {
@@ -160,16 +160,16 @@ public class ControlData {
     public static ControlData[] getSpecialButtons(Context context) {
         if (SPECIAL_BUTTONS == null) {
             SPECIAL_BUTTONS = new ControlData[]{
-                    new ControlData(context.getString(R.string.zh_keycode_special_keyboard), new int[]{SPECIALBTN_KEYBOARD}, "${margin} * 3 + ${width} * 2", "${margin}", false),
+                    new ControlData(context.getString(R.string.keycode_special_keyboard), new int[]{SPECIALBTN_KEYBOARD}, "${margin} * 3 + ${width} * 2", "${margin}", false),
                     new ControlData("GUI", new int[]{SPECIALBTN_TOGGLECTRL}, "${margin}", "${bottom} - ${margin}"),
-                    new ControlData(context.getString(R.string.zh_keycode_special_pri), new int[]{SPECIALBTN_MOUSEPRI}, "${margin}", "${screen_height} - ${margin} * 3 - ${height} * 3"),
-                    new ControlData(context.getString(R.string.zh_keycode_special_sec), new int[]{SPECIALBTN_MOUSESEC}, "${margin} * 3 + ${width} * 2", "${screen_height} - ${margin} * 3 - ${height} * 3"),
-                    new ControlData(context.getString(R.string.zh_keycode_special_mouse), new int[]{SPECIALBTN_VIRTUALMOUSE}, "${right}", "${margin}", false),
+                    new ControlData(context.getString(R.string.keycode_special_pri), new int[]{SPECIALBTN_MOUSEPRI}, "${margin}", "${screen_height} - ${margin} * 3 - ${height} * 3"),
+                    new ControlData(context.getString(R.string.keycode_special_sec), new int[]{SPECIALBTN_MOUSESEC}, "${margin} * 3 + ${width} * 2", "${screen_height} - ${margin} * 3 - ${height} * 3"),
+                    new ControlData(context.getString(R.string.keycode_special_mouse), new int[]{SPECIALBTN_VIRTUALMOUSE}, "${right}", "${margin}", false),
 
-                    new ControlData(context.getString(R.string.zh_keycode_special_mid), new int[]{SPECIALBTN_MOUSEMID}, "${margin}", "${margin}"),
-                    new ControlData(context.getString(R.string.zh_keycode_special_scrollup), new int[]{SPECIALBTN_SCROLLUP}, "${margin}", "${margin}"),
-                    new ControlData(context.getString(R.string.zh_keycode_special_scrolldown), new int[]{SPECIALBTN_SCROLLDOWN}, "${margin}", "${margin}"),
-                    new ControlData(context.getString(R.string.zh_keycode_special_menu), new int[]{SPECIALBTN_MENU}, "${margin}", "${margin}")
+                    new ControlData(context.getString(R.string.keycode_special_mid), new int[]{SPECIALBTN_MOUSEMID}, "${margin}", "${margin}"),
+                    new ControlData(context.getString(R.string.keycode_special_scrollup), new int[]{SPECIALBTN_SCROLLUP}, "${margin}", "${margin}"),
+                    new ControlData(context.getString(R.string.keycode_special_scrolldown), new int[]{SPECIALBTN_SCROLLDOWN}, "${margin}", "${margin}"),
+                    new ControlData(context.getString(R.string.keycode_special_menu), new int[]{SPECIALBTN_MENU}, "${margin}", "${margin}")
             };
         }
 
@@ -180,7 +180,7 @@ public class ControlData {
         if (SPECIAL_BUTTON_NAME_ARRAY == null) {
             List<String> nameList = new ArrayList<>();
             for (ControlData btn : getSpecialButtons(context)) {
-                nameList.add(StringUtils.insertSpace(context.getString(R.string.zh_keycode_special), btn.name));
+                nameList.add(StringUtils.insertSpace(context.getString(R.string.keycode_special), btn.name));
             }
             SPECIAL_BUTTON_NAME_ARRAY = nameList;
             Collections.reverse(SPECIAL_BUTTON_NAME_ARRAY);

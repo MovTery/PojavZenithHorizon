@@ -56,14 +56,14 @@ public interface ModpackApi {
     default void handleInstallation(Context context, boolean isModPack, String modsPath, String modFileName, ModDetail modDetail, ModVersionItem modVersionItem) {
         // Doing this here since when starting installation, the progress does not start immediately
         // which may lead to two concurrent installations (very bad)
-        ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.global_waiting);
+        ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.generic_waiting);
         PojavApplication.sExecutorService.execute(() -> {
             try {
                 ModLoader loaderInfo = installMod(isModPack, modsPath, modFileName, modDetail, modVersionItem);
                 if (loaderInfo == null) return;
                 loaderInfo.getDownloadTask(new NotificationDownloadListener(context, loaderInfo)).run();
             }catch (IOException e) {
-                Tools.showErrorRemote(context, isModPack ? R.string.modpack_install_download_failed : R.string.zh_profile_mods_download_mod_failed, e);
+                Tools.showErrorRemote(context, isModPack ? R.string.modpack_install_download_failed : R.string.profile_mods_download_mod_failed, e);
             }
         });
     }

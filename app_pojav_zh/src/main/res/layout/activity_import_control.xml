@@ -27,7 +27,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/zh_activity_import_control"
+        android:text="@string/import_control"
         android:textSize="@dimen/_16sdp"
 
         app:layout_constraintBottom_toTopOf="@+id/editText_import_control_file_name"
@@ -41,7 +41,7 @@
         android:paddingHorizontal="@dimen/_8sdp"
         android:background="@drawable/background_edit_box"
         android:autofillHints="name"
-        android:hint="@string/zh_activity_import_control"
+        android:hint="@string/import_control"
         android:imeOptions="flagForceAscii"
         android:inputType="text"
         android:textColorHint="@color/primary_text"
@@ -59,7 +59,7 @@
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_25sdp"
         android:onClick="startImport"
-        android:text="@string/import_control_import_button"
+        android:text="@string/controls_import_control"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@+id/editText_import_control_file_name"
         app:layout_constraintBottom_toBottomOf="@+id/_background_display_view"

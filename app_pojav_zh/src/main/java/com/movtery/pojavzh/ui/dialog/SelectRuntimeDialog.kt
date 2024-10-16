@@ -17,8 +17,8 @@ class SelectRuntimeDialog(context: Context) : AbstractSelectDialog(context) {
 
     override fun initDialog(recyclerView: RecyclerView) {
         this.recyclerView = recyclerView
-        setTitleText(R.string.zh_install_select_jre_environment)
-        setMessageText(R.string.zh_install_recommend_use_jre8)
+        setTitleText(R.string.install_select_jre_environment)
+        setMessageText(R.string.install_recommend_use_jre8)
         recyclerView.layoutManager = LinearLayoutManager(context)
     }
 

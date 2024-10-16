@@ -153,7 +153,7 @@ class DownloadNeoForgeFragment : ModListFragment(), ModloaderDownloadListener {
                     Tools.backToMainMenu(fragmentActivity!!)
                     fragmentActivity?.startActivity(modInstallerStartIntent)
                 }
-                setTitleText(R.string.zh_modloader_dl_install_neoforge)
+                setTitleText(R.string.create_profile_neoforge)
                 show()
             }
         }
@@ -162,7 +162,7 @@ class DownloadNeoForgeFragment : ModListFragment(), ModloaderDownloadListener {
     override fun onDataNotAvailable() {
         Tools.runOnUiThread {
             modloaderListenerProxy.detachListener()
-            Tools.dialog(fragmentActivity!!, fragmentActivity!!.getString(R.string.global_error), fragmentActivity!!.getString(R.string.forge_dl_no_installer))
+            Tools.dialog(fragmentActivity!!, fragmentActivity!!.getString(R.string.generic_error), fragmentActivity!!.getString(R.string.mod_no_installer, "NeoForge"))
         }
     }
 

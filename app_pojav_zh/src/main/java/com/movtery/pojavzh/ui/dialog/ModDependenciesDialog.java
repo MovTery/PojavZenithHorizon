@@ -54,8 +54,8 @@ public class ModDependenciesDialog extends FullScreenDialog {
     }
 
     private void init(Context context, ModDependencies.SelectedMod mod, List<ModDependencies> mData, Runnable downloadRunnable) {
-        binding.titleView.setText(context.getString(R.string.zh_profile_mods_dependencies_dialog_title, mod.modName));
-        binding.downloadButton.setText(context.getString(R.string.zh_profile_mods_dependencies_dialog_this_mod, mod.modName));
+        binding.titleView.setText(context.getString(R.string.profile_mods_dependencies_dialog_title, mod.modName));
+        binding.downloadButton.setText(context.getString(R.string.profile_mods_dependencies_dialog_this_mod, mod.modName));
 
         Collections.sort(mData);
         ModDependenciesAdapter adapter = new ModDependenciesAdapter(mod, mData);

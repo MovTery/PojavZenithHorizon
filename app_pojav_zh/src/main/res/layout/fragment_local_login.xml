@@ -32,7 +32,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/zh_account_login_local_name"
+            android:text="@string/account_login_local_name"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/login_edit_name"
             app:layout_constraintStart_toStartOf="@+id/login_edit_name" />
@@ -60,7 +60,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/_42sdp"
             android:layout_marginHorizontal="@dimen/_25sdp"
-            android:text="@string/login_online_login_label"
+            android:text="@string/generic_login"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintBottom_toBottomOf="@+id/login_menu"
             app:layout_constraintStart_toEndOf="@+id/login_edit_name"

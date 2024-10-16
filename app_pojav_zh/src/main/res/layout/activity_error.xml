@@ -114,7 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_8sdp"
-                android:text="@string/zh_main_share_crash_report"/>
+                android:text="@string/main_share_crash_report"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -132,7 +132,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_8sdp"
-                android:text="@string/zh_share"/>
+                android:text="@string/generic_share"/>
 
             <com.movtery.pojavzh.ui.view.AnimButton
                 android:id="@+id/error_copy"
@@ -148,7 +148,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_8sdp"
-            android:text="@string/global_restart"
+            android:text="@string/generic_restart"
             app:layout_constraintBottom_toTopOf="@id/error_confirm"/>
 
         <com.movtery.pojavzh.ui.view.AnimButton
@@ -157,7 +157,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_8sdp"
-            android:text="@string/zh_confirm"
+            android:text="@string/generic_confirm"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

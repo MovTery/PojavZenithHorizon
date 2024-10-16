@@ -69,7 +69,7 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
                 PojavApplication.sExecutorService.execute {
                     copyFileInBackground(requireContext(), result, binding.fileRecyclerView.fullPath.absolutePath)
                     Tools.runOnUiThread {
-                        Toast.makeText(requireContext(), getString(R.string.zh_file_added), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
                         binding.fileRecyclerView.refreshPath()
                     }
                 }
@@ -122,8 +122,8 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
                             val filesButton = FilesButton()
                             filesButton.setButtonVisibility(true, true, false, false, true, false)
                             filesButton.setDialogText(
-                                getString(R.string.zh_file_multi_select_mode_title),
-                                getString(R.string.zh_file_multi_select_mode_message, itemBeans.size), null
+                                getString(R.string.file_multi_select_mode_title),
+                                getString(R.string.file_multi_select_mode_message, itemBeans.size), null
                             )
                             Tools.runOnUiThread {
                                 val filesDialog = FilesDialog(requireContext(), filesButton, {
@@ -144,26 +144,26 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
                     setVisibilityAnim(nothingText, show)
                     // 如果目录变更到了外部存储，则会检查权限
                     if (Objects.equals(fullPath.absolutePath, storageDirectory.absolutePath)) {
-                        checkPermissions(R.string.zh_file_external_storage, null)
+                        checkPermissions(R.string.file_external_storage, null)
                     }
                 }
             }
 
             currentPath.setOnClickListener {
                 val builder = EditTextDialog.Builder(requireContext())
-                builder.setTitle(R.string.zh_file_jump_to_path)
+                builder.setTitle(R.string.file_jump_to_path)
                 builder.setEditText(fileRecyclerView.fullPath.absolutePath)
                 builder.setConfirmListener { editBox: EditText ->
                     val path = editBox.text.toString()
                     if (path.isEmpty()) {
-                        editBox.error = getString(R.string.global_error_field_empty)
+                        editBox.error = getString(R.string.generic_error_field_empty)
                         return@setConfirmListener false
                     }
 
                     val file = File(path)
                     //检查路径是否符合要求：最少为最顶部路径、路径是一个文件夹、这个路径存在
                     if (!path.contains(mLockPath!!) || !file.isDirectory || !file.exists()) {
-                        editBox.error = getString(R.string.zh_file_does_not_exist)
+                        editBox.error = getString(R.string.file_does_not_exist)
                         return@setConfirmListener false
                     }
 
@@ -215,18 +215,18 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
             operateView.createFolderButton.setOnClickListener {
                 closeMultiSelect()
                 EditTextDialog.Builder(requireContext())
-                    .setTitle(R.string.folder_dialog_insert_name)
+                    .setTitle(R.string.file_folder_dialog_insert_name)
                     .setConfirmListener { editBox: EditText ->
                         val name = editBox.text.toString().replace("/", "")
                         if (name.isEmpty()) {
-                            editBox.error = getString(R.string.zh_file_rename_empty)
+                            editBox.error = getString(R.string.file_rename_empty)
                             return@setConfirmListener false
                         }
 
                         val folder = File(fileRecyclerView.fullPath, name)
 
                         if (folder.exists()) {
-                            editBox.error = getString(R.string.zh_file_rename_exitis)
+                            editBox.error = getString(R.string.file_rename_exitis)
                             return@setConfirmListener false
                         }
 
@@ -276,20 +276,20 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
         if (NewbieGuideUtils.showOnlyOne("${TAG}${if (mSelectFolderMode) "_select" else ""}")) return
         binding.operateView.apply {
             val fragmentActivity = requireActivity()
-            val refresh = NewbieGuideUtils.getSimpleTarget(fragmentActivity, refreshButton, getString(R.string.zh_refresh), getString(R.string.zh_newbie_guide_general_refresh))
-            val search = NewbieGuideUtils.getSimpleTarget(fragmentActivity, searchButton, getString(R.string.zh_search), getString(R.string.zh_newbie_guide_file_search))
-            val createFolder = NewbieGuideUtils.getSimpleTarget(fragmentActivity, createFolderButton, getString(R.string.folder_fragment_create), getString(R.string.zh_newbie_guide_file_create_folder))
+            val refresh = NewbieGuideUtils.getSimpleTarget(fragmentActivity, refreshButton, getString(R.string.generic_refresh), getString(R.string.newbie_guide_general_refresh))
+            val search = NewbieGuideUtils.getSimpleTarget(fragmentActivity, searchButton, getString(R.string.generic_search), getString(R.string.newbie_guide_file_search))
+            val createFolder = NewbieGuideUtils.getSimpleTarget(fragmentActivity, createFolderButton, getString(R.string.file_create_folder), getString(R.string.newbie_guide_file_create_folder))
             if (mSelectFolderMode) {
                 TapTargetSequence(fragmentActivity)
                     .targets(refresh, search, createFolder,
-                        NewbieGuideUtils.getSimpleTarget(fragmentActivity, returnButton, getString(R.string.folder_fragment_select), getString(R.string.zh_newbie_guide_file_select)))
+                        NewbieGuideUtils.getSimpleTarget(fragmentActivity, returnButton, getString(R.string.file_select_folder), getString(R.string.newbie_guide_file_select)))
                     .start()
             } else {
                 TapTargetSequence(fragmentActivity)
                     .targets(refresh, search,
-                        NewbieGuideUtils.getSimpleTarget(fragmentActivity, addFileButton, getString(R.string.zh_file_add_file), getString(R.string.zh_newbie_guide_file_import)),
+                        NewbieGuideUtils.getSimpleTarget(fragmentActivity, addFileButton, getString(R.string.file_add_file), getString(R.string.newbie_guide_file_import)),
                         createFolder,
-                        NewbieGuideUtils.getSimpleTarget(fragmentActivity, returnButton, getString(R.string.zh_close), getString(R.string.zh_newbie_guide_general_close)))
+                        NewbieGuideUtils.getSimpleTarget(fragmentActivity, returnButton, getString(R.string.generic_close), getString(R.string.newbie_guide_general_close)))
                     .start()
             }
         }
@@ -305,9 +305,9 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
         val filesButton = FilesButton()
         filesButton.setButtonVisibility(true, true, true, true, true, false)
         val message = if (file.isDirectory) {
-            getString(R.string.zh_file_folder_message)
+            getString(R.string.file_folder_message)
         } else {
-            getString(R.string.zh_file_message)
+            getString(R.string.file_message)
         }
         filesButton.setMessageText(message)
 
@@ -352,7 +352,7 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
             if (mSelectFolderMode) {
                 operateView.addFileButton.visibility = View.GONE
                 operateView.returnButton.apply {
-                    contentDescription = getString(R.string.folder_fragment_select)
+                    contentDescription = getString(R.string.file_select_folder)
                     setImageDrawable(resources.getDrawable(R.drawable.ic_check, requireActivity().theme))
                 }
             }

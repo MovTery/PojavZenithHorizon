@@ -208,7 +208,7 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
             binding.resetControllerBindingsLayout
         ) {
             Remapper.wipePreferences(context)
-            Toast.makeText(context, R.string.preference_controller_map_wiped, Toast.LENGTH_SHORT)
+            Toast.makeText(context, R.string.setting_controller_map_wiped, Toast.LENGTH_SHORT)
                 .show()
         }
 

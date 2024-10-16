@@ -15,11 +15,11 @@ class SearchModSort {
         @JvmStatic
         fun getIndexList(context: Context): List<String> {
             if (indexList.isEmpty()) {
-                indexList.add(context.getString(R.string.zh_profile_mods_search_sort_by_relevant)) //相关 0
-                indexList.add(context.getString(R.string.zh_profile_mods_search_sort_by_total_downloads)) //总下载 1
-                indexList.add(context.getString(R.string.zh_profile_mods_search_sort_by_popularity)) //人气 2
-                indexList.add(context.getString(R.string.zh_profile_mods_search_sort_by_recently_created)) //最近创建 3
-                indexList.add(context.getString(R.string.zh_profile_mods_search_sort_by_recently_updated)) //最近更新 4
+                indexList.add(context.getString(R.string.profile_mods_search_sort_by_relevant)) //相关 0
+                indexList.add(context.getString(R.string.profile_mods_search_sort_by_total_downloads)) //总下载 1
+                indexList.add(context.getString(R.string.profile_mods_search_sort_by_popularity)) //人气 2
+                indexList.add(context.getString(R.string.profile_mods_search_sort_by_recently_created)) //最近创建 3
+                indexList.add(context.getString(R.string.profile_mods_search_sort_by_recently_updated)) //最近更新 4
             }
             return indexList
         }

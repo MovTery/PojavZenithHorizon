@@ -158,7 +158,7 @@ class DownloadOptiFineFragment : ModListFragment(), ModloaderDownloadListener {
     override fun onDataNotAvailable() {
         Tools.runOnUiThread {
             modloaderListenerProxy.detachListener()
-            Tools.dialog(fragmentActivity!!, fragmentActivity!!.getString(R.string.global_error), fragmentActivity!!.getString(R.string.of_dl_failed_to_scrape))
+            Tools.dialog(fragmentActivity!!, fragmentActivity!!.getString(R.string.generic_error), fragmentActivity!!.getString(R.string.mod_optifine_failed_to_scrape))
         }
     }
 

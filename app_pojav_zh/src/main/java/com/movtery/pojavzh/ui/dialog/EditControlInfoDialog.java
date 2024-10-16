@@ -40,11 +40,11 @@ public class EditControlInfoDialog extends FullScreenDialog implements Draggable
         binding.fileNameEdit.setEnabled(editFileName);
 
         //设置hint
-        binding.fileNameEdit.setHint(R.string.zh_required); //必填
-        binding.nameEdit.setHint(R.string.zh_optional); //选填
-        binding.versionEdit.setHint(R.string.zh_optional);
-        binding.authorEdit.setHint(R.string.zh_optional);
-        binding.descEdit.setHint(R.string.zh_optional);
+        binding.fileNameEdit.setHint(R.string.generic_required); //必填
+        binding.nameEdit.setHint(R.string.generic_optional); //选填
+        binding.versionEdit.setHint(R.string.generic_optional);
+        binding.authorEdit.setHint(R.string.generic_optional);
+        binding.descEdit.setHint(R.string.generic_optional);
     }
 
     private void initButtons() {
@@ -54,7 +54,7 @@ public class EditControlInfoDialog extends FullScreenDialog implements Draggable
 
     private void confirmClick() {
         if (binding.fileNameEdit.getText().toString().isEmpty()) {
-            binding.fileNameEdit.setError(getContext().getString(R.string.global_error_field_empty));
+            binding.fileNameEdit.setError(getContext().getString(R.string.generic_error_field_empty));
             return;
         }
         updateControlInfoData();

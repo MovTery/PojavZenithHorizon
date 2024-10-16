@@ -130,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
                 android:layout_marginTop="@dimen/_14sdp"
-                android:text="@string/modloader_dl_install_fabric"
+                android:text="@string/create_profile_fabric"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/fabric_icon"
                 app:layout_constraintTop_toBottomOf="@+id/title_modded_textview" />
@@ -151,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
                 android:layout_marginTop="@dimen/_4sdp"
-                android:text="@string/modloader_dl_install_quilt"
+                android:text="@string/create_profile_quilt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/quilt_icon"
                 app:layout_constraintTop_toBottomOf="@+id/modded_profile_fabric" />
@@ -172,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
                 android:layout_marginTop="@dimen/_4sdp"
-                android:text="@string/modloader_dl_install_forge"
+                android:text="@string/create_profile_forge"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/forge_icon"
                 app:layout_constraintTop_toBottomOf="@+id/modded_profile_quilt" />
@@ -193,7 +193,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
                 android:layout_marginTop="@dimen/_4sdp"
-                android:text="@string/zh_modloader_dl_install_neoforge"
+                android:text="@string/create_profile_neoforge"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/neoforge_icon"
                 app:layout_constraintTop_toBottomOf="@+id/modded_profile_forge" />
@@ -214,7 +214,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
                 android:layout_marginTop="@dimen/_4sdp"
-                android:text="@string/modpack_install_button"
+                android:text="@string/create_profile_modpack"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/modpack_icon"
                 app:layout_constraintTop_toBottomOf="@+id/modded_profile_neoforge" />

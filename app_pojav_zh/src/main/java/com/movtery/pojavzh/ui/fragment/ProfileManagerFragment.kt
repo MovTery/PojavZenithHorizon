@@ -64,8 +64,8 @@ class ProfileManagerFragment : FragmentWithAnim(R.layout.fragment_profile_manage
             profileEdit.setOnClickListener { ZHTools.swapFragmentWithAnim(this@ProfileManagerFragment, ProfileEditorFragment::class.java, ProfileEditorFragment.TAG, null) }
             profileDelete.setOnClickListener {
                 TipDialog.Builder(requireContext())
-                    .setTitle(R.string.zh_warning)
-                    .setMessage(R.string.zh_profile_manager_delete_message)
+                    .setTitle(R.string.generic_warning)
+                    .setMessage(R.string.profile_manager_delete_message)
                     .setConfirmClickListener {
                         if (LauncherProfiles.mainProfileJson.profiles.size > 1) {
                             ProfileIconCache.dropIcon(mProfileKey!!)

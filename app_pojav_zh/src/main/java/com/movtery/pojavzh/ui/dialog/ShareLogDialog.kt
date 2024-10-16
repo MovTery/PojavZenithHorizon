@@ -46,7 +46,7 @@ class ShareLogDialog(context: Context) : FullScreenDialog(context), DialogInitia
             val mLauncherLogFilesPath = findViewById<TextView>(R.id.launcher_files_path)
             if (launcherLogFiles.isEmpty()) {
                 setUnClickable(this)
-                mLauncherLogFilesPath.setText(R.string.zh_file_does_not_exist)
+                mLauncherLogFilesPath.setText(R.string.file_does_not_exist)
             } else mLauncherLogFilesPath.text = PathAndUrlManager.DIR_LAUNCHER_LOG
         }
 
@@ -61,7 +61,7 @@ class ShareLogDialog(context: Context) : FullScreenDialog(context), DialogInitia
             val mGameLogFilePath = findViewById<TextView>(R.id.log_file_path)
             if (!mGameLogFile.exists()) {
                 setUnClickable(this)
-                mGameLogFilePath.setText(R.string.zh_file_does_not_exist)
+                mGameLogFilePath.setText(R.string.file_does_not_exist)
             } else mGameLogFilePath.text = mGameLogFile.absolutePath
         }
 

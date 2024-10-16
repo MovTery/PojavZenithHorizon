@@ -77,11 +77,11 @@ public class SelectVersionDialog extends FullScreenDialog {
         alphaTab = mTabLayout.newTab();
         returnTab = mTabLayout.newTab();
 
-        releaseTab.setText(context.getString(R.string.mcl_setting_veroption_release));
-        snapshotTab.setText(context.getString(R.string.mcl_setting_veroption_snapshot));
-        betaTab.setText(context.getString(R.string.mcl_setting_veroption_oldbeta));
-        alphaTab.setText(context.getString(R.string.mcl_setting_veroption_oldalpha));
-        returnTab.setText(context.getString(R.string.zh_return));
+        releaseTab.setText(context.getString(R.string.version_release));
+        snapshotTab.setText(context.getString(R.string.version_snapshot));
+        betaTab.setText(context.getString(R.string.version_beta));
+        alphaTab.setText(context.getString(R.string.version_alpha));
+        returnTab.setText(context.getString(R.string.generic_return));
 
         mTabLayout.addTab(releaseTab);
         mTabLayout.addTab(snapshotTab);
