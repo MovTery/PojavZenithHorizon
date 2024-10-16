@@ -4,6 +4,8 @@
 
 [![Android CI](https://github.com/MovTery/PojavZenithHorizon/actions/workflows/android.yml/badge.svg)](https://github.com/MovTery/PojavZenithHorizon/actions/workflows/android.yml)
 [![Crowdin](https://badges.crowdin.net/pojav-zenith-horizon/localized.svg)](https://crowdin.com/project/pojav-zenith-horizon)
+![Downloads](https://img.shields.io/github/downloads/MovTery/PojavZenithHorizon/total)
+[![Sponsor](https://img.shields.io/badge/sponsor-30363D?logo=GitHub-Sponsors)](https://afdian.com/a/MovTery)
 
 - <a href="/README.md">简体中文</a>丨<a href="/README-ZH_TW.md">繁體中文</a>
 - Pojav Zenith Horizon is a Minecraft launcher based on [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher) that runs [Minecraft: Java Edition](https://www.minecraft.net/) on Android devices.
@@ -27,8 +29,8 @@
 
 <h2 align="center">Screenshots</h2>
 
-![Screenshot1](/.github/images/Screenshot_Light_EN_US.jpg)
-![Screenshot2](/.github/images/Screenshot_Dark_EN_US.jpg)
+![Screenshot1](/.github/images/Screenshot_Launcher_Light_EN_US.jpg)
+![Screenshot2](/.github/images/Screenshot_Launcher_Dark_EN_US.jpg)
 ![Screenshot3](/.github/images/Screenshot_Game_EN_US.jpg)
 
 <h2 align="center">Download</h2>
