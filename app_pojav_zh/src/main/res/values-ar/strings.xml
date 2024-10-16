@@ -35,7 +35,6 @@
     <string name="generic_optional">اختياري</string>
     <string name="generic_required">إلزامي</string>
     <string name="generic_all">الكل</string>
-    <string name="generic_apply">تطبيق</string>
     <string name="generic_wan">عشرة آلاف</string>
     <string name="generic_yi">مليار</string>
     <string name="generic_login">تسجيل الدخول</string>
@@ -126,18 +125,6 @@
     <string name="create_profile_fabric">إنشاء مثيل Fabric</string>
     <string name="create_profile_quilt">إنشاء مثيل Quilt</string>
     <string name="create_profile_modpack">إنشاء مثيل حزمة الوحدات</string>
-    <string name="search_modpack">بحث عن حزمة الوحدات</string>
-    <string name="search_modpack_no_result">لم يتم العثور على حزمة الوحدات</string>
-    <string name="search_modpack_error">فشل في البحث عن حزمة الوحدات</string>
-    <string name="modpack_download_downloading_metadata">جاري تنزيل بيانات حزمة الوحدات (%.2fMB / %.2fMB)</string>
-    <string name="modpack_download_downloading_mods">جاري تنزيل الوحدات (%.2fMB / %.2fMB)</string>
-    <string name="modpack_download_downloading_mods_fc">جاري تنزيل الوحدات (الملفات المنزلة: %d, إجمالي الملفات: %d)</string>
-    <string name="modpack_download_applying_overrides">جاري تطبيق التجاوزات (%d/%d)</string>
-    <string name="modpack_install_notification_title">مثبت حزمة الوحدات Pojav</string>
-    <string name="modpack_install_notification_success">انقر هنا لإكمال تثبيت حزمة الوحدات</string>
-    <string name="modpack_install_notification_data_not_available">فشل في تنزيل معلومات محمل الوحدات</string>
-    <string name="modpack_install_modloader_download_failed">فشل في تنزيل ملفات محمل الوحدات</string>
-    <string name="modpack_install_download_failed">فشل في تنزيل ملفات حزمة الوحدات</string>
     <!-- Controls -->
     <string name="control_primary">النقر الأيسر</string>
     <string name="control_secondary">النقر الأيمن</string>
@@ -517,6 +504,18 @@
     <string name="select_modpack_local_tip">الرجاء تحديد ملف حزمة يدعمه المشغل للاستيراد!</string>
     <string name="select_modpack_local_not_supported">هذا الملف غير مدعوم من قبل المشغل!</string>
     <string name="select_modpack_local_installing_files">جاري تثبيت ملفات اللعبة… (%d / %d)</string>
+    <string name="search_modpack">بحث عن حزمة الوحدات</string>
+    <string name="search_modpack_no_result">لم يتم العثور على حزمة الوحدات</string>
+    <string name="search_modpack_error">فشل في البحث عن حزمة الوحدات</string>
+    <string name="modpack_download_downloading_metadata">جاري تنزيل بيانات حزمة الوحدات (%.2fMB / %.2fMB)</string>
+    <string name="modpack_download_downloading_mods">جاري تنزيل الوحدات (%.2fMB / %.2fMB)</string>
+    <string name="modpack_download_downloading_mods_fc">جاري تنزيل الوحدات (الملفات المنزلة: %d, إجمالي الملفات: %d)</string>
+    <string name="modpack_download_applying_overrides">جاري تطبيق التجاوزات (%d/%d)</string>
+    <string name="modpack_install_notification_title">مثبت حزمة الوحدات Pojav</string>
+    <string name="modpack_install_notification_success">انقر هنا لإكمال تثبيت حزمة الوحدات</string>
+    <string name="modpack_install_notification_data_not_available">فشل في تنزيل معلومات محمل الوحدات</string>
+    <string name="modpack_install_modloader_download_failed">فشل في تنزيل ملفات محمل الوحدات</string>
+    <string name="modpack_install_download_failed">فشل في تنزيل ملفات حزمة الوحدات</string>
     <!-- Clear Up -->
     <string name="clear_up_cache">مسح الذاكرة المؤقتة</string>
     <string name="clear_up_cache_desc">فحص ومسح ملفات الذاكرة المؤقتة للتطبيق، حذف ملفات الذاكرة المؤقتة لن يؤثر على الاستخدام الطبيعي للتطبيق</string>

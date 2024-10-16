@@ -35,7 +35,6 @@
     <string name="generic_optional">Необязательно</string>
     <string name="generic_required">Обязательно</string>
     <string name="generic_all">Все</string>
-    <string name="generic_apply">Применить</string>
     <string name="generic_wan">Тысяча</string>
     <string name="generic_yi">Миллион</string>
     <string name="generic_login">Войти</string>
@@ -126,18 +125,6 @@
     <string name="create_profile_fabric">Создать экземпляр Fabric</string>
     <string name="create_profile_quilt">Создать экземпляр Quilt</string>
     <string name="create_profile_modpack">Создать экземпляр модпака</string>
-    <string name="search_modpack">Поиск модпака</string>
-    <string name="search_modpack_no_result">Модпак не найден</string>
-    <string name="search_modpack_error">Не удалось выполнить поиск модпака</string>
-    <string name="modpack_download_downloading_metadata">Загрузка метаданных модпака (%.2fMB / %.2fMB)</string>
-    <string name="modpack_download_downloading_mods">Загрузка модов (%.2fMB / %.2fMB)</string>
-    <string name="modpack_download_downloading_mods_fc">Загрузка модов (загружено файлов: %d, всего файлов: %d)</string>
-    <string name="modpack_download_applying_overrides">Применение переопределений (%d/%d)</string>
-    <string name="modpack_install_notification_title">Установщик модпаков Pojav</string>
-    <string name="modpack_install_notification_success">Нажмите здесь, чтобы завершить установку модпака</string>
-    <string name="modpack_install_notification_data_not_available">Не удалось загрузить информацию о загрузчике модов</string>
-    <string name="modpack_install_modloader_download_failed">Не удалось загрузить файл загрузчика модов</string>
-    <string name="modpack_install_download_failed">Не удалось загрузить файлы модпака</string>
     <!-- Controls -->
     <string name="control_primary">Левая кнопка</string>
     <string name="control_secondary">Правая кнопка</string>
@@ -517,6 +504,18 @@
     <string name="select_modpack_local_tip">Пожалуйста, выберите файл модпака, который поддерживается лаунчером для импорта!</string>
     <string name="select_modpack_local_not_supported">Этот файл не поддерживается лаунчером!</string>
     <string name="select_modpack_local_installing_files">Установка игровых файлов… (%d / %d)</string>
+    <string name="search_modpack">Поиск модпака</string>
+    <string name="search_modpack_no_result">Модпак не найден</string>
+    <string name="search_modpack_error">Не удалось выполнить поиск модпака</string>
+    <string name="modpack_download_downloading_metadata">Загрузка метаданных модпака (%.2fMB / %.2fMB)</string>
+    <string name="modpack_download_downloading_mods">Загрузка модов (%.2fMB / %.2fMB)</string>
+    <string name="modpack_download_downloading_mods_fc">Загрузка модов (загружено файлов: %d, всего файлов: %d)</string>
+    <string name="modpack_download_applying_overrides">Применение переопределений (%d/%d)</string>
+    <string name="modpack_install_notification_title">Установщик модпаков Pojav</string>
+    <string name="modpack_install_notification_success">Нажмите здесь, чтобы завершить установку модпака</string>
+    <string name="modpack_install_notification_data_not_available">Не удалось загрузить информацию о загрузчике модов</string>
+    <string name="modpack_install_modloader_download_failed">Не удалось загрузить файл загрузчика модов</string>
+    <string name="modpack_install_download_failed">Не удалось загрузить файлы модпака</string>
     <!-- Clear Up -->
     <string name="clear_up_cache">Очистить кэш</string>
     <string name="clear_up_cache_desc">Проверить и очистить кэш-файлы приложения. Очистка кэш-файлов не влияет на нормальную работу приложения.</string>

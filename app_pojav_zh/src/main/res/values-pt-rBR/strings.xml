@@ -35,7 +35,6 @@
     <string name="generic_optional">Opcional</string>
     <string name="generic_required">Obrigatório</string>
     <string name="generic_all">Todos</string>
-    <string name="generic_apply">Aplicar</string>
     <string name="generic_wan">Mil</string>
     <string name="generic_yi">Bilhão</string>
     <string name="generic_login">Entrar</string>
@@ -126,18 +125,6 @@
     <string name="create_profile_fabric">Criar instância Fabric</string>
     <string name="create_profile_quilt">Criar instância Quilt</string>
     <string name="create_profile_modpack">Criar instância de modpack</string>
-    <string name="search_modpack">Pesquisar modpack</string>
-    <string name="search_modpack_no_result">Modpack não encontrado</string>
-    <string name="search_modpack_error">Falha ao pesquisar modpack</string>
-    <string name="modpack_download_downloading_metadata">Baixando metadados do modpack (%.2fMB / %.2fMB)</string>
-    <string name="modpack_download_downloading_mods">Baixando mods (%.2fMB / %.2fMB)</string>
-    <string name="modpack_download_downloading_mods_fc">Baixando mods (arquivos baixados: %d, total de arquivos: %d)</string>
-    <string name="modpack_download_applying_overrides">Aplicando substituições (%d/%d)</string>
-    <string name="modpack_install_notification_title">Instalador de Modpack Pojav</string>
-    <string name="modpack_install_notification_success">Toque aqui para concluir a instalação do modpack</string>
-    <string name="modpack_install_notification_data_not_available">Falha ao baixar informações do carregador de mods</string>
-    <string name="modpack_install_modloader_download_failed">Falha ao baixar arquivos do carregador de mods</string>
-    <string name="modpack_install_download_failed">Falha ao baixar arquivos do modpack</string>
     <!-- Controls -->
     <string name="control_primary">Clique Esquerdo</string>
     <string name="control_secondary">Clique Direito</string>
@@ -517,6 +504,18 @@
     <string name="select_modpack_local_tip">Por favor, selecione um arquivo de pacote compatível com o launcher para importação!</string>
     <string name="select_modpack_local_not_supported">Este arquivo não é suportado pelo launcher!</string>
     <string name="select_modpack_local_installing_files">Instalando arquivos do jogo… (%d / %d)</string>
+    <string name="search_modpack">Pesquisar modpack</string>
+    <string name="search_modpack_no_result">Modpack não encontrado</string>
+    <string name="search_modpack_error">Falha ao pesquisar modpack</string>
+    <string name="modpack_download_downloading_metadata">Baixando metadados do modpack (%.2fMB / %.2fMB)</string>
+    <string name="modpack_download_downloading_mods">Baixando mods (%.2fMB / %.2fMB)</string>
+    <string name="modpack_download_downloading_mods_fc">Baixando mods (arquivos baixados: %d, total de arquivos: %d)</string>
+    <string name="modpack_download_applying_overrides">Aplicando substituições (%d/%d)</string>
+    <string name="modpack_install_notification_title">Instalador de Modpack Pojav</string>
+    <string name="modpack_install_notification_success">Toque aqui para concluir a instalação do modpack</string>
+    <string name="modpack_install_notification_data_not_available">Falha ao baixar informações do carregador de mods</string>
+    <string name="modpack_install_modloader_download_failed">Falha ao baixar arquivos do carregador de mods</string>
+    <string name="modpack_install_download_failed">Falha ao baixar arquivos do modpack</string>
     <!-- Clear Up -->
     <string name="clear_up_cache">Limpar Cache</string>
     <string name="clear_up_cache_desc">Verificar e limpar os arquivos de cache do aplicativo. Limpar os arquivos de cache não afeta o uso normal do aplicativo</string>

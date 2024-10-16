@@ -35,7 +35,6 @@
     <string name="generic_optional">Tùy chọn</string>
     <string name="generic_required">Bắt buộc</string>
     <string name="generic_all">Tất cả</string>
-    <string name="generic_apply">Áp dụng</string>
     <string name="generic_wan">Vạn</string>
     <string name="generic_yi">Tỷ</string>
     <string name="generic_login">Đăng nhập</string>
@@ -126,18 +125,6 @@
     <string name="create_profile_fabric">Tạo thể hiện Fabric</string>
     <string name="create_profile_quilt">Tạo thể hiện Quilt</string>
     <string name="create_profile_modpack">Tạo thể hiện gói tích hợp</string>
-    <string name="search_modpack">Tìm kiếm gói tích hợp</string>
-    <string name="search_modpack_no_result">Không tìm thấy gói tích hợp</string>
-    <string name="search_modpack_error">Tìm kiếm gói tích hợp thất bại</string>
-    <string name="modpack_download_downloading_metadata">Đang tải siêu dữ liệu gói tích hợp (%.2fMB / %.2fMB)</string>
-    <string name="modpack_download_downloading_mods">Đang tải mod (%.2fMB / %.2fMB)</string>
-    <string name="modpack_download_downloading_mods_fc">Đang tải mod (tệp đã tải: %d, tổng số tệp: %d)</string>
-    <string name="modpack_download_applying_overrides">Đang áp dụng ghi đè (%d/%d)</string>
-    <string name="modpack_install_notification_title">Trình cài đặt gói tích hợp Pojav</string>
-    <string name="modpack_install_notification_success">Nhấn vào đây để hoàn thành cài đặt gói tích hợp</string>
-    <string name="modpack_install_notification_data_not_available">Không thể tải thông tin trình nạp mod</string>
-    <string name="modpack_install_modloader_download_failed">Không thể tải tệp trình nạp mod</string>
-    <string name="modpack_install_download_failed">Không thể tải tệp gói tích hợp</string>
     <!-- Controls -->
     <string name="control_primary">Nhấp chuột trái</string>
     <string name="control_secondary">Nhấp chuột phải</string>
@@ -517,6 +504,18 @@
     <string name="select_modpack_local_tip">Vui lòng chọn một tệp gói tích hợp được hỗ trợ bởi trình khởi chạy!</string>
     <string name="select_modpack_local_not_supported">Tệp này không được hỗ trợ bởi trình khởi chạy!</string>
     <string name="select_modpack_local_installing_files">Đang cài đặt tệp trò chơi… (%d / %d)</string>
+    <string name="search_modpack">Tìm kiếm gói tích hợp</string>
+    <string name="search_modpack_no_result">Không tìm thấy gói tích hợp</string>
+    <string name="search_modpack_error">Tìm kiếm gói tích hợp thất bại</string>
+    <string name="modpack_download_downloading_metadata">Đang tải siêu dữ liệu gói tích hợp (%.2fMB / %.2fMB)</string>
+    <string name="modpack_download_downloading_mods">Đang tải mod (%.2fMB / %.2fMB)</string>
+    <string name="modpack_download_downloading_mods_fc">Đang tải mod (tệp đã tải: %d, tổng số tệp: %d)</string>
+    <string name="modpack_download_applying_overrides">Đang áp dụng ghi đè (%d/%d)</string>
+    <string name="modpack_install_notification_title">Trình cài đặt gói tích hợp Pojav</string>
+    <string name="modpack_install_notification_success">Nhấn vào đây để hoàn thành cài đặt gói tích hợp</string>
+    <string name="modpack_install_notification_data_not_available">Không thể tải thông tin trình nạp mod</string>
+    <string name="modpack_install_modloader_download_failed">Không thể tải tệp trình nạp mod</string>
+    <string name="modpack_install_download_failed">Không thể tải tệp gói tích hợp</string>
     <!-- Clear Up -->
     <string name="clear_up_cache">Dọn dẹp bộ nhớ cache</string>
     <string name="clear_up_cache_desc">Kiểm tra và dọn dẹp các tệp bộ nhớ cache của ứng dụng, việc xóa bộ nhớ cache không ảnh hưởng đến việc sử dụng ứng dụng bình thường</string>

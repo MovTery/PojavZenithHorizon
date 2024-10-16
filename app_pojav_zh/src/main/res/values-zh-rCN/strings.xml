@@ -35,7 +35,6 @@
     <string name="generic_optional">选填</string>
     <string name="generic_required">必填</string>
     <string name="generic_all">全部</string>
-    <string name="generic_apply">应用</string>
     <string name="generic_wan">万</string>
     <string name="generic_yi">亿</string>
     <string name="generic_login">登录</string>
@@ -131,20 +130,6 @@
     <string name="create_profile_fabric">创建 Fabric 实例</string>
     <string name="create_profile_quilt">创建 Quilt 实例</string>
     <string name="create_profile_modpack">创建整合包实例</string>
-    
-    <string name="search_modpack">搜索整合包</string>
-    <string name="search_modpack_no_result">未找到整合包</string>
-    <string name="search_modpack_error">搜索整合包失败</string>
-
-    <string name="modpack_download_downloading_metadata">正在下载整合包元数据（%.2fMB / %.2fMB）</string>
-    <string name="modpack_download_downloading_mods">正在下载模组（%.2fMB / %.2fMB）</string>
-    <string name="modpack_download_downloading_mods_fc">正在下载模组（已下载文件：%d, 总文件数：%d）</string>
-    <string name="modpack_download_applying_overrides">正在应用覆盖（%d/%d）</string>
-    <string name="modpack_install_notification_title">Pojav 整合包安装器</string>
-    <string name="modpack_install_notification_success">点击此处完成整合包安装</string>
-    <string name="modpack_install_notification_data_not_available">模组加载器信息下载失败</string>
-    <string name="modpack_install_modloader_download_failed">模组加载器文件下载失败</string>
-    <string name="modpack_install_download_failed">整合包文件下载失败</string>
 
     <!-- Controls -->
     <string name="control_primary">左键</string>
@@ -551,6 +536,20 @@
     <string name="select_modpack_local_tip">请选择一个启动器支持导入的整合包文件！</string>
     <string name="select_modpack_local_not_supported">此文件不受启动器支持！</string>
     <string name="select_modpack_local_installing_files">安装游戏文件中… (%d / %d)</string>
+
+    <string name="search_modpack">搜索整合包</string>
+    <string name="search_modpack_no_result">未找到整合包</string>
+    <string name="search_modpack_error">搜索整合包失败</string>
+
+    <string name="modpack_download_downloading_metadata">正在下载整合包元数据（%.2fMB / %.2fMB）</string>
+    <string name="modpack_download_downloading_mods">正在下载模组（%.2fMB / %.2fMB）</string>
+    <string name="modpack_download_downloading_mods_fc">正在下载模组（已下载文件：%d, 总文件数：%d）</string>
+    <string name="modpack_download_applying_overrides">正在应用覆盖（%d/%d）</string>
+    <string name="modpack_install_notification_title">Pojav 整合包安装器</string>
+    <string name="modpack_install_notification_success">点击此处完成整合包安装</string>
+    <string name="modpack_install_notification_data_not_available">模组加载器信息下载失败</string>
+    <string name="modpack_install_modloader_download_failed">模组加载器文件下载失败</string>
+    <string name="modpack_install_download_failed">整合包文件下载失败</string>
 
     <!-- Clear Up -->
     <string name="clear_up_cache">清理缓存</string>

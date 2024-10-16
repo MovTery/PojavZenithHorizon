@@ -35,7 +35,6 @@
     <string name="generic_optional">選填</string>
     <string name="generic_required">必填</string>
     <string name="generic_all">全部</string>
-    <string name="generic_apply">套用</string>
     <string name="generic_wan">萬</string>
     <string name="generic_yi">億</string>
     <string name="generic_login">登入</string>
@@ -125,19 +124,7 @@
     <string name="create_profile_neoforge">創建 NeoForge 實例</string>
     <string name="create_profile_fabric">創建 Fabric 實例</string>
     <string name="create_profile_quilt">創建 Quilt 實例</string>
-    <string name="create_profile_modpack">創建整合包實例</string>
-    <string name="search_modpack">搜尋整合包</string>
-    <string name="search_modpack_no_result">未找到整合包</string>
-    <string name="search_modpack_error">搜尋整合包失敗</string>
-    <string name="modpack_download_downloading_metadata">正在下載整合包元數據（%.2fMB / %.2fMB）</string>
-    <string name="modpack_download_downloading_mods">正在下載模組（%.2fMB / %.2fMB）</string>
-    <string name="modpack_download_downloading_mods_fc">正在下載模組（已下載檔案：%d, 總檔案數：%d）</string>
-    <string name="modpack_download_applying_overrides">正在應用覆蓋（%d/%d）</string>
-    <string name="modpack_install_notification_title">Pojav 整合包安裝器</string>
-    <string name="modpack_install_notification_success">點擊此處完成整合包安裝</string>
-    <string name="modpack_install_notification_data_not_available">模組加載器資訊下載失敗</string>
-    <string name="modpack_install_modloader_download_failed">模組加載器檔案下載失敗</string>
-    <string name="modpack_install_download_failed">整合包檔案下載失敗</string>
+    <string name="create_profile_modpack">創建模組包實例</string>
     <!-- Controls -->
     <string name="control_primary">左鍵</string>
     <string name="control_secondary">右鍵</string>
@@ -513,10 +500,22 @@
     <string name="game_tip">遊戲正在運行中，可以通過菜單開啟日誌輸出，查看遊戲運行狀況</string>
     <string name="game_tip_version">當前啟動的遊戲版本:</string>
     <!-- ModPack -->
-    <string name="select_modpack_local">本地整合包</string>
-    <string name="select_modpack_local_tip">請選擇一個啟動器支持導入的整合包檔案！</string>
+    <string name="select_modpack_local">本地模組包</string>
+    <string name="select_modpack_local_tip">請選擇一個啟動器支持導入的模組包檔案！</string>
     <string name="select_modpack_local_not_supported">此檔案不受啟動器支持！</string>
     <string name="select_modpack_local_installing_files">安裝遊戲檔案中… (%d / %d)</string>
+    <string name="search_modpack">搜尋模組包</string>
+    <string name="search_modpack_no_result">未找到模組包</string>
+    <string name="search_modpack_error">搜尋模組包失敗</string>
+    <string name="modpack_download_downloading_metadata">正在下載模組包元數據（%.2fMB / %.2fMB）</string>
+    <string name="modpack_download_downloading_mods">正在下載模組（%.2fMB / %.2fMB）</string>
+    <string name="modpack_download_downloading_mods_fc">正在下載模組（已下載檔案：%d, 總檔案數：%d）</string>
+    <string name="modpack_download_applying_overrides">正在應用覆蓋（%d/%d）</string>
+    <string name="modpack_install_notification_title">Pojav 模組包安裝器</string>
+    <string name="modpack_install_notification_success">點擊此處完成模組包安裝</string>
+    <string name="modpack_install_notification_data_not_available">模組加載器資訊下載失敗</string>
+    <string name="modpack_install_modloader_download_failed">模組加載器檔案下載失敗</string>
+    <string name="modpack_install_download_failed">模組包檔案下載失敗</string>
     <!-- Clear Up -->
     <string name="clear_up_cache">清理快取</string>
     <string name="clear_up_cache_desc">檢查並清理應用的快取檔案，清除快取檔案不影響應用正常使用</string>
@@ -576,7 +575,7 @@
     <string name="about_button_support_development">贊助開發</string>
     <string name="about_MovTery_desc">啟動器的主要作者</string>
     <string name="about_PojavLauncher_desc">PojavLauncher 的開發團隊，開發並開源了 PojavLauncher</string>
-    <string name="about_mcmod_desc">啟動器使用了來自 MC 百科的 Mod 以及整合包中文翻譯</string>
+    <string name="about_mcmod_desc">啟動器使用了來自 MC 百科的 Mod 以及模組包中文翻譯</string>
     <string name="about_VeraFirefly_desc">為啟動器提供渲染方面的技術支持</string>
     <string name="about_LingMuQiuZhu_desc">為啟動器提供了技術支持</string>
     <string name="about_ShirosakiMio_desc">為啟動器提供了技術支持，修復了一些漏洞</string>
