@@ -14,6 +14,8 @@ import com.movtery.pojavzh.feature.mod.ModFilters;
 import com.movtery.pojavzh.feature.mod.ModLoaderList;
 import com.movtery.pojavzh.feature.mod.ModMirror;
 import com.movtery.pojavzh.feature.mod.SearchModSort;
+import com.movtery.pojavzh.feature.mod.item.ModDetail;
+import com.movtery.pojavzh.feature.mod.item.ModItem;
 import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
 import com.movtery.pojavzh.feature.mod.modpack.install.OnInstallStartListener;
 import com.movtery.pojavzh.feature.mod.translate.ModPackTranslateManager;
@@ -29,8 +31,6 @@ import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.Constants;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.CurseManifest;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchResult;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.utils.FileUtils;
@@ -65,7 +65,7 @@ public class CurseforgeApi implements ModpackApi{
 
     @Override
     public String getWebUrl(ModItem item) {
-        JsonObject response = searchModFromID(item.id);
+        JsonObject response = searchModFromID(item.getId());
         JsonObject hit = GsonJsonUtils.getJsonObjectSafe(response, "data");
         if (hit != null) {
             JsonObject links = hit.getAsJsonObject("links");
@@ -157,11 +157,11 @@ public class CurseforgeApi implements ModpackApi{
 
     @Override
     public ModDetail getModDetails(ModItem item, boolean force) {
-        if (!force && ModCache.ModInfoCache.INSTANCE.containsKey(this, item.id)) return new ModDetail(item, ModCache.ModInfoCache.INSTANCE.get(this, item.id));
+        if (!force && ModCache.ModInfoCache.INSTANCE.containsKey(this, item.getId())) return new ModDetail(item, ModCache.ModInfoCache.INSTANCE.get(this, item.getId()));
 
         List<JsonObject> allModDetails;
         try {
-            allModDetails = getPaginatedDetails(item.id);
+            allModDetails = getPaginatedDetails(item.getId());
         } catch (IOException e) {
             Logging.e("CurseForgeAPI", Tools.printToString(e));
             return null;
@@ -199,7 +199,7 @@ public class CurseforgeApi implements ModpackApi{
             //获取依赖Mod信息
             JsonArray dependencies = modDetail.get("dependencies").getAsJsonArray();
             List<ModDependencies> modDependencies = new ArrayList<>();
-            if (!item.isModpack && dependencies.size() != 0) {
+            if (!item.isModpack() && dependencies.size() != 0) {
                 for (JsonElement dependency : dependencies) {
                     JsonObject object = dependency.getAsJsonObject();
                     String modId = object.get("modId").getAsString();
@@ -223,7 +223,7 @@ public class CurseforgeApi implements ModpackApi{
                             String iconUrl = fetchIconUrl(hit);
 
                             String title = hit.get("name").getAsString();
-                            String subTitle = getSubTitle(title, item.isModpack);
+                            String subTitle = getSubTitle(title, item.isModpack());
 
                             ModCache.ModItemCache.INSTANCE.put(this, modId, new ModItem(
                                     Constants.SOURCE_CURSEFORGE,
@@ -254,11 +254,12 @@ public class CurseforgeApi implements ModpackApi{
                     VersionType.getVersionType(releaseTypeString),
                     getSha1FromModData(modDetail),
                     modDetail.get("downloadCount").getAsInt(),
-                    downloadUrl
+                    downloadUrl,
+                    ZHTools.getDate(modDetail.get("fileDate").getAsString())
             ));
         }
 
-        ModCache.ModInfoCache.INSTANCE.put(this, item.id, modVersionItems);
+        ModCache.ModInfoCache.INSTANCE.put(this, item.getId(), modVersionItems);
         return new ModDetail(item, modVersionItems);
     }
 

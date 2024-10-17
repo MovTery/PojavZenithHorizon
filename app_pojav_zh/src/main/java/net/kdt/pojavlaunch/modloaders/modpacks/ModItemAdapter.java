@@ -19,6 +19,7 @@ import com.google.android.flexbox.FlexboxLayout;
 import com.movtery.pojavzh.feature.mod.ModCategory;
 import com.movtery.pojavzh.feature.mod.ModFilters;
 import com.movtery.pojavzh.feature.mod.ModLoaderList;
+import com.movtery.pojavzh.feature.mod.item.ModItem;
 import com.movtery.pojavzh.ui.fragment.DownloadModFragment;
 import com.movtery.pojavzh.ui.subassembly.viewmodel.ModApiViewModel;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
@@ -34,7 +35,6 @@ import com.movtery.pojavzh.utils.stringutils.StringUtils;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.Constants;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchResult;
 
 import java.util.Collections;
@@ -209,30 +209,30 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             mIconView.setImageDrawable(null);
 
-            mSourceView.setImageResource(getSourceDrawable(item.apiSource));
-            mDescription.setText(item.description);
+            mSourceView.setImageResource(getSourceDrawable(item.getApiSource()));
+            mDescription.setText(item.getDescription());
 
-            if (item.subTitle != null) {
+            if (item.getSubTitle() != null) {
                 mSubTitle.setVisibility(View.VISIBLE);
-                mTitle.setText(item.subTitle);
-                mSubTitle.setText(item.title);
+                mTitle.setText(item.getSubTitle());
+                mSubTitle.setText(item.getTitle());
             } else {
                 mSubTitle.setVisibility(View.GONE);
-                mTitle.setText(item.title);
+                mTitle.setText(item.getTitle());
             }
 
             mCategoriesLayout.removeAllViews();
-            for (ModCategory.Category category : item.categories) {
+            for (ModCategory.Category category : item.getCategories()) {
                 addCategoryView(context, mCategoriesLayout, context.getString(category.getResNameID()));
             }
 
-            String downloaderCount = StringUtils.insertSpace(context.getString(R.string.profile_mods_information_download_count), NumberWithUnits.formatNumberWithUnit(item.downloadCount,
+            String downloaderCount = StringUtils.insertSpace(context.getString(R.string.profile_mods_information_download_count), NumberWithUnits.formatNumberWithUnit(item.getDownloadCount(),
                     //判断当前系统语言是否为英文
                     ZHTools.isEnglish(context)));
             mDownloadCount.setText(downloaderCount);
 
             StringJoiner sj = new StringJoiner(", ");
-            for (ModLoaderList.ModLoader modloader : item.modloaders) {
+            for (ModLoaderList.ModLoader modloader : item.getModloaders()) {
                 sj.add(modloader.getLoaderName());
             }
             String modloaderText;
@@ -262,16 +262,16 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         public void setItemShow(boolean b) {
-            if (b && item.imageUrl != null) {
-                ImageUtils.loadDrawableFromUrl(context, item.imageUrl, new UrlImageCallback() {
+            if (b && item.getImageUrl() != null) {
+                ImageUtils.loadDrawableFromUrl(context, item.getImageUrl(), new UrlImageCallback() {
                     @Override
                     public void onImageCleared(@Nullable Drawable placeholder, @NonNull String url) {
-                        if (Objects.equals(item.imageUrl, url)) mIconView.setImageDrawable(placeholder);
+                        if (Objects.equals(item.getImageUrl(), url)) mIconView.setImageDrawable(placeholder);
                     }
 
                     @Override
                     public void onImageLoaded(@Nullable Drawable drawable, @NonNull String url) {
-                        if (Objects.equals(item.imageUrl, url)) mIconView.setImageDrawable(drawable);
+                        if (Objects.equals(item.getImageUrl(), url)) mIconView.setImageDrawable(drawable);
                     }
                 });
             }

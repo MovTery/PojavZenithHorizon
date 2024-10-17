@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.movtery.pojavzh.feature.log.Logging
+import com.movtery.pojavzh.feature.mod.item.ModDetail
+import com.movtery.pojavzh.feature.mod.item.ModItem
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies.SelectedMod
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionAdapter
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem
@@ -19,8 +21,6 @@ import com.movtery.pojavzh.utils.image.UrlImageCallback
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi
-import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail
-import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem
 import org.jackhuang.hmcl.util.versioning.VersionNumber
 import java.util.Collections
 import java.util.concurrent.Future
@@ -32,8 +32,8 @@ class DownloadModFragment : ModListFragment() {
     }
 
     private var mParentUIRecyclerView: RecyclerView? = null
-    private var mModItem: ModItem? = null
-    private var mModApi: ModpackApi? = null
+    private lateinit var mModItem: ModItem
+    private lateinit var mModApi: ModpackApi
     private var mIsModpack = false
     private var mModsPath: String? = null
     private var linkGetSubmit: Future<*>? = null
@@ -42,7 +42,7 @@ class DownloadModFragment : ModListFragment() {
         parseViewModel()
         linkGetSubmit = PojavApplication.sExecutorService.submit {
             runCatching {
-                val webUrl = mModApi!!.getWebUrl(mModItem)
+                val webUrl = mModApi.getWebUrl(mModItem)
                 fragmentActivity?.runOnUiThread { setLink(webUrl) }
             }.getOrElse { e ->
                 Logging.e("DownloadModFragment", "Failed to retrieve the website link, ${Tools.printToString(e)}")
@@ -74,8 +74,8 @@ class DownloadModFragment : ModListFragment() {
                     cancelFailedToLoad()
                     componentProcessing(true)
                 }
-                val mModDetail = mModApi!!.getModDetails(mModItem, force)
-                processModDetails(mModDetail)
+                val modDetail = mModApi.getModDetails(mModItem, force)
+                processModDetails(modDetail)
             }.getOrElse { e ->
                 Tools.runOnUiThread {
                     componentProcessing(false)
@@ -86,13 +86,13 @@ class DownloadModFragment : ModListFragment() {
         }
     }
 
-    private fun processModDetails(mModDetail: ModDetail) {
+    private fun processModDetails(modDetail: ModDetail) {
         val pattern = RELEASE_REGEX
 
         val releaseCheckBoxChecked = releaseCheckBox.isChecked
         val mModVersionsByMinecraftVersion: MutableMap<String, MutableList<ModVersionItem>> = HashMap()
 
-        mModDetail.modVersionItems.forEach(Consumer { modVersionItem: ModVersionItem ->
+        modDetail.modVersionItems?.forEach(Consumer { modVersionItem: ModVersionItem ->
             currentTask?.apply { if (isCancelled) return@Consumer }
 
             val versionId = modVersionItem.versionId
@@ -122,7 +122,7 @@ class DownloadModFragment : ModListFragment() {
 
                 mData.add(ModListItemBean("Minecraft " + entry.key,
                     ModVersionAdapter(SelectedMod(this@DownloadModFragment,
-                        mModItem!!.title, mModApi, mIsModpack, mModsPath), mModDetail, entry.value)
+                        mModItem.title, mModApi, mIsModpack, mModsPath), modDetail, entry.value)
                     )
                 )
             }
@@ -158,21 +158,21 @@ class DownloadModFragment : ModListFragment() {
         mModsPath = viewModel.modsPath
         mParentUIRecyclerView = recyclerViewModel.view
 
-        mModItem?.let { item ->
-            setNameText(item.subTitle ?: item.title)
-            setSubTitleText(item.subTitle?.let { item.title })
-        }
+        mModItem.apply {
+            setNameText(subTitle ?: title)
+            setSubTitleText(subTitle?.let { title })
 
-        mModItem?.imageUrl?.apply {
-            ImageUtils.loadDrawableFromUrl(fragmentActivity!!, this, object : UrlImageCallback {
-                override fun onImageLoaded(drawable: Drawable?, url: String) {
-                    setIcon(drawable)
-                }
+            imageUrl?.apply {
+                ImageUtils.loadDrawableFromUrl(fragmentActivity!!, this, object : UrlImageCallback {
+                    override fun onImageLoaded(drawable: Drawable?, url: String) {
+                        setIcon(drawable)
+                    }
 
-                override fun onImageCleared(placeholder: Drawable?, url: String) {
-                    setIcon(placeholder)
-                }
-            })
+                    override fun onImageCleared(placeholder: Drawable?, url: String) {
+                        setIcon(placeholder)
+                    }
+                })
+            }
         }
     }
 }

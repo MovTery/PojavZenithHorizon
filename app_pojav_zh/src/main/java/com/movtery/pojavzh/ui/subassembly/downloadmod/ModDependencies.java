@@ -5,9 +5,10 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.movtery.pojavzh.feature.mod.item.ModItem;
+
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
 
 public class ModDependencies implements Comparable<ModDependencies> {
     public ModItem item;
@@ -33,10 +34,9 @@ public class ModDependencies implements Comparable<ModDependencies> {
                 return DependencyType.TOOL;
             case "6":
                 return DependencyType.INCLUDE;
-
-            default:
             case "required":
             case "3":
+            default:
                 return DependencyType.REQUIRED;
         }
     }
@@ -68,7 +68,7 @@ public class ModDependencies implements Comparable<ModDependencies> {
     @Override
     public String toString() {
         return "ModDependencies{" +
-                "item=" + item.title +
+                "item=" + item.getTitle() +
                 ", dependencyType=" + dependencyType +
                 '}';
     }

@@ -3,12 +3,12 @@ package net.kdt.pojavlaunch.modloaders.modpacks.api;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager;
 import com.movtery.pojavzh.feature.log.Logging;
+import com.movtery.pojavzh.feature.mod.item.ModDetail;
 import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
 import com.movtery.pojavzh.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
 import net.kdt.pojavlaunch.progresskeeper.DownloaderProgressWrapper;
 import net.kdt.pojavlaunch.utils.DownloadUtils;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
@@ -43,7 +43,7 @@ public class ModpackInstaller {
 
 
     public static ModLoader installModpack(ModDetail modDetail, ModVersionItem modVersionItem, ModpackInstaller. InstallFunction installFunction) throws IOException {
-        String modpackName = modDetail.title.toLowerCase(Locale.ROOT).trim().replace(" ", "_" );
+        String modpackName = modDetail.getTitle().toLowerCase(Locale.ROOT).trim().replace(" ", "_" );
 
         // Build a new minecraft instance, folder first
 
@@ -76,9 +76,9 @@ public class ModpackInstaller {
         // Create the instance
         MinecraftProfile profile = new MinecraftProfile();
         profile.gameDir = "./custom_instances/" + modpackName;
-        profile.name = modDetail.title;
+        profile.name = modDetail.getTitle();
         profile.lastVersionId = modLoaderInfo.getVersionId();
-        profile.icon = ModPackUtils.getIcon(modDetail.imageUrl);
+        profile.icon = ModPackUtils.getIcon(modDetail.getImageUrl());
 
         LauncherProfiles.mainProfileJson.profiles.put(modpackName, profile);
         LauncherProfiles.write(ProfilePathManager.getCurrentProfile());

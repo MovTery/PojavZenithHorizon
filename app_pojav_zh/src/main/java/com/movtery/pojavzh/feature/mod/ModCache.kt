@@ -1,8 +1,8 @@
 package com.movtery.pojavzh.feature.mod
 
+import com.movtery.pojavzh.feature.mod.item.ModItem
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi
-import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem
 
 class ModCache {
     abstract class CacheBase<V> {

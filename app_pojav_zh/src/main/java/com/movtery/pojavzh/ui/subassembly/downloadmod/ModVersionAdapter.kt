@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.movtery.anim.animations.Animations
+import com.movtery.pojavzh.feature.mod.item.ModDetail
 import com.movtery.pojavzh.ui.dialog.EditTextDialog
 import com.movtery.pojavzh.ui.dialog.ModDependenciesDialog
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies.SelectedMod
@@ -19,10 +20,12 @@ import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.databinding.ItemModVersionBinding
-import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener
+import java.util.Comparator
+import java.util.Locale
 import java.util.StringJoiner
+import java.util.TimeZone
 
 class ModVersionAdapter(
     private val mod: SelectedMod,
@@ -33,6 +36,11 @@ class ModVersionAdapter(
 
     init {
         ProgressKeeper.addTaskCountListener(this)
+        mData?.sortedWith(object : Comparator<ModVersionItem> { //按照日期进行一波排序
+            override fun compare(o1: ModVersionItem, o2: ModVersionItem): Int {
+                return o1.fileDate.compareTo(o2.fileDate)
+            }
+        })
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InnerHolder {
@@ -64,6 +72,10 @@ class ModVersionAdapter(
                 formatNumberWithUnit(modVersionItem.download.toLong(), ZHTools.isEnglish(context))
             )
             binding.downloadCountTextview.text = downloadCountText
+
+            val dateText = StringUtils.formatDate(modVersionItem.fileDate, Locale.getDefault(),
+                TimeZone.getDefault())
+            binding.dateTextview.text = dateText
 
             val sj = StringJoiner(", ")
             for (modloader in modVersionItem.modloaders) {

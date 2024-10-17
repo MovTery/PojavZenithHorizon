@@ -4,13 +4,13 @@ import androidx.annotation.NonNull;
 
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.feature.mod.ModFilters;
+import com.movtery.pojavzh.feature.mod.item.ModDetail;
+import com.movtery.pojavzh.feature.mod.item.ModItem;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.Constants;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchResult;
 
 import java.io.IOException;
@@ -37,7 +37,7 @@ public class CommonApi implements ModpackApi {
     @Override
     public String getWebUrl(ModItem item) {
         if (item == null) return null;
-        return getModpackApi(item.apiSource).getWebUrl(item);
+        return getModpackApi(item.getApiSource()).getWebUrl(item);
     }
 
     @Override
@@ -112,13 +112,13 @@ public class CommonApi implements ModpackApi {
 
     @Override
     public ModDetail getModDetails(ModItem item, boolean force) {
-        Logging.i("CommonApi", "Invoking getModDetails on item.apiSource=" + item.apiSource + " item.title=" + item.title);
-        return getModpackApi(item.apiSource).getModDetails(item, force);
+        Logging.i("CommonApi", "Invoking getModDetails on item.apiSource=" + item.getApiSource() + " item.title=" + item.getTitle());
+        return getModpackApi(item.getApiSource()).getModDetails(item, force);
     }
 
     @Override
     public ModLoader installMod(boolean isModPack, String modsPath, String modFileName, ModDetail modDetail, ModVersionItem modVersionItem) throws IOException {
-        return getModpackApi(modDetail.apiSource).installMod(isModPack, modsPath, modFileName, modDetail, modVersionItem);
+        return getModpackApi(modDetail.getApiSource()).installMod(isModPack, modsPath, modFileName, modDetail, modVersionItem);
     }
 
     private @NonNull ModpackApi getModpackApi(int apiSource) {

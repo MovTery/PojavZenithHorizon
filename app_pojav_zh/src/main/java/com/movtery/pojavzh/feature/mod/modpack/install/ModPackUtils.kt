@@ -95,7 +95,7 @@ class ModPackUtils {
         }
 
         @JvmStatic
-        fun getIcon(imageUrl: String): String? {
+        fun getIcon(imageUrl: String?): String? {
             runCatching {
                 val context = PojavApplication.getContext()
                 val futureTarget: FutureTarget<Bitmap> = Glide.with(context)

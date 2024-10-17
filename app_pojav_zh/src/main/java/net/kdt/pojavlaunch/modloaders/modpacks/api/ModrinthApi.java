@@ -11,6 +11,8 @@ import com.movtery.pojavzh.feature.mod.ModFilters;
 import com.movtery.pojavzh.feature.mod.ModLoaderList;
 import com.movtery.pojavzh.feature.mod.ModMirror;
 import com.movtery.pojavzh.feature.mod.SearchModSort;
+import com.movtery.pojavzh.feature.mod.item.ModDetail;
+import com.movtery.pojavzh.feature.mod.item.ModItem;
 import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
 import com.movtery.pojavzh.feature.mod.modpack.install.OnInstallStartListener;
 import com.movtery.pojavzh.feature.mod.translate.ModPackTranslateManager;
@@ -23,8 +25,6 @@ import com.movtery.pojavzh.utils.ZHTools;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.Constants;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModrinthIndex;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchResult;
 import net.kdt.pojavlaunch.progresskeeper.DownloaderProgressWrapper;
@@ -50,7 +50,7 @@ public class ModrinthApi implements ModpackApi{
 
     @Override
     public String getWebUrl(ModItem item) {
-        return "https://modrinth.com/"+ (item.isModpack ? "modpack" : "mod") + "/" + item.id;
+        return "https://modrinth.com/"+ (item.isModpack() ? "modpack" : "mod") + "/" + item.getId();
     }
 
     @Override
@@ -151,9 +151,9 @@ public class ModrinthApi implements ModpackApi{
 
     @Override
     public ModDetail getModDetails(ModItem item, boolean force) {
-        if (!force && ModCache.ModInfoCache.INSTANCE.containsKey(this, item.id)) return new ModDetail(item, ModCache.ModInfoCache.INSTANCE.get(this, item.id));
+        if (!force && ModCache.ModInfoCache.INSTANCE.containsKey(this, item.getId())) return new ModDetail(item, ModCache.ModInfoCache.INSTANCE.get(this, item.getId()));
 
-        JsonArray response = mApiHandler.get(String.format("project/%s/version", item.id), JsonArray.class);
+        JsonArray response = mApiHandler.get(String.format("project/%s/version", item.getId()), JsonArray.class);
         if (response == null) return null;
 
         List<ModVersionItem> modItems = new ArrayList<>();
@@ -176,7 +176,7 @@ public class ModrinthApi implements ModpackApi{
             //获取依赖Mod信息
             JsonArray dependencies = version.get("dependencies").getAsJsonArray();
             List<ModDependencies> modDependencies = new ArrayList<>();
-            if (!item.isModpack && dependencies.size() != 0) {
+            if (!item.isModpack() && dependencies.size() != 0) {
                 for (JsonElement dependency : dependencies) {
                     JsonObject object = dependency.getAsJsonObject();
                     String projectId = object.get("project_id").getAsString();
@@ -198,7 +198,7 @@ public class ModrinthApi implements ModpackApi{
                             String iconUrl = fetchIconUrl(hit);
 
                             String title = hit.get("title").getAsString();
-                            String subTitle = getSubTitle(title, item.isModpack);
+                            String subTitle = getSubTitle(title, item.isModpack());
 
                             ModCache.ModItemCache.INSTANCE.put(this, projectId, new ModItem(
                                     Constants.SOURCE_MODRINTH,
@@ -220,13 +220,21 @@ public class ModrinthApi implements ModpackApi{
                 }
             }
 
-            modItems.add(new ModVersionItem(mcVersionsArray, filename, name,
-                    modloaderList.toArray(new ModLoaderList.ModLoader[0]), modDependencies,
-                    VersionType.getVersionType(versionTypeString), hash,
-                    version.get("downloads").getAsInt(), downloadUrl));
+            modItems.add(new ModVersionItem(
+                    mcVersionsArray,
+                    filename,
+                    name,
+                    modloaderList.toArray(new ModLoaderList.ModLoader[0]),
+                    modDependencies,
+                    VersionType.getVersionType(versionTypeString),
+                    hash,
+                    version.get("downloads").getAsInt(),
+                    downloadUrl,
+                    ZHTools.getDate(version.get("date_published").getAsString())
+            ));
         }
 
-        ModCache.ModInfoCache.INSTANCE.put(this, item.id, modItems);
+        ModCache.ModInfoCache.INSTANCE.put(this, item.getId(), modItems);
         return new ModDetail(item, modItems);
     }
 

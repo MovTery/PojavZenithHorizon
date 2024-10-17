@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.flexbox.FlexboxLayout;
 import com.movtery.pojavzh.feature.mod.ModCategory;
 import com.movtery.pojavzh.feature.mod.ModLoaderList;
+import com.movtery.pojavzh.feature.mod.item.ModItem;
 import com.movtery.pojavzh.ui.fragment.DownloadModFragment;
 import com.movtery.pojavzh.ui.subassembly.viewmodel.ModApiViewModel;
 import com.movtery.pojavzh.utils.NumberWithUnits;
@@ -27,7 +28,6 @@ import com.movtery.pojavzh.utils.stringutils.StringUtils;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.databinding.ItemModDependenciesBinding;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.Constants;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
 
 import java.util.List;
 import java.util.Objects;
@@ -101,19 +101,19 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
 
             binding.thumbnailImageview.setImageDrawable(null);
 
-            binding.sourceImageview.setImageResource(getSourceDrawable(item.apiSource));
+            binding.sourceImageview.setImageResource(getSourceDrawable(item.getApiSource()));
 
-            if (item.subTitle != null) {
+            if (item.getSubTitle() != null) {
                 binding.subtitleTextview.setVisibility(View.VISIBLE);
-                binding.titleTextview.setText(item.subTitle);
-                binding.subtitleTextview.setText(item.title);
+                binding.titleTextview.setText(item.getSubTitle());
+                binding.subtitleTextview.setText(item.getTitle());
             } else {
                 binding.subtitleTextview.setVisibility(View.GONE);
-                binding.titleTextview.setText(item.title);
+                binding.titleTextview.setText(item.getTitle());
             }
 
             binding.categoriesLayout.removeAllViews();
-            for (ModCategory.Category category : item.categories) {
+            for (ModCategory.Category category : item.getCategories()) {
                 addCategoryView(context, binding.categoriesLayout, context.getString(category.getResNameID()));
             }
 
@@ -121,15 +121,15 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
             String dependencies = StringUtils.insertSpace(fragmentActivity.getString(R.string.profile_mods_information_dependencies),
                     ModDependencies.getTextFromType(fragmentActivity, modVersionItem.dependencyType));
             binding.dependenciesTextview.setText(dependencies);
-            binding.bodyTextview.setText(item.description);
+            binding.bodyTextview.setText(item.getDescription());
 
-            String downloaderCount = StringUtils.insertSpace(fragmentActivity.getString(R.string.profile_mods_information_download_count), NumberWithUnits.formatNumberWithUnit(item.downloadCount,
+            String downloaderCount = StringUtils.insertSpace(fragmentActivity.getString(R.string.profile_mods_information_download_count), NumberWithUnits.formatNumberWithUnit(item.getDownloadCount(),
                     //判断当前系统语言是否为英文
                     ZHTools.isEnglish(fragmentActivity)));
             binding.downloadCountTextview.setText(downloaderCount);
 
             StringJoiner sj = new StringJoiner(", ");
-            for (ModLoaderList.ModLoader modloader : item.modloaders) {
+            for (ModLoaderList.ModLoader modloader : item.getModloaders()) {
                 sj.add(modloader.getLoaderName());
             }
             String modloaderText;
@@ -170,16 +170,16 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
         }
 
         public void setItemShow(boolean b) {
-            if (b && item.imageUrl != null) {
-                ImageUtils.loadDrawableFromUrl(context, item.imageUrl, new UrlImageCallback() {
+            if (b && item.getImageUrl() != null) {
+                ImageUtils.loadDrawableFromUrl(context, item.getImageUrl(), new UrlImageCallback() {
                     @Override
                     public void onImageCleared(@Nullable Drawable placeholder, @NonNull String url) {
-                        if (Objects.equals(item.imageUrl, url)) binding.thumbnailImageview.setImageDrawable(placeholder);
+                        if (Objects.equals(item.getImageUrl(), url)) binding.thumbnailImageview.setImageDrawable(placeholder);
                     }
 
                     @Override
                     public void onImageLoaded(@Nullable Drawable drawable, @NonNull String url) {
-                        if (Objects.equals(item.imageUrl, url)) binding.thumbnailImageview.setImageDrawable(drawable);
+                        if (Objects.equals(item.getImageUrl(), url)) binding.thumbnailImageview.setImageDrawable(drawable);
                     }
                 });
             }

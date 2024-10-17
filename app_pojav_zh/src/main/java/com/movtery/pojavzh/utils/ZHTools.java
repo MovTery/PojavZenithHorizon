@@ -35,6 +35,7 @@ import net.kdt.pojavlaunch.Tools;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Locale;
@@ -165,6 +166,11 @@ public final class ZHTools {
         else status = context.getString(R.string.about_version_status_debug);
 
         return "[" + branch + "] " + status;
+    }
+
+    public static Date getDate(String dateString) {
+        Instant instant = Instant.parse(dateString);
+        return Date.from(instant);
     }
 
     public static boolean checkDate(int month, int day) {

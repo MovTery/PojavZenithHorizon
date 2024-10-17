@@ -4,13 +4,13 @@ import android.content.Context;
 
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.feature.mod.ModFilters;
+import com.movtery.pojavzh.feature.mod.item.ModDetail;
+import com.movtery.pojavzh.feature.mod.item.ModItem;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchResult;
 
 import java.io.IOException;

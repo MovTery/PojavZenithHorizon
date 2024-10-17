@@ -51,7 +51,20 @@
             android:singleLine="true"
             android:text="Downloads: "
             android:textColor="@color/primary_text"
-            android:textSize="12sp"
+            android:textSize="11sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/date_textview"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:gravity="center_horizontal"
+            android:text="Date: "
+            android:textColor="@color/primary_text"
+            android:textSize="11sp"
             tools:ignore="HardcodedText" />
 
         <TextView
@@ -61,9 +74,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:singleLine="true"
+            android:gravity="center_horizontal"
             android:text="Forge"
             android:textColor="@color/primary_text"
-            android:textSize="12sp"
+            android:textSize="11sp"
             tools:ignore="HardcodedText" />
 
         <TextView
@@ -73,9 +87,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:singleLine="true"
+            android:gravity="center_horizontal"
             android:text="Release"
             android:textColor="@color/primary_text"
-            android:textSize="12sp"
+            android:textSize="11sp"
             tools:ignore="HardcodedText" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

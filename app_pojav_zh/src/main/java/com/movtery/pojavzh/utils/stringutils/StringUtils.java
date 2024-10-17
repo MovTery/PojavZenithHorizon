@@ -16,8 +16,12 @@ import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.Locale;
 import java.util.StringJoiner;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -109,6 +113,12 @@ public class StringUtils {
         int Z = time.indexOf('Z');
         if (T == -1 || Z == -1) return time;
         return StringUtils.insertSpace(time.substring(0, T), time.substring(T + 1, Z));
+    }
+
+    public static String formatDate(Date date, Locale locale, TimeZone timeZone) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", locale);
+        formatter.setTimeZone(timeZone);
+        return formatter.format(date);
     }
 
     public static String markdownToHtml(String markdown) {
