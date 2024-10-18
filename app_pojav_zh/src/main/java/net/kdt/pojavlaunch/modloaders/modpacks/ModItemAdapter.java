@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.flexbox.FlexboxLayout;
 import com.movtery.pojavzh.feature.mod.ModCategory;
 import com.movtery.pojavzh.feature.mod.ModFilters;
@@ -26,7 +27,6 @@ import com.movtery.pojavzh.utils.NumberWithUnits;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import com.movtery.pojavzh.utils.ZHTools;
-import com.movtery.pojavzh.utils.image.ImageUtils;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
@@ -260,7 +260,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public void setItemShow(boolean b) {
             String url = item.getImageUrl();
             if (b && url != null) {
-                ImageUtils.loadImageFromUrl(context, url, mIconView);
+                Glide.with(context).load(url).into(mIconView);
             }
         }
     }

@@ -1,9 +1,6 @@
 package com.movtery.pojavzh.utils.image
 
-import android.content.Context
 import android.graphics.BitmapFactory
-import android.widget.ImageView
-import com.bumptech.glide.Glide
 import java.io.File
 import kotlin.math.min
 
@@ -47,22 +44,6 @@ class ImageUtils {
             val newHeight = (imageHeight * ratio).toInt()
 
             return Dimension(newWidth, newHeight)
-        }
-
-        /**
-         * 通过链接将图片加载到ImageView
-         * @param url 有效的图片链接
-         */
-        @JvmStatic
-        fun loadImageFromUrl(context: Context, url: String, imageView: ImageView) {
-            val rm = Glide.with(context)
-            if (url.endsWith(".gif", true)) {
-                rm.asGif().load(url)
-                    .into(imageView)
-            } else {
-                rm.load(url)
-                    .into(imageView)
-            }
         }
     }
 }

@@ -3,6 +3,7 @@ package com.movtery.pojavzh.ui.fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.feature.mod.item.ModDetail
 import com.movtery.pojavzh.feature.mod.item.ModItem
@@ -15,7 +16,6 @@ import com.movtery.pojavzh.ui.subassembly.modlist.ModListItemBean
 import com.movtery.pojavzh.ui.subassembly.viewmodel.ModApiViewModel
 import com.movtery.pojavzh.ui.subassembly.viewmodel.RecyclerViewModel
 import com.movtery.pojavzh.utils.MCVersionRegex.Companion.RELEASE_REGEX
-import com.movtery.pojavzh.utils.image.ImageUtils
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi
@@ -161,7 +161,7 @@ class DownloadModFragment : ModListFragment() {
             setSubTitleText(subTitle?.let { title })
 
             imageUrl?.apply {
-                ImageUtils.loadImageFromUrl(fragmentActivity!!, this, getIconView())
+                Glide.with(fragmentActivity!!).load(this).into(getIconView())
             }
         }
     }
