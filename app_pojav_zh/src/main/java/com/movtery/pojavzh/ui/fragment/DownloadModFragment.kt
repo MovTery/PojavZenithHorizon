@@ -1,6 +1,5 @@
 package com.movtery.pojavzh.ui.fragment
 
-import android.graphics.drawable.Drawable
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +16,6 @@ import com.movtery.pojavzh.ui.subassembly.viewmodel.ModApiViewModel
 import com.movtery.pojavzh.ui.subassembly.viewmodel.RecyclerViewModel
 import com.movtery.pojavzh.utils.MCVersionRegex.Companion.RELEASE_REGEX
 import com.movtery.pojavzh.utils.image.ImageUtils
-import com.movtery.pojavzh.utils.image.UrlImageCallback
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi
@@ -163,15 +161,7 @@ class DownloadModFragment : ModListFragment() {
             setSubTitleText(subTitle?.let { title })
 
             imageUrl?.apply {
-                ImageUtils.loadDrawableFromUrl(fragmentActivity!!, this, object : UrlImageCallback {
-                    override fun onImageLoaded(drawable: Drawable?, url: String) {
-                        setIcon(drawable)
-                    }
-
-                    override fun onImageCleared(placeholder: Drawable?, url: String) {
-                        setIcon(placeholder)
-                    }
-                })
+                ImageUtils.loadImageFromUrl(fragmentActivity!!, this, getIconView())
             }
         }
     }

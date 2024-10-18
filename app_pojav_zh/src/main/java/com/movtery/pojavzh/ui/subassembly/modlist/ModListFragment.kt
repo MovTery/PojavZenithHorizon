@@ -151,6 +151,8 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
         binding.icon.setImageDrawable(icon)
     }
 
+    protected fun getIconView() = binding.icon
+
     protected fun setReleaseCheckBoxGone() {
         releaseCheckBoxVisible = false
         binding.releaseVersion.visibility = View.GONE

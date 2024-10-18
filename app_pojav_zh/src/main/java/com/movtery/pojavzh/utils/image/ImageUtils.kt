@@ -2,10 +2,8 @@ package com.movtery.pojavzh.utils.image
 
 import android.content.Context
 import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
+import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
 import java.io.File
 import kotlin.math.min
 
@@ -52,26 +50,19 @@ class ImageUtils {
         }
 
         /**
-         * 通过链接获取图片
+         * 通过链接将图片加载到ImageView
          * @param url 有效的图片链接
-         * @param callback 加载完成后，通过接口回调使用，同时返还传入时的url，以作识别
          */
         @JvmStatic
-        fun loadDrawableFromUrl(context: Context, url: String, callback: UrlImageCallback) {
-            Glide.with(context)
-                .load(url)
-                .into(object : CustomTarget<Drawable?>() {
-                    override fun onResourceReady(
-                        resource: Drawable,
-                        transition: Transition<in Drawable?>?
-                    ) {
-                        callback.onImageLoaded(resource, url)
-                    }
-
-                    override fun onLoadCleared(placeholder: Drawable?) {
-                        callback.onImageCleared(placeholder, url)
-                    }
-                })
+        fun loadImageFromUrl(context: Context, url: String, imageView: ImageView) {
+            val rm = Glide.with(context)
+            if (url.endsWith(".gif", true)) {
+                rm.asGif().load(url)
+                    .into(imageView)
+            } else {
+                rm.load(url)
+                    .into(imageView)
+            }
         }
     }
 }

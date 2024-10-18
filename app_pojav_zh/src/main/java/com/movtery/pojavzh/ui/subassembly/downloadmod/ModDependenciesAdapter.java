@@ -1,14 +1,12 @@
 package com.movtery.pojavzh.ui.subassembly.downloadmod;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +20,6 @@ import com.movtery.pojavzh.ui.subassembly.viewmodel.ModApiViewModel;
 import com.movtery.pojavzh.utils.NumberWithUnits;
 import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.image.ImageUtils;
-import com.movtery.pojavzh.utils.image.UrlImageCallback;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
@@ -30,7 +27,6 @@ import net.kdt.pojavlaunch.databinding.ItemModDependenciesBinding;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.Constants;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.concurrent.Future;
 
@@ -170,18 +166,9 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
         }
 
         public void setItemShow(boolean b) {
-            if (b && item.getImageUrl() != null) {
-                ImageUtils.loadDrawableFromUrl(context, item.getImageUrl(), new UrlImageCallback() {
-                    @Override
-                    public void onImageCleared(@Nullable Drawable placeholder, @NonNull String url) {
-                        if (Objects.equals(item.getImageUrl(), url)) binding.thumbnailImageview.setImageDrawable(placeholder);
-                    }
-
-                    @Override
-                    public void onImageLoaded(@Nullable Drawable drawable, @NonNull String url) {
-                        if (Objects.equals(item.getImageUrl(), url)) binding.thumbnailImageview.setImageDrawable(drawable);
-                    }
-                });
+            String url = item.getImageUrl();
+            if (b && url != null) {
+                ImageUtils.loadImageFromUrl(context, url, binding.thumbnailImageview);
             }
         }
     }
