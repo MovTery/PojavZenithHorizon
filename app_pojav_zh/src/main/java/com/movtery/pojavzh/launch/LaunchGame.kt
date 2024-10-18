@@ -1,31 +1,101 @@
 package com.movtery.pojavzh.launch
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
+import com.movtery.pojavzh.feature.accounts.AccountUtils
+import com.movtery.pojavzh.feature.accounts.AccountsManager
 import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.setting.AllSettings
 import com.movtery.pojavzh.ui.dialog.LifecycleAwareTipDialog
 import com.movtery.pojavzh.ui.dialog.TipDialog
+import com.movtery.pojavzh.utils.ZHTools
+import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.Architecture
+import net.kdt.pojavlaunch.JMinecraftVersionList
+import net.kdt.pojavlaunch.Logger
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.multirt.MultiRTUtils
 import net.kdt.pojavlaunch.plugins.FFmpegPlugin
+import net.kdt.pojavlaunch.services.GameService.LocalBinder
 import net.kdt.pojavlaunch.utils.JREUtils
 import net.kdt.pojavlaunch.utils.OldVersionsUtils
 import net.kdt.pojavlaunch.value.MinecraftAccount
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile
-import kotlin.jvm.Throws
 
 class LaunchGame {
     companion object {
         @Throws(Throwable::class)
         @JvmStatic
-        fun launch(activity: AppCompatActivity,
-                   account: MinecraftAccount,
-                   minecraftProfile: MinecraftProfile,
-                   versionId: String,
-                   versionJavaRequirement: Int) {
+        fun runGame(activity: AppCompatActivity, serverBinder: LocalBinder, minecraftProfile: MinecraftProfile, versionID: String, version: JMinecraftVersionList.Version) {
+            Tools.LOCAL_RENDERER ?: run { Tools.LOCAL_RENDERER = AllSettings.renderer }
+
+            if (!Tools.checkRendererCompatible(activity, Tools.LOCAL_RENDERER)) {
+                val renderersList = Tools.getCompatibleRenderers(activity)
+                val firstCompatibleRenderer = renderersList.rendererIds[0]
+                Logging.w("runGame", "Incompatible renderer ${Tools.LOCAL_RENDERER} will be replaced with $firstCompatibleRenderer")
+                Tools.LOCAL_RENDERER = firstCompatibleRenderer
+                Tools.releaseCache()
+            }
+
+            val customArgs = minecraftProfile.javaArgs?.takeIf { it.isNotBlank() }
+                ?: AllSettings.javaArgs?.takeIf { it.isNotBlank() }
+                ?: ""
+            val account = AccountsManager.getInstance().currentAccount
+            printLauncherInfo(
+                versionID,
+                customArgs.takeIf { it.isNotBlank() } ?: "NONE",
+                minecraftProfile.javaDir ?: AllSettings.defaultRuntime?.takeIf { it.isNotBlank() } ?: "NONE",
+                account
+            )
+            JREUtils.redirectAndPrintJRELog()
+            LauncherProfiles.load()
+
+            val requiredJavaVersion = version.javaVersion?.majorVersion ?: 8
+            launch(activity, account, minecraftProfile, versionID, requiredJavaVersion, customArgs)
+            //Note that we actually stall in the above function, even if the game crashes. But let's be safe.
+            activity.runOnUiThread { serverBinder.isActive = false }
+        }
+
+        private fun printLauncherInfo(
+            gameVersion: String,
+            javaArguments: String,
+            javaRuntime: String,
+            account: MinecraftAccount
+        ) {
+            fun formatJavaRuntimeString(): String {
+                val prefix = Tools.LAUNCHERPROFILES_RTPREFIX
+                return if (javaRuntime.startsWith(prefix)) javaRuntime.removePrefix(prefix)
+                else javaRuntime
+            }
+            fun getLoginType(): String {
+                return if (account.isMicrosoft) "Microsoft"
+                else if (AccountUtils.isOtherLoginAccount(account)) "Other"
+                else "Local"
+            }
+
+            Logger.appendToLog("--------- Start launching the game")
+            Logger.appendToLog("Info: Launcher version: ${ZHTools.getVersionName()} (${ZHTools.getVersionCode()})")
+            Logger.appendToLog("Info: Architecture: ${Architecture.archAsString(Tools.DEVICE_ARCHITECTURE)}")
+            Logger.appendToLog("Info: Device model: ${StringUtils.insertSpace(Build.MANUFACTURER, Build.MODEL)}")
+            Logger.appendToLog("Info: API version: ${Build.VERSION.SDK_INT}")
+            Logger.appendToLog("Info: Selected Minecraft version: $gameVersion")
+            Logger.appendToLog("Info: Custom Java arguments: $javaArguments")
+            Logger.appendToLog("Info: Java Runtime: ${formatJavaRuntimeString()}")
+            Logger.appendToLog("Info: Account: ${account.username} (${getLoginType()})")
+        }
+
+        @Throws(Throwable::class)
+        @JvmStatic
+        private fun launch(
+            activity: AppCompatActivity,
+            account: MinecraftAccount,
+            minecraftProfile: MinecraftProfile,
+            versionId: String,
+            versionJavaRequirement: Int,
+            customArgs: String
+        ) {
             checkMemory(activity)
 
             val runtime = MultiRTUtils.forceReread(
@@ -52,9 +122,6 @@ class LaunchGame {
                 runtime,
                 launchClassPath
             ).getAllArgs()
-            val customArgs = minecraftProfile.javaArgs?.takeIf { it.isNotBlank() }
-                ?: AllSettings.javaArgs?.takeIf { it.isNotBlank() }
-                ?: ""
 
             FFmpegPlugin.discover(activity)
             JREUtils.launchJavaVM(activity, runtime, gameDirPath, launchArgs, customArgs)

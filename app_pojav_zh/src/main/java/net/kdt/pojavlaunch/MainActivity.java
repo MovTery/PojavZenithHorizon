@@ -1,7 +1,5 @@
 package net.kdt.pojavlaunch;
 
-import static com.movtery.pojavzh.utils.ZHTools.getVersionCode;
-import static com.movtery.pojavzh.utils.ZHTools.getVersionName;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
 import static org.lwjgl.glfw.CallbackBridge.sendKeyPress;
 import static org.lwjgl.glfw.CallbackBridge.windowHeight;
@@ -19,7 +17,6 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.DocumentsContract;
@@ -36,7 +33,6 @@ import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.movtery.pojavzh.feature.ProfileLanguageSelector;
-import com.movtery.pojavzh.feature.accounts.AccountsManager;
 import com.movtery.pojavzh.feature.background.BackgroundManager;
 import com.movtery.pojavzh.feature.background.BackgroundType;
 import com.movtery.pojavzh.feature.log.Logging;
@@ -72,9 +68,7 @@ import net.kdt.pojavlaunch.databinding.ActivityBasemainBinding;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.services.GameService;
-import net.kdt.pojavlaunch.utils.JREUtils;
 import net.kdt.pojavlaunch.utils.MCOptionUtils;
-import net.kdt.pojavlaunch.value.MinecraftAccount;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
@@ -230,9 +224,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                     if (AllSettings.Companion.getVirtualMouseStart()) {
                         binding.mainTouchpad.post(() -> binding.mainTouchpad.switchState());
                     }
-
-                    runCraft(finalVersion, mVersionInfo);
-                }catch (Throwable e){
+                    LaunchGame.runGame(this, mServiceBinder, minecraftProfile, finalVersion, mVersionInfo);
+                } catch (Throwable e) {
                     Tools.showErrorRemote(e);
                 }
             });
@@ -368,39 +361,6 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     @Override
     public boolean shouldIgnoreNotch() {
         return AllSettings.Companion.getIgnoreNotch();
-    }
-
-    private void runCraft(String versionId, JMinecraftVersionList.Version version) throws Throwable {
-        if(Tools.LOCAL_RENDERER == null) {
-            Tools.LOCAL_RENDERER = AllSettings.Companion.getRenderer();
-        }
-        if(!Tools.checkRendererCompatible(this, Tools.LOCAL_RENDERER)) {
-            Tools.RenderersList renderersList = Tools.getCompatibleRenderers(this);
-            String firstCompatibleRenderer = renderersList.rendererIds.get(0);
-            Logging.w("runCraft","Incompatible renderer "+Tools.LOCAL_RENDERER+ " will be replaced with "+firstCompatibleRenderer);
-            Tools.LOCAL_RENDERER = firstCompatibleRenderer;
-            Tools.releaseCache();
-        }
-        MinecraftAccount minecraftAccount = AccountsManager.getInstance().getCurrentAccount();
-        Logger.appendToLog("--------- beginning with launcher debug");
-        printLauncherInfo(versionId, Tools.isValidString(minecraftProfile.javaArgs) ? minecraftProfile.javaArgs : AllSettings.Companion.getJavaArgs(), minecraftProfile.javaDir == null ? "Default" : minecraftProfile.javaDir);
-        JREUtils.redirectAndPrintJRELog();
-        LauncherProfiles.load();
-        int requiredJavaVersion = 8;
-        if(version.javaVersion != null) requiredJavaVersion = version.javaVersion.majorVersion;
-        LaunchGame.launch(this, minecraftAccount, minecraftProfile, versionId, requiredJavaVersion);
-        //Note that we actually stall in the above function, even if the game crashes. But let's be safe.
-        Tools.runOnUiThread(()-> mServiceBinder.isActive = false);
-    }
-
-    private void printLauncherInfo(String gameVersion, String javaArguments, String javaRuntime) {
-        Logger.appendToLog("Info: Launcher version: " + getVersionName() + " (" + getVersionCode() + ")");
-        Logger.appendToLog("Info: Architecture: " + Architecture.archAsString(Tools.DEVICE_ARCHITECTURE));
-        Logger.appendToLog("Info: Device model: " + StringUtils.insertSpace(Build.MANUFACTURER, Build.MODEL));
-        Logger.appendToLog("Info: API version: " + Build.VERSION.SDK_INT);
-        Logger.appendToLog("Info: Selected Minecraft version: " + gameVersion);
-        Logger.appendToLog("Info: Custom Java arguments: \"" + javaArguments + "\"");
-        Logger.appendToLog("Info: Java Runtime: " + (javaRuntime.startsWith("pojav://") ? javaRuntime.substring(Tools.LAUNCHERPROFILES_RTPREFIX.length()) : javaRuntime));
     }
 
     private void dialogSendCustomKey() {
