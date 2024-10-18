@@ -38,7 +38,7 @@
                 android:paddingHorizontal="@dimen/_8sdp"
                 android:paddingVertical="@dimen/_4sdp"
                 android:scrollbars="vertical"
-                android:scrollbarThumbVertical="@color/scrollbar_color"
+                android:scrollbarThumbVertical="@color/background_menu_element"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
