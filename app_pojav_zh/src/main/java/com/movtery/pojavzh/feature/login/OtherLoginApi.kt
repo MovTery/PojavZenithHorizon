@@ -35,7 +35,7 @@ object OtherLoginApi {
             return
         }
         val agent = AuthRequest.Agent().apply {
-            this.name = "Client"
+            this.name = "Minecraft"
             this.version = 1.0
         }
         val authRequest = AuthRequest().apply {
@@ -81,17 +81,22 @@ object OtherLoginApi {
                 val result = Gson().fromJson(res, AuthResult::class.java)
                 listener.onSuccess(result)
             } else {
-                var errorMessage: String? = null
+                lateinit var errorMessage: String
                 runCatching {
                     res?.apply {
                         val jsonObject = JSONObject(this)
-                        errorMessage = jsonObject.getString("errorMessage") ?: apply {
-                            if (contains("\\u")) errorMessage = StringEscapeUtils.unescapeJava(replace("\\\\u", "\\u"))
+                        errorMessage = if (jsonObject.has("errorMessage")) {
+                            jsonObject.getString("errorMessage")
+                        } else if (jsonObject.has("message")) {
+                            jsonObject.getString("message")
+                        } else {
+                            throw NoSuchElementException("The error message returned by the server could not be retrieved.")
                         }
+
+                        if (errorMessage.contains("\\u")) errorMessage = StringEscapeUtils.unescapeJava(replace("\\\\u", "\\u"))
                     }
                 }.getOrElse { e -> e("Other Login", Tools.printToString(e)) }
-                listener.onFailed(String.format("(%s) ", response.code) + (errorMessage ?: res)
-                )
+                listener.onFailed("(${response.code}) $errorMessage")
             }
         }
     }
