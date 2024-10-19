@@ -81,20 +81,22 @@ object OtherLoginApi {
                 val result = Gson().fromJson(res, AuthResult::class.java)
                 listener.onSuccess(result)
             } else {
-                lateinit var errorMessage: String
+                var errorMessage: String = res ?: "null"
                 runCatching {
-                    res?.apply {
-                        val jsonObject = JSONObject(this)
-                        errorMessage = if (jsonObject.has("errorMessage")) {
-                            jsonObject.getString("errorMessage")
-                        } else if (jsonObject.has("message")) {
-                            jsonObject.getString("message")
-                        } else {
-                            throw NoSuchElementException("The error message returned by the server could not be retrieved.")
-                        }
+                    if (errorMessage == "null") return@runCatching
 
-                        if (errorMessage.contains("\\u")) errorMessage = StringEscapeUtils.unescapeJava(replace("\\\\u", "\\u"))
+                    val jsonObject = JSONObject(errorMessage)
+                    errorMessage = if (jsonObject.has("errorMessage")) {
+                        jsonObject.getString("errorMessage")
+                    } else if (jsonObject.has("message")) {
+                        jsonObject.getString("message")
+                    } else {
+                        e("Other Login", "The error message returned by the server could not be retrieved.")
+                        return@runCatching
                     }
+
+                    if (errorMessage.contains("\\u"))
+                        errorMessage = StringEscapeUtils.unescapeJava(errorMessage.replace("\\\\u", "\\u"))
                 }.getOrElse { e -> e("Other Login", Tools.printToString(e)) }
                 listener.onFailed("(${response.code}) $errorMessage")
             }
