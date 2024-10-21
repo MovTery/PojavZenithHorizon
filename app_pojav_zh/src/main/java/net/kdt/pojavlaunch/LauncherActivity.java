@@ -303,7 +303,6 @@ public class LauncherActivity extends BaseActivity {
             if (mIsInDownloadFragment) return;
             Fragment fragment = getSupportFragmentManager().findFragmentById(binding.containerFragment.getId());
             if (fragment != null) {
-                EventBus.getDefault().post(new InDownloadFragmentEvent(true));
                 ZHTools.swapFragmentWithAnim(fragment, DownloadFragment.class, DownloadFragment.TAG, null);
             }
         });

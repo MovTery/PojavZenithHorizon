@@ -186,6 +186,7 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download_search), In
     override fun onStart() {
         super.onStart()
         EventBus.getDefault().register(this)
+        EventBus.getDefault().post(InDownloadFragmentEvent(true))
     }
 
     override fun onStop() {
