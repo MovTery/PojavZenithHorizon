@@ -2,17 +2,18 @@ package com.movtery.pojavzh.feature.mod.modpack
 
 import android.content.Context
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager.Companion.currentProfile
+import com.movtery.pojavzh.feature.download.enums.ModLoader
+import com.movtery.pojavzh.feature.download.install.OnInstallStartListener
+import com.movtery.pojavzh.feature.download.item.ModLoaderWrapper
 import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.feature.mod.models.MCBBSPackMeta
 import com.movtery.pojavzh.feature.mod.models.MCBBSPackMeta.MCBBSAddons
 import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils
-import com.movtery.pojavzh.feature.mod.modpack.install.OnInstallStartListener
 import com.movtery.pojavzh.ui.dialog.ProgressDialog
 import com.movtery.pojavzh.utils.file.FileTools.Companion.getFileHashSHA1
 import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
-import net.kdt.pojavlaunch.modloaders.modpacks.api.ModLoader
 import net.kdt.pojavlaunch.utils.FileUtils
 import net.kdt.pojavlaunch.utils.ZipUtils
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles
@@ -29,7 +30,7 @@ class MCBBSModPack(private val context: Context, private val zipFile: File?) {
     private var isCanceled = false
 
     @Throws(IOException::class)
-    fun install(instanceDestination: File, onInstallStartListener: OnInstallStartListener?): ModLoader? {
+    fun install(instanceDestination: File, listener: OnInstallStartListener): ModLoaderWrapper? {
         zipFile?.let {
             ZipFile(this.zipFile).use { modpackZipFile ->
                 val mcbbsPackMeta = Tools.GLOBAL_GSON.fromJson(
@@ -40,7 +41,7 @@ class MCBBSModPack(private val context: Context, private val zipFile: File?) {
                     Logging.i("MCBBSModPack", "manifest verification failed")
                     return null
                 }
-                onInstallStartListener?.onStart()
+                listener.onStart()
 
                 initDialog()
 
@@ -120,10 +121,10 @@ class MCBBSModPack(private val context: Context, private val zipFile: File?) {
         org.apache.commons.io.FileUtils.deleteQuietly(instanceDestination)
     }
 
-    private fun createInfo(addons: Array<MCBBSAddons?>): ModLoader? {
-        var version: String? = ""
-        var modLoader: String? = ""
-        var modLoaderVersion: String? = ""
+    private fun createInfo(addons: Array<MCBBSAddons?>): ModLoaderWrapper? {
+        var version = ""
+        var modLoader = ""
+        var modLoaderVersion = ""
         for (i in 0..addons.size) {
             if (addons[i]!!.id == "game") {
                 version = addons[i]!!.version
@@ -135,13 +136,13 @@ class MCBBSModPack(private val context: Context, private val zipFile: File?) {
                 break
             }
         }
-        val modLoaderTypeInt = when (modLoader) {
-            "forge" -> ModLoader.MOD_LOADER_FORGE
-            "neoforge" -> ModLoader.MOD_LOADER_NEOFORGE
-            "fabric" -> ModLoader.MOD_LOADER_FABRIC
+        val modloader = when (modLoader) {
+            "forge" -> ModLoader.FORGE
+            "neoforge" -> ModLoader.NEOFORGE
+            "fabric" -> ModLoader.FABRIC
             else -> return null
         }
-        return ModLoader(modLoaderTypeInt, modLoaderVersion, version)
+        return ModLoaderWrapper(modloader, modLoaderVersion, version)
     }
 
     companion object {

@@ -30,6 +30,21 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
+            android:id="@+id/download_button"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:background="?attr/selectableItemBackground"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_download"
+            android:scaleX="1.04"
+            android:scaleY="1.04"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/setting_button"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#FFF" />
+
+        <ImageButton
             android:id="@+id/setting_button"
             android:layout_width="@dimen/_50sdp"
             android:layout_height="0dp"
@@ -152,7 +167,7 @@
         app:layout_constraintGuide_percent="0.35"/>
 
     <ImageView
-        android:id="@+id/zh_hair"
+        android:id="@+id/hair"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"

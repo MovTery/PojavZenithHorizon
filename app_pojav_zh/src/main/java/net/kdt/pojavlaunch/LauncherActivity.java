@@ -14,8 +14,6 @@ import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +23,6 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 
 import com.kdt.mcgui.ProgressLayout;
@@ -40,6 +37,7 @@ import com.movtery.pojavzh.feature.accounts.AccountsManager;
 import com.movtery.pojavzh.feature.accounts.LocalAccountUtils;
 import com.movtery.pojavzh.feature.background.BackgroundManager;
 import com.movtery.pojavzh.feature.background.BackgroundType;
+import com.movtery.pojavzh.feature.download.item.ModLoaderWrapper;
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.feature.mod.modpack.install.InstallExtra;
 import com.movtery.pojavzh.feature.mod.modpack.install.InstallLocalModPack;
@@ -48,6 +46,7 @@ import com.movtery.pojavzh.setting.AllSettings;
 import com.movtery.pojavzh.setting.Settings;
 import com.movtery.pojavzh.ui.activity.BaseActivity;
 import com.movtery.pojavzh.ui.dialog.TipDialog;
+import com.movtery.pojavzh.ui.fragment.DownloadFragment;
 import com.movtery.pojavzh.ui.fragment.SelectAuthFragment;
 import com.movtery.pojavzh.ui.fragment.SettingsFragment;
 import com.movtery.pojavzh.ui.subassembly.settingsbutton.ButtonType;
@@ -61,12 +60,12 @@ import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.authenticator.microsoft.MicrosoftBackgroundLogin;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
+import net.kdt.pojavlaunch.databinding.ActivityPojavLauncherBinding;
 import net.kdt.pojavlaunch.fragments.MainMenuFragment;
 import net.kdt.pojavlaunch.fragments.MicrosoftLoginFragment;
 import net.kdt.pojavlaunch.lifecycle.ContextAwareDoneListener;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.modloaders.modpacks.ModloaderInstallTracker;
-import net.kdt.pojavlaunch.modloaders.modpacks.api.ModLoader;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.NotificationDownloadListener;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
@@ -90,23 +89,19 @@ import java.util.concurrent.Future;
 
 public class LauncherActivity extends BaseActivity {
     @SuppressLint("StaticFieldLeak") private static Activity activity;
+    private final AnimPlayer noticeAnimPlayer = new AnimPlayer();
     private final AccountsManager accountsManager = AccountsManager.getInstance();
     public final ActivityResultLauncher<Object> modInstallerLauncher =
             registerForActivityResult(new OpenDocumentWithExtension("jar"), (data)->{
                 if(data != null) Tools.launchModInstaller(this, data);
             });
 
-    private TextView mAppTitle;
-    private FragmentContainerView mFragmentView;
+    private ActivityPojavLauncherBinding binding;
     private SettingsButtonWrapper mSettingsButtonWrapper;
-    private ImageButton mSettingsButton;
-    private ImageView mHair;
-    private ProgressLayout mProgressLayout;
     private ProgressServiceKeeper mProgressServiceKeeper;
     private ModloaderInstallTracker mInstallTracker;
     private NotificationManager mNotificationManager;
-    private final AnimPlayer noticeAnimPlayer = new AnimPlayer();
-    private View noticeLayout;
+    private boolean mIsInDownloadFragment = false;
     private Future<?> checkNotice;
 
     public static Activity getActivity() {
@@ -125,18 +120,6 @@ public class LauncherActivity extends BaseActivity {
         }
     };
 
-    /* Listener for the settings fragment */
-    private final View.OnClickListener mSettingButtonListener = v -> {
-        ViewAnimUtils.setViewAnim(mSettingsButton, Animations.Pulse);
-        Fragment fragment = getSupportFragmentManager().findFragmentById(mFragmentView.getId());
-        if(fragment instanceof MainMenuFragment){
-            ZHTools.swapFragmentWithAnim(fragment, SettingsFragment.class, SettingsFragment.TAG, null);
-        } else{
-            // The setting button doubles as a home button now
-            Tools.backToMainMenu(this);
-        }
-    };
-
     private final TaskCountListener mDoubleLaunchPreventionListener = taskCount -> {
         // Hide the notification that starts the game if there are tasks executing.
         // Prevents the user from trying to launch the game with tasks ongoing.
@@ -151,26 +134,31 @@ public class LauncherActivity extends BaseActivity {
     private WeakReference<Runnable> mRequestNotificationPermissionRunnable;
 
     @Subscribe()
-    public void onPageOpacityChange(PageOpacityChangeEvent event) {
+    public void event(PageOpacityChangeEvent event) {
         setPageOpacity();
     }
 
     @Subscribe()
-    public void onPageOpacityChange(MainBackgroundChangeEvent event) {
+    public void event(MainBackgroundChangeEvent event) {
         refreshBackground();
     }
 
     @Subscribe()
-    public void onSelectAuthMethod(SelectAuthMethodEvent event) {
-        Fragment fragment = getSupportFragmentManager().findFragmentById(mFragmentView.getId());
+    public void event(InDownloadFragmentEvent event) {
+        mIsInDownloadFragment = event.isIn();
+    }
+
+    @Subscribe()
+    public void event(SelectAuthMethodEvent event) {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(binding.containerFragment.getId());
         // Allow starting the add account only from the main menu, should it be moved to fragment itself ?
         if (!(fragment instanceof MainMenuFragment)) return;
         ZHTools.swapFragmentWithAnim(fragment, SelectAuthFragment.class, SelectAuthFragment.TAG, null);
     }
 
     @Subscribe()
-    public void onLaunchGameEvent(LaunchGameEvent event) {
-        if (mProgressLayout.hasProcesses()) {
+    public void event(LaunchGameEvent event) {
+        if (binding.progressLayout.hasProcesses()) {
             Toast.makeText(this, R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
             return;
         }
@@ -212,13 +200,13 @@ public class LauncherActivity extends BaseActivity {
     }
 
     @Subscribe()
-    public void onMicrosoftLogin(MicrosoftLoginEvent event) {
+    public void event(MicrosoftLoginEvent event) {
         new MicrosoftBackgroundLogin(false, event.getUri().getQueryParameter("code")).performLogin(
                 accountsManager.getProgressListener(), accountsManager.getDoneListener(), accountsManager.getErrorListener());
     }
 
     @Subscribe()
-    public void onOtherLogin(OtherLoginEvent event) {
+    public void event(OtherLoginEvent event) {
         try {
             event.getAccount().save();
             Logging.i("McAccountSpinner", "Saved the account : " + event.getAccount().username);
@@ -229,7 +217,7 @@ public class LauncherActivity extends BaseActivity {
     }
 
     @Subscribe()
-    public void onLocalLogin(LocalLoginEvent event) {
+    public void event(LocalLoginEvent event) {
         String userName = event.getUserName();
         MinecraftAccount localAccount = new MinecraftAccount();
         localAccount.username = userName;
@@ -244,11 +232,11 @@ public class LauncherActivity extends BaseActivity {
     }
 
     @Subscribe()
-    public void onInstallLocalModpack(InstallLocalModpackEvent event) {
+    public void event(InstallLocalModpackEvent event) {
         InstallExtra installExtra = event.getInstallExtra();
         if (!installExtra.startInstall) return;
 
-        if (mProgressLayout.hasProcesses()) {
+        if (binding.progressLayout.hasProcesses()) {
             Toast.makeText(this, R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
             return;
         }
@@ -260,7 +248,7 @@ public class LauncherActivity extends BaseActivity {
         ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.generic_waiting);
         PojavApplication.sExecutorService.execute(() -> {
             try {
-                ModLoader loaderInfo = InstallLocalModPack.installModPack(this, type, dirGameModpackFile, () -> runOnUiThread(installExtra.dialog::dismiss));
+                ModLoaderWrapper loaderInfo = InstallLocalModPack.installModPack(this, type, dirGameModpackFile, () -> runOnUiThread(installExtra.dialog::dismiss));
                 if (loaderInfo == null) return;
                 loaderInfo.getDownloadTask(new NotificationDownloadListener(this, loaderInfo)).run();
             } catch (Exception e) {
@@ -275,7 +263,12 @@ public class LauncherActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pojav_launcher);
+        binding = ActivityPojavLauncherBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        mSettingsButtonWrapper = new SettingsButtonWrapper(binding.settingButton);
+        mSettingsButtonWrapper.setOnTypeChangeListener(type -> ViewAnimUtils.setViewAnim(binding.settingButton, Animations.Pulse));
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         // If we don't have a back stack root yet...
         if(fragmentManager.getBackStackEntryCount() < 1) {
@@ -298,7 +291,6 @@ public class LauncherActivity extends BaseActivity {
                     }
                 }
         );
-        bindViews();
         setPageOpacity();
         refreshBackground();
 
@@ -307,10 +299,29 @@ public class LauncherActivity extends BaseActivity {
         ProgressKeeper.addTaskCountListener(mDoubleLaunchPreventionListener);
         ProgressKeeper.addTaskCountListener((mProgressServiceKeeper = new ProgressServiceKeeper(this)));
 
-        mSettingsButton.setOnClickListener(mSettingButtonListener);
-        mAppTitle.setOnClickListener(v -> mAppTitle.setText(StringUtils.shiftString(mAppTitle.getText().toString(), ShiftDirection.RIGHT, 1)));
+        binding.downloadButton.setOnClickListener(v -> {
+            if (mIsInDownloadFragment) return;
+            Fragment fragment = getSupportFragmentManager().findFragmentById(binding.containerFragment.getId());
+            if (fragment != null) {
+                EventBus.getDefault().post(new InDownloadFragmentEvent(true));
+                ZHTools.swapFragmentWithAnim(fragment, DownloadFragment.class, DownloadFragment.TAG, null);
+            }
+        });
+        binding.settingButton.setOnClickListener(v -> {
+            ViewAnimUtils.setViewAnim(binding.settingButton, Animations.Pulse);
+            Fragment fragment = getSupportFragmentManager().findFragmentById(binding.containerFragment.getId());
+            if (fragment instanceof MainMenuFragment) {
+                ZHTools.swapFragmentWithAnim(fragment, SettingsFragment.class, SettingsFragment.TAG, null);
+            } else {
+                // The setting button doubles as a home button now
+                Tools.backToMainMenu(this);
+            }
+        });
+        binding.appTitleText.setOnClickListener(v ->
+                binding.appTitleText.setText(StringUtils.shiftString(binding.appTitleText.getText().toString(), ShiftDirection.RIGHT, 1))
+        );
 
-        ProgressKeeper.addTaskCountListener(mProgressLayout);
+        ProgressKeeper.addTaskCountListener(binding.progressLayout);
 
         new AsyncVersionList().getVersionList(versions -> EventBus.getDefault().postSticky(
                 new MinecraftVersionValueEvent(versions)),
@@ -319,45 +330,44 @@ public class LauncherActivity extends BaseActivity {
 
         mInstallTracker = new ModloaderInstallTracker(this);
 
-        mProgressLayout.observe(ProgressLayout.DOWNLOAD_MINECRAFT);
-        mProgressLayout.observe(ProgressLayout.UNPACK_RUNTIME);
-        mProgressLayout.observe(ProgressLayout.INSTALL_MODPACK);
-        mProgressLayout.observe(ProgressLayout.AUTHENTICATE_MICROSOFT);
-        mProgressLayout.observe(ProgressLayout.DOWNLOAD_VERSION_LIST);
+        binding.progressLayout.observe(ProgressLayout.DOWNLOAD_MINECRAFT);
+        binding.progressLayout.observe(ProgressLayout.UNPACK_RUNTIME);
+        binding.progressLayout.observe(ProgressLayout.INSTALL_MODPACK);
+        binding.progressLayout.observe(ProgressLayout.AUTHENTICATE_MICROSOFT);
+        binding.progressLayout.observe(ProgressLayout.DOWNLOAD_VERSION_LIST);
 
-        noticeLayout = findViewById(R.id.notice_layout);
-        noticeLayout.findViewById(R.id.notice_got_button).setOnClickListener(v -> {
+        binding.noticeLayout.findViewById(R.id.notice_got_button).setOnClickListener(v -> {
             setNotice(false);
             Settings.Manager.Companion.put("noticeDefault", false)
                     .save();
         });
-        new DraggableViewWrapper(noticeLayout, new DraggableViewWrapper.AttributesFetcher() {
+        new DraggableViewWrapper(binding.noticeLayout, new DraggableViewWrapper.AttributesFetcher() {
             @NonNull
             @Override
             public DraggableViewWrapper.ScreenPixels getScreenPixels() {
                 return new DraggableViewWrapper.ScreenPixels(0, 0,
-                        currentDisplayMetrics.widthPixels - noticeLayout.getWidth(),
-                        currentDisplayMetrics.heightPixels - noticeLayout.getHeight());
+                        currentDisplayMetrics.widthPixels - binding.noticeLayout.getWidth(),
+                        currentDisplayMetrics.heightPixels - binding.noticeLayout.getHeight());
             }
 
             @NonNull
             @Override
             public int[] get() {
-                return new int[]{(int) noticeLayout.getX(), (int) noticeLayout.getY()};
+                return new int[]{(int) binding.noticeLayout.getX(), (int) binding.noticeLayout.getY()};
             }
 
             @Override
             public void set(int x, int y) {
-                noticeLayout.setX(x);
-                noticeLayout.setY(y);
+                binding.noticeLayout.setX(x);
+                binding.noticeLayout.setY(y);
             }
         }).init();
 
         checkNotice();
 
         // 愚人节彩蛋
-        if (ZHTools.checkDate(4, 1)) mHair.setVisibility(View.VISIBLE);
-        else mHair.setVisibility(View.GONE);
+        if (ZHTools.checkDate(4, 1)) binding.hair.setVisibility(View.VISIBLE);
+        else binding.hair.setVisibility(View.GONE);
 
         //检查已经下载后的包，或者检查更新
         PojavApplication.sExecutorService.execute(() -> UpdateLauncher.CheckDownloadedPackage(this, true));
@@ -396,8 +406,8 @@ public class LauncherActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mProgressLayout.cleanUpObservers();
-        ProgressKeeper.removeTaskCountListener(mProgressLayout);
+        binding.progressLayout.cleanUpObservers();
+        ProgressKeeper.removeTaskCountListener(binding.progressLayout);
         ProgressKeeper.removeTaskCountListener(mProgressServiceKeeper);
 
         getSupportFragmentManager().unregisterFragmentLifecycleCallbacks(mFragmentCallbackListener);
@@ -450,14 +460,14 @@ public class LauncherActivity extends BaseActivity {
     }
 
     private void setNotice(boolean show) {
-        AnimButton gotButton = noticeLayout.findViewById(R.id.notice_got_button);
+        AnimButton gotButton = binding.noticeLayout.findViewById(R.id.notice_got_button);
 
         if (show) {
             CheckNewNotice.NoticeInfo noticeInfo = CheckNewNotice.getNoticeInfo();
             if (noticeInfo != null) {
-                TextView title = noticeLayout.findViewById(R.id.notice_title_view);
-                TextView message = noticeLayout.findViewById(R.id.notice_message_view);
-                TextView date = noticeLayout.findViewById(R.id.notice_date_view);
+                TextView title = binding.noticeLayout.findViewById(R.id.notice_title_view);
+                TextView message = binding.noticeLayout.findViewById(R.id.notice_message_view);
+                TextView date = binding.noticeLayout.findViewById(R.id.notice_date_view);
 
                 gotButton.setClickable(true);
 
@@ -469,17 +479,17 @@ public class LauncherActivity extends BaseActivity {
                 message.setMovementMethod(LinkMovementMethod.getInstance());
 
                 noticeAnimPlayer.clearEntries();
-                noticeAnimPlayer.apply(new AnimPlayer.Entry(noticeLayout, Animations.BounceEnlarge))
-                        .setOnStart(() -> noticeLayout.setVisibility(View.VISIBLE))
+                noticeAnimPlayer.apply(new AnimPlayer.Entry(binding.noticeLayout, Animations.BounceEnlarge))
+                        .setOnStart(() -> binding.noticeLayout.setVisibility(View.VISIBLE))
                         .start();
             }
         } else {
             gotButton.setClickable(false);
 
             noticeAnimPlayer.clearEntries();
-            noticeAnimPlayer.apply(new AnimPlayer.Entry(noticeLayout, Animations.BounceShrink))
-                    .setOnStart(() -> noticeLayout.setVisibility(View.VISIBLE))
-                    .setOnEnd(() -> noticeLayout.setVisibility(View.GONE))
+            noticeAnimPlayer.apply(new AnimPlayer.Entry(binding.noticeLayout, Animations.BounceShrink))
+                    .setOnStart(() -> binding.noticeLayout.setVisibility(View.VISIBLE))
+                    .setOnEnd(() -> binding.noticeLayout.setVisibility(View.GONE))
                     .start();
         }
     }
@@ -562,22 +572,7 @@ public class LauncherActivity extends BaseActivity {
     }
 
     private void setPageOpacity() {
-        if (mFragmentView != null) {
-            float v = (float) AllSettings.Companion.getPageOpacity() / 100;
-            if (mFragmentView.getAlpha() != v) mFragmentView.setAlpha(v);
-        }
-    }
-
-    /** Stuff all the view boilerplate here */
-    private void bindViews(){
-        mFragmentView = findViewById(R.id.container_fragment);
-        mSettingsButton = findViewById(R.id.setting_button);
-        mProgressLayout = findViewById(R.id.progress_layout);
-        mAppTitle = findViewById(R.id.app_title_text);
-
-        mSettingsButtonWrapper = new SettingsButtonWrapper(mSettingsButton);
-        mSettingsButtonWrapper.setOnTypeChangeListener(type -> ViewAnimUtils.setViewAnim(mSettingsButton, Animations.Pulse));
-
-        mHair = findViewById(R.id.zh_hair);
+        float v = (float) AllSettings.Companion.getPageOpacity() / 100;
+        if (binding.containerFragment.getAlpha() != v) binding.containerFragment.setAlpha(v);
     }
 }

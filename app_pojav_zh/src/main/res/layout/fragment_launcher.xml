@@ -59,7 +59,7 @@
                     android:textColor="@color/primary_text" />
 
                 <com.kdt.mcgui.LauncherMenuButton
-                    android:id="@+id/zh_open_main_dir_button"
+                    android:id="@+id/open_main_dir_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_12sdp"

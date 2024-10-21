@@ -7,11 +7,12 @@ import android.content.SharedPreferences;
 
 import androidx.fragment.app.FragmentActivity;
 
+import com.movtery.pojavzh.feature.download.item.ModLoaderWrapper;
+import com.movtery.pojavzh.feature.download.utils.ModLoaderUtils;
 import com.movtery.pojavzh.ui.dialog.SelectRuntimeDialog;
 
 import net.kdt.pojavlaunch.JavaGUILauncherActivity;
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.modloaders.modpacks.api.ModLoader;
 
 import java.io.File;
 
@@ -62,13 +63,13 @@ public class ModloaderInstallTracker implements SharedPreferences.OnSharedPrefer
         if(!mSharedPreferences.getBoolean("modLoaderAvailable", false)) return;
         SharedPreferences.Editor editor = mSharedPreferences.edit().putBoolean("modLoaderAvailable", false);
         if(!editor.commit()) editor.apply();
-        ModLoader modLoader = deserializeModLoader(mSharedPreferences);
+        ModLoaderWrapper modLoader = deserializeModLoader(mSharedPreferences);
         File modInstallFile = deserializeInstallFile(mSharedPreferences);
         if(modLoader == null || modInstallFile == null) return;
         startModInstallation(modLoader, modInstallFile);
     }
 
-    private void startModInstallation(ModLoader modLoader, File modInstallFile) {
+    private void startModInstallation(ModLoaderWrapper modLoader, File modInstallFile) {
         Intent installIntent = modLoader.getInstallationIntent(mActivity, modInstallFile);
         SelectRuntimeDialog selectRuntimeDialog = new SelectRuntimeDialog(mActivity);
         selectRuntimeDialog.setListener(jreName -> {
@@ -92,21 +93,21 @@ public class ModloaderInstallTracker implements SharedPreferences.OnSharedPrefer
      * @param modInstallFile the installer jar to store
      */
     @SuppressLint("ApplySharedPref")
-    public static void saveModLoader(Context context, ModLoader modLoader, File modInstallFile) {
+    public static void saveModLoader(Context context, ModLoaderWrapper modLoader, File modInstallFile) {
         SharedPreferences.Editor editor = getPreferences(context).edit();
-        editor.putInt("modLoaderType", modLoader.modLoaderType);
-        editor.putString("modLoaderVersion", modLoader.modLoaderVersion);
-        editor.putString("minecraftVersion", modLoader.minecraftVersion);
+        editor.putInt("modLoaderType", modLoader.getModLoader().getType());
+        editor.putString("modLoaderVersion", modLoader.getModLoaderVersion());
+        editor.putString("minecraftVersion", modLoader.getMinecraftVersion());
         editor.putString("modInstallerJar", modInstallFile.getAbsolutePath());
         editor.putBoolean("modLoaderAvailable", true);
         editor.commit();
     }
 
-    private static ModLoader deserializeModLoader(SharedPreferences sharedPreferences) {
+    private static ModLoaderWrapper deserializeModLoader(SharedPreferences sharedPreferences) {
         if(!sharedPreferences.contains("modLoaderType") ||
         !sharedPreferences.contains("modLoaderVersion") ||
         !sharedPreferences.contains("minecraftVersion")) return null;
-        return new ModLoader(sharedPreferences.getInt("modLoaderType", -1),
+        return new ModLoaderWrapper(ModLoaderUtils.Companion.getModLoader(sharedPreferences.getInt("modLoaderType", -1)),
                 sharedPreferences.getString("modLoaderVersion", ""),
                 sharedPreferences.getString("minecraftVersion", ""));
     }

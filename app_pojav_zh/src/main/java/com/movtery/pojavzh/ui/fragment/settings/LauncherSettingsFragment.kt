@@ -32,7 +32,7 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = SettingsFragmentLauncherBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -64,26 +64,6 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
             binding.downloadSourceTitle,
             binding.downloadSourceValue,
             R.array.download_source_names, R.array.download_source_values
-        )
-
-        ListSettingsWrapper(
-            context,
-            "modInfoSource",
-            "original",
-            binding.modInfoSourceLayout,
-            binding.modInfoSourceTitle,
-            binding.modInfoSourceValue,
-            R.array.mod_source_names, R.array.mod_source_values
-        )
-
-        ListSettingsWrapper(
-            context,
-            "modDownloadSource",
-            "original",
-            binding.modDownloadSourceLayout,
-            binding.modDownloadSourceTitle,
-            binding.modDownloadSourceValue,
-            R.array.mod_source_names, R.array.mod_source_values
         )
 
         ListSettingsWrapper(

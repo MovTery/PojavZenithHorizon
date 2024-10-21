@@ -2,24 +2,23 @@ package com.movtery.pojavzh.ui.fragment
 
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.movtery.pojavzh.event.single.DownloadItemClickEvent
+import com.movtery.pojavzh.feature.download.InfoViewModel
+import com.movtery.pojavzh.feature.download.VersionAdapter
+import com.movtery.pojavzh.feature.download.item.InfoItem
+import com.movtery.pojavzh.feature.download.item.VersionItem
+import com.movtery.pojavzh.feature.download.platform.AbstractPlatformHelper
 import com.movtery.pojavzh.feature.log.Logging
-import com.movtery.pojavzh.feature.mod.item.ModDetail
-import com.movtery.pojavzh.feature.mod.item.ModItem
-import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies.SelectedMod
-import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionAdapter
-import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem
 import com.movtery.pojavzh.ui.subassembly.modlist.ModListAdapter
 import com.movtery.pojavzh.ui.subassembly.modlist.ModListFragment
 import com.movtery.pojavzh.ui.subassembly.modlist.ModListItemBean
-import com.movtery.pojavzh.ui.subassembly.viewmodel.ModApiViewModel
-import com.movtery.pojavzh.ui.subassembly.viewmodel.RecyclerViewModel
 import com.movtery.pojavzh.utils.MCVersionRegex.Companion.RELEASE_REGEX
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.Tools
-import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi
+import org.greenrobot.eventbus.EventBus
 import org.jackhuang.hmcl.util.versioning.VersionNumber
+import java.io.File
 import java.util.Collections
 import java.util.concurrent.Future
 import java.util.function.Consumer
@@ -29,18 +28,16 @@ class DownloadModFragment : ModListFragment() {
         const val TAG: String = "DownloadModFragment"
     }
 
-    private var mParentUIRecyclerView: RecyclerView? = null
-    private lateinit var mModItem: ModItem
-    private lateinit var mModApi: ModpackApi
-    private var mIsModpack = false
-    private var mModsPath: String? = null
+    private lateinit var platformHelper: AbstractPlatformHelper
+    private lateinit var mInfoItem: InfoItem
+    private var mPath: File? = null
     private var linkGetSubmit: Future<*>? = null
 
     override fun init() {
         parseViewModel()
         linkGetSubmit = PojavApplication.sExecutorService.submit {
             runCatching {
-                val webUrl = mModApi.getWebUrl(mModItem)
+                val webUrl = platformHelper.getWebUrl(mInfoItem)
                 fragmentActivity?.runOnUiThread { setLink(webUrl) }
             }.getOrElse { e ->
                 Logging.e("DownloadModFragment", "Failed to retrieve the website link, ${Tools.printToString(e)}")
@@ -58,7 +55,7 @@ class DownloadModFragment : ModListFragment() {
     }
 
     override fun onDestroy() {
-        mParentUIRecyclerView?.isEnabled = true
+        EventBus.getDefault().post(DownloadItemClickEvent.UnLock())
         linkGetSubmit?.apply {
             if (!isCancelled && !isDone) cancel(true)
         }
@@ -72,8 +69,8 @@ class DownloadModFragment : ModListFragment() {
                     cancelFailedToLoad()
                     componentProcessing(true)
                 }
-                val modDetail = mModApi.getModDetails(mModItem, force)
-                processModDetails(modDetail)
+                val versions = platformHelper.getVersions(mInfoItem, force)
+                processModDetails(versions)
             }.getOrElse { e ->
                 Tools.runOnUiThread {
                     componentProcessing(false)
@@ -84,17 +81,16 @@ class DownloadModFragment : ModListFragment() {
         }
     }
 
-    private fun processModDetails(modDetail: ModDetail) {
+    private fun processModDetails(versions: List<VersionItem>?) {
         val pattern = RELEASE_REGEX
 
         val releaseCheckBoxChecked = releaseCheckBox.isChecked
-        val mModVersionsByMinecraftVersion: MutableMap<String, MutableList<ModVersionItem>> = HashMap()
+        val mModVersionsByMinecraftVersion: MutableMap<String, MutableList<VersionItem>> = HashMap()
 
-        modDetail.modVersionItems?.forEach(Consumer { modVersionItem: ModVersionItem ->
+        versions?.forEach(Consumer { versionItem ->
             currentTask?.apply { if (isCancelled) return@Consumer }
 
-            val versionId = modVersionItem.versionId
-            for (mcVersion in versionId) {
+            for (mcVersion in versionItem.mcVersions) {
                 currentTask?.apply { if (isCancelled) return@Consumer }
 
                 if (releaseCheckBoxChecked) {
@@ -106,7 +102,7 @@ class DownloadModFragment : ModListFragment() {
                 }
 
                 mModVersionsByMinecraftVersion.computeIfAbsent(mcVersion) { Collections.synchronizedList(ArrayList()) }
-                    .add(modVersionItem) //将Mod 版本数据加入到相应的版本号分组中
+                    .add(versionItem) //将版本数据加入到相应的版本号分组中
             }
         })
 
@@ -115,13 +111,12 @@ class DownloadModFragment : ModListFragment() {
         val mData: MutableList<ModListItemBean> = ArrayList()
         mModVersionsByMinecraftVersion.entries
             .sortedWith { entry1, entry2 -> -VersionNumber.compare(entry1.key, entry2.key) }
-            .forEach { entry: Map.Entry<String, List<ModVersionItem>> ->
+            .forEach { entry: Map.Entry<String, List<VersionItem>> ->
                 currentTask?.apply { if (isCancelled) return }
 
-                mData.add(ModListItemBean("Minecraft " + entry.key,
-                    ModVersionAdapter(SelectedMod(this@DownloadModFragment,
-                        mModItem.title, mModApi, mIsModpack, mModsPath), modDetail, entry.value)
-                    )
+                mData.add(
+                    ModListItemBean("Minecraft " + entry.key,
+                    VersionAdapter(this, mInfoItem, platformHelper, entry.value, mPath))
                 )
             }
 
@@ -148,19 +143,15 @@ class DownloadModFragment : ModListFragment() {
     }
 
     private fun parseViewModel() {
-        val viewModel = ViewModelProvider(fragmentActivity!!)[ModApiViewModel::class.java]
-        val recyclerViewModel = ViewModelProvider(fragmentActivity!!)[RecyclerViewModel::class.java]
-        mModApi = viewModel.modApi
-        mModItem = viewModel.modItem
-        mIsModpack = viewModel.isModpack
-        mModsPath = viewModel.modsPath
-        mParentUIRecyclerView = recyclerViewModel.view
+        val viewModel = ViewModelProvider(fragmentActivity!!)[InfoViewModel::class.java]
+        platformHelper = viewModel.platformHelper
+        mInfoItem = viewModel.infoItem
+        mPath = viewModel.targetPath
 
-        mModItem.apply {
-            setNameText(subTitle ?: title)
-            setSubTitleText(subTitle?.let { title })
+        mInfoItem.apply {
+            setNameText(title)
 
-            imageUrl?.apply {
+            iconUrl?.apply {
                 Glide.with(fragmentActivity!!).load(this).into(getIconView())
             }
         }

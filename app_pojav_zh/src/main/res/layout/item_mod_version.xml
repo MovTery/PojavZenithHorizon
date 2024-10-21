@@ -34,65 +34,17 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Mod Title" />
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/tags_Layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_4sdp"
-        app:layout_constraintEnd_toEndOf="@+id/title_textview"
+        android:orientation="horizontal"
+        app:flexDirection="row"
+        app:flexWrap="wrap"
+        app:alignItems="flex_start"
+        app:justifyContent="flex_start"
         app:layout_constraintStart_toStartOf="@+id/title_textview"
-        app:layout_constraintTop_toBottomOf="@+id/title_textview">
-
-        <TextView
-            android:id="@+id/download_count_textview"
-            style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:singleLine="true"
-            android:text="Downloads: "
-            android:textColor="@color/primary_text"
-            android:textSize="11sp"
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:id="@+id/date_textview"
-            style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:singleLine="true"
-            android:gravity="center_horizontal"
-            android:text="Date: "
-            android:textColor="@color/primary_text"
-            android:textSize="11sp"
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:id="@+id/modloader_textview"
-            style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:singleLine="true"
-            android:gravity="center_horizontal"
-            android:text="Forge"
-            android:textColor="@color/primary_text"
-            android:textSize="11sp"
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:id="@+id/release_type_textview"
-            style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:singleLine="true"
-            android:gravity="center_horizontal"
-            android:text="Release"
-            android:textColor="@color/primary_text"
-            android:textSize="11sp"
-            tools:ignore="HardcodedText" />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        app:layout_constraintEnd_toEndOf="@+id/title_textview"
+        app:layout_constraintTop_toBottomOf="@+id/title_textview"/>
 
 </com.movtery.pojavzh.ui.layout.AnimConstraintLayout>

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -63,19 +62,23 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
         binding.mcVersionSpinner.setParentFragment(this);
         ProgressKeeper.addTaskCountListener(this);
 
-        Button mAboutButton = view.findViewById(R.id.about_button);
-        Button mCustomControlButton = view.findViewById(R.id.custom_control_button);
-        Button mInstallJarButton = view.findViewById(R.id.install_jar_button);
-        Button mShareLogsButton = view.findViewById(R.id.share_logs_button);
-        Button mOpenMainDirButton = view.findViewById(R.id.zh_open_main_dir_button);
-
-        mAboutButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, AboutFragment.class, AboutFragment.TAG, null));
-        mCustomControlButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, ControlButtonFragment.class, ControlButtonFragment.TAG, null));
-        mInstallJarButton.setOnClickListener(v -> runInstallerWithConfirmation(false));
-        mInstallJarButton.setOnLongClickListener(v -> {
+        binding.aboutButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, AboutFragment.class, AboutFragment.TAG, null));
+        binding.customControlButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, ControlButtonFragment.class, ControlButtonFragment.TAG, null));
+        binding.openMainDirButton.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString(FilesFragment.BUNDLE_LIST_PATH, PathAndUrlManager.DIR_GAME_HOME);
+            ZHTools.swapFragmentWithAnim(this, FilesFragment.class, FilesFragment.TAG, bundle);
+        });
+        binding.installJarButton.setOnClickListener(v -> runInstallerWithConfirmation(false));
+        binding.installJarButton.setOnLongClickListener(v -> {
             runInstallerWithConfirmation(true);
             return true;
         });
+        binding.shareLogsButton.setOnClickListener(v -> {
+            ShareLogDialog shareLogDialog = new ShareLogDialog(requireContext());
+            shareLogDialog.show();
+        });
+
         binding.pathManagerButton.setOnClickListener(v -> {
             if (!mTasksRunning) {
                 checkPermissions(R.string.profiles_path_title, () -> {
@@ -93,17 +96,6 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
         });
 
         binding.playButton.setOnClickListener(v -> EventBus.getDefault().post(new LaunchGameEvent()));
-
-        mShareLogsButton.setOnClickListener(v -> {
-            ShareLogDialog shareLogDialog = new ShareLogDialog(requireContext());
-            shareLogDialog.show();
-        });
-
-        mOpenMainDirButton.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putString(FilesFragment.BUNDLE_LIST_PATH, PathAndUrlManager.DIR_GAME_HOME);
-            ZHTools.swapFragmentWithAnim(this, FilesFragment.class, FilesFragment.TAG, bundle);
-        });
     }
 
     @Override

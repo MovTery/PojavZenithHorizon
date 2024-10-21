@@ -125,54 +125,6 @@
                     android:text="@string/generic_default" />
             </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
 
-            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
-                android:id="@+id/modInfoSource_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
-                android:padding="@dimen/_12sdp">
-
-                <TextView
-                    android:id="@+id/modInfoSource_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/setting_mod_info_mirror_title"
-                    android:textColor="@color/black_or_white" />
-
-                <TextView
-                    android:id="@+id/modInfoSource_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/modInfoSource_title"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"
-                    android:text="@string/generic_default" />
-            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
-
-            <com.movtery.pojavzh.ui.layout.AnimRelativeLayout
-                android:id="@+id/modDownloadSource_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
-                android:padding="@dimen/_12sdp">
-
-                <TextView
-                    android:id="@+id/modDownloadSource_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/setting_mod_download_mirror_title"
-                    android:textColor="@color/black_or_white" />
-
-                <TextView
-                    android:id="@+id/modDownloadSource_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/modDownloadSource_title"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"
-                    android:text="@string/generic_default" />
-            </com.movtery.pojavzh.ui.layout.AnimRelativeLayout>
-
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat

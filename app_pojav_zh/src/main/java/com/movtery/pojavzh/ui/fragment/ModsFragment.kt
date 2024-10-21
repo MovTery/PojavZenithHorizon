@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
+import com.movtery.pojavzh.feature.download.enums.Classify
 import com.movtery.pojavzh.feature.mod.ModUtils
 import com.movtery.pojavzh.ui.dialog.FilesDialog
 import com.movtery.pojavzh.ui.dialog.FilesDialog.FilesButton
@@ -32,7 +33,6 @@ import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
 import net.kdt.pojavlaunch.databinding.FragmentModsBinding
-import net.kdt.pojavlaunch.fragments.SearchModFragment
 import java.io.File
 import java.util.function.Consumer
 
@@ -67,7 +67,7 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentModsBinding.inflate(layoutInflater)
         mSearchViewWrapper = SearchViewWrapper(this)
         return binding.root
@@ -294,12 +294,11 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
     private fun goDownloadMod() {
         closeMultiSelect()
         val bundle = Bundle()
-        bundle.putBoolean(SearchModFragment.BUNDLE_SEARCH_MODPACK, false)
-        bundle.putString(SearchModFragment.BUNDLE_MOD_PATH, mRootPath)
+        bundle.putInt(DownloadFragment.BUNDLE_CLASSIFY_TYPE, Classify.MODPACK.type)
         ZHTools.swapFragmentWithAnim(
             this,
-            SearchModFragment::class.java,
-            SearchModFragment.TAG,
+            DownloadFragment::class.java,
+            DownloadFragment.TAG,
             bundle
         )
     }

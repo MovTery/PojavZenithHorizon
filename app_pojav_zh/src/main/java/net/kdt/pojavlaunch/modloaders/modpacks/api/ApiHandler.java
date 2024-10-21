@@ -12,6 +12,7 @@ import java.io.BufferedInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -71,6 +72,9 @@ public class ApiHandler {
             return data;
         } catch (FileNotFoundException e) {
             Logging.e("ApiHandler", "File Not Found! " + Tools.printToString(e));
+            return null;
+        } catch(InterruptedIOException e) {
+            Logging.e("ApiHandler", "When an exception occurs during task cancellation, but the task is successfully canceled, the exception can be ignored.");
             return null;
         } catch (Exception e) {
             Logging.e("ApiHandler", Tools.printToString(e));

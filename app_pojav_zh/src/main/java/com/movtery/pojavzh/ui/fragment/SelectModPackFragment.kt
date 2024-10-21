@@ -11,6 +11,7 @@ import androidx.activity.result.ActivityResultLauncher
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.pojavzh.event.value.InstallLocalModpackEvent
+import com.movtery.pojavzh.feature.download.enums.Classify
 import com.movtery.pojavzh.feature.mod.modpack.install.InstallExtra
 import com.movtery.pojavzh.utils.PathAndUrlManager
 import com.movtery.pojavzh.utils.ZHTools
@@ -20,7 +21,6 @@ import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
 import net.kdt.pojavlaunch.databinding.FragmentSelectModpackBinding
-import net.kdt.pojavlaunch.fragments.SearchModFragment
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener
 import org.greenrobot.eventbus.EventBus
@@ -58,7 +58,7 @@ class SelectModPackFragment : FragmentWithAnim(R.layout.fragment_select_modpack)
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSelectModpackBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -70,9 +70,8 @@ class SelectModPackFragment : FragmentWithAnim(R.layout.fragment_select_modpack)
         binding.searchButton.setOnClickListener {
             if (!mTasksRunning) {
                 val bundle = Bundle()
-                bundle.putBoolean(SearchModFragment.BUNDLE_SEARCH_MODPACK, true)
-                bundle.putString(SearchModFragment.BUNDLE_MOD_PATH, null)
-                ZHTools.swapFragmentWithAnim(this, SearchModFragment::class.java, SearchModFragment.TAG, bundle)
+                bundle.putInt(DownloadFragment.BUNDLE_CLASSIFY_TYPE, Classify.MODPACK.type)
+                ZHTools.swapFragmentWithAnim(this, DownloadFragment::class.java, DownloadFragment.TAG, bundle)
             } else {
                 setViewAnim(binding.searchButton, Animations.Shake)
                 Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()

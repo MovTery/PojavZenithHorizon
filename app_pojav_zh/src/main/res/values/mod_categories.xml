@@ -1,48 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Mod -->
-    <string name="mods_category_worldgen">World Elements</string>
-    <string name="mods_category_biomes">Biomes</string>
-    <string name="mods_category_dimensions">Dimensions</string>
-    <string name="mods_category_ores_resources">Ores &amp; Resources</string>
-    <string name="mods_category_structures">Structures</string>
-    <string name="mods_category_technology">Technology</string>
-    <string name="mods_category_item_fluid_energy_transport">Pipes &amp; Logistics</string>
-    <string name="mods_category_automation">Automation</string>
-    <string name="mods_category_energy">Energy</string>
-    <string name="mods_category_redstone">Redstone</string>
-    <string name="mods_category_food">Food &amp; Cooking</string>
-    <string name="mods_category_farming">Farming</string>
-    <string name="mods_category_transport">Transport</string>
-    <string name="mods_category_storage">Storage</string>
-    <string name="mods_category_magic">Magic</string>
-    <string name="mods_category_adventure">Adventure</string>
-    <string name="mods_category_decoration">Decoration</string>
-    <string name="mods_category_mobs">Mobs</string>
-    <string name="mods_category_equipment">Equipment</string>
-    <string name="mods_category_information">Information</string>
-    <string name="mods_category_social">Server</string>
-    <string name="mods_category_utility">Utility</string>
-    <string name="mods_category_library">Library</string>
-    <string name="mods_category_game_mechanics">Game Mechanics</string>
-    <string name="mods_category_optimization">Optimization</string>
+    <string name="category_worldgen">World Elements</string>
+    <string name="category_biomes">Biomes</string>
+    <string name="category_dimensions">Dimensions</string>
+    <string name="category_ores_resources">Ores &amp; Resources</string>
+    <string name="category_structures">Structures</string>
+    <string name="category_technology">Technology</string>
+    <string name="category_item_fluid_energy_transport">Pipes &amp; Logistics</string>
+    <string name="category_automation">Automation</string>
+    <string name="category_energy">Energy</string>
+    <string name="category_redstone">Redstone</string>
+    <string name="category_food">Food &amp; Cooking</string>
+    <string name="category_farming">Farming</string>
+    <string name="category_transport">Transport</string>
+    <string name="category_storage">Storage</string>
+    <string name="category_magic">Magic</string>
+    <string name="category_adventure">Adventure</string>
+    <string name="category_decoration">Decoration</string>
+    <string name="category_mobs">Mobs</string>
+    <string name="category_equipment">Equipment</string>
+    <string name="category_information">Information</string>
+    <string name="category_social">Server</string>
+    <string name="category_utility">Utility</string>
+    <string name="category_library">Library</string>
+    <string name="category_game_mechanics">Game Mechanics</string>
+    <string name="category_optimization">Optimization</string>
     <!-- Modpack -->
-    <string name="modpacks_category_multiplayer">Multiplayer</string>
-    <string name="modpacks_category_challenging">Hardcore</string>
-    <string name="modpacks_category_combat">Combat</string>
-    <string name="modpacks_category_quests">Quests</string>
-    <string name="modpacks_category_technology">Technology</string>
-    <string name="modpacks_category_magic">Magic</string>
-    <string name="modpacks_category_adventure">Adventure</string>
-    <string name="modpacks_category_exploration">Exploration</string>
-    <string name="modpacks_category_mini_game">Mini Games</string>
-    <string name="modpacks_category_sci_fi">Sci-Fi</string>
-    <string name="modpacks_category_skyblock">Skyblock</string>
-    <string name="modpacks_category_vanilla">Vanilla Enhancements</string>
-    <string name="modpacks_category_ftb" translatable="false">FTB</string>
-    <string name="modpacks_category_map_based">Map-Based</string>
-    <string name="modpacks_category_lightweight">Lightweight</string>
-    <string name="modpacks_category_extra_large">Extra Large</string>
-    <string name="modpacks_category_optimization">Optimization</string>
-    <string name="modpacks_category_kitchen_sink">Kitchen Sink</string>
+    <string name="category_multiplayer">Multiplayer</string>
+    <string name="category_challenging">Hardcore</string>
+    <string name="category_combat">Combat</string>
+    <string name="category_quests">Quests</string>
+    <string name="category_exploration">Exploration</string>
+    <string name="category_mini_game">Mini Games</string>
+    <string name="category_sci_fi">Sci-Fi</string>
+    <string name="category_skyblock">Skyblock</string>
+    <string name="category_vanilla">Vanilla Enhancements</string>
+    <string name="category_ftb" translatable="false">FTB</string>
+    <string name="category_map_based">Map-Based</string>
+    <string name="category_lightweight">Lightweight</string>
+    <string name="category_extra_large">Extra Large</string>
+    <string name="category_kitchen_sink">Kitchen Sink</string>
+    <!-- Resource Pack -->
+    <string name="category_traditional">Traditional</string>
+    <string name="category_steampunk">Steampunk</string>
+    <string name="category_modern">Modern</string>
+    <string name="category_photo_realistic">Photorealistic</string>
+    <string name="category_animated">Animated</string>
+    <string name="category_mod_support">Mod Support</string>
+    <string name="category_miscellaneous">Miscellaneous</string>
+    <string name="category_16x" translatable="false">16x</string>
+    <string name="category_32x" translatable="false">32x</string>
+    <string name="category_64x" translatable="false">64x</string>
+    <string name="category_128x" translatable="false">128x</string>
+    <string name="category_256x" translatable="false">256x</string>
+    <string name="category_512x">512x and Above</string>
+    <!-- World -->
+    <string name="category_world_adventure">Adventure Mode</string>
+    <string name="category_survival">Survival Mode</string>
+    <string name="category_creation">Creative Mode</string>
+    <string name="category_game_map">Game Challenges</string>
+    <string name="category_modded_world">Modded Maps</string>
+    <string name="category_parkour">Parkour</string>
+    <string name="category_puzzle">Puzzle</string>
 </resources>

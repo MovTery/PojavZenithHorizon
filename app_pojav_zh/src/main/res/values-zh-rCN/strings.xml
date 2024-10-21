@@ -6,7 +6,6 @@
     <string name="generic_edit">编辑</string>
     <string name="generic_share">分享</string>
     <string name="generic_move">移动</string>
-    <string name="generic_more">更多</string>
     <string name="generic_add">新建</string>
     <string name="generic_clone">复制</string>
     <string name="generic_paste">粘贴</string>
@@ -41,6 +40,7 @@
     <string name="generic_wrong_tip">出现了一些问题</string>
     <string name="generic_no_more_reminders">不再提醒</string>
     <string name="generic_input_invalid">填写的内容不符合要求，请重新输入</string>
+    <string name="generic_input_invalid_character">名称内包含无效字符："%s"</string>
     <string name="generic_input_too_small">填写的值过小，至少需要为 %s</string>
     <string name="generic_input_too_big">填写的值过大，最大只能为 %s</string>
     <string name="generic_copied">已复制</string>
@@ -233,37 +233,7 @@
     <string name="pedit_default">（使用全局默认值）</string>
 
     <string name="profile_mods_download_mod">下载 Mod</string>
-    <string name="profile_mods_platform">搜索平台</string>
-    <string name="profile_mods_sort_by">排序方式</string>
-    <string name="profile_mods_category">类别</string>
-    <string name="profile_mods_modloader">Mod 加载器</string>
-    <string name="profile_mods_download_mod_failed">下载 Mod 文件时失败</string>
     <string name="profile_mods_download_mod_release_version">仅展示 Minecraft 正式版本</string>
-    <string name="profile_mods_download_mod_custom_name">自定义名称</string>
-    <string name="profile_mods_download_mod_custom_name_invalid">名称内包含无效字符："%s"</string>
-    <string name="profile_mods_search_mod_failed">搜索 Mod 时失败</string>
-    <string name="profile_mods_search_mod_no_result">未找到相关 Mod</string>
-    <string name="profile_mods_search_mod">搜索 Mod</string>
-    <string name="profile_mods_search_platform_both">混合</string>
-    <string name="profile_mods_search_sort_by_relevant">相关性</string>
-    <string name="profile_mods_search_sort_by_total_downloads">总下载量</string>
-    <string name="profile_mods_search_sort_by_popularity">人气</string>
-    <string name="profile_mods_search_sort_by_recently_created">最近创建</string>
-    <string name="profile_mods_search_sort_by_recently_updated">最近更新</string>
-    <string name="profile_mods_information_download_count">下载量:</string>
-    <string name="profile_mods_information_modloader">适用于:</string>
-    <string name="profile_mods_information_dependencies">依赖类型:</string>
-    <string name="profile_mods_information_release_type_beta">测试版</string>
-    <string name="profile_mods_information_release_type_alpha">内测版</string>
-    <string name="profile_mods_dependencies_dialog_title">%s 有以下的依赖 Mod</string>
-    <string name="profile_mods_dependencies_dialog_tip">请根据需求下载对应的依赖 Mod，缺少必要的依赖 Mod 将导致游戏无法运行！</string>
-    <string name="profile_mods_dependencies_dialog_this_mod">下载 %s</string>
-    <string name="profile_mods_dependencies_required">需装</string>
-    <string name="profile_mods_dependencies_optional">可选</string>
-    <string name="profile_mods_dependencies_incompatible">不兼容</string>
-    <string name="profile_mods_dependencies_embedded">嵌入式</string>
-    <string name="profile_mods_dependencies_tool">工具</string>
-    <string name="profile_mods_dependencies_include">包括</string>
     <string name="profile_mods_add_mod">添加 Mod</string>
     <string name="profile_mods_added_mod">成功添加 Mod</string>
     <string name="profile_mods_disable">禁用</string>
@@ -391,7 +361,6 @@
     <string name="main_share_log_title">请选择日志文件类型</string>
     <string name="main_share_launcher_log">启动器日志文件</string>
     <string name="main_share_game_log">上一次游戏运行日志</string>
-    <string name="main_notice_title">通知栏</string>
     <string name="main_play">启动游戏</string>
 
     <string name="setting_category_control">控制设置</string>
@@ -483,8 +452,6 @@
     <string name="setting_verify_manifest_desc">启用后，启动器将检查游戏版本列表以及库</string>
     <string name="setting_download_source_title">游戏下载源</string>
     <string name="setting_download_source_desc">选择镜像下载源，而不是使用官方下载源</string>
-    <string name="setting_mod_info_mirror_title">Mod 信息获取源</string>
-    <string name="setting_mod_download_mirror_title">Mod 下载源</string>
     <string name="setting_set_game_language_title">自动设置游戏语言</string>
     <string name="setting_set_game_language_desc">在游戏启动时，自动设置游戏语言为选定的语言</string>
     <string name="setting_set_game_language_list">设置游戏语言</string>
@@ -531,6 +498,44 @@
     <string name="game_tip">游戏正在运行中，可以通过菜单开启日志输出，查看游戏运行状况</string>
     <string name="game_tip_version">当前启动的游戏版本:</string>
 
+    <!-- Download -->
+    <string name="download_classify_mod">下载 Mod</string>
+    <string name="download_classify_modpack">下载整合包</string>
+    <string name="download_classify_resource_pack">下载资源包</string>
+    <string name="download_classify_world">下载世界</string>
+    <string name="download_ui_search">搜索名称</string>
+    <string name="download_ui_mc_version">MC 版本</string>
+    <string name="download_ui_platform">搜索平台</string>
+    <string name="download_ui_sort_by">排序方式</string>
+    <string name="download_ui_category">类别筛选</string>
+    <string name="download_ui_modloader">Mod 加载器</string>
+    <string name="download_ui_sort_by_relevant">相关性</string>
+    <string name="download_ui_sort_by_total_downloads">总下载量</string>
+    <string name="download_ui_sort_by_popularity">人气</string>
+    <string name="download_ui_sort_by_recently_created">最近创建</string>
+    <string name="download_ui_sort_by_recently_updated">最近更新</string>
+    <string name="download_info_downloads">下载量:</string>
+    <string name="download_info_author">作者:</string>
+    <string name="download_info_date">创建日期:</string>
+    <string name="download_info_modloader">适用于:</string>
+    <string name="download_info_dependencies">依赖类型:</string>
+    <string name="download_info_release_type_beta">测试版</string>
+    <string name="download_info_release_type_alpha">内测版</string>
+    <string name="download_search_failed">搜索资源时失败！</string>
+    <string name="download_search_no_result">未找到相关资源！</string>
+    <string name="download_search_platform_not_supported">当前平台不支持下载这类资源，或不支持此类别筛选！</string>
+    <string name="download_install_custom_name">自定义文件名称</string>
+    <string name="download_install_download_file">正在下载资源文件（%.2fMB / %.2fMB）</string>
+    <string name="download_install_dependencies">%s 有以下的依赖 Mod</string>
+    <string name="download_install_dependencies_tip">请根据需求下载对应的依赖 Mod，缺少必要的依赖 Mod 将导致游戏无法运行！</string>
+    <string name="download_install_dependencies_required">需装</string>
+    <string name="download_install_dependencies_optional">可选</string>
+    <string name="download_install_dependencies_incompatible">不兼容</string>
+    <string name="download_install_dependencies_embedded">嵌入式</string>
+    <string name="download_install_dependencies_tool">工具</string>
+    <string name="download_install_dependencies_include">包括</string>
+    <string name="download_install">下载 %s</string>
+
     <!-- ModPack -->
     <string name="select_modpack_local">本地整合包</string>
     <string name="select_modpack_local_tip">请选择一个启动器支持导入的整合包文件！</string>
@@ -538,8 +543,6 @@
     <string name="select_modpack_local_installing_files">安装游戏文件中… (%d / %d)</string>
 
     <string name="search_modpack">搜索整合包</string>
-    <string name="search_modpack_no_result">未找到整合包</string>
-    <string name="search_modpack_error">搜索整合包失败</string>
 
     <string name="modpack_download_downloading_metadata">正在下载整合包元数据（%.2fMB / %.2fMB）</string>
     <string name="modpack_download_downloading_mods">正在下载模组（%.2fMB / %.2fMB）</string>

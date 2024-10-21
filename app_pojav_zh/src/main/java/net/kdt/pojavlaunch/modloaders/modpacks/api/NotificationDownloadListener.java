@@ -3,6 +3,8 @@ package net.kdt.pojavlaunch.modloaders.modpacks.api;
 import android.content.Context;
 import android.content.Intent;
 
+import com.movtery.pojavzh.feature.download.item.ModLoaderWrapper;
+
 import net.kdt.pojavlaunch.LauncherActivity;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -14,9 +16,9 @@ import java.io.File;
 
 public class NotificationDownloadListener implements ModloaderDownloadListener {
     private final Context mContext;
-    private final ModLoader mModLoader;
+    private final ModLoaderWrapper mModLoader;
     
-    public NotificationDownloadListener(Context context, ModLoader modLoader) {
+    public NotificationDownloadListener(Context context, ModLoaderWrapper modLoader) {
         mModLoader = modLoader;
         mContext = context.getApplicationContext();
     }

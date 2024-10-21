@@ -2,15 +2,17 @@ package com.movtery.pojavzh.feature.mod.modpack.install
 
 import android.content.Context
 import com.movtery.pojavzh.feature.customprofilepath.ProfilePathManager
+import com.movtery.pojavzh.feature.download.install.OnInstallStartListener
+import com.movtery.pojavzh.feature.download.item.ModLoaderWrapper
+import com.movtery.pojavzh.feature.download.platform.curseforge.CurseForgeModPackInstallHelper
+import com.movtery.pojavzh.feature.download.platform.modrinth.ModrinthModPackInstallHelper
+import com.movtery.pojavzh.feature.download.utils.PlatformUtils
 import com.movtery.pojavzh.feature.mod.models.MCBBSPackMeta
 import com.movtery.pojavzh.feature.mod.modpack.MCBBSModPack
 import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils.ModPackEnum
 import com.movtery.pojavzh.ui.dialog.TipDialog
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
-import net.kdt.pojavlaunch.modloaders.modpacks.api.CurseforgeApi
-import net.kdt.pojavlaunch.modloaders.modpacks.api.ModLoader
-import net.kdt.pojavlaunch.modloaders.modpacks.api.ModrinthApi
 import net.kdt.pojavlaunch.modloaders.modpacks.models.CurseManifest
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModrinthIndex
 import net.kdt.pojavlaunch.utils.ZipUtils
@@ -26,13 +28,13 @@ class InstallLocalModPack {
             context: Context,
             type: ModPackEnum?,
             zipFile: File,
-            onInstallStartListener: OnInstallStartListener
-        ): ModLoader? {
+            listener: OnInstallStartListener
+        ): ModLoaderWrapper? {
             try {
                 ZipFile(zipFile).use { modpackZipFile ->
                     val zipName = zipFile.name
                     val packName = zipName.substring(0, zipName.lastIndexOf('.'))
-                    val modLoader: ModLoader?
+                    val modLoader: ModLoaderWrapper?
                     when (type) {
                         ModPackEnum.CURSEFORGE -> {
                             val curseforgeEntry = modpackZipFile.getEntry("manifest.json")
@@ -42,7 +44,7 @@ class InstallLocalModPack {
                                 ), CurseManifest::class.java
                             )
 
-                            modLoader = curseforgeModPack(context, zipFile, packName, onInstallStartListener) ?: return null
+                            modLoader = curseforgeModPack(zipFile, packName, listener) ?: return null
                             ModPackUtils.createModPackProfiles(
                                 packName,
                                 curseManifest.name,
@@ -61,7 +63,7 @@ class InstallLocalModPack {
                                 ), MCBBSPackMeta::class.java
                             )
 
-                            modLoader = mcbbsModPack(context, zipFile, packName, onInstallStartListener) ?: return null
+                            modLoader = mcbbsModPack(context, zipFile, packName, listener) ?: return null
                             MCBBSModPack.createModPackProfiles(
                                 packName,
                                 mcbbsPackMeta,
@@ -82,7 +84,7 @@ class InstallLocalModPack {
                                 ModrinthIndex::class.java
                             ) // 用于获取创建实例所需的数据
 
-                            modLoader = modrinthModPack(zipFile, packName, onInstallStartListener) ?: return null
+                            modLoader = modrinthModPack(zipFile, packName, listener) ?: return null
                             ModPackUtils.createModPackProfiles(
                                 packName,
                                 modrinthIndex.name,
@@ -111,16 +113,15 @@ class InstallLocalModPack {
 
         @Throws(Exception::class)
         private fun curseforgeModPack(
-            context: Context,
             zipFile: File,
             packName: String,
-            onInstallStartListener: OnInstallStartListener
-        ): ModLoader? {
-            val curseforgeApi = CurseforgeApi(context.getString(R.string.curseforge_api_key))
-            return curseforgeApi.installCurseforgeZip(
+            listener: OnInstallStartListener
+        ): ModLoaderWrapper? {
+            return CurseForgeModPackInstallHelper.installZip(
+                PlatformUtils.createCurseForgeApi(),
                 zipFile,
-                File(ProfilePathManager.currentPath, "custom_instances/$packName"),
-                onInstallStartListener
+                File(ProfilePathManager.currentPath, "modpack_instances/$packName"),
+                listener = listener
             )
         }
 
@@ -128,24 +129,20 @@ class InstallLocalModPack {
         private fun modrinthModPack(
             zipFile: File,
             packName: String,
-            onInstallStartListener: OnInstallStartListener
-        ): ModLoader? {
-            val modrinthApi = ModrinthApi()
-            return modrinthApi.installMrpack(
+            listener: OnInstallStartListener
+        ): ModLoaderWrapper? {
+            return ModrinthModPackInstallHelper.installZip(
                 zipFile,
-                File(ProfilePathManager.currentPath, "custom_instances/$packName"),
-                onInstallStartListener
+                File(ProfilePathManager.currentPath, "modpack_instances/$packName"),
+                listener = listener
             )
         }
 
         @Throws(Exception::class)
-        private fun mcbbsModPack(context: Context, zipFile: File, packName: String, onInstallStartListener: OnInstallStartListener): ModLoader? {
+        private fun mcbbsModPack(context: Context, zipFile: File, packName: String, listener: OnInstallStartListener): ModLoaderWrapper? {
             val mcbbsModPack = MCBBSModPack(context, zipFile)
             return mcbbsModPack.install(
-                File(
-                    ProfilePathManager.currentPath,
-                    "custom_instances/$packName"
-                ), onInstallStartListener
+                File(ProfilePathManager.currentPath, "modpack_instances/$packName"), listener
             )
         }
     }
