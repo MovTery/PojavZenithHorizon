@@ -39,7 +39,7 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentModDownloadBinding.inflate(layoutInflater)
         recyclerView = binding.recyclerView
         releaseCheckBox = binding.releaseVersion

@@ -22,7 +22,7 @@ class ProfileTypeSelectFragment : FragmentWithAnim(R.layout.fragment_profile_typ
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentProfileTypeBinding.inflate(layoutInflater)
         return binding.root
     }

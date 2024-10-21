@@ -34,7 +34,7 @@ class ProfileManagerFragment : FragmentWithAnim(R.layout.fragment_profile_manage
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentProfileManagerBinding.inflate(layoutInflater)
         return binding.root
     }

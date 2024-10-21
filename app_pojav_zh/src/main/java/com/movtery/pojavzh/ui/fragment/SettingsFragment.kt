@@ -27,25 +27,22 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
     }
 
     private lateinit var binding: FragmentSettingsBinding
-    private lateinit var mButtons: Map<Int, View>
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSettingsBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initViews()
         initViewPager()
 
-        mButtons.forEach { (index, view) ->
-            view.setOnClickListener { _: View ->
-                binding.settingsViewpager.currentItem = index
-            }
+        binding.settingsTab.observeIndexChange { _, toIndex, reselect, _ ->
+            if (reselect) return@observeIndexChange
+            binding.settingsViewpager.currentItem = toIndex
         }
     }
 
@@ -71,17 +68,7 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
     }
 
     private fun onFragmentSelect(position: Int) {
-        binding.sideIndicator.apply { setSelectedView(mButtons[position], -Tools.dpToPx(3F).toInt()) }
-    }
-
-    private fun initViews() {
-        mButtons = mapOf(
-            0 to binding.videoSettings,
-            1 to binding.controlsSettings,
-            2 to binding.gameSettings,
-            3 to binding.launcherSettings,
-            4 to binding.experimentalSettings
-        )
+        binding.settingsTab.onPageSelected(position)
     }
 
     override fun slideIn(animPlayer: AnimPlayer) {

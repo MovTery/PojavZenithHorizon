@@ -42,7 +42,7 @@ class ProfilePathManagerFragment : FragmentWithAnim(R.layout.fragment_profile_pa
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val value = EventBus.getDefault().getStickyEvent(FileSelectorEvent::class.java)?.path
 
         value?.let {

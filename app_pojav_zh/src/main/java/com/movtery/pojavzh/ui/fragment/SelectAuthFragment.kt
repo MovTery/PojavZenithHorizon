@@ -29,7 +29,7 @@ class SelectAuthFragment : FragmentWithAnim(R.layout.fragment_select_auth_method
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSelectAuthMethodBinding.inflate(layoutInflater)
         return binding.root
     }

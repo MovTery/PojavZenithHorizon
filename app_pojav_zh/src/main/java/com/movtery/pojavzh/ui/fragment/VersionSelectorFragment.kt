@@ -36,7 +36,7 @@ class VersionSelectorFragment : FragmentWithAnim(R.layout.fragment_version) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentVersionBinding.inflate(layoutInflater)
         return binding.root
     }

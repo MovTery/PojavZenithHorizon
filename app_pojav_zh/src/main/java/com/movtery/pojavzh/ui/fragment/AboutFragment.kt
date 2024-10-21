@@ -38,7 +38,7 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAboutBinding.inflate(layoutInflater)
         return binding.root
     }

@@ -69,7 +69,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCustomBackgroundBinding.inflate(layoutInflater)
         return binding.root
     }
