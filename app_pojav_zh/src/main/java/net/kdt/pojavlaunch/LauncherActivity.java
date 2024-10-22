@@ -250,7 +250,8 @@ public class LauncherActivity extends BaseActivity {
             try {
                 ModLoaderWrapper loaderInfo = InstallLocalModPack.installModPack(this, type, dirGameModpackFile, () -> runOnUiThread(installExtra.dialog::dismiss));
                 if (loaderInfo == null) return;
-                loaderInfo.getDownloadTask(new NotificationDownloadListener(this, loaderInfo)).run();
+                Runnable task = loaderInfo.getDownloadTask(new NotificationDownloadListener(this, loaderInfo));
+                if (task != null) task.run();
             } catch (Exception e) {
                 installExtra.dialog.dismiss();
                 Tools.showErrorRemote(this, R.string.modpack_install_download_failed, e);

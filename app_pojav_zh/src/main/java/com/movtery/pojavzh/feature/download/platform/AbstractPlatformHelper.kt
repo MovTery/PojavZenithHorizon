@@ -52,7 +52,8 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
                 PojavApplication.sExecutorService.execute {
                     runCatching {
                         val modloader = installModPack(infoItem, version) ?: return@execute
-                        modloader.getDownloadTask(NotificationDownloadListener(context, modloader))
+                        val task = modloader.getDownloadTask(NotificationDownloadListener(context, modloader))
+                        task?.run()
                     }.getOrElse { e ->
                         Tools.showErrorRemote(context, R.string.modpack_install_download_failed, e)
                     }

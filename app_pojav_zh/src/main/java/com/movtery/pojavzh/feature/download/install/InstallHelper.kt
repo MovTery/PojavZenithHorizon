@@ -88,7 +88,7 @@ class InstallHelper {
 
                 // Install the modpack
                 modLoaderInfo = installFunction.install(
-                    modpackFile, File(currentPath, "modpack_instance/$packName")
+                    modpackFile, File(currentPath, "modpack_instances/$packName")
                 )
             } finally {
                 FileUtils.deleteQuietly(modpackFile)
@@ -99,7 +99,7 @@ class InstallHelper {
 
             // Create the instance
             val profile = MinecraftProfile().apply {
-                gameDir = "./modpack_instance/$packName"
+                gameDir = "./modpack_instances/$packName"
                 name = infoItem.title
                 lastVersionId = modLoaderInfo.versionId
                 icon = getIcon(infoItem.iconUrl)
