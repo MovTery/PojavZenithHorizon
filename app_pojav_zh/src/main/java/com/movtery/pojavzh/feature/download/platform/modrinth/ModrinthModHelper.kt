@@ -67,21 +67,9 @@ class ModrinthModHelper {
 
         @Throws(Throwable::class)
         internal fun getModVersions(api: ApiHandler, infoItem: InfoItem, force: Boolean): List<VersionItem>? {
-            if (!force && InfoCache.ModVersionCache.containsKey(api, infoItem.projectId))
-                return InfoCache.ModVersionCache.get(api, infoItem.projectId)
-
-            val response: JsonArray = api.get(
-                "project/${infoItem.projectId}/version",
-                JsonArray::class.java
-            ) ?: return null
-
-            val modVersionItems: MutableList<ModVersionItem> = ArrayList()
-            //如果第一次获取依赖Mod信息失败，则记录其id，之后不再尝试获取
-            val invalidDependencies: MutableList<String> = ArrayList()
-            for (element in response) {
-                val versionObject = element.asJsonObject
-                val filesJsonObject: JsonObject = versionObject.getAsJsonArray("files").get(0).asJsonObject
-
+            return ModrinthCommonUtils.getCommonVersions(
+                api, infoItem, force, InfoCache.ModVersionCache
+            ) { versionObject, filesJsonObject, invalidDependencies ->
                 val dependencies = versionObject.get("dependencies").asJsonArray
                 val dependencyInfoItems: MutableList<DependenciesInfoItem> = ArrayList()
                 if (dependencies.size() != 0) {
@@ -111,11 +99,12 @@ class ModrinthModHelper {
                                 )
                             } else invalidDependencies.add(dProjectId)
                         }
+                        InfoCache.DependencyInfoCache.get(api, dProjectId)?.let {
+                            dependencyInfoItems.add(it)
+                        }
                     }
                 }
-
-                modVersionItems.add(
-                    ModVersionItem(
+                ModVersionItem(
                         infoItem.projectId,
                         versionObject.get("name").asString,
                         versionObject.get("downloads").asLong,
@@ -128,20 +117,16 @@ class ModrinthModHelper {
                         getModLoaders(versionObject.getAsJsonArray("loaders")),
                         dependencyInfoItems
                     )
-                )
             }
-
-            InfoCache.ModVersionCache.put(api, infoItem.projectId, modVersionItems)
-            return modVersionItems
         }
 
         @Throws(Throwable::class)
         internal fun getModPackVersions(api: ApiHandler, infoItem: InfoItem, force: Boolean): List<ModLikeVersionItem>? {
             return ModrinthCommonUtils.getCommonVersions(
                 api, infoItem, force, InfoCache.ModPackVersionCache
-            ) { versionObject, filesJsonObject, info ->
+            ) { versionObject, filesJsonObject, _ ->
                 ModLikeVersionItem(
-                    info.projectId,
+                    infoItem.projectId,
                     versionObject.get("name").asString,
                     versionObject.get("downloads").asLong,
                     ZHTools.getDate(versionObject.get("date_published").asString),

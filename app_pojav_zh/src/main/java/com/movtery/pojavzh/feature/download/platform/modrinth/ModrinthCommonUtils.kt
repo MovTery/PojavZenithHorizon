@@ -112,7 +112,7 @@ class ModrinthCommonUtils {
             infoItem: InfoItem,
             force: Boolean,
             cache: InfoCache.CacheBase<MutableList<T>>,
-            createItem: (JsonObject, JsonObject, InfoItem) -> T
+            createItem: (JsonObject, JsonObject, MutableList<String>) -> T
         ): List<T>? {
             if (!force && cache.containsKey(api, infoItem.projectId))
                 return cache.get(api, infoItem.projectId)
@@ -123,11 +123,13 @@ class ModrinthCommonUtils {
             ) ?: return null
 
             val items: MutableList<T> = ArrayList()
+            //如果第一次获取依赖信息失败，则记录其id，之后不再尝试获取
+            val invalidDependencies: MutableList<String> = ArrayList()
             for (element in response) {
                 val versionObject = element.asJsonObject
                 val filesJsonObject: JsonObject = versionObject.getAsJsonArray("files").get(0).asJsonObject
 
-                items.add(createItem(versionObject, filesJsonObject, infoItem))
+                items.add(createItem(versionObject, filesJsonObject, invalidDependencies))
             }
 
             cache.put(api, infoItem.projectId, items)
@@ -138,9 +140,9 @@ class ModrinthCommonUtils {
         internal fun getVersions(api: ApiHandler, infoItem: InfoItem, force: Boolean): List<VersionItem>? {
             return getCommonVersions(
                 api, infoItem, force, InfoCache.VersionCache
-            ) { versionObject, filesJsonObject, info ->
+            ) { versionObject, filesJsonObject, _ ->
                 VersionItem(
-                    info.projectId,
+                    infoItem.projectId,
                     versionObject.get("name").asString,
                     versionObject.get("downloads").asLong,
                     ZHTools.getDate(versionObject.get("date_published").asString),

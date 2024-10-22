@@ -192,10 +192,8 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download_search), In
     override fun onStop() {
         closeSpinner()
         super.onStop()
-        EventBus.getDefault().apply {
-            post(InDownloadFragmentEvent(false))
-            unregister(this)
-        }
+        EventBus.getDefault().unregister(this)
+        EventBus.getDefault().post(InDownloadFragmentEvent(false))
     }
 
     @Subscribe
@@ -224,7 +222,7 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download_search), In
         setStatusText(false)
 
         fun refreshCategorySpinner(list: List<Category>, showModLoader: Boolean) {
-            if (mCategoryAdapter.itemCount > 0) {
+            if (mCategoryAdapter.itemCount > 0 && binding.categorySpinner.selectedIndex != 0) {
                 //防止上一个类别的数量比这次的少，索引越界
                 binding.categorySpinner.selectItemByIndex(0)
             }
@@ -240,20 +238,20 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download_search), In
                 return
             }
             Classify.MOD -> {
-                setAdapter(0)
                 refreshCategorySpinner(CategoryUtils.getModCategory(), true)
+                setAdapter(0)
             }
             Classify.MODPACK -> {
-                setAdapter(1)
                 refreshCategorySpinner(CategoryUtils.getModPackCategory(), true)
+                setAdapter(1)
             }
             Classify.RESOURCE_PACK -> {
-                setAdapter(2)
                 refreshCategorySpinner(CategoryUtils.getResourcePackCategory(), false)
+                setAdapter(2)
             }
             Classify.WORLD -> {
-                setAdapter(3)
                 refreshCategorySpinner(CategoryUtils.getWorldCategory(), false)
+                setAdapter(3)
             }
         }
         mCurrentPlatform.helper.currentClassify = mCurrentClassify

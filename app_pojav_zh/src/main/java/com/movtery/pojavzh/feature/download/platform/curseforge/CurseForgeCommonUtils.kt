@@ -12,8 +12,7 @@ import com.movtery.pojavzh.feature.download.item.VersionItem
 import com.movtery.pojavzh.feature.download.platform.PlatformNotSupportedException
 import com.movtery.pojavzh.feature.download.utils.CategoryUtils
 import com.movtery.pojavzh.feature.download.utils.VersionTypeUtils
-import com.movtery.pojavzh.feature.log.Logging.e
-import com.movtery.pojavzh.feature.log.Logging.i
+import com.movtery.pojavzh.feature.log.Logging
 import com.movtery.pojavzh.feature.mod.ModMirror
 import com.movtery.pojavzh.feature.mod.ModMirror.Companion.isInfoMirrored
 import com.movtery.pojavzh.utils.MCVersionRegex.Companion.RELEASE_REGEX
@@ -88,7 +87,7 @@ class CurseForgeCommonUtils {
             // Gson automatically casts null to false, which leans to issues
             // So, only check the distribution flag if it is non-null
             if (!allowModDistribution.isJsonNull && !allowModDistribution.asBoolean) {
-                i("CurseForgeCommonUtils", "Skipping project ${dataObject["name"].asString} because curseforge sucks")
+                Logging.i("CurseForgeCommonUtils", "Skipping project ${dataObject["name"].asString} because curseforge sucks")
                 return null
             }
 
@@ -114,7 +113,7 @@ class CurseForgeCommonUtils {
             try {
                 allData = getPaginatedData(api, infoItem.projectId)
             } catch (e: IOException) {
-                e("CurseForgeCommonHelper", Tools.printToString(e))
+                Logging.e("CurseForgeCommonHelper", Tools.printToString(e))
                 return null
             }
 
