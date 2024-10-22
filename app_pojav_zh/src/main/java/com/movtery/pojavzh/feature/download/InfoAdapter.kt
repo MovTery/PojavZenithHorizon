@@ -311,6 +311,12 @@ class InfoAdapter(
         private val MOD_ITEMS_EMPTY: MutableList<InfoItem> = ArrayList()
         private const val VIEW_TYPE_MOD_ITEM = 0
         private const val VIEW_TYPE_LOADING = 1
-        private val gameDir = ZHTools.getGameDirPath(LauncherProfiles.getCurrentProfile().gameDir)
+        val gameDir: File = ZHTools.getGameDirPath(getDir())
+
+        private fun getDir(): String {
+            var dir = LauncherProfiles.getCurrentProfile().gameDir
+            if (dir.startsWith("./")) dir = dir.removePrefix("./")
+            return dir
+        }
     }
 }

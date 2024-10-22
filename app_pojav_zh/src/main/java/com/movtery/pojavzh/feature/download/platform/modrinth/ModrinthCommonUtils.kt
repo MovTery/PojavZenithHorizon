@@ -12,7 +12,6 @@ import com.movtery.pojavzh.feature.download.item.VersionItem
 import com.movtery.pojavzh.feature.download.platform.PlatformNotSupportedException
 import com.movtery.pojavzh.feature.download.utils.CategoryUtils
 import com.movtery.pojavzh.feature.download.utils.VersionTypeUtils
-import com.movtery.pojavzh.feature.mod.ModMirror
 import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ApiHandler
 import java.util.StringJoiner
@@ -150,7 +149,7 @@ class ModrinthCommonUtils {
                     VersionTypeUtils.getVersionType(versionObject.get("version_type").asString),
                     filesJsonObject.get("filename").asString,
                     getSha1Hash(filesJsonObject),
-                    ModMirror.replaceMirrorDownloadUrl(filesJsonObject.get("url").asString)
+                    filesJsonObject.get("url").asString
                 )
             }
         }

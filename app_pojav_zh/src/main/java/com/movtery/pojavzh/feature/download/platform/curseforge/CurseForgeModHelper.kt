@@ -19,7 +19,6 @@ import com.movtery.pojavzh.feature.download.utils.DependencyUtils
 import com.movtery.pojavzh.feature.download.utils.ModLoaderUtils
 import com.movtery.pojavzh.feature.download.utils.VersionTypeUtils
 import com.movtery.pojavzh.feature.log.Logging.e
-import com.movtery.pojavzh.feature.mod.ModMirror
 import com.movtery.pojavzh.utils.MCVersionRegex.Companion.RELEASE_REGEX
 import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.Tools
@@ -166,7 +165,7 @@ class CurseForgeModHelper {
                         mcVersions.toList(),
                         modData.get("releaseType").asString,
                         CurseForgeCommonUtils.getSha1FromData(modData),
-                        ModMirror.replaceMirrorDownloadUrl(modData.get("downloadUrl").asString),
+                        modData.get("downloadUrl").asString,
                         modloaders,
                         modData.get("fileName").asString,
                         dependencyInfoList.ifEmpty { null }
@@ -195,7 +194,7 @@ class CurseForgeModHelper {
                     VersionTypeUtils.getVersionType(releaseType),
                     fileName,
                     fileHash,
-                    ModMirror.replaceMirrorDownloadUrl(downloadUrl),
+                    downloadUrl,
                     modloaders,
                     dependencies ?: emptyList()
                 )
@@ -219,7 +218,7 @@ class CurseForgeModHelper {
                     VersionTypeUtils.getVersionType(releaseType),
                     fileName,
                     fileHash,
-                    ModMirror.replaceMirrorDownloadUrl(downloadUrl),
+                    downloadUrl,
                     modloaders
                 )
             }

@@ -13,8 +13,6 @@ import com.movtery.pojavzh.feature.download.platform.PlatformNotSupportedExcepti
 import com.movtery.pojavzh.feature.download.utils.CategoryUtils
 import com.movtery.pojavzh.feature.download.utils.VersionTypeUtils
 import com.movtery.pojavzh.feature.log.Logging
-import com.movtery.pojavzh.feature.mod.ModMirror
-import com.movtery.pojavzh.feature.mod.ModMirror.Companion.isInfoMirrored
 import com.movtery.pojavzh.utils.MCVersionRegex.Companion.RELEASE_REGEX
 import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.Tools
@@ -143,7 +141,7 @@ class CurseForgeCommonUtils {
                         VersionTypeUtils.getVersionType(data.get("releaseType").asString),
                         data.get("fileName").asString,
                         getSha1FromData(data),
-                        ModMirror.replaceMirrorDownloadUrl(data.get("downloadUrl").asString)
+                        data.get("downloadUrl").asString
                     )
                 )
             }
@@ -205,8 +203,7 @@ class CurseForgeCommonUtils {
         internal fun getPaginatedData(api: ApiHandler, projectId: String): List<JsonObject> {
             val dataList: MutableList<JsonObject> = ArrayList()
             var index = 0
-            var isMirrored = false
-            while (index != -1 && !isMirrored) {
+            while (index != -1) {
                 val params = HashMap<String, Any>()
                 params["index"] = index
                 params["pageSize"] = CURSEFORGE_PAGINATION_SIZE
@@ -225,7 +222,6 @@ class CurseForgeCommonUtils {
                     continue
                 }
                 index += CURSEFORGE_PAGINATION_SIZE
-                isMirrored = isInfoMirrored()
             }
 
             return dataList

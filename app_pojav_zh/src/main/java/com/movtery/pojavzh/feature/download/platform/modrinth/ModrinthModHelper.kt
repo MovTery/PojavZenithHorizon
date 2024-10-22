@@ -18,7 +18,6 @@ import com.movtery.pojavzh.feature.download.platform.PlatformNotSupportedExcepti
 import com.movtery.pojavzh.feature.download.utils.DependencyUtils
 import com.movtery.pojavzh.feature.download.utils.ModLoaderUtils
 import com.movtery.pojavzh.feature.download.utils.VersionTypeUtils
-import com.movtery.pojavzh.feature.mod.ModMirror
 import com.movtery.pojavzh.utils.ZHTools
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ApiHandler
 
@@ -113,7 +112,7 @@ class ModrinthModHelper {
                         VersionTypeUtils.getVersionType(versionObject.get("version_type").asString),
                         filesJsonObject.get("filename").asString,
                         ModrinthCommonUtils.getSha1Hash(filesJsonObject),
-                        ModMirror.replaceMirrorDownloadUrl(filesJsonObject.get("url").asString),
+                        filesJsonObject.get("url").asString,
                         getModLoaders(versionObject.getAsJsonArray("loaders")),
                         dependencyInfoItems
                     )
@@ -134,7 +133,7 @@ class ModrinthModHelper {
                     VersionTypeUtils.getVersionType(versionObject.get("version_type").asString),
                     filesJsonObject.get("filename").asString,
                     ModrinthCommonUtils.getSha1Hash(filesJsonObject),
-                    ModMirror.replaceMirrorDownloadUrl(filesJsonObject.get("url").asString),
+                    filesJsonObject.get("url").asString,
                     getModLoaders(versionObject.getAsJsonArray("loaders"))
                 )
             }

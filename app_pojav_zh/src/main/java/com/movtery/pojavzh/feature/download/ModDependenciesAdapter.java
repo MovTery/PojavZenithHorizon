@@ -29,7 +29,6 @@ import com.movtery.pojavzh.utils.stringutils.StringUtils;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.databinding.ItemModDependenciesBinding;
-import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 
 import java.io.File;
 import java.util.List;
@@ -130,7 +129,7 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
                 InfoViewModel viewModel = new ViewModelProvider(mParentFragment.requireActivity()).get(InfoViewModel.class);
                 viewModel.setInfoItem(infoItem);
                 viewModel.setPlatformHelper(mInfoItem.getPlatform().getHelper());
-                viewModel.setTargetPath(new File(ZHTools.getGameDirPath(LauncherProfiles.getCurrentProfile().gameDir), "/mods"));
+                viewModel.setTargetPath(new File(InfoAdapter.Companion.getGameDir(), "/mods"));
                 ZHTools.addFragment(mParentFragment, DownloadModFragment.class, DownloadModFragment.TAG, null);
 
                 if (onClickListener != null) onClickListener.onItemClick();

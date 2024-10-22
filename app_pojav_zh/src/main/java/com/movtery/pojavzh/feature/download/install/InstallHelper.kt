@@ -51,8 +51,8 @@ class InstallHelper {
                         null
                     }
                 } finally {
-                    ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE)
                     targetFile?.let { listener?.onEnded(it) }
+                    ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE)
                 }
             }
         }
