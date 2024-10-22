@@ -52,11 +52,11 @@ class ModrinthModPackInstallHelper {
                 modDownloader.awaitFinish(
                     DownloaderProgressWrapper(
                         R.string.modpack_download_downloading_mods,
-                        ProgressLayout.INSTALL_MODPACK
+                        ProgressLayout.INSTALL_RESOURCE
                     )
                 )
                 ProgressLayout.setProgress(
-                    ProgressLayout.INSTALL_MODPACK,
+                    ProgressLayout.INSTALL_RESOURCE,
                     0,
                     R.string.modpack_download_applying_overrides,
                     1,
@@ -64,7 +64,7 @@ class ModrinthModPackInstallHelper {
                 )
                 ZipUtils.zipExtract(modpackZipFile, "overrides/", targetPath)
                 ProgressLayout.setProgress(
-                    ProgressLayout.INSTALL_MODPACK,
+                    ProgressLayout.INSTALL_RESOURCE,
                     50,
                     R.string.modpack_download_applying_overrides,
                     2,

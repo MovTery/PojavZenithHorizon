@@ -245,7 +245,7 @@ public class LauncherActivity extends BaseActivity {
         ModPackUtils.ModPackEnum type;
         type = ModPackUtils.determineModpack(dirGameModpackFile);
 
-        ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.generic_waiting);
+        ProgressLayout.setProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.generic_waiting);
         PojavApplication.sExecutorService.execute(() -> {
             try {
                 ModLoaderWrapper loaderInfo = InstallLocalModPack.installModPack(this, type, dirGameModpackFile, () -> runOnUiThread(installExtra.dialog::dismiss));
@@ -256,7 +256,7 @@ public class LauncherActivity extends BaseActivity {
                 installExtra.dialog.dismiss();
                 Tools.showErrorRemote(this, R.string.modpack_install_download_failed, e);
             } finally {
-                ProgressLayout.clearProgress(ProgressLayout.INSTALL_MODPACK);
+                ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE);
             }
         });
     }
@@ -332,7 +332,7 @@ public class LauncherActivity extends BaseActivity {
 
         binding.progressLayout.observe(ProgressLayout.DOWNLOAD_MINECRAFT);
         binding.progressLayout.observe(ProgressLayout.UNPACK_RUNTIME);
-        binding.progressLayout.observe(ProgressLayout.INSTALL_MODPACK);
+        binding.progressLayout.observe(ProgressLayout.INSTALL_RESOURCE);
         binding.progressLayout.observe(ProgressLayout.AUTHENTICATE_MICROSOFT);
         binding.progressLayout.observe(ProgressLayout.DOWNLOAD_VERSION_LIST);
 

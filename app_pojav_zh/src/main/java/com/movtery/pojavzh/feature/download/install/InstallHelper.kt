@@ -45,13 +45,13 @@ class InstallHelper {
                             version.fileUrl, targetFile, downloadBuffer,
                             DownloaderProgressWrapper(
                                 R.string.download_install_download_file,
-                                ProgressLayout.INSTALL_MODPACK
+                                ProgressLayout.INSTALL_RESOURCE
                             )
                         )
                         null
                     }
                 } finally {
-                    ProgressLayout.clearProgress(ProgressLayout.INSTALL_MODPACK)
+                    ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE)
                     targetFile?.let { listener?.onEnded(it) }
                 }
             }
@@ -80,7 +80,7 @@ class InstallHelper {
                         version.fileUrl, modpackFile, downloadBuffer,
                         DownloaderProgressWrapper(
                             R.string.modpack_download_downloading_metadata,
-                            ProgressLayout.INSTALL_MODPACK
+                            ProgressLayout.INSTALL_RESOURCE
                         )
                     )
                     null
@@ -92,7 +92,7 @@ class InstallHelper {
                 )
             } finally {
                 FileUtils.deleteQuietly(modpackFile)
-                ProgressLayout.clearProgress(ProgressLayout.INSTALL_MODPACK)
+                ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE)
             }
             modLoaderInfo ?: return null
             Logging.i("InstallHelper", "ModLoader is " + modLoaderInfo.nameById)

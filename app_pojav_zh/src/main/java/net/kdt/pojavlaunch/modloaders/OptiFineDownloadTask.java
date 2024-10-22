@@ -46,13 +46,13 @@ public class OptiFineDownloadTask implements Runnable, Tools.DownloaderFeedback,
 
     @Override
     public void run() {
-        ProgressKeeper.submitProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.mod_optifine_progress, mOptiFineVersion.versionName);
+        ProgressKeeper.submitProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.mod_optifine_progress, mOptiFineVersion.versionName);
         try {
             if(runCatching()) mListener.onDownloadFinished(mDestinationFile);
         }catch (IOException e) {
             mListener.onDownloadError(e);
         }
-        ProgressLayout.clearProgress(ProgressLayout.INSTALL_MODPACK);
+        ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE);
     }
 
     public boolean runCatching() throws IOException {
@@ -118,7 +118,7 @@ public class OptiFineDownloadTask implements Runnable, Tools.DownloaderFeedback,
     @Override
     public void updateProgress(int curr, int max) {
         int progress100 = (int)(((float)curr / (float)max)*100f);
-        ProgressKeeper.submitProgress(ProgressLayout.INSTALL_MODPACK, progress100, R.string.mod_optifine_progress, mOptiFineVersion.versionName);
+        ProgressKeeper.submitProgress(ProgressLayout.INSTALL_RESOURCE, progress100, R.string.mod_optifine_progress, mOptiFineVersion.versionName);
     }
 
     @Override

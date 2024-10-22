@@ -50,7 +50,7 @@ class CurseForgeModPackInstallHelper {
                 val modDownloader: ModDownloader = getModDownloader(api, targetPath, curseManifest)
                 modDownloader.awaitFinish { c: Int, m: Int ->
                     ProgressKeeper.submitProgress(
-                        ProgressLayout.INSTALL_MODPACK,
+                        ProgressLayout.INSTALL_RESOURCE,
                         max((c.toFloat() / m * 100).toDouble(), 0.0).toInt(),
                         R.string.modpack_download_downloading_mods_fc, c, m
                     )

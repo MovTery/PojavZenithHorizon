@@ -39,13 +39,13 @@ class NeoForgeDownloadTask(listener: ModloaderDownloadListener, neoforgeVersion:
         } catch (e: Exception) {
             throw RuntimeException(e)
         }
-        ProgressLayout.clearProgress(ProgressLayout.INSTALL_MODPACK)
+        ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE)
     }
 
     override fun updateProgress(curr: Int, max: Int) {
         val progress100 = ((curr.toFloat() / max.toFloat()) * 100f).toInt()
         ProgressKeeper.submitProgress(
-            ProgressLayout.INSTALL_MODPACK,
+            ProgressLayout.INSTALL_RESOURCE,
             progress100,
             R.string.mod_download_progress,
             mLoaderVersion
@@ -54,7 +54,7 @@ class NeoForgeDownloadTask(listener: ModloaderDownloadListener, neoforgeVersion:
 
     private fun downloadNeoForge() {
         ProgressKeeper.submitProgress(
-            ProgressLayout.INSTALL_MODPACK,
+            ProgressLayout.INSTALL_RESOURCE,
             0,
             R.string.mod_download_progress,
             mLoaderVersion
@@ -74,7 +74,7 @@ class NeoForgeDownloadTask(listener: ModloaderDownloadListener, neoforgeVersion:
     private fun determineDownloadUrl(findVersion: Boolean): Boolean {
         if (mDownloadUrl != null && mLoaderVersion != null) return true
         ProgressKeeper.submitProgress(
-            ProgressLayout.INSTALL_MODPACK,
+            ProgressLayout.INSTALL_RESOURCE,
             0,
             R.string.mod_neoforge_searching
         )

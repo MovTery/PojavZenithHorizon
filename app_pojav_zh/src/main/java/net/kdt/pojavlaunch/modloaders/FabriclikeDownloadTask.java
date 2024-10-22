@@ -37,10 +37,10 @@ public class FabriclikeDownloadTask implements Runnable, Tools.DownloaderFeedbac
 
     @Override
     public void run() {
-        ProgressKeeper.submitProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.mod_download_progress, mUtils.getName());
+        ProgressKeeper.submitProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.mod_download_progress, mUtils.getName());
         if (mGameVersion == null && mLoaderVersion == null) downloadInstaller();
         else legacyInstall();
-        ProgressLayout.clearProgress(ProgressLayout.INSTALL_MODPACK);
+        ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE);
     }
 
     private void downloadInstaller() {
@@ -88,6 +88,6 @@ public class FabriclikeDownloadTask implements Runnable, Tools.DownloaderFeedbac
     @Override
     public void updateProgress(int curr, int max) {
         int progress100 = (int)(((float)curr / (float)max)*100f);
-        ProgressKeeper.submitProgress(ProgressLayout.INSTALL_MODPACK, progress100, R.string.mod_download_progress, mUtils.getName());
+        ProgressKeeper.submitProgress(ProgressLayout.INSTALL_RESOURCE, progress100, R.string.mod_download_progress, mUtils.getName());
     }
 }

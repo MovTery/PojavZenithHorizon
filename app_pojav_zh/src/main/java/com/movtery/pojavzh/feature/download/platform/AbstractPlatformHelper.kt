@@ -60,7 +60,7 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
                 }
             }
         }
-        ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.generic_waiting)
+        ProgressLayout.setProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.generic_waiting)
     }
 
     abstract fun copy(): AbstractPlatformHelper
