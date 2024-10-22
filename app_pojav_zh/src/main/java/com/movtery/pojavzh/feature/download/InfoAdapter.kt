@@ -282,13 +282,15 @@ class InfoAdapter(
                     mCurrentResult = result
                 }
             }.getOrElse { e ->
-                mItems = MOD_ITEMS_EMPTY
-                notifyDataSetChanged()
-                Logging.e("SearchTask", Tools.printToString(e))
-                if (e is PlatformNotSupportedException) {
-                    mSearchResultCallback.onSearchError(index, SearchResultCallback.ERROR_PLATFORM_NOT_SUPPORTED)
-                } else {
-                    mSearchResultCallback.onSearchError(index, SearchResultCallback.ERROR_NO_RESULTS)
+                Tools.runOnUiThread {
+                    mItems = MOD_ITEMS_EMPTY
+                    notifyDataSetChanged()
+                    Logging.e("SearchTask", Tools.printToString(e))
+                    if (e is PlatformNotSupportedException) {
+                        mSearchResultCallback.onSearchError(index, SearchResultCallback.ERROR_PLATFORM_NOT_SUPPORTED)
+                    } else {
+                        mSearchResultCallback.onSearchError(index, SearchResultCallback.ERROR_NO_RESULTS)
+                    }
                 }
             }
         }
