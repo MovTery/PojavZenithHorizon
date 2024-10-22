@@ -253,7 +253,7 @@ class InfoAdapter(
                             } else {
                                 mLastPage = true
                                 mItems = result.infoItems
-                                notifyItemChanged(mItems.size)
+                                notifyDataSetChanged()
                                 mSearchResultCallback.onSearchFinished(index)
                                 return@runOnUiThread
                             }
@@ -267,19 +267,11 @@ class InfoAdapter(
                         mItems = MOD_ITEMS_EMPTY
                         notifyDataSetChanged()
                         return@runOnUiThread
-                    }
-
-                    if (mPreviousResult != null) {
-                        val prevLength = mItems.size
-                        mItems = result.infoItems
-                        notifyItemChanged(prevLength)
-                        notifyItemRangeInserted(prevLength + 1, mItems.size)
                     } else {
                         mItems = result.infoItems
                         notifyDataSetChanged()
+                        mCurrentResult = result
                     }
-
-                    mCurrentResult = result
                 }
             }.getOrElse { e ->
                 Tools.runOnUiThread {
