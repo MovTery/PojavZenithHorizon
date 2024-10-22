@@ -146,6 +146,7 @@ public class LauncherActivity extends BaseActivity {
     @Subscribe()
     public void event(InDownloadFragmentEvent event) {
         mIsInDownloadFragment = event.isIn();
+        if (event.isIn()) ViewAnimUtils.setViewAnim(binding.downloadButton, Animations.Pulse);
     }
 
     @Subscribe()

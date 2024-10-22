@@ -1,3 +1,3 @@
-package com.movtery.pojavzh.event.single
+package com.movtery.pojavzh.event.value
 
 class InDownloadFragmentEvent(val isIn: Boolean)

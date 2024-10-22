@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.pojavzh.event.single.DownloadItemClickEvent
-import com.movtery.pojavzh.event.single.InDownloadFragmentEvent
+import com.movtery.pojavzh.event.value.InDownloadFragmentEvent
 import com.movtery.pojavzh.feature.download.Filters
 import com.movtery.pojavzh.feature.download.InfoAdapter
 import com.movtery.pojavzh.feature.download.enums.Category
