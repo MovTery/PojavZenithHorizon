@@ -155,14 +155,6 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
                 )
             )
         )
-        mAboutData.add(
-            AboutItemBean(
-                resources.getDrawable(R.drawable.image_about_z0z0r4, requireContext().theme),
-                "z0z0r4",
-                getString(R.string.about_z0z0r4_desc),
-                null
-            )
-        )
     }
 
     private fun loadSponsorData() {

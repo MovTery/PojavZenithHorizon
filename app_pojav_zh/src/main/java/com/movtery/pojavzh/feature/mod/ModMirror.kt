@@ -2,6 +2,7 @@ package com.movtery.pojavzh.feature.mod
 
 import com.movtery.pojavzh.setting.AllSettings
 
+@Deprecated("暂时不使用镜像源")
 class ModMirror {
     companion object {
         private const val MCIM_MIRROR: String = "mod.mcimirror.top"
