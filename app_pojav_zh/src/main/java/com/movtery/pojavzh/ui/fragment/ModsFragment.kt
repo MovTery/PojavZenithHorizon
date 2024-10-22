@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
-import com.movtery.pojavzh.feature.download.enums.Classify
 import com.movtery.pojavzh.feature.mod.ModUtils
 import com.movtery.pojavzh.ui.dialog.FilesDialog
 import com.movtery.pojavzh.ui.dialog.FilesDialog.FilesButton
@@ -293,13 +292,11 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
 
     private fun goDownloadMod() {
         closeMultiSelect()
-        val bundle = Bundle()
-        bundle.putInt(DownloadFragment.BUNDLE_CLASSIFY_TYPE, Classify.MODPACK.type)
         ZHTools.swapFragmentWithAnim(
             this,
             DownloadFragment::class.java,
             DownloadFragment.TAG,
-            bundle
+            null
         )
     }
 

@@ -61,14 +61,6 @@
         <item>default</item>
         <item>bmclapi</item>
     </string-array>
-    <string-array name="mod_source_names">
-        <item>@string/generic_default</item>
-        <item>MCIM</item>
-    </string-array>
-    <string-array name="mod_source_values">
-        <item>original</item>
-        <item>mcim</item>
-    </string-array>
 
     <string-array name="launcher_theme_names">
         <item>@string/setting_launcher_theme_system</item>

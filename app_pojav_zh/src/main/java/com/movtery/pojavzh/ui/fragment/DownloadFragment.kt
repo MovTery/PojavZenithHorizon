@@ -338,8 +338,8 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download_search), In
     }
 
     private fun parseBundle() {
-        val type = arguments?.getInt(BUNDLE_CLASSIFY_TYPE) ?: -1
-        binding.classifyTab.onPageSelected(type.takeIf { it != -1 } ?: 0)
+        val type = arguments?.getInt(BUNDLE_CLASSIFY_TYPE) ?: 0
+        binding.classifyTab.onPageSelected(type)
         refreshClassifies()
     }
 
