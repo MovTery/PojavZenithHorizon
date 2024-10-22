@@ -39,14 +39,14 @@ jobs:
       - name: Build Release ${{matrix.arch}}
         run: |
           chmod +x gradlew
-          ./gradlew app_pojav_zh:assemblerelease -Darch=${{matrix.arch}}
+          ./gradlew ZalithLauncher:assemblerelease -Darch=${{matrix.arch}}
 
       - name: Upload Release ${{matrix.arch}}
         continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
-          name: PojavZenithHorizon(Release) ${{matrix.arch}}
-          path: app_pojav_zh/build/outputs/apk/release/*
+          name: ZalithLauncher(Release) ${{matrix.arch}}
+          path: ZalithLauncher/build/outputs/apk/release/*
 
   BuildDebug:
     if: github.repository_owner != 'MovTery' || startsWith(github.ref, 'refs/pull/')
@@ -76,11 +76,11 @@ jobs:
         if: github.ref_name != 'main'
         run: |
           chmod +x gradlew
-          ./gradlew app_pojav_zh:assembleDebug -Darch=${{matrix.arch}}
+          ./gradlew ZalithLauncher:assembleDebug -Darch=${{matrix.arch}}
 
       - name: Upload Debug ${{matrix.arch}}
         if: github.ref_name != 'main'
         uses: actions/upload-artifact@v4
         with:
-          name: PojavZenithHorizon(Debug) ${{matrix.arch}}
-          path: app_pojav_zh/build/outputs/apk/debug/*
+          name: ZalithLauncher(Debug) ${{matrix.arch}}
+          path: ZalithLauncher/build/outputs/apk/debug/*

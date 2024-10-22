@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minWidth="@dimen/_480sdp"
+    android:orientation="vertical"
+    android:padding="@dimen/_8sdp">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/zh_version_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_edit_box"
+        android:padding="@dimen/_4sdp"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/menu_progress"
+        app:tabIndicatorHeight="@dimen/_3sdp"
+        app:tabMode="fixed" />
+
+    <com.movtery.zalithlauncher.ui.subassembly.versionlist.VersionListView
+        android:id="@+id/zh_version"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@drawable/background_edit_box"
+        android:paddingVertical="@dimen/_4sdp"
+        android:paddingHorizontal="@dimen/_8sdp" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

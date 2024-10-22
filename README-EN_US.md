@@ -1,16 +1,16 @@
 <div align="center">
-    <img width="256" src="app_pojav_zh/src/main/res/drawable/app_name_title.png"></img>
+    <img width="256" src="ZalithLauncher/src/main/res/drawable/app_name_title.png"></img>
 </div>
 
-[![Android CI](https://github.com/MovTery/PojavZenithHorizon/actions/workflows/android.yml/badge.svg)](https://github.com/MovTery/PojavZenithHorizon/actions/workflows/android.yml)
+[![Android CI](https://github.com/MovTery/ZalithLauncher/actions/workflows/android.yml/badge.svg)](https://github.com/MovTery/ZalithLauncher/actions/workflows/android.yml)
 [![Crowdin](https://badges.crowdin.net/pojav-zenith-horizon/localized.svg)](https://crowdin.com/project/pojav-zenith-horizon)
-![Downloads](https://img.shields.io/github/downloads/MovTery/PojavZenithHorizon/total)
+![Downloads](https://img.shields.io/github/downloads/MovTery/ZalithLauncher/total)
 [![Sponsor](https://img.shields.io/badge/sponsor-30363D?logo=GitHub-Sponsors)](https://afdian.com/a/MovTery)
 
 - <a href="/README.md">简体中文</a>丨<a href="/README-ZH_TW.md">繁體中文</a>
-- Pojav Zenith Horizon is a Minecraft launcher based on [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher) that runs [Minecraft: Java Edition](https://www.minecraft.net/) on Android devices.
-- Pojav Zenith Horizon aims to enhance user experience by redesigning the app interface, adding more practical features, and lowering the barrier to entry, making it easier for more people to enjoy Minecraft.
-- You can help translate Pojav Zenith Horizon on [Crowdin](https://zh.crowdin.com/project/pojav-zenith-horizon)!
+- Zalith Launcher is a Minecraft launcher based on [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher) that runs [Minecraft: Java Edition](https://www.minecraft.net/) on Android devices.
+- Zalith Launcher aims to enhance user experience by redesigning the app interface, adding more practical features, and lowering the barrier to entry, making it easier for more people to enjoy Minecraft.
+- You can help translate Zalith Launcher on [Crowdin](https://zh.crowdin.com/project/pojav-zenith-horizon)!
 
 **Notice! This project is just a community-made modification, similar to PojavLauncher’s predecessor, [Boardwalk](https://github.com/zhuowei/Boardwalk).**
 
@@ -35,9 +35,9 @@
 
 <h2 align="center">Download</h2>
 
-- Visit [Release](https://github.com/MovTery/PojavZenithHorizon/releases) to check the latest stable version (updates are infrequent).
-- (Not recommended) Visit [Actions](https://github.com/MovTery/PojavZenithHorizon/actions) to see the latest versions (main branch: main, other branches can be ignored!)  
-  After entering, click **PojavZenithHorizon** to download (Debug is for test builds, Release is for release builds).
+- Visit [Release](https://github.com/MovTery/ZalithLauncher/releases) to check the latest stable version (updates are infrequent).
+- (Not recommended) Visit [Actions](https://github.com/MovTery/ZalithLauncher/actions) to see the latest versions (main branch: main, other branches can be ignored!)  
+  After entering, click **ZalithLauncher** to download (Debug is for test builds, Release is for release builds).
 
 <h2 align="center">Special Thanks</h2>
 
@@ -57,7 +57,7 @@ This project uses several useful code libraries. Special thanks to them!
 >- [libepoxy](https://github.com/anholt/libepoxy): [MIT License](https://github.com/anholt/libepoxy/blob/master/COPYING).
 >- [virglrenderer](https://github.com/PojavLauncherTeam/virglrenderer): [MIT License](https://gitlab.freedesktop.org/virgl/virglrenderer/-/blob/master/COPYING).
 
-#### Additional Code Libraries Used by Pojav Zenith Horizon
+#### Additional Code Libraries Used by Zalith Launcher
 
 >- [CommonMark](https://github.com/thephpleague/commonmark) (For rendering Markdown text): [BSD-3-Clause License](https://github.com/thephpleague/commonmark/blob/2.5/LICENSE).
 >- [AndroidViewAnimations](https://github.com/daimajia/AndroidViewAnimations) (Used part of the animation source code): [MIT License](https://github.com/daimajia/AndroidViewAnimations/blob/master/License).

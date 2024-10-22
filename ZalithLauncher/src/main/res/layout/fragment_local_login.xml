@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:paddingHorizontal="@dimen/_50sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/login_menu"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_200sdp"
+        android:layout_marginHorizontal="@dimen/_50sdp"
+        android:background="@drawable/background_card"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/return_button"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/account_login_local_name"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/login_edit_name"
+            app:layout_constraintStart_toStartOf="@+id/login_edit_name" />
+
+        <com.movtery.zalithlauncher.ui.view.AnimEditText
+            android:id="@+id/login_edit_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_25sdp"
+            android:autofillHints="username"
+            android:background="@drawable/background_edit_box"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="text"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:textSize="@dimen/_16ssp"
+            app:layout_constraintHorizontal_weight="2.5"
+            app:layout_constraintBottom_toBottomOf="@+id/login_menu"
+            app:layout_constraintEnd_toStartOf="@+id/login_button"
+            app:layout_constraintStart_toStartOf="@+id/login_menu"
+            app:layout_constraintTop_toTopOf="@+id/login_menu"
+            tools:ignore="LabelFor" />
+
+        <com.movtery.zalithlauncher.ui.view.AnimButton
+            android:id="@+id/login_button"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_42sdp"
+            android:layout_marginHorizontal="@dimen/_25sdp"
+            android:text="@string/generic_login"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintBottom_toBottomOf="@+id/login_menu"
+            app:layout_constraintStart_toEndOf="@+id/login_edit_name"
+            app:layout_constraintEnd_toEndOf="@+id/login_menu"
+            app:layout_constraintTop_toTopOf="@+id/login_menu" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,8 +14,8 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name='Pojav Zenith Horizon'
+rootProject.name='Zalith Launcher'
 include ':jre_lwjgl3glfw'
-include ':app_pojav_zh'
+include ':ZalithLauncher'
 
 include ':forge_installer'

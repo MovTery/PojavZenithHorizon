@@ -1,10 +1,10 @@
 /.gradle
 /build
 /*/build
-app_pojav_zh/src/main/assets/components/jre
+ZalithLauncher/src/main/assets/components/jre
 local.properties
 .idea/
-app_pojav_zh/.cxx/
+ZalithLauncher/.cxx/
 .vs/
 /curseforge_key.txt
-/app_pojav_zh/release/
+/ZalithLauncher/release/

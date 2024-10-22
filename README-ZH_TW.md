@@ -1,16 +1,16 @@
 <div align="center">
-    <img width="256" src="app_pojav_zh/src/main/res/drawable/app_name_title.png"></img>
+    <img width="256" src="ZalithLauncher/src/main/res/drawable/app_name_title.png"></img>
 </div>
 
-[![Android CI](https://github.com/MovTery/PojavZenithHorizon/actions/workflows/android.yml/badge.svg)](https://github.com/MovTery/PojavZenithHorizon/actions/workflows/android.yml)
+[![Android CI](https://github.com/MovTery/ZalithLauncher/actions/workflows/android.yml/badge.svg)](https://github.com/MovTery/ZalithLauncher/actions/workflows/android.yml)
 [![Crowdin](https://badges.crowdin.net/pojav-zenith-horizon/localized.svg)](https://crowdin.com/project/pojav-zenith-horizon)
-![Downloads](https://img.shields.io/github/downloads/MovTery/PojavZenithHorizon/total)
+![Downloads](https://img.shields.io/github/downloads/MovTery/ZalithLauncher/total)
 [![Sponsor](https://img.shields.io/badge/sponsor-30363D?logo=GitHub-Sponsors)](https://afdian.com/a/MovTery)
 
 - <a href="/README-EN_US.md">English</a>丨<a href="/README.md">简体中文</a>
-- Pojav Zenith Horizon 是一款基於 [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher) 開發的 Minecraft 啟動器，它能夠在 Android 設備上運行 [Minecraft: Java Edition](https://www.minecraft.net/)。
-- Pojav Zenith Horizon 致力於優化用戶體驗，重新設計了應用介面，新增了更多實用的功能，旨在最大程度地降低遊玩門檻，讓更多人能夠輕鬆體驗 Minecraft 的樂趣。
-- 你可以前往 [Crowdin](https://zh.crowdin.com/project/pojav-zenith-horizon) 幫助我翻譯 Pojav Zenith Horizon！
+- Zalith Launcher 是一款基於 [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher) 開發的 Minecraft 啟動器，它能夠在 Android 設備上運行 [Minecraft: Java Edition](https://www.minecraft.net/)。
+- Zalith Launcher 致力於優化用戶體驗，重新設計了應用介面，新增了更多實用的功能，旨在最大程度地降低遊玩門檻，讓更多人能夠輕鬆體驗 Minecraft 的樂趣。
+- 你可以前往 [Crowdin](https://zh.crowdin.com/project/pojav-zenith-horizon) 幫助我翻譯 Zalith Launcher！
 
 **注意！此項目只是一個社群改版，就像 PojavLauncher 的前身 [Boardwalk](https://github.com/zhuowei/Boardwalk) 一樣。**
 
@@ -35,9 +35,9 @@
 
 <h2 align="center">下載</h2>
 
-- 前往 [Release](https://github.com/MovTery/PojavZenithHorizon/releases) 查看最新且經過測試的穩定版本（更新並不頻繁）。
-- (並不推薦) 前往 [Actions](https://github.com/MovTery/PojavZenithHorizon/actions) 查看最新的版本 ( 主線：main，其他任何支線均可忽略！)，  
-  進入後，點擊 **PojavZenithHorizon** 下載 (Debug 為測試構建版本，Release 為發行構建版本)。
+- 前往 [Release](https://github.com/MovTery/ZalithLauncher/releases) 查看最新且經過測試的穩定版本（更新並不頻繁）。
+- (並不推薦) 前往 [Actions](https://github.com/MovTery/ZalithLauncher/actions) 查看最新的版本 ( 主線：main，其他任何支線均可忽略！)，  
+  進入後，點擊 **ZalithLauncher** 下載 (Debug 為測試構建版本，Release 為發行構建版本)。
 
 <h2 align="center">特別感謝</h2>
 
@@ -57,7 +57,7 @@
 >- [libepoxy](https://github.com/anholt/libepoxy): [MIT License](https://github.com/anholt/libepoxy/blob/master/COPYING)。
 >- [virglrenderer](https://github.com/PojavLauncherTeam/virglrenderer): [MIT License](https://gitlab.freedesktop.org/virgl/virglrenderer/-/blob/master/COPYING)。
 
-#### Pojav Zenith Horizon 額外使用的程式庫
+#### Zalith Launcher 額外使用的程式庫
 
 >- [CommonMark](https://github.com/thephpleague/commonmark) (用於渲染 Markdown 文本): [BSD-3-Clause License](https://github.com/thephpleague/commonmark/blob/2.5/LICENSE)。
 >- [AndroidViewAnimations](https://github.com/daimajia/AndroidViewAnimations) (使用了部分動畫原始碼): [MIT License](https://github.com/daimajia/AndroidViewAnimations/blob/master/License)。

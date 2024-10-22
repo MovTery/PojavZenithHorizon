@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.movtery.zalithlauncher.ui.layout.AnimConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_8sdp"
+    android:background="@drawable/background_item"
+    android:padding="@dimen/_8sdp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/thumbnail_imageview"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/RoundedCornersImageView"
+        app:strokeColor="@android:color/transparent"
+        tools:src="@mipmap/ic_launcher_foreground" />
+
+    <ImageView
+        android:id="@+id/platform_imageview"
+        android:layout_width="17sp"
+        android:layout_height="0dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/title_textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/title_textview"/>
+
+    <TextView
+        android:id="@+id/title_textview"
+        style="@style/TextAppearance.AppCompat.Body2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:textColor="@color/primary_text"
+        android:textSize="11sp"
+        android:singleLine="true"
+        app:layout_constraintEnd_toStartOf="@+id/platform_imageview"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/thumbnail_imageview"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Title" />
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/categories_Layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:flexDirection="row"
+        app:flexWrap="wrap"
+        app:alignItems="flex_start"
+        app:justifyContent="flex_start"
+        app:layout_constraintEnd_toEndOf="@+id/title_textview"
+        app:layout_constraintStart_toStartOf="@+id/title_textview"
+        app:layout_constraintTop_toBottomOf="@+id/title_textview"/>
+
+    <TextView
+        android:id="@+id/description_textview"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/title_textview"
+        app:layout_constraintTop_toBottomOf="@+id/categories_Layout"
+        tools:ignore="SmallSp"
+        tools:text="Feed the beast - Reforged is a machine and magic focused modpack, with no respect for the minimum requirements of minecraft. Very long text" />
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/tags_Layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:flexDirection="row"
+        app:flexWrap="wrap"
+        app:alignItems="flex_start"
+        app:justifyContent="flex_start"
+        app:layout_constraintStart_toStartOf="@+id/description_textview"
+        app:layout_constraintEnd_toEndOf="@+id/description_textview"
+        app:layout_constraintTop_toBottomOf="@+id/description_textview"/>
+
+</com.movtery.zalithlauncher.ui.layout.AnimConstraintLayout>

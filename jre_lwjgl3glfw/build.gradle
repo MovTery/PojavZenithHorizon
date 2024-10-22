@@ -9,10 +9,10 @@ configurations.default.setCanBeResolved(true)
 jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     archiveBaseName = "lwjgl-glfw-classes"
-    destinationDirectory.set(file("../app_pojav_zh/src/main/assets/components/lwjgl3/"))
+    destinationDirectory.set(file("../ZalithLauncher/src/main/assets/components/lwjgl3/"))
     // Auto update the version with a timestamp so the project jar gets updated by Pojav
     doLast {
-        File versionFile = file("../app_pojav_zh/src/main/assets/components/lwjgl3/version")
+        File versionFile = file("../ZalithLauncher/src/main/assets/components/lwjgl3/version")
         versionFile.write(String.valueOf(new Date().getTime()))
     }
     from {
