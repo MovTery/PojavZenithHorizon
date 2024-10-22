@@ -2,6 +2,7 @@ package com.movtery.pojavzh.feature.download.platform.curseforge
 
 import com.google.gson.JsonObject
 import com.movtery.pojavzh.feature.download.install.InstallHelper
+import com.movtery.pojavzh.feature.download.install.UnpackWorldZipHelper
 import com.movtery.pojavzh.feature.download.item.InfoItem
 import com.movtery.pojavzh.feature.download.item.ModLoaderWrapper
 import com.movtery.pojavzh.feature.download.item.SearchResult
@@ -88,6 +89,8 @@ class CurseForgeHelper : AbstractPlatformHelper(PlatformUtils.createCurseForgeAp
 
     @Throws(Throwable::class)
     override fun installWorld(infoItem: InfoItem, version: VersionItem, targetPath: File?) {
-        InstallHelper.downloadFile(version, targetPath)
+        InstallHelper.downloadFile(version, targetPath) { file ->
+            targetPath!!.parentFile?.let { UnpackWorldZipHelper.unpackFile(file, it) }
+        }
     }
 }

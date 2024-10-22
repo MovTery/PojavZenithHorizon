@@ -55,8 +55,7 @@ class CurseForgeModPackInstallHelper {
                         R.string.modpack_download_downloading_mods_fc, c, m
                     )
                 }
-                var overridesDir: String? = "overrides"
-                if (curseManifest.overrides != null) overridesDir = curseManifest.overrides
+                val overridesDir: String = curseManifest.overrides ?: "overrides"
                 ZipUtils.zipExtract(modpackZipFile, overridesDir, targetPath)
                 return createInfo(curseManifest.minecraft)
             }
