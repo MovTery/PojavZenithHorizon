@@ -313,9 +313,11 @@ class InfoAdapter(
         private const val VIEW_TYPE_LOADING = 1
         val gameDir: File = ZHTools.getGameDirPath(getDir())
 
-        private fun getDir(): String {
-            var dir = LauncherProfiles.getCurrentProfile().gameDir
-            if (dir.startsWith("./")) dir = dir.removePrefix("./")
+        private fun getDir(): String? {
+            var dir: String? = LauncherProfiles.getCurrentProfile().gameDir
+            dir?.let {
+                if (it.startsWith("./")) dir = it.removePrefix("./")
+            }
             return dir
         }
     }
