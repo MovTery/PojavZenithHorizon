@@ -44,6 +44,7 @@
     <string name="generic_input_too_small">填写的值过小，至少需要为 %s</string>
     <string name="generic_input_too_big">填写的值过大，最大只能为 %s</string>
     <string name="generic_copied">已复制</string>
+    <string name="generic_image_preview">查看图片</string>
 
     <!-- Error -->
     <string name="error_fatal">Zalith Launcher 意外地崩溃了</string>

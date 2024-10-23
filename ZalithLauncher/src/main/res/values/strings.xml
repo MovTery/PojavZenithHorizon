@@ -45,6 +45,7 @@
     <string name="generic_input_too_small">The value is too small, it must be at least %s</string>
     <string name="generic_input_too_big">The value is too big, it can be at most %s</string>
     <string name="generic_copied">Copied</string>
+    <string name="generic_image_preview">View Image</string>
     <!-- Error -->
     <string name="error_fatal">Zalith Launcher crashed unexpectedly</string>
     <string name="error_no_version">No version!</string>

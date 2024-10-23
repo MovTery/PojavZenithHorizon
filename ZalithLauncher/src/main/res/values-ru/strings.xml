@@ -44,6 +44,7 @@
     <string name="generic_input_too_small">Введенное значение слишком маленькое, минимум %s</string>
     <string name="generic_input_too_big">Введенное значение слишком большое, максимум %s</string>
     <string name="generic_copied">Скопировано</string>
+    <string name="generic_image_preview">Просмотр изображения</string>
     <!-- Error -->
     <string name="error_fatal">Zalith Launcher неожиданно завершил работу</string>
     <string name="error_no_version">Версия не найдена!</string>

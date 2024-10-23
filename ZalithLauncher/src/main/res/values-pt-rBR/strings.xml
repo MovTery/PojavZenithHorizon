@@ -44,6 +44,7 @@
     <string name="generic_input_too_small">O valor preenchido é muito pequeno, deve ser pelo menos %s</string>
     <string name="generic_input_too_big">O valor preenchido é muito grande, o máximo é %s</string>
     <string name="generic_copied">Copiado</string>
+    <string name="generic_image_preview">Visualizar imagem</string>
     <!-- Error -->
     <string name="error_fatal">Zalith Launcher teve um erro e fechou inesperadamente</string>
     <string name="error_no_version">Nenhuma versão encontrada!</string>

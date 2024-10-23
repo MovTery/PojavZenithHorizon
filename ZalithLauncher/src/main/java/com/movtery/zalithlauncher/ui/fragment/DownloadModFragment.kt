@@ -24,6 +24,7 @@ import com.movtery.zalithlauncher.feature.download.item.ScreenshotItem
 import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.feature.download.platform.AbstractPlatformHelper
 import com.movtery.zalithlauncher.feature.log.Logging
+import com.movtery.zalithlauncher.ui.dialog.ViewImageDialog
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListAdapter
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListFragment
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListItemBean
@@ -187,8 +188,16 @@ class DownloadModFragment : ModListFragment() {
             }
 
             val imageView = ImageView(fragmentActivity!!).apply {
-                layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+                layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT).apply {
+                    topMargin = Tools.dpToPx(8f).toInt()
+                }
                 scaleType = ImageView.ScaleType.FIT_CENTER
+                setOnClickListener {
+                    val vb = ViewImageDialog.Builder(fragmentActivity!!)
+                        .setImage(item.imageUrl)
+                    item.title?.let { vb.setTitle(it) }
+                    vb.buildDialog()
+                }
             }
 
             Glide.with(fragmentActivity!!)

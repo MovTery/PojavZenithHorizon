@@ -44,6 +44,7 @@
     <string name="generic_input_too_small">القيمة المدخلة صغيرة جدًا، يجب أن تكون على الأقل %s</string>
     <string name="generic_input_too_big">القيمة المدخلة كبيرة جدًا، يجب أن تكون على الأكثر %s</string>
     <string name="generic_copied">تم النسخ</string>
+    <string name="generic_image_preview">عرض الصورة</string>
     <!-- Error -->
     <string name="error_fatal">حدث انهيار غير متوقع في Zalith Launcher</string>
     <string name="error_no_version">لا توجد نسخة!</string>
