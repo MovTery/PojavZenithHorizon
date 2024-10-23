@@ -17,11 +17,10 @@ open class ModInfoItem(
     downloadCount: Long,
     uploadDate: Date,
     iconUrl: String?,
-    screenshotItems: List<ScreenshotItem>,
     category: List<Category>,
     val modloaders: List<ModLoader>
 ) : InfoItem(
-    platform, projectId, author, title, description, downloadCount, uploadDate, iconUrl, screenshotItems, category
+    platform, projectId, author, title, description, downloadCount, uploadDate, iconUrl, category
 ) {
     override fun toString(): String {
         return "ModInfoItem(" +
@@ -33,7 +32,6 @@ open class ModInfoItem(
                 "downloadCount=$downloadCount, " +
                 "uploadDate=$uploadDate, " +
                 "iconUrl='$iconUrl', " +
-                "screenshotItems='$screenshotItems', " +
                 "category=$category, " +
                 "modloaders=$modloaders" +
                 ")"

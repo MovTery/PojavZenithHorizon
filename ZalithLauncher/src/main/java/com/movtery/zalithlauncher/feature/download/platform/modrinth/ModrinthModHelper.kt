@@ -55,7 +55,6 @@ class ModrinthModHelper {
                         hit.get("downloads").asLong,
                         ZHTools.getDate(hit.get("date_created").asString),
                         ModrinthCommonUtils.getIconUrl(hit),
-                        ModrinthCommonUtils.getScreenshots(hit),
                         ModrinthCommonUtils.getAllCategories(hit).toList(),
                         modloaders
                     )
@@ -92,7 +91,6 @@ class ModrinthModHelper {
                                         hit.get("downloads").asLong,
                                         ZHTools.getDate(hit.get("published").asString),
                                         ModrinthCommonUtils.getIconUrl(hit),
-                                        ModrinthCommonUtils.getScreenshots(hit),
                                         ModrinthCommonUtils.getAllCategories(hit).toList(),
                                         getModLoaders(hit.getAsJsonArray("loaders")),
                                         DependencyUtils.getDependencyType(dependencyType)

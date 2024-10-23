@@ -13,7 +13,9 @@ import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.feature.download.platform.PlatformNotSupportedException
 import com.movtery.zalithlauncher.feature.download.utils.CategoryUtils
 import com.movtery.zalithlauncher.feature.download.utils.VersionTypeUtils
+import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.utils.ZHTools
+import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ApiHandler
 import java.util.StringJoiner
 import java.util.TreeSet
@@ -55,26 +57,25 @@ class ModrinthCommonUtils {
             }.getOrNull()
         }
 
-        internal fun getScreenshots(hit: JsonObject): List<ScreenshotItem> {
-            val screenshotItems: MutableList<ScreenshotItem> = ArrayList()
-            hit.getAsJsonArray("gallery").forEach { element ->
-                screenshotItems.add(
-                    if (element.isJsonObject) {
+        internal fun getScreenshots(api: ApiHandler, projectId: String): List<ScreenshotItem> {
+            searchModFromID(api, projectId)?.let { hit ->
+                val screenshotItems: MutableList<ScreenshotItem> = ArrayList()
+                hit.getAsJsonArray("gallery").forEach { element ->
+                    runCatching {
                         val screenshotObject = element.asJsonObject
-                        ScreenshotItem(
-                            screenshotObject.get("url").asString,
-                            screenshotObject.get("title").asString.takeIf { it.isNotEmpty() && it.isNotBlank() }
-                        )
-                    } else {
-                        // Modrinth 只提供了链接
-                        ScreenshotItem(
-                            element.asString,
-                            null
-                        )
+                        val url = screenshotObject.get("url").asString
+                        val titleElement = screenshotObject.get("title")
+                        val titleString = if (titleElement.isJsonNull) null
+                        else titleElement.asString.takeIf { it.isNotEmpty() && it.isNotBlank() }
+                        screenshotItems.add(ScreenshotItem(url, titleString))
+                    }.getOrElse { e ->
+                        val error = Tools.printToString(e)
+                        Logging.e("ModrinthCommonUtils", "There was an exception while getting the screenshot information!\n$error")
                     }
-                )
+                }
+                return screenshotItems
             }
-            return screenshotItems
+            return emptyList()
         }
 
         internal fun getResults(api: ApiHandler, lastResult: SearchResult, filters: Filters, type: String): SearchResult? {
@@ -124,7 +125,6 @@ class ModrinthCommonUtils {
                 hit.get("downloads").asLong,
                 ZHTools.getDate(hit.get("date_created").asString),
                 getIconUrl(hit),
-                getScreenshots(hit),
                 getAllCategories(hit).toList(),
             )
         }

@@ -4,6 +4,7 @@ import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.install.InstallHelper
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
 import com.movtery.zalithlauncher.feature.download.item.ModLoaderWrapper
+import com.movtery.zalithlauncher.feature.download.item.ScreenshotItem
 import com.movtery.zalithlauncher.feature.download.item.SearchResult
 import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.feature.download.platform.AbstractPlatformHelper
@@ -29,6 +30,10 @@ class ModrinthHelper : AbstractPlatformHelper(ApiHandler("https://api.modrinth.c
                 Classify.WORLD -> return null
             }
         }/${infoItem.projectId}"
+    }
+
+    override fun getScreenshots(projectId: String): List<ScreenshotItem> {
+        return ModrinthCommonUtils.getScreenshots(api, projectId)
     }
 
     @Throws(Throwable::class)

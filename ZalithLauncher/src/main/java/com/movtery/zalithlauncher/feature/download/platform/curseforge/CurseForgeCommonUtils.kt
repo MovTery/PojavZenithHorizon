@@ -58,18 +58,22 @@ class CurseForgeCommonUtils {
             }.getOrNull()
         }
 
-        internal fun getScreenshots(hit: JsonObject): List<ScreenshotItem> {
-            val screenshotItems: MutableList<ScreenshotItem> = ArrayList()
-            hit.getAsJsonArray("screenshots").forEach { element ->
-                val screenshotObject = element.asJsonObject
-                screenshotItems.add(
-                    ScreenshotItem(
-                        screenshotObject.get("url").asString,
-                        screenshotObject.get("title").asString.takeIf { it.isNotEmpty() && it.isNotBlank() }
+        internal fun getScreenshots(api: ApiHandler, projectId: String): List<ScreenshotItem> {
+            searchModFromID(api, projectId)?.let { jsonObject ->
+                val hit = jsonObject.getAsJsonObject("data")
+                val screenshotItems: MutableList<ScreenshotItem> = ArrayList()
+                hit.getAsJsonArray("screenshots").forEach { element ->
+                    val screenshotObject = element.asJsonObject
+                    screenshotItems.add(
+                        ScreenshotItem(
+                            screenshotObject.get("url").asString,
+                            screenshotObject.get("title").asString.takeIf { it.isNotEmpty() && it.isNotBlank() }
+                        )
                     )
-                )
+                }
+                return screenshotItems
             }
-            return screenshotItems
+            return emptyList()
         }
 
         internal fun getResults(api: ApiHandler, lastResult: SearchResult, filters: Filters, classId: Int): SearchResult? {
@@ -113,7 +117,6 @@ class CurseForgeCommonUtils {
                 dataObject.get("downloadCount").asLong,
                 ZHTools.getDate(dataObject.get("dateCreated").asString),
                 getIconUrl(dataObject),
-                getScreenshots(dataObject),
                 getAllCategories(dataObject).toList(),
             )
         }
@@ -210,8 +213,8 @@ class CurseForgeCommonUtils {
             return getSha1FromData(data)
         }
 
-        internal fun searchModFromID(api: ApiHandler, id: String): JsonObject {
-            val response: JsonObject = api.get("mods/$id", JsonObject::class.java)
+        internal fun searchModFromID(api: ApiHandler, id: String): JsonObject? {
+            val response = api.get("mods/$id", JsonObject::class.java)
             return response
         }
 

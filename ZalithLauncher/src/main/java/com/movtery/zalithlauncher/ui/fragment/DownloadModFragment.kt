@@ -164,11 +164,25 @@ class DownloadModFragment : ModListFragment() {
 
         mInfoItem.apply {
             setNameText(title)
-            setScreenshotView(screenshotItems)
+            loadScreenshots()
 
             iconUrl?.apply {
                 Glide.with(fragmentActivity!!).load(this).into(getIconView())
             }
+        }
+    }
+
+    private fun loadScreenshots() {
+        val progressBar = getProgressView()
+        addMoreView(progressBar)
+        PojavApplication.sExecutorService.execute {
+            runCatching {
+                val screenshotItems = platformHelper.getScreenshots(mInfoItem.projectId)
+                Tools.runOnUiThread { setScreenshotView(screenshotItems) }
+            }.getOrElse { e ->
+                Logging.e("DownloadModFragment", "Unable to load screenshots, ${Tools.printToString(e)}")
+            }
+            Tools.runOnUiThread { removeMoreView(progressBar) }
         }
     }
 
@@ -180,12 +194,7 @@ class DownloadModFragment : ModListFragment() {
                 layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
             }
 
-            val progressBar = ProgressBar(requireActivity()).apply {
-                layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
-                    gravity = Gravity.CENTER_HORIZONTAL
-                }
-            }
-
+            val progressBar = getProgressView()
             val imageView = ImageView(fragmentActivity!!).apply {
                 layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT).apply {
                     topMargin = Tools.dpToPx(8f).toInt()
@@ -238,6 +247,14 @@ class DownloadModFragment : ModListFragment() {
                 .into(imageView)
 
             addMoreView(newLinearLayout)
+        }
+    }
+
+    private fun getProgressView(): ProgressBar {
+        return ProgressBar(requireActivity()).apply {
+            layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
+                gravity = Gravity.CENTER_HORIZONTAL
+            }
         }
     }
 }

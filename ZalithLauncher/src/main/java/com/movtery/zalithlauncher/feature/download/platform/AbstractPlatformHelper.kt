@@ -6,6 +6,7 @@ import com.movtery.zalithlauncher.feature.download.Filters
 import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
 import com.movtery.zalithlauncher.feature.download.item.ModLoaderWrapper
+import com.movtery.zalithlauncher.feature.download.item.ScreenshotItem
 import com.movtery.zalithlauncher.feature.download.item.SearchResult
 import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import net.kdt.pojavlaunch.PojavApplication
@@ -65,6 +66,7 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
 
     abstract fun copy(): AbstractPlatformHelper
     abstract fun getWebUrl(infoItem: InfoItem): String?
+    abstract fun getScreenshots(projectId: String): List<ScreenshotItem>
 
     abstract fun searchMod(lastResult: SearchResult): SearchResult?
     abstract fun searchModPack(lastResult: SearchResult): SearchResult?

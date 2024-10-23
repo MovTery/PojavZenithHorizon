@@ -18,12 +18,11 @@ open class DependenciesInfoItem(
     downloadCount: Long,
     uploadDate: Date,
     iconUrl: String?,
-    screenshotItems: List<ScreenshotItem>,
     category: List<Category>,
     modloaders: List<ModLoader>,
     val dependencyType: DependencyType
 ) : ModInfoItem (
-    platform, projectId, author, title, description, downloadCount, uploadDate, iconUrl, screenshotItems, category, modloaders
+    platform, projectId, author, title, description, downloadCount, uploadDate, iconUrl, category, modloaders
 ), Comparable<DependenciesInfoItem> {
     override fun toString(): String {
         return "InfoItem(" +
@@ -35,7 +34,6 @@ open class DependenciesInfoItem(
                 "downloadCount=$downloadCount, " +
                 "uploadDate=$uploadDate, " +
                 "iconUrl='$iconUrl', " +
-                "screenshotItems='$screenshotItems', " +
                 "category=$category" +
                 "modloaders=$modloaders" +
                 "dependencyType=$dependencyType" +

@@ -1,10 +1,10 @@
 package com.movtery.zalithlauncher.feature.download.platform.curseforge
 
-import com.google.gson.JsonObject
 import com.movtery.zalithlauncher.feature.download.install.InstallHelper
 import com.movtery.zalithlauncher.feature.download.install.UnpackWorldZipHelper
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
 import com.movtery.zalithlauncher.feature.download.item.ModLoaderWrapper
+import com.movtery.zalithlauncher.feature.download.item.ScreenshotItem
 import com.movtery.zalithlauncher.feature.download.item.SearchResult
 import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.feature.download.platform.AbstractPlatformHelper
@@ -23,13 +23,17 @@ class CurseForgeHelper : AbstractPlatformHelper(PlatformUtils.createCurseForgeAp
     }
 
     override fun getWebUrl(infoItem: InfoItem): String? {
-        val response: JsonObject = CurseForgeCommonUtils.searchModFromID(api, infoItem.projectId)
+        val response = CurseForgeCommonUtils.searchModFromID(api, infoItem.projectId)
         val hit = GsonJsonUtils.getJsonObjectSafe(response, "data")
         if (hit != null) {
             val links = hit.getAsJsonObject("links")
             return links["websiteUrl"].asString
         }
         return null
+    }
+
+    override fun getScreenshots(projectId: String): List<ScreenshotItem> {
+        return CurseForgeCommonUtils.getScreenshots(api, projectId)
     }
 
     @Throws(Throwable::class)
