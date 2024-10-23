@@ -2,7 +2,6 @@ package com.movtery.zalithlauncher.ui.fragment
 
 import android.graphics.drawable.Drawable
 import android.view.Gravity
-import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.ImageView
@@ -200,32 +199,6 @@ class DownloadModFragment : ModListFragment() {
                 }
             }
 
-            Glide.with(fragmentActivity!!)
-                .load(item.imageUrl)
-                .listener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<Drawable>,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        progressBar.visibility = View.GONE
-                        return false
-                    }
-
-                    override fun onResourceReady(
-                        resource: Drawable,
-                        model: Any,
-                        target: Target<Drawable>?,
-                        dataSource: DataSource,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        progressBar.visibility = View.GONE
-                        return false
-                    }
-                })
-                .into(imageView)
-
             newLinearLayout.addView(progressBar)
             newLinearLayout.addView(imageView)
 
@@ -237,6 +210,32 @@ class DownloadModFragment : ModListFragment() {
                 }
                 newLinearLayout.addView(titleView)
             }
+
+            Glide.with(fragmentActivity!!)
+                .load(item.imageUrl)
+                .listener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        newLinearLayout.removeView(progressBar)
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Drawable,
+                        model: Any,
+                        target: Target<Drawable>?,
+                        dataSource: DataSource,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        newLinearLayout.removeView(progressBar)
+                        return false
+                    }
+                })
+                .into(imageView)
 
             addMoreView(newLinearLayout)
         }
