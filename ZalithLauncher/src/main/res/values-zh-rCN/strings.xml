@@ -607,13 +607,13 @@
 
     <!-- About -->
     <string name="about_tab">关于 Zalith Launcher</string>
-    <string name="about_dec1">Zalith Launcher 是一款基于 PojavLauncher 魔改的 Minecraft 启动器，它能够在 Android 设备上运行 Minecraft: Java Edition。\nZalith Launcher 致力于优化用户体验，重新设计了应用界面，新增了更多实用的功能，旨在最大程度地降低游玩门槛，让更多人能够轻松体验 Minecraft 的乐趣。</string>
-    <string name="about_dec2">Zalith Launcher 由 墨北MovTery 个人精心制作，在 PojavLauncher 的基础上进行了深入的魔改工作。</string>
+    <string name="about_dec1">Zalith Launcher 是一款基于 PojavLauncher 开发的 Minecraft 启动器，它能够在 Android 设备上运行 Minecraft: Java Edition。</string>
+    <string name="about_dec2">Zalith Launcher 致力于优化用户体验，重新设计了应用界面，新增了更多实用的功能，旨在最大程度地降低游玩门槛，让更多人能够轻松体验 Minecraft 的乐趣。</string>
     <string name="about_dec3">Zalith Launcher 使用的是 GPL 3.0 开源协议，这一协议具有 “传染性”，任何使用、修改或衍生自 GPL 类库或软件的代码也必须采用 GPL 协议进行开源。如果你打算传播或分发本软件，请务必遵守 GPL 3.0 开源协议的相关规定。</string>
-    <string name="about_dec4">贡献者与鸣谢:</string>
-    <string name="about_dec5">赞助者鸣谢:</string>
-    <string name="about_dec6">以下是所有支持开发的赞助者们，万分感谢！</string>
-    <string name="about_dec7">时间与总金额</string>
+    <string name="about_contributors">贡献者与鸣谢:</string>
+    <string name="about_sponsors">赞助者鸣谢:</string>
+    <string name="about_sponsors_desc">以下是所有支持开发的赞助者们，万分感谢！</string>
+    <string name="about_sponsors_amount">时间与总金额</string>
     <string name="about_button_support_development">赞助开发</string>
     <string name="about_MovTery_desc">启动器的主要作者</string>
     <string name="about_PojavLauncher_desc">PojavLauncher 的开发团队，开发并开源了 PojavLauncher</string>

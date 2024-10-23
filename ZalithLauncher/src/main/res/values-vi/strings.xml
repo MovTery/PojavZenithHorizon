@@ -567,13 +567,13 @@
     <string name="splash_screen_apply">Đồng ý và cài đặt</string>
     <!-- About -->
     <string name="about_tab">Giới thiệu về Zalith Launcher</string>
-    <string name="about_dec1">Zalith Launcher là một launcher Minecraft được chỉnh sửa từ PojavLauncher, có khả năng chạy Minecraft: Java Edition trên thiết bị Android.\nZalith Launcher tập trung vào việc tối ưu hóa trải nghiệm người dùng, thiết kế lại giao diện ứng dụng, và thêm nhiều tính năng hữu ích nhằm giảm thiểu rào cản khi chơi, giúp nhiều người dễ dàng trải nghiệm niềm vui của Minecraft.</string>
-    <string name="about_dec2">Zalith Launcher được tạo bởi MovTery, dựa trên PojavLauncher và đã trải qua nhiều thay đổi sâu sắc.</string>
-    <string name="about_dec3">Zalith Launcher sử dụng giấy phép nguồn mở GPL 3.0, giấy phép này có tính chất "lây lan", nghĩa là bất kỳ mã nào sử dụng, chỉnh sửa hoặc phái sinh từ thư viện hoặc phần mềm GPL cũng phải được mở nguồn bằng GPL. Nếu bạn định phát tán hoặc phân phối phần mềm này, vui lòng tuân thủ các quy định của giấy phép nguồn mở GPL 3.0.</string>
-    <string name="about_dec4">Nhà đóng góp và lời cảm ơn:</string>
-    <string name="about_dec5">Lời cảm ơn đến các nhà tài trợ:</string>
-    <string name="about_dec6">Dưới đây là tất cả những nhà tài trợ đã hỗ trợ phát triển, vô cùng cảm ơn!</string>
-    <string name="about_dec7">Thời gian và tổng số tiền</string>
+    <string name="about_dec1">Zalith Launcher là một trình khởi chạy Minecraft được phát triển dựa trên PojavLauncher, có khả năng chạy Minecraft: Java Edition trên các thiết bị Android.</string>
+    <string name="about_dec2">Zalith Launcher cam kết tối ưu hóa trải nghiệm người dùng, thiết kế lại giao diện ứng dụng và thêm nhiều tính năng thực tiễn hơn, nhằm giảm tối đa rào cản chơi game, cho phép nhiều người có thể dễ dàng tận hưởng niềm vui của Minecraft.</string>
+    <string name="about_dec3">Zalith Launcher được cấp phép theo giấy phép mã nguồn mở GPL 3.0, giấy phép này có tính chất "lây lan"; bất kỳ mã nào sử dụng, sửa đổi hoặc phát triển từ các thư viện hoặc phần mềm GPL cũng phải được mở mã theo giấy phép GPL. Nếu bạn dự định phân phối hoặc chia sẻ phần mềm này, vui lòng đảm bảo tuân thủ các quy định liên quan của giấy phép mã nguồn mở GPL 3.0.</string>
+    <string name="about_contributors">Những người đóng góp và Lời cảm ơn:</string>
+    <string name="about_sponsors">Lời cảm ơn tới các nhà tài trợ:</string>
+    <string name="about_sponsors_desc">Dưới đây là tất cả các nhà tài trợ đã hỗ trợ phát triển, xin cảm ơn rất nhiều!</string>
+    <string name="about_sponsors_amount">Thời gian và Tổng số tiền</string>
     <string name="about_button_support_development">Tài trợ phát triển</string>
     <string name="about_MovTery_desc">Tác giả chính của launcher</string>
     <string name="about_PojavLauncher_desc">Nhóm phát triển của PojavLauncher, đã phát triển và mở nguồn PojavLauncher</string>

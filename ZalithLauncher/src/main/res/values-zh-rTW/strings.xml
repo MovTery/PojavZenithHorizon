@@ -567,13 +567,13 @@
     <string name="splash_screen_apply">同意並安裝</string>
     <!-- About -->
     <string name="about_tab">關於 Zalith Launcher</string>
-    <string name="about_dec1">Zalith Launcher 是一款基於 PojavLauncher 魔改的 Minecraft 啟動器，它能夠在 Android 設備上運行 Minecraft: Java Edition。\nZalith Launcher 致力於優化用戶體驗，重新設計了應用介面，新增了更多實用的功能，旨在最大程度地降低遊玩門檻，讓更多人能夠輕鬆體驗 Minecraft 的樂趣。</string>
-    <string name="about_dec2">Zalith Launcher 由 墨北MovTery 個人精心製作，在 PojavLauncher 的基礎上進行了深入的魔改工作。</string>
-    <string name="about_dec3">Zalith Launcher 使用的是 GPL 3.0 開源協議，這一協議具有 “傳染性”，任何使用、修改或衍生自 GPL 類庫或軟體的代碼也必須採用 GPL 協議進行開源。如果你打算傳播或分發本軟體，請務必遵守 GPL 3.0 開源協議的相關規定。</string>
-    <string name="about_dec4">貢獻者與鳴謝:</string>
-    <string name="about_dec5">贊助者鳴謝:</string>
-    <string name="about_dec6">以下是所有支持開發的贊助者們，萬分感謝！</string>
-    <string name="about_dec7">時間與總金額</string>
+    <string name="about_dec1">Zalith Launcher 是一款基於 PojavLauncher 開發的 Minecraft 啟動器，它能夠在 Android 設備上運行 Minecraft: Java Edition。</string>
+    <string name="about_dec2">Zalith Launcher 致力於優化用戶體驗，重新設計了應用界面，新增了更多實用的功能，旨在最大程度地降低遊玩門檻，讓更多人能夠輕鬆體驗 Minecraft 的樂趣。</string>
+    <string name="about_dec3">Zalith Launcher 使用的是 GPL 3.0 開源協議，這一協議具有 “傳染性”；任何使用、修改或衍生自 GPL 類庫或軟體的代碼也必須採用 GPL 協議進行開源。如果你打算傳播或分發本軟體，請務必遵守 GPL 3.0 開源協議的相關規定。</string>
+    <string name="about_contributors">貢獻者與鳴謝:</string>
+    <string name="about_sponsors">贊助者鳴謝:</string>
+    <string name="about_sponsors_desc">以下是所有支持開發的贊助者們，萬分感謝！</string>
+    <string name="about_sponsors_amount">時間與總金額</string>
     <string name="about_button_support_development">贊助開發</string>
     <string name="about_MovTery_desc">啟動器的主要作者</string>
     <string name="about_PojavLauncher_desc">PojavLauncher 的開發團隊，開發並開源了 PojavLauncher</string>

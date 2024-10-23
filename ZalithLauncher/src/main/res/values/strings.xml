@@ -572,13 +572,13 @@
     <string name="splash_screen_apply">Agree and Install</string>
     <!-- About -->
     <string name="about_tab">About Zalith Launcher</string>
-    <string name="about_dec1">Zalith Launcher is a modified version of PojavLauncher, designed to run Minecraft: Java Edition on Android devices. \nZalith Launcher is dedicated to optimizing the user experience, redesigning the application interface, and adding more practical features, aiming to lower the barrier to entry and allow more people to easily enjoy the fun of Minecraft.</string>
-    <string name="about_dec2">Zalith Launcher is meticulously crafted by MovTery, with extensive modifications based on PojavLauncher.</string>
-    <string name="about_dec3">Zalith Launcher is licensed under the GPL 3.0 open-source license, which is \"contagious.\" Any code that uses, modifies, or is derived from GPL libraries or software must also be open-sourced under the GPL license. If you plan to distribute or share this software, please ensure compliance with the GPL 3.0 open-source license.</string>
-    <string name="about_dec4">Contributors and Acknowledgements:</string>
-    <string name="about_dec5">Sponsors Acknowledgements:</string>
-    <string name="about_dec6">Below are all the sponsors who supported the development, thank you very much!</string>
-    <string name="about_dec7">Time and Total Amount</string>
+    <string name="about_dec1">Zalith Launcher is a Minecraft launcher developed based on PojavLauncher, capable of running Minecraft: Java Edition on Android devices.</string>
+    <string name="about_dec2">Zalith Launcher is dedicated to optimizing user experience, redesigning the application interface, and adding more practical features, aiming to lower the barriers to play as much as possible, allowing more people to easily enjoy the fun of Minecraft.</string>
+    <string name="about_dec3">Zalith Launcher is licensed under the GPL 3.0 open source license, which has a "viral" nature; any code that uses, modifies, or derives from GPL libraries or software must also be open-sourced under the GPL license. If you intend to distribute or share this software, please make sure to comply with the relevant provisions of the GPL 3.0 open source license.</string>
+    <string name="about_contributors">Contributors and Acknowledgements:</string>
+    <string name="about_sponsors">Acknowledgements to Sponsors:</string>
+    <string name="about_sponsors_desc">The following are all the sponsors who support the development, thank you very much!</string>
+    <string name="about_sponsors_amount">Time and Total Amount</string>
     <string name="about_button_support_development">Sponsor Development</string>
     <string name="about_MovTery_desc">Main author of the launcher</string>
     <string name="about_PojavLauncher_desc">The development team of PojavLauncher, who developed and open-sourced PojavLauncher</string>

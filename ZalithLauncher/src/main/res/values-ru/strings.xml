@@ -567,13 +567,13 @@
     <string name="splash_screen_apply">Согласиться и установить</string>
     <!-- About -->
     <string name="about_tab">О Zalith Launcher</string>
-    <string name="about_dec1">Zalith Launcher — это лаунчер Minecraft, основанный на модифицированном PojavLauncher, который позволяет запускать Minecraft: Java Edition на устройствах Android.\nZalith Launcher стремится оптимизировать пользовательский опыт, перерабатывая интерфейс приложения и добавляя больше полезных функций, чтобы минимизировать порог вхождения и позволить большему количеству людей легко наслаждаться игрой Minecraft.</string>
-    <string name="about_dec2">Zalith Launcher был тщательно разработан лично MovTery и глубоко модифицирован на основе PojavLauncher.</string>
-    <string name="about_dec3">Zalith Launcher использует лицензию GPL 3.0, которая имеет "инфекционное" свойство: любой код, использующий, модифицирующий или производный от библиотек или программного обеспечения GPL, также должен быть открыт под лицензией GPL. Если вы планируете распространять или делиться этим программным обеспечением, обязательно соблюдайте условия лицензии GPL 3.0.</string>
-    <string name="about_dec4">Авторы и благодарности:</string>
-    <string name="about_dec5">Благодарности спонсорам:</string>
-    <string name="about_dec6">Ниже приведены все спонсоры, поддерживающие разработку, огромная благодарность!</string>
-    <string name="about_dec7">Время и общая сумма</string>
+    <string name="about_dec1">Zalith Launcher - это лаунчер для Minecraft, разработанный на основе PojavLauncher, который может запускать Minecraft: Java Edition на устройствах Android.</string>
+    <string name="about_dec2">Zalith Launcher направлен на оптимизацию пользовательского опыта, переработку интерфейса приложения и добавление большего количества полезных функций, с целью максимального снижения барьеров для игры, позволяя большему количеству людей легко наслаждаться удовольствием от Minecraft.</string>
+    <string name="about_dec3">Zalith Launcher лицензирован под лицензией GPL 3.0 с открытым исходным кодом, которая обладает "вирусной" природой; любой код, использующий, модифицирующий или производящий библиотеки или программное обеспечение GPL, также должен быть открытым под лицензией GPL. Если вы планируете распространять или делиться этим программным обеспечением, пожалуйста, убедитесь, что вы соблюдаете соответствующие положения лицензии GPL 3.0 с открытым исходным кодом.</string>
+    <string name="about_contributors">Авторы и Благодарности:</string>
+    <string name="about_sponsors">Благодарности спонсорам:</string>
+    <string name="about_sponsors_desc">Ниже приведены все спонсоры, поддерживающие разработку, огромное спасибо!</string>
+    <string name="about_sponsors_amount">Время и Общая сумма</string>
     <string name="about_button_support_development">Поддержать разработку</string>
     <string name="about_MovTery_desc">Главный автор лаунчера</string>
     <string name="about_PojavLauncher_desc">Команда разработчиков PojavLauncher, разработавшая и открывшая PojavLauncher</string>

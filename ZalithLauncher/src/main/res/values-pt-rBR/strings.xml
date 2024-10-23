@@ -567,13 +567,13 @@
     <string name="splash_screen_apply">Concordar e instalar</string>
     <!-- About -->
     <string name="about_tab">Sobre o Zalith Launcher</string>
-    <string name="about_dec1">Zalith Launcher é um lançador de Minecraft modificado com base no PojavLauncher, que permite executar Minecraft: Java Edition em dispositivos Android.\nO Zalith Launcher visa otimizar a experiência do usuário, redesenhando a interface do aplicativo e adicionando mais recursos úteis, com o objetivo de reduzir ao máximo a barreira de entrada, permitindo que mais pessoas possam desfrutar facilmente das diversões do Minecraft.</string>
-    <string name="about_dec2">Zalith Launcher é cuidadosamente desenvolvido por墨北MovTery, com profundas modificações realizadas com base no PojavLauncher.</string>
-    <string name="about_dec3">O Zalith Launcher utiliza a licença de código aberto GPL 3.0, que é "contagiosa"; qualquer código que use, modifique ou derive de bibliotecas ou software GPL também deve ser disponibilizado sob a mesma licença GPL. Se você pretende distribuir ou divulgar este software, deve cumprir as disposições relevantes da licença GPL 3.0.</string>
-    <string name="about_dec4">Contribuidores e Agradecimentos:</string>
-    <string name="about_dec5">Agradecimentos aos patrocinadores:</string>
-    <string name="about_dec6">Aqui estão todos os patrocinadores que apoiaram o desenvolvimento. Muito obrigado!</string>
-    <string name="about_dec7">Tempo e Valor Total</string>
+    <string name="about_dec1">Zalith Launcher é um lançador de Minecraft desenvolvido com base no PojavLauncher, capaz de executar Minecraft: Java Edition em dispositivos Android.</string>
+    <string name="about_dec2">Zalith Launcher é dedicado a otimizar a experiência do usuário, redesenhando a interface do aplicativo e adicionando mais recursos práticos, visando reduzir ao máximo as barreiras de jogo, permitindo que mais pessoas possam desfrutar facilmente da diversão do Minecraft.</string>
+    <string name="about_dec3">Zalith Launcher é licenciado sob a licença de código aberto GPL 3.0, que possui uma natureza "viral"; qualquer código que use, modifique ou derive de bibliotecas ou softwares GPL também deve ser aberto sob a licença GPL. Se você pretende distribuir ou compartilhar este software, certifique-se de cumprir as disposições relevantes da licença de código aberto GPL 3.0.</string>
+    <string name="about_contributors">Contribuidores e Agradecimentos:</string>
+    <string name="about_sponsors">Agradecimentos aos patrocinadores:</string>
+    <string name="about_sponsors_desc">Abaixo estão todos os patrocinadores que apoiam o desenvolvimento, muito obrigado!</string>
+    <string name="about_sponsors_amount">Tempo e Valor Total</string>
     <string name="about_button_support_development">Patrocinar o Desenvolvimento</string>
     <string name="about_MovTery_desc">Principal autor do lançador</string>
     <string name="about_PojavLauncher_desc">Equipe de desenvolvimento do PojavLauncher, que desenvolveu e tornou o PojavLauncher de código aberto</string>

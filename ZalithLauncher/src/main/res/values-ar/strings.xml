@@ -567,13 +567,13 @@
     <string name="splash_screen_apply">موافقة وتثبيت</string>
     <!-- About -->
     <string name="about_tab">حول Zalith Launcher</string>
-    <string name="about_dec1">Zalith Launcher هو مشغل Minecraft معدّل يعتمد على PojavLauncher، وهو قادر على تشغيل Minecraft: Java Edition على أجهزة Android.\nيسعى Zalith Launcher لتحسين تجربة المستخدم من خلال إعادة تصميم واجهة التطبيق وإضافة المزيد من الميزات العملية، بهدف تقليل حاجز اللعب إلى أقصى حد، ليتمكن المزيد من الأشخاص من تجربة متعة Minecraft بسهولة.</string>
-    <string name="about_dec2">تم تطوير Zalith Launcher بعناية بواسطة MovTery Mobei مع تعديلات عميقة على أساس PojavLauncher.</string>
-    <string name="about_dec3">يستخدم Zalith Launcher ترخيص GPL 3.0 المفتوح المصدر، وهو ترخيص "معدي" يتطلب من أي استخدام أو تعديل أو اشتقاق من مكتبات أو برامج GPL أن يتم توزيعه أيضًا بموجب ترخيص GPL. إذا كنت تخطط لتوزيع هذا البرنامج، فيرجى الالتزام بمتطلبات ترخيص GPL 3.0 المفتوح المصدر.</string>
-    <string name="about_dec4">المساهمون والشكر:</string>
-    <string name="about_dec5">شكر خاص للرعاة:</string>
-    <string name="about_dec6">فيما يلي جميع الرعاة الذين دعموا تطوير البرنامج، شكرًا جزيلًا لهم!</string>
-    <string name="about_dec7">الوقت والمبلغ الإجمالي</string>
+    <string name="about_dec1">زاليث لانشر هو مشغل ماينكرافت تم تطويره بناءً على بوجافلانشر، قادر على تشغيل ماينكرافت: إصدار Java على أجهزة أندرويد.</string>
+    <string name="about_dec2">يكرس زاليث لانشر جهوده لتحسين تجربة المستخدم، وإعادة تصميم واجهة التطبيق، وإضافة المزيد من الميزات العملية، بهدف تقليل حواجز اللعب قدر الإمكان، مما يسمح لمزيد من الناس بالاستمتاع بسهولة بمتعة ماينكرافت.</string>
+    <string name="about_dec3">زاليث لانشر مرخص بموجب رخصة GPL 3.0 مفتوحة المصدر، والتي لها طبيعة "فيروسية"; يجب أن يتم أيضًا فتح مصدر أي كود يستخدم أو يعدل أو يستمد من مكتبات أو برامج GPL تحت رخصة GPL. إذا كنت تنوي توزيع أو مشاركة هذا البرنامج، يرجى التأكد من الامتثال للأحكام ذات الصلة برخصة GPL 3.0 مفتوحة المصدر.</string>
+    <string name="about_contributors">المساهمون والتقديرات:</string>
+    <string name="about_sponsors">شكر خاص للجهات الراعية:</string>
+    <string name="about_sponsors_desc">هؤلاء هم جميع الرعاة الذين يدعمون التطوير، شكرًا جزيلًا لكم!</string>
+    <string name="about_sponsors_amount">الوقت والإجمالي</string>
     <string name="about_button_support_development">دعم التطوير</string>
     <string name="about_MovTery_desc">المؤلف الرئيسي للمشغل</string>
     <string name="about_PojavLauncher_desc">فريق تطوير PojavLauncher، الذي طور وفتح مصدر PojavLauncher</string>

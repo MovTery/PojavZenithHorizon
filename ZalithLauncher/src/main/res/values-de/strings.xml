@@ -567,13 +567,13 @@
     <string name="splash_screen_apply">Zustimmen und installieren</string>
     <!-- About -->
     <string name="about_tab">Über Zalith Launcher</string>
-    <string name="about_dec1">Zalith Launcher ist ein modifizierter Minecraft-Launcher basierend auf PojavLauncher, der es ermöglicht, Minecraft: Java Edition auf Android-Geräten auszuführen.\nZalith Launcher konzentriert sich auf die Optimierung der Benutzererfahrung, überarbeitet die Benutzeroberfläche und fügt weitere nützliche Funktionen hinzu, um die Spielbarkeit zu maximieren und mehr Menschen den einfachen Zugang zu Minecraft zu ermöglichen.</string>
-    <string name="about_dec2">Zalith Launcher wurde von 墨北MovTery persönlich sorgfältig erstellt und basiert auf einer tiefgreifenden Modifikation von PojavLauncher.</string>
-    <string name="about_dec3">Zalith Launcher verwendet die GPL 3.0 Open-Source-Lizenz, die \"ansteckend\" ist. Jeglicher Code, der verwendet, modifiziert oder abgeleitet wird von GPL-Bibliotheken oder -Software, muss ebenfalls unter der GPL-Lizenz veröffentlicht werden. Wenn Sie diese Software weitergeben oder verteilen möchten, beachten Sie bitte die Bestimmungen der GPL 3.0 Open-Source-Lizenz.</string>
-    <string name="about_dec4">Mitwirkende und Dank:</string>
-    <string name="about_dec5">Dank an die Sponsoren:</string>
-    <string name="about_dec6">Hier sind alle Sponsoren, die Entwicklung unterstützt haben, vielen Dank!</string>
-    <string name="about_dec7">Zeit und Gesamtsumme</string>
+    <string name="about_dec1">Zalith Launcher ist ein auf PojavLauncher basierender Minecraft-Launcher, der in der Lage ist, Minecraft: Java Edition auf Android-Geräten auszuführen.</string>
+    <string name="about_dec2">Zalith Launcher widmet sich der Optimierung der Benutzererfahrung, hat die Anwendungsoberfläche neu gestaltet und weitere nützliche Funktionen hinzugefügt, um die Hürden für das Spielen so weit wie möglich zu senken, damit mehr Menschen die Freude an Minecraft leicht genießen können.</string>
+    <string name="about_dec3">Zalith Launcher ist unter der GPL 3.0 Open-Source-Lizenz lizenziert, die eine "virale" Natur hat; jeder Code, der GPL-Bibliotheken oder -Software verwendet, modifiziert oder davon abgeleitet wird, muss ebenfalls unter der GPL-Lizenz open-source sein. Wenn Sie beabsichtigen, diese Software zu verbreiten oder zu teilen, stellen Sie bitte sicher, dass Sie die relevanten Bestimmungen der GPL 3.0 Open-Source-Lizenz einhalten.</string>
+    <string name="about_contributors">Beiträger und Danksagungen:</string>
+    <string name="about_sponsors">Danksagungen an Sponsoren:</string>
+    <string name="about_sponsors_desc">Hier sind alle Sponsoren, die die Entwicklung unterstützen, vielen Dank!</string>
+    <string name="about_sponsors_amount">Zeit und Gesamtbetrag</string>
     <string name="about_button_support_development">Entwicklung unterstützen</string>
     <string name="about_MovTery_desc">Hauptautor des Launchers</string>
     <string name="about_PojavLauncher_desc">Entwicklungsteam von PojavLauncher, das PojavLauncher entwickelt und als Open-Source veröffentlicht hat</string>
