@@ -123,9 +123,10 @@ class LaunchArgs(
 
     private fun setLauncherInfo(verArgMap: MutableMap<String, String>) {
         val launcherName = context.getString(R.string.app_name).replace("\\s+".toRegex(), "")
+        val launcherVersion = ZHTools.getVersionName()
         verArgMap["launcher_name"] = launcherName
-        verArgMap["launcher_version"] = ZHTools.getVersionName()
-        verArgMap["version_type"] = launcherName
+        verArgMap["launcher_version"] = launcherVersion
+        verArgMap["version_type"] = "$launcherName$launcherVersion"
     }
 
     private fun splitAndFilterEmpty(arg: String): Array<String> {
