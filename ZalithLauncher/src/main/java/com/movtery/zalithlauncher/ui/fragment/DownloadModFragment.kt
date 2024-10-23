@@ -1,5 +1,6 @@
 package com.movtery.zalithlauncher.ui.fragment
 
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.Gravity
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
@@ -173,7 +174,7 @@ class DownloadModFragment : ModListFragment() {
     }
 
     private fun loadScreenshots() {
-        val progressBar = getProgressView()
+        val progressBar = getProgressView(fragmentActivity!!)
         addMoreView(progressBar)
         PojavApplication.sExecutorService.execute {
             runCatching {
@@ -188,70 +189,72 @@ class DownloadModFragment : ModListFragment() {
 
     private fun setScreenshotView(screenshotItems: List<ScreenshotItem>) {
         screenshotItems.forEach { item ->
-            val newLinearLayout = LinearLayout(fragmentActivity!!).apply {
-                orientation = LinearLayout.VERTICAL
-                gravity = Gravity.CENTER
-                layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-            }
-
-            val progressBar = getProgressView()
-            val imageView = ImageView(fragmentActivity!!).apply {
-                layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT).apply {
-                    topMargin = Tools.dpToPx(8f).toInt()
-                }
-                scaleType = ImageView.ScaleType.FIT_CENTER
-                setOnClickListener {
-                    val vb = ViewImageDialog.Builder(fragmentActivity!!)
-                        .setImage(item.imageUrl)
-                    item.title?.let { vb.setTitle(it) }
-                    vb.buildDialog()
-                }
-            }
-
-            newLinearLayout.addView(progressBar)
-            newLinearLayout.addView(imageView)
-
-            item.title?.let { title ->
-                val titleView = TextView(fragmentActivity!!).apply {
+            fragmentActivity?.let { activity ->
+                val newLinearLayout = LinearLayout(activity).apply {
+                    orientation = LinearLayout.VERTICAL
+                    gravity = Gravity.CENTER
                     layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-                    gravity = Gravity.CENTER_HORIZONTAL
-                    text = title
                 }
-                newLinearLayout.addView(titleView)
+
+                val progressBar = getProgressView(activity)
+                val imageView = ImageView(activity).apply {
+                    layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT).apply {
+                        topMargin = Tools.dpToPx(8f).toInt()
+                    }
+                    scaleType = ImageView.ScaleType.FIT_CENTER
+                    setOnClickListener {
+                        val vb = ViewImageDialog.Builder(activity)
+                            .setImage(item.imageUrl)
+                        item.title?.let { vb.setTitle(it) }
+                        vb.buildDialog()
+                    }
+                }
+
+                newLinearLayout.addView(progressBar)
+                newLinearLayout.addView(imageView)
+
+                item.title?.let { title ->
+                    val titleView = TextView(activity).apply {
+                        layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+                        gravity = Gravity.CENTER_HORIZONTAL
+                        text = title
+                    }
+                    newLinearLayout.addView(titleView)
+                }
+
+                Glide.with(activity)
+                    .load(item.imageUrl)
+                    .listener(object : RequestListener<Drawable> {
+                        override fun onLoadFailed(
+                            e: GlideException?,
+                            model: Any?,
+                            target: Target<Drawable>,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            newLinearLayout.removeView(progressBar)
+                            return false
+                        }
+
+                        override fun onResourceReady(
+                            resource: Drawable,
+                            model: Any,
+                            target: Target<Drawable>?,
+                            dataSource: DataSource,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            newLinearLayout.removeView(progressBar)
+                            return false
+                        }
+                    })
+                    .into(imageView)
+
+                addMoreView(newLinearLayout)
             }
-
-            Glide.with(fragmentActivity!!)
-                .load(item.imageUrl)
-                .listener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<Drawable>,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        newLinearLayout.removeView(progressBar)
-                        return false
-                    }
-
-                    override fun onResourceReady(
-                        resource: Drawable,
-                        model: Any,
-                        target: Target<Drawable>?,
-                        dataSource: DataSource,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        newLinearLayout.removeView(progressBar)
-                        return false
-                    }
-                })
-                .into(imageView)
-
-            addMoreView(newLinearLayout)
         }
     }
 
-    private fun getProgressView(): ProgressBar {
-        return ProgressBar(requireActivity()).apply {
+    private fun getProgressView(context: Context): ProgressBar {
+        return ProgressBar(context).apply {
             layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
                 gravity = Gravity.CENTER_HORIZONTAL
             }
