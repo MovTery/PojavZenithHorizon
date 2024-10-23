@@ -18,11 +18,9 @@
 - [x] Built-in simple file manager to eliminate worries about Android permission restrictions!
 - [x] Customizable game directory location, with support for external storage directories.
 - [x] Add more renderers!
-- [x] Download Mods and get Mod dependency reminders within the launcher.
+- [x] Download Mods, ModPacks, Resource Packs, and Saves within the launcher!
 - [x] Customizable virtual mouse icon and launcher background image.
-- [x] Automatically set the game language on first launch.
 - [x] Light and dark themes available.
-- [x] Keep the launcher running when closing the game.
 - [x] And more features!
 
 <h2 align="center">Screenshots</h2>
