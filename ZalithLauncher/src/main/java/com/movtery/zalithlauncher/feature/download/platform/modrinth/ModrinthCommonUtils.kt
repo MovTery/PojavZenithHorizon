@@ -7,6 +7,7 @@ import com.movtery.zalithlauncher.feature.download.InfoCache
 import com.movtery.zalithlauncher.feature.download.enums.Category
 import com.movtery.zalithlauncher.feature.download.enums.Platform
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
+import com.movtery.zalithlauncher.feature.download.item.ScreenshotItem
 import com.movtery.zalithlauncher.feature.download.item.SearchResult
 import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.feature.download.platform.PlatformNotSupportedException
@@ -52,6 +53,28 @@ class ModrinthCommonUtils {
             return runCatching {
                 hit.get("icon_url").asString
             }.getOrNull()
+        }
+
+        internal fun getScreenshots(hit: JsonObject): List<ScreenshotItem> {
+            val screenshotItems: MutableList<ScreenshotItem> = ArrayList()
+            hit.getAsJsonArray("gallery").forEach { element ->
+                screenshotItems.add(
+                    if (element.isJsonObject) {
+                        val screenshotObject = element.asJsonObject
+                        ScreenshotItem(
+                            screenshotObject.get("url").asString,
+                            screenshotObject.get("title").asString.takeIf { it.isNotEmpty() && it.isNotBlank() }
+                        )
+                    } else {
+                        // Modrinth 只提供了链接
+                        ScreenshotItem(
+                            element.asString,
+                            null
+                        )
+                    }
+                )
+            }
+            return screenshotItems
         }
 
         internal fun getResults(api: ApiHandler, lastResult: SearchResult, filters: Filters, type: String): SearchResult? {
@@ -101,6 +124,7 @@ class ModrinthCommonUtils {
                 hit.get("downloads").asLong,
                 ZHTools.getDate(hit.get("date_created").asString),
                 getIconUrl(hit),
+                getScreenshots(hit),
                 getAllCategories(hit).toList(),
             )
         }

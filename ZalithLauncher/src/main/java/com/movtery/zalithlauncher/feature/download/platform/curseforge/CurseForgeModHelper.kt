@@ -57,6 +57,7 @@ class CurseForgeModHelper {
                             item.downloadCount,
                             item.uploadDate,
                             item.iconUrl,
+                            item.screenshotItems,
                             item.category,
                             getModLoaders(dataElement.getAsJsonArray("latestFilesIndexes"))
                         )
@@ -143,6 +144,7 @@ class CurseForgeModHelper {
                                         hit.get("downloadCount").asLong,
                                         ZHTools.getDate(hit.get("dateCreated").asString),
                                         CurseForgeCommonUtils.getIconUrl(hit),
+                                        CurseForgeCommonUtils.getScreenshots(hit),
                                         CurseForgeCommonUtils.getAllCategories(hit).toList(),
                                         dModLoaders,
                                         DependencyUtils.getDependencyType(dObject.get("relationType").asString)

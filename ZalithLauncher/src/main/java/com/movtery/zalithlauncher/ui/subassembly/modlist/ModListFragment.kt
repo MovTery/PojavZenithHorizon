@@ -19,7 +19,6 @@ import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.anim.AnimUtils
 import com.movtery.zalithlauncher.utils.anim.AnimUtils.Companion.playVisibilityAnim
-import com.movtery.zalithlauncher.utils.anim.ViewAnimUtils.Companion.setViewAnim
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
@@ -34,6 +33,7 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
     private var parentAdapter: RecyclerView.Adapter<*>? = null
     protected var currentTask: Future<*>? = null
     private var releaseCheckBoxVisible = true
+    private val parentElementAnimPlayer = AnimPlayer()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -110,9 +110,30 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
             refreshButton.isClickable = !hide
             releaseVersion.isClickable = !hide
 
-            setViewAnim(selectTitle, if (hide) Animations.FadeIn else Animations.FadeOut, (AllSettings.animationSpeed * 0.7).toLong())
-            setViewAnim(refreshButton, if (hide) Animations.FadeOut else Animations.FadeIn, (AllSettings.animationSpeed * 0.7).toLong())
-            if (releaseCheckBoxVisible) setViewAnim(releaseVersion, if (hide) Animations.FadeOut else Animations.FadeIn, (AllSettings.animationSpeed * 0.7).toLong())
+            parentElementAnimPlayer.clearEntries()
+            parentElementAnimPlayer
+                .duration((AllSettings.animationSpeed * 0.7).toLong())
+                .apply(AnimPlayer.Entry(selectTitle, if (hide) Animations.FadeIn else Animations.FadeOut))
+                .apply(AnimPlayer.Entry(refreshButton, if (hide) Animations.FadeOut else Animations.FadeIn))
+
+            if (releaseCheckBoxVisible)
+                parentElementAnimPlayer.apply(AnimPlayer.Entry(releaseVersion, if (hide) Animations.FadeOut else Animations.FadeIn))
+
+            parentElementAnimPlayer.setOnStart {
+                selectTitle.visibility = View.VISIBLE
+                refreshButton.visibility = View.VISIBLE
+                if (releaseCheckBoxVisible) releaseVersion.visibility = View.VISIBLE
+            }
+
+            parentElementAnimPlayer.setOnEnd {
+                if (!hide) selectTitle.visibility = View.GONE
+                else {
+                    refreshButton.visibility = View.GONE
+                    if (releaseCheckBoxVisible) releaseVersion.visibility = View.GONE
+                }
+            }
+
+            parentElementAnimPlayer.start()
         }
     }
 
@@ -174,6 +195,14 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
             view.setOnClickListener { Tools.openURL(fragmentActivity, link) }
             AnimUtils.setVisibilityAnim(view, true)
         }
+    }
+
+    protected fun addMoreView(view: View) {
+        binding.moreLayout.addView(view)
+    }
+
+    protected fun removeMoreView(view: View) {
+        binding.moreLayout.removeView(view)
     }
 
     fun switchToChild(adapter: RecyclerView.Adapter<*>?, title: String?) {

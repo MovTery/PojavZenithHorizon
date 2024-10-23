@@ -22,9 +22,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginVertical="@dimen/_12sdp"
             android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginEnd="@dimen/_8sdp"
-            android:layout_marginVertical="@dimen/_12sdp"
             android:background="@drawable/background_card"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,8 +37,8 @@
                 android:layout_height="0dp"
                 android:paddingHorizontal="@dimen/_8sdp"
                 android:paddingVertical="@dimen/_4sdp"
-                android:scrollbars="vertical"
                 android:scrollbarThumbVertical="@color/background_menu_element"
+                android:scrollbars="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +53,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" >
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ProgressBar
                     android:id="@+id/loading_progress"
@@ -80,11 +80,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_12sdp"
+                android:background="@drawable/background_item"
                 android:gravity="center_vertical"
+                android:paddingHorizontal="@dimen/_12sdp"
                 android:textColor="#FF1E1E"
                 android:textStyle="bold"
-                android:background="@drawable/background_item"
-                android:paddingHorizontal="@dimen/_12sdp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -97,13 +97,14 @@
                 android:layout_height="40dp"
                 android:layout_marginEnd="@dimen/_18sdp"
                 android:layout_marginBottom="@dimen/_16sdp"
-                android:visibility="gone"
-                android:rotation="-90"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:rotation="-90"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_spinner_arrow_right"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="ContentDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -133,10 +134,113 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@color/menu_overlay"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/shadowView">
+            app:layout_constraintStart_toEndOf="@+id/shadowView"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/release_version"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/icon"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="@dimen/_45sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:shapeAppearanceOverlay="@style/RoundedCornersImageView"
+                        app:strokeColor="@android:color/transparent"
+                        tools:ignore="ContentDescription"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <RelativeLayout
+                        android:id="@+id/mod_title_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_14sdp"
+                        android:paddingHorizontal="@dimen/_8sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/icon">
+
+                        <TextView
+                            android:id="@+id/name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:singleLine="true"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            tools:text="Mod Title" />
+
+                        <TextView
+                            android:id="@+id/subtitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:layout_toEndOf="@+id/name"
+                            android:singleLine="true"
+                            android:textSize="12sp"
+                            android:visibility="gone"
+                            tools:text="Mod SubTitle" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/select_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:alpha="0"
+                        android:paddingHorizontal="@dimen/_8sdp"
+                        android:singleLine="true"
+                        android:text="Select Title"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/mod_title_layout"
+                        tools:ignore="HardcodedText" />
+
+                    <LinearLayout
+                        android:id="@+id/more_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_4sdp"
+                        android:layout_marginHorizontal="@dimen/_12sdp"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toBottomOf="@id/select_title"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </ScrollView>
+
+            <ImageView
+                android:id="@+id/launch_link"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/about_access_link"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_launch_link"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.movtery.zalithlauncher.ui.view.AnimButton
                 android:id="@+id/return_button"
@@ -173,83 +277,6 @@
                 app:layout_constraintBottom_toTopOf="@+id/refresh_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/icon"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="@dimen/_45sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:strokeColor="@android:color/transparent"
-                app:shapeAppearanceOverlay="@style/RoundedCornersImageView"
-                tools:srcCompat="@tools:sample/avatars"
-                tools:ignore="ContentDescription" />
-
-            <RelativeLayout
-                android:id="@+id/mod_title_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_14sdp"
-                android:paddingHorizontal="@dimen/_8sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/icon">
-
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:singleLine="true"
-                    tools:text="Mod Title" />
-
-                <TextView
-                    android:id="@+id/subtitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/name"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:layout_centerVertical="true"
-                    android:visibility="gone"
-                    android:textSize="12sp"
-                    android:singleLine="true"
-                    tools:text="Mod SubTitle" />
-
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/select_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:alpha="0"
-                android:paddingHorizontal="@dimen/_8sdp"
-                android:singleLine="true"
-                android:text="Select Title"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mod_title_layout"
-                tools:ignore="HardcodedText" />
-
-            <ImageView
-                android:id="@+id/launch_link"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="@dimen/_16sdp"
-                android:layout_marginEnd="@dimen/_12sdp"
-                android:contentDescription="@string/about_access_link"
-                android:src="@drawable/ic_launch_link"
-                android:scaleType="centerInside"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

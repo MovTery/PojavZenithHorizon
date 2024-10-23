@@ -7,6 +7,7 @@ import com.movtery.zalithlauncher.feature.download.InfoCache
 import com.movtery.zalithlauncher.feature.download.enums.Category
 import com.movtery.zalithlauncher.feature.download.enums.Platform
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
+import com.movtery.zalithlauncher.feature.download.item.ScreenshotItem
 import com.movtery.zalithlauncher.feature.download.item.SearchResult
 import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.feature.download.platform.PlatformNotSupportedException
@@ -57,6 +58,20 @@ class CurseForgeCommonUtils {
             }.getOrNull()
         }
 
+        internal fun getScreenshots(hit: JsonObject): List<ScreenshotItem> {
+            val screenshotItems: MutableList<ScreenshotItem> = ArrayList()
+            hit.getAsJsonArray("screenshots").forEach { element ->
+                val screenshotObject = element.asJsonObject
+                screenshotItems.add(
+                    ScreenshotItem(
+                        screenshotObject.get("url").asString,
+                        screenshotObject.get("title").asString.takeIf { it.isNotEmpty() && it.isNotBlank() }
+                    )
+                )
+            }
+            return screenshotItems
+        }
+
         internal fun getResults(api: ApiHandler, lastResult: SearchResult, filters: Filters, classId: Int): SearchResult? {
             if (filters.category != Category.ALL && filters.category.curseforgeID == null) {
                 throw PlatformNotSupportedException("The platform does not support the ${filters.category} category!")
@@ -98,6 +113,7 @@ class CurseForgeCommonUtils {
                 dataObject.get("downloadCount").asLong,
                 ZHTools.getDate(dataObject.get("dateCreated").asString),
                 getIconUrl(dataObject),
+                getScreenshots(dataObject),
                 getAllCategories(dataObject).toList(),
             )
         }

@@ -1,12 +1,26 @@
 package com.movtery.zalithlauncher.ui.fragment
 
+import android.graphics.drawable.Drawable
+import android.view.Gravity
+import android.view.View
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.movtery.zalithlauncher.event.single.DownloadItemClickEvent
 import com.movtery.zalithlauncher.feature.download.InfoViewModel
 import com.movtery.zalithlauncher.feature.download.VersionAdapter
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
+import com.movtery.zalithlauncher.feature.download.item.ScreenshotItem
 import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.feature.download.platform.AbstractPlatformHelper
 import com.movtery.zalithlauncher.feature.log.Logging
@@ -150,10 +164,72 @@ class DownloadModFragment : ModListFragment() {
 
         mInfoItem.apply {
             setNameText(title)
+            setScreenshotView(screenshotItems)
 
             iconUrl?.apply {
                 Glide.with(fragmentActivity!!).load(this).into(getIconView())
             }
+        }
+    }
+
+    private fun setScreenshotView(screenshotItems: List<ScreenshotItem>) {
+        screenshotItems.forEach { item ->
+            val newLinearLayout = LinearLayout(fragmentActivity!!).apply {
+                orientation = LinearLayout.VERTICAL
+                gravity = Gravity.CENTER
+                layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+            }
+
+            val progressBar = ProgressBar(requireActivity()).apply {
+                layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
+                    gravity = Gravity.CENTER_HORIZONTAL
+                }
+            }
+
+            val imageView = ImageView(fragmentActivity!!).apply {
+                layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+                scaleType = ImageView.ScaleType.FIT_CENTER
+            }
+
+            Glide.with(fragmentActivity!!)
+                .load(item.imageUrl)
+                .listener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        progressBar.visibility = View.GONE
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Drawable,
+                        model: Any,
+                        target: Target<Drawable>?,
+                        dataSource: DataSource,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        progressBar.visibility = View.GONE
+                        return false
+                    }
+                })
+                .into(imageView)
+
+            newLinearLayout.addView(progressBar)
+            newLinearLayout.addView(imageView)
+
+            item.title?.let { title ->
+                val titleView = TextView(fragmentActivity!!).apply {
+                    layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+                    gravity = Gravity.CENTER_HORIZONTAL
+                    text = title
+                }
+                newLinearLayout.addView(titleView)
+            }
+
+            addMoreView(newLinearLayout)
         }
     }
 }

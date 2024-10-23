@@ -25,10 +25,11 @@ open class InfoItem(
     val downloadCount: Long,
     val uploadDate: Date,
     val iconUrl: String?,
+    val screenshotItems: List<ScreenshotItem>,
     val category: List<Category>
 ) {
     fun copy() = InfoItem(
-        platform, projectId, author, title, description, downloadCount, uploadDate, iconUrl, category
+        platform, projectId, author, title, description, downloadCount, uploadDate, iconUrl, screenshotItems, category
     )
 
     override fun toString(): String {
@@ -41,6 +42,7 @@ open class InfoItem(
                 "downloadCount=$downloadCount, " +
                 "uploadDate=$uploadDate, " +
                 "iconUrl='$iconUrl', " +
+                "screenshotItems=$screenshotItems" +
                 "category=$category" +
                 ")"
     }
