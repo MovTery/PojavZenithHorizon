@@ -190,15 +190,20 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download_search), In
     }
 
     override fun onStop() {
-        closeSpinner()
         super.onStop()
         EventBus.getDefault().unregister(this)
         EventBus.getDefault().post(InDownloadFragmentEvent(false))
     }
 
+    override fun onPause() {
+        closeSpinner()
+        super.onPause()
+    }
+
     @Subscribe
     fun lock(event: DownloadItemClickEvent.Lock) {
         binding.recyclerView.isEnabled = false
+        closeSpinner()
     }
 
     @Subscribe
@@ -273,6 +278,8 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download_search), In
 
     private fun showModLoader(show: Boolean) {
         binding.apply {
+            modloaderSpinner.dismiss()
+
             modloaderTextview.visibility = if (show) View.VISIBLE else View.GONE
             modloaderSpinner.visibility = if (show) View.VISIBLE else View.GONE
             if (show) {
