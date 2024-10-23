@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.flexbox.FlexboxLayout
-import com.movtery.zalithlauncher.event.single.DownloadItemClickEvent
+import com.movtery.zalithlauncher.event.value.DownloadRecyclerEnableEvent
 import com.movtery.zalithlauncher.feature.download.enums.Platform
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
 import com.movtery.zalithlauncher.feature.download.item.ModInfoItem
@@ -138,7 +138,7 @@ class InfoAdapter(
 
             binding.apply {
                 root.setOnClickListener {
-                    EventBus.getDefault().post(DownloadItemClickEvent.Lock())
+                    EventBus.getDefault().post(DownloadRecyclerEnableEvent(false))
 
                     val infoViewModel = ViewModelProvider(parentFragment.requireActivity())[InfoViewModel::class.java]
                     infoViewModel.infoItem = item.copy()

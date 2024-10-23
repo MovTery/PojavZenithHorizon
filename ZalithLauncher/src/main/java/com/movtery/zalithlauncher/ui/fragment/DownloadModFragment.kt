@@ -16,7 +16,7 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.movtery.zalithlauncher.event.single.DownloadItemClickEvent
+import com.movtery.zalithlauncher.event.value.DownloadRecyclerEnableEvent
 import com.movtery.zalithlauncher.feature.download.InfoViewModel
 import com.movtery.zalithlauncher.feature.download.VersionAdapter
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
@@ -69,7 +69,7 @@ class DownloadModFragment : ModListFragment() {
     }
 
     override fun onDestroy() {
-        EventBus.getDefault().post(DownloadItemClickEvent.UnLock())
+        EventBus.getDefault().post(DownloadRecyclerEnableEvent(true))
         linkGetSubmit?.apply {
             if (!isCancelled && !isDone) cancel(true)
         }

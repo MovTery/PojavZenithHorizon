@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
-import com.movtery.zalithlauncher.event.single.DownloadItemClickEvent
+import com.movtery.zalithlauncher.event.value.DownloadRecyclerEnableEvent
 import com.movtery.zalithlauncher.event.value.InDownloadFragmentEvent
 import com.movtery.zalithlauncher.feature.download.Filters
 import com.movtery.zalithlauncher.feature.download.InfoAdapter
@@ -201,14 +201,9 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download_search), In
     }
 
     @Subscribe
-    fun lock(event: DownloadItemClickEvent.Lock) {
-        binding.recyclerView.isEnabled = false
+    fun lock(event: DownloadRecyclerEnableEvent) {
+        binding.recyclerView.isEnabled = event.enable
         closeSpinner()
-    }
-
-    @Subscribe
-    fun unLock(event: DownloadItemClickEvent.UnLock) {
-        binding.recyclerView.isEnabled = true
     }
 
     private fun closeSpinner() {
