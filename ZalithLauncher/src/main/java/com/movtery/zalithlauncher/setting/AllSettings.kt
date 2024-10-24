@@ -118,6 +118,9 @@ class AllSettings {
         val verifyManifest: Boolean
             get() = Settings.Manager.getBoolean("verifyManifest", true)
 
+        val resourceImageCache: Boolean
+            get() = Settings.Manager.getBoolean("resourceImageCache", false)
+
         val downloadSource: String?
             get() = Settings.Manager.getString("downloadSource", "default")
 

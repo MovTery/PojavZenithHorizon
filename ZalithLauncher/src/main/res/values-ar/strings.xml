@@ -422,6 +422,8 @@
     <string name="setting_force_big_core_desc">فرض تشغيل مؤشر ترابط عارض Minecraft على النواة التي تعمل بأعلى تردد</string>
     <string name="setting_verify_manifest_title">التحقق من قائمة نسخ اللعبة</string>
     <string name="setting_verify_manifest_desc">عند التمكين، سيقوم المشغل بالتحقق من قائمة نسخ اللعبة والمكتبات</string>
+    <string name="setting_resource_image_cache_title">تخزين صور الموارد مؤقتًا</string>
+    <string name="setting_resource_image_cache_desc">عند التفعيل، سيقوم المشغل بتخزين صور غلاف الموارد ولقطات الشاشة مؤقتًا لتحميلها بشكل أسرع في المرة القادمة</string>
     <string name="setting_download_source_title">مصدر تنزيل اللعبة</string>
     <string name="setting_download_source_desc">اختيار مصدر تنزيل مرآة بدلاً من استخدام المصدر الرسمي</string>
     <string name="setting_set_game_language_title">ضبط لغة اللعبة تلقائيًا</string>

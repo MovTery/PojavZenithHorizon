@@ -1,5 +1,6 @@
 package com.movtery.zalithlauncher.feature.download;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
@@ -14,6 +15,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.flexbox.FlexboxLayout;
 import com.movtery.zalithlauncher.feature.download.enums.Category;
 import com.movtery.zalithlauncher.feature.download.enums.ModLoader;
@@ -21,6 +24,7 @@ import com.movtery.zalithlauncher.feature.download.enums.Platform;
 import com.movtery.zalithlauncher.feature.download.item.DependenciesInfoItem;
 import com.movtery.zalithlauncher.feature.download.item.InfoItem;
 import com.movtery.zalithlauncher.feature.download.utils.DependencyUtils;
+import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.ui.fragment.DownloadModFragment;
 import com.movtery.zalithlauncher.utils.NumberWithUnits;
 import com.movtery.zalithlauncher.utils.ZHTools;
@@ -82,6 +86,7 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
             this.binding = binding;
         }
 
+        @SuppressLint("CheckResult")
         public void setData(DependenciesInfoItem infoItem) {
             if (mExtensionFuture != null) {
                 mExtensionFuture.cancel(true);
@@ -123,7 +128,9 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
             );
 
             binding.thumbnailImageview.setImageDrawable(null);
-            Glide.with(context).load(infoItem.getIconUrl()).into(binding.thumbnailImageview);
+            RequestBuilder<Drawable> builder = Glide.with(context).load(infoItem.getIconUrl());
+            if (!AllSettings.Companion.getResourceImageCache()) builder.diskCacheStrategy(DiskCacheStrategy.NONE);
+            builder.into(binding.thumbnailImageview);
 
             itemView.setOnClickListener(v -> {
                 InfoViewModel viewModel = new ViewModelProvider(mParentFragment.requireActivity()).get(InfoViewModel.class);

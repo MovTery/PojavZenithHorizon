@@ -93,6 +93,38 @@
             </com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout>
 
             <com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout
+                android:id="@+id/resourceImageCache_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="@dimen/_12sdp">
+
+                <TextView
+                    android:id="@+id/resourceImageCache_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/setting_resource_image_cache_title"
+                    android:textColor="@color/black_or_white" />
+
+                <TextView
+                    android:id="@+id/resourceImageCache_summary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/resourceImageCache_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/resourceImageCache"
+                    android:text="@string/setting_resource_image_cache_desc" />
+
+                <Switch
+                    android:id="@+id/resourceImageCache"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+            </com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout>
+
+            <com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout
                 android:id="@+id/downloadSource_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

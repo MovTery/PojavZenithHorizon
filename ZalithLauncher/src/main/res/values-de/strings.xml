@@ -422,6 +422,8 @@
     <string name="setting_force_big_core_desc">Zwingt den Minecraft-Render-Thread, auf dem Kern mit der höchsten Frequenz zu laufen</string>
     <string name="setting_verify_manifest_title">Überprüfung der Spielversionsliste</string>
     <string name="setting_verify_manifest_desc">Wenn aktiviert, überprüft der Launcher die Spielversionsliste sowie die Bibliotheken</string>
+    <string name="setting_resource_image_cache_title">Ressourcenbilder zwischenspeichern</string>
+    <string name="setting_resource_image_cache_desc">Wenn aktiviert, speichert der Launcher die Titelbilder und Screenshots von Ressourcen im Cache, um sie beim nächsten Mal schneller zu laden</string>
     <string name="setting_download_source_title">Spiel-Downloadquelle</string>
     <string name="setting_download_source_desc">Wählen Sie eine Mirror-Downloadquelle anstelle der offiziellen Downloadquelle</string>
     <string name="setting_set_game_language_title">Automatische Spielsprachen-Einstellung</string>

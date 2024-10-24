@@ -451,6 +451,8 @@
 
     <string name="setting_verify_manifest_title">游戏版本列表检查</string>
     <string name="setting_verify_manifest_desc">启用后，启动器将检查游戏版本列表以及库</string>
+    <string name="setting_resource_image_cache_title">缓存资源图片</string>
+    <string name="setting_resource_image_cache_desc">启用后，启动器将会对资源的封面图片、截图进行缓存，以便下次更快的加载</string>
     <string name="setting_download_source_title">游戏下载源</string>
     <string name="setting_download_source_desc">选择镜像下载源，而不是使用官方下载源</string>
     <string name="setting_set_game_language_title">自动设置游戏语言</string>

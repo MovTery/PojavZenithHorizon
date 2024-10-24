@@ -1,5 +1,6 @@
 package com.movtery.zalithlauncher.ui.fragment
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.Gravity
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
@@ -24,6 +26,7 @@ import com.movtery.zalithlauncher.feature.download.item.ScreenshotItem
 import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.feature.download.platform.AbstractPlatformHelper
 import com.movtery.zalithlauncher.feature.log.Logging
+import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.ui.dialog.ViewImageDialog
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListAdapter
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListFragment
@@ -157,6 +160,7 @@ class DownloadModFragment : ModListFragment() {
         }
     }
 
+    @SuppressLint("CheckResult")
     private fun parseViewModel() {
         val viewModel = ViewModelProvider(fragmentActivity!!)[InfoViewModel::class.java]
         platformHelper = viewModel.platformHelper
@@ -168,7 +172,9 @@ class DownloadModFragment : ModListFragment() {
             loadScreenshots()
 
             iconUrl?.apply {
-                Glide.with(fragmentActivity!!).load(this).into(getIconView())
+                Glide.with(fragmentActivity!!).load(this).apply {
+                    if (!AllSettings.resourceImageCache) diskCacheStrategy(DiskCacheStrategy.NONE)
+                }.into(getIconView())
             }
         }
     }
@@ -187,6 +193,7 @@ class DownloadModFragment : ModListFragment() {
         }
     }
 
+    @SuppressLint("CheckResult")
     private fun setScreenshotView(screenshotItems: List<ScreenshotItem>) {
         screenshotItems.forEach { item ->
             fragmentActivity?.let { activity ->
@@ -204,7 +211,8 @@ class DownloadModFragment : ModListFragment() {
                     scaleType = ImageView.ScaleType.FIT_CENTER
                     setOnClickListener {
                         val vb = ViewImageDialog.Builder(activity)
-                            .setImage(item.imageUrl)
+                            .setImage(drawable)
+                            .setImageCache(AllSettings.resourceImageCache)
                         item.title?.let { vb.setTitle(it) }
                         vb.buildDialog()
                     }
@@ -222,9 +230,8 @@ class DownloadModFragment : ModListFragment() {
                     newLinearLayout.addView(titleView)
                 }
 
-                Glide.with(activity)
-                    .load(item.imageUrl)
-                    .listener(object : RequestListener<Drawable> {
+                Glide.with(activity).load(item.imageUrl).apply {
+                    listener(object : RequestListener<Drawable> {
                         override fun onLoadFailed(
                             e: GlideException?,
                             model: Any?,
@@ -246,7 +253,9 @@ class DownloadModFragment : ModListFragment() {
                             return false
                         }
                     })
-                    .into(imageView)
+
+                    if (!AllSettings.resourceImageCache) diskCacheStrategy(DiskCacheStrategy.NONE)
+                }.into(imageView)
 
                 addMoreView(newLinearLayout)
             }

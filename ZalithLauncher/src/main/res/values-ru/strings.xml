@@ -422,6 +422,8 @@
     <string name="setting_force_big_core_desc">Принудительно запускать потоки рендеринга Minecraft на ядре с максимальной частотой</string>
     <string name="setting_verify_manifest_title">Проверка списка версий игры</string>
     <string name="setting_verify_manifest_desc">После включения лаунчер будет проверять список версий игры и библиотек</string>
+    <string name="setting_resource_image_cache_title">Кэшировать изображения ресурсов</string>
+    <string name="setting_resource_image_cache_desc">При включении лаунчер будет кэшировать обложки и скриншоты ресурсов для более быстрого загрузки в следующий раз</string>
     <string name="setting_download_source_title">Источник загрузки игры</string>
     <string name="setting_download_source_desc">Выберите зеркальный источник загрузки вместо официального</string>
     <string name="setting_set_game_language_title">Автоматическая настройка языка игры</string>

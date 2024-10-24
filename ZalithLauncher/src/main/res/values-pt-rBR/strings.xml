@@ -422,6 +422,8 @@
     <string name="setting_force_big_core_desc">Forçar a thread de renderização do Minecraft a rodar nos núcleos de maior frequência</string>
     <string name="setting_verify_manifest_title">Verificação da Lista de Versões do Jogo</string>
     <string name="setting_verify_manifest_desc">Quando habilitado, o lançador verificará a lista de versões do jogo e as bibliotecas</string>
+    <string name="setting_resource_image_cache_title">Cachear imagens de recursos</string>
+    <string name="setting_resource_image_cache_desc">Quando ativado, o launcher armazenará em cache as imagens de capa e capturas de tela dos recursos para carregar mais rapidamente da próxima vez</string>
     <string name="setting_download_source_title">Fonte de Download do Jogo</string>
     <string name="setting_download_source_desc">Selecionar fonte de download em espelho em vez de usar a fonte oficial de download</string>
     <string name="setting_set_game_language_title">Definir Idioma do Jogo Automaticamente</string>

@@ -422,6 +422,8 @@
     <string name="setting_force_big_core_desc">強制 Minecraft 渲染執行緒在最高頻率的核心運行</string>
     <string name="setting_verify_manifest_title">遊戲版本列表檢查</string>
     <string name="setting_verify_manifest_desc">啟用後，啟動器將檢查遊戲版本列表以及庫</string>
+    <string name="setting_resource_image_cache_title">快取資源圖片</string>
+    <string name="setting_resource_image_cache_desc">啟用後，啟動器將會快取資源的封面圖片與截圖，方便下次更快速載入</string>
     <string name="setting_download_source_title">遊戲下載源</string>
     <string name="setting_download_source_desc">選擇鏡像下載源，而不是使用官方下載源</string>
     <string name="setting_set_game_language_title">自動設定遊戲語言</string>

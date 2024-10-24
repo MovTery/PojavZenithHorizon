@@ -427,6 +427,8 @@
     <string name="setting_force_big_core_desc">Forces the Minecraft rendering thread to run on the highest frequency core</string>
     <string name="setting_verify_manifest_title">Game Version List Check</string>
     <string name="setting_verify_manifest_desc">When enabled, the launcher will check the game version list and libraries</string>
+    <string name="setting_resource_image_cache_title">Cache resource images</string>
+    <string name="setting_resource_image_cache_desc">When enabled, the launcher will cache the cover images and screenshots of resources for faster loading next time</string>
     <string name="setting_download_source_title">Game Download Source</string>
     <string name="setting_download_source_desc">Choose a mirror download source instead of using the official download source</string>
     <string name="setting_set_game_language_title">Auto Set Game Language</string>

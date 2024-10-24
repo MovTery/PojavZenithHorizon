@@ -422,6 +422,8 @@
     <string name="setting_force_big_core_desc">Buộc luồng kết xuất của Minecraft chạy trên lõi có tần số cao nhất</string>
     <string name="setting_verify_manifest_title">Kiểm tra danh sách phiên bản trò chơi</string>
     <string name="setting_verify_manifest_desc">Khi bật, trình khởi chạy sẽ kiểm tra danh sách phiên bản trò chơi và thư viện</string>
+    <string name="setting_resource_image_cache_title">Bộ nhớ đệm hình ảnh tài nguyên</string>
+    <string name="setting_resource_image_cache_desc">Khi bật, trình khởi chạy sẽ lưu trữ vào bộ nhớ đệm các ảnh bìa và ảnh chụp màn hình của tài nguyên để tải nhanh hơn lần sau</string>
     <string name="setting_download_source_title">Nguồn tải xuống trò chơi</string>
     <string name="setting_download_source_desc">Chọn nguồn tải xuống lậu thay vì sử dụng nguồn tải xuống chính thức</string>
     <string name="setting_set_game_language_title">Tự động đặt ngôn ngữ trò chơi</string>

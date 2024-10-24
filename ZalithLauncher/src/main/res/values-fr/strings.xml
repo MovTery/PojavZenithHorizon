@@ -422,6 +422,8 @@
     <string name="setting_force_big_core_desc">Forcer le thread de rendu de Minecraft à fonctionner sur le cœur à la fréquence la plus élevée</string>
     <string name="setting_verify_manifest_title">Vérification de la liste des versions du jeu</string>
     <string name="setting_verify_manifest_desc">Lorsqu\'elle est activée, le lanceur vérifie la liste des versions du jeu ainsi que les bibliothèques</string>
+    <string name="setting_resource_image_cache_title">Mettre en cache les images des ressources</string>
+    <string name="setting_resource_image_cache_desc">Une fois activé, le lanceur mettra en cache les images de couverture et les captures d\'écran des ressources pour un chargement plus rapide la prochaine fois</string>
     <string name="setting_download_source_title">Source de téléchargement du jeu</string>
     <string name="setting_download_source_desc">Choisir une source de téléchargement miroir au lieu d\'utiliser la source officielle</string>
     <string name="setting_set_game_language_title">Définir automatiquement la langue du jeu</string>

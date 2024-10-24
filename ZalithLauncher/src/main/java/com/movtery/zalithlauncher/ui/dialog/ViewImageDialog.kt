@@ -1,5 +1,6 @@
 package com.movtery.zalithlauncher.ui.dialog
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
@@ -8,13 +9,16 @@ import android.view.Window
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.RequestManager
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.movtery.zalithlauncher.ui.dialog.DraggableDialog.DialogInitializationListener
 import net.kdt.pojavlaunch.databinding.DialogImagePreviewBinding
 import java.io.File
 
+@SuppressLint("CheckResult")
 class ViewImageDialog private constructor(
     context: Context,
     requestBuilder: RequestBuilder<Drawable>,
+    imageCache: Boolean,
     title: String? = null
 ) :
     FullScreenDialog(context), DialogInitializationListener {
@@ -23,6 +27,7 @@ class ViewImageDialog private constructor(
         init {
             setContentView(binding.root)
             title?.let { binding.titleView.text = it }
+            if (!imageCache) requestBuilder.diskCacheStrategy(DiskCacheStrategy.NONE)
             requestBuilder.into(binding.imageView)
             binding.closeButton.setOnClickListener { dismiss() }
         }
@@ -36,10 +41,16 @@ class ViewImageDialog private constructor(
         private lateinit var rb: RequestBuilder<Drawable>
         private var title: String? = null
         private var isImageSet: Boolean = false
+        private var imageCache: Boolean = true
+
+        private fun checkImage() {
+            if (isImageSet) throw IllegalStateException("The image has already been set!")
+            isImageSet = true
+        }
 
         fun buildDialog(): ViewImageDialog {
             if (!isImageSet) throw IllegalStateException("Please set the image first!")
-            val dialog = ViewImageDialog(this.context, rb, title)
+            val dialog = ViewImageDialog(this.context, rb, imageCache, title)
             dialog.show()
             return dialog
         }
@@ -53,9 +64,9 @@ class ViewImageDialog private constructor(
             return this
         }
 
-        fun checkImage() {
-            if (isImageSet) throw IllegalStateException("The image has already been set!")
-            isImageSet = true
+        fun setImageCache(cache: Boolean): Builder {
+            this.imageCache = cache
+            return this
         }
 
         fun setImage(uri: Uri?): Builder {

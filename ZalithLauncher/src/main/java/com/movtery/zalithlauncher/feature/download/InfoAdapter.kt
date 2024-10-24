@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.flexbox.FlexboxLayout
 import com.movtery.zalithlauncher.event.value.DownloadRecyclerEnableEvent
 import com.movtery.zalithlauncher.feature.download.enums.Platform
@@ -20,6 +21,7 @@ import com.movtery.zalithlauncher.feature.download.item.ModInfoItem
 import com.movtery.zalithlauncher.feature.download.item.SearchResult
 import com.movtery.zalithlauncher.feature.download.platform.PlatformNotSupportedException
 import com.movtery.zalithlauncher.feature.log.Logging
+import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.ui.fragment.DownloadModFragment
 import com.movtery.zalithlauncher.utils.NumberWithUnits
 import com.movtery.zalithlauncher.utils.ZHTools
@@ -124,6 +126,7 @@ class InfoAdapter(
         }
 
         /** Display basic info about the moditem  */
+        @SuppressLint("CheckResult")
         fun setStateLimited(item: InfoItem) {
             this.item = item
 
@@ -189,7 +192,11 @@ class InfoAdapter(
                     tagsLayout.addView(getTagTextView(R.string.download_info_modloader, modloaderText))
                 }
 
-                item.iconUrl?.apply { Glide.with(mContext).load(this).into(thumbnailImageview) }
+                item.iconUrl?.apply {
+                    Glide.with(mContext).load(this).apply {
+                        if (!AllSettings.resourceImageCache) diskCacheStrategy(DiskCacheStrategy.NONE)
+                    }.into(thumbnailImageview)
+                }
             }
             binding.tagsLayout
         }
