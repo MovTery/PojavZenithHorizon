@@ -8,6 +8,7 @@ import android.net.Uri
 import android.view.View
 import android.view.Window
 import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -35,6 +36,7 @@ class ViewImageDialog private constructor(
                     text = it
                 }
             }
+            requestBuilder.priority(Priority.HIGH)
             if (!imageCache) requestBuilder.diskCacheStrategy(DiskCacheStrategy.NONE)
             requestBuilder.into(binding.imageView)
             binding.closeButton.setOnClickListener { dismiss() }
