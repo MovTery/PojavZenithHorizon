@@ -3,6 +3,7 @@ package com.movtery.zalithlauncher.ui.fragment
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
@@ -10,6 +11,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -33,6 +35,7 @@ import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListFragment
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListItemBean
 import com.movtery.zalithlauncher.utils.MCVersionRegex.Companion.RELEASE_REGEX
 import net.kdt.pojavlaunch.PojavApplication
+import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import org.greenrobot.eventbus.EventBus
 import org.jackhuang.hmcl.util.versioning.VersionNumber
@@ -180,14 +183,17 @@ class DownloadModFragment : ModListFragment() {
     }
 
     private fun loadScreenshots() {
-        val progressBar = getProgressView(fragmentActivity!!)
+        val progressBar = createProgressView(fragmentActivity!!)
         addMoreView(progressBar)
         PojavApplication.sExecutorService.execute {
             runCatching {
                 val screenshotItems = platformHelper.getScreenshots(mInfoItem.projectId)
                 Tools.runOnUiThread { setScreenshotView(screenshotItems) }
             }.getOrElse { e ->
-                Logging.e("DownloadModFragment", "Unable to load screenshots, ${Tools.printToString(e)}")
+                Logging.e(
+                    "DownloadModFragment",
+                    "Unable to load screenshots, ${Tools.printToString(e)}"
+                )
             }
             Tools.runOnUiThread { removeMoreView(progressBar) }
         }
@@ -197,76 +203,134 @@ class DownloadModFragment : ModListFragment() {
     private fun setScreenshotView(screenshotItems: List<ScreenshotItem>) {
         screenshotItems.forEach { item ->
             fragmentActivity?.let { activity ->
-                val newLinearLayout = LinearLayout(activity).apply {
-                    orientation = LinearLayout.VERTICAL
-                    gravity = Gravity.CENTER
-                    layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+
+                val newLinearLayout = createLinearLayout(activity)
+                val progressBar = createProgressView(activity)
+                val imageView = createImageView(activity, item)
+                val titleView: TextView? = item.title?.let { createTitleView(activity, it) }
+
+                val reloadImageView = createReloadImageView(activity) {
+                    loadImage(activity, newLinearLayout, progressBar, imageView, it, titleView, item)
                 }
 
-                val progressBar = getProgressView(activity)
-                val imageView = ImageView(activity).apply {
-                    layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT).apply {
-                        topMargin = Tools.dpToPx(8f).toInt()
-                    }
-                    scaleType = ImageView.ScaleType.FIT_CENTER
-                    setOnClickListener {
-                        val vb = ViewImageDialog.Builder(activity)
-                            .setImage(drawable)
-                            .setImageCache(AllSettings.resourceImageCache)
-                        item.title?.let { vb.setTitle(it) }
-                        vb.buildDialog()
-                    }
-                }
-
-                newLinearLayout.addView(progressBar)
-                newLinearLayout.addView(imageView)
-
-                item.title?.let { title ->
-                    val titleView = TextView(activity).apply {
-                        layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-                        gravity = Gravity.CENTER_HORIZONTAL
-                        text = title
-                    }
-                    newLinearLayout.addView(titleView)
-                }
-
-                Glide.with(activity).load(item.imageUrl).apply {
-                    listener(object : RequestListener<Drawable> {
-                        override fun onLoadFailed(
-                            e: GlideException?,
-                            model: Any?,
-                            target: Target<Drawable>,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            newLinearLayout.removeView(progressBar)
-                            return false
-                        }
-
-                        override fun onResourceReady(
-                            resource: Drawable,
-                            model: Any,
-                            target: Target<Drawable>?,
-                            dataSource: DataSource,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            newLinearLayout.removeView(progressBar)
-                            return false
-                        }
-                    })
-
-                    if (!AllSettings.resourceImageCache) diskCacheStrategy(DiskCacheStrategy.NONE)
-                }.into(imageView)
+                loadImage(activity, newLinearLayout, progressBar, imageView, reloadImageView, titleView, item)
 
                 addMoreView(newLinearLayout)
             }
         }
     }
 
-    private fun getProgressView(context: Context): ProgressBar {
+    private fun createLinearLayout(activity: FragmentActivity): LinearLayout {
+        return LinearLayout(activity).apply {
+            orientation = LinearLayout.VERTICAL
+            gravity = Gravity.CENTER
+            layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+        }
+    }
+
+    private fun createProgressView(context: Context): ProgressBar {
         return ProgressBar(context).apply {
             layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
                 gravity = Gravity.CENTER_HORIZONTAL
             }
+        }
+    }
+
+    private fun createImageView(activity: FragmentActivity, item: ScreenshotItem): ImageView {
+        return ImageView(activity).apply {
+            layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT).apply {
+                topMargin = Tools.dpToPx(8f).toInt()
+            }
+            scaleType = ImageView.ScaleType.FIT_CENTER
+            setOnClickListener {
+                val vb = ViewImageDialog.Builder(activity)
+                    .setImage(drawable)
+                    .setImageCache(AllSettings.resourceImageCache)
+                item.title?.let { vb.setTitle(it) }
+                vb.buildDialog()
+            }
+        }
+    }
+
+    private fun createReloadImageView(
+        activity: FragmentActivity,
+        onClick: (ImageView) -> Unit
+    ): ImageView {
+        return ImageView(activity).apply {
+            val typedValue = TypedValue()
+            activity.theme.resolveAttribute(
+                android.R.attr.selectableItemBackgroundBorderless,
+                typedValue,
+                true
+            )
+            setBackgroundResource(typedValue.resourceId)
+            setImageResource(R.drawable.ic_refresh)
+            scaleType = ImageView.ScaleType.FIT_CENTER
+            layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
+                gravity = Gravity.CENTER_HORIZONTAL
+            }
+            setOnClickListener { onClick(this) }
+        }
+    }
+
+    private fun createTitleView(activity: FragmentActivity, title: String): TextView {
+        return TextView(activity).apply {
+            layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+            gravity = Gravity.CENTER_HORIZONTAL
+            text = title
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    private fun loadImage(
+        activity: FragmentActivity,
+        layout: LinearLayout,
+        progressBar: ProgressBar,
+        imageView: ImageView,
+        reloadImageView: ImageView,
+        titleView: TextView?,
+        item: ScreenshotItem
+    ) {
+        layout.removeAllViews()
+        layout.addView(progressBar)
+        layout.addView(imageView)
+        titleView?.let { layout.addView(it) }
+
+        Glide.with(activity).load(item.imageUrl).apply {
+            listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    layout.removeView(progressBar)
+                    layout.addView(reloadImageView)
+                    ensureTitleViewOrder(layout, titleView)
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable,
+                    model: Any,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    layout.removeView(progressBar)
+                    layout.removeView(reloadImageView)
+                    return false
+                }
+            })
+
+            if (!AllSettings.resourceImageCache) diskCacheStrategy(DiskCacheStrategy.NONE)
+        }.into(imageView)
+    }
+
+    private fun ensureTitleViewOrder(layout: LinearLayout, titleView: TextView?) {
+        titleView?.let {
+            layout.removeView(it)
+            layout.addView(it)
         }
     }
 }
