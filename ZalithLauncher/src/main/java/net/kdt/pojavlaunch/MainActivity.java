@@ -23,9 +23,7 @@ import android.provider.DocumentsContract;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -65,6 +63,8 @@ import net.kdt.pojavlaunch.customcontrols.keyboard.LwjglCharSender;
 import net.kdt.pojavlaunch.customcontrols.keyboard.TouchCharInput;
 import net.kdt.pojavlaunch.customcontrols.mouse.GyroControl;
 import net.kdt.pojavlaunch.databinding.ActivityBasemainBinding;
+import net.kdt.pojavlaunch.databinding.ViewControlSettingsBinding;
+import net.kdt.pojavlaunch.databinding.ViewGameSettingsBinding;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.services.GameService;
@@ -93,10 +93,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
     MinecraftProfile minecraftProfile;
 
-    private ArrayAdapter<String> gameActionArrayAdapter;
-    private AdapterView.OnItemClickListener gameActionClickListener;
-    public ArrayAdapter<String> ingameControlsEditorArrayAdapter;
-    public AdapterView.OnItemClickListener ingameControlsEditorListener;
+    private ViewGameSettingsBinding mGameSettingsBinding;
+    private ViewControlSettingsBinding mControlSettingsBinding;
     private GameService.LocalBinder mServiceBinder;
 
     @Override
@@ -122,22 +120,18 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         // Set the sustained performance mode for available APIs
         getWindow().setSustainedPerformanceMode(AllSettings.Companion.getSustainedPerformance());
 
-        ingameControlsEditorArrayAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.menu_customcontrol));
-        ingameControlsEditorListener = (parent, view, position, id) -> {
-            ControlLayout controlLayout = binding.mainControlLayout;
-            switch(position) {
-                case 0: controlLayout.addControlButton(new ControlData(getString(R.string.controls_add_control_button))); break;
-                case 1: controlLayout.addDrawer(new ControlDrawerData()); break;
-                case 2: controlLayout.addJoystickButton(new ControlJoystickData()); break;
-                case 3: new ControlSettingsDialog(this).show(); break;
-                case 4: controlLayout.openLoadDialog(); break;
-                case 5: controlLayout.openSaveDialog(); break;
-                case 6: controlLayout.openSaveAndExitDialog(this); break;
-                case 7: controlLayout.openSetDefaultDialog(); break;
-                case 8: controlLayout.openExitDialog(this);
-            }
-        };
+        ControlLayout controlLayout = binding.mainControlLayout;
+        mControlSettingsBinding = ViewControlSettingsBinding.inflate(getLayoutInflater());
+        mControlSettingsBinding.addButton.setOnClickListener(v -> controlLayout.addControlButton(new ControlData(getString(R.string.controls_add_control_button))));
+        mControlSettingsBinding.addDrawer.setOnClickListener(v -> controlLayout.addDrawer(new ControlDrawerData()));
+        mControlSettingsBinding.addJoystick.setOnClickListener(v -> controlLayout.addJoystickButton(new ControlJoystickData()));
+        mControlSettingsBinding.controlsSettings.setOnClickListener(v -> new ControlSettingsDialog(this).show());
+        mControlSettingsBinding.load.setOnClickListener(v -> controlLayout.openLoadDialog());
+        mControlSettingsBinding.save.setOnClickListener(v -> controlLayout.openSaveDialog());
+        mControlSettingsBinding.saveAndExit.setOnClickListener(v -> controlLayout.openSaveAndExitDialog(this));
+        mControlSettingsBinding.selectDefault.setOnClickListener(v -> controlLayout.openSetDefaultDialog());
+        mControlSettingsBinding.export.setOnClickListener(v -> controlLayout.openExitDialog(this));
+        mControlSettingsBinding.export.setText(R.string.customctrl_editor_exit);
 
         // Recompute the gui scale when options are changed
         MCOptionUtils.MCOptionListener optionListener = MCOptionUtils::getMcScale;
@@ -198,23 +192,18 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
 
             // Menu
-            gameActionArrayAdapter = new ArrayAdapter<>(this,
-                    android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.menu_ingame));
-            gameActionClickListener = (parent, view, position, id) -> {
-                switch(position) {
-                    case 0: dialogForceClose(MainActivity.this); break;
-                    case 1: openLogOutput(); break;
-                    case 2: dialogSendCustomKey(); break;
-                    case 3: adjustMouseSpeedLive(); break;
-                    case 4: openResolutionAdjuster(); break;
-                    case 5: adjustGyroSensitivityLive(); break;
-                    case 6: replacementCustomControls(); break;
-                    case 7: openCustomControls(); break;
-                }
-                binding.mainDrawerOptions.closeDrawers();
-            };
-            binding.mainNavigationView.setAdapter(gameActionArrayAdapter);
-            binding.mainNavigationView.setOnItemClickListener(gameActionClickListener);
+            mGameSettingsBinding = ViewGameSettingsBinding.inflate(getLayoutInflater());
+            mGameSettingsBinding.forceClose.setOnClickListener(v -> dialogForceClose(this));
+            mGameSettingsBinding.logOutput.setOnClickListener(v -> openLogOutput());
+            mGameSettingsBinding.sendCustomKey.setOnClickListener(v -> dialogSendCustomKey());
+            mGameSettingsBinding.mouseSettings.setOnClickListener(v -> openMouseSettings());
+            mGameSettingsBinding.resolutionScaler.setOnClickListener(v -> openResolutionAdjuster());
+            mGameSettingsBinding.gyroSensitivity.setOnClickListener(v -> adjustGyroSensitivityLive());
+            mGameSettingsBinding.replacementCustomcontrol.setOnClickListener(v -> replacementCustomControls());
+            mGameSettingsBinding.editControl.setOnClickListener(v -> openCustomControls());
+
+            binding.mainNavigationView.removeAllViews();
+            binding.mainNavigationView.addView(mGameSettingsBinding.getRoot());
             binding.mainDrawerOptions.closeDrawers();
 
             final String finalVersion = version;
@@ -382,11 +371,9 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
     boolean isInEditor;
     private void openCustomControls() {
-        if(ingameControlsEditorListener == null || ingameControlsEditorArrayAdapter == null) return;
-
         binding.mainControlLayout.setModifiable(true);
-        binding.mainNavigationView.setAdapter(ingameControlsEditorArrayAdapter);
-        binding.mainNavigationView.setOnItemClickListener(ingameControlsEditorListener);
+        binding.mainNavigationView.removeAllViews();
+        binding.mainNavigationView.addView(mControlSettingsBinding.getRoot());
         mGameMenuWrapper.setVisibility(true);
         isInEditor = true;
     }
@@ -441,7 +428,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         if (binding != null) binding.mainTouchCharInput.switchKeyboardState();
     }
 
-    public void adjustMouseSpeedLive() {
+    public void openMouseSettings() {
         new MouseSettingsDialog(this, (mouseSpeed, mouseScale) -> {
             Settings.Manager.Companion.put("mousespeed", mouseSpeed).save();
             Settings.Manager.Companion.put("mousescale", mouseScale).save();
@@ -540,7 +527,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     @Override
     public void onClickedMenu() {
         DrawerLayout drawerLayout = binding.mainDrawerOptions;
-        ListView navigationView = binding.mainNavigationView;
+        View navigationView = binding.mainNavigationView;
 
         boolean open = drawerLayout.isDrawerOpen(navigationView);
         if (open) drawerLayout.closeDrawer(navigationView);
@@ -563,8 +550,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         } catch (IOException e) {
             Tools.showError(this,e);
         }
-        binding.mainNavigationView.setAdapter(gameActionArrayAdapter);
-        binding.mainNavigationView.setOnItemClickListener(gameActionClickListener);
+        binding.mainNavigationView.removeAllViews();
+        binding.mainNavigationView.addView(mGameSettingsBinding.getRoot());
         isInEditor = false;
     }
 

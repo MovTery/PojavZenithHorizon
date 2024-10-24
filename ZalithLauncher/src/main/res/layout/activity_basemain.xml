@@ -89,14 +89,13 @@
 
     </FrameLayout>
 
-    <ListView
+    <FrameLayout
         android:id="@+id/main_navigation_view"
-        android:layout_width="@dimen/_200sdp"
+        android:layout_width="@dimen/_260sdp"
         android:layout_height="match_parent"
-        android:layout_gravity="right"
-        android:background="?attr/colorBackgroundFloating"
-        android:fitsSystemWindows="false"
-        tools:ignore="RtlHardcoded" />
+        android:layout_gravity="end"
+        android:layout_marginVertical="@dimen/_12sdp"
+        android:fitsSystemWindows="false" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
 

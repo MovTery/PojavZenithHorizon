@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background_card"
+    android:padding="@dimen/_8sdp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.Material3.TitleMedium"
+        android:gravity="center_horizontal"
+        android:text="@string/option_custom_control"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.movtery.zalithlauncher.ui.view.AnimTextView
+                android:id="@+id/add_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_item"
+                android:text="@string/customctrl_addbutton"
+                android:gravity="center_horizontal"
+                android:paddingHorizontal="@dimen/_8sdp"/>
+
+            <com.movtery.zalithlauncher.ui.view.AnimTextView
+                android:id="@+id/add_drawer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@drawable/background_item"
+                android:text="@string/customctrl_addbutton_drawer"
+                android:gravity="center_horizontal"
+                android:paddingHorizontal="@dimen/_8sdp"/>
+
+            <com.movtery.zalithlauncher.ui.view.AnimTextView
+                android:id="@+id/add_joystick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@drawable/background_item"
+                android:text="@string/customctrl_addbutton_joystick"
+                android:gravity="center_horizontal"
+                android:paddingHorizontal="@dimen/_8sdp"/>
+
+            <com.movtery.zalithlauncher.ui.view.AnimTextView
+                android:id="@+id/controls_settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@drawable/background_item"
+                android:text="@string/controls_settings_title"
+                android:gravity="center_horizontal"
+                android:paddingHorizontal="@dimen/_8sdp"/>
+
+            <com.movtery.zalithlauncher.ui.view.AnimTextView
+                android:id="@+id/load"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@drawable/background_item"
+                android:text="@string/generic_load"
+                android:gravity="center_horizontal"
+                android:paddingHorizontal="@dimen/_8sdp"/>
+
+            <com.movtery.zalithlauncher.ui.view.AnimTextView
+                android:id="@+id/save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@drawable/background_item"
+                android:text="@string/generic_save"
+                android:gravity="center_horizontal"
+                android:paddingHorizontal="@dimen/_8sdp"/>
+
+            <com.movtery.zalithlauncher.ui.view.AnimTextView
+                android:id="@+id/save_and_exit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@drawable/background_item"
+                android:text="@string/global_save_and_exit"
+                android:gravity="center_horizontal"
+                android:paddingHorizontal="@dimen/_8sdp"/>
+
+            <com.movtery.zalithlauncher.ui.view.AnimTextView
+                android:id="@+id/select_default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@drawable/background_item"
+                android:text="@string/customctrl_selectdefault"
+                android:gravity="center_horizontal"
+                android:paddingHorizontal="@dimen/_8sdp"/>
+
+            <com.movtery.zalithlauncher.ui.view.AnimTextView
+                android:id="@+id/export"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@drawable/background_item"
+                android:text="@string/customctrl_export"
+                android:gravity="center_horizontal"
+                android:paddingHorizontal="@dimen/_8sdp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

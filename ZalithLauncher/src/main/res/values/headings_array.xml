@@ -18,41 +18,6 @@
         <item>opengles3_ltw</item> <!-- tinywrapper with OpenGL ES 3 -->
     </string-array>
 
-    <string-array name="menu_customcontrol">
-        <item name="0">@string/customctrl_addbutton</item>
-        <item name="1">@string/customctrl_addbutton_drawer</item>
-        <item name="2">@string/customctrl_addbutton_joystick</item>
-        <item name="3">@string/controls_settings_title</item>
-        <item name="4">@string/generic_load</item>
-        <item name="5">@string/generic_save</item>
-        <item name="6">@string/global_save_and_exit</item>
-        <item name="7">@string/customctrl_selectdefault</item>
-        <item name="8">@string/customctrl_editor_exit</item>
-    </string-array>
-
-    <string-array name="menu_customcontrol_customactivity">
-        <item name="0">@string/customctrl_addbutton</item>
-        <item name="1">@string/customctrl_addbutton_drawer</item>
-        <item name="2">@string/customctrl_addbutton_joystick</item>
-        <item name="3">@string/controls_settings_title</item>
-        <item name="4">@string/generic_load</item>
-        <item name="5">@string/generic_save</item>
-        <item name="6">@string/global_save_and_exit</item>
-        <item name="7">@string/customctrl_selectdefault</item>
-        <item name="8">@string/customctrl_export</item>
-    </string-array>
-
-    <string-array name="menu_ingame">
-        <item>@string/option_force_close</item>
-        <item>@string/option_log_out</item>
-        <item>@string/option_send_custom_key</item>
-        <item>@string/mouse_settings_title</item>
-        <item>@string/setting_resolution_scaler_title</item>
-        <item>@string/setting_gyro_sensitivity_title</item>
-        <item>@string/replacement_customcontrol</item>
-        <item>@string/option_custom_control</item>
-    </string-array>
-
     <string-array name="download_source_names">
         <item>@string/generic_default</item>
         <item>BMCLAPI</item>

@@ -32,12 +32,12 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ListView
+    <FrameLayout
         android:id="@+id/customctrl_navigation_view"
-        android:layout_width="@dimen/_200sdp"
+        android:layout_width="@dimen/_260sdp"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:background="?attr/colorBackgroundFloating"
+        android:layout_marginVertical="@dimen/_12sdp"
         android:fitsSystemWindows="false" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
