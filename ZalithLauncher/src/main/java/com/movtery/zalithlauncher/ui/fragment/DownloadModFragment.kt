@@ -243,11 +243,12 @@ class DownloadModFragment : ModListFragment() {
             }
             scaleType = ImageView.ScaleType.FIT_CENTER
             setOnClickListener {
-                val vb = ViewImageDialog.Builder(activity)
+                ViewImageDialog.Builder(activity)
                     .setImage(drawable)
+                    .setTitle(item.title)
+                    .setDescription(item.description)
                     .setImageCache(AllSettings.resourceImageCache)
-                item.title?.let { vb.setTitle(it) }
-                vb.buildDialog()
+                    .buildDialog()
             }
         }
     }

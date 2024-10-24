@@ -15,6 +15,7 @@ import com.movtery.zalithlauncher.feature.download.utils.CategoryUtils
 import com.movtery.zalithlauncher.feature.download.utils.VersionTypeUtils
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.utils.ZHTools
+import com.movtery.zalithlauncher.utils.stringutils.StringUtilsKt
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ApiHandler
 import java.util.StringJoiner
@@ -64,10 +65,16 @@ class ModrinthCommonUtils {
                     runCatching {
                         val screenshotObject = element.asJsonObject
                         val url = screenshotObject.get("url").asString
+
                         val titleElement = screenshotObject.get("title")
                         val titleString = if (titleElement.isJsonNull) null
-                        else titleElement.asString.takeIf { it.isNotEmpty() && it.isNotBlank() }
-                        screenshotItems.add(ScreenshotItem(url, titleString))
+                        else StringUtilsKt.getNonEmptyOrBlank(titleElement.asString)
+
+                        val descriptionElement = screenshotObject.get("description")
+                        val descriptionString = if (descriptionElement.isJsonNull) null
+                        else StringUtilsKt.getNonEmptyOrBlank(descriptionElement.asString)
+
+                        screenshotItems.add(ScreenshotItem(url, titleString, descriptionString))
                     }.getOrElse { e ->
                         val error = Tools.printToString(e)
                         Logging.e("ModrinthCommonUtils", "There was an exception while getting the screenshot information!\n$error")

@@ -16,6 +16,7 @@ import com.movtery.zalithlauncher.feature.download.utils.VersionTypeUtils
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.utils.MCVersionRegex.Companion.RELEASE_REGEX
 import com.movtery.zalithlauncher.utils.ZHTools
+import com.movtery.zalithlauncher.utils.stringutils.StringUtilsKt
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ApiHandler
 import net.kdt.pojavlaunch.utils.GsonJsonUtils
@@ -67,7 +68,8 @@ class CurseForgeCommonUtils {
                     screenshotItems.add(
                         ScreenshotItem(
                             screenshotObject.get("url").asString,
-                            screenshotObject.get("title").asString.takeIf { it.isNotEmpty() && it.isNotBlank() }
+                            StringUtilsKt.getNonEmptyOrBlank(screenshotObject.get("title").asString),
+                            StringUtilsKt.getNonEmptyOrBlank(screenshotObject.get("description").asString),
                         )
                     )
                 }

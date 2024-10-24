@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.view.View
 import android.view.Window
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
@@ -19,7 +20,8 @@ class ViewImageDialog private constructor(
     context: Context,
     requestBuilder: RequestBuilder<Drawable>,
     imageCache: Boolean,
-    title: String? = null
+    title: String? = null,
+    description: String? = null
 ) :
     FullScreenDialog(context), DialogInitializationListener {
         private val binding = DialogImagePreviewBinding.inflate(layoutInflater)
@@ -27,6 +29,12 @@ class ViewImageDialog private constructor(
         init {
             setContentView(binding.root)
             title?.let { binding.titleView.text = it }
+            description?.let {
+                binding.descriptionView.apply {
+                    visibility = View.VISIBLE
+                    text = it
+                }
+            }
             if (!imageCache) requestBuilder.diskCacheStrategy(DiskCacheStrategy.NONE)
             requestBuilder.into(binding.imageView)
             binding.closeButton.setOnClickListener { dismiss() }
@@ -40,6 +48,7 @@ class ViewImageDialog private constructor(
         private val rm: RequestManager = Glide.with(context)
         private lateinit var rb: RequestBuilder<Drawable>
         private var title: String? = null
+        private var description: String? = null
         private var isImageSet: Boolean = false
         private var imageCache: Boolean = true
 
@@ -50,7 +59,7 @@ class ViewImageDialog private constructor(
 
         fun buildDialog(): ViewImageDialog {
             if (!isImageSet) throw IllegalStateException("Please set the image first!")
-            val dialog = ViewImageDialog(this.context, rb, imageCache, title)
+            val dialog = ViewImageDialog(this.context, rb, imageCache, title, description)
             dialog.show()
             return dialog
         }
@@ -59,8 +68,17 @@ class ViewImageDialog private constructor(
             return setTitle(context.getString(text))
         }
 
-        fun setTitle(text: String): Builder {
+        fun setTitle(text: String?): Builder {
             this.title = text
+            return this
+        }
+
+        fun setDescription(text: Int): Builder {
+            return setDescription(context.getString(text))
+        }
+
+        fun setDescription(text: String?): Builder {
+            this.description = text
             return this
         }
 

@@ -33,9 +33,19 @@
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/generic_close"
             android:src="@drawable/ic_close"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@id/title_view"
+            app:layout_constraintTop_toTopOf="@id/title_view" />
+
+        <TextView
+            android:id="@+id/description_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/title_view" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
