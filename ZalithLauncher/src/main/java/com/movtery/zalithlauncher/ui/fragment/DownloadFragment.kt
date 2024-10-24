@@ -126,6 +126,11 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download_search), In
                     mFilters.name = s?.toString() ?: ""
                 }
             })
+            nameEdit.setOnEditorActionListener { _, _, _ ->
+                search()
+                nameEdit.clearFocus()
+                false
+            }
 
             // 打开版本选择弹窗
             mcVersionButton.setOnClickListener {
